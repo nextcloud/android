@@ -53,12 +53,18 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private Context mContext;
     private OCFile mFile = null;
     private Vector<OCFile> mFiles = null;
+    private boolean mJustFolders;
 
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
     
-    public FileListListAdapter(Context context, ComponentsGetter transferServiceGetter) {
+    public FileListListAdapter(
+            boolean justFolders, 
+            Context context, 
+            ComponentsGetter transferServiceGetter
+            ) {
+        mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
@@ -231,11 +237,33 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
         if (mStorageManager != null) {
             mFiles = mStorageManager.getFolderContent(mFile);
+            if (mJustFolders) {
+                mFiles = getFolders(mFiles);
+            }
         } else {
             mFiles = null;
         }
         notifyDataSetChanged();
     }
+    
+    
+    /**
+     * Filter for getting only the folders
+     * @param files
+     * @return Vector<OCFile>
+     */
+    public Vector<OCFile> getFolders(Vector<OCFile> files) {
+        Vector<OCFile> ret = new Vector<OCFile>(); 
+        OCFile current = null; 
+        for (int i=0; i<files.size(); i++) {
+            current = files.get(i);
+            if (current.isFolder()) {
+                ret.add(current);
+            }
+        }
+        return ret;
+    }
+    
     
     /**
      * Check if parent folder does not include 'S' permission and if file/folder

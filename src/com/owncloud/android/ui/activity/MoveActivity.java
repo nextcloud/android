@@ -30,6 +30,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,12 +56,12 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.ui.fragment.MoveFileListFragment;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
 public class MoveActivity extends HookActivity implements FileFragment.ContainerActivity, 
-    OnClickListener{
+    OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
@@ -133,7 +134,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
             }
             
             if (!stateWasRecovered) {
-                MoveFileListFragment listOfFolders = getListOfFilesFragment(); 
+                OCFileListFragment listOfFolders = getListOfFilesFragment(); 
                 listOfFolders.listDirectory(folder);   
                 
                 startSyncFolderOperation(folder);
@@ -144,7 +145,11 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
     }
 
     private void createFragments() {
-        MoveFileListFragment listOfFiles = new MoveFileListFragment();
+        OCFileListFragment listOfFiles = new OCFileListFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(OCFileListFragment.ARG_JUST_FOLDERS, true);
+        args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, false);
+        listOfFiles.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_container, listOfFiles, TAG_LIST_OF_FOLDERS);
         transaction.commit();
@@ -155,23 +160,23 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
      * loading or folder is empty
      */
     private void setBackgroundText() {
-        MoveFileListFragment MoveFileListFragment = getListOfFilesFragment();
-        if (MoveFileListFragment != null) {
+        OCFileListFragment listFragment = getListOfFilesFragment();
+        if (listFragment != null) {
             int message = R.string.file_list_loading;
             if (!mSyncInProgress) {
                 // In case folder list is empty
                 message = R.string.file_list_empty_moving;
             }
-            MoveFileListFragment.setMessageForEmptyList(getString(message));
+            listFragment.setMessageForEmptyList(getString(message));
         } else {
-            Log.e(TAG, "MoveFileListFragment is null");
+            Log.e(TAG, "OCFileListFragment is null");
         }
     }
 
-    private MoveFileListFragment getListOfFilesFragment() {
+    private OCFileListFragment getListOfFilesFragment() {
         Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(MoveActivity.TAG_LIST_OF_FOLDERS);
         if (listOfFiles != null) {
-            return (MoveFileListFragment)listOfFiles;
+            return (OCFileListFragment)listOfFiles;
         }
         Log_OC.wtf(TAG, "Access to unexisting list of files fragment!!");
         return null;
@@ -297,14 +302,14 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
     }
     
     protected void refreshListOfFilesFragment() {
-        MoveFileListFragment fileListFragment = getListOfFilesFragment();
+        OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) { 
             fileListFragment.listDirectory();
         }
     }
 
     public void browseToRoot() {
-        MoveFileListFragment listOfFiles = getListOfFilesFragment(); 
+        OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (listOfFiles != null) {  // should never be null, indeed
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
             listOfFiles.listDirectory(root);
@@ -316,7 +321,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
 
     @Override
     public void onBackPressed() {
-        MoveFileListFragment listOfFiles = getListOfFilesFragment();
+        OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {  // should never be null, indeed
             int levelsUp = listOfFiles.onBrowseUp();
             if (levelsUp == 0) {
@@ -405,7 +410,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
                             }
 
                             if (synchFolderRemotePath != null && currentDir.getRemotePath().equals(synchFolderRemotePath)) {
-                                MoveFileListFragment fileListFragment = getListOfFilesFragment();
+                                OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
                                     fileListFragment.listDirectory(currentDir);
                                 }
@@ -497,5 +502,18 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
             
     }
 
+
+    @Override
+    public void onRefresh() {
+        OCFileListFragment listOfFiles = getListOfFilesFragment();
+        if (listOfFiles != null) {
+            OCFile folder = listOfFiles.getCurrentFile();
+            if (folder != null) {
+                /*mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
+                listDirectory(mFile);*/
+                startSyncFolderOperation(folder);
+            }
+        }
+    }
 
 }

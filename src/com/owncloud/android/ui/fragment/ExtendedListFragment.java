@@ -39,7 +39,8 @@ import com.owncloud.android.utils.Log_OC;
 /**
  *  TODO extending SherlockListFragment instead of SherlockFragment 
  */
-public class ExtendedListFragment extends SherlockFragment implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
+public class ExtendedListFragment extends SherlockFragment 
+implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     
     private static final String TAG = ExtendedListFragment.class.getSimpleName();
 
@@ -61,6 +62,8 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     private ArrayList<Integer> mFirstPositions;
     private ArrayList<Integer> mTops;
     private int mHeightCell = 0;
+
+    private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
     
     
     public void setListAdapter(ListAdapter listAdapter) {
@@ -231,7 +234,16 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
         // to be @overriden
         mRefreshLayout.setRefreshing(false);
         mRefreshEmptyLayout.setRefreshing(false);
+        
+        if (mOnRefreshListener != null) {
+            mOnRefreshListener.onRefresh();
+        }
     }
+    
+    public void setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener listener) {
+        mOnRefreshListener = listener;
+    }
+    
 
     /**
      * Enables swipe gesture

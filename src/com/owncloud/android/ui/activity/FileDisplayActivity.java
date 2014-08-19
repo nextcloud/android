@@ -48,6 +48,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,8 +110,9 @@ import com.owncloud.android.utils.Log_OC;
  */
 
 public class FileDisplayActivity extends HookActivity implements
-FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener {
-
+FileFragment.ContainerActivity, OnNavigationListener, 
+OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
+    
     private ArrayAdapter<String> mDirectories;
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
@@ -1652,6 +1654,19 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
             mWaitingToSend = null;
         }
         onTransferStateChanged(file, false, false);
+    }
+
+    @Override
+    public void onRefresh() {
+        OCFileListFragment listOfFiles = getListOfFilesFragment();
+        if (listOfFiles != null) {
+            OCFile folder = listOfFiles.getCurrentFile();
+            if (folder != null) {
+                /*mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
+                listDirectory(mFile);*/
+                startSyncFolderOperation(folder);
+            }
+        }
     }
 
 }
