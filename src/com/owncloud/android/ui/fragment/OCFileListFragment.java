@@ -18,7 +18,6 @@
 package com.owncloud.android.ui.fragment;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -57,15 +56,10 @@ public class OCFileListFragment extends ExtendedListFragment {
     
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
-    private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ? OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
+    private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
+            OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
     private static final String EXTRA_FILE = MY_PACKAGE + ".extra.FILE";
 
-    private static final String KEY_INDEXES = "INDEXES";
-    private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
-    private static final String KEY_TOPS = "TOPS";
-    private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
-    private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
-    
     private FileFragment.ContainerActivity mContainerActivity;
    
     private OCFile mFile = null;
@@ -73,13 +67,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     
     private OCFile mTargetFile;
 
-    // Save the state of the scroll in browsing
-    private ArrayList<Integer> mIndexes;
-    private ArrayList<Integer> mFirstPositions;
-    private ArrayList<Integer> mTops;
-
-    private int mHeightCell = 0;
-    
     /**
      * {@inheritDoc}
      */
@@ -110,26 +97,11 @@ public class OCFileListFragment extends ExtendedListFragment {
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated() start");
         
-        mAdapter = new FileListListAdapter(getSherlockActivity(), mContainerActivity); 
-                
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(EXTRA_FILE);
-            mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
-            mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
-            mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
-            mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
-            setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
-            
-        } else {
-            mIndexes = new ArrayList<Integer>();
-            mFirstPositions = new ArrayList<Integer>();
-            mTops = new ArrayList<Integer>();
-            mHeightCell = 0;
-            
         }
         
         mAdapter = new FileListListAdapter(getSherlockActivity(), mContainerActivity);
-        
         setListAdapter(mAdapter);
         
         registerForContextMenu(getListView());
@@ -143,18 +115,13 @@ public class OCFileListFragment extends ExtendedListFragment {
     public void onSaveInstanceState (Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(EXTRA_FILE, mFile);
-        outState.putIntegerArrayList(KEY_INDEXES, mIndexes);
-        outState.putIntegerArrayList(KEY_FIRST_POSITIONS, mFirstPositions);
-        outState.putIntegerArrayList(KEY_TOPS, mTops);
-        outState.putInt(KEY_HEIGHT_CELL, mHeightCell);
-        outState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
     }
     
     /**
      * Call this, when the user presses the up button.
      * 
-     * Tries to move up the current folder one level. If the parent folder was removed from the database, 
-     * it continues browsing up until finding an existing folders.
+     * Tries to move up the current folder one level. If the parent folder was removed from the 
+     * database, it continues browsing up until finding an existing folders.
      * 
      * return       Count of folder levels browsed up.
      */
@@ -168,22 +135,22 @@ public class OCFileListFragment extends ExtendedListFragment {
             String parentPath = null;
             if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
                 parentPath = new File(mFile.getRemotePath()).getParent();
-                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : 
+                	parentPath + OCFile.PATH_SEPARATOR;
                 parentDir = storageManager.getFileByPath(parentPath);
                 moveCount++;
             } else {
-                parentDir = storageManager.getFileByPath(OCFile.ROOT_PATH);    // never returns null; keep the path in root folder
+                parentDir = storageManager.getFileByPath(OCFile.ROOT_PATH);
             }
             while (parentDir == null) {
                 parentPath = new File(parentPath).getParent();
-                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : 
+                	parentPath + OCFile.PATH_SEPARATOR;
                 parentDir = storageManager.getFileByPath(parentPath);
                 moveCount++;
             }   // exit is granted because storageManager.getFileByPath("/") never returns null
-            mFile = parentDir;           
-        }
-        
-        if (mFile != null) {
+            mFile = parentDir;
+            
             listDirectory(mFile);
 
             ((FileDisplayActivity)mContainerActivity).startSyncFolderOperation(mFile);
@@ -196,58 +163,6 @@ public class OCFileListFragment extends ExtendedListFragment {
         return moveCount;
     }
     
-    /*
-     * Restore index and position
-     */
-    private void restoreIndexAndTopPosition() {
-        if (mIndexes.size() > 0) {  
-            // needs to be checked; not every browse-up had a browse-down before 
-            
-            int index = mIndexes.remove(mIndexes.size() - 1);
-            
-            int firstPosition = mFirstPositions.remove(mFirstPositions.size() -1);
-            
-            int top = mTops.remove(mTops.size() - 1);
-            
-            mList.setSelectionFromTop(firstPosition, top);
-            
-            // Move the scroll if the selection is not visible
-            int indexPosition = mHeightCell*index;
-            int height = mList.getHeight();
-            
-            if (indexPosition > height) {
-                if (android.os.Build.VERSION.SDK_INT >= 11)
-                {
-                    mList.smoothScrollToPosition(index); 
-                }
-                else if (android.os.Build.VERSION.SDK_INT >= 8)
-                {
-                    mList.setSelectionFromTop(index, 0);
-                }
-                
-            }
-        }
-    }
-    
-    /*
-     * Save index and top position
-     */
-    private void saveIndexAndTopPosition(int index) {
-        
-        mIndexes.add(index);
-        
-        int firstPosition = mList.getFirstVisiblePosition();
-        mFirstPositions.add(firstPosition);
-        
-        View view = mList.getChildAt(0);
-        int top = (view == null) ? 0 : view.getTop() ;
-
-        mTops.add(top);
-        
-        // Save the height of a cell
-        mHeightCell = (view == null || mHeightCell != 0) ? mHeightCell : view.getHeight();
-    }
-    
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         OCFile file = (OCFile) mAdapter.getItem(position);
@@ -255,7 +170,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             if (file.isFolder()) { 
                 // update state and view of this fragment
                 listDirectory(file);
-                // then, notify parent activity to let it update its state and view, and other fragments
+                // then, notify parent activity to let it update its state and view
                 mContainerActivity.onBrowsedDownTo(file);
                 // save index and top position
                 saveIndexAndTopPosition(position);
@@ -290,7 +205,8 @@ public class OCFileListFragment extends ExtendedListFragment {
      * {@inheritDoc}
      */
     @Override
-    public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu (
+            ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getSherlockActivity().getMenuInflater();
         inflater.inflate(R.menu.file_actions_menu, menu);
