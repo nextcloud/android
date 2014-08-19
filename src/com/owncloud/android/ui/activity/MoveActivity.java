@@ -27,6 +27,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -52,12 +53,14 @@ import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundExce
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.Log_OC;
 
 public class MoveActivity extends HookActivity implements FileFragment.ContainerActivity, 
@@ -371,6 +374,47 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
     }
     
     
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        super.onRemoteOperationFinish(operation, result);
+        
+        if (operation instanceof CreateFolderOperation) {
+            onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
+            
+        }
+    }
+    
+    
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying 
+     * to create a new folder.
+     * 
+     * @param operation     Creation operation performed.
+     * @param result        Result of the creation.
+     */
+    private void onCreateFolderOperationFinish(
+            CreateFolderOperation operation, RemoteOperationResult result
+            ) {
+        
+        if (result.isSuccess()) {
+            dismissLoadingDialog();
+            refreshListOfFilesFragment();
+        } else {
+            dismissLoadingDialog();
+            try {
+                Toast msg = Toast.makeText(MoveActivity.this, 
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                        Toast.LENGTH_LONG); 
+                msg.show();
+
+            } catch (NotFoundException e) {
+                Log_OC.e(TAG, "Error while trying to show fail message " , e);
+            }
+        }
+    }
+    
+    
+    
     private class SyncBroadcastReceiver extends BroadcastReceiver {
 
         /**
@@ -509,8 +553,6 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
         if (listOfFiles != null) {
             OCFile folder = listOfFiles.getCurrentFile();
             if (folder != null) {
-                /*mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
-                listDirectory(mFile);*/
                 startSyncFolderOperation(folder);
             }
         }
