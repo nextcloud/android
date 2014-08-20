@@ -1,5 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s অ্যান্ড্রয়েড অ্যাপ</string>
+  <string name="about_version">সংষ্করন %1$s</string>
+  <string name="actionbar_sync">একাউন্ট নবোদ্যম কর</string>
   <string name="actionbar_upload">আপলোড</string>
   <string name="actionbar_upload_from_apps">ভিনন apps এর Content</string>
   <string name="actionbar_upload_files">ফাইল</string>
@@ -11,7 +14,9 @@
   <string name="prefs_category_general">সাধারণ</string>
   <string name="prefs_category_more">বেশী</string>
   <string name="prefs_accounts">একাউন্ট</string>
-  <string name="prefs_manage_accounts">Accounts সামলাও</string>
+  <string name="prefs_manage_accounts">একাউন্ট সামলাও</string>
+  <string name="prefs_pincode">অ্যাপ PIN</string>
+  <string name="prefs_pincode_summary">আপনার ক্লায়েন্ট সামলান</string>
   <string name="prefs_log_title">লগিং সক্রিয় কর</string>
   <string name="prefs_log_title_history">লগিং ইতিহাস </string>
   <string name="prefs_log_summary_history">রেকরডেড লগ এখানে দেখেন</string>
