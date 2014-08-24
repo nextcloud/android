@@ -6,10 +6,13 @@
   <string name="actionbar_upload">Serverə yüklə</string>
   <string name="actionbar_upload_from_apps">Digər porgramların kontenti</string>
   <string name="actionbar_upload_files">Fayllar</string>
+  <string name="actionbar_mkdir">Yeni qovluq</string>
   <string name="actionbar_settings">Quraşdırmalar</string>
   <string name="actionbar_see_details">Detallar</string>
   <string name="actionbar_send_file">Göndər</string>
   <string name="prefs_category_general">Ümumi</string>
+  <string name="prefs_category_more">Yenə</string>
+  <string name="prefs_manage_accounts">İstifadəçilərin idarəedilməsi</string>
   <string name="prefs_pincode_summary">Müştərini qoru</string>
   <string name="auth_username">İstifadəçi adı</string>
   <string name="auth_password">Şifrə</string>
