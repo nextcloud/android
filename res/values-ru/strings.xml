@@ -261,4 +261,5 @@
   <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
   <string name="prefs_category_accounts">Учётные записи</string>
   <string name="prefs_add_account">Добавить учетную запись</string>
+  <string name="auth_redirect_non_secure_connection_title">Безопасное соединение перенаправлено через небезопасный маршрут.</string>
 </resources>
