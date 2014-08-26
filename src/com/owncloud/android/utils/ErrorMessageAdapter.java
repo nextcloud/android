@@ -192,7 +192,13 @@ public class ErrorMessageAdapter {
             if (result.getCode() == ResultCode.INVALID_MOVE_INTO_DESCENDANT)  {
                 message = res.getString(R.string.move_file_invalid_into_descendent);
 
-            } else {    // Generic error
+            } else if (result.getCode() == ResultCode.INVALID_OVERWRITE) {
+                message = res.getString(R.string.move_file_invalid_overwrite);
+
+            } else if (result.getCode() == ResultCode.FORBIDDEN) {
+                message = res.getString(R.string.move_file_forbidden);
+
+            }else {    // Generic error
                 // Show a Message, operation finished without success
                 message = res.getString(R.string.move_file_error);
             }
