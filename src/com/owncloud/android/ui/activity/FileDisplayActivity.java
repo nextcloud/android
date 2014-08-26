@@ -645,7 +645,8 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
      */
     private void requestMoveOperation(Intent data, int resultCode) {
         OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(MoveActivity.EXTRA_CURRENT_FOLDER);
-        getFileOperationsHelper().moveFile(folderToMoveAt, getCurrentDir());
+        OCFile targetFile = (OCFile) data.getParcelableExtra(MoveActivity.EXTRA_TARGET_FILE);
+        getFileOperationsHelper().moveFile(folderToMoveAt, targetFile);
     }
 
     @Override

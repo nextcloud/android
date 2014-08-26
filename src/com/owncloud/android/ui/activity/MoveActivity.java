@@ -67,6 +67,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
     OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String EXTRA_CURRENT_FOLDER = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CURRENT_FOLDER";
+    public static final String EXTRA_TARGET_FILE = UploadFilesActivity.class.getCanonicalName() + "EXTRA_TARGET_FILE";
 
     public static final int RESULT_OK_AND_MOVE = 1;
     
@@ -368,8 +369,12 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
         if (v == mCancelBtn) {
             finish();
         } else if (v == mChooseBtn) {
+            Intent i = getIntent();
+            OCFile targetFile = (OCFile) i.getParcelableExtra(MoveActivity.EXTRA_TARGET_FILE);
+
             Intent data = new Intent();
             data.putExtra(EXTRA_CURRENT_FOLDER, getCurrentFolder());
+            data.putExtra(EXTRA_TARGET_FILE, targetFile);
             setResult(RESULT_OK_AND_MOVE, data);
             finish();
         }

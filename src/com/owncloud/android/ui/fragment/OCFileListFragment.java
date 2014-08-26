@@ -322,6 +322,9 @@ public class OCFileListFragment extends ExtendedListFragment {
             }
             case R.id.action_move: {
                 Intent action = new Intent(getActivity(), MoveActivity.class);
+
+                // Pass mTargetFile that contains info of selected file/folder
+                action.putExtra(MoveActivity.EXTRA_TARGET_FILE, mTargetFile);
                 getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_MOVE_FILES);
                 return true;
             }
