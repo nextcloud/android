@@ -44,6 +44,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -364,12 +365,12 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
         if (v == mCancelBtn) {
             finish();
         } else if (v == mChooseBtn) {
-            // TODO request to move, OR save selected folder as a result and let request for caller
-            Toast.makeText( MoveActivity.this, 
-                            "TODO: MOVE IMPLEMENTATION", 
-                            Toast.LENGTH_LONG)
-                .show();
-            finish();
+            ComponentsGetter cg = (ComponentsGetter)getSherlockActivity();
+            FileDataStorageManager storageManager = cg.getStorageManager();
+            if (storageManager.getFileById(mTargetFile.getFileId()) != null) {
+                cg.getFileOperationsHelper().removeFile(mTargetFile, false);
+            }
+            cg.getFileOperationsHelper.moveFile(m)
         }
     }
     

@@ -24,6 +24,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.MoveRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RenameRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -45,6 +46,7 @@ public class MoveFileOperation extends SyncOperation {
     private Account mAccount;
     private String mNewParentPath;
     private OCFile mFile;
+    private String mNewPath;
 
     
     
@@ -59,7 +61,9 @@ public class MoveFileOperation extends SyncOperation {
         mPath = path;
         mNewParentPath = newParentPath;
         mAccount = account;
+        
         mFile = null;
+        mNewPath = "";
     }
   
     public OCFile getFile() {
@@ -75,17 +79,43 @@ public class MoveFileOperation extends SyncOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
+
         
         mFile = getStorageManager().getFileByPath(mPath);
         
-        // check if the new name is valid in the local file system
         try {
+            /// 1. check move validity
+            
+            
+            /// 2. remove move 
+            MoveRemoteFileOperation operation = new MoveRemoteFileOperation(
+                    mFile.getRemotePath(), 
+                    mNewPath, 
+                    false
+            );
+            result = operation.execute(client);
+
+            
+            /// 3. local move
+            if (result.isSuccess()) {
+                //moveLocaly();
+                /*
+                if (mFile.isFolder()) {
+                    saveLocalDirectory();
+
+                } else {
+                    saveLocalFile();
+                }
+                */
+            }
+            
+            
             String parentPath = (new File(mFile.getRemotePath())).getParent();
             parentPath = (parentPath.endsWith(OCFile.PATH_SEPARATOR)) 
                     ? parentPath 
                     : parentPath + OCFile.PATH_SEPARATOR;
             
-            String mNewPath = mNewParentPath + mFile.getFileName();
+            mNewPath = mNewParentPath + mFile.getFileName();
             if (mFile.isFolder() && !mNewPath.endsWith(OCFile.PATH_SEPARATOR)) {
                 mNewPath += OCFile.PATH_SEPARATOR;
             }
@@ -95,26 +125,13 @@ public class MoveFileOperation extends SyncOperation {
                 return new RemoteOperationResult(ResultCode.INVALID_OVERWRITE);
             }
             
-            MoveRemoteFileOperation operation = new MoveRemoteFileOperation(
-                    mFile.getRemotePath(), 
-                    mNewPath, 
-                    mFile.isFolder()
-            );
-            result = operation.execute(client);
-
-            if (result.isSuccess()) {
-                if (mFile.isFolder()) {
-                    saveLocalDirectory();
-
-                } else {
-                    saveLocalFile();
-                }
-            }
-            
+            /*
         } catch (IOException e) {
             Log_OC.e(TAG, "Move " + mFile.getRemotePath() + " to " + 
                     (mNewParentPath==null) + ": " + 
-                    ((result!= null) ? result.getLogMessage() : ""), e);
+                    ((result!= null) ? result.getLogMessage() : ""), e);*/
+        } finally {
+            
         }
 
         return result;
@@ -122,25 +139,26 @@ public class MoveFileOperation extends SyncOperation {
 
     
     private void saveLocalDirectory() {
-        getStorageManager().moveFolder(mFile, mNewParentPath);
+        getStorageManager().moveFolder(mFile, mNewPath);
         String localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
         File localDir = new File(localPath);
         if (localDir.exists()) {
-            localDir.renameTo(new File(FileStorageUtils.getSavePath(mAccount.name) + mNewParentPath));
+            localDir.renameTo(new File(FileStorageUtils.getSavePath(mAccount.name) + mNewPath));
             // TODO - if renameTo fails, children files that are already down will result unlinked
         }
     }
 
     private void saveLocalFile() {
-        mFile.setFileName(mNewName);
+        /*
+        mFile.setRFileName(mNewName);   <<< NO >
         
-        // try to rename the local copy of the file
+        // try to move the local copy of the file
         if (mFile.isDown()) {
             File f = new File(mFile.getStoragePath());
             String parentStoragePath = f.getParent();
             if (!parentStoragePath.endsWith(File.separator))
                 parentStoragePath += File.separator;
-            if (f.renameTo(new File(parentStoragePath + mNewName))) {
+            if (f.renameTo(new File())) {
                 mFile.setStoragePath(parentStoragePath + mNewName);
             }
             // else - NOTHING: the link to the local file is kept although the local name can't be updated
@@ -148,6 +166,7 @@ public class MoveFileOperation extends SyncOperation {
         }
         
         getStorageManager().saveFile(mFile);
+        */
     }
 
     /**
@@ -166,6 +185,9 @@ public class MoveFileOperation extends SyncOperation {
      * @throws IOException  When the temporal folder can not be created.
      */
     private boolean isValidNewName() throws IOException {
+        
+        return true;
+        /*
         // check tricky names
         if (mNewName == null || mNewName.length() <= 0 || mNewName.contains(File.separator) || mNewName.contains("%")) { 
             return false;
@@ -190,6 +212,7 @@ public class MoveFileOperation extends SyncOperation {
         testFile.delete();
         
         return result;
+        */
     }
 
 }
