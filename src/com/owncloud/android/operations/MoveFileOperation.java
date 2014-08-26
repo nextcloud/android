@@ -80,6 +80,9 @@ public class MoveFileOperation extends SyncOperation {
         
         /// 2. remote move
         String targetPath = mTargetParentPath + mFile.getFileName();
+        if (mFile.isFolder()) {
+            targetPath += OCFile.PATH_SEPARATOR;
+        }
         MoveRemoteFileOperation operation = new MoveRemoteFileOperation(
                 mSrcPath, 
                 targetPath, 
@@ -89,8 +92,7 @@ public class MoveFileOperation extends SyncOperation {
         
         /// 3. local move
         if (result.isSuccess()) {
-            // TODO work in progress
-            //getStorageManager().moveLocalFile(mFile, targetPath);
+            getStorageManager().moveLocalFile(mFile, targetPath, mTargetParentPath);
         } 
         // TODO handle ResultCode.PARTIAL_MOVE_DONE in client Activity, for the moment
         

@@ -41,7 +41,6 @@ import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -613,37 +612,20 @@ public class FileDataStorageManager {
     }
 
     
-    //public void moveFolder(OCFile folder, String newPath) {
-    public void moveLocalFile(OCFile file, String targetPath) {
-        // TODO check newPath
-        if (file != null && file.fileExists()) {
+    public void moveLocalFile(OCFile file, String targetPath, String targetParentPath) {
+
+        if (file != null && file.fileExists() && !OCFile.ROOT_PATH.equals(file.getFileName())) {
             
-            if (//file.isFolder() && // should work for regular files!! 
-                !OCFile.ROOT_PATH.equals(file.getFileName())) {
+            OCFile targetParent = getFileByPath(targetParentPath);
+            if (targetParent == null) {
+                // TODO panic
+            }
             
-                /// 0. move in local file system 
-                
-                /// 1. get all the descendants in a single QUERY (including the folder)
-                Cursor c = null;
-                if (getContentProviderClient() != null) {
-                    try {
-                        c = getContentProviderClient().query(
-                            ProviderTableMeta.CONTENT_URI, 
-                            null,
-                            ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + 
-                                    ProviderTableMeta.FILE_PATH + " LIKE ? ",
-                            new String[] { 
-                                    mAccount.name, 
-                                    file.getRemotePath() + "%"  
-                            }, 
-                            ProviderTableMeta.FILE_PATH + " ASC "
-                        );
-                    } catch (RemoteException e) {
-                        Log_OC.e(TAG, e.getMessage());
-                    }
-                    
-                } else {
-                    c = getContentResolver().query(
+            /// 1. get all the descendants of the moved element in a single QUERY
+            Cursor c = null;
+            if (getContentProviderClient() != null) {
+                try {
+                    c = getContentProviderClient().query(
                         ProviderTableMeta.CONTENT_URI, 
                         null,
                         ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + 
@@ -654,97 +636,93 @@ public class FileDataStorageManager {
                         }, 
                         ProviderTableMeta.FILE_PATH + " ASC "
                     );
-                }
-    
-                /// 2. prepare a batch of update operations to change all the descendants
-                ArrayList<ContentProviderOperation> operations = 
-                        new ArrayList<ContentProviderOperation>(c.getCount());
-                if (c.moveToFirst()) {
-                    int lengthOfOldPath = file.getRemotePath().length();
-                    String defaultSavePath = FileStorageUtils.getSavePath(mAccount.name);
-                    int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
-                    do {
-                        ContentValues cv = new ContentValues(); // keep construction in the loop
-                        OCFile child = createFileInstance(c);
-                        cv.put(
-                            ProviderTableMeta.FILE_PATH, 
-                            targetPath + child.getRemotePath().substring(lengthOfOldPath)
-                        );
-                        if (child.getStoragePath() != null && 
-                                child.getStoragePath().startsWith(defaultSavePath)) {
-                            // update link to downloaded content - but local move is not done here!
-                            cv.put(
-                                ProviderTableMeta.FILE_STORAGE_PATH, 
-                                defaultSavePath + targetPath + 
-                                    child.getStoragePath().substring(lengthOfOldStoragePath)
-                            );
-                        }
-                        operations.add(
-                            ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
-                                withValues(cv).
-                                withSelection(  
-                                        ProviderTableMeta._ID + "=?", 
-                                        new String[] { String.valueOf(child.getFileId()) }
-                                        )
-                                .build());
-                        
-                    } while (c.moveToNext());
-                }
-                c.close();
-    
-                /// 3. apply updates in batch
-                try {
-                    if (getContentResolver() != null) {
-                        getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-    
-                    } else {
-                        getContentProviderClient().applyBatch(operations);
-                    }
-    
-                } catch (Exception e) {
-                    Log_OC.e(
-                        TAG, 
-                        "Fail to update " + file.getFileId() + " and descendants in database", 
-                        e
-                    );
+                } catch (RemoteException e) {
+                    Log_OC.e(TAG, e.getMessage());
                 }
                 
+            } else {
+                c = getContentResolver().query(
+                    ProviderTableMeta.CONTENT_URI, 
+                    null,
+                    ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + 
+                            ProviderTableMeta.FILE_PATH + " LIKE ? ",
+                    new String[] { 
+                            mAccount.name, 
+                            file.getRemotePath() + "%"  
+                    }, 
+                    ProviderTableMeta.FILE_PATH + " ASC "
+                );
             }
-        }
-        
-        /*
-        private void saveLocalDirectory() {
-             * TODO implement local movement of folder
-            getStorageManager().moveFolder(mFile, mNewPath);
-            String localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
-            File localDir = new File(localPath);
-            if (localDir.exists()) {
-                localDir.renameTo(new File(FileStorageUtils.getSavePath(mAccount.name) + mNewPath));
-                // TODO - if renameTo fails, children files that are already down will result unlinked
-            }
-        }
-        */
 
-        /*
-        private void saveLocalFile() {
-            mFile.setRFileName(mNewName);   <<< NO >
-            
-            // try to move the local copy of the file
-            if (mFile.isDown()) {
-                File f = new File(mFile.getStoragePath());
-                String parentStoragePath = f.getParent();
-                if (!parentStoragePath.endsWith(File.separator))
-                    parentStoragePath += File.separator;
-                if (f.renameTo(new File())) {
-                    mFile.setStoragePath(parentStoragePath + mNewName);
-                }
-                // else - NOTHING: the link to the local file is kept although the local name can't be updated
-                // TODO - study conditions when this could be a problem
+            /// 2. prepare a batch of update operations to change all the descendants
+            ArrayList<ContentProviderOperation> operations = 
+                    new ArrayList<ContentProviderOperation>(c.getCount());
+            String defaultSavePath = FileStorageUtils.getSavePath(mAccount.name);
+            if (c.moveToFirst()) {
+                int lengthOfOldPath = file.getRemotePath().length();
+                int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
+                do {
+                    ContentValues cv = new ContentValues(); // keep construction in the loop
+                    OCFile child = createFileInstance(c);
+                    cv.put(
+                        ProviderTableMeta.FILE_PATH, 
+                        targetPath + child.getRemotePath().substring(lengthOfOldPath)
+                    );
+                    if (child.getStoragePath() != null && 
+                            child.getStoragePath().startsWith(defaultSavePath)) {
+                        // update link to downloaded content - but local move is not done here!
+                        cv.put(
+                            ProviderTableMeta.FILE_STORAGE_PATH, 
+                            defaultSavePath + targetPath + 
+                                child.getStoragePath().substring(lengthOfOldStoragePath)
+                        );
+                    }
+                    if (child.getRemotePath().equals(file.getRemotePath())) {
+                        cv.put(
+                                ProviderTableMeta.FILE_PARENT,
+                                targetParent.getFileId()
+                            );
+                    }
+                    operations.add(
+                        ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
+                            withValues(cv).
+                            withSelection(  
+                                    ProviderTableMeta._ID + "=?", 
+                                    new String[] { String.valueOf(child.getFileId()) }
+                                    )
+                            .build());
+                    
+                } while (c.moveToNext());
             }
+            c.close();
+
+            /// 3. apply updates in batch
+            try {
+                if (getContentResolver() != null) {
+                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+
+                } else {
+                    getContentProviderClient().applyBatch(operations);
+                }
+
+            } catch (Exception e) {
+                Log_OC.e(
+                    TAG, 
+                    "Fail to update " + file.getFileId() + " and descendants in database", 
+                    e
+                );
+            }
+
+            /// 4. move in local file system 
+            String localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, file);
+            File localFile = new File(localPath);
+            boolean renamed = false;
+            if (localFile.exists()) {
+                renamed = localFile.renameTo(new File(defaultSavePath + targetPath));
+            }
+            Log_OC.d(TAG, "Local file RENAMED : " + renamed);
             
-            getStorageManager().saveFile(mFile);
         }
-        */
         
     }
     
