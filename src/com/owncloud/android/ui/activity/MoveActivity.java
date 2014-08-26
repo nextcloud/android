@@ -44,7 +44,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -66,6 +65,10 @@ import com.owncloud.android.utils.Log_OC;
 
 public class MoveActivity extends HookActivity implements FileFragment.ContainerActivity, 
     OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+
+    public static final String EXTRA_CURRENT_FOLDER = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CURRENT_FOLDER";
+
+    public static final int RESULT_OK_AND_MOVE = 1;
     
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
@@ -365,12 +368,10 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
         if (v == mCancelBtn) {
             finish();
         } else if (v == mChooseBtn) {
-            ComponentsGetter cg = (ComponentsGetter)getSherlockActivity();
-            FileDataStorageManager storageManager = cg.getStorageManager();
-            if (storageManager.getFileById(mTargetFile.getFileId()) != null) {
-                cg.getFileOperationsHelper().removeFile(mTargetFile, false);
-            }
-            cg.getFileOperationsHelper.moveFile(m)
+            Intent data = new Intent();
+            data.putExtra(EXTRA_CURRENT_FOLDER, getCurrentFolder());
+            setResult(RESULT_OK_AND_MOVE, data);
+            finish();
         }
     }
     

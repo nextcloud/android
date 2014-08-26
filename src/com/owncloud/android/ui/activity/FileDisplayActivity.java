@@ -136,6 +136,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
     private static final int ACTION_SELECT_MULTIPLE_FILES = 2;
+    public static final int ACTION_MOVE_FILES = 3;
 
     private static final String TAG = FileDisplayActivity.class.getSimpleName();
 
@@ -552,6 +553,9 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
         } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestMultipleUpload(data, resultCode);
 
+        } else if (requestCode == ACTION_MOVE_FILES && (resultCode == RESULT_OK || 
+                resultCode == MoveActivity.RESULT_OK_AND_MOVE)){
+            requestMoveOperation(data, resultCode);
         }
     }
 
@@ -630,6 +634,17 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
         if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
             i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
         startService(i);
+    }
+
+    /**
+     * Request the operation for moving the file/folder from one path to another
+     * 
+     * @param data              Intent received
+     * @param resultCode        Result code received
+     */
+    private void requestMoveOperation(Intent data, int resultCode) {
+        OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(MoveActivity.EXTRA_CURRENT_FOLDER);
+        getFileOperationsHelper().moveFile(folderToMoveAt, getCurrentDir());
     }
 
     @Override

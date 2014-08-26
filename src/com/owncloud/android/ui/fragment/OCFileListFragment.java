@@ -321,9 +321,8 @@ public class OCFileListFragment extends ExtendedListFragment {
                 return true;
             }
             case R.id.action_move: {
-                Intent i = new Intent(getActivity(), MoveActivity.class);
-                startActivity(i);
-
+                Intent action = new Intent(getActivity(), MoveActivity.class);
+                getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_MOVE_FILES);
                 return true;
             }
             default:
