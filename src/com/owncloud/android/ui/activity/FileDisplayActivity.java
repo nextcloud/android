@@ -80,6 +80,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -1332,7 +1333,9 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
         } else if (operation instanceof UnshareLinkOperation) {
             onUnshareLinkOperationFinish((UnshareLinkOperation)operation, result);
         
-        } 
+        } else if (operation instanceof MoveFileOperation) {
+            onMoveFileOperationFinish((MoveFileOperation)operation, result);
+        }
         
     }
 
@@ -1411,12 +1414,13 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
     
     
     /**
-     * Updates the view associated to the activity after the finish of an operation trying create a new folder
+     * Updates the view associated to the activity after the finish of an operation trying to move a 
+     * file.
      * 
-     * @param operation     Creation operation performed.
-     * @param result        Result of the creation.
+     * @param operation     Move operation performed.
+     * @param result        Result of the move operation.
      */
-    private void onCreateFolderOperationFinish(CreateFolderOperation operation, RemoteOperationResult result) {
+    private void onMoveFileOperationFinish(MoveFileOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
             dismissLoadingDialog();
             refreshListOfFilesFragment();
@@ -1499,6 +1503,30 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
                 Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
                         Toast.LENGTH_LONG); 
                 msg.show();
+            }
+        }
+    }
+
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying create a new folder
+     * 
+     * @param operation     Creation operation performed.
+     * @param result        Result of the creation.
+     */
+    private void onCreateFolderOperationFinish(CreateFolderOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            dismissLoadingDialog();
+            refreshListOfFilesFragment();
+        } else {
+            dismissLoadingDialog();
+            try {
+                Toast msg = Toast.makeText(FileDisplayActivity.this, 
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                        Toast.LENGTH_LONG); 
+                msg.show();
+
+            } catch (NotFoundException e) {
+                Log_OC.e(TAG, "Error while trying to show fail message " , e);
             }
         }
     }

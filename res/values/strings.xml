@@ -290,4 +290,7 @@
 	<string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
 	<string name="move_choose_button_text">Choose</string>
 
+	<string name="move_file_invalid_into_descendent">Invalid move into descendent.</string>
+	<string name="move_file_error">An error occurred while trying to move this file or folder</string>
+
 </resources>
