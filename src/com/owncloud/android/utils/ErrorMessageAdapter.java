@@ -196,7 +196,8 @@ public class ErrorMessageAdapter {
                 message = res.getString(R.string.move_file_invalid_overwrite);
 
             } else if (result.getCode() == ResultCode.FORBIDDEN) {
-                message = res.getString(R.string.move_file_forbidden);
+                message = String.format(res.getString(R.string.forbidden_permissions),
+                        res.getString(R.string.forbidden_permissions_move));
 
             }else {    // Generic error
                 // Show a Message, operation finished without success

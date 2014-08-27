@@ -290,9 +290,9 @@
 	<string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
 	<string name="move_choose_button_text">Choose</string>
 
-	<string name="move_file_invalid_into_descendent">Invalid move into descendent.</string>
-	<string name="move_file_invalid_overwrite">It is not possible to move one file where another with the same name exists.</string>
+	<string name="move_file_invalid_into_descendent">It is not possible to move a folder into a descendant</string>
+	<string name="move_file_invalid_overwrite">The file exists already in the destination folder</string>
 	<string name="move_file_error">An error occurred while trying to move this file or folder</string>
-	<string name="move_file_forbidden">It is forbidden to move this file or folder.</string>
+	<string name="forbidden_permissions_move">to move this file</string>
 
 </resources>
