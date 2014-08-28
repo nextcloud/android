@@ -31,7 +31,6 @@
   <string name="prefs_feedback">Sugerencias</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">¡Intento %1$s en tu teléfono inteligente!</string>
-  <string name="recommend_text">\"¡Te quiero invitar a usar %1$s en tu smartphone!\nDescárgalo aquí: %2$s\"</string>
   <string name="auth_check_server">Verificar Servidor</string>
   <string name="auth_host_url">Dirección del servidor https://...</string>
   <string name="auth_username">Nombre de usuario</string>
@@ -50,6 +49,8 @@
   <string name="uploader_error_forbidden_content">%1$s no está autorizado para acceder al contenido compartido</string>
   <string name="uploader_info_uploading">Subiendo</string>
   <string name="file_list_empty">No hay nada. ¡Subí contenido!</string>
+  <string name="file_list_loading">Cargando...</string>
+  <string name="local_file_list_empty">No existen archivos en esta carpeta.</string>
   <string name="filedetails_select_file">Pulsá sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -108,6 +109,7 @@
   <string name="foreign_files_fail">Algunos archivos no pudieron ser movidos</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remote: %1$s</string>
+  <string name="upload_query_move_foreign_files">No hay espacio suficiente para copiar los archivos seleccionados dentro de la carpeta %1$s. ¿Te gustaría en su lugar moverlos?</string>
   <string name="pincode_enter_pin_code">Por favor, escribí el PIN de la aplicación</string>
   <string name="pincode_configure_your_pin">Ingresá el PIN de la aplicación</string>
   <string name="pincode_configure_your_pin_explanation">Se te pedirá el PIN cada vez que esta app sea iniciada.</string>
@@ -165,10 +167,13 @@
   <string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
   <string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s no soporta múltiples cuentas</string>
+  <string name="auth_fail_get_user_name">Tú servidor no esta regresando una identificación de usuario correcta, por favor contacta a un administrador</string>
   <string name="auth_can_not_auth_against_server">No se puede autenticar contra este servidor</string>
   <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
+  <string name="confirmation_remove_alert">¿Realmente quieres eliminar %1$s?</string>
+  <string name="confirmation_remove_folder_alert">¿Realmente deseas eliminar %1$s y todo su contenido?</string>
   <string name="confirmation_remove_local">Sólo local</string>
   <string name="confirmation_remove_folder_local">Solo archivos locales</string>
   <string name="confirmation_remove_remote">Borrar del servidor</string>
@@ -180,10 +185,13 @@
   <string name="rename_server_fail_msg">No se pudo cambiar el nombre</string>
   <string name="sync_file_fail_msg">No pudo comprobarse el archivo remoto</string>
   <string name="sync_file_nothing_to_do_msg">Ya está sincronizado</string>
+  <string name="create_dir_fail_msg">La carpeta puede no haber sido creada</string>
   <string name="filename_forbidden_characters">Caracteres prohibidos: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_empty">El nombre de archivo no puede estar vacío</string>
   <string name="wait_a_moment">Esperá un momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, intentá con otra aplicación para abrir el archivo</string>
   <string name="filedisplay_no_file_selected">No se seleccionó ningún archivo</string>
+  <string name="activity_chooser_title">Enviar enlace a...</string>
   <string name="oauth_check_onoff">Iniciando sesión con oAuth2</string>
   <string name="oauth_login_connection">Conectando al servidor oAuth2...</string>
   <string name="ssl_validator_header">La identidad del sitio no pudo ser verificada</string>
@@ -208,6 +216,8 @@
   <string name="ssl_validator_label_validity_to">Para:</string>
   <string name="ssl_validator_label_signature">Firma:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
+  <string name="ssl_validator_null_cert">El certificado no puede ser mostrado</string>
+  <string name="ssl_validator_no_info_about_error">- No existe información sobre el error</string>
   <string name="placeholder_sentence">Este es un texto temporario</string>
   <string name="placeholder_filename">marcadordeposición.txt</string>
   <string name="placeholder_filetype">Imagen PNG</string>
@@ -215,6 +225,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Subir imágenes solamente a través de WiFi</string>
+  <string name="instant_video_upload_on_wifi">Cargar videos mediante WiFi solamente</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
   <string name="conflict_title">Conflicto en la actualización</string>
   <string name="conflict_message">El archivo remoto %s no está sincronizado con el archivo local. Si seguís adelante, vas a reemplazar el contenido del archivo en el servidor.</string>
@@ -222,6 +233,7 @@
   <string name="conflict_overwrite">Sobrescribir</string>
   <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
+  <string name="preview_image_error_unknown_format">Esta imagen no puede ser mostrada</string>
   <string name="activity_chooser_send_file_title">Mandar</string>
   <string name="clipboard_text_copied">Copiado al portapapeles</string>
   <string name="empty"></string>

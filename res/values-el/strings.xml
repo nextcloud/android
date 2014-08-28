@@ -31,7 +31,6 @@
   <string name="prefs_feedback">Σχόλια </string>
   <string name="prefs_imprint">Αποτύπωμα</string>
   <string name="recommend_subject">Δοκιμάστε %1$s στο κινητό σας!</string>
-  <string name="recommend_text">Θέλω να σας προσκαλέσω να χρησιμοποιήσετε το %1$s στο κινητό σας!\nΚατεβάστε το εδώ: %2$s</string>
   <string name="auth_check_server">Έλεγχος Διακομιστή</string>
   <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
   <string name="auth_username">Όνομα χρήστη</string>
@@ -104,7 +103,6 @@
   <string name="sync_fail_in_favourites_content">Τα περιεχόμενα των %1$d αρχείων δεν μπόρεσαν να συγχρονιστούν (%2$d διενέξεις)</string>
   <string name="sync_foreign_files_forgotten_ticker">Ορισμένα τοπικά αρχεία ξεχάστηκαν</string>
   <string name="sync_foreign_files_forgotten_content">%1$d αρχεία από τον %2$s χώρο αποθήκευσης δεν ήταν δυνατό να αντιγραφούν σε</string>
-  <string name="sync_foreign_files_forgotten_explanation">Από την έκδοση 1.3.16 και μετά, αρχεία που μεταφορτώνονται από αυτήν τη συσκευή αντιγράφονται στον τοπικό φάκελο %1$s για να αποτραπεί η απώλεια δεδομένων όταν ένα αρχείο είναι συγχρονισμένο με πολλαπλούς λογαριασμούς.\nΛόγω αυτής της αλλαγής, όλα τα αρχεία που μεταφορτώθηκαν με προηγούμενες εκδόσεις αυτής της εφαρμογής αντιγράφηκαν στον φάκελο %2$s. Ωστόσο, ένα σφάλμα εμπόδισε την ολοκλήρωση αυτής της εργασίας κατά το συγχρονισμό του λογαριασμού. Μπορείτε είτε να αφήσετε το(α) αρχείο(α) όπως είναι και να καταργήσετε τη σύνδεση με το %3$s ή να μετακινήσετε τα αρχεία στο φάκελο %1$s και να διατηρήσετε τη σύνδεση με το %4$s.\n\nΑπαριθμημένα πιο κάτω είναι το(α) τοπικό(ά) αρχείο(α) και το(α) απομακρυσμένο(α) αρχείο(α) στο %5$s με το(α) οποίο(α) συνδέονταν.</string>
   <string name="sync_current_folder_was_removed">Ο φάκελος %1$s δεν υπάρχει πια</string>
   <string name="foreign_files_move">Μετακίνηση όλων</string>
   <string name="foreign_files_success">Όλα τα αρχεία μετακινήθηκαν</string>
@@ -169,7 +167,8 @@
   <string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης σε εξέλιξη...</string>
   <string name="auth_unsupported_auth_method">Ο διακομιστής δεν υποστηρίζει αυτή τη μέθοδο πιστοποίησης</string>
   <string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
-  <string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλώ επικοινωνήστε με ένα διαχειριστή\n⇥</string>
+  <string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλώ επικοινωνήστε με ένα διαχειριστή
+⇥</string>
   <string name="auth_can_not_auth_against_server">Δεν είναι δυνατή η πιστοποίηση με αυτόν το διακομιστή</string>
   <string name="fd_keep_in_sync">Διατήρηση αρχείου σε ενημέρωση</string>
   <string name="common_rename">Μετονομασία</string>
@@ -237,7 +236,8 @@
   <string name="preview_image_description">Προεπισκόπηση εικόνας</string>
   <string name="preview_image_error_unknown_format">Αυτή η εικόνα δεν μπορεί να προβληθεί</string>
   <string name="error__upload__local_file_not_copied">Το %1$s δεν μπόρεσε να αντιγραφεί στον τοπικό φάκελο %2$s</string>
-  <string name="share_link_no_support_share_api">Λυπούμαστε, ο διαμοιρασμός δεν επιτρέπεται στο διακομιστή σας. Παρακαλούμε επικοινωνείστε με το\n\t\tδιαχειριστή σας.</string>
+  <string name="share_link_no_support_share_api">Λυπούμαστε, ο διαμοιρασμός δεν επιτρέπεται στο διακομιστή σας. Παρακαλούμε επικοινωνείστε με το
+		διαχειριστή σας.</string>
   <string name="share_link_file_no_exist">Αδυναμία διαμοιρασμού αυτού του αρχείου ή φακέλου. Παρακαλώ βεβαιωθείτε ότι υπάρχει</string>
   <string name="share_link_file_error">Ένα σφάλμα προέκυψε κατά την προσπάθεια διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
   <string name="unshare_link_file_no_exist">Ήταν αδύνατη η ακύρωση διαμοιρασμού αυτού του αρχείου ή φακέλου. Δεν υπάρχει.</string>
@@ -260,4 +260,6 @@
   <string name="uploader_upload_forbidden_permissions">για να μεταφορτώσετε σε αυτό τον κατάλογο</string>
   <string name="downloader_download_file_not_found">Αυτό το αρχείο δεν είναι πια διαθέσιμο στο διακομιστή</string>
   <string name="prefs_category_accounts">Λογαριασμοί</string>
+  <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
+  <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται μέσω μιας μη ασφαλούς διαδρομής.</string>
 </resources>

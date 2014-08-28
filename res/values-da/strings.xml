@@ -31,7 +31,6 @@
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Prøv %1$s på din smartphone!</string>
-  <string name="recommend_text">\"Jeg ønsker at invitere dig til at bruge %1$s på din smartphone!\nHent den her: %2$s\"</string>
   <string name="auth_check_server">Check Server</string>
   <string name="auth_host_url">Server addresse https://…</string>
   <string name="auth_username">Brugernavn</string>
@@ -51,6 +50,7 @@
   <string name="uploader_info_uploading">Uploader</string>
   <string name="file_list_empty">Her er tomt. Upload noget!</string>
   <string name="file_list_loading">Indlæser...</string>
+  <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
   <string name="filedetails_select_file">Tryk på en fil for at vise yderligere information.</string>
   <string name="filedetails_size">Størelse:</string>
   <string name="filedetails_type">Type:</string>
@@ -103,7 +103,6 @@
   <string name="sync_fail_in_favourites_content">Indholdet af %1$d filer ikke kunne synkroniseres (%2$d konflikter)</string>
   <string name="sync_foreign_files_forgotten_ticker">Visse lokale filer blev glemt</string>
   <string name="sync_foreign_files_forgotten_content">%1$d filer ud af %2$s mappe kunne ikke kopieres ind i</string>
-  <string name="sync_foreign_files_forgotten_explanation">Fra version 1.3.16 bliver filer uploadet fra denne enhed kopieret til mappen %1$s for at forhindre datatab når en enkelt fil synkroniseres med flere konti.\n\nPå grund af denne ændring er alle filer som var uploadet i tidligere versioner af denne app kopieret til mappen %2$s. Imidlertid forhindrede en fejl færdiggørelsen af denne operation under konto-synkronisering. Du kan enten lade filerne være som de er og fjerne linket til %3$s eller flytte filerne til mappen %1$s og beholde linket til %4$s.\n\nHerunder er en liste med de lokale og eksterne filer i %5$s, som de var knyttet til.</string>
   <string name="sync_current_folder_was_removed">Mappen %1$s eksistere ikke længere</string>
   <string name="foreign_files_move">Flyt alle</string>
   <string name="foreign_files_success">Alle filer blev flyttet</string>
@@ -259,4 +258,6 @@
   <string name="uploader_upload_forbidden_permissions">til at overføre til denne mappe</string>
   <string name="downloader_download_file_not_found">Filen er ikke længere tilgængelig på serveren</string>
   <string name="prefs_category_accounts">Konti</string>
+  <string name="prefs_add_account">Tilføj konto</string>
+  <string name="auth_redirect_non_secure_connection_title">Sikker forbindelse videredirigeres gennem en usikker rute.</string>
 </resources>

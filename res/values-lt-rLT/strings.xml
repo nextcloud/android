@@ -31,7 +31,6 @@
   <string name="prefs_feedback">Atsiliepimai</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Išbandykite %1$s savo išmaniajame telefone!</string>
-  <string name="recommend_text">\"Aš noriu pakviesti Jus pabandyti %1$s savo išmaniajame telefone!\nParsisiųskite štai čia: %2$s\"\n⇥</string>
   <string name="auth_check_server">Patikrinti Serverį</string>
   <string name="auth_host_url">Serverio adresas </string>
   <string name="auth_username">Prisijungimo vardas</string>
