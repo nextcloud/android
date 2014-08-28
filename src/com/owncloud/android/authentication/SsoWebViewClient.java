@@ -45,6 +45,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.NetworkUtils;
@@ -73,6 +74,8 @@ public class SsoWebViewClient extends WebViewClient {
     private WeakReference<SsoWebViewClientListener> mListenerRef;
     private String mTargetUrl;
     private String mLastReloadedUrlAtError;
+
+    private boolean mIsFirstAttempt;
     
     public SsoWebViewClient (Context context, Handler listenerHandler, SsoWebViewClientListener listener) {
         mContext = context;
@@ -80,6 +83,7 @@ public class SsoWebViewClient extends WebViewClient {
         mListenerRef = new WeakReference<SsoWebViewClient.SsoWebViewClientListener>(listener);
         mTargetUrl = "fake://url.to.be.set";
         mLastReloadedUrlAtError = null;
+        mIsFirstAttempt = true;
     }
     
     public String getTargetUrl() {
@@ -202,10 +206,14 @@ public class SsoWebViewClient extends WebViewClient {
     @Override
     public void onReceivedHttpAuthRequest (WebView view, HttpAuthHandler handler, String host, String realm) {
         Log_OC.d(TAG, "onReceivedHttpAuthRequest : " + host);
-//        Toast.makeText(mContext, "onReceivedHttpAuthRequest : " + host, Toast.LENGTH_LONG).show();
 
         createAuthenticationDialog(view, handler);
 
+        if (!mIsFirstAttempt) {
+            Toast.makeText(mContext, mContext.getText(R.string.saml_authentication_wrong_pass), Toast.LENGTH_LONG).show();
+        } else {
+            mIsFirstAttempt = false;
+        }
     }
 
     @Override
@@ -287,6 +295,7 @@ public class SsoWebViewClient extends WebViewClient {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.dismiss();
                         mWebView.stopLoading();
+                        mIsFirstAttempt = true;
                     }
                 });
 
