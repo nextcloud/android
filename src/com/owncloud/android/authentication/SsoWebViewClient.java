@@ -24,16 +24,17 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
-import com.owncloud.android.lib.common.network.NetworkUtils;
-import com.owncloud.android.utils.Log_OC;
-
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -42,6 +43,12 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import com.owncloud.android.R;
+import com.owncloud.android.lib.common.network.NetworkUtils;
+import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -195,6 +202,10 @@ public class SsoWebViewClient extends WebViewClient {
     @Override
     public void onReceivedHttpAuthRequest (WebView view, HttpAuthHandler handler, String host, String realm) {
         Log_OC.d(TAG, "onReceivedHttpAuthRequest : " + host);
+//        Toast.makeText(mContext, "onReceivedHttpAuthRequest : " + host, Toast.LENGTH_LONG).show();
+
+        createAuthenticationDialog(view, handler);
+
     }
 
     @Override
@@ -230,4 +241,58 @@ public class SsoWebViewClient extends WebViewClient {
         return false;
     }
 
+    /**
+     * Create dialog for request authentication to the user
+     * @param webView
+     * @param handler
+     */
+    private void createAuthenticationDialog(WebView webView, HttpAuthHandler handler) {
+        final WebView mWebView = webView;
+        final HttpAuthHandler mHandler = handler;
+
+        // Create field for username
+        final EditText usernameET = new EditText(mContext);
+        usernameET.setHint(mContext.getText(R.string.auth_username));
+
+        // Create field for password
+        final EditText passwordET = new EditText(mContext);
+        passwordET.setHint(mContext.getText(R.string.auth_password));
+        passwordET.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+        // Prepare LinearLayout for dialog
+        LinearLayout ll = new LinearLayout(mContext);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        ll.addView(usernameET);
+        ll.addView(passwordET);
+
+        Builder authDialog = new AlertDialog
+                .Builder(mContext)
+                .setTitle(mContext.getText(R.string.saml_authentication_required_text))
+                .setView(ll)
+                .setCancelable(false)
+                .setPositiveButton(mContext.getText(R.string.common_ok),
+                        new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        String username = usernameET.getText().toString().trim();
+                        String password = passwordET.getText().toString().trim();
+
+                        // Proceed with the authentication
+                        mHandler.proceed(username, password);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(mContext.getText(R.string.common_cancel),
+                        new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                        mWebView.stopLoading();
+                    }
+                });
+
+        if (mWebView!=null) {
+            authDialog.show();
+        }
+
+    }
 }
