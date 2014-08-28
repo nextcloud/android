@@ -31,7 +31,6 @@
   <string name="prefs_feedback">Обратна Връзка</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Опитай %1$s на смартфона си!</string>
-  <string name="recommend_text">\"Искам да те поканя да опиташ %1$s на своя смартфон!\nИзтегли от %2$s\"</string>
   <string name="auth_check_server">Провери Сървъра</string>
   <string name="auth_host_url">Адрес на сървъра https://…</string>
   <string name="auth_username">Потребител</string>
@@ -104,7 +103,6 @@
   <string name="sync_fail_in_favourites_content">Неуспешно синхронизиране на съдържанието на %1$d файла (%2$d конфликта).</string>
   <string name="sync_foreign_files_forgotten_ticker">Някои локални файлове бяха забравени.</string>
   <string name="sync_foreign_files_forgotten_content">Неуспешно копиране на %1$d файла в папка %2$s.</string>
-  <string name="sync_foreign_files_forgotten_explanation">От версия 1.3.16 нататък, файлове качени от това устройство ще бъдат копирани в локалната %1$s папка, за да се предотврати загуба на данни, когато един файл е синхронизиран с много профили.\n\nПоради тази промяна, всички файлове качени с предишни версии на тази програма бяха копирани в папка %2$s. За жалост, грешка по време на синхрноизцаията попречи на тази операция да бъде завършена. Можеш или да оставиш файла(овете), както са и да премахнеш връзката до %3$s, или да преместиш файлa(oвете) в папка %1$s и да запазиш връзката до %4$s.\n\nИзброени по-долу са локалният файл(ове), и отделеченият файл(ове), до които са били свързани в %5$s.</string>
   <string name="sync_current_folder_was_removed">Папка %1$s вече не същестува</string>
   <string name="foreign_files_move">Премести всички</string>
   <string name="foreign_files_success">Всички файлове са преместени.</string>
@@ -169,7 +167,8 @@
   <string name="auth_connecting_auth_server">Свързване с оторизиращи сървър...</string>
   <string name="auth_unsupported_auth_method">Сървърът не поддържа този метод за оторизиране</string>
   <string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
-  <string name="auth_fail_get_user_name">Твоят сървър не връща правилен потрибителски индентификатор.\nМоля, свържи се с администратора.</string>
+  <string name="auth_fail_get_user_name">Твоят сървър не връща правилен потрибителски индентификатор.
+Моля, свържи се с администратора.</string>
   <string name="auth_can_not_auth_against_server">Неуспешен опит за оторизиране с този сървър.</string>
   <string name="fd_keep_in_sync">Поддържай файлът обновен.</string>
   <string name="common_rename">Преименувай</string>
@@ -237,7 +236,8 @@
   <string name="preview_image_description">Преглед на изборажението</string>
   <string name="preview_image_error_unknown_format">Изображението не може да бъде показано</string>
   <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
-  <string name="share_link_no_support_share_api">Съжалявам, споделянето не е включено на сървъра ти. \nМоля, свържи се с администратора.</string>
+  <string name="share_link_no_support_share_api">Съжалявам, споделянето не е включено на сървъра ти. 
+Моля, свържи се с администратора.</string>
   <string name="share_link_file_no_exist">Неуспешен опит за споделяне на този файл или папка. Моля, провери дали съществува.</string>
   <string name="share_link_file_error">Настъпи грешка при опита за споделяне на този файл или папка.</string>
   <string name="unshare_link_file_no_exist">Неуспешен опит за премахване на споделянето на този файл или папка. Той не съществува.</string>

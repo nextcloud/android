@@ -31,7 +31,6 @@
   <string name="prefs_feedback">মতামত</string>
   <string name="prefs_imprint">প্রতিচ্ছাপ</string>
   <string name="recommend_subject">আপনার স্মার্টফোনে %1$s চেষ্টা করুন!</string>
-  <string name="recommend_text"> “তোমার স্মার্টফোনে  %1$s ব্যাবহার করতে আমন্ত্রণ জানাই!\nএখানে ডাউনলোড কর: %2$s\"</string>
   <string name="auth_check_server">সারভার চেক করেন</string>
   <string name="auth_host_url">সারভার ঠিকানা  https://…</string>
   <string name="auth_username">ব্যবহারকারি</string>
@@ -104,7 +103,6 @@
   <string name="sync_fail_in_favourites_content">%1$d ফাইলসমূহের কনটেন্ট সিনক্রোনাইজ করা যায়নি (%2$d সংঘর্ষ)</string>
   <string name="sync_foreign_files_forgotten_ticker">কিছু লোকাল ফাইল নেয়া হয়নি</string>
   <string name="sync_foreign_files_forgotten_content">%2$s ফোল্ডারের %1$d ফাইলগুলি কপি করা যায়নি</string>
-  <string name="sync_foreign_files_forgotten_explanation">1.3.16 সংষ্করণ অনুযায়ী, এই যন্ত্র হতে কোন একটি ফাইল একাধিক একাউন্ট এ সিন্ক করার জন্য আপলোড করা হলে ডাটা হারানো প্রতিরোধকল্পে লোকাল %1$s ফোল্ডারে কপি করা হয়।\n\nএই পরিবর্তনের কারণে, এই অ্যাপের পূর্বের সংষ্করণসমূহ হতে আপলোড করা সকল ফাইল %2$s ফোল্ডারে কপি করা ঞয়েছে। তবে একাউন্ট সিনক্রোনাইজ করার সময় ঘটা একটি ভুল এই কাজটি সমাপ্ত করতে দেয়নি। আপনি ফাইল(সমূহ) এভাবেই রেখে লিঙ্কটিকে %3$s ফোল্ডারে সরিয়ে দিতে পারেন অথবা ফাইল(সমূহ) %1$s ফোল্ডারে সরিয়ে লিঙ্কটি %4$s ফোল্ডারে সংরক্ষণ করতে পারেন।\n\nনীচে %5$s ফোল্ডারে লিঙ্ক করা লোকাল ফাইল(সমূহ)ও রিমোট ফাইল(সমূহ) তালিকা প্রদর্শন করা হলো।</string>
   <string name="sync_current_folder_was_removed">%1$s নামে কোন ফোল্ডার আর নেই</string>
   <string name="foreign_files_move">সব সরান</string>
   <string name="foreign_files_success">সব ফাইল সরানো হয়েছে</string>
@@ -169,7 +167,8 @@
   <string name="auth_connecting_auth_server">অনুমোদন প্রদানকারী সার্ভারে সংযোগের চেষ্টা চলছে....</string>
   <string name="auth_unsupported_auth_method">এই অনুমোদন প্রক্রিয়া সার্ভারে সমর্থন করেনা</string>
   <string name="auth_unsupported_multiaccount">%1$s একাধিক একাউন্ট সমর্থন করেনা</string>
-  <string name="auth_fail_get_user_name">আপনার সার্ভার একটি সঠিক ব্যবহারকারী আইডি দেয়না। দয়া করে প্রশাসকের সংগে যোগাযোগ করুন\n⇥</string>
+  <string name="auth_fail_get_user_name">আপনার সার্ভার একটি সঠিক ব্যবহারকারী আইডি দেয়না। দয়া করে প্রশাসকের সংগে যোগাযোগ করুন
+⇥</string>
   <string name="auth_can_not_auth_against_server">এই সার্ভারের বিপরীতে অনুমোদন প্রদান করা গেলনা</string>
   <string name="fd_keep_in_sync">ফাইল নবায়ন করে রাখুন</string>
   <string name="common_rename">পূনঃনামকরণ</string>
@@ -237,7 +236,8 @@
   <string name="preview_image_description">ছবি প্রাকদর্শন</string>
   <string name="preview_image_error_unknown_format">ছবিটি প্রদর্শন করা যাবেনা</string>
   <string name="error__upload__local_file_not_copied">%1$s কে %2$s স্থানীয় ফোল্ডারে কপি করা গেলনা </string>
-  <string name="share_link_no_support_share_api">দুঃখিত, আপনার সার্ভার ভাগাভাগি উপযোগী নয়। দয়া করে আপনার\n⇥⇥প্রশাসকের সঙ্গে যোগাযোগ করুন।</string>
+  <string name="share_link_no_support_share_api">দুঃখিত, আপনার সার্ভার ভাগাভাগি উপযোগী নয়। দয়া করে আপনার
+⇥⇥প্রশাসকের সঙ্গে যোগাযোগ করুন।</string>
   <string name="share_link_file_no_exist">এই ফাইল বা ফোল্ডার ভাগাভাগি করা সম্ভব নয়। এর অস্তিত্ব নিশ্চিত করুন</string>
   <string name="share_link_file_error">এই ফাইল অথবা ফোল্ডার ভাগাভাগির চেষ্টা করতে যেয়ে একটি জটিলতা হয়েছে</string>
   <string name="unshare_link_file_no_exist">এই ফাইল বা ফোল্ডার এর ভাগাভাগি রদ করা সম্ভব নয়। এর অস্তিত্ব নেই।</string>

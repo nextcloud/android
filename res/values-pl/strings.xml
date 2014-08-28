@@ -31,7 +31,6 @@
   <string name="prefs_feedback">Wsparcie</string>
   <string name="prefs_imprint">Stopka</string>
   <string name="recommend_subject">Wypróbuj %1$s na swoim smartphonie!</string>
-  <string name="recommend_text">\"Chcę zaprosić Cię do używania %1$s na Twoim smartfonie!\nŚciągnij stąd: %2$s\"\n\t</string>
   <string name="auth_check_server">Sprawdź serwer</string>
   <string name="auth_host_url">Adres serwera https://...</string>
   <string name="auth_username">Nazwa użytkownika</string>
@@ -104,7 +103,6 @@
   <string name="sync_fail_in_favourites_content">Zawartość %1$d plików nie może zostać synchronizowana (%2$d konfliktów)</string>
   <string name="sync_foreign_files_forgotten_ticker">Niektóre lokalne pliki zostały zgubione.</string>
   <string name="sync_foreign_files_forgotten_content">%1$d plików z folderu %2$s nie udało się się przekopiować</string>
-  <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki kopiowane z tego urządzenia są kopiowane do lokalnego folderu %1$s aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliku przesłane w poprzednich wersjach tej aplikacji zostały skopiowane do folderu %2$s. Jednakże, podczas synchronizacji konta pojawił się się błąd uniemożliwiający dokończenie tej operacji. Możesz albo pozostawić plik(i) tak jak są i usunąć link do %3$s, albo przenieść plik(i) do folderu %1$s i pozostawić link do %4$s.\n\nPoniżej lokalny plik(i) i zdalny plik(i) w %5$s do których były podłączone.</string>
   <string name="sync_current_folder_was_removed">Folder  %1$s nie istnieje.</string>
   <string name="foreign_files_move">Przenieś wszystko</string>
   <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
@@ -169,7 +167,8 @@
   <string name="auth_connecting_auth_server">Łączenie z serwerem autoryzacji...</string>
   <string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
   <string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
-  <string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego id użytkownika, proszę skontaktuj się z administratorem\n\t</string>
+  <string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego id użytkownika, proszę skontaktuj się z administratorem
+	</string>
   <string name="auth_can_not_auth_against_server">Nie można autoryzować przy użyciu tego serwera</string>
   <string name="fd_keep_in_sync">Automatyczne aktualizuj plik</string>
   <string name="common_rename">Zmień nazwę</string>
@@ -237,7 +236,8 @@
   <string name="preview_image_description">Podgląd</string>
   <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
-  <string name="share_link_no_support_share_api">Przepraszamy, ale współdzielenie nie jest włączone na Twoim serwerze. Proszę skontaktuj się z\n\t\tadministratorem.</string>
+  <string name="share_link_no_support_share_api">Przepraszamy, ale współdzielenie nie jest włączone na Twoim serwerze. Proszę skontaktuj się z
+		administratorem.</string>
   <string name="share_link_file_no_exist">Brak możliwości udostępnienia tego pliku lub folderu. Upewnij się, że istnieje.</string>
   <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>
   <string name="unshare_link_file_no_exist">Nie można anulować udostępniania tego pliku lub folderu. On nie istnieje.</string>

@@ -31,7 +31,6 @@
   <string name="prefs_feedback">Spätná väzba</string>
   <string name="prefs_imprint">Podmienky používania</string>
   <string name="recommend_subject">Skúste %1$s na vašom telefóne!</string>
-  <string name="recommend_text">\"Pozývam vás k používaniu %1$s na vašom smartfóne!\nNa stiahnutie tu: %2$s\"\n\t</string>
   <string name="auth_check_server">Skontrolovať Server</string>
   <string name="auth_host_url">Adresa servera https://...</string>
   <string name="auth_username">Používateľské meno</string>
@@ -104,7 +103,6 @@
   <string name="sync_fail_in_favourites_content">Obsah %1$d súborov nemohol byť synchronizovaný (%2$d konfliktov)</string>
   <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
   <string name="sync_foreign_files_forgotten_content">%1$d súborov z %2$s priečinkov sa nepodarilo skopírovať do</string>
-  <string name="sync_foreign_files_forgotten_explanation">Od verzie 1.3.16 sú súbory nahrané z tohoto zariadenia, skopírovné do lokálneho priečinka %1$s, aby sa zabránilo strate dát, keď je jeden súbor synchronizovaný s viacerými účtami.\n\nPre túto zmenu, všetky súbory nahraté v predchádzajúcich verziách tejto aplikácie boli skopírované do priečinka %2$s. Je nám to ľúto, ale chyba zabránila dokončeniu tejto operácie počas synchronizácie účtu. Súbor(y) môžete ponechať v súčasnom stave a zmazať odkaz na priečinok %3$s, alebo presunúť súbor(y) do priečinka %1$s a zachovať odkaz na priečinok %4$s.\n\nNižšie je zoznam lokálnych súborov a vzdialených súborov z %5$s na ktoré odkazovali.</string>
   <string name="sync_current_folder_was_removed">Priečinok %1$s už existuje</string>
   <string name="foreign_files_move">Premiestniť všetko</string>
   <string name="foreign_files_success">Všetky súbory boli premiestnené</string>
@@ -169,7 +167,8 @@
   <string name="auth_connecting_auth_server">Pripájam sa na autentifikačný server...</string>
   <string name="auth_unsupported_auth_method">Server nepodporuje túto autentifikačnú metódu</string>
   <string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
-  <string name="auth_fail_get_user_name">Váš server nevracia správne používateľské id, kontaktujte prosím správcu systému\n\t</string>
+  <string name="auth_fail_get_user_name">Váš server nevracia správne používateľské id, kontaktujte prosím správcu systému
+	</string>
   <string name="auth_can_not_auth_against_server">Nie je možné vykonať autentifikáciu na server</string>
   <string name="fd_keep_in_sync">Udržiavať súbor aktuálny.</string>
   <string name="common_rename">Premenuj</string>
@@ -237,7 +236,8 @@
   <string name="preview_image_description">Ukážka obrazu</string>
   <string name="preview_image_error_unknown_format">Obrázok nemožno zobraziť</string>
   <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
-  <string name="share_link_no_support_share_api">Je nám to ľúto, ale zdieľanie nie je na vašom serveri povolené. Prosím kontaktujte vášho\n\t\tadministrátora.</string>
+  <string name="share_link_no_support_share_api">Je nám to ľúto, ale zdieľanie nie je na vašom serveri povolené. Prosím kontaktujte vášho
+		administrátora.</string>
   <string name="share_link_file_no_exist">Nie je možné zdieľať tento súbor alebo priečinok. Prosím uistite sa že existuje</string>
   <string name="share_link_file_error">Pri pokuse o zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
   <string name="unshare_link_file_no_exist">Nie je možné zrušiť zdieľanie tohoto súboru alebo priečinka. Súbor alebo priečinok neexistuje.</string>
