@@ -21,6 +21,8 @@ package com.owncloud.android.ui.activity;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.commons.httpclient.methods.PostMethod;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -556,7 +558,18 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
 
         } else if (requestCode == ACTION_MOVE_FILES && (resultCode == RESULT_OK || 
                 resultCode == MoveActivity.RESULT_OK_AND_MOVE)){
-            requestMoveOperation(data, resultCode);
+
+            final Intent fData = data;
+            final int fResultCode = resultCode; 
+            getHandler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        requestMoveOperation(fData, fResultCode);
+                    }
+                }, 
+                DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
+            );
         }
     }
 

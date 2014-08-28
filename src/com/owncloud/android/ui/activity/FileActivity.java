@@ -80,6 +80,8 @@ implements OnRemoteOperationListener, ComponentsGetter {
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";;
     
+    protected static final long DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS = 200;
+    
     
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located. */
     private Account mAccount;
