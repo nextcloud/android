@@ -30,6 +30,8 @@
   <string name="prefs_recommend">Suosittele kaverille</string>
   <string name="prefs_feedback">Palaute</string>
   <string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
+  <string name="recommend_text">\"Kutsun sinut käyttämään %1$sia älypuhelimellasi!\nLataa tästä: %2$s\"
+	</string>
   <string name="auth_check_server">Tarkista palvelin</string>
   <string name="auth_host_url">Palvelinosoite https://…</string>
   <string name="auth_username">Käyttäjätunnus</string>
@@ -219,6 +221,7 @@
 		ylläpitäjään.</string>
   <string name="share_link_file_no_exist">Valitettavasti tämän tiedoston tai kansion jakaminen ei onnistu. Varmista että se on olemassa</string>
   <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
+  <string name="unshare_link_file_no_exist">Tämän tiedoston tai kansion jaon poistaminen ei onnistunut, koska sitä ei ole olemassa.</string>
   <string name="activity_chooser_send_file_title">Lähetä</string>
   <string name="copy_link">Kopioi linkki</string>
   <string name="clipboard_text_copied">Kopioitu leikepöydälle</string>
