@@ -31,6 +31,8 @@
   <string name="prefs_feedback">Odziv</string>
   <string name="prefs_imprint">Natis</string>
   <string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
+  <string name="recommend_text">\"Želim ti priporočiti program %1$s za pametni telefon!\nPrejeti ga je mogoče s te strani: %2$s\"
+	</string>
   <string name="auth_check_server">Preveri strežnik</string>
   <string name="auth_host_url">Naslov strežnika https://…</string>
   <string name="auth_username">Uporabniško ime</string>

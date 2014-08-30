@@ -31,6 +31,7 @@
   <string name="prefs_feedback">Обратна Връзка</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Опитай %1$s на смартфона си!</string>
+  <string name="recommend_text">\"Искам да те поканя да опиташ %1$s на своя смартфон!\nИзтегли от %2$s\"</string>
   <string name="auth_check_server">Проверка на сървъра</string>
   <string name="auth_host_url">Адрес на сървъра https://…</string>
   <string name="auth_username">Потребител</string>
@@ -103,6 +104,7 @@
   <string name="sync_fail_in_favourites_content">Неуспешно синхронизиране на съдържанието на %1$d файла (%2$d конфликта).</string>
   <string name="sync_foreign_files_forgotten_ticker">Някои локални файлове бяха забравени.</string>
   <string name="sync_foreign_files_forgotten_content">Неуспешно копиране на %1$d файла в папка %2$s.</string>
+  <string name="sync_foreign_files_forgotten_explanation">От версия 1.3.16 нататък, файлове качени от това устройство ще бъдат копирани в локалната %1$s папка, за да се предотврати загуба на данни, когато един файл е синхронизиран с много профили.\n\nПоради тази промяна, всички файлове качени с предишни версии на тази програма бяха копирани в папка %2$s. За жалост, грешка по време на синхрноизцаията попречи на тази операция да бъде завършена. Можеш или да оставиш файла(овете), както са и да премахнеш връзката до %3$s, или да преместиш файла(овете) в папка %1$s и да запазиш връзката до %4$s.\n\nИзброени по-долу са локалните файл(ове), и отделечените файл(ове), до които са били свързани в %5$s.</string>
   <string name="sync_current_folder_was_removed">Папка %1$s вече не същестува</string>
   <string name="foreign_files_move">Преместване на всички</string>
   <string name="foreign_files_success">Всички файлове са преместени.</string>
