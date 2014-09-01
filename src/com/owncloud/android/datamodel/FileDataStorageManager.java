@@ -718,7 +718,12 @@ public class FileDataStorageManager {
             File localFile = new File(localPath);
             boolean renamed = false;
             if (localFile.exists()) {
-                renamed = localFile.renameTo(new File(defaultSavePath + targetPath));
+                File targetFile = new File(defaultSavePath + targetPath);
+                File targetFolder = targetFile.getParentFile();
+                if (!targetFolder.exists()) {
+                    targetFolder.mkdirs();
+                }
+                renamed = localFile.renameTo(targetFile);
             }
             Log_OC.d(TAG, "Local file RENAMED : " + renamed);
             
