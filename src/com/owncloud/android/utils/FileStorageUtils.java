@@ -26,6 +26,7 @@ import com.owncloud.android.lib.resources.files.RemoteFile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
