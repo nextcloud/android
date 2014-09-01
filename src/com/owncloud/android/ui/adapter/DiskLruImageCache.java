@@ -22,17 +22,18 @@ import com.owncloud.android.utils.Log_OC;
 public class DiskLruImageCache {
 
     private DiskLruCache mDiskCache;
-    private CompressFormat mCompressFormat = CompressFormat.JPEG;
-    private int mCompressQuality = 70;
-    private static final int APP_VERSION = 1;
+    private CompressFormat mCompressFormat;
+    private int mCompressQuality;
+    private static final int CACHE_VERSION = 1;
     private static final int VALUE_COUNT = 1;
+    private static final int IO_BUFFER_SIZE = 8 * 1024;
     private static final String TAG = "DiskLruImageCache";
 
     public DiskLruImageCache( Context context,String uniqueName, int diskCacheSize,
         CompressFormat compressFormat, int quality ) {
         try {
                 final File diskCacheDir = getDiskCacheDir(context, uniqueName );
-                mDiskCache = DiskLruCache.open( diskCacheDir, APP_VERSION, VALUE_COUNT, diskCacheSize );
+                mDiskCache = DiskLruCache.open( diskCacheDir, CACHE_VERSION, VALUE_COUNT, diskCacheSize );
                 mCompressFormat = compressFormat;
                 mCompressQuality = quality;
             } catch (IOException e) {
@@ -44,7 +45,7 @@ public class DiskLruImageCache {
         throws IOException, FileNotFoundException {
         OutputStream out = null;
         try {
-            out = new BufferedOutputStream( editor.newOutputStream( 0 ), Utils.IO_BUFFER_SIZE );
+            out = new BufferedOutputStream( editor.newOutputStream( 0 ), IO_BUFFER_SIZE );
             return bitmap.compress( mCompressFormat, mCompressQuality, out );
         } finally {
             if ( out != null ) {
@@ -57,11 +58,7 @@ public class DiskLruImageCache {
 
     // Check if media is mounted or storage is built-in, if so, try and use external cache dir
     // otherwise use internal cache dir
-        final String cachePath =
-            Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
-                    !Utils.isExternalStorageRemovable() ?
-                    Utils.getExternalCacheDir(context).getPath() :
-                    context.getCacheDir().getPath();
+        final String cachePath = context.getExternalCacheDir().getPath();
 
         Log_OC.d("DiskCache", "create dir: " + cachePath + File.separator + uniqueName);
                     
@@ -116,7 +113,7 @@ public class DiskLruImageCache {
             final InputStream in = snapshot.getInputStream( 0 );
             if ( in != null ) {
                 final BufferedInputStream buffIn = 
-                new BufferedInputStream( in, Utils.IO_BUFFER_SIZE );
+                new BufferedInputStream( in, IO_BUFFER_SIZE );
                 bitmap = BitmapFactory.decodeStream( buffIn );              
             }   
         } catch ( IOException e ) {
