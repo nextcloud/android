@@ -73,7 +73,9 @@ public class FileStorageUtils {
     }
 
     public static String getInstantUploadFilePath(Context context, String fileName) {
-        String uploadPath = context.getString(R.string.instant_upload_path);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        String uploadPathdef = context.getString(R.string.instant_upload_path);
+        String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
         String value = uploadPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
         return value;
     }
