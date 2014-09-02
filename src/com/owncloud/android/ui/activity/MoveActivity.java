@@ -449,7 +449,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
                         if (currentDir == null) {
                             // current folder was removed from the server 
                             Toast.makeText( MoveActivity.this, 
-                                            String.format(getString(R.string.sync_current_folder_was_removed), "PLACEHOLDER"), 
+                                            String.format(getString(R.string.sync_current_folder_was_removed), getCurrentFolder().getFileName()), 
                                             Toast.LENGTH_LONG)
                                 .show();
                             browseToRoot();
