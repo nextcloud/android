@@ -50,7 +50,9 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -77,6 +79,7 @@ import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.dialog.CredentialsDialogFragment;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
@@ -125,6 +128,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private static final String UNTRUSTED_CERT_DIALOG_TAG = "UNTRUSTED_CERT_DIALOG";
     private static final String SAML_DIALOG_TAG = "SAML_DIALOG";
     private static final String WAIT_DIALOG_TAG = "WAIT_DIALOG";
+    private static final String CREDENTIALS_DIALOG_TAG = "CREDENTIALS_DIALOG";
+    private static final String KEY_AUTH_IS_FIRST_ATTEMPT_TAG = "KEY_AUTH_IS_FIRST_ATTEMPT";
 
     
     /// parameters from EXTRAs in starter Intent
@@ -170,6 +175,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     
     private String mAuthToken = "";
 
+    private boolean mIsFirstAuthAttempt;
+
     
     /// Identifier of operation in progress which result shouldn't be lost 
     private long mWaitingForOpId = Long.MAX_VALUE;
@@ -185,6 +192,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         //Log_OC.wtf(TAG,  "onCreate init");
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
+        mIsFirstAuthAttempt = true;
 
         // bind to Operations Service
         mOperationsServiceConnection = new OperationsServiceConnection();
@@ -210,6 +219,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         } else {
             mAuthTokenType = savedInstanceState.getString(KEY_AUTH_TOKEN_TYPE);
             mWaitingForOpId = savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID);
+            mIsFirstAuthAttempt = savedInstanceState.getBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG);
         }
         
         /// load user interface
@@ -555,6 +565,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         outState.putInt(KEY_AUTH_STATUS_ICON, mAuthStatusIcon);
         outState.putInt(KEY_AUTH_STATUS_TEXT, mAuthStatusText);
         outState.putString(KEY_AUTH_TOKEN, mAuthToken);
+
+        /// authentication
+        outState.putBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG, mIsFirstAuthAttempt);
 
         //Log_OC.wtf(TAG, "onSaveInstanceState end" );
     }
@@ -1685,6 +1698,15 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     }
 
     /**
+     * Show authentication dialog 
+     */
+    public void showAuthenticationDialog(WebView webView, HttpAuthHandler handler) {
+        // Show a dialog for the authentication
+        createAuthenticationDialog(webView, handler);
+        
+    }
+
+    /**
      * Show untrusted cert dialog 
      */
     private void showUntrustedCertDialog(RemoteOperationResult result) {
@@ -1774,5 +1796,33 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         }
     
     }
-    
+
+    /**
+     * Create dialog for request authentication to the user
+     * @param webView
+     * @param handler
+     */
+    private void createAuthenticationDialog(WebView webView, HttpAuthHandler handler) {
+
+        // Show a dialog with the certificate info
+        CredentialsDialogFragment dialog = CredentialsDialogFragment.newInstanceForCredentials(webView, handler);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
+        dialog.setCancelable(false);
+        dialog.show(ft, CREDENTIALS_DIALOG_TAG);
+
+        if (!mIsFirstAuthAttempt) {
+            Toast.makeText(getApplicationContext(), getText(R.string.saml_authentication_wrong_pass), Toast.LENGTH_LONG).show();
+        } else {
+            mIsFirstAuthAttempt = false;
+        }
+    }
+
+    /**
+     * For retrieving the clicking on authentication cancel button
+     */
+    public void doNegativeAuthenticatioDialogClick(){
+        mIsFirstAuthAttempt = true;
+    }
 }
