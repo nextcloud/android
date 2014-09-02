@@ -189,7 +189,10 @@ public class ErrorMessageAdapter {
             }
         } else if (operation instanceof MoveFileOperation) {
 
-            if (result.getCode() == ResultCode.INVALID_MOVE_INTO_DESCENDANT)  {
+            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
+                message = res.getString(R.string.move_file_not_found);
+                
+            } else if (result.getCode() == ResultCode.INVALID_MOVE_INTO_DESCENDANT)  {
                 message = res.getString(R.string.move_file_invalid_into_descendent);
 
             } else if (result.getCode() == ResultCode.INVALID_OVERWRITE) {
