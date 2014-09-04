@@ -87,6 +87,7 @@ public class SsoWebViewClient extends WebViewClient {
     @Override
     public void onPageStarted (WebView view, String url, Bitmap favicon) {
         Log_OC.d(TAG, "onPageStarted : " + url);
+        view.clearCache(true);
         super.onPageStarted(view, url, favicon);
     }
     
