@@ -49,6 +49,8 @@
     <string name="mail_feedback">"mailto:apps@owncloud.com"</string>
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.owncloud.android"</string>
 
+    <string name="mail_logger">jabarros@solidgear.es</string>
+
 </resources>
 
 

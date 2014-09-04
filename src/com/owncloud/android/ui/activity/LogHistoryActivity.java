@@ -17,50 +17,54 @@
 
 package com.owncloud.android.ui.activity;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.util.ArrayList;
+import java.io.FileReader;
+import java.io.IOException;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
-import com.owncloud.android.ui.adapter.LogListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 
+public class LogHistoryActivity extends SherlockActivity {
+    String mLogPath = FileStorageUtils.getLogPath();
 
+    private static final String MAIL_ATTACHMENT_TYPE = "plain/text";
+    private static final String LOGGER_FILE_NAME = "log.txt";
 
-public class LogHistoryActivity extends SherlockPreferenceActivity implements OnPreferenceChangeListener {
-    String logpath = FileStorageUtils.getLogPath();
     File logDIR = null;
-    
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         setContentView(R.layout.log_send_file);
-        setTitle("Log History");
+        setTitle(getText(R.string.actionbar_logger));
         ActionBar actionBar = getSherlock().getActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
-        ListView listView = (ListView) findViewById(android.R.id.list);
         Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
-        
+        Button sendHistoryButton = (Button) findViewById(R.id.sendLogHistoryButton);
+
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
             
             @Override
             public void onClick(View v) {
-                File dir = new File(logpath);
+                File dir = new File(mLogPath);
                 if (dir != null) {
                     File[] files = dir.listFiles();
                     if(files!=null) { 
@@ -70,30 +74,41 @@ public class LogHistoryActivity extends SherlockPreferenceActivity implements On
                     }
                     dir.delete();
                 }
-                Intent intent = new Intent(getBaseContext(), Preferences.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                finish();
             }
             
         });
+
+
+        sendHistoryButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                sendMail();
+            }
+
+        });
         
        
-        if(logpath != null){
-        logDIR = new File(logpath);
+        if(mLogPath != null){
+        logDIR = new File(mLogPath);
         }
-        
+
         if(logDIR != null && logDIR.isDirectory()) {
-            File[] files = logDIR.listFiles();
-          
-            if (files != null && files.length != 0) {
-                ArrayList<String> logfiles_name = new ArrayList<String>();
-                for (File file : files) {
-                    logfiles_name.add(file.getName());
-                }
-                    String[] logFiles2Array = logfiles_name.toArray(new String[logfiles_name.size()]);
-                    LogListAdapter listadapter = new LogListAdapter(this,logFiles2Array);
-                    listView.setAdapter(listadapter);
-            }
+//            File[] files = logDIR.listFiles();
+//
+//            if (files != null && files.length != 0) {
+//                ArrayList<String> logfiles_name = new ArrayList<String>();
+//                for (File file : files) {
+//                    logfiles_name.add(file.getName());
+//                }
+//                    String[] logFiles2Array = logfiles_name.toArray(new String[logfiles_name.size()]);
+//                    LogListAdapter listadapter = new LogListAdapter(this,logFiles2Array);
+//                    listView.setAdapter(listadapter);
+//            }
+
+            readLogFile();
+
         }
     }
 
@@ -101,22 +116,69 @@ public class LogHistoryActivity extends SherlockPreferenceActivity implements On
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         super.onMenuItemSelected(featureId, item);
-        Intent intent;
 
         switch (item.getItemId()) {
-       
         case android.R.id.home:
-            intent = new Intent(getBaseContext(), Preferences.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            finish();
             break;
         default:
             return false;
         }
         return true;
     }
-    @Override
-    public boolean onPreferenceChange(Preference arg0, Object arg1) {
-        return false;
+
+
+    /**
+     * Start activity for sending email with logs attached
+     */
+    private void sendMail() {
+
+        String emailAddresses[] = { getText(R.string.mail_logger).toString() };
+
+        Uri uri = Uri.parse("file://" + mLogPath + File.separator + LOGGER_FILE_NAME);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+
+        // Explicitly only use Gmail to send
+        intent.setClassName("com.google.android.gm","com.google.android.gm.ComposeActivityGmail");
+
+        intent.putExtra(Intent.EXTRA_EMAIL, emailAddresses);
+        intent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.log_mail_subject));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setType(MAIL_ATTACHMENT_TYPE);
+
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+
+    /**
+     * Read and show log file info
+     */
+    private void readLogFile() {
+
+      //Get the text file
+      File file = new File(mLogPath,LOGGER_FILE_NAME);
+
+      //Read text from file
+      StringBuilder text = new StringBuilder();
+
+      try {
+          BufferedReader br = new BufferedReader(new FileReader(file));
+          String line;
+
+          while ((line = br.readLine()) != null) {
+              text.append(line);
+              text.append('\n');
+          }
+      }
+      catch (IOException e) {
+
+      }
+
+
+      TextView logTV = (TextView) findViewById(R.id.logTV);
+      logTV.setText(text);
     }
 }

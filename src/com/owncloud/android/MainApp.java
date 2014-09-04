@@ -16,11 +16,15 @@
  */
 package com.owncloud.android;
 
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
+import java.io.File;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Environment;
+
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
+import com.owncloud.android.utils.Log_OC;
 /**
  * Main Application of the project
  * 
@@ -54,6 +58,12 @@ public class MainApp extends Application {
             OwnCloudClientManagerFactory.setDefaultPolicy(Policy.ALWAYS_NEW_CLIENT);
         }
         
+        if (BuildConfig.DEBUG) {
+            String logpath = Environment.getExternalStorageDirectory()+File.separator+"owncloud"+File.separator+"log";
+            Log_OC.d("Debug", "start logging");
+            Log_OC.v("PATH", logpath);
+            Log_OC.startLogging(logpath);
+        }
     }
 
     public static Context getAppContext() {

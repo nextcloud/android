@@ -61,6 +61,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -446,6 +447,16 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (BuildConfig.DEBUG) {
+            menu.findItem(R.id.action_logger).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_logger).setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSherlock().getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
@@ -473,6 +484,11 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         case R.id.action_settings: {
             Intent settingsIntent = new Intent(this, Preferences.class);
             startActivity(settingsIntent);
+            break;
+        }
+        case R.id.action_logger: {
+            Intent loggerIntent = new Intent(getApplicationContext(),LogHistoryActivity.class);
+            startActivity(loggerIntent);
             break;
         }
         case android.R.id.home: {

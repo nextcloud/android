@@ -69,9 +69,9 @@ public class Log_OC {
         if (!folder.exists()) {
             folder.mkdirs();
         }
-        if (logFile.exists()) {
-            logFile.delete();
-        }
+//        if (logFile.exists()) {
+//            logFile.delete();
+//        }
         try { 
             logFile.createNewFile();
             buf = new BufferedWriter(new FileWriter(logFile, true));
