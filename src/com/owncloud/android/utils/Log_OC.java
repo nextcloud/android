@@ -5,12 +5,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import com.owncloud.android.MainApp;
-
 import android.util.Log;
+
+import com.owncloud.android.MainApp;
 
 
 
@@ -66,8 +67,12 @@ public class Log_OC {
         folder = new File(logPath);
         logFile = new File(folder + File.separator + "log.txt");
         
+        boolean isFileCreated = false;
+        
         if (!folder.exists()) {
             folder.mkdirs();
+            isFileCreated = true;
+            Log.d("LOG_OC", "Log file created");
         }
 //        if (logFile.exists()) {
 //            logFile.delete();
@@ -76,7 +81,9 @@ public class Log_OC {
             logFile.createNewFile();
             buf = new BufferedWriter(new FileWriter(logFile, true));
             isEnabled = true;
-            appendPhoneInfo();
+            if (isFileCreated) {
+                appendPhoneInfo();
+            }
         }catch (IOException e){ 
             e.printStackTrace(); 
         } 
@@ -84,12 +91,15 @@ public class Log_OC {
     
     public static void stopLogging() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
-        String currentDateandTime = sdf.format(new Date());
+//        String currentDateandTime = sdf.format(new Date());
         if (logFile != null) {
-            logFile.renameTo(new File(folder + File.separator + MainApp.getLogName() + currentDateandTime+".log"));
+//            logFile.renameTo(new File(folder + File.separator + MainApp.getLogName() + currentDateandTime+".log"));
+            
           
             isEnabled = false;
             try {
+                buf = new BufferedWriter(new FileWriter(logFile, false));
+                buf.append("");
                 buf.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -110,9 +120,12 @@ public class Log_OC {
     
     private static void appendLog(String text) { 
         if (isEnabled) {
-           try { 
-               buf.append(text); 
-               buf.newLine(); 
+            String timeStamp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
+           try {
+               buf = new BufferedWriter(new FileWriter(logFile, true));
+               buf.write(timeStamp + " -> " +text); 
+               buf.newLine();
+               buf.close();
            } catch (IOException e) { 
                e.printStackTrace(); 
         } 

@@ -210,6 +210,8 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
 
     @Override
     protected void onDestroy() {
+        Log_OC.d(TAG, "onDestroy() FileDisplyActivty");
+//        Log_OC.stopLogging();
         super.onDestroy();
     }
 

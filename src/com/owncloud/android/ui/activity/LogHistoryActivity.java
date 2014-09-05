@@ -37,6 +37,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
 
 
 public class LogHistoryActivity extends SherlockActivity {
@@ -64,19 +65,21 @@ public class LogHistoryActivity extends SherlockActivity {
             
             @Override
             public void onClick(View v) {
-                File dir = new File(mLogPath);
-                if (dir != null) {
-                    File[] files = dir.listFiles();
-                    if(files!=null) { 
-                        for(File f: files) {
-                                f.delete();
-                        }
-                    }
-                    dir.delete();
-                }
+//                File dir = new File(mLogPath);
+//                if (dir != null) {
+//                    File[] files = dir.listFiles();
+//                    if(files!=null) { 
+//                        for(File f: files) {
+//                                f.delete();
+//                        }
+//                    }
+//                    dir.delete();
+//                }
+//                finish();
+
+                Log_OC.stopLogging();
                 finish();
             }
-            
         });
 
 
