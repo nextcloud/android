@@ -240,9 +240,7 @@
   <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>
   <string name="share_link_no_support_share_api">Entschuldigung, Freigaben sind auf Ihrem Server nicht aktiviert. Bitte kontaktieren Sie Ihren
 ⇥⇥Administrator.</string>
-  <string name="share_link_file_no_exist">Die Freigabe der Datei oder des Ordners ist nicht möglich. Bitte stellen Sie sicher, dass diese existiert.</string>
   <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
-  <string name="unshare_link_file_no_exist">Das Entfernen der Freigabe für die Datei oder den Ordner ist nicht möglich. Diese existieren nicht.</string>
   <string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
   <string name="activity_chooser_send_file_title">Senden</string>
   <string name="copy_link">Link kopieren</string>

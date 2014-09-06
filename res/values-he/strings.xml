@@ -241,9 +241,7 @@
   <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>
   <string name="share_link_no_support_share_api">מצטערים, שיתוף אינו מורשה על השרת שלך. יש ליצור קשר עם
 ⇥⇥מנהל.</string>
-  <string name="share_link_file_no_exist">לא ניתן לשתף קובץ זה או תיקייה זו. יש לוודא שהם קיימים</string>
   <string name="share_link_file_error">שגיאה אירעה בזמן ניסיון לשתף קובץ זה או תיקייה זו</string>
-  <string name="unshare_link_file_no_exist">לא ניתן לבטל שיתוף לקובץ זה או לתיקייה זו. הקובץ או התיקייה אינם קיימים.</string>
   <string name="unshare_link_file_error">שגיאה אירעה בזמן ניסיון לבטל שיתוף לקובץ זה או לתיקייה זו</string>
   <string name="activity_chooser_send_file_title">שליחה</string>
   <string name="copy_link">העתקת קישור</string>

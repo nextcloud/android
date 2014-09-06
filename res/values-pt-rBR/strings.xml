@@ -240,9 +240,7 @@
   <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>
   <string name="share_link_no_support_share_api">Desculpe, o compartilhamento não está habilitado em seu servidor. Entre em contato com seu 
 ⇥⇥ administrador.</string>
-  <string name="share_link_file_no_exist">Incapaz de compartilhar esse arquivo ou pasta. Por favor, certifique-se que existe</string>
   <string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>
-  <string name="unshare_link_file_no_exist">Incapaz de descompartilhar este arquivo ou pasta. Ela não existe.</string>
   <string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar o link</string>

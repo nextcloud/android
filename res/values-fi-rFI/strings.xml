@@ -219,9 +219,7 @@
   <string name="preview_image_error_unknown_format">Tätä kuvaa ei voi näyttää</string>
   <string name="share_link_no_support_share_api">Jakaminen ei ole käytössä palvelimellasi. Ota yhteys
 		ylläpitäjään.</string>
-  <string name="share_link_file_no_exist">Valitettavasti tämän tiedoston tai kansion jakaminen ei onnistu. Varmista että se on olemassa</string>
   <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
-  <string name="unshare_link_file_no_exist">Tämän tiedoston tai kansion jaon poistaminen ei onnistunut, koska sitä ei ole olemassa.</string>
   <string name="activity_chooser_send_file_title">Lähetä</string>
   <string name="copy_link">Kopioi linkki</string>
   <string name="clipboard_text_copied">Kopioitu leikepöydälle</string>

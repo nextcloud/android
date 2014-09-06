@@ -241,9 +241,7 @@
   <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel klasörüne kopyalanamadı</string>
   <string name="share_link_no_support_share_api">Üzgünüz, paylaşım sunucunuzda etkin değil. Lütfen yöneticinizle
                 iletişime geçin.</string>
-  <string name="share_link_file_no_exist">Bu dosya veya klasör paylaşılamıyor. Lütfen mevcut olup olmadığını denetleyin</string>
   <string name="share_link_file_error">Bu dosya veya klasörü paylaşmaya çalışılırken bir hata oluştu</string>
-  <string name="unshare_link_file_no_exist">Bu dosya veya klasörün paylaşımı kaldırılamadı. Mevcut değil.</string>
   <string name="unshare_link_file_error">Bu dosya veya klasör paylaşımı kaldırılmaya çalışılırken bir hata oluştu</string>
   <string name="activity_chooser_send_file_title">Gönder</string>
   <string name="copy_link">Bağlantıyı kopyala</string>

@@ -238,9 +238,7 @@
   <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
   <string name="share_link_no_support_share_api">La función Compartir no está activada en su servidor. Contacte a su
 		administrador.</string>
-  <string name="share_link_file_no_exist">No es posible compartir este archivo o carpeta. Asegúrese de que existe.</string>
   <string name="share_link_file_error">Ocurrió un error al tratar de compartir este archivo o carpeta</string>
-  <string name="unshare_link_file_no_exist">No se puede dejar de compartir este archivo o carpeta. No existe.</string>
   <string name="unshare_link_file_error">Ocurrió un error al tratar de ya no compartir este archivo o carpeta</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar enlace</string>

@@ -105,6 +105,7 @@
   <string name="sync_fail_in_favourites_content">Содержимое %1$d файлов не может быть синхронизировано (конфликтов: %2$d)</string>
   <string name="sync_foreign_files_forgotten_ticker">Несколько локальных файлов были забыты</string>
   <string name="sync_foreign_files_forgotten_content"> Не возможно скопировать %1$d файлы из %2$s папки</string>
+  <string name="sync_foreign_files_forgotten_explanation">Начиная с версии 1.3.16, файлы, загружаемые с этого устройства, копируются в локальную директорию %1$s, чтобы предотвратить потерю данных при синхронизации файла с несколькими учётными записями.\n\nПоэтому все файлы, загруженные предыдущими версиями данного приложения, были скопированы в директорию %2$s. Однако, во время синхронизации что-то помешало завершить эту операцию. Теперь можно либо оставить файлы как есть и удалить ссылку на %3$s, либо переместить их в %1$s и сохранить ссылку на %4$s.\n\nНиже перечислены локальные файлы, и соответствующие им удалённые файлы в %5$s, к которым они привязаны.</string>
   <string name="sync_current_folder_was_removed">Каталог %1$s больше не существует</string>
   <string name="foreign_files_move">Переместить всё</string>
   <string name="foreign_files_success">Все файлы были перемещены</string>
@@ -239,9 +240,7 @@
   <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
   <string name="error__upload__local_file_not_copied">%1$s не возможно скопировать в локальною папку %2$s </string>
   <string name="share_link_no_support_share_api">К сожалению, на вашем сервере отключен совместный доступ. Пожалуйста, свяжитесь с вашим администратором.</string>
-  <string name="share_link_file_no_exist">Невозможно предоставить доступ к этому файлу или каталогу. Убедитесь, что он существует</string>
   <string name="share_link_file_error">Ошибка предоставления общего доступа к этому файлу или каталогу</string>
-  <string name="unshare_link_file_no_exist">Невозможно снять общий доступ с этого файла или каталога. Он не существует.</string>
   <string name="unshare_link_file_error">Ошибка удаления общего доступа к этому файлу или каталогу</string>
   <string name="activity_chooser_send_file_title">Отправить</string>
   <string name="copy_link">Копировать ссылку</string>

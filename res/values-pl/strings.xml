@@ -238,9 +238,7 @@
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
   <string name="share_link_no_support_share_api">Przepraszamy, ale współdzielenie nie jest włączone na Twoim serwerze. Proszę skontaktuj się z
 		administratorem.</string>
-  <string name="share_link_file_no_exist">Brak możliwości udostępnienia tego pliku lub folderu. Upewnij się, że istnieje.</string>
   <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>
-  <string name="unshare_link_file_no_exist">Nie można anulować udostępniania tego pliku lub folderu. On nie istnieje.</string>
   <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub folderu.</string>
   <string name="activity_chooser_send_file_title">Wyślij</string>
   <string name="copy_link">Skopiuj link</string>

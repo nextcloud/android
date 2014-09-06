@@ -245,9 +245,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="error__upload__local_file_not_copied">%1$s ei suudetud kopeerida kohalikku kataloogi %2$s</string>
   <string name="share_link_no_support_share_api">Vabandust, server ei toeta jagamist. Palun kontakteeru 
 ⇥⇥administraatoriga.</string>
-  <string name="share_link_file_no_exist">Antud faili või kausta ei saa jagada. Tee kindlaks, et see on olemas</string>
   <string name="share_link_file_error">Faili või kausta jagamisel esines viga</string>
-  <string name="unshare_link_file_no_exist">Antud faili või kausta jagamist pole võimalik tühistada</string>
   <string name="unshare_link_file_error">Faili või kausta jagamise tühistamisel esines viga</string>
   <string name="activity_chooser_send_file_title">Saada</string>
   <string name="copy_link">Kopeeri link</string>

@@ -238,9 +238,7 @@
   <string name="error__upload__local_file_not_copied">Non foi posíbel copiar %1$s no cartafol local %2$s</string>
   <string name="share_link_no_support_share_api">O seu servidor non ten activada a opción de compartir. Póñase en contacto co
 		administrador.</string>
-  <string name="share_link_file_no_exist">Non foi posíbel compartir este ficheiro ou cartafol. Asegurese de que existe.</string>
   <string name="share_link_file_error">Produciuse un erro ao tentar compartir este ficheiro ou cartafol.</string>
-  <string name="unshare_link_file_no_exist">Non foi posíbel deixar de compartir este ficheiro ou cartafol xa que non existe.</string>
   <string name="unshare_link_file_error">Produciuse un erro ao tentar deixar de compartir este ficheiro ou cartafol</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar a ligazón</string>

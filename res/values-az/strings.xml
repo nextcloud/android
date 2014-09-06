@@ -45,7 +45,6 @@
   <string name="uploader_info_dirname">Qovluq adı</string>
   <string name="common_remove">Sil</string>
   <string name="ssl_validator_btn_details_see">Detallar</string>
-  <string name="unshare_link_file_no_exist">Fayl və ya qovluğun yayımlanmasını dayandırmaq olmur. Bu mövcud deyil.</string>
   <string name="unshare_link_file_error">Bu fayl və ya qovluğun yayımlanmasının dayandırılmasında səhv baş verdi</string>
   <string name="activity_chooser_send_file_title">Göndər</string>
   <string name="copy_link">linki nüsxələ</string>

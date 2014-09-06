@@ -239,9 +239,7 @@
   <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
   <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
   <string name="share_link_no_support_share_api">Lamentamos mas não é possível partilhar através do seu servidor. Por favor contacte o seu administrador.</string>
-  <string name="share_link_file_no_exist">Não é possível partilhar este ficheiro ou pasta. Por favor, verifique se existe</string>
   <string name="share_link_file_error">Ocorreu um erro enquanto tentava partilhar este ficheiro ou pasta</string>
-  <string name="unshare_link_file_no_exist">Não é possível retirar a partilha deste ficheiro ou pasta. Não existe.</string>
   <string name="unshare_link_file_error">Ocorreu um erro enquanto retirava a partilha deste ficheiro ou pasta</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar ligação</string>

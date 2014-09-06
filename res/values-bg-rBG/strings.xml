@@ -240,9 +240,7 @@
   <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
   <string name="share_link_no_support_share_api">За съжаление споделянето не е включено на сървъра ви. 
 Моля, свържете се с администратора.</string>
-  <string name="share_link_file_no_exist">Неуспешен опит за споделяне на този файл или папка. Моля, проверете дали съществува.</string>
   <string name="share_link_file_error">Настъпи грешка при опита за споделяне на този файл или папка.</string>
-  <string name="unshare_link_file_no_exist">Неуспешен опит за премахване на споделянето на този файл или папка. Той не съществува.</string>
   <string name="unshare_link_file_error">Настъпи грешка при опита за премахване на споделянето на този файл или папка.</string>
   <string name="activity_chooser_send_file_title">Изпращане</string>
   <string name="copy_link">Копиране на връзката</string>

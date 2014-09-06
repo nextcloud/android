@@ -238,9 +238,7 @@
   <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
   <string name="share_link_no_support_share_api">申し訳ございません。共有がサーバー上で有効になっていません。 管理者に
 		ご連絡ください。</string>
-  <string name="share_link_file_no_exist">このファイルまたはフォルダーは共有できません。存在するか確認してください。</string>
   <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
-  <string name="unshare_link_file_no_exist">このファイルまたはフォルダは存在しないため、共有を解除できません。</string>
   <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
   <string name="activity_chooser_send_file_title">送信</string>
   <string name="copy_link">リンクをコピー</string>

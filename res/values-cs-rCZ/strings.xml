@@ -239,9 +239,7 @@
   <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
   <string name="share_link_no_support_share_api">Je nám líto, ale sdílení není na vašem serveru povoleno. Kontaktujte svého
 administrátora.</string>
-  <string name="share_link_file_no_exist">Nepodařilo se sdílet tento soubor či složku. Ujistěte se, že existuje.</string>
   <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky nastala chyba</string>
-  <string name="unshare_link_file_no_exist">Nepodařilo se zrušit sdílení tohoto souboru nebo složky, protože neexistuje.</string>
   <string name="unshare_link_file_error">Při pokusu o zrušení sdílení tohoto souboru či složky nastala chyba</string>
   <string name="activity_chooser_send_file_title">Odeslat</string>
   <string name="copy_link">Zkopírovat odkaz</string>

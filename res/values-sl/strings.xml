@@ -240,9 +240,7 @@
   <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
   <string name="share_link_no_support_share_api">Souporaba je na strežniku onemogočena. Možnost lahko spreminjajo le
 		uporabniki s skrbniškimi dovoljenji.</string>
-  <string name="share_link_file_no_exist">Ni mogoče omogočiti souporabe te datoteke ali mape. Prepričajte se, da obstaja ...</string>
   <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
-  <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe te datoteke ali mape, ker ne obstaja.</string>
   <string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
   <string name="activity_chooser_send_file_title">Pošlji</string>
   <string name="copy_link">Kopiraj povezavo</string>

@@ -241,9 +241,7 @@
   <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
   <string name="share_link_no_support_share_api">Spiacenti, la condivisione non è abilitata sul tuo server. Contatta il tuo
 		amministratore.</string>
-  <string name="share_link_file_no_exist">Impossibile condividere il file o la cartella. Assicurati che esista.</string>
   <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
-  <string name="unshare_link_file_no_exist">Impossibile rimuovere dalla condivisione il file o la cartella. Non esiste.</string>
   <string name="unshare_link_file_error">Si è verificato un errore durante il tentativo di rimuovere la condivisione del file o della cartella</string>
   <string name="activity_chooser_send_file_title">Invia</string>
   <string name="copy_link">Copia collegamento</string>

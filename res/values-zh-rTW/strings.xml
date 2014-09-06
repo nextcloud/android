@@ -234,9 +234,7 @@
   <string name="error__upload__local_file_not_copied">%1$s 無法被複製到本地目錄 %2$s</string>
   <string name="share_link_no_support_share_api">很抱歉, 您的伺服器並未開啟分享的功能. 請聯絡您的
 		伺服器管理員.</string>
-  <string name="share_link_file_no_exist">無法分享這個檔案或目錄. 請檢查它們是否存在</string>
   <string name="share_link_file_error">在分享檔案或目錄時發生了錯誤</string>
-  <string name="unshare_link_file_no_exist">無法將這個檔案或目錄取消分享. 它並不存在.</string>
   <string name="unshare_link_file_error">在取消分享檔案或目錄時發生了錯誤</string>
   <string name="activity_chooser_send_file_title">寄出</string>
   <string name="copy_link">複製連結</string>
