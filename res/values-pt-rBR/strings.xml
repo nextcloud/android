@@ -240,7 +240,9 @@
   <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>
   <string name="share_link_no_support_share_api">Desculpe, o compartilhamento não está habilitado em seu servidor. Entre em contato com seu 
 ⇥⇥ administrador.</string>
+  <string name="share_link_file_no_exist">Não é possível compartilhar. Por favor verifique se o arquivo existe</string>
   <string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>
+  <string name="unshare_link_file_no_exist">Não é possível cancelar o compartilhamento. Por favor verifique se o arquivo existe</string>
   <string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar o link</string>
@@ -262,4 +264,12 @@
   <string name="prefs_category_accounts">Contas</string>
   <string name="prefs_add_account">Adicionar uma conta</string>
   <string name="auth_redirect_non_secure_connection_title">A conexão segura está redirecionada através de uma rota insegura.</string>
+  <string name="actionbar_move">Mover</string>
+  <string name="file_list_empty_moving">Nada aqui. Você pode adicionar uma pasta!</string>
+  <string name="move_choose_button_text">Escolher</string>
+  <string name="move_file_not_found">Não é possível mover. Por favor verifique se o arquivo existe</string>
+  <string name="move_file_invalid_into_descendent">Não é possível mover a pasta para uma descendente</string>
+  <string name="move_file_invalid_overwrite">O arquivo já existe na pasta de destino</string>
+  <string name="move_file_error">Ocorreu um erro ao tentar mover este arquivo ou pasta</string>
+  <string name="forbidden_permissions_move">mover este arquivo</string>
 </resources>

@@ -261,4 +261,6 @@ administrátora.</string>
   <string name="prefs_category_accounts">Účty</string>
   <string name="prefs_add_account">Přidat účet</string>
   <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojení je přesměrováváno nezabezpečenou trasou.</string>
+  <string name="actionbar_move">Přesunout</string>
+  <string name="move_choose_button_text">Vybrat</string>
 </resources>

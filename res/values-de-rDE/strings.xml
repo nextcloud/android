@@ -240,7 +240,9 @@
   <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>
   <string name="share_link_no_support_share_api">Entschuldigung, Freigaben sind auf Ihrem Server nicht aktiviert. Bitte kontaktieren Sie Ihren
 ⇥⇥Administrator.</string>
+  <string name="share_link_file_no_exist">Teilen nicht möglich. Prüfen Sie, dass die Datei existiert</string>
   <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
+  <string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Prüfen Sie, dass die Datei existiert</string>
   <string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
   <string name="activity_chooser_send_file_title">Senden</string>
   <string name="copy_link">Link kopieren</string>
@@ -262,4 +264,12 @@
   <string name="prefs_category_accounts">Konten</string>
   <string name="prefs_add_account">Konto hinzufügen</string>
   <string name="auth_redirect_non_secure_connection_title">Die gesicherte Verbindung wird auf eine unsichere Route weitergeleitet.</string>
+  <string name="actionbar_move">Verschieben</string>
+  <string name="file_list_empty_moving">Nichts vorhanden. Sie können einen Ordner hinzufügen!</string>
+  <string name="move_choose_button_text">Auswählen</string>
+  <string name="move_file_not_found">Verschieben nicht möglich. Prüfen Sie, ob die Datei existiert</string>
+  <string name="move_file_invalid_into_descendent">Es ist nicht möglich einen Ordner eine Ebene tiefer zu verschieben</string>
+  <string name="move_file_invalid_overwrite">Die Datei existiert bereits im Zielordner</string>
+  <string name="move_file_error">Es ist ein Fehler beim Verschieben dieser Datei oder Ordners aufgetreten.</string>
+  <string name="forbidden_permissions_move">zum Datei verschieben</string>
 </resources>

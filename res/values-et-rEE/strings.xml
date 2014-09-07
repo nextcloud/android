@@ -245,7 +245,9 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="error__upload__local_file_not_copied">%1$s ei suudetud kopeerida kohalikku kataloogi %2$s</string>
   <string name="share_link_no_support_share_api">Vabandust, server ei toeta jagamist. Palun kontakteeru 
 ⇥⇥administraatoriga.</string>
+  <string name="share_link_file_no_exist">Jagamine ebaõnnestus. Palun kontrolli, kas fail on olemas</string>
   <string name="share_link_file_error">Faili või kausta jagamisel esines viga</string>
+  <string name="unshare_link_file_no_exist">Liigutamise lõpetamine ebaõnnestus. Palun kontrolli, kas fail on olemas</string>
   <string name="unshare_link_file_error">Faili või kausta jagamise tühistamisel esines viga</string>
   <string name="activity_chooser_send_file_title">Saada</string>
   <string name="copy_link">Kopeeri link</string>
@@ -267,4 +269,12 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="prefs_category_accounts">Kontod</string>
   <string name="prefs_add_account">Lisa konto</string>
   <string name="auth_redirect_non_secure_connection_title">Turvalist ühendust suunatakse läbi turvamata ühenduse.</string>
+  <string name="actionbar_move">Tõsta ümber</string>
+  <string name="file_list_empty_moving">Siin pole midagi. Sa võid lisada kausta!</string>
+  <string name="move_choose_button_text">Vali</string>
+  <string name="move_file_not_found">Liigutamine ebaõnnestus. Palun kontrolli, kas fail on olemas</string>
+  <string name="move_file_invalid_into_descendent">Kausta ei saa liigutada selle alamkausta</string>
+  <string name="move_file_invalid_overwrite">See fail on juba sihtkaustas olemas</string>
+  <string name="move_file_error">Selle faili või kausta liigutamisel tekkis tõrge</string>
+  <string name="forbidden_permissions_move">selle faili liigutamiseks</string>
 </resources>

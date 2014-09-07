@@ -262,4 +262,6 @@
   <string name="prefs_category_accounts">Учётные записи</string>
   <string name="prefs_add_account">Добавить учетную запись</string>
   <string name="auth_redirect_non_secure_connection_title">Безопасное соединение перенаправлено через небезопасный маршрут.</string>
+  <string name="actionbar_move">Переместить</string>
+  <string name="move_choose_button_text">Выбрать</string>
 </resources>

@@ -262,4 +262,6 @@
   <string name="prefs_category_accounts">Računi</string>
   <string name="prefs_add_account">Dodaj račun</string>
   <string name="auth_redirect_non_secure_connection_title">Varna povezava je preusmerjena preko ne-varne poti.</string>
+  <string name="actionbar_move">Premakni</string>
+  <string name="move_choose_button_text">Izbor</string>
 </resources>

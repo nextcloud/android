@@ -148,4 +148,5 @@
   <string name="clipboard_text_copied">კოპირებულია კლიპბორდში</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">ანგარიში</string>
+  <string name="move_choose_button_text">არჩევა</string>
 </resources>

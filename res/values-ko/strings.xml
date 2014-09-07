@@ -214,4 +214,5 @@
   <string name="clipboard_text_copied">클립보드로 복사됨</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">계정</string>
+  <string name="move_choose_button_text">선택</string>
 </resources>

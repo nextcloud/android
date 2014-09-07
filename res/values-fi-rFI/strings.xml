@@ -240,4 +240,10 @@
   <string name="prefs_category_accounts">Tilit</string>
   <string name="prefs_add_account">Lisää tili</string>
   <string name="auth_redirect_non_secure_connection_title">Salattu yhteys on ohjattu uudelleen salaamatonta reittiä pitkin.</string>
+  <string name="actionbar_move">Siirrä</string>
+  <string name="file_list_empty_moving">Täällä ei ole mitään. Voit lisätä kansion!</string>
+  <string name="move_choose_button_text">Valitse</string>
+  <string name="move_file_not_found">Siirto ei onnistu. Tarkista, ettei tiedostoa ole jo olemassa</string>
+  <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
+  <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
 </resources>

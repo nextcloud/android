@@ -244,7 +244,9 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de %2$s lokale map</string>
   <string name="share_link_no_support_share_api">Sorry, delen is niet mogelijk op uw server. Neem contact op met uw
 		beheerder.</string>
+  <string name="share_link_file_no_exist">Kan dit niet delen. Controleer of dit bestand wel bestaat.</string>
   <string name="share_link_file_error">Er trad een fout op bij uw poging dit bestand of deze map te delen</string>
+  <string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Ga na of het bestand bestaat</string>
   <string name="unshare_link_file_error">Er trad een fout op bij uw poging het delen van dit bestand of deze map te beëindigen</string>
   <string name="activity_chooser_send_file_title">Versturen</string>
   <string name="copy_link">Link kopiëren</string>
@@ -266,4 +268,12 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="prefs_category_accounts">Accounts</string>
   <string name="prefs_add_account">Toevoegen account</string>
   <string name="auth_redirect_non_secure_connection_title">De beveiligde verbinding is omgeleid via een onveilige route.</string>
+  <string name="actionbar_move">verplaatsen</string>
+  <string name="file_list_empty_moving">Niets hier. U kunt een map toevoegen!</string>
+  <string name="move_choose_button_text">Kies</string>
+  <string name="move_file_not_found">Kan niet verplaatsen. Ga na of het bestand wel bestaat</string>
+  <string name="move_file_invalid_into_descendent">De map kan niet naar een onderliggende map worden verplaatst</string>
+  <string name="move_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
+  <string name="move_file_error">Er trad een fout op bij uw poging dit bestand of deze map te verplaatsen</string>
+  <string name="forbidden_permissions_move">om dit bestand te verplaatsen</string>
 </resources>

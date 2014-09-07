@@ -119,4 +119,5 @@
   <string name="activity_chooser_send_file_title">Прати</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Сметки</string>
+  <string name="move_choose_button_text">Избери</string>
 </resources>

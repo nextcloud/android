@@ -259,4 +259,5 @@
   <string name="prefs_category_accounts">Comptes</string>
   <string name="prefs_add_account">Afegeix compte</string>
   <string name="auth_redirect_non_secure_connection_title">La connexió segura està essent redirigida a través d\'una ruta insegura</string>
+  <string name="move_choose_button_text">Escull</string>
 </resources>
