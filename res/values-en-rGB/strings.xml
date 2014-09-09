@@ -241,7 +241,9 @@
   <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local folder</string>
   <string name="share_link_no_support_share_api">Sorry, sharing is not enabled on your server. Please contact your
 		administrator.</string>
+  <string name="share_link_file_no_exist">Unable to share. Please check whether the file exists</string>
   <string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
+  <string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists</string>
   <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder</string>
   <string name="activity_chooser_send_file_title">Send</string>
   <string name="copy_link">Copy link</string>
@@ -264,5 +266,11 @@
   <string name="prefs_add_account">Add account</string>
   <string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through an unsecured route.</string>
   <string name="actionbar_move">Move</string>
+  <string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
   <string name="move_choose_button_text">Choose</string>
+  <string name="move_file_not_found">Unable to move. Please check whether the file exists</string>
+  <string name="move_file_invalid_into_descendent">It is not possible to move a folder into a descendant</string>
+  <string name="move_file_invalid_overwrite">The file exists already in the destination folder</string>
+  <string name="move_file_error">An error occurred whilst trying to move this file or folder</string>
+  <string name="forbidden_permissions_move">to move this file</string>
 </resources>

@@ -239,7 +239,9 @@
   <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
   <string name="share_link_no_support_share_api">Je nám líto, ale sdílení není na vašem serveru povoleno. Kontaktujte svého
 administrátora.</string>
+  <string name="share_link_file_no_exist">Nelze sdílet. Zkontrolujte prosím že soubor existuje</string>
   <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky nastala chyba</string>
+  <string name="unshare_link_file_no_exist">Nelze ukončit sdílení. Zkontrolujte prosím že soubor existuje</string>
   <string name="unshare_link_file_error">Při pokusu o zrušení sdílení tohoto souboru či složky nastala chyba</string>
   <string name="activity_chooser_send_file_title">Odeslat</string>
   <string name="copy_link">Zkopírovat odkaz</string>
@@ -262,5 +264,11 @@ administrátora.</string>
   <string name="prefs_add_account">Přidat účet</string>
   <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojení je přesměrováváno nezabezpečenou trasou.</string>
   <string name="actionbar_move">Přesunout</string>
+  <string name="file_list_empty_moving">Zde nic není. Můžete přidat adresář!</string>
   <string name="move_choose_button_text">Vybrat</string>
+  <string name="move_file_not_found">Nelze přesunout. Zkontrolujte prosím že soubor existuje</string>
+  <string name="move_file_invalid_into_descendent">Není možné adresář přesunout do vlastního podadresáře</string>
+  <string name="move_file_invalid_overwrite">Soubor již v cílovém adresáři existuje</string>
+  <string name="move_file_error">Při pokusu o přesun tohoto souboru či složky nastala chyba</string>
+  <string name="forbidden_permissions_move">pro přesun tohoto souboru</string>
 </resources>

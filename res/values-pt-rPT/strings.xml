@@ -261,5 +261,8 @@
   <string name="prefs_category_accounts">Contas</string>
   <string name="prefs_add_account">Adicionar conta</string>
   <string name="auth_redirect_non_secure_connection_title">Uma ligação segura foi redireccionada por uma rota insegura.</string>
+  <string name="actionbar_move">Mover</string>
+  <string name="file_list_empty_moving">Não está aqui nada. Pode adicionar uma pasta!</string>
   <string name="move_choose_button_text">Escolha</string>
+  <string name="forbidden_permissions_move">para mover este ficheiro</string>
 </resources>
