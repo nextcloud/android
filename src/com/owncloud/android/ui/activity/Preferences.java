@@ -66,15 +66,12 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     
     private static final String TAG = "OwnCloudPreferences";
 
-    private static final String PREVIOUS_ACCOUNT_KEY = "ACCOUNT";
-
     private DbHandler mDbHandler;
     private CheckBoxPreference pCode;
     //private CheckBoxPreference pLogging;
     //private Preference pLoggingHistory;
     private Preference pAboutApp;
 
-    private Account mPreviousAccount = null;
     private PreferenceCategory mAccountsPrefCategory = null;
     private final Handler mHandler = new Handler();
     private String mAccountName;
@@ -92,12 +89,6 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         
-        if (savedInstanceState != null) {
-            mPreviousAccount = savedInstanceState.getParcelable(PREVIOUS_ACCOUNT_KEY);
-        } else {
-            mPreviousAccount = AccountUtils.getCurrentOwnCloudAccount(this);
-        }
-
         // Load the accounts category for adding the list of accounts
         mAccountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
 
@@ -454,8 +445,23 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                         for (Account a : accounts) {
                             CheckBoxPreference p = (CheckBoxPreference) findPreference(a.name);
                             if (key.equals(a.name)) {
+                                boolean accountChanged = !p.isChecked(); 
                                 p.setChecked(true);
-                                AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), a.name);
+                                AccountUtils.setCurrentOwnCloudAccount(
+                                        getApplicationContext(),
+                                        a.name
+                                );
+                                if (accountChanged) {
+                                    // restart the main activity
+                                    Intent i = new Intent(
+                                            Preferences.this, 
+                                            FileDisplayActivity.class
+                                    );
+                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(i);
+                                } else {
+                                    finish();
+                                }
                             } else {
                                 p.setChecked(false);
                             }
@@ -493,24 +499,6 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
             }
         });
 
-    }
-
-    @Override
-    protected void onPause() {
-        if (this.isFinishing()) {
-            Account current = AccountUtils.getCurrentOwnCloudAccount(this);
-            if ((mPreviousAccount == null && current != null)
-                    || (mPreviousAccount != null && !mPreviousAccount.equals(current))) {
-                // the account set as default changed since this activity was
-                // created
-
-                // restart the main activity
-                Intent i = new Intent(this, FileDisplayActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        }
-        super.onPause();
     }
 
 }
