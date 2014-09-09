@@ -286,6 +286,8 @@
 	<string name="prefs_add_account">Add account</string>
 	<string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through an unsecured route.</string>
 
+	<string name="saml_authentication_required_text">Authentication required</string>
+	<string name="saml_authentication_wrong_pass">Wrong password</string>
 	<string name="actionbar_move">Move</string>
 	<string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
 	<string name="move_choose_button_text">Choose</string>
