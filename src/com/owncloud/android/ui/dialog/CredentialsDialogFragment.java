@@ -127,18 +127,18 @@ public class CredentialsDialogFragment extends SherlockDialogFragment
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) { 
 
-            String username = mUsernameET.getText().toString().trim();
-            String password = mPasswordET.getText().toString().trim();
+            String username = mUsernameET.getText().toString();
+            String password = mPasswordET.getText().toString();
 
             // Proceed with the authentication
             mHandler.proceed(username, password);
-            dialog.dismiss();
 
         } else if (which == AlertDialog.BUTTON_NEGATIVE) {
-            dialog.dismiss();
             mWebView.stopLoading();
             ((AuthenticatorActivity)getActivity()).doNegativeAuthenticatioDialogClick();
         }
+
+        dialog.dismiss();
     }
     
     

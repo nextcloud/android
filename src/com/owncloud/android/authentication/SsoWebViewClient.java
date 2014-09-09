@@ -198,7 +198,7 @@ public class SsoWebViewClient extends WebViewClient {
     public void onReceivedHttpAuthRequest (WebView view, HttpAuthHandler handler, String host, String realm) {
         Log_OC.d(TAG, "onReceivedHttpAuthRequest : " + host);
 
-        ((AuthenticatorActivity)mContext).showAuthenticationDialog(view, handler);
+        ((AuthenticatorActivity)mContext).createAuthenticationDialog(view, handler);
     }
 
     @Override

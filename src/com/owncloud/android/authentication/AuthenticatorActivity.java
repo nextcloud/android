@@ -1697,14 +1697,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         dialog.show(ft, UNTRUSTED_CERT_DIALOG_TAG);
     }
 
-    /**
-     * Show authentication dialog 
-     */
-    public void showAuthenticationDialog(WebView webView, HttpAuthHandler handler) {
-        // Show a dialog for the authentication
-        createAuthenticationDialog(webView, handler);
-        
-    }
 
     /**
      * Show untrusted cert dialog 
@@ -1798,11 +1790,11 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     }
 
     /**
-     * Create dialog for request authentication to the user
+     * Create and show dialog for request authentication to the user
      * @param webView
      * @param handler
      */
-    private void createAuthenticationDialog(WebView webView, HttpAuthHandler handler) {
+    public void createAuthenticationDialog(WebView webView, HttpAuthHandler handler) {
 
         // Show a dialog with the certificate info
         CredentialsDialogFragment dialog = CredentialsDialogFragment.newInstanceForCredentials(webView, handler);
