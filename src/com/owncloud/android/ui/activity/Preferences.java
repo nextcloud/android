@@ -88,6 +88,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         ActionBar actionBar = getSherlock().getActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.actionbar_settings);
         
         // Load the accounts category for adding the list of accounts
         mAccountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
