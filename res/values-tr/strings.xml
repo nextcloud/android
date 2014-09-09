@@ -31,6 +31,8 @@
   <string name="prefs_feedback">Geribildirim</string>
   <string name="prefs_imprint">İzlenim</string>
   <string name="recommend_subject">%1$s uygulamasını akıllı telefonunda dene!</string>
+  <string name="recommend_text">\"Seni, akıllı telefonunda %1$s kullanmaya davet ediyorum!\nBuradan indirebilirsin: %2$s\"
+        </string>
   <string name="auth_check_server">Sunucuyu Denetle</string>
   <string name="auth_host_url">Sunucu adresi https://…</string>
   <string name="auth_username">Kullanıcı Adı</string>
@@ -103,6 +105,7 @@
   <string name="sync_fail_in_favourites_content">%1$d dosya eşitlenemedi (%2$d çakışma)</string>
   <string name="sync_foreign_files_forgotten_ticker">Bazı yerel dosyalar unutuldu</string>
   <string name="sync_foreign_files_forgotten_content">%2$s klasöründeki %1$d dosya şuraya kopyalanamadı</string>
+  <string name="sync_foreign_files_forgotten_explanation">1.3.16 sürümünden sonra, bu aygıttan yüklenen dosyalar bir dosya birden fazla hesapla eşitlendiğinde veri kaybının önlenebilmesi için %1$s yerel klasörüne kopyalanır.\n\nBu değişiklikten dolayı, bu uygulamanın yüklenmiş tüm önceki sürümündeki dosyalar %2$s klasörüne kopyalandı. Ancak hesap eşitlenmesi sırasında bu işlemin tamamlanmasını engelleyen bir hata oluştu. Dosyayı/dosyaları olduğu gibi bırakabilir ve %3$s bağlantısını kaldırabilirsiniz veya dosyayı/dosyaları %1$s dizinine taşıyıp %4$s bağlantılarını koruyabilirsiniz.\n\nAşağıda listelenenler yerel dosyalar ve bağlı oldukları %5$s içerisindeki uzak dosyalardır.</string>
   <string name="sync_current_folder_was_removed">%1$s klasörü artık mevcut değil.</string>
   <string name="foreign_files_move">Tümünü taşı</string>
   <string name="foreign_files_success">Tüm dosyalar taşındı</string>
@@ -238,9 +241,9 @@
   <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel klasörüne kopyalanamadı</string>
   <string name="share_link_no_support_share_api">Üzgünüz, paylaşım sunucunuzda etkin değil. Lütfen yöneticinizle
                 iletişime geçin.</string>
-  <string name="share_link_file_no_exist">Bu dosya veya klasör paylaşılamıyor. Lütfen mevcut olup olmadığını denetleyin</string>
+  <string name="share_link_file_no_exist">Paylaşma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
   <string name="share_link_file_error">Bu dosya veya klasörü paylaşmaya çalışılırken bir hata oluştu</string>
-  <string name="unshare_link_file_no_exist">Bu dosya veya klasörün paylaşımı kaldırılamadı. Mevcut değil.</string>
+  <string name="unshare_link_file_no_exist">Paylaşımı kaldırma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
   <string name="unshare_link_file_error">Bu dosya veya klasör paylaşımı kaldırılmaya çalışılırken bir hata oluştu</string>
   <string name="activity_chooser_send_file_title">Gönder</string>
   <string name="copy_link">Bağlantıyı kopyala</string>
@@ -262,4 +265,12 @@
   <string name="prefs_category_accounts">Hesaplar</string>
   <string name="prefs_add_account">Hesap ekle</string>
   <string name="auth_redirect_non_secure_connection_title">Güvenli bağlantı, güvenli olmayan bir rotaya yönlendiriliyor.</string>
+  <string name="actionbar_move">Taşı</string>
+  <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
+  <string name="move_choose_button_text">Seç</string>
+  <string name="move_file_not_found">Taşıma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
+  <string name="move_file_invalid_into_descendent">Klasörü, kendi alt klasörüne taşımak mümkün değil</string>
+  <string name="move_file_invalid_overwrite">Dosya zaten hedef klasörde mevcut</string>
+  <string name="move_file_error">Bu dosya veya klasörü taşımaya çalışılırken bir hata oluştu</string>
+  <string name="forbidden_permissions_move">bu dosyayı taşımak için</string>
 </resources>

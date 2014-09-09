@@ -238,9 +238,7 @@
   <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
   <string name="share_link_no_support_share_api">Je nám to ľúto, ale zdieľanie nie je na vašom serveri povolené. Prosím kontaktujte vášho
 		administrátora.</string>
-  <string name="share_link_file_no_exist">Nie je možné zdieľať tento súbor alebo priečinok. Prosím uistite sa že existuje</string>
   <string name="share_link_file_error">Pri pokuse o zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
-  <string name="unshare_link_file_no_exist">Nie je možné zrušiť zdieľanie tohoto súboru alebo priečinka. Súbor alebo priečinok neexistuje.</string>
   <string name="unshare_link_file_error">Pri pokuse zrušiť zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
   <string name="activity_chooser_send_file_title">Odoslať</string>
   <string name="copy_link">Kopíruj odkaz</string>
@@ -262,4 +260,6 @@
   <string name="prefs_category_accounts">Účty</string>
   <string name="prefs_add_account">Pridať účet</string>
   <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojenie je presmerované nezabezpečenou cestou.</string>
+  <string name="actionbar_move">Presunúť</string>
+  <string name="move_choose_button_text">Vybrať</string>
 </resources>

@@ -32,6 +32,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.DownloadFileOperation;
+import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -185,6 +186,25 @@ public class ErrorMessageAdapter {
             } else {    // Generic error
                 // Show a Message, operation finished without success
                 message = res.getString(R.string.unshare_link_file_error);
+            }
+        } else if (operation instanceof MoveFileOperation) {
+
+            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
+                message = res.getString(R.string.move_file_not_found);
+                
+            } else if (result.getCode() == ResultCode.INVALID_MOVE_INTO_DESCENDANT)  {
+                message = res.getString(R.string.move_file_invalid_into_descendent);
+
+            } else if (result.getCode() == ResultCode.INVALID_OVERWRITE) {
+                message = res.getString(R.string.move_file_invalid_overwrite);
+
+            } else if (result.getCode() == ResultCode.FORBIDDEN) {
+                message = String.format(res.getString(R.string.forbidden_permissions),
+                        res.getString(R.string.forbidden_permissions_move));
+
+            }else {    // Generic error
+                // Show a Message, operation finished without success
+                message = res.getString(R.string.move_file_error);
             }
         }
         

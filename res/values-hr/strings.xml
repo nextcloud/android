@@ -27,4 +27,5 @@
   <string name="common_remove">Makni</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Korisnićki računi</string>
+  <string name="move_choose_button_text">Izaberi</string>
 </resources>

@@ -17,6 +17,10 @@
   <string name="prefs_manage_accounts">Fiókok kezelése</string>
   <string name="prefs_pincode">Alkalmazás PIN</string>
   <string name="prefs_pincode_summary">Védje meg az alkalmazást</string>
+  <string name="prefs_instant_upload">Azonnali képfeltöltések</string>
+  <string name="prefs_instant_upload_summary">Kamera által készítette képek azonnali feltöltése</string>
+  <string name="prefs_instant_video_upload">Azonnali video feltöltések</string>
+  <string name="prefs_instant_video_upload_summary">Kamera által készített videó azonnali feltöltése</string>
   <string name="prefs_log_title">Naplózás engedélyezése</string>
   <string name="prefs_log_summary">Ez használható a problémák naplózásához</string>
   <string name="prefs_log_title_history">Naplózás előzménye</string>
@@ -27,6 +31,8 @@
   <string name="prefs_feedback">Visszajelzés</string>
   <string name="prefs_imprint">Impresszum</string>
   <string name="recommend_subject">Próbálja ki %1$s-t az okostelefonján!</string>
+  <string name="recommend_text">\"Szeretnélek meghívni, hogy használd %1$s az okostelefonodon!\nTölts le innen: %2$s\"
+	</string>
   <string name="auth_check_server">Szerver állapot ellenörzés</string>
   <string name="auth_host_url">Kiszolgáló címe https://...</string>
   <string name="auth_username">Felhasználói név</string>
@@ -35,6 +41,7 @@
   <string name="sync_string_files">Fájlok</string>
   <string name="setup_btn_connect">Kapcsolódás</string>
   <string name="uploader_btn_upload_text">Feltöltés</string>
+  <string name="uploader_top_message">Válassz feltöltési mappát:</string>
   <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
   <string name="uploader_wrn_no_account_text">Nem található %1$s fiók ezen a készüléken. Hozzon létre egy fiókot előbb.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Beállítás</string>
@@ -45,6 +52,7 @@
   <string name="uploader_info_uploading">Feltöltés</string>
   <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
   <string name="file_list_loading">Betöltés...</string>
+  <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
   <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
   <string name="filedetails_type">Tipus:</string>
@@ -214,13 +222,12 @@
   <string name="conflict_overwrite">Felülírás</string>
   <string name="conflict_dont_upload">Ne töltsük föl</string>
   <string name="preview_image_description">Előnézeti kép</string>
-  <string name="share_link_file_no_exist">A mappa nem osztható meg. Lehet, hogy nem is létezik.</string>
   <string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
-  <string name="unshare_link_file_no_exist">Nem lehet a megosztást megszüntetni. A mappa vagy fájl nem létezik.</string>
   <string name="unshare_link_file_error">Hiba lépett fel a mappa megosztásának visszavonásakor</string>
   <string name="activity_chooser_send_file_title">Küldjük el</string>
   <string name="copy_link">Link másolása</string>
   <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Fiókok</string>
+  <string name="move_choose_button_text">Válasszon</string>
 </resources>

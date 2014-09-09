@@ -236,9 +236,7 @@
   <string name="error__upload__local_file_not_copied">%1$s تعذر نسخه %2$s للمجلد المحلي</string>
   <string name="share_link_no_support_share_api">عذراً, المشاركة غير متاحة في الخادم الخاص بك. الرجاء الإتصال
   بالمسؤول.</string>
-  <string name="share_link_file_no_exist">لم يتمكن من مشاركة الملف او المجلد. يرجى التاكد من وجوده </string>
   <string name="share_link_file_error">حدث خطأ ما أثناء محاولة مشاركة هذا الملف أو المجلد</string>
-  <string name="unshare_link_file_no_exist">غير قادر على إلغاء مشاركة هذا الملف أو المجلد.لا وجود له</string>
   <string name="unshare_link_file_error">حدث خطأ ما أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد</string>
   <string name="activity_chooser_send_file_title">أرسل</string>
   <string name="copy_link">نسخ الرابط</string>
@@ -250,4 +248,5 @@
   <string name="network_host_not_available">تعذر إكمال العملية، الخادم غير متوفر</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">حسابات</string>
+  <string name="move_choose_button_text">اختيار</string>
 </resources>

@@ -197,4 +197,5 @@
   <string name="clipboard_text_copied">In die Zwischenablage kopiert</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Konten</string>
+  <string name="move_choose_button_text">Auswählen</string>
 </resources>

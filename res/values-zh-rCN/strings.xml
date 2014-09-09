@@ -236,9 +236,7 @@
   <string name="preview_image_error_unknown_format">不能显示图片</string>
   <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
   <string name="share_link_no_support_share_api">抱歉，共享功能未启用。请联系管理员。</string>
-  <string name="share_link_file_no_exist">无法共享该文件或目录，请确定该文件或目录存在</string>
   <string name="share_link_file_error">共享文件或目录出错</string>
-  <string name="unshare_link_file_no_exist">不能取消该文件或文件夹的共享，因为它不存在。</string>
   <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
   <string name="activity_chooser_send_file_title">发送</string>
   <string name="copy_link">复制链接</string>
@@ -250,4 +248,5 @@
   <string name="network_host_not_available">服务器不可用，此操作无法完成</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">账号</string>
+  <string name="move_choose_button_text">选择(&amp;C)...</string>
 </resources>
