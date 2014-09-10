@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -65,23 +66,11 @@ public class LogHistoryActivity extends SherlockActivity {
             
             @Override
             public void onClick(View v) {
-//                File dir = new File(mLogPath);
-//                if (dir != null) {
-//                    File[] files = dir.listFiles();
-//                    if(files!=null) { 
-//                        for(File f: files) {
-//                                f.delete();
-//                        }
-//                    }
-//                    dir.delete();
-//                }
-//                finish();
 
                 Log_OC.stopLogging();
                 finish();
             }
         });
-
 
         sendHistoryButton.setOnClickListener(new OnClickListener() {
 
@@ -89,29 +78,14 @@ public class LogHistoryActivity extends SherlockActivity {
             public void onClick(View v) {
                 sendMail();
             }
-
         });
-        
-       
+
         if(mLogPath != null){
         logDIR = new File(mLogPath);
         }
 
         if(logDIR != null && logDIR.isDirectory()) {
-//            File[] files = logDIR.listFiles();
-//
-//            if (files != null && files.length != 0) {
-//                ArrayList<String> logfiles_name = new ArrayList<String>();
-//                for (File file : files) {
-//                    logfiles_name.add(file.getName());
-//                }
-//                    String[] logFiles2Array = logfiles_name.toArray(new String[logfiles_name.size()]);
-//                    LogListAdapter listadapter = new LogListAdapter(this,logFiles2Array);
-//                    listView.setAdapter(listadapter);
-//            }
-
             readLogFile();
-
         }
     }
 
@@ -119,7 +93,6 @@ public class LogHistoryActivity extends SherlockActivity {
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         super.onMenuItemSelected(featureId, item);
-
         switch (item.getItemId()) {
         case android.R.id.home:
             finish();

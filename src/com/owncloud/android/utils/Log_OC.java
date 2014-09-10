@@ -6,13 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
+import android.os.Environment;
 import android.util.Log;
-
-import com.owncloud.android.MainApp;
-
 
 
 public class Log_OC {
@@ -74,9 +70,7 @@ public class Log_OC {
             isFileCreated = true;
             Log.d("LOG_OC", "Log file created");
         }
-//        if (logFile.exists()) {
-//            logFile.delete();
-//        }
+
         try { 
             logFile.createNewFile();
             buf = new BufferedWriter(new FileWriter(logFile, true));
@@ -90,12 +84,7 @@ public class Log_OC {
     }
     
     public static void stopLogging() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
-//        String currentDateandTime = sdf.format(new Date());
         if (logFile != null) {
-//            logFile.renameTo(new File(folder + File.separator + MainApp.getLogName() + currentDateandTime+".log"));
-            
-          
             isEnabled = false;
             try {
                 buf = new BufferedWriter(new FileWriter(logFile, false));
@@ -104,9 +93,7 @@ public class Log_OC {
             } catch (IOException e) {
                 e.printStackTrace();
             } 
-        
         }
-        
     }
     
     private static void appendPhoneInfo() {
@@ -120,8 +107,11 @@ public class Log_OC {
     
     private static void appendLog(String text) { 
         if (isEnabled) {
+            String logPath = Environment.getExternalStorageDirectory()+File.separator+"owncloud"+File.separator+"log";
+            startLogging(logPath);
             String timeStamp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
-           try {
+
+            try {
                buf = new BufferedWriter(new FileWriter(logFile, true));
                buf.write(timeStamp + " -> " +text); 
                buf.newLine();
