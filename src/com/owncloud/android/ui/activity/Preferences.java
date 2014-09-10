@@ -70,8 +70,6 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
 
     private DbHandler mDbHandler;
     private CheckBoxPreference pCode;
-    //private CheckBoxPreference pLogging;
-    //private Preference pLoggingHistory;
     private Preference pAboutApp;
 
     private Account mPreviousAccount = null;
@@ -262,44 +260,6 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                    Log_OC.e(TAG, "Error while showing about dialog", e);
                }
        }
-       
-       /* DISABLED FOR RELEASE UNTIL FIXED 
-       pLogging = (CheckBoxPreference) findPreference("log_to_file");
-       if (pLogging != null) {
-           pLogging.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-               @Override
-               public boolean onPreferenceChange(Preference preference, Object newValue) {
-                   
-                   String logpath = Environment.getExternalStorageDirectory()+File.separator+"owncloud"+File.separator+"log";
-                
-                   if(!pLogging.isChecked()) {
-                       Log_OC.d("Debug", "start logging");
-                       Log_OC.v("PATH", logpath);
-                       Log_OC.startLogging(logpath);
-                   }
-                   else {
-                       Log_OC.d("Debug", "stop logging");
-                       Log_OC.stopLogging();
-                   }
-                   return true;
-               }
-           });
-       }
-       
-       pLoggingHistory = (Preference) findPreference("log_history");
-       if (pLoggingHistory != null) {
-           pLoggingHistory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent intent = new Intent(getApplicationContext(),LogHistoryActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-       }
-       */
-       
     }
 
     @Override
