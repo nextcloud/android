@@ -41,12 +41,14 @@ import com.owncloud.android.utils.Log_OC;
 
 
 public class LogHistoryActivity extends SherlockActivity {
-    String mLogPath = FileStorageUtils.getLogPath();
 
     private static final String MAIL_ATTACHMENT_TYPE = "plain/text";
-    private static final String LOGGER_FILE_NAME = "log.txt";
+    private static final String LOGGER_FILE_NAME = "currentLog.txt";
 
-    File logDIR = null;
+    private static final String TAG = LogHistoryActivity.class.getSimpleName();
+
+    private String mLogPath = FileStorageUtils.getLogPath();
+    private File logDIR = null;
 
 
     @Override
@@ -88,7 +90,7 @@ public class LogHistoryActivity extends SherlockActivity {
         }
     }
 
-    
+
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         super.onMenuItemSelected(featureId, item);
@@ -149,7 +151,7 @@ public class LogHistoryActivity extends SherlockActivity {
           }
       }
       catch (IOException e) {
-
+          Log_OC.d(TAG, e.getMessage().toString());
       }
 
       TextView logTV = (TextView) findViewById(R.id.logTV);

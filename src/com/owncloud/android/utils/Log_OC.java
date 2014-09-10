@@ -12,18 +12,20 @@ import android.util.Log;
 
 
 public class Log_OC {
-    
+    private static final String SIMPLE_DATE_FORMAT = "HH:mm:ss";
+    private static final long MAX_FILE_SIZE = 10000;
 
-    private static boolean isEnabled = false;
-    private static File logFile;
-    private static File folder;
-    private static BufferedWriter buf;  
-    
+    private static File mLogFile;
+    private static File mFolder;
+    private static BufferedWriter mBuf;
+
+    private static String[] mLogFileNames = {"currentLog.txt", "backupLog.txt"};
+    private static boolean isMaxFileSizeReached = false;
+
     public static void i(String TAG, String message){
-        // Printing the message to LogCat console
-        int a = Log.i(TAG, message);
+
         // Write the log message to the file
-        appendLog(TAG+" : "+message);
+        appendLog(TAG+" : "+ message);
     }
 
     public static void d(String TAG, String message){
@@ -59,43 +61,71 @@ public class Log_OC {
         appendLog(TAG+" : "+ message);
     }
     
+    /**
+     * Start doing logging
+     * @param logPath : path of log file
+     */
     public static void startLogging(String logPath) {
-        folder = new File(logPath);
-        logFile = new File(folder + File.separator + "log.txt");
+        mFolder = new File(logPath);
+        mLogFile = new File(mFolder + File.separator + mLogFileNames[0]);
         
         boolean isFileCreated = false;
         
-        if (!folder.exists()) {
-            folder.mkdirs();
+        if (!mFolder.exists()) {
+            mFolder.mkdirs();
             isFileCreated = true;
             Log.d("LOG_OC", "Log file created");
         }
 
         try { 
-            logFile.createNewFile();
-            buf = new BufferedWriter(new FileWriter(logFile, true));
-            isEnabled = true;
+
+            if (isMaxFileSizeReached) {
+
+                // Move current log file info to another file
+                File secondLogFile = new File(mFolder + File.separator + mLogFileNames[1]);
+                if (mLogFile.exists()) {
+                    mLogFile.renameTo(secondLogFile);
+                }
+
+                // Construct a new file for current log info
+                mLogFile = new File(mFolder + File.separator + mLogFileNames[0]);
+                isMaxFileSizeReached = false;
+            }
+
+            // Create the current log file if does not exist
+            mLogFile.createNewFile();
+            mBuf = new BufferedWriter(new FileWriter(mLogFile, true));
             if (isFileCreated) {
                 appendPhoneInfo();
             }
-        }catch (IOException e){ 
+
+            // Check if current log file size is bigger than the max file size defined
+            if (mLogFile.length() > MAX_FILE_SIZE) {
+                isMaxFileSizeReached = true;
+            }
+        } catch (IOException e) {
             e.printStackTrace(); 
         } 
     }
     
+    /**
+     * Stop doing logging
+     */
     public static void stopLogging() {
-        if (logFile != null) {
-            isEnabled = false;
+        if (mLogFile != null) {
             try {
-                buf = new BufferedWriter(new FileWriter(logFile, false));
-                buf.append("");
-                buf.close();
+                mBuf = new BufferedWriter(new FileWriter(mLogFile, false));
+                mBuf.append("");
+                mBuf.close();
             } catch (IOException e) {
                 e.printStackTrace();
             } 
         }
     }
     
+    /**
+     * Append the info of the device
+     */
     private static void appendPhoneInfo() {
         appendLog("Model : " + android.os.Build.MODEL);
         appendLog("Brand : " + android.os.Build.BRAND);
@@ -105,28 +135,22 @@ public class Log_OC {
         appendLog("Version-Release : " + android.os.Build.VERSION.RELEASE);
     }
     
+    /**
+     * Append to the log file the info passed
+     * @param text : text for adding to the log file
+     */
     private static void appendLog(String text) { 
-        if (isEnabled) {
-            String logPath = Environment.getExternalStorageDirectory()+File.separator+"owncloud"+File.separator+"log";
-            startLogging(logPath);
-            String timeStamp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
+        String logPath = Environment.getExternalStorageDirectory()+File.separator+"owncloud"+File.separator+"log";
+        startLogging(logPath);
+        String timeStamp = new SimpleDateFormat(SIMPLE_DATE_FORMAT).format(Calendar.getInstance().getTime());
 
-            try {
-               buf = new BufferedWriter(new FileWriter(logFile, true));
-               buf.write(timeStamp + " -> " +text); 
-               buf.newLine();
-               buf.close();
-           } catch (IOException e) { 
-               e.printStackTrace(); 
-        } 
+        try {
+           mBuf = new BufferedWriter(new FileWriter(mLogFile, true));
+           mBuf.write(timeStamp + " -> " +text);
+           mBuf.newLine();
+           mBuf.close();
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
     }
-}
-
-    
-   
-
-  
-
-   
-   
 }
