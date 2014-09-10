@@ -289,7 +289,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
             if (listOfFiles != null) {
                 listOfFiles.listDirectory(getCurrentDir());   
             } else {
-                Log.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
+                Log_OC.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
             }
             
             /// Second fragment
@@ -305,12 +305,12 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
             }
 
         } else {
-            Log.wtf(TAG, "initFragments() called with invalid NULLs!");
+            Log_OC.wtf(TAG, "initFragments() called with invalid NULLs!");
             if (getAccount() == null) {
-                Log.wtf(TAG, "\t account is NULL");
+                Log_OC.wtf(TAG, "\t account is NULL");
             }
             if (getFile() == null) {
-                Log.wtf(TAG, "\t file is NULL");
+                Log_OC.wtf(TAG, "\t file is NULL");
             }
         }
     }
@@ -1012,7 +1012,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
             }
             ocFileListFragment.setMessageForEmptyList(getString(message));
         } else {
-            Log.e(TAG, "OCFileListFragment is null");
+            Log_OC.e(TAG, "OCFileListFragment is null");
         }
     }
 
