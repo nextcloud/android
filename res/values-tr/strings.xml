@@ -265,6 +265,8 @@
   <string name="prefs_category_accounts">Hesaplar</string>
   <string name="prefs_add_account">Hesap ekle</string>
   <string name="auth_redirect_non_secure_connection_title">Güvenli bağlantı, güvenli olmayan bir rotaya yönlendiriliyor.</string>
+  <string name="saml_authentication_required_text">Kimlik doğrulama gerekli</string>
+  <string name="saml_authentication_wrong_pass">Hatalı parola</string>
   <string name="actionbar_move">Taşı</string>
   <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
   <string name="move_choose_button_text">Seç</string>

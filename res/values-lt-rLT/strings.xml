@@ -225,5 +225,6 @@
   <string name="clipboard_text_copied">Nukopijuota į talpyklę</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Paskyros</string>
+  <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
   <string name="move_choose_button_text">Pasirinkite</string>
 </resources>

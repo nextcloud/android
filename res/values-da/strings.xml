@@ -263,6 +263,8 @@
   <string name="prefs_category_accounts">Konti</string>
   <string name="prefs_add_account">Tilføj konto</string>
   <string name="auth_redirect_non_secure_connection_title">Sikker forbindelse videredirigeres gennem en usikker rute.</string>
+  <string name="saml_authentication_required_text">Godkendelse påkrævet</string>
+  <string name="saml_authentication_wrong_pass">Forkert kodeord</string>
   <string name="actionbar_move">Flyt</string>
   <string name="file_list_empty_moving">Der er intet her. Du kan tilføje en mappe!</string>
   <string name="move_choose_button_text">Vælg</string>

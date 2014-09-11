@@ -264,6 +264,8 @@
   <string name="prefs_category_accounts">Профили</string>
   <string name="prefs_add_account">Добавяне на профил</string>
   <string name="auth_redirect_non_secure_connection_title">Сигурна връзка е пренасочена по несигурен път.</string>
+  <string name="saml_authentication_required_text">Нужна е идентификация</string>
+  <string name="saml_authentication_wrong_pass">Грешна парола</string>
   <string name="actionbar_move">Премести</string>
   <string name="file_list_empty_moving">Тук няма нищо. Можеш да добавиш папка!</string>
   <string name="move_choose_button_text">Избери</string>

@@ -264,6 +264,8 @@
   <string name="prefs_category_accounts">Konten</string>
   <string name="prefs_add_account">Konto hinzufügen</string>
   <string name="auth_redirect_non_secure_connection_title">Die gesicherte Verbindung wird auf eine unsichere Route weitergeleitet.</string>
+  <string name="saml_authentication_required_text">Authentifizierung benötigt</string>
+  <string name="saml_authentication_wrong_pass">Falsches Passwort</string>
   <string name="actionbar_move">Verschieben</string>
   <string name="file_list_empty_moving">Nichts vorhanden. Du kannst einen Ordner hinzufügen!</string>
   <string name="move_choose_button_text">Auswählen</string>

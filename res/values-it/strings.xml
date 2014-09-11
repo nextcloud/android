@@ -265,6 +265,8 @@
   <string name="prefs_category_accounts">Account</string>
   <string name="prefs_add_account">Aggiungi account</string>
   <string name="auth_redirect_non_secure_connection_title">La connessione sicura è rediretta attraverso un percorso non sicuro.</string>
+  <string name="saml_authentication_required_text">Autenticazione richiesta</string>
+  <string name="saml_authentication_wrong_pass">Password errata</string>
   <string name="actionbar_move">Sposta</string>
   <string name="file_list_empty_moving">Qui non c\'è niente. Puoi aggiungere una cartella.</string>
   <string name="move_choose_button_text">Scegli</string>

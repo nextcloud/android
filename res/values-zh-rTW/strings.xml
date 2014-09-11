@@ -246,5 +246,7 @@
   <string name="network_host_not_available">這個操作無法完成, 無法使用伺服器</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">帳號</string>
+  <string name="saml_authentication_required_text">必須驗證</string>
+  <string name="saml_authentication_wrong_pass">密碼錯誤</string>
   <string name="move_choose_button_text">選擇</string>
 </resources>

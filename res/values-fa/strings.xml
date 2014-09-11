@@ -229,5 +229,7 @@
   <string name="uploader_upload_forbidden_permissions">برای آپلود در این پوشه</string>
   <string name="downloader_download_file_not_found">این فایل دیگر روی سرور وجود ندارد</string>
   <string name="prefs_category_accounts">حساب‌ها</string>
+  <string name="saml_authentication_required_text">احراز هویت مورد نیاز است</string>
+  <string name="saml_authentication_wrong_pass">رمز عبور اشتباه است</string>
   <string name="move_choose_button_text">انتخاب کردن</string>
 </resources>

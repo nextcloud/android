@@ -248,5 +248,6 @@
   <string name="network_host_not_available">تعذر إكمال العملية، الخادم غير متوفر</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">حسابات</string>
+  <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
   <string name="move_choose_button_text">اختيار</string>
 </resources>

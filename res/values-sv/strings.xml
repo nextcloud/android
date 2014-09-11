@@ -248,5 +248,7 @@
   <string name="network_host_not_available">Åtgärden kunte inte slutföras, servern är ej tillgänglig</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Konton</string>
+  <string name="saml_authentication_required_text">Autentisering krävs</string>
+  <string name="saml_authentication_wrong_pass">Fel lösenord</string>
   <string name="move_choose_button_text">Välj</string>
 </resources>

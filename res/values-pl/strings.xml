@@ -260,5 +260,7 @@
   <string name="prefs_category_accounts">Konta</string>
   <string name="prefs_add_account">Dodaj konto</string>
   <string name="auth_redirect_non_secure_connection_title">Bezpieczne połączenie jest przekierowywane przez niezabezpieczone trasy.</string>
+  <string name="saml_authentication_required_text">Wymagana autoryzacja</string>
+  <string name="saml_authentication_wrong_pass">Złe hasło</string>
   <string name="move_choose_button_text">Wybierz</string>
 </resources>

@@ -264,6 +264,8 @@
   <string name="prefs_category_accounts">Contas</string>
   <string name="prefs_add_account">Adicionar uma conta</string>
   <string name="auth_redirect_non_secure_connection_title">A conexão segura está redirecionada através de uma rota insegura.</string>
+  <string name="saml_authentication_required_text">Autenticação é requerida</string>
+  <string name="saml_authentication_wrong_pass">Senha incorreta</string>
   <string name="actionbar_move">Mover</string>
   <string name="file_list_empty_moving">Nada aqui. Você pode adicionar uma pasta!</string>
   <string name="move_choose_button_text">Escolher</string>

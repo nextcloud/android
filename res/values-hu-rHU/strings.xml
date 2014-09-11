@@ -229,5 +229,7 @@
   <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Fiókok</string>
+  <string name="saml_authentication_required_text">Felhasználóazonosítás szükséges</string>
+  <string name="saml_authentication_wrong_pass">Hibás jelszó</string>
   <string name="move_choose_button_text">Válasszon</string>
 </resources>

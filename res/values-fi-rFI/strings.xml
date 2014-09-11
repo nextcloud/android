@@ -124,6 +124,8 @@
   <string name="media_err_io">Mediatiedoston luku ei onnistunut</string>
   <string name="media_err_timeout">Aikakatkaisu toistoa yrittäessä</string>
   <string name="media_err_invalid_progressive_playback">Mediatiedostoa ei voi suoratoistaa</string>
+  <string name="media_err_security_ex">Turvallisuusvirhe yrittäessä toistaa kohdetta %1$s</string>
+  <string name="media_err_unexpected">Odottamaton virhe yrittäessä toistaa kohdetta %1$s</string>
   <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
   <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
   <string name="media_forward_description">Eteenpäin kelaus -painike</string>
@@ -240,6 +242,8 @@
   <string name="prefs_category_accounts">Tilit</string>
   <string name="prefs_add_account">Lisää tili</string>
   <string name="auth_redirect_non_secure_connection_title">Salattu yhteys on ohjattu uudelleen salaamatonta reittiä pitkin.</string>
+  <string name="saml_authentication_required_text">Tunnistautuminen vaaditaan</string>
+  <string name="saml_authentication_wrong_pass">Väärä salasana</string>
   <string name="actionbar_move">Siirrä</string>
   <string name="file_list_empty_moving">Täällä ei ole mitään. Voit lisätä kansion!</string>
   <string name="move_choose_button_text">Valitse</string>

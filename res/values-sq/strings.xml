@@ -70,5 +70,6 @@
   <string name="activity_chooser_send_file_title">Dërgo</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Llogarit</string>
+  <string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
   <string name="move_choose_button_text">Zgjidh</string>
 </resources>

@@ -213,5 +213,6 @@
   <string name="clipboard_text_copied">Copiado al portapapeles</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Cuentas</string>
+  <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
   <string name="move_choose_button_text">Seleccionar</string>
 </resources>
