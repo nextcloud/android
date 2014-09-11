@@ -7,12 +7,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import android.os.Environment;
 import android.util.Log;
 
 
 public class Log_OC {
-    private static final String SIMPLE_DATE_FORMAT = "HH:mm:ss";
+    private static final String SIMPLE_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss";
     private static final long MAX_FILE_SIZE = 10000;
 
     private static File mLogFile;
@@ -83,7 +82,7 @@ public class Log_OC {
 
             if (isMaxFileSizeReached) {
 
-                // Move current log file info to another file
+                // Move current log file info to another file (old logs)
                 File olderFile = new File(mFolder + File.separator + mLogFileNames[1]);
                 if (mLogFile.exists()) {
                     mLogFile.renameTo(olderFile);
@@ -111,17 +110,16 @@ public class Log_OC {
     }
     
     /**
-     * Stop doing logging
+     * Delete history logging
      */
-    public static void stopLogging() {
-        if (mLogFile != null) {
-            try {
-                mBuf = new BufferedWriter(new FileWriter(mLogFile, false));
-                mBuf.append("");
-                mBuf.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } 
+    public static void deleteHistoryLogging() {
+        File folderLogs = new File(mFolder + File.separator);
+        if(folderLogs.isDirectory()){
+            String[] myFiles = folderLogs.list();
+            for (int i=0; i<myFiles.length; i++) {
+                File myFile = new File(folderLogs, myFiles[i]);
+                myFile.delete();
+            }
         }
     }
     

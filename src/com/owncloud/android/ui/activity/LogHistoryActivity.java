@@ -67,7 +67,7 @@ public class LogHistoryActivity extends SherlockActivity {
             @Override
             public void onClick(View v) {
 
-                Log_OC.stopLogging();
+                Log_OC.deleteHistoryLogging();
                 finish();
             }
         });
