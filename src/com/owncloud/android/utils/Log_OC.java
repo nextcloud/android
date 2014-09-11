@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class Log_OC {
     private static final String SIMPLE_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss";
-    private static final long MAX_FILE_SIZE = 10000;
+    private static final long MAX_FILE_SIZE = 1000000; // 1MB
 
     private static File mLogFile;
     private static File mFolder;
@@ -145,7 +145,10 @@ public class Log_OC {
 
         try {
            mBuf = new BufferedWriter(new FileWriter(mLogFile, true));
-           mBuf.write(timeStamp + " -> " +text);
+           mBuf.newLine();
+           mBuf.write(timeStamp);
+           mBuf.newLine();
+           mBuf.write(text);
            mBuf.newLine();
            mBuf.close();
        } catch (IOException e) {
