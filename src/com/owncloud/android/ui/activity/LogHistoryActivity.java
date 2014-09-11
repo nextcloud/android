@@ -21,11 +21,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -42,8 +42,7 @@ import com.owncloud.android.utils.Log_OC;
 
 public class LogHistoryActivity extends SherlockActivity {
 
-    private static final String MAIL_ATTACHMENT_TYPE = "plain/text";
-    private static final String LOGGER_FILE_NAME = "currentLog.txt";
+    private static final String MAIL_ATTACHMENT_TYPE = "text/plain";
 
     private static final String TAG = LogHistoryActivity.class.getSimpleName();
 
@@ -112,18 +111,27 @@ public class LogHistoryActivity extends SherlockActivity {
 
         String emailAddresses[] = { getText(R.string.mail_logger).toString() };
 
-        Uri uri = Uri.parse("file://" + mLogPath + File.separator + LOGGER_FILE_NAME);
-        Intent intent = new Intent(Intent.ACTION_SEND);
+        ArrayList<Uri> uris = new ArrayList<Uri>();
+
+        // Convert from paths to Android friendly Parcelable Uri's
+        for (String file : Log_OC.getLogFileNames())
+        {
+            if (new File(mLogPath + File.separator, file).exists()) {
+                Uri u = Uri.parse("file://" + mLogPath + File.separator + file);
+                uris.add(u);
+            }
+        }
+
+        Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
 
         // Explicitly only use Gmail to send
         intent.setClassName("com.google.android.gm","com.google.android.gm.ComposeActivityGmail");
-
         intent.putExtra(Intent.EXTRA_EMAIL, emailAddresses);
         intent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.log_mail_subject));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setType(MAIL_ATTACHMENT_TYPE);
+        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
 
-        intent.putExtra(Intent.EXTRA_STREAM, uri);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
@@ -135,26 +143,36 @@ public class LogHistoryActivity extends SherlockActivity {
      */
     private void readLogFile() {
 
-      //Get the text file
-      File file = new File(mLogPath,LOGGER_FILE_NAME);
+        String[] logFileName = Log_OC.getLogFileNames();
 
-      //Read text from file
-      StringBuilder text = new StringBuilder();
+        //Read text from files
+        StringBuilder text = new StringBuilder();
 
-      try {
-          BufferedReader br = new BufferedReader(new FileReader(file));
-          String line;
+        try {
 
-          while ((line = br.readLine()) != null) {
-              text.append(line);
-              text.append('\n');
-          }
-      }
-      catch (IOException e) {
-          Log_OC.d(TAG, e.getMessage().toString());
-      }
+            String line;
 
-      TextView logTV = (TextView) findViewById(R.id.logTV);
-      logTV.setText(text);
+            for (int i = logFileName.length-1; i >= 0; i--) {
+                File file = new File(mLogPath,logFileName[i]);
+                if (file.exists()) {
+                    // Check if FileReader is ready
+                    if (new FileReader(file).ready()) {
+                        BufferedReader br = new BufferedReader(new FileReader(file));
+                        while ((line = br.readLine()) != null) {
+                            // Append the log info
+                            text.append(line);
+                            text.append('\n');
+                        }
+                    }
+                }
+            }
+        }
+        catch (IOException e) {
+            Log_OC.d(TAG, e.getMessage().toString());
+        }
+
+        // Show in the screen the content of the log
+        TextView logTV = (TextView) findViewById(R.id.logTV);
+        logTV.setText(text);
     }
 }

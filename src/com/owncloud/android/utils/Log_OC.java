@@ -19,7 +19,9 @@ public class Log_OC {
     private static File mFolder;
     private static BufferedWriter mBuf;
 
-    private static String[] mLogFileNames = {"currentLog.txt", "backupLog.txt"};
+    private static String[] mLogFileNames = {"currentLog.txt", "olderLog.txt"};
+    private static String mLogPath =  FileStorageUtils.getLogPath();
+
     private static boolean isMaxFileSizeReached = false;
 
     public static void i(String TAG, String message){
@@ -60,7 +62,7 @@ public class Log_OC {
         Log.wtf(TAG,message); 
         appendLog(TAG+" : "+ message);
     }
-    
+
     /**
      * Start doing logging
      * @param logPath : path of log file
@@ -82,9 +84,9 @@ public class Log_OC {
             if (isMaxFileSizeReached) {
 
                 // Move current log file info to another file
-                File secondLogFile = new File(mFolder + File.separator + mLogFileNames[1]);
+                File olderFile = new File(mFolder + File.separator + mLogFileNames[1]);
                 if (mLogFile.exists()) {
-                    mLogFile.renameTo(secondLogFile);
+                    mLogFile.renameTo(olderFile);
                 }
 
                 // Construct a new file for current log info
@@ -140,8 +142,7 @@ public class Log_OC {
      * @param text : text for adding to the log file
      */
     private static void appendLog(String text) { 
-        String logPath = Environment.getExternalStorageDirectory()+File.separator+"owncloud"+File.separator+"log";
-        startLogging(logPath);
+        startLogging(mLogPath);
         String timeStamp = new SimpleDateFormat(SIMPLE_DATE_FORMAT).format(Calendar.getInstance().getTime());
 
         try {
@@ -152,5 +153,13 @@ public class Log_OC {
        } catch (IOException e) {
            e.printStackTrace();
        }
+    }
+
+    public static String[] getLogFileNames() {
+        return mLogFileNames;
+    }
+
+    public static void setmLogFileNames(String[] logFileNames) {
+        Log_OC.mLogFileNames = logFileNames;
     }
 }
