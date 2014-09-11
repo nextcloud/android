@@ -36,11 +36,11 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.network.NetworkUtils;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.CertificateCombinedExceptionViewAdapter;
 import com.owncloud.android.ui.adapter.SslCertificateViewAdapter;
 import com.owncloud.android.ui.adapter.SslErrorViewAdapter;
 import com.owncloud.android.ui.adapter.X509CertificateViewAdapter;
-import com.owncloud.android.utils.Log_OC;
 
 /**
  * Dialog to show information about an untrusted certificate and allow the user

@@ -23,8 +23,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,9 +37,9 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.Log_OC;
 
 
 public class LogHistoryActivity extends SherlockActivity {
@@ -48,6 +50,9 @@ public class LogHistoryActivity extends SherlockActivity {
 
     private String mLogPath = FileStorageUtils.getLogPath();
     private File logDIR = null;
+
+    private ProgressDialog mPd = null;
+    private TextView mLogTV;
 
 
     @Override
@@ -80,12 +85,19 @@ public class LogHistoryActivity extends SherlockActivity {
             }
         });
 
-        if(mLogPath != null){
-        logDIR = new File(mLogPath);
+        mLogTV = (TextView) findViewById(R.id.logTV);
+
+        if (mLogPath != null) {
+            logDIR = new File(mLogPath);
         }
 
-        if(logDIR != null && logDIR.isDirectory()) {
-            readLogFile();
+        if (logDIR != null && logDIR.isDirectory()) {
+            // Show the ProgressDialog while log data is being loaded
+            mPd = ProgressDialog.show(this, getText(R.string.actionbar_logger), 
+                    getText(R.string.log_progress_dialog_text), true, false);
+
+            // Start a new thread that will load all the log data
+            new LoadingLogTask().execute();
         }
     }
 
@@ -141,7 +153,7 @@ public class LogHistoryActivity extends SherlockActivity {
     /**
      * Read and show log file info
      */
-    private void readLogFile() {
+    private String readLogFile() {
 
         String[] logFileName = Log_OC.getLogFileNames();
 
@@ -171,8 +183,26 @@ public class LogHistoryActivity extends SherlockActivity {
             Log_OC.d(TAG, e.getMessage().toString());
         }
 
-        // Show in the screen the content of the log
-        TextView logTV = (TextView) findViewById(R.id.logTV);
-        logTV.setText(text);
+        return text.toString();
     }
+
+
+    /**
+     *
+     * Class for loading the log data async
+     *
+     */
+    private class LoadingLogTask extends AsyncTask<String, Void, String> {
+        protected String doInBackground(String... args) {
+            return readLogFile();
+        }
+
+        protected void onPostExecute(String result) {
+            mLogTV.setText(result);
+
+            if (mPd != null) {
+                mPd.dismiss();
+            }
+        }
+   }
 }

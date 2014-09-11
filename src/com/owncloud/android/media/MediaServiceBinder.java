@@ -19,8 +19,8 @@ package com.owncloud.android.media;
 
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.media.MediaService.State;
-import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.content.Intent;

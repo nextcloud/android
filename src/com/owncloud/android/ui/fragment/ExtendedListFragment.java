@@ -31,8 +31,8 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
-import com.owncloud.android.utils.Log_OC;
 
 /**
  *  TODO extending SherlockListFragment instead of SherlockFragment 
