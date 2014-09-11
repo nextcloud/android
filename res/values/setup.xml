@@ -19,7 +19,7 @@
     
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>
-    <string name="auth_method_saml_web_sso">off</string>
+    <string name="auth_method_saml_web_sso">on</string>
     
     <!-- Flags to enable/disable some features -->
     <string name = "send_files_to_other_apps">on</string>
