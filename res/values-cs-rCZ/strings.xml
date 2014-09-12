@@ -263,7 +263,7 @@ administrátora.</string>
   <string name="prefs_category_accounts">Účty</string>
   <string name="prefs_add_account">Přidat účet</string>
   <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojení je přesměrováváno nezabezpečenou trasou.</string>
-  <string name="saml_authentication_required_text">Vyžadováno ověření</string>
+  <string name="saml_authentication_required_text">Vyžadováno přihlášení</string>
   <string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
   <string name="actionbar_move">Přesunout</string>
   <string name="file_list_empty_moving">Zde nic není. Můžete přidat adresář!</string>

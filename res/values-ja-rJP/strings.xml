@@ -31,6 +31,8 @@
   <string name="prefs_feedback">フィードバック</string>
   <string name="prefs_imprint">インプリント</string>
   <string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
+  <string name="recommend_text">スマートフォンで %1$s を利用してみませんか！
+ここからダウンロードできます: %2$s</string>
   <string name="auth_check_server">サーバーを確認する</string>
   <string name="auth_host_url">サーバーアドレス https://…</string>
   <string name="auth_username">ユーザー名</string>
@@ -103,6 +105,7 @@
   <string name="sync_fail_in_favourites_content">%1$d ファイルのコンテンツを同期できませんでした（%2$d の競合）</string>
   <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
   <string name="sync_foreign_files_forgotten_content"> %2$s フォルダー内の %1$d ファイルはコピーできませんでした。</string>
+  <string name="sync_foreign_files_forgotten_explanation">バージョン 1.3.16以降、このデバイスからアップロードされたファイルは、単独のファイルが複数のアカウントと同期する際にデータの損失を防ぐため、ローカルの%1$sフォルダーにコピーされます。 この変更により、このアプリの以前のバージョンでアップロードされたすべてのファイルは%2$sフォルダーにコピーされます。しかしながら、アカウント同期中にはエラーが発生してこの操作が完了しないようになっています。ファイルをこのままにして%3$sへのリンクを削除するか、あるいは%1$sフォルダーにファイルを移動して%4$sへのリンクを維持することができます。 以下のリストにあるのは、ローカルのファイル及びそれらにリンクしている %5$s内のリモートファイルです。</string>
   <string name="sync_current_folder_was_removed">フォルダー %1$s はもう存在しません</string>
   <string name="foreign_files_move">すべて移動</string>
   <string name="foreign_files_success">すべてのファイルを移動しました</string>
@@ -238,7 +241,9 @@
   <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
   <string name="share_link_no_support_share_api">申し訳ございません。共有がサーバー上で有効になっていません。 管理者に
 		ご連絡ください。</string>
+  <string name="share_link_file_no_exist">共有できません。ファイルがあるか確認してください。</string>
   <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
+  <string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
   <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
   <string name="activity_chooser_send_file_title">送信</string>
   <string name="copy_link">リンクをコピー</string>
@@ -262,5 +267,9 @@
   <string name="saml_authentication_required_text">認証を必要とする</string>
   <string name="saml_authentication_wrong_pass">無効なパスワード</string>
   <string name="actionbar_move">移動</string>
+  <string name="file_list_empty_moving">ファイルが有りません。フォルダを追加してください。</string>
   <string name="move_choose_button_text">選択</string>
+  <string name="move_file_not_found">移動できません。ファイルがあるか確認してください。</string>
+  <string name="move_file_error">このファイルまたはフォルダーを移動する際にエラーが発生しました</string>
+  <string name="forbidden_permissions_move">このファイルを移動</string>
 </resources>
