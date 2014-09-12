@@ -46,6 +46,7 @@ import android.support.v4.app.NotificationCompat;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -185,6 +186,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             return Service.START_NOT_STICKY;
         }
         Account account = intent.getParcelableExtra(KEY_ACCOUNT);
+        if (!AccountUtils.exists(account, getApplicationContext())) {
+            return Service.START_NOT_STICKY;
+        }
 
         String[] localPaths = null, remotePaths = null, mimeTypes = null;
         OCFile[] files = null;
