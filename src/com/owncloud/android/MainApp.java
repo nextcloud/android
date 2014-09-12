@@ -16,11 +16,8 @@
  */
 package com.owncloud.android;
 
-import java.io.File;
-
 import android.app.Application;
 import android.content.Context;
-import android.os.Environment;
 
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
@@ -59,10 +56,14 @@ public class MainApp extends Application {
         }
         
         if (BuildConfig.DEBUG) {
-            String logpath = Environment.getExternalStorageDirectory()+File.separator+"owncloud"+File.separator+"log";
+
+            String dataFolder = getDataFolder();
+
+            // Set folder for store logs
+            Log_OC.setLogDataFolder(dataFolder);
+
+            Log_OC.startLogging();
             Log_OC.d("Debug", "start logging");
-            Log_OC.v("PATH", logpath);
-            Log_OC.startLogging(logpath);
         }
     }
 
