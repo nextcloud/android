@@ -31,8 +31,6 @@
   <string name="prefs_feedback">Tagasiside</string>
   <string name="prefs_imprint">Impressum</string>
   <string name="recommend_subject">Proovi oma nutitelefonil rakendust %1$s!</string>
-  <string name="recommend_text">\"Ma kutsun sind kasutama oma telefonis rakendust %1$s!\nLaadi see alla siit: %2$s\"
-	</string>
   <string name="auth_check_server">Kontrolli serverit</string>
   <string name="auth_host_url">Serveri aadress https://...</string>
   <string name="auth_username">Kasutajanimi</string>

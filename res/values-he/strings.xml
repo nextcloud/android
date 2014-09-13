@@ -31,8 +31,6 @@
   <string name="prefs_feedback">משוב</string>
   <string name="prefs_imprint">חותמת</string>
   <string name="recommend_subject">לבדיקה %1$s בטלפון החכם שלך!</string>
-  <string name="recommend_text">\"הנכם מוזמנים להשתמש ב- %1$s בטלפון החכם שלכם!\n קישור הורדה כאן: %2$s\"
-⇥</string>
   <string name="auth_check_server">בודק שרת</string>
   <string name="auth_host_url">כתובת שרת https://…</string>
   <string name="auth_username">שם משתמש</string>

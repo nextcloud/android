@@ -31,7 +31,6 @@
   <string name="prefs_feedback">Geriyə cavab</string>
   <string name="prefs_imprint">İşarələmək</string>
   <string name="recommend_subject">%1$s-i ağıllı telefonunuzda yoxlayın!</string>
-  <string name="recommend_text">\"Mən sizi öz ağıllı telefonunuda %1$s istifadə etməyə dəvət etmək isəyirəm!\n Burdan endirin: %2$s\"</string>
   <string name="auth_check_server">Serveri yoxla</string>
   <string name="auth_host_url">Server ünvanı https://…</string>
   <string name="auth_username">İstifadəçi adı</string>
@@ -121,6 +120,14 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="pincode_configure_your_pin_explanation">Proqram hər dəfə işə düşdükdə PİN yenidən istəniləcək</string>
   <string name="pincode_reenter_your_pincode">Öz proqramınızn PİN-ni yenidən daxil etməyi xahiş edirik</string>
   <string name="pincode_remove_your_pincode">Öz proqramınızın PİN-ni silin</string>
+  <string name="pincode_mismatch">Proqram PİN-ləri eyni deyil</string>
+  <string name="pincode_wrong">Yalnış proqram PİN-i</string>
+  <string name="pincode_removed">Proqram PİN-i silindi</string>
+  <string name="pincode_stored">Proqram PİN-i saxlanıldı </string>
+  <string name="media_notif_ticker">%1$s musiqi oxuducusu</string>
+  <string name="media_state_playing">%1$s (oxuyur)</string>
+  <string name="media_state_loading">%1$s (yüklənir)</string>
+  <string name="media_event_done">%1$s geriyə oxunuş bitib</string>
   <string name="common_remove">Sil</string>
   <string name="ssl_validator_btn_details_see">Detallar</string>
   <string name="unshare_link_file_error">Bu fayl və ya qovluğun yayımlanmasının dayandırılmasında səhv baş verdi</string>
