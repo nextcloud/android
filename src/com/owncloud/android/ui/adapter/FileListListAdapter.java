@@ -187,32 +187,32 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 } else {
                     // Download thumbnail from server
                     // Commented out as maybe changes to client library are needed
-//                    DefaultHttpClient httpclient = new DefaultHttpClient();
-//                    try {
-//                        httpclient.getCredentialsProvider().setCredentials(
-//                                new AuthScope(mClient.getBaseUri().toString().replace("https://", ""), 443), 
-//                                new UsernamePasswordCredentials(mClient.getCredentials().getUsername(), mClient.getCredentials().getAuthToken()));
-//                        
-//
-//                        HttpGet httpget = new HttpGet(mClient.getBaseUri() + "/ocs/v1.php/thumbnail?x=50&y=50&path=" + URLEncoder.encode(file.getRemotePath(), "UTF-8"));
-//                        HttpResponse response = httpclient.execute(httpget);
-//                        HttpEntity entity = response.getEntity();
-//                        
-//                        if (entity != null) {
-//                            byte[] bytes = EntityUtils.toByteArray(entity);
-//                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                            thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
-//                            
-//                            // Add thumbnail to cache
-//                            if (thumbnail != null){
-//                                addBitmapToCache(imageKey, thumbnail);
-//                            }
-//                        }
-//                    } catch(Exception e){
-//                        e.printStackTrace();
-//                    }finally {
-//                        httpclient.getConnectionManager().shutdown();
-//                    }
+                    DefaultHttpClient httpclient = new DefaultHttpClient();
+                    try {
+                        httpclient.getCredentialsProvider().setCredentials(
+                                new AuthScope(mClient.getBaseUri().toString().replace("https://", ""), 443), 
+                                new UsernamePasswordCredentials(mClient.getCredentials().getUsername(), mClient.getCredentials().getAuthToken()));
+                        
+
+                        HttpGet httpget = new HttpGet(mClient.getBaseUri() + "/ocs/v1.php/thumbnail?x=50&y=50&path=" + URLEncoder.encode(file.getRemotePath(), "UTF-8"));
+                        HttpResponse response = httpclient.execute(httpget);
+                        HttpEntity entity = response.getEntity();
+                        
+                        if (entity != null) {
+                            byte[] bytes = EntityUtils.toByteArray(entity);
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+                            
+                            // Add thumbnail to cache
+                            if (thumbnail != null){
+                                addBitmapToCache(imageKey, thumbnail);
+                            }
+                        }
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        httpclient.getConnectionManager().shutdown();
+                    }
                 } 
             }
             return thumbnail;
@@ -373,6 +373,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             task.execute(file);
                         }
                     }
+                } else {
+                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
                 }
 
                 if (checkIfFileIsSharedWithMe(file)) {
