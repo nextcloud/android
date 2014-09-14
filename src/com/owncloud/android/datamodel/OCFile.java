@@ -446,7 +446,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         } else if (another.isFolder()) {
             return 1;
         }
-        return getRemotePath().toLowerCase().compareTo(another.getRemotePath().toLowerCase());
+        return new AlphanumComparator().compare(this, another);
     }
 
     @Override

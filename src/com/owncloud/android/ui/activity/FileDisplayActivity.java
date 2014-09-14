@@ -491,6 +491,38 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             }
             break;
         }
+        case R.id.action_sort: {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.actionbar_sort_title)
+            .setItems(R.array.actionbar_sortby, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Log_OC.d("default view", " number " + which + "clicked");
+                    switch (which){
+                    case 0:
+                        sortByName(true);
+                        break;
+                    case 1:
+                        sortByName(false);
+                        break;
+                    case 2:
+                        sortByDate(true);
+                        break;
+                    case 3:
+                        sortByDate(false);
+                        break;
+                    case 4:
+                        sortBySize(true);
+                        break;
+                    case 5:
+                        sortBySize(false);
+                        break;
+                    }
+                }
+            });
+            builder.create();
+            builder.show();
+            break;
+        }
         default:
             retval = super.onOptionsItemSelected(item);
         }
@@ -1724,6 +1756,18 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
                 startSyncFolderOperation(folder);
             }
         }
+    }
+    
+    private void sortByDate(boolean ascending){
+        getListOfFilesFragment().sortByDate(ascending);
+    }
+
+    private void sortBySize(boolean ascending){
+        getListOfFilesFragment().sortBySize(ascending);
+    }
+
+    private void sortByName(boolean ascending){
+        getListOfFilesFragment().sortByName(ascending);
     }
 
 }

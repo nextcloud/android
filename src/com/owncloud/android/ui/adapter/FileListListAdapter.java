@@ -17,6 +17,8 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Vector;
 
 import android.accounts.Account;
@@ -58,6 +60,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
+    public enum sortOrders { NAME, DATE, SIZE }
+    private sortOrders sort = sortOrders.NAME;
+    private boolean sortAscending = true;
     
     public FileListListAdapter(
             boolean justFolders, 
@@ -243,6 +248,32 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         } else {
             mFiles = null;
         }
+
+        sortDirectory();
+    }
+    
+    /**
+     * Sorts all filenames, regarding last user decision 
+     */
+    private void sortDirectory(){
+        switch (sort){
+        case NAME:
+            sortByName();
+            break;
+
+        case SIZE:
+            sortBySize();
+            break;
+
+        case DATE:
+            sortByDate();
+            break;
+        }
+
+        if (!sortAscending){
+            Collections.reverse(mFiles);
+        }
+
         notifyDataSetChanged();
     }
     
@@ -276,4 +307,53 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return (mFile.getPermissions() != null && !mFile.getPermissions().contains(PERMISSION_SHARED_WITH_ME)
                 && file.getPermissions() != null && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME));
     }
+
+    private void sortByDate(){
+        Collections.sort(mFiles, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    return Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp());
+                }
+                else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                } else if (o1.getModificationTimestamp() == 0 || o2.getModificationTimestamp() == 0){
+                    return 0;
+                } else {
+                    return Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp());
+                }
+            }
+        });
+    }
+
+    private void sortBySize(){
+        Collections.sort(mFiles, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    return o1.getRemotePath().toLowerCase().compareTo(o2.getRemotePath().toLowerCase());
+                }
+                else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
+                    return 0;
+                } else {
+                    return Long.compare(o1.getFileLength(), o2.getFileLength());
+                }
+            }
+        });
+    }
+
+    private void sortByName(){
+        Collections.sort(mFiles);
+    }
+
+    public void setSortOrder(sortOrders order, boolean descending) {
+        sort = order;
+        sortAscending = descending;
+
+        sortDirectory();
+    }    
 }

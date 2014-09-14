@@ -43,6 +43,11 @@
         android:orderInCategory="2"
         android:showAsAction="never"
         android:title="@string/actionbar_settings"/>
+    <item
+        android:id="@+id/action_sort"
+        android:orderInCategory="2"
+        android:showAsAction="never"
+        android:title="@string/actionbar_sort"/>
 
     <!-- <item android:id="@+id/search" android:title="@string/actionbar_search" android:icon="@drawable/ic_action_search"></item> -->
 
