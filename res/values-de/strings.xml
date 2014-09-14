@@ -31,6 +31,7 @@
   <string name="prefs_feedback">Rückmeldungen</string>
   <string name="prefs_imprint">Impressum</string>
   <string name="recommend_subject">Probiere %1$s auf Deinem Smartphone!</string>
+  <string name="recommend_text">Ich möchte Dich zum Benutzen von %1$s auf Deinem Smartphone einladen!\nLade es hier herunter: %2$s</string>
   <string name="auth_check_server">Überprüfe den Server</string>
   <string name="auth_host_url">Server-Adresse https://…</string>
   <string name="auth_username">Benutzername</string>

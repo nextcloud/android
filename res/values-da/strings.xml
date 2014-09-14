@@ -31,6 +31,7 @@
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Prøv %1$s på din smartphone!</string>
+  <string name="recommend_text">Jeg ønsker at invitere dig til at bruge %1$s på din smartphone!\nHent den her: %2$s</string>
   <string name="auth_check_server">Check Server</string>
   <string name="auth_host_url">Server addresse https://…</string>
   <string name="auth_username">Brugernavn</string>

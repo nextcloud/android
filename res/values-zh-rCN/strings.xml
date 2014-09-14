@@ -50,6 +50,7 @@
   <string name="uploader_info_uploading">上传</string>
   <string name="file_list_empty">这里还什么都没有。上传些东西吧！</string>
   <string name="file_list_loading">载入中....</string>
+  <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
   <string name="filedetails_select_file">点击一个文件来显示额外的信息。</string>
   <string name="filedetails_size">大小：</string>
   <string name="filedetails_type">类型：</string>
@@ -236,7 +237,9 @@
   <string name="preview_image_error_unknown_format">不能显示图片</string>
   <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
   <string name="share_link_no_support_share_api">抱歉，共享功能未启用。请联系管理员。</string>
+  <string name="share_link_file_no_exist">无法共享。请检查文件是否存在</string>
   <string name="share_link_file_error">共享文件或目录出错</string>
+  <string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在</string>
   <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
   <string name="activity_chooser_send_file_title">发送</string>
   <string name="copy_link">复制链接</string>
@@ -247,8 +250,24 @@
   <string name="network_error_connect_timeout_exception">等待服务器响应时发生了一个错误，此操作无法完成</string>
   <string name="network_host_not_available">服务器不可用，此操作无法完成</string>
   <string name="empty"></string>
+  <string name="forbidden_permissions">你没有许可%s</string>
+  <string name="forbidden_permissions_rename">重命名该文件</string>
+  <string name="forbidden_permissions_delete">删除该文件</string>
+  <string name="share_link_forbidden_permissions">分享该文件</string>
+  <string name="unshare_link_forbidden_permissions">取消共享该文件</string>
+  <string name="forbidden_permissions_create">创建文件</string>
+  <string name="uploader_upload_forbidden_permissions">上传此文件夹</string>
+  <string name="downloader_download_file_not_found">该文件在服务器上不可用</string>
   <string name="prefs_category_accounts">账号</string>
+  <string name="prefs_add_account">添加账号</string>
+  <string name="auth_redirect_non_secure_connection_title">安全连接是通过一个非安全路由定向的。</string>
   <string name="saml_authentication_required_text">需要认证</string>
   <string name="saml_authentication_wrong_pass">错误密码</string>
+  <string name="actionbar_move">移动</string>
+  <string name="file_list_empty_moving">这里还什么都没有。上传些东西吧！</string>
   <string name="move_choose_button_text">选择(&amp;C)...</string>
+  <string name="move_file_not_found">无法移动。请检查文件是否存在</string>
+  <string name="move_file_invalid_overwrite">该文件已经存在在目标文件夹</string>
+  <string name="move_file_error">尝试移动该文件或文件夹时发生错误</string>
+  <string name="forbidden_permissions_move">移动该文件</string>
 </resources>
