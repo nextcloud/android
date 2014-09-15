@@ -34,6 +34,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.AlphanumComparator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -258,20 +259,16 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private void sortDirectory(){
         switch (sort){
         case NAME:
-            sortByName();
+            sortByName(sortAscending);
             break;
 
         case SIZE:
-            sortBySize();
+            sortBySize(sortAscending);
             break;
 
         case DATE:
-            sortByDate();
+            sortByDate(sortAscending);
             break;
-        }
-
-        if (!sortAscending){
-            Collections.reverse(mFiles);
         }
 
         notifyDataSetChanged();
@@ -308,11 +305,18 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 && file.getPermissions() != null && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME));
     }
 
-    private void sortByDate(){
+    private void sortByDate(boolean sortAscending){
+        final Integer val;
+        if (sortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+        
         Collections.sort(mFiles, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
-                    return Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp());
+                    return val * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp());
                 }
                 else if (o1.isFolder()) {
                     return -1;
@@ -321,13 +325,20 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 } else if (o1.getModificationTimestamp() == 0 || o2.getModificationTimestamp() == 0){
                     return 0;
                 } else {
-                    return Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp());
+                    return val * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp());
                 }
             }
         });
     }
 
-    private void sortBySize(){
+    private void sortBySize(boolean sortAscending){
+        final Integer val;
+        if (sortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+        
         Collections.sort(mFiles, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
@@ -340,14 +351,32 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
                     return 0;
                 } else {
-                    return Long.compare(o1.getFileLength(), o2.getFileLength());
+                    return val * Long.compare(o1.getFileLength(), o2.getFileLength());
                 }
             }
         });
     }
 
-    private void sortByName(){
-        Collections.sort(mFiles);
+    private void sortByName(boolean sortAscending){
+        final Integer val;
+        if (sortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+
+        Collections.sort(mFiles, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    return val * o1.getRemotePath().toLowerCase().compareTo(o2.getRemotePath().toLowerCase());
+                } else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                }
+                return val * new AlphanumComparator().compare(o1, o2);
+            }
+        });
     }
 
     public void setSortOrder(sortOrders order, boolean descending) {
