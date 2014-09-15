@@ -15,12 +15,9 @@
     <string name="actionbar_sort">Sort</string>
     <string name="actionbar_sort_title">Sort by</string>
     <string-array name="actionbar_sortby">
-    	<item>Filename - A-Z</item>
-    	<item>Filename - Z-A</item>
-    	<item>Date - oldest first</item>
-    	<item>Date - newest first</item>
-    	<item>Filesize - smallest first</item>
-    	<item>Filesize - biggest first</item>
+    	<item>A-Z</item>
+    	<item>Newest - Oldest</item>
+    	<item>Biggest - Smallest</item>
     </string-array>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>

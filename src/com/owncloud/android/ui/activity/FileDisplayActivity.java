@@ -153,6 +153,8 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
     private String DIALOG_UNTRUSTED_CERT;
     
     private OCFile mWaitingToSend;
+    
+    private Integer sortItemChecked = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -494,33 +496,27 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
         case R.id.action_sort: {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.actionbar_sort_title)
-            .setItems(R.array.actionbar_sortby, new DialogInterface.OnClickListener() {
+            .setSingleChoiceItems(R.array.actionbar_sortby, sortItemChecked , new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    Log_OC.d("default view", " number " + which + "clicked");
+                    sortItemChecked = which;
+
                     switch (which){
                     case 0:
                         sortByName(true);
                         break;
                     case 1:
-                        sortByName(false);
-                        break;
-                    case 2:
-                        sortByDate(true);
-                        break;
-                    case 3:
                         sortByDate(false);
                         break;
-                    case 4:
-                        sortBySize(true);
-                        break;
-                    case 5:
+                    case 2:
                         sortBySize(false);
                         break;
                     }
+                    
+                    dialog.dismiss();
+                    
                 }
             });
-            builder.create();
-            builder.show();
+            builder.create().show();
             break;
         }
         default:

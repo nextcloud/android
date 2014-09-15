@@ -17,6 +17,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Vector;
@@ -41,6 +42,8 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -183,9 +186,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 }
             } 
             else {
+                if (FileStorageUtils.getDefaultSavePathFor(mAccount.name, file) != null){
+                    fileSizeV.setVisibility(View.VISIBLE);
+                    fileSizeV.setText(getFolderSizeHuman(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file)));
+                } else {
+                    fileSizeV.setVisibility(View.INVISIBLE);
+                }
                 
-                fileSizeV.setVisibility(View.INVISIBLE);
-                //fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
                 checkBoxV.setVisibility(View.GONE);
@@ -214,6 +221,48 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
         return view;
     }
+    
+    /**
+     * Local Folder size in human readable format
+     * @param path String
+     * @return Size in human readable format
+     */
+    private String getFolderSizeHuman(String path) {
+
+        File dir = new File(path);
+
+        if(dir.exists()) {
+            long bytes = getFolderSize(dir);
+            if (bytes < 1024) return bytes + " B";
+            int exp = (int) (Math.log(bytes) / Math.log(1024));
+            String pre = ("KMGTPE").charAt(exp-1) + "";
+
+            return String.format("%.1f %sB", bytes / Math.pow(1024, exp), pre);
+        }
+
+        return "0 B";
+    }
+
+    /**
+     * Local Folder size
+     * @param dir File
+     * @return Size in bytes
+     */
+    private long getFolderSize(File dir) {
+        if (dir.exists()) {
+            long result = 0;
+            File[] fileList = dir.listFiles();
+            for(int i = 0; i < fileList.length; i++) {
+                if(fileList[i].isDirectory()) {
+                    result += getFolderSize(fileList[i]);
+                } else {
+                    result += fileList[i].length();
+                }
+            }
+            return result;
+        }
+        return 0;
+    } 
 
     @Override
     public int getViewTypeCount() {
@@ -305,6 +354,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 && file.getPermissions() != null && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME));
     }
 
+    /**
+     * Sorts list by Date
+     * @param sortAscending true: ascending, false: descending
+     */
     private void sortByDate(boolean sortAscending){
         final Integer val;
         if (sortAscending){
@@ -331,6 +384,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         });
     }
 
+    /**
+     * Sorts list by Size
+     * @param sortAscending true: ascending, false: descending
+     */
     private void sortBySize(boolean sortAscending){
         final Integer val;
         if (sortAscending){
@@ -342,7 +399,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         Collections.sort(mFiles, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
-                    return o1.getRemotePath().toLowerCase().compareTo(o2.getRemotePath().toLowerCase());
+                    return val * Long.compare(getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o1))), 
+                                              getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
                 }
                 else if (o1.isFolder()) {
                     return -1;
@@ -357,6 +415,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         });
     }
 
+    /**
+     * Sorts list by Name
+     * @param sortAscending true: ascending, false: descending
+     */
     private void sortByName(boolean sortAscending){
         final Integer val;
         if (sortAscending){
