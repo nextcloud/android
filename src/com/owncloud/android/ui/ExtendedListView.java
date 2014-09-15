@@ -21,6 +21,7 @@ package com.owncloud.android.ui;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.widget.GridView;
 import android.widget.ListView;
 
 /**
@@ -30,7 +31,7 @@ import android.widget.ListView;
  *  
  * @author David A. Velasco
  */
-public class ExtendedListView extends ListView {
+public class ExtendedListView extends GridView {
 
     private int mPositionToSetAndCenter;
 
@@ -55,7 +56,8 @@ public class ExtendedListView extends ListView {
     protected void onDraw (Canvas canvas) {
         super.onDraw(canvas);
         if (mPositionToSetAndCenter > 0) {
-            this.setSelectionFromTop(mPositionToSetAndCenter, getHeight() / 2);
+            this.setSelection(mPositionToSetAndCenter);
+            //this.setSelectionFromTop(mPositionToSetAndCenter, getHeight() / 2);
             mPositionToSetAndCenter = 0;
         }
     }

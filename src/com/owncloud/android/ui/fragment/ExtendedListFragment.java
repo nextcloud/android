@@ -52,7 +52,7 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
 
-    protected ExtendedListView mList;
+    // protected ExtendedListView mList;
     
     private SwipeRefreshLayout mRefreshLayout;
     private SwipeRefreshLayout mRefreshEmptyLayout;
@@ -66,29 +66,24 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
     
-    private GridView imageView;
-    private View fileView;
-    
-    
+    protected GridView imageView;
+       
     public void setListAdapter(ListAdapter listAdapter) {
         imageView.setAdapter(listAdapter);
         imageView.invalidate();
     }
 
-    public ListView getListView() {
-        return mList;
+    public GridView getGridView() {
+        return imageView;
     }
     
     protected void switchImageView(){
-        // TODO berechnen, wieviele Spalten
-        imageView.setNumColumns(3);
-        mList.invalidate();
+       imageView.setNumColumns(GridView.AUTO_FIT);
        imageView.invalidate();
     }
     
     protected void switchFileView(){
-        imageView.setNumColumns(1);
-        mList.invalidate();
+       imageView.setNumColumns(1);
        imageView.invalidate();
     }
     
@@ -99,15 +94,16 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
         
         View v = inflater.inflate(R.layout.list_fragment, null);
         
-        imageView = (GridView) v.findViewById(R.id.grid_list_view);
-        imageView.setOnItemClickListener(this);
+//        imageView = (GridView) v.findViewById(R.id.grid_list_view);
+//        imageView.setOnItemClickListener(this);
         
        // mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
-        mList = (ExtendedListView)(v.findViewById(R.id.list_root));
-        // mList.setOnItemClickListener(this);
+        imageView = (ExtendedListView)(v.findViewById(R.id.list_root));
+        imageView.setOnItemClickListener(this);
 
-        mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
-        mList.setDividerHeight(1);
+        //mList.set
+        //mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
+        //mList.setDividerHeight(1);
 
         if (savedInstanceState != null) {
             int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
@@ -121,7 +117,7 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
         onCreateSwipeToRefresh(mRefreshLayout);
         onCreateSwipeToRefresh(mRefreshEmptyLayout);
         
-        mList.setEmptyView(mRefreshEmptyLayout);
+//        mList.setEmptyView(mRefreshEmptyLayout);
 
         return v;
     }
@@ -172,8 +168,8 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
      * @return      The position in the list of the visible item in the center of the screen.
      */
     protected int getReferencePosition() {
-        if (mList != null) {
-            return (mList.getFirstVisiblePosition() + mList.getLastVisiblePosition()) / 2;
+        if (imageView != null) {
+            return (imageView.getFirstVisiblePosition() + imageView.getLastVisiblePosition()) / 2;
         } else {
             return 0;
         }
@@ -186,8 +182,8 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
      * @param   position    Reference position previously returned by {@link LocalFileListFragment#getReferencePosition()}
      */
     protected void setReferencePosition(int position) {
-        if (mList != null) {
-            mList.setAndCenterSelection(position);
+        if (imageView != null) {
+            imageView.setSelection(position);
         }
     }
 
@@ -205,20 +201,20 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
             
             int top = mTops.remove(mTops.size() - 1);
             
-            mList.setSelectionFromTop(firstPosition, top);
+            imageView.setSelection(firstPosition);
             
             // Move the scroll if the selection is not visible
             int indexPosition = mHeightCell*index;
-            int height = mList.getHeight();
+            int height = imageView.getHeight();
             
             if (indexPosition > height) {
                 if (android.os.Build.VERSION.SDK_INT >= 11)
                 {
-                    mList.smoothScrollToPosition(index); 
+                    imageView.smoothScrollToPosition(index); 
                 }
                 else if (android.os.Build.VERSION.SDK_INT >= 8)
                 {
-                    mList.setSelectionFromTop(index, 0);
+                    imageView.setSelection(index);
                 }
                 
             }
@@ -232,10 +228,10 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
         
         mIndexes.add(index);
         
-        int firstPosition = mList.getFirstVisiblePosition();
+        int firstPosition = imageView.getFirstVisiblePosition();
         mFirstPositions.add(firstPosition);
         
-        View view = mList.getChildAt(0);
+        View view = imageView.getChildAt(0);
         int top = (view == null) ? 0 : view.getTop() ;
 
         mTops.add(top);

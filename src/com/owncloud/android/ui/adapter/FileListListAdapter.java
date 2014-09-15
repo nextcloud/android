@@ -130,22 +130,31 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
         
         View view = convertView;
+        OCFile file = null;
         LayoutInflater inflator = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        
+        if (mFiles != null && mFiles.size() > position) {
+            file = mFiles.get(position);
+        }
+        
         if (fileView){
             view = inflator.inflate(R.layout.list_item, null);
         } else {
-            view = inflator.inflate(R.layout.image_item, null);
+            if (file.isImage()){
+                view = inflator.inflate(R.layout.grid_image, null);
+            } else {
+                view = inflator.inflate(R.layout.grid_item, null);
+            }
+            
             View frame = view.findViewById(R.id.imageItemFrame);
             frame.setVisibility(View.GONE);
         }
-//    }
         view.invalidate();
     
-        if (mFiles != null && mFiles.size() > position) {
-            OCFile file = mFiles.get(position);
+       if (file != null){
             TextView fileName = (TextView) view.findViewById(R.id.Filename);
-            if (!fileView){fileName.setVisibility(View.GONE);}
+            // if (!fileView){fileName.setVisibility(View.GONE);}
             String name = file.getFileName();
 
             fileName.setText(name);
@@ -189,7 +198,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 }
                 
                 GridView parentList = (GridView)parent;
-                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
+                if (parentList.getChoiceMode() == GridView.CHOICE_MODE_NONE) { 
                     checkBoxV.setVisibility(View.GONE);
                 } else {
                     if (parentList.isItemChecked(position)) {

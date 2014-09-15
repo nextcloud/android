@@ -126,8 +126,8 @@ public class OCFileListFragment extends ExtendedListFragment {
         );
         setListAdapter(mAdapter);
         
-        registerForContextMenu(getListView());
-        getListView().setOnCreateContextMenuListener(this);
+        registerForContextMenu(getGridView());
+        getGridView().setOnCreateContextMenuListener(this);
   }
     
     /**
@@ -381,7 +381,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
             mAdapter.swapDirectory(directory, storageManager);
             if (mFile == null || !mFile.equals(directory)) {
-                mList.setSelectionFromTop(0, 0);
+                imageView.setSelection(0);
             }
             mFile = directory;
             

@@ -19,7 +19,7 @@
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="0dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1" >
 
@@ -31,7 +31,14 @@
         <com.owncloud.android.ui.ExtendedListView
             android:id="@+id/list_root"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:columnWidth="160dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp"
+            android:visibility="visible" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -40,13 +47,14 @@
         android:layout_height="match_parent"
         android:visibility="gone" >
 
-        <GridView
-            android:id="@+id/grid_list_view"
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/empty_list_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="1"
+            android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/empty"
             android:visibility="visible" />
-
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </FrameLayout>
