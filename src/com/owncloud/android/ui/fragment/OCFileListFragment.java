@@ -18,6 +18,7 @@
 package com.owncloud.android.ui.fragment;
 
 import java.io.File;
+import java.util.Vector;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -383,6 +384,25 @@ public class OCFileListFragment extends ExtendedListFragment {
                 mList.setSelectionFromTop(0, 0);
             }
             mFile = directory;
+            
+         // decide image vs. file view
+            double count = 0;
+            
+            Vector<OCFile> files = storageManager.getFolderContent(directory);
+            for (OCFile file : files){
+                if (file.isImage()){
+                    count++;
+                }
+            }
+            
+            // > 50% Images --> image view
+            if ((count / files.size()) >= 0.5){
+                Log_OC.i(TAG, "Image View");
+                switchImageView();
+            } else {
+                Log_OC.i(TAG, "Folder View");
+                switchFileView();
+            }
         }
     }
 

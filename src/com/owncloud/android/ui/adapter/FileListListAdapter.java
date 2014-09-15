@@ -21,10 +21,14 @@ import java.util.Vector;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -38,6 +42,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -106,16 +111,41 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            LayoutInflater inflator = (LayoutInflater) mContext
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflator.inflate(R.layout.list_item, null);
+     // decide image vs. file view
+        double count = 0;
+        
+        
+        for (OCFile file : mFiles){
+            if (file.isImage()){
+                count++;
+            }
         }
+        
+        // > 50% Images --> image view
+        boolean fileView = true;
+        if ((count / mFiles.size()) >= 0.8){
+            fileView = false;
+        } else {
+            fileView = true;
+        }
+        
+        View view = convertView;
+        LayoutInflater inflator = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (fileView){
+            view = inflator.inflate(R.layout.list_item, null);
+        } else {
+            view = inflator.inflate(R.layout.image_item, null);
+            View frame = view.findViewById(R.id.imageItemFrame);
+            frame.setVisibility(View.GONE);
+        }
+//    }
+        view.invalidate();
     
         if (mFiles != null && mFiles.size() > position) {
             OCFile file = mFiles.get(position);
             TextView fileName = (TextView) view.findViewById(R.id.Filename);
+            if (!fileView){fileName.setVisibility(View.GONE);}
             String name = file.getFileName();
 
             fileName.setText(name);
@@ -158,7 +188,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     view.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
                 }
                 
-                ListView parentList = (ListView)parent;
+                GridView parentList = (GridView)parent;
                 if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
                     checkBoxV.setVisibility(View.GONE);
                 } else {
@@ -170,7 +200,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
 
-                fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
+                if (file.isImage() && file.isDown()){
+                    Bitmap bitmap = BitmapFactory.decodeFile(file.getStoragePath());
+                    fileIcon.setImageBitmap(ThumbnailUtils.extractThumbnail(bitmap, 100, 100));
+                } else {
+                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
+                }
 
                 if (checkIfFileIsSharedWithMe(file)) {
                     sharedWithMeIconV.setVisibility(View.VISIBLE);

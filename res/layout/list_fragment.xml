@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
@@ -16,11 +16,12 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- -->
+-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="0dp"
-	android:layout_height="match_parent"
-	android:layout_weight="1" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1" >
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_files"
@@ -31,7 +32,6 @@
             android:id="@+id/list_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-        
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -40,19 +40,13 @@
         android:layout_height="match_parent"
         android:visibility="gone" >
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+        <GridView
+            android:id="@+id/grid_list_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="1"
+            android:visibility="visible" />
 
-	            <TextView
-			        android:id="@+id/empty_list_view"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:gravity="center_vertical|center_horizontal"
-			        android:text="@string/empty"
-					android:layout_gravity="center"
-			        android:visibility="visible" />
-
-        </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
 </FrameLayout>

@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -65,14 +66,30 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
     
+    private GridView imageView;
+    private View fileView;
+    
     
     public void setListAdapter(ListAdapter listAdapter) {
-        mList.setAdapter(listAdapter);
-        mList.invalidate();
+        imageView.setAdapter(listAdapter);
+        imageView.invalidate();
     }
 
     public ListView getListView() {
         return mList;
+    }
+    
+    protected void switchImageView(){
+        // TODO berechnen, wieviele Spalten
+        imageView.setNumColumns(3);
+        mList.invalidate();
+       imageView.invalidate();
+    }
+    
+    protected void switchFileView(){
+        imageView.setNumColumns(1);
+        mList.invalidate();
+       imageView.invalidate();
     }
     
     
@@ -81,9 +98,13 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
         Log_OC.e(TAG, "onCreateView");
         
         View v = inflater.inflate(R.layout.list_fragment, null);
-        mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
+        
+        imageView = (GridView) v.findViewById(R.id.grid_list_view);
+        imageView.setOnItemClickListener(this);
+        
+       // mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         mList = (ExtendedListView)(v.findViewById(R.id.list_root));
-        mList.setOnItemClickListener(this);
+        // mList.setOnItemClickListener(this);
 
         mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         mList.setDividerHeight(1);
