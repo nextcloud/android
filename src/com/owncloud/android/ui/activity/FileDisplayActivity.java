@@ -251,7 +251,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
                 Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
                 if (file.isFolder()) {
-                    startSyncFolderOperation(file);
+                    startSyncFolderOperation(file, false);
                 }
                 
             } else {
@@ -1153,7 +1153,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
             listOfFiles.listDirectory(root);
             setFile(listOfFiles.getCurrentFile());
-            startSyncFolderOperation(root);
+            startSyncFolderOperation(root, false);
         }
         cleanSecondFragment();
     }
@@ -1168,7 +1168,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             setNavigationListWithFolder(folder);
             listOfFiles.listDirectory(folder);
             setFile(listOfFiles.getCurrentFile());
-            startSyncFolderOperation(folder);
+            startSyncFolderOperation(folder, false);
         } else {
             Log_OC.e(TAG, "Unexpected null when accessing list fragment");
         }
@@ -1187,7 +1187,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
         cleanSecondFragment();
         
         // Sync Folder
-        startSyncFolderOperation(directory);
+        startSyncFolderOperation(directory, false);
         
     }
 
@@ -1304,7 +1304,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
 
     @Override
     public void onSavedCertificate() {
-        startSyncFolderOperation(getCurrentDir());                
+        startSyncFolderOperation(getCurrentDir(), false);
     }
 
 
@@ -1592,7 +1592,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
         return null;
     }
     
-    public void startSyncFolderOperation(OCFile folder) {
+    public void startSyncFolderOperation(OCFile folder, boolean ignoreTag) {
         long currentSyncTime = System.currentTimeMillis(); 
         
         mSyncInProgress = true;
@@ -1602,6 +1602,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
                                                                         currentSyncTime, 
                                                                         false,
                                                                         getFileOperationsHelper().isSharedSupported(),
+                                                                        ignoreTag,
                                                                         getStorageManager(), 
                                                                         getAccount(), 
                                                                         getApplicationContext()
@@ -1721,7 +1722,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             if (folder != null) {
                 /*mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
                 listDirectory(mFile);*/
-                startSyncFolderOperation(folder);
+                startSyncFolderOperation(folder, true);
             }
         }
     }
