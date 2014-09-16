@@ -95,7 +95,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
-    private OwnCloudClient mClient;
     private Bitmap defaultImg;
         
     public FileListListAdapter(
@@ -121,24 +120,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             synchronized (thumbnailDiskCacheLock) {
                 mThumbnailCache = new DiskLruImageCache(mContext, "thumbnailCache", 
                                     DISK_CACHE_SIZE, mCompressFormat, mCompressQuality);
-                
-                try {
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, mContext);
-                    mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                            getClientFor(ocAccount, mContext);
-                } catch (AccountNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (AuthenticatorException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (OperationCanceledException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
 
                 mThumbnailCacheStarting = false; // Finished initialization
                 thumbnailDiskCacheLock.notifyAll(); // Wake any waiting threads
