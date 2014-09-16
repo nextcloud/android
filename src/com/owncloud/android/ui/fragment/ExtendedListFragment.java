@@ -34,13 +34,14 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.ExtendedListView;
+import com.owncloud.android.ui.activity.SwipeRefresh;
 import com.owncloud.android.utils.Log_OC;
 
 /**
  *  TODO extending SherlockListFragment instead of SherlockFragment 
  */
 public class ExtendedListFragment extends SherlockFragment 
-implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+implements OnItemClickListener, SwipeRefresh {
     
     private static final String TAG = ExtendedListFragment.class.getSimpleName();
 
@@ -63,7 +64,7 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     private ArrayList<Integer> mTops;
     private int mHeightCell = 0;
 
-    private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
+    private SwipeRefresh mOnRefreshListener = null;
     
     
     public void setListAdapter(ListAdapter listAdapter) {
@@ -240,7 +241,7 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
         }
     }
     
-    public void setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener listener) {
+    public void setOnRefreshListener(SwipeRefresh listener) {
         mOnRefreshListener = listener;
     }
     
@@ -300,4 +301,13 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
         refreshLayout.setOnRefreshListener(this);
     }
 
+    @Override
+    public void onRefreshForced(boolean ingnoreTag) {
+        mRefreshLayout.setRefreshing(false);
+        mRefreshEmptyLayout.setRefreshing(false);
+
+        if (mOnRefreshListener != null) {
+            mOnRefreshListener.onRefreshForced(ingnoreTag);
+        }
+    }
 }

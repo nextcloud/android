@@ -21,8 +21,6 @@ package com.owncloud.android.ui.activity;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.httpclient.methods.PostMethod;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -50,7 +48,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,7 +111,7 @@ import com.owncloud.android.utils.Log_OC;
 
 public class FileDisplayActivity extends HookActivity implements
 FileFragment.ContainerActivity, OnNavigationListener, 
-OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
+OnSslUntrustedCertListener, SwipeRefresh {
     
     private ArrayAdapter<String> mDirectories;
 
@@ -1715,16 +1712,24 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
     }
 
     @Override
+    public void onRefreshForced(boolean ignoreTag) {
+        refreshList(ignoreTag);
+    }
+
+    @Override
     public void onRefresh() {
+        refreshList(true);
+    }
+
+    private void refreshList(boolean ignoreTag) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {
             OCFile folder = listOfFiles.getCurrentFile();
             if (folder != null) {
                 /*mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
                 listDirectory(mFile);*/
-                startSyncFolderOperation(folder, true);
+                startSyncFolderOperation(folder, ignoreTag);
             }
         }
     }
-
 }
