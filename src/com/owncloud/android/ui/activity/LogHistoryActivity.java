@@ -28,30 +28,37 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 
-public class LogHistoryActivity extends SherlockActivity {
+public class LogHistoryActivity extends SherlockFragmentActivity  {
 
     private static final String MAIL_ATTACHMENT_TYPE = "text/plain";
 
     private static final String TAG = LogHistoryActivity.class.getSimpleName();
 
+    private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
+
+    private static final String KEY_LOG_TEXT = "LOG_TEXT";
+
     private String mLogPath = FileStorageUtils.getLogPath();
     private File logDIR = null;
 
-    private ProgressDialog mPd = null;
     private TextView mLogTV;
 
 
@@ -87,18 +94,32 @@ public class LogHistoryActivity extends SherlockActivity {
 
         mLogTV = (TextView) findViewById(R.id.logTV);
 
+        /// Load of saved instance state
+        if(savedInstanceState != null) {
+            String logTextSaved =  savedInstanceState.getString(LogHistoryActivity.KEY_LOG_TEXT);
+            mLogTV.setText(logTextSaved);
+        }
+
         if (mLogPath != null) {
             logDIR = new File(mLogPath);
         }
 
         if (logDIR != null && logDIR.isDirectory()) {
-            // Show the ProgressDialog while log data is being loaded
-            mPd = ProgressDialog.show(this, getText(R.string.actionbar_logger), 
-                    getText(R.string.log_progress_dialog_text), true, false);
+            // Show a dialog while log data is being loaded
+            showLoadingDialog();
 
             // Start a new thread that will load all the log data
             new LoadingLogTask().execute();
         }
+    }
+
+
+    @Override
+    protected void onPause() {
+        // TODO Auto-generated method stub
+        super.onPause();
+
+        dismissLoadingDialog();
     }
 
 
@@ -200,9 +221,37 @@ public class LogHistoryActivity extends SherlockActivity {
         protected void onPostExecute(String result) {
             mLogTV.setText(result);
 
-            if (mPd != null) {
-                mPd.dismiss();
-            }
+            dismissLoadingDialog();
         }
    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Log_OC.e(TAG, "onSaveInstanceState() start");
+        super.onSaveInstanceState(outState);
+        outState.putString(LogHistoryActivity.KEY_LOG_TEXT, mLogTV.getText().toString());
+        Log_OC.d(TAG, "onSaveInstanceState() end");
+    }
+
+    /**
+     * Show loading dialog
+     */
+    public void showLoadingDialog() {
+        // Construct dialog
+        LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.log_progress_dialog_text));
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        loading.show(ft, DIALOG_WAIT_TAG);
+    }
+
+    /**
+     * Dismiss loading dialog
+     */
+    public void dismissLoadingDialog(){
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+        if (frag != null) {
+            LoadingDialog loading = (LoadingDialog) frag;
+            loading.dismiss();
+        }
+    }
 }
