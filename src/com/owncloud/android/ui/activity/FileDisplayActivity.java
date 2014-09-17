@@ -21,8 +21,6 @@ package com.owncloud.android.ui.activity;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.httpclient.methods.PostMethod;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -50,7 +48,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,7 +111,7 @@ import com.owncloud.android.utils.Log_OC;
 
 public class FileDisplayActivity extends HookActivity implements
 FileFragment.ContainerActivity, OnNavigationListener, 
-OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
+OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     private ArrayAdapter<String> mDirectories;
 
@@ -251,7 +248,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
                 Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
                 if (file.isFolder()) {
-                    startSyncFolderOperation(file);
+                    startSyncFolderOperation(file, false);
                 }
                 
             } else {
@@ -1153,7 +1150,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
             listOfFiles.listDirectory(root);
             setFile(listOfFiles.getCurrentFile());
-            startSyncFolderOperation(root);
+            startSyncFolderOperation(root, false);
         }
         cleanSecondFragment();
     }
@@ -1168,7 +1165,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             setNavigationListWithFolder(folder);
             listOfFiles.listDirectory(folder);
             setFile(listOfFiles.getCurrentFile());
-            startSyncFolderOperation(folder);
+            startSyncFolderOperation(folder, false);
         } else {
             Log_OC.e(TAG, "Unexpected null when accessing list fragment");
         }
@@ -1187,7 +1184,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
         cleanSecondFragment();
         
         // Sync Folder
-        startSyncFolderOperation(directory);
+        startSyncFolderOperation(directory, false);
         
     }
 
@@ -1304,7 +1301,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
 
     @Override
     public void onSavedCertificate() {
-        startSyncFolderOperation(getCurrentDir());                
+        startSyncFolderOperation(getCurrentDir(), false);
     }
 
 
@@ -1592,7 +1589,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
         return null;
     }
     
-    public void startSyncFolderOperation(OCFile folder) {
+    public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
         long currentSyncTime = System.currentTimeMillis(); 
         
         mSyncInProgress = true;
@@ -1602,6 +1599,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
                                                                         currentSyncTime, 
                                                                         false,
                                                                         getFileOperationsHelper().isSharedSupported(),
+                                                                        ignoreETag,
                                                                         getStorageManager(), 
                                                                         getAccount(), 
                                                                         getApplicationContext()
@@ -1714,16 +1712,24 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
     }
 
     @Override
+    public void onRefresh(boolean ignoreETag) {
+        refreshList(ignoreETag);
+    }
+
+    @Override
     public void onRefresh() {
+        refreshList(true);
+    }
+
+    private void refreshList(boolean ignoreETag) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {
             OCFile folder = listOfFiles.getCurrentFile();
             if (folder != null) {
                 /*mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
                 listDirectory(mFile);*/
-                startSyncFolderOperation(folder);
+                startSyncFolderOperation(folder, ignoreETag);
             }
         }
     }
-
 }
