@@ -84,6 +84,7 @@ import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
 /**
@@ -351,7 +352,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         
         /// step 2 - set properties of UI elements (text, visibility, enabled...)
         mHostUrlInput = (EditText) findViewById(R.id.hostUrlInput);
-        mHostUrlInput.setText(mServerInfo.mBaseUrl);
+        // Convert IDN to Unicode
+        mHostUrlInput.setText(DisplayUtils.convertIdn(mServerInfo.mBaseUrl, false));
         if (mAction != ACTION_CREATE) {
             /// lock things that should not change
             mHostUrlInput.setEnabled(false);
@@ -727,6 +729,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         showRefreshButton(false);
         
         if (uri.length() != 0) {
+            // Handle internationalized domain names
+            uri = DisplayUtils.convertIdn(uri, true);
             mServerStatusText = R.string.auth_testing_connection;
             mServerStatusIcon = R.drawable.progress_small;
             showServerStatus();
