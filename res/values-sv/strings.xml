@@ -236,9 +236,7 @@
   <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>
   <string name="share_link_no_support_share_api">Ledsen, delning är inte aktiverat på din server. Vänligen kontakta din
 		administratör.</string>
-  <string name="share_link_file_no_exist">Kan inte dela denna fil eller mapp. Se till att den existerar</string>
   <string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp</string>
-  <string name="unshare_link_file_no_exist">Kan inte ta bort delningen för denna fil eller mapp. Den existerar inte.</string>
   <string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp</string>
   <string name="activity_chooser_send_file_title">Skicka</string>
   <string name="copy_link">Kopiera länk</string>
@@ -250,4 +248,7 @@
   <string name="network_host_not_available">Åtgärden kunte inte slutföras, servern är ej tillgänglig</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Konton</string>
+  <string name="saml_authentication_required_text">Autentisering krävs</string>
+  <string name="saml_authentication_wrong_pass">Fel lösenord</string>
+  <string name="move_choose_button_text">Välj</string>
 </resources>

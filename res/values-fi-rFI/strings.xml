@@ -30,8 +30,6 @@
   <string name="prefs_recommend">Suosittele kaverille</string>
   <string name="prefs_feedback">Palaute</string>
   <string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
-  <string name="recommend_text">\"Kutsun sinut käyttämään %1$sia älypuhelimellasi!\nLataa tästä: %2$s\"
-	</string>
   <string name="auth_check_server">Tarkista palvelin</string>
   <string name="auth_host_url">Palvelinosoite https://…</string>
   <string name="auth_username">Käyttäjätunnus</string>
@@ -124,6 +122,8 @@
   <string name="media_err_io">Mediatiedoston luku ei onnistunut</string>
   <string name="media_err_timeout">Aikakatkaisu toistoa yrittäessä</string>
   <string name="media_err_invalid_progressive_playback">Mediatiedostoa ei voi suoratoistaa</string>
+  <string name="media_err_security_ex">Turvallisuusvirhe yrittäessä toistaa kohdetta %1$s</string>
+  <string name="media_err_unexpected">Odottamaton virhe yrittäessä toistaa kohdetta %1$s</string>
   <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
   <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
   <string name="media_forward_description">Eteenpäin kelaus -painike</string>
@@ -219,9 +219,7 @@
   <string name="preview_image_error_unknown_format">Tätä kuvaa ei voi näyttää</string>
   <string name="share_link_no_support_share_api">Jakaminen ei ole käytössä palvelimellasi. Ota yhteys
 		ylläpitäjään.</string>
-  <string name="share_link_file_no_exist">Valitettavasti tämän tiedoston tai kansion jakaminen ei onnistu. Varmista että se on olemassa</string>
   <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
-  <string name="unshare_link_file_no_exist">Tämän tiedoston tai kansion jaon poistaminen ei onnistunut, koska sitä ei ole olemassa.</string>
   <string name="activity_chooser_send_file_title">Lähetä</string>
   <string name="copy_link">Kopioi linkki</string>
   <string name="clipboard_text_copied">Kopioitu leikepöydälle</string>
@@ -242,4 +240,12 @@
   <string name="prefs_category_accounts">Tilit</string>
   <string name="prefs_add_account">Lisää tili</string>
   <string name="auth_redirect_non_secure_connection_title">Salattu yhteys on ohjattu uudelleen salaamatonta reittiä pitkin.</string>
+  <string name="saml_authentication_required_text">Tunnistautuminen vaaditaan</string>
+  <string name="saml_authentication_wrong_pass">Väärä salasana</string>
+  <string name="actionbar_move">Siirrä</string>
+  <string name="file_list_empty_moving">Täällä ei ole mitään. Voit lisätä kansion!</string>
+  <string name="move_choose_button_text">Valitse</string>
+  <string name="move_file_not_found">Siirto ei onnistu. Tarkista, ettei tiedostoa ole jo olemassa</string>
+  <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
+  <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
 </resources>

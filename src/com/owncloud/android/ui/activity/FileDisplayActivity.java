@@ -21,6 +21,8 @@ package com.owncloud.android.ui.activity;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.commons.httpclient.methods.PostMethod;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -48,6 +50,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +84,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -110,8 +114,9 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
  */
 
 public class FileDisplayActivity extends HookActivity implements
-FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener {
-
+FileFragment.ContainerActivity, OnNavigationListener, 
+OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
+    
     private ArrayAdapter<String> mDirectories;
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
@@ -135,6 +140,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
 
     private static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
     private static final int ACTION_SELECT_MULTIPLE_FILES = 2;
+    public static final int ACTION_MOVE_FILES = 3;
 
     private static final String TAG = FileDisplayActivity.class.getSimpleName();
 
@@ -566,6 +572,20 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestMultipleUpload(data, resultCode);
 
+        } else if (requestCode == ACTION_MOVE_FILES && (resultCode == RESULT_OK || 
+                resultCode == MoveActivity.RESULT_OK_AND_MOVE)){
+
+            final Intent fData = data;
+            final int fResultCode = resultCode; 
+            getHandler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        requestMoveOperation(fData, fResultCode);
+                    }
+                }, 
+                DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
+            );
         }
     }
 
@@ -644,6 +664,18 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
             i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
         startService(i);
+    }
+
+    /**
+     * Request the operation for moving the file/folder from one path to another
+     * 
+     * @param data              Intent received
+     * @param resultCode        Result code received
+     */
+    private void requestMoveOperation(Intent data, int resultCode) {
+        OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(MoveActivity.EXTRA_CURRENT_FOLDER);
+        OCFile targetFile = (OCFile) data.getParcelableExtra(MoveActivity.EXTRA_TARGET_FILE);
+        getFileOperationsHelper().moveFile(folderToMoveAt, targetFile);
     }
 
     @Override
@@ -1331,7 +1363,9 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         } else if (operation instanceof UnshareLinkOperation) {
             onUnshareLinkOperationFinish((UnshareLinkOperation)operation, result);
         
-        } 
+        } else if (operation instanceof MoveFileOperation) {
+            onMoveFileOperationFinish((MoveFileOperation)operation, result);
+        }
         
     }
 
@@ -1410,12 +1444,13 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
     
     
     /**
-     * Updates the view associated to the activity after the finish of an operation trying create a new folder
+     * Updates the view associated to the activity after the finish of an operation trying to move a 
+     * file.
      * 
-     * @param operation     Creation operation performed.
-     * @param result        Result of the creation.
+     * @param operation     Move operation performed.
+     * @param result        Result of the move operation.
      */
-    private void onCreateFolderOperationFinish(CreateFolderOperation operation, RemoteOperationResult result) {
+    private void onMoveFileOperationFinish(MoveFileOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
             dismissLoadingDialog();
             refreshListOfFilesFragment();
@@ -1498,6 +1533,30 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                 Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
                         Toast.LENGTH_LONG); 
                 msg.show();
+            }
+        }
+    }
+
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying create a new folder
+     * 
+     * @param operation     Creation operation performed.
+     * @param result        Result of the creation.
+     */
+    private void onCreateFolderOperationFinish(CreateFolderOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            dismissLoadingDialog();
+            refreshListOfFilesFragment();
+        } else {
+            dismissLoadingDialog();
+            try {
+                Toast msg = Toast.makeText(FileDisplayActivity.this, 
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                        Toast.LENGTH_LONG); 
+                msg.show();
+
+            } catch (NotFoundException e) {
+                Log_OC.e(TAG, "Error while trying to show fail message " , e);
             }
         }
     }
@@ -1668,6 +1727,19 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
             mWaitingToSend = null;
         }
         onTransferStateChanged(file, false, false);
+    }
+
+    @Override
+    public void onRefresh() {
+        OCFileListFragment listOfFiles = getListOfFilesFragment();
+        if (listOfFiles != null) {
+            OCFile folder = listOfFiles.getCurrentFile();
+            if (folder != null) {
+                /*mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
+                listDirectory(mFile);*/
+                startSyncFolderOperation(folder);
+            }
+        }
     }
 
 }

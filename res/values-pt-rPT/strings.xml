@@ -31,8 +31,6 @@
   <string name="prefs_feedback">Resposta</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Experimente %1$s no seu smartphone!</string>
-  <string name="recommend_text">Quero convidá-lo a usar %1$s no seu smartphone!\nDescarregue aqui: %2$s\"
-⇥</string>
   <string name="auth_check_server">Verificar Servidor</string>
   <string name="auth_host_url">Endereço do servidor https://..</string>
   <string name="auth_username">Nome de Utilizador</string>
@@ -239,9 +237,8 @@
   <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
   <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
   <string name="share_link_no_support_share_api">Lamentamos mas não é possível partilhar através do seu servidor. Por favor contacte o seu administrador.</string>
-  <string name="share_link_file_no_exist">Não é possível partilhar este ficheiro ou pasta. Por favor, verifique se existe</string>
+  <string name="share_link_file_no_exist">Não é possivel partilhar. Por favor verifique se o ficheiro existe</string>
   <string name="share_link_file_error">Ocorreu um erro enquanto tentava partilhar este ficheiro ou pasta</string>
-  <string name="unshare_link_file_no_exist">Não é possível retirar a partilha deste ficheiro ou pasta. Não existe.</string>
   <string name="unshare_link_file_error">Ocorreu um erro enquanto retirava a partilha deste ficheiro ou pasta</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar ligação</string>
@@ -263,4 +260,10 @@
   <string name="prefs_category_accounts">Contas</string>
   <string name="prefs_add_account">Adicionar conta</string>
   <string name="auth_redirect_non_secure_connection_title">Uma ligação segura foi redireccionada por uma rota insegura.</string>
+  <string name="saml_authentication_required_text">Autenticação necessária</string>
+  <string name="saml_authentication_wrong_pass">Password errada</string>
+  <string name="actionbar_move">Mover</string>
+  <string name="file_list_empty_moving">Não está aqui nada. Pode adicionar uma pasta!</string>
+  <string name="move_choose_button_text">Escolha</string>
+  <string name="forbidden_permissions_move">para mover este ficheiro</string>
 </resources>

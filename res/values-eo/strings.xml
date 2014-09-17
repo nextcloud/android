@@ -183,4 +183,7 @@
   <string name="network_error_socket_exception">Eraro okazis dum konekto al la servilo.</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Kontoj</string>
+  <string name="saml_authentication_required_text">Aŭtentiĝo nepras</string>
+  <string name="saml_authentication_wrong_pass">Malĝusta pasvorto</string>
+  <string name="move_choose_button_text">Elekti</string>
 </resources>

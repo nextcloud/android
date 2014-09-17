@@ -31,6 +31,7 @@
   <string name="prefs_feedback">Mensajes de retroalimentación</string>
   <string name="prefs_imprint">pie de imprenta</string>
   <string name="recommend_subject">Prueba  %1$s en tu smarthphone!</string>
+  <string name="recommend_text">¡Quiero invitarle a usar %1$s en su smartphone!\nDescárguelo aquí: %2$s</string>
   <string name="auth_check_server">Compruebe el servidor.</string>
   <string name="auth_host_url">Dirección del servidor https://…</string>
   <string name="auth_username">Nombre de usuario</string>
@@ -238,9 +239,9 @@
   <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
   <string name="share_link_no_support_share_api">La función Compartir no está activada en su servidor. Contacte a su
 		administrador.</string>
-  <string name="share_link_file_no_exist">No es posible compartir este archivo o carpeta. Asegúrese de que existe.</string>
+  <string name="share_link_file_no_exist">No se puede compartir. Revise si el archivo existe</string>
   <string name="share_link_file_error">Ocurrió un error al tratar de compartir este archivo o carpeta</string>
-  <string name="unshare_link_file_no_exist">No se puede dejar de compartir este archivo o carpeta. No existe.</string>
+  <string name="unshare_link_file_no_exist">No se puede dejar de compartir. Revise si el archivo existe</string>
   <string name="unshare_link_file_error">Ocurrió un error al tratar de ya no compartir este archivo o carpeta</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar enlace</string>
@@ -262,4 +263,13 @@
   <string name="prefs_category_accounts">Cuentas</string>
   <string name="prefs_add_account">Agregar cuenta</string>
   <string name="auth_redirect_non_secure_connection_title">La conexión segura está siendo redirigida por una ruta insegura.</string>
+  <string name="saml_authentication_required_text">Se necesita autenticación</string>
+  <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
+  <string name="actionbar_move">Mover</string>
+  <string name="file_list_empty_moving">Aquí no hay nada. ¡Puede agregar una carpeta!</string>
+  <string name="move_choose_button_text">Seleccionar</string>
+  <string name="move_file_not_found">No se puede mover. Revise si el archivo existe</string>
+  <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
+  <string name="move_file_error">Hubo un error al tratar de mover este archivo o carpeta</string>
+  <string name="forbidden_permissions_move">para mover este archivo</string>
 </resources>

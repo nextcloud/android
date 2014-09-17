@@ -153,4 +153,5 @@
   <string name="clipboard_text_copied">Скопійовано в буфер обміну</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Облікові записи</string>
+  <string name="move_choose_button_text">Обрати</string>
 </resources>

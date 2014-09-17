@@ -289,6 +289,13 @@ public class PreviewMediaFragment extends FileFragment implements
             item.setVisible(false);
             item.setEnabled(false);
         }
+
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_move);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
     }
     
     

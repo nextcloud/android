@@ -217,9 +217,7 @@
   <string name="conflict_dont_upload">آپلود نکن</string>
   <string name="preview_image_description">پیش نمایش تصویر</string>
   <string name="preview_image_error_unknown_format">نمایش این عکس امکانپذیر نمی باشد</string>
-  <string name="share_link_file_no_exist">به اشتراک گذاری این فایل یا پوشه ممکن نیست. لطفاً از وجود آن اطمینان حاصل نمایید</string>
   <string name="share_link_file_error">در حین اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
-  <string name="unshare_link_file_no_exist">حذف اشتراک گذاری این فایل یا پوشه ممکن نیست. لطفاً از وجود آن اطمینان حاصل نمایید</string>
   <string name="unshare_link_file_error">در حین حذف اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
   <string name="activity_chooser_send_file_title">ارسال</string>
   <string name="clipboard_text_copied">کپی به کلیپ بورد</string>
@@ -231,4 +229,7 @@
   <string name="uploader_upload_forbidden_permissions">برای آپلود در این پوشه</string>
   <string name="downloader_download_file_not_found">این فایل دیگر روی سرور وجود ندارد</string>
   <string name="prefs_category_accounts">حساب‌ها</string>
+  <string name="saml_authentication_required_text">احراز هویت مورد نیاز است</string>
+  <string name="saml_authentication_wrong_pass">رمز عبور اشتباه است</string>
+  <string name="move_choose_button_text">انتخاب کردن</string>
 </resources>
