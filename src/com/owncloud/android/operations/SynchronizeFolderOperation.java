@@ -110,7 +110,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     private boolean mRemoteFolderChanged;
 
     /** 'True' means that Etag will be ignored */
-    private boolean mIgnoreTag;
+    private boolean mIgnoreETag;
 
     
     /**
@@ -129,7 +129,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                                         long currentSyncTime, 
                                         boolean syncFullAccount,
                                         boolean isShareSupported,
-                                        boolean ignoreTag,
+                                        boolean ignoreETag,
                                         FileDataStorageManager dataStorageManager, 
                                         Account account, 
                                         Context context ) {
@@ -142,7 +142,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         mContext = context;
         mForgottenLocalFiles = new HashMap<String, String>();
         mRemoteFolderChanged = false;
-        mIgnoreTag = ignoreTag;
+        mIgnoreETag = ignoreETag;
     }
     
     
@@ -233,7 +233,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         if (result.isSuccess()){
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
-            if (!mIgnoreTag) {
+            if (!mIgnoreETag) {
                 // check if remote and local folder are different
                 mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
             }

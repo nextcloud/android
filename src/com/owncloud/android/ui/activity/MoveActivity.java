@@ -206,7 +206,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
     }
 
     
-    public void startSyncFolderOperation(OCFile folder, boolean ignoreTag) {
+    public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
         long currentSyncTime = System.currentTimeMillis(); 
         
         mSyncInProgress = true;
@@ -216,7 +216,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
                                                                         currentSyncTime, 
                                                                         false,
                                                                         getFileOperationsHelper().isSharedSupported(),
-                                                                        ignoreTag,
+                                                                        ignoreETag,
                                                                         getStorageManager(), 
                                                                         getAccount(), 
                                                                         getApplicationContext()

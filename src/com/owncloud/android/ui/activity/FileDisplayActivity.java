@@ -111,7 +111,7 @@ import com.owncloud.android.utils.Log_OC;
 
 public class FileDisplayActivity extends HookActivity implements
 FileFragment.ContainerActivity, OnNavigationListener, 
-OnSslUntrustedCertListener, SwipeRefresh {
+OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     private ArrayAdapter<String> mDirectories;
 
@@ -1589,7 +1589,7 @@ OnSslUntrustedCertListener, SwipeRefresh {
         return null;
     }
     
-    public void startSyncFolderOperation(OCFile folder, boolean ignoreTag) {
+    public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
         long currentSyncTime = System.currentTimeMillis(); 
         
         mSyncInProgress = true;
@@ -1599,7 +1599,7 @@ OnSslUntrustedCertListener, SwipeRefresh {
                                                                         currentSyncTime, 
                                                                         false,
                                                                         getFileOperationsHelper().isSharedSupported(),
-                                                                        ignoreTag,
+                                                                        ignoreETag,
                                                                         getStorageManager(), 
                                                                         getAccount(), 
                                                                         getApplicationContext()
@@ -1712,8 +1712,8 @@ OnSslUntrustedCertListener, SwipeRefresh {
     }
 
     @Override
-    public void onRefreshForced(boolean ignoreTag) {
-        refreshList(ignoreTag);
+    public void onRefresh(boolean ignoreETag) {
+        refreshList(ignoreETag);
     }
 
     @Override
@@ -1721,14 +1721,14 @@ OnSslUntrustedCertListener, SwipeRefresh {
         refreshList(true);
     }
 
-    private void refreshList(boolean ignoreTag) {
+    private void refreshList(boolean ignoreETag) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {
             OCFile folder = listOfFiles.getCurrentFile();
             if (folder != null) {
                 /*mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
                 listDirectory(mFile);*/
-                startSyncFolderOperation(folder, ignoreTag);
+                startSyncFolderOperation(folder, ignoreETag);
             }
         }
     }

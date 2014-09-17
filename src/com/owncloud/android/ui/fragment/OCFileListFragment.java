@@ -36,7 +36,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.MoveActivity;
-import com.owncloud.android.ui.activity.SwipeRefresh;
+import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
@@ -89,7 +89,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                     FileFragment.ContainerActivity.class.getSimpleName());
         }
         try {
-            setOnRefreshListener((SwipeRefresh) activity);
+            setOnRefreshListener((OnEnforceableRefreshListener) activity);
             
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " + 
@@ -175,7 +175,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             
             listDirectory(mFile);
 
-            onRefreshForced(false);
+            onRefresh(false);
             
             // restore index and top position
             restoreIndexAndTopPosition();
