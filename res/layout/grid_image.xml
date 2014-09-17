@@ -20,31 +20,27 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ListItemLayout"
-    android:layout_width="fill_parent"
-    android:layout_height="160dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
     android:background="@drawable/list_selector"
-    android:orientation="horizontal" >
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
 
-    <ImageView
+    <com.owncloud.android.ui.SquareImageView
         android:id="@+id/imageView1"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="fill"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_menu_archive" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="40dp"
-        android:layout_height="22dp"
-        android:layout_marginLeft="22dp"
-        android:src="@drawable/local_file_indicator" />
 
     <FrameLayout
         android:id="@+id/imageItemFrame"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:focusable="false"
         android:focusableInTouchMode="false" >
 
@@ -114,5 +110,12 @@
             android:textColor="@color/list_item_lastmod_and_filesize_text"
             android:textSize="12dip" />
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="40dp"
+        android:layout_height="22dp"
+        android:layout_marginLeft="22dp"
+        android:src="@drawable/local_file_indicator" />
 
 </LinearLayout>

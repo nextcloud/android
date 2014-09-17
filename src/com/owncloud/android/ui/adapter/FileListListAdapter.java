@@ -180,6 +180,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 localStateView.setVisibility(View.INVISIBLE);
             }
             
+            if (!fileView){
+                localStateView.setVisibility(View.GONE);
+            }
+            
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);

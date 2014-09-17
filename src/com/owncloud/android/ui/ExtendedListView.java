@@ -22,10 +22,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.GridView;
-import android.widget.ListView;
 
 /**
- * ListView allowing to specify the position of an item that should be centered in the visible area, if possible.
+ * GridView allowing to specify the position of an item that should be top left in the visible area, if possible.
  * 
  * The cleanest way I found to overcome the problem due to getHeight() returns 0 until the view is really drawn. 
  *  
@@ -33,7 +32,7 @@ import android.widget.ListView;
  */
 public class ExtendedListView extends GridView {
 
-    private int mPositionToSetAndCenter;
+    private int mPositionToSetTopLeft;
 
     public ExtendedListView(Context context) {
         super(context);
@@ -46,7 +45,7 @@ public class ExtendedListView extends GridView {
     public ExtendedListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
-
+    
     /**
      * {@inheritDoc}
      * 
@@ -55,21 +54,20 @@ public class ExtendedListView extends GridView {
     @Override
     protected void onDraw (Canvas canvas) {
         super.onDraw(canvas);
-        if (mPositionToSetAndCenter > 0) {
-            this.setSelection(mPositionToSetAndCenter);
-            //this.setSelectionFromTop(mPositionToSetAndCenter, getHeight() / 2);
-            mPositionToSetAndCenter = 0;
+        if (mPositionToSetTopLeft > 0) {
+            this.smoothScrollToPosition(mPositionToSetTopLeft);
+            mPositionToSetTopLeft = 0;
         }
     }
     
     /**
-     * Public method to set the position of the item that should be centered in the visible area of the view.
+     * Public method to set the position of the item that should be top left in the visible area of the view.
      * 
      * The position is saved here and checked in onDraw().
      *  
-     * @param position         Position (in the list of items) of the item to center in the visible area.     
+     * @param position         Position (in the list of items) of the item to be top left in the visible area.     
      */
-    public void setAndCenterSelection(int position) {
-        mPositionToSetAndCenter = position;
+    public void setSelectionAsTopLeft(int position) {
+        mPositionToSetTopLeft = position;
     }
 }

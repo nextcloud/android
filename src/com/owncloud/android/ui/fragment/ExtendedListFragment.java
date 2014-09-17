@@ -201,22 +201,14 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
             
             int top = mTops.remove(mTops.size() - 1);
             
-            imageView.setSelection(firstPosition);
+            imageView.smoothScrollToPosition(firstPosition);
             
             // Move the scroll if the selection is not visible
             int indexPosition = mHeightCell*index;
             int height = imageView.getHeight();
             
             if (indexPosition > height) {
-                if (android.os.Build.VERSION.SDK_INT >= 11)
-                {
-                    imageView.smoothScrollToPosition(index); 
-                }
-                else if (android.os.Build.VERSION.SDK_INT >= 8)
-                {
-                    imageView.setSelection(index);
-                }
-                
+                imageView.smoothScrollToPosition(index);
             }
         }
     }
