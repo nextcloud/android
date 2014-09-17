@@ -24,7 +24,7 @@
   <string name="prefs_log_title">লগিং সক্রিয় কর</string>
   <string name="prefs_log_summary">সমস্যা তালিকাভুক্ত করার জায়গা</string>
   <string name="prefs_log_title_history">লগিং ইতিহাস </string>
-  <string name="prefs_log_summary_history">রেকরডেড লগ এখানে দেখেন</string>
+  <string name="prefs_log_summary_history">রেকর্ডেড লগ এখানে দেখেন</string>
   <string name="prefs_log_delete_history_button">ইতিহাস ডিলিট করেন</string>
   <string name="prefs_help">সহায়িকা</string>
   <string name="prefs_recommend">বন্ধুর কাছে সুপারিশ করুন</string>
