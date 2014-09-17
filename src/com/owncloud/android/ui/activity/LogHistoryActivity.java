@@ -21,9 +21,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -54,12 +54,8 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
 
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
 
-    private static final String KEY_LOG_TEXT = "LOG_TEXT";
-
     private String mLogPath = FileStorageUtils.getLogPath();
     private File logDIR = null;
-
-    private TextView mLogTV;
 
 
     @Override
@@ -92,14 +88,6 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
             }
         });
 
-        mLogTV = (TextView) findViewById(R.id.logTV);
-
-        /// Load of saved instance state
-        if(savedInstanceState != null) {
-            String logTextSaved =  savedInstanceState.getString(LogHistoryActivity.KEY_LOG_TEXT);
-            mLogTV.setText(logTextSaved);
-        }
-
         if (mLogPath != null) {
             logDIR = new File(mLogPath);
         }
@@ -108,20 +96,14 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
             // Show a dialog while log data is being loaded
             showLoadingDialog();
 
+            TextView logTV = (TextView) findViewById(R.id.logTV);
+
             // Start a new thread that will load all the log data
-            new LoadingLogTask().execute();
+            LoadingLogTask task = new LoadingLogTask(logTV);
+            task.execute();
+
         }
     }
-
-
-    @Override
-    protected void onPause() {
-        // TODO Auto-generated method stub
-        super.onPause();
-
-        dismissLoadingDialog();
-    }
-
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
@@ -170,68 +152,69 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
         }
     }
 
-
-    /**
-     * Read and show log file info
-     */
-    private String readLogFile() {
-
-        String[] logFileName = Log_OC.getLogFileNames();
-
-        //Read text from files
-        StringBuilder text = new StringBuilder();
-
-        try {
-
-            String line;
-
-            for (int i = logFileName.length-1; i >= 0; i--) {
-                File file = new File(mLogPath,logFileName[i]);
-                if (file.exists()) {
-                    // Check if FileReader is ready
-                    if (new FileReader(file).ready()) {
-                        BufferedReader br = new BufferedReader(new FileReader(file));
-                        while ((line = br.readLine()) != null) {
-                            // Append the log info
-                            text.append(line);
-                            text.append('\n');
-                        }
-                    }
-                }
-            }
-        }
-        catch (IOException e) {
-            Log_OC.d(TAG, e.getMessage().toString());
-        }
-
-        return text.toString();
-    }
-
-
     /**
      *
      * Class for loading the log data async
      *
      */
     private class LoadingLogTask extends AsyncTask<String, Void, String> {
+        private final WeakReference<TextView> textViewReference;
+
+        public LoadingLogTask(TextView logTV){
+            // Use of a WeakReference to ensure the TextView can be garbage collected
+            textViewReference  = new WeakReference<TextView>(logTV);
+        }
+
         protected String doInBackground(String... args) {
             return readLogFile();
         }
 
         protected void onPostExecute(String result) {
-            mLogTV.setText(result);
+            if (textViewReference != null && result != null) {
+                final TextView logTV = textViewReference.get();
+                if (logTV != null) {
+                    logTV.setText(result);
+                    dismissLoadingDialog();
+                }
+            }
+        }
 
-            dismissLoadingDialog();
+        /**
+         * Read and show log file info
+         */
+        private String readLogFile() {
+
+            String[] logFileName = Log_OC.getLogFileNames();
+
+            //Read text from files
+            StringBuilder text = new StringBuilder();
+
+            try {
+
+                String line;
+
+                for (int i = logFileName.length-1; i >= 0; i--) {
+                    File file = new File(mLogPath,logFileName[i]);
+                    if (file.exists()) {
+                        // Check if FileReader is ready
+                        if (new FileReader(file).ready()) {
+                            BufferedReader br = new BufferedReader(new FileReader(file));
+                            while ((line = br.readLine()) != null) {
+                                // Append the log info
+                                text.append(line);
+                                text.append('\n');
+                            }
+                        }
+                    }
+                }
+            }
+            catch (IOException e) {
+                Log_OC.d(TAG, e.getMessage().toString());
+            }
+
+            return text.toString();
         }
    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        Log_OC.e(TAG, "onSaveInstanceState() start");
-        super.onSaveInstanceState(outState);
-        outState.putString(LogHistoryActivity.KEY_LOG_TEXT, mLogTV.getText().toString());
-        Log_OC.d(TAG, "onSaveInstanceState() end");
-    }
 
     /**
      * Show loading dialog
