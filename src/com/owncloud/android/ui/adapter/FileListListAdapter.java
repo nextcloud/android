@@ -172,10 +172,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 
                 if (file.isDown()){
                     Bitmap bitmap = BitmapFactory.decodeFile(file.getStoragePath());
-                    thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
                     
-                    // Add thumbnail to cache
-                    addBitmapToCache(imageKey, thumbnail);
+                    if (bitmap != null) {
+                        thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+
+                        // Add thumbnail to cache
+                        addBitmapToCache(imageKey, thumbnail);
+                    }
 
                 } else {
                     // Download thumbnail from server
