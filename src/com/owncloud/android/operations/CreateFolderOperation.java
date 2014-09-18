@@ -23,9 +23,9 @@ import com.owncloud.android.lib.resources.files.CreateRemoteFolderOperation;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.Log_OC;
 
 
 /**

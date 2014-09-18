@@ -61,6 +61,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -77,6 +78,7 @@ import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.MoveFileOperation;
@@ -99,7 +101,6 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -289,7 +290,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             if (listOfFiles != null) {
                 listOfFiles.listDirectory(getCurrentDir());   
             } else {
-                Log.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
+                Log_OC.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
             }
             
             /// Second fragment
@@ -305,12 +306,12 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             }
 
         } else {
-            Log.wtf(TAG, "initFragments() called with invalid NULLs!");
+            Log_OC.wtf(TAG, "initFragments() called with invalid NULLs!");
             if (getAccount() == null) {
-                Log.wtf(TAG, "\t account is NULL");
+                Log_OC.wtf(TAG, "\t account is NULL");
             }
             if (getFile() == null) {
-                Log.wtf(TAG, "\t file is NULL");
+                Log_OC.wtf(TAG, "\t file is NULL");
             }
         }
     }
@@ -449,6 +450,16 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (BuildConfig.DEBUG) {
+            menu.findItem(R.id.action_logger).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_logger).setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSherlock().getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
@@ -476,6 +487,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         case R.id.action_settings: {
             Intent settingsIntent = new Intent(this, Preferences.class);
             startActivity(settingsIntent);
+            break;
+        }
+        case R.id.action_logger: {
+            Intent loggerIntent = new Intent(getApplicationContext(),LogHistoryActivity.class);
+            startActivity(loggerIntent);
             break;
         }
         case android.R.id.home: {
@@ -1023,7 +1039,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             }
             ocFileListFragment.setMessageForEmptyList(getString(message));
         } else {
-            Log.e(TAG, "OCFileListFragment is null");
+            Log_OC.e(TAG, "OCFileListFragment is null");
         }
     }
 

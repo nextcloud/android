@@ -17,106 +17,224 @@
 
 package com.owncloud.android.ui.activity;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
-import com.owncloud.android.ui.adapter.LogListAdapter;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 
+public class LogHistoryActivity extends SherlockFragmentActivity  {
+
+    private static final String MAIL_ATTACHMENT_TYPE = "text/plain";
+
+    private static final String TAG = LogHistoryActivity.class.getSimpleName();
+
+    private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
+
+    private String mLogPath = FileStorageUtils.getLogPath();
+    private File logDIR = null;
 
 
-public class LogHistoryActivity extends SherlockPreferenceActivity implements OnPreferenceChangeListener {
-    String logpath = FileStorageUtils.getLogPath();
-    File logDIR = null;
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         setContentView(R.layout.log_send_file);
-        setTitle("Log History");
+        setTitle(getText(R.string.actionbar_logger));
         ActionBar actionBar = getSherlock().getActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
-        ListView listView = (ListView) findViewById(android.R.id.list);
         Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
-        
+        Button sendHistoryButton = (Button) findViewById(R.id.sendLogHistoryButton);
+
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
             
             @Override
             public void onClick(View v) {
-                File dir = new File(logpath);
-                if (dir != null) {
-                    File[] files = dir.listFiles();
-                    if(files!=null) { 
-                        for(File f: files) {
-                                f.delete();
-                        }
-                    }
-                    dir.delete();
-                }
-                Intent intent = new Intent(getBaseContext(), Preferences.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+
+                Log_OC.deleteHistoryLogging();
+                finish();
             }
-            
         });
-        
-       
-        if(logpath != null){
-        logDIR = new File(logpath);
-        }
-        
-        if(logDIR != null && logDIR.isDirectory()) {
-            File[] files = logDIR.listFiles();
-          
-            if (files != null && files.length != 0) {
-                ArrayList<String> logfiles_name = new ArrayList<String>();
-                for (File file : files) {
-                    logfiles_name.add(file.getName());
-                }
-                    String[] logFiles2Array = logfiles_name.toArray(new String[logfiles_name.size()]);
-                    LogListAdapter listadapter = new LogListAdapter(this,logFiles2Array);
-                    listView.setAdapter(listadapter);
+
+        sendHistoryButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                sendMail();
             }
+        });
+
+        if (mLogPath != null) {
+            logDIR = new File(mLogPath);
+        }
+
+        if (logDIR != null && logDIR.isDirectory()) {
+            // Show a dialog while log data is being loaded
+            showLoadingDialog();
+
+            TextView logTV = (TextView) findViewById(R.id.logTV);
+
+            // Start a new thread that will load all the log data
+            LoadingLogTask task = new LoadingLogTask(logTV);
+            task.execute();
+
         }
     }
 
-    
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         super.onMenuItemSelected(featureId, item);
-        Intent intent;
-
         switch (item.getItemId()) {
-       
         case android.R.id.home:
-            intent = new Intent(getBaseContext(), Preferences.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            finish();
             break;
         default:
             return false;
         }
         return true;
     }
-    @Override
-    public boolean onPreferenceChange(Preference arg0, Object arg1) {
-        return false;
+
+
+    /**
+     * Start activity for sending email with logs attached
+     */
+    private void sendMail() {
+
+        String emailAddresses[] = { getText(R.string.mail_logger).toString() };
+
+        ArrayList<Uri> uris = new ArrayList<Uri>();
+
+        // Convert from paths to Android friendly Parcelable Uri's
+        for (String file : Log_OC.getLogFileNames())
+        {
+            if (new File(mLogPath + File.separator, file).exists()) {
+                Uri u = Uri.parse("file://" + mLogPath + File.separator + file);
+                uris.add(u);
+            }
+        }
+
+        Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+
+        // Explicitly only use Gmail to send
+        intent.setClassName("com.google.android.gm","com.google.android.gm.ComposeActivityGmail");
+        intent.putExtra(Intent.EXTRA_EMAIL, emailAddresses);
+        intent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.log_mail_subject));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setType(MAIL_ATTACHMENT_TYPE);
+        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    /**
+     *
+     * Class for loading the log data async
+     *
+     */
+    private class LoadingLogTask extends AsyncTask<String, Void, String> {
+        private final WeakReference<TextView> textViewReference;
+
+        public LoadingLogTask(TextView logTV){
+            // Use of a WeakReference to ensure the TextView can be garbage collected
+            textViewReference  = new WeakReference<TextView>(logTV);
+        }
+
+        protected String doInBackground(String... args) {
+            return readLogFile();
+        }
+
+        protected void onPostExecute(String result) {
+            if (textViewReference != null && result != null) {
+                final TextView logTV = textViewReference.get();
+                if (logTV != null) {
+                    logTV.setText(result);
+                    dismissLoadingDialog();
+                }
+            }
+        }
+
+        /**
+         * Read and show log file info
+         */
+        private String readLogFile() {
+
+            String[] logFileName = Log_OC.getLogFileNames();
+
+            //Read text from files
+            StringBuilder text = new StringBuilder();
+
+            try {
+
+                String line;
+
+                for (int i = logFileName.length-1; i >= 0; i--) {
+                    File file = new File(mLogPath,logFileName[i]);
+                    if (file.exists()) {
+                        // Check if FileReader is ready
+                        if (new FileReader(file).ready()) {
+                            BufferedReader br = new BufferedReader(new FileReader(file));
+                            while ((line = br.readLine()) != null) {
+                                // Append the log info
+                                text.append(line);
+                                text.append('\n');
+                            }
+                        }
+                    }
+                }
+            }
+            catch (IOException e) {
+                Log_OC.d(TAG, e.getMessage().toString());
+            }
+
+            return text.toString();
+        }
+   }
+
+    /**
+     * Show loading dialog
+     */
+    public void showLoadingDialog() {
+        // Construct dialog
+        LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.log_progress_dialog_text));
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        loading.show(ft, DIALOG_WAIT_TAG);
+    }
+
+    /**
+     * Dismiss loading dialog
+     */
+    public void dismissLoadingDialog(){
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+        if (frag != null) {
+            LoadingDialog loading = (LoadingDialog) frag;
+            loading.dismiss();
+        }
     }
 }

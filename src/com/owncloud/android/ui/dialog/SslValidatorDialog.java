@@ -42,7 +42,7 @@ import android.widget.TextView;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.network.NetworkUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  * Dialog to request the user about a certificate that could not be validated with the certificates store in the system.

@@ -44,10 +44,10 @@ import com.ortiz.touch.TouchImageView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.Log_OC;
 
 
 /**

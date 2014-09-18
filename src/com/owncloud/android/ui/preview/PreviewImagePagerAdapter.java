@@ -199,17 +199,17 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      *- /
     @Override
     public void startUpdate(ViewGroup container) {
-        Log.e(TAG, "** startUpdate");
+        Log_OC.e(TAG, "** startUpdate");
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        Log.e(TAG, "** instantiateItem " + position);
+        Log_OC.e(TAG, "** instantiateItem " + position);
         
         if (mFragments.size() > position) {
             Fragment fragment = mFragments.get(position);
             if (fragment != null) {
-                Log.e(TAG, "** \t returning cached item");
+                Log_OC.e(TAG, "** \t returning cached item");
                 return fragment;
             }
         }
@@ -235,7 +235,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         }
         fragment.setMenuVisibility(false);
         mFragments.set(position, fragment);
-        //Log.e(TAG, "** \t adding fragment at position " + position + ", containerId " + container.getId());
+        //Log_OC.e(TAG, "** \t adding fragment at position " + position + ", containerId " + container.getId());
         mCurTransaction.add(container.getId(), fragment);
 
         return fragment;
@@ -243,13 +243,13 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        Log.e(TAG, "** destroyItem " + position);
+        Log_OC.e(TAG, "** destroyItem " + position);
         Fragment fragment = (Fragment)object;
         
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
-        Log.e(TAG, "** \t removing fragment at position " + position);
+        Log_OC.e(TAG, "** \t removing fragment at position " + position);
         while (mSavedState.size() <= position) {
             mSavedState.add(null);
         }
@@ -275,13 +275,13 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public void finishUpdate(ViewGroup container) {
-        Log.e(TAG, "** finishUpdate (start)");
+        Log_OC.e(TAG, "** finishUpdate (start)");
         if (mCurTransaction != null) {
             mCurTransaction.commitAllowingStateLoss();
             mCurTransaction = null;
             mFragmentManager.executePendingTransactions();
         }
-        Log.e(TAG, "** finishUpdate (end)");
+        Log_OC.e(TAG, "** finishUpdate (end)");
     }
 
     @Override
@@ -336,7 +336,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                         f.setMenuVisibility(false);
                         mFragments.set(index, f);
                     } else {
-                        Log.w(TAG, "Bad fragment at key " + key);
+                        Log_OC.w(TAG, "Bad fragment at key " + key);
                     }
                 }
             }

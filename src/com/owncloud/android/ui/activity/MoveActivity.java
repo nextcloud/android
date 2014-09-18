@@ -61,7 +61,7 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 public class MoveActivity extends HookActivity implements FileFragment.ContainerActivity, 
     OnClickListener, SwipeRefreshLayout.OnRefreshListener {
