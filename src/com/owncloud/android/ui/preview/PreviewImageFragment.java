@@ -19,16 +19,12 @@ package com.owncloud.android.ui.preview;
 import java.lang.ref.WeakReference;
 
 import android.accounts.Account;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
-import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -363,58 +359,14 @@ public class PreviewImageFragment extends FileFragment {
         }
         
         
-        @SuppressWarnings("deprecation")
-        @SuppressLint({ "NewApi", "NewApi", "NewApi" }) // to avoid Lint errors since Android SDK r20
 		@Override
         protected Bitmap doInBackground(String... params) {
             Bitmap result = null;
             if (params.length != 1) return result;
             String storagePath = params[0];
             try {
-                // set desired options that will affect the size of the bitmap
-                BitmapFactory.Options options = new Options();
-                options.inScaled = true;
-                options.inPurgeable = true;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
-                    options.inPreferQualityOverSpeed = false;
-                }
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-                    options.inMutable = false;
-                }
-                // make a false load of the bitmap - just to be able to read outWidth, outHeight and outMimeType
-                options.inJustDecodeBounds = true;
-                BitmapFactory.decodeFile(storagePath, options);   
-                
-                int width = options.outWidth;
-                int height = options.outHeight;
-                int scale = 1;
-                
-                Display display = getActivity().getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                int screenWidth;
-                int screenHeight;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-                    display.getSize(size);
-                    screenWidth = size.x;
-                    screenHeight = size.y;
-                } else {
-                    screenWidth = display.getWidth();
-                    screenHeight = display.getHeight();
-                }
-
-                if (width > screenWidth) {
-                    // second try to scale down the image , this time depending upon the screen size 
-                    scale = (int) Math.floor((float)width / screenWidth);
-                }
-                if (height > screenHeight) {
-                    scale = Math.max(scale, (int) Math.floor((float)height / screenHeight));
-                }
-                options.inSampleSize = scale;
-
-                // really load the bitmap
-                options.inJustDecodeBounds = false; // the next decodeFile call will be real
-                result = BitmapFactory.decodeFile(storagePath, options);
-                //Log_OC.d(TAG, "Image loaded - width: " + options.outWidth + ", loaded height: " + options.outHeight);
+                //Decode file into a bitmap in real size for being able to make zoom on the image
+                result = BitmapFactory.decodeFile(storagePath);
 
                 if (result == null) {
                     mErrorMessageId = R.string.preview_image_error_unknown_format;
