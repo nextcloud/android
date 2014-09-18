@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import android.content.Intent;
@@ -124,7 +125,16 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
      */
     private void sendMail() {
 
-        String emailAddresses[] = { getText(R.string.mail_logger).toString() };
+        String emailAddress;
+        try {
+            Class<?> stringClass = R.string.class;
+            Field mailLoggerField = stringClass.getField("mail_logger");
+            int emailAddressId = (Integer)mailLoggerField.get(null);
+            emailAddress = getString(emailAddressId);
+            
+        } catch (Exception e) {
+            emailAddress = "";
+        }
 
         ArrayList<Uri> uris = new ArrayList<Uri>();
 
@@ -141,7 +151,7 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
 
         // Explicitly only use Gmail to send
         intent.setClassName("com.google.android.gm","com.google.android.gm.ComposeActivityGmail");
-        intent.putExtra(Intent.EXTRA_EMAIL, emailAddresses);
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{ emailAddress });
         intent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.log_mail_subject));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setType(MAIL_ATTACHMENT_TYPE);
@@ -189,8 +199,8 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
             //Read text from files
             StringBuilder text = new StringBuilder();
 
+            BufferedReader br = null;
             try {
-
                 String line;
 
                 for (int i = logFileName.length-1; i >= 0; i--) {
@@ -198,7 +208,7 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
                     if (file.exists()) {
                         // Check if FileReader is ready
                         if (new FileReader(file).ready()) {
-                            BufferedReader br = new BufferedReader(new FileReader(file));
+                            br = new BufferedReader(new FileReader(file));
                             while ((line = br.readLine()) != null) {
                                 // Append the log info
                                 text.append(line);
@@ -210,6 +220,15 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
             }
             catch (IOException e) {
                 Log_OC.d(TAG, e.getMessage().toString());
+                
+            } finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        // ignore
+                    }
+                }
             }
 
             return text.toString();
@@ -221,7 +240,9 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
      */
     public void showLoadingDialog() {
         // Construct dialog
-        LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.log_progress_dialog_text));
+        LoadingDialog loading = new LoadingDialog(
+                getResources().getString(R.string.log_progress_dialog_text)
+        );
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         loading.show(ft, DIALOG_WAIT_TAG);
