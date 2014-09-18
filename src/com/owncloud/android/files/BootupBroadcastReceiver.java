@@ -18,8 +18,8 @@
 
 package com.owncloud.android.files;
 
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.observer.FileObserverService;
-import com.owncloud.android.utils.Log_OC;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

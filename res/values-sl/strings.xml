@@ -31,6 +31,7 @@
   <string name="prefs_feedback">Odziv</string>
   <string name="prefs_imprint">Natis</string>
   <string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
+  <string name="recommend_text">Želim ti predstaviti %1$s na pametnem telefonu!\nPrejmeš ga lahko na: %2$s</string>
   <string name="auth_check_server">Preveri strežnik</string>
   <string name="auth_host_url">Naslov strežnika https://…</string>
   <string name="auth_username">Uporabniško ime</string>
@@ -238,7 +239,9 @@
   <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
   <string name="share_link_no_support_share_api">Souporaba je na strežniku onemogočena. Možnost lahko spreminjajo le
 		uporabniki s skrbniškimi dovoljenji.</string>
+  <string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
   <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
+  <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
   <string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
   <string name="activity_chooser_send_file_title">Pošlji</string>
   <string name="copy_link">Kopiraj povezavo</string>
@@ -263,5 +266,10 @@
   <string name="saml_authentication_required_text">Zahtevana je overitev</string>
   <string name="saml_authentication_wrong_pass">Napačno geslo</string>
   <string name="actionbar_move">Premakni</string>
+  <string name="file_list_empty_moving">Ni vsebine in datotek. Lahko ustvarite na primer mapo.</string>
   <string name="move_choose_button_text">Izbor</string>
+  <string name="move_file_not_found">Ni mogoče premakniti datoteke. Preverite, ali obstaja.</string>
+  <string name="move_file_invalid_into_descendent">Ni mogoče premakniti mape v podrejeno mapo.</string>
+  <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja.</string>
+  <string name="move_file_error">Prišlo je do napake med premikanjem datoteke v mapo</string>
 </resources>
