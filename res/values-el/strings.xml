@@ -31,6 +31,7 @@
   <string name="prefs_feedback">Σχόλια </string>
   <string name="prefs_imprint">Αποτύπωμα</string>
   <string name="recommend_subject">Δοκιμάστε %1$s στο κινητό σας!</string>
+  <string name="recommend_text">Θα ήθελα να σε προσκαλέσω να χρησιμοποιήσεις το %1$s στο κινητό σου!\nΛήψη εδώ: %2$s</string>
   <string name="auth_check_server">Έλεγχος Διακομιστή</string>
   <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
   <string name="auth_username">Όνομα χρήστη</string>

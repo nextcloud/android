@@ -264,6 +264,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                                                                                     mCurrentSyncTime, 
                                                                                     true,
                                                                                     mIsShareSupported,
+                                                                                    true,
                                                                                     getStorageManager(), 
                                                                                     getAccount(), 
                                                                                     getContext()

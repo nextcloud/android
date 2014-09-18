@@ -109,6 +109,9 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     /** 'True' means that the remote folder changed from last synchronization and should be fetched */
     private boolean mRemoteFolderChanged;
 
+    /** 'True' means that Etag will be ignored */
+    private boolean mIgnoreETag;
+
     
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
@@ -126,6 +129,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                                         long currentSyncTime, 
                                         boolean syncFullAccount,
                                         boolean isShareSupported,
+                                        boolean ignoreETag,
                                         FileDataStorageManager dataStorageManager, 
                                         Account account, 
                                         Context context ) {
@@ -138,6 +142,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         mContext = context;
         mForgottenLocalFiles = new HashMap<String, String>();
         mRemoteFolderChanged = false;
+        mIgnoreETag = ignoreETag;
     }
     
     
@@ -215,7 +220,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
 
     
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {
-        mRemoteFolderChanged = false;
+        mRemoteFolderChanged = true;
         RemoteOperationResult result = null;
         String remotePath = null;
 
@@ -227,10 +232,12 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         result = operation.execute(client);
         if (result.isSuccess()){
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-            
-            // check if remote and local folder are different
-            mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
-          
+
+            if (!mIgnoreETag) {
+                // check if remote and local folder are different
+                mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
+            }
+
             result = new RemoteOperationResult(ResultCode.OK);
         
             Log_OC.i(TAG, "Checked " + mAccount.name + remotePath + " : " + (mRemoteFolderChanged ? "changed" : "not changed"));
