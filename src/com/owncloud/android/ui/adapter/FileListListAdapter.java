@@ -63,6 +63,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
+    private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM };
     
     public FileListListAdapter(
             boolean justFolders, 
@@ -138,120 +139,144 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             file = mFiles.get(position);
         }
         
+        // Find out which layout should be displayed
+        ViewType viewType;
         if (fileView){
-            view = inflator.inflate(R.layout.list_item, null);
+            viewType = ViewType.LIST_ITEM;
+        } else if (file.isImage()){
+            viewType = ViewType.GRID_IMAGE;
         } else {
-            if (file.isImage()){
-                view = inflator.inflate(R.layout.grid_image, null);
-            } else {
-                view = inflator.inflate(R.layout.grid_item, null);
-            }
-            
-            View frame = view.findViewById(R.id.imageItemFrame);
-            frame.setVisibility(View.GONE);
+            viewType = ViewType.GRID_ITEM;
         }
+
+        // Create View
+        switch (viewType){
+        case GRID_IMAGE:
+            view = inflator.inflate(R.layout.grid_image, null);
+            break;
+        case GRID_ITEM:
+            view = inflator.inflate(R.layout.grid_item, null);
+            break;
+        case LIST_ITEM:
+            view = inflator.inflate(R.layout.list_item, null);
+            break;
+        }
+
         view.invalidate();
-    
-       if (file != null){
-            TextView fileName = (TextView) view.findViewById(R.id.Filename);
-            // if (!fileView){fileName.setVisibility(View.GONE);}
-            String name = file.getFileName();
 
-            fileName.setText(name);
-            ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
-            ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
-            ImageView sharedWithMeIconV = (ImageView) view.findViewById(R.id.sharedWithMeIcon);
-            sharedWithMeIconV.setVisibility(View.GONE);
+        if (file != null){
 
-            ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
-            localStateView.bringToFront();
-            FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
-            FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
-            if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
-                localStateView.setImageResource(R.drawable.downloading_file_indicator);
-                localStateView.setVisibility(View.VISIBLE);
-            } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
-                localStateView.setImageResource(R.drawable.uploading_file_indicator);
-                localStateView.setVisibility(View.VISIBLE);
-            } else if (file.isDown()) {
-                localStateView.setImageResource(R.drawable.local_file_indicator);
-                localStateView.setVisibility(View.VISIBLE);
-            } else {
-                localStateView.setVisibility(View.INVISIBLE);
-            }
+            ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
+            TextView fileName;
+            String name;
             
-            if (!fileView){
-                localStateView.setVisibility(View.GONE);
-            }
-            
-            TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
-            TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
-            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
-            
-            if (!file.isFolder()) {
+            switch (viewType){
+            case LIST_ITEM:
+                fileName = (TextView) view.findViewById(R.id.Filename);
+                name = file.getFileName();
+                fileName.setText(name);
+                
+                TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
+                TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
+                ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
+                
+                lastModV.setVisibility(View.VISIBLE);
+                lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+                
+                checkBoxV.setVisibility(View.GONE);
+                
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
-                lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
-                // this if-else is needed even thoe fav icon is visible by default
-                // because android reuses views in listview
-                if (!file.keepInSync()) {
-                    view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+                
+                ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
+                
+
+                if (file.isShareByLink()) {
+                    sharedIconV.setVisibility(View.VISIBLE);
                 } else {
-                    view.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
+                    sharedIconV.setVisibility(View.GONE);
                 }
                 
-                GridView parentList = (GridView)parent;
-                if (parentList.getChoiceMode() == GridView.CHOICE_MODE_NONE) { 
-                    checkBoxV.setVisibility(View.GONE);
-                } else {
-                    if (parentList.isItemChecked(position)) {
-                        checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
+                ImageView localStateView = (ImageView) view.findViewById(R.id.localFileIndicator);
+                
+                if (!file.isFolder()) {
+                    GridView parentList = (GridView)parent;
+                    if (parentList.getChoiceMode() == GridView.CHOICE_MODE_NONE) { 
+                        checkBoxV.setVisibility(View.GONE);
                     } else {
-                        checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
+                        if (parentList.isItemChecked(position)) {
+                            checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
+                        } else {
+                            checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
+                        }
+                        checkBoxV.setVisibility(View.VISIBLE);
                     }
-                    checkBoxV.setVisibility(View.VISIBLE);
+                    
+                    localStateView.bringToFront();
+                    FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
+                    FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
+                    if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
+                        localStateView.setImageResource(R.drawable.downloading_file_indicator);
+                        localStateView.setVisibility(View.VISIBLE);
+                    } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
+                        localStateView.setImageResource(R.drawable.uploading_file_indicator);
+                        localStateView.setVisibility(View.VISIBLE);
+                    } else if (file.isDown()) {
+                        localStateView.setImageResource(R.drawable.local_file_indicator);
+                        localStateView.setVisibility(View.VISIBLE);
+                    } else {
+                        localStateView.setVisibility(View.INVISIBLE);
+                    }
+                    
+                    ImageView sharedWithMeIconV = (ImageView) view.findViewById(R.id.sharedWithMeIcon);
+                    if (checkIfFileIsSharedWithMe(file)) {
+                        sharedWithMeIconV.setVisibility(View.VISIBLE);
+                    } else {
+                        sharedWithMeIconV.setVisibility(View.GONE);
+                    }
+                } else {
+                    localStateView.setVisibility(View.INVISIBLE);
                 }
-
+                break;
+            case GRID_ITEM:
+                fileName = (TextView) view.findViewById(R.id.Filename);
+                name = file.getFileName();
+                fileName.setText(name);
+                break;
+            case GRID_IMAGE:
+                break;
+            }
+            
+            // For all Views
+            
+            // this if-else is needed even though favorite icon is visible by default
+            // because android reuses views in listview
+            if (!file.keepInSync()) {
+                view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
+            } else {
+                view.findViewById(R.id.favoriteIcon).setVisibility(View.VISIBLE);
+            }
+            
+            // No Folder
+            if (!file.isFolder()) {
                 if (file.isImage() && file.isDown()){
                     Bitmap bitmap = BitmapFactory.decodeFile(file.getStoragePath());
-                    fileIcon.setImageBitmap(ThumbnailUtils.extractThumbnail(bitmap, 100, 100));
+                    fileIcon.setImageBitmap(ThumbnailUtils.extractThumbnail(bitmap, 200, 200));
                 } else {
                     fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
                 }
-
-                if (checkIfFileIsSharedWithMe(file)) {
-                    sharedWithMeIconV.setVisibility(View.VISIBLE);
-                }
-            } 
-            else {
-                
-                fileSizeV.setVisibility(View.INVISIBLE);
-                //fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
-                lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
-                checkBoxV.setVisibility(View.GONE);
-                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
-
+            } else {
+                // Folder
                 if (checkIfFileIsSharedWithMe(file)) {
                     fileIcon.setImageResource(R.drawable.shared_with_me_folder);
-                    sharedWithMeIconV.setVisibility(View.VISIBLE);
+                } else if (file.isShareByLink()) {
+                    // If folder is sharedByLink, icon folder must be changed to
+                    // folder-public one
+                    fileIcon.setImageResource(R.drawable.folder_public);
                 } else {
                     fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
                 }
-
-                // If folder is sharedByLink, icon folder must be changed to
-                // folder-public one
-                if (file.isShareByLink()) {
-                    fileIcon.setImageResource(R.drawable.folder_public);
-                }
-            }
-
-            if (file.isShareByLink()) {
-                sharedIconV.setVisibility(View.VISIBLE);
-            } else {
-                sharedIconV.setVisibility(View.GONE);
-            }
+            }           
         }
 
         return view;

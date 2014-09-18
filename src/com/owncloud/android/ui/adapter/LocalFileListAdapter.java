@@ -99,7 +99,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             String name = file.getName();
             fileName.setText(name);
             
-            ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
+            ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
             if (!file.isDirectory()) {
                 fileIcon.setImageResource(R.drawable.file);
             } else {
@@ -110,8 +110,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             if (!file.isDirectory()) {
-                fileSizeV.setVisibility(View.VISIBLE);
-                fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+                
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
                 ListView parentList = (ListView)parent;
@@ -127,13 +126,15 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 }
 
             } else {
-                fileSizeV.setVisibility(View.GONE);
+                //fileSizeV.setVisibility(View.GONE);
                 lastModV.setVisibility(View.GONE);
                 checkBoxV.setVisibility(View.GONE);
             }
+            fileSizeV.setVisibility(View.VISIBLE);
+            fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
             
-            view.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);   // not GONE; the alignment changes; ugly way to keep it
-            view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+            view.findViewById(R.id.localFileIndicator).setVisibility(View.INVISIBLE);   // not GONE; the alignment changes; ugly way to keep it
+            view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
             
             view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
             view.findViewById(R.id.sharedWithMeIcon).setVisibility(View.GONE);

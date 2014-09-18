@@ -27,95 +27,28 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <com.owncloud.android.ui.SquareImageView
-        android:id="@+id/imageView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="fill"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_menu_archive" />
-
     <FrameLayout
-        android:id="@+id/imageItemFrame"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:focusable="false"
-        android:focusableInTouchMode="false" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.owncloud.android.ui.SquareImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_menu_archive" />
 
         <ImageView
-            android:id="@+id/sharedIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:src="@drawable/sharedlink" />
-
-        <ImageView
-            android:id="@+id/sharedWithMeIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/shared_with_me" />
-
-        <ImageView
-            android:id="@+id/custom_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:src="@android:drawable/checkbox_off_background" />
-
-        <TextView
-            android:id="@+id/Filename"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:ellipsize="middle"
-            android:singleLine="true"
-            android:text="TextView"
-            android:textColor="#303030"
-            android:textSize="16dip" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/favoriteIcon"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_gravity="bottom|right"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="2dp"
             android:layout_marginRight="2dp"
             android:src="@drawable/ic_favorite" />
 
-        <TextView
-            android:id="@+id/last_mod"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:text="TextView"
-            android:textColor="@color/list_item_lastmod_and_filesize_text"
-            android:textSize="12dip" />
-
-        <TextView
-            android:id="@+id/file_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:gravity="right"
-            android:text="TextView"
-            android:textColor="@color/list_item_lastmod_and_filesize_text"
-            android:textSize="12dip" />
     </FrameLayout>
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="40dp"
-        android:layout_height="22dp"
-        android:layout_marginLeft="22dp"
-        android:src="@drawable/local_file_indicator" />
 
 </LinearLayout>
