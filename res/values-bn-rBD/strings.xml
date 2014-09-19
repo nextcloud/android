@@ -260,5 +260,6 @@
   <string name="prefs_category_accounts">একাউন্ট</string>
   <string name="prefs_add_account">একাউন্ট যোগ কর</string>
   <string name="auth_redirect_non_secure_connection_title">নিরাপদ সংযোগকে একটি অনিরাপদ পথে দিকবদল করা হয়েছে</string>
+  <string name="saml_authentication_wrong_pass">ভুল কুটশব্দ</string>
   <string name="move_choose_button_text">বেছে নিন</string>
 </resources>
