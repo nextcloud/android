@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -26,7 +28,12 @@ public class DiskLruImageCache {
     private static final int CACHE_VERSION = 1;
     private static final int VALUE_COUNT = 1;
     private static final int IO_BUFFER_SIZE = 8 * 1024;
-    //private static final String TAG = "DiskLruImageCache";
+    private static final Pattern CAPITAL_LETTERS = Pattern.compile("[A-Z]"); 
+
+    private StringBuffer mValidKeyBuffer = new StringBuffer(64);
+    private StringBuffer mConversionBuffer = new StringBuffer(2).append('_'); 
+            
+    private static final String TAG = "DiskLruImageCache";
 
     public DiskLruImageCache( Context context,String uniqueName, int diskCacheSize,
         CompressFormat compressFormat, int quality ) {
@@ -61,7 +68,7 @@ public class DiskLruImageCache {
     // otherwise use internal cache dir
         final String cachePath = context.getExternalCacheDir().getPath();
 
-        Log_OC.d("DiskCache", "create dir: " + cachePath + File.separator + uniqueName);
+        Log_OC.d(TAG, "create dir: " + cachePath + File.separator + uniqueName);
                     
         return new File(cachePath + File.separator + uniqueName);
     }
@@ -69,8 +76,9 @@ public class DiskLruImageCache {
     public void put( String key, Bitmap data ) {
 
         DiskLruCache.Editor editor = null;
+        String validKey = convertToValidKey(key);
         try {
-            editor = mDiskCache.edit( key );
+            editor = mDiskCache.edit( validKey );
             if ( editor == null ) {
                 return;
             }
@@ -79,17 +87,17 @@ public class DiskLruImageCache {
                 mDiskCache.flush();
                 editor.commit();
                 if ( BuildConfig.DEBUG ) {
-                   Log.d( "cache_test_DISK_", "image put on disk cache " + key );
+                   Log.d( "cache_test_DISK_", "image put on disk cache " + validKey );
                 }
             } else {
                 editor.abort();
                 if ( BuildConfig.DEBUG ) {
-                    Log.d( "cache_test_DISK_", "ERROR on: image put on disk cache " + key );
+                    Log.d( "cache_test_DISK_", "ERROR on: image put on disk cache " + validKey );
                 }
             }   
         } catch (IOException e) {
             if ( BuildConfig.DEBUG ) {
-                Log.d( "cache_test_DISK_", "ERROR on: image put on disk cache " + key );
+                Log.d( "cache_test_DISK_", "ERROR on: image put on disk cache " + validKey );
             }
             try {
                 if ( editor != null ) {
@@ -105,9 +113,10 @@ public class DiskLruImageCache {
 
         Bitmap bitmap = null;
         DiskLruCache.Snapshot snapshot = null;
+        String validKey = convertToValidKey(key);
         try {
 
-            snapshot = mDiskCache.get( key );
+            snapshot = mDiskCache.get( validKey );
             if ( snapshot == null ) {
                 return null;
             }
@@ -126,7 +135,7 @@ public class DiskLruImageCache {
         }
 
         if ( BuildConfig.DEBUG ) {
-            Log.d("cache_test_DISK_", bitmap == null ? "not found" : "image read from disk " + key);
+            Log.d("cache_test_DISK_", bitmap == null ? "not found" : "image read from disk " + validKey);
         }
 
         return bitmap;
@@ -137,8 +146,9 @@ public class DiskLruImageCache {
 
         boolean contained = false;
         DiskLruCache.Snapshot snapshot = null;
+        String validKey = convertToValidKey(key);
         try {
-            snapshot = mDiskCache.get( key );
+            snapshot = mDiskCache.get( validKey );
             contained = snapshot != null;
         } catch (IOException e) {
             e.printStackTrace();
@@ -165,6 +175,19 @@ public class DiskLruImageCache {
 
     public File getCacheFolder() {
         return mDiskCache.getDirectory();
+    }
+    
+    private String convertToValidKey(String key) {
+        Matcher capitalLettersMatcher = CAPITAL_LETTERS.matcher(key);
+        mValidKeyBuffer.delete(0, mValidKeyBuffer.length());
+        mConversionBuffer.delete(1, mConversionBuffer.length());
+        
+        while (capitalLettersMatcher.find()) {
+            mConversionBuffer.replace(1, 2, capitalLettersMatcher.group(0).toLowerCase()); 
+            capitalLettersMatcher.appendReplacement(mValidKeyBuffer, mConversionBuffer.toString());
+        }
+        capitalLettersMatcher.appendTail(mValidKeyBuffer);
+        return mValidKeyBuffer.toString();
     }
 
 }
