@@ -104,6 +104,7 @@
   <string name="sync_fail_in_favourites_content">Los contenidos de %1$d ficheros no se han sincronizado (%2$d conflictos)</string>
   <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han perdido</string>
   <string name="sync_foreign_files_forgotten_content">%1$d archivos en la carpeta %2$s no pudieron ser copiados a</string>
+  <string name="sync_foreign_files_forgotten_explanation">A partir de la versión 1.3.16, los ficheros subidos desde este dispositivo se copian en la carpeta local %1$s para evitar la pérdida de datos cuando se sincroniza un único archivo con varias cuentas.\n\nDebido a este cambio, todos los ficheros subidos con versiones anteriores de esta aplicación fueron copiados a la carpeta %2$s. Sin embargo, un error impidió que se completara esta operación durante la sincronización de la cuenta. Puede dejar los archivos tal y como están y eliminar el enlace a %3$s o mover los archivos a la carpeta %1$s y mantener el enlace a %4$s.\n\nDebajo se muestran los archivos locales y los archivos remotos en %5$s a los que fueron enlazados.</string>
   <string name="sync_current_folder_was_removed">La carpeta local %1$s no existe.</string>
   <string name="foreign_files_move">Mover todo</string>
   <string name="foreign_files_success">Todos los archivos fueron movidos</string>
@@ -263,12 +264,17 @@
   <string name="prefs_category_accounts">Cuentas</string>
   <string name="prefs_add_account">Agregar cuenta</string>
   <string name="auth_redirect_non_secure_connection_title">La conexión segura está siendo redirigida por una ruta insegura.</string>
+  <string name="actionbar_logger">Trazas</string>
+  <string name="log_send_history_button">Enviar historial</string>
+  <string name="log_mail_subject">Trazas de la aplicación Android Owncloud</string>
+  <string name="log_progress_dialog_text">Cargando datos...</string>
   <string name="saml_authentication_required_text">Se necesita autenticación</string>
   <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
   <string name="actionbar_move">Mover</string>
   <string name="file_list_empty_moving">Aquí no hay nada. ¡Puede agregar una carpeta!</string>
   <string name="move_choose_button_text">Seleccionar</string>
   <string name="move_file_not_found">No se puede mover. Revise si el archivo existe</string>
+  <string name="move_file_invalid_into_descendent">No se puede mover una carpeta dentro de una de sus descendientes.</string>
   <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
   <string name="move_file_error">Hubo un error al tratar de mover este archivo o carpeta</string>
   <string name="forbidden_permissions_move">para mover este archivo</string>

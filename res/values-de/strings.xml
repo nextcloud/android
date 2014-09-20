@@ -264,6 +264,10 @@
   <string name="prefs_category_accounts">Konten</string>
   <string name="prefs_add_account">Konto hinzufügen</string>
   <string name="auth_redirect_non_secure_connection_title">Die gesicherte Verbindung wird auf eine unsichere Route weitergeleitet.</string>
+  <string name="actionbar_logger">Fehlerberichte</string>
+  <string name="log_send_history_button">Historie senden</string>
+  <string name="log_mail_subject">Owncloud Android-App Meldungen</string>
+  <string name="log_progress_dialog_text">Lade Daten …</string>
   <string name="saml_authentication_required_text">Authentifizierung benötigt</string>
   <string name="saml_authentication_wrong_pass">Falsches Passwort</string>
   <string name="actionbar_move">Verschieben</string>
