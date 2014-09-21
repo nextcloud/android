@@ -265,17 +265,17 @@
   <string name="prefs_add_account">Konto hinzufügen</string>
   <string name="auth_redirect_non_secure_connection_title">Die gesicherte Verbindung wird auf eine unsichere Route weitergeleitet.</string>
   <string name="actionbar_logger">Fehlerberichte</string>
-  <string name="log_send_history_button">Historie senden</string>
+  <string name="log_send_history_button">Verlauf senden</string>
   <string name="log_mail_subject">Owncloud Android-App Meldungen</string>
-  <string name="log_progress_dialog_text">Lade Daten …</string>
-  <string name="saml_authentication_required_text">Authentifizierung benötigt</string>
+  <string name="log_progress_dialog_text">Daten werden geladen …</string>
+  <string name="saml_authentication_required_text">Legitimierung benötigt</string>
   <string name="saml_authentication_wrong_pass">Falsches Passwort</string>
   <string name="actionbar_move">Verschieben</string>
   <string name="file_list_empty_moving">Nichts vorhanden. Sie können einen Ordner hinzufügen!</string>
   <string name="move_choose_button_text">Auswählen</string>
-  <string name="move_file_not_found">Verschieben nicht möglich. Prüfen Sie, ob die Datei existiert</string>
+  <string name="move_file_not_found">Verschieben nicht möglich. Bitte überprüfen Sie, ob die Datei existiert</string>
   <string name="move_file_invalid_into_descendent">Es ist nicht möglich einen Ordner eine Ebene tiefer zu verschieben</string>
-  <string name="move_file_invalid_overwrite">Die Datei existiert bereits im Zielordner</string>
-  <string name="move_file_error">Es ist ein Fehler beim Verschieben dieser Datei oder Ordners aufgetreten.</string>
+  <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
+  <string name="move_file_error">Es ist ein Fehler beim Verschieben dieser Datei oder dieses Ordners aufgetreten.</string>
   <string name="forbidden_permissions_move">um diese Datei zu verschieben</string>
 </resources>
