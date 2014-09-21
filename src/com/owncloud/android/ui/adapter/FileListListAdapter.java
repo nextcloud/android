@@ -189,7 +189,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         @Override
         protected Bitmap doInBackground(OCFile... params) {
             file = params[0];
-            final String imageKey = String.valueOf(file.getRemoteId()).toLowerCase();
+            final String imageKey = String.valueOf(file.getRemoteId().hashCode());
             Log_OC.d("Thumbnail", imageKey);
 
             // Check disk cache in background thread
@@ -219,7 +219,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     try {
                         int status = -1;
                         
-                        String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/100/100"+URLEncoder.encode(file.getRemotePath(), "UTF-8");
+                        String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/100/100/"+URLEncoder.encode(file.getRemotePath(), "UTF-8").replaceAll("%2F", "/");
                         Log_OC.d("Thumbnail", "URI: " + uri);
                         GetMethod get = new GetMethod(uri);
                         status = client.executeMethod(get);
@@ -391,7 +391,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 // get Thumbnail if file is image
                 if (file.isImage()){
                      // Thumbnail in Cache?
-                    Bitmap thumbnail = getBitmapFromDiskCache(String.valueOf(file.getRemoteId().toLowerCase()));
+                    Bitmap thumbnail = getBitmapFromDiskCache(String.valueOf(file.getRemoteId().hashCode()));
                     if (thumbnail != null){
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
