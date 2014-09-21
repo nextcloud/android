@@ -215,7 +215,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
                 } else {
                     // Download thumbnail from server
-                    // Commented out as maybe changes to client library are needed
                     try {
                         int status = -1;
                         
