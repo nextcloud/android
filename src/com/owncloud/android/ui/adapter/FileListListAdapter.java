@@ -222,15 +222,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         Log_OC.d("Thumbnail", "URI: " + uri);
                         GetMethod get = new GetMethod(uri);
                         status = client.executeMethod(get);
-                        if(isSuccess(status)) {
+                        if(status == HttpStatus.SC_OK) {
                             byte[] bytes = get.getResponseBody();
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                          thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
-                            
+                            thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+
                             // Add thumbnail to cache
-                          if (thumbnail != null){
-                              addBitmapToCache(imageKey, thumbnail);
-                          }
+                            if (thumbnail != null){
+                                addBitmapToCache(imageKey, thumbnail);
+                            }
                         }
                     } catch(Exception e){
                       e.printStackTrace();
@@ -239,12 +239,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             }
             return thumbnail;
         }
-            
-            private boolean isSuccess(int status) {
-                return (status == HttpStatus.SC_OK);
-            }
-
-        
+                    
         protected void onPostExecute(Bitmap bitmap){
             if (isCancelled()) {
                 bitmap = null;
