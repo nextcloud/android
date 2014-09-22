@@ -16,6 +16,12 @@
  */
 package com.owncloud.android.ui.preview;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FilterInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 
 import android.accounts.Account;
@@ -305,6 +311,7 @@ public class PreviewImageFragment extends FileFragment {
     public void onDestroy() {
         if (mBitmap != null) {
             mBitmap.recycle();
+            System.gc();
         }
         super.onDestroy();
     }
@@ -368,8 +375,15 @@ public class PreviewImageFragment extends FileFragment {
             if (params.length != 1) return result;
             String storagePath = params[0];
             try {
-                //Decode file into a bitmap in real size for being able to make zoom on the image
-                result = BitmapFactory.decodeFile(storagePath);
+
+
+                File picture = new File(storagePath);
+
+                if (picture != null) {
+                    //Decode file into a bitmap in real size for being able to make zoom on the image
+                    result = BitmapFactory.decodeStream(new FlushedInputStream
+                            (new BufferedInputStream(new FileInputStream(picture))));
+                }
 
                 if (result == null) {
                     mErrorMessageId = R.string.preview_image_error_unknown_format;
@@ -470,5 +484,29 @@ public class PreviewImageFragment extends FileFragment {
     
     public TouchImageViewCustom getImageView() {
         return mImageView;
+    }
+
+    static class FlushedInputStream extends FilterInputStream {
+        public FlushedInputStream(InputStream inputStream) {
+        super(inputStream);
+        }
+
+        @Override
+        public long skip(long n) throws IOException {
+            long totalBytesSkipped = 0L;
+            while (totalBytesSkipped < n) {
+                long bytesSkipped = in.skip(n - totalBytesSkipped);
+                if (bytesSkipped == 0L) {
+                      int byteValue = read();
+                      if (byteValue < 0) {
+                          break;  // we reached EOF
+                      } else {
+                          bytesSkipped = 1; // we read one byte
+                      }
+               }
+               totalBytesSkipped += bytesSkipped;
+            }
+            return totalBytesSkipped;
+        }
     }
 }
