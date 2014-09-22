@@ -24,7 +24,6 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
@@ -38,7 +37,6 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.ortiz.touch.TouchImageView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -46,6 +44,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.TouchImageViewCustom;
+
 
 
 /**
@@ -59,17 +59,12 @@ import com.owncloud.android.ui.fragment.FileFragment;
  */
 public class PreviewImageFragment extends FileFragment {
 
-    private static final boolean IS_HONEYCOMB_OR_HIGHER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
-
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
-    public static final int MAX_OPENGL_TEXTURE_WIDTH = 2048;
-    public static final int MAX_OPENGL_TEXTURE_HEIGHT = 2048;
-
     private View mView;
     private Account mAccount;
-    private TouchImageView mImageView;
+    private TouchImageViewCustom mImageView;
     private TextView mMessageView;
     private ProgressBar mProgressWheel;
 
@@ -128,7 +123,7 @@ public class PreviewImageFragment extends FileFragment {
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         mView = inflater.inflate(R.layout.preview_image_fragment, container, false);
-        mImageView = (TouchImageView) mView.findViewById(R.id.image);
+        mImageView = (TouchImageViewCustom) mView.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
         mImageView.setOnClickListener(new OnClickListener() {
             @Override
@@ -331,7 +326,7 @@ public class PreviewImageFragment extends FileFragment {
          * 
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load finishes.
          */
-        private final WeakReference<ImageView> mImageViewRef;
+        private final WeakReference<ImageViewCustom> mImageViewRef;
 
         /**
          * Weak reference to the target {@link TextView} where error messages will be written.
@@ -360,8 +355,8 @@ public class PreviewImageFragment extends FileFragment {
          * 
          * @param imageView     Target {@link ImageView} where the bitmap will be loaded into.
          */
-        public BitmapLoader(ImageView imageView, TextView messageView, ProgressBar progressWheel) {
-            mImageViewRef = new WeakReference<ImageView>(imageView);
+        public BitmapLoader(ImageViewCustom imageView, TextView messageView, ProgressBar progressWheel) {
+            mImageViewRef = new WeakReference<ImageViewCustom>(imageView);
             mMessageViewRef = new WeakReference<TextView>(messageView);
             mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
         }
@@ -410,13 +405,9 @@ public class PreviewImageFragment extends FileFragment {
         @SuppressLint("InlinedApi")
         private void showLoadedImage(Bitmap result) {
             if (mImageViewRef != null) {
-                final ImageView imageView = mImageViewRef.get();
+                final ImageViewCustom imageView = mImageViewRef.get();
                 if (imageView != null) {
-                    if(IS_HONEYCOMB_OR_HIGHER && checkIfMaximumBitmapExceed(result)) {
-                        // Set layer type to software one for avoiding exceed
-                        // and problems in visualization
-                        imageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-                    }
+                    imageView.setBitmap(result);
                     imageView.setImageBitmap(result);
                     imageView.setVisibility(View.VISIBLE);
                     mBitmap  = result;
@@ -477,20 +468,7 @@ public class PreviewImageFragment extends FileFragment {
         container.finish();
     }
     
-    public TouchImageView getImageView() {
+    public TouchImageViewCustom getImageView() {
         return mImageView;
-    }
-
-    /**
-     * Checks if current bitmaps exceed the maximum OpenGL texture size limit
-     * @param bitmap
-     * @return boolean
-     */
-    private boolean checkIfMaximumBitmapExceed(Bitmap bitmap) {
-        if (bitmap.getWidth() > MAX_OPENGL_TEXTURE_WIDTH 
-                || bitmap.getHeight() > MAX_OPENGL_TEXTURE_HEIGHT) {
-            return true;
-        }
-        return false;
     }
 }
