@@ -31,6 +31,8 @@
   <string name="prefs_feedback">Commentaires</string>
   <string name="prefs_imprint">Empreinte</string>
   <string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
+  <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !
+Téléchargez-le ici : %2$s</string>
   <string name="auth_check_server">Vérifier le serveur</string>
   <string name="auth_host_url">Adresse du serveur https://...</string>
   <string name="auth_username">Nom d\'utilisateur</string>
@@ -103,6 +105,11 @@
   <string name="sync_fail_in_favourites_content">Le contenu de %1$d fichiers n\'a put être synchronisé (%2$d conflits)</string>
   <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été oubliés</string>
   <string name="sync_foreign_files_forgotten_content">%1$d fichiers du dossier %2$s n\'ont pas pu être copiés dans</string>
+  <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyé depuis ce périphérique sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.
+
+En raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.
+
+Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
   <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
   <string name="foreign_files_move">Tout déplacer</string>
   <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
@@ -237,7 +244,9 @@
   <string name="preview_image_error_unknown_format">Cette image ne peut pas être affichée</string>
   <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
   <string name="share_link_no_support_share_api">Désolé, le partage n\'est pas disponible sur votre serveur. Contactez votre administrateur, s\'il vous plait.</string>
+  <string name="share_link_file_no_exist">Impossible de partager. Vérifiez que le fichier est bien présent</string>
   <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
+  <string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier est bien présent</string>
   <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
   <string name="activity_chooser_send_file_title">Envoyer</string>
   <string name="copy_link">Copier le lien</string>
@@ -258,8 +267,19 @@
   <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
   <string name="prefs_category_accounts">Comptes</string>
   <string name="prefs_add_account">Ajouter un compte</string>
+  <string name="auth_redirect_non_secure_connection_title">Le connexion sécurisée est redirigée vers une route non-sécurisée.</string>
+  <string name="actionbar_logger">Journaux</string>
+  <string name="log_send_history_button">Historique des envois</string>
+  <string name="log_mail_subject">Journaux de l\'application Owncloud Android</string>
+  <string name="log_progress_dialog_text">Chargement des données...</string>
   <string name="saml_authentication_required_text">Authentification requise</string>
   <string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
   <string name="actionbar_move">Déplacer</string>
+  <string name="file_list_empty_moving">Il n\'y rien ici. Vous pouvez ajouter un dossier !</string>
   <string name="move_choose_button_text">Choisir</string>
+  <string name="move_file_not_found">Impossible de supprimer. Vérifiez que le fichier est bien présent</string>
+  <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
+  <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier destinataire</string>
+  <string name="move_file_error">Une erreur est survenue lors de la tentative de déplacement de ce fichier ou dossier</string>
+  <string name="forbidden_permissions_move">de déplacer ce fichier</string>
 </resources>
