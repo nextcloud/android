@@ -104,9 +104,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         @Override
         protected Void doInBackground(File... params) {
             synchronized (thumbnailDiskCacheLock) {
-                mThumbnailCache = new DiskLruImageCache(mContext, "thumbnailCache", 
-                                    DISK_CACHE_SIZE, mCompressFormat, mCompressQuality);
-
+                try {
+                    mThumbnailCache = new DiskLruImageCache(mContext, "thumbnailCache", 
+                                        DISK_CACHE_SIZE, mCompressFormat, mCompressQuality);
+                } catch (Exception e) {
+                    Log_OC.d(TAG, "Thumbnail cache could not be opened ", e);
+                    mThumbnailCache = null;
+                }
                 mThumbnailCacheStarting = false; // Finished initialization
                 thumbnailDiskCacheLock.notifyAll(); // Wake any waiting threads
             }

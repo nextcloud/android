@@ -36,17 +36,13 @@ public class DiskLruImageCache {
     private static final String TAG = "DiskLruImageCache";
 
     public DiskLruImageCache( Context context,String uniqueName, int diskCacheSize,
-        CompressFormat compressFormat, int quality ) {
-        try {
-                final File diskCacheDir = getDiskCacheDir(context, uniqueName );
-                mDiskCache = DiskLruCache.open(
-                        diskCacheDir, CACHE_VERSION, VALUE_COUNT, diskCacheSize 
-                );
-                mCompressFormat = compressFormat;
-                mCompressQuality = quality;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        CompressFormat compressFormat, int quality ) throws IOException {
+        final File diskCacheDir = getDiskCacheDir(context, uniqueName );
+        mDiskCache = DiskLruCache.open(
+                diskCacheDir, CACHE_VERSION, VALUE_COUNT, diskCacheSize 
+        );
+        mCompressFormat = compressFormat;
+        mCompressQuality = quality;
     }
 
     private boolean writeBitmapToFile( Bitmap bitmap, DiskLruCache.Editor editor )
