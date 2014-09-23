@@ -18,14 +18,10 @@
 package com.owncloud.android.ui.adapter;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
-//import java.net.URLEncoder;
 import java.util.Vector;
 
 import android.accounts.Account;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -51,22 +47,9 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
-
-/*
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-*/
 
 
 /**
@@ -171,7 +154,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 ));
                 
                 if (file.isDown()){
-                    Bitmap bitmap = BitmapFactory.decodeFile(file.getStoragePath());
+                    Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
+                            file.getStoragePath(), px, px);
                     
                     if (bitmap != null) {
                         thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
