@@ -50,6 +50,7 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -57,11 +58,13 @@ import com.owncloud.android.utils.DisplayUtils;
  * instance.
  * 
  * @author Bartek Przybylski
- * @Author Tobias Kaminsky
- * 
+ * @author Tobias Kaminsky
+ * @author David A. Velasco
  */
 public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private final static String PERMISSION_SHARED_WITH_ME = "S";
+    
+    private static final String TAG = FileListListAdapter.class.getSimpleName();
 
     private Context mContext;
     private OCFile mFile = null;
@@ -139,62 +142,74 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         // Decode image in background.
         @Override
         protected Bitmap doInBackground(OCFile... params) {
-            file = params[0];
-            final String imageKey = String.valueOf(file.getRemoteId());
-
-            // Check disk cache in background thread
-            Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
-
-            // Not found in disk cache
-            if (thumbnail == null) { 
-                // Converts dp to pixel
-                Resources r = mContext.getResources();
-                int px = (int) Math.round(TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics()
-                ));
-                
-                if (file.isDown()){
-                    Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
-                            file.getStoragePath(), px, px);
+            Bitmap thumbnail = null;
+            
+            try {
+                file = params[0];
+                final String imageKey = String.valueOf(file.getRemoteId());
+    
+                // Check disk cache in background thread
+                thumbnail = getBitmapFromDiskCache(imageKey);
+    
+                // Not found in disk cache
+                if (thumbnail == null) { 
+                    // Converts dp to pixel
+                    Resources r = mContext.getResources();
+                    int px = (int) Math.round(TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics()
+                    ));
                     
-                    if (bitmap != null) {
-                        thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
-
-                        // Add thumbnail to cache
-                        addBitmapToCache(imageKey, thumbnail);
+                    if (file.isDown()){
+                        Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
+                                file.getStoragePath(), px, px);
+                        
+                        if (bitmap != null) {
+                            thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+    
+                            // Add thumbnail to cache
+                            addBitmapToCache(imageKey, thumbnail);
+                        }
+    
+                    } else {
+                        // Download thumbnail from server
+                        // Commented out as maybe changes to client library are needed
+    //                    DefaultHttpClient httpclient = new DefaultHttpClient();
+    //                    try {
+    //                        httpclient.getCredentialsProvider().setCredentials(
+    //                                new AuthScope(mClient.getBaseUri().toString().replace("https://", ""), 443), 
+    //                                new UsernamePasswordCredentials(mClient.getCredentials().getUsername(), mClient.getCredentials().getAuthToken()));
+    //                        
+    //
+    //                        HttpGet httpget = new HttpGet(mClient.getBaseUri() + "/ocs/v1.php/thumbnail?x=50&y=50&path=" + URLEncoder.encode(file.getRemotePath(), "UTF-8"));
+    //                        HttpResponse response = httpclient.execute(httpget);
+    //                        HttpEntity entity = response.getEntity();
+    //                        
+    //                        if (entity != null) {
+    //                            byte[] bytes = EntityUtils.toByteArray(entity);
+    //                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    //                            thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+    //                            
+    //                            // Add thumbnail to cache
+    //                            if (thumbnail != null){
+    //                                addBitmapToCache(imageKey, thumbnail);
+    //                            }
+    //                        }
+    //                    } catch(Exception e){
+    //                        e.printStackTrace();
+    //                    }finally {
+    //                        httpclient.getConnectionManager().shutdown();
+    //                    }
                     }
-
-                } else {
-                    // Download thumbnail from server
-                    // Commented out as maybe changes to client library are needed
-//                    DefaultHttpClient httpclient = new DefaultHttpClient();
-//                    try {
-//                        httpclient.getCredentialsProvider().setCredentials(
-//                                new AuthScope(mClient.getBaseUri().toString().replace("https://", ""), 443), 
-//                                new UsernamePasswordCredentials(mClient.getCredentials().getUsername(), mClient.getCredentials().getAuthToken()));
-//                        
-//
-//                        HttpGet httpget = new HttpGet(mClient.getBaseUri() + "/ocs/v1.php/thumbnail?x=50&y=50&path=" + URLEncoder.encode(file.getRemotePath(), "UTF-8"));
-//                        HttpResponse response = httpclient.execute(httpget);
-//                        HttpEntity entity = response.getEntity();
-//                        
-//                        if (entity != null) {
-//                            byte[] bytes = EntityUtils.toByteArray(entity);
-//                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                            thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
-//                            
-//                            // Add thumbnail to cache
-//                            if (thumbnail != null){
-//                                addBitmapToCache(imageKey, thumbnail);
-//                            }
-//                        }
-//                    } catch(Exception e){
-//                        e.printStackTrace();
-//                    }finally {
-//                        httpclient.getConnectionManager().shutdown();
-//                    }
-                } 
+                }
+                
+            } catch (Throwable t) {
+                // the app should never break due to a problem with thumbnails
+                Log_OC.e(TAG, "Generation of thumbnail for " + file + " failed", t);
+                if (t instanceof OutOfMemoryError) {
+                    System.gc();
+                }
             }
+            
             return thumbnail;
         }
         
