@@ -31,7 +31,6 @@ import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -64,7 +63,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 public class MoveActivity extends HookActivity implements FileFragment.ContainerActivity, 
-    OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+    OnClickListener, OnEnforceableRefreshListener {
 
     public static final String EXTRA_CURRENT_FOLDER = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CURRENT_FOLDER";
     public static final String EXTRA_TARGET_FILE = UploadFilesActivity.class.getCanonicalName() + "EXTRA_TARGET_FILE";
@@ -554,16 +553,23 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
             
     }
 
-
     @Override
     public void onRefresh() {
+        refreshList(true);
+    }
+
+    @Override
+    public void onRefresh(boolean enforced) {
+        refreshList(enforced);
+    }
+
+    private void refreshList(boolean ignoreETag) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {
             OCFile folder = listOfFiles.getCurrentFile();
             if (folder != null) {
-                startSyncFolderOperation(folder, true);
+                startSyncFolderOperation(folder, ignoreETag);
             }
         }
     }
-
 }
