@@ -35,6 +35,7 @@
   <string name="auth_host_url">Serverio adresas </string>
   <string name="auth_username">Prisijungimo vardas</string>
   <string name="auth_password">Slaptažodis</string>
+  <string name="auth_register">Naujas į %1$s?</string>
   <string name="sync_string_files">Failai</string>
   <string name="setup_btn_connect">Prisijungti</string>
   <string name="uploader_btn_upload_text">Įkelti</string>
@@ -48,6 +49,8 @@
   <string name="uploader_error_forbidden_content">%1$s neleidžiama prieiti prie turinio, kuriuo dalijamasi</string>
   <string name="uploader_info_uploading">Išsiunčiama</string>
   <string name="file_list_empty">Čia tuščia. Įkelkite ką nors!</string>
+  <string name="file_list_loading">Įkeliama ...</string>
+  <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
   <string name="filedetails_select_file">Palieskite failą, kad parodyti papildomą informaciją.</string>
   <string name="filedetails_size">Dydis:</string>
   <string name="filedetails_type">Tipas:</string>
@@ -91,6 +94,7 @@
   <string name="downloader_download_failed_credentials_error">Atsisiuntimas nepavyko, Jums reikia prisijungti pakartotinai</string>
   <string name="common_choose_account">Pasirinkite paskyrą</string>
   <string name="sync_fail_ticker">Sinchronizacija nepavyko</string>
+  <string name="sync_fail_ticker_unauthorized">Sinchronizacija nepavyko. Jums reikia prisijungti iš naujo</string>
   <string name="sync_fail_content">%1$s sinchronizacija nepavyko</string>
   <string name="sync_fail_content_unauthorized">Netinkamas slaptažodis %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Rastas konfliktas</string>
@@ -158,10 +162,12 @@
   <string name="auth_connecting_auth_server">Jungiamasi prie autentikacijos serverio...</string>
   <string name="auth_unsupported_auth_method">Serveris nepalaiko šio autentikacijos metodo</string>
   <string name="auth_unsupported_multiaccount">%1$s nepalaiko kelių paskyrų iš karto</string>
+  <string name="auth_can_not_auth_against_server">Jungiamasi prie autentikacijos serverio...</string>
   <string name="fd_keep_in_sync">Laikyti failą naujinamą</string>
   <string name="common_rename">Pervadinti</string>
   <string name="common_remove">Pašalinti</string>
   <string name="confirmation_remove_alert">Ar tikrai norite pašalinti %1$s?</string>
+  <string name="confirmation_remove_folder_alert">Ar tikrai norite pašalinti %1$s ir ten esantį turinį?</string>
   <string name="confirmation_remove_local">Tik vietiniai</string>
   <string name="confirmation_remove_folder_local">Tik vietinis turinys</string>
   <string name="confirmation_remove_remote">Pašalinti iš serverio</string>
@@ -174,6 +180,7 @@
   <string name="sync_file_fail_msg">Nutolę failai negalėjo būti patikrinti</string>
   <string name="sync_file_nothing_to_do_msg">Failo turinys jau sunchronizuotas</string>
   <string name="create_dir_fail_msg">Aplanko sukurti nepavyko</string>
+  <string name="filename_forbidden_characters">Neleistini simboliai: / \\ &lt; &gt; : \" | ? *</string>
   <string name="filename_empty">Failo pavadinimas negali būti tuščias</string>
   <string name="wait_a_moment">Truputį palaukite</string>
   <string name="filedisplay_unexpected_bad_get_content">Netikėta problema ; prašome pasirinkti failą iš kitos programėlės</string>
