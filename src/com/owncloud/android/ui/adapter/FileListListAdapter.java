@@ -156,7 +156,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 thumbnail = getBitmapFromDiskCache(imageKey);
     
                 // Not found in disk cache
-                if (thumbnail == null) { 
+                if (thumbnail == null || file.needsUpdateThumbnail()) { 
                     // Converts dp to pixel
                     Resources r = mContext.getResources();
                     int px = (int) Math.round(TypedValue.applyDimension(
@@ -172,6 +172,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     
                             // Add thumbnail to cache
                             addBitmapToCache(imageKey, thumbnail);
+
+                            file.setNeedsUpdateThumbnail(false);
+                            mStorageManager.saveFile(file);
                         }
     
                     } else {
@@ -235,7 +238,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
   
     public void addBitmapToCache(String key, Bitmap bitmap) {
         synchronized (thumbnailDiskCacheLock) {
-            if (mThumbnailCache != null && mThumbnailCache.getBitmap(key) == null) {
+            if (mThumbnailCache != null) {
                 mThumbnailCache.put(key, bitmap);
             }
         }
@@ -363,7 +366,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 if (file.isImage()){
                      // Thumbnail in Cache?
                     Bitmap thumbnail = getBitmapFromDiskCache(String.valueOf(file.getRemoteId()));
-                    if (thumbnail != null){
+                    if (thumbnail != null && !file.needsUpdateThumbnail()){
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
                         // generate new Thumbnail
