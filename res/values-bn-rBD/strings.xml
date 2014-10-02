@@ -49,7 +49,7 @@
   <string name="uploader_error_forbidden_content">এই যৌথ কনটেন্ট এ %1$s এর প্রবেশ অনুমোদিত নয়</string>
   <string name="uploader_info_uploading">আপলোড করা হচ্ছে</string>
   <string name="file_list_empty">এখানে কিছুই নেই। কিছু আপলোড করুন !</string>
-  <string name="file_list_loading">লোড হচছে....</string>
+  <string name="file_list_loading">লোড হচ্ছে....</string>
   <string name="local_file_list_empty">এই ফোলডারে কোন ফাইল নেই</string>
   <string name="filedetails_select_file">অতিরিক্ত তথ্য প্রদর্শন করতে চাইলে ফাইলে ট্যাপ দিন</string>
   <string name="filedetails_size">আয়তনঃ</string>
@@ -140,7 +140,7 @@
   <string name="media_forward_description">আগান</string>
   <string name="auth_getting_authorization">অনুমোদন নেয়া হচ্ছে....</string>
   <string name="auth_trying_to_login">লগইনের চেষটা চলছে..</string>
-  <string name="auth_no_net_conn_title">নেটওয়ারক কানেকশন নেই</string>
+  <string name="auth_no_net_conn_title">নেটওয়ার্ক সংযোগ নেই</string>
   <string name="auth_nossl_plain_ok_title">নিরাপদ যোগাযোগ পাওয়া গেলনা</string>
   <string name="auth_connection_established">যোগাযোগ স্থাপিত হয়েছে</string>
   <string name="auth_testing_connection">যোগাযোগ পরীক্ষা করা হচ্ছে...</string>
@@ -232,7 +232,7 @@
   <string name="conflict_message">স্থানীয় ফাইল আর দুরবর্তী ফাইল %s এক নয়। এগোতে চাইলে সার্ভারের ফাইলের কনটেন্ট প্রদিস্থাপিত হবে।</string>
   <string name="conflict_keep_both">উভয়কে রাখ</string>
   <string name="conflict_overwrite">উপরে লেখ</string>
-  <string name="conflict_dont_upload">আপলোড করোনা</string>
+  <string name="conflict_dont_upload">আপলোড কোরোনা</string>
   <string name="preview_image_description">ছবি প্রাকদর্শন</string>
   <string name="preview_image_error_unknown_format">ছবিটি প্রদর্শন করা যাবেনা</string>
   <string name="error__upload__local_file_not_copied">%1$s কে %2$s স্থানীয় ফোল্ডারে কপি করা গেলনা </string>
@@ -260,5 +260,9 @@
   <string name="prefs_category_accounts">একাউন্ট</string>
   <string name="prefs_add_account">একাউন্ট যোগ কর</string>
   <string name="auth_redirect_non_secure_connection_title">নিরাপদ সংযোগকে একটি অনিরাপদ পথে দিকবদল করা হয়েছে</string>
+  <string name="saml_authentication_wrong_pass">ভুল কুটশব্দ</string>
+  <string name="actionbar_move">সরাও</string>
+  <string name="file_list_empty_moving">এখানে কিছু নেই। একটি ফোল্ডার যোগ করতে পারেন!</string>
   <string name="move_choose_button_text">বেছে নিন</string>
+  <string name="move_file_not_found">সরাতে ব্যার্থ হলো। ফাইলটি রয়েছে কিনা দেখুন।</string>
 </resources>

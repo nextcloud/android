@@ -31,6 +31,7 @@
   <string name="prefs_feedback">Geriyə cavab</string>
   <string name="prefs_imprint">İşarələmək</string>
   <string name="recommend_subject">%1$s-i ağıllı telefonunuzda yoxlayın!</string>
+  <string name="recommend_text">Mən sizi öz smartfonunuzda %1$s istifadə etmək üçün dəvət etmək istəyirəm! Burdan endirin: %2$s</string>
   <string name="auth_check_server">Serveri yoxla</string>
   <string name="auth_host_url">Server ünvanı https://…</string>
   <string name="auth_username">İstifadəçi adı</string>
@@ -128,6 +129,7 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="media_state_playing">%1$s (oxuyur)</string>
   <string name="media_state_loading">%1$s (yüklənir)</string>
   <string name="media_event_done">%1$s geriyə oxunuş bitib</string>
+  <string name="media_err_nothing_to_play">Media faylı tapılmadı</string>
   <string name="common_remove">Sil</string>
   <string name="ssl_validator_btn_details_see">Detallar</string>
   <string name="unshare_link_file_error">Bu fayl və ya qovluğun yayımlanmasının dayandırılmasında səhv baş verdi</string>

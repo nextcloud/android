@@ -30,6 +30,7 @@
   <string name="prefs_recommend">Suosittele kaverille</string>
   <string name="prefs_feedback">Palaute</string>
   <string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
+  <string name="recommend_text">Kutsun sinut käyttämään %1$sia älypuhelimellasi!\nLataa se tästä: %2$s</string>
   <string name="auth_check_server">Tarkista palvelin</string>
   <string name="auth_host_url">Palvelinosoite https://…</string>
   <string name="auth_username">Käyttäjätunnus</string>
@@ -240,6 +241,10 @@
   <string name="prefs_category_accounts">Tilit</string>
   <string name="prefs_add_account">Lisää tili</string>
   <string name="auth_redirect_non_secure_connection_title">Salattu yhteys on ohjattu uudelleen salaamatonta reittiä pitkin.</string>
+  <string name="actionbar_logger">Lokit</string>
+  <string name="log_send_history_button">Lähetä historia</string>
+  <string name="log_mail_subject">ownCloudin Android-sovelluksen lokit</string>
+  <string name="log_progress_dialog_text">Ladataan tietoja...</string>
   <string name="saml_authentication_required_text">Tunnistautuminen vaaditaan</string>
   <string name="saml_authentication_wrong_pass">Väärä salasana</string>
   <string name="actionbar_move">Siirrä</string>

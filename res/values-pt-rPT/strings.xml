@@ -260,6 +260,8 @@
   <string name="prefs_category_accounts">Contas</string>
   <string name="prefs_add_account">Adicionar conta</string>
   <string name="auth_redirect_non_secure_connection_title">Uma ligação segura foi redireccionada por uma rota insegura.</string>
+  <string name="log_send_history_button">Enviar Histórico</string>
+  <string name="log_progress_dialog_text">A carregar os dados...</string>
   <string name="saml_authentication_required_text">Autenticação necessária</string>
   <string name="saml_authentication_wrong_pass">Password errada</string>
   <string name="actionbar_move">Mover</string>
