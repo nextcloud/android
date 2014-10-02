@@ -18,7 +18,7 @@ import android.util.Log;
 
 import com.jakewharton.disklrucache.DiskLruCache;
 import com.owncloud.android.BuildConfig;
-import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 public class DiskLruImageCache {
 
