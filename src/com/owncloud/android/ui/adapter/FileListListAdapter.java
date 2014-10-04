@@ -66,7 +66,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
-    private String sortOrder;
+    private Integer sortOrder;
     private Boolean sortAscending;
     private SharedPreferences appPreferences;
     
@@ -85,7 +85,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         
         // Read sorting order, default to sort by name ascending
         sortOrder = appPreferences
-                .getString("sortOrder", "name");
+                .getInt("sortOrder", 0);
         sortAscending = appPreferences.getBoolean("sortAscending", true);
         
     }
@@ -317,14 +317,18 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
      * Sorts all filenames, regarding last user decision 
      */
     private void sortDirectory(){
-        if (sortOrder.equals("name")){
-           sortByName(sortAscending);
-        } else if (sortOrder.equals("size")){
-            sortBySize(sortAscending);
-        } else if (sortOrder.equals("date")){
+        switch (sortOrder){
+        case 0:
+            sortByName(sortAscending);
+            break;
+        case 1:
             sortByDate(sortAscending);
+            break;
+        case 2: 
+            sortBySize(sortAscending);
+            break;
         }
-
+        
         notifyDataSetChanged();
     }
     
@@ -446,9 +450,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         });
     }
 
-    public void setSortOrder(String order, boolean ascending) {
+    public void setSortOrder(Integer order, boolean ascending) {
         SharedPreferences.Editor editor = appPreferences.edit();
-        editor.putString("sortOrder", order);
+        editor.putInt("sortOrder", order);
         editor.putBoolean("sortAscending", ascending);
         editor.commit();
         

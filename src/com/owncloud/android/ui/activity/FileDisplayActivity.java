@@ -154,8 +154,6 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
     
     private OCFile mWaitingToSend;
     
-    private Integer sortItemChecked = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
@@ -494,12 +492,18 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             break;
         }
         case R.id.action_sort: {
+            SharedPreferences appPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(getApplicationContext());
+            
+            // Read sorting order, default to sort by name ascending
+            Integer sortOrder = appPreferences
+                    .getInt("sortOrder", 0);
+            
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.actionbar_sort_title)
-            .setSingleChoiceItems(R.array.actionbar_sortby, sortItemChecked , new DialogInterface.OnClickListener() {
+            .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder , new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    sortItemChecked = which;
-
+                    
                     switch (which){
                     case 0:
                         sortByName(true);
