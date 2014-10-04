@@ -24,6 +24,8 @@ import java.util.Vector;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,9 +66,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
-    public enum sortOrders { NAME, DATE, SIZE }
-    private sortOrders sort = sortOrders.NAME;
-    private boolean sortAscending = true;
+    private String sortOrder;
+    private Boolean sortAscending;
+    private SharedPreferences appPreferences;
     
     public FileListListAdapter(
             boolean justFolders, 
@@ -77,6 +79,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
+        
+        appPreferences = PreferenceManager
+                .getDefaultSharedPreferences(mContext);
+        
+        // Read sorting order, default to sort by name ascending
+        sortOrder = appPreferences
+                .getString("sortOrder", "name");
+        sortAscending = appPreferences.getBoolean("sortAscending", true);
+        
     }
 
     @Override
@@ -306,18 +317,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
      * Sorts all filenames, regarding last user decision 
      */
     private void sortDirectory(){
-        switch (sort){
-        case NAME:
-            sortByName(sortAscending);
-            break;
-
-        case SIZE:
+        if (sortOrder.equals("name")){
+           sortByName(sortAscending);
+        } else if (sortOrder.equals("size")){
             sortBySize(sortAscending);
-            break;
-
-        case DATE:
+        } else if (sortOrder.equals("date")){
             sortByDate(sortAscending);
-            break;
         }
 
         notifyDataSetChanged();
@@ -441,10 +446,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         });
     }
 
-    public void setSortOrder(sortOrders order, boolean descending) {
-        sort = order;
-        sortAscending = descending;
-
+    public void setSortOrder(String order, boolean ascending) {
+        SharedPreferences.Editor editor = appPreferences.edit();
+        editor.putString("sortOrder", order);
+        editor.putBoolean("sortAscending", ascending);
+        editor.commit();
+        
+        sortOrder = order;
+        sortAscending = ascending;
+        
         sortDirectory();
     }    
 }

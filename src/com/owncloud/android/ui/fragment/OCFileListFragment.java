@@ -37,7 +37,6 @@ import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.MoveActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
-import com.owncloud.android.ui.adapter.FileListListAdapter.sortOrders;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
@@ -388,14 +387,14 @@ public class OCFileListFragment extends ExtendedListFragment {
     }
     
     public void sortByDate(boolean descending){
-        mAdapter.setSortOrder(sortOrders.DATE, descending);
+        mAdapter.setSortOrder("date", descending);
     }
 
     public void sortBySize(boolean descending){
-        mAdapter.setSortOrder(sortOrders.SIZE, descending);
+        mAdapter.setSortOrder("size", descending);
     }
 
     public void sortByName(boolean descending){
-        mAdapter.setSortOrder(sortOrders.NAME, descending);
+        mAdapter.setSortOrder("name", descending);
     } 
 }
