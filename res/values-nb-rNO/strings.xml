@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Andriod app</string>
+  <string name="about_android">%1$s Android app</string>
   <string name="about_version">versjon %1$s</string>
   <string name="actionbar_sync">Oppdater konto</string>
   <string name="actionbar_upload">Last opp</string>
@@ -266,6 +266,7 @@
   <string name="auth_redirect_non_secure_connection_title">Sikker tilkobling videresendes gjennom en usikker rute.</string>
   <string name="actionbar_logger">Logger</string>
   <string name="log_send_history_button">Send historikk</string>
+  <string name="log_mail_subject">logger for ownCloud Android app</string>
   <string name="log_progress_dialog_text">Laster data...</string>
   <string name="saml_authentication_required_text">Autentisering kreves</string>
   <string name="saml_authentication_wrong_pass">Feil passord</string>
