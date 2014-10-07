@@ -317,14 +317,17 @@ public class FileDataStorageManager {
                     operations.add(ContentProviderOperation
                                     .newDelete(ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, file.getFileId())).withSelection(where, whereArgs)
                                         .build());
-                    // TODO remove local folder
+                    File localFolder = 
+                            new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
+                    if (localFolder.exists()) {
+                        removeLocalFolder(localFolder);
+                    }
                 } else {
                     operations.add(ContentProviderOperation
                                     .newDelete(ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, file.getFileId())).withSelection(where, whereArgs)
                                         .build());
                     if (file.isDown()) {
                         new File(file.getStoragePath()).delete();
-                        // TODO move the deletion of local contents after success of deletions
                     }
                 }
             }
