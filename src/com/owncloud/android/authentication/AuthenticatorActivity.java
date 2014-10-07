@@ -733,7 +733,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             
             Intent getServerInfoIntent = new Intent();
             getServerInfoIntent.setAction(OperationsService.ACTION_GET_SERVER_INFO);
-            getServerInfoIntent.putExtra(OperationsService.EXTRA_SERVER_URL, uri);
+            getServerInfoIntent.putExtra(
+                OperationsService.EXTRA_SERVER_URL, 
+                normalizeUrlSuffix(uri)
+            );
             if (mOperationsServiceBinder != null) {
                 mWaitingForOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
             } else {
@@ -1080,15 +1083,19 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                     url = "http://" + url;
                 }
             }
-            
-            url = trimUrlWebdav(url);
-
-            if (url.endsWith("/")) {
-                url = url.substring(0, url.length() - 1);
-            }
-
+        
+            url = normalizeUrlSuffix(url);
         }
         return (url != null ? url : "");
+    }
+    
+    
+    private String normalizeUrlSuffix(String url) {
+        if (url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
+        }
+        url = trimUrlWebdav(url);
+        return url;
     }
 
 
