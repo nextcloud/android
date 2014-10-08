@@ -30,6 +30,8 @@
   <string name="prefs_recommend">Consiglia ad un amico</string>
   <string name="prefs_feedback">Segnalazioni</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_upload_location_summary">Salvare l\'ultimo percorso usata per l\'upload</string>
+  <string name="prefs_remember_last_share_location">Salva la posizione</string>
   <string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
   <string name="recommend_text">\"Vorrei invitarti ad usare %1$s sul tuo smartphone!\nScaricalo qui: %2$s\"\n\t</string>
   <string name="auth_check_server">Verifica server</string>

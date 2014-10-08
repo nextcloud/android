@@ -38,6 +38,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -53,6 +54,7 @@ public class Preferences extends SherlockPreferenceActivity {
     private static final String TAG = "OwnCloudPreferences";
     private DbHandler mDbHandler;
     private CheckBoxPreference pCode;
+    private CheckBoxPreference pSaveLocation;
     //private CheckBoxPreference pLogging;
     //private Preference pLoggingHistory;
     private Preference pAboutApp;
@@ -95,8 +97,26 @@ public class Preferences extends SherlockPreferenceActivity {
             });            
             
         }
-        
-        
+
+        pSaveLocation = (CheckBoxPreferenceWithLongTitle) findPreference("save_last_upload_location");
+        if(pSaveLocation != null){
+            pSaveLocation.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        if( newValue instanceof Boolean)
+                        {
+                           if(!(Boolean) newValue)
+                           {
+                               SharedPreferences.Editor appPrefs = PreferenceManager
+                                       .getDefaultSharedPreferences(getApplicationContext()).edit();
+                               appPrefs.remove("last_upload_path");
+                               appPrefs.commit();
+                           }
+                        }
+                        return true;
+                    }
+            });
+        }
 
         PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("more");
         

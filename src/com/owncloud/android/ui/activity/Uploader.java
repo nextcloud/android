@@ -46,10 +46,12 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
@@ -80,6 +82,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     private String mUploadPath;
     private FileDataStorageManager mStorageManager;
     private OCFile mFile;
+    private boolean mSaveUploadLocation;
 
     private final static int DIALOG_NO_ACCOUNT = 0;
     private final static int DIALOG_WAITING = 1;
@@ -93,7 +96,32 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mParents = new Stack<String>();
-        mParents.add("");
+
+
+
+
+        SharedPreferences appPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        mSaveUploadLocation = appPreferences.getBoolean("save_last_upload_location", false);
+
+        if(mSaveUploadLocation)
+        {
+            String last_path = appPreferences.getString("last_upload_path", "");
+
+            if(last_path.equals("/")) {
+                mParents.add("");
+            }
+            else{
+                String[] dir_names = last_path.split("/");
+                for (String dir : dir_names)
+                    mParents.add(dir);
+            }
+        }
+        else {
+            mParents.add("");
+        }
+
         if (prepareStreamsToUpload()) {
             mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
             Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType());
@@ -289,6 +317,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         setContentView(R.layout.uploader_layout);
 
         String full_path = "";
+
         for (String a : mParents)
             full_path += a + "/";
         
@@ -408,6 +437,14 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             intent.putExtra(FileUploader.KEY_REMOTE_FILE, remote.toArray(new String[remote.size()]));
             intent.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
             startService(intent);
+
+            if(mSaveUploadLocation){
+                SharedPreferences.Editor appPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(getApplicationContext()).edit();
+                appPrefs.putString("last_upload_path", mUploadPath);
+                appPrefs.commit();
+            }
+
             finish();
             }
             
