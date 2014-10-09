@@ -48,7 +48,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -151,7 +150,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     private String DIALOG_UNTRUSTED_CERT;
     
     private OCFile mWaitingToSend;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
@@ -502,6 +501,38 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 onBackPressed(); 
                 
             }
+            break;
+        }
+        case R.id.action_sort: {
+            SharedPreferences appPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(getApplicationContext());
+            
+            // Read sorting order, default to sort by name ascending
+            Integer sortOrder = appPreferences
+                    .getInt("sortOrder", 0);
+            
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.actionbar_sort_title)
+            .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder , new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    
+                    switch (which){
+                    case 0:
+                        sortByName(true);
+                        break;
+                    case 1:
+                        sortByDate(false);
+                        break;
+                    case 2:
+                        sortBySize(false);
+                        break;
+                    }
+                    
+                    dialog.dismiss();
+                    
+                }
+            });
+            builder.create().show();
             break;
         }
         default:
@@ -1747,5 +1778,17 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 startSyncFolderOperation(folder, ignoreETag);
             }
         }
+    }
+
+    private void sortByDate(boolean ascending){
+        getListOfFilesFragment().sortByDate(ascending);
+    }
+
+    private void sortBySize(boolean ascending){
+        getListOfFilesFragment().sortBySize(ascending);
+    }
+
+    private void sortByName(boolean ascending){
+        getListOfFilesFragment().sortByName(ascending);
     }
 }

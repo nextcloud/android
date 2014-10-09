@@ -386,5 +386,16 @@ public class OCFileListFragment extends ExtendedListFragment {
             mFile = directory;
         }
     }
+    
+    public void sortByName(boolean descending){
+        mAdapter.setSortOrder(0, descending);
+    } 
+    
+    public void sortByDate(boolean descending){
+        mAdapter.setSortOrder(1, descending);
+    }
 
+    public void sortBySize(boolean descending){
+        mAdapter.setSortOrder(2, descending);
+    }    
 }

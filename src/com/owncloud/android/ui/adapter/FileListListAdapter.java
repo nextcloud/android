@@ -19,10 +19,13 @@ package com.owncloud.android.ui.adapter;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Vector;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -31,6 +34,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +47,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.AlphanumComparator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -51,6 +56,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
+
 
 
 /**
@@ -74,6 +81,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
+    private Integer sortOrder;
+    private Boolean sortAscending;
+    private SharedPreferences appPreferences;
     
     private final Object thumbnailDiskCacheLock = new Object();
     private DiskLruImageCache mThumbnailCache;
@@ -93,6 +103,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
+        
+        appPreferences = PreferenceManager
+                .getDefaultSharedPreferences(mContext);
+        
+        // Read sorting order, default to sort by name ascending
+        sortOrder = appPreferences
+                .getInt("sortOrder", 0);
+        sortAscending = appPreferences.getBoolean("sortAscending", true);
+        
         defaultImg = BitmapFactory.decodeResource(mContext.getResources(), 
                     DisplayUtils.getResourceId("image/png", "default.png"));
         
@@ -361,8 +380,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 }
             } 
             else {
-                fileSizeV.setVisibility(View.INVISIBLE);
-                //fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                if (FileStorageUtils.getDefaultSavePathFor(mAccount.name, file) != null){
+                    fileSizeV.setVisibility(View.VISIBLE);
+                    fileSizeV.setText(getFolderSizeHuman(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file)));
+                } else {
+                    fileSizeV.setVisibility(View.INVISIBLE);
+                }
+
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(
                         DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp())
@@ -395,7 +419,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
         return view;
     }
-    
+
     public static boolean cancelPotentialWork(OCFile file, ImageView imageView) {
         final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
 
@@ -424,6 +448,48 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
          }
          return null;
      }
+
+    /**
+     * Local Folder size in human readable format
+     * @param path String
+     * @return Size in human readable format
+     */
+    private String getFolderSizeHuman(String path) {
+
+        File dir = new File(path);
+
+        if(dir.exists()) {
+            long bytes = getFolderSize(dir);
+            if (bytes < 1024) return bytes + " B";
+            int exp = (int) (Math.log(bytes) / Math.log(1024));
+            String pre = ("KMGTPE").charAt(exp-1) + "";
+
+            return String.format("%.1f %sB", bytes / Math.pow(1024, exp), pre);
+        }
+
+        return "0 B";
+    }
+
+    /**
+     * Local Folder size
+     * @param dir File
+     * @return Size in bytes
+     */
+    private long getFolderSize(File dir) {
+        if (dir.exists()) {
+            long result = 0;
+            File[] fileList = dir.listFiles();
+            for(int i = 0; i < fileList.length; i++) {
+                if(fileList[i].isDirectory()) {
+                    result += getFolderSize(fileList[i]);
+                } else {
+                    result += fileList[i].length();
+                }
+            }
+            return result;
+        }
+        return 0;
+    } 
 
     @Override
     public int getViewTypeCount() {
@@ -461,6 +527,26 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         } else {
             mFiles = null;
         }
+
+        sortDirectory();
+    }
+    
+    /**
+     * Sorts all filenames, regarding last user decision 
+     */
+    private void sortDirectory(){
+        switch (sortOrder){
+        case 0:
+            sortByName(sortAscending);
+            break;
+        case 1:
+            sortByDate(sortAscending);
+            break;
+        case 2: 
+            sortBySize(sortAscending);
+            break;
+        }
+        
         notifyDataSetChanged();
     }
     
@@ -496,4 +582,103 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 && file.getPermissions() != null 
                 && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME));
     }
+
+    /**
+     * Sorts list by Date
+     * @param sortAscending true: ascending, false: descending
+     */
+    private void sortByDate(boolean sortAscending){
+        final Integer val;
+        if (sortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+        
+        Collections.sort(mFiles, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    return val * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp());
+                }
+                else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                } else if (o1.getModificationTimestamp() == 0 || o2.getModificationTimestamp() == 0){
+                    return 0;
+                } else {
+                    return val * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp());
+                }
+            }
+        });
+    }
+
+    /**
+     * Sorts list by Size
+     * @param sortAscending true: ascending, false: descending
+     */
+    private void sortBySize(boolean sortAscending){
+        final Integer val;
+        if (sortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+        
+        Collections.sort(mFiles, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    return val * Long.compare(getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o1))), 
+                                              getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
+                }
+                else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
+                    return 0;
+                } else {
+                    return val * Long.compare(o1.getFileLength(), o2.getFileLength());
+                }
+            }
+        });
+    }
+
+    /**
+     * Sorts list by Name
+     * @param sortAscending true: ascending, false: descending
+     */
+    private void sortByName(boolean sortAscending){
+        final Integer val;
+        if (sortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+
+        Collections.sort(mFiles, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    return val * o1.getRemotePath().toLowerCase().compareTo(o2.getRemotePath().toLowerCase());
+                } else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                }
+                return val * new AlphanumComparator().compare(o1, o2);
+            }
+        });
+    }
+
+    public void setSortOrder(Integer order, boolean ascending) {
+        SharedPreferences.Editor editor = appPreferences.edit();
+        editor.putInt("sortOrder", order);
+        editor.putBoolean("sortAscending", ascending);
+        editor.commit();
+        
+        sortOrder = order;
+        sortAscending = ascending;
+        
+        sortDirectory();
+    }    
 }

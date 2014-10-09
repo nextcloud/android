@@ -11,6 +11,13 @@
   <string name="actionbar_settings">Einstellungen</string>
   <string name="actionbar_see_details">Details</string>
   <string name="actionbar_send_file">Senden</string>
+  <string name="actionbar_sort">Sortieren</string>
+  <string name="actionbar_sort_title">Sortieren nach</string>
+  <string-array name="actionbar_sortby">
+  	<item>A-Z</item>
+    	<item>Neu - Alt</item>
+    	<item>Groß - Klein</item>
+  </string-array>
   <string name="prefs_category_general">Allgemein</string>
   <string name="prefs_category_more">Mehr</string>
   <string name="prefs_accounts">Konten</string>
