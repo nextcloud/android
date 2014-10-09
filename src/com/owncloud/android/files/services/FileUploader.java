@@ -630,7 +630,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
               // coincidence; nothing else is needed, the storagePath is right
               // in the instance returned by mCurrentUpload.getFile()
         }
-
+        file.setNeedsUpdateThumbnail(true);
         mStorageManager.saveFile(file);
     }
 

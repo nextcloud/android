@@ -201,7 +201,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 final ThumbnailGenerationTask bitmapWorkerTask =
                         getBitmapWorkerTask(imageView);
                 if (this == bitmapWorkerTask && imageView != null) {
-                    imageView.setImageBitmap(bitmap);
+                    if (imageView.getTag().equals(file.getFileId())) {
+                        imageView.setImageBitmap(bitmap);
+                    }
                 }
             }
         }
@@ -280,6 +282,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
             fileName.setText(name);
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
+            fileIcon.setTag(file.getFileId());
             ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
             ImageView sharedWithMeIconV = (ImageView) view.findViewById(R.id.sharedWithMeIcon);
             sharedWithMeIconV.setVisibility(View.GONE);
