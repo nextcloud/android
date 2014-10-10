@@ -103,18 +103,15 @@ public class Preferences extends SherlockPreferenceActivity {
             pSaveLocation.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        if( newValue instanceof Boolean)
-                        {
-                           if(!(Boolean) newValue)
-                           {
-                               SharedPreferences.Editor appPrefs = PreferenceManager
+                    //The saved path is removed when the preference is turned off
+                    if( newValue instanceof Boolean  && !(Boolean) newValue) {
+                        SharedPreferences.Editor appPrefs = PreferenceManager
                                        .getDefaultSharedPreferences(getApplicationContext()).edit();
-                               appPrefs.remove("last_upload_path");
-                               appPrefs.commit();
-                           }
-                        }
-                        return true;
+                        appPrefs.remove("last_upload_path");
+                        appPrefs.apply();
                     }
+                    return true;
+                }
             });
         }
 

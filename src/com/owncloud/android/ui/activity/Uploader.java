@@ -39,7 +39,6 @@ import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -56,7 +55,6 @@ import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -122,11 +120,11 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
                 .getDefaultSharedPreferences(getApplicationContext());
 
         mSaveUploadLocation = appPreferences.getBoolean("save_last_upload_location", false);
-
+        //If the users has enabled last upload path saving then populate mParents with the previous path
         if(mSaveUploadLocation)
         {
             String last_path = appPreferences.getString("last_upload_path", "");
-
+            // "/" equals root-directory
             if(last_path.equals("/")) {
                 mParents.add("");
             }
@@ -464,11 +462,12 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
             intent.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
             startService(intent);
 
+            //If the user has enabled last upload path then save the path to shared preferences
             if(mSaveUploadLocation){
                 SharedPreferences.Editor appPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
                 appPrefs.putString("last_upload_path", mUploadPath);
-                appPrefs.commit();
+                appPrefs.apply();
             }
 
             finish();
