@@ -33,7 +33,7 @@ public class DiskLruImageCache {
     private StringBuffer mValidKeyBuffer = new StringBuffer(64);
     private StringBuffer mConversionBuffer = new StringBuffer(2).append('_'); 
             
-    private static final String TAG = "DiskLruImageCache";
+    private static final String TAG = DiskLruImageCache.class.getSimpleName();
 
     public DiskLruImageCache( Context context,String uniqueName, int diskCacheSize,
         CompressFormat compressFormat, int quality ) throws IOException {
@@ -186,4 +186,17 @@ public class DiskLruImageCache {
         return mValidKeyBuffer.toString();
     }
 
+    /**
+     * Remove passed key from cache
+     * @param key
+     */
+    public void removeKey( String key ) {
+        String validKey = convertToValidKey(key);
+        try {
+            mDiskCache.remove(validKey);
+            Log.d(TAG, "removeKey from cache: " + validKey);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

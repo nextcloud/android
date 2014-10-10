@@ -26,6 +26,7 @@ import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.ui.adapter.DiskLruImageCache;
 
 
 
@@ -42,6 +43,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.text.TextUtils;
 
@@ -55,6 +57,12 @@ import android.text.TextUtils;
 public class FileContentProvider extends ContentProvider {
 
     private DataBaseHelper mDbHelper;
+    private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
+    private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
+    private static final int mCompressQuality = 70;
+
+    private final Object thumbnailDiskCacheLock = new Object();
+    private DiskLruImageCache mThumbnailCache;
 
     // Projection for filelist table
     private static HashMap<String, String> mFileProjectionMap;
@@ -165,13 +173,14 @@ public class FileContentProvider extends ContentProvider {
         int count = 0;
         switch (mUriMatcher.match(uri)) {
         case SINGLE_FILE:
-            /*Cursor c = query(db, uri, null, where, whereArgs, null);
-            String remotePath = "(unexisting)";
+            Cursor c = query(db, uri, null, where, whereArgs, null);
+            String remoteId = "";
             if (c != null && c.moveToFirst()) {
-                remotePath = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH));
+                remoteId = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID));
+                removeFileFromCache(remoteId);
             }
-            Log_OC.d(TAG, "Removing FILE " + remotePath);
-            */
+            Log_OC.d(TAG, "Removing FILE " + remoteId);
+
             count = db.delete(ProviderTableMeta.FILE_TABLE_NAME,
                     ProviderTableMeta._ID
                             + "="
@@ -197,7 +206,7 @@ public class FileContentProvider extends ContentProvider {
             Cursor children = query(uri, null, null, null, null);
             if (children != null && children.moveToFirst())  {
                 long childId;
-                boolean isDir; 
+                boolean isDir;
                 //String remotePath; 
                 while (!children.isAfterLast()) {
                     childId = children.getLong(children.getColumnIndex(ProviderTableMeta._ID));
@@ -240,7 +249,29 @@ public class FileContentProvider extends ContentProvider {
         }
         return count;
     }
-    
+
+    /**
+     * Remove from cache the remoteId passed
+     * @param fileRemoteId: remote id of file passed
+     */
+    private void removeFileFromCache(String fileRemoteId){
+        Context context = getContext();
+        if (context != null) {
+            synchronized (thumbnailDiskCacheLock) {
+                try {
+                    mThumbnailCache = new DiskLruImageCache(context, "thumbnailCache", 
+                                        DISK_CACHE_SIZE, mCompressFormat, mCompressQuality);
+
+                    mThumbnailCache.removeKey(fileRemoteId);
+
+                } catch (Exception e) {
+                    Log_OC.d(TAG, "Thumbnail cache could not be opened ", e);
+                    mThumbnailCache = null;
+                }
+                thumbnailDiskCacheLock.notifyAll(); // Wake any waiting threads
+            }
+        }
+    }
 
     @Override
     public String getType(Uri uri) {
