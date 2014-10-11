@@ -511,9 +511,11 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
                     case 1:
                         sortByDate(false);
                         break;
-                    case 2:
-                        sortBySize(false);
-                        break;
+                        
+// TODO re-enable when server-side folder size calculation is available                       
+//                    case 2:
+//                        sortBySize(false);
+//                        break;
                     }
                     
                     dialog.dismiss();
