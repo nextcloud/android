@@ -164,7 +164,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_bad_oc_version_title">La version du serveur n\'est pas reconnue</string>
   <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
   <string name="auth_secure_connection">Connexion sécurisée établie</string>
-  <string name="auth_unauthorized">Nom d\'utilisateur ou mot de passe invalide</string>
+  <string name="auth_unauthorized">Nom d\'utilisateur ou mot de passe incorrect</string>
   <string name="auth_oauth_error">Echec d\'autorisation</string>
   <string name="auth_oauth_error_access_denied">Accès refusé par le serveur d\'autorisation</string>
   <string name="auth_wtf_reenter_URL">État inattendu ; veuillez entrer à nouveau l\'URL du serveur</string>
