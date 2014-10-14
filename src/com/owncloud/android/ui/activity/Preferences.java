@@ -74,6 +74,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     private final Handler mHandler = new Handler();
     private String mAccountName;
     private boolean mShowContextMenu = false;
+    private String mUploadPath;
 
 
     @SuppressWarnings("deprecation")
@@ -87,7 +88,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.actionbar_settings);
-        
+
+        loadUploadPath();
+
         // Load the accounts category for adding the list of accounts
         mAccountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
 
@@ -239,6 +242,16 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                 preferenceCategory.removePreference(pImprint);
             }
         }
+
+        Preference pInstantUploadPathApp = (Preference) findPreference("instant_upload_path");
+
+        pInstantUploadPathApp.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                mUploadPath = updateUploadPath(newValue.toString());
+                return true;
+            }
+        });
             
         /* About App */
        pAboutApp = (Preference) findPreference("about_app");
@@ -357,6 +370,12 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     @Override
     protected void onDestroy() {
         mDbHandler.close();
+
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());        
+        SharedPreferences.Editor editor = appPrefs.edit();
+        editor.putString("instant_upload_path", mUploadPath);
+        editor.commit();
+
         super.onDestroy();
     }
 
@@ -462,4 +481,26 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
 
     }
 
+    /**
+     * Update the upload path checking that it is a correct path
+     * @param uploadPath: path write by user
+     * @return String: uploadPath
+     */
+    private String updateUploadPath(String uploadPath) {
+        String uploadPathInitialSlash = "/";
+        if (uploadPath.isEmpty()) {
+            uploadPath = getString(R.string.instant_upload_path);
+        } else if (!uploadPath.startsWith(uploadPathInitialSlash)) {
+            uploadPath = uploadPathInitialSlash.concat(uploadPath);
+        }
+        return uploadPath;
+    }
+
+    /**
+     * Load upload path set on preferences
+     */
+    private void loadUploadPath() {
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mUploadPath = appPrefs.getString("instant_upload_path", getString(R.string.instant_upload_path));
+    }
 }
