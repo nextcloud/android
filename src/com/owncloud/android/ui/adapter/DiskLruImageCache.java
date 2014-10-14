@@ -7,8 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -28,10 +26,6 @@ public class DiskLruImageCache {
     private static final int CACHE_VERSION = 1;
     private static final int VALUE_COUNT = 1;
     private static final int IO_BUFFER_SIZE = 8 * 1024;
-    private static final Pattern CAPITAL_LETTERS = Pattern.compile("[A-Z]"); 
-
-    private StringBuffer mValidKeyBuffer = new StringBuffer(64);
-    private StringBuffer mConversionBuffer = new StringBuffer(2).append('_'); 
             
     private static final String TAG = DiskLruImageCache.class.getSimpleName();
 
@@ -174,16 +168,7 @@ public class DiskLruImageCache {
     }
     
     private String convertToValidKey(String key) {
-        Matcher capitalLettersMatcher = CAPITAL_LETTERS.matcher(key);
-        mValidKeyBuffer.delete(0, mValidKeyBuffer.length());
-        mConversionBuffer.delete(1, mConversionBuffer.length());
-        
-        while (capitalLettersMatcher.find()) {
-            mConversionBuffer.replace(1, 2, capitalLettersMatcher.group(0).toLowerCase()); 
-            capitalLettersMatcher.appendReplacement(mValidKeyBuffer, mConversionBuffer.toString());
-        }
-        capitalLettersMatcher.appendTail(mValidKeyBuffer);
-        return mValidKeyBuffer.toString();
+        return Integer.toString(key.hashCode());
     }
 
     /**
