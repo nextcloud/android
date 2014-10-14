@@ -116,28 +116,6 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
         ActionBar actionBar = getSherlock().getActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
 
-        SharedPreferences appPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-
-        mSaveUploadLocation = appPreferences.getBoolean("save_last_upload_location", false);
-        //If the users has enabled last upload path saving then populate mParents with the previous path
-        if(mSaveUploadLocation)
-        {
-            String last_path = appPreferences.getString("last_upload_path", "");
-            // "/" equals root-directory
-            if(last_path.equals("/")) {
-                mParents.add("");
-            }
-            else{
-                String[] dir_names = last_path.split("/");
-                for (String dir : dir_names)
-                    mParents.add(dir);
-            }
-        }
-        else {
-            mParents.add("");
-        }
-
         if (prepareStreamsToUpload()) {
             mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
             Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType());
@@ -148,8 +126,37 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
                 Log_OC.i(TAG, "More then one ownCloud is available");
                 showDialog(DIALOG_MULTIPLE_ACCOUNT);
             } else {
+
                 mAccount = accounts[0];
                 mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+
+                SharedPreferences appPreferences = PreferenceManager
+                        .getDefaultSharedPreferences(getApplicationContext());
+
+                mSaveUploadLocation = appPreferences.getBoolean("save_last_upload_location", false);
+
+                //If the users has enabled last upload path saving then populate mParents with the previous path
+                if(mSaveUploadLocation)
+                {
+                    String last_path = appPreferences.getString("last_upload_path", "");
+                    // "/" equals root-directory
+                    if(last_path.equals("/")) {
+                        mParents.add("");
+                    }
+                    else{
+                        String[] dir_names = last_path.split("/");
+                        for (String dir : dir_names)
+                            mParents.add(dir);
+                    }
+                    //Make sure that path still exists, if it doesn't pop the stack and try the previous path
+                    while(!mStorageManager.fileExists(generatePath(mParents))){
+                        mParents.pop();
+                    }
+                }
+                else {
+                    mParents.add("");
+                }
+
                 populateDirectoryList();
             }
         } else {
@@ -340,13 +347,10 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
             getActionBar().setTitle(current_dir);
         }
 
-        String full_path = "";
-
-        for (String a : mParents)
-            full_path += a + "/";
+        String full_path = generatePath(mParents);
         
         Log_OC.d(TAG, "Populating view with content of : " + full_path);
-        
+
         mFile = mStorageManager.getFileByPath(full_path);
         if (mFile != null) {
             Vector<OCFile> files = mStorageManager.getFolderContent(mFile);
@@ -368,6 +372,14 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
             btn.setOnClickListener(this);
             getListView().setOnItemClickListener(this);
         }
+    }
+
+    private String generatePath(Stack<String> dirs) {
+        String full_path = "";
+
+        for (String a : dirs)
+            full_path += a + "/";
+        return full_path;
     }
 
     private boolean prepareStreamsToUpload() {
