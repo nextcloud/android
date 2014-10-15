@@ -1,15 +1,20 @@
-language: java
+language: android
+android:
+  components:
+    - build-tools-20.0.0
+    - android-19
+    - android-17
+    - android-14
+    - extra-android-support
+  licenses:
+    - 'android-sdk-license-5be876d5'
+    - 'android-sdk-license-598b93a6'
+  
 jdk: oraclejdk7
+
 before_install:
-  # Install base Android SDK
-    - sudo apt-get update -qq
-    - sudo apt-get install -qq libstdc++6:i386 lib32z1 expect
-    - export COMPONENTS="build-tools-20.0.0,android-14,android-17,android-19,sysimg-19,extra-android-support"
-    - export LICENSES="android-sdk-license-5be876d5|android-sdk-license-598b93a6"
-    - curl -3L https://raw.github.com/embarkmobile/android-sdk-installer/version-2/android-sdk-installer | bash /dev/stdin --install=$COMPONENTS --accept=$LICENSES
-    - source ~/.android-sdk-installer/env
-    - rm pom.xml
-    - ./setup_env.sh
+  - rm pom.xml
+  - ./setup_env.sh
 
 script:
   - ant clean
