@@ -18,12 +18,16 @@
 
 package com.owncloud.android.utils;
 
+import java.net.IDN;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
+import android.annotation.TargetApi;
+import android.os.Build;
 
 import com.owncloud.android.R;
 
@@ -233,6 +237,37 @@ public class DisplayUtils {
             return R.drawable.winter_holidays_icon;
         } else {
             return R.drawable.icon;
+        }
+    }
+    
+    /**
+     * Converts an internationalized domain name (IDN) in an URL to and from ASCII/Unicode.
+     * @param url the URL where the domain name should be converted
+     * @param toASCII if true converts from Unicode to ASCII, if false converts from ASCII to Unicode
+     * @return the URL containing the converted domain name
+     */
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    public static String convertIdn(String url, boolean toASCII) {
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            // Find host name after '//' or '@'
+            int hostStart = 0;
+            if  (url.indexOf("//") != -1) {
+                hostStart = url.indexOf("//") + "//".length();
+            } else if (url.indexOf("@") != -1) {
+                hostStart = url.indexOf("@") + "@".length();
+            }
+            
+            int hostEnd = url.substring(hostStart).indexOf("/");
+            // Handle URL which doesn't have a path (path is implicitly '/')
+            hostEnd = (hostEnd == -1 ? url.length() : hostStart + hostEnd);
+            
+            String host = url.substring(hostStart, hostEnd);
+            host = (toASCII ? IDN.toASCII(host) : IDN.toUnicode(host));
+            
+            return url.substring(0, hostStart) + host + url.substring(hostEnd);
+        } else {
+            return url;
         }
     }
 }
