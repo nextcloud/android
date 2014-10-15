@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -45,9 +44,11 @@ public class DiskLruImageCache {
             
     private static final String TAG = DiskLruImageCache.class.getSimpleName();
 
-    public DiskLruImageCache( Context context,String uniqueName, int diskCacheSize,
-        CompressFormat compressFormat, int quality ) throws IOException {
-        final File diskCacheDir = getDiskCacheDir(context, uniqueName );
+    //public DiskLruImageCache( Context context,String uniqueName, int diskCacheSize,
+    public DiskLruImageCache(
+            File diskCacheDir, int diskCacheSize, CompressFormat compressFormat, int quality 
+            ) throws IOException {
+
         mDiskCache = DiskLruCache.open(
                 diskCacheDir, CACHE_VERSION, VALUE_COUNT, diskCacheSize 
         );
@@ -66,17 +67,6 @@ public class DiskLruImageCache {
                 out.close();
             }
         }
-    }
-
-    private File getDiskCacheDir(Context context, String uniqueName) {
-
-    // Check if media is mounted or storage is built-in, if so, try and use external cache dir
-    // otherwise use internal cache dir
-        final String cachePath = context.getExternalCacheDir().getPath();
-
-        Log_OC.d(TAG, "create dir: " + cachePath + File.separator + uniqueName);
-                    
-        return new File(cachePath + File.separator + uniqueName);
     }
 
     public void put( String key, Bitmap data ) {
