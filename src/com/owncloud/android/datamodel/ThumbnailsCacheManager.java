@@ -50,7 +50,7 @@ public class ThumbnailsCacheManager {
     private static final String CACHE_FOLDER = "thumbnailCache"; 
     
     private static final Object mThumbnailsDiskCacheLock = new Object();
-    private static DiskLruImageCache mThumbnailCache;
+    private static DiskLruImageCache mThumbnailCache = null;
     private static boolean mThumbnailCacheStarting = true;
     
     private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
@@ -68,23 +68,26 @@ public class ThumbnailsCacheManager {
         @Override
         protected Void doInBackground(File... params) {
             synchronized (mThumbnailsDiskCacheLock) {
-                try {
-                    // Check if media is mounted or storage is built-in, if so, 
-                    // try and use external cache dir; otherwise use internal cache dir
-                    final String cachePath = 
-                            MainApp.getAppContext().getExternalCacheDir().getPath() + 
-                            File.separator + CACHE_FOLDER;
-                    Log_OC.d(TAG, "create dir: " + cachePath);
-                    final File diskCacheDir = new File(cachePath);
-                    mThumbnailCache = new DiskLruImageCache(
-                            diskCacheDir, 
-                            DISK_CACHE_SIZE, 
-                            mCompressFormat, 
-                            mCompressQuality
-                    );
-                } catch (Exception e) {
-                    Log_OC.d(TAG, "Thumbnail cache could not be opened ", e);
-                    mThumbnailCache = null;
+                mThumbnailCacheStarting = true;
+                if (mThumbnailCache == null) {
+                    try {
+                        // Check if media is mounted or storage is built-in, if so, 
+                        // try and use external cache dir; otherwise use internal cache dir
+                        final String cachePath = 
+                                MainApp.getAppContext().getExternalCacheDir().getPath() + 
+                                File.separator + CACHE_FOLDER;
+                        Log_OC.d(TAG, "create dir: " + cachePath);
+                        final File diskCacheDir = new File(cachePath);
+                        mThumbnailCache = new DiskLruImageCache(
+                                diskCacheDir, 
+                                DISK_CACHE_SIZE, 
+                                mCompressFormat, 
+                                mCompressQuality
+                        );
+                    } catch (Exception e) {
+                        Log_OC.d(TAG, "Thumbnail cache could not be opened ", e);
+                        mThumbnailCache = null;
+                    }
                 }
                 mThumbnailCacheStarting = false; // Finished initialization
                 mThumbnailsDiskCacheLock.notifyAll(); // Wake any waiting threads
