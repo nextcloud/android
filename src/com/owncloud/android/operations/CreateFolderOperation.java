@@ -84,21 +84,36 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
        }
     }
 
-    
     /**
      * Save new directory in local database
      */
     public void saveFolderInDB() {
-        OCFile newDir = new OCFile(mRemotePath);
-        newDir.setMimetype("DIR");
-        long parentId = getStorageManager().getFileByPath(FileStorageUtils.getParentPath(mRemotePath)).getFileId();
-        newDir.setParentId(parentId);
-        newDir.setModificationTimestamp(System.currentTimeMillis());
-        getStorageManager().saveFile(newDir);
+        if (mCreateFullPath && getStorageManager().
+                getFileByPath(FileStorageUtils.getParentPath(mRemotePath)) == null){// When parent
+                                                                                    // of remote path
+                                                                                    // is not created 
+            String[] subFolders = mRemotePath.split("/");
+            String composedRemotePath = "/";
 
-        Log_OC.d(TAG, "Create directory " + mRemotePath + " in Database");
+            // For each antecesor folders create them recursively
+            for (int i=0; i<subFolders.length; i++) {
+                String subFolder =  subFolders[i];
+                if (!subFolder.isEmpty()) {
+                    composedRemotePath = composedRemotePath + subFolder + "/";
+                    mRemotePath = composedRemotePath;
+                    saveFolderInDB();
+                }
+            }
+        } else { // Create directory on DB
+            OCFile newDir = new OCFile(mRemotePath);
+            newDir.setMimetype("DIR");
+            long parentId = getStorageManager().
+                    getFileByPath(FileStorageUtils.getParentPath(mRemotePath)).getFileId();
+            newDir.setParentId(parentId);
+            newDir.setModificationTimestamp(System.currentTimeMillis());
+            getStorageManager().saveFile(newDir);
 
+            Log_OC.d(TAG, "Create directory " + mRemotePath + " in Database");
+        }
     }
-
-
 }
