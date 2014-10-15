@@ -183,7 +183,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 }               
                 
                 // get Thumbnail if file is image
-                if (file.isImage()){
+                if (file.isImage() && file.getRemoteId() != null){
                      // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                             String.valueOf(file.getRemoteId())
