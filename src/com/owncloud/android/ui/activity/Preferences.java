@@ -89,7 +89,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.actionbar_settings);
 
-        loadUploadPath();
+        loadInstantUploadPath();
 
         // Load the accounts category for adding the list of accounts
         mAccountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
@@ -248,7 +248,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         pInstantUploadPathApp.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                mUploadPath = updateUploadPath(newValue.toString());
+                mUploadPath = updateInstantUploadPath(newValue.toString());
                 return true;
             }
         });
@@ -265,6 +265,12 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                    Log_OC.e(TAG, "Error while showing about dialog", e);
                }
        }
+    }
+
+    @Override
+    protected void onPause() {
+        saveInstantUploadPathOnPreferences();
+        super.onPause();
     }
 
     @Override
@@ -370,12 +376,6 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     @Override
     protected void onDestroy() {
         mDbHandler.close();
-
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());        
-        SharedPreferences.Editor editor = appPrefs.edit();
-        editor.putString("instant_upload_path", mUploadPath);
-        editor.commit();
-
         super.onDestroy();
     }
 
@@ -486,7 +486,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
      * @param uploadPath: path write by user
      * @return String: uploadPath
      */
-    private String updateUploadPath(String uploadPath) {
+    private String updateInstantUploadPath(String uploadPath) {
         String uploadPathInitialSlash = "/";
         if (uploadPath.isEmpty()) {
             uploadPath = getString(R.string.instant_upload_path);
@@ -499,8 +499,18 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     /**
      * Load upload path set on preferences
      */
-    private void loadUploadPath() {
+    private void loadInstantUploadPath() {
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mUploadPath = appPrefs.getString("instant_upload_path", getString(R.string.instant_upload_path));
+    }
+
+    /**
+     * Save the "Instant Upload Path" on preferences
+     */
+    private void saveInstantUploadPathOnPreferences() {
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());        
+        SharedPreferences.Editor editor = appPrefs.edit();
+        editor.putString("instant_upload_path", mUploadPath);
+        editor.commit();
     }
 }
