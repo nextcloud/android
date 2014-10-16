@@ -487,11 +487,22 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
      * @return String: uploadPath
      */
     private String updateInstantUploadPath(String uploadPath) {
-        String uploadPathInitialSlash = "/";
-        if (uploadPath.isEmpty()) {
+        String slashString = "/";
+
+        // If slashes are duplicated, replace them for only one slash
+        uploadPath = uploadPath.replaceAll("/+", slashString);
+
+        // Remove last slash from path
+        if (uploadPath.length() > 0 && uploadPath.charAt(uploadPath.length()-1) == slashString.charAt(0)) {
+            uploadPath = uploadPath.substring(0, uploadPath.length()-1);
+        }
+
+        if (uploadPath.isEmpty()) { // Set default instant upload path
             uploadPath = getString(R.string.instant_upload_path);
-        } else if (!uploadPath.startsWith(uploadPathInitialSlash)) {
-            uploadPath = uploadPathInitialSlash.concat(uploadPath);
+        }else {
+            if (!uploadPath.startsWith(slashString)) { // Add initial slash on path if necessary
+                uploadPath = slashString.concat(uploadPath);
+            }
         }
         return uploadPath;
     }
