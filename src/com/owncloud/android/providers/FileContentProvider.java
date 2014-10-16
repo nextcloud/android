@@ -168,7 +168,7 @@ public class FileContentProvider extends ContentProvider {
             String remoteId = "";
             if (c != null && c.moveToFirst()) {
                 remoteId = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID));
-                ThumbnailsCacheManager.removeFileFromCache(remoteId);
+                //ThumbnailsCacheManager.removeFileFromCache(remoteId);
             }
             Log_OC.d(TAG, "Removing FILE " + remoteId);
 

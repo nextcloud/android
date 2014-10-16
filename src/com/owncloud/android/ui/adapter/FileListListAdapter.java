@@ -197,9 +197,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                             fileIcon, mStorageManager
                                     );
+                            if (thumbnail == null) {
+                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                            }
                             final AsyncDrawable asyncDrawable = new AsyncDrawable(
                                     mContext.getResources(), 
-                                    ThumbnailsCacheManager.mDefaultImg, 
+                                    thumbnail, 
                                     task
                             );
                             fileIcon.setImageDrawable(asyncDrawable);
