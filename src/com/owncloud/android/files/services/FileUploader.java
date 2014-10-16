@@ -641,6 +641,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         file.setModificationTimestamp(remoteFile.getModifiedTimestamp());
         file.setModificationTimestampAtLastSyncForData(remoteFile.getModifiedTimestamp());
         // file.setEtag(remoteFile.getEtag());    // TODO Etag, where available
+        file.setRemoteId(remoteFile.getRemoteId());
     }
 
     private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType,
