@@ -20,8 +20,9 @@ package com.owncloud.android.datamodel;
 
 import java.io.File;
 
-import com.owncloud.android.utils.Log_OC;
+import third_parties.daveKoeller.AlphanumComparator;
 
+import com.owncloud.android.utils.Log_OC;
 
 import android.os.Parcel;
 import android.os.Parcelable;

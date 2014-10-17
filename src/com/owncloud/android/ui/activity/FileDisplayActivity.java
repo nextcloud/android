@@ -493,7 +493,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
         }
         case R.id.action_sort: {
             SharedPreferences appPreferences = PreferenceManager
-                    .getDefaultSharedPreferences(getApplicationContext());
+                    .getDefaultSharedPreferences(this);
             
             // Read sorting order, default to sort by name ascending
             Integer sortOrder = appPreferences
