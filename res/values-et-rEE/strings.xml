@@ -31,6 +31,7 @@
   <string name="prefs_feedback">Tagasiside</string>
   <string name="prefs_imprint">Impressum</string>
   <string name="recommend_subject">Proovi oma nutitelefonil rakendust %1$s!</string>
+  <string name="recommend_text">Kutsun sind kasutama oma nutitelefonis rakendust %1$s!\nLaadi see alla siit: %2$s</string>
   <string name="auth_check_server">Kontrolli serverit</string>
   <string name="auth_host_url">Serveri aadress https://...</string>
   <string name="auth_username">Kasutajanimi</string>
@@ -267,6 +268,10 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="prefs_category_accounts">Kontod</string>
   <string name="prefs_add_account">Lisa konto</string>
   <string name="auth_redirect_non_secure_connection_title">Turvalist ühendust suunatakse läbi turvamata ühenduse.</string>
+  <string name="actionbar_logger">Logid</string>
+  <string name="log_send_history_button">Saada ajalugu</string>
+  <string name="log_mail_subject">ownCloud Android rakenduse logid</string>
+  <string name="log_progress_dialog_text">Andmete laadimine...</string>
   <string name="saml_authentication_required_text">Autentimine on vajalik</string>
   <string name="saml_authentication_wrong_pass">Vale parool</string>
   <string name="actionbar_move">Tõsta ümber</string>
