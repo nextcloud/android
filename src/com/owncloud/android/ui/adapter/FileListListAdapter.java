@@ -17,13 +17,9 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.net.URLEncoder;
-//import java.net.URLEncoder;
 import java.util.Vector;
 
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -40,6 +36,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -61,21 +58,9 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
-import com.owncloud.android.lib.resources.shares.ShareUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
-
-/*
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-*/
-
 
 /**
  * This Adapter populates a ListView with all files and folders in an ownCloud
@@ -88,44 +73,38 @@ import org.apache.http.util.EntityUtils;
 public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private final static String PERMISSION_SHARED_WITH_ME = "S";
 
-    private Context mContext;
+    private final Context mContext;
     private OCFile mFile = null;
     private Vector<OCFile> mFiles = null;
-    private boolean mJustFolders;
+    private final boolean mJustFolders;
 
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
-    private ComponentsGetter mTransferServiceGetter;
-    
+    private final ComponentsGetter mTransferServiceGetter;
+
     private final Object thumbnailDiskCacheLock = new Object();
     private DiskLruImageCache mThumbnailCache;
     private boolean mThumbnailCacheStarting = true;
     private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
-    private Bitmap defaultImg;
+    private final Bitmap defaultImg;
     private OwnCloudClient client;
-        
-    public FileListListAdapter(
-            boolean justFolders, 
-            Context context, 
-            ComponentsGetter transferServiceGetter
-            ) {
-        
+
+    public FileListListAdapter(boolean justFolders, Context context, ComponentsGetter transferServiceGetter) {
+
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
-        defaultImg = BitmapFactory.decodeResource(mContext.getResources(), 
-                    DisplayUtils.getResourceId("image/png", "default.png"));
-        
+        defaultImg = BitmapFactory.decodeResource(mContext.getResources(),
+                DisplayUtils.getResourceId("image/png", "default.png"));
+
         // Initialise disk cache on background thread
         new InitDiskCacheTask().execute();
-        
-      
-        
+
     }
-    
+
     class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
         @Override
         protected Void doInBackground(File... params) {
@@ -133,8 +112,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 OwnCloudAccount ocAccount;
                 try {
                     ocAccount = new OwnCloudAccount(mAccount, mContext);
-                    client = OwnCloudClientManagerFactory.getDefaultSingleton().
-                            getClientFor(ocAccount, mContext);
+                    client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, mContext);
                 } catch (AccountNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -148,10 +126,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                
-                
-                mThumbnailCache = new DiskLruImageCache(mContext, "thumbnailCache", 
-                                    DISK_CACHE_SIZE, mCompressFormat, mCompressQuality);
+
+                mThumbnailCache = new DiskLruImageCache(mContext, "thumbnailCache", DISK_CACHE_SIZE, mCompressFormat,
+                        mCompressQuality);
 
                 mThumbnailCacheStarting = false; // Finished initialization
                 thumbnailDiskCacheLock.notifyAll(); // Wake any waiting threads
@@ -159,15 +136,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             return null;
         }
     }
-    
+
     static class AsyncDrawable extends BitmapDrawable {
         private final WeakReference<ThumbnailGenerationTask> bitmapWorkerTaskReference;
 
-        public AsyncDrawable(Resources res, Bitmap bitmap,
-                ThumbnailGenerationTask bitmapWorkerTask) {
+        public AsyncDrawable(Resources res, Bitmap bitmap, ThumbnailGenerationTask bitmapWorkerTask) {
             super(res, bitmap);
-            bitmapWorkerTaskReference =
-                new WeakReference<ThumbnailGenerationTask>(bitmapWorkerTask);
+            bitmapWorkerTaskReference = new WeakReference<ThumbnailGenerationTask>(bitmapWorkerTask);
         }
 
         public ThumbnailGenerationTask getBitmapWorkerTask() {
@@ -179,9 +154,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         private final WeakReference<ImageView> imageViewReference;
         private OCFile file;
 
-        
         public ThumbnailGenerationTask(ImageView imageView) {
-         // Use a WeakReference to ensure the ImageView can be garbage collected
+            // Use a WeakReference to ensure the ImageView can be garbage
+            // collected
             imageViewReference = new WeakReference<ImageView>(imageView);
         }
 
@@ -196,16 +171,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
 
             // Not found in disk cache
-            if (thumbnail == null) { 
+            if (thumbnail == null) {
                 // Converts dp to pixel
                 Resources r = mContext.getResources();
-                int px = (int) Math.round(TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics()
-                ));
-                
-                if (file.isDown()){
+                int px = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, r.getDisplayMetrics()));
+
+                if (file.isDown()) {
                     Bitmap bitmap = BitmapFactory.decodeFile(file.getStoragePath());
-                    
+
                     if (bitmap != null) {
                         thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
 
@@ -217,45 +190,46 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     // Download thumbnail from server
                     try {
                         int status = -1;
-                        
-                        String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/100/100/"+URLEncoder.encode(file.getRemotePath(), "UTF-8").replaceAll("%2F", "/");
+
+                        String uri = client.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + px + "/" + px
+                                + "/" + Uri.encode(file.getRemotePath(), "/");
                         Log_OC.d("Thumbnail", "URI: " + uri);
                         GetMethod get = new GetMethod(uri);
                         status = client.executeMethod(get);
-                        if(status == HttpStatus.SC_OK) {
+                        if (status == HttpStatus.SC_OK) {
                             byte[] bytes = get.getResponseBody();
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                             thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
 
                             // Add thumbnail to cache
-                            if (thumbnail != null){
+                            if (thumbnail != null) {
                                 addBitmapToCache(imageKey, thumbnail);
                             }
                         }
-                    } catch(Exception e){
-                      e.printStackTrace();
-                  }
-                } 
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
             return thumbnail;
         }
-                    
-        protected void onPostExecute(Bitmap bitmap){
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
             if (isCancelled()) {
                 bitmap = null;
             }
 
             if (imageViewReference != null && bitmap != null) {
                 final ImageView imageView = imageViewReference.get();
-                final ThumbnailGenerationTask bitmapWorkerTask =
-                        getBitmapWorkerTask(imageView);
+                final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
                 if (this == bitmapWorkerTask && imageView != null) {
                     imageView.setImageBitmap(bitmap);
                 }
             }
         }
     }
-  
+
     public void addBitmapToCache(String key, Bitmap bitmap) {
         synchronized (thumbnailDiskCacheLock) {
             if (mThumbnailCache != null && mThumbnailCache.getBitmap(key) == null) {
@@ -270,10 +244,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             while (mThumbnailCacheStarting) {
                 try {
                     thumbnailDiskCacheLock.wait();
-                } catch (InterruptedException e) {}
+                } catch (InterruptedException e) {
+                }
             }
             if (mThumbnailCache != null) {
-                return (Bitmap) mThumbnailCache.getBitmap(key);
+                return mThumbnailCache.getBitmap(key);
             }
         }
         return null;
@@ -317,14 +292,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater inflator = (LayoutInflater) mContext
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflator = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflator.inflate(R.layout.list_item, null);
         }
-         
+
         if (mFiles != null && mFiles.size() > position) {
             OCFile file = mFiles.get(position);
-            TextView fileName = (TextView) view.findViewById(R.id.Filename);           
+            TextView fileName = (TextView) view.findViewById(R.id.Filename);
             String name = file.getFileName();
 
             fileName.setText(name);
@@ -335,8 +309,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
             ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
             localStateView.bringToFront();
-            FileDownloaderBinder downloaderBinder = 
-                    mTransferServiceGetter.getFileDownloaderBinder();
+            FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
             if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
                 localStateView.setImageResource(R.drawable.downloading_file_indicator);
@@ -350,28 +323,27 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             } else {
                 localStateView.setVisibility(View.INVISIBLE);
             }
-            
+
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
-            
+
             if (!file.isFolder()) {
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(
-                        DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp())
-                );
-                // this if-else is needed even thoe fav icon is visible by default
+                lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+                // this if-else is needed even thoe fav icon is visible by
+                // default
                 // because android reuses views in listview
                 if (!file.keepInSync()) {
                     view.findViewById(R.id.imageView3).setVisibility(View.GONE);
                 } else {
                     view.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
                 }
-                
-                ListView parentList = (ListView)parent;
-                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
+
+                ListView parentList = (ListView) parent;
+                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) {
                     checkBoxV.setVisibility(View.GONE);
                 } else {
                     if (parentList.isItemChecked(position)) {
@@ -380,42 +352,36 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
                     }
                     checkBoxV.setVisibility(View.VISIBLE);
-                }               
-                
+                }
+
                 // get Thumbnail if file is image
-                if (file.isImage()){
-                     // Thumbnail in Cache?
+                if (file.isImage()) {
+                    // Thumbnail in Cache?
                     Bitmap thumbnail = getBitmapFromDiskCache(String.valueOf(file.getRemoteId().hashCode()));
-                    if (thumbnail != null){
+                    if (thumbnail != null) {
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
                         // generate new Thumbnail
                         if (cancelPotentialWork(file, fileIcon)) {
-                            final ThumbnailGenerationTask task = 
-                                    new ThumbnailGenerationTask(fileIcon);
-                            final AsyncDrawable asyncDrawable =
-                                    new AsyncDrawable(mContext.getResources(), defaultImg, task);
+                            final ThumbnailGenerationTask task = new ThumbnailGenerationTask(fileIcon);
+                            final AsyncDrawable asyncDrawable = new AsyncDrawable(mContext.getResources(), defaultImg,
+                                    task);
                             fileIcon.setImageDrawable(asyncDrawable);
                             task.execute(file);
                         }
                     }
                 } else {
-                    fileIcon.setImageResource(
-                            DisplayUtils.getResourceId(file.getMimetype(), file.getFileName())
-                    );
+                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
                 }
 
                 if (checkIfFileIsSharedWithMe(file)) {
                     sharedWithMeIconV.setVisibility(View.VISIBLE);
                 }
-            } 
-            else {
+            } else {
                 fileSizeV.setVisibility(View.INVISIBLE);
-                //fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                // fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(
-                        DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp())
-                );
+                lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
                 checkBoxV.setVisibility(View.GONE);
                 view.findViewById(R.id.imageView3).setVisibility(View.GONE);
 
@@ -423,9 +389,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     fileIcon.setImageResource(R.drawable.shared_with_me_folder);
                     sharedWithMeIconV.setVisibility(View.VISIBLE);
                 } else {
-                    fileIcon.setImageResource(
-                            DisplayUtils.getResourceId(file.getMimetype(), file.getFileName())
-                    );
+                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
                 }
 
                 // If folder is sharedByLink, icon folder must be changed to
@@ -444,7 +408,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
         return view;
     }
-    
+
     public static boolean cancelPotentialWork(OCFile file, ImageView imageView) {
         final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
 
@@ -459,10 +423,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 return false;
             }
         }
-        // No task associated with the ImageView, or an existing task was cancelled
+        // No task associated with the ImageView, or an existing task was
+        // cancelled
         return true;
     }
-    
+
     private static ThumbnailGenerationTask getBitmapWorkerTask(ImageView imageView) {
         if (imageView != null) {
             final Drawable drawable = imageView.getDrawable();
@@ -470,9 +435,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 final AsyncDrawable asyncDrawable = (AsyncDrawable) drawable;
                 return asyncDrawable.getBitmapWorkerTask();
             }
-         }
-         return null;
-     }
+        }
+        return null;
+    }
 
     @Override
     public int getViewTypeCount() {
@@ -491,10 +456,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     /**
      * Change the adapted directory for a new one
-     * @param directory                 New file to adapt. Can be NULL, meaning 
-     *                                  "no content to adapt".
-     * @param updatedStorageManager     Optional updated storage manager; used to replace 
-     *                                  mStorageManager if is different (and not NULL)
+     * 
+     * @param directory New file to adapt. Can be NULL, meaning
+     *            "no content to adapt".
+     * @param updatedStorageManager Optional updated storage manager; used to
+     *            replace mStorageManager if is different (and not NULL)
      */
     public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager) {
         mFile = directory;
@@ -512,17 +478,17 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
         notifyDataSetChanged();
     }
-    
-    
+
     /**
      * Filter for getting only the folders
+     * 
      * @param files
      * @return Vector<OCFile>
      */
     public Vector<OCFile> getFolders(Vector<OCFile> files) {
-        Vector<OCFile> ret = new Vector<OCFile>(); 
-        OCFile current = null; 
-        for (int i=0; i<files.size(); i++) {
+        Vector<OCFile> ret = new Vector<OCFile>();
+        OCFile current = null;
+        for (int i = 0; i < files.size(); i++) {
             current = files.get(i);
             if (current.isFolder()) {
                 ret.add(current);
@@ -530,8 +496,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
         return ret;
     }
-    
-    
+
     /**
      * Check if parent folder does not include 'S' permission and if file/folder
      * is shared with me
@@ -540,9 +505,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
      * @return boolean: True if it is shared with me and false if it is not
      */
     private boolean checkIfFileIsSharedWithMe(OCFile file) {
-        return (mFile.getPermissions() != null 
-                && !mFile.getPermissions().contains(PERMISSION_SHARED_WITH_ME)
-                && file.getPermissions() != null 
-                && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME));
+        return (mFile.getPermissions() != null && !mFile.getPermissions().contains(PERMISSION_SHARED_WITH_ME)
+                && file.getPermissions() != null && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME));
     }
 }
