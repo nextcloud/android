@@ -21,7 +21,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -31,6 +30,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Point;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -374,12 +374,15 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     @Override
     public void onConfirmation(String callerTag) {
         if (mStorageManager.getFileById(getFile().getFileId()) != null) {   // check that the file is still there;
+            String path = new File(getFile().getStoragePath()).getParent();
             mLastRemoteOperation = new RemoveFileOperation( getFile(),      // TODO we need to review the interface with RemoteOperations, and use OCFile IDs instead of OCFile objects as parameters
                                                             true, 
                                                             mStorageManager);
             mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             
             ((PreviewImageActivity) getActivity()).showLoadingDialog();
+            
+            triggerMediaScan(path);
         }
     }
     
@@ -393,7 +396,11 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
         OCFile file = getFile();
         if (file.isDown()) {   // checks it is still there
             File f = new File(file.getStoragePath());
+            String path = f.getParent();
             f.delete();
+            
+            triggerMediaScan(path);
+            
             file.setStoragePath(null);
             mStorageManager.saveFile(file);
             finish();
@@ -406,6 +413,13 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     @Override
     public void onCancel(String callerTag) {
         // nothing to do here
+    }
+    
+    private void triggerMediaScan(String path){
+        MediaScannerConnection.scanFile(
+                getActivity().getApplicationContext(), 
+                new String[]{path}, 
+                null,null);
     }
     
 

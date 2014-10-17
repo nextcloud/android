@@ -43,9 +43,9 @@ import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationD
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 
-
 import android.accounts.Account;
 import android.app.Activity;
+import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.ContextMenu;
@@ -472,19 +472,26 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     public void onConfirmation(String callerTag) {
         if (callerTag.equals(FileDetailFragment.FTAG_CONFIRMATION)) {
             if (mContainerActivity.getStorageManager().getFileById(mTargetFile.getFileId()) != null) {
+                String path = new File(mTargetFile.getStoragePath()).getParent();
                 RemoteOperation operation = new RemoveFileOperation( mTargetFile, 
                                                                     true, 
                                                                     mContainerActivity.getStorageManager());
                 operation.execute(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity(), mContainerActivity, mHandler, getSherlockActivity());
                 
                 ((FileDisplayActivity) getActivity()).showLoadingDialog();
+                
+                triggerMediaScan(path);
             }
         }
     }
     
     @Override
     public void onNeutral(String callerTag) {
+        String path = new File(mTargetFile.getStoragePath()).getParent();
         mContainerActivity.getStorageManager().removeFile(mTargetFile, false, true);    // TODO perform in background task / new thread
+        
+        triggerMediaScan(path);
+        
         listDirectory();
         mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
     }
@@ -493,6 +500,11 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     public void onCancel(String callerTag) {
         Log_OC.d(TAG, "REMOVAL CANCELED");
     }
-
-
+    
+    private void triggerMediaScan(String path){
+        MediaScannerConnection.scanFile(
+                getActivity().getApplicationContext(), 
+                new String[]{path}, 
+                null,null);
+    }
 }
