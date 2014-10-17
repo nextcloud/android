@@ -22,6 +22,7 @@
   <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Erausgoen</string>
   <string name="uploader_info_uploading">Eroplueden</string>
+  <string name="file_list_empty">Hei ass näischt. Lued eppes rop!</string>
   <string name="filedetails_size">Gréisst:</string>
   <string name="filedetails_type">Typ:</string>
   <string name="filedetails_created">Erstallt:</string>
@@ -80,7 +81,8 @@
   <string name="conflict_keep_both">Béid halen</string>
   <string name="conflict_overwrite">Iwwerschreiwen</string>
   <string name="conflict_dont_upload">Net eroplueden</string>
-  <string name="failed_upload_all_cb">all auswielen</string>
-  <string name="failed_upload_failure_text">Fehler Message:</string>
   <string name="activity_chooser_send_file_title">Schécken</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Accounten</string>
+  <string name="move_choose_button_text">Auswielen</string>
 </resources>

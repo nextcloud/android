@@ -22,6 +22,7 @@
   <string name="uploader_wrn_no_account_setup_btn_text">Ndërto</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Dil</string>
   <string name="uploader_info_uploading">Ngarko</string>
+  <string name="file_list_empty">Këtu nuk ka asgje. Ngarko dicka</string>
   <string name="filedetails_select_file">Trokitje e lehtë në një dokument për të shfaqur informacion shtesë.</string>
   <string name="filedetails_size">Dimensioni:</string>
   <string name="filedetails_type">Tipi:</string>
@@ -67,4 +68,8 @@
   <string name="common_rename">Riemërto</string>
   <string name="common_remove">Hiq</string>
   <string name="activity_chooser_send_file_title">Dërgo</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Llogarit</string>
+  <string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
+  <string name="move_choose_button_text">Zgjidh</string>
 </resources>

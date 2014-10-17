@@ -31,6 +31,7 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 
 import android.content.Context;
@@ -122,7 +123,7 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
             authMethod = AuthenticationMethod.SAML_WEB_SSO;
         }
         // else - fall back to UNKNOWN
-        Log.d(TAG, "Authentication method found: " + authenticationMethodToString(authMethod));
+        Log_OC.d(TAG, "Authentication method found: " + authenticationMethodToString(authMethod));
         
         if (!authMethod.equals(AuthenticationMethod.UNKNOWN)) {
             result = new RemoteOperationResult(true, result.getHttpCode(), null);

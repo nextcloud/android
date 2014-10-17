@@ -43,7 +43,7 @@
   <string name="uploader_wrn_no_content_text">받은 콘텐츠가 없습니다. 업로드할 항목이 없습니다.</string>
   <string name="uploader_error_forbidden_content">%1$s에서 공유된 콘텐츠에 접근할 수 없습니다</string>
   <string name="uploader_info_uploading">업로드 중</string>
-  <string name="file_list_empty">이 폴더에 파일이 없습니다.\n메뉴 옵션의 \"업로드\" 항목을 사용하여 새 파일을 업로드할 수 있습니다.</string>
+  <string name="file_list_empty">내용이 없습니다. 업로드할 수 있습니다!</string>
   <string name="filedetails_select_file">파일을 누르면 추가 정보가 표시됩니다.</string>
   <string name="filedetails_size">크기:</string>
   <string name="filedetails_type">종류:</string>
@@ -209,17 +209,12 @@
   <string name="conflict_overwrite">덮어쓰기</string>
   <string name="conflict_dont_upload">업로드하지 않음</string>
   <string name="preview_image_description">그림 미리보기</string>
-  <string name="actionbar_failed_instant_upload">자동 업로드가 실패했습니다</string>
-  <string name="failed_upload_headline_text">자동 업로드 실패함</string>
-  <string name="failed_upload_headline_hint">실패된 자동 업로드 전체 요약</string>
-  <string name="failed_upload_all_cb">전체 선택</string>
-  <string name="failed_upload_headline_retryall_btn">전체 선택 재시도</string>
-  <string name="failed_upload_headline_delete_all_btn">선택된 업로드 큐 전체 삭제</string>
-  <string name="failed_upload_retry_text">이미지 업로드 재시도:</string>
-  <string name="failed_upload_retry_do_nothing_text">현재 온라인이 아니셔서 자동 업로드를 할수 없습니다</string>
-  <string name="failed_upload_failure_text">실패 메시지:</string>
-  <string name="failed_upload_quota_exceeded_text">서버 설정을 확인해주세요, 아마 업로드 제한을 초과하셨을겁니다.</string>
   <string name="activity_chooser_send_file_title">보내기</string>
   <string name="copy_link">링크 복사</string>
   <string name="clipboard_text_copied">클립보드로 복사됨</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">계정</string>
+  <string name="saml_authentication_required_text">인증 필요함</string>
+  <string name="saml_authentication_wrong_pass">잘못된 암호</string>
+  <string name="move_choose_button_text">선택</string>
 </resources>

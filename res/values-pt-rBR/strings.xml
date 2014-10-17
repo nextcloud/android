@@ -31,7 +31,7 @@
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Tentar %1$s em seu smartfone!</string>
-  <string name="recommend_text">\"Eu quero convidá-lo a usar %1$s em seu smartphone! \nBaixe aqui: %2$s \"</string>
+  <string name="recommend_text">Gostaria de convida-lo a usar %1$s em seu smartphone!\nBaixe aqui: %2$s</string>
   <string name="auth_check_server">Verificar Servidor</string>
   <string name="auth_host_url">Endereço do servidor https://...</string>
   <string name="auth_username">Nome de usuário</string>
@@ -49,7 +49,9 @@
   <string name="uploader_wrn_no_content_text">Nenhum conteúdo foi recebido. Nada para enviar.</string>
   <string name="uploader_error_forbidden_content">%1$s não é permitido acessar o conteúdo compartilhado</string>
   <string name="uploader_info_uploading">Enviando</string>
-  <string name="file_list_empty">Não existe arquivos nesta pasta\nNovos arquivos podem ser adicionados com a opção \"Enviar\" do menu</string>
+  <string name="file_list_empty">Nada aqui. Envie alguma coisa!</string>
+  <string name="file_list_loading">Carregando...</string>
+  <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
   <string name="filedetails_select_file">Toque em um arquivo para mostrar informações adicionais.</string>
   <string name="filedetails_size">Tamanho:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -102,7 +104,7 @@
   <string name="sync_fail_in_favourites_content">O conteúdo de %1$d arquivos não puderam ser sincronizados (%2$d conflitos)</string>
   <string name="sync_foreign_files_forgotten_ticker">Alguns arquivos locais foram esquecidos</string>
   <string name="sync_foreign_files_forgotten_content">%1$d arquivos de %2$s não puderam ser copiados para a pasta</string>
-  <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os arquivos enviados a partir deste dispositivo são copiados para a pasta local %1$s para evitar a perda de dados quando um único arquivo é sincronizado com várias contas.\nDevido a essa mudança, todos os arquivos carregados em versões anteriores deste aplicativo foram copiados para a pasta %2$s. No entanto, um erro impediu a conclusão desta operação durante a sincronização da conta. Você pode tanto deixar o arquivo(s) como é e remover o link para %3$s, ou mover o arquivo(s) para a pasta %1$s e manter o link para  %4$s.\nListados abaixo estão o arquivo(s) locais, e o arquivo(s) remotos %5$s em que estavam vinculados.</string>
+  <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os arquivos enviados a partir deste dispositivo são copiados para a pasta local %1$s para evitar a perda de dados quando um único arquivo é sincronizado com várias contas. \n\nDevido a esta mudança, todos os arquivos enviados em versões anteriores deste aplicativo foram copiados para a pasta %2$s . No entanto, um erro impediu a conclusão desta operação durante a sincronização de conta. Você pode tanto deixar os arquivos como são e remover o link para %3$s, ou mover os arquivo(s) para a pasta %1$s e manter o link para %4$s. \n\nListadas abaixo são os arquivo(s) locais, e os arquivo(s) remoto(s) em %5$s que estavam vinculados.</string>
   <string name="sync_current_folder_was_removed">Pasta %1s não existe mais</string>
   <string name="foreign_files_move">Mover todos</string>
   <string name="foreign_files_success">Todos os arquivos foram movidos</string>
@@ -167,7 +169,8 @@
   <string name="auth_connecting_auth_server">Conectando ao servidor de autenticação ...</string>
   <string name="auth_unsupported_auth_method">O servidor não suporta este método de autenticação</string>
   <string name="auth_unsupported_multiaccount">%1$s não suporta múltiplas contas</string>
-  <string name="auth_fail_get_user_name">Seu servidor não está retornando um ID de usuário correto, por favor, entre em contato com um administrador\n⇥</string>
+  <string name="auth_fail_get_user_name">Seu servidor não está retornando um ID de usuário correto, por favor, entre em contato com um administrador
+⇥</string>
   <string name="auth_can_not_auth_against_server">Não foi possível autenticar neste servidor</string>
   <string name="fd_keep_in_sync">Manter arquivo atualizado</string>
   <string name="common_rename">Renomear</string>
@@ -235,21 +238,11 @@
   <string name="preview_image_description">Pré-visualização da imagem</string>
   <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
   <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>
-  <string name="actionbar_failed_instant_upload">Falha no EnvioInstantaneo</string>
-  <string name="failed_upload_headline_text">Falhas nos envios imediatos</string>
-  <string name="failed_upload_headline_hint">Sumário de todas as falhas nos envios imediatos</string>
-  <string name="failed_upload_all_cb">selecionar tudo</string>
-  <string name="failed_upload_headline_retryall_btn">tentar novamente todos os selecionados</string>
-  <string name="failed_upload_headline_delete_all_btn">excluir todos os selecionados da lista de envio</string>
-  <string name="failed_upload_retry_text">tentar novamente envio da imagem:</string>
-  <string name="failed_upload_load_more_images">Carregar mais Imagens</string>
-  <string name="failed_upload_retry_do_nothing_text">não fazer nada voce não está conectado para envio instantâneo </string>
-  <string name="failed_upload_failure_text">Mensagem de Falha:</string>
-  <string name="failed_upload_quota_exceeded_text">Por favor, verifique a configuração do servidor, talvez a sua cota esteja vencida.</string>
-  <string name="share_link_no_support_share_api">Desculpe, o compartilhamento não está habilitado em seu servidor. Entre em contato com seu \n⇥⇥ administrador.</string>
-  <string name="share_link_file_no_exist">Incapaz de compartilhar esse arquivo ou pasta. Por favor, certifique-se que existe</string>
+  <string name="share_link_no_support_share_api">Desculpe, o compartilhamento não está habilitado em seu servidor. Entre em contato com seu 
+⇥⇥ administrador.</string>
+  <string name="share_link_file_no_exist">Não é possível compartilhar. Por favor verifique se o arquivo existe</string>
   <string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>
-  <string name="unshare_link_file_no_exist">Incapaz de descompartilhar este arquivo ou pasta. Ela não existe.</string>
+  <string name="unshare_link_file_no_exist">Não é possível cancelar o compartilhamento. Por favor verifique se o arquivo existe</string>
   <string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar o link</string>
@@ -259,4 +252,30 @@
   <string name="network_error_socket_timeout_exception">Ocorreu um erro enquanto se espera pelo servidor, a operação não poderia ter sido executada</string>
   <string name="network_error_connect_timeout_exception">Ocorreu um erro enquanto se espera pelo servidor, a operação não poderia ter sido executada</string>
   <string name="network_host_not_available">A operação não pôde ser concluída, o servidor está indisponível</string>
+  <string name="empty"></string>
+  <string name="forbidden_permissions">Você não tem premissão %s</string>
+  <string name="forbidden_permissions_rename">para renomear este arquivo</string>
+  <string name="forbidden_permissions_delete">para excluir este arquivo</string>
+  <string name="share_link_forbidden_permissions">para compartilhar este arquivo</string>
+  <string name="unshare_link_forbidden_permissions">para descompartilhar este arquivo</string>
+  <string name="forbidden_permissions_create">para criar este arquivo</string>
+  <string name="uploader_upload_forbidden_permissions">para enviar para esta pasta</string>
+  <string name="downloader_download_file_not_found">Este arquivo não mais está disponível neste servidor</string>
+  <string name="prefs_category_accounts">Contas</string>
+  <string name="prefs_add_account">Adicionar uma conta</string>
+  <string name="auth_redirect_non_secure_connection_title">A conexão segura está redirecionada através de uma rota insegura.</string>
+  <string name="actionbar_logger">Logs</string>
+  <string name="log_send_history_button">Enviar Histórico</string>
+  <string name="log_mail_subject">Logs do aplicativo ownCloud Android</string>
+  <string name="log_progress_dialog_text">Carregamento de dados...</string>
+  <string name="saml_authentication_required_text">Autenticação é requerida</string>
+  <string name="saml_authentication_wrong_pass">Senha incorreta</string>
+  <string name="actionbar_move">Mover</string>
+  <string name="file_list_empty_moving">Nada aqui. Você pode adicionar uma pasta!</string>
+  <string name="move_choose_button_text">Escolher</string>
+  <string name="move_file_not_found">Não é possível mover. Por favor verifique se o arquivo existe</string>
+  <string name="move_file_invalid_into_descendent">Não é possível mover a pasta para uma descendente</string>
+  <string name="move_file_invalid_overwrite">O arquivo já existe na pasta de destino</string>
+  <string name="move_file_error">Ocorreu um erro ao tentar mover este arquivo ou pasta</string>
+  <string name="forbidden_permissions_move">mover este arquivo</string>
 </resources>

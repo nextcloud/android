@@ -18,7 +18,7 @@
   <string name="prefs_pincode">App PIN</string>
   <string name="prefs_pincode_summary">Защитить ваш клиент</string>
   <string name="prefs_instant_upload">Быстрая загрузка фотографий</string>
-  <string name="prefs_instant_upload_summary">Быстрая загрузка фотографий из камеры</string>
+  <string name="prefs_instant_upload_summary">Немедленно загружать фотографии сделанные камерой</string>
   <string name="prefs_instant_video_upload">Быстрая загрузка видео</string>
   <string name="prefs_instant_video_upload_summary">Быстрая загрузка видео с камеры</string>
   <string name="prefs_log_title">Включить журналирование</string>
@@ -31,7 +31,8 @@
   <string name="prefs_feedback">Обратная связь</string>
   <string name="prefs_imprint">Штамп</string>
   <string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
-  <string name="recommend_text">\"Я хочу пригласить вас использовать %1$s на вашем смартфоне! \nПриложение для загрузки доступно здесь: %2$s\"\n\t</string>
+  <string name="recommend_text">Хочу предложить вам использовать %1$s на смартфоне!\nЗагрузить можно здесь: %2$s
+	</string>
   <string name="auth_check_server">Проверить сервер</string>
   <string name="auth_host_url">Адрес сервера https://...</string>
   <string name="auth_username">Имя пользователя</string>
@@ -49,7 +50,9 @@
   <string name="uploader_wrn_no_content_text">Содержимое не получено. Нечего загружать.</string>
   <string name="uploader_error_forbidden_content">%1$s не имеет доступа к опубликованным данным</string>
   <string name="uploader_info_uploading">Загрузка</string>
-  <string name="file_list_empty">В этом каталоге нет файлов.\nНовые файлы могут быть добавлены с помощью пункта меню \"Загрузить\".</string>
+  <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
+  <string name="file_list_loading">Загрузка...</string>
+  <string name="local_file_list_empty">В данной папке нет файлов.</string>
   <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
   <string name="filedetails_size">Размер:</string>
   <string name="filedetails_type">Тип:</string>
@@ -82,7 +85,7 @@
   <string name="uploader_upload_succeeded_content_single">%1$s был успешно загружен</string>
   <string name="uploader_upload_failed_ticker">Ошибка загрузки</string>
   <string name="uploader_upload_failed_content_single">Загрузка %1$s не может быть завершена</string>
-  <string name="uploader_upload_failed_credentials_error">Загрузка завершилась неудачей, Вам необходимо переподключиться</string>
+  <string name="uploader_upload_failed_credentials_error">Загрузка не удалась, Вам необходимо переподключиться</string>
   <string name="downloader_download_in_progress_ticker">Скачивание...</string>
   <string name="downloader_download_in_progress_content">%1$d%% скачивания %2$s</string>
   <string name="downloader_download_succeeded_ticker">Скачивание завершено</string>
@@ -90,9 +93,10 @@
   <string name="downloader_download_failed_ticker">Скачивание не удалось</string>
   <string name="downloader_download_failed_content">Скачивание %1$s не может быть завершено</string>
   <string name="downloader_not_downloaded_yet">Ещё не скачано</string>
-  <string name="downloader_download_failed_credentials_error">Скачивание завершилось неудачей, Вам необходимо переподключиться</string>
+  <string name="downloader_download_failed_credentials_error">Скачивание не удалось, Вам необходимо переподключиться</string>
   <string name="common_choose_account">Выберите учётную запись</string>
   <string name="sync_fail_ticker">Синхронизация прошла неудачно</string>
+  <string name="sync_fail_ticker_unauthorized">Синхронизация не удалась, Вам необходимо переподключиться</string>
   <string name="sync_fail_content">Синхронизация %1$s не может быть завершена</string>
   <string name="sync_fail_content_unauthorized">Неверный пароль для %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
@@ -101,7 +105,7 @@
   <string name="sync_fail_in_favourites_content">Содержимое %1$d файлов не может быть синхронизировано (конфликтов: %2$d)</string>
   <string name="sync_foreign_files_forgotten_ticker">Несколько локальных файлов были забыты</string>
   <string name="sync_foreign_files_forgotten_content"> Не возможно скопировать %1$d файлы из %2$s папки</string>
-  <string name="sync_foreign_files_forgotten_explanation">Начиная с версии 1.3.16, загруженные файлы с этого устройства копируются в  %1$s папку для предотвращения утери данных если отдельные файлы синхронизированны с несколькими аккаунтами.\n\nВ связи с этим изменением, все файлы, загруженные в предыдущих версиях этого приложения были скопированы в %2$s папку. Однако ошибка помешала завершению этой операции во время синхронизации аккаунта. Вы можете либо оставить файл(ы) как есть и удалить ссылку на %3$s, или переместите  файл(ы) в %1$s папку и сохраните ссылку на %4$s.\n\nНиже перечислены локальный файл(ы),  удаленный файл(ы) находятся по следующей сселке %5$s</string>
+  <string name="sync_foreign_files_forgotten_explanation">Начиная с версии 1.3.16, файлы, загружаемые с этого устройства, копируются в локальную директорию %1$s, чтобы предотвратить потерю данных при синхронизации файла с несколькими учётными записями.\n\nПоэтому все файлы, загруженные предыдущими версиями данного приложения, были скопированы в директорию %2$s. Однако, во время синхронизации что-то помешало завершить эту операцию. Теперь можно либо оставить файлы как есть и удалить ссылку на %3$s, либо переместить их в %1$s и сохранить ссылку на %4$s.\n\nНиже перечислены локальные файлы, и соответствующие им удалённые файлы в %5$s, к которым они привязаны.</string>
   <string name="sync_current_folder_was_removed">Каталог %1$s больше не существует</string>
   <string name="foreign_files_move">Переместить всё</string>
   <string name="foreign_files_success">Все файлы были перемещены</string>
@@ -113,7 +117,7 @@
   <string name="pincode_configure_your_pin">Введите App PIN</string>
   <string name="pincode_configure_your_pin_explanation">PIN-код будет запрашиваться при каждом запуске приложения.</string>
   <string name="pincode_reenter_your_pincode">Повторите ввод App PIN</string>
-  <string name="pincode_remove_your_pincode">Удалите App PIN</string>
+  <string name="pincode_remove_your_pincode">Удалить App PIN</string>
   <string name="pincode_mismatch">Введённые App PIN не совпадают</string>
   <string name="pincode_wrong">Неверный App PIN</string>
   <string name="pincode_removed">App PIN удалён</string>
@@ -138,7 +142,7 @@
   <string name="media_play_pause_description">Воспроизведение или пауза</string>
   <string name="media_forward_description">Перемотка вперед</string>
   <string name="auth_getting_authorization">Происходит авторизация.....</string>
-  <string name="auth_trying_to_login">Авторизация...</string>
+  <string name="auth_trying_to_login">Попытка входа...</string>
   <string name="auth_no_net_conn_title">Нет подключения к сети</string>
   <string name="auth_nossl_plain_ok_title">Защищённое соединение недоступно.</string>
   <string name="auth_connection_established">Соединение установлено</string>
@@ -166,7 +170,8 @@
   <string name="auth_connecting_auth_server">Подключение к серверу аутентификации...</string>
   <string name="auth_unsupported_auth_method">Сервер не поддерживает выбранный метод аутентификации</string>
   <string name="auth_unsupported_multiaccount">%1$s не поддерживает сразу несколько учётных записей</string>
-  <string name="auth_fail_get_user_name">Ваш сервер не возвращает корректный пользовательский идентификатор, пожалуйста свяжитесь с администратором</string>
+  <string name="auth_fail_get_user_name">Ваш сервер не возвращает корректный пользовательский идентификатор, пожалуйста свяжитесь с администратором
+⇥</string>
   <string name="auth_can_not_auth_against_server">Невозможно аутентифицироваться на этом сервере</string>
   <string name="fd_keep_in_sync">Обновлять файл</string>
   <string name="common_rename">Переименовать</string>
@@ -216,7 +221,7 @@
   <string name="ssl_validator_label_signature">Подпись:</string>
   <string name="ssl_validator_label_signature_algorithm">Алгоритм:</string>
   <string name="ssl_validator_null_cert">Сертификат не может быть показан.</string>
-  <string name="ssl_validator_no_info_about_error">Информации об ошибке нет</string>
+  <string name="ssl_validator_no_info_about_error">- Информации об ошибке нет</string>
   <string name="placeholder_sentence">Это заполнитель</string>
   <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">Изображение PNG</string>
@@ -234,21 +239,10 @@
   <string name="preview_image_description">Предпросмотр</string>
   <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
   <string name="error__upload__local_file_not_copied">%1$s не возможно скопировать в локальною папку %2$s </string>
-  <string name="actionbar_failed_instant_upload">Сбой немедленной загрузки</string>
-  <string name="failed_upload_headline_text">Сбой немедленной загрузки</string>
-  <string name="failed_upload_headline_hint">Сводка по всем сбойным немедленным загрузкам</string>
-  <string name="failed_upload_all_cb">Выбрать всё</string>
-  <string name="failed_upload_headline_retryall_btn">Ещё раз попробовать всё выделенное</string>
-  <string name="failed_upload_headline_delete_all_btn">Удалить выбранное из очереди загрузки</string>
-  <string name="failed_upload_retry_text">попробовать ещё раз загрузить изображение:</string>
-  <string name="failed_upload_load_more_images">Загрузить ещё картинок</string>
-  <string name="failed_upload_retry_do_nothing_text">Ничего не делать, если нет подключения к сети</string>
-  <string name="failed_upload_failure_text">Сообщение об ошибке:</string>
-  <string name="failed_upload_quota_exceeded_text">Проверьте настройки сервера, возможно ваш лимит исчерпан</string>
   <string name="share_link_no_support_share_api">К сожалению, на вашем сервере отключен совместный доступ. Пожалуйста, свяжитесь с вашим администратором.</string>
-  <string name="share_link_file_no_exist">Невозможно предоставить доступ к этому файлу или каталогу. Убедитесь, что он существует</string>
+  <string name="share_link_file_no_exist">Невозможно добавить в общий доступ. Пожалуйста, проверьте, существует ли файл</string>
   <string name="share_link_file_error">Ошибка предоставления общего доступа к этому файлу или каталогу</string>
-  <string name="unshare_link_file_no_exist">Невозможно снять общий доступ с этого файла или каталога. Он не существует.</string>
+  <string name="unshare_link_file_no_exist">Невозможно убрать из общего доступа. Пожалуйста, проверьте, существует ли файл</string>
   <string name="unshare_link_file_error">Ошибка удаления общего доступа к этому файлу или каталогу</string>
   <string name="activity_chooser_send_file_title">Отправить</string>
   <string name="copy_link">Копировать ссылку</string>
@@ -258,4 +252,30 @@
   <string name="network_error_socket_timeout_exception">Во время ожидания сервера возникла ошибка, операция не может быть завершена</string>
   <string name="network_error_connect_timeout_exception">Во время ожидания сервера возникла ошибка, операция не может быть завершена</string>
   <string name="network_host_not_available">Операция не может быть завершена, сервер недоступен</string>
+  <string name="empty"></string>
+  <string name="forbidden_permissions">У вас нет доступа %s</string>
+  <string name="forbidden_permissions_rename">переименовать этот файл</string>
+  <string name="forbidden_permissions_delete">удалить этот файл</string>
+  <string name="share_link_forbidden_permissions">опубликовать этот файл</string>
+  <string name="unshare_link_forbidden_permissions">отменить публикацию этого файла</string>
+  <string name="forbidden_permissions_create">создать файл</string>
+  <string name="uploader_upload_forbidden_permissions">загрузить в эту папку</string>
+  <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
+  <string name="prefs_category_accounts">Учётные записи</string>
+  <string name="prefs_add_account">Добавить учетную запись</string>
+  <string name="auth_redirect_non_secure_connection_title">Безопасное соединение перенаправлено через небезопасный маршрут.</string>
+  <string name="actionbar_logger">Журналы</string>
+  <string name="log_send_history_button">История Отправлений</string>
+  <string name="log_mail_subject">Журналы Андроид-приложения ownCloud</string>
+  <string name="log_progress_dialog_text">Загружаются данные...</string>
+  <string name="saml_authentication_required_text">Требуется аутентификация </string>
+  <string name="saml_authentication_wrong_pass">Неправильный пароль</string>
+  <string name="actionbar_move">Переместить</string>
+  <string name="file_list_empty_moving">Здесь ничего нет. Вы можете добавить папку!</string>
+  <string name="move_choose_button_text">Выбрать</string>
+  <string name="move_file_not_found">Невозможно переместить. Пожалуйста, проверьте, существует ли файл</string>
+  <string name="move_file_invalid_into_descendent">Невозможно переместить папку в папку-потомок</string>
+  <string name="move_file_invalid_overwrite">Файл уже существует в папке назначения</string>
+  <string name="move_file_error">Произошла ошибка при попытке перемещения этого файла или папки</string>
+  <string name="forbidden_permissions_move">переместить этот файл</string>
 </resources>

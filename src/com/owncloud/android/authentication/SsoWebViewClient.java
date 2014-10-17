@@ -25,7 +25,7 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
 import com.owncloud.android.lib.common.network.NetworkUtils;
-import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -66,6 +66,7 @@ public class SsoWebViewClient extends WebViewClient {
     private WeakReference<SsoWebViewClientListener> mListenerRef;
     private String mTargetUrl;
     private String mLastReloadedUrlAtError;
+
     
     public SsoWebViewClient (Context context, Handler listenerHandler, SsoWebViewClientListener listener) {
         mContext = context;
@@ -86,6 +87,7 @@ public class SsoWebViewClient extends WebViewClient {
     @Override
     public void onPageStarted (WebView view, String url, Bitmap favicon) {
         Log_OC.d(TAG, "onPageStarted : " + url);
+        view.clearCache(true);
         super.onPageStarted(view, url, favicon);
     }
     
@@ -195,6 +197,8 @@ public class SsoWebViewClient extends WebViewClient {
     @Override
     public void onReceivedHttpAuthRequest (WebView view, HttpAuthHandler handler, String host, String realm) {
         Log_OC.d(TAG, "onReceivedHttpAuthRequest : " + host);
+
+        ((AuthenticatorActivity)mContext).createAuthenticationDialog(view, handler);
     }
 
     @Override
@@ -229,5 +233,4 @@ public class SsoWebViewClient extends WebViewClient {
         Log_OC.d(TAG, "shouldOverrideKeyEvent : " + event);
         return false;
     }
-
 }

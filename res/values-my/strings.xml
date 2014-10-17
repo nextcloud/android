@@ -10,4 +10,6 @@
   <string name="common_no">မဟုတ်ဘူး</string>
   <string name="common_ok">အိုကေ</string>
   <string name="common_cancel">ပယ်ဖျက်မည်</string>
+  <string name="empty"></string>
+  <string name="move_choose_button_text">ရွေးချယ်</string>
 </resources>

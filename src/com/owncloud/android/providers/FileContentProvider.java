@@ -24,8 +24,8 @@ import java.util.HashMap;
 import com.owncloud.android.R;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.utils.Log_OC;
 
 
 
@@ -97,6 +97,8 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_PERMISSIONS);
         mFileProjectionMap.put(ProviderTableMeta.FILE_REMOTE_ID,
                 ProviderTableMeta.FILE_REMOTE_ID);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL,
+                ProviderTableMeta.FILE_UPDATE_THUMBNAIL);
     }
 
     private static final int SINGLE_FILE = 1;
@@ -559,7 +561,8 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_SHARE_BY_LINK + " INTEGER, "
                     + ProviderTableMeta.FILE_PUBLIC_LINK  + " TEXT, "
                     + ProviderTableMeta.FILE_PERMISSIONS  + " TEXT null,"
-                    + ProviderTableMeta.FILE_REMOTE_ID  + " TEXT null);"
+                    + ProviderTableMeta.FILE_REMOTE_ID  + " TEXT null,"
+                    + ProviderTableMeta.FILE_UPDATE_THUMBNAIL  + " INTEGER);" //boolean
                     );
             
             // Create table ocshares
@@ -700,6 +703,23 @@ public class FileContentProvider extends ContentProvider {
                             " ADD COLUMN " + ProviderTableMeta.FILE_REMOTE_ID + " TEXT " +
                             " DEFAULT NULL");
                     
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+            if (!upgraded)
+                Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion + ", newVersion == " + newVersion);
+
+            if (oldVersion < 8 && newVersion >= 8) {
+                Log_OC.i("SQL", "Entering in the #8 ADD in onUpgrade");
+                db.beginTransaction();
+                try {
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_UPDATE_THUMBNAIL + " INTEGER " +
+                            " DEFAULT 0");
+
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {

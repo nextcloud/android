@@ -31,7 +31,7 @@
   <string name="prefs_feedback">Geribildirim</string>
   <string name="prefs_imprint">İzlenim</string>
   <string name="recommend_subject">%1$s uygulamasını akıllı telefonunda dene!</string>
-  <string name="recommend_text">\"Seni, akıllı telefonunda %1$s kullanmaya davet ediyorum!\nBuradan indirebilirsin: %2$s\"</string>
+  <string name="recommend_text">Seni, akıllı telefonunda %1$s kullanmaya davet ediyorum!\nBuradan indirebilirsin: %2$s</string>
   <string name="auth_check_server">Sunucuyu Denetle</string>
   <string name="auth_host_url">Sunucu adresi https://…</string>
   <string name="auth_username">Kullanıcı Adı</string>
@@ -49,7 +49,9 @@
   <string name="uploader_wrn_no_content_text">Hiç içerik alınmadı. Yüklenecek hiçbir şey yok.</string>
   <string name="uploader_error_forbidden_content">%1$s için paylaşılan içeriğe erişim izni yok</string>
   <string name="uploader_info_uploading">Yükleniyor</string>
-  <string name="file_list_empty">Bu klasörde dosya yok.\nYeni dosyalar \"Yükle\" menü seçeneği ile eklenebilir.</string>
+  <string name="file_list_empty">Burada hiçbir şey yok. Bir şeyler yükleyin!</string>
+  <string name="file_list_loading">Yükleniyor...</string>
+  <string name="local_file_list_empty">Bu klasörde dosya yok.</string>
   <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
   <string name="filedetails_size">Boyut:</string>
   <string name="filedetails_type">Tür:</string>
@@ -122,7 +124,7 @@
   <string name="media_notif_ticker">%1$s müzik çalar</string>
   <string name="media_state_playing">%1$s (oynatılıyor)</string>
   <string name="media_state_loading">%1$s (yükleniyor)</string>
-  <string name="media_event_done">%1$s yeniden oynatım tamamlandı</string>
+  <string name="media_event_done">%1$s oynatma tamamlandı</string>
   <string name="media_err_nothing_to_play">Herhangi bir ortam ögesi bulunamadı</string>
   <string name="media_err_no_account">Tanımlı hesap yok</string>
   <string name="media_err_not_in_owncloud">Dosya geçerli bir hesapta değil</string>
@@ -167,7 +169,8 @@
   <string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor...</string>
   <string name="auth_unsupported_auth_method">Sunucu bu kimlik doğrulama yöntemini desteklemiyor</string>
   <string name="auth_unsupported_multiaccount">%1$s çoklu hesapları desteklemiyor</string>
-  <string name="auth_fail_get_user_name">Sunucunuz geçerli bir kullanıcı kimliği döndürmüyor, lütfen yöneticinizle iletişime geçin\n        </string>
+  <string name="auth_fail_get_user_name">Sunucunuz geçerli bir kullanıcı kimliği döndürmüyor, lütfen yöneticinizle iletişime geçin
+        </string>
   <string name="auth_can_not_auth_against_server">Bu sunucuya karşı kimlik doğrulama yapılamaz</string>
   <string name="fd_keep_in_sync">Dosyayı güncel tut</string>
   <string name="common_rename">Yeniden adlandır</string>
@@ -235,21 +238,11 @@
   <string name="preview_image_description">Resim önizleme</string>
   <string name="preview_image_error_unknown_format">Bu resim gösterilemiyor</string>
   <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel klasörüne kopyalanamadı</string>
-  <string name="actionbar_failed_instant_upload">AnındaYükleme başarısız</string>
-  <string name="failed_upload_headline_text">Anında yüklemeler başarısız</string>
-  <string name="failed_upload_headline_hint">Başarısız olan tüm anında yüklemelerin özeti</string>
-  <string name="failed_upload_all_cb">tümünü seç</string>
-  <string name="failed_upload_headline_retryall_btn">tüm seçili olanları tekrar dene</string>
-  <string name="failed_upload_headline_delete_all_btn">yükleme kuyruğundaki tüm seçili olanları sil</string>
-  <string name="failed_upload_retry_text">fotoğrafı yeniden yüklemeyi dene:</string>
-  <string name="failed_upload_load_more_images">Daha fazla resim yükle</string>
-  <string name="failed_upload_retry_do_nothing_text">anında yükleme için çevrimiçi değilsiniz, bir şey yapma</string>
-  <string name="failed_upload_failure_text">Hata Mesajı:</string>
-  <string name="failed_upload_quota_exceeded_text">Sunucu yapılandırmanızı kontrol edin. Kotanızı aşmış olabilirsiniz.</string>
-  <string name="share_link_no_support_share_api">Üzgünüz, paylaşım sunucunuzda etkin değil. Lütfen yöneticinizle\n                iletişime geçin.</string>
-  <string name="share_link_file_no_exist">Bu dosya veya klasör paylaşılamıyor. Lütfen mevcut olup olmadığını denetleyin</string>
+  <string name="share_link_no_support_share_api">Üzgünüz, paylaşım sunucunuzda etkin değil. Lütfen yöneticinizle
+                iletişime geçin.</string>
+  <string name="share_link_file_no_exist">Paylaşma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
   <string name="share_link_file_error">Bu dosya veya klasörü paylaşmaya çalışılırken bir hata oluştu</string>
-  <string name="unshare_link_file_no_exist">Bu dosya veya klasörün paylaşımı kaldırılamadı. Mevcut değil.</string>
+  <string name="unshare_link_file_no_exist">Paylaşımı kaldırma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
   <string name="unshare_link_file_error">Bu dosya veya klasör paylaşımı kaldırılmaya çalışılırken bir hata oluştu</string>
   <string name="activity_chooser_send_file_title">Gönder</string>
   <string name="copy_link">Bağlantıyı kopyala</string>
@@ -259,4 +252,30 @@
   <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir hata oluştu, işlem yapılamadı</string>
   <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir hata oluştu, işlem yapılamadı</string>
   <string name="network_host_not_available">İşlem tamamlanamadı, sunucu kullanılamıyor</string>
+  <string name="empty"></string>
+  <string name="forbidden_permissions">%s izniniz yok</string>
+  <string name="forbidden_permissions_rename">Bu dosyayı adlandırma</string>
+  <string name="forbidden_permissions_delete">Bu dosyayı silme</string>
+  <string name="share_link_forbidden_permissions">Bu dosyayı paylaşma</string>
+  <string name="unshare_link_forbidden_permissions">Bu dosya paylaşımını kaldırma</string>
+  <string name="forbidden_permissions_create">Dosya oluşturma</string>
+  <string name="uploader_upload_forbidden_permissions">Bu klasöre yükleme</string>
+  <string name="downloader_download_file_not_found">Bu dosya artık sunucuda mevcut değil</string>
+  <string name="prefs_category_accounts">Hesaplar</string>
+  <string name="prefs_add_account">Hesap ekle</string>
+  <string name="auth_redirect_non_secure_connection_title">Güvenli bağlantı, güvenli olmayan bir rotaya yönlendiriliyor.</string>
+  <string name="actionbar_logger">Günlükler</string>
+  <string name="log_send_history_button">Geçmişi Gönder</string>
+  <string name="log_mail_subject">ownCloud Android uygulama kayıtları</string>
+  <string name="log_progress_dialog_text">Veri yükleniyor...</string>
+  <string name="saml_authentication_required_text">Kimlik doğrulama gerekli</string>
+  <string name="saml_authentication_wrong_pass">Hatalı parola</string>
+  <string name="actionbar_move">Taşı</string>
+  <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
+  <string name="move_choose_button_text">Seç</string>
+  <string name="move_file_not_found">Taşıma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
+  <string name="move_file_invalid_into_descendent">Klasörü, kendi alt klasörüne taşımak mümkün değil</string>
+  <string name="move_file_invalid_overwrite">Dosya zaten hedef klasörde mevcut</string>
+  <string name="move_file_error">Bu dosya veya klasörü taşımaya çalışılırken bir hata oluştu</string>
+  <string name="forbidden_permissions_move">bu dosyayı taşımak için</string>
 </resources>

@@ -45,6 +45,8 @@ public class CreateFolderDialogFragment
 extends SherlockDialogFragment implements DialogInterface.OnClickListener {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
+    
+    public static final String CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT";
 
     /**
      * Public factory method to create new CreateFolderDialogFragment instances.

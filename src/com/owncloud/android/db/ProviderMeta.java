@@ -31,7 +31,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 7;
+    public static final int DB_VERSION = 8;
 
     private ProviderMeta() {
     }
@@ -70,6 +70,7 @@ public class ProviderMeta {
         public static final String FILE_PUBLIC_LINK = "public_link";
         public static final String FILE_PERMISSIONS = "permissions";
         public static final String FILE_REMOTE_ID = "remote_id";
+        public static final String FILE_UPDATE_THUMBNAIL = "update_thumbnail";
 
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME
                 + " collate nocase asc";

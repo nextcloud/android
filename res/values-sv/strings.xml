@@ -33,7 +33,7 @@
   <string name="prefs_remember_last_share_location">Kom ihåg uppladdningsplats</string>
   <string name="prefs_remember_last_upload_location_summary">Kom ihåg senaste uppladdningsplatsen för delning</string>
   <string name="recommend_subject">Försök %1$s på din smarttelefon!</string>
-  <string name="recommend_text">\"Jag vill bjuda in dig att använda %1$s på din smartphone\nLadda ner här: %2$s\"\n\t</string>
+  <string name="recommend_text">Jag skulle vilja bjuda in dig till att använda %1$s på din smartphone!\nLadda ner här: %2$s</string>
   <string name="auth_check_server">Kontrollera Server</string>
   <string name="auth_host_url">Serveradress https://...</string>
   <string name="auth_username">Användarnamn</string>
@@ -51,7 +51,9 @@
   <string name="uploader_wrn_no_content_text">Inget innehåll mottaget. Inget att ladda upp.</string>
   <string name="uploader_error_forbidden_content">%1$s har inte rättighet till det delade innehållet</string>
   <string name="uploader_info_uploading">Laddar upp</string>
-  <string name="file_list_empty">Det finns inga filer i denna mapp.\nNya filer kan läggas till med \"Ladda upp\" i menyn.</string>
+  <string name="file_list_empty">Ingenting här. Ladda upp något!</string>
+  <string name="file_list_loading">Laddar...</string>
+  <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
   <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
   <string name="filedetails_size">Storlek:</string>
   <string name="filedetails_type">Typ:</string>
@@ -95,6 +97,7 @@
   <string name="downloader_download_failed_credentials_error">Nerladda misslyckades, måste du logga in igen</string>
   <string name="common_choose_account">Välj konto</string>
   <string name="sync_fail_ticker">Synkroniseringen misslyckades</string>
+  <string name="sync_fail_ticker_unauthorized">Synkroniseringen misslyckades, du måste logga in på nytt.</string>
   <string name="sync_fail_content">Synkronisering av %1$s kunde inte slutföras</string>
   <string name="sync_fail_content_unauthorized">Felaktigt lösenord för %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
@@ -103,7 +106,6 @@
   <string name="sync_fail_in_favourites_content">Innehållet i %1$d filer kunde inte synkas (%2$d konflikter)</string>
   <string name="sync_foreign_files_forgotten_ticker">Vissa lokala filer glömdes</string>
   <string name="sync_foreign_files_forgotten_content">%1$d filer från %2$s mappar kunde inte kopieras till</string>
-  <string name="sync_foreign_files_forgotten_explanation">Från och med version 1.3.16, kopieras uppladdade filer från den här enheten till den lokala %1$s mappen för att förhindra förlust av data när en enda fil synkroniseras med flera konton.\n\nPå grund av denna förändring har alla filer som laddats upp i tidigare versioner av denna app kopierats till %2$s mappen. Men ett fel förhindrade slutförande av denna operation under synkronisering. Du kan antingen lämna fil(er) som det är och ta bort länken till %3$s, eller flytta fil(er) till %1$s mappen och behålla länken till %4$s.\n\nNedan listas dom lokala fil(er) och fjärrfil(er) i %5$s dom var länkade till.</string>
   <string name="sync_current_folder_was_removed">Mappen %1$s existerar inte längre</string>
   <string name="foreign_files_move">Flytta allt</string>
   <string name="foreign_files_success">Alla filer flyttades</string>
@@ -168,7 +170,8 @@
   <string name="auth_connecting_auth_server">Ansluter till autentiseringsservern...</string>
   <string name="auth_unsupported_auth_method">Servern har inte stöd för denna autentiseringsmetod</string>
   <string name="auth_unsupported_multiaccount">%1$s har inte stöd för multipla konton</string>
-  <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användare id, vänligen kontakta en administratör\n\t</string>
+  <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användare id, vänligen kontakta en administratör
+	</string>
   <string name="auth_can_not_auth_against_server">Kan inte autentisera mot servern</string>
   <string name="fd_keep_in_sync">Håll filen uppdaterad</string>
   <string name="common_rename">Byt namn</string>
@@ -236,21 +239,9 @@
   <string name="preview_image_description">Förhandsvisa bild</string>
   <string name="preview_image_error_unknown_format">Denna bild kan inte visas</string>
   <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>
-  <string name="actionbar_failed_instant_upload">Fel vid direktuppladdning\"</string>
-  <string name="failed_upload_headline_text">Misslyckades vid direktuppladdning</string>
-  <string name="failed_upload_headline_hint">Sammanfattning av alla misslyckade uppladdningar</string>
-  <string name="failed_upload_all_cb">välj alla</string>
-  <string name="failed_upload_headline_retryall_btn">försökt igen med alla valda</string>
-  <string name="failed_upload_headline_delete_all_btn">radera alla valda från uppladdningskön</string>
-  <string name="failed_upload_retry_text">försök igen att ladda upp bilden:</string>
-  <string name="failed_upload_load_more_images">Ladda fler bilder</string>
-  <string name="failed_upload_retry_do_nothing_text">Du är inte ansluten, direktuppladdning ej möjligt</string>
-  <string name="failed_upload_failure_text">Felmeddelande:</string>
-  <string name="failed_upload_quota_exceeded_text">Vänligen kontrollera dina serverkonfiguration. Din kvot kan ha överskridits.</string>
-  <string name="share_link_no_support_share_api">Ledsen, delning är inte aktiverat på din server. Vänligen kontakta din\n\t\tadministratör.</string>
-  <string name="share_link_file_no_exist">Kan inte dela denna fil eller mapp. Se till att den existerar</string>
+  <string name="share_link_no_support_share_api">Ledsen, delning är inte aktiverat på din server. Vänligen kontakta din
+		administratör.</string>
   <string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp</string>
-  <string name="unshare_link_file_no_exist">Kan inte ta bort delningen för denna fil eller mapp. Den existerar inte.</string>
   <string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp</string>
   <string name="activity_chooser_send_file_title">Skicka</string>
   <string name="copy_link">Kopiera länk</string>
@@ -260,4 +251,23 @@
   <string name="network_error_socket_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
   <string name="network_error_connect_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
   <string name="network_host_not_available">Åtgärden kunte inte slutföras, servern är ej tillgänglig</string>
+  <string name="empty"></string>
+  <string name="forbidden_permissions">Du har inga rättigheter %s</string>
+  <string name="forbidden_permissions_rename">att döpa om denna fil</string>
+  <string name="forbidden_permissions_delete">att radera denna fil</string>
+  <string name="share_link_forbidden_permissions">att dela denna fil</string>
+  <string name="unshare_link_forbidden_permissions">att avbryta delningen utav denna fil</string>
+  <string name="forbidden_permissions_create">att skapa filen</string>
+  <string name="uploader_upload_forbidden_permissions">att ladda upp i den här mappen</string>
+  <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>
+  <string name="prefs_category_accounts">Konton</string>
+  <string name="prefs_add_account">Lägg till konto</string>
+  <string name="log_progress_dialog_text">Laddar data...</string>
+  <string name="saml_authentication_required_text">Autentisering krävs</string>
+  <string name="saml_authentication_wrong_pass">Fel lösenord</string>
+  <string name="actionbar_move">Flytta</string>
+  <string name="file_list_empty_moving">Ingenting här. Du kan skapa en mapp!</string>
+  <string name="move_choose_button_text">Välj</string>
+  <string name="move_file_not_found">Gick inte att flytta. Vänligen kontrollera att filen existerar</string>
+  <string name="forbidden_permissions_move">att flytta den här filen</string>
 </resources>

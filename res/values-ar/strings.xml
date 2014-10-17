@@ -31,7 +31,6 @@
   <string name="prefs_feedback">ملاحظات</string>
   <string name="prefs_imprint">الدمغة.</string>
   <string name="recommend_subject">جرب %1$s على جهازك الذكي</string>
-  <string name="recommend_text">\"أريد أن أدعوك لتستخدم %1$s في هاتفك الذكي!\n التحميل من هنا: %2$s\"</string>
   <string name="auth_check_server">تحقق من الخادم</string>
   <string name="auth_host_url">عنوان الخادم https://…</string>
   <string name="auth_username">إسم المستخدم</string>
@@ -49,7 +48,8 @@
   <string name="uploader_wrn_no_content_text">لم يتم استلام أي محتوى. لا شيء للرفع.</string>
   <string name="uploader_error_forbidden_content">%1$s  غير مسموح له بالوصول للمحتوى المشارك</string>
   <string name="uploader_info_uploading">يتم الرفع</string>
-  <string name="file_list_empty">لا توجد ملفات في هذا المجلد.\nيمكن إنشاء ملف جديد  باختيار \"رفع\" القائمة.</string>
+  <string name="file_list_empty">لا يوجد شيء هنا. إرفع بعض الملفات!</string>
+  <string name="file_list_loading">جاري التحميل ...</string>
   <string name="filedetails_select_file">اضغظ على الملف ليتم عرض خيارات أكثر</string>
   <string name="filedetails_size">الحجم :</string>
   <string name="filedetails_type">النوع :</string>
@@ -101,7 +101,6 @@
   <string name="sync_fail_in_favourites_content"> لا يمكن مزامنة جهات اتصال %1$d  ( %2$d تعارض) </string>
   <string name="sync_foreign_files_forgotten_ticker">تم نسيان بعض الملفات المحلية</string>
   <string name="sync_foreign_files_forgotten_content">%1$d لا يمكن نسخها داخل المجلد %2$s الملفات الخارجه من المجلد</string>
-  <string name="sync_foreign_files_forgotten_explanation">اعتبارا من اﻹصدار 1.3.16, الملفات المرفوعة من هذا الجهاز يتم نسخها إلى المجلد المحلي %1$s تفادياً لفقدان البيانات حينما تتم مزامنة ملف واحد مع عدة حسابات.\n\nنظراً لهذا التغيير، تم نسخ كل الملفات المرفوعة في اﻹصدارات السابقة إلى المجلد %2$s . لكن خطأً ما حال دون إتمام العملية أثناء مزامنة الحسابات. يمكنك إما ترك هذه الملفات و حذف الرابط إلى %3$s ، و إما نقل الملفات إلى المجلد %1$s و الإحتفاظ بالرابط إلى %4$s \n\nفيما يلي الملفات المحلية، و المفات الخارجية المرتبطة بها في %5$s</string>
   <string name="sync_current_folder_was_removed">لا يوجد مجلد %1$s بعد الان</string>
   <string name="foreign_files_move">نقل الكل</string>
   <string name="foreign_files_success">تم نقل جميع الملفات</string>
@@ -166,7 +165,8 @@
   <string name="auth_connecting_auth_server">يتم الاتصال بالخادم للتحقق</string>
   <string name="auth_unsupported_auth_method">الخادم لا يدعم طريقة التحقق هذه</string>
   <string name="auth_unsupported_multiaccount">%1$s لا يدعم الحسابات المتعددة </string>
-  <string name="auth_fail_get_user_name">الخادم الخاص بك لم يعد الإتصال بهويتك الصحيحة, الرجاء الإتصال بالمسؤول\n\t</string>
+  <string name="auth_fail_get_user_name">الخادم الخاص بك لم يعد الإتصال بهويتك الصحيحة, الرجاء الإتصال بالمسؤول
+	</string>
   <string name="auth_can_not_auth_against_server">لا يمكن المصادقة من الخادم</string>
   <string name="fd_keep_in_sync"> جعل الملف محدثا</string>
   <string name="common_rename">إعادة التسمية</string>
@@ -234,21 +234,9 @@
   <string name="preview_image_description">معاينة الصورة</string>
   <string name="preview_image_error_unknown_format">لا يمكن عرض هذه الصورة</string>
   <string name="error__upload__local_file_not_copied">%1$s تعذر نسخه %2$s للمجلد المحلي</string>
-  <string name="actionbar_failed_instant_upload">فشل في محاولة الرفع الفوري</string>
-  <string name="failed_upload_headline_text">فشل في الرفع الفوري</string>
-  <string name="failed_upload_headline_hint">ملخص لكل الاخطاء في عملية الرفع الفوري</string>
-  <string name="failed_upload_all_cb">تحديد الكل</string>
-  <string name="failed_upload_headline_retryall_btn">اعادة كل المختارات</string>
-  <string name="failed_upload_headline_delete_all_btn">حذف كل المختارات من قائمة انتظار الرفع</string>
-  <string name="failed_upload_retry_text">اعادة المحاولة لرفع الصورة:</string>
-  <string name="failed_upload_load_more_images">تحميل المزيد من الصور</string>
-  <string name="failed_upload_retry_do_nothing_text">do nothing you are not online for instant upload</string>
-  <string name="failed_upload_failure_text">رسالة خطا:</string>
-  <string name="failed_upload_quota_exceeded_text">الرجاء التاكد من اعدادات الخادم, من الممكن انك تعديت الحد في quota</string>
-  <string name="share_link_no_support_share_api">عذراً, المشاركة غير متاحة في الخادم الخاص بك. الرجاء الإتصال\n  بالمسؤول.</string>
-  <string name="share_link_file_no_exist">لم يتمكن من مشاركة الملف او المجلد. يرجى التاكد من وجوده </string>
+  <string name="share_link_no_support_share_api">عذراً, المشاركة غير متاحة في الخادم الخاص بك. الرجاء الإتصال
+  بالمسؤول.</string>
   <string name="share_link_file_error">حدث خطأ ما أثناء محاولة مشاركة هذا الملف أو المجلد</string>
-  <string name="unshare_link_file_no_exist">غير قادر على إلغاء مشاركة هذا الملف أو المجلد.لا وجود له</string>
   <string name="unshare_link_file_error">حدث خطأ ما أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد</string>
   <string name="activity_chooser_send_file_title">أرسل</string>
   <string name="copy_link">نسخ الرابط</string>
@@ -258,4 +246,8 @@
   <string name="network_error_socket_timeout_exception">حدث خطأ أثناء إنتظار الخادم، لم يكن من الممكن القيام بالعملية</string>
   <string name="network_error_connect_timeout_exception">حدث خطأ أثناء إنتظار الخادم، لم يكن من الممكن القيام بالعملية</string>
   <string name="network_host_not_available">تعذر إكمال العملية، الخادم غير متوفر</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">حسابات</string>
+  <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
+  <string name="move_choose_button_text">اختيار</string>
 </resources>

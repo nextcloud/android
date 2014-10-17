@@ -19,6 +19,7 @@
   <string name="uploader_wrn_no_account_setup_btn_text">ස්ථාපනය</string>
   <string name="uploader_wrn_no_account_quit_btn_text">නික්මෙන්න</string>
   <string name="uploader_info_uploading">උඩුගතවේ</string>
+  <string name="file_list_empty">මෙහි කිසිවක් නොමැත. යමක් උඩුගත කරන්න</string>
   <string name="filedetails_select_file">වැඩි විස්තර සඳහා ගොනුවක් ස්පර්ෂ කරන්න</string>
   <string name="filedetails_size">විශාලත්වය:</string>
   <string name="filedetails_type">ගණය:</string>
@@ -70,4 +71,7 @@
   <string name="filedisplay_unexpected_bad_get_content">නොසිතු ප්‍රශ්ණයක්; කරුණාකර වෙනත් යෙදුමක් භාවිතා කර ගොනුව තෝරන්න</string>
   <string name="filedisplay_no_file_selected">ගොනුවක් තෝරා නැත</string>
   <string name="ssl_validator_btn_details_hide">සඟවන්න</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">ගිණුම්</string>
+  <string name="move_choose_button_text">තෝරන්න</string>
 </resources>

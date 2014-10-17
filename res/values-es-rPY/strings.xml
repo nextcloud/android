@@ -1,2 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="actionbar_upload_files">Archivos</string>
+  <string name="sync_string_files">Archivos</string>
+  <string name="empty"></string>
+</resources>

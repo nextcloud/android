@@ -14,4 +14,5 @@
   <string name="common_error">పొరపాటు</string>
   <string name="uploader_info_dirname">సంచయం పేరు</string>
   <string name="activity_chooser_send_file_title">పంపించు</string>
+  <string name="empty"></string>
 </resources>

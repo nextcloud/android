@@ -18,14 +18,15 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-	<PreferenceCategory android:title="@string/prefs_category_general">
+    <PreferenceCategory android:title="@string/prefs_category_accounts" android:key="accounts_category">
+    </PreferenceCategory>
     
+	<PreferenceCategory android:title="@string/prefs_category_general">
     <!-- ListPreference
         android:key="select_oc_account"
         android:title="@string/prefs_select_oc_account"
         android:summary="@string/prefs_summary_select_oc_account" 
         / -->
-    <com.owncloud.android.ui.PreferenceMultiline android:title="@string/prefs_manage_accounts" android:key="manage_account" />
     <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:title="@string/prefs_pincode" android:key="set_pincode" 
                         android:summary="@string/prefs_pincode_summary"/>
     <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:key="instant_uploading" 

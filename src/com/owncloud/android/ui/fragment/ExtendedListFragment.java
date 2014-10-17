@@ -18,11 +18,7 @@
 
 package com.owncloud.android.ui.fragment;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.owncloud.android.R;
-import com.owncloud.android.ui.ExtendedListView;
-import com.owncloud.android.utils.Log_OC;
-
+import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -30,22 +26,46 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockFragment;
+import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.ExtendedListView;
+import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 
 /**
  *  TODO extending SherlockListFragment instead of SherlockFragment 
  */
-public class ExtendedListFragment extends SherlockFragment implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
+public class ExtendedListFragment extends SherlockFragment 
+implements OnItemClickListener, OnEnforceableRefreshListener {
     
     private static final String TAG = ExtendedListFragment.class.getSimpleName();
 
     private static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION"; 
+    private static final String KEY_INDEXES = "INDEXES";
+    private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
+    private static final String KEY_TOPS = "TOPS";
+    private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
+    private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
 
     protected ExtendedListView mList;
     
     private SwipeRefreshLayout mRefreshLayout;
+    private SwipeRefreshLayout mRefreshEmptyLayout;
+    private TextView mEmptyListMessage;
+    
+    // Save the state of the scroll in browsing
+    private ArrayList<Integer> mIndexes;
+    private ArrayList<Integer> mFirstPositions;
+    private ArrayList<Integer> mTops;
+    private int mHeightCell = 0;
+
+    private OnEnforceableRefreshListener mOnRefreshListener = null;
+    
     
     public void setListAdapter(ListAdapter listAdapter) {
         mList.setAdapter(listAdapter);
@@ -60,12 +80,12 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.e(TAG, "onCreateView");
-        //mList = new ExtendedListView(getActivity());
         
         View v = inflater.inflate(R.layout.list_fragment, null);
+        mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         mList = (ExtendedListView)(v.findViewById(R.id.list_root));
         mList.setOnItemClickListener(this);
-        //mList.setEmptyView(v.findViewById(R.id.empty_list_view));     // looks like it's not a cool idea 
+
         mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         mList.setDividerHeight(1);
 
@@ -76,21 +96,50 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
         
         // Pull down refresh
         mRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files);
-        // Colors in animations: background
-        mRefreshLayout.setColorScheme(R.color.background_color, R.color.background_color, 
-                 R.color.background_color, R.color.background_color);
+        mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files_emptyView);
         
-        mRefreshLayout.setOnRefreshListener(this);
+        onCreateSwipeToRefresh(mRefreshLayout);
+        onCreateSwipeToRefresh(mRefreshEmptyLayout);
         
+        mList.setEmptyView(mRefreshEmptyLayout);
+
         return v;
     }
 
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        
+        if (savedInstanceState != null) {
+            mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
+            mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
+            mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
+            mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
+            setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
+            
+        } else {
+            mIndexes = new ArrayList<Integer>();
+            mFirstPositions = new ArrayList<Integer>();
+            mTops = new ArrayList<Integer>();
+            mHeightCell = 0;
+        }
+    }    
+    
     
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         Log_OC.e(TAG, "onSaveInstanceState()");
         savedInstanceState.putInt(KEY_SAVED_LIST_POSITION, getReferencePosition());
+        savedInstanceState.putIntegerArrayList(KEY_INDEXES, mIndexes);
+        savedInstanceState.putIntegerArrayList(KEY_FIRST_POSITIONS, mFirstPositions);
+        savedInstanceState.putIntegerArrayList(KEY_TOPS, mTops);
+        savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
+        savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
     }
 
     
@@ -122,6 +171,60 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
         }
     }
 
+
+    /*
+     * Restore index and position
+     */
+    protected void restoreIndexAndTopPosition() {
+        if (mIndexes.size() > 0) {  
+            // needs to be checked; not every browse-up had a browse-down before 
+            
+            int index = mIndexes.remove(mIndexes.size() - 1);
+            
+            int firstPosition = mFirstPositions.remove(mFirstPositions.size() -1);
+            
+            int top = mTops.remove(mTops.size() - 1);
+            
+            mList.setSelectionFromTop(firstPosition, top);
+            
+            // Move the scroll if the selection is not visible
+            int indexPosition = mHeightCell*index;
+            int height = mList.getHeight();
+            
+            if (indexPosition > height) {
+                if (android.os.Build.VERSION.SDK_INT >= 11)
+                {
+                    mList.smoothScrollToPosition(index); 
+                }
+                else if (android.os.Build.VERSION.SDK_INT >= 8)
+                {
+                    mList.setSelectionFromTop(index, 0);
+                }
+                
+            }
+        }
+    }
+    
+    /*
+     * Save index and top position
+     */
+    protected void saveIndexAndTopPosition(int index) {
+        
+        mIndexes.add(index);
+        
+        int firstPosition = mList.getFirstVisiblePosition();
+        mFirstPositions.add(firstPosition);
+        
+        View view = mList.getChildAt(0);
+        int top = (view == null) ? 0 : view.getTop() ;
+
+        mTops.add(top);
+        
+        // Save the height of a cell
+        mHeightCell = (view == null || mHeightCell != 0) ? mHeightCell : view.getHeight();
+    }
+    
+    
     @Override
     public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
         // to be @overriden  
@@ -129,9 +232,19 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
 
     @Override
     public void onRefresh() {
-        // to be @overriden  
+        // to be @overriden
         mRefreshLayout.setRefreshing(false);
+        mRefreshEmptyLayout.setRefreshing(false);
+        
+        if (mOnRefreshListener != null) {
+            mOnRefreshListener.onRefresh();
+        }
     }
+    
+    public void setOnRefreshListener(OnEnforceableRefreshListener listener) {
+        mOnRefreshListener = listener;
+    }
+    
 
     /**
      * Enables swipe gesture
@@ -161,6 +274,40 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     public void hideSwipeProgress() {
         mRefreshLayout.setRefreshing(false);
     }
- 
-    
+
+    /**
+     * Set message for empty list view
+     */
+    public void setMessageForEmptyList(String message) {
+        if (mEmptyListMessage != null) {
+            mEmptyListMessage.setText(message);
+        }
+    }
+
+    /**
+     * Get the text of EmptyListMessage TextView
+     * 
+     * @return String
+     */
+    public String getEmptyViewText() {
+        return (mEmptyListMessage != null) ? mEmptyListMessage.getText().toString() : "";
+    }
+
+    private void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
+        // Colors in animations: background
+        refreshLayout.setColorScheme(R.color.background_color, R.color.background_color, R.color.background_color,
+                R.color.background_color);
+
+        refreshLayout.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onRefresh(boolean ignoreETag) {
+        mRefreshLayout.setRefreshing(false);
+        mRefreshEmptyLayout.setRefreshing(false);
+
+        if (mOnRefreshListener != null) {
+            mOnRefreshListener.onRefresh(ignoreETag);
+        }
+    }
 }

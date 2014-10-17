@@ -2,4 +2,5 @@
 <resources>
   <string name="actionbar_upload_files">ഫയലുകൾ</string>
   <string name="sync_string_files">ഫയലുകൾ</string>
+  <string name="empty"></string>
 </resources>

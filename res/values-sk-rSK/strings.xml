@@ -31,7 +31,6 @@
   <string name="prefs_feedback">Spätná väzba</string>
   <string name="prefs_imprint">Podmienky používania</string>
   <string name="recommend_subject">Skúste %1$s na vašom telefóne!</string>
-  <string name="recommend_text">\"Pozývam vás k používaniu %1$s na vašom smartfóne!\nNa stiahnutie tu: %2$s\"\n\t</string>
   <string name="auth_check_server">Skontrolovať Server</string>
   <string name="auth_host_url">Adresa servera https://...</string>
   <string name="auth_username">Používateľské meno</string>
@@ -49,7 +48,9 @@
   <string name="uploader_wrn_no_content_text">Nedodaný žiaden obsah. Nič na odoslanie.</string>
   <string name="uploader_error_forbidden_content">%1$s nemá práva pre prístup k zdieľanému obsahu</string>
   <string name="uploader_info_uploading">Nahrávanie</string>
-  <string name="file_list_empty">Priečinok neobsahuje súbory.\nNové súbory môžete pridať cez \"Nahrať\" v menu.</string>
+  <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
+  <string name="file_list_loading">Nahráva sa...</string>
+  <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
   <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
   <string name="filedetails_size">Veľkosť:</string>
   <string name="filedetails_type">Typ:</string>
@@ -93,6 +94,7 @@
   <string name="downloader_download_failed_credentials_error">Sťahovanie zlyhalo. Prihláste sa znovu</string>
   <string name="common_choose_account">Zvoliť účet</string>
   <string name="sync_fail_ticker">Synchronizácia zlyhala</string>
+  <string name="sync_fail_ticker_unauthorized">Synchronizácia zlyhala. Prihláste sa znovu</string>
   <string name="sync_fail_content">Synchronizáciu %1$s nemožno dokončiť</string>
   <string name="sync_fail_content_unauthorized">Nesprávne heslo pre %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
@@ -101,13 +103,13 @@
   <string name="sync_fail_in_favourites_content">Obsah %1$d súborov nemohol byť synchronizovaný (%2$d konfliktov)</string>
   <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
   <string name="sync_foreign_files_forgotten_content">%1$d súborov z %2$s priečinkov sa nepodarilo skopírovať do</string>
-  <string name="sync_foreign_files_forgotten_explanation">Od verzie 1.3.16 sú súbory nahrané z tohoto zariadenia, skopírovné do lokálneho priečinka %1$s, aby sa zabránilo strate dát, keď je jeden súbor synchronizovaný s viacerými účtami.\n\nPre túto zmenu, všetky súbory nahraté v predchádzajúcich verziách tejto aplikácie boli skopírované do priečinka %2$s. Je nám to ľúto, ale chyba zabránila dokončeniu tejto operácie počas synchronizácie účtu. Súbor(y) môžete ponechať v súčasnom stave a zmazať odkaz na priečinok %3$s, alebo presunúť súbor(y) do priečinka %1$s a zachovať odkaz na priečinok %4$s.\n\nNižšie je zoznam lokálnych súborov a vzdialených súborov z %5$s na ktoré odkazovali.</string>
   <string name="sync_current_folder_was_removed">Priečinok %1$s už existuje</string>
   <string name="foreign_files_move">Premiestniť všetko</string>
   <string name="foreign_files_success">Všetky súbory boli premiestnené</string>
   <string name="foreign_files_fail">Niektoré súbory nebolo možné premiestniť</string>
   <string name="foreign_files_local_text">Lokálne: %1$s</string>
   <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
+  <string name="upload_query_move_foreign_files">Nie je dostatok miesta na skopírovanie vybraných súborov do priečinka %1$s. Želáte si ich namiesto toho presunúť?</string>
   <string name="pincode_enter_pin_code">Zadajte PIN aplikácie</string>
   <string name="pincode_configure_your_pin">Zadajte PIN aplikácie</string>
   <string name="pincode_configure_your_pin_explanation">Pri každom spustení aplikácie bude vyžadovaný PIN</string>
@@ -165,7 +167,8 @@
   <string name="auth_connecting_auth_server">Pripájam sa na autentifikačný server...</string>
   <string name="auth_unsupported_auth_method">Server nepodporuje túto autentifikačnú metódu</string>
   <string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
-  <string name="auth_fail_get_user_name">Váš server nevracia správne používateľské id, kontaktujte prosím správcu systému\n\t</string>
+  <string name="auth_fail_get_user_name">Váš server nevracia správne používateľské id, kontaktujte prosím správcu systému
+	</string>
   <string name="auth_can_not_auth_against_server">Nie je možné vykonať autentifikáciu na server</string>
   <string name="fd_keep_in_sync">Udržiavať súbor aktuálny.</string>
   <string name="common_rename">Premenuj</string>
@@ -233,21 +236,9 @@
   <string name="preview_image_description">Ukážka obrazu</string>
   <string name="preview_image_error_unknown_format">Obrázok nemožno zobraziť</string>
   <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
-  <string name="actionbar_failed_instant_upload">Okamžité nahrávanie zlyhalo</string>
-  <string name="failed_upload_headline_text">Zlyhané okamžité nahrávania</string>
-  <string name="failed_upload_headline_hint">Zhrnutie všetkých zlyhaných nahratí</string>
-  <string name="failed_upload_all_cb">vybrať všetko</string>
-  <string name="failed_upload_headline_retryall_btn">opakovať všetky vybrané</string>
-  <string name="failed_upload_headline_delete_all_btn">zmazať všetky vybrané z radu pre nahratie</string>
-  <string name="failed_upload_retry_text">opakovať nahratie obrazu:</string>
-  <string name="failed_upload_load_more_images">Nahrať viac obrázkov</string>
-  <string name="failed_upload_retry_do_nothing_text">nevykonať nič, nie ste online pre okamžité nahratie</string>
-  <string name="failed_upload_failure_text">Chybová správa:</string>
-  <string name="failed_upload_quota_exceeded_text">Prosím skontrolujte nastavenie vášho servera, možno bola prekročená disková kvóta.</string>
-  <string name="share_link_no_support_share_api">Je nám to ľúto, ale zdieľanie nie je na vašom serveri povolené. Prosím kontaktujte vášho\n\t\tadministrátora.</string>
-  <string name="share_link_file_no_exist">Nie je možné zdieľať tento súbor alebo priečinok. Prosím uistite sa že existuje</string>
+  <string name="share_link_no_support_share_api">Je nám to ľúto, ale zdieľanie nie je na vašom serveri povolené. Prosím kontaktujte vášho
+		administrátora.</string>
   <string name="share_link_file_error">Pri pokuse o zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
-  <string name="unshare_link_file_no_exist">Nie je možné zrušiť zdieľanie tohoto súboru alebo priečinka. Súbor alebo priečinok neexistuje.</string>
   <string name="unshare_link_file_error">Pri pokuse zrušiť zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
   <string name="activity_chooser_send_file_title">Odoslať</string>
   <string name="copy_link">Kopíruj odkaz</string>
@@ -257,4 +248,20 @@
   <string name="network_error_socket_timeout_exception">Pri čakaní na odpoveď servera nastala chyba, operácia nemohla byť dokončená</string>
   <string name="network_error_connect_timeout_exception">Pri čakaní na odpoveď servera nastala chyba, operácia nemohla byť dokončená</string>
   <string name="network_host_not_available">Operácia nemohla byť dokončená, server je nedostupný</string>
+  <string name="empty"></string>
+  <string name="forbidden_permissions">Nemáte oprávnenie %s</string>
+  <string name="forbidden_permissions_rename">premenovať tento súbor</string>
+  <string name="forbidden_permissions_delete">zmazať tento súbor</string>
+  <string name="share_link_forbidden_permissions">zdieľať tento súbor</string>
+  <string name="unshare_link_forbidden_permissions">zrušiť zdieľanie tohto súboru</string>
+  <string name="forbidden_permissions_create">vytvoriť súbor</string>
+  <string name="uploader_upload_forbidden_permissions">nahrávať do tohto priečinka</string>
+  <string name="downloader_download_file_not_found">Súbor už na serveri nie je dostupný</string>
+  <string name="prefs_category_accounts">Účty</string>
+  <string name="prefs_add_account">Pridať účet</string>
+  <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojenie je presmerované nezabezpečenou cestou.</string>
+  <string name="saml_authentication_required_text">Vyžaduje sa overenie</string>
+  <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
+  <string name="actionbar_move">Presunúť</string>
+  <string name="move_choose_button_text">Vybrať</string>
 </resources>

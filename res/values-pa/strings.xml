@@ -116,6 +116,8 @@
   <string name="conflict_overwrite">ਉੱਤੇ ਲਿਖੋ</string>
   <string name="conflict_dont_upload">ਅੱਪਲੋਡ ਨਾ ਕਰੋ</string>
   <string name="preview_image_description">ਚਿੱਤਰ ਝਲਕ</string>
-  <string name="failed_upload_all_cb">ਸਭ ਚੁਣੋ</string>
   <string name="activity_chooser_send_file_title">ਭੇਜੋ</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">ਅਕਾਊਂਟ</string>
+  <string name="move_choose_button_text">ਚੁਣੋ</string>
 </resources>

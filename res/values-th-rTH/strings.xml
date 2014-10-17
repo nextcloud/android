@@ -27,7 +27,7 @@
   <string name="uploader_wrn_no_content_text">ยังไม่ได้รับเนื้อหา ไม่มีอะไรให้ต้องอัพโหลด</string>
   <string name="uploader_error_forbidden_content">%1$s ไม่อนุญาตให้เข้าถึงเนื้อหาที่ถูกแชร์ไว้</string>
   <string name="uploader_info_uploading">กำลังอัพโหลด</string>
-  <string name="file_list_empty">ยังไม่มีไฟล์อยู่ในโฟลเดอร์นี้.\nสามารถเพิ่มไฟล์ใหม่ได้จากตัวเลือกในเมนู \"อัพโหลด\".</string>
+  <string name="file_list_empty">ยังไม่มีไฟล์ใดๆอยู่ที่นี่ กรุณาอัพโหลดไฟล์!</string>
   <string name="filedetails_select_file">แตะที่ไฟล์ เพื่อแสดงข้อมูลเพิ่มเติม</string>
   <string name="filedetails_size">ขนาด:</string>
   <string name="filedetails_type">ชนิด:</string>
@@ -147,4 +147,7 @@
   <string name="conflict_overwrite">เขียนทับ</string>
   <string name="conflict_dont_upload">ไม่ต้องอัพโหลด</string>
   <string name="activity_chooser_send_file_title">ส่ง</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">บัญชี</string>
+  <string name="move_choose_button_text">เลือก</string>
 </resources>

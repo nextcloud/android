@@ -29,7 +29,7 @@
   <string name="uploader_wrn_no_content_text">Не отримано даних. Нічого завантажувати.</string>
   <string name="uploader_error_forbidden_content">%1$s не може отримати доступ до спільного контенту</string>
   <string name="uploader_info_uploading">Завантаження</string>
-  <string name="file_list_empty">В цьому каталозі відсутні файли.\nНові файли можна додати через опцію меню \"Завантаження\".</string>
+  <string name="file_list_empty">Тут нічого немає. Відвантажте що-небудь!</string>
   <string name="filedetails_select_file">Натисніть на файлі для відображення додаткової інформації</string>
   <string name="filedetails_size">Розмір:</string>
   <string name="filedetails_type">Тип:</string>
@@ -151,4 +151,7 @@
   <string name="conflict_dont_upload">Не завантажувати</string>
   <string name="activity_chooser_send_file_title">Надіслати</string>
   <string name="clipboard_text_copied">Скопійовано в буфер обміну</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Облікові записи</string>
+  <string name="move_choose_button_text">Обрати</string>
 </resources>
