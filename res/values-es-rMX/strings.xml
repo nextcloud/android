@@ -43,7 +43,7 @@
   <string name="uploader_wrn_no_content_text">Ningún contenido ha sido recibido. No hay nada que subir.</string>
   <string name="uploader_error_forbidden_content">%1$s no está autorizado para acceder al contenido compartido</string>
   <string name="uploader_info_uploading">Enviando</string>
-  <string name="file_list_empty">No hay archivos en esta carpeta.\nPuedes añadir nuevos archivos con la opción \"Subir\" del menú.</string>
+  <string name="file_list_empty">No hay nada aquí. ¡Suba algo!</string>
   <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -209,16 +209,10 @@
   <string name="conflict_overwrite">Sobrescribir</string>
   <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
-  <string name="actionbar_failed_instant_upload">Carga instantánea fallida</string>
-  <string name="failed_upload_headline_text">Cargas instantáneas fallidas</string>
-  <string name="failed_upload_headline_hint">Resumen de todas las cargas instantáneas fallidas</string>
-  <string name="failed_upload_all_cb">Seleccionar todos</string>
-  <string name="failed_upload_headline_retryall_btn">Reintentar todos los seleccionados</string>
-  <string name="failed_upload_headline_delete_all_btn">Eliminar todo de la cola de subida</string>
-  <string name="failed_upload_retry_text">Reintentar subida de imagen:</string>
-  <string name="failed_upload_retry_do_nothing_text">No hacer nada no está conectado para subida instantánea</string>
-  <string name="failed_upload_failure_text">Mensaje de error:</string>
-  <string name="failed_upload_quota_exceeded_text">Por favor revise su configuración de servidor, posiblemente su cuota se haya excedido.</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="clipboard_text_copied">Copiado al portapapeles</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Cuentas</string>
+  <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
+  <string name="move_choose_button_text">Seleccionar</string>
 </resources>

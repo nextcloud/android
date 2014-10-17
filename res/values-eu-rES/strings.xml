@@ -2,4 +2,5 @@
 <resources>
   <string name="filedetails_download">Deskargatu</string>
   <string name="common_cancel">Ezeztatu</string>
+  <string name="empty"></string>
 </resources>

@@ -156,7 +156,6 @@
         <service android:name=".media.MediaService" />
         
         <activity android:name=".ui.activity.PinCodeActivity" />
-        <activity android:name=".ui.activity.AccountSelectActivity" android:uiOptions="none" android:label="@string/prefs_accounts"></activity>
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
@@ -186,10 +185,14 @@
         </receiver>
         <service android:name=".services.observer.FileObserverService"/>
         
+		<activity
+			android:name=".ui.activity.CopyToClipboardActivity"
+			android:label="@string/copy_link"
+			android:icon="@drawable/copy_link"/>
+
         <activity 
-            android:name=".ui.activity.CopyToClipboardActivity" 
-           	android:label="@string/copy_link"
-           	android:icon="@drawable/copy_link" />
+			android:name=".ui.activity.MoveActivity"
+			android:label="@string/app_name"/>
         
     </application>
 

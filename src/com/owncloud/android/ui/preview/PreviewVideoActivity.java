@@ -21,7 +21,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.app.AlertDialog;
@@ -38,6 +37,7 @@ import android.widget.VideoView;
 
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  *  Activity implementing a basic video player.

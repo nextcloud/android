@@ -43,7 +43,7 @@
   <string name="uploader_wrn_no_content_text">Không có nội dung được nhận. Không có gì để tải lên.</string>
   <string name="uploader_error_forbidden_content">%1$s không cho phép truy cập vào các nội dung chia sẻ</string>
   <string name="uploader_info_uploading">Đang tải lên</string>
-  <string name="file_list_empty">Không có tập tin trong thư mục này. tập tin mới có thể được thêm vào với tùy chọn \"Tải lên\".</string>
+  <string name="file_list_empty">Không có gì ở đây .Hãy tải lên một cái gì đó !</string>
   <string name="filedetails_select_file">Tap vào một tập tin để hiển thị thêm thông tin</string>
   <string name="filedetails_size">Kích thước:</string>
   <string name="filedetails_type">Loại:</string>
@@ -211,19 +211,10 @@
   <string name="conflict_overwrite">Ghi đè lên</string>
   <string name="conflict_dont_upload">Không tải lên</string>
   <string name="preview_image_description">Xem trước hình ảnh</string>
-  <string name="actionbar_failed_instant_upload">Tải lên nhanh bị lỗi</string>
-  <string name="failed_upload_headline_text">Tải lên nhanh bị lỗi</string>
-  <string name="failed_upload_headline_hint">Tóm tắt tất cả các tải lên nhanh bị lỗi</string>
-  <string name="failed_upload_all_cb">chọn tất cả</string>
-  <string name="failed_upload_headline_retryall_btn">thử lại với tất cả các đối tượng được chọn</string>
-  <string name="failed_upload_headline_delete_all_btn">xóa tất cả khỏi các đối tượng được chọn trong hàng đợi chờ tải lên</string>
-  <string name="failed_upload_retry_text">thử lại việc tải lên hình ảnh:</string>
-  <string name="failed_upload_retry_do_nothing_text">không thực hiện thao tác gì nêu bạn không có kết nối mạng dành cho tải lên nhanh</string>
-  <string name="failed_upload_failure_text">Thông điệp lỗi:</string>
-  <string name="failed_upload_quota_exceeded_text">Vui lòng kiểm tra cấu hình máy chủ của bạn, có thể hạn ngạch dữ liệu đã quá hạn.</string>
-  <string name="share_link_file_no_exist">Không thể chia sẻ file hoặc thư mục này. Hãy chắc chắn rằng nó tồn tại</string>
   <string name="share_link_file_error">Một lỗi đã xảy ra khi thử chia sẻ file hoặc thư mục này</string>
-  <string name="unshare_link_file_no_exist">Không thể gỡ chia sẻ file hoặc thư mục. Nó không tồn tại.</string>
   <string name="unshare_link_file_error">Một lỗi đã xảy ra khi thử gỡ chia sẻ file hoặc thư mục này</string>
   <string name="activity_chooser_send_file_title">Gởi</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Tài khoản</string>
+  <string name="move_choose_button_text">Chọn</string>
 </resources>

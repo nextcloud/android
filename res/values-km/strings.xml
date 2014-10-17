@@ -21,6 +21,7 @@
   <string name="uploader_wrn_no_account_setup_btn_text">ដំឡើង</string>
   <string name="uploader_wrn_no_account_quit_btn_text">ចាក់ចេញ</string>
   <string name="uploader_info_uploading">កំពុង​ផ្ទុក​ឡើង</string>
+  <string name="file_list_empty">គ្មាន​អ្វី​នៅ​ទីនេះ​ទេ។ ផ្ទុក​ឡើង​អ្វី​មួយ!</string>
   <string name="filedetails_select_file">ចុចមួយ​លើឯកសារ ដើម្បី​បង្ហាញ​ព័ត៌មាន​បន្ថែម។</string>
   <string name="filedetails_size">ទំហំ៖</string>
   <string name="filedetails_type">ប្រភេទ៖</string>
@@ -78,4 +79,8 @@
   <string name="ssl_validator_label_validity_to">រហូតដល់ៈ</string>
   <string name="ssl_validator_label_signature">ហត្ថលេខា:</string>
   <string name="activity_chooser_send_file_title">ផ្ញើ</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">គណនី</string>
+  <string name="saml_authentication_wrong_pass">ខុស​ពាក្យ​សម្ងាត់</string>
+  <string name="move_choose_button_text">ជ្រើស</string>
 </resources>

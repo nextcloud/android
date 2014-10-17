@@ -1,11 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s Android-program</string>
+  <string name="about_version">utgåve %1$s</string>
   <string name="actionbar_sync">Oppdater konto</string>
   <string name="actionbar_upload">Last opp</string>
   <string name="actionbar_upload_from_apps">Innhald frå andre program</string>
   <string name="actionbar_upload_files">Filer</string>
+  <string name="actionbar_open_with">Opna med</string>
   <string name="actionbar_mkdir">Ny mappe</string>
   <string name="actionbar_settings">Innstillingar</string>
+  <string name="actionbar_see_details">Detaljar</string>
   <string name="actionbar_send_file">Send</string>
   <string name="prefs_category_general">Generelt</string>
   <string name="prefs_category_more">Meir</string>
@@ -13,8 +17,20 @@
   <string name="prefs_manage_accounts">Behandle kontoar</string>
   <string name="prefs_pincode">Programpinkode</string>
   <string name="prefs_pincode_summary">Beskytt klienten din</string>
+  <string name="prefs_instant_upload">Last opp bilete omgåande</string>
+  <string name="prefs_instant_upload_summary">Last opp bilete når du tek dei med kameraet</string>
+  <string name="prefs_instant_video_upload">Last opp film</string>
+  <string name="prefs_instant_video_upload_summary">Last opp film med ein gong du tar dei med kameraet</string>
+  <string name="prefs_log_title">Skru på logging</string>
+  <string name="prefs_log_summary">Brukt til å logga problem</string>
+  <string name="prefs_log_title_history">Logghistorikk</string>
+  <string name="prefs_log_summary_history">Dette viser loggane som er ført</string>
+  <string name="prefs_log_delete_history_button">Slett historikk</string>
   <string name="prefs_help">Hjelp</string>
+  <string name="prefs_recommend">Anbefal til ein ven</string>
+  <string name="prefs_feedback">Tilbakemelding</string>
   <string name="prefs_imprint">Impressum</string>
+  <string name="recommend_subject">Prøv %1$s på smarttelefonen din!</string>
   <string name="auth_host_url">Tenaradresse https://</string>
   <string name="auth_username">Brukarnamn</string>
   <string name="auth_password">Passord</string>
@@ -28,12 +44,14 @@
   <string name="uploader_wrn_no_content_title">Inga innhald å lasta opp</string>
   <string name="uploader_wrn_no_content_text">Mottok ikkje noko innhald. Ingenting å lasta opp.</string>
   <string name="uploader_info_uploading">Lastar opp</string>
+  <string name="file_list_empty">Ingenting her. Last noko opp!</string>
   <string name="filedetails_select_file">Trykk på ei fil for å visa meir informasjon.</string>
   <string name="filedetails_size">Storleik:</string>
   <string name="filedetails_type">Type:</string>
   <string name="filedetails_created">Oppretta:</string>
   <string name="filedetails_modified">Endra:</string>
   <string name="filedetails_download">Last ned</string>
+  <string name="action_share_file">Del lenkje</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nei</string>
   <string name="common_ok">Greitt</string>
@@ -42,6 +60,7 @@
   <string name="common_cancel">Avbryt</string>
   <string name="common_save_exit">Lagra &amp; avslutt</string>
   <string name="common_error">Feil</string>
+  <string name="common_error_unknown">Ukjend feil</string>
   <string name="about_title">Om</string>
   <string name="change_password">Endra passord</string>
   <string name="delete_account">Slett konto</string>
@@ -103,6 +122,11 @@
   <string name="ssl_validator_reason_hostname_not_verified">– URL-en stemmer ikkje med tenarnamnet i sertifikatet</string>
   <string name="ssl_validator_question">Vil du stola på dette sertifikatet uansett?</string>
   <string name="ssl_validator_not_saved">Klarte ikkje å lagra sertifikatet</string>
+  <string name="ssl_validator_btn_details_see">Detaljar</string>
   <string name="instant_upload_on_wifi">Berre last opp bilete over WiFi</string>
   <string name="activity_chooser_send_file_title">Send</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Kontoar</string>
+  <string name="saml_authentication_wrong_pass">Feil passord</string>
+  <string name="move_choose_button_text">Vel</string>
 </resources>

@@ -31,7 +31,7 @@
   <string name="prefs_feedback">Segnalazioni</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
-  <string name="recommend_text">\"Vorrei invitarti ad usare %1$s sul tuo smartphone!\nScaricalo qui: %2$s\"\n\t</string>
+  <string name="recommend_text">Vorrei invitarti a usare %1$s sul tuo smartphone!\nScarica qui: %2$s</string>
   <string name="auth_check_server">Verifica server</string>
   <string name="auth_host_url">Indirizzo server https://...</string>
   <string name="auth_username">Nome utente</string>
@@ -49,7 +49,9 @@
   <string name="uploader_wrn_no_content_text">Non è stato ricevuto alcun contenuto. Niente da caricare.</string>
   <string name="uploader_error_forbidden_content">%1$s non è abilitato ad accedere al contenuto condiviso</string>
   <string name="uploader_info_uploading">Caricamento in corso</string>
-  <string name="file_list_empty">Non ci sono file in questa cartella.\nNuovi file possono essere aggiunti con l\'opzione di menu \"Carica\".</string>
+  <string name="file_list_empty">Non c\'è niente qui. Carica qualcosa!</string>
+  <string name="file_list_loading">Caricamento in corso...</string>
+  <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
   <string name="filedetails_select_file">Tocca un file per visualizzare informazioni aggiuntive.</string>
   <string name="filedetails_size">Dimensione:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -102,7 +104,7 @@
   <string name="sync_fail_in_favourites_content">I contenuti di %1$d file non possono essere sincronizzati (%2$d conflitti)</string>
   <string name="sync_foreign_files_forgotten_ticker">Alcuni file locali sono stati trascurati</string>
   <string name="sync_foreign_files_forgotten_content">%1$d file della cartella %2$s non possono essere copiati</string>
-  <string name="sync_foreign_files_forgotten_explanation">Nella versione 1.3.16, i file caricati da questo dispositivo vengono copiati nella cartella locale %1$s per evitare la perdita dei dati quando un singolo file è sincronizzato con diversi account.\n\nA causa di questo cambiamento, tutti i file caricati nelle versioni precedenti di questa applicazione sono stati copiati nella cartella %2$s. Tuttavia, un errore non ha permesso il completamento di questa operazione durante la sincronizzazione dell\'account. Puoi, dunque, sia lasciare i file come sono e rimuovere il collegamento a %3$s, o spostare i file nella cartella %1$s e mantenere il collegamento a %4$s.\n\nIn basso sono elencati i file locali e i file remoti in %5$s ai quali sono collegati.</string>
+  <string name="sync_foreign_files_forgotten_explanation">Dalla versione 1.3.16, i file caricati da questo dispositivo sono copiati nella cartella locale %1$s per evitare perdite di dati in caso di sincronizzazione di un singolo file con più account.\n\nA causa di questa modifica, tutti i file caricati nelle versioni precedenti di questa applicazione sono copiati nella cartella %2$s. In ogni caso, un errore ha impedito il completamento di questa operazione durante la sincronizzazione dell\'account.  Puoi mantenere i file intatti e rimuovere il collegamento a %3$s o spostare i file nella cartella %1$s e mantenere il collegamento a %4$s.\n\nQui sotto sono elencati i file locali e i file remoti in %5$s ai quali sono collegati.</string>
   <string name="sync_current_folder_was_removed">La cartella %1$s non esiste più</string>
   <string name="foreign_files_move">Sposta tutto</string>
   <string name="foreign_files_success">Tutti i file sono stati spostati</string>
@@ -167,7 +169,8 @@
   <string name="auth_connecting_auth_server">Connessione al server di autenticazione in corso...</string>
   <string name="auth_unsupported_auth_method">Il server non supporta questo metodo di autenticazione</string>
   <string name="auth_unsupported_multiaccount">%1$s non supporta account multipli</string>
-  <string name="auth_fail_get_user_name">Il tuo server non ha restituito un id utente corretto, contatta un amministratore\n\t</string>
+  <string name="auth_fail_get_user_name">Il tuo server non ha restituito un id utente corretto, contatta un amministratore
+	</string>
   <string name="auth_can_not_auth_against_server">Impossibile eseguire l\'autenticazione su questo server</string>
   <string name="fd_keep_in_sync">Tieni aggiornato il file</string>
   <string name="common_rename">Rinomina</string>
@@ -235,21 +238,11 @@
   <string name="preview_image_description">Anteprima dell\'immagine</string>
   <string name="preview_image_error_unknown_format">Questa immagine non può essere mostrata</string>
   <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
-  <string name="actionbar_failed_instant_upload">Caricamento istantaneo non riuscito</string>
-  <string name="failed_upload_headline_text">Caricamenti istantanei non riusciti</string>
-  <string name="failed_upload_headline_hint">Riepilogo dei caricamenti istantanei non riusciti</string>
-  <string name="failed_upload_all_cb">seleziona tutto</string>
-  <string name="failed_upload_headline_retryall_btn">riprova tutti i selezionati</string>
-  <string name="failed_upload_headline_delete_all_btn">elimina tutti i selezionati dalla coda di caricamento</string>
-  <string name="failed_upload_retry_text">riprova a caricare l\'immagine:</string>
-  <string name="failed_upload_load_more_images">Carica altre immagini</string>
-  <string name="failed_upload_retry_do_nothing_text">non fare niente, non sei collegato per i caricamenti istantanei</string>
-  <string name="failed_upload_failure_text">Messaggio d\'errore:</string>
-  <string name="failed_upload_quota_exceeded_text">Controlla la configurazione del server, forse hai superato la tua quota.</string>
-  <string name="share_link_no_support_share_api">Spiacenti, la condivisione non è abilitata sul tuo server. Contatta il tuo\n\t\tamministratore.</string>
-  <string name="share_link_file_no_exist">Impossibile condividere il file o la cartella. Assicurati che esista.</string>
+  <string name="share_link_no_support_share_api">Spiacenti, la condivisione non è abilitata sul tuo server. Contatta il tuo
+		amministratore.</string>
+  <string name="share_link_file_no_exist">Impossibile condividere. Assicurati che il file esista</string>
   <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
-  <string name="unshare_link_file_no_exist">Impossibile rimuovere dalla condivisione il file o la cartella. Non esiste.</string>
+  <string name="unshare_link_file_no_exist">Impossibile rimuovere dalla condivisione. Assicurati che il file esista</string>
   <string name="unshare_link_file_error">Si è verificato un errore durante il tentativo di rimuovere la condivisione del file o della cartella</string>
   <string name="activity_chooser_send_file_title">Invia</string>
   <string name="copy_link">Copia collegamento</string>
@@ -259,4 +252,30 @@
   <string name="network_error_socket_timeout_exception">Si è verificato un errore in attesa della risposta del server, l\'operazione non è stata completata</string>
   <string name="network_error_connect_timeout_exception">Si è verificato un errore in attesa della risposta del server, l\'operazione non è stata completata</string>
   <string name="network_host_not_available">L\'operazione non è stata completata, il server non è disponibile</string>
+  <string name="empty"></string>
+  <string name="forbidden_permissions">Non hai i permessi %s</string>
+  <string name="forbidden_permissions_rename">per rinominare questo file</string>
+  <string name="forbidden_permissions_delete">per eliminare questo file</string>
+  <string name="share_link_forbidden_permissions">per condividere questo file</string>
+  <string name="unshare_link_forbidden_permissions">per rimuovere la condivisione di questo file</string>
+  <string name="forbidden_permissions_create">per creare il file</string>
+  <string name="uploader_upload_forbidden_permissions">per caricare in questa cartella</string>
+  <string name="downloader_download_file_not_found">Il file non è più disponibile sul server</string>
+  <string name="prefs_category_accounts">Account</string>
+  <string name="prefs_add_account">Aggiungi account</string>
+  <string name="auth_redirect_non_secure_connection_title">La connessione sicura è rediretta attraverso un percorso non sicuro.</string>
+  <string name="actionbar_logger">Registri</string>
+  <string name="log_send_history_button">Invia cronologia</string>
+  <string name="log_mail_subject">Registri applicazione ownCloud Android</string>
+  <string name="log_progress_dialog_text">Caricamento dati...</string>
+  <string name="saml_authentication_required_text">Autenticazione richiesta</string>
+  <string name="saml_authentication_wrong_pass">Password errata</string>
+  <string name="actionbar_move">Sposta</string>
+  <string name="file_list_empty_moving">Qui non c\'è niente. Puoi aggiungere una cartella.</string>
+  <string name="move_choose_button_text">Scegli</string>
+  <string name="move_file_not_found">Impossibile spostare. Assicurati che il file esista</string>
+  <string name="move_file_invalid_into_descendent">Impossibile spostare una cartella in una cartella inferiore</string>
+  <string name="move_file_invalid_overwrite">Il file esiste già nella cartella di destinazione</string>
+  <string name="move_file_error">Si è verificato un errore durante il tentativo di spostare il file o la cartella</string>
+  <string name="forbidden_permissions_move">per spostare questo file</string>
 </resources>

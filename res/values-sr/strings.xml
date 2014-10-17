@@ -20,7 +20,7 @@
   <string name="uploader_wrn_no_content_title">Нема садржаја за отпремање</string>
   <string name="uploader_wrn_no_content_text">Садржај није примљен. Нема ништа да се отпреми.</string>
   <string name="uploader_info_uploading">Отпремање</string>
-  <string name="file_list_empty">Нема датотека у овој фасцикли.\nНове датотеке можете да додате путем опције „Отпреми“.</string>
+  <string name="file_list_empty">Овде нема ничег. Отпремите нешто!</string>
   <string name="filedetails_select_file">Додирните датотеку ради приказа додатних информација.</string>
   <string name="filedetails_size">Величина:</string>
   <string name="filedetails_type">Врста:</string>
@@ -106,4 +106,7 @@
   <string name="instant_upload_on_wifi">Отпремај слике само путем бежичне мреже</string>
   <string name="conflict_title">Ажурирај сукоб</string>
   <string name="activity_chooser_send_file_title">Пошаљи</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Налози</string>
+  <string name="move_choose_button_text">Одабери</string>
 </resources>

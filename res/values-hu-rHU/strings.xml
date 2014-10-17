@@ -17,6 +17,10 @@
   <string name="prefs_manage_accounts">Fiókok kezelése</string>
   <string name="prefs_pincode">Alkalmazás PIN</string>
   <string name="prefs_pincode_summary">Védje meg az alkalmazást</string>
+  <string name="prefs_instant_upload">Azonnali képfeltöltések</string>
+  <string name="prefs_instant_upload_summary">Kamera által készítette képek azonnali feltöltése</string>
+  <string name="prefs_instant_video_upload">Azonnali video feltöltések</string>
+  <string name="prefs_instant_video_upload_summary">Kamera által készített videó azonnali feltöltése</string>
   <string name="prefs_log_title">Naplózás engedélyezése</string>
   <string name="prefs_log_summary">Ez használható a problémák naplózásához</string>
   <string name="prefs_log_title_history">Naplózás előzménye</string>
@@ -35,6 +39,7 @@
   <string name="sync_string_files">Fájlok</string>
   <string name="setup_btn_connect">Kapcsolódás</string>
   <string name="uploader_btn_upload_text">Feltöltés</string>
+  <string name="uploader_top_message">Válassz feltöltési mappát:</string>
   <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
   <string name="uploader_wrn_no_account_text">Nem található %1$s fiók ezen a készüléken. Hozzon létre egy fiókot előbb.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Beállítás</string>
@@ -43,7 +48,9 @@
   <string name="uploader_wrn_no_content_text">Nem jött tartalom. Nincs mit feltölteni.</string>
   <string name="uploader_error_forbidden_content">%1$s nem jogosult a megosztott tartalom elérésére</string>
   <string name="uploader_info_uploading">Feltöltés</string>
-  <string name="file_list_empty">Ebben a mappában nincsenek állományok. A \"Feltöltés\" menüpont segítségével tölthet föl fájlokat.</string>
+  <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
+  <string name="file_list_loading">Betöltés...</string>
+  <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
   <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
   <string name="filedetails_type">Tipus:</string>
@@ -76,6 +83,7 @@
   <string name="uploader_upload_succeeded_content_single">%1$s sikeresen fel lett töltve</string>
   <string name="uploader_upload_failed_ticker">A feltöltés nem sikerült</string>
   <string name="uploader_upload_failed_content_single"> %1$s fájl feltöltése sikertelen</string>
+  <string name="uploader_upload_failed_credentials_error">Feltöltés sikertelen, jelentkezz be újra</string>
   <string name="downloader_download_in_progress_ticker">Letöltés ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Letöltés %2$s</string>
   <string name="downloader_download_succeeded_ticker">A letöltés sikeres</string>
@@ -83,8 +91,10 @@
   <string name="downloader_download_failed_ticker">A letöltés sikertelen</string>
   <string name="downloader_download_failed_content">A letöltésből %1$s nem lett befejezve</string>
   <string name="downloader_not_downloaded_yet">Még nem töltötte le</string>
+  <string name="downloader_download_failed_credentials_error">Letöltés sikertelen, jelentkezz be újra.</string>
   <string name="common_choose_account">Válasszon azonosítót</string>
   <string name="sync_fail_ticker">A szinkronizálás sikertelen</string>
+  <string name="sync_fail_ticker_unauthorized">Szinkronizálás sikertelen, jelentkezz be újra.</string>
   <string name="sync_fail_content">%1$s szinkronizációját nem sikerült befejezni</string>
   <string name="sync_fail_content_unauthorized">Érvénytelen jelszó a következőhöz %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Ütközések vannak</string>
@@ -98,6 +108,7 @@
   <string name="foreign_files_fail">Egyes fájlokat nem sikerült áthelyezni</string>
   <string name="foreign_files_local_text">Helyi: %1$s</string>
   <string name="foreign_files_remote_text">Távoli: %1$s</string>
+  <string name="upload_query_move_foreign_files">Nincs elég hely a kiválasztott fájlok másolására a %1$s könyvtárban. Szeretnéd áthelyezni inkább?</string>
   <string name="pincode_enter_pin_code">Kérem adja meg az alkalmazás PIN-kódját</string>
   <string name="pincode_configure_your_pin">Az alkalmazás PIN-kódja</string>
   <string name="pincode_configure_your_pin_explanation">A PIN-t kötelező lesz megadni az alkalmazás minden indításakor</string>
@@ -154,9 +165,12 @@
   <string name="auth_connecting_auth_server">Kapcsolódás a felhasználóazonosítást végző kiszolgálóhoz...</string>
   <string name="auth_unsupported_auth_method">A kiszolgáló nem támogatja ezt a felhasználóazonosítási módszert</string>
   <string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
+  <string name="auth_can_not_auth_against_server">Nem tudod hitelesíteni magadat ezen a szerveren</string>
   <string name="fd_keep_in_sync">Automatikusan frissítse a fájlokat</string>
   <string name="common_rename">Átnevezés</string>
   <string name="common_remove">Eltávolítás</string>
+  <string name="confirmation_remove_alert">Tényleg el akarod távolítani %1$s?</string>
+  <string name="confirmation_remove_folder_alert">Tényleg el akarod távolítani a %1$s és tartalmát?</string>
   <string name="confirmation_remove_local">Csak a helyi példány</string>
   <string name="confirmation_remove_folder_local">Csak a helyi tartalmat</string>
   <string name="confirmation_remove_remote">Törlés a szerverről</string>
@@ -168,7 +182,9 @@
   <string name="rename_server_fail_msg">Az átnevezés nem sikerült</string>
   <string name="sync_file_fail_msg">A távoli fájl nem volt ellenőrizhető</string>
   <string name="sync_file_nothing_to_do_msg">Az állományok már szinkonizálva vannak</string>
+  <string name="create_dir_fail_msg">A könyvtárt nem lehet létrehozni</string>
   <string name="filename_forbidden_characters">Nem megendedett karakterek: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_empty">A fájl név nem lehet üres</string>
   <string name="wait_a_moment">Egy pillanat...</string>
   <string name="filedisplay_unexpected_bad_get_content">Váratlan hiba; válassza ki a fájlt más programból</string>
   <string name="filedisplay_no_file_selected">Egy fájl sincs kiválasztva</string>
@@ -206,6 +222,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Képeket csak WiFi kapcsolaton keresztül töltsünk föl</string>
+  <string name="instant_video_upload_on_wifi">Videó feltöltés csak WIFI-vel</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Frissítési ütközés</string>
   <string name="conflict_message">%s távoli állományt nem szinkronizáltuk a helyi példánnyal. Ha folytatja, akkor a távoli állományt felülírjuk.</string>
@@ -213,21 +230,16 @@
   <string name="conflict_overwrite">Felülírás</string>
   <string name="conflict_dont_upload">Ne töltsük föl</string>
   <string name="preview_image_description">Előnézeti kép</string>
-  <string name="actionbar_failed_instant_upload">Sikertelen azonnali feltöltés\"</string>
-  <string name="failed_upload_headline_text">Sikertelen Azonnali feltöltés</string>
-  <string name="failed_upload_headline_hint">Összefoglaló az összes sikertelen instant feltöltésről</string>
-  <string name="failed_upload_all_cb">Összes kijelölése</string>
-  <string name="failed_upload_headline_retryall_btn">újra az összes kiválasztott</string>
-  <string name="failed_upload_headline_delete_all_btn">törölje az összes kiválasztottat a feltöltési sorból</string>
-  <string name="failed_upload_retry_text">újra feltölteni a képet:</string>
-  <string name="failed_upload_retry_do_nothing_text">nem vagyunk online üzemmódban az azonnali feltöltéshez</string>
-  <string name="failed_upload_failure_text">Hibaüzenet</string>
-  <string name="failed_upload_quota_exceeded_text">Kérjük ellenőrizd a szerver konfigurációt, mert lehet, hogy a kvótát túllépted.</string>
-  <string name="share_link_file_no_exist">A mappa nem osztható meg. Lehet, hogy nem is létezik.</string>
+  <string name="preview_image_error_unknown_format">Ez a kép nem jeleníthető meg</string>
+  <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi könyvtárba</string>
   <string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
-  <string name="unshare_link_file_no_exist">Nem lehet a megosztást megszüntetni. A mappa vagy fájl nem létezik.</string>
   <string name="unshare_link_file_error">Hiba lépett fel a mappa megosztásának visszavonásakor</string>
   <string name="activity_chooser_send_file_title">Küldjük el</string>
   <string name="copy_link">Link másolása</string>
   <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Fiókok</string>
+  <string name="saml_authentication_required_text">Felhasználóazonosítás szükséges</string>
+  <string name="saml_authentication_wrong_pass">Hibás jelszó</string>
+  <string name="move_choose_button_text">Válasszon</string>
 </resources>

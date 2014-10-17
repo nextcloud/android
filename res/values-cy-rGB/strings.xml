@@ -25,7 +25,7 @@
   <string name="uploader_wrn_no_content_text">Heb dderbyn cynnwys. Dim cynnwys i lwytho i fyny</string>
   <string name="uploader_error_forbidden_content">Does dim mynediad gan %1$s i gynnwys a rennir</string>
   <string name="uploader_info_uploading">Yn llwytho i fyny</string>
-  <string name="file_list_empty">Does dim ffeilau yn y blygell hon.\nGellir ychwanegu rhai newydd drwy ddewis \"Llwytho i fyny\" yn y ddewislen.</string>
+  <string name="file_list_empty">Does dim byd fan hyn. Llwythwch rhywbeth i fyny!</string>
   <string name="filedetails_select_file">Tapiwch ffeil i ddangos gwybodaeth ychwanegol</string>
   <string name="filedetails_size">Maint:</string>
   <string name="filedetails_type">Math:</string>
@@ -139,4 +139,7 @@
   <string name="conflict_overwrite">Trosysgrifio</string>
   <string name="conflict_dont_upload">Peidio llwytho i fyny</string>
   <string name="activity_chooser_send_file_title">Anfon</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Cyfrifon</string>
+  <string name="move_choose_button_text">Dewisiwch</string>
 </resources>

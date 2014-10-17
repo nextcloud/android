@@ -25,7 +25,7 @@
   <string name="uploader_wrn_no_content_text">ஒரு உள்ளடக்கமும் பெறப்படவில்லை. பதிவேற்றுவதற்கு ஒன்றும் இல்லை</string>
   <string name="uploader_error_forbidden_content">பகிரப்பட்ட உள்ளடக்ககங்களை அணுகுவதற்கு %1$s  அனுமதிக்கமாட்டாது</string>
   <string name="uploader_info_uploading">பதிவேற்றல்</string>
-  <string name="file_list_empty">இந்த கோப்புறையில் எந்த கோப்பும் இல்லை. \"பதிவேற்றல்\" பட்டி தெரிவு மூலம் புதிய கோப்புகளை பதிவேற்றமுடியும்.</string>
+  <string name="file_list_empty">இங்கு ஒன்றும் இல்லை. ஏதாவது பதிவேற்றுக!</string>
   <string name="filedetails_select_file">மேலதிக தகவல்களை காட்சிப்படுத்துவதற்கு கோப்பின் மேல் தட்டுக.</string>
   <string name="filedetails_size">அளவு:</string>
   <string name="filedetails_type">வகை:</string>
@@ -134,4 +134,7 @@
   <string name="conflict_keep_both">இரண்டையும் வைக்க </string>
   <string name="conflict_overwrite">மேலெழுதல்</string>
   <string name="conflict_dont_upload">பதிவேற்ற வேண்டாம்</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">கணக்குகள்</string>
+  <string name="move_choose_button_text">தெரிவுசெய்க </string>
 </resources>

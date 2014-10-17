@@ -34,7 +34,7 @@
   <string name="uploader_wrn_no_content_text">Neniu enhavo riceviĝis. Nenio alŝutota.</string>
   <string name="uploader_error_forbidden_content">$1%s ne estas permesata aliri la kunhavigitan enhavon</string>
   <string name="uploader_info_uploading">Alŝutante</string>
-  <string name="file_list_empty">Neniu dosiero estas en ĉi tiu dosierujo.\nNovajn dosierojn vi povas aldoni per la menuero “Alŝuti”.</string>
+  <string name="file_list_empty">Nenio estas ĉi tie. Alŝutu ion!</string>
   <string name="filedetails_size">Grando:</string>
   <string name="filedetails_type">Tipo:</string>
   <string name="filedetails_created">Kreita je:</string>
@@ -177,10 +177,13 @@
   <string name="preview_image_description">Antaŭvido de bildo</string>
   <string name="preview_image_error_unknown_format">Ĉi tiu bildo ne povas montriĝi</string>
   <string name="error__upload__local_file_not_copied">%1$s ne povis kopiiĝi al la loka dosierujo %2$s</string>
-  <string name="failed_upload_all_cb">elekti ĉion</string>
-  <string name="failed_upload_failure_text">Mesaĝo de malsukceso:</string>
   <string name="activity_chooser_send_file_title">Sendi</string>
   <string name="copy_link">Kopii ligilon</string>
   <string name="clipboard_text_copied">Kopiita en la tondejon</string>
   <string name="network_error_socket_exception">Eraro okazis dum konekto al la servilo.</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Kontoj</string>
+  <string name="saml_authentication_required_text">Aŭtentiĝo nepras</string>
+  <string name="saml_authentication_wrong_pass">Malĝusta pasvorto</string>
+  <string name="move_choose_button_text">Elekti</string>
 </resources>

@@ -13,6 +13,7 @@
   <string name="sync_string_files">Files</string>
   <string name="setup_btn_connect">Connecte</string>
   <string name="uploader_btn_upload_text">Incargar</string>
+  <string name="file_list_empty">Nihil hic. Incarga alcun cosa!</string>
   <string name="filedetails_download">Discargar</string>
   <string name="action_share_file">Compartir ligamine</string>
   <string name="common_yes">Si</string>
@@ -24,4 +25,6 @@
   <string name="change_password">Cambiar contrasigno</string>
   <string name="uploader_info_dirname">Nomine de dossier</string>
   <string name="activity_chooser_send_file_title">Invia</string>
+  <string name="empty"></string>
+  <string name="move_choose_button_text">Seliger</string>
 </resources>

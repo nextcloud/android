@@ -1,8 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="actionbar_upload_files">Dateien</string>
   <string name="actionbar_settings">Einstellungen</string>
   <string name="prefs_category_general">Allgemein</string>
+  <string name="prefs_help">Hilfe</string>
   <string name="auth_password">Passwort</string>
+  <string name="sync_string_files">Dateien</string>
   <string name="filedetails_download">Herunterladen</string>
   <string name="common_cancel">Abbrechen</string>
+  <string name="common_error">Fehler</string>
+  <string name="empty"></string>
 </resources>

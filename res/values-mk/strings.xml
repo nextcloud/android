@@ -26,6 +26,7 @@
   <string name="uploader_wrn_no_account_title">Не е пронајдена сметка</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Нагодување</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Прекини</string>
+  <string name="file_list_empty">Тука нема ништо. Снимете нешто!</string>
   <string name="filedetails_size">Големина:</string>
   <string name="filedetails_type">Тип:</string>
   <string name="filedetails_created">Создадено:</string>
@@ -115,6 +116,10 @@
   <string name="conflict_title">Конфликт при надградбата</string>
   <string name="conflict_keep_both">Задржи ги и двете</string>
   <string name="conflict_overwrite">Препиши</string>
-  <string name="failed_upload_all_cb">избери се</string>
   <string name="activity_chooser_send_file_title">Прати</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Сметки</string>
+  <string name="saml_authentication_required_text">Потребна е автентификација</string>
+  <string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
+  <string name="move_choose_button_text">Избери</string>
 </resources>

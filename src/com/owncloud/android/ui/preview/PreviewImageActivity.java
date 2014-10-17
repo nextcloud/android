@@ -16,6 +16,7 @@
  */
 package com.owncloud.android.ui.preview;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -23,29 +24,32 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
+import com.ortiz.touch.ExtendedViewPager;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
@@ -54,7 +58,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.PinCodeActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -63,7 +66,7 @@ import com.owncloud.android.utils.Log_OC;
  *  @author David A. Velasco
  */
 public class PreviewImageActivity extends FileActivity implements 
-FileFragment.ContainerActivity, OnTouchListener,  
+ FileFragment.ContainerActivity,
 ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
     public static final int DIALOG_SHORT_WAIT = 0;
@@ -72,15 +75,17 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
-    
-    private ViewPager mViewPager; 
+
+    private static final int INITIAL_HIDE_DELAY = 0; // immediate hide
+
+    private ExtendedViewPager mViewPager;
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;    
     
     private boolean mRequestWaitingForBinder;
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
-
-    private boolean mFullScreen;
+    
+    private View mFullScreenAnchorView;
     
     
     @Override
@@ -98,9 +103,31 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         // PIN CODE request
         if (getIntent().getExtras() != null && savedInstanceState == null && fromNotification()) {
             requestPinCode();
-        }         
+        }
+
+        // Make sure we're running on Honeycomb or higher to use FullScreen and
+        // Immersive Mode
+        if (isHoneycombOrHigher()) {
         
-        mFullScreen = true;
+            mFullScreenAnchorView = getWindow().getDecorView();
+            // to keep our UI controls visibility in line with system bars
+            // visibility
+            mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+                @SuppressLint("InlinedApi")
+                @Override
+                public void onSystemUiVisibilityChange(int flags) {
+                    boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+                    ActionBar actionBar = getSupportActionBar();
+                    if (visible) {
+                        actionBar.show();
+                    } else {
+                        actionBar.hide();
+                    }
+                }
+            });
+
+        }
+            
         if (savedInstanceState != null) {
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
         } else {
@@ -118,7 +145,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         }
         mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), parentFolder, getAccount(), getStorageManager());
-        mViewPager = (ViewPager) findViewById(R.id.fragmentPager);
+        mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
         int position = mPreviewImagePagerAdapter.getFilePosition(getFile());
         position = (position >= 0) ? position : 0;
         mViewPager.setAdapter(mPreviewImagePagerAdapter); 
@@ -129,6 +156,46 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             mRequestWaitingForBinder = true;
         }
     }
+    
+    
+    protected void onPostCreate(Bundle savedInstanceState)  {
+        super.onPostCreate(savedInstanceState);
+        
+        // Trigger the initial hide() shortly after the activity has been 
+        // created, to briefly hint to the user that UI controls 
+        // are available
+        delayedHide(INITIAL_HIDE_DELAY);
+        
+    }
+    
+    Handler mHideSystemUiHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (isHoneycombOrHigher()) {
+                hideSystemUI(mFullScreenAnchorView);
+            }
+            getSupportActionBar().hide();
+        }
+    };
+    
+    private void delayedHide(int delayMillis)   {
+        mHideSystemUiHandler.removeMessages(0);
+        mHideSystemUiHandler.sendEmptyMessageDelayed(0, delayMillis);
+    }
+    
+    
+    /// handle Window Focus changes
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        
+        // When the window loses focus (e.g. the action overflow is shown),
+        // cancel any pending hide action.
+        if (!hasFocus) {
+            mHideSystemUiHandler.removeMessages(0);
+        }
+    }
+    
     
     
     @Override
@@ -253,7 +320,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     @Override
     protected void onResume() {
         super.onResume();
-        //Log.e(TAG, "ACTIVITY, ONRESUME");
+        //Log_OC.e(TAG, "ACTIVITY, ONRESUME");
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         
         IntentFilter filter = new IntentFilter(FileDownloader.getDownloadFinishMessage());
@@ -263,7 +330,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
     @Override
     protected void onPostResume() {
-        //Log.e(TAG, "ACTIVITY, ONPOSTRESUME");
+        //Log_OC.e(TAG, "ACTIVITY, ONPOSTRESUME");
         super.onPostResume();
     }
     
@@ -322,7 +389,11 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
                     requestForDownload(currentFile);
                 }
             }
+
+            // Call to reset image zoom to initial state
+            ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
         }
+
     }
     
     /**
@@ -388,26 +459,36 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
     }
 
+    @SuppressLint("InlinedApi")
+	public void toggleFullScreen() {
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-           toggleFullScreen();
-        }
-        return true;
-    }
+        if (isHoneycombOrHigher()) {
+        
+            boolean visible = (mFullScreenAnchorView.getSystemUiVisibility()
+                    & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
 
-    
-    private void toggleFullScreen() {
-        ActionBar actionBar = getSupportActionBar();
-        if (mFullScreen) {
-            actionBar.show();
-            
+            if (visible) {
+                hideSystemUI(mFullScreenAnchorView);
+                // actionBar.hide(); // propagated through
+                // OnSystemUiVisibilityChangeListener()
+            } else {
+                showSystemUI(mFullScreenAnchorView);
+                // actionBar.show(); // propagated through
+                // OnSystemUiVisibilityChangeListener()
+            }
+
         } else {
-            actionBar.hide();
-            
+
+            ActionBar actionBar = getSupportActionBar();
+            if (!actionBar.isShowing()) {
+                actionBar.show();
+
+            } else {
+                actionBar.hide();
+
+            }
+
         }
-        mFullScreen = !mFullScreen;
     }
 
     @Override
@@ -467,6 +548,40 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
         // TODO Auto-generated method stub
         
+    }
+    
+    
+    @SuppressLint("InlinedApi")
+	private void hideSystemUI(View anchorView) {
+        anchorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION         // hides NAVIGATION BAR; Android >= 4.0
+            |   View.SYSTEM_UI_FLAG_FULLSCREEN              // hides STATUS BAR;     Android >= 4.1
+            |   View.SYSTEM_UI_FLAG_IMMERSIVE               // stays interactive;    Android >= 4.4
+            |   View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
+            |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
+            |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
+        );
+    }
+    
+    @SuppressLint("InlinedApi")
+    private void showSystemUI(View anchorView) {
+        anchorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
+            |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
+            |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
+        );
+    }
+
+    /**
+     * Checks if OS version is Honeycomb one or higher
+     * 
+     * @return boolean
+     */
+    private boolean isHoneycombOrHigher() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            return true;
+        }
+        return false;
     }
 
 }

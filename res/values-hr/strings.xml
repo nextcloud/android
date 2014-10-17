@@ -2,7 +2,9 @@
 <resources>
   <string name="actionbar_upload">Učitaj</string>
   <string name="actionbar_upload_files">Datoteke</string>
+  <string name="actionbar_mkdir">Nova mapa</string>
   <string name="actionbar_settings">Postavke</string>
+  <string name="actionbar_send_file">Pošaljite</string>
   <string name="prefs_category_general">Općenito</string>
   <string name="prefs_category_more">više</string>
   <string name="prefs_accounts">Korisnićki računi</string>
@@ -13,15 +15,25 @@
   <string name="setup_btn_connect">Poveži</string>
   <string name="uploader_btn_upload_text">Učitaj</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Izlaz</string>
+  <string name="file_list_empty">Nema ničega u ovoj mapi. Pošalji nešto!</string>
   <string name="filedetails_download">Preuzimanje</string>
+  <string name="action_share_file">Podijelite vezu</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">U redu</string>
   <string name="common_cancel_upload">Prekini upload</string>
   <string name="common_cancel">Odustani</string>
   <string name="common_error">Greška</string>
+  <string name="common_error_unknown">Nepoznata pogreška</string>
   <string name="change_password">Izmjena lozinke</string>
+  <string name="uploader_info_dirname">Naziv mape</string>
   <string name="auth_trying_to_login">Trying to login…</string>
   <string name="common_rename">Promjeni ime</string>
   <string name="common_remove">Makni</string>
+  <string name="activity_chooser_send_file_title">Pošaljite</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Korisnićki računi</string>
+  <string name="saml_authentication_required_text">Potrebna autentikacija</string>
+  <string name="saml_authentication_wrong_pass">Pogrešna lozinka</string>
+  <string name="move_choose_button_text">Izaberi</string>
 </resources>

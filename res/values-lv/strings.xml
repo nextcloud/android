@@ -26,7 +26,7 @@
   <string name="uploader_wrn_no_content_text">Nav saņemts nekāds saturs. Nav ko augšupielādēt.</string>
   <string name="uploader_error_forbidden_content">%1$s nedrīkst piekļūt koplietotajam saturam</string>
   <string name="uploader_info_uploading">Augšupielādē</string>
-  <string name="file_list_empty">Šajā mapē nav datņu.\nJaunas datnes var pievienot ar izvēlnes opciju “Augšupielādēt”</string>
+  <string name="file_list_empty">Te vēl nekas nav. Rīkojies, sāc augšupielādēt!</string>
   <string name="filedetails_select_file">Uzsitiet uz datnes, lai redzētu papildinformāciju.</string>
   <string name="filedetails_size">Izmērs:</string>
   <string name="filedetails_type">Tips:</string>
@@ -140,4 +140,7 @@
   <string name="conflict_overwrite">Pārrakstīt</string>
   <string name="conflict_dont_upload">Neaugšupielādēt</string>
   <string name="activity_chooser_send_file_title">Sūtīt</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Konti</string>
+  <string name="move_choose_button_text">Izvēlieties</string>
 </resources>

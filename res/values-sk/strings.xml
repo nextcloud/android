@@ -4,4 +4,5 @@
   <string name="prefs_category_general">Všeobecné</string>
   <string name="filedetails_download">Stiahnuť</string>
   <string name="common_cancel">Zrušiť</string>
+  <string name="empty"></string>
 </resources>

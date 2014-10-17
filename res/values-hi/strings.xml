@@ -1,13 +1,31 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s एण्ड्रॉयड एप्प</string>
+  <string name="about_version">संस्करण %1$s</string>
+  <string name="actionbar_sync">खाता रिफ्रेश करें </string>
   <string name="actionbar_upload">अपलोड </string>
+  <string name="actionbar_upload_from_apps">अन्य एप्प्स से सामग्री </string>
+  <string name="actionbar_upload_files">फाइलें </string>
+  <string name="actionbar_open_with">के साथ खोलें </string>
+  <string name="actionbar_mkdir">नया फ़ोल्डर</string>
   <string name="actionbar_settings">सेटिंग्स</string>
+  <string name="actionbar_see_details">विवरण </string>
   <string name="actionbar_send_file">भेजें</string>
   <string name="prefs_category_general">सामान्य </string>
-  <string name="prefs_help">सहयोग</string>
-  <string name="auth_username">प्रयोक्ता का नाम</string>
+  <string name="prefs_category_more">और अधिक</string>
+  <string name="prefs_accounts">खाते </string>
+  <string name="prefs_pincode">एप्प पिन </string>
+  <string name="prefs_pincode_summary">अपने उपभोक्ता की सुरक्षा करें </string>
+  <string name="prefs_help">सहायता </string>
+  <string name="auth_username">उपभोक्ता  का नाम</string>
   <string name="auth_password">पासवर्ड</string>
+  <string name="sync_string_files">फाइलें </string>
+  <string name="setup_btn_connect">जुड़ें </string>
   <string name="uploader_btn_upload_text">अपलोड </string>
+  <string name="common_cancel">रद्द करें </string>
   <string name="common_error">त्रुटि</string>
+  <string name="ssl_validator_btn_details_see">विवरण </string>
   <string name="activity_chooser_send_file_title">भेजें</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">खाते </string>
 </resources>

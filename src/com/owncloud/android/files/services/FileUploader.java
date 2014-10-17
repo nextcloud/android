@@ -46,6 +46,7 @@ import android.support.v4.app.NotificationCompat;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -58,6 +59,7 @@ import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
@@ -71,7 +73,6 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.Log_OC;
 
 
 
@@ -185,6 +186,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             return Service.START_NOT_STICKY;
         }
         Account account = intent.getParcelableExtra(KEY_ACCOUNT);
+        if (!AccountUtils.exists(account, getApplicationContext())) {
+            return Service.START_NOT_STICKY;
+        }
 
         String[] localPaths = null, remotePaths = null, mimeTypes = null;
         OCFile[] files = null;
@@ -789,7 +793,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                                 uploadResult.getCode();
                         Log_OC.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
                         if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
-                            message = getString(R.string.failed_upload_quota_exceeded_text);
+                            //message = getString(R.string.failed_upload_quota_exceeded_text);
                             if (db.updateFileState(
                                     upload.getOriginalStoragePath(), 
                                     DbHandler.UPLOAD_STATUS_UPLOAD_FAILED,

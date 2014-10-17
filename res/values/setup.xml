@@ -49,6 +49,9 @@
     <string name="mail_feedback">"mailto:apps@owncloud.com"</string>
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.owncloud.android"</string>
 
+    <!--Destination mail for sending log files -->
+    <string name="mail_logger"></string>
+
 </resources>
 
 

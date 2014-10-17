@@ -28,7 +28,7 @@
   <string name="uploader_wrn_no_content_text">კონტენტი არ იქნა მიღებული. არაფერია ასატვირთად.</string>
   <string name="uploader_error_forbidden_content">%1$s–ი არ დაიშვება გაზიარებული კონტენტის სანახავად</string>
   <string name="uploader_info_uploading">მიმდინარეობს ატვირთვა</string>
-  <string name="file_list_empty">ამ ფოლდერში ფაილები არ არის.⏎\nახალი ფაილები შეიძლება დაემატოს \"ატვირთვა\" მენიუს ოფციით.</string>
+  <string name="file_list_empty">აქ არაფერი არ არის. ატვირთე რამე!</string>
   <string name="filedetails_select_file">დააჭირეთ ფაილს დამატებითი ინფორმაციის გამოსაჩენად.</string>
   <string name="filedetails_size">ზომა:</string>
   <string name="filedetails_type">ტიპი:</string>
@@ -146,4 +146,7 @@
   <string name="conflict_dont_upload">არ ატვირთო</string>
   <string name="activity_chooser_send_file_title">გაგზავნა</string>
   <string name="clipboard_text_copied">კოპირებულია კლიპბორდში</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">ანგარიში</string>
+  <string name="move_choose_button_text">არჩევა</string>
 </resources>

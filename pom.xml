@@ -38,11 +38,22 @@
 
     <dependencies>
 
-        <!--<dependency>-->
-            <!--<groupId>com.actionbarsherlock</groupId>-->
-            <!--<artifactId>library</artifactId>-->
-            <!--<version>4.1.0</version>-->
-        <!--</dependency>-->
+        <!-- Dirty trick, but it works. TouchImageView library is not available as Maven project. -->
+        <dependency>
+            <groupId>touch-image-view.jar</groupId>
+            <artifactId>touch-image-view.jar</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/touch-image-view.jar</systemPath>
+        </dependency>
+          
+        <!-- This causes a (version?) conflict during packaging since sherlockactionbar also includes compatibility-v4 -->
+        <!--<dependency>
+            <groupId>android.support</groupId>
+            <artifactId>compatibility-v4</artifactId>
+            <version>19.1.0</version>
+        </dependency>-->
+        <!-- Instead we need to include the exact same version -->
 
         <dependency>
             <groupId>com.jakewharton</groupId>

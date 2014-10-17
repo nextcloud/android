@@ -43,7 +43,7 @@
   <string name="uploader_wrn_no_content_text">Tidak ada konten yang diterima. Tidak ada yang diunggah</string>
   <string name="uploader_error_forbidden_content">%1$s tidak diizinkan mengakses konten berbagi</string>
   <string name="uploader_info_uploading">Mengunggah</string>
-  <string name="file_list_empty">Tidak ada berkas dalam folder ini.\nBerkas baru dapat ditambahkan dengan opsi menu \"Unggah\".</string>
+  <string name="file_list_empty">Tidak ada apa-apa di sini. Unggah sesuatu!</string>
   <string name="filedetails_select_file">Sentuh pada berkas untuk menampilkan informasi tambahan</string>
   <string name="filedetails_size">Ukuran:</string>
   <string name="filedetails_type">Tipe:</string>
@@ -206,15 +206,10 @@
   <string name="conflict_overwrite">Timpa</string>
   <string name="conflict_dont_upload">Jangan mengunggah</string>
   <string name="preview_image_description">Pratilik gambar</string>
-  <string name="actionbar_failed_instant_upload">UnggahInsatan Gagal</string>
-  <string name="failed_upload_headline_text">Unggahan instan gagal</string>
-  <string name="failed_upload_headline_hint">Ringkasan dari semua unggahan instan yang gagal</string>
-  <string name="failed_upload_all_cb">pilih semua</string>
-  <string name="failed_upload_headline_retryall_btn">Ulangi semua yang terpilih</string>
-  <string name="failed_upload_headline_delete_all_btn">hapus semua yang terpilih dari antrian unggahan</string>
-  <string name="failed_upload_retry_text">ulangi unggah gambar:</string>
-  <string name="failed_upload_retry_do_nothing_text">Tidak melakukan apapun, Anda tidak sedang online</string>
-  <string name="failed_upload_failure_text">Pesan Kegagalan:</string>
-  <string name="failed_upload_quota_exceeded_text">Silakan periksa konfigurasi server Anda, kemungkinan kuota terlampaui.</string>
   <string name="activity_chooser_send_file_title">Kirim</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Akun</string>
+  <string name="saml_authentication_required_text">Diperlukan otentikasi</string>
+  <string name="saml_authentication_wrong_pass">Sandi salah</string>
+  <string name="move_choose_button_text">Pilih</string>
 </resources>

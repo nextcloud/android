@@ -41,13 +41,13 @@ import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -187,6 +187,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         
         // additional restriction for this fragment 
         MenuItem item = menu.findItem(R.id.action_see_details);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_move);
         if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);
