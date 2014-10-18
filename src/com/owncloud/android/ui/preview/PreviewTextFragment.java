@@ -1,13 +1,15 @@
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
@@ -26,6 +28,8 @@ import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PreviewTextFragment extends FileFragment {
@@ -34,9 +38,8 @@ public class PreviewTextFragment extends FileFragment {
     private static final String TAG = PreviewTextFragment.class.getSimpleName();
 
     private Account mAccount;
-    private TextView mTextPreview;
+    private ListView mTextPreviewList;
     private ProgressBar mProgressBar;
-    private ScrollView mScrollView;
 
     /**
      * Creates an empty fragment for previews.
@@ -64,8 +67,8 @@ public class PreviewTextFragment extends FileFragment {
 
         View ret = inflater.inflate(R.layout.text_file_preview, container, false);
 
-        mScrollView = (ScrollView) ret.findViewById(R.id.text_scrollview);
-        mTextPreview = (TextView) ret.findViewById(R.id.text_preview);
+        mTextPreviewList = (ListView) ret.findViewById(R.id.text_preview_list);
+        mTextPreviewList.setAdapter(new TextLineAdapter());
         mProgressBar = (ProgressBar) ret.findViewById(R.id.progress_bar);
 
         return ret;
@@ -118,44 +121,41 @@ public class PreviewTextFragment extends FileFragment {
     public void onStart() {
         super.onStart();
         Log_OC.e(TAG, "onStart");
-
-        loadAndShowTextPreview(getFile().getStoragePath(), mTextPreview);
     }
 
-    private void loadAndShowTextPreview(String location, TextView textView) {
-        new TextLoadAsyncTask().execute(location, textView);
+    private void loadAndShowTextPreview() {
+        new TextLoadAsyncTask().execute(getFile().getStoragePath());
     }
 
     /**
      * Reads the file to preview and shows its contents. Too critical to be anonymous.
      */
-    private class TextLoadAsyncTask extends AsyncTask<Object, Void, StringWriter> {
-        TextView mTextView;
+    private class TextLoadAsyncTask extends AsyncTask<Object, StringWriter, Void> {
 
         @Override
         protected void onPreExecute() {
-            mProgressBar.setVisibility(View.VISIBLE);
+            ((TextLineAdapter) mTextPreviewList.getAdapter()).clear();
         }
 
         @Override
-        protected StringWriter doInBackground(java.lang.Object... params) {
-            if (params.length != 2)
-                throw new IllegalArgumentException("The parameters to " + TextLoadAsyncTask.class.getName() + " must be (1) the file location and (2) the text view to update");
+        protected Void doInBackground(java.lang.Object... params) {
+            if (params.length != 1)
+                throw new IllegalArgumentException("The parameter to " + TextLoadAsyncTask.class.getName() + " must be the file location only");
             final String location = (String) params[0];
-            mTextView = (TextView) params[1];
 
             FileInputStream inputStream = null;
             Scanner sc = null;
-            StringWriter source = new StringWriter();
-            BufferedWriter bufferedWriter = new BufferedWriter(source);
             try {
                 inputStream = new FileInputStream(location);
                 sc = new Scanner(inputStream);
                 while (sc.hasNextLine()) {
-                    bufferedWriter.append(sc.nextLine());
-                    if (sc.hasNextLine()) bufferedWriter.append("\n");
+                    StringWriter target = new StringWriter();
+                    BufferedWriter bufferedWriter = new BufferedWriter(target);
+                    if (sc.hasNextLine())
+                        bufferedWriter.write(sc.nextLine());
+                    bufferedWriter.close();
+                    publishProgress(target);
                 }
-                bufferedWriter.close();
                 IOException exc = sc.ioException();
                 if (exc != null) throw exc;
             } catch (IOException e) {
@@ -172,15 +172,90 @@ public class PreviewTextFragment extends FileFragment {
                     sc.close();
                 }
             }
-            return source;
+            return null;
         }
 
         @Override
-        protected void onPostExecute(final StringWriter stringWriter) {
-            super.onPostExecute(stringWriter);
+        protected void onProgressUpdate(StringWriter... values) {
+            super.onProgressUpdate(values);
+            //Using a ListView allows to show large text without the UI freeze that happens
+            //when calling TextView#setText() with a large CharSequence
+            ((TextLineAdapter) mTextPreviewList.getAdapter()).add(values[0].toString());
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
             mProgressBar.setVisibility(View.GONE);
-            mScrollView.setVisibility(View.VISIBLE);
-            mTextView.setText(new String(stringWriter.getBuffer()));
+            mTextPreviewList.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private class TextLineAdapter extends BaseAdapter {
+        private static final int LIST_ITEM_LAYOUT = R.layout.text_file_preview_list_item;
+        private final List<String> items = new ArrayList<>();
+
+        private void add(String line) {
+            items.add(line);
+            notifyDataSetChanged();
+        }
+
+        private void clear() {
+            items.clear();
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public int getCount() {
+            return items.size();
+        }
+
+        @Override
+        public String getItem(int position) {
+            if (position >= items.size())
+                throw new IllegalArgumentException();
+            return items.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+            if (convertView == null) {
+                convertView =
+                        ((LayoutInflater) getActivity().getApplicationContext()
+                                .getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+                                .inflate(
+                                        LIST_ITEM_LAYOUT, null);
+                viewHolder = new ViewHolder();
+                viewHolder.setLineView((TextView) convertView.findViewById(R.id.text_preview));
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
+            viewHolder.getLineView().setText(items.get(position));
+
+            return convertView;
+        }
+    }
+
+    private static class ViewHolder {
+        private TextView lineView;
+
+        private ViewHolder() {
+        }
+
+        public TextView getLineView() {
+            return lineView;
+        }
+
+        public void setLineView(TextView lineView) {
+            this.lineView = lineView;
         }
     }
 
@@ -300,6 +375,8 @@ public class PreviewTextFragment extends FileFragment {
     public void onResume() {
         super.onResume();
         Log_OC.e(TAG, "onResume");
+
+        loadAndShowTextPreview();
     }
 
     @Override

@@ -5,25 +5,19 @@
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp">
 
-    <ScrollView
-        android:id="@+id/text_scrollview"
+    <ListView
+        android:id="@+id/text_preview_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:fillViewport="true"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/text_preview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-    </ScrollView>
+        android:visibility="gone"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" />
+        android:layout_gravity="center" />
 </FrameLayout>
