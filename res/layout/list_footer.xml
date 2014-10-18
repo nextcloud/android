@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="7dip"
+    android:paddingBottom="7dip"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <LinearLayout 
+        android:id="@+id/footer_layout" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+    
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/footerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/setup_text_hint" />
+
+</LinearLayout> 
