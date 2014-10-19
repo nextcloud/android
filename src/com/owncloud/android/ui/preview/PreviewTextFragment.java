@@ -193,7 +193,7 @@ public class PreviewTextFragment extends FileFragment {
 
     private class TextLineAdapter extends BaseAdapter {
         private static final int LIST_ITEM_LAYOUT = R.layout.text_file_preview_list_item;
-        private final List<String> items = new ArrayList<>();
+        private final List<String> items = new ArrayList<String>();
 
         private void add(String line) {
             items.add(line);
@@ -351,7 +351,7 @@ public class PreviewTextFragment extends FileFragment {
     /**
      * Update the file of the fragment with file value
      *
-     * @param file
+     * @param file The new file to set
      */
     public void updateFile(OCFile file) {
         setFile(file);
