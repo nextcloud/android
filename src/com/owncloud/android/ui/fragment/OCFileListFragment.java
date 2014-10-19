@@ -453,14 +453,14 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         String output = "";
 
         if (folders == 1) {
-            output = folders.toString() + " " + getResources().getString(R.string.file_list_folder);
+            output = folders.toString() + " " + getResources().getString(R.string.file_list_folder) + ", ";
         } else if (folders > 1) {
-            output = folders.toString() + " " + getResources().getString(R.string.file_list_folders);
+            output = folders.toString() + " " + getResources().getString(R.string.file_list_folders) + ", ";
         }
         if (files == 1) {
-            output = output + " " + files.toString() + " " + getResources().getString(R.string.file_list_file);
+            output = output + files.toString() + " " + getResources().getString(R.string.file_list_file);
         } else {
-            output = output + " " + files.toString() + " " + getResources().getString(R.string.file_list_files);
+            output = output + files.toString() + " " + getResources().getString(R.string.file_list_files);
         }
         return output;
     }
