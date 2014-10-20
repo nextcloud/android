@@ -148,7 +148,7 @@ public class FileMenuFilter {
         /// decision is taken for each possible action on a file in the menu
         
         // DOWNLOAD 
-        if (mFile == null || mFile.isFolder() || mFile.isDown() || downloading || uploading) {
+        if (mFile == null || mFile.isDown() || downloading || uploading) {
             toHide.add(R.id.action_download_file);
             
         } else {
