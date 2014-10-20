@@ -26,6 +26,8 @@ import com.owncloud.android.lib.resources.files.RemoteFile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
@@ -73,7 +75,9 @@ public class FileStorageUtils {
     }
 
     public static String getInstantUploadFilePath(Context context, String fileName) {
-        String uploadPath = context.getString(R.string.instant_upload_path);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        String uploadPathdef = context.getString(R.string.instant_upload_path);
+        String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
         String value = uploadPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
         return value;
     }
