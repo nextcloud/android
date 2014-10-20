@@ -16,6 +16,12 @@
  */
 package com.owncloud.android.ui.preview;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FilterInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 
 import android.accounts.Account;
@@ -40,7 +46,6 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.ortiz.touch.TouchImageView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -48,6 +53,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.TouchImageViewCustom;
+
 
 
 /**
@@ -60,12 +67,13 @@ import com.owncloud.android.ui.fragment.FileFragment;
  * @author David A. Velasco
  */
 public class PreviewImageFragment extends FileFragment {
+
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
     private View mView;
     private Account mAccount;
-    private TouchImageView mImageView;
+    private TouchImageViewCustom mImageView;
     private TextView mMessageView;
     private ProgressBar mProgressWheel;
 
@@ -124,7 +132,7 @@ public class PreviewImageFragment extends FileFragment {
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         mView = inflater.inflate(R.layout.preview_image_fragment, container, false);
-        mImageView = (TouchImageView) mView.findViewById(R.id.image);
+        mImageView = (TouchImageViewCustom) mView.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
         mImageView.setOnClickListener(new OnClickListener() {
             @Override
@@ -306,6 +314,7 @@ public class PreviewImageFragment extends FileFragment {
     public void onDestroy() {
         if (mBitmap != null) {
             mBitmap.recycle();
+            System.gc();
         }
         super.onDestroy();
     }
@@ -327,7 +336,7 @@ public class PreviewImageFragment extends FileFragment {
          * 
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load finishes.
          */
-        private final WeakReference<ImageView> mImageViewRef;
+        private final WeakReference<ImageViewCustom> mImageViewRef;
 
         /**
          * Weak reference to the target {@link TextView} where error messages will be written.
@@ -356,65 +365,27 @@ public class PreviewImageFragment extends FileFragment {
          * 
          * @param imageView     Target {@link ImageView} where the bitmap will be loaded into.
          */
-        public BitmapLoader(ImageView imageView, TextView messageView, ProgressBar progressWheel) {
-            mImageViewRef = new WeakReference<ImageView>(imageView);
+        public BitmapLoader(ImageViewCustom imageView, TextView messageView, ProgressBar progressWheel) {
+            mImageViewRef = new WeakReference<ImageViewCustom>(imageView);
             mMessageViewRef = new WeakReference<TextView>(messageView);
             mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
         }
         
         
-        @SuppressWarnings("deprecation")
-        @SuppressLint({ "NewApi", "NewApi", "NewApi" }) // to avoid Lint errors since Android SDK r20
-		@Override
+        @Override
         protected Bitmap doInBackground(String... params) {
             Bitmap result = null;
             if (params.length != 1) return result;
             String storagePath = params[0];
             try {
-                // set desired options that will affect the size of the bitmap
-                BitmapFactory.Options options = new Options();
-                options.inScaled = true;
-                options.inPurgeable = true;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
-                    options.inPreferQualityOverSpeed = false;
-                }
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-                    options.inMutable = false;
-                }
-                // make a false load of the bitmap - just to be able to read outWidth, outHeight and outMimeType
-                options.inJustDecodeBounds = true;
-                BitmapFactory.decodeFile(storagePath, options);   
-                
-                int width = options.outWidth;
-                int height = options.outHeight;
-                int scale = 1;
-                
-                Display display = getActivity().getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                int screenWidth;
-                int screenHeight;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-                    display.getSize(size);
-                    screenWidth = size.x;
-                    screenHeight = size.y;
-                } else {
-                    screenWidth = display.getWidth();
-                    screenHeight = display.getHeight();
-                }
 
-                if (width > screenWidth) {
-                    // second try to scale down the image , this time depending upon the screen size 
-                    scale = (int) Math.floor((float)width / screenWidth);
-                }
-                if (height > screenHeight) {
-                    scale = Math.max(scale, (int) Math.floor((float)height / screenHeight));
-                }
-                options.inSampleSize = scale;
+                File picture = new File(storagePath);
 
-                // really load the bitmap
-                options.inJustDecodeBounds = false; // the next decodeFile call will be real
-                result = BitmapFactory.decodeFile(storagePath, options);
-                //Log_OC.d(TAG, "Image loaded - width: " + options.outWidth + ", loaded height: " + options.outHeight);
+                if (picture != null) {
+                    //Decode file into a bitmap in real size for being able to make zoom on the image
+                    result = BitmapFactory.decodeStream(new FlushedInputStream
+                            (new BufferedInputStream(new FileInputStream(picture))));
+                }
 
                 if (result == null) {
                     mErrorMessageId = R.string.preview_image_error_unknown_format;
@@ -422,8 +393,15 @@ public class PreviewImageFragment extends FileFragment {
                 }
                 
             } catch (OutOfMemoryError e) {
-                mErrorMessageId = R.string.preview_image_error_unknown_format;
                 Log_OC.e(TAG, "Out of memory occured for file " + storagePath, e);
+
+                // If out of memory error when loading image, try to load it scaled
+                result = loadScaledImage(storagePath);
+
+                if (result == null) {
+                    mErrorMessageId = R.string.preview_image_error_unknown_format;
+                    Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
+                }
                     
             } catch (NoSuchFieldError e) {
                 mErrorMessageId = R.string.common_error_unknown;
@@ -446,11 +424,13 @@ public class PreviewImageFragment extends FileFragment {
                 showErrorMessage();
             }
         }
-        
+
+        @SuppressLint("InlinedApi")
         private void showLoadedImage(Bitmap result) {
             if (mImageViewRef != null) {
-                final ImageView imageView = mImageViewRef.get();
+                final ImageViewCustom imageView = mImageViewRef.get();
                 if (imageView != null) {
+                    imageView.setBitmap(result);
                     imageView.setImageBitmap(result);
                     imageView.setVisibility(View.VISIBLE);
                     mBitmap  = result;
@@ -511,8 +491,87 @@ public class PreviewImageFragment extends FileFragment {
         container.finish();
     }
     
-    public TouchImageView getImageView() {
+    public TouchImageViewCustom getImageView() {
         return mImageView;
     }
-    
+
+    static class FlushedInputStream extends FilterInputStream {
+        public FlushedInputStream(InputStream inputStream) {
+        super(inputStream);
+        }
+
+        @Override
+        public long skip(long n) throws IOException {
+            long totalBytesSkipped = 0L;
+            while (totalBytesSkipped < n) {
+                long bytesSkipped = in.skip(n - totalBytesSkipped);
+                if (bytesSkipped == 0L) {
+                      int byteValue = read();
+                      if (byteValue < 0) {
+                          break;  // we reached EOF
+                      } else {
+                          bytesSkipped = 1; // we read one byte
+                      }
+               }
+               totalBytesSkipped += bytesSkipped;
+            }
+            return totalBytesSkipped;
+        }
+    }
+
+    /**
+     * Load image scaled
+     * @param storagePath: path of the image
+     * @return Bitmap
+     */
+    @SuppressWarnings("deprecation")
+    private Bitmap loadScaledImage(String storagePath) {
+
+        Log_OC.d(TAG, "Loading image scaled");
+
+        // set desired options that will affect the size of the bitmap
+        BitmapFactory.Options options = new Options();
+        options.inScaled = true;
+        options.inPurgeable = true;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+            options.inPreferQualityOverSpeed = false;
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+            options.inMutable = false;
+        }
+        // make a false load of the bitmap - just to be able to read outWidth, outHeight and outMimeType
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(storagePath, options);
+
+        int width = options.outWidth;
+        int height = options.outHeight;
+        int scale = 1;
+
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        int screenWidth;
+        int screenHeight;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+            display.getSize(size);
+            screenWidth = size.x;
+            screenHeight = size.y;
+        } else {
+            screenWidth = display.getWidth();
+            screenHeight = display.getHeight();
+        }
+
+        if (width > screenWidth) {
+            // second try to scale down the image , this time depending upon the screen size 
+            scale = (int) Math.floor((float)width / screenWidth);
+        }
+        if (height > screenHeight) {
+            scale = Math.max(scale, (int) Math.floor((float)height / screenHeight));
+        }
+        options.inSampleSize = scale;
+
+        // really load the bitmap
+        options.inJustDecodeBounds = false; // the next decodeFile call will be real
+        return BitmapFactory.decodeFile(storagePath, options);
+
+    }
 }

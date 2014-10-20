@@ -32,6 +32,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -126,6 +127,13 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         
         ((ImageButton)mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
         
+        ((LinearLayout)mView.findViewById(R.id.fileDownloadLL)).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((PreviewImageActivity) getActivity()).toggleFullScreen();
+            }
+        });
+
         if (mError) {
             setButtonsForRemote();
         } else {

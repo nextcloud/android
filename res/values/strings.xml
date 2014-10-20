@@ -284,7 +284,7 @@
 
 	<string name="prefs_category_accounts">Accounts</string>
 	<string name="prefs_add_account">Add account</string>
-	<string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through an unsecured route.</string>
+	<string name="auth_redirect_non_secure_connection_title">Secure connection is redirected to an unsecured route.</string>
 
 	<string name="actionbar_logger">Logs</string>
 	<string name="log_send_history_button">Send History</string>
