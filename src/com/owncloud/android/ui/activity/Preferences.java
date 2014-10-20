@@ -74,6 +74,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     private final Handler mHandler = new Handler();
     private String mAccountName;
     private boolean mShowContextMenu = false;
+    private String mUploadPath;
 
 
     @SuppressWarnings("deprecation")
@@ -87,7 +88,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.actionbar_settings);
-        
+
+        loadInstantUploadPath();
+
         // Load the accounts category for adding the list of accounts
         mAccountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
 
@@ -239,6 +242,16 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                 preferenceCategory.removePreference(pImprint);
             }
         }
+
+        Preference pInstantUploadPathApp = (Preference) findPreference("instant_upload_path");
+
+        pInstantUploadPathApp.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                mUploadPath = updateInstantUploadPath(newValue.toString());
+                return true;
+            }
+        });
             
         /* About App */
        pAboutApp = (Preference) findPreference("about_app");
@@ -252,6 +265,12 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                    Log_OC.e(TAG, "Error while showing about dialog", e);
                }
        }
+    }
+
+    @Override
+    protected void onPause() {
+        saveInstantUploadPathOnPreferences();
+        super.onPause();
     }
 
     @Override
@@ -462,4 +481,47 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
 
     }
 
+    /**
+     * Update the upload path checking that it is a correct path
+     * @param uploadPath: path write by user
+     * @return String: uploadPath
+     */
+    private String updateInstantUploadPath(String uploadPath) {
+        String slashString = "/";
+
+        // If slashes are duplicated, replace them for only one slash
+        uploadPath = uploadPath.replaceAll("/+", slashString);
+
+        // Remove last slash from path
+        if (uploadPath.length() > 0 && uploadPath.charAt(uploadPath.length()-1) == slashString.charAt(0)) {
+            uploadPath = uploadPath.substring(0, uploadPath.length()-1);
+        }
+
+        if (uploadPath.isEmpty()) { // Set default instant upload path
+            uploadPath = getString(R.string.instant_upload_path);
+        }else {
+            if (!uploadPath.startsWith(slashString)) { // Add initial slash on path if necessary
+                uploadPath = slashString.concat(uploadPath);
+            }
+        }
+        return uploadPath;
+    }
+
+    /**
+     * Load upload path set on preferences
+     */
+    private void loadInstantUploadPath() {
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mUploadPath = appPrefs.getString("instant_upload_path", getString(R.string.instant_upload_path));
+    }
+
+    /**
+     * Save the "Instant Upload Path" on preferences
+     */
+    private void saveInstantUploadPathOnPreferences() {
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());        
+        SharedPreferences.Editor editor = appPrefs.edit();
+        editor.putString("instant_upload_path", mUploadPath);
+        editor.commit();
+    }
 }
