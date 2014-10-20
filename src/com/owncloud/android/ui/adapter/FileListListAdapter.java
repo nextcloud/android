@@ -65,9 +65,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 	private Account mAccount;
 	private final ComponentsGetter mTransferServiceGetter;
 	private Integer mSortOrder;
-	public static final Integer mSortName = 0;
-	public static final Integer mSortDate = 1;
-	public static final Integer mSortSize = 2;
+	public static final Integer SORT_NAME = 0;
+	public static final Integer SORT_DATE = 1;
+	public static final Integer SORT_SIZE = 2;
 	private Boolean mSortAscending;
 	private final SharedPreferences mAppPreferences;
 
@@ -80,7 +80,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 		mAppPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 
 		// Read sorting order, default to sort by name ascending
-		mSortOrder = mAppPreferences.getInt("sortOrder", mSortName);
+		mSortOrder = mAppPreferences.getInt("sortOrder", SORT_NAME);
 		mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
 
 	}
