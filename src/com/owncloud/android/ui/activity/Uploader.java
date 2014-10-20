@@ -71,7 +71,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.File;
 import java.util.ArrayList;
