@@ -262,7 +262,6 @@
   <string name="downloader_download_file_not_found">Файл більше не доступний на сервері</string>
   <string name="prefs_category_accounts">Облікові записи</string>
   <string name="prefs_add_account">Додати обліковий запис</string>
-  <string name="auth_redirect_non_secure_connection_title">Безпечне підключення перенаправляється через незабезпечений маршрут.</string>
   <string name="actionbar_logger">Журнали</string>
   <string name="log_send_history_button">Надіслати історію</string>
   <string name="log_mail_subject">Журнали Android-додатка ownCloud</string>

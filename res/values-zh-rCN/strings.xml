@@ -263,7 +263,6 @@
   <string name="downloader_download_file_not_found">该文件在服务器上不可用</string>
   <string name="prefs_category_accounts">账号</string>
   <string name="prefs_add_account">添加账号</string>
-  <string name="auth_redirect_non_secure_connection_title">安全连接是通过一个非安全路由定向的。</string>
   <string name="actionbar_logger">日志</string>
   <string name="log_send_history_button">发送历史</string>
   <string name="log_mail_subject">ownCloud安卓客户端日志</string>

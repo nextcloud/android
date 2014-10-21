@@ -240,7 +240,6 @@
   <string name="downloader_download_file_not_found">Tämä tiedosto ei ole enää palvelimella käytettävissä</string>
   <string name="prefs_category_accounts">Tilit</string>
   <string name="prefs_add_account">Lisää tili</string>
-  <string name="auth_redirect_non_secure_connection_title">Salattu yhteys on ohjattu uudelleen salaamatonta reittiä pitkin.</string>
   <string name="actionbar_logger">Lokit</string>
   <string name="log_send_history_button">Lähetä historia</string>
   <string name="log_mail_subject">ownCloudin Android-sovelluksen lokit</string>

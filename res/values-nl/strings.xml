@@ -266,7 +266,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="downloader_download_file_not_found">Dit bestand is niet langer beschikbaar op de server</string>
   <string name="prefs_category_accounts">Accounts</string>
   <string name="prefs_add_account">Toevoegen account</string>
-  <string name="auth_redirect_non_secure_connection_title">De beveiligde verbinding is omgeleid via een onveilige route.</string>
   <string name="actionbar_logger">Logs</string>
   <string name="log_send_history_button">Verstuur geschiedenis</string>
   <string name="log_mail_subject">ownCloud Android app logs</string>

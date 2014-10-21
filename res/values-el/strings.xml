@@ -260,7 +260,6 @@
   <string name="downloader_download_file_not_found">Αυτό το αρχείο δεν είναι πια διαθέσιμο στο διακομιστή</string>
   <string name="prefs_category_accounts">Λογαριασμοί</string>
   <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
-  <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται μέσω μιας μη ασφαλούς διαδρομής.</string>
   <string name="actionbar_logger">Αρχεία καταγραφών</string>
   <string name="log_send_history_button">Αποστολή ιστορικού</string>
   <string name="log_progress_dialog_text">Φόρτωση δεδομένων....</string>

@@ -267,7 +267,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="downloader_download_file_not_found">Fail ei ole serveris enam kättesaadav</string>
   <string name="prefs_category_accounts">Kontod</string>
   <string name="prefs_add_account">Lisa konto</string>
-  <string name="auth_redirect_non_secure_connection_title">Turvalist ühendust suunatakse läbi turvamata ühenduse.</string>
   <string name="actionbar_logger">Logid</string>
   <string name="log_send_history_button">Saada ajalugu</string>
   <string name="log_mail_subject">ownCloud Android rakenduse logid</string>

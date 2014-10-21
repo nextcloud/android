@@ -264,7 +264,6 @@
   <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
   <string name="prefs_category_accounts">アカウント</string>
   <string name="prefs_add_account">アカウントを追加</string>
-  <string name="auth_redirect_non_secure_connection_title">暗号化されていない接続を経て、暗号化接続へリダイレクトされました。</string>
   <string name="actionbar_logger">ログ</string>
   <string name="log_send_history_button">ログを送信</string>
   <string name="log_mail_subject">ownCloud Android アプリログ</string>
