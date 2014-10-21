@@ -29,10 +29,6 @@
 	        / -->
 	    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:title="@string/prefs_pincode" android:key="set_pincode" 
                         android:summary="@string/prefs_pincode_summary"/>
-
-    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:key="save_last_upload_location"
-        android:title="@string/prefs_remember_last_share_location"
-        android:summary="@string/prefs_remember_last_upload_location_summary"/>
 	</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefs_category_instant_uploading">
@@ -60,6 +56,7 @@
 		<Preference 		android:key="log_history"
 	                        android:title="@string/prefs_log_title_history"
 	                        android:summary="@string/prefs_log_summary_history"/ -->
+                        
     </PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">

@@ -99,7 +99,6 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
     private String mUploadPath;
     private FileDataStorageManager mStorageManager;
     private OCFile mFile;
-    private boolean mSaveUploadLocation;
 
     private final static int DIALOG_NO_ACCOUNT = 0;
     private final static int DIALOG_WAITING = 1;
@@ -127,38 +126,30 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
                 showDialog(DIALOG_MULTIPLE_ACCOUNT);
             } else {
 
-                mAccount = accounts[0];
-                mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+            mAccount = accounts[0];
+            mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
 
-                SharedPreferences appPreferences = PreferenceManager
-                        .getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences appPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(getApplicationContext());
 
-                mSaveUploadLocation = appPreferences.getBoolean("save_last_upload_location", false);
-
-                //If the users has enabled last upload path saving then populate mParents with the previous path
-                if(mSaveUploadLocation)
-                {
-                    String last_path = appPreferences.getString("last_upload_path", "");
-                    // "/" equals root-directory
-                    if(last_path.equals("/")) {
-                        mParents.add("");
-                    }
-                    else{
-                        String[] dir_names = last_path.split("/");
-                        for (String dir : dir_names)
-                            mParents.add(dir);
-                    }
-                    //Make sure that path still exists, if it doesn't pop the stack and try the previous path
-                    while(!mStorageManager.fileExists(generatePath(mParents))){
-                        mParents.pop();
-                    }
-                }
-                else {
+                String last_path = appPreferences.getString("last_upload_path", "");
+                // "/" equals root-directory
+                if(last_path.equals("/")) {
                     mParents.add("");
                 }
-
-                populateDirectoryList();
+                else{
+                    String[] dir_names = last_path.split("/");
+                    for (String dir : dir_names)
+                        mParents.add(dir);
+                }
+                //Make sure that path still exists, if it doesn't pop the stack and try the previous path
+                while(!mStorageManager.fileExists(generatePath(mParents))){
+                    mParents.pop();
+                }
             }
+            
+            populateDirectoryList();
+
         } else {
             showDialog(DIALOG_NO_STREAM);
         }
@@ -474,13 +465,11 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
             intent.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
             startService(intent);
 
-            //If the user has enabled last upload path then save the path to shared preferences
-            if(mSaveUploadLocation){
-                SharedPreferences.Editor appPrefs = PreferenceManager
-                        .getDefaultSharedPreferences(getApplicationContext()).edit();
-                appPrefs.putString("last_upload_path", mUploadPath);
-                appPrefs.apply();
-            }
+            //Save the path to shared preferences
+            SharedPreferences.Editor appPrefs = PreferenceManager
+                    .getDefaultSharedPreferences(getApplicationContext()).edit();
+            appPrefs.putString("last_upload_path", mUploadPath);
+            appPrefs.apply();
 
             finish();
             }
