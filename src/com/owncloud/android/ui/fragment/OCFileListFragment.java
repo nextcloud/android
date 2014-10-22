@@ -43,6 +43,7 @@ import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.CopyActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
@@ -349,6 +350,13 @@ public class OCFileListFragment extends ExtendedListFragment {
                 mContainerActivity.getFileOperationsHelper().toggleFavorite(mTargetFile, false);
                 return true;
             }
+            case R.id.action_copy:
+                Intent action = new Intent(getActivity(), CopyActivity.class);
+
+                // Pass mTargetFile that contains info of selected file/folder
+                action.putExtra(FolderPickerActivity.EXTRA_FILE, mTargetFile);
+                getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_COPY_FILES);
+                return true;
             default:
                 return super.onContextItemSelected(item); 
         }
