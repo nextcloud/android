@@ -24,8 +24,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.media.MediaScannerConnection;
-import android.media.MediaScannerConnection.OnScanCompletedListener;
-import android.net.Uri;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -435,9 +433,6 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         public void onReceive(Context context, Intent intent) {
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-            
-            
-            
             if (getAccount().name.equals(accountName) && 
                     downloadedRemotePath != null) {
 
@@ -445,14 +440,6 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
                 int position = mPreviewImagePagerAdapter.getFilePosition(file);
                 boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
                 //boolean isOffscreen =  Math.abs((mViewPager.getCurrentItem() - position)) <= mViewPager.getOffscreenPageLimit();
-                
-                if (downloadWasFine){
-                 // Trigger Mediascan
-                    MediaScannerConnection.scanFile(
-                            context, 
-                            new String[]{file.getStoragePath()}, 
-                            null,null);
-                }
                 
                 if (position >= 0 && intent.getAction().equals(FileDownloader.getDownloadFinishMessage())) {
                     if (downloadWasFine) {

@@ -137,7 +137,7 @@ implements ConfirmationDialogFragmentListener {
             }
             
            folder.setEtag("");
-           storageManager.saveFile(folder);  
+           storageManager.saveFile(folder);
         }
         
         // Trigger MediaScan

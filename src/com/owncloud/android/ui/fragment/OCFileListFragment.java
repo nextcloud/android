@@ -19,7 +19,6 @@ package com.owncloud.android.ui.fragment;
 
 import java.io.File;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaScannerConnection;
@@ -34,15 +33,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.RemoveFileOperation;
-import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.MoveActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
@@ -79,7 +73,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     private OCFile mFile = null;
     private FileListListAdapter mAdapter;
     
-    private Handler mHandler;
     private OCFile mTargetFile;
 
     
@@ -308,13 +301,6 @@ public class OCFileListFragment extends ExtendedListFragment {
             case R.id.action_download_file: 
             case R.id.action_sync_file: {
                 mContainerActivity.getFileOperationsHelper().syncFile(mTargetFile);
-                
-                Log_OC.d("mediascan", "path: " + mTargetFile.getRemotePath());
-                
-                FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-                Log_OC.d("mediaScan", "path: "+ storageManager.getFileByPath(mTargetFile.getRemotePath()).getStoragePath());
-                // TODO triggerMediaScan
-                
                 return true;
             }
             case R.id.action_cancel_download:
@@ -349,7 +335,6 @@ public class OCFileListFragment extends ExtendedListFragment {
                 return super.onContextItemSelected(item); 
         }
     }
-    
 
 
     /**
@@ -404,10 +389,4 @@ public class OCFileListFragment extends ExtendedListFragment {
         }
     }
 
-    private void triggerMediaScan(String path){
-        MediaScannerConnection.scanFile(
-                getActivity().getApplicationContext(), 
-                new String[]{path}, 
-                null,null);
-    }
 }

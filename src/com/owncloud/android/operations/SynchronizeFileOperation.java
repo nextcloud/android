@@ -33,7 +33,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaScannerConnection;
 
 /**
  * Remote operation performing the read of remote file in the ownCloud server.
@@ -195,6 +194,7 @@ public class SynchronizeFileOperation extends SyncOperation {
             } 
 
         }
+
         Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() + ": " + result.getLogMessage());
 
         return result;
