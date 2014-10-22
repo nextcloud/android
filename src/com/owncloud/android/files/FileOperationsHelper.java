@@ -22,7 +22,6 @@ import org.apache.http.protocol.HTTP;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.support.v4.app.DialogFragment;
 import android.webkit.MimeTypeMap;

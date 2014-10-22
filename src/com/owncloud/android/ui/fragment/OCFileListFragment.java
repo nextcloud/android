@@ -308,7 +308,13 @@ public class OCFileListFragment extends ExtendedListFragment {
             case R.id.action_download_file: 
             case R.id.action_sync_file: {
                 mContainerActivity.getFileOperationsHelper().syncFile(mTargetFile);
-                triggerMediaScan(mTargetFile.getStoragePath());
+                
+                Log_OC.d("mediascan", "path: " + mTargetFile.getRemotePath());
+                
+                FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+                Log_OC.d("mediaScan", "path: "+ storageManager.getFileByPath(mTargetFile.getRemotePath()).getStoragePath());
+                // TODO triggerMediaScan
+                
                 return true;
             }
             case R.id.action_cancel_download:

@@ -30,10 +30,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.media.MediaScannerConnection;
 import android.os.IBinder;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.files.services.FileDownloader;
@@ -351,7 +353,7 @@ public class FileObserverService extends Service {
             Log_OC.d(TAG, "Received broadcast intent " + intent);
 
             File downloadedFile = new File(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
-            String parentPath = downloadedFile.getParent();
+            String parentPath = downloadedFile.getParent();            
             FolderObserver observer = mFolderObserversMap.get(parentPath);
             if (observer != null) {
                 if (intent.getAction().equals(FileDownloader.getDownloadFinishMessage())
@@ -367,6 +369,13 @@ public class FileObserverService extends Service {
                 }
 
             } else {
+                
+                if (downloadedFile.exists()){
+                    Log_OC.d("mediaScan", "mediaScan : " + downloadedFile.getAbsolutePath());
+                    MediaScannerConnection.scanFile(getApplicationContext(), 
+                            new String[]{downloadedFile.getAbsolutePath()}, null, null);
+                }
+                
                 Log_OC.d(TAG, "No observer for path " + downloadedFile.getAbsolutePath());
             }
         }
