@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -23,30 +23,36 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
 import org.apache.http.HttpStatus;
-import org.apache.jackrabbit.webdav.DavConstants;
-import org.apache.jackrabbit.webdav.MultiStatus;
-import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
+//import android.support.v4.content.LocalBroadcastManager;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.syncadapter.FileSyncService;
+
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
+import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
+import com.owncloud.android.lib.resources.files.RemoteFile;
+
+import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavEntry;
-import eu.alefzero.webdav.WebdavUtils;
 
 
 /**
@@ -64,6 +70,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
 
     private static final String TAG = SynchronizeFolderOperation.class.getSimpleName();
 
+    public static final String EVENT_SINGLE_FOLDER_CONTENTS_SYNCED  = 
+            SynchronizeFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_CONTENTS_SYNCED";
+    public static final String EVENT_SINGLE_FOLDER_SHARES_SYNCED    = 
+            SynchronizeFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SHARES_SYNCED";
     
     /** Time stamp for the synchronization process in progress */
     private long mCurrentSyncTime;
@@ -89,24 +99,36 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     /** Counter of failed operations in synchronization of kept-in-sync files */
     private int mFailsInFavouritesFound;
 
-    /** Map of remote and local paths to files that where locally stored in a location out of the ownCloud folder and couldn't be copied automatically into it */
+    /**
+     * Map of remote and local paths to files that where locally stored in a location 
+     * out of the ownCloud folder and couldn't be copied automatically into it 
+     **/
     private Map<String, String> mForgottenLocalFiles;
 
     /** 'True' means that this operation is part of a full account synchronization */ 
     private boolean mSyncFullAccount;
 
-    /** 'True' means that the remote folder changed from last synchronization and should be fetched */
-    private boolean mRemoteFolderChanged;
+    /** 'True' means that Share resources bound to the files into should be refreshed also */
+    private boolean mIsShareSupported;
     
+    /** 'True' means that the remote folder changed and should be fetched */
+    private boolean mRemoteFolderChanged;
+
+    /** 'True' means that Etag will be ignored */
+    private boolean mIgnoreETag;
+
     
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
      * 
      * @param   remoteFolderPath        Remote folder to synchronize.
      * @param   currentSyncTime         Time stamp for the synchronization process in progress.
-     * @param   localFolderId           Identifier in the local database of the folder to synchronize.
-     * @param   updateFolderProperties  'True' means that the properties of the folder should be updated also, not just its content.
-     * @param   syncFullAccount         'True' means that this operation is part of a full account synchronization.
+     * @param   localFolderId           Identifier in the local database of the folder 
+     *                                  to synchronize.
+     * @param   updateFolderProperties  'True' means that the properties of the folder should 
+     *                                  be updated also, not just its content.
+     * @param   syncFullAccount         'True' means that this operation is part of a full account 
+     *                                  synchronization.
      * @param   dataStorageManager      Interface with the local database.
      * @param   account                 ownCloud account where the folder is located. 
      * @param   context                 Application context.
@@ -114,17 +136,21 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     public SynchronizeFolderOperation(  OCFile folder, 
                                         long currentSyncTime, 
                                         boolean syncFullAccount,
+                                        boolean isShareSupported,
+                                        boolean ignoreETag,
                                         FileDataStorageManager dataStorageManager, 
                                         Account account, 
                                         Context context ) {
         mLocalFolder = folder;
         mCurrentSyncTime = currentSyncTime;
         mSyncFullAccount = syncFullAccount;
+        mIsShareSupported = isShareSupported;
         mStorageManager = dataStorageManager;
         mAccount = account;
         mContext = context;
         mForgottenLocalFiles = new HashMap<String, String>();
         mRemoteFolderChanged = false;
+        mIgnoreETag = ignoreETag;
     }
     
     
@@ -141,7 +167,8 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     }
     
     /**
-     * Returns the list of files and folders contained in the synchronized folder, if called after synchronization is complete.
+     * Returns the list of files and folders contained in the synchronized folder, 
+     * if called after synchronization is complete.
      * 
      * @return  List of files and folders contained in the synchronized folder.
      */
@@ -155,11 +182,15 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      * {@inheritDoc}
      */
     @Override
-    protected RemoteOperationResult run(WebdavClient client) {
+    protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         mFailsInFavouritesFound = 0;
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
+        
+        if (FileUtils.PATH_SEPARATOR.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount) {
+            updateOCVersion(client);
+        }
         
         result = checkForChanges(client);
         
@@ -172,130 +203,109 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         }
         
         if (!mSyncFullAccount) {            
-            sendStickyBroadcast(false, mLocalFolder.getRemotePath(), result);
+            sendLocalBroadcast(
+                    EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result
+            );
         }
-
+        
+        if (result.isSuccess() && mIsShareSupported && !mSyncFullAccount) {
+            refreshSharesForFolder(client); // share result is ignored 
+        }
+        
+        if (!mSyncFullAccount) {            
+            sendLocalBroadcast(
+                    EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result
+            );
+        }
+        
         return result;
         
     }
 
 
-    private RemoteOperationResult checkForChanges(WebdavClient client) {
-        mRemoteFolderChanged = false;
+    private void updateOCVersion(OwnCloudClient client) {
+        UpdateOCVersionOperation update = new UpdateOCVersionOperation(mAccount, mContext);
+        RemoteOperationResult result = update.execute(client);
+        if (result.isSuccess()) {
+            mIsShareSupported = update.getOCVersion().isSharedSupported();
+        }
+    }
+
+    
+    private RemoteOperationResult checkForChanges(OwnCloudClient client) {
+        mRemoteFolderChanged = true;
         RemoteOperationResult result = null;
         String remotePath = null;
-        PropFindMethod query = null;
+
+        remotePath = mLocalFolder.getRemotePath();
+        Log_OC.d(TAG, "Checking changes in " + mAccount.name + remotePath);
         
-        try {
-            remotePath = mLocalFolder.getRemotePath();
-            Log_OC.d(TAG, "Checking changes in " + mAccount.name + remotePath);
+        // remote request 
+        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(remotePath);
+        result = operation.execute(client);
+        if (result.isSuccess()){
+            OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
-            // remote request 
-            query = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(remotePath),
-                    DavConstants.PROPFIND_ALL_PROP,
-                    DavConstants.DEPTH_0);
-            int status = client.executeMethod(query);
-
-            // check and process response
-            if (isMultiStatus(status)) {
-                // parse data from remote folder 
-                WebdavEntry we = new WebdavEntry(query.getResponseBodyAsMultiStatus().getResponses()[0], client.getBaseUri().getPath());
-                OCFile remoteFolder = fillOCFile(we);
-                
+            if (!mIgnoreETag) {
                 // check if remote and local folder are different
-                mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
-                
-                result = new RemoteOperationResult(ResultCode.OK);
-                
-            } else {
-                // check failed
-                client.exhaustResponse(query.getResponseBodyAsStream());
-                if (status == HttpStatus.SC_NOT_FOUND) {
-                    removeLocalFolder();
-                }
-                result = new RemoteOperationResult(false, status, query.getResponseHeaders());
+                mRemoteFolderChanged = 
+                        !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
             }
 
-        } catch (Exception e) {
-            result = new RemoteOperationResult(e);
+            result = new RemoteOperationResult(ResultCode.OK);
+        
+            Log_OC.i(TAG, "Checked " + mAccount.name + remotePath + " : " + 
+                    (mRemoteFolderChanged ? "changed" : "not changed"));
             
-
-        } finally {
-            if (query != null)
-                query.releaseConnection();  // let the connection available for other methods
-            if (result.isSuccess()) {
-                Log_OC.i(TAG, "Checked " + mAccount.name + remotePath + " : " + (mRemoteFolderChanged ? "changed" : "not changed"));
-            } else {
-                if (result.isException()) {
-                    Log_OC.e(TAG, "Checked " + mAccount.name + remotePath  + " : " + result.getLogMessage(), result.getException());
-                } else {
-                    Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + " : " + result.getLogMessage());
-                }
+        } else {
+            // check failed
+            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
+                removeLocalFolder();
             }
-            
+            if (result.isException()) {
+                Log_OC.e(TAG, "Checked " + mAccount.name + remotePath  + " : " + 
+                        result.getLogMessage(), result.getException());
+            } else {
+                Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + " : " + 
+                        result.getLogMessage());
+            }
         }
+        
         return result;
     }
 
 
-    private RemoteOperationResult fetchAndSyncRemoteFolder(WebdavClient client) {
-        RemoteOperationResult result = null;
-        String remotePath = null;
-        PropFindMethod query = null;
-        try {
-            remotePath = mLocalFolder.getRemotePath();
-            Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
-
-            // remote request 
-            query = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(remotePath),
-                    DavConstants.PROPFIND_ALL_PROP,
-                    DavConstants.DEPTH_1);
-            int status = client.executeMethod(query);
-
-            // check and process response
-            if (isMultiStatus(status)) {
-                synchronizeData(query.getResponseBodyAsMultiStatus(), client);
-                if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
-                    result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   // should be different result, but will do the job
-                } else {
-                    result = new RemoteOperationResult(true, status, query.getResponseHeaders());
-                }
-                
-            } else {
-                // synchronization failed
-                client.exhaustResponse(query.getResponseBodyAsStream());
-                if (status == HttpStatus.SC_NOT_FOUND) {
-                    removeLocalFolder();
-                }
-                result = new RemoteOperationResult(false, status, query.getResponseHeaders());
+    private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
+        String remotePath = mLocalFolder.getRemotePath();
+        ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(remotePath);
+        RemoteOperationResult result = operation.execute(client);
+        Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
+        
+        if (result.isSuccess()) {
+            synchronizeData(result.getData(), client);
+            if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
+                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   
+                    // should be a different result code, but will do the job
             }
-
-        } catch (Exception e) {
-            result = new RemoteOperationResult(e);
-            
-
-        } finally {
-            if (query != null)
-                query.releaseConnection();  // let the connection available for other methods
-            if (result.isSuccess()) {
-                Log_OC.i(TAG, "Synchronized " + mAccount.name + remotePath + ": " + result.getLogMessage());
-            } else {
-                if (result.isException()) {
-                    Log_OC.e(TAG, "Synchronized " + mAccount.name + remotePath  + ": " + result.getLogMessage(), result.getException());
-                } else {
-                    Log_OC.e(TAG, "Synchronized " + mAccount.name + remotePath + ": " + result.getLogMessage());
-                }
-            }
-            
+        } else {
+            if (result.getCode() == ResultCode.FILE_NOT_FOUND)
+                removeLocalFolder();
         }
+        
         return result;
     }
 
-
+    
     private void removeLocalFolder() {
         if (mStorageManager.fileExists(mLocalFolder.getFileId())) {
             String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
-            mStorageManager.removeFolder(mLocalFolder, true, (mLocalFolder.isDown() && mLocalFolder.getStoragePath().startsWith(currentSavePath)));
+            mStorageManager.removeFolder(
+                    mLocalFolder, 
+                    true, 
+                    (   mLocalFolder.isDown() && 
+                            mLocalFolder.getStoragePath().startsWith(currentSavePath)
+                    )
+            );
         }
     }
 
@@ -305,26 +315,26 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      *  with the current data in the local database.
      *  
      *  Grants that mChildren is updated with fresh data after execution.
-     * 
-     *  @param dataInServer     Full response got from the server with the data of the target 
-     *                          folder and its direct children.
+     *  
+     *  @param folderAndFiles   Remote folder and children files in Folder 
+     *  
      *  @param client           Client instance to the remote server where the data were 
      *                          retrieved.  
-     *  @return                 'True' when any change was made in the local data, 'false' otherwise.
+     *  @return                 'True' when any change was made in the local data, 'false' otherwise
      */
-    private void synchronizeData(MultiStatus dataInServer, WebdavClient client) {
+    private void synchronizeData(ArrayList<Object> folderAndFiles, OwnCloudClient client) {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
         
         // parse data from remote folder 
-        WebdavEntry we = new WebdavEntry(dataInServer.getResponses()[0], client.getBaseUri().getPath());
-        OCFile remoteFolder = fillOCFile(we);
+        OCFile remoteFolder = fillOCFile((RemoteFile)folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
         remoteFolder.setFileId(mLocalFolder.getFileId());
         
-        Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath() + " changed - starting update of local data ");
+        Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath() 
+                + " changed - starting update of local data ");
         
-        List<OCFile> updatedFiles = new Vector<OCFile>(dataInServer.getResponses().length - 1);
+        List<OCFile> updatedFiles = new Vector<OCFile>(folderAndFiles.size() - 1);
         List<SynchronizeFileOperation> filesToSyncContents = new Vector<SynchronizeFileOperation>();
 
         // get current data about local contents of the folder to synchronize
@@ -336,89 +346,97 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         
         // loop to update every child
         OCFile remoteFile = null, localFile = null;
-        for (int i = 1; i < dataInServer.getResponses().length; ++i) {
+        for (int i=1; i<folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server
-            we = new WebdavEntry(dataInServer.getResponses()[i], client.getBaseUri().getPath());                        
-            remoteFile = fillOCFile(we);
+            remoteFile = fillOCFile((RemoteFile)folderAndFiles.get(i));
             remoteFile.setParentId(mLocalFolder.getFileId());
 
             /// retrieve local data for the read file 
-            //localFile = mStorageManager.getFileByPath(remoteFile.getRemotePath());
+            //  localFile = mStorageManager.getFileByPath(remoteFile.getRemotePath());
             localFile = localFilesMap.remove(remoteFile.getRemotePath());
             
-            /// add to the remoteFile (the new one) data about LOCAL STATE (not existing in the server side)
+            /// add to the remoteFile (the new one) data about LOCAL STATE (not existing in server)
             remoteFile.setLastSyncDateForProperties(mCurrentSyncTime);
             if (localFile != null) {
                 // some properties of local state are kept unmodified
                 remoteFile.setFileId(localFile.getFileId());
                 remoteFile.setKeepInSync(localFile.keepInSync());
                 remoteFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
-                remoteFile.setModificationTimestampAtLastSyncForData(localFile.getModificationTimestampAtLastSyncForData());
+                remoteFile.setModificationTimestampAtLastSyncForData(
+                        localFile.getModificationTimestampAtLastSyncForData()
+                );
                 remoteFile.setStoragePath(localFile.getStoragePath());
-                remoteFile.setEtag(localFile.getEtag());    // eTag will not be updated unless contents are synchronized (Synchronize[File|Folder]Operation with remoteFile as parameter)
+                // eTag will not be updated unless contents are synchronized 
+                //  (Synchronize[File|Folder]Operation with remoteFile as parameter)
+                remoteFile.setEtag(localFile.getEtag());    
                 if (remoteFile.isFolder()) {
-                    remoteFile.setFileLength(localFile.getFileLength()); // TODO move operations about size of folders to FileContentProvider
+                    remoteFile.setFileLength(localFile.getFileLength()); 
+                        // TODO move operations about size of folders to FileContentProvider
                 }
+                remoteFile.setPublicLink(localFile.getPublicLink());
+                remoteFile.setShareByLink(localFile.isShareByLink());
             } else {
-                remoteFile.setEtag(""); // remote eTag will not be updated unless contents are synchronized (Synchronize[File|Folder]Operation with remoteFile as parameter)
+                // remote eTag will not be updated unless contents are synchronized 
+                //  (Synchronize[File|Folder]Operation with remoteFile as parameter)
+                remoteFile.setEtag(""); 
             }
 
             /// check and fix, if needed, local storage path
-            checkAndFixForeignStoragePath(remoteFile);      // fixing old policy - now local files must be copied into the ownCloud local folder 
+            checkAndFixForeignStoragePath(remoteFile);      // policy - local files are COPIED 
+                                                            // into the ownCloud local folder;
             searchForLocalFileInDefaultPath(remoteFile);    // legacy   
 
             /// prepare content synchronization for kept-in-sync files
             if (remoteFile.keepInSync()) {
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(  localFile,        
                                                                                     remoteFile, 
-                                                                                    mStorageManager,
-                                                                                    mAccount,       
+                                                                                    mAccount, 
                                                                                     true, 
                                                                                     mContext
                                                                                     );
+                
                 filesToSyncContents.add(operation);
             }
             
             updatedFiles.add(remoteFile);
         }
 
-        // save updated contents in local database; all at once, trying to get a best performance in database update (not a big deal, indeed)
+        // save updated contents in local database
         mStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
 
         // request for the synchronization of file contents AFTER saving current remote properties
         startContentSynchronizations(filesToSyncContents, client);
 
-        // removal of obsolete files
-        //removeObsoleteFiles();
-       
-        // must be done AFTER saving all the children information, so that eTag is not updated in the database in case of unexpected exceptions
-        //mStorageManager.saveFile(remoteFolder);
         mChildren = updatedFiles;
-        
     }
 
     /**
-     * Performs a list of synchronization operations, determining if a download or upload is needed or
-     * if exists conflict due to changes both in local and remote contents of the each file.
+     * Performs a list of synchronization operations, determining if a download or upload is needed
+     * or if exists conflict due to changes both in local and remote contents of the each file.
      * 
-     * If download or upload is needed, request the operation to the corresponding service and goes on.
+     * If download or upload is needed, request the operation to the corresponding service and goes 
+     * on.
      * 
      * @param filesToSyncContents       Synchronization operations to execute.
      * @param client                    Interface to the remote ownCloud server.
      */
-    private void startContentSynchronizations(List<SynchronizeFileOperation> filesToSyncContents, WebdavClient client) {
+    private void startContentSynchronizations(
+            List<SynchronizeFileOperation> filesToSyncContents, OwnCloudClient client
+        ) {
         RemoteOperationResult contentsResult = null;
         for (SynchronizeFileOperation op: filesToSyncContents) {
-            contentsResult = op.execute(client);   // returns without waiting for upload or download finishes
+            contentsResult = op.execute(mStorageManager, mContext);   // async
             if (!contentsResult.isSuccess()) {
                 if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
                     mConflictsFound++;
                 } else {
                     mFailsInFavouritesFound++;
                     if (contentsResult.getException() != null) {
-                        Log_OC.e(TAG, "Error while synchronizing favourites : " +  contentsResult.getLogMessage(), contentsResult.getException());
+                        Log_OC.e(TAG, "Error while synchronizing favourites : " 
+                                +  contentsResult.getLogMessage(), contentsResult.getException());
                     } else {
-                        Log_OC.e(TAG, "Error while synchronizing favourites : " + contentsResult.getLogMessage());
+                        Log_OC.e(TAG, "Error while synchronizing favourites : " 
+                                + contentsResult.getLogMessage());
                     }
                 }
             }   // won't let these fails break the synchronization process
@@ -430,30 +448,31 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         return (status == HttpStatus.SC_MULTI_STATUS); 
     }
 
-
     /**
      * Creates and populates a new {@link OCFile} object with the data read from the server.
      * 
-     * @param we        WebDAV entry read from the server for a WebDAV resource (remote file or folder).
+     * @param remote    remote file read from the server (remote file or folder).
      * @return          New OCFile instance representing the remote resource described by we.
      */
-    private OCFile fillOCFile(WebdavEntry we) {
-        OCFile file = new OCFile(we.decodedPath());
-        file.setCreationTimestamp(we.createTimestamp());
-        file.setFileLength(we.contentLength());
-        file.setMimetype(we.contentType());
-        file.setModificationTimestamp(we.modifiedTimestamp());
-        file.setEtag(we.etag());
+    private OCFile fillOCFile(RemoteFile remote) {
+        OCFile file = new OCFile(remote.getRemotePath());
+        file.setCreationTimestamp(remote.getCreationTimestamp());
+        file.setFileLength(remote.getLength());
+        file.setMimetype(remote.getMimeType());
+        file.setModificationTimestamp(remote.getModifiedTimestamp());
+        file.setEtag(remote.getEtag());
+        file.setPermissions(remote.getPermissions());
+        file.setRemoteId(remote.getRemoteId());
         return file;
     }
     
 
     /**
-     * Checks the storage path of the OCFile received as parameter. If it's out of the local ownCloud folder,
-     * tries to copy the file inside it. 
+     * Checks the storage path of the OCFile received as parameter. 
+     * If it's out of the local ownCloud folder, tries to copy the file inside it. 
      * 
-     * If the copy fails, the link to the local file is nullified. The account of forgotten files is kept in 
-     * {@link #mForgottenLocalFiles}
+     * If the copy fails, the link to the local file is nullified. The account of forgotten 
+     * files is kept in {@link #mForgottenLocalFiles}
      *) 
      * @param file      File to check and fix.
      */
@@ -475,7 +494,9 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     File expectedParent = expectedFile.getParentFile();
                     expectedParent.mkdirs();
                     if (!expectedParent.isDirectory()) {
-                        throw new IOException("Unexpected error: parent directory could not be created");
+                        throw new IOException(
+                                "Unexpected error: parent directory could not be created"
+                        );
                     }
                     expectedFile.createNewFile();
                     if (!expectedFile.isFile()) {
@@ -499,17 +520,41 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     try {
                         if (in != null) in.close();
                     } catch (Exception e) {
-                        Log_OC.d(TAG, "Weird exception while closing input stream for " + storagePath + " (ignoring)", e);
+                        Log_OC.d(TAG, "Weird exception while closing input stream for " 
+                                + storagePath + " (ignoring)", e);
                     }
                     try {
                         if (out != null) out.close();
                     } catch (Exception e) {
-                        Log_OC.d(TAG, "Weird exception while closing output stream for " + expectedPath + " (ignoring)", e);
+                        Log_OC.d(TAG, "Weird exception while closing output stream for " 
+                                + expectedPath + " (ignoring)", e);
                     }
                 }
             }
         }
     }
+    
+    
+    private RemoteOperationResult refreshSharesForFolder(OwnCloudClient client) {
+        RemoteOperationResult result = null;
+        
+        // remote request 
+        GetRemoteSharesForFileOperation operation = 
+                new GetRemoteSharesForFileOperation(mLocalFolder.getRemotePath(), false, true);
+        result = operation.execute(client);
+        
+        if (result.isSuccess()) {
+            // update local database
+            ArrayList<OCShare> shares = new ArrayList<OCShare>();
+            for(Object obj: result.getData()) {
+                shares.add((OCShare) obj);
+            }
+            mStorageManager.saveSharesInFolder(shares, mLocalFolder);
+        }
+
+        return result;
+    }
+    
 
     /**
      * Scans the default location for saving local copies of files searching for
@@ -530,22 +575,26 @@ public class SynchronizeFolderOperation extends RemoteOperation {
 
     
     /**
-     * Sends a message to any application component interested in the progress of the synchronization.
+     * Sends a message to any application component interested in the progress 
+     * of the synchronization.
      * 
-     * @param inProgress        'True' when the synchronization progress is not finished.
-     * @param dirRemotePath     Remote path of a folder that was just synchronized (with or without success)
+     * @param event
+     * @param dirRemotePath     Remote path of a folder that was just synchronized 
+     *                          (with or without success)
+     * @param result
      */
-    private void sendStickyBroadcast(boolean inProgress, String dirRemotePath, RemoteOperationResult result) {
-        Intent i = new Intent(FileSyncService.getSyncMessage());
-        i.putExtra(FileSyncService.IN_PROGRESS, inProgress);
-        i.putExtra(FileSyncService.ACCOUNT_NAME, mAccount.name);
+    private void sendLocalBroadcast(
+            String event, String dirRemotePath, RemoteOperationResult result
+        ) {
+        Log_OC.d(TAG, "Send broadcast " + event);
+        Intent intent = new Intent(event);
+        intent.putExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME, mAccount.name);
         if (dirRemotePath != null) {
-            i.putExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH, dirRemotePath);
+            intent.putExtra(FileSyncAdapter.EXTRA_FOLDER_PATH, dirRemotePath);
         }
-        if (result != null) {
-            i.putExtra(FileSyncService.SYNC_RESULT, result);
-        }
-        mContext.sendStickyBroadcast(i);
+        intent.putExtra(FileSyncAdapter.EXTRA_RESULT, result);
+        mContext.sendStickyBroadcast(intent);
+        //LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 
 

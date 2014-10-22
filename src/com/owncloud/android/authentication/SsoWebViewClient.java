@@ -17,16 +17,29 @@
 
 package com.owncloud.android.authentication;
 
+import java.io.ByteArrayInputStream;
 import java.lang.ref.WeakReference;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 
-import com.owncloud.android.Log_OC;
+import com.owncloud.android.lib.common.network.NetworkUtils;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
-
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.http.SslCertificate;
+import android.net.http.SslError;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
+import android.webkit.HttpAuthHandler;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -48,12 +61,15 @@ public class SsoWebViewClient extends WebViewClient {
         public void onSsoFinished(String sessionCookie);
     }
     
+    private Context mContext;
     private Handler mListenerHandler;
     private WeakReference<SsoWebViewClientListener> mListenerRef;
     private String mTargetUrl;
     private String mLastReloadedUrlAtError;
+
     
-    public SsoWebViewClient (Handler listenerHandler, SsoWebViewClientListener listener) {
+    public SsoWebViewClient (Context context, Handler listenerHandler, SsoWebViewClientListener listener) {
+        mContext = context;
         mListenerHandler = listenerHandler;
         mListenerRef = new WeakReference<SsoWebViewClient.SsoWebViewClientListener>(listener);
         mTargetUrl = "fake://url.to.be.set";
@@ -71,6 +87,7 @@ public class SsoWebViewClient extends WebViewClient {
     @Override
     public void onPageStarted (WebView view, String url, Bitmap favicon) {
         Log_OC.d(TAG, "onPageStarted : " + url);
+        view.clearCache(true);
         super.onPageStarted(view, url, favicon);
     }
     
@@ -107,7 +124,7 @@ public class SsoWebViewClient extends WebViewClient {
             view.setVisibility(View.GONE);
             CookieManager cookieManager = CookieManager.getInstance();
             final String cookies = cookieManager.getCookie(url);
-            //Log_OC.d(TAG, "Cookies: " + cookies);
+            Log_OC.d(TAG, "Cookies: " + cookies);
             if (mListenerHandler != null && mListenerRef != null) {
                 // this is good idea because onPageFinished is not running in the UI thread
                 mListenerHandler.post(new Runnable() {
@@ -115,29 +132,73 @@ public class SsoWebViewClient extends WebViewClient {
                     public void run() {
                         SsoWebViewClientListener listener = mListenerRef.get();
                         if (listener != null) {
+                        	// Send Cookies to the listener
                             listener.onSsoFinished(cookies);
                         }
                     }
                 });
             }
-        }
-
+        } 
     }
     
-    /*
+    
     @Override
     public void doUpdateVisitedHistory (WebView view, String url, boolean isReload) {
         Log_OC.d(TAG, "doUpdateVisitedHistory : " + url);
     }
     
     @Override
-    public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+    public void onReceivedSslError (final WebView view, final SslErrorHandler handler, SslError error) {
         Log_OC.d(TAG, "onReceivedSslError : " + error);
+        // Test 1
+        X509Certificate x509Certificate = getX509CertificateFromError(error);
+        boolean isKnownServer = false;
+        
+        if (x509Certificate != null) {
+            Log_OC.d(TAG, "------>>>>> x509Certificate " + x509Certificate.toString());
+            
+            try {
+                isKnownServer = NetworkUtils.isCertInKnownServersStore((Certificate) x509Certificate, mContext);
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Exception: " + e.getMessage());
+            }
+        }
+        
+         if (isKnownServer) {
+             handler.proceed();
+         } else {
+             ((AuthenticatorActivity)mContext).showUntrustedCertDialog(x509Certificate, error, handler);
+         }
+    }
+    
+    /**
+     * Obtain the X509Certificate from SslError
+     * @param   error     SslError
+     * @return  X509Certificate from error
+     */
+    public X509Certificate getX509CertificateFromError (SslError error) {
+        Bundle bundle = SslCertificate.saveState(error.getCertificate());
+        X509Certificate x509Certificate;
+        byte[] bytes = bundle.getByteArray("x509-certificate");
+        if (bytes == null) {
+            x509Certificate = null;
+        } else {
+            try {
+                CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
+                Certificate cert = certFactory.generateCertificate(new ByteArrayInputStream(bytes));
+                x509Certificate = (X509Certificate) cert;
+            } catch (CertificateException e) {
+                x509Certificate = null;
+            }
+        }        
+        return x509Certificate;
     }
     
     @Override
     public void onReceivedHttpAuthRequest (WebView view, HttpAuthHandler handler, String host, String realm) {
         Log_OC.d(TAG, "onReceivedHttpAuthRequest : " + host);
+
+        ((AuthenticatorActivity)mContext).createAuthenticationDialog(view, handler);
     }
 
     @Override
@@ -172,5 +233,4 @@ public class SsoWebViewClient extends WebViewClient {
         Log_OC.d(TAG, "shouldOverrideKeyEvent : " + event);
         return false;
     }
-    */
 }

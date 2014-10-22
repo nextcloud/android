@@ -54,7 +54,7 @@
             android:visibility="gone" />
         
         <TextView
-            android:id="@+id/auth_message"
+            android:id="@+id/instructions_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="fill_horizontal"

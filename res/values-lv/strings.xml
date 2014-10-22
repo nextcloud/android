@@ -3,18 +3,16 @@
   <string name="actionbar_upload">Augšupielādēt</string>
   <string name="actionbar_upload_from_apps">Saturs no citām lietotnēm</string>
   <string name="actionbar_upload_files">Datnes</string>
-  <string name="actionbar_mkdir">Izveidot direktoriju</string>
+  <string name="actionbar_mkdir">Jauna mape</string>
   <string name="actionbar_settings">Iestatījumi</string>
+  <string name="actionbar_send_file">Sūtīt</string>
   <string name="prefs_category_general">Vispārīgi</string>
   <string name="prefs_category_more">Vairāk</string>
   <string name="prefs_accounts">Konti</string>
   <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
   <string name="prefs_pincode">Lietotnes PIN</string>
   <string name="prefs_pincode_summary">Aizsargā savu klientu</string>
-  <string name="prefs_instant_upload">Aktivēt tūlītējo augšupielādēšanu</string>
-  <string name="prefs_instant_upload_summary">Nekavējoties augšupielādēt kameras uzņemtos attēlus</string>
   <string name="prefs_help">Palīdzība</string>
-  <string name="auth_host_url">Servera adrese</string>
   <string name="auth_username">Lietotājvārds</string>
   <string name="auth_password">Parole</string>
   <string name="sync_string_files">Datnes</string>
@@ -28,7 +26,7 @@
   <string name="uploader_wrn_no_content_text">Nav saņemts nekāds saturs. Nav ko augšupielādēt.</string>
   <string name="uploader_error_forbidden_content">%1$s nedrīkst piekļūt koplietotajam saturam</string>
   <string name="uploader_info_uploading">Augšupielādē</string>
-  <string name="file_list_empty">Šajā mapē nav datņu.\nJaunas datnes var pievienot ar izvēlnes opciju “Augšupielādēt”</string>
+  <string name="file_list_empty">Te vēl nekas nav. Rīkojies, sāc augšupielādēt!</string>
   <string name="filedetails_select_file">Uzsitiet uz datnes, lai redzētu papildinformāciju.</string>
   <string name="filedetails_size">Izmērs:</string>
   <string name="filedetails_type">Tips:</string>
@@ -44,12 +42,14 @@
   <string name="common_cancel">Atcelt</string>
   <string name="common_save_exit">Saglabāt un iziet</string>
   <string name="common_error">Kļūda</string>
+  <string name="common_loading">Ielādē</string>
+  <string name="common_error_unknown">Nezināma kļūda</string>
   <string name="about_title">Par</string>
   <string name="change_password">Mainīt paroli</string>
   <string name="delete_account">Dzēst kontu</string>
   <string name="create_account">Izveidot kontu</string>
   <string name="upload_chooser_title">Augšupielādēt no...</string>
-  <string name="uploader_info_dirname">Direktorijas nosaukums</string>
+  <string name="uploader_info_dirname">Mapes nosaukums</string>
   <string name="uploader_upload_in_progress_ticker">Augšupielādē ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% augšupielādē %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Augšupielāde ir veiksmīga</string>
@@ -78,9 +78,11 @@
   <string name="pincode_wrong">Nepareizs lietotnes PIN</string>
   <string name="pincode_removed">Lietotnes PIN ir izņemts</string>
   <string name="pincode_stored">Lietotnes PIN ir noglabāts</string>
+  <string name="auth_trying_to_login">Mēģina ierakstīties...</string>
   <string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
   <string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
   <string name="auth_connection_established">Savienojums ir izveidots</string>
+  <string name="auth_testing_connection">Testē savienojumu...</string>
   <string name="auth_not_configured_title">Slikti formatēta servera konfigurācija</string>
   <string name="auth_unknown_error_title">Gadījās nezināma kļūda!</string>
   <string name="auth_unknown_host_title">Nevarēja atrast datoru</string>
@@ -94,8 +96,6 @@
   <string name="fd_keep_in_sync">Uzturēt datni aktuālu</string>
   <string name="common_rename">Pārsaukt</string>
   <string name="common_remove">Izņemt</string>
-  <string name="confirmation_remove_alert">Vai tiešām vēlaties izņemt %1$s?</string>
-  <string name="confirmation_remove_folder_alert">Vai vēlaties izņemt %1$s un tā saturu?</string>
   <string name="confirmation_remove_local">Tikai lokālos</string>
   <string name="confirmation_remove_folder_local">Tikai lokālo saturu</string>
   <string name="confirmation_remove_remote">Izņemt no servera</string>
@@ -107,7 +107,6 @@
   <string name="rename_server_fail_msg">Nevarēja pabeigt pārsaukšanu</string>
   <string name="sync_file_fail_msg">Nevarēja atzīmēt attālinātas datnes</string>
   <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
-  <string name="create_dir_fail_msg">Nevarēja izveidot direktoriju</string>
   <string name="wait_a_moment">Uzgaidīt brīdi</string>
   <string name="filedisplay_unexpected_bad_get_content">Negaidīta problēma; lūdzu, izvēlieties datni no citas lietotnes</string>
   <string name="filedisplay_no_file_selected">Netika izvēlēta neviena datne</string>
@@ -140,4 +139,8 @@
   <string name="conflict_keep_both">Paturēt abas</string>
   <string name="conflict_overwrite">Pārrakstīt</string>
   <string name="conflict_dont_upload">Neaugšupielādēt</string>
+  <string name="activity_chooser_send_file_title">Sūtīt</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Konti</string>
+  <string name="move_choose_button_text">Izvēlieties</string>
 </resources>

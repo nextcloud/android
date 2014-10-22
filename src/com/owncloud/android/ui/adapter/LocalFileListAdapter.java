@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,10 +21,6 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import com.owncloud.android.DisplayUtils;
-import com.owncloud.android.R;
-
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +30,9 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.owncloud.android.R;
+import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * This Adapter populates a ListView with all files and directories contained
@@ -135,6 +134,9 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             
             view.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);   // not GONE; the alignment changes; ugly way to keep it
             view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+            
+            view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
+            view.findViewById(R.id.sharedWithMeIcon).setVisibility(View.GONE);
         }
 
         return view;

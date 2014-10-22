@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,158 +18,185 @@
 
 package com.owncloud.android.operations;
 
-import org.apache.http.HttpStatus;
-import org.apache.jackrabbit.webdav.DavConstants;
-import org.apache.jackrabbit.webdav.MultiStatus;
-import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
-
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 
+/**
+ * Remote operation performing the read of remote file in the ownCloud server.
+ * 
+ * @author David A. Velasco
+ * @author masensio
+ */
 
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavEntry;
-import eu.alefzero.webdav.WebdavUtils;
-
-public class SynchronizeFileOperation extends RemoteOperation {
+public class SynchronizeFileOperation extends SyncOperation {
 
     private String TAG = SynchronizeFileOperation.class.getSimpleName();
-    private static final int SYNC_READ_TIMEOUT = 10000;
-    private static final int SYNC_CONNECTION_TIMEOUT = 5000;
     
     private OCFile mLocalFile;
+    private String mRemotePath;
     private OCFile mServerFile;
-    private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private boolean mSyncFileContents;
     private Context mContext;
     
     private boolean mTransferWasRequested = false;
+
     
+    /**
+     * Constructor.
+     * 
+     * Uses remotePath to retrieve all the data in local cache and remote server when the operation
+     * is executed, instead of reusing {@link OCFile} instances.
+     * 
+     * @param 
+     * @param account               ownCloud account holding the file.
+     * @param syncFileContents      When 'true', transference of data will be started by the 
+     *                              operation if needed and no conflict is detected.
+     * @param context               Android context; needed to start transfers.
+     */
+    public SynchronizeFileOperation(
+            String remotePath,  
+            Account account, 
+            boolean syncFileContents,
+            Context context) {
+        
+        mRemotePath = remotePath;
+        mLocalFile = null;
+        mServerFile = null;
+        mAccount = account;
+        mSyncFileContents = syncFileContents;
+        mContext = context;
+    }
+
+    
+    /**
+     * Constructor allowing to reuse {@link OCFile} instances just queried from cache or network.
+     * 
+     * Useful for folder / account synchronizations.
+     * 
+     * @param localFile             Data of file currently hold in device cache. MUSTN't be null.
+     * @param serverFile            Data of file just retrieved from network. If null, will be
+     *                              retrieved from network by the operation when executed.
+     * @param account               ownCloud account holding the file.
+     * @param syncFileContents      When 'true', transference of data will be started by the 
+     *                              operation if needed and no conflict is detected.
+     * @param context               Android context; needed to start transfers.
+     */
     public SynchronizeFileOperation(
             OCFile localFile,
-            OCFile serverFile,          // make this null to let the operation checks the server; added to reuse info from SynchronizeFolderOperation 
-            FileDataStorageManager storageManager, 
+            OCFile serverFile, 
             Account account, 
             boolean syncFileContents,
             Context context) {
         
         mLocalFile = localFile;
         mServerFile = serverFile;
-        mStorageManager = storageManager;
+        mRemotePath = localFile.getRemotePath();
         mAccount = account;
         mSyncFileContents = syncFileContents;
         mContext = context;
     }
-
+    
 
     @Override
-    protected RemoteOperationResult run(WebdavClient client) {
-        
-        PropFindMethod propfind = null;
+    protected RemoteOperationResult run(OwnCloudClient client) {
+
         RemoteOperationResult result = null;
         mTransferWasRequested = false;
-        try {
-            if (!mLocalFile.isDown()) {
-                /// easy decision
-                requestForDownload(mLocalFile);
-                result = new RemoteOperationResult(ResultCode.OK);
-                
-            } else {
-                /// local copy in the device -> need to think a bit more before do anything
-                
-                if (mServerFile == null) {
-                    /// take the duty of check the server for the current state of the file there
-                    propfind = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mLocalFile.getRemotePath()),
-                            DavConstants.PROPFIND_ALL_PROP,
-                            DavConstants.DEPTH_0);
-                    int status = client.executeMethod(propfind, SYNC_READ_TIMEOUT, SYNC_CONNECTION_TIMEOUT);
-                    boolean isMultiStatus = status == HttpStatus.SC_MULTI_STATUS;
-                    if (isMultiStatus) {
-                        MultiStatus resp = propfind.getResponseBodyAsMultiStatus();
-                        WebdavEntry we = new WebdavEntry(resp.getResponses()[0],
-                                               client.getBaseUri().getPath());
-                        mServerFile = fillOCFile(we);
-                        mServerFile.setLastSyncDateForProperties(System.currentTimeMillis());
-                        
-                    } else {
-                        client.exhaustResponse(propfind.getResponseBodyAsStream());
-                        result = new RemoteOperationResult(false, status, propfind.getResponseHeaders());
-                    }
+        
+        if (mLocalFile == null) {
+            // Get local file from the DB
+            mLocalFile = getStorageManager().getFileByPath(mRemotePath);
+        }
+        
+        if (!mLocalFile.isDown()) {
+            /// easy decision
+            requestForDownload(mLocalFile);
+            result = new RemoteOperationResult(ResultCode.OK);
+
+        } else {
+            /// local copy in the device -> need to think a bit more before do anything
+
+            if (mServerFile == null) {
+                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mRemotePath);
+                result = operation.execute(client);
+                if (result.isSuccess()){
+                    mServerFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+                    mServerFile.setLastSyncDateForProperties(System.currentTimeMillis());
                 }
-                
-                if (result == null) {   // true if the server was not checked. nothing was wrong with the remote request
-              
-                    /// check changes in server and local file
-                    boolean serverChanged = false;
-                    /* time for eTag is coming, but not yet
+            }
+
+            if (mServerFile != null) {   
+
+                /// check changes in server and local file
+                boolean serverChanged = false;
+                /* time for eTag is coming, but not yet
                     if (mServerFile.getEtag() != null) {
                         serverChanged = (!mServerFile.getEtag().equals(mLocalFile.getEtag()));   // TODO could this be dangerous when the user upgrades the server from non-tagged to tagged?
                     } else { */
-                        // server without etags
-                        serverChanged = (mServerFile.getModificationTimestamp() > mLocalFile.getModificationTimestampAtLastSyncForData());
-                    //}
-                    boolean localChanged = (mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData());
-                        // TODO this will be always true after the app is upgraded to database version 2; will result in unnecessary uploads
-              
-                    /// decide action to perform depending upon changes
-                    //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
-                    if (localChanged && serverChanged) {
-                        result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
-                  
-                    } else if (localChanged) {
-                        if (mSyncFileContents) {
-                            requestForUpload(mLocalFile);
-                            // the local update of file properties will be done by the FileUploader service when the upload finishes
-                        } else {
-                            // NOTHING TO DO HERE: updating the properties of the file in the server without uploading the contents would be stupid; 
-                            // So, an instance of SynchronizeFileOperation created with syncFileContents == false is completely useless when we suspect
-                            // that an upload is necessary (for instance, in FileObserverService).
-                        }
-                        result = new RemoteOperationResult(ResultCode.OK);
-                  
-                    } else if (serverChanged) {
-                        if (mSyncFileContents) {
-                            requestForDownload(mLocalFile); // local, not server; we won't to keep the value of keepInSync!
-                            // the update of local data will be done later by the FileUploader service when the upload finishes
-                        } else {
-                            // TODO CHECK: is this really useful in some point in the code?
-                            mServerFile.setKeepInSync(mLocalFile.keepInSync());
-                            mServerFile.setLastSyncDateForData(mLocalFile.getLastSyncDateForData());
-                            mServerFile.setStoragePath(mLocalFile.getStoragePath());
-                            mServerFile.setParentId(mLocalFile.getParentId());
-                            mStorageManager.saveFile(mServerFile);
-                            
-                        }
-                        result = new RemoteOperationResult(ResultCode.OK);
-              
-                    } else {
-                        // nothing changed, nothing to do
-                        result = new RemoteOperationResult(ResultCode.OK);
-                    }
-              
-                } 
-          
-            }
-            
-            Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() + ": " + result.getLogMessage());
-          
-        } catch (Exception e) {
-            result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Synchronizing " + mAccount.name + ", file " + (mLocalFile != null ? mLocalFile.getRemotePath() : "NULL") + ": " + result.getLogMessage(), result.getException());
+                // server without etags
+                serverChanged = (mServerFile.getModificationTimestamp() != mLocalFile.getModificationTimestampAtLastSyncForData());
+                //}
+                boolean localChanged = (mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData());
+                // TODO this will be always true after the app is upgraded to database version 2; will result in unnecessary uploads
 
-        } finally {
-            if (propfind != null)
-                propfind.releaseConnection();
+                /// decide action to perform depending upon changes
+                //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
+                if (localChanged && serverChanged) {
+                    result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+
+                } else if (localChanged) {
+                    if (mSyncFileContents) {
+                        requestForUpload(mLocalFile);
+                        // the local update of file properties will be done by the FileUploader service when the upload finishes
+                    } else {
+                        // NOTHING TO DO HERE: updating the properties of the file in the server without uploading the contents would be stupid; 
+                        // So, an instance of SynchronizeFileOperation created with syncFileContents == false is completely useless when we suspect
+                        // that an upload is necessary (for instance, in FileObserverService).
+                    }
+                    result = new RemoteOperationResult(ResultCode.OK);
+
+                } else if (serverChanged) {
+                    mLocalFile.setRemoteId(mServerFile.getRemoteId());
+                    
+                    if (mSyncFileContents) {
+                        requestForDownload(mLocalFile); // local, not server; we won't to keep the value of keepInSync!
+                        // the update of local data will be done later by the FileUploader service when the upload finishes
+                    } else {
+                        // TODO CHECK: is this really useful in some point in the code?
+                        mServerFile.setKeepInSync(mLocalFile.keepInSync());
+                        mServerFile.setLastSyncDateForData(mLocalFile.getLastSyncDateForData());
+                        mServerFile.setStoragePath(mLocalFile.getStoragePath());
+                        mServerFile.setParentId(mLocalFile.getParentId());
+                        getStorageManager().saveFile(mServerFile);
+
+                    }
+                    result = new RemoteOperationResult(ResultCode.OK);
+
+                } else {
+                    // nothing changed, nothing to do
+                    result = new RemoteOperationResult(ResultCode.OK);
+                }
+
+            } 
+
         }
+
+        Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() + ": " + result.getLogMessage());
+
         return result;
     }
 
@@ -203,24 +230,6 @@ public class SynchronizeFileOperation extends RemoteOperation {
         i.putExtra(FileDownloader.EXTRA_FILE, file);
         mContext.startService(i);
         mTransferWasRequested = true;
-    }
-
-
-    /**
-     * Creates and populates a new {@link OCFile} object with the data read from the server.
-     * 
-     * @param we        WebDAV entry read from the server for a WebDAV resource (remote file or folder).
-     * @return          New OCFile instance representing the remote resource described by we.
-     */
-    private OCFile fillOCFile(WebdavEntry we) {
-        OCFile file = new OCFile(we.decodedPath());
-        file.setCreationTimestamp(we.createTimestamp());
-        file.setFileLength(we.contentLength());
-        file.setMimetype(we.contentType());
-        file.setModificationTimestamp(we.modifiedTimestamp());
-        file.setEtag(we.etag());
-        
-        return file;
     }
 
 

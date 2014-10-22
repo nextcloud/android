@@ -18,12 +18,10 @@ package com.owncloud.android.ui.preview;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
-
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.fragment.FileFragment;
 
 import android.accounts.Account;
 import android.support.v4.app.Fragment;
@@ -32,6 +30,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.fragment.FileFragment;
 
 /**
  * Adapter class that provides Fragment instances  
@@ -179,6 +179,19 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         return mDownloadErrors.contains(Integer.valueOf(position));
     }
 
+    /**
+     * Reset the image zoom to default value for each CachedFragments
+     */
+    public void resetZoom() {
+        Iterator<FileFragment> entries = mCachedFragments.values().iterator();
+        while (entries.hasNext()) {
+        FileFragment fileFragment = (FileFragment) entries.next();
+            if (fileFragment instanceof PreviewImageFragment) {
+                ((PreviewImageFragment) fileFragment).getImageView().resetZoom();
+            }
+        }
+    }
+
     /* -*
      * Called when a change in the shown pages is going to start being made.
      * 
@@ -186,17 +199,17 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      *- /
     @Override
     public void startUpdate(ViewGroup container) {
-        Log.e(TAG, "** startUpdate");
+        Log_OC.e(TAG, "** startUpdate");
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        Log.e(TAG, "** instantiateItem " + position);
+        Log_OC.e(TAG, "** instantiateItem " + position);
         
         if (mFragments.size() > position) {
             Fragment fragment = mFragments.get(position);
             if (fragment != null) {
-                Log.e(TAG, "** \t returning cached item");
+                Log_OC.e(TAG, "** \t returning cached item");
                 return fragment;
             }
         }
@@ -222,7 +235,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         }
         fragment.setMenuVisibility(false);
         mFragments.set(position, fragment);
-        //Log.e(TAG, "** \t adding fragment at position " + position + ", containerId " + container.getId());
+        //Log_OC.e(TAG, "** \t adding fragment at position " + position + ", containerId " + container.getId());
         mCurTransaction.add(container.getId(), fragment);
 
         return fragment;
@@ -230,13 +243,13 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        Log.e(TAG, "** destroyItem " + position);
+        Log_OC.e(TAG, "** destroyItem " + position);
         Fragment fragment = (Fragment)object;
         
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
-        Log.e(TAG, "** \t removing fragment at position " + position);
+        Log_OC.e(TAG, "** \t removing fragment at position " + position);
         while (mSavedState.size() <= position) {
             mSavedState.add(null);
         }
@@ -262,13 +275,13 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public void finishUpdate(ViewGroup container) {
-        Log.e(TAG, "** finishUpdate (start)");
+        Log_OC.e(TAG, "** finishUpdate (start)");
         if (mCurTransaction != null) {
             mCurTransaction.commitAllowingStateLoss();
             mCurTransaction = null;
             mFragmentManager.executePendingTransactions();
         }
-        Log.e(TAG, "** finishUpdate (end)");
+        Log_OC.e(TAG, "** finishUpdate (end)");
     }
 
     @Override
@@ -323,7 +336,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                         f.setMenuVisibility(false);
                         mFragments.set(index, f);
                     } else {
-                        Log.w(TAG, "Bad fragment at key " + key);
+                        Log_OC.w(TAG, "Bad fragment at key " + key);
                     }
                 }
             }
