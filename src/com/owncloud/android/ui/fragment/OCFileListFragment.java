@@ -396,6 +396,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             }
             
             // > 50% Images --> image view
+            // TODO threshold as constant in Preferences
             if ((count / files.size()) >= 0.5){
                 Log_OC.i(TAG, "Image View");
                 switchImageView();

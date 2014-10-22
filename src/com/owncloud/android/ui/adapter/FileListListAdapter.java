@@ -122,9 +122,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             }
         }
         
+        // TODO threshold as constant in Preferences
         // > 50% Images --> image view
         boolean fileView = true;
-        if ((count / mFiles.size()) >= 0.8){
+        if ((count / mFiles.size()) >= 0.5){
             fileView = false;
         } else {
             fileView = true;
