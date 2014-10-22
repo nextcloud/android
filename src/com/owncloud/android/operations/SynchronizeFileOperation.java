@@ -195,13 +195,6 @@ public class SynchronizeFileOperation extends SyncOperation {
             } 
 
         }
-        
-        // trigger MediaScan
-        MediaScannerConnection.scanFile(
-                null,
-                new String[]{mLocalFile.getStoragePath()},
-                null,null);
-
         Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() + ": " + result.getLogMessage());
 
         return result;

@@ -353,7 +353,7 @@ public class FileObserverService extends Service {
             Log_OC.d(TAG, "Received broadcast intent " + intent);
 
             File downloadedFile = new File(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
-            String parentPath = downloadedFile.getParent();            
+            String parentPath = downloadedFile.getParent();
             FolderObserver observer = mFolderObserversMap.get(parentPath);
             if (observer != null) {
                 if (intent.getAction().equals(FileDownloader.getDownloadFinishMessage())
@@ -369,13 +369,6 @@ public class FileObserverService extends Service {
                 }
 
             } else {
-                
-                if (downloadedFile.exists()){
-                    Log_OC.d("mediaScan", "mediaScan : " + downloadedFile.getAbsolutePath());
-                    MediaScannerConnection.scanFile(getApplicationContext(), 
-                            new String[]{downloadedFile.getAbsolutePath()}, null, null);
-                }
-                
                 Log_OC.d(TAG, "No observer for path " + downloadedFile.getAbsolutePath());
             }
         }
