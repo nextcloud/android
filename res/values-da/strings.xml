@@ -275,4 +275,5 @@
   <string name="move_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
   <string name="move_file_error">Der opstod en fejl under forsøg på at flytte denne mappe eller fil</string>
   <string name="forbidden_permissions_move">til at flytte denne fil</string>
+  <string name="prefs_category_security">Sikkerhed</string>
 </resources>

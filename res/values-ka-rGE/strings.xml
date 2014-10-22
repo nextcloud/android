@@ -149,4 +149,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">ანგარიში</string>
   <string name="move_choose_button_text">არჩევა</string>
+  <string name="prefs_category_security">უსაფრთხოება</string>
 </resources>

@@ -277,4 +277,5 @@
   <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
   <string name="move_file_error">Hubo un error al tratar de mover este archivo o carpeta</string>
   <string name="forbidden_permissions_move">para mover este archivo</string>
+  <string name="prefs_category_security">Seguridad</string>
 </resources>

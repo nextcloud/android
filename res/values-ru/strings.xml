@@ -277,4 +277,5 @@
   <string name="move_file_invalid_overwrite">Файл уже существует в папке назначения</string>
   <string name="move_file_error">Произошла ошибка при попытке перемещения этого файла или папки</string>
   <string name="forbidden_permissions_move">переместить этот файл</string>
+  <string name="prefs_category_security">Безопасность</string>
 </resources>

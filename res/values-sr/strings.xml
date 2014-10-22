@@ -109,4 +109,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Налози</string>
   <string name="move_choose_button_text">Одабери</string>
+  <string name="prefs_category_security">Безбедност</string>
 </resources>

@@ -277,4 +277,5 @@
   <string name="move_file_invalid_overwrite">该文件已经存在在目标文件夹</string>
   <string name="move_file_error">尝试移动该文件或文件夹时发生错误</string>
   <string name="forbidden_permissions_move">移动该文件</string>
+  <string name="prefs_category_security">安全</string>
 </resources>

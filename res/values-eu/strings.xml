@@ -261,4 +261,5 @@ Mesedez, baimendu berriz</string>
   <string name="saml_authentication_required_text">Autentikazioa beharrezkoa</string>
   <string name="saml_authentication_wrong_pass">Pasahitz okerra</string>
   <string name="move_choose_button_text">Aukeratu</string>
+  <string name="prefs_category_security">Segurtasuna</string>
 </resources>

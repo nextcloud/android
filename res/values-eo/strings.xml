@@ -186,4 +186,5 @@
   <string name="saml_authentication_required_text">Aŭtentiĝo nepras</string>
   <string name="saml_authentication_wrong_pass">Malĝusta pasvorto</string>
   <string name="move_choose_button_text">Elekti</string>
+  <string name="prefs_category_security">Sekuro</string>
 </resources>

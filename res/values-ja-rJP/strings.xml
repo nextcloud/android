@@ -278,4 +278,5 @@
   <string name="move_file_invalid_overwrite">そのファイルは、宛先フォルダに既に存在しています。</string>
   <string name="move_file_error">このファイルまたはフォルダーを移動する際にエラーが発生しました</string>
   <string name="forbidden_permissions_move">このファイルを移動</string>
+  <string name="prefs_category_security">セキュリティ</string>
 </resources>

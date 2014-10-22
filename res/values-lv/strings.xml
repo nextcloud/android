@@ -143,4 +143,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Konti</string>
   <string name="move_choose_button_text">Izvēlieties</string>
+  <string name="prefs_category_security">Drošība</string>
 </resources>

@@ -281,4 +281,5 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="move_file_invalid_overwrite">See fail on juba sihtkaustas olemas</string>
   <string name="move_file_error">Selle faili või kausta liigutamisel tekkis tõrge</string>
   <string name="forbidden_permissions_move">selle faili liigutamiseks</string>
+  <string name="prefs_category_security">Turvalisus</string>
 </resources>

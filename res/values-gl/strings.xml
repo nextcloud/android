@@ -263,4 +263,5 @@
   <string name="saml_authentication_wrong_pass">Contrasinal incorrecto</string>
   <string name="actionbar_move">Mover</string>
   <string name="move_choose_button_text">Escoller</string>
+  <string name="prefs_category_security">Seguranza</string>
 </resources>
