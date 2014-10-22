@@ -1734,15 +1734,15 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    private void sortByDate(boolean ascending){
+    private void sortByDate(boolean ascending) {
         getListOfFilesFragment().sortByDate(ascending);
     }
 
-    private void sortBySize(boolean ascending){
+    private void sortBySize(boolean ascending) {
         getListOfFilesFragment().sortBySize(ascending);
     }
 
-    private void sortByName(boolean ascending){
+    private void sortByName(boolean ascending) {
         getListOfFilesFragment().sortByName(ascending);
     }
 
