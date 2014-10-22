@@ -72,7 +72,7 @@ public class ExtendedListFragment extends Fragment
     private int mHeightCell = 0;
 
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
-    
+
     protected AbsListView mCurrentListView;
     private ExtendedListView mListView;
     private View mListFooterView;

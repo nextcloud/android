@@ -60,6 +60,7 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
+
 public class CopyActivity extends HookActivity implements FileFragment.ContainerActivity,
         OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
