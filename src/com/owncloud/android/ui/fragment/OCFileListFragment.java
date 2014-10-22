@@ -21,9 +21,7 @@ import java.io.File;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.MediaScannerConnection;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
