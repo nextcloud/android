@@ -256,14 +256,14 @@ public class OperationsService extends Service {
      */
     public class OperationsServiceBinder extends Binder /* implements OnRemoteOperationListener */ {
 
-        /** 
+        /**
          * Map of listeners that will be reported about the end of operations from a
          * {@link OperationsServiceBinder} instance
          */
         private final ConcurrentMap<OnRemoteOperationListener, Handler> mBoundListeners =
                 new ConcurrentHashMap<OnRemoteOperationListener, Handler>();
 
-        private ServiceHandler mServiceHandler = null;   
+        private ServiceHandler mServiceHandler = null;
 
         public OperationsServiceBinder(ServiceHandler serviceHandler) {
             mServiceHandler = serviceHandler;
@@ -290,7 +290,7 @@ public class OperationsService extends Service {
         /**
          * Adds a listener interested in being reported about the end of operations.
          *
-         * @param listener          Object to notify about the end of operations.    
+         * @param listener          Object to notify about the end of operations.
          * @param callbackHandler   {@link Handler} to access the listener without
          *                                         breaking Android threading protection.
          */
@@ -317,7 +317,7 @@ public class OperationsService extends Service {
 
         /**
          * TODO - IMPORTANT: update implementation when more operations are moved into the service
-         * 
+         *
          * @return  'True' when an operation that enforces the user to wait for completion is
          *          in process.
          */
@@ -346,7 +346,7 @@ public class OperationsService extends Service {
             }
         }
 
-        
+
         public boolean dispatchResultIfFinished(int operationId,
                                                 OnRemoteOperationListener listener) {
             Pair<RemoteOperation, RemoteOperationResult> undispatched = 
@@ -381,7 +381,7 @@ public class OperationsService extends Service {
 
     /**
      * Operations worker. Performs the pending operations in the order they were requested.
-     * 
+     *
      * Created with the Looper of a new thread, started in {@link OperationsService#onCreate()}. 
      */
     private static class ServiceHandler extends Handler {
@@ -391,7 +391,7 @@ public class OperationsService extends Service {
         
         OperationsService mService;
 
-        
+
         private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations =
                 new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
         private RemoteOperation mCurrentOperation = null;
@@ -477,7 +477,7 @@ public class OperationsService extends Service {
                     } else {
                         result = mCurrentOperation.execute(mOwnCloudClient);
                     }
-                    
+
                 } catch (AccountsException e) {
                     if (mLastTarget.mAccount == null) {
                         Log_OC.e(TAG, "Error while trying to get authorization for a NULL account",

@@ -125,7 +125,7 @@ public class FileOperationsHelper {
         }
     }
 
-    
+
     public void shareFileWithLinkToApp(OCFile file, String password, Intent sendIntent) {
         
         if (file != null) {

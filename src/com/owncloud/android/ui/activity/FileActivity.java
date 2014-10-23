@@ -709,6 +709,7 @@ public class FileActivity extends ActionBarActivity
     }
 
 
+
     private void onCreateShareOperationFinish(CreateShareOperation operation,
                                               RemoteOperationResult result) {
         dismissLoadingDialog();

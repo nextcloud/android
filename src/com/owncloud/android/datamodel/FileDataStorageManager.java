@@ -158,7 +158,7 @@ public class FileDataStorageManager {
         }
     }
 
-    
+
     public Vector<OCFile> getFolderImages(OCFile folder/*, boolean onlyOnDevice*/) {
         Vector<OCFile> ret = new Vector<OCFile>(); 
         if (folder != null) {
@@ -206,8 +206,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
         
         boolean sameRemotePath = fileExists(file.getRemotePath());
-        if (sameRemotePath ||
-                fileExists(file.getFileId())        ) {  // for renamed files
+        if (sameRemotePath ||                fileExists(file.getFileId())) {           // for renamed files; no more delete and create
 
             OCFile oldFile = null;
             if (sameRemotePath) {
@@ -357,7 +356,7 @@ public class FileDataStorageManager {
                                     ProviderTableMeta.CONTENT_URI_FILE, file.getFileId()
                             )
                     ).withSelection(where, whereArgs).build());
-                    
+
                     if (file.isDown()) {
                         String path = file.getStoragePath();
                         new File(path).delete();
@@ -480,13 +479,10 @@ public class FileDataStorageManager {
 
             } else {
                 if (removeDBData) {
-                    Uri file_uri = ContentUris.withAppendedId(
-                        ProviderTableMeta.CONTENT_URI_FILE, 
-                        file.getFileId()
-                    );
-                    String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?" + " AND " + 
-                            ProviderTableMeta.FILE_PATH + "=?";
-                    String [] whereArgs = new String[]{mAccount.name, file.getRemotePath()};
+                    //Uri file_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, ""+file.getFileId());
+                    Uri file_uri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, file.getFileId());
+                    String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?" + " AND " + ProviderTableMeta.FILE_PATH + "=?";
+                    String[] whereArgs = new String[]{mAccount.name, file.getRemotePath()};
                     int deleted = 0;
                     if (getContentProviderClient() != null) {
                         try {
@@ -1006,8 +1002,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getIdRemoteShared());
         cv.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name);
 
-        if (shareExists(share.getIdRemoteShared())) {   // for renamed files
-
+        if (shareExists(share.getIdRemoteShared())) {           // for renamed files; no more delete and create
             overriden = true;
             if (getContentResolver() != null) {
                 getContentResolver().update(ProviderTableMeta.CONTENT_URI_SHARE, cv,
@@ -1106,12 +1101,9 @@ public class FileDataStorageManager {
             share.setSharedWithDisplayName(c.getString(c
                     .getColumnIndex(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME)));
             share.setIsFolder(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.OCSHARES_IS_DIRECTORY)) == 1 ? true : false);
+                    c.getColumnIndex(ProviderTableMeta.OCSHARES_IS_DIRECTORY)) == 1);
             share.setUserId(c.getLong(c.getColumnIndex(ProviderTableMeta.OCSHARES_USER_ID)));
-            share.setIdRemoteShared(
-                c.getLong(c.getColumnIndex(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED))
-            );
-                    
+            share.setIdRemoteShared(c.getLong(c.getColumnIndex(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED)));
         }
         return share;
     }
@@ -1162,10 +1154,7 @@ public class FileDataStorageManager {
 
         } else {
             try {
-                getContentProviderClient().update(
-                        ProviderTableMeta.CONTENT_URI, cv, where, whereArgs
-                );
-                
+                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
             } catch (RemoteException e) {
                 Log_OC.e(TAG, "Exception in cleanSharedFiles" + e.getMessage());
             }
@@ -1185,10 +1174,7 @@ public class FileDataStorageManager {
 
         } else {
             try {
-                getContentProviderClient().update(
-                        ProviderTableMeta.CONTENT_URI, cv, where, whereArgs
-                );
-                
+                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
             } catch (RemoteException e) {
                 Log_OC.e(TAG, "Exception in cleanSharedFilesInFolder " + e.getMessage());
             }
@@ -1204,10 +1190,7 @@ public class FileDataStorageManager {
 
         } else {
             try {
-                getContentProviderClient().delete(
-                        ProviderTableMeta.CONTENT_URI_SHARE, where, whereArgs
-                );
-                
+                getContentProviderClient().delete(ProviderTableMeta.CONTENT_URI_SHARE, where, whereArgs);
             } catch (RemoteException e) {
                 Log_OC.e(TAG, "Exception in cleanShares" + e.getMessage());
             }
@@ -1246,13 +1229,9 @@ public class FileDataStorageManager {
                     operations.add(
                             ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI_SHARE).
                             withValues(cv).
-                            withSelection(
-                                    ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?", 
-                                    new String[] { String.valueOf(share.getIdRemoteShared()) }
-                            ).
-                            build()
-                    );
-
+                            withSelection(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
+                                    new String[]{String.valueOf(share.getIdRemoteShared())})
+                            .build());
                 } else {
                     // adding a new file
                     operations.add(
@@ -1271,10 +1250,7 @@ public class FileDataStorageManager {
                         " operations to FileContentProvider");
                 try {
                     if (getContentResolver() != null) {
-                        results = getContentResolver().applyBatch(
-                                MainApp.getAuthority(), operations
-                        );
-    
+                        results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
                     } else {
                         results = getContentProviderClient().applyBatch(operations);
                     }
@@ -1341,11 +1317,9 @@ public class FileDataStorageManager {
                     operations.add(
                             ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
                             withValues(cv).
-                            withSelection(
-                                    ProviderTableMeta._ID + "=?", 
-                                    new String[] { String.valueOf(file.getFileId()) }
-                            ).build()
-                    );
+                            withSelection(ProviderTableMeta._ID + "=?",
+                                    new String[]{String.valueOf(file.getFileId())})
+                            .build());
 
                 } else {
                     // adding a new file
@@ -1365,10 +1339,7 @@ public class FileDataStorageManager {
                         " operations to FileContentProvider");
                 try {
                     if (getContentResolver() != null) {
-                        results = getContentResolver().applyBatch(
-                                MainApp.getAuthority(), operations
-                        );
-    
+                        results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
                     } else {
                         results = getContentProviderClient().applyBatch(operations);
                     }
