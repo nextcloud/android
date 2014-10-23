@@ -218,6 +218,7 @@
   <string name="conflict_dont_upload">Älä lähetä</string>
   <string name="preview_image_description">Kuvan esikatselu</string>
   <string name="preview_image_error_unknown_format">Tätä kuvaa ei voi näyttää</string>
+  <string name="prefs_instant_upload_path_title">Lähetyspolku</string>
   <string name="share_link_no_support_share_api">Jakaminen ei ole käytössä palvelimellasi. Ota yhteys
 		ylläpitäjään.</string>
   <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
@@ -240,7 +241,6 @@
   <string name="downloader_download_file_not_found">Tämä tiedosto ei ole enää palvelimella käytettävissä</string>
   <string name="prefs_category_accounts">Tilit</string>
   <string name="prefs_add_account">Lisää tili</string>
-  <string name="auth_redirect_non_secure_connection_title">Salattu yhteys on ohjattu uudelleen salaamatonta reittiä pitkin.</string>
   <string name="actionbar_logger">Lokit</string>
   <string name="log_send_history_button">Lähetä historia</string>
   <string name="log_mail_subject">ownCloudin Android-sovelluksen lokit</string>
@@ -253,4 +253,6 @@
   <string name="move_file_not_found">Siirto ei onnistu. Tarkista, ettei tiedostoa ole jo olemassa</string>
   <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
   <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
+  <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
+  <string name="prefs_category_security">Tietoturva</string>
 </resources>

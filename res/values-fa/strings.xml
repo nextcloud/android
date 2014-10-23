@@ -232,4 +232,5 @@
   <string name="saml_authentication_required_text">احراز هویت مورد نیاز است</string>
   <string name="saml_authentication_wrong_pass">رمز عبور اشتباه است</string>
   <string name="move_choose_button_text">انتخاب کردن</string>
+  <string name="prefs_category_security">امنیت</string>
 </resources>

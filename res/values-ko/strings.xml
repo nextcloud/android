@@ -217,4 +217,5 @@
   <string name="saml_authentication_required_text">인증 필요함</string>
   <string name="saml_authentication_wrong_pass">잘못된 암호</string>
   <string name="move_choose_button_text">선택</string>
+  <string name="prefs_category_security">보안</string>
 </resources>

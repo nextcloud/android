@@ -258,8 +258,8 @@ Mesedez, baimendu berriz</string>
   <string name="downloader_download_file_not_found">Fitxategia jadanik ez dago eskuragarri zerbitzarian</string>
   <string name="prefs_category_accounts">Kontuak</string>
   <string name="prefs_add_account">Gehitu kontua</string>
-  <string name="auth_redirect_non_secure_connection_title">Konexio segurua birbideratu da segurua ez den bide batetik.</string>
   <string name="saml_authentication_required_text">Autentikazioa beharrezkoa</string>
   <string name="saml_authentication_wrong_pass">Pasahitz okerra</string>
   <string name="move_choose_button_text">Aukeratu</string>
+  <string name="prefs_category_security">Segurtasuna</string>
 </resources>

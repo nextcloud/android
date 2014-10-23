@@ -242,4 +242,5 @@
   <string name="saml_authentication_required_text">Felhasználóazonosítás szükséges</string>
   <string name="saml_authentication_wrong_pass">Hibás jelszó</string>
   <string name="move_choose_button_text">Válasszon</string>
+  <string name="prefs_category_security">Biztonság</string>
 </resources>

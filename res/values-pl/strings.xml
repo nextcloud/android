@@ -263,7 +263,6 @@
   <string name="downloader_download_file_not_found">Ten plik nie jest już dostępny na serwerze</string>
   <string name="prefs_category_accounts">Konta</string>
   <string name="prefs_add_account">Dodaj konto</string>
-  <string name="auth_redirect_non_secure_connection_title">Bezpieczne połączenie jest przekierowywane przez niezabezpieczone trasy.</string>
   <string name="actionbar_logger">Logi</string>
   <string name="log_send_history_button">Wyślij historię</string>
   <string name="log_progress_dialog_text">Ładuję dane...</string>
@@ -277,4 +276,5 @@
   <string name="move_file_invalid_overwrite">Plik istnieje już w folderze docelowym</string>
   <string name="move_file_error">Pojawił się błąd podczas próby przeniesienia tego pliku lub folderu</string>
   <string name="forbidden_permissions_move">aby przenieść ten plik</string>
+  <string name="prefs_category_security">Bezpieczeństwo</string>
 </resources>

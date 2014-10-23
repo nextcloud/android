@@ -259,9 +259,9 @@
   <string name="downloader_download_file_not_found">O ficheiro xa non está dispoñíbel no servidor</string>
   <string name="prefs_category_accounts">Contas</string>
   <string name="prefs_add_account">Engadir unha conta</string>
-  <string name="auth_redirect_non_secure_connection_title">A conexión segura está a ser redirixida a través dunha ruta non segura.</string>
   <string name="saml_authentication_required_text">Requírese autenticación</string>
   <string name="saml_authentication_wrong_pass">Contrasinal incorrecto</string>
   <string name="actionbar_move">Mover</string>
   <string name="move_choose_button_text">Escoller</string>
+  <string name="prefs_category_security">Seguranza</string>
 </resources>

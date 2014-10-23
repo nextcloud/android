@@ -241,6 +241,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="preview_image_description">Afbeelding voorbeeld</string>
   <string name="preview_image_error_unknown_format">Deze afbeelding kan niet worden getoond</string>
   <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de %2$s lokale map</string>
+  <string name="prefs_instant_upload_path_title">Upload pad</string>
   <string name="share_link_no_support_share_api">Sorry, delen is niet mogelijk op uw server. Neem contact op met uw
 		beheerder.</string>
   <string name="share_link_file_no_exist">Kan dit niet delen. Controleer of dit bestand wel bestaat.</string>
@@ -266,7 +267,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="downloader_download_file_not_found">Dit bestand is niet langer beschikbaar op de server</string>
   <string name="prefs_category_accounts">Accounts</string>
   <string name="prefs_add_account">Toevoegen account</string>
-  <string name="auth_redirect_non_secure_connection_title">De beveiligde verbinding is omgeleid via een onveilige route.</string>
+  <string name="auth_redirect_non_secure_connection_title">De beveiligde verbinding is omgeleid naar een onveilige route.</string>
   <string name="actionbar_logger">Logs</string>
   <string name="log_send_history_button">Verstuur geschiedenis</string>
   <string name="log_mail_subject">ownCloud Android app logs</string>
@@ -281,4 +282,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="move_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
   <string name="move_file_error">Er trad een fout op bij uw poging dit bestand of deze map te verplaatsen</string>
   <string name="forbidden_permissions_move">om dit bestand te verplaatsen</string>
+  <string name="prefs_category_instant_uploading">Directe uploads</string>
+  <string name="prefs_category_security">Beveiliging</string>
 </resources>
