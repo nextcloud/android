@@ -235,6 +235,7 @@
   <string name="preview_image_description">Pratilik gambar</string>
   <string name="preview_image_error_unknown_format">Gambar ini tidak dapat ditampilkan</string>
   <string name="activity_chooser_send_file_title">Kirim</string>
+  <string name="clipboard_text_copied">Disalin ke papan klip</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Akun</string>
   <string name="saml_authentication_required_text">Diperlukan otentikasi</string>
