@@ -20,7 +20,6 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -54,7 +53,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -62,15 +60,13 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
-import java.io.IOException;
-
 public class CopyActivity extends HookActivity implements FileFragment.ContainerActivity,
         OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String EXTRA_CURRENT_FOLDER = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CURRENT_FOLDER";
     public static final String EXTRA_TARGET_FILE = UploadFilesActivity.class.getCanonicalName() + "EXTRA_TARGET_FILE";
 
-    public static final int RESULT_OK_AND_MOVE = 1;
+    public static final int RESULT_OK_AND_COPY = 1;
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
@@ -371,12 +367,12 @@ public class CopyActivity extends HookActivity implements FileFragment.Container
             finish();
         } else if (v == mChooseBtn) {
             Intent i = getIntent();
-            OCFile targetFile = i.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
+            OCFile targetFile = i.getParcelableExtra(CopyActivity.EXTRA_TARGET_FILE);
 
             Intent data = new Intent();
             data.putExtra(EXTRA_CURRENT_FOLDER, getCurrentFolder());
             data.putExtra(EXTRA_TARGET_FILE, targetFile);
-            setResult(RESULT_OK_AND_MOVE, data);
+            setResult(RESULT_OK_AND_COPY, data);
             finish();
         }
     }

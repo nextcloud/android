@@ -74,6 +74,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.MoveFileOperation;
@@ -102,9 +103,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.UriUtils;
 
 import java.io.File;
-
-import java.io.File;
-import java.io.IOException;
 
 
 /**
@@ -621,6 +619,21 @@ public class FileDisplayActivity extends HookActivity
                     DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
             );
 
+        } else if (requestCode == ACTION_COPY_FILES && (resultCode == RESULT_OK ||
+                resultCode == CopyActivity.RESULT_OK_AND_COPY)) {
+
+            final Intent fData = data;
+            final int fResultCode = resultCode;
+            getHandler().postDelayed(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            requestCopyOperation(fData, fResultCode);
+                        }
+                    },
+                    DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
+            );
+
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -734,6 +747,18 @@ public class FileDisplayActivity extends HookActivity
         OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
         OCFile targetFile = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
         getFileOperationsHelper().moveFile(folderToMoveAt, targetFile);
+    }
+
+    /**
+     * Request the operation for copying the file/folder from one path to another
+     *
+     * @param data       Intent received
+     * @param resultCode Result code received
+     */
+    private void requestCopyOperation(Intent data, int resultCode) {
+        OCFile folderToMoveAt = data.getParcelableExtra(CopyActivity.EXTRA_CURRENT_FOLDER);
+        OCFile targetFile = data.getParcelableExtra(CopyActivity.EXTRA_TARGET_FILE);
+        getFileOperationsHelper().copyFile(folderToMoveAt, targetFile);
     }
 
     @Override
@@ -1290,6 +1315,9 @@ public class FileDisplayActivity extends HookActivity
 
         } else if (operation instanceof MoveFileOperation) {
             onMoveFileOperationFinish((MoveFileOperation) operation, result);
+
+        } else if (operation instanceof CopyFileOperation) {
+            onCopyFileOperationFinish((CopyFileOperation) operation, result);
         }
 
     }
@@ -1398,6 +1426,30 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying to copy a
+     * file.
+     *
+     * @param operation Copy operation performed.
+     * @param result    Result of the copy operation.
+     */
+    private void onCopyFileOperationFinish(CopyFileOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            dismissLoadingDialog();
+            refreshListOfFilesFragment();
+        } else {
+            dismissLoadingDialog();
+            try {
+                Toast msg = Toast.makeText(FileDisplayActivity.this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
+                msg.show();
+
+            } catch (NotFoundException e) {
+                Log_OC.e(TAG, "Error while trying to show fail message ", e);
+            }
+        }
+    }
 
     /**
      * Updates the view associated to the activity after the finish of an operation trying to rename

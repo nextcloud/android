@@ -76,8 +76,6 @@ import com.owncloud.android.ui.NavigationDrawerItem;
 import com.owncloud.android.ui.adapter.NavigationDrawerListAdapter;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
-import com.owncloud.android.ui.fragment.FileDetailFragment;
-import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import java.util.ArrayList;
@@ -473,7 +471,7 @@ public class FileActivity extends ActionBarActivity
      */
     private void swapToDefaultAccount() {
         // default to the most recently used account
-        Account newAccount  = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        Account newAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
         if (newAccount == null) {
             /// no account available: force account creation
             createFirstAccount();
@@ -561,7 +559,7 @@ public class FileActivity extends ActionBarActivity
     }
 
     /**
-     * @return  'True' when the Activity is finishing to enforce the setup of a new account.
+     * @return 'True' when the Activity is finishing to enforce the setup of a new account.
      */
     protected boolean isRedirectingToSetupAccount() {
         return mRedirectingToSetupAccount;
@@ -816,7 +814,7 @@ public class FileActivity extends ActionBarActivity
     /**
      * Dismiss loading dialog
      */
-    public void dismissLoadingDialog(){
+    public void dismissLoadingDialog() {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
         if (frag != null) {
             LoadingDialog loading = (LoadingDialog) frag;
