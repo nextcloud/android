@@ -198,4 +198,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Konten</string>
   <string name="move_choose_button_text">Auswählen</string>
+  <string name="prefs_category_security">Sicherheit</string>
 </resources>

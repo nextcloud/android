@@ -1,3 +1,20 @@
+/* ownCloud Android client application
+ *   Copyright (C) 2012-2014 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.ui.adapter;
 
 import java.io.BufferedInputStream;
@@ -7,14 +24,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.jakewharton.disklrucache.DiskLruCache;
 import com.owncloud.android.BuildConfig;
@@ -28,16 +41,14 @@ public class DiskLruImageCache {
     private static final int CACHE_VERSION = 1;
     private static final int VALUE_COUNT = 1;
     private static final int IO_BUFFER_SIZE = 8 * 1024;
-    private static final Pattern CAPITAL_LETTERS = Pattern.compile("[A-Z]"); 
-
-    private StringBuffer mValidKeyBuffer = new StringBuffer(64);
-    private StringBuffer mConversionBuffer = new StringBuffer(2).append('_'); 
             
-    private static final String TAG = "DiskLruImageCache";
+    private static final String TAG = DiskLruImageCache.class.getSimpleName();
 
-    public DiskLruImageCache( Context context,String uniqueName, int diskCacheSize,
-        CompressFormat compressFormat, int quality ) throws IOException {
-        final File diskCacheDir = getDiskCacheDir(context, uniqueName );
+    //public DiskLruImageCache( Context context,String uniqueName, int diskCacheSize,
+    public DiskLruImageCache(
+            File diskCacheDir, int diskCacheSize, CompressFormat compressFormat, int quality 
+            ) throws IOException {
+
         mDiskCache = DiskLruCache.open(
                 diskCacheDir, CACHE_VERSION, VALUE_COUNT, diskCacheSize 
         );
@@ -58,17 +69,6 @@ public class DiskLruImageCache {
         }
     }
 
-    private File getDiskCacheDir(Context context, String uniqueName) {
-
-    // Check if media is mounted or storage is built-in, if so, try and use external cache dir
-    // otherwise use internal cache dir
-        final String cachePath = context.getExternalCacheDir().getPath();
-
-        Log_OC.d(TAG, "create dir: " + cachePath + File.separator + uniqueName);
-                    
-        return new File(cachePath + File.separator + uniqueName);
-    }
-
     public void put( String key, Bitmap data ) {
 
         DiskLruCache.Editor editor = null;
@@ -83,17 +83,17 @@ public class DiskLruImageCache {
                 mDiskCache.flush();
                 editor.commit();
                 if ( BuildConfig.DEBUG ) {
-                   Log.d( "cache_test_DISK_", "image put on disk cache " + validKey );
+                   Log_OC.d( "cache_test_DISK_", "image put on disk cache " + validKey );
                 }
             } else {
                 editor.abort();
                 if ( BuildConfig.DEBUG ) {
-                    Log.d( "cache_test_DISK_", "ERROR on: image put on disk cache " + validKey );
+                    Log_OC.d( "cache_test_DISK_", "ERROR on: image put on disk cache " + validKey );
                 }
             }   
         } catch (IOException e) {
             if ( BuildConfig.DEBUG ) {
-                Log.d( "cache_test_DISK_", "ERROR on: image put on disk cache " + validKey );
+                Log_OC.d( "cache_test_DISK_", "ERROR on: image put on disk cache " + validKey );
             }
             try {
                 if ( editor != null ) {
@@ -131,7 +131,8 @@ public class DiskLruImageCache {
         }
 
         if ( BuildConfig.DEBUG ) {
-            Log.d("cache_test_DISK_", bitmap == null ? "not found" : "image read from disk " + validKey);
+            Log_OC.d("cache_test_DISK_", bitmap == null ? 
+                    "not found" : "image read from disk " + validKey);
         }
 
         return bitmap;
@@ -160,7 +161,7 @@ public class DiskLruImageCache {
 
     public void clearCache() {
         if ( BuildConfig.DEBUG ) {
-            Log.d( "cache_test_DISK_", "disk cache CLEARED");
+            Log_OC.d( "cache_test_DISK_", "disk cache CLEARED");
         }
         try {
             mDiskCache.delete();
@@ -174,16 +175,20 @@ public class DiskLruImageCache {
     }
     
     private String convertToValidKey(String key) {
-        Matcher capitalLettersMatcher = CAPITAL_LETTERS.matcher(key);
-        mValidKeyBuffer.delete(0, mValidKeyBuffer.length());
-        mConversionBuffer.delete(1, mConversionBuffer.length());
-        
-        while (capitalLettersMatcher.find()) {
-            mConversionBuffer.replace(1, 2, capitalLettersMatcher.group(0).toLowerCase()); 
-            capitalLettersMatcher.appendReplacement(mValidKeyBuffer, mConversionBuffer.toString());
-        }
-        capitalLettersMatcher.appendTail(mValidKeyBuffer);
-        return mValidKeyBuffer.toString();
+        return Integer.toString(key.hashCode());
     }
 
+    /**
+     * Remove passed key from cache
+     * @param key
+     */
+    public void removeKey( String key ) {
+        String validKey = convertToValidKey(key);
+        try {
+            mDiskCache.remove(validKey);
+            Log_OC.d(TAG, "removeKey from cache: " + validKey);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

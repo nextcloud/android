@@ -164,7 +164,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_bad_oc_version_title">La version du serveur n\'est pas reconnue</string>
   <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
   <string name="auth_secure_connection">Connexion sécurisée établie</string>
-  <string name="auth_unauthorized">Nom d\'utilisateur ou mot de passe invalide</string>
+  <string name="auth_unauthorized">Nom d\'utilisateur ou mot de passe incorrect</string>
   <string name="auth_oauth_error">Echec d\'autorisation</string>
   <string name="auth_oauth_error_access_denied">Accès refusé par le serveur d\'autorisation</string>
   <string name="auth_wtf_reenter_URL">État inattendu ; veuillez entrer à nouveau l\'URL du serveur</string>
@@ -267,19 +267,19 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
   <string name="prefs_category_accounts">Comptes</string>
   <string name="prefs_add_account">Ajouter un compte</string>
-  <string name="auth_redirect_non_secure_connection_title">Le connexion sécurisée est redirigée vers une route non-sécurisée.</string>
   <string name="actionbar_logger">Journaux</string>
-  <string name="log_send_history_button">Historique des envois</string>
+  <string name="log_send_history_button">Envoyer l\'historique</string>
   <string name="log_mail_subject">Journaux de l\'application Android ownCloud</string>
   <string name="log_progress_dialog_text">Chargement des données...</string>
   <string name="saml_authentication_required_text">Authentification requise</string>
   <string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
   <string name="actionbar_move">Déplacer</string>
-  <string name="file_list_empty_moving">Il n\'y rien ici. Vous pouvez ajouter un dossier !</string>
+  <string name="file_list_empty_moving">Il n\'y a rien ici. Vous pouvez ajouter un dossier !</string>
   <string name="move_choose_button_text">Choisir</string>
-  <string name="move_file_not_found">Impossible de supprimer. Vérifiez que le fichier est bien présent</string>
+  <string name="move_file_not_found">Impossible de déplacer. Vérifiez que le fichier existe</string>
   <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
-  <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier destinataire</string>
+  <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
   <string name="move_file_error">Une erreur est survenue lors de la tentative de déplacement de ce fichier ou dossier</string>
   <string name="forbidden_permissions_move">de déplacer ce fichier</string>
+  <string name="prefs_category_security">Sécurité</string>
 </resources>

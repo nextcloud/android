@@ -263,7 +263,6 @@
   <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
   <string name="prefs_category_accounts">Учётные записи</string>
   <string name="prefs_add_account">Добавить учетную запись</string>
-  <string name="auth_redirect_non_secure_connection_title">Безопасное соединение перенаправлено через небезопасный маршрут.</string>
   <string name="actionbar_logger">Журналы</string>
   <string name="log_send_history_button">История Отправлений</string>
   <string name="log_mail_subject">Журналы Андроид-приложения ownCloud</string>
@@ -278,4 +277,5 @@
   <string name="move_file_invalid_overwrite">Файл уже существует в папке назначения</string>
   <string name="move_file_error">Произошла ошибка при попытке перемещения этого файла или папки</string>
   <string name="forbidden_permissions_move">переместить этот файл</string>
+  <string name="prefs_category_security">Безопасность</string>
 </resources>

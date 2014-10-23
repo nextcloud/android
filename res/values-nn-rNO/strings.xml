@@ -129,4 +129,5 @@
   <string name="prefs_category_accounts">Kontoar</string>
   <string name="saml_authentication_wrong_pass">Feil passord</string>
   <string name="move_choose_button_text">Vel</string>
+  <string name="prefs_category_security">Tryggleik</string>
 </resources>

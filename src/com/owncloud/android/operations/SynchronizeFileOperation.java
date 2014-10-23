@@ -170,6 +170,8 @@ public class SynchronizeFileOperation extends SyncOperation {
                     result = new RemoteOperationResult(ResultCode.OK);
 
                 } else if (serverChanged) {
+                    mLocalFile.setRemoteId(mServerFile.getRemoteId());
+                    
                     if (mSyncFileContents) {
                         requestForDownload(mLocalFile); // local, not server; we won't to keep the value of keepInSync!
                         // the update of local data will be done later by the FileUploader service when the upload finishes

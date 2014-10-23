@@ -241,4 +241,5 @@
   <string name="saml_authentication_required_text">Autentificación requerida</string>
   <string name="saml_authentication_wrong_pass">Clave incorrecta</string>
   <string name="move_choose_button_text">Elegir</string>
+  <string name="prefs_category_security">Seguridad</string>
 </resources>

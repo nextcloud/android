@@ -257,8 +257,8 @@
   <string name="downloader_download_file_not_found">El fitxer ja no està disponible en el servidor</string>
   <string name="prefs_category_accounts">Comptes</string>
   <string name="prefs_add_account">Afegeix compte</string>
-  <string name="auth_redirect_non_secure_connection_title">La connexió segura està essent redirigida a través d\'una ruta insegura</string>
   <string name="saml_authentication_required_text">Es requereix autenticació</string>
   <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
   <string name="move_choose_button_text">Escull</string>
+  <string name="prefs_category_security">Seguretat</string>
 </resources>

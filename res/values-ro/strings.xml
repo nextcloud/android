@@ -259,4 +259,5 @@
   <string name="prefs_category_accounts">Conturi</string>
   <string name="saml_authentication_wrong_pass">Parolă greșită</string>
   <string name="move_choose_button_text">Alege</string>
+  <string name="prefs_category_security">Securitate</string>
 </resources>

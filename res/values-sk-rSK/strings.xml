@@ -259,9 +259,9 @@
   <string name="downloader_download_file_not_found">Súbor už na serveri nie je dostupný</string>
   <string name="prefs_category_accounts">Účty</string>
   <string name="prefs_add_account">Pridať účet</string>
-  <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojenie je presmerované nezabezpečenou cestou.</string>
   <string name="saml_authentication_required_text">Vyžaduje sa overenie</string>
   <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
   <string name="actionbar_move">Presunúť</string>
   <string name="move_choose_button_text">Vybrať</string>
+  <string name="prefs_category_security">Zabezpečenie</string>
 </resources>

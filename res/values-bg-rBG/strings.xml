@@ -263,7 +263,6 @@
   <string name="downloader_download_file_not_found">Файлът вече не се намира на този сървър</string>
   <string name="prefs_category_accounts">Профили</string>
   <string name="prefs_add_account">Добавяне на профил</string>
-  <string name="auth_redirect_non_secure_connection_title">Сигурна връзка е пренасочена по несигурен път.</string>
   <string name="actionbar_logger">Доклади</string>
   <string name="log_send_history_button">Изпрати История</string>
   <string name="log_mail_subject">ownCloud Android доклади</string>
@@ -278,4 +277,5 @@
   <string name="move_file_invalid_overwrite">Файлът вече съществува в отдалечената папка.</string>
   <string name="move_file_error">Настъпи грешка при опита за преместване на този файл или папка.</string>
   <string name="forbidden_permissions_move">за да преместиш този файл</string>
+  <string name="prefs_category_security">Сигурност</string>
 </resources>

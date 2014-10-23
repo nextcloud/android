@@ -30,7 +30,8 @@
   <string name="prefs_recommend">Rekommendera till en vän</string>
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Imprint</string>
-  <string name="recommend_subject">Försök %1$s på din smarttelefon!</string>
+  <string name="recommend_subject">Prova %1$s på din smartphone!</string>
+  <string name="recommend_text">Jag skullje vilja bjuda in dig till att prova %1$s på din smartphone!\nLadda ner appen från Google Play här: %2$s</string>
   <string name="auth_check_server">Kontrollera Server</string>
   <string name="auth_host_url">Serveradress https://...</string>
   <string name="auth_username">Användarnamn</string>
@@ -50,6 +51,7 @@
   <string name="uploader_info_uploading">Laddar upp</string>
   <string name="file_list_empty">Ingenting här. Ladda upp något!</string>
   <string name="file_list_loading">Laddar...</string>
+  <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
   <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
   <string name="filedetails_size">Storlek:</string>
   <string name="filedetails_type">Typ:</string>
@@ -93,6 +95,7 @@
   <string name="downloader_download_failed_credentials_error">Nerladda misslyckades, måste du logga in igen</string>
   <string name="common_choose_account">Välj konto</string>
   <string name="sync_fail_ticker">Synkroniseringen misslyckades</string>
+  <string name="sync_fail_ticker_unauthorized">Synkroniseringen misslyckades, du måste logga in på nytt.</string>
   <string name="sync_fail_content">Synkronisering av %1$s kunde inte slutföras</string>
   <string name="sync_fail_content_unauthorized">Felaktigt lösenord för %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
@@ -247,8 +250,23 @@
   <string name="network_error_connect_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
   <string name="network_host_not_available">Åtgärden kunte inte slutföras, servern är ej tillgänglig</string>
   <string name="empty"></string>
+  <string name="forbidden_permissions">Du har inga rättigheter %s</string>
+  <string name="forbidden_permissions_rename">att döpa om denna fil</string>
+  <string name="forbidden_permissions_delete">att radera denna fil</string>
+  <string name="share_link_forbidden_permissions">att dela denna fil</string>
+  <string name="unshare_link_forbidden_permissions">att avbryta delningen utav denna fil</string>
+  <string name="forbidden_permissions_create">att skapa filen</string>
+  <string name="uploader_upload_forbidden_permissions">att ladda upp i den här mappen</string>
+  <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>
   <string name="prefs_category_accounts">Konton</string>
+  <string name="prefs_add_account">Lägg till konto</string>
+  <string name="log_progress_dialog_text">Laddar data...</string>
   <string name="saml_authentication_required_text">Autentisering krävs</string>
   <string name="saml_authentication_wrong_pass">Fel lösenord</string>
+  <string name="actionbar_move">Flytta</string>
+  <string name="file_list_empty_moving">Ingenting här. Du kan skapa en mapp!</string>
   <string name="move_choose_button_text">Välj</string>
+  <string name="move_file_not_found">Gick inte att flytta. Vänligen kontrollera att filen existerar</string>
+  <string name="forbidden_permissions_move">att flytta den här filen</string>
+  <string name="prefs_category_security">Säkerhet</string>
 </resources>
