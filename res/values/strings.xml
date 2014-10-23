@@ -301,9 +301,9 @@
     <string name="uploader_upload_forbidden_permissions">to upload in this folder</string>
     <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
 
-	<string name="prefs_category_accounts">Accounts</string>
-	<string name="prefs_add_account">Add account</string>
-	<string name="auth_redirect_non_secure_connection_title">Secure connection is redirected to an unsecured route.</string>
+    <string name="prefs_category_accounts">Accounts</string>
+    <string name="prefs_add_account">Add account</string>
+    <string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through an unsecured route.</string>
 
 	<string name="actionbar_logger">Logs</string>
 	<string name="log_send_history_button">Send History</string>
@@ -322,6 +322,7 @@
     <string name="move_file_invalid_overwrite">The file exists already in the destination folder</string>
     <string name="move_file_error">An error occurred while trying to move this file or folder</string>
     <string name="forbidden_permissions_move">to move this file</string>
+
 
     <string name="copy_file_not_found">Unable to copy. Please check whether the file exists</string>
     <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into a descendant</string>
