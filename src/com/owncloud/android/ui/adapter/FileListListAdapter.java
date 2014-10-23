@@ -430,7 +430,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         Collections.sort(mFiles, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
-                    return val * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp());
+                    Long obj1 = o1.getModificationTimestamp();
+                    return val * obj1.compareTo(o2.getModificationTimestamp());
                 }
                 else if (o1.isFolder()) {
                     return -1;
@@ -439,7 +440,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 } else if (o1.getModificationTimestamp() == 0 || o2.getModificationTimestamp() == 0){
                     return 0;
                 } else {
-                    return val * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp());
+                    Long obj1 = o1.getModificationTimestamp();
+                    return val * obj1.compareTo(o2.getModificationTimestamp());
                 }
             }
         });
@@ -460,8 +462,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         Collections.sort(mFiles, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
-                    return val * Long.compare(getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o1))), 
-                                              getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
+                    Long obj1 = getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o1)));
+                    return val * obj1.compareTo(getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
                 }
                 else if (o1.isFolder()) {
                     return -1;
@@ -470,7 +472,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
                     return 0;
                 } else {
-                    return val * Long.compare(o1.getFileLength(), o2.getFileLength());
+                    Long obj1 = o1.getFileLength();
+                    return val * obj1.compareTo(o2.getFileLength());
                 }
             }
         });
