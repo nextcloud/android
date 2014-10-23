@@ -242,6 +242,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 }
             } 
             else {
+                  // TODO Re-enable when server supports folder-size calculation
 //                if (FileStorageUtils.getDefaultSavePathFor(mAccount.name, file) != null){
 //                    fileSizeV.setVisibility(View.VISIBLE);
 //                    fileSizeV.setText(getFolderSizeHuman(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file)));
