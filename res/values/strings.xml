@@ -17,7 +17,8 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Newest - Oldest</item>
-    	<item>Biggest - Smallest</item>
+    	<!-- TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>  -->
     </string-array>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>

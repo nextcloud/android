@@ -22,8 +22,10 @@
  *
  */
 
-package com.owncloud.android.datamodel;
+package third_parties.daveKoeller;
 import java.util.Comparator;
+
+import com.owncloud.android.datamodel.OCFile;
 
 /**
  * This is an updated version with enhancements made by Daniel Migowski,

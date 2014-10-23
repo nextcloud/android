@@ -88,6 +88,7 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -505,11 +506,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         }
         case R.id.action_sort: {
             SharedPreferences appPreferences = PreferenceManager
-                    .getDefaultSharedPreferences(getApplicationContext());
+                    .getDefaultSharedPreferences(this);
             
             // Read sorting order, default to sort by name ascending
             Integer sortOrder = appPreferences
-                    .getInt("sortOrder", 0);
+                    .getInt("sortOrder", FileListListAdapter.SORT_NAME);
             
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.actionbar_sort_title)
@@ -523,9 +524,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                     case 1:
                         sortByDate(false);
                         break;
-                    case 2:
-                        sortBySize(false);
-                        break;
+                        
+// TODO re-enable when server-side folder size calculation is available                       
+//                    case 2:
+//                        sortBySize(false);
+//                        break;
                     }
                     
                     dialog.dismiss();

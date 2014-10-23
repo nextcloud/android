@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Vector;
 
+import third_parties.daveKoeller.AlphanumComparator;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -39,7 +40,6 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.AlphanumComparator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -49,7 +49,6 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-
 
 
 /**
@@ -71,9 +70,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
-    private Integer sortOrder;
-    private Boolean sortAscending;
-    private SharedPreferences appPreferences;
+    private Integer mSortOrder;
+    public static final Integer SORT_NAME = 0;
+    public static final Integer SORT_DATE = 1;
+    public static final Integer SORT_SIZE = 2;
+    private Boolean mSortAscending;
+    private SharedPreferences mAppPreferences;
     
     public FileListListAdapter(
             boolean justFolders, 
@@ -86,13 +88,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
         
-        appPreferences = PreferenceManager
+        mAppPreferences = PreferenceManager
                 .getDefaultSharedPreferences(mContext);
         
         // Read sorting order, default to sort by name ascending
-        sortOrder = appPreferences
+        mSortOrder = mAppPreferences
                 .getInt("sortOrder", 0);
-        sortAscending = appPreferences.getBoolean("sortAscending", true);
+        mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -240,12 +242,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 }
             } 
             else {
-                if (FileStorageUtils.getDefaultSavePathFor(mAccount.name, file) != null){
-                    fileSizeV.setVisibility(View.VISIBLE);
-                    fileSizeV.setText(getFolderSizeHuman(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file)));
-                } else {
+//                if (FileStorageUtils.getDefaultSavePathFor(mAccount.name, file) != null){
+//                    fileSizeV.setVisibility(View.VISIBLE);
+//                    fileSizeV.setText(getFolderSizeHuman(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file)));
+//                } else {
                     fileSizeV.setVisibility(View.INVISIBLE);
-                }
+//                }
 
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(
@@ -282,20 +284,18 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     /**
      * Local Folder size in human readable format
-     * @param path String
+     * 
+     * @param path
+     *            String
      * @return Size in human readable format
      */
     private String getFolderSizeHuman(String path) {
 
         File dir = new File(path);
 
-        if(dir.exists()) {
+        if (dir.exists()) {
             long bytes = getFolderSize(dir);
-            if (bytes < 1024) return bytes + " B";
-            int exp = (int) (Math.log(bytes) / Math.log(1024));
-            String pre = ("KMGTPE").charAt(exp-1) + "";
-
-            return String.format("%.1f %sB", bytes / Math.pow(1024, exp), pre);
+            return DisplayUtils.bytesToHumanReadable(bytes);
         }
 
         return "0 B";
@@ -366,15 +366,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
      * Sorts all filenames, regarding last user decision 
      */
     private void sortDirectory(){
-        switch (sortOrder){
+        switch (mSortOrder){
         case 0:
-            sortByName(sortAscending);
+            sortByName(mSortAscending);
             break;
         case 1:
-            sortByDate(sortAscending);
+            sortByDate(mSortAscending);
             break;
         case 2: 
-            sortBySize(sortAscending);
+            sortBySize(mSortAscending);
             break;
         }
         
@@ -502,13 +502,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     }
 
     public void setSortOrder(Integer order, boolean ascending) {
-        SharedPreferences.Editor editor = appPreferences.edit();
+        SharedPreferences.Editor editor = mAppPreferences.edit();
         editor.putInt("sortOrder", order);
         editor.putBoolean("sortAscending", ascending);
         editor.commit();
         
-        sortOrder = order;
-        sortAscending = ascending;
+        mSortOrder = order;
+        mSortAscending = ascending;
         
         sortDirectory();
     }    
