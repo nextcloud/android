@@ -51,6 +51,7 @@
         android:title="@string/actionbar_logger"/>
 	<item
         android:id="@+id/action_sort"
+        android:icon="@android:drawable/ic_menu_sort_alphabetically"
         android:orderInCategory="2"
         android:showAsAction="never"
         android:title="@string/actionbar_sort"/>
