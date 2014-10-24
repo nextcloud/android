@@ -18,20 +18,33 @@
 package com.owncloud.android.datamodel;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+
+import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.TypedValue;
 import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.utils.BitmapUtils;
@@ -56,7 +69,8 @@ public class ThumbnailsCacheManager {
     private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
-    
+    private static OwnCloudClient mClient;
+
     public static Bitmap mDefaultImg = 
             BitmapFactory.decodeResource(
                     MainApp.getAppContext().getResources(), 
@@ -65,12 +79,39 @@ public class ThumbnailsCacheManager {
 
     
     public static class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
+        private static Account mAccount;
+        private static Context mContext;
+
+        public InitDiskCacheTask(Account account, Context context) {
+            mAccount = account;
+            mContext = context;
+           }
+
         @Override
         protected Void doInBackground(File... params) {
             synchronized (mThumbnailsDiskCacheLock) {
                 mThumbnailCacheStarting = true;
+
                 if (mThumbnailCache == null) {
                     try {
+                        OwnCloudAccount ocAccount;
+                        try {
+                            ocAccount = new OwnCloudAccount(mAccount, mContext);
+                            mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, mContext);
+                        } catch (AccountNotFoundException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (AuthenticatorException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (OperationCanceledException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+
                         // Check if media is mounted or storage is built-in, if so, 
                         // try and use external cache dir; otherwise use internal cache dir
                         final String cachePath = 
@@ -198,6 +239,29 @@ public class ThumbnailsCacheManager {
                             mStorageManager.saveFile(mFile);
                         }
     
+                    } else {
+                        // Download thumbnail from server
+                        try {
+                            int status = -1;
+
+                            String uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + px + "/" + px
+                                    + Uri.encode(mFile.getRemotePath(), "/");
+                            Log_OC.d("Thumbnail", "URI: " + uri);
+                            GetMethod get = new GetMethod(uri);
+                            status = mClient.executeMethod(get);
+                            if (status == HttpStatus.SC_OK) {
+                                byte[] bytes = get.getResponseBody();
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+
+                                // Add thumbnail to cache
+                                if (thumbnail != null) {
+                                    addBitmapToCache(imageKey, thumbnail);
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 

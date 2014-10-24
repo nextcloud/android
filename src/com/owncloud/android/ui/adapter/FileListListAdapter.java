@@ -68,14 +68,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             Context context, 
             ComponentsGetter transferServiceGetter
             ) {
-        
+
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
-        
+
         // initialise thumbnails cache on background thread
-        new ThumbnailsCacheManager.InitDiskCacheTask().execute();
+        new ThumbnailsCacheManager.InitDiskCacheTask(mAccount, mContext).execute();
+
     }
     
     @Override

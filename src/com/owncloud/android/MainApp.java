@@ -19,6 +19,7 @@ package com.owncloud.android;
 import android.app.Application;
 import android.content.Context;
 
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
@@ -55,9 +56,10 @@ public class MainApp extends Application {
         } else {
             OwnCloudClientManagerFactory.setDefaultPolicy(Policy.ALWAYS_NEW_CLIENT);
         }
-        
+
         // initialise thumbnails cache on background thread
-        new ThumbnailsCacheManager.InitDiskCacheTask().execute();
+        new ThumbnailsCacheManager.InitDiskCacheTask(AccountUtils.getCurrentOwnCloudAccount(mContext),
+                mContext).execute();
         
         if (BuildConfig.DEBUG) {
 
