@@ -16,38 +16,48 @@
  */
 package com.owncloud.android.ui.preview;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
-import com.owncloud.android.Log_OC;
+import com.ortiz.touch.ExtendedViewPager;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.dialog.LoadingDialog;
+import com.owncloud.android.ui.activity.PinCodeActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.DisplayUtils;
 
 
 /**
@@ -55,7 +65,9 @@ import com.owncloud.android.ui.fragment.FileFragment;
  *  
  *  @author David A. Velasco
  */
-public class PreviewImageActivity extends FileActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener {
+public class PreviewImageActivity extends FileActivity implements 
+ FileFragment.ContainerActivity,
+ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
     public static final int DIALOG_SHORT_WAIT = 0;
 
@@ -63,23 +75,17 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
-    
-    private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
-    
-    private FileDataStorageManager mStorageManager;
-    
-    private ViewPager mViewPager; 
+
+    private static final int INITIAL_HIDE_DELAY = 0; // immediate hide
+
+    private ExtendedViewPager mViewPager;
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;    
     
-    private FileDownloaderBinder mDownloaderBinder = null;
-    private ServiceConnection mDownloadConnection, mUploadConnection = null;
-    private FileUploaderBinder mUploaderBinder = null;
-
     private boolean mRequestWaitingForBinder;
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
-
-    private boolean mFullScreen;
+    
+    private View mFullScreenAnchorView;
     
     
     @Override
@@ -90,10 +96,38 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         setContentView(R.layout.preview_image_activity);
         
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.hide();
         
-        mFullScreen = true;
+        // PIN CODE request
+        if (getIntent().getExtras() != null && savedInstanceState == null && fromNotification()) {
+            requestPinCode();
+        }
+
+        // Make sure we're running on Honeycomb or higher to use FullScreen and
+        // Immersive Mode
+        if (isHoneycombOrHigher()) {
+        
+            mFullScreenAnchorView = getWindow().getDecorView();
+            // to keep our UI controls visibility in line with system bars
+            // visibility
+            mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+                @SuppressLint("InlinedApi")
+                @Override
+                public void onSystemUiVisibilityChange(int flags) {
+                    boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+                    ActionBar actionBar = getSupportActionBar();
+                    if (visible) {
+                        actionBar.show();
+                    } else {
+                        actionBar.hide();
+                    }
+                }
+            });
+
+        }
+            
         if (savedInstanceState != null) {
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
         } else {
@@ -105,14 +139,13 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     private void initViewPager() {
         // get parent from path
         String parentPath = getFile().getRemotePath().substring(0, getFile().getRemotePath().lastIndexOf(getFile().getFileName()));
-        OCFile parentFolder = mStorageManager.getFileByPath(parentPath);
-        //OCFile parentFolder = mStorageManager.getFileById(getFile().getParentId());
+        OCFile parentFolder = getStorageManager().getFileByPath(parentPath);
         if (parentFolder == null) {
             // should not be necessary
-            parentFolder = mStorageManager.getFileByPath(OCFile.ROOT_PATH);
+            parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         }
-        mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), parentFolder, getAccount(), mStorageManager);
-        mViewPager = (ViewPager) findViewById(R.id.fragmentPager);
+        mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), parentFolder, getAccount(), getStorageManager());
+        mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
         int position = mPreviewImagePagerAdapter.getFilePosition(getFile());
         position = (position >= 0) ? position : 0;
         mViewPager.setAdapter(mPreviewImagePagerAdapter); 
@@ -125,13 +158,49 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     }
     
     
+    protected void onPostCreate(Bundle savedInstanceState)  {
+        super.onPostCreate(savedInstanceState);
+        
+        // Trigger the initial hide() shortly after the activity has been 
+        // created, to briefly hint to the user that UI controls 
+        // are available
+        delayedHide(INITIAL_HIDE_DELAY);
+        
+    }
+    
+    Handler mHideSystemUiHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (isHoneycombOrHigher()) {
+                hideSystemUI(mFullScreenAnchorView);
+            }
+            getSupportActionBar().hide();
+        }
+    };
+    
+    private void delayedHide(int delayMillis)   {
+        mHideSystemUiHandler.removeMessages(0);
+        mHideSystemUiHandler.sendEmptyMessageDelayed(0, delayMillis);
+    }
+    
+    
+    /// handle Window Focus changes
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        
+        // When the window loses focus (e.g. the action overflow is shown),
+        // cancel any pending hide action.
+        if (!hasFocus) {
+            mHideSystemUiHandler.removeMessages(0);
+        }
+    }
+    
+    
+    
     @Override
     public void onStart() {
         super.onStart();
-        mDownloadConnection = new PreviewImageServiceConnection();
-        bindService(new Intent(this, FileDownloader.class), mDownloadConnection, Context.BIND_AUTO_CREATE);
-        mUploadConnection = new PreviewImageServiceConnection();
-        bindService(new Intent(this, FileUploader.class), mUploadConnection, Context.BIND_AUTO_CREATE);
     }
     
     @Override
@@ -140,6 +209,49 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);    
     }
 
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        super.onRemoteOperationFinish(operation, result);
+        
+        if (operation instanceof CreateShareOperation) {
+            onCreateShareOperationFinish((CreateShareOperation) operation, result);
+            
+        } else if (operation instanceof UnshareLinkOperation) {
+            onUnshareLinkOperationFinish((UnshareLinkOperation) operation, result);
+            
+        } else if (operation instanceof RemoveFileOperation) {
+            finish();
+        }
+    }
+    
+    
+    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
+            if (file != null) {
+                setFile(file);
+            }
+            invalidateOptionsMenu();
+        } else if  (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+            backToDisplayActivity();
+        }
+            
+    }
+    
+    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
+            if (file != null) {
+                setFile(file);
+            }
+            invalidateOptionsMenu();
+        }
+    }
+
+    @Override
+    protected ServiceConnection newTransferenceServiceConnection() {
+        return new PreviewImageServiceConnection();
+    }
 
     /** Defines callbacks for service binding, passed to bindService() */
     private class PreviewImageServiceConnection implements ServiceConnection {
@@ -180,14 +292,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     @Override
     public void onStop() {
         super.onStop();
-        if (mDownloadConnection != null) {
-            unbindService(mDownloadConnection);
-            mDownloadConnection = null;
-        }
-        if (mUploadConnection != null) {
-            unbindService(mUploadConnection);
-            mUploadConnection = null;
-        }
     }
     
     
@@ -195,7 +299,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     public void onDestroy() {
         super.onDestroy();
     }
-    
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -217,7 +320,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     @Override
     protected void onResume() {
         super.onResume();
-        //Log.e(TAG, "ACTIVITY, ONRESUME");
+        //Log_OC.e(TAG, "ACTIVITY, ONRESUME");
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         
         IntentFilter filter = new IntentFilter(FileDownloader.getDownloadFinishMessage());
@@ -227,15 +330,15 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
 
     @Override
     protected void onPostResume() {
-        //Log.e(TAG, "ACTIVITY, ONPOSTRESUME");
+        //Log_OC.e(TAG, "ACTIVITY, ONPOSTRESUME");
         super.onPostResume();
     }
     
     @Override
     public void onPause() {
-        super.onPause();
         unregisterReceiver(mDownloadFinishReceiver);
         mDownloadFinishReceiver = null;
+        super.onPause();
     }
     
 
@@ -243,53 +346,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         finish();
     }
     
-    /**
-     * Show loading dialog 
-     */
-    public void showLoadingDialog() {
-        // Construct dialog
-        LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        loading.show(ft, DIALOG_WAIT_TAG);
-        
-    }
-    
-    /**
-     * Dismiss loading dialog
-     */
-    public void dismissLoadingDialog(){
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
-      if (frag != null) {
-          LoadingDialog loading = (LoadingDialog) frag;
-            loading.dismiss();
-        }
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onFileStateChanged() {
-        // nothing to do here!
-    }
-
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public FileDownloaderBinder getFileDownloaderBinder() {
-        return mDownloaderBinder;
-    }
-
-
-    @Override
-    public FileUploaderBinder getFileUploaderBinder() {
-        return mUploaderBinder;
-    }
-
-
     @Override
     public void showDetails(OCFile file) {
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
@@ -333,7 +389,11 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
                     requestForDownload(currentFile);
                 }
             }
+
+            // Call to reset image zoom to initial state
+            ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
         }
+
     }
     
     /**
@@ -375,7 +435,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
             if (getAccount().name.equals(accountName) && 
                     downloadedRemotePath != null) {
 
-                OCFile file = mStorageManager.getFileByPath(downloadedRemotePath);
+                OCFile file = getStorageManager().getFileByPath(downloadedRemotePath);
                 int position = mPreviewImagePagerAdapter.getFilePosition(file);
                 boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
                 //boolean isOffscreen =  Math.abs((mViewPager.getCurrentItem() - position)) <= mViewPager.getOffscreenPageLimit();
@@ -399,30 +459,41 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
 
     }
 
+    @SuppressLint("InlinedApi")
+	public void toggleFullScreen() {
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-           toggleFullScreen();
-        }
-        return true;
-    }
+        if (isHoneycombOrHigher()) {
+        
+            boolean visible = (mFullScreenAnchorView.getSystemUiVisibility()
+                    & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
 
-    
-    private void toggleFullScreen() {
-        ActionBar actionBar = getSupportActionBar();
-        if (mFullScreen) {
-            actionBar.show();
-            
+            if (visible) {
+                hideSystemUI(mFullScreenAnchorView);
+                // actionBar.hide(); // propagated through
+                // OnSystemUiVisibilityChangeListener()
+            } else {
+                showSystemUI(mFullScreenAnchorView);
+                // actionBar.show(); // propagated through
+                // OnSystemUiVisibilityChangeListener()
+            }
+
         } else {
-            actionBar.hide();
-            
+
+            ActionBar actionBar = getSupportActionBar();
+            if (!actionBar.isShowing()) {
+                actionBar.show();
+
+            } else {
+                actionBar.hide();
+
+            }
+
         }
-        mFullScreen = !mFullScreen;
     }
 
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
         if (getAccount() != null) {
             OCFile file = getFile();
             /// Validate handled file  (first image to preview)
@@ -432,15 +503,14 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
             if (!file.isImage()) {
                 throw new IllegalArgumentException("Non-image file passed as argument");
             }
-            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());            
             
             // Update file according to DB file, if it is possible
             if (file.getFileId() > FileDataStorageManager.ROOT_PARENT_ID)            
-                file = mStorageManager.getFileById(file.getFileId());
+                file = getStorageManager().getFileById(file.getFileId());
             
             if (file != null) {
                 /// Refresh the activity according to the Account and OCFile set
-                setFile(file);  // reset after getting it fresh from mStorageManager
+                setFile(file);  // reset after getting it fresh from storageManager
                 getSupportActionBar().setTitle(getFile().getFileName());
                 //if (!stateWasRecovered) {
                     initViewPager();
@@ -450,11 +520,68 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
                 // handled file not in the current Account
                 finish();
             }
-            
-        } else {
-            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
         }
     }
     
     
+    /**
+     * Launch an intent to request the PIN code to the user before letting him use the app
+     */
+    private void requestPinCode() {
+        boolean pinStart = false;
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        pinStart = appPrefs.getBoolean("set_pincode", false);
+        if (pinStart) {
+            Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
+            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "PreviewImageActivity");
+            startActivity(i);
+        }
+    }
+
+    @Override
+    public void onBrowsedDownTo(OCFile folder) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
+        // TODO Auto-generated method stub
+        
+    }
+    
+    
+    @SuppressLint("InlinedApi")
+	private void hideSystemUI(View anchorView) {
+        anchorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION         // hides NAVIGATION BAR; Android >= 4.0
+            |   View.SYSTEM_UI_FLAG_FULLSCREEN              // hides STATUS BAR;     Android >= 4.1
+            |   View.SYSTEM_UI_FLAG_IMMERSIVE               // stays interactive;    Android >= 4.4
+            |   View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
+            |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
+            |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
+        );
+    }
+    
+    @SuppressLint("InlinedApi")
+    private void showSystemUI(View anchorView) {
+        anchorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
+            |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
+            |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
+        );
+    }
+
+    /**
+     * Checks if OS version is Honeycomb one or higher
+     * 
+     * @return boolean
+     */
+    private boolean isHoneycombOrHigher() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -18,13 +18,14 @@
 
 package com.owncloud.android.ui.activity;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.actionbarsherlock.app.ActionBar;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener;
+import com.owncloud.android.utils.DisplayUtils;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,10 +44,12 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
     }
 
     @Override
-    public void ConflictDecisionMade(Decision decision) {
+    public void conflictDecisionMade(Decision decision) {
         Intent i = new Intent(getApplicationContext(), FileUploader.class);
         
         switch (decision) {
@@ -73,6 +76,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
         if (getAccount() != null) {
             OCFile file = getFile();
             if (getFile() == null) {
@@ -80,8 +84,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 finish();
             } else {
                 /// Check whether the 'main' OCFile handled by the Activity is contained in the current Account
-                FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-                file = storageManager.getFileByPath(file.getRemotePath());   // file = null if not in the current Account
+                file = getStorageManager().getFileByPath(file.getRemotePath());   // file = null if not in the current Account
                 if (file != null) {
                     setFile(file);
                     ConflictsResolveDialog d = ConflictsResolveDialog.newInstance(file.getRemotePath(), this);
@@ -94,7 +97,6 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
             }
             
         } else {
-            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
             finish();
         }
         

@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -22,34 +22,65 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.webkit.MimeTypeMap;
+import android.os.Handler;
+import android.os.IBinder;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileOperationsHelper;
+import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.UnshareLinkOperation;
 
+import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.dialog.LoadingDialog;
+import com.owncloud.android.utils.ErrorMessageAdapter;
 
-import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud {@link Account}s .
  * 
  * @author David A. Velasco
  */
-public abstract class FileActivity extends SherlockFragmentActivity {
+public class FileActivity extends SherlockFragmentActivity 
+implements OnRemoteOperationListener, ComponentsGetter {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
     public static final String EXTRA_WAITING_TO_PREVIEW = "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
+    public static final String EXTRA_FROM_NOTIFICATION= "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     
-    public static final String TAG = FileActivity.class.getSimpleName(); 
+    public static final String TAG = FileActivity.class.getSimpleName();
+    
+    private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
+    private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";;
+    
+    protected static final long DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS = 200;
     
     
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located. */
@@ -66,7 +97,26 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     
     /** Flag to signal when the value of mAccount was restored from a saved state */ 
     private boolean mAccountWasRestored;
-
+    
+    /** Flag to signal if the activity is launched by a notification */
+    private boolean mFromNotification;
+    
+    /** Messages handler associated to the main thread and the life cycle of the activity */
+    private Handler mHandler;
+    
+    /** Access point to the cached database for the current ownCloud {@link Account} */
+    private FileDataStorageManager mStorageManager = null;
+    
+    private FileOperationsHelper mFileOperationsHelper;
+    
+    private ServiceConnection mOperationsServiceConnection = null;
+    
+    private OperationsServiceBinder mOperationsServiceBinder = null;
+    
+    protected FileDownloaderBinder mDownloaderBinder = null;
+    protected FileUploaderBinder mUploaderBinder = null;
+    private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
+    
     
     /**
      * Loads the ownCloud {@link Account} and main {@link OCFile} to be handled by the instance of 
@@ -78,17 +128,36 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mHandler = new Handler();
+        mFileOperationsHelper = new FileOperationsHelper(this);
         Account account;
         if(savedInstanceState != null) {
             account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
             mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
+            mFromNotification = savedInstanceState.getBoolean(FileActivity.EXTRA_FROM_NOTIFICATION);
+            mFileOperationsHelper.setOpIdWaitingFor(
+                    savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
+                    );
         } else {
             account = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
+            mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION, false);
         }
 
         setAccount(account, savedInstanceState != null);
+        
+        mOperationsServiceConnection = new OperationsServiceConnection();
+        bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection, Context.BIND_AUTO_CREATE);
+        
+        mDownloadServiceConnection = newTransferenceServiceConnection();
+        if (mDownloadServiceConnection != null) {
+            bindService(new Intent(this, FileDownloader.class), mDownloadServiceConnection, Context.BIND_AUTO_CREATE);
+        }
+        mUploadServiceConnection = newTransferenceServiceConnection();
+        if (mUploadServiceConnection != null) {
+            bindService(new Intent(this, FileUploader.class), mUploadServiceConnection, Context.BIND_AUTO_CREATE);
+        }
+        
     }
 
     
@@ -104,16 +173,54 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         if (!validAccount) {
             swapToDefaultAccount();
         }
-        
     }
 
     
     @Override 
     protected void onStart() {
         super.onStart();
+
         if (mAccountWasSet) {
             onAccountSet(mAccountWasRestored);
         }
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        
+        if (mOperationsServiceBinder != null) {
+            doOnResumeAndBound();
+        }
+
+    }
+    
+    @Override
+    protected void onPause()  {
+        
+        if (mOperationsServiceBinder != null) {
+            mOperationsServiceBinder.removeOperationListener(this);
+        }
+        
+        super.onPause();
+    }
+    
+    
+    @Override
+    protected void onDestroy() {
+        if (mOperationsServiceConnection != null) {
+            unbindService(mOperationsServiceConnection);
+            mOperationsServiceBinder = null;
+        }
+        if (mDownloadServiceConnection != null) {
+            unbindService(mDownloadServiceConnection);
+            mDownloadServiceConnection = null;
+        }
+        if (mUploadServiceConnection != null) {
+            unbindService(mUploadServiceConnection);
+            mUploadServiceConnection = null;
+        }
+        super.onDestroy();
     }
     
     
@@ -192,6 +299,8 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileActivity.EXTRA_FILE, mFile);
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, mAccount);
+        outState.putBoolean(FileActivity.EXTRA_FROM_NOTIFICATION, mFromNotification);
+        outState.putLong(KEY_WAITING_FOR_OP_ID, mFileOperationsHelper.getOpIdWaitingFor());
     }
     
     
@@ -224,6 +333,12 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         return mAccount;
     }
 
+    /**
+     * @return Value of mFromNotification: True if the Activity is launched by a notification
+     */
+    public boolean fromNotification() {
+        return mFromNotification;
+    }
     
     /**
      * @return  'True' when the Activity is finishing to enforce the setup of a new account.
@@ -233,6 +348,15 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     }
     
     
+    public OperationsServiceBinder getOperationsServiceBinder() {
+        return mOperationsServiceBinder;
+    }
+    
+    protected ServiceConnection newTransferenceServiceConnection() {
+        return null;
+    }
+    
+
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
      * a new ownCloud {@link Account} finished, successfully or not.
@@ -280,41 +404,197 @@ public abstract class FileActivity extends SherlockFragmentActivity {
      * 
      *  Child classes must grant that state depending on the {@link Account} is updated.
      */
-    protected abstract void onAccountSet(boolean stateWasRecovered);
-    
-    
-
-    public void openFile(OCFile file) {
-        if (file != null) {
-            String storagePath = file.getStoragePath();
-            String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-            
-            Intent intentForSavedMimeType = new Intent(Intent.ACTION_VIEW);
-            intentForSavedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
-            intentForSavedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            
-            Intent intentForGuessedMimeType = null;
-            if (storagePath.lastIndexOf('.') >= 0) {
-                String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
-                    intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
-                    intentForGuessedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), guessedMimeType);
-                    intentForGuessedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                }
-            }
-            
-            Intent chooserIntent = null;
-            if (intentForGuessedMimeType != null) {
-                chooserIntent = Intent.createChooser(intentForGuessedMimeType, getString(R.string.actionbar_open_with));
-            } else {
-                chooserIntent = Intent.createChooser(intentForSavedMimeType, getString(R.string.actionbar_open_with));
-            }
-            
-            startActivity(chooserIntent);
+    protected void onAccountSet(boolean stateWasRecovered) {
+        if (getAccount() != null) {
+            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
             
         } else {
-            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
         }
     }
+
+
+    public FileDataStorageManager getStorageManager() {
+        return mStorageManager;
+    }
+
+
+    public OnRemoteOperationListener getRemoteOperationListener() {
+        return this;
+    }
+
+
+    public Handler getHandler() {
+        return mHandler;
+    }
+    
+    public FileOperationsHelper getFileOperationsHelper() {
+        return mFileOperationsHelper;
+    }
+    
+    /**
+     * 
+     * @param operation     Removal operation performed.
+     * @param result        Result of the removal.
+     */
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the FileActivities ");
+        
+        mFileOperationsHelper.setOpIdWaitingFor(Long.MAX_VALUE);
+        
+        if (!result.isSuccess() && (
+                result.getCode() == ResultCode.UNAUTHORIZED || 
+                result.isIdPRedirection() ||
+                (result.isException() && result.getException() instanceof AuthenticatorException)
+                )) {
+            
+            requestCredentialsUpdate();
+            
+            if (result.getCode() == ResultCode.UNAUTHORIZED) {
+                dismissLoadingDialog();
+                Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                        Toast.LENGTH_LONG);
+                t.show();
+            }
+
+        } else if (operation instanceof CreateShareOperation) {
+            onCreateShareOperationFinish((CreateShareOperation) operation, result);
+            
+        } else if (operation instanceof UnshareLinkOperation) {
+            onUnshareLinkOperationFinish((UnshareLinkOperation)operation, result);
+        
+        } 
+    }
+
+    protected void requestCredentialsUpdate() {
+        Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
+        updateAccountCredentials.putExtra(
+                AuthenticatorActivity.EXTRA_ACTION, 
+                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
+        updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        startActivity(updateAccountCredentials);
+    }
+    
+
+    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
+        dismissLoadingDialog();
+        if (result.isSuccess()) {
+            updateFileFromDB();
+            
+            Intent sendIntent = operation.getSendIntent();
+            startActivity(sendIntent);
+            
+        } else { 
+            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                    Toast.LENGTH_LONG);
+            t.show();
+        } 
+    }
+    
+    
+    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
+        dismissLoadingDialog();
+        
+        if (result.isSuccess()){
+            updateFileFromDB();
+            
+        } else {
+            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                    Toast.LENGTH_LONG);
+            t.show();
+        } 
+    }
+    
+    
+    protected void updateFileFromDB(){
+        OCFile file = getFile();
+        if (file != null) {
+            file = getStorageManager().getFileByPath(file.getRemotePath());
+            setFile(file);
+        }
+    }
+    
+    /**
+     * Show loading dialog 
+     */
+    public void showLoadingDialog() {
+        // Construct dialog
+        LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        loading.show(ft, DIALOG_WAIT_TAG);
+        
+    }
+
+    
+    /**
+     * Dismiss loading dialog
+     */
+    public void dismissLoadingDialog(){
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+        if (frag != null) {
+            LoadingDialog loading = (LoadingDialog) frag;
+            loading.dismiss();
+        }
+    }
+
+    
+    private void doOnResumeAndBound() {
+        mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
+        long waitingForOpId = mFileOperationsHelper.getOpIdWaitingFor();
+        if (waitingForOpId <= Integer.MAX_VALUE) {
+            boolean wait = mOperationsServiceBinder.dispatchResultIfFinished((int)waitingForOpId, this);
+            if (!wait ) {
+                dismissLoadingDialog();
+            }
+        }
+    }
+
+
+    /** 
+     * Implements callback methods for service binding. Passed as a parameter to { 
+     */
+    private class OperationsServiceConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName component, IBinder service) {
+            if (component.equals(new ComponentName(FileActivity.this, OperationsService.class))) {
+                Log_OC.d(TAG, "Operations service connected");
+                mOperationsServiceBinder = (OperationsServiceBinder) service;
+                /*if (!mOperationsServiceBinder.isPerformingBlockingOperation()) {
+                    dismissLoadingDialog();
+                }*/
+                doOnResumeAndBound();
+
+            } else {
+                return;
+            }
+        }
+        
+
+        @Override
+        public void onServiceDisconnected(ComponentName component) {
+            if (component.equals(new ComponentName(FileActivity.this, OperationsService.class))) {
+                Log_OC.d(TAG, "Operations service disconnected");
+                mOperationsServiceBinder = null;
+                // TODO whatever could be waiting for the service is unbound
+            }
+        }
+    }
+
+
+    @Override
+    public FileDownloaderBinder getFileDownloaderBinder() {
+        return mDownloaderBinder;
+    }
+
+
+    @Override
+    public FileUploaderBinder getFileUploaderBinder() {
+        return mUploaderBinder;
+    };    
+    
     
 }

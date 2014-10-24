@@ -3,14 +3,12 @@
   <string name="actionbar_upload">Отпреми</string>
   <string name="actionbar_upload_from_apps">Садржај са других апликација</string>
   <string name="actionbar_upload_files">Датотеке</string>
-  <string name="actionbar_mkdir">Направи фасциклу</string>
   <string name="actionbar_settings">Поставке</string>
+  <string name="actionbar_send_file">Пошаљи</string>
   <string name="prefs_category_general">Опште</string>
   <string name="prefs_category_more">Више</string>
   <string name="prefs_accounts">Налози</string>
-  <string name="prefs_instant_upload_summary">Тренутно отпремај фотографије сликане камером</string>
   <string name="prefs_help">Помоћ</string>
-  <string name="auth_host_url">Адреса сервера</string>
   <string name="auth_username">Корисничко име</string>
   <string name="auth_password">Лозинка</string>
   <string name="sync_string_files">Фајлови</string>
@@ -22,7 +20,7 @@
   <string name="uploader_wrn_no_content_title">Нема садржаја за отпремање</string>
   <string name="uploader_wrn_no_content_text">Садржај није примљен. Нема ништа да се отпреми.</string>
   <string name="uploader_info_uploading">Отпремање</string>
-  <string name="file_list_empty">Нема датотека у овој фасцикли.\nНове датотеке можете да додате путем опције „Отпреми“.</string>
+  <string name="file_list_empty">Овде нема ничег. Отпремите нешто!</string>
   <string name="filedetails_select_file">Додирните датотеку ради приказа додатних информација.</string>
   <string name="filedetails_size">Величина:</string>
   <string name="filedetails_type">Врста:</string>
@@ -43,7 +41,6 @@
   <string name="delete_account">Обриши налог</string>
   <string name="create_account">Отвори налог</string>
   <string name="upload_chooser_title">Отпреми из…</string>
-  <string name="uploader_info_dirname">Име фасцикле</string>
   <string name="uploader_upload_in_progress_ticker">Отпремам…</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Отпремам %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Отпремање је успело</string>
@@ -77,14 +74,12 @@
   <string name="fd_keep_in_sync">Редовно ажурирај датотеку</string>
   <string name="common_rename">Преименуј</string>
   <string name="common_remove">Уклони</string>
-  <string name="confirmation_remove_alert">Желите ли да уклоните %1$s?</string>
   <string name="confirmation_remove_local">Само локално</string>
   <string name="confirmation_remove_remote">Уклони са сервера</string>
   <string name="confirmation_remove_remote_and_local">Удаљено и локално</string>
   <string name="rename_dialog_title">Унесите ново име</string>
   <string name="rename_server_fail_msg">Не могу да довршим преименовање</string>
   <string name="sync_file_fail_msg">Удаљена датотека се не може проверити</string>
-  <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
   <string name="wait_a_moment">Сачекајте тренутак</string>
   <string name="filedisplay_no_file_selected">Нисте изабрали датотеку</string>
   <string name="ssl_validator_header">Не могу да проверим идентитет сајта</string>
@@ -110,4 +105,9 @@
   <string name="ssl_validator_label_signature_algorithm">Алгоритам:</string>
   <string name="instant_upload_on_wifi">Отпремај слике само путем бежичне мреже</string>
   <string name="conflict_title">Ажурирај сукоб</string>
+  <string name="activity_chooser_send_file_title">Пошаљи</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Налози</string>
+  <string name="move_choose_button_text">Одабери</string>
+  <string name="prefs_category_security">Безбедност</string>
 </resources>

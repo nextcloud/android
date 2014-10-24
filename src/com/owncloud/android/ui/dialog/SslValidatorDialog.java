@@ -29,11 +29,7 @@ import java.util.Map;
 
 import javax.security.auth.x500.X500Principal;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
-import com.owncloud.android.network.CertificateCombinedException;
-import com.owncloud.android.network.OwnCloudClientUtils;
-import com.owncloud.android.operations.RemoteOperationResult;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -43,6 +39,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.owncloud.android.lib.common.network.CertificateCombinedException;
+import com.owncloud.android.lib.common.network.NetworkUtils;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  * Dialog to request the user about a certificate that could not be validated with the certificates store in the system.
@@ -223,6 +223,7 @@ public class SslValidatorDialog extends Dialog {
         return hex.toString();
      }    
 
+    @SuppressWarnings("deprecation")
     private void showValidity(Date notBefore, Date notAfter) {
         TextView fromView = ((TextView)mView.findViewById(R.id.value_validity_from));
         TextView toView = ((TextView)mView.findViewById(R.id.value_validity_to));
@@ -343,7 +344,7 @@ public class SslValidatorDialog extends Dialog {
     private void saveServerCert() throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
         if (mException.getServerCertificate() != null) {
             // TODO make this asynchronously, it can take some time
-            OwnCloudClientUtils.addCertToKnownServersStore(mException.getServerCertificate(), getContext());
+            NetworkUtils.addCertToKnownServersStore(mException.getServerCertificate(), getContext());
         }
     }
 

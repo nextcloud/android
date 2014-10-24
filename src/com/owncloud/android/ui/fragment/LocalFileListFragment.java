@@ -19,11 +19,6 @@ package com.owncloud.android.ui.fragment;
 
 import java.io.File;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.R;
-import com.owncloud.android.ui.adapter.LocalFileListAdapter;
-
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
@@ -34,6 +29,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
 
 /**
@@ -77,6 +76,8 @@ public class LocalFileListFragment extends ExtendedListFragment {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        disableSwipe(); // Disable pull refresh
+        setMessageForEmptyList(getString(R.string.local_file_list_empty));
         Log_OC.i(TAG, "onCreateView() end");
         return v;
     }    
@@ -89,7 +90,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         Log_OC.i(TAG, "onActivityCreated() start");
         
-        super.onCreate(savedInstanceState);
+        super.onActivityCreated(savedInstanceState);
         mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity());
         setListAdapter(mAdapter);
         
@@ -110,6 +111,8 @@ public class LocalFileListFragment extends ExtendedListFragment {
                 listDirectory(file);
                 // notify the click to container Activity
                 mContainerActivity.onDirectoryClick(file);
+                // save index and top position
+                saveIndexAndTopPosition(position);
             
             } else {    /// Click on a file
                 ImageView checkBoxV = (ImageView) v.findViewById(R.id.custom_checkbox);
@@ -139,6 +142,9 @@ public class LocalFileListFragment extends ExtendedListFragment {
             parentDir = mDirectory.getParentFile();  // can be null
         }
         listDirectory(parentDir);
+
+        // restore index and top position
+        restoreIndexAndTopPosition();
     }
 
     
