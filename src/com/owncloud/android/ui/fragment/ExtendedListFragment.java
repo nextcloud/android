@@ -18,6 +18,8 @@
 
 package com.owncloud.android.ui.fragment;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -30,9 +32,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
+import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 
 /**
  * TODO extending SherlockListFragment instead of SherlockFragment
@@ -70,7 +73,7 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     }
 
     public void setFooterView(View footer) {
-        mList.addFooterView(footer);
+        mList.addFooterView(footer, null, false);
         mList.invalidate();
     }
 
