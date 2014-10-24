@@ -16,6 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fileDownloadLL"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical" 

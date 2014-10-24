@@ -18,20 +18,57 @@ package com.owncloud.android;
 
 import android.app.Application;
 import android.content.Context;
+
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
+import com.owncloud.android.lib.common.utils.Log_OC;
 /**
  * Main Application of the project
  * 
- * Contains methods to build the "static" strings. These strings were before constants in different classes
+ * Contains methods to build the "static" strings. These strings were before constants in different
+ * classes
  * 
  * @author masensio
+ * @author David A. Velasco
  */
 public class MainApp extends Application {
+    
+    private static final String AUTH_ON = "on";
+    
+    @SuppressWarnings("unused")
+    private static final String POLICY_SINGLE_SESSION_PER_ACCOUNT = "single session per account";
+    @SuppressWarnings("unused")
+    private static final String POLICY_ALWAYS_NEW_CLIENT = "always new client";
 
     private static Context mContext;
-
+    
     public void onCreate(){
         super.onCreate();
         MainApp.mContext = getApplicationContext();
+        
+        boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
+        
+        if (isSamlAuth) {   
+            OwnCloudClientManagerFactory.setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT);
+            
+        } else {
+            OwnCloudClientManagerFactory.setDefaultPolicy(Policy.ALWAYS_NEW_CLIENT);
+        }
+        
+        // initialise thumbnails cache on background thread
+        new ThumbnailsCacheManager.InitDiskCacheTask().execute();
+        
+        if (BuildConfig.DEBUG) {
+
+            String dataFolder = getDataFolder();
+
+            // Set folder for store logs
+            Log_OC.setLogDataFolder(dataFolder);
+
+            Log_OC.startLogging();
+            Log_OC.d("Debug", "start logging");
+        }
     }
 
     public static Context getAppContext() {
@@ -44,7 +81,7 @@ public class MainApp extends Application {
     public static String getAccountType() {
         return getAppContext().getResources().getString(R.string.account_type);
     }
-    
+
     //  From AccountAuthenticator 
     //  public static final String AUTHORITY = "org.owncloud";
     public static String getAuthority() {
@@ -55,30 +92,6 @@ public class MainApp extends Application {
     //  public static final String AUTH_TOKEN_TYPE = "org.owncloud";
     public static String getAuthTokenType() {
         return getAppContext().getResources().getString(R.string.authority);
-    }
-    
-    //  From AccountAuthenticator
-    //  public static final String AUTH_TOKEN_TYPE_PASSWORD = "owncloud.password";
-    public static String getAuthTokenTypePass() {
-        return getAppContext().getResources().getString(R.string.account_type) + ".password";
-    }
-    
-    //  From AccountAuthenticator
-    //  public static final String AUTH_TOKEN_TYPE_ACCESS_TOKEN = "owncloud.oauth2.access_token";
-    public static String getAuthTokenTypeAccessToken() {
-        return getAppContext().getResources().getString(R.string.account_type) + ".oauth2.access_token";
-    }
-    
-    //  From AccountAuthenticator
-    //  public static final String AUTH_TOKEN_TYPE_REFRESH_TOKEN = "owncloud.oauth2.refresh_token";
-    public static String getAuthTokenTypeRefreshToken() {
-        return getAppContext().getResources().getString(R.string.account_type) + ".oauth2.refresh_token";
-    }
-    
-    //  From AccountAuthenticator
-    //  public static final String AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE = "owncloud.saml.web_sso.session_cookie";
-    public static String getAuthTokenTypeSamlSessionCookie() {
-        return getAppContext().getResources().getString(R.string.account_type) +  ".saml.web_sso.session_cookie";
     }
     
     //  From ProviderMeta 
@@ -102,4 +115,5 @@ public class MainApp extends Application {
     public static String getLogName() {
         return getAppContext().getResources().getString(R.string.log_name);
     }
+
 }

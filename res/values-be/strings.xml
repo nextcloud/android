@@ -1,2 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="actionbar_settings">Налады</string>
+  <string name="common_yes">Так</string>
+  <string name="common_no">Не</string>
+  <string name="common_ok">Добра</string>
+  <string name="common_error">Памылка</string>
+  <string name="empty"></string>
+  <string name="move_choose_button_text">Выбар</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<!-- Notifications -->
+	<style name="Theme.ownCloud.NotificationText.Title" 
+	    parent="@android:style/TextAppearance.StatusBar.EventContent.Title" 
+	    />
+	<style name="Theme.ownCloud.NotificationText.Content" 
+	    parent="@android:style/TextAppearance.StatusBar.EventContent" 
+	    />
+	
+</resources>

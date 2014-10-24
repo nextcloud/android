@@ -2,7 +2,6 @@
 <resources>
   <string name="actionbar_upload">Amontcarga</string>
   <string name="actionbar_upload_files">Fichièrs</string>
-  <string name="actionbar_mkdir">Crea un repertòri</string>
   <string name="actionbar_settings">Configuracion</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Mai d\'aquò</string>
@@ -18,6 +17,7 @@
   <string name="uploader_wrn_no_account_setup_btn_text">Configuracion</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quita</string>
   <string name="uploader_info_uploading">Al amontcargar</string>
+  <string name="file_list_empty">Pas res dedins. Amontcarga qualquaren</string>
   <string name="filedetails_size">Talha :</string>
   <string name="filedetails_type">Tipe :</string>
   <string name="filedetails_created">Creat :</string>
@@ -34,10 +34,12 @@
   <string name="delete_account">Escafa lo compte</string>
   <string name="create_account">Crea un compte</string>
   <string name="upload_chooser_title">Avalcarga dempuèi ...</string>
-  <string name="uploader_info_dirname">Nom de repertòri</string>
   <string name="uploader_upload_in_progress_ticker">Al avalcargar ...</string>
   <string name="uploader_upload_succeeded_ticker">Capitada d\'avalcargar</string>
   <string name="common_choose_account">Causís lo compte</string>
   <string name="pincode_enter_pin_code">Dintras ton PIN d\'App, se te plai</string>
   <string name="common_rename">Torna nomenar</string>
+  <string name="empty"></string>
+  <string name="prefs_category_accounts">Comptes</string>
+  <string name="move_choose_button_text">Causís</string>
 </resources>

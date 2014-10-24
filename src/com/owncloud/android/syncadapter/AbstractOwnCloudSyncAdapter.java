@@ -24,11 +24,12 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.network.OwnCloudClientUtils;
-
+import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -37,7 +38,6 @@ import android.accounts.OperationCanceledException;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.Context;
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * Base synchronization adapter for ownCloud designed to be subclassed for different
@@ -56,7 +56,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
     private ContentProviderClient mContentProviderClient;
     private FileDataStorageManager mStoreManager;
 
-    private WebdavClient mClient = null;
+    private OwnCloudClient mClient = null;
 
     public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -102,10 +102,12 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 
     protected void initClientForCurrentAccount() throws OperationCanceledException, AuthenticatorException, IOException, AccountNotFoundException {
         AccountUtils.constructFullURLForAccount(getContext(), account);
-        mClient = OwnCloudClientUtils.createOwnCloudClient(account, getContext());
+        OwnCloudAccount ocAccount = new OwnCloudAccount(account, getContext());
+        mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                getClientFor(ocAccount, getContext());
     }
     
-    protected WebdavClient getClient() {
+    protected OwnCloudClient getClient() {
         return mClient;
     }
     
