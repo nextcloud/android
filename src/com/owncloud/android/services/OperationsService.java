@@ -205,7 +205,13 @@ public class OperationsService extends Service {
                     saveAllClients(this, MainApp.getAccountType());
 
             // TODO - get rid of these exceptions
-        } catch (AccountNotFoundException | AuthenticatorException | OperationCanceledException | IOException e) {
+        } catch (AccountNotFoundException e) {
+            e.printStackTrace();
+        } catch (AuthenticatorException e) {
+            e.printStackTrace();
+        } catch (OperationCanceledException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -511,7 +517,7 @@ public class OperationsService extends Service {
         }
 
 
-        
+
     }
 
 
@@ -531,7 +537,7 @@ public class OperationsService extends Service {
             if (!operationIntent.hasExtra(EXTRA_ACCOUNT) && 
                     !operationIntent.hasExtra(EXTRA_SERVER_URL)) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
-                
+
             } else {
                 Account account = operationIntent.getParcelableExtra(EXTRA_ACCOUNT);
                 String serverUrl = operationIntent.getStringExtra(EXTRA_SERVER_URL);
@@ -552,7 +558,7 @@ public class OperationsService extends Service {
                                 ShareType.PUBLIC_LINK,
                                 "", false, password, 1, sendIntent);
                     }
-                    
+
                 } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     if (remotePath.length() > 0) {
@@ -564,7 +570,7 @@ public class OperationsService extends Service {
                 } else if (action.equals(ACTION_GET_SERVER_INFO)) { 
                     // check OC server and get basic information from it
                     operation = new GetServerInfoOperation(serverUrl, OperationsService.this);
-                    
+
                 } else if (action.equals(ACTION_OAUTH2_GET_ACCESS_TOKEN)) {
                     /// GET ACCESS TOKEN to the OAuth server
                     String oauth2QueryParameters =
@@ -574,7 +580,7 @@ public class OperationsService extends Service {
                             getString(R.string.oauth2_redirect_uri),       
                             getString(R.string.oauth2_grant_type),
                             oauth2QueryParameters);
-                    
+
                 } else if (action.equals(ACTION_GET_USER_NAME)) {
                     // Get User Name
                     operation = new GetRemoteUserNameOperation();
@@ -598,7 +604,7 @@ public class OperationsService extends Service {
                     boolean createFullPath = operationIntent.getBooleanExtra(EXTRA_CREATE_FULL_PATH,
                             true);
                     operation = new CreateFolderOperation(remotePath, createFullPath);
-                    
+
                 } else if (action.equals(ACTION_SYNC_FILE)) {
                     // Sync file
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
@@ -630,7 +636,6 @@ public class OperationsService extends Service {
                     String newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
                     operation = new CopyFileOperation(remotePath, newParentPath, account);
                 }
-                
             }
                 
         } catch (IllegalArgumentException e) {
@@ -723,7 +728,7 @@ public class OperationsService extends Service {
         if (count == 0) {
             //mOperationResults.put(operation.hashCode(), result);
             Pair<RemoteOperation, RemoteOperationResult> undispatched =
-                    new Pair<>(operation, result);
+                    new Pair<RemoteOperation, RemoteOperationResult>(operation, result);
             mUndispatchedFinishedOperations.put(((Runnable) operation).hashCode(), undispatched);
         }
         Log_OC.d(TAG, "Called " + count + " listeners");
