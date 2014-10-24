@@ -21,7 +21,7 @@ package com.owncloud.android.datamodel;
 import java.io.File;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
-
+import third_parties.daveKoeller.AlphanumComparator;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -460,7 +460,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         } else if (another.isFolder()) {
             return 1;
         }
-        return getRemotePath().toLowerCase().compareTo(another.getRemotePath().toLowerCase());
+        return new AlphanumComparator().compare(this, another);
     }
 
     @Override
