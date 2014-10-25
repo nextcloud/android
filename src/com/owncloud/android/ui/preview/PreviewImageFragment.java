@@ -30,7 +30,9 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.Matrix;
 import android.graphics.Point;
+import android.media.ExifInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -412,7 +414,71 @@ public class PreviewImageFragment extends FileFragment {
                 Log_OC.e(TAG, "Unexpected error loading " + getFile().getStoragePath(), t);
                 
             }
+            
+            result = rotateImage(result, storagePath);
+           
+            
             return result;
+        }
+        
+        private Bitmap rotateImage(Bitmap bitmap, String storagePath){
+            Bitmap resultBitmap = bitmap;
+
+            try
+            {
+                ExifInterface exifInterface = new ExifInterface(storagePath);
+                int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+
+                Matrix matrix = new Matrix();
+
+                // 1: nothing to do
+                
+                // 2
+                if (orientation == ExifInterface.ORIENTATION_FLIP_HORIZONTAL)
+                {
+                    matrix.postScale(-1.0f, 1.0f);
+                }
+                // 3
+                else if (orientation == ExifInterface.ORIENTATION_ROTATE_180)
+                {
+                    matrix.postRotate(180);
+                }
+                // 4
+                else if (orientation == ExifInterface.ORIENTATION_FLIP_VERTICAL)
+                {
+                    matrix.postScale(1.0f, -1.0f);
+                }
+                // 5
+                else if (orientation == ExifInterface.ORIENTATION_TRANSPOSE)
+                {
+                    matrix.postRotate(-90);
+                    matrix.postScale(1.0f, -1.0f);
+                }
+                // 6
+                else if (orientation == ExifInterface.ORIENTATION_ROTATE_90)
+                {
+                    matrix.postRotate(90);
+                }
+                // 7
+                else if (orientation == ExifInterface.ORIENTATION_TRANSVERSE)
+                {
+                    matrix.postRotate(90);
+                    matrix.postScale(1.0f, -1.0f);
+                }
+                // 8
+                else if (orientation == ExifInterface.ORIENTATION_ROTATE_270)
+                {
+                    matrix.postRotate(270);
+                } 
+                
+                // Rotate the bitmap
+                resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            }
+            catch (Exception exception)
+            {
+                Log_OC.e(TAG, "Could not rotate the image: " + storagePath);
+            }
+            return resultBitmap;
         }
         
         @Override
