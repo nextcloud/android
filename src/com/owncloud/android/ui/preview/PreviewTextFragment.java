@@ -1,15 +1,22 @@
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
@@ -21,6 +28,7 @@ import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
+import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 
@@ -29,7 +37,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class PreviewTextFragment extends FileFragment {
@@ -39,7 +49,6 @@ public class PreviewTextFragment extends FileFragment {
 
     private Account mAccount;
     private ListView mTextPreviewList;
-    private ProgressBar mProgressBar;
 
     /**
      * Creates an empty fragment for previews.
@@ -69,7 +78,6 @@ public class PreviewTextFragment extends FileFragment {
 
         mTextPreviewList = (ListView) ret.findViewById(R.id.text_preview_list);
         mTextPreviewList.setAdapter(new TextLineAdapter());
-        mProgressBar = (ProgressBar) ret.findViewById(R.id.progress_bar);
 
         return ret;
     }
@@ -131,10 +139,26 @@ public class PreviewTextFragment extends FileFragment {
      * Reads the file to preview and shows its contents. Too critical to be anonymous.
      */
     private class TextLoadAsyncTask extends AsyncTask<Object, StringWriter, Void> {
+        private int TEXTVIEW_WIDTH;
+        private float TEXTVIEW_SIZE;
+        private final Queue<Character> accumulatedText = new LinkedList<Character>();
+        private final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
+        private final Rect bounds = new Rect();
+        private final Paint paint = new Paint();
 
+        @SuppressLint("InflateParams")
         @Override
         protected void onPreExecute() {
             ((TextLineAdapter) mTextPreviewList.getAdapter()).clear();
+            DisplayMetrics displaymetrics = new DisplayMetrics();
+            getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+            TEXTVIEW_WIDTH = displaymetrics.widthPixels;
+            TEXTVIEW_SIZE = ((TextView) ((LayoutInflater) getActivity().getApplicationContext()
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+                    .inflate(
+                            R.layout.text_file_preview_list_item, null)).getTextSize();
+            showLoadingDialog();
+            paint.setTextSize(TEXTVIEW_SIZE);
         }
 
         @Override
@@ -172,22 +196,67 @@ public class PreviewTextFragment extends FileFragment {
                     sc.close();
                 }
             }
+            //Add the remaining text, if any
+            while (!accumulatedText.isEmpty()) {
+                addLine();
+            }
             return null;
         }
 
         @Override
         protected void onProgressUpdate(StringWriter... values) {
             super.onProgressUpdate(values);
-            //Using a ListView allows to show large text without the UI freeze that happens
-            //when calling TextView#setText() with a large CharSequence
-            ((TextLineAdapter) mTextPreviewList.getAdapter()).add(values[0].toString());
+            final char[] newTextAsCharArray = values[0].toString().toCharArray();
+            for (char c : newTextAsCharArray) {
+                accumulatedText.add(c);
+            }
+            addLine();
+        }
+
+        private synchronized void addLine() {
+            StringBuilder textForThisLine = new StringBuilder();
+            do {
+                Character polled = accumulatedText.poll();
+                textForThisLine.append(polled);
+            }
+            while (!isTooLarge(textForThisLine.toString()) && !accumulatedText.isEmpty());
+            String line = textForThisLine.toString();
+            ((TextLineAdapter) mTextPreviewList.getAdapter()).add(line.contentEquals("null") ? "" : line);
+        }
+
+        private boolean isTooLarge(String text) {
+            paint.getTextBounds(text, 0, text.length(), bounds);
+            int lineWidth = (int) Math.ceil(bounds.width());
+            return lineWidth / TEXTVIEW_WIDTH > 1;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            mProgressBar.setVisibility(View.GONE);
             mTextPreviewList.setVisibility(View.VISIBLE);
+            dismissLoadingDialog();
+        }
+
+        /**
+         * Show loading dialog
+         */
+        public void showLoadingDialog() {
+            // Construct dialog
+            LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            loading.show(ft, DIALOG_WAIT_TAG);
+        }
+
+        /**
+         * Dismiss loading dialog
+         */
+        public void dismissLoadingDialog() {
+            Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+            if (frag != null) {
+                LoadingDialog loading = (LoadingDialog) frag;
+                loading.dismiss();
+            }
         }
     }
 
@@ -197,12 +266,22 @@ public class PreviewTextFragment extends FileFragment {
 
         private void add(String line) {
             items.add(line);
-            notifyDataSetChanged();
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    notifyDataSetChanged();
+                }
+            });
         }
 
         private void clear() {
             items.clear();
-            notifyDataSetChanged();
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    notifyDataSetChanged();
+                }
+            });
         }
 
         @Override
