@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Настройки</string>
   <string name="actionbar_see_details">Подробно</string>
   <string name="actionbar_send_file">Отправить</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Основные</string>
   <string name="prefs_category_more">Больше</string>
   <string name="prefs_accounts">Учётные записи</string>

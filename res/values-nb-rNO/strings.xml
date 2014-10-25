@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Innstillinger</string>
   <string name="actionbar_see_details">Detaljer</string>
   <string name="actionbar_send_file">Send</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Generelt</string>
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Kontoer</string>

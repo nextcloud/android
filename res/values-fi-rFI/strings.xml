@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Asetukset</string>
   <string name="actionbar_see_details">Tiedot</string>
   <string name="actionbar_send_file">Lähetä</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Yleiset</string>
   <string name="prefs_category_more">Enemmän</string>
   <string name="prefs_accounts">Tilit</string>

@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Setări</string>
   <string name="actionbar_see_details">Detalii</string>
   <string name="actionbar_send_file">Expediază</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Mai mult</string>
   <string name="prefs_accounts">Conturi</string>

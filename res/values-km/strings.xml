@@ -6,6 +6,8 @@
   <string name="actionbar_settings">ការកំណត់</string>
   <string name="actionbar_see_details">ព័ត៌មាន​លម្អិត</string>
   <string name="actionbar_send_file">ផ្ញើ</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">ទូទៅ</string>
   <string name="prefs_category_more">ច្រើន​ទៀត</string>
   <string name="prefs_accounts">គណនី</string>
