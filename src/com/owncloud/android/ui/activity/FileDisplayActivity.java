@@ -1411,9 +1411,11 @@ public class FileDisplayActivity extends HookActivity implements
                 if (details instanceof PreviewMediaFragment) {
                     // Refresh  OCFile of the fragment
                     ((PreviewMediaFragment) details).updateFile(file);
-                } else {
+                } else if (details instanceof PreviewTextFragment) {
+                    // Refresh  OCFile of the fragment
+                    ((PreviewTextFragment) details).updateFile(file);
+                } else
                     showDetails(file);
-                }
             }
             invalidateOptionsMenu();
         }
