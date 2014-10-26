@@ -303,6 +303,8 @@ public class FileDisplayActivity extends HookActivity implements
 
             } else {
                 cleanSecondFragment();
+                if (file.isDown() && PreviewTextFragment.canBePreviewed(file))
+                    startTextPreview(file);
             }
 
         } else {
@@ -326,9 +328,9 @@ public class FileDisplayActivity extends HookActivity implements
                 boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
                 secondFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition, autoplay);
 
-            } else {
-                secondFragment = new FileDetailFragment(file, getAccount());
-            }
+            } else if (file.isDown() && PreviewTextFragment.canBePreviewed(file)) {
+                secondFragment = null;
+            } else secondFragment = new FileDetailFragment(file, getAccount());
         }
         return secondFragment;
     }
