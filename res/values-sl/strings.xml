@@ -11,6 +11,12 @@
   <string name="actionbar_settings">Nastavitve</string>
   <string name="actionbar_see_details">Podrobnosti</string>
   <string name="actionbar_send_file">Pošlji</string>
+  <string name="actionbar_sort">Razvrsti</string>
+  <string name="actionbar_sort_title">Razvrsti po</string>
+  <string-array name="actionbar_sortby">
+    <item>Naraščajoče A – Z</item>
+    <item>Novejše – Starejše</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Splošno</string>
