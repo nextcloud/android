@@ -6,6 +6,8 @@
   <string name="actionbar_mkdir">ახალი ფოლდერი</string>
   <string name="actionbar_settings">პარამეტრები</string>
   <string name="actionbar_send_file">გაგზავნა</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">ზოგადი</string>
   <string name="prefs_category_more">უფრო მეტი</string>
   <string name="prefs_accounts">ანგარიში</string>

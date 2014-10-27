@@ -5,6 +5,8 @@
   <string name="actionbar_mkdir">Dosje e\'re</string>
   <string name="actionbar_settings">Parametrat</string>
   <string name="actionbar_send_file">Dërgo</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Përgjithshme</string>
   <string name="prefs_category_more">Më tepër</string>
   <string name="prefs_accounts">Llogarit</string>

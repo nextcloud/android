@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Seaded</string>
   <string name="actionbar_see_details">Üksikasjad</string>
   <string name="actionbar_send_file">Saada</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Üldine</string>
   <string name="prefs_category_more">Rohkem</string>
   <string name="prefs_accounts">Kontod</string>

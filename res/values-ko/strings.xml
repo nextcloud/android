@@ -11,6 +11,8 @@
   <string name="actionbar_settings">설정</string>
   <string name="actionbar_see_details">세부내용</string>
   <string name="actionbar_send_file">보내기</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">일반</string>
   <string name="prefs_category_more">더 중요함</string>
   <string name="prefs_accounts">계정</string>

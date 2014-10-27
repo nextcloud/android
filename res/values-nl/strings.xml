@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Instellingen</string>
   <string name="actionbar_see_details">Details</string>
   <string name="actionbar_send_file">Versturen</string>
+  <string name="actionbar_sort">Sorteren</string>
+  <string name="actionbar_sort_title">Sorteer op</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Nieuwste - Oudste</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Algemeen</string>
   <string name="prefs_category_more">Meer</string>
   <string name="prefs_accounts">Accounts</string>

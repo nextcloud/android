@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Asetukset</string>
   <string name="actionbar_see_details">Tiedot</string>
   <string name="actionbar_send_file">Lähetä</string>
+  <string name="actionbar_sort">Lajittele</string>
+  <string name="actionbar_sort_title">Lajittelujärjestys</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Ö</item>
+    <item>Uusimmasta vanhimpaan</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Yleiset</string>
   <string name="prefs_category_more">Enemmän</string>
   <string name="prefs_accounts">Tilit</string>

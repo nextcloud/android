@@ -5,6 +5,8 @@
   <string name="actionbar_upload_files">கோப்புகள்</string>
   <string name="actionbar_settings">அமைப்புகள்</string>
   <string name="actionbar_see_details">விவரங்கள்</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">பொதுவான</string>
   <string name="prefs_category_more">மேலதிக</string>
   <string name="prefs_accounts">கணக்குகள்</string>
