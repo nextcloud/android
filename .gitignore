@@ -10,6 +10,8 @@
 
 # generated files
 bin/
+build/
+*.iml
 gen/
 target/
 
