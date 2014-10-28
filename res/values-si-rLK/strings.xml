@@ -3,6 +3,8 @@
   <string name="actionbar_upload">උඩුගත කිරීම</string>
   <string name="actionbar_upload_files">ගොනු</string>
   <string name="actionbar_settings">සිටුවම්</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">සාමාන්‍යයෙන්</string>
   <string name="prefs_category_more">වැඩි</string>
   <string name="prefs_accounts">ගිණුම්</string>

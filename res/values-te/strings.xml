@@ -3,6 +3,8 @@
   <string name="actionbar_mkdir">కొత్త సంచయం</string>
   <string name="actionbar_settings">అమరికలు</string>
   <string name="actionbar_send_file">పంపించు</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_more">మరిన్ని</string>
   <string name="prefs_help">సహాయం</string>
   <string name="auth_username">వాడుకరి పేరు</string>

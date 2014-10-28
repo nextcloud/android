@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Definições</string>
   <string name="actionbar_see_details">Detalhes</string>
   <string name="actionbar_send_file">Enviar</string>
+  <string name="actionbar_sort">Ordenar</string>
+  <string name="actionbar_sort_title">Ordenar por</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Mais Recente - Mais Antigo</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Geral</string>
   <string name="prefs_category_more">Mais</string>
   <string name="prefs_accounts">Contas</string>

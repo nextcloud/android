@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Nastavení</string>
   <string name="actionbar_see_details">Podrobnosti</string>
   <string name="actionbar_send_file">Odeslat</string>
+  <string name="actionbar_sort">Seřadit</string>
+  <string name="actionbar_sort_title">Seřadit podle</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Nejnovější - nejstarší</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Obecné</string>
   <string name="prefs_category_more">Více</string>
   <string name="prefs_accounts">Účty</string>

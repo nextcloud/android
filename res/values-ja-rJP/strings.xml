@@ -11,6 +11,10 @@
   <string name="actionbar_settings">設定</string>
   <string name="actionbar_see_details">詳細</string>
   <string name="actionbar_send_file">送信</string>
+  <string name="actionbar_sort">ソート</string>
+  <string name="actionbar_sort_title">ソート: </string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">一般</string>
   <string name="prefs_category_more">もっと見る</string>
   <string name="prefs_accounts">アカウント</string>

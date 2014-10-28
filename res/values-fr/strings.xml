@@ -4,13 +4,21 @@
   <string name="about_version">version %1$s</string>
   <string name="actionbar_sync">Actualiser le compte</string>
   <string name="actionbar_upload">Téléverser</string>
-  <string name="actionbar_upload_from_apps">Contenu d\'une autre application</string>
+  <string name="actionbar_upload_from_apps">Contenu d\'autres applications</string>
   <string name="actionbar_upload_files">Fichiers</string>
   <string name="actionbar_open_with">Ouvrir avec</string>
   <string name="actionbar_mkdir">Nouveau dossier</string>
   <string name="actionbar_settings">Paramètres</string>
   <string name="actionbar_see_details">Détails</string>
   <string name="actionbar_send_file">Envoyer</string>
+  <string name="actionbar_sort">Trier</string>
+  <string name="actionbar_sort_title">Trier par</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Plus récent - Plus ancien</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Général</string>
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_accounts">Comptes</string>
@@ -165,7 +173,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
   <string name="auth_secure_connection">Connexion sécurisée établie</string>
   <string name="auth_unauthorized">Nom d\'utilisateur ou mot de passe incorrect</string>
-  <string name="auth_oauth_error">Echec d\'autorisation</string>
+  <string name="auth_oauth_error">Échec d\'autorisation</string>
   <string name="auth_oauth_error_access_denied">Accès refusé par le serveur d\'autorisation</string>
   <string name="auth_wtf_reenter_URL">État inattendu ; veuillez entrer à nouveau l\'URL du serveur</string>
   <string name="auth_expired_oauth_token_toast">Votre autorisation a expiré. Merci de vous authentifier à nouveau</string>
@@ -243,6 +251,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="preview_image_description">Prévisualisation de l\'image</string>
   <string name="preview_image_error_unknown_format">Cette image ne peut pas être affichée</string>
   <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
+  <string name="prefs_instant_upload_path_title">Chemin d\'accès pour le téléversement</string>
   <string name="share_link_no_support_share_api">Désolé, le partage n\'est pas disponible sur votre serveur. Contactez votre administrateur, s\'il vous plait.</string>
   <string name="share_link_file_no_exist">Impossible de partager. Vérifiez que le fichier est bien présent</string>
   <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
@@ -267,6 +276,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
   <string name="prefs_category_accounts">Comptes</string>
   <string name="prefs_add_account">Ajouter un compte</string>
+  <string name="auth_redirect_non_secure_connection_title">La connexion sécurisée est redirigée via une route non-sécurisée.</string>
   <string name="actionbar_logger">Journaux</string>
   <string name="log_send_history_button">Envoyer l\'historique</string>
   <string name="log_mail_subject">Journaux de l\'application Android ownCloud</string>
@@ -281,5 +291,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
   <string name="move_file_error">Une erreur est survenue lors de la tentative de déplacement de ce fichier ou dossier</string>
   <string name="forbidden_permissions_move">de déplacer ce fichier</string>
+  <string name="prefs_category_instant_uploading">Téléchargements instantanés</string>
   <string name="prefs_category_security">Sécurité</string>
 </resources>

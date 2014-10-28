@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Налаштування</string>
   <string name="actionbar_see_details">Деталі</string>
   <string name="actionbar_send_file">Надіслати</string>
+  <string name="actionbar_sort">Сортувати</string>
+  <string name="actionbar_sort_title">Сортувати за</string>
+  <string-array name="actionbar_sortby">
+    <item>А-Я</item>
+    <item>Новіші-Старіші</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Основне</string>
   <string name="prefs_category_more">Більше</string>
   <string name="prefs_accounts">Облікові записи</string>

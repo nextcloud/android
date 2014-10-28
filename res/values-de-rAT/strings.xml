@@ -2,6 +2,8 @@
 <resources>
   <string name="actionbar_upload_files">Dateien</string>
   <string name="actionbar_settings">Einstellungen</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Allgemein</string>
   <string name="prefs_help">Hilfe</string>
   <string name="auth_password">Passwort</string>

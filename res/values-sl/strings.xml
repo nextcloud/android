@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Nastavitve</string>
   <string name="actionbar_see_details">Podrobnosti</string>
   <string name="actionbar_send_file">Pošlji</string>
+  <string name="actionbar_sort">Razvrsti</string>
+  <string name="actionbar_sort_title">Razvrsti po</string>
+  <string-array name="actionbar_sortby">
+    <item>Naraščajoče A – Z</item>
+    <item>Novejše – Starejše</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Splošno</string>
   <string name="prefs_category_more">Več</string>
   <string name="prefs_accounts">Računi</string>
@@ -238,6 +246,7 @@
   <string name="preview_image_description">Predogled slike</string>
   <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
   <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
+  <string name="prefs_instant_upload_path_title">Pot za pošiljanje</string>
   <string name="share_link_no_support_share_api">Souporaba je na strežniku onemogočena. Možnost lahko spreminjajo le
 		uporabniki s skrbniškimi dovoljenji.</string>
   <string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
@@ -263,6 +272,7 @@
   <string name="downloader_download_file_not_found">Datoteka na strežniku ni več na voljo.</string>
   <string name="prefs_category_accounts">Računi</string>
   <string name="prefs_add_account">Dodaj račun</string>
+  <string name="auth_redirect_non_secure_connection_title">Varna povezava je preusmerjena preko ne-varne poti.</string>
   <string name="actionbar_logger">Dnevnik</string>
   <string name="log_send_history_button">Pošlji zgodovino</string>
   <string name="log_mail_subject">Dnevnik programa ownCloud</string>
@@ -277,5 +287,6 @@
   <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja.</string>
   <string name="move_file_error">Prišlo je do napake med premikanjem datoteke v mapo</string>
   <string name="forbidden_permissions_move">med premikanjem datoteke</string>
+  <string name="prefs_category_instant_uploading">Takojšnje pošiljanje v oblak</string>
   <string name="prefs_category_security">Varnost</string>
 </resources>

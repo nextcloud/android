@@ -7,6 +7,8 @@
   <string name="actionbar_settings">Astellungen</string>
   <string name="actionbar_see_details">Detailer</string>
   <string name="actionbar_send_file">Schécken</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Allgemeng</string>
   <string name="prefs_category_more">Méi</string>
   <string name="prefs_accounts">Accounten</string>
