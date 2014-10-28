@@ -154,10 +154,8 @@ public class UploadFilesActivity extends FileActivity implements
             }
             case R.id.actionbar_select_all:{
                 if(selectAllToggled){
-                    // deselect all
                     toggleOffSelectAll();
                 }else{
-                    // select alls
                     toggleOnSelectAll(item);
                 }
                 break;
@@ -170,7 +168,6 @@ public class UploadFilesActivity extends FileActivity implements
     public void toggleOffSelectAll(MenuItem item){
         selectAllToggled = false;
         item.setIcon(android.R.drawable.checkbox_off_background);
-//        mFileListFragment.listDirectory()
         mFileListFragment.deselectAll();
     }
     public void toggleOffSelectAll(){
@@ -179,8 +176,7 @@ public class UploadFilesActivity extends FileActivity implements
     }
     public void toggleOnSelectAll(MenuItem item){
         selectAllToggled = true;
-        item.setIcon(android.R.drawable.checkbox_on_background);
-        
+        item.setIcon(android.R.drawable.checkbox_on_background);        
         mFileListFragment.selectAll();
     }
     

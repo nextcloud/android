@@ -101,13 +101,10 @@ public class LocalFileListFragment extends ExtendedListFragment {
         int numberOfFiles = mAdapter.getCount();
         for(int i = 0; i < numberOfFiles; i++){
             File file = (File) mAdapter.getItem(i);
-            if (file != null) {
-                /// Click on a directory
-                if (file.isDirectory()) {                    
-                
-                } else {    /// Click on a file
-                    getListView().setItemChecked(i, true);
-                       
+            if (file != null) {                
+                if (!file.isDirectory()) {  
+                    /// Click on a file
+                    getListView().setItemChecked(i, true);                       
                     // notify the change to the container Activity
                     mContainerActivity.onFileClick(file);
                 }
@@ -115,24 +112,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         }
     }
     
-    public void deselectAll(){
-        /*
-        int numberOfFiles = mAdapter.getCount();
-        for(int i = 0; i < numberOfFiles; i++){
-            File file = (File) mAdapter.getItem(i);
-            if (file != null) {
-                /// Click on a directory
-                if (file.isDirectory()) {                    
-                
-                } else {    /// Click on a file
-                    if(getListView().isItemChecked(i)){
-                        getListView().setItemChecked(i, false);
-                    }     
-                    // notify the change to the container Activity
-                    mContainerActivity.onFileClick(file);
-                }
-            }
-        }*/
+    public void deselectAll(){        
         mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity());
         setListAdapter(mAdapter);
     }
