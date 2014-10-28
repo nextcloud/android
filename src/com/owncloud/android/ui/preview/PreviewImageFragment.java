@@ -421,6 +421,13 @@ public class PreviewImageFragment extends FileFragment {
             return result;
         }
         
+        /**
+         * Rotate bitmap according to EXIF orientation. 
+         * Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/ 
+         * @param bitmap Bitmap to be rotated
+         * @param storagePath Path to source file of bitmap. Needed for EXIF information. 
+         * @return correctly EXIF-rotated bitmap
+         */
         private Bitmap rotateImage(Bitmap bitmap, String storagePath){
             Bitmap resultBitmap = bitmap;
 
