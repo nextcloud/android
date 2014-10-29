@@ -57,6 +57,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.TouchImageViewCustom;
 
 
@@ -418,7 +419,7 @@ public class PreviewImageFragment extends FileFragment {
             }
             
             // Rotate image, obeying exif tag
-            result = ThumbnailsCacheManager.rotateImage(result, storagePath);
+            result = BitmapUtils.rotateImage(result, storagePath);
            
             
             return result;
