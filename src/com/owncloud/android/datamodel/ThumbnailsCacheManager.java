@@ -23,9 +23,11 @@ import java.lang.ref.WeakReference;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
 import android.util.TypedValue;
@@ -190,6 +192,9 @@ public class ThumbnailsCacheManager {
                         
                         if (bitmap != null) {
                             thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+                            
+                            // Rotate image, obeying exif tag
+                            thumbnail = rotateImage(thumbnail, mFile.getStoragePath());
     
                             // Add thumbnail to cache
                             addBitmapToCache(imageKey, thumbnail);
@@ -260,6 +265,73 @@ public class ThumbnailsCacheManager {
             }
             mThumbnailsDiskCacheLock.notifyAll(); // Wake any waiting threads
         }
+    }
+    
+    /**
+     * Rotate bitmap according to EXIF orientation. 
+     * Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/ 
+     * @param bitmap Bitmap to be rotated
+     * @param storagePath Path to source file of bitmap. Needed for EXIF information. 
+     * @return correctly EXIF-rotated bitmap
+     */
+    public static Bitmap rotateImage(Bitmap bitmap, String storagePath){
+        Bitmap resultBitmap = bitmap;
+
+        try
+        {
+            ExifInterface exifInterface = new ExifInterface(storagePath);
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+
+            Matrix matrix = new Matrix();
+
+            // 1: nothing to do
+            
+            // 2
+            if (orientation == ExifInterface.ORIENTATION_FLIP_HORIZONTAL)
+            {
+                matrix.postScale(-1.0f, 1.0f);
+            }
+            // 3
+            else if (orientation == ExifInterface.ORIENTATION_ROTATE_180)
+            {
+                matrix.postRotate(180);
+            }
+            // 4
+            else if (orientation == ExifInterface.ORIENTATION_FLIP_VERTICAL)
+            {
+                matrix.postScale(1.0f, -1.0f);
+            }
+            // 5
+            else if (orientation == ExifInterface.ORIENTATION_TRANSPOSE)
+            {
+                matrix.postRotate(-90);
+                matrix.postScale(1.0f, -1.0f);
+            }
+            // 6
+            else if (orientation == ExifInterface.ORIENTATION_ROTATE_90)
+            {
+                matrix.postRotate(90);
+            }
+            // 7
+            else if (orientation == ExifInterface.ORIENTATION_TRANSVERSE)
+            {
+                matrix.postRotate(90);
+                matrix.postScale(1.0f, -1.0f);
+            }
+            // 8
+            else if (orientation == ExifInterface.ORIENTATION_ROTATE_270)
+            {
+                matrix.postRotate(270);
+            } 
+            
+            // Rotate the bitmap
+            resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        }
+        catch (Exception exception)
+        {
+            Log_OC.e(TAG, "Could not rotate the image: " + storagePath);
+        }
+        return resultBitmap;
     }
 
 }

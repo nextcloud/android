@@ -50,6 +50,8 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -415,77 +417,11 @@ public class PreviewImageFragment extends FileFragment {
                 
             }
             
-            result = rotateImage(result, storagePath);
+            // Rotate image, obeying exif tag
+            result = ThumbnailsCacheManager.rotateImage(result, storagePath);
            
             
             return result;
-        }
-        
-        /**
-         * Rotate bitmap according to EXIF orientation. 
-         * Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/ 
-         * @param bitmap Bitmap to be rotated
-         * @param storagePath Path to source file of bitmap. Needed for EXIF information. 
-         * @return correctly EXIF-rotated bitmap
-         */
-        private Bitmap rotateImage(Bitmap bitmap, String storagePath){
-            Bitmap resultBitmap = bitmap;
-
-            try
-            {
-                ExifInterface exifInterface = new ExifInterface(storagePath);
-                int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
-
-                Matrix matrix = new Matrix();
-
-                // 1: nothing to do
-                
-                // 2
-                if (orientation == ExifInterface.ORIENTATION_FLIP_HORIZONTAL)
-                {
-                    matrix.postScale(-1.0f, 1.0f);
-                }
-                // 3
-                else if (orientation == ExifInterface.ORIENTATION_ROTATE_180)
-                {
-                    matrix.postRotate(180);
-                }
-                // 4
-                else if (orientation == ExifInterface.ORIENTATION_FLIP_VERTICAL)
-                {
-                    matrix.postScale(1.0f, -1.0f);
-                }
-                // 5
-                else if (orientation == ExifInterface.ORIENTATION_TRANSPOSE)
-                {
-                    matrix.postRotate(-90);
-                    matrix.postScale(1.0f, -1.0f);
-                }
-                // 6
-                else if (orientation == ExifInterface.ORIENTATION_ROTATE_90)
-                {
-                    matrix.postRotate(90);
-                }
-                // 7
-                else if (orientation == ExifInterface.ORIENTATION_TRANSVERSE)
-                {
-                    matrix.postRotate(90);
-                    matrix.postScale(1.0f, -1.0f);
-                }
-                // 8
-                else if (orientation == ExifInterface.ORIENTATION_ROTATE_270)
-                {
-                    matrix.postRotate(270);
-                } 
-                
-                // Rotate the bitmap
-                resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-            }
-            catch (Exception exception)
-            {
-                Log_OC.e(TAG, "Could not rotate the image: " + storagePath);
-            }
-            return resultBitmap;
         }
         
         @Override
