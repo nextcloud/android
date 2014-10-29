@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import android.content.Intent;
@@ -125,41 +124,28 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
      */
     private void sendMail() {
 
-        String emailAddress;
-        try {
-            Class<?> stringClass = R.string.class;
-            Field mailLoggerField = stringClass.getField("mail_logger");
-            int emailAddressId = (Integer)mailLoggerField.get(null);
-            emailAddress = getString(emailAddressId);
-            
-        } catch (Exception e) {
-            emailAddress = "";
-        }
-
+        String emailAddress = getString(R.string.mail_logger);
+        
         ArrayList<Uri> uris = new ArrayList<Uri>();
 
         // Convert from paths to Android friendly Parcelable Uri's
         for (String file : Log_OC.getLogFileNames())
         {
-            if (new File(mLogPath + File.separator, file).exists()) {
-                Uri u = Uri.parse("file://" + mLogPath + File.separator + file);
-                uris.add(u);
+            File logFile = new File(mLogPath, file);
+            if (logFile.exists()) {
+                uris.add(Uri.fromFile(logFile));
             }
         }
 
         Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
 
-        // Explicitly only use Gmail to send
-        intent.setClassName("com.google.android.gm","com.google.android.gm.ComposeActivityGmail");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{ emailAddress });
+        intent.putExtra(Intent.EXTRA_EMAIL, emailAddress);
         intent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.log_mail_subject));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setType(MAIL_ATTACHMENT_TYPE);
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
 
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
+        startActivity(Intent.createChooser(intent, getString(R.string.log_send_chooser_title)));     
     }
 
     /**
