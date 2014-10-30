@@ -16,6 +16,8 @@
  */
 package com.owncloud.android.ui.preview;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -31,7 +33,9 @@ import android.view.ViewGroup;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * Adapter class that provides Fragment instances  
@@ -73,13 +77,15 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         mAccount = account;
         mStorageManager = storageManager;
         mImageFiles = mStorageManager.getFolderImages(parentFolder); 
+        
+        mImageFiles = FileStorageUtils.sortDirectory(mImageFiles);
+        
         mObsoleteFragments = new HashSet<Object>();
         mObsoletePositions = new HashSet<Integer>();
         mDownloadErrors = new HashSet<Integer>();
         //mFragmentManager = fragmentManager;
         mCachedFragments = new HashMap<Integer, FileFragment>();
     }
-
     
     /**
      * Returns the image files handled by the adapter.
