@@ -84,11 +84,9 @@ public class ThumbnailsCacheManager {
 
     
     public static class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
-        private static Account mAccount;
         private static Context mContext;
 
-        public InitDiskCacheTask(Account account, Context context) {
-            mAccount = account;
+        public InitDiskCacheTask(Context context) {
             mContext = context;
            }
 
@@ -99,28 +97,6 @@ public class ThumbnailsCacheManager {
 
                 if (mThumbnailCache == null) {
                     try {
-                        OwnCloudAccount ocAccount;
-                        try {
-                            if (mAccount != null) {
-                                AccountManager accountMgr = AccountManager.get(mContext);
-                                mServerVersion = accountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION);
-                                ocAccount = new OwnCloudAccount(mAccount, mContext);
-                                mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, mContext);
-                            }
-                        } catch (AccountNotFoundException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (AuthenticatorException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (OperationCanceledException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
                         // Check if media is mounted or storage is built-in, if so, 
                         // try and use external cache dir; otherwise use internal cache dir
                         final String cachePath = 
@@ -203,15 +179,17 @@ public class ThumbnailsCacheManager {
 
     public static class ThumbnailGenerationTask extends AsyncTask<OCFile, Void, Bitmap> {
         private final WeakReference<ImageView> mImageViewReference;
+        private static Account mAccount;
         private OCFile mFile;
         private FileDataStorageManager mStorageManager;
         
-        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager) {
+        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account) {
          // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<ImageView>(imageView);
             if (storageManager == null)
                 throw new IllegalArgumentException("storageManager must not be NULL");
             mStorageManager = storageManager;
+            mAccount = account;
         }
 
         // Decode image in background.
@@ -220,6 +198,14 @@ public class ThumbnailsCacheManager {
             Bitmap thumbnail = null;
             
             try {
+                if (mAccount != null) {
+                    AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
+                    
+                    mServerVersion = accountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION);
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, MainApp.getAppContext());
+                    mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, MainApp.getAppContext());
+                }
+                
                 mFile = params[0];
                 final String imageKey = String.valueOf(mFile.getRemoteId());
     
@@ -274,6 +260,8 @@ public class ThumbnailsCacheManager {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
+                            } else {
+                                Log_OC.d(TAG, "Server too old");
                             }
                         }
                     }

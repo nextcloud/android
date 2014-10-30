@@ -58,8 +58,7 @@ public class MainApp extends Application {
         }
 
         // initialise thumbnails cache on background thread
-        new ThumbnailsCacheManager.InitDiskCacheTask(AccountUtils.getCurrentOwnCloudAccount(mContext),
-                mContext).execute();
+        new ThumbnailsCacheManager.InitDiskCacheTask(mContext).execute();
         
         if (BuildConfig.DEBUG) {
 
