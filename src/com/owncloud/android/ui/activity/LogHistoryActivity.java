@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -35,6 +36,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -140,12 +142,17 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
         Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
 
         intent.putExtra(Intent.EXTRA_EMAIL, emailAddress);
-        intent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.log_mail_subject));
+        intent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.log_send_mail_subject));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setType(MAIL_ATTACHMENT_TYPE);
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, getString(R.string.log_send_no_mail_app), Toast.LENGTH_LONG).show();
+            Log_OC.i(TAG, "Could not find app for sending log history.");
+        }
 
-        startActivity(Intent.createChooser(intent, getString(R.string.log_send_chooser_title)));     
     }
 
     /**
