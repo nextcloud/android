@@ -64,23 +64,8 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploader;
+import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.lib.common.utils.Log_OC;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
-import java.util.Vector;
-
 
 /**
  * This can be used to upload things to an ownCloud instance.
@@ -320,6 +305,10 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
         else{
             getSupportActionBar().setTitle(current_dir);
         }
+        boolean notRoot = (mParents.size() > 1);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(notRoot);
+        actionBar.setHomeButtonEnabled(notRoot);
 
         String full_path = generatePath(mParents);
         
@@ -493,5 +482,21 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
     }
 
     
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean retval = true;
+        switch (item.getItemId()) {
+        case android.R.id.home: {
+            if((mParents.size() > 1)) {                
+                onBackPressed(); 
+            }
+            break;
+        }
+        default:
+            retval = super.onOptionsItemSelected(item);
+        }
+        return retval;
+    }
 
+    
 }
