@@ -18,16 +18,6 @@
 
 package com.owncloud.android.files;
 
-import java.io.File;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.db.UploadDbHandler;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.FileStorageUtils;
-
-
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -38,7 +28,12 @@ import android.net.NetworkInfo.State;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
-import android.webkit.MimeTypeMap;
+
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.db.UploadDbHandler;
+import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.FileStorageUtils;
 
 
 public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
@@ -56,9 +51,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log_OC.d(TAG, "Received: " + intent.getAction());
-        if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
-            handleConnectivityAction(context, intent);
-        }else if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
+        if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
             handleNewPictureAction(context, intent); 
             Log_OC.d(TAG, "UNOFFICIAL processed: com.android.camera.NEW_PICTURE");
         } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
@@ -104,22 +97,14 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         
         Log_OC.d(TAG, file_path + "");
 
-        // save always temporally the picture to upload
-        UploadDbHandler db = new UploadDbHandler(context);
-        db.putFileForLater(file_path, account.name, null);
-        db.close();
-
-        if (!isOnline(context) || (instantPictureUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
-            return;
-        }
-
-        Intent i = new Intent(context, FileUploader.class);
-        i.putExtra(FileUploader.KEY_ACCOUNT, account);
-        i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
-        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-        i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
-        i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+        Intent i = new Intent(context, FileUploadService.class);
+        i.putExtra(FileUploadService.KEY_ACCOUNT, account);
+        i.putExtra(FileUploadService.KEY_LOCAL_FILE, file_path);
+        i.putExtra(FileUploadService.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_MIME_TYPE, mime_type);
+        i.putExtra(FileUploadService.KEY_CREATE_REMOTE_FOLDER, true);
+        i.putExtra(FileUploadService.KEY_WIFI_ONLY, instantPictureUploadViaWiFiOnly(context));
         context.startService(i);
     }
 
@@ -154,69 +139,67 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         c.close();
         Log_OC.d(TAG, file_path + "");
 
-        if (!isOnline(context) || (instantVideoUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
-            return;
-        }
-
-        Intent i = new Intent(context, FileUploader.class);
-        i.putExtra(FileUploader.KEY_ACCOUNT, account);
-        i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
-        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-        i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
-        i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+        Intent i = new Intent(context, FileUploadService.class);
+        i.putExtra(FileUploadService.KEY_ACCOUNT, account);
+        i.putExtra(FileUploadService.KEY_LOCAL_FILE, file_path);
+        i.putExtra(FileUploadService.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_MIME_TYPE, mime_type);
+        i.putExtra(FileUploadService.KEY_CREATE_REMOTE_FOLDER, true);
+        i.putExtra(FileUploadService.KEY_WIFI_ONLY, instantVideoUploadViaWiFiOnly(context));
         context.startService(i);
-
     }
 
-    private void handleConnectivityAction(Context context, Intent intent) {
-        if (!instantPictureUploadEnabled(context)) {
-            Log_OC.d(TAG, "Instant upload disabled, don't upload anything");
-            return;
-        }
-
-        if (!intent.hasExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY)
-                && isOnline(context)
-                && (!instantPictureUploadViaWiFiOnly(context) || (instantPictureUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))) {
-            UploadDbHandler db = new UploadDbHandler(context);
-            Cursor c = db.getAwaitingFiles();
-            if (c.moveToFirst()) {
-                do {
-                    String account_name = c.getString(c.getColumnIndex("account"));
-                    String file_path = c.getString(c.getColumnIndex("path"));
-                    File f = new File(file_path);
-                    if (f.exists()) {
-                        Account account = new Account(account_name, MainApp.getAccountType());
-
-                        String mimeType = null;
-                        try {
-                            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
-                                    f.getName().substring(f.getName().lastIndexOf('.') + 1));
-
-                        } catch (Throwable e) {
-                            Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + f.getName());
-                        }
-                        if (mimeType == null)
-                            mimeType = "application/octet-stream";
-
-                        Intent i = new Intent(context, FileUploader.class);
-                        i.putExtra(FileUploader.KEY_ACCOUNT, account);
-                        i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
-                        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, f.getName()));
-                        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-                        i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
-                        context.startService(i);
-
-                    } else {
-                        Log_OC.w(TAG, "Instant upload file " + f.getAbsolutePath() + " dont exist anymore");
-                    }
-                } while (c.moveToNext());
-            }
-            c.close();
-            db.close();
-        }
-
-    }
+    //obsolete. delete.
+//    private void handleConnectivityAction(Context context, Intent intent) {
+//        if (!instantPictureUploadEnabled(context)) {
+//            Log_OC.d(TAG, "Instant upload disabled, don't upload anything");
+//            return;
+//        }
+//
+//        if (!intent.hasExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY)
+//                && isOnline(context)
+//                && (!instantPictureUploadViaWiFiOnly(context) || (instantPictureUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))) {
+//            UploadDbHandler db = new UploadDbHandler(context);
+//            Cursor c = db.getAwaitingFiles();
+//            if (c.moveToFirst()) {
+//                do {
+//                    String account_name = c.getString(c.getColumnIndex("account"));
+//                    String file_path = c.getString(c.getColumnIndex("path"));
+//                    File f = new File(file_path);
+//                    if (f.exists()) {
+//                        Account account = new Account(account_name, MainApp.getAccountType());
+//
+//                        String mimeType = null;
+//                        try {
+//                            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+//                                    f.getName().substring(f.getName().lastIndexOf('.') + 1));
+//
+//                        } catch (Throwable e) {
+//                            Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + f.getName());
+//                        }
+//                        if (mimeType == null)
+//                            mimeType = "application/octet-stream";
+//
+//                        Intent i = new Intent(context, FileUploader.class);
+//                        i.putExtra(FileUploader.KEY_ACCOUNT, account);
+//                        i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
+//                        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, f.getName()));
+//                        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
+//                        i.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, true);
+//                        i.putExtra(FileUploader.KEY_WIFI_ONLY, instantPictureUploadViaWiFiOnly(context));
+//                        context.startService(i);
+//
+//                    } else {
+//                        Log_OC.w(TAG, "Instant upload file " + f.getAbsolutePath() + " dont exist anymore");
+//                    }
+//                } while (c.moveToNext());
+//            }
+//            c.close();
+//            db.close();
+//        }
+//
+//    }
 
     public static boolean isOnline(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

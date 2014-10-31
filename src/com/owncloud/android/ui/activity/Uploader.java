@@ -31,7 +31,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import android.accounts.Account;
@@ -402,11 +402,11 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                     throw new SecurityException();
                 }
            
-            Intent intent = new Intent(getApplicationContext(), FileUploader.class);
-            intent.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
-            intent.putExtra(FileUploader.KEY_LOCAL_FILE, local.toArray(new String[local.size()]));
-            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remote.toArray(new String[remote.size()]));
-            intent.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
+            Intent intent = new Intent(getApplicationContext(), FileUploadService.class);
+            intent.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_MULTIPLE_FILES);
+            intent.putExtra(FileUploadService.KEY_LOCAL_FILE, local.toArray(new String[local.size()]));
+            intent.putExtra(FileUploadService.KEY_REMOTE_FILE, remote.toArray(new String[remote.size()]));
+            intent.putExtra(FileUploadService.KEY_ACCOUNT, mAccount);
             startService(intent);
             finish();
             }

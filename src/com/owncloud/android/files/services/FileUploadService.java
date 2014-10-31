@@ -34,7 +34,11 @@ import android.accounts.AccountsException;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -61,7 +65,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
-import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -75,8 +78,14 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 
-
-public class FileUploader extends Service {
+/**
+ * Service for uploading files. Invoke using context.startService(...).
+ * This service retries until upload succeeded. Files to be uploaded are stored persistent using {@link UploadDbHandler}.
+ * 
+ * @author LukeOwncloud
+ *
+ */
+public class FileUploadService extends Service {
 
     private static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
     public static final String EXTRA_UPLOAD_RESULT = "RESULT";
@@ -94,7 +103,8 @@ public class FileUploader extends Service {
 
     public static final String KEY_UPLOAD_TYPE = "UPLOAD_TYPE";
     public static final String KEY_FORCE_OVERWRITE = "KEY_FORCE_OVERWRITE";
-    public static final String KEY_INSTANT_UPLOAD = "INSTANT_UPLOAD";
+    public static final String KEY_CREATE_REMOTE_FOLDER = "CREATE_REMOTE_FOLDER";
+    public static final String KEY_WIFI_ONLY = "WIFI_ONLY";
     public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
 
     public static final int LOCAL_BEHAVIOUR_COPY = 0;
@@ -104,11 +114,12 @@ public class FileUploader extends Service {
     public static final int UPLOAD_SINGLE_FILE = 0;
     public static final int UPLOAD_MULTIPLE_FILES = 1;
 
-    private static final String TAG = FileUploader.class.getSimpleName();
+    private static final String TAG = FileUploadService.class.getSimpleName();
 
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
+    private ConnectivityChangeReceiver mConnectivityChangeReceiver;
     private OwnCloudClient mUploadClient = null;
     private Account mLastAccount = null;
     private FileDataStorageManager mStorageManager;
@@ -118,11 +129,10 @@ public class FileUploader extends Service {
 
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mNotificationBuilder;
-    private int mLastPercent;
 
     
     public static String getUploadFinishMessage() {
-        return FileUploader.class.getName().toString() + UPLOAD_FINISH_MESSAGE;
+        return FileUploadService.class.getName().toString() + UPLOAD_FINISH_MESSAGE;
     }
     
     /**
@@ -164,8 +174,29 @@ public class FileUploader extends Service {
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileUploaderBinder();
+        mConnectivityChangeReceiver = new ConnectivityChangeReceiver();
+        registerReceiver(
+                         mConnectivityChangeReceiver,
+                         new IntentFilter(
+                               ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
+    public class ConnectivityChangeReceiver
+                     extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context arg0, Intent arg1) {
+            //upload pending wifi only files.
+            onStartCommand(null, 0, 0);
+        }
+        
+    }
+    @Override
+    public void onDestroy() {
+        unregisterReceiver(mConnectivityChangeReceiver);
+        super.onDestroy();
+    }
+    
     /**
      * Entry point to add one or several files to the queue of uploads.
      * 
@@ -175,6 +206,23 @@ public class FileUploader extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if(intent == null) {
+            //service was restarted by OS (after return START_STICKY and kill service)
+            //or connectivity change was detected. ==> check persistent upload list.
+        }
+        
+        //TODO:
+//        if (intent.hasExtra(KEY_FILE)) {
+//            files = (OCFile[]) intent.getParcelableArrayExtra(KEY_FILE); 
+//
+//        } else {
+//            localPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
+//            remotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
+//            mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
+//        CREATE files from there values!
+//        }
+        //now work with files.
+            
         if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_UPLOAD_TYPE)
                 || !(intent.hasExtra(KEY_LOCAL_FILE) || intent.hasExtra(KEY_FILE))) {
             Log_OC.e(TAG, "Not enough information provided in intent");
@@ -223,7 +271,8 @@ public class FileUploader extends Service {
         FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
 
         boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
-        boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false);
+        boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
+        boolean isUseWifiOnly = intent.getBooleanExtra(KEY_WIFI_ONLY, true);
         int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_COPY);
         
         if (intent.hasExtra(KEY_FILE) && files == null) {
@@ -243,7 +292,7 @@ public class FileUploader extends Service {
                 Log_OC.e(TAG, "Different number of remote paths and local paths!");
                 return Service.START_NOT_STICKY;
             }
-
+            
             files = new OCFile[localPaths.length];
             for (int i = 0; i < localPaths.length; i++) {
                 files[i] = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes != null) ? mimeTypes[i]
@@ -254,21 +303,28 @@ public class FileUploader extends Service {
                 }
             }
         }
+        
+        // save always persistently path of upload, so it can be retried if failed.
+        UploadDbHandler db = new UploadDbHandler(this.getBaseContext());
+        for (int i = 0; i < localPaths.length; i++) {
+            db.storeFile(localPaths[i], account.name, null);                    
+        }
+        db.close();
 
         AccountManager aMgr = AccountManager.get(this);
         String version = aMgr.getUserData(account, Constants.KEY_OC_VERSION);
         OwnCloudVersion ocv = new OwnCloudVersion(version);
         
-        boolean chunked = FileUploader.chunkedUploadIsSupported(ocv);
+        boolean chunked = FileUploadService.chunkedUploadIsSupported(ocv);
         AbstractList<String> requestedUploads = new Vector<String>();
         String uploadKey = null;
         UploadFileOperation newUpload = null;
         try {
             for (int i = 0; i < files.length; i++) {
                 uploadKey = buildRemoteName(account, files[i].getRemotePath());
-                newUpload = new UploadFileOperation(account, files[i], chunked, isInstant, forceOverwrite, localAction, 
+                newUpload = new UploadFileOperation(account, files[i], chunked, forceOverwrite, localAction, 
                         getApplicationContext());
-                if (isInstant) {
+                if (isCreateRemoteFolder) {
                     newUpload.setRemoteFolderToBeCreated();
                 }
                 mPendingUploads.putIfAbsent(uploadKey, newUpload); // Grants that the file only upload once time
@@ -438,14 +494,14 @@ public class FileUploader extends Service {
      * requested.
      * 
      * Created with the Looper of a new thread, started in
-     * {@link FileUploader#onCreate()}.
+     * {@link FileUploadService#onCreate()}.
      */
     private static class ServiceHandler extends Handler {
         // don't make it a final class, and don't remove the static ; lint will
         // warn about a possible memory leak
-        FileUploader mService;
+        FileUploadService mService;
 
-        public ServiceHandler(Looper looper, FileUploader service) {
+        public ServiceHandler(Looper looper, FileUploadService service) {
             super(looper);
             if (service == null)
                 throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
@@ -682,7 +738,6 @@ public class FileUploader extends Service {
      */
     private void notifyUploadStart(UploadFileOperation upload) {
         // / create status notification with a progress bar
-        mLastPercent = 0;
         mNotificationBuilder = 
                 NotificationBuilderWithProgressBar.newNotificationBuilderWithProgressBar(this);
         mNotificationBuilder
@@ -768,33 +823,29 @@ public class FileUploader extends Service {
                     // grant that future retries on the same account will get the fresh credentials
             } else {
                 mNotificationBuilder.setContentText(content);
-    
-                if (upload.isInstant()) {
-                    UploadDbHandler db = null;
-                    try {
-                        db = new UploadDbHandler(this.getBaseContext());
-                        String message = uploadResult.getLogMessage() + " errorCode: " +
-                                uploadResult.getCode();
-                        Log_OC.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
-                        if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
-                            //message = getString(R.string.failed_upload_quota_exceeded_text);
-                            if (db.updateFileState(
-                                    upload.getOriginalStoragePath(), 
-                                    UploadDbHandler.UploadStatus.UPLOAD_STATUS_UPLOAD_FAILED,
-                                    message) == 0) {
-                                db.putFileForLater(
-                                        upload.getOriginalStoragePath(), 
-                                        upload.getAccount().name, 
-                                        message
-                                );
-                            }
+
+                UploadDbHandler db = null;
+                try {
+                    db = new UploadDbHandler(this.getBaseContext());
+                    String message = uploadResult.getLogMessage() + " errorCode: " + uploadResult.getCode();
+                    Log_OC.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
+                    if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
+                        // message =
+                        // getString(R.string.failed_upload_quota_exceeded_text);
+                        int updatedFiles = db.updateFileState(upload.getOriginalStoragePath(),
+                                UploadDbHandler.UploadStatus.UPLOAD_STATUS_UPLOAD_FAILED, message);
+                        if (updatedFiles == 0) { // update failed
+                            db.storeFile(upload.getOriginalStoragePath(), upload.getAccount().name, message);
                         }
-                    } finally {
-                        if (db != null) {
-                            db.close();
-                        }
+                    } else {
+                        // TODO: handle other results
+                    }
+                } finally {
+                    if (db != null) {
+                        db.close();
                     }
                 }
+
             }
             
             mNotificationBuilder.setContentText(content);
@@ -803,7 +854,7 @@ public class FileUploader extends Service {
             if (uploadResult.isSuccess()) {
                 
                 UploadDbHandler db = new UploadDbHandler(this.getBaseContext());
-                db.removePendingFile(mCurrentUpload.getOriginalStoragePath());
+                db.removeFile(mCurrentUpload.getOriginalStoragePath());
                 db.close();
 
                 // remove success notification, with a delay of 2 seconds

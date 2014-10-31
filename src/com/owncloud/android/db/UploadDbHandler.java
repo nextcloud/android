@@ -37,7 +37,7 @@ public class UploadDbHandler {
     private SQLiteDatabase mDB;
     private OpenerHelper mHelper;
     private final String mDatabaseName;
-    private final int mDatabaseVersion = 4;
+    private final int mDatabaseVersion = 3;
 
     static private final String TABLE_UPLOAD = "list_of_uploads";
 
@@ -63,13 +63,13 @@ public class UploadDbHandler {
     }
 
     /**
-     * Store a file persistently for upload.
+     * Store a file persistently (to be uploaded later).
      * @param filepath local file path to file
      * @param account account for uploading
      * @param message optional message. can be null.
      * @return false if an error occurred, else true. 
      */
-    public boolean putFileForLater(String filepath, String account, String message) {
+    public boolean storeFile(String filepath, String account, String message) {
         ContentValues cv = new ContentValues();
         cv.put("path", filepath);
         cv.put("account", account);
@@ -120,7 +120,7 @@ public class UploadDbHandler {
      * @param localPath
      * @return true when one or more pending files was removed
      */
-    public boolean removePendingFile(String localPath) {
+    public boolean removeFile(String localPath) {
         long result = mDB.delete(TABLE_UPLOAD, "path = ?", new String[] { localPath });
         Log_OC.d(TABLE_UPLOAD, "delete returns with: " + result + " for file: " + localPath);
         return result != 0;

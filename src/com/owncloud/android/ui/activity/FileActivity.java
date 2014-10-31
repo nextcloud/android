@@ -45,9 +45,9 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -155,7 +155,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
         }
         mUploadServiceConnection = newTransferenceServiceConnection();
         if (mUploadServiceConnection != null) {
-            bindService(new Intent(this, FileUploader.class), mUploadServiceConnection, Context.BIND_AUTO_CREATE);
+            bindService(new Intent(this, FileUploadService.class), mUploadServiceConnection, Context.BIND_AUTO_CREATE);
         }
         
     }

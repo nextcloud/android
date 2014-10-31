@@ -43,8 +43,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -267,7 +267,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
                     onPageSelected(mViewPager.getCurrentItem());
                 }
 
-            } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
+            } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploadService.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
@@ -281,7 +281,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             if (component.equals(new ComponentName(PreviewImageActivity.this, FileDownloader.class))) {
                 Log_OC.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
-            } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
+            } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploadService.class))) {
                 Log_OC.d(TAG, "Upload service suddenly disconnected");
                 mUploaderBinder = null;
             }

@@ -32,7 +32,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.network.ProgressiveDataTransferer;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -51,7 +51,8 @@ import android.content.Context;
 
 
 /**
- * Remote operation performing the upload of a file to an ownCloud server
+ * Remote operation performing the upload of a file to an ownCloud server.
+ * No conditions are checked, just upload performed, which might fail.
  * 
  * @author David A. Velasco
  */
@@ -64,10 +65,9 @@ public class UploadFileOperation extends RemoteOperation {
     private OCFile mOldFile;
     private String mRemotePath = null;
     private boolean mChunked = false;
-    private boolean mIsInstant = false;
     private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
-    private int mLocalBehaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
+    private int mLocalBehaviour = FileUploadService.LOCAL_BEHAVIOUR_COPY;
     private boolean mWasRenamed = false;
     private String mOriginalFileName = null;
     private String mOriginalStoragePath = null;
@@ -84,7 +84,6 @@ public class UploadFileOperation extends RemoteOperation {
     public UploadFileOperation( Account account,
                                 OCFile file,
                                 boolean chunked,
-                                boolean isInstant, 
                                 boolean forceOverwrite,
                                 int localBehaviour, 
                                 Context context) {
@@ -103,7 +102,6 @@ public class UploadFileOperation extends RemoteOperation {
         mFile = file;
         mRemotePath = file.getRemotePath();
         mChunked = chunked;
-        mIsInstant = isInstant;
         mForceOverwrite = forceOverwrite;
         mLocalBehaviour = localBehaviour;
         mOriginalStoragePath = mFile.getStoragePath();
@@ -141,10 +139,6 @@ public class UploadFileOperation extends RemoteOperation {
 
     public String getMimeType() {
         return mFile.getMimetype();
-    }
-
-    public boolean isInstant() {
-        return mIsInstant;
     }
 
     public boolean isRemoteFolderToBeCreated() {
@@ -210,7 +204,7 @@ public class UploadFileOperation extends RemoteOperation {
 
             // check location of local file; if not the expected, copy to a
             // temporal file before upload (if COPY is the expected behaviour)
-            if (!mOriginalStoragePath.equals(expectedPath) && mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY) {
+            if (!mOriginalStoragePath.equals(expectedPath) && mLocalBehaviour == FileUploadService.LOCAL_BEHAVIOUR_COPY) {
 
                 if (FileStorageUtils.getUsableSpace(mAccount.name) < originalFile.length()) {
                     result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_FULL);
@@ -286,7 +280,7 @@ public class UploadFileOperation extends RemoteOperation {
             /// move local temporal file or original file to its corresponding
             // location in the ownCloud local folder
             if (result.isSuccess()) {
-                if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
+                if (mLocalBehaviour == FileUploadService.LOCAL_BEHAVIOUR_FORGET) {
                     mFile.setStoragePath(null);
 
                 } else {

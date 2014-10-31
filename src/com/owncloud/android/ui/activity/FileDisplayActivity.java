@@ -66,8 +66,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -634,13 +634,13 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
             }
 
-            Intent i = new Intent(this, FileUploader.class);
-            i.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
-            i.putExtra(FileUploader.KEY_LOCAL_FILE, filePaths);
-            i.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
-            i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
+            Intent i = new Intent(this, FileUploadService.class);
+            i.putExtra(FileUploadService.KEY_ACCOUNT, getAccount());
+            i.putExtra(FileUploadService.KEY_LOCAL_FILE, filePaths);
+            i.putExtra(FileUploadService.KEY_REMOTE_FILE, remotePaths);
+            i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_MULTIPLE_FILES);
             if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
-                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LOCAL_BEHAVIOUR_MOVE);
             startService(i);
 
         } else {
@@ -678,8 +678,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             }
         }
 
-        Intent i = new Intent(this, FileUploader.class);
-        i.putExtra(FileUploader.KEY_ACCOUNT,
+        Intent i = new Intent(this, FileUploadService.class);
+        i.putExtra(FileUploadService.KEY_ACCOUNT,
                 getAccount());
         String remotepath = new String();
         for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
@@ -689,11 +689,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             remotepath += OCFile.PATH_SEPARATOR;
         remotepath += new File(filepath).getName();
 
-        i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
-        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_LOCAL_FILE, filepath);
+        i.putExtra(FileUploadService.KEY_REMOTE_FILE, remotepath);
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_SINGLE_FILE);
         if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+            i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LOCAL_BEHAVIOUR_MOVE);
         startService(i);
     }
 
@@ -765,7 +765,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         //LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
 
         // Listen for upload messages
-        IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
+        IntentFilter uploadIntentFilter = new IntentFilter(FileUploadService.getUploadFinishMessage());
         mUploadFinishReceiver = new UploadFinishReceiver();
         registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
 
@@ -1090,7 +1090,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         public void onReceive(Context context, Intent intent) {
             try {
                 String uploadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-                String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
+                String accountName = intent.getStringExtra(FileUploadService.ACCOUNT_NAME);
                 boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
                 OCFile currentDir = getCurrentDir();
                 boolean isDescendant = (currentDir != null) && (uploadedRemotePath != null) && 
@@ -1100,9 +1100,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                     refreshListOfFilesFragment();
                 }
                 
-                boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false);
+                boolean uploadWasFine = intent.getBooleanExtra(FileUploadService.EXTRA_UPLOAD_RESULT, false);
                 boolean renamedInUpload = getFile().getRemotePath().
-                        equals(intent.getStringExtra(FileUploader.EXTRA_OLD_REMOTE_PATH));
+                        equals(intent.getStringExtra(FileUploadService.EXTRA_OLD_REMOTE_PATH));
                 boolean sameFile = getFile().getRemotePath().equals(uploadedRemotePath) || 
                         renamedInUpload;
                 FileFragment details = getSecondFragment();
@@ -1301,7 +1301,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                         }
                 }
 
-            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
+            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploadService.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
@@ -1325,7 +1325,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
                 Log_OC.d(TAG, "Download service disconnected");
                 mDownloaderBinder = null;
-            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
+            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploadService.class))) {
                 Log_OC.d(TAG, "Upload service disconnected");
                 mUploaderBinder = null;
             }

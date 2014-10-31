@@ -24,7 +24,7 @@ import android.support.v4.app.Fragment;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 
 
