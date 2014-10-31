@@ -125,31 +125,13 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
                 Log_OC.i(TAG, "More then one ownCloud is available");
                 showDialog(DIALOG_MULTIPLE_ACCOUNT);
             } else {
-
-            mAccount = accounts[0];
-            mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
-
-            SharedPreferences appPreferences = PreferenceManager
-                    .getDefaultSharedPreferences(getApplicationContext());
-
-                String last_path = appPreferences.getString("last_upload_path", "");
-                // "/" equals root-directory
-                if(last_path.equals("/")) {
-                    mParents.add("");
-                }
-                else{
-                    String[] dir_names = last_path.split("/");
-                    for (String dir : dir_names)
-                        mParents.add(dir);
-                }
-                //Make sure that path still exists, if it doesn't pop the stack and try the previous path
-                while(!mStorageManager.fileExists(generatePath(mParents))){
-                    mParents.pop();
-                }
+                mAccount = accounts[0];
+                mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+                initTargetFolder();
+                populateDirectoryList();
+                
             }
             
-            populateDirectoryList();
-
         } else {
             showDialog(DIALOG_NO_STREAM);
         }
@@ -211,6 +193,7 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
                 public void onClick(DialogInterface dialog, int which) {
                     mAccount = mAccountManager.getAccountsByType(MainApp.getAccountType())[which];
                     mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+                    initTargetFolder();
                     populateDirectoryList();
                 }
             });
@@ -479,5 +462,36 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();            
         }
     }
+    
+    /**
+     *  Loads the target folder initialize shown to the user.
+     * 
+     *  The target account has to be chosen before this method is called. 
+     */
+    private void initTargetFolder() {
+        if (mStorageManager == null) {
+            throw new IllegalStateException("Do not call this method before initializing mStorageManager");
+        }
+        
+        SharedPreferences appPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        String last_path = appPreferences.getString("last_upload_path", "");
+        // "/" equals root-directory
+        if(last_path.equals("/")) {
+            mParents.add("");
+        }
+        else{
+            String[] dir_names = last_path.split("/");
+            for (String dir : dir_names)
+                mParents.add(dir);
+        }
+        //Make sure that path still exists, if it doesn't pop the stack and try the previous path
+        while(!mStorageManager.fileExists(generatePath(mParents))){
+            mParents.pop();
+        }
+    }
+
+    
 
 }
