@@ -324,8 +324,6 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      *  @return                 'True' when any change was made in the local data, 'false' otherwise
      */
     private void synchronizeData(ArrayList<Object> folderAndFiles, OwnCloudClient client) {
-        Vector<OCFile> mImageFiles = mStorageManager.getFolderImages(mLocalFolder);
-
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
 
@@ -375,15 +373,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 if (remoteFile.isFolder()) {
                     remoteFile.setFileLength(localFile.getFileLength()); 
                         // TODO move operations about size of folders to FileContentProvider
-                } else if (mRemoteFolderChanged && remoteFile.isImage()) {
-                    // If image has been updated on the server, set for updating the thumbnail
-                    for (OCFile fileImage: mImageFiles) {
-                        if (remoteFile.getRemoteId().equals(fileImage.getRemoteId()) &&
-                                remoteFile.getModificationTimestamp() > fileImage.getModificationTimestamp()) {
-                            remoteFile.setNeedsUpdateThumbnail(true);
-                            Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
-                        }
-                    }
+                } else if (mRemoteFolderChanged && remoteFile.isImage() &&
+                        remoteFile.getModificationTimestamp() != localFile.getModificationTimestamp()) {
+                    remoteFile.setNeedsUpdateThumbnail(true);
+                    Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
                 }
                 remoteFile.setPublicLink(localFile.getPublicLink());
                 remoteFile.setShareByLink(localFile.isShareByLink());
