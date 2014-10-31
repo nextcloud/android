@@ -50,7 +50,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.LongClickableCheckBoxPreference;
 import com.owncloud.android.utils.DisplayUtils;
@@ -66,7 +66,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     
     private static final String TAG = "OwnCloudPreferences";
 
-    private DbHandler mDbHandler;
+    private UploadDbHandler mDbHandler;
     private CheckBoxPreference pCode;
     private Preference pAboutApp;
 
@@ -81,7 +81,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDbHandler = new DbHandler(getBaseContext());
+        mDbHandler = new UploadDbHandler(getBaseContext());
         addPreferencesFromResource(R.xml.preferences);
 
         ActionBar actionBar = getSherlock().getActionBar();

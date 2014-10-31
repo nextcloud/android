@@ -50,7 +50,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -770,9 +770,9 @@ public class FileUploader extends Service {
                 mNotificationBuilder.setContentText(content);
     
                 if (upload.isInstant()) {
-                    DbHandler db = null;
+                    UploadDbHandler db = null;
                     try {
-                        db = new DbHandler(this.getBaseContext());
+                        db = new UploadDbHandler(this.getBaseContext());
                         String message = uploadResult.getLogMessage() + " errorCode: " +
                                 uploadResult.getCode();
                         Log_OC.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
@@ -780,7 +780,7 @@ public class FileUploader extends Service {
                             //message = getString(R.string.failed_upload_quota_exceeded_text);
                             if (db.updateFileState(
                                     upload.getOriginalStoragePath(), 
-                                    DbHandler.UploadStatus.UPLOAD_STATUS_UPLOAD_FAILED,
+                                    UploadDbHandler.UploadStatus.UPLOAD_STATUS_UPLOAD_FAILED,
                                     message) == 0) {
                                 db.putFileForLater(
                                         upload.getOriginalStoragePath(), 
@@ -802,7 +802,7 @@ public class FileUploader extends Service {
             
             if (uploadResult.isSuccess()) {
                 
-                DbHandler db = new DbHandler(this.getBaseContext());
+                UploadDbHandler db = new UploadDbHandler(this.getBaseContext());
                 db.removePendingFile(mCurrentUpload.getOriginalStoragePath());
                 db.close();
 

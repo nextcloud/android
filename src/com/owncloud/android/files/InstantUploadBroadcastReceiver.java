@@ -22,7 +22,7 @@ import java.io.File;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -105,7 +105,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         Log_OC.d(TAG, file_path + "");
 
         // save always temporally the picture to upload
-        DbHandler db = new DbHandler(context);
+        UploadDbHandler db = new UploadDbHandler(context);
         db.putFileForLater(file_path, account.name, null);
         db.close();
 
@@ -178,7 +178,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         if (!intent.hasExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY)
                 && isOnline(context)
                 && (!instantPictureUploadViaWiFiOnly(context) || (instantPictureUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))) {
-            DbHandler db = new DbHandler(context);
+            UploadDbHandler db = new UploadDbHandler(context);
             Cursor c = db.getAwaitingFiles();
             if (c.moveToFirst()) {
                 do {

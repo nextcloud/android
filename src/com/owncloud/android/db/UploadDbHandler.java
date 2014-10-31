@@ -27,22 +27,32 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Custom database helper for ownCloud
+ * Database helper for storing list of files to be uploaded, including status information for each file.
  * 
  * @author Bartek Przybylski
+ * @author LukeOwncloud
  * 
  */
-public class DbHandler {
+public class UploadDbHandler {
     private SQLiteDatabase mDB;
     private OpenerHelper mHelper;
     private final String mDatabaseName;
-    private final int mDatabaseVersion = 3;
+    private final int mDatabaseVersion = 4;
 
-    private final String TABLE_INSTANT_UPLOAD = "instant_upload";
+    static private final String TABLE_UPLOAD = "list_of_uploads";
 
-    public enum UploadStatus {UPLOAD_STATUS_UPLOAD_LATER, UPLOAD_STATUS_UPLOAD_FAILED};
+    public enum UploadStatus {
+        UPLOAD_STATUS_UPLOAD_LATER(0), UPLOAD_STATUS_UPLOAD_FAILED(1);
+        private final int value;
+        private UploadStatus(int value) {
+            this.value = value;
+        }
+        public int getValue() {
+            return value;
+        }
+    };
     
-    public DbHandler(Context context) {
+    public UploadDbHandler(Context context) {
         mDatabaseName = MainApp.getDBName();
         mHelper = new OpenerHelper(context);
         mDB = mHelper.getWritableDatabase();
@@ -53,42 +63,46 @@ public class DbHandler {
     }
 
     /**
-     * Store a file persistantly for upload.
-     * @param filepath
-     * @param account
-     * @param message
-     * @return
+     * Store a file persistently for upload.
+     * @param filepath local file path to file
+     * @param account account for uploading
+     * @param message optional message. can be null.
+     * @return false if an error occurred, else true. 
      */
     public boolean putFileForLater(String filepath, String account, String message) {
         ContentValues cv = new ContentValues();
         cv.put("path", filepath);
         cv.put("account", account);
-        cv.put("attempt", String.valueOf(UploadStatus.UPLOAD_STATUS_UPLOAD_LATER));
+        cv.put("attempt", UploadStatus.UPLOAD_STATUS_UPLOAD_LATER.getValue());
         cv.put("message", message);
-        long result = mDB.insert(TABLE_INSTANT_UPLOAD, null, cv);
-        Log_OC.d(TABLE_INSTANT_UPLOAD, "putFileForLater returns with: " + result + " for file: " + filepath);
+        long result = mDB.insert(TABLE_UPLOAD, null, cv);
+        Log_OC.d(TABLE_UPLOAD, "putFileForLater returns with: " + result + " for file: " + filepath);
         return result != -1;
     }
 
     /**
      * Update upload status of file.
      * 
-     * @param filepath
-     * @param status
-     * @param message
-     * @return
+     * @param filepath local file path to file. used as identifier.
+     * @param status new status.
+     * @param message new message.
+     * @return 1 if file status was updated, else 0.
      */
     public int updateFileState(String filepath, UploadStatus status, String message) {
         ContentValues cv = new ContentValues();
-        cv.put("attempt", String.valueOf(status));
+        cv.put("attempt", status.getValue());
         cv.put("message", message);
-        int result = mDB.update(TABLE_INSTANT_UPLOAD, cv, "path=?", new String[] { filepath });
-        Log_OC.d(TABLE_INSTANT_UPLOAD, "updateFileState returns with: " + result + " for file: " + filepath);
+        int result = mDB.update(TABLE_UPLOAD, cv, "path=?", new String[] { filepath });
+        Log_OC.d(TABLE_UPLOAD, "updateFileState returns with: " + result + " for file: " + filepath);
         return result;
     }
 
+    /**
+     * Get all files with status {@link UploadStatus}.UPLOAD_STATUS_UPLOAD_LATER.
+     * @return
+     */
     public Cursor getAwaitingFiles() {
-        return mDB.query(TABLE_INSTANT_UPLOAD, null, "attempt=" + UploadStatus.UPLOAD_STATUS_UPLOAD_LATER, null, null, null, null);
+        return mDB.query(TABLE_UPLOAD, null, "attempt=" + UploadStatus.UPLOAD_STATUS_UPLOAD_LATER, null, null, null, null);
     }
 
   //ununsed until now. uncomment if needed.
@@ -107,8 +121,8 @@ public class DbHandler {
      * @return true when one or more pending files was removed
      */
     public boolean removePendingFile(String localPath) {
-        long result = mDB.delete(TABLE_INSTANT_UPLOAD, "path = ?", new String[] { localPath });
-        Log_OC.d(TABLE_INSTANT_UPLOAD, "delete returns with: " + result + " for file: " + localPath);
+        long result = mDB.delete(TABLE_UPLOAD, "path = ?", new String[] { localPath });
+        Log_OC.d(TABLE_UPLOAD, "delete returns with: " + result + " for file: " + localPath);
         return result != 0;
 
     }
@@ -120,16 +134,16 @@ public class DbHandler {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE " + TABLE_INSTANT_UPLOAD + " (" + " _id INTEGER PRIMARY KEY, " + " path TEXT,"
+            db.execSQL("CREATE TABLE " + TABLE_UPLOAD + " (" + " _id INTEGER PRIMARY KEY, " + " path TEXT,"
                     + " account TEXT,attempt INTEGER,message TEXT);");
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             if (oldVersion < 2) {
-                db.execSQL("ALTER TABLE " + TABLE_INSTANT_UPLOAD + " ADD COLUMN attempt INTEGER;");
+                db.execSQL("ALTER TABLE " + TABLE_UPLOAD + " ADD COLUMN attempt INTEGER;");
             }
-            db.execSQL("ALTER TABLE " + TABLE_INSTANT_UPLOAD + " ADD COLUMN message TEXT;");
+            db.execSQL("ALTER TABLE " + TABLE_UPLOAD + " ADD COLUMN message TEXT;");
 
         }
     }
