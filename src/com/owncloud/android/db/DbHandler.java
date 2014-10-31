@@ -40,9 +40,8 @@ public class DbHandler {
 
     private final String TABLE_INSTANT_UPLOAD = "instant_upload";
 
-    public static final int UPLOAD_STATUS_UPLOAD_LATER = 0;
-    public static final int UPLOAD_STATUS_UPLOAD_FAILED = 1;
-
+    public enum UploadStatus {UPLOAD_STATUS_UPLOAD_LATER, UPLOAD_STATUS_UPLOAD_FAILED};
+    
     public DbHandler(Context context) {
         mDatabaseName = MainApp.getDBName();
         mHelper = new OpenerHelper(context);
@@ -53,20 +52,35 @@ public class DbHandler {
         mDB.close();
     }
 
+    /**
+     * Store a file persistantly for upload.
+     * @param filepath
+     * @param account
+     * @param message
+     * @return
+     */
     public boolean putFileForLater(String filepath, String account, String message) {
         ContentValues cv = new ContentValues();
         cv.put("path", filepath);
         cv.put("account", account);
-        cv.put("attempt", UPLOAD_STATUS_UPLOAD_LATER);
+        cv.put("attempt", String.valueOf(UploadStatus.UPLOAD_STATUS_UPLOAD_LATER));
         cv.put("message", message);
         long result = mDB.insert(TABLE_INSTANT_UPLOAD, null, cv);
         Log_OC.d(TABLE_INSTANT_UPLOAD, "putFileForLater returns with: " + result + " for file: " + filepath);
         return result != -1;
     }
 
-    public int updateFileState(String filepath, Integer status, String message) {
+    /**
+     * Update upload status of file.
+     * 
+     * @param filepath
+     * @param status
+     * @param message
+     * @return
+     */
+    public int updateFileState(String filepath, UploadStatus status, String message) {
         ContentValues cv = new ContentValues();
-        cv.put("attempt", status);
+        cv.put("attempt", String.valueOf(status));
         cv.put("message", message);
         int result = mDB.update(TABLE_INSTANT_UPLOAD, cv, "path=?", new String[] { filepath });
         Log_OC.d(TABLE_INSTANT_UPLOAD, "updateFileState returns with: " + result + " for file: " + filepath);
@@ -74,23 +88,25 @@ public class DbHandler {
     }
 
     public Cursor getAwaitingFiles() {
-        return mDB.query(TABLE_INSTANT_UPLOAD, null, "attempt=" + UPLOAD_STATUS_UPLOAD_LATER, null, null, null, null);
+        return mDB.query(TABLE_INSTANT_UPLOAD, null, "attempt=" + UploadStatus.UPLOAD_STATUS_UPLOAD_LATER, null, null, null, null);
     }
 
-    public Cursor getFailedFiles() {
-        return mDB.query(TABLE_INSTANT_UPLOAD, null, "attempt>" + UPLOAD_STATUS_UPLOAD_LATER, null, null, null, null);
-    }
+  //ununsed until now. uncomment if needed.
+//    public Cursor getFailedFiles() {
+//        return mDB.query(TABLE_INSTANT_UPLOAD, null, "attempt>" + UploadStatus.UPLOAD_STATUS_UPLOAD_LATER, null, null, null, null);
+//    }
 
-    public void clearFiles() {
-        mDB.delete(TABLE_INSTANT_UPLOAD, null, null);
-    }
+  //ununsed until now. uncomment if needed.
+//    public void clearFiles() {
+//        mDB.delete(TABLE_INSTANT_UPLOAD, null, null);
+//    }
 
     /**
-     * 
+     * Remove file from upload list. Should be called when upload succeed or failed and should not be retried. 
      * @param localPath
      * @return true when one or more pending files was removed
      */
-    public boolean removeIUPendingFile(String localPath) {
+    public boolean removePendingFile(String localPath) {
         long result = mDB.delete(TABLE_INSTANT_UPLOAD, "path = ?", new String[] { localPath });
         Log_OC.d(TABLE_INSTANT_UPLOAD, "delete returns with: " + result + " for file: " + localPath);
         return result != 0;

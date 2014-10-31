@@ -76,7 +76,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 
 
 
-public class FileUploader extends Service implements OnDatatransferProgressListener {
+public class FileUploader extends Service {
 
     private static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
     public static final String EXTRA_UPLOAD_RESULT = "RESULT";
@@ -273,7 +273,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 }
                 mPendingUploads.putIfAbsent(uploadKey, newUpload); // Grants that the file only upload once time
 
-                newUpload.addDatatransferProgressListener(this);
                 newUpload.addDatatransferProgressListener((FileUploaderBinder)mBinder);
                 requestedUploads.add(uploadKey);
             }
@@ -473,7 +472,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      * @param uploadKey Key to access the upload to perform, contained in
      *            mPendingUploads
      */
-    public void uploadFile(String uploadKey) {
+    private void uploadFile(String uploadKey) {
 
         synchronized (mPendingUploads) {
             mCurrentUpload = mPendingUploads.get(uploadKey);
@@ -708,22 +707,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
 
     /**
-     * Callback method to update the progress bar in the status notification
-     */
-    @Override
-    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath) {
-        int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
-        if (percent != mLastPercent) {
-            mNotificationBuilder.setProgress(100, percent, false);
-            String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
-            String text = String.format(getString(R.string.uploader_upload_in_progress_content), percent, fileName);
-            mNotificationBuilder.setContentText(text);
-            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
-        }
-        mLastPercent = percent;
-    }
-
-    /**
      * Updates the status notification with the result of an upload operation.
      * 
      * @param uploadResult Result of the upload operation.
@@ -797,7 +780,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                             //message = getString(R.string.failed_upload_quota_exceeded_text);
                             if (db.updateFileState(
                                     upload.getOriginalStoragePath(), 
-                                    DbHandler.UPLOAD_STATUS_UPLOAD_FAILED,
+                                    DbHandler.UploadStatus.UPLOAD_STATUS_UPLOAD_FAILED,
                                     message) == 0) {
                                 db.putFileForLater(
                                         upload.getOriginalStoragePath(), 
@@ -820,7 +803,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             if (uploadResult.isSuccess()) {
                 
                 DbHandler db = new DbHandler(this.getBaseContext());
-                db.removeIUPendingFile(mCurrentUpload.getOriginalStoragePath());
+                db.removePendingFile(mCurrentUpload.getOriginalStoragePath());
                 db.close();
 
                 // remove success notification, with a delay of 2 seconds
