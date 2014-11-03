@@ -42,6 +42,7 @@ import android.util.TypedValue;
 import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -216,9 +217,8 @@ public class ThumbnailsCacheManager {
                 if (thumbnail == null || mFile.needsUpdateThumbnail()) { 
                     // Converts dp to pixel
                     Resources r = MainApp.getAppContext().getResources();
-                    int px = (int) Math.round(TypedValue.applyDimension(
-                            TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics()
-                    ));
+                    
+                    int px = (int) Math.round(r.getDimension(R.dimen.file_icon_size));
                     
                     if (mFile.isDown()){
                         Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
