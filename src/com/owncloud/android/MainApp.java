@@ -19,7 +19,6 @@ package com.owncloud.android;
 import android.app.Application;
 import android.content.Context;
 
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
@@ -58,7 +57,7 @@ public class MainApp extends Application {
         }
 
         // initialise thumbnails cache on background thread
-        new ThumbnailsCacheManager.InitDiskCacheTask(mContext).execute();
+        new ThumbnailsCacheManager.InitDiskCacheTask().execute();
         
         if (BuildConfig.DEBUG) {
 

@@ -18,7 +18,6 @@
 package com.owncloud.android.datamodel;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -26,9 +25,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -38,7 +34,6 @@ import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.TypedValue;
 import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
@@ -46,7 +41,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -85,11 +79,6 @@ public class ThumbnailsCacheManager {
 
     
     public static class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
-        private static Context mContext;
-
-        public InitDiskCacheTask(Context context) {
-            mContext = context;
-           }
 
         @Override
         protected Void doInBackground(File... params) {
@@ -204,7 +193,8 @@ public class ThumbnailsCacheManager {
                     
                     mServerVersion = accountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION);
                     OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, MainApp.getAppContext());
-                    mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, MainApp.getAppContext());
+                    mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                            getClientFor(ocAccount, MainApp.getAppContext());
                 }
                 
                 mFile = params[0];
@@ -242,8 +232,8 @@ public class ThumbnailsCacheManager {
                                 try {
                                     int status = -1;
 
-                                    String uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + px + "/" + px
-                                            + Uri.encode(mFile.getRemotePath(), "/");
+                                    String uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" + 
+                                            px + "/" + px + Uri.encode(mFile.getRemotePath(), "/");
                                     Log_OC.d("Thumbnail", "URI: " + uri);
                                     GetMethod get = new GetMethod(uri);
                                     status = mClient.executeMethod(get);

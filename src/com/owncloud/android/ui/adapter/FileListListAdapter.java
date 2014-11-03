@@ -98,7 +98,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
         
         // initialise thumbnails cache on background thread
-        new ThumbnailsCacheManager.InitDiskCacheTask(mContext).execute();
+        new ThumbnailsCacheManager.InitDiskCacheTask().execute();
 
     }
     
