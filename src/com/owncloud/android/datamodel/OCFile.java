@@ -541,8 +541,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return 'True' if the file is simple text (e.g. not application-dependent, like .doc or .docx)
      */
     public boolean isText() {
-        return !isFolder() && !isAudio() && !isVideo() && !isImage() && ((mMimeType != null && mMimeType.startsWith("text/")) ||
-                getMimeTypeFromName().startsWith("text/"));
+        return ((mMimeType != null && mMimeType.startsWith("text/")) || getMimeTypeFromName().startsWith("text/"));
     }
 
     public String getMimeTypeFromName() {
