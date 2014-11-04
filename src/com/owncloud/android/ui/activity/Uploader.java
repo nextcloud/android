@@ -476,11 +476,9 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
                 mParents.add(dir);
         }
         //Make sure that path still exists, if it doesn't pop the stack and try the previous path
-        if (mParents.size() > 1) {
-            while(!mStorageManager.fileExists(generatePath(mParents))){
+            while(!mStorageManager.fileExists(generatePath(mParents)) && mParents.size() > 1){
                 mParents.pop();
             }
-        }
     }
 
     
