@@ -102,6 +102,22 @@ public class AccountUtils {
         return false;
     }
     
+    /**
+     * Returns owncloud account identified by accountName or null if it does not exist.
+     * @param context
+     * @param accountName name of account to be returned
+     * @return owncloud account named accountName
+     */
+    public static Account getOwnCloudAccountByName(Context context, String accountName) {
+        Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
+                MainApp.getAccountType());
+        for (Account account : ocAccounts) {
+            if(account.name.equals(accountName))
+                return account;
+        }
+        return null;
+    }
+    
 
     /**
      * Checks, whether or not there are any ownCloud accounts setup.

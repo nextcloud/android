@@ -640,7 +640,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             i.putExtra(FileUploadService.KEY_REMOTE_FILE, remotePaths);
             i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_MULTIPLE_FILES);
             if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
-                i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LOCAL_BEHAVIOUR_MOVE);
+                i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_MOVE);
             startService(i);
 
         } else {
@@ -692,8 +692,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         i.putExtra(FileUploadService.KEY_LOCAL_FILE, filepath);
         i.putExtra(FileUploadService.KEY_REMOTE_FILE, remotepath);
         i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_SINGLE_FILE);
-        if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
-            i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LOCAL_BEHAVIOUR_MOVE);
+        if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) {
+            i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_MOVE);
+        }
         startService(i);
     }
 

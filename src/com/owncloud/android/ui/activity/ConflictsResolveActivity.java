@@ -60,7 +60,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 i.putExtra(FileUploadService.KEY_FORCE_OVERWRITE, true);
                 break;
             case KEEP_BOTH:
-                i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LOCAL_BEHAVIOUR_MOVE);
+                i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_MOVE);
                 break;
             default:
                 Log_OC.wtf(TAG, "Unhandled conflict decision " + decision);

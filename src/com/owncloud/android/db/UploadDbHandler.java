@@ -37,7 +37,7 @@ public class UploadDbHandler {
     private SQLiteDatabase mDB;
     private OpenerHelper mHelper;
     private final String mDatabaseName;
-    private final int mDatabaseVersion = 3;
+    private final int mDatabaseVersion = 4;
 
     static private final String TABLE_UPLOAD = "list_of_uploads";
 
@@ -135,7 +135,7 @@ public class UploadDbHandler {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("CREATE TABLE " + TABLE_UPLOAD + " (" + " _id INTEGER PRIMARY KEY, " + " path TEXT,"
-                    + " account TEXT,attempt INTEGER,message TEXT);");
+                    + " account TEXT,attempt INTEGER,message TEXT,uploadObject TEXT);");
         }
 
         @Override
@@ -143,8 +143,26 @@ public class UploadDbHandler {
             if (oldVersion < 2) {
                 db.execSQL("ALTER TABLE " + TABLE_UPLOAD + " ADD COLUMN attempt INTEGER;");
             }
-            db.execSQL("ALTER TABLE " + TABLE_UPLOAD + " ADD COLUMN message TEXT;");
+            if (oldVersion < 3) {
+                db.execSQL("ALTER TABLE " + TABLE_UPLOAD + " ADD COLUMN message TEXT;");
+            }
+            if (oldVersion < 4) {
+                db.execSQL("ALTER TABLE " + TABLE_UPLOAD + " ADD COLUMN uploadObject TEXT;");
+            }
 
         }
+    }
+
+    public boolean storeUpload(PersistentUploadObject uploadObject, String message) {
+        ContentValues cv = new ContentValues();
+        cv.put("path", uploadObject.getLocalPath());
+        cv.put("account", uploadObject.getAccountName());
+        cv.put("attempt", UploadStatus.UPLOAD_STATUS_UPLOAD_LATER.getValue());
+        cv.put("message", message);
+        cv.put("uploadObject", uploadObject.toString());
+        
+        long result = mDB.insert(TABLE_UPLOAD, null, cv);
+        Log_OC.d(TABLE_UPLOAD, "putFileForLater returns with: " + result + " for file: " + uploadObject.getLocalPath());
+        return result != -1;        
     }
 }
