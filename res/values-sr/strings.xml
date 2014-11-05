@@ -5,6 +5,8 @@
   <string name="actionbar_upload_files">Датотеке</string>
   <string name="actionbar_settings">Поставке</string>
   <string name="actionbar_send_file">Пошаљи</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Опште</string>
   <string name="prefs_category_more">Више</string>
   <string name="prefs_accounts">Налози</string>
@@ -109,4 +111,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Налози</string>
   <string name="move_choose_button_text">Одабери</string>
+  <string name="prefs_category_security">Безбедност</string>
 </resources>

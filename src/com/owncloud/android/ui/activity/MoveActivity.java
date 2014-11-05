@@ -31,7 +31,6 @@ import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -61,10 +60,10 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 public class MoveActivity extends HookActivity implements FileFragment.ContainerActivity, 
-    OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+    OnClickListener, OnEnforceableRefreshListener {
 
     public static final String EXTRA_CURRENT_FOLDER = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CURRENT_FOLDER";
     public static final String EXTRA_TARGET_FILE = UploadFilesActivity.class.getCanonicalName() + "EXTRA_TARGET_FILE";
@@ -145,7 +144,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
                 OCFileListFragment listOfFolders = getListOfFilesFragment(); 
                 listOfFolders.listDirectory(folder);   
                 
-                startSyncFolderOperation(folder);
+                startSyncFolderOperation(folder, false);
             }
             
             updateNavigationElementsInActionBar();
@@ -201,12 +200,12 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
         setFile(directory);
         updateNavigationElementsInActionBar();
         // Sync Folder
-        startSyncFolderOperation(directory);
+        startSyncFolderOperation(directory, false);
         
     }
 
     
-    public void startSyncFolderOperation(OCFile folder) {
+    public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
         long currentSyncTime = System.currentTimeMillis(); 
         
         mSyncInProgress = true;
@@ -216,6 +215,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
                                                                         currentSyncTime, 
                                                                         false,
                                                                         getFileOperationsHelper().isSharedSupported(),
+                                                                        ignoreETag,
                                                                         getStorageManager(), 
                                                                         getAccount(), 
                                                                         getApplicationContext()
@@ -323,7 +323,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
             listOfFiles.listDirectory(root);
             setFile(listOfFiles.getCurrentFile());
             updateNavigationElementsInActionBar();
-            startSyncFolderOperation(root);
+            startSyncFolderOperation(root, false);
         }
     }
 
@@ -553,16 +553,23 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
             
     }
 
-
     @Override
     public void onRefresh() {
+        refreshList(true);
+    }
+
+    @Override
+    public void onRefresh(boolean enforced) {
+        refreshList(enforced);
+    }
+
+    private void refreshList(boolean ignoreETag) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {
             OCFile folder = listOfFiles.getCurrentFile();
             if (folder != null) {
-                startSyncFolderOperation(folder);
+                startSyncFolderOperation(folder, ignoreETag);
             }
         }
     }
-
 }

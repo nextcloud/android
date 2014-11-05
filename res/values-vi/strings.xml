@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Cài đặt</string>
   <string name="actionbar_see_details">Chi tiết</string>
   <string name="actionbar_send_file">Gởi</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Tổng hợp</string>
   <string name="prefs_category_more">hơn</string>
   <string name="prefs_accounts">Tài khoản</string>

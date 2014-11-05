@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Innstillingar</string>
   <string name="actionbar_see_details">Detaljar</string>
   <string name="actionbar_send_file">Send</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Generelt</string>
   <string name="prefs_category_more">Meir</string>
   <string name="prefs_accounts">Kontoar</string>
@@ -129,4 +131,5 @@
   <string name="prefs_category_accounts">Kontoar</string>
   <string name="saml_authentication_wrong_pass">Feil passord</string>
   <string name="move_choose_button_text">Vel</string>
+  <string name="prefs_category_security">Tryggleik</string>
 </resources>

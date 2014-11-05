@@ -20,8 +20,8 @@ package com.owncloud.android.datamodel;
 
 import java.io.File;
 
-import com.owncloud.android.utils.Log_OC;
-
+import com.owncloud.android.lib.common.utils.Log_OC;
+import third_parties.daveKoeller.AlphanumComparator;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -68,6 +68,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private String mPermissions;
     private String mRemoteId;
 
+    private boolean mNeedsUpdateThumbnail;
+
 
     /**
      * Create new {@link OCFile} with given path.
@@ -109,6 +111,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mPublicLink = source.readString();
         mPermissions = source.readString();
         mRemoteId = source.readString();
+        mNeedsUpdateThumbnail = source.readInt() == 0;
+
     }
 
     @Override
@@ -131,6 +135,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mPublicLink);
         dest.writeString(mPermissions);
         dest.writeString(mRemoteId);
+        dest.writeInt(mNeedsUpdateThumbnail ? 1 : 0);
     }
     
     /**
@@ -343,6 +348,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mPublicLink = null;
         mPermissions = null;
         mRemoteId = null;
+        mNeedsUpdateThumbnail = false;
     }
 
     /**
@@ -408,6 +414,14 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return mNeedsUpdating;
     }
     
+    public boolean needsUpdateThumbnail() {
+        return mNeedsUpdateThumbnail;
+    }
+
+    public void setNeedsUpdateThumbnail(boolean needsUpdateThumbnail) {
+        this.mNeedsUpdateThumbnail = needsUpdateThumbnail;
+    }
+
     public long getLastSyncDateForProperties() {
         return mLastSyncDateForProperties;
     }
@@ -446,7 +460,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         } else if (another.isFolder()) {
             return 1;
         }
-        return getRemotePath().toLowerCase().compareTo(another.getRemotePath().toLowerCase());
+        return new AlphanumComparator().compare(this, another);
     }
 
     @Override

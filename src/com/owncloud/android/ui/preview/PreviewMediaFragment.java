@@ -29,6 +29,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -47,6 +48,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.media.MediaControlView;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
@@ -54,7 +56,6 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -372,13 +373,15 @@ public class PreviewMediaFragment extends FileFragment implements
         mVideoPreview.setOnErrorListener(mVideoHelper);
     }
     
+    @SuppressWarnings("static-access")
     private void playVideo() {
         // create and prepare control panel for the user
         mMediaController.setMediaPlayer(mVideoPreview);
         
         // load the video file in the video player ; 
         // when done, VideoHelper#onPrepared() will be called
-        mVideoPreview.setVideoPath(getFile().getStoragePath()); 
+        Uri uri = Uri.parse(getFile().getStoragePath());
+        mVideoPreview.setVideoPath(uri.encode(getFile().getStoragePath()));
     }
     
 

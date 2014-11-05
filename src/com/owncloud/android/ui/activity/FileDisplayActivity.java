@@ -21,8 +21,6 @@ package com.owncloud.android.ui.activity;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.httpclient.methods.PostMethod;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -50,8 +48,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -64,6 +60,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -80,6 +77,7 @@ import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.MoveFileOperation;
@@ -90,6 +88,7 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -102,7 +101,6 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -114,7 +112,7 @@ import com.owncloud.android.utils.Log_OC;
 
 public class FileDisplayActivity extends HookActivity implements
 FileFragment.ContainerActivity, OnNavigationListener, 
-OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
+OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     private ArrayAdapter<String> mDirectories;
 
@@ -153,7 +151,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
     private String DIALOG_UNTRUSTED_CERT;
     
     private OCFile mWaitingToSend;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
@@ -251,7 +249,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
                 Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
                 if (file.isFolder()) {
-                    startSyncFolderOperation(file);
+                    startSyncFolderOperation(file, false);
                 }
                 
             } else {
@@ -292,7 +290,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             if (listOfFiles != null) {
                 listOfFiles.listDirectory(getCurrentDir());   
             } else {
-                Log.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
+                Log_OC.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
             }
             
             /// Second fragment
@@ -308,12 +306,12 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             }
 
         } else {
-            Log.wtf(TAG, "initFragments() called with invalid NULLs!");
+            Log_OC.wtf(TAG, "initFragments() called with invalid NULLs!");
             if (getAccount() == null) {
-                Log.wtf(TAG, "\t account is NULL");
+                Log_OC.wtf(TAG, "\t account is NULL");
             }
             if (getFile() == null) {
-                Log.wtf(TAG, "\t file is NULL");
+                Log_OC.wtf(TAG, "\t file is NULL");
             }
         }
     }
@@ -452,6 +450,16 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (BuildConfig.DEBUG) {
+            menu.findItem(R.id.action_logger).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_logger).setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSherlock().getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
@@ -481,6 +489,11 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             startActivity(settingsIntent);
             break;
         }
+        case R.id.action_logger: {
+            Intent loggerIntent = new Intent(getApplicationContext(),LogHistoryActivity.class);
+            startActivity(loggerIntent);
+            break;
+        }
         case android.R.id.home: {
             FileFragment second = getSecondFragment();
             OCFile currentDir = getCurrentDir();
@@ -489,6 +502,40 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
                 onBackPressed(); 
                 
             }
+            break;
+        }
+        case R.id.action_sort: {
+            SharedPreferences appPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(this);
+            
+            // Read sorting order, default to sort by name ascending
+            Integer sortOrder = appPreferences
+                    .getInt("sortOrder", FileListListAdapter.SORT_NAME);
+            
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.actionbar_sort_title)
+            .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder , new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    
+                    switch (which){
+                    case 0:
+                        sortByName(true);
+                        break;
+                    case 1:
+                        sortByDate(false);
+                        break;
+                        
+// TODO re-enable when server-side folder size calculation is available                       
+//                    case 2:
+//                        sortBySize(false);
+//                        break;
+                    }
+                    
+                    dialog.dismiss();
+                    
+                }
+            });
+            builder.create().show();
             break;
         }
         default:
@@ -1026,7 +1073,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             }
             ocFileListFragment.setMessageForEmptyList(getString(message));
         } else {
-            Log.e(TAG, "OCFileListFragment is null");
+            Log_OC.e(TAG, "OCFileListFragment is null");
         }
     }
 
@@ -1153,7 +1200,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
             listOfFiles.listDirectory(root);
             setFile(listOfFiles.getCurrentFile());
-            startSyncFolderOperation(root);
+            startSyncFolderOperation(root, false);
         }
         cleanSecondFragment();
     }
@@ -1168,7 +1215,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
             setNavigationListWithFolder(folder);
             listOfFiles.listDirectory(folder);
             setFile(listOfFiles.getCurrentFile());
-            startSyncFolderOperation(folder);
+            startSyncFolderOperation(folder, false);
         } else {
             Log_OC.e(TAG, "Unexpected null when accessing list fragment");
         }
@@ -1187,7 +1234,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
         cleanSecondFragment();
         
         // Sync Folder
-        startSyncFolderOperation(directory);
+        startSyncFolderOperation(directory, false);
         
     }
 
@@ -1304,7 +1351,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
 
     @Override
     public void onSavedCertificate() {
-        startSyncFolderOperation(getCurrentDir());                
+        startSyncFolderOperation(getCurrentDir(), false);
     }
 
 
@@ -1592,7 +1639,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
         return null;
     }
     
-    public void startSyncFolderOperation(OCFile folder) {
+    public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
         long currentSyncTime = System.currentTimeMillis(); 
         
         mSyncInProgress = true;
@@ -1602,6 +1649,7 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
                                                                         currentSyncTime, 
                                                                         false,
                                                                         getFileOperationsHelper().isSharedSupported(),
+                                                                        ignoreETag,
                                                                         getStorageManager(), 
                                                                         getAccount(), 
                                                                         getApplicationContext()
@@ -1714,16 +1762,36 @@ OnSslUntrustedCertListener, SwipeRefreshLayout.OnRefreshListener {
     }
 
     @Override
+    public void onRefresh(boolean ignoreETag) {
+        refreshList(ignoreETag);
+    }
+
+    @Override
     public void onRefresh() {
+        refreshList(true);
+    }
+
+    private void refreshList(boolean ignoreETag) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {
             OCFile folder = listOfFiles.getCurrentFile();
             if (folder != null) {
                 /*mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
                 listDirectory(mFile);*/
-                startSyncFolderOperation(folder);
+                startSyncFolderOperation(folder, ignoreETag);
             }
         }
     }
 
+    private void sortByDate(boolean ascending){
+        getListOfFilesFragment().sortByDate(ascending);
+    }
+
+    private void sortBySize(boolean ascending){
+        getListOfFilesFragment().sortBySize(ascending);
+    }
+
+    private void sortByName(boolean ascending){
+        getListOfFilesFragment().sortByName(ascending);
+    }
 }

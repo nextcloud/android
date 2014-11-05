@@ -23,7 +23,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.os.Bundle;
@@ -33,10 +32,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 
 /**
@@ -126,6 +127,13 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         
         ((ImageButton)mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
         
+        ((LinearLayout)mView.findViewById(R.id.fileDownloadLL)).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((PreviewImageActivity) getActivity()).toggleFullScreen();
+            }
+        });
+
         if (mError) {
             setButtonsForRemote();
         } else {

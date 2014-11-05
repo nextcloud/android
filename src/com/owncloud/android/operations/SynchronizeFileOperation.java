@@ -25,10 +25,10 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -170,6 +170,8 @@ public class SynchronizeFileOperation extends SyncOperation {
                     result = new RemoteOperationResult(ResultCode.OK);
 
                 } else if (serverChanged) {
+                    mLocalFile.setRemoteId(mServerFile.getRemoteId());
+                    
                     if (mSyncFileContents) {
                         requestForDownload(mLocalFile); // local, not server; we won't to keep the value of keepInSync!
                         // the update of local data will be done later by the FileUploader service when the upload finishes

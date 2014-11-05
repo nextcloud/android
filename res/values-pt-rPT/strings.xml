@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Definições</string>
   <string name="actionbar_see_details">Detalhes</string>
   <string name="actionbar_send_file">Enviar</string>
+  <string name="actionbar_sort">Ordenar</string>
+  <string name="actionbar_sort_title">Ordenar por</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Mais Recente - Mais Antigo</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Geral</string>
   <string name="prefs_category_more">Mais</string>
   <string name="prefs_accounts">Contas</string>
@@ -31,6 +39,7 @@
   <string name="prefs_feedback">Resposta</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Experimente %1$s no seu smartphone!</string>
+  <string name="recommend_text">Quero convidar-te a usares %1$s no teu smartphone!\nFaz download aqui: %2$s</string>
   <string name="auth_check_server">Verificar Servidor</string>
   <string name="auth_host_url">Endereço do servidor https://..</string>
   <string name="auth_username">Nome de Utilizador</string>
@@ -236,9 +245,11 @@
   <string name="preview_image_description">Pré-Visualização da imagem</string>
   <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
   <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
+  <string name="prefs_instant_upload_path_title">Caminho de Upload</string>
   <string name="share_link_no_support_share_api">Lamentamos mas não é possível partilhar através do seu servidor. Por favor contacte o seu administrador.</string>
   <string name="share_link_file_no_exist">Não é possivel partilhar. Por favor verifique se o ficheiro existe</string>
   <string name="share_link_file_error">Ocorreu um erro enquanto tentava partilhar este ficheiro ou pasta</string>
+  <string name="unshare_link_file_no_exist">Não é possível retirar a partilha. Verifique se o ficheiro existe</string>
   <string name="unshare_link_file_error">Ocorreu um erro enquanto retirava a partilha deste ficheiro ou pasta</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar ligação</string>
@@ -259,11 +270,21 @@
   <string name="downloader_download_file_not_found">O ficheiro não está mais disponível no servidor</string>
   <string name="prefs_category_accounts">Contas</string>
   <string name="prefs_add_account">Adicionar conta</string>
-  <string name="auth_redirect_non_secure_connection_title">Uma ligação segura foi redireccionada por uma rota insegura.</string>
+  <string name="auth_redirect_non_secure_connection_title">Ligação segura é redireccionada para um caminho inseguro.</string>
+  <string name="actionbar_logger">Logs</string>
+  <string name="log_send_history_button">Enviar Histórico</string>
+  <string name="log_mail_subject">Logs da app ownCloud Android</string>
+  <string name="log_progress_dialog_text">A carregar os dados...</string>
   <string name="saml_authentication_required_text">Autenticação necessária</string>
   <string name="saml_authentication_wrong_pass">Password errada</string>
   <string name="actionbar_move">Mover</string>
   <string name="file_list_empty_moving">Não está aqui nada. Pode adicionar uma pasta!</string>
   <string name="move_choose_button_text">Escolha</string>
+  <string name="move_file_not_found">Não é possível mover. Verifique se o ficheiro existe</string>
+  <string name="move_file_invalid_into_descendent">Não é possível mover esta pasta deste modo</string>
+  <string name="move_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
+  <string name="move_file_error">Um erro ocorreu ao tentar mover este ficheiro ou pasta</string>
   <string name="forbidden_permissions_move">para mover este ficheiro</string>
+  <string name="prefs_category_instant_uploading">Uploads Instantâneos</string>
+  <string name="prefs_category_security">Segurança</string>
 </resources>

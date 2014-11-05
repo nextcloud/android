@@ -17,13 +17,24 @@
  */
 package com.owncloud.android.ui.adapter;
 
+
+import java.io.File;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Vector;
 
+import third_parties.daveKoeller.AlphanumComparator;
 import android.accounts.Account;
 import android.content.Context;
+<<<<<<< HEAD
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
+=======
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.preference.PreferenceManager;
+>>>>>>> upstream/develop
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,23 +49,31 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncDrawable;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
+<<<<<<< HEAD
 import com.owncloud.android.utils.Log_OC;
 
+=======
+import com.owncloud.android.utils.FileStorageUtils;
+
+>>>>>>> upstream/develop
 
 /**
  * This Adapter populates a ListView with all files and folders in an ownCloud
  * instance.
  * 
  * @author Bartek Przybylski
- * 
+ * @author Tobias Kaminsky
+ * @author David A. Velasco
  */
 public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private final static String PERMISSION_SHARED_WITH_ME = "S";
-
+    
     private Context mContext;
     private OCFile mFile = null;
     private Vector<OCFile> mFiles = null;
@@ -63,19 +82,42 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
+<<<<<<< HEAD
     private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM };
+=======
+    private Integer mSortOrder;
+    public static final Integer SORT_NAME = 0;
+    public static final Integer SORT_DATE = 1;
+    public static final Integer SORT_SIZE = 2;
+    private Boolean mSortAscending;
+    private SharedPreferences mAppPreferences;
+>>>>>>> upstream/develop
     
     public FileListListAdapter(
             boolean justFolders, 
             Context context, 
             ComponentsGetter transferServiceGetter
             ) {
+
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
-        mTransferServiceGetter = transferServiceGetter;
-    }
 
+        mTransferServiceGetter = transferServiceGetter;
+        
+        mAppPreferences = PreferenceManager
+                .getDefaultSharedPreferences(mContext);
+        
+        // Read sorting order, default to sort by name ascending
+        mSortOrder = mAppPreferences
+                .getInt("sortOrder", 0);
+        mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
+        
+        // initialise thumbnails cache on background thread
+        new ThumbnailsCacheManager.InitDiskCacheTask().execute();
+
+    }
+    
     @Override
     public boolean areAllItemsEnabled() {
         return true;
@@ -162,6 +204,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             view = inflator.inflate(R.layout.list_item, null);
             break;
         }
+<<<<<<< HEAD
 
         view.invalidate();
 
@@ -170,6 +213,42 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
             TextView fileName;
             String name;
+=======
+         
+        if (mFiles != null && mFiles.size() > position) {
+            OCFile file = mFiles.get(position);
+            TextView fileName = (TextView) view.findViewById(R.id.Filename);           
+            String name = file.getFileName();
+
+            fileName.setText(name);
+            ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
+            fileIcon.setTag(file.getFileId());
+            ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
+            ImageView sharedWithMeIconV = (ImageView) view.findViewById(R.id.sharedWithMeIcon);
+            sharedWithMeIconV.setVisibility(View.GONE);
+
+            ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
+            localStateView.bringToFront();
+            FileDownloaderBinder downloaderBinder = 
+                    mTransferServiceGetter.getFileDownloaderBinder();
+            FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
+            if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
+                localStateView.setImageResource(R.drawable.downloading_file_indicator);
+                localStateView.setVisibility(View.VISIBLE);
+            } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
+                localStateView.setImageResource(R.drawable.uploading_file_indicator);
+                localStateView.setVisibility(View.VISIBLE);
+            } else if (file.isDown()) {
+                localStateView.setImageResource(R.drawable.local_file_indicator);
+                localStateView.setVisibility(View.VISIBLE);
+            } else {
+                localStateView.setVisibility(View.INVISIBLE);
+            }
+            
+            TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
+            TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
+            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
+>>>>>>> upstream/develop
             
             switch (viewType){
             case LIST_ITEM:
@@ -182,6 +261,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
                 
                 lastModV.setVisibility(View.VISIBLE);
+<<<<<<< HEAD
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
                 
                 checkBoxV.setVisibility(View.GONE);
@@ -194,6 +274,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
                 if (file.isShareByLink()) {
                     sharedIconV.setVisibility(View.VISIBLE);
+=======
+                lastModV.setText(
+                        DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp())
+                );
+                // this if-else is needed even thoe fav icon is visible by default
+                // because android reuses views in listview
+                if (!file.keepInSync()) {
+                    view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+>>>>>>> upstream/develop
                 } else {
                     sharedIconV.setVisibility(View.GONE);
                 }
@@ -212,6 +301,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         }
                         checkBoxV.setVisibility(View.VISIBLE);
                     }
+<<<<<<< HEAD
                     
                     localStateView.bringToFront();
                     FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
@@ -268,6 +358,64 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 }
             } else {
                 // Folder
+=======
+                    checkBoxV.setVisibility(View.VISIBLE);
+                }               
+                
+                // get Thumbnail if file is image
+                if (file.isImage() && file.getRemoteId() != null){
+                     // Thumbnail in Cache?
+                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                            String.valueOf(file.getRemoteId())
+                    );
+                    if (thumbnail != null && !file.needsUpdateThumbnail()){
+                        fileIcon.setImageBitmap(thumbnail);
+                    } else {
+                        // generate new Thumbnail
+                        if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
+                            final ThumbnailsCacheManager.ThumbnailGenerationTask task = 
+                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                                            fileIcon, mStorageManager, mAccount
+                                    );
+                            if (thumbnail == null) {
+                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                            }
+                            final AsyncDrawable asyncDrawable = new AsyncDrawable(
+                                    mContext.getResources(), 
+                                    thumbnail, 
+                                    task
+                            );
+                            fileIcon.setImageDrawable(asyncDrawable);
+                            task.execute(file);
+                        }
+                    }
+                } else {
+                    fileIcon.setImageResource(
+                            DisplayUtils.getResourceId(file.getMimetype(), file.getFileName())
+                    );
+                }
+
+                if (checkIfFileIsSharedWithMe(file)) {
+                    sharedWithMeIconV.setVisibility(View.VISIBLE);
+                }
+            } 
+            else {
+                  // TODO Re-enable when server supports folder-size calculation
+//                if (FileStorageUtils.getDefaultSavePathFor(mAccount.name, file) != null){
+//                    fileSizeV.setVisibility(View.VISIBLE);
+//                    fileSizeV.setText(getFolderSizeHuman(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file)));
+//                } else {
+                    fileSizeV.setVisibility(View.INVISIBLE);
+//                }
+
+                lastModV.setVisibility(View.VISIBLE);
+                lastModV.setText(
+                        DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp())
+                );
+                checkBoxV.setVisibility(View.GONE);
+                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+
+>>>>>>> upstream/develop
                 if (checkIfFileIsSharedWithMe(file)) {
                     fileIcon.setImageResource(R.drawable.shared_with_me_folder);
                 } else if (file.isShareByLink()) {
@@ -275,13 +423,55 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     // folder-public one
                     fileIcon.setImageResource(R.drawable.folder_public);
                 } else {
-                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
+                    fileIcon.setImageResource(
+                            DisplayUtils.getResourceId(file.getMimetype(), file.getFileName())
+                    );
                 }
             }           
         }
 
         return view;
     }
+
+    /**
+     * Local Folder size in human readable format
+     * 
+     * @param path
+     *            String
+     * @return Size in human readable format
+     */
+    private String getFolderSizeHuman(String path) {
+
+        File dir = new File(path);
+
+        if (dir.exists()) {
+            long bytes = getFolderSize(dir);
+            return DisplayUtils.bytesToHumanReadable(bytes);
+        }
+
+        return "0 B";
+    }
+
+    /**
+     * Local Folder size
+     * @param dir File
+     * @return Size in bytes
+     */
+    private long getFolderSize(File dir) {
+        if (dir.exists()) {
+            long result = 0;
+            File[] fileList = dir.listFiles();
+            for(int i = 0; i < fileList.length; i++) {
+                if(fileList[i].isDirectory()) {
+                    result += getFolderSize(fileList[i]);
+                } else {
+                    result += fileList[i].length();
+                }
+            }
+            return result;
+        }
+        return 0;
+    } 
 
     @Override
     public int getViewTypeCount() {
@@ -300,8 +490,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     /**
      * Change the adapted directory for a new one
-     * @param directory                 New file to adapt. Can be NULL, meaning "no content to adapt".
-     * @param updatedStorageManager     Optional updated storage manager; used to replace mStorageManager if is different (and not NULL)
+     * @param directory                 New file to adapt. Can be NULL, meaning 
+     *                                  "no content to adapt".
+     * @param updatedStorageManager     Optional updated storage manager; used to replace 
+     *                                  mStorageManager if is different (and not NULL)
      */
     public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager) {
         mFile = directory;
@@ -317,6 +509,26 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         } else {
             mFiles = null;
         }
+
+        sortDirectory();
+    }
+    
+    /**
+     * Sorts all filenames, regarding last user decision 
+     */
+    private void sortDirectory(){
+        switch (mSortOrder){
+        case 0:
+            sortByName(mSortAscending);
+            break;
+        case 1:
+            sortByDate(mSortAscending);
+            break;
+        case 2: 
+            sortBySize(mSortAscending);
+            break;
+        }
+        
         notifyDataSetChanged();
     }
     
@@ -347,7 +559,111 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
      * @return boolean: True if it is shared with me and false if it is not
      */
     private boolean checkIfFileIsSharedWithMe(OCFile file) {
-        return (mFile.getPermissions() != null && !mFile.getPermissions().contains(PERMISSION_SHARED_WITH_ME)
-                && file.getPermissions() != null && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME));
+        return (mFile.getPermissions() != null 
+                && !mFile.getPermissions().contains(PERMISSION_SHARED_WITH_ME)
+                && file.getPermissions() != null 
+                && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME));
     }
+
+    /**
+     * Sorts list by Date
+     * @param sortAscending true: ascending, false: descending
+     */
+    private void sortByDate(boolean sortAscending){
+        final Integer val;
+        if (sortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+        
+        Collections.sort(mFiles, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    Long obj1 = o1.getModificationTimestamp();
+                    return val * obj1.compareTo(o2.getModificationTimestamp());
+                }
+                else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                } else if (o1.getModificationTimestamp() == 0 || o2.getModificationTimestamp() == 0){
+                    return 0;
+                } else {
+                    Long obj1 = o1.getModificationTimestamp();
+                    return val * obj1.compareTo(o2.getModificationTimestamp());
+                }
+            }
+        });
+    }
+
+    /**
+     * Sorts list by Size
+     * @param sortAscending true: ascending, false: descending
+     */
+    private void sortBySize(boolean sortAscending){
+        final Integer val;
+        if (sortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+        
+        Collections.sort(mFiles, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    Long obj1 = getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o1)));
+                    return val * obj1.compareTo(getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
+                }
+                else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
+                    return 0;
+                } else {
+                    Long obj1 = o1.getFileLength();
+                    return val * obj1.compareTo(o2.getFileLength());
+                }
+            }
+        });
+    }
+
+    /**
+     * Sorts list by Name
+     * @param sortAscending true: ascending, false: descending
+     */
+    private void sortByName(boolean sortAscending){
+        final Integer val;
+        if (sortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+
+        Collections.sort(mFiles, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    return val * o1.getRemotePath().toLowerCase().compareTo(o2.getRemotePath().toLowerCase());
+                } else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                }
+                return val * new AlphanumComparator().compare(o1, o2);
+            }
+        });
+    }
+
+    public void setSortOrder(Integer order, boolean ascending) {
+        SharedPreferences.Editor editor = mAppPreferences.edit();
+        editor.putInt("sortOrder", order);
+        editor.putBoolean("sortAscending", ascending);
+        editor.commit();
+        
+        mSortOrder = order;
+        mSortAscending = ascending;
+        
+        sortDirectory();
+    }    
 }

@@ -5,6 +5,8 @@
   <string name="actionbar_upload_files">Ffeiliau</string>
   <string name="actionbar_settings">Gosodiadau</string>
   <string name="actionbar_send_file">Anfon</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Cyffredinol</string>
   <string name="prefs_accounts">Cyfrifon</string>
   <string name="prefs_manage_accounts">Rheoli Cyfrifon</string>

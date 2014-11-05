@@ -34,14 +34,15 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
-import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 
 /**
  *  TODO extending SherlockListFragment instead of SherlockFragment 
  */
 public class ExtendedListFragment extends SherlockFragment 
-implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+implements OnItemClickListener, OnEnforceableRefreshListener {
     
     private static final String TAG = ExtendedListFragment.class.getSimpleName();
 
@@ -64,7 +65,7 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     private ArrayList<Integer> mTops;
     private int mHeightCell = 0;
 
-    private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
+    private OnEnforceableRefreshListener mOnRefreshListener = null;
     
     protected GridView imageView;
        
@@ -249,7 +250,7 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
         }
     }
     
-    public void setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener listener) {
+    public void setOnRefreshListener(OnEnforceableRefreshListener listener) {
         mOnRefreshListener = listener;
     }
     
@@ -309,4 +310,13 @@ implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
         refreshLayout.setOnRefreshListener(this);
     }
 
+    @Override
+    public void onRefresh(boolean ignoreETag) {
+        mRefreshLayout.setRefreshing(false);
+        mRefreshEmptyLayout.setRefreshing(false);
+
+        if (mOnRefreshListener != null) {
+            mOnRefreshListener.onRefresh(ignoreETag);
+        }
+    }
 }

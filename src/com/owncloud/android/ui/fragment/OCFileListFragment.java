@@ -35,15 +35,16 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.MoveActivity;
+import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
-import com.owncloud.android.utils.Log_OC;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -89,7 +90,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                     FileFragment.ContainerActivity.class.getSimpleName());
         }
         try {
-            setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) activity);
+            setOnRefreshListener((OnEnforceableRefreshListener) activity);
             
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " + 
@@ -175,7 +176,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             
             listDirectory(mFile);
 
-            onRefresh();
+            onRefresh(false);
             
             // restore index and top position
             restoreIndexAndTopPosition();
@@ -406,5 +407,17 @@ public class OCFileListFragment extends ExtendedListFragment {
             }
         }
     }
+    
+    public void sortByName(boolean descending) {
+        mAdapter.setSortOrder(FileListListAdapter.SORT_NAME, descending);
+    }
+
+    public void sortByDate(boolean descending) {
+        mAdapter.setSortOrder(FileListListAdapter.SORT_DATE, descending);
+    }
+
+    public void sortBySize(boolean descending) {
+        mAdapter.setSortOrder(FileListListAdapter.SORT_SIZE, descending);
+    }  
 
 }

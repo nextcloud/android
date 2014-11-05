@@ -59,6 +59,7 @@ import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
@@ -72,7 +73,6 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.Log_OC;
 
 
 
@@ -630,7 +630,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
               // coincidence; nothing else is needed, the storagePath is right
               // in the instance returned by mCurrentUpload.getFile()
         }
-
+        file.setNeedsUpdateThumbnail(true);
         mStorageManager.saveFile(file);
     }
 
@@ -641,6 +641,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         file.setModificationTimestamp(remoteFile.getModifiedTimestamp());
         file.setModificationTimestampAtLastSyncForData(remoteFile.getModifiedTimestamp());
         // file.setEtag(remoteFile.getEtag());    // TODO Etag, where available
+        file.setRemoteId(remoteFile.getRemoteId());
     }
 
     private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType,
