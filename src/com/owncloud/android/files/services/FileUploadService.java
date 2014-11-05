@@ -156,8 +156,14 @@ public class FileUploadService extends Service {
     private OwnCloudClient mUploadClient = null;
     private Account mLastAccount = null;
     private FileDataStorageManager mStorageManager;
+    //since there can be only one instance of an Android service, there also just one db connection.
+    private UploadDbHandler mDb = null;
 
-    private ConcurrentMap<String, UploadFileOperation> mPendingUploads = new ConcurrentHashMap<String, UploadFileOperation>();
+    /**
+     * List of uploads that currently in progress. Maps from remotePath to where file
+     * is being uploaded to {@link UploadFileOperation}.
+     */
+    private ConcurrentMap<String, UploadFileOperation> mActiveUploads = new ConcurrentHashMap<String, UploadFileOperation>();
     private UploadFileOperation mCurrentUpload = null;
 
     private NotificationManager mNotificationManager;
@@ -199,7 +205,7 @@ public class FileUploadService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size());
+        Log_OC.i(TAG, "mPendingUploads size:" + mActiveUploads.size());
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         HandlerThread thread = new HandlerThread("FileUploaderThread", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
@@ -208,6 +214,7 @@ public class FileUploadService extends Service {
         mBinder = new FileUploaderBinder();
         mConnectivityChangeReceiver = new ConnectivityChangeReceiver();
         registerReceiver(mConnectivityChangeReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        mDb = new UploadDbHandler(this.getBaseContext());
     }
 
     public class ConnectivityChangeReceiver extends BroadcastReceiver {
@@ -222,6 +229,7 @@ public class FileUploadService extends Service {
 
     @Override
     public void onDestroy() {
+        mDb.close();
         unregisterReceiver(mConnectivityChangeReceiver);
         super.onDestroy();
     }
@@ -238,6 +246,8 @@ public class FileUploadService extends Service {
      * {@link UploadDbHandler}. Then, {@link ServiceHandler} is invoked which
      * performs the upload and updates the DB entry (upload success, failure,
      * retry, ...)
+     * 
+     * TODO: correct return values. should not always be NOT_STICKY.
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -247,8 +257,7 @@ public class FileUploadService extends Service {
             // service) or connectivity change was detected. ==> check persistent upload
             // list.
             //
-            UploadDbHandler db = new UploadDbHandler(this.getBaseContext());
-            List<UploadDbObject> list = db.getAllStoredUploads();
+            List<UploadDbObject> list = mDb.getAllStoredUploads();
             requestedUploads.addAll(list);
         } else {
 
@@ -322,7 +331,6 @@ public class FileUploadService extends Service {
 
             // save always persistently path of upload, so it can be retried if
             // failed.
-            UploadDbHandler db = new UploadDbHandler(this.getBaseContext());
             for (int i = 0; i < files.length; i++) {
                 UploadDbObject uploadObject = new UploadDbObject();
                 uploadObject.setRemotePath(files[i].getRemotePath());
@@ -333,96 +341,15 @@ public class FileUploadService extends Service {
                 uploadObject.setCreateRemoteFolder(isCreateRemoteFolder);
                 uploadObject.setLocalAction(localAction);
                 uploadObject.setUseWifiOnly(isUseWifiOnly);
-                uploadObject.setLastResult(new RemoteOperationResult(ResultCode.OK));
-                uploadObject.setLocalAction(LocalBehaviour.LOCAL_BEHAVIOUR_COPY);
                 uploadObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
-               
-                
-//                String serializedObjectBase64 = "";
-//
-//                // serialize the object
-//                try {
-//                    ByteArrayOutputStream bo = new ByteArrayOutputStream();
-//                    ObjectOutputStream so = new ObjectOutputStream(bo);
-//                    so.writeObject(uploadObject);
-//                    so.flush();
-//                    serializedObjectBase64 = Base64.encodeToString(bo.toByteArray(), Base64.DEFAULT);
-//                    so.close();
-//                    bo.close();
-//                } catch (Exception e) {
-//                    System.out.println(e);
-//                }
-//
-//             // deserialize the object
-//                try {
-//                    byte[] b = Base64.decode(serializedObjectBase64, Base64.DEFAULT);
-//                    ByteArrayInputStream bi = new ByteArrayInputStream(b);
-//                    ObjectInputStream si = new ObjectInputStream(bi);
-//                    UploadDbObject obj = (UploadDbObject) si.readObject();
-//                    Log.e(TAG, "SUCCESS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//                } catch (Exception e) {
-//                    System.out.println(e);
-//                }
-                
-//                String s = uploadObject.toString();
-//                UploadDbObject  o  = UploadDbObject.fromString(s);
-//                o = o;
-                
-                
-                db.storeUpload(uploadObject, "upload at " + new Date());
+                mDb.storeUpload(uploadObject, "upload at " + new Date());
                 requestedUploads.add(uploadObject);
-                
-               
             }
-            db.close();
             
-            return Service.START_NOT_STICKY;
-
+            
             // TODO check if would be clever to read entries from
             // UploadDbHandler and add to requestedUploads at this point
 
-            // AccountManager aMgr = AccountManager.get(this);
-            // String version = aMgr.getUserData(account,
-            // Constants.KEY_OC_VERSION);
-            // OwnCloudVersion ocv = new OwnCloudVersion(version);
-            //
-            // boolean chunked =
-            // FileUploadService.chunkedUploadIsSupported(ocv);
-            // AbstractList<String> requestedUploads = new Vector<String>();
-            // String uploadKey = null;
-            // UploadFileOperation newUpload = null;
-            // try {
-            // for (int i = 0; i < files.length; i++) {
-            // uploadKey = buildRemoteName(account, files[i].getRemotePath());
-//             newUpload = new UploadFileOperation(account, files[i], chunked,
-            // forceOverwrite, localAction,
-            // getApplicationContext());
-            // if (isCreateRemoteFolder) {
-            // newUpload.setRemoteFolderToBeCreated();
-            // }
-            // mPendingUploads.putIfAbsent(uploadKey, newUpload); // Grants that
-            // the file only upload once time
-            //
-            // newUpload.addDatatransferProgressListener((FileUploaderBinder)mBinder);
-            // requestedUploads.add(uploadKey);
-            // }
-            //
-            // } catch (IllegalArgumentException e) {
-            // Log_OC.e(TAG, "Not enough information provided in intent: " +
-            // e.getMessage());
-            // return START_NOT_STICKY;
-            //
-            // } catch (IllegalStateException e) {
-            // Log_OC.e(TAG, "Bad information provided in intent: " +
-            // e.getMessage());
-            // return START_NOT_STICKY;
-            //
-            // } catch (Exception e) {
-            // Log_OC.e(TAG,
-            // "Unexpected exception while processing upload intent", e);
-            // return START_NOT_STICKY;
-            //
-            // }
         }
         if (requestedUploads.size() > 0) {
             Message msg = mServiceHandler.obtainMessage();
@@ -430,7 +357,7 @@ public class FileUploadService extends Service {
             msg.obj = requestedUploads;
             mServiceHandler.sendMessage(msg);
         }
-        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size());
+        Log_OC.i(TAG, "mPendingUploads size:" + mActiveUploads.size());
         return Service.START_NOT_STICKY;
     }
 
@@ -477,8 +404,8 @@ public class FileUploadService extends Service {
          */
         public void cancel(Account account, OCFile file) {
             UploadFileOperation upload = null;
-            synchronized (mPendingUploads) {
-                upload = mPendingUploads.remove(buildRemoteName(account, file));
+            synchronized (mActiveUploads) {
+                upload = mActiveUploads.remove(buildRemoteName(account, file));
             }
             if (upload != null) {
                 upload.cancel();
@@ -503,17 +430,17 @@ public class FileUploadService extends Service {
             if (account == null || file == null)
                 return false;
             String targetKey = buildRemoteName(account, file);
-            synchronized (mPendingUploads) {
+            synchronized (mActiveUploads) {
                 if (file.isFolder()) {
                     // this can be slow if there are many uploads :(
-                    Iterator<String> it = mPendingUploads.keySet().iterator();
+                    Iterator<String> it = mActiveUploads.keySet().iterator();
                     boolean found = false;
                     while (it.hasNext() && !found) {
                         found = it.next().startsWith(targetKey);
                     }
                     return found;
                 } else {
-                    return (mPendingUploads.containsKey(targetKey));
+                    return (mActiveUploads.containsKey(targetKey));
                 }
             }
         }
@@ -588,10 +515,9 @@ public class FileUploadService extends Service {
             @SuppressWarnings("unchecked")
             AbstractList<UploadDbObject> requestedUploads = (AbstractList<UploadDbObject>) msg.obj;
             if (msg.obj != null) {
-                //TODO iterator returns UploadDbObject! Not a string.
                 Iterator<UploadDbObject> it = requestedUploads.iterator();
                 while (it.hasNext()) {
-                    //mService.uploadFile(it.next());
+                    mService.uploadFile(it.next());
                 }
             }
             mService.stopSelf(msg.arg1);
@@ -601,13 +527,59 @@ public class FileUploadService extends Service {
     /**
      * Core upload method: sends the file(s) to upload
      * 
-     * @param uploadKey Key to access the upload to perform, contained in
+     * @param uploadDbObject Key to access the upload to perform, contained in
      *            mPendingUploads
      */
-    private void uploadFile(String uploadKey) {
+    private void uploadFile(UploadDbObject uploadDbObject) {
 
-        synchronized (mPendingUploads) {
-            mCurrentUpload = mPendingUploads.get(uploadKey);
+     // AccountManager aMgr = AccountManager.get(this);
+        // String version = aMgr.getUserData(account,
+        // Constants.KEY_OC_VERSION);
+        // OwnCloudVersion ocv = new OwnCloudVersion(version);
+        //
+        // boolean chunked =
+        // FileUploadService.chunkedUploadIsSupported(ocv);
+        // AbstractList<String> requestedUploads = new Vector<String>();
+        // String uploadKey = null;
+        // UploadFileOperation newUpload = null;
+        // try {
+        // for (int i = 0; i < files.length; i++) {
+        // uploadKey = buildRemoteName(account, files[i].getRemotePath());
+//         newUpload = new UploadFileOperation(account, files[i], chunked,
+        // forceOverwrite, localAction,
+        // getApplicationContext());
+        // if (isCreateRemoteFolder) {
+        // newUpload.setRemoteFolderToBeCreated();
+        // }
+        // mActiveUploads.putIfAbsent(uploadKey, newUpload); // Grants that
+        // the file only upload once time
+        //
+        // newUpload.addDatatransferProgressListener((FileUploaderBinder)mBinder);
+        // requestedUploads.add(uploadKey);
+        // }
+        //
+        // } catch (IllegalArgumentException e) {
+        // Log_OC.e(TAG, "Not enough information provided in intent: " +
+        // e.getMessage());
+        // return START_NOT_STICKY;
+        //
+        // } catch (IllegalStateException e) {
+        // Log_OC.e(TAG, "Bad information provided in intent: " +
+        // e.getMessage());
+        // return START_NOT_STICKY;
+        //
+        // } catch (Exception e) {
+        // Log_OC.e(TAG,
+        // "Unexpected exception while processing upload intent", e);
+        // return START_NOT_STICKY;
+        //
+        // }
+        
+        synchronized (mActiveUploads) {
+            mCurrentUpload = mActiveUploads.get(uploadDbObject.getRemotePath());
+            
+            //TODO: add object here, to make thread-safe
+            //mActiveUploads.putIfAbsent(uploadKey, newUpload); // Grants that
         }
 
         if (mCurrentUpload != null) {
@@ -654,8 +626,8 @@ public class FileUploadService extends Service {
                 uploadResult = new RemoteOperationResult(e);
 
             } finally {
-                synchronized (mPendingUploads) {
-                    mPendingUploads.remove(uploadKey);
+                synchronized (mActiveUploads) {
+                    mActiveUploads.remove(uploadDbObject);
                     Log_OC.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
                 }
                 if (uploadResult.isException()) {
@@ -885,26 +857,23 @@ public class FileUploadService extends Service {
             } else {
                 mNotificationBuilder.setContentText(content);
 
-                UploadDbHandler db = null;
+
                 try {
-                    db = new UploadDbHandler(this.getBaseContext());
                     String message = uploadResult.getLogMessage() + " errorCode: " + uploadResult.getCode();
                     Log_OC.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
                     if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
                         // message =
                         // getString(R.string.failed_upload_quota_exceeded_text);
-                        int updatedFiles = db.updateFileState(upload.getOriginalStoragePath(),
+                        int updatedFiles = mDb.updateFileState(upload.getOriginalStoragePath(),
                                 UploadDbHandler.UploadStatus.UPLOAD_FAILED, message);
                         if (updatedFiles == 0) { // update failed
-                            db.storeFile(upload.getOriginalStoragePath(), upload.getAccount().name, message);
+                            mDb.storeFile(upload.getOriginalStoragePath(), upload.getAccount().name, message);
                         }
                     } else {
                         // TODO: handle other results
                     }
                 } finally {
-                    if (db != null) {
-                        db.close();
-                    }
+                    
                 }
 
             }
@@ -914,10 +883,8 @@ public class FileUploadService extends Service {
 
             if (uploadResult.isSuccess()) {
 
-                UploadDbHandler db = new UploadDbHandler(this.getBaseContext());
-                db.removeFile(mCurrentUpload.getOriginalStoragePath());
-                db.close();
-
+               mDb.removeFile(mCurrentUpload.getOriginalStoragePath());
+               
                 // remove success notification, with a delay of 2 seconds
                 NotificationDelayer.cancelWithDelay(mNotificationManager, R.string.uploader_upload_succeeded_ticker,
                         2000);
