@@ -29,6 +29,7 @@ import java.util.Set;
 import android.annotation.TargetApi;
 import android.os.Build;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 
 /**
@@ -39,6 +40,8 @@ import com.owncloud.android.R;
  */
 public class DisplayUtils {
     
+    private static final String OWNCLOUD_APP_NAME = "ownCloud";
+
     //private static String TAG = DisplayUtils.class.getSimpleName(); 
     
     private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
@@ -233,7 +236,8 @@ public class DisplayUtils {
     
     
     public static int getSeasonalIconId() {
-        if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) >= 354) {
+        if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) >= 354 &&
+                MainApp.getAppContext().getString(R.string.app_name).equals(OWNCLOUD_APP_NAME)) {
             return R.drawable.winter_holidays_icon;
         } else {
             return R.drawable.icon;
