@@ -29,6 +29,8 @@ NOTE: You must have the Android SDK 'tools/', and 'platforms-tools/' folders in 
 
 ### 2b) Building with console/maven:
 
+WARNING: OBSOLETE!
+
 NOTE: You must have mvn (version >= 3.1.1) in your environment path. Current Android 'platforms-tools' need to be installed.
 
 Download/install Android plugin for Maven, install owncloud-android-library, then build ownCloud with mvn:
