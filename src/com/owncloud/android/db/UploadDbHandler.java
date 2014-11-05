@@ -17,8 +17,12 @@
  */
 package com.owncloud.android.db;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.UploadFileOperation;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -39,10 +43,22 @@ public class UploadDbHandler {
     private final String mDatabaseName;
     private final int mDatabaseVersion = 4;
 
+    static private final String TAG = "UploadDbHandler";
     static private final String TABLE_UPLOAD = "list_of_uploads";
 
+    public void recreateDb() {
+        mDB.beginTransaction();
+        try {
+            mHelper.onUpgrade(mDB, 0, mDatabaseVersion);
+            mDB.setTransactionSuccessful();
+        } finally {
+            mDB.endTransaction();
+        }
+
+    }
+
     public enum UploadStatus {
-        UPLOAD_STATUS_UPLOAD_LATER(0), UPLOAD_STATUS_UPLOAD_FAILED(1);
+        UPLOAD_LATER(0), UPLOAD_FAILED(1), UPLOAD_IN_PROGRESS(2), UPLOAD_PAUSED(3), UPLOAD_SUCCEEDED(4);
         private final int value;
         private UploadStatus(int value) {
             this.value = value;
@@ -70,14 +86,17 @@ public class UploadDbHandler {
      * @return false if an error occurred, else true. 
      */
     public boolean storeFile(String filepath, String account, String message) {
-        ContentValues cv = new ContentValues();
-        cv.put("path", filepath);
-        cv.put("account", account);
-        cv.put("attempt", UploadStatus.UPLOAD_STATUS_UPLOAD_LATER.getValue());
-        cv.put("message", message);
-        long result = mDB.insert(TABLE_UPLOAD, null, cv);
-        Log_OC.d(TABLE_UPLOAD, "putFileForLater returns with: " + result + " for file: " + filepath);
-        return result != -1;
+        ///OBSOLETE
+        Log_OC.i(TAG, "obsolete method called");
+        return false;
+//        ContentValues cv = new ContentValues();
+//        cv.put("path", filepath);
+//        cv.put("account", account);
+//        cv.put("attempt", UploadStatus.UPLOAD_STATUS_UPLOAD_LATER.getValue());
+//        cv.put("message", message);
+//        long result = mDB.insert(TABLE_UPLOAD, null, cv);
+//        Log_OC.d(TABLE_UPLOAD, "putFileForLater returns with: " + result + " for file: " + filepath);
+//        return result != -1;
     }
 
     /**
@@ -89,12 +108,15 @@ public class UploadDbHandler {
      * @return 1 if file status was updated, else 0.
      */
     public int updateFileState(String filepath, UploadStatus status, String message) {
-        ContentValues cv = new ContentValues();
-        cv.put("attempt", status.getValue());
-        cv.put("message", message);
-        int result = mDB.update(TABLE_UPLOAD, cv, "path=?", new String[] { filepath });
-        Log_OC.d(TABLE_UPLOAD, "updateFileState returns with: " + result + " for file: " + filepath);
-        return result;
+      ///OBSOLETE
+        Log_OC.i(TAG, "obsolete method called");
+        return 0;
+//        ContentValues cv = new ContentValues();
+//        cv.put("attempt", status.getValue());
+//        cv.put("message", message);
+//        int result = mDB.update(TABLE_UPLOAD, cv, "path=?", new String[] { filepath });
+//        Log_OC.d(TABLE_UPLOAD, "updateFileState returns with: " + result + " for file: " + filepath);
+//        return result;
     }
 
     /**
@@ -102,7 +124,10 @@ public class UploadDbHandler {
      * @return
      */
     public Cursor getAwaitingFiles() {
-        return mDB.query(TABLE_UPLOAD, null, "attempt=" + UploadStatus.UPLOAD_STATUS_UPLOAD_LATER, null, null, null, null);
+        //OBSOLETE
+        Log_OC.i(TAG, "obsolete method called");
+        return null;
+//        return mDB.query(TABLE_UPLOAD, null, "attempt=" + UploadStatus.UPLOAD_STATUS_UPLOAD_LATER, null, null, null, null);
     }
 
   //ununsed until now. uncomment if needed.
@@ -121,9 +146,12 @@ public class UploadDbHandler {
      * @return true when one or more pending files was removed
      */
     public boolean removeFile(String localPath) {
-        long result = mDB.delete(TABLE_UPLOAD, "path = ?", new String[] { localPath });
-        Log_OC.d(TABLE_UPLOAD, "delete returns with: " + result + " for file: " + localPath);
-        return result != 0;
+      //OBSOLETE
+        Log_OC.i(TAG, "obsolete method called");
+        return false;
+//        long result = mDB.delete(TABLE_UPLOAD, "path = ?", new String[] { localPath });
+//        Log_OC.d(TABLE_UPLOAD, "delete returns with: " + result + " for file: " + localPath);
+//        return result != 0;
 
     }
 
@@ -134,35 +162,46 @@ public class UploadDbHandler {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE " + TABLE_UPLOAD + " (" + " _id INTEGER PRIMARY KEY, " + " path TEXT,"
-                    + " account TEXT,attempt INTEGER,message TEXT,uploadObject TEXT);");
+            db.execSQL("CREATE TABLE " + TABLE_UPLOAD + " (" + " path TEXT PRIMARY KEY,"
+                    + " uploadObject TEXT);");
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            if (oldVersion < 2) {
-                db.execSQL("ALTER TABLE " + TABLE_UPLOAD + " ADD COLUMN attempt INTEGER;");
-            }
-            if (oldVersion < 3) {
-                db.execSQL("ALTER TABLE " + TABLE_UPLOAD + " ADD COLUMN message TEXT;");
-            }
-            if (oldVersion < 4) {
-                db.execSQL("ALTER TABLE " + TABLE_UPLOAD + " ADD COLUMN uploadObject TEXT;");
+            if (newVersion == 4) {
+                db.execSQL("DROP TABLE IF EXISTS " + "instant_upload" + ";"); //drop old db (name)
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_UPLOAD + ";");
+                onCreate(db);
             }
 
         }
     }
 
-    public boolean storeUpload(PersistentUploadObject uploadObject, String message) {
+    public boolean storeUpload(UploadDbObject uploadObject, String message) {
         ContentValues cv = new ContentValues();
         cv.put("path", uploadObject.getLocalPath());
-        cv.put("account", uploadObject.getAccountName());
-        cv.put("attempt", UploadStatus.UPLOAD_STATUS_UPLOAD_LATER.getValue());
-        cv.put("message", message);
         cv.put("uploadObject", uploadObject.toString());
         
         long result = mDB.insert(TABLE_UPLOAD, null, cv);
-        Log_OC.d(TABLE_UPLOAD, "putFileForLater returns with: " + result + " for file: " + uploadObject.getLocalPath());
+        Log_OC.d(TAG, "putFileForLater returns with: " + result + " for file: " + uploadObject.getLocalPath());
         return result != -1;        
+    }
+    
+    public List<UploadDbObject> getAllStoredUploads() {
+        Cursor c = mDB.query(TABLE_UPLOAD, null, null, null, null, null, null);
+        List<UploadDbObject> list = new ArrayList<UploadDbObject>();
+        if (c.moveToFirst()) {
+          do {
+              String file_path = c.getString(c.getColumnIndex("path"));
+              String uploadObjectString = c.getString(c.getColumnIndex("uploadObject"));
+              UploadDbObject uploadObject = UploadDbObject.fromString(uploadObjectString);
+              if(uploadObject == null) {
+                  Log_OC.e(TAG, "Could not deserialize UploadDbObject " + uploadObjectString);
+              } else {
+                  list.add(uploadObject);
+              }
+          } while (c.moveToNext());
+        }
+        return list;
     }
 }

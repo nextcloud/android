@@ -20,6 +20,7 @@ package com.owncloud.android.ui.activity;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
@@ -68,7 +69,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         }
         i.putExtra(FileUploadService.KEY_ACCOUNT, getAccount());
         i.putExtra(FileUploadService.KEY_FILE, getFile());
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadSingleMulti.UPLOAD_SINGLE_FILE);
         
         startService(i);
         finish();

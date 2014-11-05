@@ -18,19 +18,23 @@
 
 package com.owncloud.android.files.services;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.AbstractList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AccountsException;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -48,6 +52,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
+import android.util.Base64;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
@@ -55,12 +61,12 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.PersistentUploadObject;
 import com.owncloud.android.db.UploadDbHandler;
+import com.owncloud.android.db.UploadDbHandler.UploadStatus;
+import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -123,20 +129,23 @@ public class FileUploadService extends Service {
         public int getValue() {
             return value;
         }
+    }
+    
+    public enum UploadSingleMulti {
+        UPLOAD_SINGLE_FILE(0), UPLOAD_MULTIPLE_FILES(1);
+        private final int value;
+
+        private UploadSingleMulti(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     };
 
-    // public enum UploadSingleMulti {
-    // UPLOAD_SINGLE_FILE(0), UPLOAD_MULTIPLE_FILES(1);
-    // private final int value;
-    // private UploadSingleMulti(int value) {
-    // this.value = value;
-    // }
-    // public int getValue() {
-    // return value;
-    // }
-    // };
-    public static final int UPLOAD_SINGLE_FILE = 0;
-    public static final int UPLOAD_MULTIPLE_FILES = 1;
+    // public static final int UPLOAD_SINGLE_FILE = 0;
+    // public static final int UPLOAD_MULTIPLE_FILES = 1;
 
     private static final String TAG = FileUploadService.class.getSimpleName();
 
@@ -223,20 +232,28 @@ public class FileUploadService extends Service {
      * New uploads are added calling to startService(), resulting in a call to
      * this method. This ensures the service will keep on working although the
      * caller activity goes away.
+     * 
+     * First, onStartCommand() stores all information associated with the upload
+     * in a {@link UploadDbObject} which is stored persistently using
+     * {@link UploadDbHandler}. Then, {@link ServiceHandler} is invoked which
+     * performs the upload and updates the DB entry (upload success, failure,
+     * retry, ...)
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        AbstractList<PersistentUploadObject> requestedUploads = new Vector<PersistentUploadObject>();
+        AbstractList<UploadDbObject> requestedUploads = new Vector<UploadDbObject>();
         if (intent == null) {
             // service was restarted by OS (after return START_STICKY and kill
             // service) or connectivity change was detected. ==> check persistent upload
             // list.
             //
-            //TODO fill requestedUploads from DB
+            UploadDbHandler db = new UploadDbHandler(this.getBaseContext());
+            List<UploadDbObject> list = db.getAllStoredUploads();
+            requestedUploads.addAll(list);
         } else {
 
-            int uploadType = intent.getIntExtra(KEY_UPLOAD_TYPE, -1);
-            if (uploadType == -1) {
+            UploadSingleMulti uploadType = (UploadSingleMulti) intent.getSerializableExtra(KEY_UPLOAD_TYPE);
+            if (uploadType == null) {
                 Log_OC.e(TAG, "Incorrect or no upload type provided");
                 return Service.START_NOT_STICKY;
             }
@@ -250,18 +267,16 @@ public class FileUploadService extends Service {
             OCFile[] files = null;
             // if KEY_FILE given, use it
             if (intent.hasExtra(KEY_FILE)) {
-                if (uploadType == UPLOAD_SINGLE_FILE) {
+                if (uploadType == UploadSingleMulti.UPLOAD_SINGLE_FILE) {
                     files = new OCFile[] { intent.getParcelableExtra(KEY_FILE) };
                 } else {
                     // TODO will this casting work fine?
                     files = (OCFile[]) intent.getParcelableArrayExtra(KEY_FILE);
                 }
 
-            } else { // else use KEY_LOCAL_FILE, KEY_REMOTE_FILE, and
-                     // KEY_MIME_TYPE
+            } else { // else use KEY_LOCAL_FILE and KEY_REMOTE_FILE
 
-                if (!intent.hasExtra(KEY_LOCAL_FILE) || !intent.hasExtra(KEY_REMOTE_FILE)
-                        || !(intent.hasExtra(KEY_MIME_TYPE))) {
+                if (!intent.hasExtra(KEY_LOCAL_FILE) || !intent.hasExtra(KEY_REMOTE_FILE)) {
                     Log_OC.e(TAG, "Not enough information provided in intent");
                     return Service.START_NOT_STICKY;
                 }
@@ -269,7 +284,7 @@ public class FileUploadService extends Service {
                 String[] localPaths;
                 String[] remotePaths;
                 String[] mimeTypes;
-                if (uploadType == UPLOAD_SINGLE_FILE) {
+                if (uploadType == UploadSingleMulti.UPLOAD_SINGLE_FILE) {
                     localPaths = new String[] { intent.getStringExtra(KEY_LOCAL_FILE) };
                     remotePaths = new String[] { intent.getStringExtra(KEY_REMOTE_FILE) };
                     mimeTypes = new String[] { intent.getStringExtra(KEY_MIME_TYPE) };
@@ -309,18 +324,62 @@ public class FileUploadService extends Service {
             // failed.
             UploadDbHandler db = new UploadDbHandler(this.getBaseContext());
             for (int i = 0; i < files.length; i++) {
-                PersistentUploadObject uploadObject = new PersistentUploadObject();
+                UploadDbObject uploadObject = new UploadDbObject();
                 uploadObject.setRemotePath(files[i].getRemotePath());
                 uploadObject.setLocalPath(files[i].getStoragePath());
-                uploadObject.setMimeType(files[0].getMimetype());
+                uploadObject.setMimeType(files[i].getMimetype());
                 uploadObject.setAccountName(account.name);
                 uploadObject.setForceOverwrite(forceOverwrite);
+                uploadObject.setCreateRemoteFolder(isCreateRemoteFolder);
                 uploadObject.setLocalAction(localAction);
                 uploadObject.setUseWifiOnly(isUseWifiOnly);
+                uploadObject.setLastResult(new RemoteOperationResult(ResultCode.OK));
+                uploadObject.setLocalAction(LocalBehaviour.LOCAL_BEHAVIOUR_COPY);
+                uploadObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
+               
+                
+//                String serializedObjectBase64 = "";
+//
+//                // serialize the object
+//                try {
+//                    ByteArrayOutputStream bo = new ByteArrayOutputStream();
+//                    ObjectOutputStream so = new ObjectOutputStream(bo);
+//                    so.writeObject(uploadObject);
+//                    so.flush();
+//                    serializedObjectBase64 = Base64.encodeToString(bo.toByteArray(), Base64.DEFAULT);
+//                    so.close();
+//                    bo.close();
+//                } catch (Exception e) {
+//                    System.out.println(e);
+//                }
+//
+//             // deserialize the object
+//                try {
+//                    byte[] b = Base64.decode(serializedObjectBase64, Base64.DEFAULT);
+//                    ByteArrayInputStream bi = new ByteArrayInputStream(b);
+//                    ObjectInputStream si = new ObjectInputStream(bi);
+//                    UploadDbObject obj = (UploadDbObject) si.readObject();
+//                    Log.e(TAG, "SUCCESS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//                } catch (Exception e) {
+//                    System.out.println(e);
+//                }
+                
+//                String s = uploadObject.toString();
+//                UploadDbObject  o  = UploadDbObject.fromString(s);
+//                o = o;
+                
+                
                 db.storeUpload(uploadObject, "upload at " + new Date());
                 requestedUploads.add(uploadObject);
+                
+               
             }
             db.close();
+            
+            return Service.START_NOT_STICKY;
+
+            // TODO check if would be clever to read entries from
+            // UploadDbHandler and add to requestedUploads at this point
 
             // AccountManager aMgr = AccountManager.get(this);
             // String version = aMgr.getUserData(account,
@@ -335,7 +394,7 @@ public class FileUploadService extends Service {
             // try {
             // for (int i = 0; i < files.length; i++) {
             // uploadKey = buildRemoteName(account, files[i].getRemotePath());
-            // newUpload = new UploadFileOperation(account, files[i], chunked,
+//             newUpload = new UploadFileOperation(account, files[i], chunked,
             // forceOverwrite, localAction,
             // getApplicationContext());
             // if (isCreateRemoteFolder) {
@@ -527,11 +586,12 @@ public class FileUploadService extends Service {
         @Override
         public void handleMessage(Message msg) {
             @SuppressWarnings("unchecked")
-            AbstractList<String> requestedUploads = (AbstractList<String>) msg.obj;
+            AbstractList<UploadDbObject> requestedUploads = (AbstractList<UploadDbObject>) msg.obj;
             if (msg.obj != null) {
-                Iterator<String> it = requestedUploads.iterator();
+                //TODO iterator returns UploadDbObject! Not a string.
+                Iterator<UploadDbObject> it = requestedUploads.iterator();
                 while (it.hasNext()) {
-                    mService.uploadFile(it.next());
+                    //mService.uploadFile(it.next());
                 }
             }
             mService.stopSelf(msg.arg1);
@@ -834,7 +894,7 @@ public class FileUploadService extends Service {
                         // message =
                         // getString(R.string.failed_upload_quota_exceeded_text);
                         int updatedFiles = db.updateFileState(upload.getOriginalStoragePath(),
-                                UploadDbHandler.UploadStatus.UPLOAD_STATUS_UPLOAD_FAILED, message);
+                                UploadDbHandler.UploadStatus.UPLOAD_FAILED, message);
                         if (updatedFiles == 0) { // update failed
                             db.storeFile(upload.getOriginalStoragePath(), upload.getAccount().name, message);
                         }

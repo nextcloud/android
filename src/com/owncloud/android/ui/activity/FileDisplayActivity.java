@@ -64,6 +64,7 @@ import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploadService;
@@ -638,7 +639,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             i.putExtra(FileUploadService.KEY_ACCOUNT, getAccount());
             i.putExtra(FileUploadService.KEY_LOCAL_FILE, filePaths);
             i.putExtra(FileUploadService.KEY_REMOTE_FILE, remotePaths);
-            i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_MULTIPLE_FILES);
+            i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadSingleMulti.UPLOAD_MULTIPLE_FILES);
             if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
                 i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_MOVE);
             startService(i);
@@ -691,11 +692,13 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         i.putExtra(FileUploadService.KEY_LOCAL_FILE, filepath);
         i.putExtra(FileUploadService.KEY_REMOTE_FILE, remotepath);
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadSingleMulti.UPLOAD_SINGLE_FILE);
         if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) {
             i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_MOVE);
         }
-        startService(i);
+        if(startService(i) == null) {
+            Log_OC.e(TAG, "FileUploadService could not be started");
+        }
     }
 
     /**

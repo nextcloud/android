@@ -101,7 +101,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploadService.KEY_ACCOUNT, account);
         i.putExtra(FileUploadService.KEY_LOCAL_FILE, file_path);
         i.putExtra(FileUploadService.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadSingleMulti.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploadService.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploadService.KEY_CREATE_REMOTE_FOLDER, true);
         i.putExtra(FileUploadService.KEY_WIFI_ONLY, instantPictureUploadViaWiFiOnly(context));
@@ -143,7 +143,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploadService.KEY_ACCOUNT, account);
         i.putExtra(FileUploadService.KEY_LOCAL_FILE, file_path);
         i.putExtra(FileUploadService.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadSingleMulti.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploadService.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploadService.KEY_CREATE_REMOTE_FOLDER, true);
         i.putExtra(FileUploadService.KEY_WIFI_ONLY, instantVideoUploadViaWiFiOnly(context));
