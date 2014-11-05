@@ -82,10 +82,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             Context context, 
             ComponentsGetter transferServiceGetter
             ) {
-        
+
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+
         mTransferServiceGetter = transferServiceGetter;
         
         mAppPreferences = PreferenceManager
@@ -98,6 +99,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
+
     }
     
     @Override
@@ -217,7 +219,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task = 
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                            fileIcon, mStorageManager
+                                            fileIcon, mStorageManager, mAccount
                                     );
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
