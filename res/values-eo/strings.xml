@@ -10,6 +10,8 @@
   <string name="actionbar_settings">Agordo</string>
   <string name="actionbar_see_details">Detaloj</string>
   <string name="actionbar_send_file">Sendi</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Ĝeneralo</string>
   <string name="prefs_category_more">Pli</string>
   <string name="prefs_accounts">Kontoj</string>

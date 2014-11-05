@@ -11,6 +11,8 @@
   <string name="actionbar_settings">নিয়ামকসমূহ</string>
   <string name="actionbar_see_details">বিস্তারিত</string>
   <string name="actionbar_send_file">পাঠাও</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">সাধারণ</string>
   <string name="prefs_category_more">বেশী</string>
   <string name="prefs_accounts">একাউন্ট</string>

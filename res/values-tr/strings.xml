@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Ayarlar</string>
   <string name="actionbar_see_details">Ayrıntılar</string>
   <string name="actionbar_send_file">Gönder</string>
+  <string name="actionbar_sort">Sırala</string>
+  <string name="actionbar_sort_title">Şuna göre sırala</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Yeniden - Eskiye</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Genel</string>
   <string name="prefs_category_more">Daha fazla</string>
   <string name="prefs_accounts">Hesaplar</string>

@@ -11,6 +11,8 @@
   <string name="actionbar_settings">إعدادات</string>
   <string name="actionbar_see_details">تفاصيل</string>
   <string name="actionbar_send_file">أرسل</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">عام</string>
   <string name="prefs_category_more">المزيد</string>
   <string name="prefs_accounts">حسابات</string>

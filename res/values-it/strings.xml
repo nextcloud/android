@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Impostazioni</string>
   <string name="actionbar_see_details">Dettagli</string>
   <string name="actionbar_send_file">Invia</string>
+  <string name="actionbar_sort">Ordina</string>
+  <string name="actionbar_sort_title">Ordina per</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Più recente - Più datato</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Generale</string>
   <string name="prefs_category_more">Altro</string>
   <string name="prefs_accounts">Account</string>

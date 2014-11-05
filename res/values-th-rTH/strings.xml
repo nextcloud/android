@@ -7,6 +7,8 @@
   <string name="actionbar_settings">ตั้งค่า</string>
   <string name="actionbar_see_details">รายละเอียด</string>
   <string name="actionbar_send_file">ส่ง</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">ทั่วไป</string>
   <string name="prefs_category_more">มาก</string>
   <string name="prefs_accounts">บัญชี</string>
