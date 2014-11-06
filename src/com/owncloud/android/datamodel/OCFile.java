@@ -198,7 +198,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
-     * Can be used to set the path where the file is stored
+     * Can be used to set the path where the local file is stored
      * 
      * @param storage_path to set
      */

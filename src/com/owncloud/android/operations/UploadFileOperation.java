@@ -62,7 +62,14 @@ public class UploadFileOperation extends RemoteOperation {
     private static final String TAG = UploadFileOperation.class.getSimpleName();
 
     private Account mAccount;
+    /**
+     * OCFile which is to be uploaded.
+     */
     private OCFile mFile;
+    /**
+     * Original OCFile which is to be uploaded in case file had to be renamed
+     * (if forceOverwrite==false and remote file already exists).
+     */
     private OCFile mOldFile;
     private String mRemotePath = null;
     private boolean mChunked = false;
@@ -71,6 +78,9 @@ public class UploadFileOperation extends RemoteOperation {
     private LocalBehaviour mLocalBehaviour = FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_COPY;
     private boolean mWasRenamed = false;
     private String mOriginalFileName = null;
+    /**
+     * Local path to file which is to be uploaded (before any possible renaming or moving).
+     */
     private String mOriginalStoragePath = null;
     PutMethod mPutMethod = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
@@ -122,6 +132,10 @@ public class UploadFileOperation extends RemoteOperation {
         return mFile;
     }
 
+    /**
+     * If remote file was renamed, return original OCFile which was uploaded. Is
+     * null is file was not renamed.
+     */
     public OCFile getOldFile() {
         return mOldFile;
     }
@@ -205,7 +219,8 @@ public class UploadFileOperation extends RemoteOperation {
 
             // check location of local file; if not the expected, copy to a
             // temporal file before upload (if COPY is the expected behaviour)
-            if (!mOriginalStoragePath.equals(expectedPath) && mLocalBehaviour == FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_COPY) {
+            if (!mOriginalStoragePath.equals(expectedPath)
+                    && mLocalBehaviour == FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_COPY) {
 
                 if (FileStorageUtils.getUsableSpace(mAccount.name) < originalFile.length()) {
                     result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_FULL);
@@ -346,6 +361,11 @@ public class UploadFileOperation extends RemoteOperation {
         return result;
     }
 
+    /**
+     * Create a new OCFile mFile with new remote path. This is required if forceOverwrite==false.
+     * New file is stored as mFile, original as mOldFile. 
+     * @param newRemotePath new remote path
+     */
     private void createNewOCFile(String newRemotePath) {
         // a new OCFile instance must be created for a new remote path
         OCFile newFile = new OCFile(newRemotePath);

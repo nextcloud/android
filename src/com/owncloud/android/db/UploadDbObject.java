@@ -6,16 +6,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Base64;
-import android.util.Log;
 
 import com.owncloud.android.db.UploadDbHandler.UploadStatus;
 import com.owncloud.android.files.services.FileUploadService.LocalBehaviour;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-
 
 /**
  * Stores all information in order to start upload. PersistentUploadObject can
@@ -24,11 +20,12 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  * @author LukeOwncloud
  * 
  */
-public class UploadDbObject  implements Serializable{
+public class UploadDbObject implements Serializable {
 
-    /** Generated - should be refreshed every time the class changes!! */;
+    /** Generated - should be refreshed every time the class changes!! */
+    ;
     private static final long serialVersionUID = -2306246191385279924L;
-    
+
     private static final String TAG = "UploadDbObject";
     /**
      * Local path to file which is to be uploaded.
@@ -47,6 +44,7 @@ public class UploadDbObject  implements Serializable{
      * Local action for upload.
      */
     LocalBehaviour localAction;
+
     /**
      * @return the uploadStatus
      */
@@ -91,12 +89,12 @@ public class UploadDbObject  implements Serializable{
      * Name of Owncloud account to upload file to.
      */
     String accountName;
-    
+
     /**
      * Status of upload (later, in_progress, ...).
      */
     UploadStatus uploadStatus;
-    
+
     /**
      * Result from last upload operation. Can be null.
      */
@@ -148,7 +146,7 @@ public class UploadDbObject  implements Serializable{
      * @return the localAction
      */
     public LocalBehaviour getLocalAction() {
-//        return null;
+        // return null;
         return localAction;
     }
 
@@ -214,13 +212,13 @@ public class UploadDbObject  implements Serializable{
     public void setAccountName(String accountName) {
         this.accountName = accountName;
     }
-    
+
     /**
      * Returns a base64 encoded serialized string of this object.
      */
     @Override
     public String toString() {
-     // serialize the object
+        // serialize the object
         try {
             ByteArrayOutputStream bo = new ByteArrayOutputStream();
             ObjectOutputStream so = new ObjectOutputStream(bo);
@@ -233,18 +231,6 @@ public class UploadDbObject  implements Serializable{
         } catch (Exception e) {
             Log_OC.e(TAG, "Cannot serialize UploadDbObject with localPath:" + getLocalPath(), e);
         }
-//        
-//        try {
-//            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-//            ObjectOutputStream so = new ObjectOutputStream(bo);
-//            so.writeObject(this);
-//            so.flush();
-//            String base64 = Base64.encodeToString(bo.toString()
-//                    .getBytes(), Base64.DEFAULT);
-//            return base64;
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
         return null;
     }
 
@@ -256,30 +242,17 @@ public class UploadDbObject  implements Serializable{
      * @return
      */
     static public UploadDbObject fromString(String serializedObjectBase64) {
-     // deserialize the object
+        // deserialize the object
         try {
             byte[] b = Base64.decode(serializedObjectBase64, Base64.DEFAULT);
             ByteArrayInputStream bi = new ByteArrayInputStream(b);
             ObjectInputStream si = new ObjectInputStream(bi);
             UploadDbObject obj = (UploadDbObject) si.readObject();
-            Log.e(TAG, "SUCCESS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             return obj;
         } catch (Exception e) {
             Log_OC.e(TAG, "Cannot deserialize UploadDbObject " + serializedObjectBase64, e);
         }
-//        try {
-//            byte b[] = Base64.decode(serializedObject, Base64.DEFAULT);
-//            ByteArrayInputStream bi = new ByteArrayInputStream(b);
-//            ObjectInputStream si = new ObjectInputStream(bi);
-//            return (UploadDbObject) si.readObject();
-//        } catch (Exception e) {
-//            Log_OC.e(TAG, "Cannot deserialize UploadDbObject " + serializedObject, e);
-//        }
         return null;
     }
 
-
-
 }
-
-

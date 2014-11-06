@@ -34,23 +34,24 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.actionbarsherlock.internal.view.menu.ActionMenuItemView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
+import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 
 /**
- * Displays local files and let the user choose what of them wants to upload
- * to the current ownCloud account
+ * Displays local files and let the user choose which file to upload to the
+ * current ownCloud account. Selected files are sent back to the caller as Extra
+ * named EXTRA_CHOSEN_FILES. Thus, thus activity does not perform the upload
+ * itself. (It should thus be renamed to FileUploadChooserActivity or something)
  * 
  * @author David A. Velasco
  * 

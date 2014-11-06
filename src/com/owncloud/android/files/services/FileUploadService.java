@@ -18,12 +18,8 @@
 
 package com.owncloud.android.files.services;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.AbstractList;
 import java.util.Date;
 import java.util.HashMap;
@@ -52,8 +48,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
-import android.util.Base64;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
@@ -93,6 +87,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
  * @author LukeOwncloud
  * 
  */
+@SuppressWarnings("unused")
 public class FileUploadService extends Service {
 
     private static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
@@ -119,7 +114,22 @@ public class FileUploadService extends Service {
      * Describes local behavior for upload.
      */
     public enum LocalBehaviour {
-        LOCAL_BEHAVIOUR_COPY(0), LOCAL_BEHAVIOUR_MOVE(1), LOCAL_BEHAVIOUR_FORGET(2);
+        /**
+         * Creates a copy of file and stores it in tmp folder inside owncloud
+         * folder on sd-card. After upload it is moved to local owncloud
+         * storage. Original file stays untouched.
+         */
+        LOCAL_BEHAVIOUR_COPY(0),
+        /**
+         * Upload file from current storage. Afterwards original file is move to
+         * local owncloud storage.
+         */
+        LOCAL_BEHAVIOUR_MOVE(1),
+        /**
+         * Just uploads file and leaves it where it is. Original file stays
+         * untouched.
+         */
+        LOCAL_BEHAVIOUR_FORGET(2);
         private final int value;
 
         private LocalBehaviour(int value) {
@@ -183,6 +193,7 @@ public class FileUploadService extends Service {
         return account.name + file.getRemotePath();
     }
 
+    
     private String buildRemoteName(Account account, String remotePath) {
         return account.name + remotePath;
     }
@@ -279,7 +290,6 @@ public class FileUploadService extends Service {
                 if (uploadType == UploadSingleMulti.UPLOAD_SINGLE_FILE) {
                     files = new OCFile[] { intent.getParcelableExtra(KEY_FILE) };
                 } else {
-                    // TODO will this casting work fine?
                     files = (OCFile[]) intent.getParcelableArrayExtra(KEY_FILE);
                 }
 
@@ -532,53 +542,53 @@ public class FileUploadService extends Service {
      */
     private void uploadFile(UploadDbObject uploadDbObject) {
 
-     // AccountManager aMgr = AccountManager.get(this);
-        // String version = aMgr.getUserData(account,
-        // Constants.KEY_OC_VERSION);
-        // OwnCloudVersion ocv = new OwnCloudVersion(version);
-        //
-        // boolean chunked =
-        // FileUploadService.chunkedUploadIsSupported(ocv);
-        // AbstractList<String> requestedUploads = new Vector<String>();
-        // String uploadKey = null;
-        // UploadFileOperation newUpload = null;
-        // try {
-        // for (int i = 0; i < files.length; i++) {
-        // uploadKey = buildRemoteName(account, files[i].getRemotePath());
+//      AccountManager aMgr = AccountManager.get(this);
+//         String version = aMgr.getUserData(account,
+//         Constants.KEY_OC_VERSION);
+//         OwnCloudVersion ocv = new OwnCloudVersion(version);
+//        
+//         boolean chunked =
+//         FileUploadService.chunkedUploadIsSupported(ocv);
+//         AbstractList<String> requestedUploads = new Vector<String>();
+//         String uploadKey = null;
+//         UploadFileOperation newUpload = null;
+//         try {
+//         for (int i = 0; i < files.length; i++) {
+//         uploadKey = buildRemoteName(account, files[i].getRemotePath());
 //         newUpload = new UploadFileOperation(account, files[i], chunked,
-        // forceOverwrite, localAction,
-        // getApplicationContext());
-        // if (isCreateRemoteFolder) {
-        // newUpload.setRemoteFolderToBeCreated();
-        // }
-        // mActiveUploads.putIfAbsent(uploadKey, newUpload); // Grants that
-        // the file only upload once time
-        //
-        // newUpload.addDatatransferProgressListener((FileUploaderBinder)mBinder);
-        // requestedUploads.add(uploadKey);
-        // }
-        //
-        // } catch (IllegalArgumentException e) {
-        // Log_OC.e(TAG, "Not enough information provided in intent: " +
-        // e.getMessage());
-        // return START_NOT_STICKY;
-        //
-        // } catch (IllegalStateException e) {
-        // Log_OC.e(TAG, "Bad information provided in intent: " +
-        // e.getMessage());
-        // return START_NOT_STICKY;
-        //
-        // } catch (Exception e) {
-        // Log_OC.e(TAG,
-        // "Unexpected exception while processing upload intent", e);
-        // return START_NOT_STICKY;
-        //
-        // }
+//         forceOverwrite, localAction,
+//         getApplicationContext());
+//         if (isCreateRemoteFolder) {
+//         newUpload.setRemoteFolderToBeCreated();
+//         }
+//         mActiveUploads.putIfAbsent(uploadKey, newUpload); // Grants that
+//         the file only upload once time
+//        
+//         newUpload.addDatatransferProgressListener((FileUploaderBinder)mBinder);
+//         requestedUploads.add(uploadKey);
+//         }
+//        
+//         } catch (IllegalArgumentException e) {
+//         Log_OC.e(TAG, "Not enough information provided in intent: " +
+//         e.getMessage());
+//         return START_NOT_STICKY;
+//        
+//         } catch (IllegalStateException e) {
+//         Log_OC.e(TAG, "Bad information provided in intent: " +
+//         e.getMessage());
+//         return START_NOT_STICKY;
+//        
+//         } catch (Exception e) {
+//         Log_OC.e(TAG,
+//         "Unexpected exception while processing upload intent", e);
+//         return START_NOT_STICKY;
+//        
+//         }
         
         synchronized (mActiveUploads) {
             mCurrentUpload = mActiveUploads.get(uploadDbObject.getRemotePath());
             
-            //TODO: add object here, to make thread-safe
+            //TODO: add object to mCurrentUpload here, to make thread-safe
             //mActiveUploads.putIfAbsent(uploadKey, newUpload); // Grants that
         }
 

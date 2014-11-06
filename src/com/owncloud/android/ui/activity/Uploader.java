@@ -25,7 +25,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
-
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
@@ -33,9 +32,9 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.utils.Log_OC;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
@@ -61,14 +60,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.utils.DisplayUtils;
 
 /**
- * This can be used to upload things to an ownCloud instance.
+ * This class is registered for Intents android.intent.action.SEND and android.intent.action.SEND_MULTIPLE
+ * and causes indicated to be uploaded to an ownCloud instance. User can choose which account to use as well
+ * as the upload destination.
  * 
  * @author Bartek Przybylski
  * 
@@ -355,7 +355,8 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
         return (mStreamsToUpload != null && mStreamsToUpload.get(0) != null);
     }
 
-    public void uploadFiles() {
+    @SuppressLint("NewApi")
+	public void uploadFiles() {
         try {
 
             ArrayList<String> local = new ArrayList<String>();
