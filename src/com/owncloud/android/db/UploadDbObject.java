@@ -6,8 +6,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import android.accounts.Account;
+import android.content.Context;
 import android.util.Base64;
 
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.UploadDbHandler.UploadStatus;
 import com.owncloud.android.files.services.FileUploadService.LocalBehaviour;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -253,6 +256,13 @@ public class UploadDbObject implements Serializable {
             Log_OC.e(TAG, "Cannot deserialize UploadDbObject " + serializedObjectBase64, e);
         }
         return null;
+    }
+
+    /**
+     * Returns owncloud account as {@link Account} object.  
+     */
+    public Account getAccount(Context context) {
+        return AccountUtils.getOwnCloudAccountByName(context, getAccountName());
     }
 
 }

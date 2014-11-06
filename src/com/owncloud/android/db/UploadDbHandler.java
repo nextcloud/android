@@ -177,6 +177,12 @@ public class UploadDbHandler {
         }
     }
 
+    /**
+     * 
+     * @param uploadObject
+     * @param message
+     * @return true on success.
+     */
     public boolean storeUpload(UploadDbObject uploadObject, String message) {
         ContentValues cv = new ContentValues();
         cv.put("path", uploadObject.getLocalPath());
@@ -185,6 +191,13 @@ public class UploadDbHandler {
         long result = mDB.insert(TABLE_UPLOAD, null, cv);
         Log_OC.d(TAG, "putFileForLater returns with: " + result + " for file: " + uploadObject.getLocalPath());
         return result != -1;        
+    }
+    
+    public boolean removeUpload(String localPath) {
+        long result = mDB.delete(TABLE_UPLOAD, "path = ?", new String[] { localPath });
+        Log_OC.d(TABLE_UPLOAD, "delete returns with: " + result + " for file: " + localPath);
+        return result != 0;
+
     }
     
     public List<UploadDbObject> getAllStoredUploads() {

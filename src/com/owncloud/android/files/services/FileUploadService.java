@@ -31,6 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.accounts.AccountsException;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -61,6 +62,7 @@ import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -226,6 +228,7 @@ public class FileUploadService extends Service {
         mConnectivityChangeReceiver = new ConnectivityChangeReceiver();
         registerReceiver(mConnectivityChangeReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         mDb = new UploadDbHandler(this.getBaseContext());
+        mDb.recreateDb();
     }
 
     public class ConnectivityChangeReceiver extends BroadcastReceiver {
@@ -352,7 +355,10 @@ public class FileUploadService extends Service {
                 uploadObject.setLocalAction(localAction);
                 uploadObject.setUseWifiOnly(isUseWifiOnly);
                 uploadObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
-                mDb.storeUpload(uploadObject, "upload at " + new Date());
+                boolean success = mDb.storeUpload(uploadObject, "upload at " + new Date());
+                if(!success) {
+                    Log_OC.e(TAG, "Could not add upload to database.");
+                }
                 requestedUploads.add(uploadObject);
             }
             
@@ -361,14 +367,17 @@ public class FileUploadService extends Service {
             // UploadDbHandler and add to requestedUploads at this point
 
         }
+        Log_OC.i(TAG, "mPendingUploads size:" + mActiveUploads.size());
         if (requestedUploads.size() > 0) {
             Message msg = mServiceHandler.obtainMessage();
             msg.arg1 = startId;
             msg.obj = requestedUploads;
             mServiceHandler.sendMessage(msg);
-        }
-        Log_OC.i(TAG, "mPendingUploads size:" + mActiveUploads.size());
-        return Service.START_NOT_STICKY;
+            return Service.START_STICKY; // there is work to do. If killed this
+                                         // service should be restarted
+                                         // eventually. 
+        }        
+        return Service.START_NOT_STICKY; //nothing to do. do not restart.
     }
 
     /**
@@ -542,54 +551,39 @@ public class FileUploadService extends Service {
      */
     private void uploadFile(UploadDbObject uploadDbObject) {
 
-//      AccountManager aMgr = AccountManager.get(this);
-//         String version = aMgr.getUserData(account,
-//         Constants.KEY_OC_VERSION);
-//         OwnCloudVersion ocv = new OwnCloudVersion(version);
-//        
-//         boolean chunked =
-//         FileUploadService.chunkedUploadIsSupported(ocv);
-//         AbstractList<String> requestedUploads = new Vector<String>();
-//         String uploadKey = null;
-//         UploadFileOperation newUpload = null;
-//         try {
-//         for (int i = 0; i < files.length; i++) {
-//         uploadKey = buildRemoteName(account, files[i].getRemotePath());
-//         newUpload = new UploadFileOperation(account, files[i], chunked,
-//         forceOverwrite, localAction,
-//         getApplicationContext());
-//         if (isCreateRemoteFolder) {
-//         newUpload.setRemoteFolderToBeCreated();
-//         }
-//         mActiveUploads.putIfAbsent(uploadKey, newUpload); // Grants that
-//         the file only upload once time
-//        
-//         newUpload.addDatatransferProgressListener((FileUploaderBinder)mBinder);
-//         requestedUploads.add(uploadKey);
-//         }
-//        
-//         } catch (IllegalArgumentException e) {
-//         Log_OC.e(TAG, "Not enough information provided in intent: " +
-//         e.getMessage());
-//         return START_NOT_STICKY;
-//        
-//         } catch (IllegalStateException e) {
-//         Log_OC.e(TAG, "Bad information provided in intent: " +
-//         e.getMessage());
-//         return START_NOT_STICKY;
-//        
-//         } catch (Exception e) {
-//         Log_OC.e(TAG,
-//         "Unexpected exception while processing upload intent", e);
-//         return START_NOT_STICKY;
-//        
-//         }
-        
         synchronized (mActiveUploads) {
+            //How does this work? Is it thread-safe to set mCurrentUpload here?
+            //What happens if other mCurrentUpload is currently in progress?
+            //
+            //It seems that upload does work, however the upload state is not set
+            //back of the first upload when a second upload starts while first is
+            //in progress (yellow up-arrow does not disappear of first upload)
             mCurrentUpload = mActiveUploads.get(uploadDbObject.getRemotePath());
             
-            //TODO: add object to mCurrentUpload here, to make thread-safe
-            //mActiveUploads.putIfAbsent(uploadKey, newUpload); // Grants that
+            //if upload not in progress, start it now
+            if(mCurrentUpload == null) {
+                AccountManager aMgr = AccountManager.get(this);
+                Account account = uploadDbObject.getAccount(getApplicationContext());
+                String version = aMgr.getUserData(account, Constants.KEY_OC_VERSION);
+                OwnCloudVersion ocv = new OwnCloudVersion(version);
+
+                boolean chunked = FileUploadService.chunkedUploadIsSupported(ocv);
+                String uploadKey = null;
+                
+                uploadKey = buildRemoteName(account, uploadDbObject.getRemotePath());
+                OCFile file = obtainNewOCFileToUpload(uploadDbObject.getRemotePath(), uploadDbObject.getLocalPath(),
+                        uploadDbObject.getMimeType());
+                mCurrentUpload = new UploadFileOperation(account, file, chunked, uploadDbObject.isForceOverwrite(),
+                        uploadDbObject.getLocalAction(), getApplicationContext());
+                if (uploadDbObject.isCreateRemoteFolder()) {
+                    mCurrentUpload.setRemoteFolderToBeCreated();
+                }
+                mActiveUploads.putIfAbsent(uploadKey, mCurrentUpload); // Grants that
+                // the file only upload once time
+
+                mCurrentUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
+            }
+            
         }
 
         if (mCurrentUpload != null) {
@@ -597,7 +591,7 @@ public class FileUploadService extends Service {
             notifyUploadStart(mCurrentUpload);
 
             RemoteOperationResult uploadResult = null, grantResult = null;
-
+            UploadFileOperation justFinishedUpload;
             try {
                 // / prepare client object to send requests to the ownCloud
                 // server
@@ -649,10 +643,9 @@ public class FileUploadService extends Service {
                 }
             }
 
-            // / notify result
-
+            // notify result
             notifyUploadResult(uploadResult, mCurrentUpload);
-            sendFinalBroadcast(mCurrentUpload, uploadResult);
+            sendFinalBroadcast(mCurrentUpload, uploadResult);            
 
         }
 
@@ -893,7 +886,8 @@ public class FileUploadService extends Service {
 
             if (uploadResult.isSuccess()) {
 
-               mDb.removeFile(mCurrentUpload.getOriginalStoragePath());
+               //TODO just edit state of upload. do not delete here.
+               mDb.removeUpload(mCurrentUpload.getOriginalStoragePath());
                
                 // remove success notification, with a delay of 2 seconds
                 NotificationDelayer.cancelWithDelay(mNotificationManager, R.string.uploader_upload_succeeded_ticker,
