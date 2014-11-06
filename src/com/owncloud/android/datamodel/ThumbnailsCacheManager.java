@@ -59,7 +59,7 @@ public class ThumbnailsCacheManager {
     private static final String TAG = ThumbnailsCacheManager.class.getSimpleName();
     
     private static final String CACHE_FOLDER = "thumbnailCache";
-    private static final String MINOR_SERVER_VERSION_FOR_THUMBS = "7.8.0";
+    private static final String MINOR_SERVER_VERSION_FOR_THUMBS = "6.8.0";
     
     private static final Object mThumbnailsDiskCacheLock = new Object();
     private static DiskLruImageCache mThumbnailCache = null;
@@ -205,10 +205,8 @@ public class ThumbnailsCacheManager {
     
                 // Not found in disk cache
                 if (thumbnail == null || mFile.needsUpdateThumbnail()) { 
-                    // Converts dp to pixel
-                    Resources r = MainApp.getAppContext().getResources();
-                    
-                    int px = (int) Math.round(r.getDimension(R.dimen.file_icon_size));
+                    // Use Width of imageView -> no blurry images on big screens
+                    int px = mImageViewReference.get().getWidth();
                     
                     if (mFile.isDown()){
                         Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
@@ -277,7 +275,7 @@ public class ThumbnailsCacheManager {
                 final ImageView imageView = mImageViewReference.get();
                 final ThumbnailGenerationTask bitmapWorkerTask =
                         getBitmapWorkerTask(imageView);
-                if (this == bitmapWorkerTask && imageView != null) {
+                if (this == bitmapWorkerTask && imageView != null && imageView.getTag() != null && mFile != null) {
                     if (imageView.getTag().equals(mFile.getFileId())) {
                         imageView.setImageBitmap(bitmap);
                     }

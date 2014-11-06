@@ -53,7 +53,7 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
 
-    // protected ExtendedListView mList;
+    protected ExtendedListView mList;
     
     private SwipeRefreshLayout mRefreshLayout;
     private SwipeRefreshLayout mRefreshEmptyLayout;

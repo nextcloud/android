@@ -105,7 +105,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
             if (file != null) {                
                 if (!file.isDirectory()) {  
                     /// Click on a file
-                    getListView().setItemChecked(i, true);                       
+                    getGridView().setItemChecked(i, true);                       
                     // notify the change to the container Activity
                     mContainerActivity.onFileClick(file);
                 }
@@ -231,7 +231,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
      */
     public String[] getCheckedFilePaths() {
         ArrayList<String> result = new ArrayList<String>();
-        SparseBooleanArray positions = imageView.getCheckedItemPositions();
+        SparseBooleanArray positions = mList.getCheckedItemPositions();
         if (positions.size() > 0) {
             for (int i = 0; i < positions.size(); i++) {
                 if (positions.get(positions.keyAt(i)) == true) {

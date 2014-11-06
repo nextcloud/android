@@ -26,23 +26,20 @@ import java.util.Vector;
 import third_parties.daveKoeller.AlphanumComparator;
 import android.accounts.Account;
 import android.content.Context;
-<<<<<<< HEAD
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
-=======
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
->>>>>>> upstream/develop
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -55,13 +52,8 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-<<<<<<< HEAD
-import com.owncloud.android.utils.Log_OC;
-
-=======
 import com.owncloud.android.utils.FileStorageUtils;
 
->>>>>>> upstream/develop
 
 /**
  * This Adapter populates a ListView with all files and folders in an ownCloud
@@ -77,32 +69,29 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private Context mContext;
     private OCFile mFile = null;
     private Vector<OCFile> mFiles = null;
+    private Vector<OCFile> mFilesOrig = new Vector<OCFile>();
     private boolean mJustFolders;
 
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
-<<<<<<< HEAD
     private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM };
-=======
     private Integer mSortOrder;
     public static final Integer SORT_NAME = 0;
     public static final Integer SORT_DATE = 1;
     public static final Integer SORT_SIZE = 2;
     private Boolean mSortAscending;
     private SharedPreferences mAppPreferences;
->>>>>>> upstream/develop
     
     public FileListListAdapter(
             boolean justFolders, 
             Context context, 
             ComponentsGetter transferServiceGetter
             ) {
-
+        
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
-
         mTransferServiceGetter = transferServiceGetter;
         
         mAppPreferences = PreferenceManager
@@ -115,7 +104,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
-
     }
     
     @Override
@@ -204,7 +192,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             view = inflator.inflate(R.layout.list_item, null);
             break;
         }
-<<<<<<< HEAD
 
         view.invalidate();
 
@@ -213,42 +200,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
             TextView fileName;
             String name;
-=======
-         
-        if (mFiles != null && mFiles.size() > position) {
-            OCFile file = mFiles.get(position);
-            TextView fileName = (TextView) view.findViewById(R.id.Filename);           
-            String name = file.getFileName();
-
-            fileName.setText(name);
-            ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
-            fileIcon.setTag(file.getFileId());
-            ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
-            ImageView sharedWithMeIconV = (ImageView) view.findViewById(R.id.sharedWithMeIcon);
-            sharedWithMeIconV.setVisibility(View.GONE);
-
-            ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
-            localStateView.bringToFront();
-            FileDownloaderBinder downloaderBinder = 
-                    mTransferServiceGetter.getFileDownloaderBinder();
-            FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
-            if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
-                localStateView.setImageResource(R.drawable.downloading_file_indicator);
-                localStateView.setVisibility(View.VISIBLE);
-            } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
-                localStateView.setImageResource(R.drawable.uploading_file_indicator);
-                localStateView.setVisibility(View.VISIBLE);
-            } else if (file.isDown()) {
-                localStateView.setImageResource(R.drawable.local_file_indicator);
-                localStateView.setVisibility(View.VISIBLE);
-            } else {
-                localStateView.setVisibility(View.INVISIBLE);
-            }
-            
-            TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
-            TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
-            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
->>>>>>> upstream/develop
             
             switch (viewType){
             case LIST_ITEM:
@@ -261,7 +212,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
                 
                 lastModV.setVisibility(View.VISIBLE);
-<<<<<<< HEAD
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
                 
                 checkBoxV.setVisibility(View.GONE);
@@ -274,15 +224,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
                 if (file.isShareByLink()) {
                     sharedIconV.setVisibility(View.VISIBLE);
-=======
-                lastModV.setText(
-                        DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp())
-                );
-                // this if-else is needed even thoe fav icon is visible by default
-                // because android reuses views in listview
-                if (!file.keepInSync()) {
-                    view.findViewById(R.id.imageView3).setVisibility(View.GONE);
->>>>>>> upstream/develop
                 } else {
                     sharedIconV.setVisibility(View.GONE);
                 }
@@ -301,7 +242,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         }
                         checkBoxV.setVisibility(View.VISIBLE);
                     }
-<<<<<<< HEAD
                     
                     localStateView.bringToFront();
                     FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
@@ -350,72 +290,39 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             
             // No Folder
             if (!file.isFolder()) {
-                if (file.isImage() && file.isDown()){
-                    Bitmap bitmap = BitmapFactory.decodeFile(file.getStoragePath());
-                    fileIcon.setImageBitmap(ThumbnailUtils.extractThumbnail(bitmap, 200, 200));
-                } else {
-                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
-                }
-            } else {
-                // Folder
-=======
-                    checkBoxV.setVisibility(View.VISIBLE);
-                }               
-                
-                // get Thumbnail if file is image
                 if (file.isImage() && file.getRemoteId() != null){
-                     // Thumbnail in Cache?
+                    // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                             String.valueOf(file.getRemoteId())
-                    );
+                            );
                     if (thumbnail != null && !file.needsUpdateThumbnail()){
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
                         // generate new Thumbnail
                         if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task = 
+                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                             fileIcon, mStorageManager, mAccount
-                                    );
+                                            );
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
                             final AsyncDrawable asyncDrawable = new AsyncDrawable(
-                                    mContext.getResources(), 
-                                    thumbnail, 
+                                    mContext.getResources(),
+                                    thumbnail,
                                     task
-                            );
+                                    );
                             fileIcon.setImageDrawable(asyncDrawable);
                             task.execute(file);
+
                         }
                     }
-                } else {
-                    fileIcon.setImageResource(
-                            DisplayUtils.getResourceId(file.getMimetype(), file.getFileName())
-                    );
                 }
-
-                if (checkIfFileIsSharedWithMe(file)) {
-                    sharedWithMeIconV.setVisibility(View.VISIBLE);
+                else {
+                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
                 }
-            } 
-            else {
-                  // TODO Re-enable when server supports folder-size calculation
-//                if (FileStorageUtils.getDefaultSavePathFor(mAccount.name, file) != null){
-//                    fileSizeV.setVisibility(View.VISIBLE);
-//                    fileSizeV.setText(getFolderSizeHuman(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file)));
-//                } else {
-                    fileSizeV.setVisibility(View.INVISIBLE);
-//                }
-
-                lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(
-                        DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp())
-                );
-                checkBoxV.setVisibility(View.GONE);
-                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
-
->>>>>>> upstream/develop
+            } else {
+                // Folder
                 if (checkIfFileIsSharedWithMe(file)) {
                     fileIcon.setImageResource(R.drawable.shared_with_me_folder);
                 } else if (file.isShareByLink()) {
@@ -423,9 +330,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     // folder-public one
                     fileIcon.setImageResource(R.drawable.folder_public);
                 } else {
-                    fileIcon.setImageResource(
-                            DisplayUtils.getResourceId(file.getMimetype(), file.getFileName())
-                    );
+                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
                 }
             }           
         }
@@ -503,6 +408,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
         if (mStorageManager != null) {
             mFiles = mStorageManager.getFolderContent(mFile);
+            mFilesOrig.clear();
+            mFilesOrig.addAll(mFiles);
+            
             if (mJustFolders) {
                 mFiles = getFolders(mFiles);
             }
@@ -665,5 +573,5 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mSortAscending = ascending;
         
         sortDirectory();
-    }    
+    }
 }
