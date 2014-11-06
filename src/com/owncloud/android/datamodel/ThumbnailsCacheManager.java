@@ -275,10 +275,8 @@ public class ThumbnailsCacheManager {
                 final ImageView imageView = mImageViewReference.get();
                 final ThumbnailGenerationTask bitmapWorkerTask =
                         getBitmapWorkerTask(imageView);
-                if (this == bitmapWorkerTask && imageView != null && imageView.getTag() != null && mFile != null) {
-                    if (imageView.getTag().equals(mFile.getFileId())) {
-                        imageView.setImageBitmap(bitmap);
-                    }
+                if (this == bitmapWorkerTask && imageView != null) {
+                    imageView.setImageBitmap(bitmap);
                 }
             }
         }
