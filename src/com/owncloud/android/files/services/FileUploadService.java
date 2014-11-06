@@ -228,7 +228,7 @@ public class FileUploadService extends Service {
         mConnectivityChangeReceiver = new ConnectivityChangeReceiver();
         registerReceiver(mConnectivityChangeReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         mDb = new UploadDbHandler(this.getBaseContext());
-        mDb.recreateDb();
+//        mDb.recreateDb(); //for testing only
     }
 
     public class ConnectivityChangeReceiver extends BroadcastReceiver {
