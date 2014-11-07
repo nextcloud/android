@@ -7,26 +7,26 @@ import android.os.Bundle;
 import com.owncloud.android.R;
 import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.ui.errorhandling.ExceptionHandler;
-import com.owncloud.android.ui.fragment.UploadsListFragment;
+import com.owncloud.android.ui.fragment.UploadListFragment;
 
 /**
  * Activity listing pending, active, and completed uploads. User can delete
  * completed uploads from view. Content of this list of coming from
  * {@link UploadDbHandler}.
  */
-public class UploadsListActivity extends FileActivity implements UploadsListFragment.ContainerActivity {
+public class UploadListActivity extends FileActivity implements UploadListFragment.ContainerActivity {
 
-    private static final String TAG = "UploadsListActivity";
+    private static final String TAG = "UploadListActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
-        setContentView(R.layout.uploads_list_layout);
+        setContentView(R.layout.upload_list_layout);
     }
 
     // ////////////////////////////////////////
-    // UploadsListFragment.ContainerActivity
+    // UploadListFragment.ContainerActivity
     // ////////////////////////////////////////
     @Override
     public void onUploadItemClick(File file) {

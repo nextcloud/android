@@ -163,7 +163,7 @@
         <activity android:name=".ui.activity.LogHistoryActivity"/>
 
         <activity android:name=".ui.errorhandling.ErrorShowActivity" />
-        <activity android:name=".ui.activity.UploadsListActivity" >
+        <activity android:name=".ui.activity.UploadListActivity" >
 
             <!-- for testing only: -->
             <intent-filter>

@@ -56,7 +56,7 @@
         android:showAsAction="never"
         android:title="@string/actionbar_sort"/>
 	<item
-        android:id="@+id/action_uploads_list"
+        android:id="@+id/action_upload_list"
         android:icon="@drawable/ic_action_settings"
         android:orderInCategory="2"
         android:showAsAction="never"

@@ -3,9 +3,9 @@
     android:layout_height="match_parent" >
 
     <fragment
-        android:id="@+id/UploadsListFragment"
+        android:id="@+id/UploadListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="com.owncloud.android.ui.fragment.UploadsListFragment" />
+        class="com.owncloud.android.ui.fragment.UploadListFragment" />
 
 </FrameLayout>

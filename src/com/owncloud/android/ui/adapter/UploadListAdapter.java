@@ -26,12 +26,12 @@ import com.owncloud.android.utils.DisplayUtils;
  * Filtering possible.
  * 
  */
-public class UploadsListAdapter extends BaseAdapter implements ListAdapter {
+public class UploadListAdapter extends BaseAdapter implements ListAdapter {
     
     private Context mContext;
     private UploadDbObject[] mUploads = null;
 
-    public UploadsListAdapter(Context context) {
+    public UploadListAdapter(Context context) {
         mContext = context;
         loadUploadItemsFromDb();
     }
@@ -74,7 +74,7 @@ public class UploadsListAdapter extends BaseAdapter implements ListAdapter {
         if (view == null) {
             LayoutInflater inflator = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflator.inflate(R.layout.uploads_list_item, null);
+            view = inflator.inflate(R.layout.upload_list_item, null);
         }
         if (mUploads != null && mUploads.length > position) {
             UploadDbObject file = mUploads[position];

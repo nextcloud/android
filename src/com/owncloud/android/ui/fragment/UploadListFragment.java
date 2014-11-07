@@ -32,25 +32,25 @@ import android.widget.ListView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.adapter.UploadsListAdapter;
+import com.owncloud.android.ui.adapter.UploadListAdapter;
 
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.
- * 
+ *
  * @author LukeOwncloud
- * 
+ *
  */
-public class UploadsListFragment extends ExtendedListFragment {
-    private static final String TAG = "LocalFileListFragment";
+public class UploadListFragment extends ExtendedListFragment {
+    private static final String TAG = "UploadListFragment";
 
     /**
      * Reference to the Activity which this fragment is attached to. For
      * callbacks
      */
-    private UploadsListFragment.ContainerActivity mContainerActivity;
+    private UploadListFragment.ContainerActivity mContainerActivity;
 
     /** Adapter to connect the data from the directory with the View object */
-    private UploadsListAdapter mAdapter = null;
+    private UploadListAdapter mAdapter = null;
 
     /**
      * {@inheritDoc}
@@ -62,7 +62,7 @@ public class UploadsListFragment extends ExtendedListFragment {
             mContainerActivity = (ContainerActivity) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement "
-                    + UploadsListFragment.ContainerActivity.class.getSimpleName());
+                    + UploadListFragment.ContainerActivity.class.getSimpleName());
         }
     }
 
@@ -89,7 +89,7 @@ public class UploadsListFragment extends ExtendedListFragment {
         Log_OC.i(TAG, "onActivityCreated() start");
 
         super.onActivityCreated(savedInstanceState);
-        mAdapter = new UploadsListAdapter(getActivity());
+        mAdapter = new UploadListAdapter(getActivity());
         setListAdapter(mAdapter);
 
         Log_OC.i(TAG, "onActivityCreated() stop");
@@ -111,7 +111,7 @@ public class UploadsListFragment extends ExtendedListFragment {
     }
 
     public void deselectAll() {
-        mAdapter = new UploadsListAdapter(getActivity());
+        mAdapter = new UploadListAdapter(getActivity());
         setListAdapter(mAdapter);
     }
 
@@ -144,7 +144,7 @@ public class UploadsListFragment extends ExtendedListFragment {
 
     /**
      * Returns the fule paths to the files checked by the user
-     * 
+     *
      * @return File paths to the files checked by the user.
      */
     public String[] getCheckedFilePaths() {
@@ -164,8 +164,8 @@ public class UploadsListFragment extends ExtendedListFragment {
 
     /**
      * Interface to implement by any Activity that includes some instance of
-     * UploadsListFragment
-     * 
+     * UploadListFragment
+     *
      * @author LukeOwncloud
      */
     public interface ContainerActivity {
@@ -173,7 +173,7 @@ public class UploadsListFragment extends ExtendedListFragment {
         /**
          * Callback method invoked when an upload item is clicked by the user on
          * the upload list
-         * 
+         *
          * @param file
          */
         public void onUploadItemClick(File file);
@@ -181,7 +181,7 @@ public class UploadsListFragment extends ExtendedListFragment {
         /**
          * Callback method invoked when the parent activity is fully created to
          * get the filter which is to be applied to the upload list.
-         * 
+         *
          * @return Filter to be applied. Can be null, then all uploads are
          *         shown.
          */
