@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        class="com.owncloud.android.ui.fragment.LocalFileListFragment" />
+        class="com.owncloud.android.ui.fragment.UploadsListFragment" />
 
     <LinearLayout
         android:layout_width="match_parent"

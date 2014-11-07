@@ -68,7 +68,7 @@ import com.owncloud.android.utils.DisplayUtils;
 /**
  * This class is registered for Intents android.intent.action.SEND and android.intent.action.SEND_MULTIPLE
  * and causes indicated to be uploaded to an ownCloud instance. User can choose which account to use as well
- * as the upload destination.
+ * as the upload destination. Better name: UploadHandlerActivity
  * 
  * @author Bartek Przybylski
  * 

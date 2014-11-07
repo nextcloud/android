@@ -105,7 +105,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 
 
 /**
- * Displays, what files the user has available in his ownCloud.
+ * Displays, what files the user has available in his ownCloud. This is the main view.
  * 
  * @author Bartek Przybylski
  * @author David A. Velasco
@@ -493,6 +493,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         case R.id.action_logger: {
             Intent loggerIntent = new Intent(getApplicationContext(),LogHistoryActivity.class);
             startActivity(loggerIntent);
+            break;
+        }
+        case R.id.action_uploads_list: {
+            Intent uploadListIntent = new Intent(getApplicationContext(),UploadsListActivity.class);
+            startActivity(uploadListIntent);
             break;
         }
         case android.R.id.home: {

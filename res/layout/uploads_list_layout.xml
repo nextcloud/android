@@ -1,0 +1,11 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <fragment
+        android:id="@+id/UploadsListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.owncloud.android.ui.fragment.UploadsListFragment" />
+
+</FrameLayout>

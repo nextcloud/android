@@ -161,8 +161,20 @@
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
         
         <activity android:name=".ui.activity.LogHistoryActivity"/>
+
+        <activity android:name=".ui.errorhandling.ErrorShowActivity" />
+        <activity android:name=".ui.activity.UploadsListActivity" >
+
+            <!-- for testing only: -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- end: for testing only: -->
+        </activity>
         
-        <receiver android:name=".files.InstantUploadBroadcastReceiver">
+		<receiver android:name=".files.InstantUploadBroadcastReceiver">
             <intent-filter>
                 <!-- unofficially supported by many Android phones but not by HTC devices: -->
                 <action android:name="com.android.camera.NEW_PICTURE" />
