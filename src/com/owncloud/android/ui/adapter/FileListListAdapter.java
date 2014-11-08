@@ -47,6 +47,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncDrawable;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -182,8 +183,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(DateUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
-                        DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
+                lastModV.setText(showRelativeTimestamp(file));
                 // this if-else is needed even thoe fav icon is visible by default
                 // because android reuses views in listview
                 if (!file.keepInSync()) {
@@ -251,8 +251,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 //                }
 
                 lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(DateUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
-                        DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
+                lastModV.setText(showRelativeTimestamp(file));
                 checkBoxV.setVisibility(View.GONE);
                 view.findViewById(R.id.imageView3).setVisibility(View.GONE);
 
@@ -515,4 +514,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         
         sortDirectory();
     }    
+    
+    private CharSequence showRelativeTimestamp(OCFile file){
+        Log_OC.d("Timestamp", "File: " + file.getModificationTimestamp() + " system: " + System.currentTimeMillis());
+        if (file.getModificationTimestamp() > System.currentTimeMillis()){
+            return DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp());
+        } else {
+            return DateUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
+                    DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
+        }
+    }
 }
