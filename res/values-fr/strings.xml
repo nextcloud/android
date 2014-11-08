@@ -90,7 +90,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="upload_chooser_title">Téléverser un fichier depuis…</string>
   <string name="uploader_info_dirname">Nom du dossier</string>
   <string name="uploader_upload_in_progress_ticker">Téléversement…</string>
-  <string name="uploader_upload_in_progress_content">Envoi du fichier %2$s en cours, %1$d%% effectués</string>
+  <string name="uploader_upload_in_progress_content">Envoi du fichier %2$s : %1$d%% effectués</string>
   <string name="uploader_upload_succeeded_ticker">Téléversement réussi</string>
   <string name="uploader_upload_succeeded_content_single">Le fichier %1$s a été envoyé avec succès</string>
   <string name="uploader_upload_failed_ticker">Échec de l\'envoi</string>

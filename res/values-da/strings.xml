@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Anbefal til en ven</string>
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Husk delt placering</string>
+  <string name="prefs_remember_last_upload_location_summary">Husk seneste delte placering for overførsel</string>
   <string name="recommend_subject">Prøv %1$s på din smartphone!</string>
   <string name="recommend_text">Jeg ønsker at invitere dig til at bruge %1$s på din smartphone!\nHent den her: %2$s</string>
   <string name="auth_check_server">Tjek server</string>
