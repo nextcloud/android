@@ -49,9 +49,11 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -691,7 +693,34 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         }
         if (!remotepath.endsWith(OCFile.PATH_SEPARATOR))
             remotepath += OCFile.PATH_SEPARATOR;
-        remotepath += new File(filepath).getName();
+
+        if (filepath.startsWith("content://")) {
+            // The query, since it only applies to a single document, will only return
+            // one row. There's no need to filter, sort, or select fields, since we want
+            // all fields for one document.
+            Cursor cursor = MainApp.getAppContext().getContentResolver()
+                    .query(Uri.parse(filepath), null, null, null, null, null);
+
+            try {
+                // moveToFirst() returns false if the cursor has 0 rows.  Very handy for
+                // "if there's anything to look at, look at it" conditionals.
+                if (cursor != null && cursor.moveToFirst()) {
+
+                    // Note it's called "Display Name".  This is
+                    // provider-specific, and might not necessarily be the file name.
+                    String displayName = cursor.getString(
+                            cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    Log.i(TAG, "Display Name: " + displayName);
+
+                    remotepath += displayName;
+                }
+            } finally {
+                cursor.close();
+            }
+
+        } else {
+            remotepath += new File(filepath).getName();
+        }
 
         i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
         i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
@@ -919,7 +948,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 final String[] selectionArgs = new String[] { split[1] };
 
                 return getDataColumn(getApplicationContext(), contentUri, selection, selectionArgs);
-            } 
+            }
+            // Google Drive
+            else if (isGoogleDriveDocument(uri)) {
+                return uri.toString();
+            }
         }
         // MediaStore (and general)
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
