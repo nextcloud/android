@@ -851,7 +851,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                     } else if (item == 1) {
                         Intent action = new Intent(Intent.ACTION_GET_CONTENT);
                         action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
-                        //putExtra is only supported on api level 18+
+                        //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+
                         if(Build.VERSION.SDK_INT >= 18) {
                             action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                         }

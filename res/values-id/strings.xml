@@ -38,8 +38,10 @@
   <string name="prefs_recommend">Rekomendasikan ke teman</string>
   <string name="prefs_feedback">Umpan balik</string>
   <string name="prefs_imprint">Jejak</string>
+  <string name="prefs_remember_last_share_location">Ingat lokasi berbagi</string>
+  <string name="prefs_remember_last_upload_location_summary">Ingat lokasi unggahan berbagi terakhir</string>
   <string name="recommend_subject">Cobalah %1$s pada ponsel cerdas Anda!</string>
-  <string name="recommend_text">Saya ingin mengajak Anda untuk menggunakan %1$s di ponsel cerdas Anda!\nUnduh gratis disini: %2$s</string>
+  <string name="recommend_text">Saya mengajak Anda untuk menggunakan %1$s di ponsel cerdas Anda!\nUnduh gratis disini: %2$s</string>
   <string name="auth_check_server">Periksa Server</string>
   <string name="auth_host_url">Alamat server https://…</string>
   <string name="auth_username">Nama Pengguna</string>
@@ -112,7 +114,7 @@
   <string name="sync_fail_in_favourites_content">Konten berkas %1$d tidak dapat disinkronasikan (%2$d konflik)</string>
   <string name="sync_foreign_files_forgotten_ticker">Beberapa berkas lokal terlupakan</string>
   <string name="sync_foreign_files_forgotten_content">%1$d berkas diluar folder %2$s tidak dapat disalin kedalamnya</string>
-  <string name="sync_foreign_files_forgotten_explanation">Sejak versi  1.3.16, berkas-berkas yang diunggah dari piranti ini akan disalin kedalam folder %1$s lokal untuk mencagah kehilangan data ketika berkas tunggal disinkronkan dengan akun lebih dari satu.\n\nAkibat perubahan ini, semua berkas yang diunggah di versi aplikasi sebelumnya disalin kedalam folder %2$s. Namun, sebuah kesalahan mencegah penyelesaian operasi ini saat sinkronisasi berlangsung akun. Anda boleh meninggalkan berkas seperti ini dan menghapus tautan ke %3$s atau memindahkan berkas kedalam folder %1$s dan membiarkan tautan ke %4$s.\n\nYang tampak dibawah adalah berkas lokal, dan berkas remote didalam %5$s yang dihubungkan dengannya.</string>
+  <string name="sync_foreign_files_forgotten_explanation">Sejak versi  1.3.16, berkas-berkas yang diunggah dari piranti ini akan disalin kedalam folder %1$s lokal untuk mencagah kehilangan data saat berkas tunggal disinkronkan dengan akun lebih dari satu.\n\nAkibat perubahan ini, semua berkas yang diunggah di versi aplikasi sebelumnya disalin kedalam folder %2$s. Namun, sebuah kesalahan mencegah penyelesaian operasi ini saat sinkronisasi akun. Anda boleh meninggalkan berkas seperti ini dan menghapus tautan ke %3$s atau memindahkan berkas kedalam folder %1$s dan membiarkan tautan ke %4$s.\n\nYang tampak dibawah adalah berkas lokal, dan berkas remote didalam %5$s yang dihubungkan dengannya.</string>
   <string name="sync_current_folder_was_removed">Folder %1$s tidak ada lagi</string>
   <string name="foreign_files_move">Pindahkan semua</string>
   <string name="foreign_files_success">Semua berkas sudah dipindahkan</string>
@@ -228,7 +230,7 @@
   <string name="ssl_validator_label_signature">Tanda tangan:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritma:</string>
   <string name="ssl_validator_null_cert">Sertifikat tidak dapat ditampilkan.</string>
-  <string name="ssl_validator_no_info_about_error">- Tidak ada informasi tantang terror</string>
+  <string name="ssl_validator_no_info_about_error">- Tidak ada informasi tantang error</string>
   <string name="placeholder_sentence">Ini adalah placeholder</string>
   <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">Gambar PNG</string>

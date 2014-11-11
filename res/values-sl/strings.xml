@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Priporoči prijateljem</string>
   <string name="prefs_feedback">Odziv</string>
   <string name="prefs_imprint">Natis</string>
+  <string name="prefs_remember_last_share_location">Zapomni si mesto souporabe</string>
+  <string name="prefs_remember_last_upload_location_summary">Zapomni si zadnje mesto za pošiljanje v oblak</string>
   <string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
   <string name="recommend_text">Želim ti predstaviti %1$s na pametnem telefonu!\nPrejmeš ga lahko na: %2$s</string>
   <string name="auth_check_server">Preveri strežnik</string>
