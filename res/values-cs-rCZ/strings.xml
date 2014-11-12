@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Nastavení</string>
   <string name="actionbar_see_details">Podrobnosti</string>
   <string name="actionbar_send_file">Odeslat</string>
+  <string name="actionbar_sort">Seřadit</string>
+  <string name="actionbar_sort_title">Seřadit podle</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Nejnovější - nejstarší</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Obecné</string>
   <string name="prefs_category_more">Více</string>
   <string name="prefs_accounts">Účty</string>
@@ -30,6 +38,8 @@
   <string name="prefs_recommend">Doporučit přátelům</string>
   <string name="prefs_feedback">Odezva</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Zapamatovat umístění sdílení</string>
+  <string name="prefs_remember_last_upload_location_summary">Zapamatovat poslední umístění pro nahrání sdílených souborů</string>
   <string name="recommend_subject">Zkuste %1$s na vašem smartphonu!</string>
   <string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>
   <string name="auth_check_server">Zkontrolovat server</string>

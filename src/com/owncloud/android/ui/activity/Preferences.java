@@ -104,7 +104,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
 
                 if (obj != null && obj instanceof LongClickableCheckBoxPreference) {
                     mShowContextMenu = true;
-                    mAccountName = obj.toString();
+                    mAccountName = ((LongClickableCheckBoxPreference) obj).getKey();
 
                     Preferences.this.openContextMenu(listView);
 
@@ -406,7 +406,8 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
             for (Account a : accounts) {
                 LongClickableCheckBoxPreference accountPreference = new LongClickableCheckBoxPreference(this);
                 accountPreference.setKey(a.name);
-                accountPreference.setTitle(a.name);
+                // Handle internationalized domain names
+                accountPreference.setTitle(DisplayUtils.convertIdn(a.name, false));
                 mAccountsPrefCategory.addPreference(accountPreference);
 
                 // Check the current account that is being used

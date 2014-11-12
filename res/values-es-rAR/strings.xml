@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Configuración</string>
   <string name="actionbar_see_details">Detalles</string>
   <string name="actionbar_send_file">Mandar</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>

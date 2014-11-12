@@ -5,6 +5,8 @@
   <string name="actionbar_settings">Podešavanja</string>
   <string name="actionbar_see_details">Detaljnije</string>
   <string name="actionbar_send_file">Pošalji</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Opšte</string>
   <string name="prefs_accounts">Nalozi</string>
   <string name="prefs_manage_accounts">Upravljaj nalozima</string>

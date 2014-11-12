@@ -3,6 +3,8 @@
   <string name="actionbar_upload">بارکردن</string>
   <string name="actionbar_upload_files">په‌ڕگەکان</string>
   <string name="actionbar_settings">ده‌ستكاری</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">گشتی</string>
   <string name="prefs_accounts">هەژمارەکان</string>
   <string name="prefs_help">یارمەتی</string>

@@ -7,6 +7,8 @@
   <string name="actionbar_mkdir">Nuevo directorio</string>
   <string name="actionbar_settings">Configuración</string>
   <string name="actionbar_see_details">detalles</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">General</string>
   <string name="prefs_accounts">Cuentas</string>
   <string name="prefs_manage_accounts">Administrar Cuentas</string>

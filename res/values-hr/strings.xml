@@ -5,6 +5,8 @@
   <string name="actionbar_mkdir">Nova mapa</string>
   <string name="actionbar_settings">Postavke</string>
   <string name="actionbar_send_file">Pošaljite</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Općenito</string>
   <string name="prefs_category_more">više</string>
   <string name="prefs_accounts">Korisnićki računi</string>

@@ -6,6 +6,8 @@
   <string name="actionbar_mkdir">Jauna mape</string>
   <string name="actionbar_settings">Iestatījumi</string>
   <string name="actionbar_send_file">Sūtīt</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Vispārīgi</string>
   <string name="prefs_category_more">Vairāk</string>
   <string name="prefs_accounts">Konti</string>
