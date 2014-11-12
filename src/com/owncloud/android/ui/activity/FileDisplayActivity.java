@@ -949,8 +949,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
                 return getDataColumn(getApplicationContext(), contentUri, selection, selectionArgs);
             }
-            // Google Drive
-            else if (isGoogleDriveDocument(uri)) {
+            // Documents providers returned as content://...
+            else if (isAContentDocument(uri)) {
                 return uri.toString();
             }
         }
@@ -1039,6 +1039,15 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      */
     public static boolean isGoogleDriveDocument(Uri uri) {
         return "com.google.android.apps.docs.storage".equals(uri.getAuthority());
+    }
+
+    /**
+     * 
+     * @param uri The Uri to check.
+     * @return Whether the Uri is from a content provider as kind "content://..."
+     */
+    public static boolean isAContentDocument(Uri uri) {
+        return uri.toString().startsWith("content://");
     }
 
     /**
