@@ -157,7 +157,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     private String DIALOG_UNTRUSTED_CERT;
     
     private OCFile mWaitingToSend;
-    
+
+    private static final String URI_TYPE_OF_CONTENT_PROVIDER = "content://";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
@@ -694,20 +696,14 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         if (!remotepath.endsWith(OCFile.PATH_SEPARATOR))
             remotepath += OCFile.PATH_SEPARATOR;
 
-        if (filepath.startsWith("content://")) {
+        if (filepath.startsWith(URI_TYPE_OF_CONTENT_PROVIDER)) {
             // The query, since it only applies to a single document, will only return
-            // one row. There's no need to filter, sort, or select fields, since we want
-            // all fields for one document.
+            // one row. 
             Cursor cursor = MainApp.getAppContext().getContentResolver()
                     .query(Uri.parse(filepath), null, null, null, null, null);
 
             try {
-                // moveToFirst() returns false if the cursor has 0 rows.  Very handy for
-                // "if there's anything to look at, look at it" conditionals.
                 if (cursor != null && cursor.moveToFirst()) {
-
-                    // Note it's called "Display Name".  This is
-                    // provider-specific, and might not necessarily be the file name.
                     String displayName = cursor.getString(
                             cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                     Log.i(TAG, "Display Name: " + displayName);
@@ -950,7 +946,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 return getDataColumn(getApplicationContext(), contentUri, selection, selectionArgs);
             }
             // Documents providers returned as content://...
-            else if (isAContentDocument(uri)) {
+            else if (isContentDocument(uri)) {
                 return uri.toString();
             }
         }
@@ -1031,23 +1027,14 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     public static boolean isGooglePhotosUri(Uri uri) {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
-    
-    /**
-     * 
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is Google Drive.
-     */
-    public static boolean isGoogleDriveDocument(Uri uri) {
-        return "com.google.android.apps.docs.storage".equals(uri.getAuthority());
-    }
 
     /**
      * 
      * @param uri The Uri to check.
      * @return Whether the Uri is from a content provider as kind "content://..."
      */
-    public static boolean isAContentDocument(Uri uri) {
-        return uri.toString().startsWith("content://");
+    public static boolean isContentDocument(Uri uri) {
+        return uri.toString().startsWith(URI_TYPE_OF_CONTENT_PROVIDER);
     }
 
     /**
