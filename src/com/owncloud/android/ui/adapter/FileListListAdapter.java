@@ -516,12 +516,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     }    
     
     private CharSequence showRelativeTimestamp(OCFile file){
-        Log_OC.d("Timestamp", "File: " + file.getModificationTimestamp() + " system: " + System.currentTimeMillis());
-        if (file.getModificationTimestamp() > System.currentTimeMillis()){
-            return DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp());
-        } else {
-            return DateUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
-                    DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
-        }
+        return DisplayUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
+                DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
     }
 }

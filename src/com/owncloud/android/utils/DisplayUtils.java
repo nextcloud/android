@@ -18,6 +18,8 @@
 
 package com.owncloud.android.utils;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,7 +27,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.content.Context;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  * A helper class for some string operations.
@@ -233,6 +240,17 @@ public class DisplayUtils {
             return R.drawable.winter_holidays_icon;
         } else {
             return R.drawable.icon;
+        }
+    }
+    
+    public static CharSequence getRelativeDateTimeString(Context c, long time, long minResolution, long transitionResolution, int flags){
+        if (time > System.currentTimeMillis()){
+            return DisplayUtils.unixTimeToHumanReadable(time);
+        } else if ((System.currentTimeMillis() - time) < 60000) {
+            return  c.getString(R.string.file_list_seconds_ago)  + ", " + 
+                DateFormat.getTimeFormat(c).format(new Date(time));
+        } else {
+            return DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
         }
     }
 }
