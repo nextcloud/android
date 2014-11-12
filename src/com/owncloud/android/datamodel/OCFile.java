@@ -157,6 +157,15 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
+     * Can be used to set the path where the file will be stored
+     * 
+     * @param remote_path to set
+     */
+    public void setRemotePath(String remote_path) {
+        mRemotePath = remote_path;
+    }
+
+    /**
      * Can be used to check, whether or not this file exists in the database
      * already
      * 

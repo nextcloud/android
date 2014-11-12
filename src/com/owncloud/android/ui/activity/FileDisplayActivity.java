@@ -158,7 +158,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     private OCFile mWaitingToSend;
 
-    private static final String URI_TYPE_OF_CONTENT_PROVIDER = "content://";
+    private static final String URI_CONTENT_SCHEME = "content://";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -662,8 +662,12 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     private void requestSimpleUpload(Intent data, int resultCode) {
         String filepath = null;
+        String mimeType = null;
+
+        Uri selectedImageUri = data.getData();
+
         try {
-            Uri selectedImageUri = data.getData();
+            mimeType = getContentResolver().getType(selectedImageUri);
 
             String filemanagerstring = selectedImageUri.getPath();
             String selectedImagePath = getPath(selectedImageUri);
@@ -696,9 +700,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         if (!remotepath.endsWith(OCFile.PATH_SEPARATOR))
             remotepath += OCFile.PATH_SEPARATOR;
 
-        if (filepath.startsWith(URI_TYPE_OF_CONTENT_PROVIDER)) {
-            // The query, since it only applies to a single document, will only return
-            // one row. 
+        if (filepath.startsWith(URI_CONTENT_SCHEME)) {
+
             Cursor cursor = MainApp.getAppContext().getContentResolver()
                     .query(Uri.parse(filepath), null, null, null, null, null);
 
@@ -706,9 +709,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 if (cursor != null && cursor.moveToFirst()) {
                     String displayName = cursor.getString(
                             cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    Log.i(TAG, "Display Name: " + displayName);
+                    Log.i(TAG, "Display Name: " + displayName + "; mimeType: " + mimeType);
 
-                    remotepath += displayName;
+                    remotepath += displayName + getComposedFileExtension(filepath);
+
                 }
             } finally {
                 cursor.close();
@@ -720,6 +724,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
         i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
+        i.putExtra(FileUploader.KEY_MIME_TYPE, mimeType);
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
             i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
@@ -1034,7 +1039,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      * @return Whether the Uri is from a content provider as kind "content://..."
      */
     public static boolean isContentDocument(Uri uri) {
-        return uri.toString().startsWith(URI_TYPE_OF_CONTENT_PROVIDER);
+        return uri.toString().startsWith(URI_CONTENT_SCHEME);
     }
 
     /**
@@ -1945,5 +1950,22 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     private void sortByName(boolean ascending){
         getListOfFilesFragment().sortByName(ascending);
+    }
+
+    /**
+     * Get the file extension if it is on path as type "content://.../DocInfo.doc"
+     * @param filepath: Content Uri converted to string format
+     * @return String: fileExtension (type '.pdf'). Empty if no extension
+     */
+    private String getComposedFileExtension(String filepath) {
+        String fileExtension = "";
+        String fileNameInContentUri = filepath.substring(filepath.lastIndexOf("/"));
+
+        // Check if extension is included in uri
+        int pos = fileNameInContentUri.lastIndexOf('.');
+        if (pos >= 0) {
+            fileExtension = fileNameInContentUri.substring(pos);
+        }
+        return fileExtension;
     }
 }

@@ -61,6 +61,10 @@ public class UploadFileOperation extends RemoteOperation {
 
     private static final String TAG = UploadFileOperation.class.getSimpleName();
 
+    private static final String URI_CONTENT_SCHEME = "content://";
+    private static final String MIME_TYPE_PDF = "application/pdf";
+    private static final String FILE_EXTENSION_PDF = ".pdf";
+
     private Account mAccount;
     private OCFile mFile;
     private OCFile mOldFile;
@@ -221,6 +225,12 @@ public class UploadFileOperation extends RemoteOperation {
                 } else {
 
                     String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+
+                    if (isPdfFileFromContentProviderWithoutExtension()){
+                        temporalPath += FILE_EXTENSION_PDF;
+                        mFile.setRemotePath(mFile.getRemotePath() + FILE_EXTENSION_PDF);
+                    }
+
                     mFile.setStoragePath(temporalPath);
                     temporalFile = new File(temporalPath);
 
@@ -239,7 +249,8 @@ public class UploadFileOperation extends RemoteOperation {
 
                     try {
 
-                        if (mOriginalStoragePath.startsWith("content://")) {
+                        // In case document provider schema as 'content://'
+                        if (mOriginalStoragePath.startsWith(URI_CONTENT_SCHEME)) {
 
                             Uri uri = Uri.parse(mOriginalStoragePath);
 
@@ -441,5 +452,16 @@ public class UploadFileOperation extends RemoteOperation {
     
     public void cancel() {
         mUploadOperation.cancel();
+    }
+
+    /**
+     * Checks if content provider, using the content:// scheme, returns a file with mime-type 
+     * 'application/pdf' but file has not extension
+     * @return true if is needed to add the pdf file extension to the file
+     */
+    private boolean isPdfFileFromContentProviderWithoutExtension() {
+        return mOriginalStoragePath.startsWith(URI_CONTENT_SCHEME) && 
+                mFile.getMimetype().equals(MIME_TYPE_PDF) && 
+                !mFile.getFileName().endsWith(FILE_EXTENSION_PDF);
     }
 }
