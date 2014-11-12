@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Soovita sõbrale</string>
   <string name="prefs_feedback">Tagasiside</string>
   <string name="prefs_imprint">Impressum</string>
+  <string name="prefs_remember_last_share_location">Jäta meelde jagamise asukoht</string>
+  <string name="prefs_remember_last_upload_location_summary">Jäta meelde viimase jagamise üleslaadimise asukoht</string>
   <string name="recommend_subject">Proovi oma nutitelefonil rakendust %1$s!</string>
   <string name="recommend_text">Kutsun sind kasutama oma nutitelefonis rakendust %1$s!\nLaadi see alla siit: %2$s</string>
   <string name="auth_check_server">Kontrolli serverit</string>
