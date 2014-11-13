@@ -143,15 +143,15 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="media_err_nothing_to_play">Fichier média introuvable </string>
   <string name="media_err_no_account">Aucun compte n\'a été trouvé</string>
   <string name="media_err_not_in_owncloud">Le fichier n\'est pas dans un compte valide</string>
-  <string name="media_err_unsupported">Le codec de ce média n\'est pas supporté </string>
+  <string name="media_err_unsupported">Le codec de ce média n\'est pas pris en charge </string>
   <string name="media_err_io">Le fichier média ne peut pas être lu</string>
   <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>
   <string name="media_err_timeout">Délai dépassé pour la lecture du morceau.</string>
   <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
   <string name="media_err_unknown">Fichier média ne peut être joué avec le stock de media player</string>
-  <string name="media_err_security_ex">taux %1$s erreurs de sécurité essayant de jouer</string>
-  <string name="media_err_io_ex">Taux %1$s d\'erreurs de saisie essayant de jouer</string>
-  <string name="media_err_unexpected">Taux %1$s d\'erreurs inattendues essayant de jouer</string>
+  <string name="media_err_security_ex">Erreur de sécurité à la lecture de %1$s</string>
+  <string name="media_err_io_ex">Erreur de lecture de fichier à la lecture de %1$s</string>
+  <string name="media_err_unexpected">Erreur inattendue à la lecture de %1$s </string>
   <string name="media_rewind_description">Bouton de rem-bobinage</string>
   <string name="media_play_pause_description">Bouton de Lecture ou de Pause</string>
   <string name="media_forward_description">Bouton d\'avance rapide</string>
@@ -182,8 +182,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe courant</string>
   <string name="auth_expired_saml_sso_token_toast">Votre session a expiré. Merci de vous reconnecter</string>
   <string name="auth_connecting_auth_server">Connexion au serveur d\'authentification...</string>
-  <string name="auth_unsupported_auth_method">Le serveur ne supporte pas cette méthode d\'authentification</string>
-  <string name="auth_unsupported_multiaccount">%1$s ne supporte pas les comptes multiples</string>
+  <string name="auth_unsupported_auth_method">Le serveur ne prend pas en charge pas cette méthode d\'authentification</string>
+  <string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
   <string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez prendre contact avec votre administrateur
 </string>
   <string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
