@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Recommend to a friend</string>
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Remember share location</string>
+  <string name="prefs_remember_last_upload_location_summary">Remember last share upload location</string>
   <string name="recommend_subject">Try %1$s on your smartphone!</string>
   <string name="recommend_text">I want to invite you to use %1$s on your smartphone!\nDownload here: %2$s</string>
   <string name="auth_check_server">Check Server</string>

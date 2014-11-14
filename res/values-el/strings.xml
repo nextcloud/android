@@ -11,6 +11,10 @@
   <string name="actionbar_settings">Ρυθμίσεις</string>
   <string name="actionbar_see_details">Λεπτομέρειες</string>
   <string name="actionbar_send_file">Αποστολή</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Νεότερο - Παλαιότερο</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Γενικά</string>

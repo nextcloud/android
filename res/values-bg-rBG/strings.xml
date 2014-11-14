@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Препоръчай на приятел</string>
   <string name="prefs_feedback">Обратна Връзка</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Запомни мястото за споделяне</string>
+  <string name="prefs_remember_last_upload_location_summary">Запомни мястото на последната споделена папка</string>
   <string name="recommend_subject">Опитай %1$s на смартфона си!</string>
   <string name="recommend_text">Бих желал да те поканя да ползваш %1$s на своя смартфон!\nИзтеглия я от тук:%2$s</string>
   <string name="auth_check_server">Проверка на сървъра</string>
