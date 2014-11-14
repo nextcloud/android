@@ -13,6 +13,9 @@ import com.owncloud.android.ui.fragment.UploadListFragment;
  * Activity listing pending, active, and completed uploads. User can delete
  * completed uploads from view. Content of this list of coming from
  * {@link UploadDbHandler}.
+ * 
+ * @author LukeOwncloud
+ *
  */
 public class UploadListActivity extends FileActivity implements UploadListFragment.ContainerActivity {
 

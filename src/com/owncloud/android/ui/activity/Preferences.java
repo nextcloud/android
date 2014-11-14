@@ -81,7 +81,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDbHandler = new UploadDbHandler(getBaseContext());
+        mDbHandler = UploadDbHandler.getInstance(getBaseContext());
         addPreferencesFromResource(R.xml.preferences);
 
         ActionBar actionBar = getSherlock().getActionBar();

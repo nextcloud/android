@@ -42,6 +42,19 @@ public class FileStorageUtils {
     //private static final String LOG_TAG = "FileStorageUtils";
 
     /**
+     * Takes a full path to owncloud file and removes beginning which is path to ownload data folder.
+     * If fullPath does not start with that folder, fullPath is returned as is.
+     */
+    public static final String removeDataFolderPath(String fullPath) {
+        File sdCard = Environment.getExternalStorageDirectory();
+        String dataFolderPath = sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/";
+        if(fullPath.indexOf(dataFolderPath) == 0) {
+            return fullPath.substring(dataFolderPath.length());
+        }
+        return fullPath;
+    }
+    
+    /**
      * Get local owncloud storage path for accountName.
      */
     public static final String getSavePath(String accountName) {

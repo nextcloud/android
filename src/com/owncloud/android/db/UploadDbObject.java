@@ -17,7 +17,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
- * Stores all information in order to start upload. PersistentUploadObject can
+ * Stores all information in order to start upload operations. PersistentUploadObject can
  * be stored persistently by {@link UploadDbHandler}.
  * 
  * @author LukeOwncloud

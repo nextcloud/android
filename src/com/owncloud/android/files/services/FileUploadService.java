@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -59,6 +61,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.db.UploadDbHandler.UploadStatus;
 import com.owncloud.android.db.UploadDbObject;
+import com.owncloud.android.files.InstantUploadBroadcastReceiver;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -176,8 +179,7 @@ public class FileUploadService extends Service {
      * is being uploaded to {@link UploadFileOperation}.
      */
     private ConcurrentMap<String, UploadFileOperation> mActiveUploads = new ConcurrentHashMap<String, UploadFileOperation>();
-    private UploadFileOperation mCurrentUpload = null;
-
+    
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mNotificationBuilder;
 
@@ -227,16 +229,19 @@ public class FileUploadService extends Service {
         mBinder = new FileUploaderBinder();
         mConnectivityChangeReceiver = new ConnectivityChangeReceiver();
         registerReceiver(mConnectivityChangeReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        mDb = new UploadDbHandler(this.getBaseContext());
-//        mDb.recreateDb(); //for testing only
+        mDb = UploadDbHandler.getInstance(this.getBaseContext());
+        mDb.recreateDb(); //for testing only
     }
 
     public class ConnectivityChangeReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context arg0, Intent arg1) {
-            // upload pending wifi only files.
-            onStartCommand(null, 0, 0);
+            if(InstantUploadBroadcastReceiver.isOnline(getApplicationContext()))
+            {
+                // upload pending wifi only files.
+                onStartCommand(null, 0, 0);
+            }
         }
 
     }
@@ -271,7 +276,12 @@ public class FileUploadService extends Service {
             // service) or connectivity change was detected. ==> check persistent upload
             // list.
             //
-            List<UploadDbObject> list = mDb.getAllStoredUploads();
+            List<UploadDbObject> list = mDb.getAllPendingUploads();
+            for (UploadDbObject uploadDbObject : list) {
+                uploadDbObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
+                uploadDbObject.setLastResult(null);
+                mDb.updateUpload(uploadDbObject);
+            }
             requestedUploads.addAll(list);
         } else {
 
@@ -355,7 +365,7 @@ public class FileUploadService extends Service {
                 uploadObject.setLocalAction(localAction);
                 uploadObject.setUseWifiOnly(isUseWifiOnly);
                 uploadObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
-                boolean success = mDb.storeUpload(uploadObject, "upload at " + new Date());
+                boolean success = mDb.storeUpload(uploadObject);
                 if(!success) {
                     Log_OC.e(TAG, "Could not add upload to database.");
                 }
@@ -500,11 +510,25 @@ public class FileUploadService extends Service {
 
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
-                String fileName) {
-            String key = buildRemoteName(mCurrentUpload.getAccount(), mCurrentUpload.getFile());
+                String localFileName) {
+            Set<Entry<String, UploadFileOperation>> uploads = mActiveUploads.entrySet();
+            UploadFileOperation currentUpload = null;
+            //unfortunately we do not have the remote upload path here, so search through all uploads.
+            //however, this may lead to problems, if user uploads same file twice to different destinations.
+            //this can only be fixed by replacing localFileName with remote path.
+            for (Entry<String, UploadFileOperation> entry : uploads) {
+                if(entry.getValue().getStoragePath().equals(localFileName)) {
+                    if(currentUpload != null) {
+                        Log_OC.e(TAG, "Found two current uploads with same remote path. Ignore.");
+                        return;
+                    }
+                    currentUpload = entry.getValue();
+                }
+            }
+            String key = buildRemoteName(currentUpload.getAccount(), currentUpload.getFile());
             OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
             if (boundListener != null) {
-                boundListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName);
+                boundListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, localFileName);
             }
         }
 
@@ -536,7 +560,8 @@ public class FileUploadService extends Service {
             if (msg.obj != null) {
                 Iterator<UploadDbObject> it = requestedUploads.iterator();
                 while (it.hasNext()) {
-                    mService.uploadFile(it.next());
+                    UploadDbObject uploadObject = it.next();
+                    mService.uploadFile(uploadObject);
                 }
             }
             mService.stopSelf(msg.arg1);
@@ -544,13 +569,19 @@ public class FileUploadService extends Service {
     }
 
     /**
-     * Core upload method: sends the file(s) to upload
+     * Core upload method: sends the file(s) to upload. This function blocks until upload succeeded or failed.
      * 
      * @param uploadDbObject Key to access the upload to perform, contained in
      *            mPendingUploads
      */
     private void uploadFile(UploadDbObject uploadDbObject) {
+        
+        if(uploadDbObject.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
+            Log_OC.w(TAG, "Already succeeded uploadObject was again scheduled for upload. Fix that!");
+            return;
+        }
 
+        UploadFileOperation currentUpload = null;
         synchronized (mActiveUploads) {
             //How does this work? Is it thread-safe to set mCurrentUpload here?
             //What happens if other mCurrentUpload is currently in progress?
@@ -558,10 +589,16 @@ public class FileUploadService extends Service {
             //It seems that upload does work, however the upload state is not set
             //back of the first upload when a second upload starts while first is
             //in progress (yellow up-arrow does not disappear of first upload)
-            mCurrentUpload = mActiveUploads.get(uploadDbObject.getRemotePath());
+            currentUpload = mActiveUploads.get(uploadDbObject.getRemotePath());
             
             //if upload not in progress, start it now
-            if(mCurrentUpload == null) {
+            if(currentUpload == null) {
+                if (uploadDbObject.isUseWifiOnly()
+                        && !InstantUploadBroadcastReceiver.isConnectedViaWiFi(getApplicationContext())) {
+                    Log_OC.d(TAG, "Do not start upload because it is wifi-only.");
+                    return;
+                }
+                
                 AccountManager aMgr = AccountManager.get(this);
                 Account account = uploadDbObject.getAccount(getApplicationContext());
                 String version = aMgr.getUserData(account, Constants.KEY_OC_VERSION);
@@ -573,30 +610,29 @@ public class FileUploadService extends Service {
                 uploadKey = buildRemoteName(account, uploadDbObject.getRemotePath());
                 OCFile file = obtainNewOCFileToUpload(uploadDbObject.getRemotePath(), uploadDbObject.getLocalPath(),
                         uploadDbObject.getMimeType());
-                mCurrentUpload = new UploadFileOperation(account, file, chunked, uploadDbObject.isForceOverwrite(),
+                currentUpload = new UploadFileOperation(account, file, chunked, uploadDbObject.isForceOverwrite(),
                         uploadDbObject.getLocalAction(), getApplicationContext());
                 if (uploadDbObject.isCreateRemoteFolder()) {
-                    mCurrentUpload.setRemoteFolderToBeCreated();
+                    currentUpload.setRemoteFolderToBeCreated();
                 }
-                mActiveUploads.putIfAbsent(uploadKey, mCurrentUpload); // Grants that
+                mActiveUploads.putIfAbsent(uploadKey, currentUpload); // Grants that
                 // the file only upload once time
 
-                mCurrentUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
+                currentUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
             }
             
         }
 
-        if (mCurrentUpload != null) {
+        if (currentUpload != null) {
 
-            notifyUploadStart(mCurrentUpload);
+            notifyUploadStart(currentUpload);
 
             RemoteOperationResult uploadResult = null, grantResult = null;
-            UploadFileOperation justFinishedUpload;
             try {
                 // / prepare client object to send requests to the ownCloud
                 // server
-                if (mUploadClient == null || !mLastAccount.equals(mCurrentUpload.getAccount())) {
-                    mLastAccount = mCurrentUpload.getAccount();
+                if (mUploadClient == null || !mLastAccount.equals(currentUpload.getAccount())) {
+                    mLastAccount = currentUpload.getAccount();
                     mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
                     OwnCloudAccount ocAccount = new OwnCloudAccount(mLastAccount, this);
                     mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, this);
@@ -604,18 +640,18 @@ public class FileUploadService extends Service {
 
                 // / check the existence of the parent folder for the file to
                 // upload
-                String remoteParentPath = new File(mCurrentUpload.getRemotePath()).getParent();
+                String remoteParentPath = new File(currentUpload.getRemotePath()).getParent();
                 remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ? remoteParentPath
                         : remoteParentPath + OCFile.PATH_SEPARATOR;
-                grantResult = grantFolderExistence(remoteParentPath);
+                grantResult = grantFolderExistence(currentUpload, remoteParentPath);
 
                 // / perform the upload
                 if (grantResult.isSuccess()) {
                     OCFile parent = mStorageManager.getFileByPath(remoteParentPath);
-                    mCurrentUpload.getFile().setParentId(parent.getFileId());
-                    uploadResult = mCurrentUpload.execute(mUploadClient);
+                    currentUpload.getFile().setParentId(parent.getFileId());
+                    uploadResult = currentUpload.execute(mUploadClient);
                     if (uploadResult.isSuccess()) {
-                        saveUploadedFile();
+                        saveUploadedFile(currentUpload);
                     }
                 } else {
                     uploadResult = grantResult;
@@ -644,8 +680,8 @@ public class FileUploadService extends Service {
             }
 
             // notify result
-            notifyUploadResult(uploadResult, mCurrentUpload);
-            sendFinalBroadcast(mCurrentUpload, uploadResult);            
+            notifyUploadResult(uploadResult, currentUpload);
+            sendFinalBroadcast(currentUpload, uploadResult);            
 
         }
 
@@ -662,11 +698,11 @@ public class FileUploadService extends Service {
      * @return An {@link OCFile} instance corresponding to the folder where the
      *         file will be uploaded.
      */
-    private RemoteOperationResult grantFolderExistence(String pathToGrant) {
+    private RemoteOperationResult grantFolderExistence(UploadFileOperation currentUpload, String pathToGrant) {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, this, false);
         RemoteOperationResult result = operation.execute(mUploadClient);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND
-                && mCurrentUpload.isRemoteFolderToBeCreated()) {
+                && currentUpload.isRemoteFolderToBeCreated()) {
             SyncOperation syncOp = new CreateFolderOperation(pathToGrant, true);
             result = syncOp.execute(mUploadClient, mStorageManager);
         }
@@ -710,8 +746,8 @@ public class FileUploadService extends Service {
      * 
      * TODO refactor this ugly thing
      */
-    private void saveUploadedFile() {
-        OCFile file = mCurrentUpload.getFile();
+    private void saveUploadedFile(UploadFileOperation currentUpload) {
+        OCFile file = currentUpload.getFile();
         if (file.fileExists()) {
             file = mStorageManager.getFileById(file.getFileId());
         }
@@ -720,7 +756,7 @@ public class FileUploadService extends Service {
 
         // new PROPFIND to keep data consistent with server
         // in theory, should return the same we already have
-        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mCurrentUpload.getRemotePath());
+        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(currentUpload.getRemotePath());
         RemoteOperationResult result = operation.execute(mUploadClient);
         if (result.isSuccess()) {
             updateOCFile(file, (RemoteFile) result.getData().get(0));
@@ -729,8 +765,8 @@ public class FileUploadService extends Service {
 
         // / maybe this would be better as part of UploadFileOperation... or
         // maybe all this method
-        if (mCurrentUpload.wasRenamed()) {
-            OCFile oldFile = mCurrentUpload.getOldFile();
+        if (currentUpload.wasRenamed()) {
+            OCFile oldFile = currentUpload.getOldFile();
             if (oldFile.fileExists()) {
                 oldFile.setStoragePath(null);
                 mStorageManager.saveFile(oldFile);
@@ -811,6 +847,8 @@ public class FileUploadService extends Service {
                 showDetailsIntent, 0));
 
         mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
+        
+        mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_IN_PROGRESS, null);
     }
 
     /**
@@ -857,9 +895,9 @@ public class FileUploadService extends Service {
                 mUploadClient = null;
                 // grant that future retries on the same account will get the
                 // fresh credentials
+                
             } else {
                 mNotificationBuilder.setContentText(content);
-
 
                 try {
                     String message = uploadResult.getLogMessage() + " errorCode: " + uploadResult.getCode();
@@ -886,14 +924,16 @@ public class FileUploadService extends Service {
 
             if (uploadResult.isSuccess()) {
 
-               //TODO just edit state of upload. do not delete here.
-               mDb.removeUpload(mCurrentUpload.getOriginalStoragePath());
+               mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_SUCCEEDED, uploadResult);
                
                 // remove success notification, with a delay of 2 seconds
                 NotificationDelayer.cancelWithDelay(mNotificationManager, R.string.uploader_upload_succeeded_ticker,
                         2000);
-
+            } else {
+                mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED, uploadResult);
             }
+        } else {
+            mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED, uploadResult);
         }
     }
 

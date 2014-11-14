@@ -92,9 +92,8 @@ public class UploadListFragment extends ExtendedListFragment {
         mAdapter = new UploadListAdapter(getActivity());
         setListAdapter(mAdapter);
 
-        Log_OC.i(TAG, "onActivityCreated() stop");
     }
-
+    
     public void selectAll() {
         int numberOfFiles = mAdapter.getCount();
         for (int i = 0; i < numberOfFiles; i++) {
