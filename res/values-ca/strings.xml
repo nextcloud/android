@@ -50,6 +50,7 @@
   <string name="uploader_wrn_no_content_text">No s\'ha rebut cap contingut. Res per pujar</string>
   <string name="uploader_error_forbidden_content">%1$s no pot accedir al contingut compartit</string>
   <string name="uploader_info_uploading">S\'està pujant</string>
+  <string name="file_list_seconds_ago">segons enrere</string>
   <string name="file_list_empty">Res per aquí. Pugeu alguna cosa!</string>
   <string name="file_list_loading">Carregant...</string>
   <string name="local_file_list_empty">No hi ha arxius a aquesta carpeta</string>

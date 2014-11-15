@@ -6,6 +6,7 @@
   <string name="prefs_help">Hulp</string>
   <string name="auth_username">Gebruikersnaam</string>
   <string name="auth_password">Wagwoord</string>
+  <string name="file_list_seconds_ago">sekondes gelede</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Kanseleer</string>
   <string name="empty"></string>

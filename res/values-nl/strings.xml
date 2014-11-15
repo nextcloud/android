@@ -60,6 +60,7 @@ Download hier: %2$s</string>
   <string name="uploader_wrn_no_content_text">Er werd geen inhoud ontvangen. Niets om te uploaden.</string>
   <string name="uploader_error_forbidden_content">%1$s is niet toegestaan om toegang te hebben tot de publieke inhoud</string>
   <string name="uploader_info_uploading">Uploaden</string>
+  <string name="file_list_seconds_ago">seconden geleden</string>
   <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
   <string name="file_list_loading">Laden ...</string>
   <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>

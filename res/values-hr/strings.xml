@@ -17,6 +17,7 @@
   <string name="setup_btn_connect">Poveži</string>
   <string name="uploader_btn_upload_text">Učitaj</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Izlaz</string>
+  <string name="file_list_seconds_ago">prije par sekundi</string>
   <string name="file_list_empty">Nema ničega u ovoj mapi. Pošalji nešto!</string>
   <string name="filedetails_download">Preuzimanje</string>
   <string name="action_share_file">Podijelite vezu</string>

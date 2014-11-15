@@ -30,6 +30,7 @@
   <string name="uploader_wrn_no_content_text">კონტენტი არ იქნა მიღებული. არაფერია ასატვირთად.</string>
   <string name="uploader_error_forbidden_content">%1$s–ი არ დაიშვება გაზიარებული კონტენტის სანახავად</string>
   <string name="uploader_info_uploading">მიმდინარეობს ატვირთვა</string>
+  <string name="file_list_seconds_ago">წამის წინ</string>
   <string name="file_list_empty">აქ არაფერი არ არის. ატვირთე რამე!</string>
   <string name="filedetails_select_file">დააჭირეთ ფაილს დამატებითი ინფორმაციის გამოსაჩენად.</string>
   <string name="filedetails_size">ზომა:</string>

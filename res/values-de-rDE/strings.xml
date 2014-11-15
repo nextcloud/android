@@ -59,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Es wurden keine Inhalte empfangen. Es gibt nichts zum Hochladen.</string>
   <string name="uploader_error_forbidden_content">%1$s darf den freigegebenen Inhalt nicht nutzen.</string>
   <string name="uploader_info_uploading">Lade hoch</string>
+  <string name="file_list_seconds_ago">Gerade eben</string>
   <string name="file_list_empty">Alles leer. Laden Sie etwas hoch!</string>
   <string name="file_list_loading">Ladevorgang …</string>
   <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>

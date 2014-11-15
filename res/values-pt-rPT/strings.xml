@@ -59,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Não foi recebido nenhum conteúdo. Nada para enviar.</string>
   <string name="uploader_error_forbidden_content">O  %1$s não está autorizado a aceder aos ficheiro partilhados.</string>
   <string name="uploader_info_uploading">A enviar</string>
+  <string name="file_list_seconds_ago">Minutos atrás</string>
   <string name="file_list_empty">Vazio. Envie alguma coisa!</string>
   <string name="file_list_loading">A carregar ...</string>
   <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>

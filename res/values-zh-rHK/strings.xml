@@ -25,6 +25,7 @@
   <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
   <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
   <string name="uploader_info_uploading">正在上戴</string>
+  <string name="file_list_seconds_ago">秒前</string>
   <string name="filedetails_select_file">按一下文件顯示更多資料。</string>
   <string name="filedetails_size">大小：</string>
   <string name="filedetails_type">類別：</string>

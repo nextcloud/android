@@ -52,6 +52,7 @@
   <string name="uploader_wrn_no_content_text">没有接收到内容，无可上传。</string>
   <string name="uploader_error_forbidden_content">%1$s未被允许访问共享内容。</string>
   <string name="uploader_info_uploading">上传</string>
+  <string name="file_list_seconds_ago">秒前</string>
   <string name="file_list_empty">这里还什么都没有。上传些东西吧！</string>
   <string name="file_list_loading">载入中....</string>
   <string name="local_file_list_empty">在该文件夹中不存在文件。</string>

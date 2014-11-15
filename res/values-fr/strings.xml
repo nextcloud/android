@@ -60,6 +60,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="uploader_wrn_no_content_text">Aucun contenu reçu. Rien à envoyer.</string>
   <string name="uploader_error_forbidden_content">%1$s n\'est pas autorisé à accéder au contenu partagé</string>
   <string name="uploader_info_uploading">Téléversement</string>
+  <string name="file_list_seconds_ago">il y a quelques secondes</string>
   <string name="file_list_empty">Il n\'y a rien ici ! Envoyez donc quelque chose :)</string>
   <string name="file_list_loading">Chargement…</string>
   <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>

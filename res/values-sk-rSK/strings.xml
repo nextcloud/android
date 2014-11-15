@@ -50,6 +50,7 @@
   <string name="uploader_wrn_no_content_text">Nedodaný žiaden obsah. Nič na odoslanie.</string>
   <string name="uploader_error_forbidden_content">%1$s nemá práva pre prístup k zdieľanému obsahu</string>
   <string name="uploader_info_uploading">Nahrávanie</string>
+  <string name="file_list_seconds_ago">pred sekundami</string>
   <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
   <string name="file_list_loading">Nahráva sa...</string>
   <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
