@@ -49,13 +49,13 @@ public class UploadDbHandler extends Observable {
 
     //for testing only
     public void recreateDb() {
-//        mDB.beginTransaction();
-//        try {
-//            mHelper.onUpgrade(mDB, 0, mDatabaseVersion);
-//            mDB.setTransactionSuccessful();
-//        } finally {
-//            mDB.endTransaction();
-//        }
+        // mDB.beginTransaction();
+        // try {
+        // mHelper.onUpgrade(mDB, 0, mDatabaseVersion);
+        // mDB.setTransactionSuccessful();
+        // } finally {
+        // mDB.endTransaction();
+        // }
 
     }
 
@@ -74,7 +74,6 @@ public class UploadDbHandler extends Observable {
     private UploadDbHandler(Context context) {
         mDatabaseName = MainApp.getDBName();
         mHelper = new OpenerHelper(context);
-        mDB = mHelper.getWritableDatabase();
     }
     
     private static UploadDbHandler me = null;
@@ -86,7 +85,8 @@ public class UploadDbHandler extends Observable {
     }
     
     public void close() {
-        mDB.close();
+        getDB().close();
+        setDB(null);
         me = null;
     }
 
@@ -205,7 +205,7 @@ public class UploadDbHandler extends Observable {
         cv.put("uploadStatus", uploadObject.getUploadStatus().value);
         cv.put("uploadObject", uploadObject.toString());
         
-        long result = mDB.insert(TABLE_UPLOAD, null, cv);
+        long result = getDB().insert(TABLE_UPLOAD, null, cv);
         Log_OC.d(TAG, "putFileForLater returns with: " + result + " for file: " + uploadObject.getLocalPath());
         if (result == 1) {
             notifyObserversNow();
@@ -232,7 +232,7 @@ public class UploadDbHandler extends Observable {
      * @return 1 if file status was updated, else 0.
      */
     public int updateUpload(String filepath, UploadStatus status, RemoteOperationResult result) {
-        Cursor c = mDB.query(TABLE_UPLOAD, null, "path=?", new String[] {filepath}, null, null, null);
+        Cursor c = getDB().query(TABLE_UPLOAD, null, "path=?", new String[] {filepath}, null, null, null);
         if(c.getCount() != 1) {
             Log_OC.e(TAG, c.getCount() + " items for path=" + filepath + " available in UploadDb. Expected 1." );
             return 0;
@@ -248,7 +248,7 @@ public class UploadDbHandler extends Observable {
             ContentValues cv = new ContentValues();
             cv.put("uploadStatus", status.value);
             cv.put("uploadObject", uploadObjectString);
-            int r = mDB.update(TABLE_UPLOAD, cv, "path=?", new String[] { filepath });
+            int r = getDB().update(TABLE_UPLOAD, cv, "path=?", new String[] { filepath });
             if (r == 1) {
                 notifyObserversNow();
             } else {
@@ -274,7 +274,7 @@ public class UploadDbHandler extends Observable {
      * @return true when one or more upload entries were removed
      */
     public boolean removeUpload(String localPath) {
-        long result = mDB.delete(TABLE_UPLOAD, "path = ?", new String[] { localPath });
+        long result = getDB().delete(TABLE_UPLOAD, "path = ?", new String[] { localPath });
         Log_OC.d(TABLE_UPLOAD, "delete returns with: " + result + " for file: " + localPath);
         return result != 0;
     }
@@ -284,7 +284,7 @@ public class UploadDbHandler extends Observable {
     }
 
     private List<UploadDbObject> getUploads(String selection, String[] selectionArgs) {
-        Cursor c = mDB.query(TABLE_UPLOAD, null, selection, selectionArgs, null, null, null);
+        Cursor c = getDB().query(TABLE_UPLOAD, null, selection, selectionArgs, null, null, null);
         List<UploadDbObject> list = new ArrayList<UploadDbObject>();
         if (c.moveToFirst()) {
             do {
@@ -303,6 +303,17 @@ public class UploadDbHandler extends Observable {
     public List<UploadDbObject> getAllPendingUploads() {
         return getUploads("uploadStatus!=" + UploadStatus.UPLOAD_SUCCEEDED.value + " AND uploadStatus!="
                 + UploadStatus.UPLOAD_FAILED_GIVE_UP.value, null);
+    }
+
+    private SQLiteDatabase getDB() {
+        if (mDB == null) {
+            mDB = mHelper.getWritableDatabase();
+        }
+        return mDB;
+    }
+
+    private void setDB(SQLiteDatabase mDB) {
+        this.mDB = mDB;
     }
     
 }

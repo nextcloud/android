@@ -1,7 +1,5 @@
 package com.owncloud.android.ui.adapter;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -11,20 +9,19 @@ import java.util.Observer;
 import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -104,8 +101,7 @@ public class UploadListAdapter extends BaseAdapter implements ListAdapter, Obser
             UploadDbObject uploadObject = mUploads[position];
 
             TextView fileName = (TextView) view.findViewById(R.id.upload_name);
-            String name = FileStorageUtils.removeDataFolderPath(uploadObject.getLocalPath());
-            fileName.setText(name);
+            fileName.setText(uploadObject.getLocalPath());
 
             TextView statusView = (TextView) view.findViewById(R.id.upload_status);
             String status = uploadObject.getUploadStatus().toString();
@@ -123,6 +119,9 @@ public class UploadListAdapter extends BaseAdapter implements ListAdapter, Obser
             // }
 
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
+            CharSequence dateString = DisplayUtils.getRelativeDateTimeString(mActivity, uploadObject.getUploadTime()
+                    .getTimeInMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
+            fileSizeV.setText(dateString);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             // if (!file.isDirectory()) {
             // fileSizeV.setVisibility(View.VISIBLE);
@@ -142,7 +141,6 @@ public class UploadListAdapter extends BaseAdapter implements ListAdapter, Obser
             // }
             //
             // } else {
-            fileSizeV.setVisibility(View.GONE);
             checkBoxV.setVisibility(View.GONE);
             // }
 
@@ -196,11 +194,15 @@ public class UploadListAdapter extends BaseAdapter implements ListAdapter, Obser
                     // } else if (!lhs.isDirectory() && rhs.isDirectory()) {
                     // return 1;
                     // }
-                    return compareNames(lhs, rhs);
+                    return compareUploadTime(lhs, rhs);
                 }
 
                 private int compareNames(UploadDbObject lhs, UploadDbObject rhs) {
                     return lhs.getLocalPath().toLowerCase().compareTo(rhs.getLocalPath().toLowerCase());
+                }
+
+                private int compareUploadTime(UploadDbObject lhs, UploadDbObject rhs) {
+                    return rhs.getUploadTime().compareTo(lhs.getUploadTime());
                 }
 
             });

@@ -5,6 +5,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -27,7 +29,7 @@ public class UploadDbObject implements Serializable {
 
     /** Generated - should be refreshed every time the class changes!! */
     ;
-    private static final long serialVersionUID = -2306246191385279924L;
+    private static final long serialVersionUID = -2306246191385279928L;
 
     private static final String TAG = "UploadDbObject";
     /**
@@ -47,6 +49,15 @@ public class UploadDbObject implements Serializable {
      * Local action for upload.
      */
     LocalBehaviour localAction;
+
+    /**
+     * Date and time when this upload was first requested.
+     */
+    Calendar uploadTime = new GregorianCalendar();
+
+    public Calendar getUploadTime() {
+        return uploadTime;
+    }
 
     /**
      * @return the uploadStatus

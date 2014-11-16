@@ -366,9 +366,10 @@ public class FileUploadService extends Service {
                 uploadObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
                 boolean success = mDb.storeUpload(uploadObject);
                 if(!success) {
-                    Log_OC.e(TAG, "Could not add upload to database.");
+                    Log_OC.e(TAG, "Could not add upload to database. It is probably a duplicate. Ignore.");
+                } else {
+                    requestedUploads.add(uploadObject);
                 }
-                requestedUploads.add(uploadObject);
             }
             
             
@@ -518,11 +519,15 @@ public class FileUploadService extends Service {
             for (Entry<String, UploadFileOperation> entry : uploads) {
                 if(entry.getValue().getStoragePath().equals(localFileName)) {
                     if(currentUpload != null) {
-                        Log_OC.e(TAG, "Found two current uploads with same remote path. Ignore.");
+                        Log_OC.e(TAG, "Found two current uploads with same remote path " + localFileName + ". Ignore.");
                         return;
                     }
                     currentUpload = entry.getValue();
                 }
+            }
+            if (currentUpload == null) {
+                Log_OC.e(TAG, "Found no current upload with remote path " + localFileName + ". Ignore.");
+                return;
             }
             String key = buildRemoteName(currentUpload.getAccount(), currentUpload.getFile());
             OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
@@ -530,7 +535,6 @@ public class FileUploadService extends Service {
                 boundListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, localFileName);
             }
         }
-
     }
 
     /**
