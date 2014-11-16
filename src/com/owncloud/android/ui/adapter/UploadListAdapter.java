@@ -23,7 +23,6 @@ import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * This Adapter populates a ListView with following types of uploads: pending,
@@ -110,10 +109,9 @@ public class UploadListAdapter extends BaseAdapter implements ListAdapter, Obser
             }
             statusView.setText(status);
 
-            // ImageView fileIcon = (ImageView)
-            // view.findViewById(R.id.imageView1);
+            ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
             // if (!file.isDirectory()) {
-            // fileIcon.setImageResource(R.drawable.file);
+            fileIcon.setImageResource(R.drawable.file);
             // } else {
             // fileIcon.setImageResource(R.drawable.ic_menu_archive);
             // }
