@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 
@@ -97,14 +98,12 @@ public class UploadListFragment extends ExtendedListFragment {
     public void selectAll() {
         int numberOfFiles = mAdapter.getCount();
         for (int i = 0; i < numberOfFiles; i++) {
-            File file = (File) mAdapter.getItem(i);
+            UploadDbObject file = (UploadDbObject) mAdapter.getItem(i);
             if (file != null) {
-                if (!file.isDirectory()) {
-                    // / Click on a file
-                    getListView().setItemChecked(i, true);
-                    // notify the change to the container Activity
-                    mContainerActivity.onUploadItemClick(file);
-                }
+                // / Click on a file
+                getListView().setItemChecked(i, true);
+                // notify the change to the container Activity
+                mContainerActivity.onUploadItemClick(file);
             }
         }
     }
@@ -120,12 +119,12 @@ public class UploadListFragment extends ExtendedListFragment {
      */
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        File file = (File) mAdapter.getItem(position);
+        UploadDbObject uploadDbObject = (UploadDbObject) mAdapter.getItem(position);
 
-        if (file != null) {
+        if (uploadDbObject != null) {
 
             // notify the click to container Activity
-            mContainerActivity.onUploadItemClick(file);
+            mContainerActivity.onUploadItemClick(uploadDbObject);
 
             ImageView checkBoxV = (ImageView) v.findViewById(R.id.custom_checkbox);
             if (checkBoxV != null) {
@@ -175,7 +174,7 @@ public class UploadListFragment extends ExtendedListFragment {
          *
          * @param file
          */
-        public void onUploadItemClick(File file);
+        public void onUploadItemClick(UploadDbObject file);
 
         /**
          * Callback method invoked when the parent activity is fully created to

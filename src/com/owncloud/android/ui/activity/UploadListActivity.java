@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.owncloud.android.R;
 import com.owncloud.android.db.UploadDbHandler;
+import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.ui.errorhandling.ExceptionHandler;
 import com.owncloud.android.ui.fragment.UploadListFragment;
 
@@ -32,7 +33,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     // UploadListFragment.ContainerActivity
     // ////////////////////////////////////////
     @Override
-    public void onUploadItemClick(File file) {
+    public void onUploadItemClick(UploadDbObject file) {
         // TODO Auto-generated method stub
 
     }
