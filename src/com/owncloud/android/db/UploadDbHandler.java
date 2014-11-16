@@ -21,18 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.ui.adapter.UploadListAdapter;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.owncloud.android.MainApp;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  * Database helper for storing list of files to be uploaded, including status information for each file.
@@ -63,7 +60,8 @@ public class UploadDbHandler extends Observable {
     }
 
     public enum UploadStatus {
-        UPLOAD_LATER(0), UPLOAD_FAILED(1), UPLOAD_IN_PROGRESS(2), UPLOAD_PAUSED(3), UPLOAD_SUCCEEDED(4);
+        UPLOAD_LATER(0), UPLOAD_FAILED(1), UPLOAD_IN_PROGRESS(2), UPLOAD_PAUSED(3), UPLOAD_SUCCEEDED(4), UPLOAD_FAILED_GIVE_UP(
+                5);
         private final int value;
         private UploadStatus(int value) {
             this.value = value;
@@ -303,8 +301,8 @@ public class UploadDbHandler extends Observable {
     }
 
     public List<UploadDbObject> getAllPendingUploads() {
-        return getUploads("uploadStatus!=" + UploadStatus.UPLOAD_SUCCEEDED.value, null);
+        return getUploads("uploadStatus!=" + UploadStatus.UPLOAD_SUCCEEDED.value + " AND uploadStatus!="
+                + UploadStatus.UPLOAD_FAILED_GIVE_UP.value, null);
     }
-
     
 }

@@ -21,7 +21,6 @@ package com.owncloud.android.files.services;
 import java.io.File;
 import java.io.IOException;
 import java.util.AbstractList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -599,6 +598,13 @@ public class FileUploadService extends Service {
                     return;
                 }
                 
+                if (!new File(uploadDbObject.getLocalPath()).exists()) {
+                    mDb.updateUpload(uploadDbObject.getLocalPath(), UploadStatus.UPLOAD_FAILED_GIVE_UP,
+                            new RemoteOperationResult(ResultCode.FILE_NOT_FOUND));
+                    Log_OC.d(TAG, "Do not start upload because local file does not exist.");
+                    return;
+                }
+
                 AccountManager aMgr = AccountManager.get(this);
                 Account account = uploadDbObject.getAccount(getApplicationContext());
                 String version = aMgr.getUserData(account, Constants.KEY_OC_VERSION);
@@ -896,27 +902,6 @@ public class FileUploadService extends Service {
                 // grant that future retries on the same account will get the
                 // fresh credentials
                 
-            } else {
-                mNotificationBuilder.setContentText(content);
-
-                try {
-                    String message = uploadResult.getLogMessage() + " errorCode: " + uploadResult.getCode();
-                    Log_OC.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
-                    if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
-                        // message =
-                        // getString(R.string.failed_upload_quota_exceeded_text);
-                        int updatedFiles = mDb.updateFileState(upload.getOriginalStoragePath(),
-                                UploadDbHandler.UploadStatus.UPLOAD_FAILED, message);
-                        if (updatedFiles == 0) { // update failed
-                            mDb.storeFile(upload.getOriginalStoragePath(), upload.getAccount().name, message);
-                        }
-                    } else {
-                        // TODO: handle other results
-                    }
-                } finally {
-                    
-                }
-
             }
 
             mNotificationBuilder.setContentText(content);
@@ -930,7 +915,14 @@ public class FileUploadService extends Service {
                 NotificationDelayer.cancelWithDelay(mNotificationManager, R.string.uploader_upload_succeeded_ticker,
                         2000);
             } else {
-                mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED, uploadResult);
+                // TODO: add other cases in which upload attempt is to be
+                // abandoned.
+                if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
+                    mDb.updateUpload(upload.getOriginalStoragePath(),
+                            UploadDbHandler.UploadStatus.UPLOAD_FAILED_GIVE_UP, uploadResult);
+                } else {
+                    mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED, uploadResult);
+                }
             }
         } else {
             mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED, uploadResult);
