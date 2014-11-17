@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Priporoči prijateljem</string>
   <string name="prefs_feedback">Odziv</string>
   <string name="prefs_imprint">Natis</string>
+  <string name="prefs_remember_last_share_location">Zapomni si mesto souporabe</string>
+  <string name="prefs_remember_last_upload_location_summary">Zapomni si zadnje mesto za pošiljanje v oblak</string>
   <string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
   <string name="recommend_text">Želim ti predstaviti %1$s na pametnem telefonu!\nPrejmeš ga lahko na: %2$s</string>
   <string name="auth_check_server">Preveri strežnik</string>
@@ -57,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Ni prejete vsebine. Ni datotek za pošiljanje.</string>
   <string name="uploader_error_forbidden_content">Oblak %1$s nima nastavljenih dovoljenj za dostop do vsebine v souporabi</string>
   <string name="uploader_info_uploading">Pošiljanje</string>
+  <string name="file_list_seconds_ago">pred nekaj sekundami</string>
   <string name="file_list_empty">Tukaj še ni ničesar. Najprej je treba datoteke poslati v oblak!</string>
   <string name="file_list_loading">Poteka nalaganje ...</string>
   <string name="local_file_list_empty">V tej mapi ni datotek.</string>

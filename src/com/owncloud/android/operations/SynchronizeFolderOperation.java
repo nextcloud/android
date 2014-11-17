@@ -33,6 +33,7 @@ import org.apache.http.HttpStatus;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 //import android.support.v4.content.LocalBroadcastManager;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -325,7 +326,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     private void synchronizeData(ArrayList<Object> folderAndFiles, OwnCloudClient client) {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
-        
+
         // parse data from remote folder 
         OCFile remoteFolder = fillOCFile((RemoteFile)folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
@@ -372,6 +373,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 if (remoteFile.isFolder()) {
                     remoteFile.setFileLength(localFile.getFileLength()); 
                         // TODO move operations about size of folders to FileContentProvider
+                } else if (mRemoteFolderChanged && remoteFile.isImage() &&
+                        remoteFile.getModificationTimestamp() != localFile.getModificationTimestamp()) {
+                    remoteFile.setNeedsUpdateThumbnail(true);
+                    Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
                 }
                 remoteFile.setPublicLink(localFile.getPublicLink());
                 remoteFile.setShareByLink(localFile.isShareByLink());

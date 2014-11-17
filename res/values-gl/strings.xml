@@ -50,6 +50,7 @@
   <string name="uploader_wrn_no_content_text">Non se recibiu contido. Non hai nada para enviar.</string>
   <string name="uploader_error_forbidden_content">%1$s non ten permiso para acceder ao contido compartido</string>
   <string name="uploader_info_uploading">Enviando</string>
+  <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Aquí non hai nada. Envíe algo!</string>
   <string name="file_list_loading">Cargando...</string>
   <string name="local_file_list_empty">Non hai ficheiros neste cartafol.</string>

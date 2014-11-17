@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Doporučit přátelům</string>
   <string name="prefs_feedback">Odezva</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Zapamatovat umístění sdílení</string>
+  <string name="prefs_remember_last_upload_location_summary">Zapamatovat poslední umístění pro nahrání sdílených souborů</string>
   <string name="recommend_subject">Zkuste %1$s na vašem smartphonu!</string>
   <string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>
   <string name="auth_check_server">Zkontrolovat server</string>
@@ -57,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Neobdržen žádný obsah. Nic k odeslání.</string>
   <string name="uploader_error_forbidden_content">%1$s nemá právo přistupovat ke sdílenému obsahu</string>
   <string name="uploader_info_uploading">Odesílání</string>
+  <string name="file_list_seconds_ago">před pár sekundami</string>
   <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
   <string name="file_list_loading">Načítám...</string>
   <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
@@ -177,7 +180,7 @@
   <string name="auth_connecting_auth_server">Připojuji se k přihlašovacímu serveru...</string>
   <string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
   <string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
-  <string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte vašeho administrátora</string>
+  <string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
   <string name="auth_can_not_auth_against_server">Není možné provést ověření  </string>
   <string name="fd_keep_in_sync">Udržovat soubor aktuální</string>
   <string name="common_rename">Přejmenovat</string>
@@ -247,7 +250,7 @@
   <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
   <string name="prefs_instant_upload_path_title">Cesta pro nahrání</string>
   <string name="share_link_no_support_share_api">Je nám líto, ale sdílení není na vašem serveru povoleno. Kontaktujte svého
-administrátora.</string>
+správce systému.</string>
   <string name="share_link_file_no_exist">Nelze sdílet. Zkontrolujte prosím že soubor existuje</string>
   <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky nastala chyba</string>
   <string name="unshare_link_file_no_exist">Nelze ukončit sdílení. Zkontrolujte prosím že soubor existuje</string>

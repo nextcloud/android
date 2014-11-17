@@ -11,6 +11,11 @@
   <string name="actionbar_settings">Ezarpenak</string>
   <string name="actionbar_see_details">Xehetasunak</string>
   <string name="actionbar_send_file">Bidali</string>
+  <string name="actionbar_sort">Ordenatu</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Berrienak - Zaharrenak</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Orokorra</string>
@@ -50,6 +55,7 @@
   <string name="uploader_wrn_no_content_text">Ez da edukirik jaso. Ez dago ezer igotzeko.</string>
   <string name="uploader_error_forbidden_content">%1$s-(e)k ez du baimenik elkarbanatutako edukian sartzeko</string>
   <string name="uploader_info_uploading">Igotzen</string>
+  <string name="file_list_seconds_ago">segundu</string>
   <string name="file_list_empty">Ez dago ezer. Igo zerbait!</string>
   <string name="file_list_loading">Kargatzen...</string>
   <string name="local_file_list_empty">Ez dago fitxategirik karpeta honetan.</string>
@@ -238,6 +244,7 @@ Mesedez, baimendu berriz</string>
   <string name="preview_image_description">Irudi aurreikuspena</string>
   <string name="preview_image_error_unknown_format">Ezin da irudi hau erakutsi</string>
   <string name="error__upload__local_file_not_copied">%1$s ezin da %2$s karpeta lokalera kopiatu</string>
+  <string name="prefs_instant_upload_path_title">Igotzetarako Bidea</string>
   <string name="share_link_no_support_share_api">Sentitzen dut, partekatzea ez dago zure zerbitzarian gaituta. Mesedez jarri harremanetan zure administratzailearekin.</string>
   <string name="share_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzerakoan</string>
   <string name="unshare_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzeari uzterakoan</string>
@@ -260,8 +267,12 @@ Mesedez, baimendu berriz</string>
   <string name="downloader_download_file_not_found">Fitxategia jadanik ez dago eskuragarri zerbitzarian</string>
   <string name="prefs_category_accounts">Kontuak</string>
   <string name="prefs_add_account">Gehitu kontua</string>
+  <string name="log_mail_subject">ownCloud Android programaren egunerokoak</string>
+  <string name="log_progress_dialog_text">Datuak kargatzen...</string>
   <string name="saml_authentication_required_text">Autentikazioa beharrezkoa</string>
   <string name="saml_authentication_wrong_pass">Pasahitz okerra</string>
+  <string name="actionbar_move">Mugitu</string>
   <string name="move_choose_button_text">Aukeratu</string>
+  <string name="prefs_category_instant_uploading">Berehalako Igoerak</string>
   <string name="prefs_category_security">Segurtasuna</string>
 </resources>

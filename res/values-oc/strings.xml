@@ -19,6 +19,7 @@
   <string name="uploader_wrn_no_account_setup_btn_text">Configuracion</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quita</string>
   <string name="uploader_info_uploading">Al amontcargar</string>
+  <string name="file_list_seconds_ago">segonda a</string>
   <string name="file_list_empty">Pas res dedins. Amontcarga qualquaren</string>
   <string name="filedetails_size">Talha :</string>
   <string name="filedetails_type">Tipe :</string>

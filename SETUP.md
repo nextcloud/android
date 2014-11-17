@@ -1,5 +1,7 @@
 
-If you want to start help developing ownCloud please follow the [contribution guidelines][0] and observe these instructions:
+If you want to start help developing ownCloud please follow the [contribution guidelines][0] and observe these instructions.
+
+If you have any problems, start again with 1) and work your way down. If something still does not work as described here, please open a new issue describing exactly what you did, what happened, and what should have happened.
 
 ### 1. Fork and download android/develop repository:
 

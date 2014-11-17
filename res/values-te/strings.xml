@@ -9,6 +9,7 @@
   <string name="prefs_help">సహాయం</string>
   <string name="auth_username">వాడుకరి పేరు</string>
   <string name="auth_password">సంకేతపదం</string>
+  <string name="file_list_seconds_ago">క్షణాల క్రితం</string>
   <string name="common_yes">అవును</string>
   <string name="common_no">కాదు</string>
   <string name="common_ok">సరే</string>

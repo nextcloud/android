@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Recomendar a um amigo</string>
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Lembre-se do local de compartilhamento</string>
+  <string name="prefs_remember_last_upload_location_summary">Lembrar do último local de envio de compartilhamento</string>
   <string name="recommend_subject">Tentar %1$s em seu smartfone!</string>
   <string name="recommend_text">Gostaria de convida-lo a usar %1$s em seu smartphone!\nBaixe aqui: %2$s</string>
   <string name="auth_check_server">Verificar Servidor</string>
@@ -57,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Nenhum conteúdo foi recebido. Nada para enviar.</string>
   <string name="uploader_error_forbidden_content">%1$s não é permitido acessar o conteúdo compartilhado</string>
   <string name="uploader_info_uploading">Enviando</string>
+  <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Nada aqui. Envie alguma coisa!</string>
   <string name="file_list_loading">Carregando...</string>
   <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
