@@ -563,6 +563,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             builder.setExpedited(true);
             builder.setManual(true);
             builder.syncOnce();
+
+            // Fix bug in Android Lollipop when you click on refresh the whole account
+            Bundle extras = new Bundle();
+            builder.setExtras(extras);
+
             SyncRequest request = builder.build();
             ContentResolver.requestSync(request);
         }
