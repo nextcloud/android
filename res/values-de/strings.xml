@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Empfehle dies einem Freund</string>
   <string name="prefs_feedback">Rückmeldungen</string>
   <string name="prefs_imprint">Impressum</string>
+  <string name="prefs_remember_last_share_location">Geteilten Speicherort merken</string>
+  <string name="prefs_remember_last_upload_location_summary">Geteilten Upload-Speicherort merken</string>
   <string name="recommend_subject">Probiere %1$s auf Deinem Smartphone!</string>
   <string name="recommend_text">Ich möchte Dich zum Benutzen von %1$s auf Deinem Smartphone einladen!\nLade es hier herunter: %2$s</string>
   <string name="auth_check_server">Überprüfe den Server</string>
@@ -57,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Es wurden keine Inhalte empfangen. Es gibt nichts zum Hochladen.</string>
   <string name="uploader_error_forbidden_content">%1$s darf den freigegebenen Inhalt nicht nutzen.</string>
   <string name="uploader_info_uploading">Lade hoch</string>
+  <string name="file_list_seconds_ago">Gerade eben</string>
   <string name="file_list_empty">Alles leer. Lade etwas hoch!</string>
   <string name="file_list_loading">Ladevorgang …</string>
   <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>

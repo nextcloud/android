@@ -36,6 +36,7 @@
   <string name="uploader_wrn_no_content_text">Neniu enhavo riceviĝis. Nenio alŝutota.</string>
   <string name="uploader_error_forbidden_content">$1%s ne estas permesata aliri la kunhavigitan enhavon</string>
   <string name="uploader_info_uploading">Alŝutante</string>
+  <string name="file_list_seconds_ago">sekundoj antaŭe</string>
   <string name="file_list_empty">Nenio estas ĉi tie. Alŝutu ion!</string>
   <string name="filedetails_size">Grando:</string>
   <string name="filedetails_type">Tipo:</string>

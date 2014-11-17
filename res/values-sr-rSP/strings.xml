@@ -17,6 +17,7 @@
   <string name="uploader_btn_upload_text">Pošalji</string>
   <string name="uploader_wrn_no_account_title">Nalog nije nađen</string>
   <string name="uploader_info_uploading">Šalje se</string>
+  <string name="file_list_seconds_ago">Pre par sekundi</string>
   <string name="file_list_empty">Ovde nema ničeg. Pošaljite nešto!</string>
   <string name="filedetails_size">Veličina:</string>
   <string name="filedetails_type">Tip:</string>

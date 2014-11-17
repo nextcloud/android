@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Consiglia ad un amico</string>
   <string name="prefs_feedback">Segnalazioni</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Ricorda la posizione della condivisione</string>
+  <string name="prefs_remember_last_upload_location_summary">Ricorda l\'ultima posizione di caricamento della condivisione</string>
   <string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
   <string name="recommend_text">Vorrei invitarti a usare %1$s sul tuo smartphone!\nScarica qui: %2$s</string>
   <string name="auth_check_server">Verifica server</string>
@@ -57,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Non è stato ricevuto alcun contenuto. Niente da caricare.</string>
   <string name="uploader_error_forbidden_content">%1$s non è abilitato ad accedere al contenuto condiviso</string>
   <string name="uploader_info_uploading">Caricamento in corso</string>
+  <string name="file_list_seconds_ago">secondi fa</string>
   <string name="file_list_empty">Non c\'è niente qui. Carica qualcosa!</string>
   <string name="file_list_loading">Caricamento in corso...</string>
   <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
@@ -74,7 +77,7 @@
   <string name="common_no">No</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel_download">Annulla lo scaricamento</string>
-  <string name="common_cancel_upload">Annulla invio</string>
+  <string name="common_cancel_upload">Annulla caricamento</string>
   <string name="common_cancel">Annulla</string>
   <string name="common_save_exit">Salva ed esci</string>
   <string name="common_error">Errore</string>
@@ -242,7 +245,7 @@
   <string name="conflict_message">Il file remoto %s non è sincronizzato con il file locale. Se continui, il contenuto del file sarà sostituito sul server.</string>
   <string name="conflict_keep_both">Mantieni entrambi</string>
   <string name="conflict_overwrite">Sovrascrivi</string>
-  <string name="conflict_dont_upload">Non inviare</string>
+  <string name="conflict_dont_upload">Non caricare</string>
   <string name="preview_image_description">Anteprima dell\'immagine</string>
   <string name="preview_image_error_unknown_format">Questa immagine non può essere mostrata</string>
   <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>

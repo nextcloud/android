@@ -33,6 +33,7 @@
   <string name="uploader_wrn_no_content_text">No se ha recibido ningún contenido. No hay nada para subir.</string>
   <string name="uploader_error_forbidden_content">%1$s no esta autorizado para acceder al contenido compartido</string>
   <string name="uploader_info_uploading">Subiendo</string>
+  <string name="file_list_seconds_ago">segundos antes</string>
   <string name="filedetails_select_file">Seleccione un archivo para desplegar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
   <string name="filedetails_type">Tipo:</string>

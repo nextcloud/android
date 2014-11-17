@@ -3,6 +3,7 @@
   <string name="actionbar_settings">Налады</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <string name="file_list_seconds_ago">Секунд таму</string>
   <string name="common_yes">Так</string>
   <string name="common_no">Не</string>
   <string name="common_ok">Добра</string>
