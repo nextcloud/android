@@ -107,6 +107,7 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.UriUtils;
 
 
 /**
@@ -157,8 +158,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     private String DIALOG_UNTRUSTED_CERT;
     
     private OCFile mWaitingToSend;
-
-    private static final String URI_CONTENT_SCHEME = "content://";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -700,7 +699,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         if (!remotepath.endsWith(OCFile.PATH_SEPARATOR))
             remotepath += OCFile.PATH_SEPARATOR;
 
-        if (filepath.startsWith(URI_CONTENT_SCHEME)) {
+        if (filepath.startsWith(UriUtils.URI_CONTENT_SCHEME)) {
 
             Cursor cursor = MainApp.getAppContext().getContentResolver()
                     .query(Uri.parse(filepath), null, null, null, null, null);
@@ -711,7 +710,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                             cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                     Log.i(TAG, "Display Name: " + displayName + "; mimeType: " + mimeType);
 
-                    remotepath += displayName + getComposedFileExtension(filepath);
+                    remotepath += displayName + DisplayUtils.getComposedFileExtension(filepath);
 
                 }
             } finally {
@@ -912,7 +911,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(getApplicationContext(), uri)) {
             // ExternalStorageProvider
-            if (isExternalStorageDocument(uri)) {
+            if (UriUtils.isExternalStorageDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
@@ -922,16 +921,16 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 }
             }
             // DownloadsProvider
-            else if (isDownloadsDocument(uri)) {
+            else if (UriUtils.isDownloadsDocument(uri)) {
 
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),
                         Long.valueOf(id));
 
-                return getDataColumn(getApplicationContext(), contentUri, null, null);
+                return UriUtils.getDataColumn(getApplicationContext(), contentUri, null, null);
             }
             // MediaProvider
-            else if (isMediaDocument(uri)) {
+            else if (UriUtils.isMediaDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
@@ -948,10 +947,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 final String selection = "_id=?";
                 final String[] selectionArgs = new String[] { split[1] };
 
-                return getDataColumn(getApplicationContext(), contentUri, selection, selectionArgs);
+                return UriUtils.getDataColumn(getApplicationContext(), contentUri, selection, selectionArgs);
             }
             // Documents providers returned as content://...
-            else if (isContentDocument(uri)) {
+            else if (UriUtils.isContentDocument(uri)) {
                 return uri.toString();
             }
         }
@@ -959,87 +958,16 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
 
             // Return the remote address
-            if (isGooglePhotosUri(uri))
+            if (UriUtils.isGooglePhotosUri(uri))
                 return uri.getLastPathSegment();
 
-            return getDataColumn(getApplicationContext(), uri, null, null);
+            return UriUtils.getDataColumn(getApplicationContext(), uri, null, null);
         }
         // File
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
             return uri.getPath();
         }
         return null;
-    }
-
-    /**
-     * Get the value of the data column for this Uri. This is useful for
-     * MediaStore Uris, and other file-based ContentProviders.
-     * 
-     * @param context The context.
-     * @param uri The Uri to query.
-     * @param selection (Optional) Filter used in the query.
-     * @param selectionArgs (Optional) Selection arguments used in the query.
-     * @return The value of the _data column, which is typically a file path.
-     */
-    public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
-
-        Cursor cursor = null;
-        final String column = "_data";
-        final String[] projection = { column };
-
-        try {
-            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null);
-            if (cursor != null && cursor.moveToFirst()) {
-
-                final int column_index = cursor.getColumnIndexOrThrow(column);
-                return cursor.getString(column_index);
-            }
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-        return null;
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is ExternalStorageProvider.
-     */
-    public static boolean isExternalStorageDocument(Uri uri) {
-        return "com.android.externalstorage.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is DownloadsProvider.
-     */
-    public static boolean isDownloadsDocument(Uri uri) {
-        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is MediaProvider.
-     */
-    public static boolean isMediaDocument(Uri uri) {
-        return "com.android.providers.media.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is Google Photos.
-     */
-    public static boolean isGooglePhotosUri(Uri uri) {
-        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
-    }
-
-    /**
-     * 
-     * @param uri The Uri to check.
-     * @return Whether the Uri is from a content provider as kind "content://..."
-     */
-    public static boolean isContentDocument(Uri uri) {
-        return uri.toString().startsWith(URI_CONTENT_SCHEME);
     }
 
     /**
@@ -1950,22 +1878,5 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     private void sortByName(boolean ascending){
         getListOfFilesFragment().sortByName(ascending);
-    }
-
-    /**
-     * Get the file extension if it is on path as type "content://.../DocInfo.doc"
-     * @param filepath: Content Uri converted to string format
-     * @return String: fileExtension (type '.pdf'). Empty if no extension
-     */
-    private String getComposedFileExtension(String filepath) {
-        String fileExtension = "";
-        String fileNameInContentUri = filepath.substring(filepath.lastIndexOf("/"));
-
-        // Check if extension is included in uri
-        int pos = fileNameInContentUri.lastIndexOf('.');
-        if (pos >= 0) {
-            fileExtension = fileNameInContentUri.substring(pos);
-        }
-        return fileExtension;
     }
 }
