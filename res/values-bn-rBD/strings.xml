@@ -50,6 +50,7 @@
   <string name="uploader_wrn_no_content_text">কোন কনটেনট আসেনি৷ আপলোডের কনটেনট নেই</string>
   <string name="uploader_error_forbidden_content">এই যৌথ কনটেন্ট এ %1$s এর প্রবেশ অনুমোদিত নয়</string>
   <string name="uploader_info_uploading">আপলোড করা হচ্ছে</string>
+  <string name="file_list_seconds_ago">সেকেন্ড পূর্বে</string>
   <string name="file_list_empty">এখানে কিছুই নেই। কিছু আপলোড করুন !</string>
   <string name="file_list_loading">লোড হচ্ছে....</string>
   <string name="local_file_list_empty">এই ফোলডারে কোন ফাইল নেই</string>

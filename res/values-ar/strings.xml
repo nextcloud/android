@@ -50,6 +50,7 @@
   <string name="uploader_wrn_no_content_text">لم يتم استلام أي محتوى. لا شيء للرفع.</string>
   <string name="uploader_error_forbidden_content">%1$s  غير مسموح له بالوصول للمحتوى المشارك</string>
   <string name="uploader_info_uploading">يتم الرفع</string>
+  <string name="file_list_seconds_ago">منذ ثواني</string>
   <string name="file_list_empty">لا يوجد شيء هنا. إرفع بعض الملفات!</string>
   <string name="file_list_loading">جاري التحميل ...</string>
   <string name="filedetails_select_file">اضغظ على الملف ليتم عرض خيارات أكثر</string>

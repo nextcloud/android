@@ -11,6 +11,12 @@
   <string name="actionbar_settings">設定</string>
   <string name="actionbar_see_details">詳細資料</string>
   <string name="actionbar_send_file">寄出</string>
+  <string name="actionbar_sort">排序</string>
+  <string name="actionbar_sort_title">排序依照</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>最新 - 最舊</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">一般</string>
@@ -32,6 +38,8 @@
   <string name="prefs_recommend">推薦給朋友</string>
   <string name="prefs_feedback">反饋</string>
   <string name="prefs_imprint">法律聲明</string>
+  <string name="prefs_remember_last_share_location">記住分享位置</string>
+  <string name="prefs_remember_last_upload_location_summary">記住上次分享上傳位置</string>
   <string name="recommend_subject">在您的手機中試用%1$s!</string>
   <string name="recommend_text">我想邀請您在您的手機上使用 %1$s ! 可以由這兒下載: %2$s</string>
   <string name="auth_check_server">檢查伺服器</string>
@@ -51,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">沒接到任何內容。沒有什麼可上載。</string>
   <string name="uploader_error_forbidden_content">%1$s 並沒有被允許存取分享的內容</string>
   <string name="uploader_info_uploading">上傳中</string>
+  <string name="file_list_seconds_ago">幾秒前</string>
   <string name="file_list_empty">這裡還沒有東西，上傳一些吧！</string>
   <string name="file_list_loading">載入中…</string>
   <string name="local_file_list_empty">這個目錄中沒有任何檔案.</string>

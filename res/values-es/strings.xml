@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Recomendar a un amigo</string>
   <string name="prefs_feedback">Mensajes de retroalimentación</string>
   <string name="prefs_imprint">pie de imprenta</string>
+  <string name="prefs_remember_last_share_location">Recordar la ubicación de los archivos compartidos</string>
+  <string name="prefs_remember_last_upload_location_summary">Recordar la ubicación de los últimos archivos compartidos subidos</string>
   <string name="recommend_subject">Prueba  %1$s en tu smarthphone!</string>
   <string name="recommend_text">¡Quiero invitarle a usar %1$s en su smartphone!\nDescárguelo aquí: %2$s</string>
   <string name="auth_check_server">Compruebe el servidor.</string>
@@ -57,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Ningún contenido ha sido recibido. No hay nada que subir.</string>
   <string name="uploader_error_forbidden_content">%1$s no está autorizado para acceder al contenido compartido</string>
   <string name="uploader_info_uploading">Subiendo...</string>
+  <string name="file_list_seconds_ago">hace segundos</string>
   <string name="file_list_empty">No hay nada aquí. ¡Suba algo!</string>
   <string name="file_list_loading">Cargando...</string>
   <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>

@@ -57,6 +57,7 @@
   <string name="uploader_wrn_no_content_text">Не отримано даних. Нічого завантажувати.</string>
   <string name="uploader_error_forbidden_content">%1$s не може отримати доступ до спільного контенту</string>
   <string name="uploader_info_uploading">Завантаження</string>
+  <string name="file_list_seconds_ago">секунди тому</string>
   <string name="file_list_empty">Тут нічого немає. Відвантажте що-небудь!</string>
   <string name="file_list_loading">Завантаження...</string>
   <string name="local_file_list_empty">В цій теці немає файлів.</string>

@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Aanbevelen bij een vriend</string>
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">afdruk</string>
+  <string name="prefs_remember_last_share_location">Onthoud de share locatie</string>
+  <string name="prefs_remember_last_upload_location_summary">Onthoud de laatste upload locatie</string>
   <string name="recommend_subject">Probeer %1$s op uw smartphone!</string>
   <string name="recommend_text">Uitnodiging om %1$s op uw smartphone uit te proberen!
 Download hier: %2$s</string>
@@ -58,6 +60,7 @@ Download hier: %2$s</string>
   <string name="uploader_wrn_no_content_text">Er werd geen inhoud ontvangen. Niets om te uploaden.</string>
   <string name="uploader_error_forbidden_content">%1$s is niet toegestaan om toegang te hebben tot de publieke inhoud</string>
   <string name="uploader_info_uploading">Uploaden</string>
+  <string name="file_list_seconds_ago">seconden geleden</string>
   <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
   <string name="file_list_loading">Laden ...</string>
   <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
@@ -68,7 +71,7 @@ Download hier: %2$s</string>
   <string name="filedetails_modified">Aangepast:</string>
   <string name="filedetails_download">Download</string>
   <string name="filedetails_sync_file">Bestand verversen</string>
-  <string name="filedetails_renamed_in_upload_msg">Bestand was hernoemt naar %1$s tijdens het uploaden</string>
+  <string name="filedetails_renamed_in_upload_msg">Bestand is tijdens het uploaden hernoemd naar %1$s</string>
   <string name="action_share_file">Deel link</string>
   <string name="action_unshare_file">Link niet meer delen</string>
   <string name="common_yes">Ja</string>
@@ -117,7 +120,7 @@ Download hier: %2$s</string>
 Door deze aanpassing werden alle bestanden die met een eerdere versie zijn ge-uploaded gekopieerd naar de %2$s map. Maar een fout voorkwam het succesvol afronden van deze actie tijdens het synchroniseren. U kunt de/het bestand(en) laten staan zoals ze nu zijn en de link naar %3$s verwijderen, of u kunt de bestanden verplaatsen naar de %1$s map en de link naar %4$s laten staan.
 Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar verwezen.</string>
   <string name="sync_current_folder_was_removed">Map %1$s bestaat niet meer</string>
-  <string name="foreign_files_move">Alle verplaatsen</string>
+  <string name="foreign_files_move">Alles verplaatsen</string>
   <string name="foreign_files_success">Alle bestanden zijn verplaatst</string>
   <string name="foreign_files_fail">Een paar bestanden konden niet worden verplaatst</string>
   <string name="foreign_files_local_text">Lokaal: %1$s</string>

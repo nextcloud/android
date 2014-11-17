@@ -15,6 +15,7 @@
   <string name="sync_string_files">Files</string>
   <string name="setup_btn_connect">Connecte</string>
   <string name="uploader_btn_upload_text">Incargar</string>
+  <string name="file_list_seconds_ago">secundas passate</string>
   <string name="file_list_empty">Nihil hic. Incarga alcun cosa!</string>
   <string name="filedetails_download">Discargar</string>
   <string name="action_share_file">Compartir ligamine</string>

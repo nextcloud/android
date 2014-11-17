@@ -55,6 +55,7 @@
   <string name="uploader_wrn_no_content_text">Ez da edukirik jaso. Ez dago ezer igotzeko.</string>
   <string name="uploader_error_forbidden_content">%1$s-(e)k ez du baimenik elkarbanatutako edukian sartzeko</string>
   <string name="uploader_info_uploading">Igotzen</string>
+  <string name="file_list_seconds_ago">segundu</string>
   <string name="file_list_empty">Ez dago ezer. Igo zerbait!</string>
   <string name="file_list_loading">Kargatzen...</string>
   <string name="local_file_list_empty">Ez dago fitxategirik karpeta honetan.</string>
