@@ -62,7 +62,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
-public class FolderPickerActivity extends HookActivity implements FileFragment.ContainerActivity, 
+public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity, 
     OnClickListener, OnEnforceableRefreshListener {
 
     public static final String EXTRA_CURRENT_FOLDER = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CURRENT_FOLDER";
@@ -180,7 +180,7 @@ public class FolderPickerActivity extends HookActivity implements FileFragment.C
         }
     }
 
-    private OCFileListFragment getListOfFilesFragment() {
+    protected OCFileListFragment getListOfFilesFragment() {
         Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(FolderPickerActivity.TAG_LIST_OF_FOLDERS);
         if (listOfFiles != null) {
             return (OCFileListFragment)listOfFiles;
@@ -341,7 +341,7 @@ public class FolderPickerActivity extends HookActivity implements FileFragment.C
         }
     }
 
-    private void updateNavigationElementsInActionBar() {
+    protected void updateNavigationElementsInActionBar() {
         ActionBar actionBar = getSupportActionBar();
         OCFile currentDir = getCurrentFolder();
         boolean atRoot = (currentDir == null || currentDir.getParentId() == 0);

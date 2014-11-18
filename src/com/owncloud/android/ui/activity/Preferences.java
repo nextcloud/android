@@ -41,7 +41,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
@@ -253,7 +252,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         Intent intent = new Intent(Preferences.this, UploadPathActivity.class);
-                        intent.putExtra("instant_upload_path", mUploadPath);
+                        intent.putExtra(UploadPathActivity.KEY_INSTANT_UPLOAD_PATH, mUploadPath);
                         startActivityForResult(intent, ACTION_SELECT_UPLOAD_PATH);
                         return true;
                     }

@@ -17,39 +17,65 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
 import android.content.Intent;
 
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
-
-
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 
+public class UploadPathActivity extends FolderPickerActivity implements FileFragment.ContainerActivity,
+        OnClickListener, OnEnforceableRefreshListener {
 
-public class UploadPathActivity extends FolderPickerActivity implements FileFragment.ContainerActivity, 
-    OnClickListener, OnEnforceableRefreshListener {
+    public static final String KEY_INSTANT_UPLOAD_PATH = "INSTANT_UPLOAD_PATH";
 
     public static final int RESULT_OK_SET_UPLOAD_PATH = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        Intent intent = getIntent();
-        String instantUploadPath = intent.getStringExtra("instant_upload_path");
-        
+
+        String instantUploadPath = getIntent().getStringExtra(KEY_INSTANT_UPLOAD_PATH);
+
         OCFile folder = new OCFile(instantUploadPath);
-        
-        Toast.makeText(getApplicationContext(), instantUploadPath, Toast.LENGTH_LONG).show();
-        
-//        onBrowsedDownTo(folder);
+
+        setFile(folder);
     }
 
+    /**
+     * Called when the ownCloud {@link Account} associated to the Activity was
+     * just updated.
+     */
+    @Override
+    protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
+        if (getAccount() != null) {
+
+            updateFileFromDB();
+
+            OCFile folder = getFile();
+            if (folder == null || !folder.isFolder()) {
+                // fall back to root folder
+                setFile(getStorageManager().getFileByPath(OCFile.ROOT_PATH));
+                folder = getFile();
+            }
+
+            onBrowsedDownTo(folder);
+
+            if (!stateWasRecovered) {
+                OCFileListFragment listOfFolders = getListOfFilesFragment();
+                listOfFolders.listDirectory(folder);
+
+                startSyncFolderOperation(folder, false);
+            }
+
+            updateNavigationElementsInActionBar();
+        }
+    }
 
     @Override
     public void onClick(View v) {
