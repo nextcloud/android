@@ -906,10 +906,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      * @return The path to the content or null if it could not be found
      */
     public String getPath(Uri uri) {
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        final boolean isKitKatOrLater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
         // DocumentProvider
-        if (isKitKat && DocumentsContract.isDocumentUri(getApplicationContext(), uri)) {
+        if (isKitKatOrLater && DocumentsContract.isDocumentUri(getApplicationContext(), uri)) {
             // ExternalStorageProvider
             if (UriUtils.isExternalStorageDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
