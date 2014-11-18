@@ -31,6 +31,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncDrawable;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -143,19 +145,23 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
      // decide image vs. file view
-        double count = 0;
-        
+        double countImages = 0;
+        double countFiles = 0;
         
         for (OCFile file : mFiles){
-            if (file.isImage()){
-                count++;
+            if (!file.isFolder()){
+                countFiles++;
+                
+                if (file.isImage()){
+                    countImages++;
+                }
             }
         }
         
         // TODO threshold as constant in Preferences
         // > 50% Images --> image view
         boolean fileView = true;
-        if ((count / mFiles.size()) >= 0.5){
+        if ((countImages / countFiles) >= 0.5){
             fileView = false;
         } else {
             fileView = true;
@@ -212,7 +218,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
                 
                 lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+                lastModV.setText(showRelativeTimestamp(file));
                 
                 checkBoxV.setVisibility(View.GONE);
                 
@@ -573,5 +579,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mSortAscending = ascending;
         
         sortDirectory();
+    }
+    
+    private CharSequence showRelativeTimestamp(OCFile file){
+        return DisplayUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
+                DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
     }
 }

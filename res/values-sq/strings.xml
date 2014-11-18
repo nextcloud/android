@@ -24,6 +24,7 @@
   <string name="uploader_wrn_no_account_setup_btn_text">Ndërto</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Dil</string>
   <string name="uploader_info_uploading">Ngarko</string>
+  <string name="file_list_seconds_ago">sekonda më parë</string>
   <string name="file_list_empty">Këtu nuk ka asgje. Ngarko dicka</string>
   <string name="filedetails_select_file">Trokitje e lehtë në një dokument për të shfaqur informacion shtesë.</string>
   <string name="filedetails_size">Dimensioni:</string>

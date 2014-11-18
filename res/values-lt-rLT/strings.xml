@@ -50,6 +50,7 @@
   <string name="uploader_wrn_no_content_text">nebuvo gauta turinio. Nėra įkeltino turinio</string>
   <string name="uploader_error_forbidden_content">%1$s neleidžiama prieiti prie turinio, kuriuo dalijamasi</string>
   <string name="uploader_info_uploading">Išsiunčiama</string>
+  <string name="file_list_seconds_ago">prieš sekundę</string>
   <string name="file_list_empty">Čia tuščia. Įkelkite ką nors!</string>
   <string name="file_list_loading">Įkeliama ...</string>
   <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>

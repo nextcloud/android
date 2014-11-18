@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Recommend to a friend</string>
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Remember share location</string>
+  <string name="prefs_remember_last_upload_location_summary">Remember last share upload location</string>
   <string name="recommend_subject">Try %1$s on your smartphone!</string>
   <string name="recommend_text">I want to invite you to use %1$s on your smartphone!\nDownload here: %2$s</string>
   <string name="auth_check_server">Check Server</string>
@@ -57,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">No content was received. Nothing to upload.</string>
   <string name="uploader_error_forbidden_content">%1$s is not allowed to access the shared content</string>
   <string name="uploader_info_uploading">Uploading</string>
+  <string name="file_list_seconds_ago">seconds ago</string>
   <string name="file_list_empty">Nothing in here. Upload something!</string>
   <string name="file_list_loading">Loading...</string>
   <string name="local_file_list_empty">There are no files in this folder.</string>

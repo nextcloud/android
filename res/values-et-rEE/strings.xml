@@ -11,6 +11,12 @@
   <string name="actionbar_settings">Seaded</string>
   <string name="actionbar_see_details">Üksikasjad</string>
   <string name="actionbar_send_file">Saada</string>
+  <string name="actionbar_sort">Sorteeri</string>
+  <string name="actionbar_sort_title">Sorteeri</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Uuem - vanem</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Üldine</string>
@@ -32,6 +38,8 @@
   <string name="prefs_recommend">Soovita sõbrale</string>
   <string name="prefs_feedback">Tagasiside</string>
   <string name="prefs_imprint">Impressum</string>
+  <string name="prefs_remember_last_share_location">Jäta meelde jagamise asukoht</string>
+  <string name="prefs_remember_last_upload_location_summary">Jäta meelde viimase jagamise üleslaadimise asukoht</string>
   <string name="recommend_subject">Proovi oma nutitelefonil rakendust %1$s!</string>
   <string name="recommend_text">Kutsun sind kasutama oma nutitelefonis rakendust %1$s!\nLaadi see alla siit: %2$s</string>
   <string name="auth_check_server">Kontrolli serverit</string>
@@ -51,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Sisu ei saadud. Pole midagi üles laadida.</string>
   <string name="uploader_error_forbidden_content">%1$sile pole lubatud ligipääs jagatud sisule</string>
   <string name="uploader_info_uploading">Üleslaadimine</string>
+  <string name="file_list_seconds_ago">sekundit tagasi</string>
   <string name="file_list_empty">Siin pole midagi. Lae midagi üles!</string>
   <string name="file_list_loading">Laen ...</string>
   <string name="local_file_list_empty">Kaustas pole faile.</string>

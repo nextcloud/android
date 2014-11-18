@@ -38,6 +38,8 @@
   <string name="prefs_recommend">友達に推薦</string>
   <string name="prefs_feedback">フィードバック</string>
   <string name="prefs_imprint">インプリント</string>
+  <string name="prefs_remember_last_share_location">共有場所を記憶する</string>
+  <string name="prefs_remember_last_upload_location_summary">最後に共有アップロードした場所を記憶する</string>
   <string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
   <string name="recommend_text">スマートフォンで %1$s を利用してみませんか！
 ここからダウンロードしてください: %2$s</string>
@@ -58,6 +60,7 @@
   <string name="uploader_wrn_no_content_text">コンテンツを受信しませんでした。アップロードするものはありません。</string>
   <string name="uploader_error_forbidden_content">%1$sで共有コンテンツへのアクセスが許可されていません。</string>
   <string name="uploader_info_uploading">アップロード中</string>
+  <string name="file_list_seconds_ago">数秒前</string>
   <string name="file_list_empty">ここには何もありません。何かアップロードしてください。</string>
   <string name="file_list_loading">読込中 ...</string>
   <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>

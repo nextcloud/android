@@ -51,6 +51,7 @@
   <string name="uploader_wrn_no_content_text">Inget innehåll mottaget. Inget att ladda upp.</string>
   <string name="uploader_error_forbidden_content">%1$s har inte rättighet till det delade innehållet</string>
   <string name="uploader_info_uploading">Laddar upp</string>
+  <string name="file_list_seconds_ago">sekunder sedan</string>
   <string name="file_list_empty">Ingenting här. Ladda upp något!</string>
   <string name="file_list_loading">Laddar...</string>
   <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>

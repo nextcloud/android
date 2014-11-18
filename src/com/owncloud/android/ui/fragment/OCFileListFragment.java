@@ -387,18 +387,23 @@ public class OCFileListFragment extends ExtendedListFragment {
             mFile = directory;
             
          // decide image vs. file view
-            double count = 0;
+            double countImages = 0;
+            double countFiles = 0;
             
             Vector<OCFile> files = storageManager.getFolderContent(directory);
             for (OCFile file : files){
-                if (file.isImage()){
-                    count++;
+                if (!file.isFolder()){
+                    countFiles++;
+                    
+                    if (file.isImage()){
+                        countImages++;
+                    }
                 }
             }
             
             // > 50% Images --> image view
             // TODO threshold as constant in Preferences
-            if ((count / files.size()) >= 0.5){
+            if ((countImages / countFiles) >= 0.5){
                 Log_OC.i(TAG, "Image View");
                 switchImageView();
             } else {

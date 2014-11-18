@@ -51,6 +51,7 @@
   <string name="uploader_wrn_no_content_text">Intet innhold ble mottatt. Intet å laste opp.</string>
   <string name="uploader_error_forbidden_content">%1$s har ikke tilgang til det delte innholdet</string>
   <string name="uploader_info_uploading">Laster opp</string>
+  <string name="file_list_seconds_ago">for få sekunder siden</string>
   <string name="file_list_empty">Ingenting her. Last opp noe!</string>
   <string name="file_list_loading">Laster...</string>
   <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>

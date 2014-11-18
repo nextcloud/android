@@ -62,6 +62,7 @@
     <string name="uploader_wrn_no_content_text">No content was received. Nothing to upload.</string>
     <string name="uploader_error_forbidden_content">%1$s is not allowed to access the shared content</string>
     <string name="uploader_info_uploading">Uploading</string>
+    <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_empty">Nothing in here. Upload something!</string>
     <string name="file_list_loading">Loading...</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
