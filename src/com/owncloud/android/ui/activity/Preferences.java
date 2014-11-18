@@ -41,6 +41,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
@@ -50,6 +51,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.LongClickableCheckBoxPreference;
@@ -66,6 +68,8 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     
     private static final String TAG = "OwnCloudPreferences";
 
+    private static final int ACTION_SELECT_UPLOAD_PATH = 1;
+
     private DbHandler mDbHandler;
     private CheckBoxPreference pCode;
     private Preference pAboutApp;
@@ -75,6 +79,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     private String mAccountName;
     private boolean mShowContextMenu = false;
     private String mUploadPath;
+    private Preference mPrefInstantUploadPath;
 
 
     @SuppressWarnings("deprecation")
@@ -88,8 +93,6 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.actionbar_settings);
-
-        loadInstantUploadPath();
 
         // Load the accounts category for adding the list of accounts
         mAccountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
@@ -243,15 +246,18 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
             }
         }
 
-        Preference pInstantUploadPathApp = (Preference) findPreference("instant_upload_path");
+        mPrefInstantUploadPath =  findPreference("instant_upload_path");
+        if (mPrefInstantUploadPath != null){
 
-        pInstantUploadPathApp.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                mUploadPath = updateInstantUploadPath(newValue.toString());
-                return true;
-            }
-        });
+            mPrefInstantUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        startActivityForResult(new Intent(Preferences.this, MoveActivity.class),
+                                ACTION_SELECT_UPLOAD_PATH);
+                        return true;
+                    }
+                });
+        }
             
         /* About App */
        pAboutApp = (Preference) findPreference("about_app");
@@ -265,6 +271,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                    Log_OC.e(TAG, "Error while showing about dialog", e);
                }
        }
+
+       loadInstantUploadPath();
+
     }
 
     @Override
@@ -371,6 +380,16 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ACTION_SELECT_UPLOAD_PATH && (resultCode == RESULT_OK || 
+                resultCode == MoveActivity.RESULT_OK_AND_MOVE)){
+
+            OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(MoveActivity.EXTRA_CURRENT_FOLDER);
+
+            mUploadPath = folderToMoveAt.getRemotePath();
+
+            saveInstantUploadPathOnPreferences();
+        }
     }
 
     @Override
@@ -483,43 +502,19 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     }
 
     /**
-     * Update the upload path checking that it is a correct path
-     * @param uploadPath: path write by user
-     * @return String: uploadPath
-     */
-    private String updateInstantUploadPath(String uploadPath) {
-        String slashString = "/";
-
-        // If slashes are duplicated, replace them for only one slash
-        uploadPath = uploadPath.replaceAll("/+", slashString);
-
-        // Remove last slash from path
-        if (uploadPath.length() > 0 && uploadPath.charAt(uploadPath.length()-1) == slashString.charAt(0)) {
-            uploadPath = uploadPath.substring(0, uploadPath.length()-1);
-        }
-
-        if (uploadPath.isEmpty()) { // Set default instant upload path
-            uploadPath = getString(R.string.instant_upload_path);
-        }else {
-            if (!uploadPath.startsWith(slashString)) { // Add initial slash on path if necessary
-                uploadPath = slashString.concat(uploadPath);
-            }
-        }
-        return uploadPath;
-    }
-
-    /**
      * Load upload path set on preferences
      */
     private void loadInstantUploadPath() {
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mUploadPath = appPrefs.getString("instant_upload_path", getString(R.string.instant_upload_path));
+        mPrefInstantUploadPath.setSummary(mUploadPath);
     }
 
     /**
      * Save the "Instant Upload Path" on preferences
      */
     private void saveInstantUploadPathOnPreferences() {
+        mPrefInstantUploadPath.setSummary(mUploadPath);
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());        
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString("instant_upload_path", mUploadPath);
