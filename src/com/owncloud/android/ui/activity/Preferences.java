@@ -252,8 +252,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
             mPrefInstantUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        startActivityForResult(new Intent(Preferences.this, MoveActivity.class),
-                                ACTION_SELECT_UPLOAD_PATH);
+                        Intent intent = new Intent(Preferences.this, UploadPathActivity.class);
+                        intent.putExtra("instant_upload_path", mUploadPath);
+                        startActivityForResult(intent, ACTION_SELECT_UPLOAD_PATH);
                         return true;
                     }
                 });
@@ -382,9 +383,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ACTION_SELECT_UPLOAD_PATH && (resultCode == RESULT_OK || 
-                resultCode == MoveActivity.RESULT_OK_AND_MOVE)){
+                resultCode == UploadPathActivity.RESULT_OK_SET_UPLOAD_PATH)){
 
-            OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(MoveActivity.EXTRA_CURRENT_FOLDER);
+            OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_CURRENT_FOLDER);
 
             mUploadPath = folderToMoveAt.getRemotePath();
 
