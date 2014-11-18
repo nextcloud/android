@@ -32,7 +32,7 @@
 	</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefs_category_instant_uploading">
-        <Preference android:title="@string/prefs_instant_upload_path_title" android:key="instant_upload_path" />
+        <com.owncloud.android.ui.PreferenceWithLongSummary android:title="@string/prefs_instant_upload_path_title" android:key="instant_upload_path" />
 	    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:key="instant_uploading"
 	                        android:title="@string/prefs_instant_upload"
 	                        android:summary="@string/prefs_instant_upload_summary"/>
