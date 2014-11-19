@@ -59,7 +59,7 @@ public class ThumbnailsCacheManager {
     private static final String TAG = ThumbnailsCacheManager.class.getSimpleName();
     
     private static final String CACHE_FOLDER = "thumbnailCache";
-    private static final String MINOR_SERVER_VERSION_FOR_THUMBS = "6.8.0";
+    private static final String MINOR_SERVER_VERSION_FOR_THUMBS = "7.8.0";
     
     private static final Object mThumbnailsDiskCacheLock = new Object();
     private static DiskLruImageCache mThumbnailCache = null;

@@ -95,16 +95,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         
         View v = inflater.inflate(R.layout.list_fragment, null);
         
-//        imageView = (GridView) v.findViewById(R.id.grid_list_view);
-//        imageView.setOnItemClickListener(this);
-        
-       // mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         imageView = (ExtendedListView)(v.findViewById(R.id.list_root));
         imageView.setOnItemClickListener(this);
-
-        //mList.set
-        //mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
-        //mList.setDividerHeight(1);
 
         if (savedInstanceState != null) {
             int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
@@ -118,8 +110,6 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         onCreateSwipeToRefresh(mRefreshLayout);
         onCreateSwipeToRefresh(mRefreshEmptyLayout);
         
-//        mList.setEmptyView(mRefreshEmptyLayout);
-
         return v;
     }
 
