@@ -317,4 +317,7 @@
 
 	<string name="prefs_category_instant_uploading">Instant Uploads</string>
 	<string name="prefs_category_security">Security</string>
+
+	<string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
+
 </resources>

@@ -68,6 +68,8 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     private static final String TAG = "OwnCloudPreferences";
 
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
+    private static final int ACTION_SELECT_UPLOAD_VIDEO_PATH = 2;
+
 
     private DbHandler mDbHandler;
     private CheckBoxPreference pCode;
@@ -79,6 +81,8 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     private boolean mShowContextMenu = false;
     private String mUploadPath;
     private Preference mPrefInstantUploadPath;
+    private Preference mPrefInstantVideoUploadPath;
+    private String mUploadVideoPath;
 
 
     @SuppressWarnings("deprecation")
@@ -258,6 +262,20 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                     }
                 });
         }
+
+        mPrefInstantVideoUploadPath =  findPreference("instant_video_upload_path");
+        if (mPrefInstantVideoUploadPath != null){
+
+            mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent(Preferences.this, UploadPathActivity.class);
+                        intent.putExtra(UploadPathActivity.KEY_INSTANT_UPLOAD_PATH, mUploadVideoPath);
+                        startActivityForResult(intent, ACTION_SELECT_UPLOAD_VIDEO_PATH);
+                        return true;
+                    }
+                });
+        }
             
         /* About App */
        pAboutApp = (Preference) findPreference("about_app");
@@ -273,12 +291,12 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
        }
 
        loadInstantUploadPath();
+       loadInstantUploadVideoPath();
 
     }
 
     @Override
     protected void onPause() {
-        saveInstantUploadPathOnPreferences();
         super.onPause();
     }
 
@@ -384,11 +402,19 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         if (requestCode == ACTION_SELECT_UPLOAD_PATH && (resultCode == RESULT_OK || 
                 resultCode == UploadPathActivity.RESULT_OK_SET_UPLOAD_PATH)){
 
-            OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_CURRENT_FOLDER);
+            OCFile folderToUpload = (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_CURRENT_FOLDER);
 
-            mUploadPath = folderToMoveAt.getRemotePath();
+            mUploadPath = folderToUpload.getRemotePath();
 
             saveInstantUploadPathOnPreferences();
+        } else if (requestCode == ACTION_SELECT_UPLOAD_VIDEO_PATH && (resultCode == RESULT_OK || 
+                resultCode == UploadPathActivity.RESULT_OK_SET_UPLOAD_PATH)){
+
+            OCFile folderToUploadVideo = (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_CURRENT_FOLDER);
+
+            mUploadVideoPath = folderToUploadVideo.getRemotePath();
+
+            saveInstantUploadVideoPathOnPreferences();
         }
     }
 
@@ -518,6 +544,26 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());        
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString("instant_upload_path", mUploadPath);
+        editor.commit();
+    }
+
+    /**
+     * Load upload video path set on preferences
+     */
+    private void loadInstantUploadVideoPath() {
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mUploadVideoPath = appPrefs.getString("instant_video_upload_path", getString(R.string.instant_upload_path));
+        mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
+    }
+
+    /**
+     * Save the "Instant Video Upload Path" on preferences
+     */
+    private void saveInstantUploadVideoPathOnPreferences() {
+        mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());        
+        SharedPreferences.Editor editor = appPrefs.edit();
+        editor.putString("instant_video_upload_path", mUploadVideoPath);
         editor.commit();
     }
 }
