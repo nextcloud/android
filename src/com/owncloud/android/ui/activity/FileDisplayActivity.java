@@ -710,6 +710,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                             cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                     Log.i(TAG, "Display Name: " + displayName + "; mimeType: " + mimeType);
 
+                    displayName.replace(File.separatorChar, '_');
+                    displayName.replace(File.pathSeparatorChar, '_');
                     remotepath += displayName + DisplayUtils.getComposedFileExtension(filepath);
 
                 }
