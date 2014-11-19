@@ -267,6 +267,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         menu.findItem(R.id.action_upload).setVisible(false);
         menu.findItem(R.id.action_settings).setVisible(false);
         menu.findItem(R.id.action_sync_account).setVisible(false);
+        menu.findItem(R.id.action_logger).setVisible(false);
+        menu.findItem(R.id.action_sort).setVisible(false);
         return true;
     }
 
