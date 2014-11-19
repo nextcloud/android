@@ -133,7 +133,8 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             fileSizeV.setVisibility(View.VISIBLE);
             fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
             
-            view.findViewById(R.id.localFileIndicator).setVisibility(View.INVISIBLE);   // not GONE; the alignment changes; ugly way to keep it
+            // not GONE; the alignment changes; ugly way to keep it
+            view.findViewById(R.id.localFileIndicator).setVisibility(View.INVISIBLE);   
             view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
             
             view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);

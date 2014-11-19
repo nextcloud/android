@@ -151,8 +151,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
 
     
     /**
-     * Calculates the position of the item that will be used as a reference to reposition the visible items in the list when
-     * the device is turned to other position. 
+     * Calculates the position of the item that will be used as a reference to reposition the visible items 
+     * in the list when the device is turned to other position. 
      * 
      * THe current policy is take as a reference the visible item in the center of the screen.  
      * 
@@ -170,7 +170,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     /**
      * Sets the visible part of the list from the reference position.
      * 
-     * @param   position    Reference position previously returned by {@link LocalFileListFragment#getReferencePosition()}
+     * @param   position    Reference position previously 
+     * returned by {@link LocalFileListFragment#getReferencePosition()}
      */
     protected void setReferencePosition(int position) {
         if (imageView != null) {

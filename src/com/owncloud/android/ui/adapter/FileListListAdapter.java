@@ -527,7 +527,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
                     Long obj1 = getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o1)));
-                    return val * obj1.compareTo(getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
+                    return val * obj1.compareTo(getFolderSize(
+                            new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
                 }
                 else if (o1.isFolder()) {
                     return -1;
