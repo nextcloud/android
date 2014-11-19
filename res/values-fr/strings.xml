@@ -42,7 +42,7 @@
   <string name="prefs_remember_last_upload_location_summary">Mémoriser le dernier emplacement d\'upload</string>
   <string name="recommend_subject">Essayez %1$s sur votre smartphone&amp;nbsp;!</string>
   <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !
-Téléchargez-le ici&amp;nbsp;: %2$s</string>
+Téléchargez-le ici : %2$s</string>
   <string name="auth_check_server">Vérifier le serveur</string>
   <string name="auth_host_url">Adresse du serveur https://…</string>
   <string name="auth_username">Nom d\'utilisateur</string>
@@ -51,7 +51,7 @@ Téléchargez-le ici&amp;nbsp;: %2$s</string>
   <string name="sync_string_files">Fichiers</string>
   <string name="setup_btn_connect">Connecter</string>
   <string name="uploader_btn_upload_text">Téléverser</string>
-  <string name="uploader_top_message">Sélectionner le dossier d\'envoi&amp;nbsp;:</string>
+  <string name="uploader_top_message">Sélectionner le dossier d\'envoi :</string>
   <string name="uploader_wrn_no_account_title">Aucun compte n\'a été trouvé</string>
   <string name="uploader_wrn_no_account_text">Aucun compte %1$s n\'a été trouvé. Veuillez commencer par en configurer un.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Paramètres</string>
@@ -61,7 +61,7 @@ Téléchargez-le ici&amp;nbsp;: %2$s</string>
   <string name="uploader_error_forbidden_content">%1$s n\'est pas autorisé à accéder au contenu partagé</string>
   <string name="uploader_info_uploading">Téléversement</string>
   <string name="file_list_seconds_ago">il y a quelques secondes</string>
-  <string name="file_list_empty">Il n\'y a rien ici&amp;nbsp;! Envoyez donc quelque chose :)</string>
+  <string name="file_list_empty">Il n\'y a rien ici ! Envoyez donc quelque chose :)</string>
   <string name="file_list_loading">Chargement…</string>
   <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
   <string name="filedetails_select_file">Effleurez un fichier pour afficher les informations complémentaires</string>
@@ -178,7 +178,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_unauthorized">Nom d\'utilisateur ou mot de passe incorrect</string>
   <string name="auth_oauth_error">Échec d\'autorisation</string>
   <string name="auth_oauth_error_access_denied">Accès refusé par le serveur d\'autorisation</string>
-  <string name="auth_wtf_reenter_URL">État inattendu&amp;nbsp;; veuillez entrer à nouveau l\'URL du serveur</string>
+  <string name="auth_wtf_reenter_URL">État inattendu ; veuillez entrer à nouveau l\'URL du serveur</string>
   <string name="auth_expired_oauth_token_toast">Votre autorisation a expiré. Merci de vous authentifier à nouveau</string>
   <string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe courant</string>
   <string name="auth_expired_saml_sso_token_toast">Votre session a expiré. Merci de vous reconnecter</string>
@@ -224,7 +224,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="ssl_validator_btn_details_hide">Masquer</string>
   <string name="ssl_validator_label_subject">Délivré à&amp;nbsp;:</string>
   <string name="ssl_validator_label_issuer">Délivré par&amp;nbsp;:</string>
-  <string name="ssl_validator_label_CN">Nom d\'usage&amp;nbsp;:</string>
+  <string name="ssl_validator_label_CN">Nom d\'usage :</string>
   <string name="ssl_validator_label_O">Organisation&amp;nbsp;:</string>
   <string name="ssl_validator_label_OU">Unité organisationnelle&amp;nbsp;:</string>
   <string name="ssl_validator_label_C">Pays&amp;nbsp;:</string>
