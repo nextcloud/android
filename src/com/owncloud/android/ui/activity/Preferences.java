@@ -70,7 +70,6 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
     private static final int ACTION_SELECT_UPLOAD_VIDEO_PATH = 2;
 
-
     private DbHandler mDbHandler;
     private CheckBoxPreference pCode;
     private Preference pAboutApp;
@@ -255,6 +254,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
             mPrefInstantUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        if (!mUploadPath.endsWith(OCFile.PATH_SEPARATOR)) {
+                            mUploadPath += OCFile.PATH_SEPARATOR;
+                        }
                         Intent intent = new Intent(Preferences.this, UploadPathActivity.class);
                         intent.putExtra(UploadPathActivity.KEY_INSTANT_UPLOAD_PATH, mUploadPath);
                         startActivityForResult(intent, ACTION_SELECT_UPLOAD_PATH);
@@ -269,6 +271,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
             mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        if (!mUploadVideoPath.endsWith(OCFile.PATH_SEPARATOR)) {
+                            mUploadVideoPath += OCFile.PATH_SEPARATOR;
+                        }
                         Intent intent = new Intent(Preferences.this, UploadPathActivity.class);
                         intent.putExtra(UploadPathActivity.KEY_INSTANT_UPLOAD_PATH, mUploadVideoPath);
                         startActivityForResult(intent, ACTION_SELECT_UPLOAD_VIDEO_PATH);
@@ -406,13 +411,24 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
 
             mUploadPath = folderToUpload.getRemotePath();
 
+            mUploadPath = DisplayUtils.getPathWithoutLastSlash(mUploadPath);
+
+            // Show the path on summary preference
+            mPrefInstantUploadPath.setSummary(mUploadPath);
+
             saveInstantUploadPathOnPreferences();
+
         } else if (requestCode == ACTION_SELECT_UPLOAD_VIDEO_PATH && (resultCode == RESULT_OK || 
                 resultCode == UploadPathActivity.RESULT_OK_SET_UPLOAD_PATH)){
 
             OCFile folderToUploadVideo = (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_CURRENT_FOLDER);
 
             mUploadVideoPath = folderToUploadVideo.getRemotePath();
+
+            mUploadVideoPath = DisplayUtils.getPathWithoutLastSlash(mUploadVideoPath);
+
+            // Show the video path on summary preference
+            mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
 
             saveInstantUploadVideoPathOnPreferences();
         }
@@ -540,7 +556,6 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
      * Save the "Instant Upload Path" on preferences
      */
     private void saveInstantUploadPathOnPreferences() {
-        mPrefInstantUploadPath.setSummary(mUploadPath);
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());        
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString("instant_upload_path", mUploadPath);
@@ -560,7 +575,6 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
      * Save the "Instant Video Upload Path" on preferences
      */
     private void saveInstantUploadVideoPathOnPreferences() {
-        mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());        
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString("instant_video_upload_path", mUploadVideoPath);
