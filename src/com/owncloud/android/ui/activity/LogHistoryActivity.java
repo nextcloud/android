@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import android.content.ActivityNotFoundException;
@@ -126,7 +127,18 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
      */
     private void sendMail() {
 
-        String emailAddress = getString(R.string.mail_logger);
+        // For the moment we need to consider the possibility that setup.xml
+        // does not include the "mail_logger" entry. This block prevents that
+        // compilation fails in this case.
+        String emailAddress;
+        try {
+            Class<?> stringClass = R.string.class;
+            Field mailLoggerField = stringClass.getField("mail_logger");
+            int emailAddressId = (Integer) mailLoggerField.get(null);
+            emailAddress = getString(emailAddressId);
+        } catch (Exception e) {
+            emailAddress = "";
+        }
         
         ArrayList<Uri> uris = new ArrayList<Uri>();
 
@@ -142,7 +154,8 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
         Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
 
         intent.putExtra(Intent.EXTRA_EMAIL, emailAddress);
-        intent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.log_send_mail_subject));
+        String subject = String.format(getString(R.string.log_send_mail_subject), getString(R.string.app_name));
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setType(MAIL_ATTACHMENT_TYPE);
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
