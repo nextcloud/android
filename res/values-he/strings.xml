@@ -50,6 +50,7 @@
   <string name="uploader_wrn_no_content_text">לא התקבל תוכן. אין מה להעלות.</string>
   <string name="uploader_error_forbidden_content">ל־%1$s אין הרשאה לגשת לתוכן המשותף שלך</string>
   <string name="uploader_info_uploading">בהעלאה</string>
+  <string name="file_list_seconds_ago">שניות</string>
   <string name="file_list_empty">אין כאן שום דבר. אולי ברצונך להעלות משהו?</string>
   <string name="file_list_loading">בטעינה...</string>
   <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>

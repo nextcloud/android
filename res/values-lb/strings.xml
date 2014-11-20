@@ -24,6 +24,7 @@
   <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Erausgoen</string>
   <string name="uploader_info_uploading">Eroplueden</string>
+  <string name="file_list_seconds_ago">Sekonnen hir</string>
   <string name="file_list_empty">Hei ass näischt. Lued eppes rop!</string>
   <string name="filedetails_size">Gréisst:</string>
   <string name="filedetails_type">Typ:</string>

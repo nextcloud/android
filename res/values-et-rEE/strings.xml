@@ -59,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Sisu ei saadud. Pole midagi üles laadida.</string>
   <string name="uploader_error_forbidden_content">%1$sile pole lubatud ligipääs jagatud sisule</string>
   <string name="uploader_info_uploading">Üleslaadimine</string>
+  <string name="file_list_seconds_ago">sekundit tagasi</string>
   <string name="file_list_empty">Siin pole midagi. Lae midagi üles!</string>
   <string name="file_list_loading">Laen ...</string>
   <string name="local_file_list_empty">Kaustas pole faile.</string>

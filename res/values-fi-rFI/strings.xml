@@ -58,6 +58,7 @@
   <string name="uploader_wrn_no_content_text">Sisältöä ei saatu. Ei lähetettävää palvelimelle.</string>
   <string name="uploader_error_forbidden_content">%1$silla ei ole oikeuksia jaettuun sisältöön</string>
   <string name="uploader_info_uploading">Lähetetään</string>
+  <string name="file_list_seconds_ago">sekuntia sitten</string>
   <string name="file_list_empty">Täällä ei ole mitään. Lähetä tänne jotakin!</string>
   <string name="file_list_loading">Ladataan...</string>
   <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>

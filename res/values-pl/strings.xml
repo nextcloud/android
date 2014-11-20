@@ -57,6 +57,7 @@
   <string name="uploader_wrn_no_content_text">Nie otrzymano danych. Nie ma nic do wysłania.</string>
   <string name="uploader_error_forbidden_content">%1$s nie ma dostępu do udostępnionych treści</string>
   <string name="uploader_info_uploading">Wysyłanie</string>
+  <string name="file_list_seconds_ago">sekund temu</string>
   <string name="file_list_empty">Pusto. Wyślij coś!</string>
   <string name="file_list_loading">Ładowanie...</string>
   <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>

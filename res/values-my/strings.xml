@@ -7,6 +7,7 @@
   <string name="auth_username">သုံးစွဲသူအမည်</string>
   <string name="auth_password">စကားဝှက်</string>
   <string name="sync_string_files">ဖိုင်များ</string>
+  <string name="file_list_seconds_ago">စက္ကန့်အနည်းငယ်က</string>
   <string name="filedetails_download">ဒေါင်းလုတ်</string>
   <string name="common_yes">ဟုတ်</string>
   <string name="common_no">မဟုတ်ဘူး</string>

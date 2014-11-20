@@ -59,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Hiç içerik alınmadı. Yüklenecek hiçbir şey yok.</string>
   <string name="uploader_error_forbidden_content">%1$s için paylaşılan içeriğe erişim izni yok</string>
   <string name="uploader_info_uploading">Yükleniyor</string>
+  <string name="file_list_seconds_ago">saniyeler önce</string>
   <string name="file_list_empty">Burada hiçbir şey yok. Bir şeyler yükleyin!</string>
   <string name="file_list_loading">Yükleniyor...</string>
   <string name="local_file_list_empty">Bu klasörde dosya yok.</string>

@@ -59,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Intet indhold blev modtaget. Intet at uploade.</string>
   <string name="uploader_error_forbidden_content">%1$s er ikke tilladt adgang til delt indhold</string>
   <string name="uploader_info_uploading">Uploader</string>
+  <string name="file_list_seconds_ago">sekunder siden</string>
   <string name="file_list_empty">Her er tomt. Upload noget!</string>
   <string name="file_list_loading">Indlæser...</string>
   <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>

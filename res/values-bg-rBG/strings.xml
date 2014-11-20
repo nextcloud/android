@@ -59,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Не беше получено съдържание. Няма какво да се качи.</string>
   <string name="uploader_error_forbidden_content">%1$s няма разрешен достъп до споделеното съдържание.</string>
   <string name="uploader_info_uploading">Качване</string>
+  <string name="file_list_seconds_ago">преди секунди</string>
   <string name="file_list_empty">Тук няма нищо. Качете нещо!</string>
   <string name="file_list_loading">Зареждане...</string>
   <string name="local_file_list_empty">Няма файлове в тази папка.</string>
