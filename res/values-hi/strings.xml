@@ -11,6 +11,8 @@
   <string name="actionbar_settings">सेटिंग्स</string>
   <string name="actionbar_see_details">विवरण </string>
   <string name="actionbar_send_file">भेजें</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">सामान्य </string>
   <string name="prefs_category_more">और अधिक</string>
   <string name="prefs_accounts">खाते </string>

@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Configuración</string>
   <string name="actionbar_see_details">Detalles</string>
   <string name="actionbar_send_file">Mandar</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
@@ -48,6 +50,7 @@
   <string name="uploader_wrn_no_content_text">No se recibió ningún contenido. No hay nada para subir.</string>
   <string name="uploader_error_forbidden_content">%1$s no está autorizado para acceder al contenido compartido</string>
   <string name="uploader_info_uploading">Subiendo</string>
+  <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">No hay nada. ¡Subí contenido!</string>
   <string name="file_list_loading">Cargando...</string>
   <string name="local_file_list_empty">No existen archivos en esta carpeta.</string>

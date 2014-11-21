@@ -6,6 +6,8 @@
   <string name="actionbar_mkdir">Jauna mape</string>
   <string name="actionbar_settings">Iestatījumi</string>
   <string name="actionbar_send_file">Sūtīt</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Vispārīgi</string>
   <string name="prefs_category_more">Vairāk</string>
   <string name="prefs_accounts">Konti</string>
@@ -26,6 +28,7 @@
   <string name="uploader_wrn_no_content_text">Nav saņemts nekāds saturs. Nav ko augšupielādēt.</string>
   <string name="uploader_error_forbidden_content">%1$s nedrīkst piekļūt koplietotajam saturam</string>
   <string name="uploader_info_uploading">Augšupielādē</string>
+  <string name="file_list_seconds_ago">sekundes atpakaļ</string>
   <string name="file_list_empty">Te vēl nekas nav. Rīkojies, sāc augšupielādēt!</string>
   <string name="filedetails_select_file">Uzsitiet uz datnes, lai redzētu papildinformāciju.</string>
   <string name="filedetails_size">Izmērs:</string>

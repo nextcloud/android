@@ -3,6 +3,8 @@
   <string name="actionbar_upload">Amontcarga</string>
   <string name="actionbar_upload_files">Fichièrs</string>
   <string name="actionbar_settings">Configuracion</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Mai d\'aquò</string>
   <string name="prefs_accounts">Comptes</string>
@@ -17,6 +19,7 @@
   <string name="uploader_wrn_no_account_setup_btn_text">Configuracion</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quita</string>
   <string name="uploader_info_uploading">Al amontcargar</string>
+  <string name="file_list_seconds_ago">segonda a</string>
   <string name="file_list_empty">Pas res dedins. Amontcarga qualquaren</string>
   <string name="filedetails_size">Talha :</string>
   <string name="filedetails_type">Tipe :</string>

@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Quraşdırmalar</string>
   <string name="actionbar_see_details">Detallar</string>
   <string name="actionbar_send_file">Göndər</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Ümumi</string>
   <string name="prefs_category_more">Daha da</string>
   <string name="prefs_accounts">Hesablar</string>

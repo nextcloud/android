@@ -5,6 +5,8 @@
   <string name="actionbar_upload_files">Ffeiliau</string>
   <string name="actionbar_settings">Gosodiadau</string>
   <string name="actionbar_send_file">Anfon</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Cyffredinol</string>
   <string name="prefs_accounts">Cyfrifon</string>
   <string name="prefs_manage_accounts">Rheoli Cyfrifon</string>
@@ -25,6 +27,7 @@
   <string name="uploader_wrn_no_content_text">Heb dderbyn cynnwys. Dim cynnwys i lwytho i fyny</string>
   <string name="uploader_error_forbidden_content">Does dim mynediad gan %1$s i gynnwys a rennir</string>
   <string name="uploader_info_uploading">Yn llwytho i fyny</string>
+  <string name="file_list_seconds_ago">eiliad yn ôl</string>
   <string name="file_list_empty">Does dim byd fan hyn. Llwythwch rhywbeth i fyny!</string>
   <string name="filedetails_select_file">Tapiwch ffeil i ddangos gwybodaeth ychwanegol</string>
   <string name="filedetails_size">Maint:</string>

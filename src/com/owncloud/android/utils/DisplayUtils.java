@@ -18,6 +18,7 @@
 
 package com.owncloud.android.utils;
 
+import java.net.IDN;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,6 +26,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.os.Build;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 
 /**
@@ -35,6 +43,8 @@ import com.owncloud.android.R;
  */
 public class DisplayUtils {
     
+    private static final String OWNCLOUD_APP_NAME = "ownCloud";
+
     //private static String TAG = DisplayUtils.class.getSimpleName(); 
     
     private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
@@ -229,10 +239,85 @@ public class DisplayUtils {
     
     
     public static int getSeasonalIconId() {
-        if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) >= 354) {
+        if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) >= 354 &&
+                MainApp.getAppContext().getString(R.string.app_name).equals(OWNCLOUD_APP_NAME)) {
             return R.drawable.winter_holidays_icon;
         } else {
             return R.drawable.icon;
         }
+    }
+    
+    /**
+     * Converts an internationalized domain name (IDN) in an URL to and from ASCII/Unicode.
+     * @param url the URL where the domain name should be converted
+     * @param toASCII if true converts from Unicode to ASCII, if false converts from ASCII to Unicode
+     * @return the URL containing the converted domain name
+     */
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    public static String convertIdn(String url, boolean toASCII) {
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            // Find host name after '//' or '@'
+            int hostStart = 0;
+            if  (url.indexOf("//") != -1) {
+                hostStart = url.indexOf("//") + "//".length();
+            } else if (url.indexOf("@") != -1) {
+                hostStart = url.indexOf("@") + "@".length();
+            }
+            
+            int hostEnd = url.substring(hostStart).indexOf("/");
+            // Handle URL which doesn't have a path (path is implicitly '/')
+            hostEnd = (hostEnd == -1 ? url.length() : hostStart + hostEnd);
+            
+            String host = url.substring(hostStart, hostEnd);
+            host = (toASCII ? IDN.toASCII(host) : IDN.toUnicode(host));
+            
+            return url.substring(0, hostStart) + host + url.substring(hostEnd);
+        } else {
+            return url;
+        }
+    }
+
+    /**
+     * Get the file extension if it is on path as type "content://.../DocInfo.doc"
+     * @param filepath: Content Uri converted to string format
+     * @return String: fileExtension (type '.pdf'). Empty if no extension
+     */
+    public static String getComposedFileExtension(String filepath) {
+        String fileExtension = "";
+        String fileNameInContentUri = filepath.substring(filepath.lastIndexOf("/"));
+
+        // Check if extension is included in uri
+        int pos = fileNameInContentUri.lastIndexOf('.');
+        if (pos >= 0) {
+            fileExtension = fileNameInContentUri.substring(pos);
+        }
+        return fileExtension;
+    }
+
+    public static CharSequence getRelativeDateTimeString(Context c, long time, long minResolution, long transitionResolution, int flags){
+        CharSequence dateString = "";
+        
+        // in Future
+        if (time > System.currentTimeMillis()){
+            return DisplayUtils.unixTimeToHumanReadable(time);
+        } 
+        // < 60 seconds -> seconds ago
+        else if ((System.currentTimeMillis() - time) < 60 * 1000) {
+            return c.getString(R.string.file_list_seconds_ago);
+        } else {
+            // Workaround 2.x bug (see https://github.com/owncloud/android/issues/716)
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.HONEYCOMB && (System.currentTimeMillis() - time) > 24 * 60 * 60 * 1000){
+                Date date = new Date(time);
+                date.setHours(0);
+                date.setMinutes(0);
+                date.setSeconds(0);
+                dateString = DateUtils.getRelativeDateTimeString(c, date.getTime(), minResolution, transitionResolution, flags);
+            } else {
+                dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
+            }
+        }
+        
+        return dateString.toString().split(",")[0];
     }
 }
