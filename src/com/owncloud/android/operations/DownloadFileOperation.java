@@ -153,7 +153,6 @@ public class DownloadFileOperation extends RemoteOperation {
             newFile.getParentFile().mkdirs();
             moved = tmpFile.renameTo(newFile);
             
-                Log_OC.d("mediaScan", "mediaScan : " + newFile.getAbsolutePath());
                 MediaScannerConnection.scanFile(MainApp.getAppContext(), 
                         new String[]{newFile.getAbsolutePath()}, null, null);
                         
@@ -162,7 +161,6 @@ public class DownloadFileOperation extends RemoteOperation {
                 result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
         }
         Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage());
-        
         
         return result;
     }
