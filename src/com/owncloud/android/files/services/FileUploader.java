@@ -73,6 +73,7 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.UriUtils;
 
 
 
@@ -119,6 +120,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
+
+    private static final String MIME_TYPE_PDF = "application/pdf";
+    private static final String FILE_EXTENSION_PDF = ".pdf";
 
     
     public static String getUploadFinishMessage() {
@@ -646,18 +650,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
     private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType,
             FileDataStorageManager storageManager) {
-        OCFile newFile = new OCFile(remotePath);
-        newFile.setStoragePath(localPath);
-        newFile.setLastSyncDateForProperties(0);
-        newFile.setLastSyncDateForData(0);
-
-        // size
-        if (localPath != null && localPath.length() > 0) {
-            File localFile = new File(localPath);
-            newFile.setFileLength(localFile.length());
-            newFile.setLastSyncDateForData(localFile.lastModified());
-        } // don't worry about not assigning size, the problems with localPath
-          // are checked when the UploadFileOperation instance is created
 
         // MIME type
         if (mimeType == null || mimeType.length() <= 0) {
@@ -671,6 +663,25 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         if (mimeType == null) {
             mimeType = "application/octet-stream";
         }
+
+        if (isPdfFileFromContentProviderWithoutExtension(localPath, mimeType)){
+            remotePath += FILE_EXTENSION_PDF;
+        }
+
+        OCFile newFile = new OCFile(remotePath);
+        newFile.setStoragePath(localPath);
+        newFile.setLastSyncDateForProperties(0);
+        newFile.setLastSyncDateForData(0);
+
+        // size
+        if (localPath != null && localPath.length() > 0) {
+            File localFile = new File(localPath);
+            newFile.setFileLength(localFile.length());
+            newFile.setLastSyncDateForData(localFile.lastModified());
+        } // don't worry about not assigning size, the problems with localPath
+          // are checked when the UploadFileOperation instance is created
+
+
         newFile.setMimetype(mimeType);
 
         return newFile;
@@ -854,6 +865,19 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         end.putExtra(ACCOUNT_NAME, upload.getAccount().name);
         end.putExtra(EXTRA_UPLOAD_RESULT, uploadResult.isSuccess());
         sendStickyBroadcast(end);
+    }
+
+    /**
+     * Checks if content provider, using the content:// scheme, returns a file with mime-type 
+     * 'application/pdf' but file has not extension
+     * @param localPath
+     * @param mimeType
+     * @return true if is needed to add the pdf file extension to the file
+     */
+    private boolean isPdfFileFromContentProviderWithoutExtension(String localPath, String mimeType) {
+        return localPath.startsWith(UriUtils.URI_CONTENT_SCHEME) && 
+                mimeType.equals(MIME_TYPE_PDF) && 
+                !localPath.endsWith(FILE_EXTENSION_PDF);
     }
 
 }

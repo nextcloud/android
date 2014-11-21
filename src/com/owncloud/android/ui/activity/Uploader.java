@@ -170,7 +170,7 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
         case DIALOG_MULTIPLE_ACCOUNT:
             CharSequence ac[] = new CharSequence[mAccountManager.getAccountsByType(MainApp.getAccountType()).length];
             for (int i = 0; i < ac.length; ++i) {
-                ac[i] = mAccountManager.getAccountsByType(MainApp.getAccountType())[i].name;
+                ac[i] = DisplayUtils.convertIdn(mAccountManager.getAccountsByType(MainApp.getAccountType())[i].name, false);
             }
             builder.setTitle(R.string.common_choose_account);
             builder.setItems(ac, new OnClickListener() {
