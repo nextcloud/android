@@ -11,13 +11,21 @@
   <string name="actionbar_settings">Nastavení</string>
   <string name="actionbar_see_details">Podrobnosti</string>
   <string name="actionbar_send_file">Odeslat</string>
+  <string name="actionbar_sort">Seřadit</string>
+  <string name="actionbar_sort_title">Seřadit podle</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Nejnovější - nejstarší</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Obecné</string>
   <string name="prefs_category_more">Více</string>
   <string name="prefs_accounts">Účty</string>
   <string name="prefs_manage_accounts">Spravovat účty</string>
-  <string name="prefs_pincode">PIN aplikace</string>
+  <string name="prefs_pincode">PIN do aplikace</string>
   <string name="prefs_pincode_summary">Chraňte svého klienta</string>
-  <string name="prefs_instant_upload">Okamžité nahrání obrázků</string>
+  <string name="prefs_instant_upload">Okamžité nahrávání obrázků</string>
   <string name="prefs_instant_upload_summary">Okamžitě nahrávat vytvořené fotografie</string>
   <string name="prefs_instant_video_upload">Okamžité nahrávání videa</string>
   <string name="prefs_instant_video_upload_summary">Okamžitě odesílat nahrané video</string>
@@ -27,9 +35,11 @@
   <string name="prefs_log_summary_history">Zobrazuje zaznamenané logy</string>
   <string name="prefs_log_delete_history_button">Smazat historii</string>
   <string name="prefs_help">Nápověda</string>
-  <string name="prefs_recommend">Doporučit příteli</string>
+  <string name="prefs_recommend">Doporučit přátelům</string>
   <string name="prefs_feedback">Odezva</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Zapamatovat umístění sdílení</string>
+  <string name="prefs_remember_last_upload_location_summary">Zapamatovat poslední umístění pro nahrání sdílených souborů</string>
   <string name="recommend_subject">Zkuste %1$s na vašem smartphonu!</string>
   <string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>
   <string name="auth_check_server">Zkontrolovat server</string>
@@ -49,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Neobdržen žádný obsah. Nic k odeslání.</string>
   <string name="uploader_error_forbidden_content">%1$s nemá právo přistupovat ke sdílenému obsahu</string>
   <string name="uploader_info_uploading">Odesílání</string>
+  <string name="file_list_seconds_ago">před pár sekundami</string>
   <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
   <string name="file_list_loading">Načítám...</string>
   <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
@@ -169,7 +180,7 @@
   <string name="auth_connecting_auth_server">Připojuji se k přihlašovacímu serveru...</string>
   <string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
   <string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
-  <string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte vašeho administrátora</string>
+  <string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
   <string name="auth_can_not_auth_against_server">Není možné provést ověření  </string>
   <string name="fd_keep_in_sync">Udržovat soubor aktuální</string>
   <string name="common_rename">Přejmenovat</string>
@@ -226,7 +237,7 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Odesílat obrázky pouze skrze WiFi</string>
+  <string name="instant_upload_on_wifi">Odesílat obrázky pouze přes WiFi</string>
   <string name="instant_video_upload_on_wifi">Nahrávat videa pouze přes WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Konflikt při aktualizaci</string>
@@ -237,8 +248,9 @@
   <string name="preview_image_description">Náhled obrázku</string>
   <string name="preview_image_error_unknown_format">Obrázek nelze zobrazit</string>
   <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
+  <string name="prefs_instant_upload_path_title">Cesta pro nahrání</string>
   <string name="share_link_no_support_share_api">Je nám líto, ale sdílení není na vašem serveru povoleno. Kontaktujte svého
-administrátora.</string>
+správce systému.</string>
   <string name="share_link_file_no_exist">Nelze sdílet. Zkontrolujte prosím že soubor existuje</string>
   <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky nastala chyba</string>
   <string name="unshare_link_file_no_exist">Nelze ukončit sdílení. Zkontrolujte prosím že soubor existuje</string>
@@ -262,6 +274,7 @@ administrátora.</string>
   <string name="downloader_download_file_not_found">Tento soubor již není dostupný na serveru</string>
   <string name="prefs_category_accounts">Účty</string>
   <string name="prefs_add_account">Přidat účet</string>
+  <string name="auth_redirect_non_secure_connection_title">Bezpečné spojení je přesměrováno na nezabezpečenou trasu.</string>
   <string name="actionbar_logger">Logy</string>
   <string name="log_send_history_button">Odeslat historii</string>
   <string name="log_mail_subject">Logy aplikace ownCloud pro Android</string>
@@ -276,4 +289,6 @@ administrátora.</string>
   <string name="move_file_invalid_overwrite">Soubor již v cílovém adresáři existuje</string>
   <string name="move_file_error">Při pokusu o přesun tohoto souboru či složky nastala chyba</string>
   <string name="forbidden_permissions_move">pro přesun tohoto souboru</string>
+  <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
+  <string name="prefs_category_security">Zabezpečení</string>
 </resources>

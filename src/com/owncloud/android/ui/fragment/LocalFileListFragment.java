@@ -18,6 +18,7 @@
 package com.owncloud.android.ui.fragment;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -97,13 +98,33 @@ public class LocalFileListFragment extends ExtendedListFragment {
         Log_OC.i(TAG, "onActivityCreated() stop");
     }
     
+    public void selectAll(){
+        int numberOfFiles = mAdapter.getCount();
+        for(int i = 0; i < numberOfFiles; i++){
+            File file = (File) mAdapter.getItem(i);
+            if (file != null) {                
+                if (!file.isDirectory()) {  
+                    /// Click on a file
+                    getListView().setItemChecked(i, true);                       
+                    // notify the change to the container Activity
+                    mContainerActivity.onFileClick(file);
+                }
+            }
+        }
+    }
+    
+    public void deselectAll(){        
+        mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity());
+        setListAdapter(mAdapter);
+    }
     
     /**
      * Checks the file clicked over. Browses inside if it is a directory. Notifies the container activity in any case.
      */
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        File file = (File) mAdapter.getItem(position); 
+        File file = (File) mAdapter.getItem(position);
+        
         if (file != null) {
             /// Click on a directory
             if (file.isDirectory()) {
@@ -209,16 +230,18 @@ public class LocalFileListFragment extends ExtendedListFragment {
      * @return      File paths to the files checked by the user.
      */
     public String[] getCheckedFilePaths() {
-        String [] result = null;
+        ArrayList<String> result = new ArrayList<String>();
         SparseBooleanArray positions = mList.getCheckedItemPositions();
         if (positions.size() > 0) {
-            Log_OC.d(TAG, "Returning " + positions.size() + " selected files");
-            result = new String[positions.size()];
-            for (int i=0; i<positions.size(); i++) {
-                result[i] = ((File) mList.getItemAtPosition(positions.keyAt(i))).getAbsolutePath();
+            for (int i = 0; i < positions.size(); i++) {
+                if (positions.get(positions.keyAt(i)) == true) {
+                    result.add(((File) mList.getItemAtPosition(positions.keyAt(i))).getAbsolutePath());
+                }
             }
+
+            Log_OC.d(TAG, "Returning " + result.size() + " selected files");
         }
-        return result;
+        return result.toArray(new String[result.size()]);
     }
 
     

@@ -1,9 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="actionbar_settings">Instellings</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_help">Hulp</string>
   <string name="auth_username">Gebruikersnaam</string>
   <string name="auth_password">Wagwoord</string>
+  <string name="file_list_seconds_ago">sekondes gelede</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Kanseleer</string>
   <string name="empty"></string>

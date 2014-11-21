@@ -5,6 +5,8 @@
   <string name="actionbar_upload_files">கோப்புகள்</string>
   <string name="actionbar_settings">அமைப்புகள்</string>
   <string name="actionbar_see_details">விவரங்கள்</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">பொதுவான</string>
   <string name="prefs_category_more">மேலதிக</string>
   <string name="prefs_accounts">கணக்குகள்</string>
@@ -25,6 +27,7 @@
   <string name="uploader_wrn_no_content_text">ஒரு உள்ளடக்கமும் பெறப்படவில்லை. பதிவேற்றுவதற்கு ஒன்றும் இல்லை</string>
   <string name="uploader_error_forbidden_content">பகிரப்பட்ட உள்ளடக்ககங்களை அணுகுவதற்கு %1$s  அனுமதிக்கமாட்டாது</string>
   <string name="uploader_info_uploading">பதிவேற்றல்</string>
+  <string name="file_list_seconds_ago">செக்கன்களுக்கு முன்</string>
   <string name="file_list_empty">இங்கு ஒன்றும் இல்லை. ஏதாவது பதிவேற்றுக!</string>
   <string name="filedetails_select_file">மேலதிக தகவல்களை காட்சிப்படுத்துவதற்கு கோப்பின் மேல் தட்டுக.</string>
   <string name="filedetails_size">அளவு:</string>

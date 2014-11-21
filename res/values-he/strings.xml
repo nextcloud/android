@@ -11,6 +11,8 @@
   <string name="actionbar_settings">הגדרות</string>
   <string name="actionbar_see_details">פרטים</string>
   <string name="actionbar_send_file">שליחה</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">כללי</string>
   <string name="prefs_category_more">יותר</string>
   <string name="prefs_accounts">חשבונות</string>
@@ -48,6 +50,7 @@
   <string name="uploader_wrn_no_content_text">לא התקבל תוכן. אין מה להעלות.</string>
   <string name="uploader_error_forbidden_content">ל־%1$s אין הרשאה לגשת לתוכן המשותף שלך</string>
   <string name="uploader_info_uploading">בהעלאה</string>
+  <string name="file_list_seconds_ago">שניות</string>
   <string name="file_list_empty">אין כאן שום דבר. אולי ברצונך להעלות משהו?</string>
   <string name="file_list_loading">בטעינה...</string>
   <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
@@ -261,4 +264,5 @@
   <string name="prefs_category_accounts">חשבונות</string>
   <string name="prefs_add_account">הוספת חשבון</string>
   <string name="move_choose_button_text">בחירה</string>
+  <string name="prefs_category_security">אבטחה</string>
 </resources>

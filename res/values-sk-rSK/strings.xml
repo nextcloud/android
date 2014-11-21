@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Nastavenia</string>
   <string name="actionbar_see_details">Podrobnosti</string>
   <string name="actionbar_send_file">Odoslať</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Všeobecné</string>
   <string name="prefs_category_more">Viac</string>
   <string name="prefs_accounts">Účty</string>
@@ -48,6 +50,7 @@
   <string name="uploader_wrn_no_content_text">Nedodaný žiaden obsah. Nič na odoslanie.</string>
   <string name="uploader_error_forbidden_content">%1$s nemá práva pre prístup k zdieľanému obsahu</string>
   <string name="uploader_info_uploading">Nahrávanie</string>
+  <string name="file_list_seconds_ago">pred sekundami</string>
   <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
   <string name="file_list_loading">Nahráva sa...</string>
   <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
@@ -263,4 +266,5 @@
   <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
   <string name="actionbar_move">Presunúť</string>
   <string name="move_choose_button_text">Vybrať</string>
+  <string name="prefs_category_security">Zabezpečenie</string>
 </resources>

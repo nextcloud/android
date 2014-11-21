@@ -7,6 +7,8 @@
   <string name="actionbar_settings">ตั้งค่า</string>
   <string name="actionbar_see_details">รายละเอียด</string>
   <string name="actionbar_send_file">ส่ง</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">ทั่วไป</string>
   <string name="prefs_category_more">มาก</string>
   <string name="prefs_accounts">บัญชี</string>
@@ -27,6 +29,7 @@
   <string name="uploader_wrn_no_content_text">ยังไม่ได้รับเนื้อหา ไม่มีอะไรให้ต้องอัพโหลด</string>
   <string name="uploader_error_forbidden_content">%1$s ไม่อนุญาตให้เข้าถึงเนื้อหาที่ถูกแชร์ไว้</string>
   <string name="uploader_info_uploading">กำลังอัพโหลด</string>
+  <string name="file_list_seconds_ago">วินาที ก่อนหน้านี้</string>
   <string name="file_list_empty">ยังไม่มีไฟล์ใดๆอยู่ที่นี่ กรุณาอัพโหลดไฟล์!</string>
   <string name="filedetails_select_file">แตะที่ไฟล์ เพื่อแสดงข้อมูลเพิ่มเติม</string>
   <string name="filedetails_size">ขนาด:</string>

@@ -33,6 +33,7 @@ import org.apache.http.HttpStatus;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 //import android.support.v4.content.LocalBroadcastManager;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -121,14 +122,14 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
      * 
-     * @param   remoteFolderPath        Remote folder to synchronize.
+     * @param   folder                  Folder to synchronize.
      * @param   currentSyncTime         Time stamp for the synchronization process in progress.
-     * @param   localFolderId           Identifier in the local database of the folder 
-     *                                  to synchronize.
-     * @param   updateFolderProperties  'True' means that the properties of the folder should 
-     *                                  be updated also, not just its content.
      * @param   syncFullAccount         'True' means that this operation is part of a full account 
      *                                  synchronization.
+     * @param   isShareSupported        'True' means that the server supports the sharing API.           
+     * @param   ignoreEtag              'True' means that the content of the remote folder should
+     *                                  be fetched and updated even though the 'eTag' did not 
+     *                                  change.  
      * @param   dataStorageManager      Interface with the local database.
      * @param   account                 ownCloud account where the folder is located. 
      * @param   context                 Application context.
@@ -325,7 +326,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     private void synchronizeData(ArrayList<Object> folderAndFiles, OwnCloudClient client) {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
-        
+
         // parse data from remote folder 
         OCFile remoteFolder = fillOCFile((RemoteFile)folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
@@ -372,6 +373,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 if (remoteFile.isFolder()) {
                     remoteFile.setFileLength(localFile.getFileLength()); 
                         // TODO move operations about size of folders to FileContentProvider
+                } else if (mRemoteFolderChanged && remoteFile.isImage() &&
+                        remoteFile.getModificationTimestamp() != localFile.getModificationTimestamp()) {
+                    remoteFile.setNeedsUpdateThumbnail(true);
+                    Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
                 }
                 remoteFile.setPublicLink(localFile.getPublicLink());
                 remoteFile.setShareByLink(localFile.isShareByLink());

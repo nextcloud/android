@@ -11,6 +11,8 @@
   <string name="actionbar_settings">설정</string>
   <string name="actionbar_see_details">세부내용</string>
   <string name="actionbar_send_file">보내기</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">일반</string>
   <string name="prefs_category_more">더 중요함</string>
   <string name="prefs_accounts">계정</string>
@@ -43,6 +45,7 @@
   <string name="uploader_wrn_no_content_text">받은 콘텐츠가 없습니다. 업로드할 항목이 없습니다.</string>
   <string name="uploader_error_forbidden_content">%1$s에서 공유된 콘텐츠에 접근할 수 없습니다</string>
   <string name="uploader_info_uploading">업로드 중</string>
+  <string name="file_list_seconds_ago">초 전</string>
   <string name="file_list_empty">내용이 없습니다. 업로드할 수 있습니다!</string>
   <string name="filedetails_select_file">파일을 누르면 추가 정보가 표시됩니다.</string>
   <string name="filedetails_size">크기:</string>
@@ -217,4 +220,5 @@
   <string name="saml_authentication_required_text">인증 필요함</string>
   <string name="saml_authentication_wrong_pass">잘못된 암호</string>
   <string name="move_choose_button_text">선택</string>
+  <string name="prefs_category_security">보안</string>
 </resources>

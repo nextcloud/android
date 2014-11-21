@@ -5,6 +5,8 @@
   <string name="actionbar_settings">Podešavanja</string>
   <string name="actionbar_see_details">Detaljnije</string>
   <string name="actionbar_send_file">Pošalji</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Opšte</string>
   <string name="prefs_accounts">Nalozi</string>
   <string name="prefs_manage_accounts">Upravljaj nalozima</string>
@@ -15,6 +17,7 @@
   <string name="uploader_btn_upload_text">Pošalji</string>
   <string name="uploader_wrn_no_account_title">Nalog nije nađen</string>
   <string name="uploader_info_uploading">Šalje se</string>
+  <string name="file_list_seconds_ago">Pre par sekundi</string>
   <string name="file_list_empty">Ovde nema ničeg. Pošaljite nešto!</string>
   <string name="filedetails_size">Veličina:</string>
   <string name="filedetails_type">Tip:</string>

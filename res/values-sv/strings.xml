@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Inställningar</string>
   <string name="actionbar_see_details">Detaljer</string>
   <string name="actionbar_send_file">Skicka</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Allmänt</string>
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Konton</string>
@@ -30,8 +32,8 @@
   <string name="prefs_recommend">Rekommendera till en vän</string>
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Imprint</string>
-  <string name="recommend_subject">Försök %1$s på din smarttelefon!</string>
-  <string name="recommend_text">Jag skulle vilja bjuda in dig till att använda %1$s på din smartphone!\nLadda ner här: %2$s</string>
+  <string name="recommend_subject">Prova %1$s på din smartphone!</string>
+  <string name="recommend_text">Jag skullje vilja bjuda in dig till att prova %1$s på din smartphone!\nLadda ner appen från Google Play här: %2$s</string>
   <string name="auth_check_server">Kontrollera Server</string>
   <string name="auth_host_url">Serveradress https://...</string>
   <string name="auth_username">Användarnamn</string>
@@ -49,6 +51,7 @@
   <string name="uploader_wrn_no_content_text">Inget innehåll mottaget. Inget att ladda upp.</string>
   <string name="uploader_error_forbidden_content">%1$s har inte rättighet till det delade innehållet</string>
   <string name="uploader_info_uploading">Laddar upp</string>
+  <string name="file_list_seconds_ago">sekunder sedan</string>
   <string name="file_list_empty">Ingenting här. Ladda upp något!</string>
   <string name="file_list_loading">Laddar...</string>
   <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
@@ -268,4 +271,5 @@
   <string name="move_choose_button_text">Välj</string>
   <string name="move_file_not_found">Gick inte att flytta. Vänligen kontrollera att filen existerar</string>
   <string name="forbidden_permissions_move">att flytta den här filen</string>
+  <string name="prefs_category_security">Säkerhet</string>
 </resources>
