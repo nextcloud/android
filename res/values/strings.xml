@@ -250,6 +250,7 @@
     <string name="placeholder_media_time">12:23:45</string>
     
     <string name="instant_upload_on_wifi">Upload pictures via WiFi only</string>
+    <string name="instant_upload_on_charging">Upload when charging only</string>
     <string name="instant_video_upload_on_wifi">Upload videos via WiFi only</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Update conflict</string>
