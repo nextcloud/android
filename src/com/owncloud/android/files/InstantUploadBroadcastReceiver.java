@@ -102,7 +102,6 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         file_name = c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME));
         mime_type = c.getString(c.getColumnIndex(Images.Media.MIME_TYPE));
         c.close();
-        
         Log_OC.d(TAG, file_path + "");
 
         // save always temporally the picture to upload
@@ -157,10 +156,16 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         mime_type = c.getString(c.getColumnIndex(Video.Media.MIME_TYPE));
         c.close();
         Log_OC.d(TAG, file_path + "");
+        
+        // save always temporally the picture to upload
+        DbHandler db = new DbHandler(context);
+        db.putFileForLater(file_path, account.name, null);
+        db.close();
 
         if (!isOnline(context) 
                 || (instantVideoUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))
-                || (instantUploadWhenChargingOnly(context) && !isCharging(context))) {
+                || (instantUploadWhenChargingOnly(context) && !isCharging(context))
+           ) {
             return;
         }
 
@@ -176,7 +181,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void handleConnectivityAction(Context context, Intent intent) {
-        if (!instantPictureUploadEnabled(context)) {
+        if (!instantPictureUploadEnabled(context) && !instantVideoUploadEnabled(context)) {
             Log_OC.d(TAG, "Instant upload disabled, don't upload anything");
             return;
         }
@@ -185,6 +190,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                 && isOnline(context)
                 && (!instantUploadWhenChargingOnly(context) || (instantUploadWhenChargingOnly(context) == isCharging(context) == true))
                 && (!instantPictureUploadViaWiFiOnly(context) || (instantPictureUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))
+                && (!instantVideoUploadViaWiFiOnly(context) || (instantVideoUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))
             ) {
             DbHandler db = new DbHandler(context);
             Cursor c = db.getAwaitingFiles();
