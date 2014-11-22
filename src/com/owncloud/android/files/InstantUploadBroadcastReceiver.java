@@ -158,7 +158,9 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         c.close();
         Log_OC.d(TAG, file_path + "");
 
-        if (!isOnline(context) || (instantVideoUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
+        if (!isOnline(context) 
+                || (instantVideoUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))
+                || (instantUploadWhenChargingOnly(context) && !isCharging(context))) {
             return;
         }
 
@@ -221,7 +223,6 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             c.close();
             db.close();
         }
-
     }
 
     public static boolean isOnline(Context context) {
