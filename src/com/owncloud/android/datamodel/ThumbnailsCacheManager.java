@@ -156,6 +156,24 @@ public class ThumbnailsCacheManager {
         return true;
     }
     
+    public static boolean cancelPotentialWork(File file, ImageView imageView) {
+        final ThumbnailLocalGenerationTask bitmapWorkerTask = getBitmapLocalWorkerTask(imageView);
+
+        if (bitmapWorkerTask != null) {
+            final File bitmapData = bitmapWorkerTask.mFile;
+            // If bitmapData is not yet set or it differs from the new data
+            if (bitmapData == null || bitmapData != file) {
+                // Cancel previous task
+                bitmapWorkerTask.cancel(true);
+            } else {
+                // The same work is already in progress
+                return false;
+            }
+        }
+        // No task associated with the ImageView, or an existing task was cancelled
+        return true;
+    }
+    
     public static ThumbnailGenerationTask getBitmapWorkerTask(ImageView imageView) {
         if (imageView != null) {
             final Drawable drawable = imageView.getDrawable();
@@ -166,6 +184,84 @@ public class ThumbnailsCacheManager {
          }
          return null;
      }
+    
+    public static ThumbnailLocalGenerationTask getBitmapLocalWorkerTask(ImageView imageView) {
+        if (imageView != null) {
+            final Drawable drawable = imageView.getDrawable();
+            if (drawable instanceof AsyncDrawable) {
+                final AsyncLocalDrawable asyncDrawable = (AsyncLocalDrawable) drawable;
+                return asyncDrawable.getBitmapWorkerTask();
+            }
+         }
+         return null;
+     }
+    
+    public static class ThumbnailLocalGenerationTask extends AsyncTask<File, Void, Bitmap> {
+        private final WeakReference<ImageView> mImageViewReference;
+        private File mFile;
+        
+        public ThumbnailLocalGenerationTask(ImageView imageView) {
+         // Use a WeakReference to ensure the ImageView can be garbage collected
+            mImageViewReference = new WeakReference<ImageView>(imageView);
+        }
+
+        // Decode image in background.
+        @Override
+        protected Bitmap doInBackground(File... params) {
+            Bitmap thumbnail = null;
+            
+            try {
+                mFile = params[0];
+                final String imageKey = String.valueOf(mFile.hashCode());
+    
+                // Check disk cache in background thread
+                thumbnail = getBitmapFromDiskCache(imageKey);
+    
+                // Not found in disk cache
+                if (thumbnail == null) { 
+                    // Converts dp to pixel
+                    Resources r = MainApp.getAppContext().getResources();
+                    
+                    int px = (int) Math.round(r.getDimension(R.dimen.file_icon_size));
+                    
+                    Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
+                            mFile.getAbsolutePath(), px, px);
+                    
+                    if (bitmap != null) {
+                        thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+
+                        // Add thumbnail to cache
+                        addBitmapToCache(imageKey, thumbnail);
+                    }
+                }
+                
+            } catch (Throwable t) {
+                // the app should never break due to a problem with thumbnails
+                Log_OC.e(TAG, "Generation of thumbnail for " + mFile + " failed", t);
+                if (t instanceof OutOfMemoryError) {
+                    System.gc();
+                }
+            }
+            
+            return thumbnail;
+        }
+        
+        protected void onPostExecute(Bitmap bitmap){
+            if (isCancelled()) {
+                bitmap = null;
+            }
+
+            if (mImageViewReference != null && bitmap != null) {
+                final ImageView imageView = mImageViewReference.get();
+                final ThumbnailLocalGenerationTask bitmapWorkerTask = getBitmapLocalWorkerTask(imageView);
+                if (this == bitmapWorkerTask && imageView != null) {
+                    if (imageView.getTag().equals(mFile.hashCode())) {
+                        imageView.setImageBitmap(bitmap);
+                    }
+                }
+            }
+        }
+    }
 
     public static class ThumbnailGenerationTask extends AsyncTask<OCFile, Void, Bitmap> {
         private final WeakReference<ImageView> mImageViewReference;
@@ -300,6 +396,20 @@ public class ThumbnailsCacheManager {
         }
 
         public ThumbnailGenerationTask getBitmapWorkerTask() {
+            return bitmapWorkerTaskReference.get();
+        }
+    }
+    
+    public static class AsyncLocalDrawable extends BitmapDrawable {
+        private final WeakReference<ThumbnailLocalGenerationTask> bitmapWorkerTaskReference;
+
+        public AsyncLocalDrawable(Resources res, Bitmap bitmap, ThumbnailLocalGenerationTask bitmapWorkerTask) {
+            super(res, bitmap);
+            bitmapWorkerTaskReference =
+                new WeakReference<ThumbnailLocalGenerationTask>(bitmapWorkerTask);
+        }
+
+        public ThumbnailLocalGenerationTask getBitmapWorkerTask() {
             return bitmapWorkerTaskReference.get();
         }
     }

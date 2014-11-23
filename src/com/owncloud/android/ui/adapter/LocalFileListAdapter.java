@@ -22,9 +22,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -32,6 +35,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncLocalDrawable;
 import com.owncloud.android.utils.DisplayUtils;
 
 /**
@@ -46,7 +51,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
     private Context mContext;
     private File mDirectory;
     private File[] mFiles = null;
-
+    
     public LocalFileListAdapter(File directory, Context context) {
         mContext = context;
         swapDirectory(directory);
@@ -105,6 +110,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             } else {
                 fileIcon.setImageResource(R.drawable.ic_menu_archive);
             }
+            fileIcon.setTag(file.hashCode());
 
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
@@ -125,6 +131,38 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                     }
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
+                
+             // get Thumbnail if file is image
+                if (isImage(file)){
+                // Thumbnail in Cache?
+                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                            String.valueOf(file.hashCode())
+                    );
+                    if (thumbnail != null){
+                        fileIcon.setImageBitmap(thumbnail);
+                    } else {
+                        // generate new Thumbnail
+                        if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
+                            final ThumbnailsCacheManager.ThumbnailLocalGenerationTask task = 
+                                    new ThumbnailsCacheManager.ThumbnailLocalGenerationTask(fileIcon);
+                            if (thumbnail == null) {
+                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                            }
+                            final AsyncLocalDrawable asyncDrawable = new AsyncLocalDrawable(
+                                    mContext.getResources(), 
+                                    thumbnail, 
+                                    task
+                            );
+                            fileIcon.setImageDrawable(asyncDrawable);
+                            task.execute(file);
+                        }
+                    }
+                } else {
+                    Uri selectedUri = Uri.fromFile(file);
+                    String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString());
+                    String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+                    fileIcon.setImageResource(DisplayUtils.getResourceId(mimeType, file.getName()));
+                }  
 
             } else {
                 fileSizeV.setVisibility(View.GONE);
@@ -184,4 +222,12 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
         }
         notifyDataSetChanged();
     }
+    
+    private boolean isImage(File file) {
+        Uri selectedUri = Uri.fromFile(file);
+        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString());
+        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+        
+        return (mimeType != null && mimeType.startsWith("image/"));
+   }
 }
