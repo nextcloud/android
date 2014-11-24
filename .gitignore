@@ -11,7 +11,6 @@
 # generated files
 bin/
 build/
-*.iml
 gen/
 target/
 
@@ -32,10 +31,14 @@ oc_framework/proguard-project.txt
 oc_framework-test-project/proguard-project.txt
 tests/proguard-project.txt
 
-# Android Studio and Gradle specific entries
+# IntelliJ and Gradle specific entries
 .gradle
-.idea
-*.iml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/libraries/*.xml
+dataSources.ids
+datasources.xml 
+gradle.xml
 build
 
 # Actionbarsherlock is now ignored since scripts takes care of init the sub-modules.
