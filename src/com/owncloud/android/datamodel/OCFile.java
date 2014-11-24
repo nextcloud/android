@@ -20,9 +20,12 @@ package com.owncloud.android.datamodel;
 
 import java.io.File;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import third_parties.daveKoeller.AlphanumComparator;
 
+import third_parties.daveKoeller.AlphanumComparator;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.webkit.MimeTypeMap;
@@ -296,6 +299,18 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
                 mRemotePath += PATH_SEPARATOR;
             }
             Log_OC.d(TAG, "OCFile name changed to " + mRemotePath);
+            
+            // Notify MediaScanner about removed file
+            Intent intent1 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            intent1.setData(Uri.fromFile(new File(this.getStoragePath())));
+            MainApp.getAppContext().sendBroadcast(intent1);
+            
+            // Notify MediaScanner about new file
+            Intent intent2 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            String folder = new File(this.getStoragePath()).getParent();
+            Log_OC.d(TAG, "uri: " + folder+PATH_SEPARATOR+name);
+            intent2.setData(Uri.fromFile(new File(folder+ PATH_SEPARATOR+name)));
+            MainApp.getAppContext().sendBroadcast(intent2);
         }
     }
 

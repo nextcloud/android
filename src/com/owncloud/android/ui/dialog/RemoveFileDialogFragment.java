@@ -27,15 +27,19 @@ package com.owncloud.android.ui.dialog;
 import java.io.File;
 import java.util.Vector;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Bundle;
+
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
-
-import android.app.Dialog;
-import android.media.MediaScannerConnection;
-import android.os.Bundle;
 
 public class RemoveFileDialogFragment extends ConfirmationDialogFragment 
 implements ConfirmationDialogFragmentListener {
@@ -97,7 +101,7 @@ implements ConfirmationDialogFragmentListener {
         ComponentsGetter cg = (ComponentsGetter)getSherlockActivity();
         FileDataStorageManager storageManager = cg.getStorageManager();
         if (storageManager.getFileById(mTargetFile.getFileId()) != null) {
-            String path = new File(mTargetFile.getStoragePath()).getParent();
+            String path = mTargetFile.getStoragePath();
             cg.getFileOperationsHelper().removeFile(mTargetFile, false);
             triggerMediaScan(path);
         }
@@ -108,10 +112,9 @@ implements ConfirmationDialogFragmentListener {
      */
     @Override
     public void onNeutral(String callerTag) {
-        String path = new File(mTargetFile.getStoragePath()).getParent();
+        String path = mTargetFile.getStoragePath();
         ComponentsGetter cg = (ComponentsGetter)getSherlockActivity();
-        cg.getFileOperationsHelper()
-            .removeFile(mTargetFile, true);
+        cg.getFileOperationsHelper().removeFile(mTargetFile, true);
         
         FileDataStorageManager storageManager = cg.getStorageManager();
         
@@ -150,9 +153,12 @@ implements ConfirmationDialogFragmentListener {
     }
     
     private void triggerMediaScan(String path){
-        MediaScannerConnection.scanFile(
-                getActivity().getApplicationContext(), 
-                new String[]{path}, 
-                null,null);
+        try {
+            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            intent.setData(Uri.fromFile(new File(path)));
+            MainApp.getAppContext().sendBroadcast(intent);
+        } catch (Exception e){
+            Log_OC.d("Trigger", "exception: " + e);
+        }
     }
 }
