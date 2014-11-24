@@ -418,15 +418,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         }
 
         String output = "";
-
-        if (folders == 1) {
-            output = folders.toString() + " " + getResources().getString(R.string.file_list_folder);
-        } else if (folders > 1) {
-            output = folders.toString() + " " + getResources().getString(R.string.file_list_folders);
-        }
-        if (folders > 0 && files > 0){
-            output = output + ", ";
-        }
+       
         if (files > 0){
             if (files == 1) {
                 output = output + files.toString() + " " + getResources().getString(R.string.file_list_file);
@@ -434,6 +426,15 @@ public class OCFileListFragment extends ExtendedListFragment {
                 output = output + files.toString() + " " + getResources().getString(R.string.file_list_files);
             }
         }
+        if (folders > 0 && files > 0){
+            output = output + ", ";
+        }
+        if (folders == 1) {
+            output = output + folders.toString() + " " + getResources().getString(R.string.file_list_folder);
+        } else if (folders > 1) {
+            output = output + folders.toString() + " " + getResources().getString(R.string.file_list_folders);
+        }
+        
         return output;
     }
     
