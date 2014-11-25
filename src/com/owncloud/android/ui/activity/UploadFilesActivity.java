@@ -50,7 +50,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 /**
  * Displays local files and let the user choose which file to upload to the
  * current ownCloud account. Selected files are sent back to the caller as Extra
- * named EXTRA_CHOSEN_FILES. Thus, thus activity does not perform the upload
+ * named EXTRA_CHOSEN_FILES. Thus, this activity does not perform the upload
  * itself. (It should thus be renamed to FileUploadChooserActivity or something)
  * 
  * @author David A. Velasco

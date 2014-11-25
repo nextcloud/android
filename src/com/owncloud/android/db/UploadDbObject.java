@@ -67,10 +67,12 @@ public class UploadDbObject implements Serializable {
     }
 
     /**
+     * Sets uploadStatus AND SETS lastResult = null;
      * @param uploadStatus the uploadStatus to set
      */
     public void setUploadStatus(UploadStatus uploadStatus) {
         this.uploadStatus = uploadStatus;
+        setLastResult(null);
     }
 
     /**
