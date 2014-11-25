@@ -20,7 +20,6 @@ package com.owncloud.android.files.services;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.AbstractList;
 import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -38,18 +36,12 @@ import android.accounts.AccountsException;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Binder;
-import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
-import android.os.Message;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.webkit.MimeTypeMap;
@@ -174,9 +166,7 @@ public class FileUploadService extends IntentService {
     private static final String TAG = FileUploadService.class.getSimpleName();
 
     private Looper mServiceLooper;
-    private ServiceHandler mServiceHandler;
     private IBinder mBinder;
-    private ConnectivityChangeReceiver mConnectivityChangeReceiver;
     private OwnCloudClient mUploadClient = null;
     private Account mLastAccount = null;
     private FileDataStorageManager mStorageManager;
@@ -218,6 +208,10 @@ public class FileUploadService extends IntentService {
         return account.name + remotePath;
     }
 
+    private String buildRemoteName(UploadDbObject uploadDbObject) {
+        return uploadDbObject.getAccountName() + uploadDbObject.getRemotePath();
+    }
+
     /**
      * Checks if an ownCloud server version should support chunked uploads.
      * 
@@ -241,10 +235,7 @@ public class FileUploadService extends IntentService {
         HandlerThread thread = new HandlerThread("FileUploaderThread", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
         mServiceLooper = thread.getLooper();
-        mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileUploaderBinder();
-        mConnectivityChangeReceiver = new ConnectivityChangeReceiver();
-        registerReceiver(mConnectivityChangeReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         mDb = UploadDbHandler.getInstance(this.getBaseContext());
         mDb.recreateDb(); //for testing only
         
@@ -256,27 +247,6 @@ public class FileUploadService extends IntentService {
         }        
     }
 
-    public class ConnectivityChangeReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context arg0, Intent arg1) {
-            if(InstantUploadBroadcastReceiver.isOnline(getApplicationContext()))
-            {
-                // upload pending wifi only files.
-                onStartCommand(null, 0, 0);
-            }
-        }
-
-    }
-
-    @Override
-    public void onDestroy() {
-        mDb.close();
-        unregisterReceiver(mConnectivityChangeReceiver);
-        super.onDestroy();
-    }
-
-    
     /**
      * The IntentService calls this method from the default worker thread with
      * the intent that started the service. When this method returns,
@@ -308,8 +278,7 @@ public class FileUploadService extends IntentService {
             List<UploadDbObject> list = mDb.getAllPendingUploads();
             for (UploadDbObject uploadDbObject : list) {
                 // store locally.
-                String uploadKey = buildRemoteName(uploadDbObject.getAccount(getApplicationContext()),
-                        uploadDbObject.getRemotePath());
+                String uploadKey = buildRemoteName(uploadDbObject);
                 UploadDbObject previous = mPendingUploads.putIfAbsent(uploadKey, uploadDbObject);
                 
                 if(previous == null) {
@@ -403,8 +372,7 @@ public class FileUploadService extends IntentService {
                 uploadObject.setUseWifiOnly(isUseWifiOnly);
                 uploadObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
                 
-                String uploadKey = buildRemoteName(uploadObject.getAccount(getApplicationContext()),
-                        uploadObject.getRemotePath());
+                String uploadKey = buildRemoteName(uploadObject);
                 UploadDbObject previous = mPendingUploads.putIfAbsent(uploadKey, uploadObject);
                 
                 if(previous == null)
@@ -414,7 +382,9 @@ public class FileUploadService extends IntentService {
                         Log_OC.e(TAG, "Could not add upload to database. It might be a duplicate. Ignore.");
                     } 
                 } else {
-                    //upload already pending. ignore.
+                    Log_OC.w(TAG, "FileUploadService got upload intent for file which is already queued: "
+                            + uploadObject.getRemotePath());
+                    // upload already pending. ignore.
                 }
             }
             
@@ -576,44 +546,12 @@ public class FileUploadService extends IntentService {
     }
 
     /**
-     * Upload worker. Performs the pending uploads in the order they were
-     * requested.
-     * 
-     * Created with the Looper of a new thread, started in
-     * {@link FileUploadService#onCreate()}.
-     */
-    private static class ServiceHandler extends Handler {
-        // don't make it a final class, and don't remove the static ; lint will
-        // warn about a possible memory leak
-        FileUploadService mService;
-
-        public ServiceHandler(Looper looper, FileUploadService service) {
-            super(looper);
-            if (service == null)
-                throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
-            mService = service;
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            @SuppressWarnings("unchecked")
-            AbstractList<UploadDbObject> requestedUploads = (AbstractList<UploadDbObject>) msg.obj;
-            if (msg.obj != null) {
-                Iterator<UploadDbObject> it = requestedUploads.iterator();
-                while (it.hasNext()) {
-                    UploadDbObject uploadObject = it.next();
-                    mService.uploadFile(uploadObject);
-                }
-            }
-            mService.stopSelf(msg.arg1);
-        }
-    }
-
-    /**
-     * Core upload method: sends the file(s) to upload. This function blocks until upload succeeded or failed.
+     * Core upload method: sends the file(s) to upload. This function blocks
+     * until upload succeeded or failed.
      * 
      * @param uploadDbObject Key to access the upload to perform, contained in
      *            mPendingUploads
+     * @return true on success.
      */
     private boolean uploadFile(UploadDbObject uploadDbObject) {
         
@@ -700,10 +638,8 @@ public class FileUploadService extends IntentService {
             uploadResult = new RemoteOperationResult(e);
 
         } finally {
-            synchronized (mPendingUploads) {
-                mPendingUploads.remove(uploadDbObject);
-                Log_OC.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
-            }
+            mPendingUploads.remove(buildRemoteName(uploadDbObject));
+            Log_OC.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
             if (uploadResult.isException()) {
                 // enforce the creation of a new client object for next
                 // uploads; this grant that a new socket will
@@ -717,11 +653,11 @@ public class FileUploadService extends IntentService {
         notifyUploadResult(uploadResult, mCurrentUpload);
         sendFinalBroadcast(mCurrentUpload, uploadResult);
         
-        mPendingUploads.remove(mCurrentUpload.getRemotePath());
         mCurrentUpload = null;        
 
-        return true;
+        return uploadResult.isSuccess();
     }
+
 
     /**
      * Checks the existence of the folder where the current file will be

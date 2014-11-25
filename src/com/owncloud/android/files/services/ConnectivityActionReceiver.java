@@ -9,6 +9,8 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.owncloud.android.files.InstantUploadBroadcastReceiver;
+
 public class ConnectivityActionReceiver extends BroadcastReceiver {
     private static final String TAG = "ConnectivityActionReceiver";
 
@@ -24,6 +26,10 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
                 }
             } else {
                 Log.v(TAG, "no extras");
+            }
+
+            if (InstantUploadBroadcastReceiver.isOnline(context)) {
+                FileUploadService.retry(context);
             }
         }
     }
