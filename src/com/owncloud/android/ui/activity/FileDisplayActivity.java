@@ -73,6 +73,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
+import com.owncloud.android.services.observer.InstantUploadFolderObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;

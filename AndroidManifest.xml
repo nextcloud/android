@@ -128,6 +128,8 @@
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter_files" />
         </service>
+        
+       
 
         <provider
             android:name=".providers.FileContentProvider"
@@ -223,6 +225,7 @@
         </receiver>
 
         <service android:name=".services.observer.FileObserverService" />
+        <service android:name=".services.observer.InstantUploadFolderObserverService"/>
 
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"

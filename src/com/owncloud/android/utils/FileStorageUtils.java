@@ -185,7 +185,7 @@ public class FileStorageUtils {
         return uploadVideoPath + OCFile.PATH_SEPARATOR + subPath
                 + (fileName == null ? "" : fileName);
     }
-    
+        
     public static String getParentPath(String remotePath) {
         String parentPath = new File(remotePath).getParent();
         parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
