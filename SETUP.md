@@ -86,8 +86,9 @@ NOTE: Even though API level is set to 19, APK also runs on older devices because
 * Complete the setup of project properties running:
     - Windows: "setup_env.bat gradle"
     - Mac OS/Linux: "./setup_env.sh gradle"
-* Select 'Open Project...'. The file chooser will show an Android face as the folder icon. Select
-  it to open the project.
+* The first time you want to open the project in Android Studio, select 'Import Project...' and choose the file "android/settings.gradle".
+  Android Studio will then create the '.iml' files it needs. If you ever close the project but the files are still there, you just select
+  'Open Project...'. The file chooser will show an Android face as the folder icon, which you can select to reopen the project.
 * To build the project, follow the guidelines shown on [4. Building with Gradle][2].
 
 ### 7. Create pull request:
