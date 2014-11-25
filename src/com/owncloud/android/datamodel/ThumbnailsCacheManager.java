@@ -188,7 +188,7 @@ public class ThumbnailsCacheManager {
     public static ThumbnailLocalGenerationTask getBitmapLocalWorkerTask(ImageView imageView) {
         if (imageView != null) {
             final Drawable drawable = imageView.getDrawable();
-            if (drawable instanceof AsyncDrawable) {
+            if (drawable instanceof AsyncLocalDrawable) {
                 final AsyncLocalDrawable asyncDrawable = (AsyncLocalDrawable) drawable;
                 return asyncDrawable.getBitmapWorkerTask();
             }
@@ -197,12 +197,12 @@ public class ThumbnailsCacheManager {
      }
     
     public static class ThumbnailLocalGenerationTask extends AsyncTask<File, Void, Bitmap> {
-        private final WeakReference<ImageView> mImageViewReference;
+        private final WeakReference<ImageView> mImageViewLocalReference;
         private File mFile;
         
         public ThumbnailLocalGenerationTask(ImageView imageView) {
          // Use a WeakReference to ensure the ImageView can be garbage collected
-            mImageViewReference = new WeakReference<ImageView>(imageView);
+            mImageViewLocalReference = new WeakReference<ImageView>(imageView);
         }
 
         // Decode image in background.
@@ -251,8 +251,8 @@ public class ThumbnailsCacheManager {
                 bitmap = null;
             }
 
-            if (mImageViewReference != null && bitmap != null) {
-                final ImageView imageView = mImageViewReference.get();
+            if (mImageViewLocalReference != null && bitmap != null) {
+                final ImageView imageView = mImageViewLocalReference.get();
                 final ThumbnailLocalGenerationTask bitmapWorkerTask = getBitmapLocalWorkerTask(imageView);
                 if (this == bitmapWorkerTask && imageView != null) {
                     if (imageView.getTag().equals(mFile.hashCode())) {
@@ -401,16 +401,16 @@ public class ThumbnailsCacheManager {
     }
     
     public static class AsyncLocalDrawable extends BitmapDrawable {
-        private final WeakReference<ThumbnailLocalGenerationTask> bitmapWorkerTaskReference;
+        private final WeakReference<ThumbnailLocalGenerationTask> bitmapWorkerLocalTaskReference;
 
         public AsyncLocalDrawable(Resources res, Bitmap bitmap, ThumbnailLocalGenerationTask bitmapWorkerTask) {
             super(res, bitmap);
-            bitmapWorkerTaskReference =
+            bitmapWorkerLocalTaskReference =
                 new WeakReference<ThumbnailLocalGenerationTask>(bitmapWorkerTask);
         }
 
         public ThumbnailLocalGenerationTask getBitmapWorkerTask() {
-            return bitmapWorkerTaskReference.get();
+            return bitmapWorkerLocalTaskReference.get();
         }
     }
 
