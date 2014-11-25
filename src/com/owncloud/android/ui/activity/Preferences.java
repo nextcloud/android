@@ -52,7 +52,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.LongClickableCheckBoxPreference;
+import com.owncloud.android.ui.RadioButtonPreference;
 import com.owncloud.android.utils.DisplayUtils;
 
 
@@ -102,9 +102,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                 ListAdapter listAdapter = listView.getAdapter();
                 Object obj = listAdapter.getItem(position);
 
-                if (obj != null && obj instanceof LongClickableCheckBoxPreference) {
+                if (obj != null && obj instanceof RadioButtonPreference) {
                     mShowContextMenu = true;
-                    mAccountName = ((LongClickableCheckBoxPreference) obj).getKey();
+                    mAccountName = ((RadioButtonPreference) obj).getKey();
 
                     Preferences.this.openContextMenu(listView);
 
@@ -404,7 +404,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         else {
 
             for (Account a : accounts) {
-                LongClickableCheckBoxPreference accountPreference = new LongClickableCheckBoxPreference(this);
+                RadioButtonPreference accountPreference = new RadioButtonPreference(this);
                 accountPreference.setKey(a.name);
                 // Handle internationalized domain names
                 accountPreference.setTitle(DisplayUtils.convertIdn(a.name, false));
@@ -424,7 +424,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
                         Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
                         for (Account a : accounts) {
-                            CheckBoxPreference p = (CheckBoxPreference) findPreference(a.name);
+                            RadioButtonPreference p = (RadioButtonPreference) findPreference(a.name);
                             if (key.equals(a.name)) {
                                 boolean accountChanged = !p.isChecked(); 
                                 p.setChecked(true);
