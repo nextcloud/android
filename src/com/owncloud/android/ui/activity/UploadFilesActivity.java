@@ -77,8 +77,6 @@ public class UploadFilesActivity extends FileActivity implements
     private static final String WAIT_DIALOG_TAG = "WAIT";
     private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
     
-    private boolean selectAllToggled = false;
-    private Menu menu;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,7 +123,6 @@ public class UploadFilesActivity extends FileActivity implements
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         actionBar.setListNavigationCallbacks(mDirectories, this);
         
-        
         // wait dialog
         if (mCurrentDialog != null) {
             mCurrentDialog.dismiss();
@@ -134,15 +131,8 @@ public class UploadFilesActivity extends FileActivity implements
             
         Log_OC.d(TAG, "onCreate() end");
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getSherlock().getMenuInflater();
-        inflater.inflate(R.menu.file_select_all, menu);     
-        this.menu = menu;
-        return true;
-    }
- 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
@@ -153,33 +143,12 @@ public class UploadFilesActivity extends FileActivity implements
                 }
                 break;
             }
-            case R.id.actionbar_select_all:{
-                if(selectAllToggled){
-                    toggleOffSelectAll();
-                }else{
-                    toggleOnSelectAll(item);
-                }
-                break;
-            }
             default:
                 retval = super.onOptionsItemSelected(item);
         }
         return retval;
     }
-    public void toggleOffSelectAll(MenuItem item){
-        selectAllToggled = false;
-        item.setIcon(android.R.drawable.checkbox_off_background);
-        mFileListFragment.deselectAll();
-    }
-    public void toggleOffSelectAll(){
-        MenuItem item = menu.findItem(R.id.actionbar_select_all);
-        toggleOffSelectAll(item);
-    }
-    public void toggleOnSelectAll(MenuItem item){
-        selectAllToggled = true;
-        item.setIcon(android.R.drawable.checkbox_on_background);        
-        mFileListFragment.selectAll();
-    }
+
     
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
@@ -210,7 +179,6 @@ public class UploadFilesActivity extends FileActivity implements
             ActionBar actionBar = getSupportActionBar(); 
             actionBar.setDisplayHomeAsUpEnabled(false);
         } 
-        toggleOffSelectAll();
     }
 
     
@@ -278,11 +246,10 @@ public class UploadFilesActivity extends FileActivity implements
      * {@inheritDoc}
      */
     @Override
-    public void onDirectoryClick(File directory) { 
+    public void onDirectoryClick(File directory) {
         pushDirname(directory);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        toggleOffSelectAll();
     }
     
     
