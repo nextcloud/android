@@ -11,12 +11,24 @@ import android.util.Log;
 
 import com.owncloud.android.files.InstantUploadBroadcastReceiver;
 
+/**
+ * Receives all connectivity action from Android OS at all times and performs required OC actions.
+ * For now that are:
+ *   - Signal connectivity to {@link FileUploadService}.
+ *   
+ * Later can be added:
+ *   - Signal connectivity to download service, deletion service, ...
+ *   - Handle offline mode (cf. https://github.com/owncloud/android/issues/162)
+ *   
+ * @author LukeOwncloud
+ *
+ */
 public class ConnectivityActionReceiver extends BroadcastReceiver {
     private static final String TAG = "ConnectivityActionReceiver";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+//        if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
             Log.v(TAG, "action: " + intent.getAction());
             Log.v(TAG, "component: " + intent.getComponent());
             Bundle extras = intent.getExtras();
@@ -31,7 +43,7 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
             if (InstantUploadBroadcastReceiver.isOnline(context)) {
                 FileUploadService.retry(context);
             }
-        }
+//        }
     }
     
     static public void enable(Context context) {

@@ -79,9 +79,15 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.UriUtils;
 
 /**
- * Service for uploading files. Invoke using context.startService(...). This
- * service retries until upload succeeded. Files to be uploaded are stored
- * persistent using {@link UploadDbHandler}.
+ * Service for uploading files. Invoke using context.startService(...). Files to
+ * be uploaded are stored persistently using {@link UploadDbHandler}.
+ * 
+ * On next invocation of {@link FileUploadService} uploaded files which
+ * previously failed will be uploaded again until either upload succeeded or a
+ * fatal error occured.
+ * 
+ * Every file passed to this service is uploaded. No filtering is performed.
+ * However, Intent keys (e.g., KEY_WIFI_ONLY) are obeyed.
  * 
  * @author LukeOwncloud
  * 
@@ -244,7 +250,11 @@ public class FileUploadService extends IntentService {
         for (UploadDbObject uploadDbObject : current) {
             uploadDbObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
             mDb.updateUpload(uploadDbObject);   
-        }        
+        }
+        
+        if(InstantUploadBroadcastReceiver.isOnline(getApplicationContext())) {
+            FileUploadService.retry(getApplicationContext());
+        }
     }
 
     /**

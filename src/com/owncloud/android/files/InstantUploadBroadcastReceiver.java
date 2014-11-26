@@ -18,6 +18,8 @@
 
 package com.owncloud.android.files;
 
+import java.util.Map.Entry;
+
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -50,6 +52,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        android.os.Debug.waitForDebugger();
         Log_OC.d(TAG, "Received: " + intent.getAction());
         if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
             handleNewPictureAction(context, intent); 
@@ -58,13 +61,19 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             handleNewPictureAction(context, intent); 
             Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_PICTURE");
         } else if (intent.getAction().equals(NEW_VIDEO_ACTION)) {
-            Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_VIDEO");
             handleNewVideoAction(context, intent);
+            Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_VIDEO");            
         } else {
             Log_OC.e(TAG, "Incorrect intent sent: " + intent.getAction());
         }
     }
 
+    /**
+     * Because we support NEW_PHOTO_ACTION and NEW_PHOTO_ACTION_UNOFFICIAL it can happen that 
+     * handleNewPictureAction is called twice for the same photo. Use this simple static variable to
+     * remember last uploaded photo to filter duplicates. Must not be null!
+     */
+    static String lastUploadedPhotoPath = "";
     private void handleNewPictureAction(Context context, Intent intent) {
         Cursor c = null;
         String file_path = null;
@@ -95,8 +104,13 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         mime_type = c.getString(c.getColumnIndex(Images.Media.MIME_TYPE));
         c.close();
         
-        Log_OC.d(TAG, file_path + "");
-
+        if(file_path.equals(lastUploadedPhotoPath)) {
+            Log_OC.d(TAG, "Duplicate detected: " + file_path + ". Ignore.");
+            return;
+        }
+        lastUploadedPhotoPath = file_path;
+        Log_OC.d(TAG, "Path: " + file_path + "");        
+        
         Intent i = new Intent(context, FileUploadService.class);
         i.putExtra(FileUploadService.KEY_ACCOUNT, account);
         i.putExtra(FileUploadService.KEY_LOCAL_FILE, file_path);
