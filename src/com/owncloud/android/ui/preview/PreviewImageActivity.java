@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -350,7 +351,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     public void showDetails(OCFile file) {
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.setAction(FileDisplayActivity.ACTION_DETAILS);
-        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, file);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)file);
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
         startActivity(showDetailsIntent);
         int pos = mPreviewImagePagerAdapter.getFilePosition(file);
@@ -366,7 +367,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         } else if (!mDownloaderBinder.isDownloading(getAccount(), file)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
-            i.putExtra(FileDownloader.EXTRA_FILE, file);
+            i.putExtra(FileDownloader.EXTRA_FILE, (Parcelable)file);
             startService(i);
         }
     }

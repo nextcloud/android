@@ -50,14 +50,13 @@ public class UploadDbHandler extends Observable {
 
     // for testing only
     public void recreateDb() {
-        // mDB.beginTransaction();
-        // try {
-        // mHelper.onUpgrade(mDB, 0, mDatabaseVersion);
-        // mDB.setTransactionSuccessful();
-        // } finally {
-        // mDB.endTransaction();
-        // }
-
+//         getDB().beginTransaction();
+//         try {
+//         mHelper.onUpgrade(getDB(), 0, mDatabaseVersion);
+//         getDB().setTransactionSuccessful();
+//         } finally {
+//             getDB().endTransaction();
+//         }
     }
 
     public enum UploadStatus {

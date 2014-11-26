@@ -42,6 +42,7 @@ import android.os.Binder;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.webkit.MimeTypeMap;
@@ -377,10 +378,7 @@ public class FileUploadService extends IntentService {
             // save always persistently path of upload, so it can be retried if
             // failed.
             for (int i = 0; i < files.length; i++) {
-                UploadDbObject uploadObject = new UploadDbObject();
-                uploadObject.setRemotePath(files[i].getRemotePath());
-                uploadObject.setLocalPath(files[i].getStoragePath());
-                uploadObject.setMimeType(files[i].getMimetype());
+                UploadDbObject uploadObject = new UploadDbObject(files[i]);
                 uploadObject.setAccountName(account.name);
                 uploadObject.setForceOverwrite(forceOverwrite);
                 uploadObject.setCreateRemoteFolder(isCreateRemoteFolder);
@@ -608,8 +606,7 @@ public class FileUploadService extends IntentService {
         String uploadKey = null;
 
         uploadKey = buildRemoteName(account, uploadDbObject.getRemotePath());
-        OCFile file = obtainNewOCFileToUpload(uploadDbObject.getRemotePath(), uploadDbObject.getLocalPath(),
-                uploadDbObject.getMimeType());
+        OCFile file = uploadDbObject.getOCFile();
         mCurrentUpload = new UploadFileOperation(account, file, chunked, uploadDbObject.isForceOverwrite(),
                 uploadDbObject.getLocalAction(), getApplicationContext());
         if (uploadDbObject.isCreateRemoteFolder()) {
@@ -840,7 +837,7 @@ public class FileUploadService extends IntentService {
         // / includes a pending intent in the notification showing the details
         // view of the file
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)upload.getFile());
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),

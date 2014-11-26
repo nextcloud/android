@@ -19,15 +19,23 @@
 package com.owncloud.android.datamodel;
 
 import java.io.File;
+import java.io.Serializable;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
-import third_parties.daveKoeller.AlphanumComparator;
 
+import third_parties.daveKoeller.AlphanumComparator;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.webkit.MimeTypeMap;
 
-public class OCFile implements Parcelable, Comparable<OCFile> {
+// OCFile needs to be Serializable because it is stored persistently inside UploadDbObject.
+// (Parcelable is not suitable for persistent storage.)
+public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
+
+    /**
+     * Should be changed whenever any property of OCFile changes.
+     */
+    private static final long serialVersionUID = 5604080482686390078L;
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
         @Override

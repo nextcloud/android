@@ -136,15 +136,6 @@ public class FileStorageUtils {
         return file;
     }
     
-    public static OCFile fillOCFile(UploadDbObject o) {
-        OCFile file = new OCFile(o.getRemotePath());
-        File localFile = new File(o.getLocalPath());
-        file.setFileLength(localFile.length());
-        file.setMimetype(o.getMimeType());
-        file.setStoragePath(o.getLocalPath());
-        return file;
-    }
-    
     /**
      * Creates and populates a new {@link RemoteFile} object with the data read from an {@link OCFile}.
      * 

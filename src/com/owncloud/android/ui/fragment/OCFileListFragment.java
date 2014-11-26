@@ -22,6 +22,7 @@ import java.io.File;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -325,7 +326,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                 Intent action = new Intent(getActivity(), MoveActivity.class);
 
                 // Pass mTargetFile that contains info of selected file/folder
-                action.putExtra(MoveActivity.EXTRA_TARGET_FILE, mTargetFile);
+                action.putExtra(MoveActivity.EXTRA_TARGET_FILE, (Parcelable)mTargetFile);
                 getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_MOVE_FILES);
                 return true;
             }

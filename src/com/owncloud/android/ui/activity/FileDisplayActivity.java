@@ -46,6 +46,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -1661,7 +1662,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         if (!result.isSuccess()) {
             if (result.getCode() == ResultCode.SYNC_CONFLICT) {
                 Intent i = new Intent(this, ConflictsResolveActivity.class);
-                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, syncedFile);
+                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, (Parcelable)syncedFile);
                 i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, getAccount());
                 startActivity(i);
 
@@ -1731,7 +1732,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
-            i.putExtra(FileDownloader.EXTRA_FILE, mWaitingToPreview);
+            i.putExtra(FileDownloader.EXTRA_FILE, (Parcelable)mWaitingToPreview);
             startService(i);
         }
     }
@@ -1788,7 +1789,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         if (!mDownloaderBinder.isDownloading(account, file)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
-            i.putExtra(FileDownloader.EXTRA_FILE, file);
+            i.putExtra(FileDownloader.EXTRA_FILE, (Parcelable)file);
             startService(i);
         }
     }
@@ -1820,7 +1821,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      */
     public void startImagePreview(OCFile file) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-        showDetailsIntent.putExtra(EXTRA_FILE, file);
+        showDetailsIntent.putExtra(EXTRA_FILE, (Parcelable)file);
         showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
         startActivity(showDetailsIntent);
 

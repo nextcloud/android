@@ -26,6 +26,7 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Binder;
+import android.os.Parcelable;
 import android.widget.MediaController;
 
 
@@ -152,7 +153,7 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
         Log_OC.d(TAG, "Loading and starting through binder...");
         Intent i = new Intent(mService, MediaService.class);
         i.putExtra(MediaService.EXTRA_ACCOUNT, account);
-        i.putExtra(MediaService.EXTRA_FILE, file);
+        i.putExtra(MediaService.EXTRA_FILE, (Parcelable)file);
         i.putExtra(MediaService.EXTRA_PLAY_ON_LOAD, playImmediately);
         i.putExtra(MediaService.EXTRA_START_POSITION, position);
         i.setAction(MediaService.ACTION_PLAY_FILE);

@@ -13,6 +13,7 @@ import android.content.Context;
 import android.util.Base64;
 
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.UploadDbHandler.UploadStatus;
 import com.owncloud.android.files.services.FileUploadService.LocalBehaviour;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -32,19 +33,30 @@ public class UploadDbObject implements Serializable {
     private static final long serialVersionUID = -2306246191385279928L;
 
     private static final String TAG = "UploadDbObject";
-    /**
-     * Local path to file which is to be uploaded.
-     */
-    String localPath;
-    /**
-     * Remote path where file is to be uploaded to.
-     */
-    String remotePath;
-
-    /**
-     * Mime type of upload file.
-     */
-    String mimeType;
+    
+    public UploadDbObject(OCFile ocFile) {
+        this.ocFile = ocFile;
+    }
+//    /**
+//     * Local path to file which is to be uploaded.
+//     */
+//    String localPath;
+//    /**
+//     * Remote path where file is to be uploaded to.
+//     */
+//    String remotePath;
+//
+//    /**
+//     * Mime type of upload file.
+//     */
+//    String mimeType;
+    OCFile ocFile;
+    
+    public OCFile getOCFile() {
+        return ocFile;
+    }
+    
+    
     /**
      * Local action for upload.
      */
@@ -120,43 +132,23 @@ public class UploadDbObject implements Serializable {
      * @return the localPath
      */
     public String getLocalPath() {
-        return localPath;
-    }
-
-    /**
-     * @param localPath the localPath to set
-     */
-    public void setLocalPath(String localPath) {
-        this.localPath = localPath;
+        return ocFile.getStoragePath();
     }
 
     /**
      * @return the remotePath
      */
     public String getRemotePath() {
-        return remotePath;
-    }
-
-    /**
-     * @param remotePath the remotePath to set
-     */
-    public void setRemotePath(String remotePath) {
-        this.remotePath = remotePath;
+        return ocFile.getRemotePath();
     }
 
     /**
      * @return the mimeType
      */
     public String getMimeType() {
-        return mimeType;
+        return ocFile.getMimetype();
     }
 
-    /**
-     * @param mimeType the mimeType to set
-     */
-    public void setMimeType(String mimeType) {
-        this.mimeType = mimeType;
-    }
 
     /**
      * @return the localAction

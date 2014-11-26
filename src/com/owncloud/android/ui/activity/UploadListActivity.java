@@ -4,6 +4,7 @@ import java.io.File;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -47,7 +48,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
      */
     @Override
     public void onUploadItemClick(UploadDbObject file) {
-        OCFile ocFile = FileStorageUtils.fillOCFile(file);
+        OCFile ocFile = file.getOCFile();
         switch (file.getUploadStatus()) {
         case UPLOAD_IN_PROGRESS:
             if (ocFile != null) {
@@ -58,7 +59,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
             break;
         case UPLOAD_SUCCEEDED:
             Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-            showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, ocFile);
+            showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)ocFile);
             showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, file.getAccount(this));
             startActivity(showDetailsIntent);
             break;

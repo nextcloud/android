@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -373,8 +374,8 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
             OCFile targetFile = (OCFile) i.getParcelableExtra(MoveActivity.EXTRA_TARGET_FILE);
 
             Intent data = new Intent();
-            data.putExtra(EXTRA_CURRENT_FOLDER, getCurrentFolder());
-            data.putExtra(EXTRA_TARGET_FILE, targetFile);
+            data.putExtra(EXTRA_CURRENT_FOLDER, (Parcelable)getCurrentFolder());
+            data.putExtra(EXTRA_TARGET_FILE, (Parcelable)targetFile);
             setResult(RESULT_OK_AND_MOVE, data);
             finish();
         }

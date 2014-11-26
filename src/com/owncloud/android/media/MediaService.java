@@ -32,6 +32,7 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.os.PowerManager;
 import android.widget.Toast;
 
@@ -535,7 +536,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     private void updateNotification(String content) {
         // TODO check if updating the Intent is really necessary
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, mFile);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)mFile);
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 
@@ -572,7 +573,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         
         /// includes a pending intent in the notification showing the details view of the file
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, mFile);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)mFile);
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 

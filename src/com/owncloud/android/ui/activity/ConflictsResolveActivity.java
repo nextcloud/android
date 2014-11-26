@@ -30,6 +30,7 @@ import com.owncloud.android.utils.DisplayUtils;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external
@@ -68,7 +69,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 return;
         }
         i.putExtra(FileUploadService.KEY_ACCOUNT, getAccount());
-        i.putExtra(FileUploadService.KEY_FILE, getFile());
+        i.putExtra(FileUploadService.KEY_FILE, (Parcelable)getFile());
         i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadSingleMulti.UPLOAD_SINGLE_FILE);
         
         startService(i);

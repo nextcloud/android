@@ -32,7 +32,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -62,6 +61,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Parcelable;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 
@@ -431,7 +431,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         } else {
             showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         }
-        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, download.getFile());
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)download.getFile());
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, download.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         
