@@ -70,6 +70,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
             // no break; to start upload immediately.
         case UPLOAD_LATER:
         case UPLOAD_FAILED_RETRY:
+            Log_OC.d(TAG, "FileUploadService.retry() called by onUploadItemClick()");
             FileUploadService.retry(this);
             break;
         default:
@@ -89,6 +90,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         boolean retval = true;
         switch (item.getItemId()) {
         case R.id.action_retry_uploads: {
+            Log_OC.d(TAG, "FileUploadService.retry() called by onMenuItemSelected()");
             FileUploadService.retry(this);
             break;
         }

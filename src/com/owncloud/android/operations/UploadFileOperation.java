@@ -459,6 +459,10 @@ public class UploadFileOperation extends RemoteOperation {
     }
     
     public void cancel() {
+        if (mUploadOperation == null) {
+            Log_OC.e(TAG, "UploadFileOperation.cancel(): mUploadOperation == null for file: " + mFile + ". Fix that.");
+            return;
+        }
         mUploadOperation.cancel();
     }
 }

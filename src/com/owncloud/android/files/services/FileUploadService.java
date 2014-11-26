@@ -254,6 +254,7 @@ public class FileUploadService extends IntentService {
         }
         
         if(InstantUploadBroadcastReceiver.isOnline(getApplicationContext())) {
+            Log_OC.d(TAG, "FileUploadService.retry() called by onCreate()");
             FileUploadService.retry(getApplicationContext());
         }
     }
@@ -281,7 +282,10 @@ public class FileUploadService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Log_OC.i(TAG, "onHandleIntent start");
+        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before adding new uploads.");
         if (intent == null || intent.hasExtra(KEY_RETRY)) {
+            Log_OC.d(TAG, "Receive null intent.");
             // service was restarted by OS (after return START_STICKY and kill
             // service) or connectivity change was detected. ==> check persistent upload
             // list.
@@ -301,7 +305,7 @@ public class FileUploadService extends IntentService {
                 }
             }
         } else {
-
+            Log_OC.d(TAG, "Receive upload intent.");
             UploadSingleMulti uploadType = (UploadSingleMulti) intent.getSerializableExtra(KEY_UPLOAD_TYPE);
             if (uploadType == null) {
                 Log_OC.e(TAG, "Incorrect or no upload type provided");
@@ -406,17 +410,21 @@ public class FileUploadService extends IntentService {
 
         // at this point mPendingUploads is filled.
 
-        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size());
+        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before uploading.");
 
         try {
             Iterator<String> it = mPendingUploads.keySet().iterator();
             while (it.hasNext()) {
-                UploadDbObject uploadDbObject = mPendingUploads.get(it.next());
+                String up = it.next();
+                Log_OC.d(TAG, "Calling uploadFile for " + up);                
+                UploadDbObject uploadDbObject = mPendingUploads.get(up);
                 boolean uploadSuccessful = uploadFile(uploadDbObject);
             }
         } catch (ConcurrentModificationException e) {
             // for now: ignore. TODO: fix this.
         }
+        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - after uploading.");
+        Log_OC.i(TAG, "onHandleIntent end");
     }
 
     /**
@@ -951,6 +959,7 @@ public class FileUploadService extends IntentService {
     }
 
     public static void retry(Context context) {
+        Log_OC.d(TAG, "FileUploadService.retry()");
         Intent i = new Intent(context, FileUploadService.class);
         i.putExtra(FileUploadService.KEY_RETRY, true);
         context.startService(i);        

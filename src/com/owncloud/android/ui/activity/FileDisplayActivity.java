@@ -1221,6 +1221,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 if (sameAccount && sameFile && detailFragmentIsShown) {
                     if (uploadWasFine) {
                         setFile(getStorageManager().getFileByPath(uploadedRemotePath));
+                    } else {
+                        //TODO remove upload progress bar after upload failed.
                     }
                     if (renamedInUpload) {
                         String newName = (new File(uploadedRemotePath)).getName();
