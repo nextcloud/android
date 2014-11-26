@@ -36,7 +36,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.MoveActivity;
+import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -322,10 +322,10 @@ public class OCFileListFragment extends ExtendedListFragment {
                 return true;
             }
             case R.id.action_move: {
-                Intent action = new Intent(getActivity(), MoveActivity.class);
+                Intent action = new Intent(getActivity(), FolderPickerActivity.class);
 
                 // Pass mTargetFile that contains info of selected file/folder
-                action.putExtra(MoveActivity.EXTRA_TARGET_FILE, mTargetFile);
+                action.putExtra(FolderPickerActivity.EXTRA_TARGET_FILE, mTargetFile);
                 getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_MOVE_FILES);
                 return true;
             }

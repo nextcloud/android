@@ -65,11 +65,11 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity, 
     OnClickListener, OnEnforceableRefreshListener {
 
-    public static final String EXTRA_CURRENT_FOLDER = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CURRENT_FOLDER";
-    public static final String EXTRA_TARGET_FILE = UploadFilesActivity.class.getCanonicalName() + "EXTRA_TARGET_FILE";
+    public static final String EXTRA_CURRENT_FOLDER = UploadFilesActivity.class.getCanonicalName()
+                                                            + ".EXTRA_CURRENT_FOLDER";
+    public static final String EXTRA_TARGET_FILE = UploadFilesActivity.class.getCanonicalName()
+                                                            + "EXTRA_TARGET_FILE";
 
-    public static final int RESULT_OK = 1;
-    
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
     private static final String TAG = FolderPickerActivity.class.getSimpleName();
@@ -116,11 +116,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     protected void onStart() {
         super.onStart();
         getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     /**
@@ -436,8 +431,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 Log_OC.d(TAG, "Received broadcast " + event);
                 String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH); 
-                RemoteOperationResult synchResult = (RemoteOperationResult)intent.getSerializableExtra(FileSyncAdapter.EXTRA_RESULT);
-                boolean sameAccount = (getAccount() != null && accountName.equals(getAccount().name) && getStorageManager() != null); 
+                RemoteOperationResult synchResult = (RemoteOperationResult)intent.
+                        getSerializableExtra(FileSyncAdapter.EXTRA_RESULT);
+                boolean sameAccount = (getAccount() != null && 
+                        accountName.equals(getAccount().name) && getStorageManager() != null); 
     
                 if (sameAccount) {
                     
@@ -445,13 +442,17 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                         mSyncInProgress = true;
                         
                     } else {
-                        OCFile currentFile = (getFile() == null) ? null : getStorageManager().getFileByPath(getFile().getRemotePath());
-                        OCFile currentDir = (getCurrentFolder() == null) ? null : getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
+                        OCFile currentFile = (getFile() == null) ? null : 
+                            getStorageManager().getFileByPath(getFile().getRemotePath());
+                        OCFile currentDir = (getCurrentFolder() == null) ? null : 
+                            getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
     
                         if (currentDir == null) {
                             // current folder was removed from the server 
                             Toast.makeText( FolderPickerActivity.this, 
-                                            String.format(getString(R.string.sync_current_folder_was_removed), getCurrentFolder().getFileName()), 
+                                            String.format(
+                                                    getString(R.string.sync_current_folder_was_removed), 
+                                                    getCurrentFolder().getFileName()), 
                                             Toast.LENGTH_LONG)
                                 .show();
                             browseToRoot();
@@ -462,7 +463,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                 currentFile = currentDir;
                             }
 
-                            if (synchFolderRemotePath != null && currentDir.getRemotePath().equals(synchFolderRemotePath)) {
+                            if (synchFolderRemotePath != null && currentDir.getRemotePath().
+                                    equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
                                     fileListFragment.listDirectory(currentDir);
@@ -471,7 +473,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                             setFile(currentFile);
                         }
                         
-                        mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
+                        mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && 
+                                !SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
                                 
                         if (SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
                                     equals(event) &&

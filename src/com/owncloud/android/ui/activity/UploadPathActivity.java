@@ -82,12 +82,8 @@ public class UploadPathActivity extends FolderPickerActivity implements FileFrag
         if (v == mCancelBtn) {
             finish();
         } else if (v == mChooseBtn) {
-            Intent i = getIntent();
-            OCFile targetFile = (OCFile) i.getParcelableExtra(UploadPathActivity.EXTRA_TARGET_FILE);
-
             Intent data = new Intent();
             data.putExtra(EXTRA_CURRENT_FOLDER, getCurrentFolder());
-            data.putExtra(EXTRA_TARGET_FILE, targetFile);
             setResult(RESULT_OK_SET_UPLOAD_PATH, data);
             finish();
         }
