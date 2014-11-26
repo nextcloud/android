@@ -61,7 +61,7 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
             ConnectivityManager cm =
                     (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-            if(networkInfo.getType() == ConnectivityManager.TYPE_WIFI &&
+            if(networkInfo == null || networkInfo.getType() == ConnectivityManager.TYPE_WIFI &&
                 ! networkInfo.isConnected()) {
                 Log.d(TAG, "Wifi is disconnected: " + String.valueOf(networkInfo));
                 wifiDisconnected(context);

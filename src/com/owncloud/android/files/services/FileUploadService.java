@@ -253,6 +253,7 @@ public class FileUploadService extends IntentService {
             mDb.updateUpload(uploadDbObject);   
         }
         
+        //TODO This service can be instantiated at any time. Move this retry call to start of app.
         if(InstantUploadBroadcastReceiver.isOnline(getApplicationContext())) {
             Log_OC.d(TAG, "FileUploadService.retry() called by onCreate()");
             FileUploadService.retry(getApplicationContext());
