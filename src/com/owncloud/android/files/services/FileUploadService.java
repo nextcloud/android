@@ -76,6 +76,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.UriUtils;
 
@@ -893,6 +894,15 @@ public class FileUploadService extends IntentService {
                 // grant that future retries on the same account will get the
                 // fresh credentials
                 
+            }
+
+            if(!uploadResult.isSuccess()){
+                //in case of failure, do not show details file view (because there is no file!)
+                Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
+                showUploadListIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)upload.getFile());
+                showUploadListIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());                
+                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
+                    showUploadListIntent, 0));
             }
 
             mNotificationBuilder.setContentText(content);
