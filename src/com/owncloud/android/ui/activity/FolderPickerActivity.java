@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -52,6 +53,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundExce
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
@@ -60,7 +62,6 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.lib.common.utils.Log_OC;
 
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity, 
     OnClickListener, OnEnforceableRefreshListener {
@@ -368,7 +369,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             finish();
         } else if (v == mChooseBtn) {
             Intent i = getIntent();
-            OCFile targetFile = i.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
+            Parcelable targetFile = i.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
 
             Intent data = new Intent();
             data.putExtra(EXTRA_FOLDER, getCurrentFolder());
