@@ -460,15 +460,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      * @return          New OCFile instance representing the remote resource described by we.
      */
     private OCFile fillOCFile(RemoteFile remote) {
-        OCFile file = new OCFile(remote.getRemotePath());
-        file.setCreationTimestamp(remote.getCreationTimestamp());
-        file.setFileLength(remote.getLength());
-        file.setMimetype(remote.getMimeType());
-        file.setModificationTimestamp(remote.getModifiedTimestamp());
-        file.setEtag(remote.getEtag());
-        file.setPermissions(remote.getPermissions());
-        file.setRemoteId(remote.getRemoteId());
-        return file;
+        return FileStorageUtils.fillOCFile(remote);
     }
     
 
