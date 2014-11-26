@@ -18,10 +18,8 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.content.Intent;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.owncloud.android.datamodel.OCFile;
@@ -33,7 +31,6 @@ public class UploadPathActivity extends FolderPickerActivity implements FileFrag
 
     public static final String KEY_INSTANT_UPLOAD_PATH = "INSTANT_UPLOAD_PATH";
 
-    public static final int RESULT_OK_SET_UPLOAD_PATH = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +38,7 @@ public class UploadPathActivity extends FolderPickerActivity implements FileFrag
 
         String instantUploadPath = getIntent().getStringExtra(KEY_INSTANT_UPLOAD_PATH);
 
+        // The caller activity (Preferences) is not a FileActivity, so it has no OCFile, only a path.
         OCFile folder = new OCFile(instantUploadPath);
 
         setFile(folder);
@@ -74,18 +72,6 @@ public class UploadPathActivity extends FolderPickerActivity implements FileFrag
             }
 
             updateNavigationElementsInActionBar();
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v == mCancelBtn) {
-            finish();
-        } else if (v == mChooseBtn) {
-            Intent data = new Intent();
-            data.putExtra(EXTRA_CURRENT_FOLDER, getCurrentFolder());
-            setResult(RESULT_OK_SET_UPLOAD_PATH, data);
-            finish();
         }
     }
 }

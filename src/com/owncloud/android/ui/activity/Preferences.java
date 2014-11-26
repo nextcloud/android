@@ -404,10 +404,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ACTION_SELECT_UPLOAD_PATH && (resultCode == RESULT_OK || 
-                resultCode == UploadPathActivity.RESULT_OK_SET_UPLOAD_PATH)){
+        if (requestCode == ACTION_SELECT_UPLOAD_PATH && resultCode == RESULT_OK){
 
-            OCFile folderToUpload = (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_CURRENT_FOLDER);
+            OCFile folderToUpload = (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
 
             mUploadPath = folderToUpload.getRemotePath();
 
@@ -418,10 +417,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
 
             saveInstantUploadPathOnPreferences();
 
-        } else if (requestCode == ACTION_SELECT_UPLOAD_VIDEO_PATH && (resultCode == RESULT_OK || 
-                resultCode == UploadPathActivity.RESULT_OK_SET_UPLOAD_PATH)){
+        } else if (requestCode == ACTION_SELECT_UPLOAD_VIDEO_PATH && resultCode == RESULT_OK){
 
-            OCFile folderToUploadVideo = (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_CURRENT_FOLDER);
+            OCFile folderToUploadVideo = (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
 
             mUploadVideoPath = folderToUploadVideo.getRemotePath();
 

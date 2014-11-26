@@ -65,10 +65,11 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity, 
     OnClickListener, OnEnforceableRefreshListener {
 
-    public static final String EXTRA_CURRENT_FOLDER = UploadFilesActivity.class.getCanonicalName()
-                                                            + ".EXTRA_CURRENT_FOLDER";
-    public static final String EXTRA_TARGET_FILE = UploadFilesActivity.class.getCanonicalName()
-                                                            + "EXTRA_TARGET_FILE";
+    public static final String EXTRA_FOLDER = UploadFilesActivity.class.getCanonicalName()
+                                                            + ".EXTRA_FOLDER";
+    public static final String EXTRA_FILE = UploadFilesActivity.class.getCanonicalName()
+                                                            + ".EXTRA_FILE";
+    //TODO: Think something better
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
@@ -367,11 +368,13 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             finish();
         } else if (v == mChooseBtn) {
             Intent i = getIntent();
-            OCFile targetFile = (OCFile) i.getParcelableExtra(FolderPickerActivity.EXTRA_TARGET_FILE);
+            OCFile targetFile = i.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
 
             Intent data = new Intent();
-            data.putExtra(EXTRA_CURRENT_FOLDER, getCurrentFolder());
-            data.putExtra(EXTRA_TARGET_FILE, targetFile);
+            data.putExtra(EXTRA_FOLDER, getCurrentFolder());
+            if (targetFile != null) {
+                data.putExtra(EXTRA_FILE, targetFile);
+            }
             setResult(RESULT_OK, data);
             finish();
         }
