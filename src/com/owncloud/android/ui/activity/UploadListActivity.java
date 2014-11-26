@@ -2,17 +2,23 @@ package com.owncloud.android.ui.activity;
 
 import java.io.File;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.db.UploadDbObject;
+import com.owncloud.android.db.UploadDbHandler.UploadStatus;
 import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.errorhandling.ExceptionHandler;
 import com.owncloud.android.ui.fragment.UploadListFragment;
+import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * Activity listing pending, active, and completed uploads. User can delete
@@ -36,9 +42,39 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     // ////////////////////////////////////////
     // UploadListFragment.ContainerActivity
     // ////////////////////////////////////////
+    /**
+     * TODO Without a menu this is a little un-intuitive.
+     */
     @Override
     public void onUploadItemClick(UploadDbObject file) {
-        // TODO Auto-generated method stub
+        OCFile ocFile = FileStorageUtils.fillOCFile(file);
+        switch (file.getUploadStatus()) {
+        case UPLOAD_IN_PROGRESS:
+            if (ocFile != null) {
+                getFileOperationsHelper().cancelTransference(ocFile);
+            } else {
+                Log_OC.e(TAG, "Could not get OCFile for " + file.getRemotePath() + ". Cannot cancel.");
+            }
+            break;
+        case UPLOAD_SUCCEEDED:
+            Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+            showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, ocFile);
+            showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, file.getAccount(this));
+            startActivity(showDetailsIntent);
+            break;
+        case UPLOAD_CANCELLED:
+        case UPLOAD_PAUSED:
+            UploadDbHandler db = UploadDbHandler.getInstance(this.getBaseContext());
+            file.setUploadStatus(UploadStatus.UPLOAD_LATER);
+            db.updateUpload(file);
+            // no break; to start upload immediately.
+        case UPLOAD_LATER:
+        case UPLOAD_FAILED_RETRY:
+            FileUploadService.retry(this);
+            break;
+        default:
+            break;
+        }
 
     }
 

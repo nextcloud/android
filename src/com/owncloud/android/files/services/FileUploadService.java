@@ -184,6 +184,7 @@ public class FileUploadService extends IntentService {
      * is being uploaded to {@link UploadFileOperation}.
      */
     private ConcurrentMap<String, UploadDbObject> mPendingUploads = new ConcurrentHashMap<String, UploadDbObject>();
+    
     /**
      * {@link UploadFileOperation} object of ongoing upload. Can be null. Note: There can only be one concurrent upload!
      */

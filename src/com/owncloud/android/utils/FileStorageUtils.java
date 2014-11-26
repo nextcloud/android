@@ -22,6 +22,7 @@ import java.io.File;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 
 import android.annotation.SuppressLint;
@@ -132,6 +133,15 @@ public class FileStorageUtils {
         file.setEtag(remote.getEtag());
         file.setPermissions(remote.getPermissions());
         file.setRemoteId(remote.getRemoteId());
+        return file;
+    }
+    
+    public static OCFile fillOCFile(UploadDbObject o) {
+        OCFile file = new OCFile(o.getRemotePath());
+        File localFile = new File(o.getLocalPath());
+        file.setFileLength(localFile.length());
+        file.setMimetype(o.getMimeType());
+        file.setStoragePath(o.getLocalPath());
         return file;
     }
     
