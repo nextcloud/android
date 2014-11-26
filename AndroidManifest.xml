@@ -163,16 +163,7 @@
         <activity android:name=".ui.activity.LogHistoryActivity"/>
 
         <activity android:name=".ui.errorhandling.ErrorShowActivity" />
-        <activity android:name=".ui.activity.UploadListActivity" >
-
-            <!-- for testing only: -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <!-- end: for testing only: -->
-        </activity>
+        <activity android:name=".ui.activity.UploadListActivity" />
         
         <receiver android:name=".files.services.ConnectivityActionReceiver"
 		    android:enabled="true" android:label="ConnectivityActionReceiver">
