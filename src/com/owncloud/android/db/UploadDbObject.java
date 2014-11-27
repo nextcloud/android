@@ -114,6 +114,10 @@ public class UploadDbObject implements Serializable {
      */
     boolean isUseWifiOnly;
     /**
+     * Upload only if phone being charged?
+     */
+    boolean isWhileChargingOnly;
+    /**
      * Name of Owncloud account to upload file to.
      */
     String accountName;
@@ -268,6 +272,14 @@ public class UploadDbObject implements Serializable {
      */
     public Account getAccount(Context context) {
         return AccountUtils.getOwnCloudAccountByName(context, getAccountName());
+    }
+
+    public void setWhileChargingOnly(boolean isWhileChargingOnly) {
+        this.isWhileChargingOnly = isWhileChargingOnly;        
+    }
+    
+    public boolean isWhileChargingOnly() {
+        return isWhileChargingOnly;
     }
 
 }

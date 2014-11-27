@@ -78,6 +78,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.UploadUtils;
 import com.owncloud.android.utils.UriUtils;
 
 /**
@@ -122,6 +123,7 @@ public class FileUploadService extends IntentService {
     public static final String KEY_FORCE_OVERWRITE = "KEY_FORCE_OVERWRITE";
     public static final String KEY_CREATE_REMOTE_FOLDER = "CREATE_REMOTE_FOLDER";
     public static final String KEY_WIFI_ONLY = "WIFI_ONLY";
+    public static final String KEY_WHILE_CHARGING_ONLY = "KEY_WHILE_CHARGING_ONLY";
     public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
 
     /**
@@ -255,7 +257,7 @@ public class FileUploadService extends IntentService {
             mDb.updateUpload(uploadDbObject);   
         }
         
-        //TODO This service can be instantiated at any time. Move this retry call to start of app.
+        //TODO This service can be instantiated at any time. Better move this retry call to start of app.
         if(InstantUploadBroadcastReceiver.isOnline(getApplicationContext())) {
             Log_OC.d(TAG, "FileUploadService.retry() called by onCreate()");
             FileUploadService.retry(getApplicationContext());
@@ -289,24 +291,26 @@ public class FileUploadService extends IntentService {
         Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before adding new uploads.");
         if (intent == null || intent.hasExtra(KEY_RETRY)) {
             Log_OC.d(TAG, "Receive null intent.");
-            // service was restarted by OS (after return START_STICKY and kill
-            // service) or connectivity change was detected. ==> check persistent upload
-            // list.
-            //
+            // service was restarted by OS or connectivity change was detected or
+            // retry of pending upload was requested. 
+            // ==> First check persistent uploads, then perform upload.
+            int countAddedEntries = 0;
             List<UploadDbObject> list = mDb.getAllPendingUploads();
             for (UploadDbObject uploadDbObject : list) {
                 // store locally.
                 String uploadKey = buildRemoteName(uploadDbObject);
-                UploadDbObject previous = mPendingUploads.putIfAbsent(uploadKey, uploadDbObject);
-                
+                UploadDbObject previous = mPendingUploads.putIfAbsent(uploadKey, uploadDbObject);                
                 if(previous == null) {
                     // and store persistently.
                     uploadDbObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
                     mDb.updateUpload(uploadDbObject);
+                    countAddedEntries++;
                 } else {
                   //upload already pending. ignore.
                 }
             }
+            Log_OC.d(TAG, "added " + countAddedEntries
+                    + " entrie(s) to mPendingUploads (this should be 0 except for the first time).");
         } else {
             Log_OC.d(TAG, "Receive upload intent.");
             UploadSingleMulti uploadType = (UploadSingleMulti) intent.getSerializableExtra(KEY_UPLOAD_TYPE);
@@ -372,6 +376,7 @@ public class FileUploadService extends IntentService {
             boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
             boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
             boolean isUseWifiOnly = intent.getBooleanExtra(KEY_WIFI_ONLY, true);
+            boolean isWhileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, true);
             LocalBehaviour localAction = (LocalBehaviour) intent.getSerializableExtra(KEY_LOCAL_BEHAVIOUR);
             if (localAction == null)
                 localAction = LocalBehaviour.LOCAL_BEHAVIOUR_COPY;
@@ -385,6 +390,7 @@ public class FileUploadService extends IntentService {
                 uploadObject.setCreateRemoteFolder(isCreateRemoteFolder);
                 uploadObject.setLocalAction(localAction);
                 uploadObject.setUseWifiOnly(isUseWifiOnly);
+                uploadObject.setWhileChargingOnly(isWhileChargingOnly);
                 uploadObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
                 
                 String uploadKey = buildRemoteName(uploadObject);
@@ -402,27 +408,46 @@ public class FileUploadService extends IntentService {
                     // upload already pending. ignore.
                 }
             }
-            
-            // TODO check if would be clever to read entries from
-            // UploadDbHandler and add to requestedUploads at this point
-
         }
 
         // at this point mPendingUploads is filled.
 
         Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before uploading.");
 
-        try {
-            Iterator<String> it = mPendingUploads.keySet().iterator();
-            while (it.hasNext()) {
-                String up = it.next();
-                Log_OC.d(TAG, "Calling uploadFile for " + up);                
-                UploadDbObject uploadDbObject = mPendingUploads.get(up);
-                boolean uploadSuccessful = uploadFile(uploadDbObject);
+        Iterator<String> it = mPendingUploads.keySet().iterator();
+        while (it.hasNext()) {
+            String upload = it.next();
+            UploadDbObject uploadDbObject = mPendingUploads.get(upload);
+
+            switch (canUploadFileNow(uploadDbObject)) {
+            case NOW:
+                Log_OC.d(TAG, "Calling uploadFile for " + upload);
+                RemoteOperationResult uploadResult = uploadFile(uploadDbObject);
+                
+                updateDataseUploadResult(uploadResult, mCurrentUpload);
+                notifyUploadResult(uploadResult, mCurrentUpload);
+                sendFinalBroadcast(uploadResult, mCurrentUpload);                
+                if (!shouldRetryFailedUpload(uploadResult)) {
+                    Log_OC.d(TAG, "Upload with result " + uploadResult.getCode() + ": " + uploadResult.getLogMessage()
+                            + " will be abandoned.");                    
+                    mPendingUploads.remove(buildRemoteName(uploadDbObject));
+                }                
+                mCurrentUpload = null;
+                break;
+            case LATER:
+                //TODO schedule retry for later upload.
+                break;
+            case FILE_GONE:
+                mDb.updateUpload(uploadDbObject.getLocalPath(), UploadStatus.UPLOAD_FAILED_GIVE_UP,
+                        new RemoteOperationResult(ResultCode.FILE_NOT_FOUND));
+                it.remove();
+                break;
+            case ERROR:
+                Log_OC.e(TAG, "canUploadFileNow() returned ERROR. Fix that!");
+                break;
             }
-        } catch (ConcurrentModificationException e) {
-            // for now: ignore. TODO: fix this.
         }
+
         Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - after uploading.");
         Log_OC.i(TAG, "onHandleIntent end");
     }
@@ -563,41 +588,70 @@ public class FileUploadService extends IntentService {
             }
         }
     }
-
+    
+    enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR};
+    
     /**
-     * Core upload method: sends the file(s) to upload. This function blocks
-     * until upload succeeded or failed.
+     * Returns true when the file may be uploaded now. This methods checks all
+     * restraints of the passed {@link UploadDbObject}, these include
+     * isUseWifiOnly(), check if local file exists, check if file was already
+     * uploaded...
      * 
-     * @param uploadDbObject Key to access the upload to perform, contained in
-     *            mPendingUploads
-     * @return true on success.
+     * If return value is CanUploadFileNowStatus.NOW, uploadFile() may be
+     * called.
+     * 
+     * @return CanUploadFileNowStatus.NOW is upload may proceed, <br>
+     *         CanUploadFileNowStatus.LATER if upload should be performed at a
+     *         later time, <br>
+     *         CanUploadFileNowStatus.ERROR if a severe error happened, calling
+     *         entity should remove upload from queue.
+     * 
      */
-    private boolean uploadFile(UploadDbObject uploadDbObject) {
-        
-        if(uploadDbObject.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
-            Log_OC.w(TAG, "Already succeeded uploadObject was again scheduled for upload. Fix that!");
-            return false;
-        }
+    private CanUploadFileNowStatus canUploadFileNow(UploadDbObject uploadDbObject) {
 
-        if (mCurrentUpload != null) {
-            Log_OC.e(TAG,
-                    "mCurrentUpload != null. Meaning there is another upload in progress, cannot start a new one. Fix that!");
-            return false;
+        if (uploadDbObject.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
+            Log_OC.w(TAG, "Already succeeded uploadObject was again scheduled for upload. Fix that!");
+            return CanUploadFileNowStatus.ERROR;
         }
 
         if (uploadDbObject.isUseWifiOnly()
                 && !InstantUploadBroadcastReceiver.isConnectedViaWiFi(getApplicationContext())) {
             Log_OC.d(TAG, "Do not start upload because it is wifi-only.");
-            return false;
+            return CanUploadFileNowStatus.LATER;
+        }
+        
+        if(uploadDbObject.isWhileChargingOnly() && !UploadUtils.isCharging(getApplicationContext())) {
+            Log_OC.d(TAG, "Do not start upload because it is while charging only.");
+            return CanUploadFileNowStatus.LATER;
         }
 
         if (!new File(uploadDbObject.getLocalPath()).exists()) {
-            mDb.updateUpload(uploadDbObject.getLocalPath(), UploadStatus.UPLOAD_FAILED_GIVE_UP,
-                    new RemoteOperationResult(ResultCode.FILE_NOT_FOUND));            
             Log_OC.d(TAG, "Do not start upload because local file does not exist.");
-            return false;
+            return CanUploadFileNowStatus.FILE_GONE;
         }
+        return CanUploadFileNowStatus.NOW;        
+    }
 
+    
+    
+    /**
+     * Core upload method: sends the file(s) to upload. This function blocks
+     * until upload succeeded or failed.
+     * 
+     * Before uploading starts mCurrentUpload is set.
+     * 
+     * @param uploadDbObject Key to access the upload to perform, contained in
+     *            mPendingUploads
+     * @return RemoteOperationResult of upload operation.
+     */
+    private RemoteOperationResult uploadFile(UploadDbObject uploadDbObject) {
+        
+        if (mCurrentUpload != null) {
+            Log_OC.e(TAG,
+                    "mCurrentUpload != null. Meaning there is another upload in progress, cannot start a new one. Fix that!");
+            return new RemoteOperationResult(new IllegalStateException("mCurrentUpload != null when calling uploadFile()"));
+        }
+        
         AccountManager aMgr = AccountManager.get(this);
         Account account = uploadDbObject.getAccount(getApplicationContext());
         String version = aMgr.getUserData(account, Constants.KEY_OC_VERSION);
@@ -615,7 +669,7 @@ public class FileUploadService extends IntentService {
         }
         mCurrentUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
 
-        notifyUploadStart(mCurrentUpload);
+        notifyUploadStart(mCurrentUpload);        
 
         RemoteOperationResult uploadResult = null, grantResult = null;
         try {
@@ -656,7 +710,6 @@ public class FileUploadService extends IntentService {
             uploadResult = new RemoteOperationResult(e);
 
         } finally {
-            mPendingUploads.remove(buildRemoteName(uploadDbObject));
             Log_OC.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
             if (uploadResult.isException()) {
                 // enforce the creation of a new client object for next
@@ -666,14 +719,7 @@ public class FileUploadService extends IntentService {
                 mUploadClient = null;
             }
         }
-
-        // notify result
-        notifyUploadResult(uploadResult, mCurrentUpload);
-        sendFinalBroadcast(mCurrentUpload, uploadResult);
-        
-        mCurrentUpload = null;        
-
-        return uploadResult.isSuccess();
+        return uploadResult;
     }
 
 
@@ -846,7 +892,14 @@ public class FileUploadService extends IntentService {
 
         mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
         
-        mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_IN_PROGRESS, null);
+        updateDatabaseUploadStart(mCurrentUpload);
+    }
+    
+    /**
+     * Updates the persistent upload database that upload is in progress.
+     */
+    private void updateDatabaseUploadStart(UploadFileOperation upload) {
+        mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_IN_PROGRESS, null);    
     }
 
     /**
@@ -910,34 +963,61 @@ public class FileUploadService extends IntentService {
 
             if (uploadResult.isSuccess()) {
 
-               mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_SUCCEEDED, uploadResult);
-               
-                // remove success notification, with a delay of 2 seconds
+               // remove success notification, with a delay of 2 seconds
                 NotificationDelayer.cancelWithDelay(mNotificationManager, R.string.uploader_upload_succeeded_ticker,
                         2000);
+            } 
+        } 
+    }
+    
+    /**
+     * Updates the persistent upload database with upload result.
+     */
+    private void updateDataseUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
+        // result: success or fail notification
+        if (uploadResult.isCancelled()) {
+            mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_CANCELLED, uploadResult);
+        } else {
+
+            if (uploadResult.isSuccess()) {
+                mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_SUCCEEDED, uploadResult);
             } else {
-                // TODO: add other cases in which upload attempt is to be
-                // abandoned.
-                if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
+                if (shouldRetryFailedUpload(uploadResult)) {
+                    mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED_RETRY, uploadResult);
+                } else {
                     mDb.updateUpload(upload.getOriginalStoragePath(),
                             UploadDbHandler.UploadStatus.UPLOAD_FAILED_GIVE_UP, uploadResult);
-                } else {
-                    mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED_RETRY, uploadResult);
                 }
             }
-        } else {
-            mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED_RETRY, uploadResult);
+        }
+    }
+    
+    /**
+     * Determines whether with given uploadResult the upload should be retried later.
+     * @param uploadResult
+     * @return true if upload should be retried later, false if is should be abandoned.
+     */
+    private boolean shouldRetryFailedUpload(RemoteOperationResult uploadResult) {
+        if (uploadResult.isSuccess()) {
+            return false;
+        }
+        switch (uploadResult.getCode()) {
+        case HOST_NOT_AVAILABLE:
+        case NO_NETWORK_CONNECTION:
+        case TIMEOUT:
+            return true;
+        default:
+            return false;
         }
     }
 
     /**
      * Sends a broadcast in order to the interested activities can update their
      * view
-     * 
-     * @param upload Finished upload operation
      * @param uploadResult Result of the upload operation
+     * @param upload Finished upload operation
      */
-    private void sendFinalBroadcast(UploadFileOperation upload, RemoteOperationResult uploadResult) {
+    private void sendFinalBroadcast(RemoteOperationResult uploadResult, UploadFileOperation upload) {
         Intent end = new Intent(getUploadFinishMessage());
         end.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath()); // real remote
                                                                  // path, after
