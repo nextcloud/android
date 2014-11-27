@@ -139,6 +139,7 @@ public class UploadListFragment extends ExpandableListFragment {
         UploadDbObject uploadFile = (UploadDbObject) mAdapter.getChild(groupPosition, childPosition);
         switch (item.getItemId()) {
         case R.id.action_cancel_upload: {
+            //TODO OCFile does not have UploadBinder. :(
             ((FileActivity) getActivity()).getFileOperationsHelper().cancelTransference(uploadFile.getOCFile());
             return true;
         }

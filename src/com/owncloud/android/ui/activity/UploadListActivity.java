@@ -45,34 +45,10 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     @Override
     public boolean onUploadItemClick(UploadDbObject file) {
         OCFile ocFile = file.getOCFile();
-        switch (file.getUploadStatus()) {
-        case UPLOAD_IN_PROGRESS:
-            if (ocFile != null) {
-                getFileOperationsHelper().cancelTransference(ocFile);
-            } else {
-                Log_OC.e(TAG, "Could not get OCFile for " + file.getRemotePath() + ". Cannot cancel.");
-            }
-            break;
-        case UPLOAD_SUCCEEDED:
-            Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-            showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)ocFile);
-            showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, file.getAccount(this));
-            startActivity(showDetailsIntent);
-            break;
-        case UPLOAD_CANCELLED:
-        case UPLOAD_PAUSED:
-            UploadDbHandler db = UploadDbHandler.getInstance(this.getBaseContext());
-            file.setUploadStatus(UploadStatus.UPLOAD_LATER);
-            db.updateUpload(file);
-            // no break; to start upload immediately.
-        case UPLOAD_LATER:
-        case UPLOAD_FAILED_RETRY:
-            Log_OC.d(TAG, "FileUploadService.retry() called by onUploadItemClick()");
-            FileUploadService.retry(this);
-            break;
-        default:
-            break;
-        }
+        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable) ocFile);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, file.getAccount(this));
+        startActivity(showDetailsIntent);
         return true;
     }
     
