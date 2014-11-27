@@ -263,15 +263,17 @@ public class FileOperationsHelper {
 
                 downloaderBinder.cancel(account, file);
             } else {
-                Log_OC.w(TAG, "Download for " + file + " not in progress. Cannot cancel.");
+                Log_OC.d(TAG, "Download for " + file + " not in progress. Cannot cancel.");
             }
-        } else if (uploaderBinder != null) {
+        } 
+        if (uploaderBinder != null) {
             if (uploaderBinder.isUploading(account, file)) {
                 uploaderBinder.cancel(account, file);
             } else {
-                Log_OC.w(TAG, "Upload for " + file + " not in progress. Cannot cancel.");
+                Log_OC.d(TAG, "Upload for " + file + " not in progress. Cannot cancel.");
             }
-        } else {
+        } 
+        if(downloaderBinder == null && uploaderBinder == null) {
             Log_OC.w(TAG, "Neither downloaderBinder nor uploaderBinder set. Cannot cancel.");            
         }
     }
