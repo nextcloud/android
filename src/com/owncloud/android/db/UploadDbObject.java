@@ -118,6 +118,11 @@ public class UploadDbObject implements Serializable {
      */
     boolean isWhileChargingOnly;
     /**
+     * Earliest time when upload may be started. Negative if not set.
+     */
+    long uploadTimestamp;
+
+    /**
      * Name of Owncloud account to upload file to.
      */
     String accountName;
@@ -282,4 +287,19 @@ public class UploadDbObject implements Serializable {
         return isWhileChargingOnly;
     }
 
+    /**
+     * Earliest time when upload may be started. Negative if not set.
+     * @return the uploadTimestamp
+     */
+    public long getUploadTimestamp() {
+        return uploadTimestamp;
+    }
+
+    /**
+     * Earliest time when upload may be started. Set to negative value for immediate upload.
+     * @param uploadTimestamp the uploadTimestamp to set
+     */
+    public void setUploadTimestamp(long uploadTimestamp) {
+        this.uploadTimestamp = uploadTimestamp;
+    }
 }

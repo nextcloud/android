@@ -21,6 +21,7 @@ package com.owncloud.android.files.services;
 import java.io.File;
 import java.io.IOException;
 import java.util.ConcurrentModificationException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -45,6 +46,7 @@ import android.os.Looper;
 import android.os.Parcelable;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
+import android.text.format.DateUtils;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
@@ -76,6 +78,7 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.UploadUtils;
 import com.owncloud.android.utils.UriUtils;
@@ -113,16 +116,39 @@ public class FileUploadService extends IntentService {
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
     public static final String KEY_MIME_TYPE = "MIME_TYPE";
     
-    public static final String KEY_RETRY = "KEY_RETRY";
-    
-
+    /**
+     * Call this Service with only this Intent key if all pending uploads are to be retried.
+     */
+    private static final String KEY_RETRY = "KEY_RETRY";
+    /**
+     * {@link Account} to which file is to be uploaded.
+     */
     public static final String KEY_ACCOUNT = "ACCOUNT";
-
+    /**
+     * Set whether single file or multiple files are to be uploaded. Value must be of type {@link UploadSingleMulti}.
+     */
     public static final String KEY_UPLOAD_TYPE = "UPLOAD_TYPE";
+    /**
+     * Set to true if remote file is to be overwritten. Default action is to upload with different name. 
+     */
     public static final String KEY_FORCE_OVERWRITE = "KEY_FORCE_OVERWRITE";
+    /**
+     * Set to true if remote folder is to be created if it does not exist.
+     */
     public static final String KEY_CREATE_REMOTE_FOLDER = "CREATE_REMOTE_FOLDER";
+    /**
+     * Set to true if upload is to performed only when connected via wifi.
+     */
     public static final String KEY_WIFI_ONLY = "WIFI_ONLY";
+    /**
+     * Set to true if upload is to performed only when phone is being charged.
+     */
     public static final String KEY_WHILE_CHARGING_ONLY = "KEY_WHILE_CHARGING_ONLY";
+    /**
+     * Set to future UNIX timestamp. Upload will not be performed before this timestamp. 
+     */
+    public static final String KEY_UPLOAD_TIMESTAMP= "KEY_UPLOAD_TIMESTAMP";
+    
     public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
 
     /**
@@ -376,6 +402,8 @@ public class FileUploadService extends IntentService {
             boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
             boolean isUseWifiOnly = intent.getBooleanExtra(KEY_WIFI_ONLY, true);
             boolean isWhileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, true);
+            long uploadTimestamp = intent.getLongExtra(KEY_UPLOAD_TIMESTAMP, -1);
+            
             LocalBehaviour localAction = (LocalBehaviour) intent.getSerializableExtra(KEY_LOCAL_BEHAVIOUR);
             if (localAction == null)
                 localAction = LocalBehaviour.LOCAL_BEHAVIOUR_COPY;
@@ -390,6 +418,7 @@ public class FileUploadService extends IntentService {
                 uploadObject.setLocalAction(localAction);
                 uploadObject.setUseWifiOnly(isUseWifiOnly);
                 uploadObject.setWhileChargingOnly(isWhileChargingOnly);
+                uploadObject.setUploadTimestamp(uploadTimestamp);
                 uploadObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
                 
                 String uploadKey = buildRemoteName(uploadObject);
@@ -623,6 +652,15 @@ public class FileUploadService extends IntentService {
             Log_OC.d(TAG, "Do not start upload because it is while charging only.");
             return CanUploadFileNowStatus.LATER;
         }
+        Date now = new Date();
+        if (now.getTime() < uploadDbObject.getUploadTimestamp()) {
+            Log_OC.d(
+                    TAG,
+                    "Do not start upload because it is schedule for "
+                            + DisplayUtils.unixTimeToHumanReadable(uploadDbObject.getUploadTimestamp()));
+            return CanUploadFileNowStatus.LATER;
+        }
+        
 
         if (!new File(uploadDbObject.getLocalPath()).exists()) {
             Log_OC.d(TAG, "Do not start upload because local file does not exist.");
