@@ -114,7 +114,18 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                 return false;
             }
         });
-
+        
+        // Load package info
+        String temp;
+        try {
+            PackageInfo pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
+            temp = pkg.versionName;
+        } catch (NameNotFoundException e) {
+            temp = "";
+            Log_OC.e(TAG, "Error while showing about dialog", e);
+        } 
+        final String appVersion = temp;
+       
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
@@ -203,7 +214,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         String feedbackMail   =(String) getText(R.string.mail_feedback);
-                        String feedback   =(String) getText(R.string.prefs_feedback);
+                        String feedback   =(String) getText(R.string.prefs_feedback) + " - android v" + appVersion;
                         Intent intent = new Intent(Intent.ACTION_SENDTO); 
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
@@ -257,13 +268,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
        pAboutApp = (Preference) findPreference("about_app");
        if (pAboutApp != null) { 
                pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
-               PackageInfo pkg;
-               try {
-                   pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
-                   pAboutApp.setSummary(String.format(getString(R.string.about_version), pkg.versionName));
-               } catch (NameNotFoundException e) {
-                   Log_OC.e(TAG, "Error while showing about dialog", e);
-               }
+               pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
        }
     }
 
