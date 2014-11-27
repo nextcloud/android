@@ -37,7 +37,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 /**
  *  Extending ExtendedListFragment. This allows dividing list in groups.
  */
-public class ExpandableListFragment extends ExtendedListFragment implements OnChildClickListener, OnItemLongClickListener
+public class ExpandableListFragment extends ExtendedListFragment implements OnChildClickListener
  {
     protected static final String TAG = ExpandableListFragment.class.getSimpleName();
     
@@ -60,7 +60,6 @@ public class ExpandableListFragment extends ExtendedListFragment implements OnCh
         mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         mList = (ExpandableListView)(v.findViewById(R.id.list_root));
         mList.setOnChildClickListener(this);
-        mList.setOnItemLongClickListener(this);
 
         mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         mList.setDividerHeight(1);
@@ -86,13 +85,6 @@ public class ExpandableListFragment extends ExtendedListFragment implements OnCh
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
         // to be @overriden
         Log_OC.e(TAG, "onChildClick(). This method should be overriden!");
-        return false;
-    }
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        // to be @overriden
-        Log_OC.e(TAG, "onItemLongClick(). This method should be overriden!");
         return false;
     }
 

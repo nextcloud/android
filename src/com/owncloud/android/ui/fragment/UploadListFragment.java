@@ -18,19 +18,37 @@
 package com.owncloud.android.ui.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ListView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.UploadDbHandler.UploadStatus;
 import com.owncloud.android.db.UploadDbObject;
+import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.MoveActivity;
 import com.owncloud.android.ui.adapter.ExpandableUploadListAdapter;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
+import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.
@@ -75,6 +93,9 @@ public class UploadListFragment extends ExpandableListFragment {
         super.onActivityCreated(savedInstanceState);
         mAdapter = new ExpandableUploadListAdapter(getActivity());
         setListAdapter(mAdapter);
+        
+        registerForContextMenu(getListView());
+        getListView().setOnCreateContextMenuListener(this);
     }
 
     @Override
@@ -91,26 +112,50 @@ public class UploadListFragment extends ExpandableListFragment {
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        Log_OC.d(TAG, "onItemLongClick() position: " + position + " id: " + id);
-        int itemType = ExpandableListView.getPackedPositionType(id);
-
-        if (itemType == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-            int childPosition = ExpandableListView.getPackedPositionChild(id);
-            int groupPosition = ExpandableListView.getPackedPositionGroup(id);
-            UploadDbObject uploadDbObject = (UploadDbObject) mAdapter.getChild(groupPosition, childPosition);
-            if (uploadDbObject != null) {
-                return mContainerActivity.onUploadItemLongClick(uploadDbObject);
-            } else {
-                Log_OC.w(TAG, "Null object in ListAdapter!!");
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getSherlockActivity().getMenuInflater();
+        inflater.inflate(R.menu.upload_actions_menu, menu);
+        
+        ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) menuInfo;  
+        int childPosition = ExpandableListView.getPackedPositionChild(info.packedPosition);
+        int groupPosition = ExpandableListView.getPackedPositionGroup(info.packedPosition);
+        UploadDbObject uploadFile = (UploadDbObject) mAdapter.getChild(groupPosition, childPosition);
+        if (uploadFile.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED
+                || uploadFile.getUploadStatus() == UploadStatus.UPLOAD_FAILED_GIVE_UP) {
+            MenuItem item = menu.findItem(R.id.action_cancel_upload);
+            if (item != null) {
+                item.setVisible(false);
+                item.setEnabled(false);
             }
-        } else if (itemType == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
-            // clicked on group header. ignore.
-            return false;
+        } 
+    }
+    
+    @Override
+    public boolean onContextItemSelected (MenuItem item) {
+        ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) item.getMenuInfo();  
+        int childPosition = ExpandableListView.getPackedPositionChild(info.packedPosition);
+        int groupPosition = ExpandableListView.getPackedPositionGroup(info.packedPosition);
+        UploadDbObject uploadFile = (UploadDbObject) mAdapter.getChild(groupPosition, childPosition);
+        switch (item.getItemId()) {
+        case R.id.action_cancel_upload: {
+            ((FileActivity) getActivity()).getFileOperationsHelper().cancelTransference(uploadFile.getOCFile());
+            return true;
         }
-
-        return false;
-
+        case R.id.action_see_details: {
+            Intent showDetailsIntent = new Intent(getActivity(), FileDisplayActivity.class);
+            showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable) uploadFile.getOCFile());
+            showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, uploadFile.getAccount(getActivity()));
+            startActivity(showDetailsIntent);
+            return true;
+        }
+        case R.id.action_open_file_with: {
+            ((FileActivity) getActivity()).getFileOperationsHelper().openFile(uploadFile.getOCFile());
+            return true;
+        }
+        default:
+            return super.onContextItemSelected(item);
+        }
     }
 
     /**
@@ -129,15 +174,6 @@ public class UploadListFragment extends ExpandableListFragment {
          * @return return true if click was handled.
          */
         public boolean onUploadItemClick(UploadDbObject file);
-        
-        /**
-         * Callback method invoked when an upload item is long clicked by the user on
-         * the upload list
-         * 
-         * @param file
-         * @return return true if click was handled.
-         */
-        public boolean onUploadItemLongClick(UploadDbObject file);
 
     }
 

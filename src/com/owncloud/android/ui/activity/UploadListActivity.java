@@ -103,12 +103,5 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         return true;
     }
 
-    @Override
-    public boolean onUploadItemLongClick(UploadDbObject file) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-    
-    
 
 }

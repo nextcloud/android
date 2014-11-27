@@ -251,19 +251,28 @@ public class FileOperationsHelper {
     public void cancelTransference(OCFile file) {
         Account account = mFileActivity.getAccount();
         FileDownloaderBinder downloaderBinder = mFileActivity.getFileDownloaderBinder();
-        FileUploaderBinder uploaderBinder =  mFileActivity.getFileUploaderBinder();
-        if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
-            // Remove etag for parent, if file is a keep_in_sync
-            if (file.keepInSync()) {
-               OCFile parent = mFileActivity.getStorageManager().getFileById(file.getParentId());
-               parent.setEtag("");
-               mFileActivity.getStorageManager().saveFile(parent);
+        FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
+        if (downloaderBinder != null) {
+            if (downloaderBinder.isDownloading(account, file)) {
+                // Remove etag for parent, if file is a keep_in_sync
+                if (file.keepInSync()) {
+                    OCFile parent = mFileActivity.getStorageManager().getFileById(file.getParentId());
+                    parent.setEtag("");
+                    mFileActivity.getStorageManager().saveFile(parent);
+                }
+
+                downloaderBinder.cancel(account, file);
+            } else {
+                Log_OC.w(TAG, "Download for " + file + " not in progress. Cannot cancel.");
             }
-            
-            downloaderBinder.cancel(account, file);
-            
-        } else if (uploaderBinder != null && uploaderBinder.isUploading(account, file)) {
-            uploaderBinder.cancel(account, file);
+        } else if (uploaderBinder != null) {
+            if (uploaderBinder.isUploading(account, file)) {
+                uploaderBinder.cancel(account, file);
+            } else {
+                Log_OC.w(TAG, "Upload for " + file + " not in progress. Cannot cancel.");
+            }
+        } else {
+            Log_OC.w(TAG, "Neither downloaderBinder nor uploaderBinder set. Cannot cancel.");            
         }
     }
 
