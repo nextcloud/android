@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout01"
+    android:layout_width="fill_parent"
+    android:layout_height="45dip"
+    android:background="@drawable/abs__ab_bottom_solid_light_holo" >
+
+    <ImageView
+        android:id="@+id/uploadListGroupIcon"
+        android:layout_width="20dip"
+        android:layout_height="20dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginStart="10dip"
+        android:layout_marginTop="2dip" >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/uploadListGroupName"
+        android:layout_width="fill_parent"
+        android:layout_height="25dip"
+        android:gravity="center_vertical|end"
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip"
+        android:textColor="#ffffffff"
+        android:textSize="17sp"
+        android:textStyle="bold" >
+    </TextView>
+
+</LinearLayout>

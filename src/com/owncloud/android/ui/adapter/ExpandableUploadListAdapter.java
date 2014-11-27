@@ -2,23 +2,24 @@ package com.owncloud.android.ui.adapter;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Bitmap;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -29,17 +30,78 @@ import com.owncloud.android.utils.DisplayUtils;
  * active, completed. Filtering possible.
  * 
  */
-public class UploadListAdapter extends BaseAdapter implements ListAdapter, Observer {
+public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer {
 
-    private static final String TAG = "UploadListAdapter";
+    private static final String TAG = "ExpandableUploadListAdapter";
     private Activity mActivity;
-    private UploadDbObject[] mUploads = null;
+    
+    interface Refresh {
+        public void refresh();
+    }
+    abstract class UploadGroup implements Refresh {
+        UploadDbObject[] items;
+        String name;
+        public UploadGroup(String groupName) {
+            this.name = groupName;            
+            items = new UploadDbObject[0];
+        }        
+        public String getGroupName() {
+            return name;
+        }
+        public Comparator<UploadDbObject> comparator = new Comparator<UploadDbObject>() {
+            @Override
+            public int compare(UploadDbObject lhs, UploadDbObject rhs) {
+                return compareUploadTime(lhs, rhs);
+            }
+            private int compareUploadTime(UploadDbObject lhs, UploadDbObject rhs) {
+                return rhs.getUploadTime().compareTo(lhs.getUploadTime());
+            }
+        };
+        abstract public int getGroupIcon();
+    }
+    private UploadGroup[] mUploadGroups = null;
     UploadDbHandler mDb;
 
-    public UploadListAdapter(Activity context) {
+    public ExpandableUploadListAdapter(Activity context) {
         Log_OC.d(TAG, "UploadListAdapter");
         mActivity = context;
         mDb = UploadDbHandler.getInstance(mActivity);
+        mUploadGroups = new UploadGroup[3];
+        mUploadGroups[0] = new UploadGroup("Current Uploads") {
+            @Override
+            public void refresh() {
+                items = mDb.getCurrentAndPendingUploads();
+                Arrays.sort(items, comparator);
+            }
+            @Override
+            public int getGroupIcon() {
+                return R.drawable.upload_in_progress;
+            }
+        };
+        mUploadGroups[1] = new UploadGroup("Failed Uploads"){
+            @Override
+            public void refresh() {
+                items = mDb.getFailedUploads();
+                Arrays.sort(items, comparator);
+            }
+            @Override
+            public int getGroupIcon() {
+                return R.drawable.upload_failed;
+            }
+
+        };
+        mUploadGroups[2] = new UploadGroup("Finished Uploads"){
+            @Override
+            public void refresh() {
+                items = mDb.getFinishedUploads();
+                Arrays.sort(items, comparator);
+            }
+            @Override
+            public int getGroupIcon() {
+                return R.drawable.upload_finished;
+            }
+
+        };
         loadUploadItemsFromDb();
     }
 
@@ -62,42 +124,14 @@ public class UploadListAdapter extends BaseAdapter implements ListAdapter, Obser
         return true;
     }
 
-    @Override
-    public boolean isEnabled(int position) {
-        return true;
-    }
-
-    @Override
-    public int getCount() {
-        return mUploads != null ? mUploads.length : 0;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        if (mUploads == null || mUploads.length <= position)
-            return null;
-        return mUploads[position];
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return mUploads != null && mUploads.length <= position ? position : -1;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    private View getView(UploadDbObject[] uploadsItems, int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflator = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflator.inflate(R.layout.upload_list_item, null);
         }
-        if (mUploads != null && mUploads.length > position) {
-            UploadDbObject uploadObject = mUploads[position];
+        if (uploadsItems != null && uploadsItems.length > position) {
+            UploadDbObject uploadObject = uploadsItems[position];
 
             TextView fileName = (TextView) view.findViewById(R.id.upload_name);
             fileName.setText(uploadObject.getLocalPath());
@@ -110,11 +144,15 @@ public class UploadListAdapter extends BaseAdapter implements ListAdapter, Obser
             statusView.setText(status);
 
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
-            // if (!file.isDirectory()) {
             fileIcon.setImageResource(R.drawable.file);
-            // } else {
-            // fileIcon.setImageResource(R.drawable.ic_menu_archive);
-            // }
+            try {
+                //?? TODO RemoteID is not set yet. How to get thumbnail?
+                Bitmap b = ThumbnailsCacheManager.getBitmapFromDiskCache(uploadObject.getOCFile().getRemoteId());
+                if (b != null) {
+                    fileIcon.setImageBitmap(b);
+                }
+            } catch (NullPointerException e) {
+            }            
 
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
             CharSequence dateString = DisplayUtils.getRelativeDateTimeString(mActivity, uploadObject.getUploadTime()
@@ -161,49 +199,23 @@ public class UploadListAdapter extends BaseAdapter implements ListAdapter, Obser
         return view;
     }
 
-    @Override
-    public int getViewTypeCount() {
-        return 1;
-    }
+    
 
     @Override
     public boolean hasStableIds() {
         return false;
     }
 
-    @Override
-    public boolean isEmpty() {
-        return (mUploads == null || mUploads.length == 0);
-    }
+    
 
     /**
      * Load upload items from {@link UploadDbHandler}.
      */
     private void loadUploadItemsFromDb() {
         Log_OC.d(TAG, "loadUploadItemsFromDb");
-        List<UploadDbObject> list = mDb.getAllStoredUploads();
-        mUploads = list.toArray(new UploadDbObject[list.size()]);
-        if (mUploads != null) {
-            Arrays.sort(mUploads, new Comparator<UploadDbObject>() {
-                @Override
-                public int compare(UploadDbObject lhs, UploadDbObject rhs) {
-                    // if (lhs.isDirectory() && !rhs.isDirectory()) {
-                    // return -1;
-                    // } else if (!lhs.isDirectory() && rhs.isDirectory()) {
-                    // return 1;
-                    // }
-                    return compareUploadTime(lhs, rhs);
-                }
-
-                private int compareNames(UploadDbObject lhs, UploadDbObject rhs) {
-                    return lhs.getLocalPath().toLowerCase().compareTo(rhs.getLocalPath().toLowerCase());
-                }
-
-                private int compareUploadTime(UploadDbObject lhs, UploadDbObject rhs) {
-                    return rhs.getUploadTime().compareTo(lhs.getUploadTime());
-                }
-
-            });
+        
+        for (UploadGroup group : mUploadGroups) {
+            group.refresh();
         }
         mActivity.runOnUiThread(new Runnable() {
             @Override
@@ -218,5 +230,67 @@ public class UploadListAdapter extends BaseAdapter implements ListAdapter, Obser
     public void update(Observable arg0, Object arg1) {
         Log_OC.d(TAG, "update");
         loadUploadItemsFromDb();
+    }
+
+    @Override
+    public Object getChild(int groupPosition, int childPosition) {
+        return mUploadGroups[groupPosition].items[childPosition];
+    }
+
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+        return groupPosition * 1000l + childPosition;
+    }
+
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView,
+            ViewGroup parent) {
+        return getView(mUploadGroups[groupPosition].items, childPosition, convertView, parent);
+    }
+
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        return mUploadGroups[groupPosition].items.length;
+    }
+
+    @Override
+    public Object getGroup(int groupPosition) {
+        return mUploadGroups[groupPosition];
+    }
+
+    @Override
+    public int getGroupCount() {
+        return mUploadGroups.length;
+    }
+
+    @Override
+    public long getGroupId(int groupPosition) {
+        return groupPosition;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        //force group to stay unfolded
+        ExpandableListView listView = (ExpandableListView) parent;
+        listView.expandGroup(groupPosition);
+        
+        listView.setGroupIndicator(null);
+        
+        UploadGroup group = (UploadGroup) getGroup(groupPosition);
+        if (convertView == null) {
+            LayoutInflater infalInflater = (LayoutInflater) mActivity
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = infalInflater.inflate(R.layout.upload_list_group, null);
+        }
+        TextView tv = (TextView) convertView.findViewById(R.id.uploadListGroupName);
+        tv.setText(group.getGroupName());
+        ImageView icon = (ImageView) convertView.findViewById(R.id.uploadListGroupIcon);
+        icon.setImageResource(group.getGroupIcon());
+        return convertView;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return false;
     }
 }

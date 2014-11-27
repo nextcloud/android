@@ -273,13 +273,13 @@ public class UploadDbHandler extends Observable {
         return result != 0;
     }
 
-    public List<UploadDbObject> getAllStoredUploads() {
+    public UploadDbObject[] getAllStoredUploads() {
         return getUploads(null, null);
     }
 
-    private List<UploadDbObject> getUploads(String selection, String[] selectionArgs) {
+    private UploadDbObject[] getUploads(String selection, String[] selectionArgs) {
         Cursor c = getDB().query(TABLE_UPLOAD, null, selection, selectionArgs, null, null, null);
-        List<UploadDbObject> list = new ArrayList<UploadDbObject>();
+        UploadDbObject[] list = new UploadDbObject[c.getCount()];
         if (c.moveToFirst()) {
             do {
                 String uploadObjectString = c.getString(c.getColumnIndex("uploadObject"));
@@ -287,19 +287,50 @@ public class UploadDbHandler extends Observable {
                 if (uploadObject == null) {
                     Log_OC.e(TAG, "Could not deserialize UploadDbObject " + uploadObjectString);
                 } else {
-                    list.add(uploadObject);
+                    list[c.getPosition()] = uploadObject;
                 }
             } while (c.moveToNext());
         }
         return list;
     }
 
-    public List<UploadDbObject> getAllPendingUploads() {
+    /**
+     * Get all uploads which are pending, i.e., queued for upload but not currently being uploaded
+     * @return
+     */
+    public UploadDbObject[] getPendingUploads() {
         return getUploads("uploadStatus==" + UploadStatus.UPLOAD_LATER.value + " OR uploadStatus=="
-                + UploadStatus.UPLOAD_FAILED_RETRY.value, null);
+                + UploadStatus.UPLOAD_FAILED_RETRY.value+ " OR uploadStatus=="
+                        + UploadStatus.UPLOAD_PAUSED.value, null);
     }
-    public List<UploadDbObject> getCurrentUpload() {
+    /**
+     * Get all uploads which are currently being uploaded. There should only be one. No guarantee though.
+     */
+    public UploadDbObject[] getCurrentUpload() {
         return getUploads("uploadStatus==" + UploadStatus.UPLOAD_IN_PROGRESS.value, null);
+    }
+    
+    /**
+     * Get all current and pending uploads.
+     */
+    public UploadDbObject[] getCurrentAndPendingUploads() {
+        return getUploads("uploadStatus==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR uploadStatus==" + UploadStatus.UPLOAD_LATER.value + " OR uploadStatus=="
+                + UploadStatus.UPLOAD_FAILED_RETRY.value+ " OR uploadStatus=="
+                        + UploadStatus.UPLOAD_PAUSED.value, null);
+    }
+    
+    /**
+     * Get all unrecoverably failed. Upload of these should/must/will not be retried.
+     */
+    public UploadDbObject[] getFailedUploads() {
+        return getUploads("uploadStatus==" + UploadStatus.UPLOAD_FAILED_GIVE_UP.value + " OR uploadStatus=="
+                + UploadStatus.UPLOAD_CANCELLED.value, null);
+    }    
+    /**
+     * Get all uploads which where successfully completed.
+     */
+    public UploadDbObject[] getFinishedUploads() {
+        return getUploads("uploadStatus==" + UploadStatus.UPLOAD_SUCCEEDED.value, null);
     }
 
     private SQLiteDatabase getDB() {

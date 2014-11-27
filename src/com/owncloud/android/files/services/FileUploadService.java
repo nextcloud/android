@@ -276,7 +276,7 @@ public class FileUploadService extends IntentService {
         mDb.recreateDb(); //for testing only
         
         //when this service starts there is no upload in progress. if db says so, app probably crashed before.
-        List<UploadDbObject> current = mDb.getCurrentUpload();
+        UploadDbObject[] current = mDb.getCurrentUpload();
         for (UploadDbObject uploadDbObject : current) {
             uploadDbObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
             mDb.updateUpload(uploadDbObject);   
@@ -320,7 +320,7 @@ public class FileUploadService extends IntentService {
             // retry of pending upload was requested. 
             // ==> First check persistent uploads, then perform upload.
             int countAddedEntries = 0;
-            List<UploadDbObject> list = mDb.getAllPendingUploads();
+            UploadDbObject[] list = mDb.getPendingUploads();
             for (UploadDbObject uploadDbObject : list) {
                 // store locally.
                 String uploadKey = buildRemoteName(uploadDbObject);
