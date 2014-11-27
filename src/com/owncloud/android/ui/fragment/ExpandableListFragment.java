@@ -18,32 +18,28 @@
 
 package com.owncloud.android.ui.fragment;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.ExtendedListView;
-import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 
 /**
  *  Extending ExtendedListFragment. This allows dividing list in groups.
  */
-public class ExpandableListFragment extends ExtendedListFragment 
+public class ExpandableListFragment extends ExtendedListFragment implements OnChildClickListener, OnItemLongClickListener
  {
+    protected static final String TAG = ExpandableListFragment.class.getSimpleName();
     
     protected ExpandableListView mList;
     
@@ -56,7 +52,6 @@ public class ExpandableListFragment extends ExtendedListFragment
         return mList;
     }
     
-    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.e(TAG, "onCreateView");
@@ -64,7 +59,8 @@ public class ExpandableListFragment extends ExtendedListFragment
         View v = inflater.inflate(R.layout.list_fragment_expandable, null);
         mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         mList = (ExpandableListView)(v.findViewById(R.id.list_root));
-        mList.setOnItemClickListener(this);
+        mList.setOnChildClickListener(this);
+        mList.setOnItemLongClickListener(this);
 
         mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         mList.setDividerHeight(1);
@@ -86,4 +82,18 @@ public class ExpandableListFragment extends ExtendedListFragment
         return v;
     }
 
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        // to be @overriden
+        Log_OC.e(TAG, "onChildClick(). This method should be overriden!");
+        return false;
     }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        // to be @overriden
+        Log_OC.e(TAG, "onItemLongClick(). This method should be overriden!");
+        return false;
+    }
+
+}

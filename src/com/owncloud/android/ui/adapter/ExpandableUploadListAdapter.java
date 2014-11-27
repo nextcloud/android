@@ -239,7 +239,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        return groupPosition * 1000l + childPosition;
+        return childPosition;
     }
 
     @Override
@@ -291,6 +291,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 }

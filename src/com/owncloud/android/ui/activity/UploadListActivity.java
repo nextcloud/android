@@ -1,7 +1,5 @@
 package com.owncloud.android.ui.activity;
 
-import java.io.File;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -10,16 +8,14 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.UploadDbHandler;
-import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.db.UploadDbHandler.UploadStatus;
+import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.errorhandling.ExceptionHandler;
 import com.owncloud.android.ui.fragment.UploadListFragment;
-import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * Activity listing pending, active, and completed uploads. User can delete
@@ -47,7 +43,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
      * TODO Without a menu this is a little un-intuitive.
      */
     @Override
-    public void onUploadItemClick(UploadDbObject file) {
+    public boolean onUploadItemClick(UploadDbObject file) {
         OCFile ocFile = file.getOCFile();
         switch (file.getUploadStatus()) {
         case UPLOAD_IN_PROGRESS:
@@ -77,13 +73,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         default:
             break;
         }
-
-    }
-
-    @Override
-    public File getInitialFilter() {
-        // TODO Auto-generated method stub
-        return null;
+        return true;
     }
     
     @Override
@@ -111,6 +101,12 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         MenuInflater inflater = getSherlock().getMenuInflater();
         inflater.inflate(R.menu.upload_list_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onUploadItemLongClick(UploadDbObject file) {
+        // TODO Auto-generated method stub
+        return false;
     }
     
     
