@@ -55,7 +55,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.db.UploadDbHandler.UploadStatus;
 import com.owncloud.android.db.UploadDbObject;
-import com.owncloud.android.files.InstantUploadBroadcastReceiver;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -258,7 +257,7 @@ public class FileUploadService extends IntentService {
         }
         
         //TODO This service can be instantiated at any time. Better move this retry call to start of app.
-        if(InstantUploadBroadcastReceiver.isOnline(getApplicationContext())) {
+        if(UploadUtils.isOnline(getApplicationContext())) {
             Log_OC.d(TAG, "FileUploadService.retry() called by onCreate()");
             FileUploadService.retry(getApplicationContext());
         }
@@ -615,7 +614,7 @@ public class FileUploadService extends IntentService {
         }
 
         if (uploadDbObject.isUseWifiOnly()
-                && !InstantUploadBroadcastReceiver.isConnectedViaWiFi(getApplicationContext())) {
+                && !UploadUtils.isConnectedViaWiFi(getApplicationContext())) {
             Log_OC.d(TAG, "Do not start upload because it is wifi-only.");
             return CanUploadFileNowStatus.LATER;
         }

@@ -25,8 +25,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo.State;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
@@ -213,18 +211,6 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 //        }
 //
 //    }
-
-    public static boolean isOnline(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
-    }
-
-    public static boolean isConnectedViaWiFi(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm != null && cm.getActiveNetworkInfo() != null
-                && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI
-                && cm.getActiveNetworkInfo().getState() == State.CONNECTED;
-    }
 
     public static boolean instantPictureUploadEnabled(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_uploading", false);
