@@ -43,9 +43,9 @@ import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 public class ExtendedListFragment extends SherlockFragment 
 implements OnItemClickListener, OnEnforceableRefreshListener {
     
-    private static final String TAG = ExtendedListFragment.class.getSimpleName();
+    protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
-    private static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION"; 
+    protected static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION"; 
     private static final String KEY_INDEXES = "INDEXES";
     private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
     private static final String KEY_TOPS = "TOPS";
@@ -54,9 +54,9 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
 
     protected ExtendedListView mList;
     
-    private SwipeRefreshLayout mRefreshLayout;
-    private SwipeRefreshLayout mRefreshEmptyLayout;
-    private TextView mEmptyListMessage;
+    protected SwipeRefreshLayout mRefreshLayout;
+    protected SwipeRefreshLayout mRefreshEmptyLayout;
+    protected TextView mEmptyListMessage;
     
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
@@ -293,7 +293,7 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         return (mEmptyListMessage != null) ? mEmptyListMessage.getText().toString() : "";
     }
 
-    private void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
+    protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
         // Colors in animations: background
         refreshLayout.setColorScheme(R.color.background_color, R.color.background_color, R.color.background_color,
                 R.color.background_color);
