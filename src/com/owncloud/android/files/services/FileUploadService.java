@@ -463,7 +463,10 @@ public class FileUploadService extends IntentService {
                 mCurrentUpload = null;
                 break;
             case LATER:
-                //TODO schedule retry for later upload.
+                // Schedule retry for later upload. Delay can be due to:
+                // KEY_WIFI_ONLY - done by ConnectivityActionReceiver
+                // KEY_WHILE_CHARGING_ONLY - TODO add PowerConnectionReceiver
+                // KEY_UPLOAD_TIMESTAMP - TODO use AlarmManager to wake up this service
                 break;
             case FILE_GONE:
                 mDb.updateUpload(uploadDbObject.getLocalPath(), UploadStatus.UPLOAD_FAILED_GIVE_UP,
@@ -1083,6 +1086,9 @@ public class FileUploadService extends IntentService {
                 !localPath.endsWith(FILE_EXTENSION_PDF);
     }
 
+    /**
+     * Call if all pending uploads are to be retried.
+     */
     public static void retry(Context context) {
         Log_OC.d(TAG, "FileUploadService.retry()");
         Intent i = new Intent(context, FileUploadService.class);
