@@ -67,6 +67,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
+import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -98,7 +99,7 @@ import com.owncloud.android.utils.UriUtils;
  * 
  */
 @SuppressWarnings("unused")
-public class FileUploadService extends IntentService {
+public class FileUploadService extends IntentService implements OnDatatransferProgressListener {
 
     public FileUploadService() {
         super("FileUploadService");        
@@ -221,6 +222,7 @@ public class FileUploadService extends IntentService {
     
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mNotificationBuilder;
+    private int mLastPercent;
 
     private static final String MIME_TYPE_PDF = "application/pdf";
     private static final String FILE_EXTENSION_PDF = ".pdf";
@@ -266,7 +268,7 @@ public class FileUploadService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size());
+        Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size());
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         HandlerThread thread = new HandlerThread("FileUploaderThread", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
@@ -276,11 +278,7 @@ public class FileUploadService extends IntentService {
         mDb.recreateDb(); //for testing only
         
         //when this service starts there is no upload in progress. if db says so, app probably crashed before.
-        UploadDbObject[] current = mDb.getCurrentUpload();
-        for (UploadDbObject uploadDbObject : current) {
-            uploadDbObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
-            mDb.updateUpload(uploadDbObject);   
-        }
+        mDb.setAllCurrentToUploadLater();
         
         //TODO This service can be instantiated at any time. Better move this retry call to start of app.
         if(UploadUtils.isOnline(getApplicationContext())) {
@@ -312,26 +310,25 @@ public class FileUploadService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log_OC.i(TAG, "onHandleIntent start");
-        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before adding new uploads.");
+        Log_OC.d(TAG, "onHandleIntent start");
+        Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before adding new uploads.");
         if (intent == null || intent.hasExtra(KEY_RETRY)) {
-            Log_OC.d(TAG, "Receive null intent.");
+            Log_OC.d(TAG, "Received null intent.");
             // service was restarted by OS or connectivity change was detected or
             // retry of pending upload was requested. 
             // ==> First check persistent uploads, then perform upload.
             int countAddedEntries = 0;
             UploadDbObject[] list = mDb.getPendingUploads();
             for (UploadDbObject uploadDbObject : list) {
-                // store locally.
+                Log_OC.d(TAG, "Retrieved from DB: " + uploadDbObject.toFormattedString());
+                
                 String uploadKey = buildRemoteName(uploadDbObject);
-                UploadDbObject previous = mPendingUploads.putIfAbsent(uploadKey, uploadDbObject);                
+                UploadDbObject previous = mPendingUploads.putIfAbsent(uploadKey, uploadDbObject);
                 if(previous == null) {
-                    // and store persistently.
-                    uploadDbObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
-                    mDb.updateUpload(uploadDbObject);
+                    Log_OC.d(TAG, "mPendingUploads added: " + uploadDbObject.toFormattedString());
                     countAddedEntries++;
                 } else {
-                  //upload already pending. ignore.
+                    //already pending. ignore.
                 }
             }
             Log_OC.d(TAG, "added " + countAddedEntries
@@ -426,9 +423,21 @@ public class FileUploadService extends IntentService {
                 
                 if(previous == null)
                 {
+                    Log_OC.d(TAG, "mPendingUploads added: " + uploadObject.toFormattedString());
+
+                    // if upload was not queued before, we can add it to
+                    // database because the user wants the file to be uploaded.
+                    // however, it can happened that the user uploaded the same
+                    // file before in which case there is an old db entry.
+                    // delete that to be sure we have the latest one.
+                    if(mDb.removeUpload(uploadObject.getLocalPath())>0) {
+                        Log_OC.w(TAG, "There was an old DB entry " + uploadObject.getLocalPath()
+                                + " which had to be removed in order to add new one.");
+                    }
                     boolean success = mDb.storeUpload(uploadObject);
                     if(!success) {
-                        Log_OC.e(TAG, "Could not add upload to database. It might be a duplicate. Ignore.");
+                        Log_OC.e(TAG, "Could not add upload " + uploadObject.getLocalPath()
+                                + " to database. This should not happen.");
                     } 
                 } else {
                     Log_OC.w(TAG, "FileUploadService got upload intent for file which is already queued: "
@@ -437,10 +446,9 @@ public class FileUploadService extends IntentService {
                 }
             }
         }
-
         // at this point mPendingUploads is filled.
 
-        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before uploading.");
+        Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before uploading.");
 
         Iterator<String> it = mPendingUploads.keySet().iterator();
         while (it.hasNext()) {
@@ -459,7 +467,8 @@ public class FileUploadService extends IntentService {
                     Log_OC.d(TAG, "Upload with result " + uploadResult.getCode() + ": " + uploadResult.getLogMessage()
                             + " will be abandoned.");                    
                     mPendingUploads.remove(buildRemoteName(uploadDbObject));
-                }                
+                }
+                Log_OC.d(TAG, "mCurrentUpload = null");
                 mCurrentUpload = null;
                 break;
             case LATER:
@@ -479,8 +488,8 @@ public class FileUploadService extends IntentService {
             }
         }
 
-        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - after uploading.");
-        Log_OC.i(TAG, "onHandleIntent end");
+        Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - after uploading.");
+        Log_OC.d(TAG, "onHandleIntent end");
     }
 
     /**
@@ -525,14 +534,23 @@ public class FileUploadService extends IntentService {
          * @param file A file in the queue of pending uploads
          */
         public void cancel(Account account, OCFile file) {
-            UploadDbObject upload = null;
-            //remove is atomic operation. no need for synchronize.
-            upload = mPendingUploads.remove(buildRemoteName(account, file));
-            upload.setUploadStatus(UploadStatus.UPLOAD_CANCELLED);
-            mDb.updateUpload(upload);            
-            if(mCurrentUpload != null) {
+            // updating current references (i.e., uploadStatus of current
+            // upload) is handled by updateDataseUploadResult() which is called
+            // after upload finishes. Following cancel call makes sure that is
+            // does finish right now.
+            if (mCurrentUpload != null) {
                 mCurrentUpload.cancel();
-                mCurrentUpload = null;
+            } else {
+                Log_OC.e(TAG, "mCurrentUpload == null. Cannot cancel upload. Fix that!");
+
+                // in this case we have to update the db here. this should never
+                // happen though!
+                UploadDbObject upload = mPendingUploads.remove(buildRemoteName(account, file));
+                upload.setUploadStatus(UploadStatus.UPLOAD_CANCELLED);
+                // storagePath inside upload is the temporary path. file
+                // contains the correct path used as db reference.
+                upload.getOCFile().setStoragePath(file.getStoragePath());
+                mDb.updateUpload(upload);
             }
         }
 
@@ -546,6 +564,10 @@ public class FileUploadService extends IntentService {
          * 
          * If 'file' is a directory, returns 'true' if some of its descendant
          * files is uploading or waiting to upload.
+         * 
+         * Warning: If remote file exists and !forceOverwrite the original file
+         * is being returned here. That is, it seems as if the original file is
+         * being updated when actually a new file is being uploaded.
          * 
          * @param account Owncloud account where the remote file will be stored.
          * @param file A file that could be in the queue of pending uploads
@@ -702,18 +724,20 @@ public class FileUploadService extends IntentService {
 
         uploadKey = buildRemoteName(account, uploadDbObject.getRemotePath());
         OCFile file = uploadDbObject.getOCFile();
+        Log_OC.d(TAG, "mCurrentUpload = new UploadFileOperation");
         mCurrentUpload = new UploadFileOperation(account, file, chunked, uploadDbObject.isForceOverwrite(),
                 uploadDbObject.getLocalAction(), getApplicationContext());
         if (uploadDbObject.isCreateRemoteFolder()) {
             mCurrentUpload.setRemoteFolderToBeCreated();
         }
         mCurrentUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
-
+        mCurrentUpload.addDatatransferProgressListener(this);
+        
         notifyUploadStart(mCurrentUpload);        
 
         RemoteOperationResult uploadResult = null, grantResult = null;
         try {
-            // / prepare client object to send requests to the ownCloud
+            // prepare client object to send requests to the ownCloud
             // server
             if (mUploadClient == null || !mLastAccount.equals(mCurrentUpload.getAccount())) {
                 mLastAccount = mCurrentUpload.getAccount();
@@ -722,7 +746,7 @@ public class FileUploadService extends IntentService {
                 mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, this);
             }
 
-            // / check the existence of the parent folder for the file to
+            // check the existence of the parent folder for the file to
             // upload
             String remoteParentPath = new File(mCurrentUpload.getRemotePath()).getParent();
             remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ? remoteParentPath : remoteParentPath
@@ -733,6 +757,11 @@ public class FileUploadService extends IntentService {
             if (grantResult.isSuccess()) {
                 OCFile parent = mStorageManager.getFileByPath(remoteParentPath);
                 mCurrentUpload.getFile().setParentId(parent.getFileId());
+                // inside this call the remote path may be changed (if remote
+                // file exists and !forceOverwrite) in this case the map from
+                // mPendingUploads is wrong. This results in an upload
+                // indication in the GUI showing that the original file is being
+                // uploaded (instead that a new one is created)
                 uploadResult = mCurrentUpload.execute(mUploadClient);
                 if (uploadResult.isSuccess()) {
                     saveUploadedFile(mCurrentUpload);
@@ -750,7 +779,7 @@ public class FileUploadService extends IntentService {
             uploadResult = new RemoteOperationResult(e);
 
         } finally {
-            Log_OC.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
+            Log_OC.d(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
             if (uploadResult.isException()) {
                 // enforce the creation of a new client object for next
                 // uploads; this grant that a new socket will
@@ -911,6 +940,7 @@ public class FileUploadService extends IntentService {
      */
     private void notifyUploadStart(UploadFileOperation upload) {
         // / create status notification with a progress bar
+        mLastPercent = 0; 
         mNotificationBuilder = NotificationBuilderWithProgressBar.newNotificationBuilderWithProgressBar(this);
         mNotificationBuilder
                 .setOngoing(true)
@@ -942,6 +972,22 @@ public class FileUploadService extends IntentService {
         mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_IN_PROGRESS, null);    
     }
 
+    /**
+     * Callback method to update the progress bar in the status notification
+     */
+    @Override
+    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath) {
+        int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
+        if (percent != mLastPercent) {
+            mNotificationBuilder.setProgress(100, percent, false);
+            String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
+            String text = String.format(getString(R.string.uploader_upload_in_progress_content), percent, fileName);
+            mNotificationBuilder.setContentText(text);
+            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
+        }
+        mLastPercent = percent;
+    } 
+    
     /**
      * Updates the status notification with the result of an upload operation.
      * 
@@ -1015,6 +1061,7 @@ public class FileUploadService extends IntentService {
      */
     private void updateDataseUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
         // result: success or fail notification
+        Log_OC.d(TAG, "updateDataseUploadResult uploadResult: " + uploadResult + " upload: " + upload);
         if (uploadResult.isCancelled()) {
             mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_CANCELLED, uploadResult);
         } else {
@@ -1095,5 +1142,6 @@ public class FileUploadService extends IntentService {
         i.putExtra(FileUploadService.KEY_RETRY, true);
         context.startService(i);        
     }
+
 
 }

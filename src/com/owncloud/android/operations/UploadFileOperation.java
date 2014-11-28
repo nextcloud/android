@@ -380,7 +380,11 @@ public class UploadFileOperation extends RemoteOperation {
                         complement = " (while copying local file to " + FileStorageUtils.getSavePath(mAccount.name)
                                 + ")";
                     }
-                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage() + complement, result.getException());
+                    if(result.isCancelled()){
+                        Log_OC.w(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
+                    } else {
+                        Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage() + complement, result.getException());    
+                    }                    
                 } else {
                     Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
                 }

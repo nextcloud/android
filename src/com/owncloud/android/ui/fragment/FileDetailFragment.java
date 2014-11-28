@@ -509,11 +509,19 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public void listenForTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
+                Log_OC.d(TAG, "registering download progress listener");
                 mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, getFile());
+            }else {
+                Log_OC.d(TAG, "mContainerActivity.getFileDownloaderBinder() == null");
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
+                Log_OC.d(TAG, "registering upload progress listener");
                 mContainerActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, getFile());
+            }else {
+                Log_OC.d(TAG, "mContainerActivity.getFileUploaderBinder() == null");
             }
+        } else {
+            Log_OC.d(TAG, "mProgressListener == null");
         }
     }
     

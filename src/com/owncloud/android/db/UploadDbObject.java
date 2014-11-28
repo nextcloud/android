@@ -302,4 +302,11 @@ public class UploadDbObject implements Serializable {
     public void setUploadTimestamp(long uploadTimestamp) {
         this.uploadTimestamp = uploadTimestamp;
     }
+    
+    /**
+     * For debugging purposes only.
+     */
+    public String toFormattedString() {
+        return getLocalPath() + " status:"+getUploadStatus() + " result:" + getLastResult();
+    }
 }

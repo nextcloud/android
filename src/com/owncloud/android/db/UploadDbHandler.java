@@ -50,13 +50,13 @@ public class UploadDbHandler extends Observable {
 
     // for testing only
     public void recreateDb() {
-//         getDB().beginTransaction();
-//         try {
-//         mHelper.onUpgrade(getDB(), 0, mDatabaseVersion);
-//         getDB().setTransactionSuccessful();
-//         } finally {
-//             getDB().endTransaction();
-//         }
+//        getDB().beginTransaction();
+//        try {
+//            mHelper.onUpgrade(getDB(), 0, mDatabaseVersion);
+//            getDB().setTransactionSuccessful();
+//        } finally {
+//            getDB().endTransaction();
+//        }
     }
 
     public enum UploadStatus {
@@ -93,6 +93,7 @@ public class UploadDbHandler extends Observable {
         private UploadStatus(int value) {
             this.value = value;
         }
+
         public int getValue() {
             return value;
         }
@@ -142,7 +143,6 @@ public class UploadDbHandler extends Observable {
         // return result != -1;
     }
 
-
     // ununsed until now. uncomment if needed.
     // public Cursor getFailedFiles() {
     // return mDB.query(TABLE_INSTANT_UPLOAD, null, "attempt>" +
@@ -191,47 +191,50 @@ public class UploadDbHandler extends Observable {
      * @return true on success.
      */
     public boolean storeUpload(UploadDbObject uploadObject) {
+        Log_OC.e(TAG, "Inserting "+uploadObject.getLocalPath()+" with uploadStatus="+uploadObject.getUploadStatus());
+        
         ContentValues cv = new ContentValues();
         cv.put("path", uploadObject.getLocalPath());
         cv.put("uploadStatus", uploadObject.getUploadStatus().value);
         cv.put("uploadObject", uploadObject.toString());
 
         long result = getDB().insert(TABLE_UPLOAD, null, cv);
+        
         Log_OC.d(TAG, "putFileForLater returns with: " + result + " for file: " + uploadObject.getLocalPath());
         if (result == 1) {
             notifyObserversNow();
         } else {
-            Log_OC.e(TAG, "Failed to insert item into upload db.");
+            Log_OC.e(TAG, "Failed to insert item "+uploadObject.getLocalPath()+" into upload db.");
         }
         return result != -1;
     }
 
     /**
      * Update upload status of file in DB.
+     * 
      * @return 1 if file status was updated, else 0.
      */
     public int updateUpload(UploadDbObject uploadDbObject) {
-        return updateUpload(uploadDbObject.getLocalPath(), uploadDbObject.getUploadStatus(), uploadDbObject.getLastResult());
+        return updateUpload(uploadDbObject.getLocalPath(), uploadDbObject.getUploadStatus(),
+                uploadDbObject.getLastResult());
     }
 
-    /**
-     * Update upload status of file.
-     * 
-     * @param filepath filepath local file path to file. used as identifier.
-     * @param status new status.
-     * @param result new result of upload operation
-     * @return 1 if file status was updated, else 0.
-     */
-    public int updateUpload(String filepath, UploadStatus status, RemoteOperationResult result) {
-        Cursor c = getDB().query(TABLE_UPLOAD, null, "path=?", new String[] { filepath }, null, null, null);
-        if (c.getCount() != 1) {
-            Log_OC.e(TAG, c.getCount() + " items for path=" + filepath + " available in UploadDb. Expected 1.");
-            return 0;
-        }
-        if (c.moveToFirst()) {
+    public int updateUploadInternal(Cursor c, UploadStatus status, RemoteOperationResult result) {
+        
+        while(c.moveToNext()) {
             // read upload object and update
+            
+            
             String uploadObjectString = c.getString(c.getColumnIndex("uploadObject"));
             UploadDbObject uploadObject = UploadDbObject.fromString(uploadObjectString);
+            
+            String path = c.getString(c.getColumnIndex("path"));
+            Log_OC.e(
+                    TAG,
+                    "Updating " + path + ": " + uploadObject.getLocalPath() + " with uploadStatus=" + status + "(old:"
+                            + uploadObject.getUploadStatus() + ") and result=" + result + "(old:"
+                            + uploadObject.getLastResult());
+            
             uploadObject.setUploadStatus(status);
             uploadObject.setLastResult(result);
             uploadObjectString = uploadObject.toString();
@@ -239,7 +242,10 @@ public class UploadDbHandler extends Observable {
             ContentValues cv = new ContentValues();
             cv.put("uploadStatus", status.value);
             cv.put("uploadObject", uploadObjectString);
-            int r = getDB().update(TABLE_UPLOAD, cv, "path=?", new String[] { filepath });
+            
+            
+            int r = getDB().update(TABLE_UPLOAD, cv, "path=?", new String[] { path });
+            
             if (r == 1) {
                 notifyObserversNow();
             } else {
@@ -249,7 +255,28 @@ public class UploadDbHandler extends Observable {
         }
         return 0;
     }
+    /**
+     * Update upload status of file uniquely referenced by filepath.
+     * 
+     * @param filepath filepath local file path to file. used as identifier.
+     * @param status new status.
+     * @param result new result of upload operation
+     * @return 1 if file status was updated, else 0.
+     */
+    public int updateUpload(String filepath, UploadStatus status, RemoteOperationResult result) {
+        
+//        Log_OC.e(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
+        
+        Cursor c = getDB().query(TABLE_UPLOAD, null, "path=?", new String[] { filepath }, null, null, null);
 
+        if (c.getCount() != 1) {
+            Log_OC.e(TAG, c.getCount() + " items for path=" + filepath
+                    + " available in UploadDb. Expected 1. Failed to update upload db.");
+            return 0;
+        }
+        return updateUploadInternal(c, status, result);
+    }
+    
     /**
      * Should be called when some value of this DB was changed. All observers
      * are informed.
@@ -267,10 +294,10 @@ public class UploadDbHandler extends Observable {
      * @param localPath
      * @return true when one or more upload entries were removed
      */
-    public boolean removeUpload(String localPath) {
-        long result = getDB().delete(TABLE_UPLOAD, "path = ?", new String[] { localPath });
+    public int removeUpload(String localPath) {
+        int result = getDB().delete(TABLE_UPLOAD, "path = ?", new String[] { localPath });
         Log_OC.d(TABLE_UPLOAD, "delete returns with: " + result + " for file: " + localPath);
-        return result != 0;
+        return result;
     }
 
     public UploadDbObject[] getAllStoredUploads() {
@@ -295,37 +322,42 @@ public class UploadDbHandler extends Observable {
     }
 
     /**
-     * Get all uploads which are pending, i.e., queued for upload but not currently being uploaded
+     * Get all uploads which are pending, i.e., queued for upload but not
+     * currently being uploaded
+     * 
      * @return
      */
     public UploadDbObject[] getPendingUploads() {
         return getUploads("uploadStatus==" + UploadStatus.UPLOAD_LATER.value + " OR uploadStatus=="
-                + UploadStatus.UPLOAD_FAILED_RETRY.value+ " OR uploadStatus=="
-                        + UploadStatus.UPLOAD_PAUSED.value, null);
+                + UploadStatus.UPLOAD_FAILED_RETRY.value, null);
     }
+
     /**
-     * Get all uploads which are currently being uploaded. There should only be one. No guarantee though.
+     * Get all uploads which are currently being uploaded. There should only be
+     * one. No guarantee though.
      */
     public UploadDbObject[] getCurrentUpload() {
         return getUploads("uploadStatus==" + UploadStatus.UPLOAD_IN_PROGRESS.value, null);
     }
-    
+
     /**
      * Get all current and pending uploads.
      */
     public UploadDbObject[] getCurrentAndPendingUploads() {
-        return getUploads("uploadStatus==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR uploadStatus==" + UploadStatus.UPLOAD_LATER.value + " OR uploadStatus=="
-                + UploadStatus.UPLOAD_FAILED_RETRY.value+ " OR uploadStatus=="
-                        + UploadStatus.UPLOAD_PAUSED.value, null);
+        return getUploads("uploadStatus==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR uploadStatus=="
+                + UploadStatus.UPLOAD_LATER.value + " OR uploadStatus==" + UploadStatus.UPLOAD_FAILED_RETRY.value
+                + " OR uploadStatus==" + UploadStatus.UPLOAD_PAUSED.value, null);
     }
-    
+
     /**
-     * Get all unrecoverably failed. Upload of these should/must/will not be retried.
+     * Get all unrecoverably failed. Upload of these should/must/will not be
+     * retried.
      */
     public UploadDbObject[] getFailedUploads() {
         return getUploads("uploadStatus==" + UploadStatus.UPLOAD_FAILED_GIVE_UP.value + " OR uploadStatus=="
                 + UploadStatus.UPLOAD_CANCELLED.value, null);
-    }    
+    }
+
     /**
      * Get all uploads which where successfully completed.
      */
@@ -346,15 +378,22 @@ public class UploadDbHandler extends Observable {
 
     public long cleanDoneUploads() {
         String[] where = new String[3];
-        where[0]  = String.valueOf(UploadStatus.UPLOAD_CANCELLED.value);
-        where[1]  = String.valueOf(UploadStatus.UPLOAD_FAILED_GIVE_UP.value);
-        where[2]  = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
+        where[0] = String.valueOf(UploadStatus.UPLOAD_CANCELLED.value);
+        where[1] = String.valueOf(UploadStatus.UPLOAD_FAILED_GIVE_UP.value);
+        where[2] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
         long result = getDB().delete(TABLE_UPLOAD, "uploadStatus = ? OR uploadStatus = ? OR uploadStatus = ?", where);
         Log_OC.d(TABLE_UPLOAD, "delete all done uploads");
-        if(result>0) {
+        if (result > 0) {
             notifyObserversNow();
         }
         return result;
+    }
+
+    public void setAllCurrentToUploadLater() {
+        
+        Cursor c = getDB().query(TABLE_UPLOAD, null, "uploadStatus==" + UploadStatus.UPLOAD_IN_PROGRESS.value, null, null, null, null);
+        
+        updateUploadInternal(c, UploadStatus.UPLOAD_LATER, null);
     }
 
 }

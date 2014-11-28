@@ -22,6 +22,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.db.UploadDbObject;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -30,7 +31,7 @@ import com.owncloud.android.utils.DisplayUtils;
  * active, completed. Filtering possible.
  * 
  */
-public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer {
+public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer, OnDatatransferProgressListener {
 
     private static final String TAG = "ExpandableUploadListAdapter";
     private Activity mActivity;
@@ -292,5 +293,12 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    @Override
+    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
+            String fileAbsoluteName) {
+        // TODO Auto-generated method stub
+        
     }
 }

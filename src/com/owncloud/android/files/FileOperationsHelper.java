@@ -47,7 +47,7 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
  */
 public class FileOperationsHelper {
 
-    private static final String TAG = FileOperationsHelper.class.getName();
+    private static final String TAG = FileOperationsHelper.class.getSimpleName();
     
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG"; 
 
