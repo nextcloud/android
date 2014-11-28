@@ -247,7 +247,31 @@ public class FileOperationsHelper {
         mFileActivity.showLoadingDialog();
     }
 
+    /**
+     * Retry downloading a failed or cancelled upload
+     */
+    public void retryUpload(OCFile file) {
+        Account account = mFileActivity.getAccount();
+        FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
+        if (uploaderBinder != null) {
+            uploaderBinder.retry(account, file);            
+        }  else {
+            Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + file);            
+        }
+    }
     
+    /**
+     * Remove upload from upload list.
+     */
+    public void removeUploadFromList(OCFile file) {
+        Account account = mFileActivity.getAccount();
+        FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
+        if (uploaderBinder != null) {
+            uploaderBinder.remove(account, file);            
+        }  else {
+            Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + file);            
+        }
+    }
     public void cancelTransference(OCFile file) {
         Account account = mFileActivity.getAccount();
         FileDownloaderBinder downloaderBinder = mFileActivity.getFileDownloaderBinder();
@@ -263,7 +287,7 @@ public class FileOperationsHelper {
 
                 downloaderBinder.cancel(account, file);
             } else {
-                Log_OC.d(TAG, "Download for " + file + " not in progress. Cannot cancel.");
+                Log_OC.d(TAG, "Download for " + file + " not in progress. Cannot cancel " + file);
             }
         } 
         if (uploaderBinder != null) {

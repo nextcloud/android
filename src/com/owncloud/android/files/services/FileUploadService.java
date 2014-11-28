@@ -20,6 +20,7 @@ package com.owncloud.android.files.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -62,6 +64,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.operations.OperationCancelledException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -121,6 +124,11 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
      * Call this Service with only this Intent key if all pending uploads are to be retried.
      */
     private static final String KEY_RETRY = "KEY_RETRY";
+    /**
+     * Call this Service with KEY_RETRY and KEY_RETRY_REMOTE_PATH to retry
+     * download of file identified by KEY_RETRY_REMOTE_PATH.
+     */
+    private static final String KEY_RETRY_REMOTE_PATH = "KEY_RETRY_REMOTE_PATH";    
     /**
      * {@link Account} to which file is to be uploaded.
      */
@@ -208,6 +216,9 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
     private FileDataStorageManager mStorageManager;
     //since there can be only one instance of an Android service, there also just one db connection.
     private UploadDbHandler mDb = null;
+    
+    private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
+    private final AtomicBoolean mCancellationPossible = new AtomicBoolean(false);
 
     /**
      * List of uploads that are currently pending. Maps from remotePath to where file
@@ -450,15 +461,32 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
 
         Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before uploading.");
 
-        Iterator<String> it = mPendingUploads.keySet().iterator();
+        Iterator<String> it;
+        if (intent != null && intent.getStringExtra(KEY_RETRY_REMOTE_PATH) != null) {
+            ArrayList<String> list = new ArrayList<String>(1);
+            String remotePath = intent.getStringExtra(KEY_RETRY_REMOTE_PATH);
+            list.add(remotePath);
+            it = list.iterator();
+            Log_OC.d(TAG, "Start uploading " + remotePath);
+        } else {
+            it = mPendingUploads.keySet().iterator();
+        }
+
         while (it.hasNext()) {
             String upload = it.next();
             UploadDbObject uploadDbObject = mPendingUploads.get(upload);
+            
+            if(uploadDbObject == null) {
+                Log_OC.e(TAG, "Cannot upload null. Fix that!");
+                continue;
+            }
 
             switch (canUploadFileNow(uploadDbObject)) {
             case NOW:
                 Log_OC.d(TAG, "Calling uploadFile for " + upload);
                 RemoteOperationResult uploadResult = uploadFile(uploadDbObject);
+                
+                //TODO check if cancelled by user
                 
                 updateDataseUploadResult(uploadResult, mCurrentUpload);
                 notifyUploadResult(uploadResult, mCurrentUpload);
@@ -538,10 +566,13 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
             // upload) is handled by updateDataseUploadResult() which is called
             // after upload finishes. Following cancel call makes sure that is
             // does finish right now.
-            if (mCurrentUpload != null) {
+            if (mCurrentUpload != null && mCurrentUpload.isUploadInProgress()) {
                 mCurrentUpload.cancel();
+            } else if(mCancellationPossible.get()){
+                mCancellationRequested.set(true);
             } else {
-                Log_OC.e(TAG, "mCurrentUpload == null. Cannot cancel upload. Fix that!");
+                Log_OC.e(TAG,
+                        "Cannot cancel upload because not in progress. Instead remove from pending upload list. This should not happen.");
 
                 // in this case we have to update the db here. this should never
                 // happen though!
@@ -552,6 +583,29 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
                 upload.getOCFile().setStoragePath(file.getStoragePath());
                 mDb.updateUpload(upload);
             }
+        }
+        
+        public void remove(Account account, OCFile file) {
+            UploadDbObject upload = mPendingUploads.remove(buildRemoteName(account, file));
+            if(upload == null) {
+                Log_OC.e(TAG, "Could not delete upload "+file+" from mPendingUploads.");
+            }
+            int d = mDb.removeUpload(file.getStoragePath());
+            if(d == 0) {
+                Log_OC.e(TAG, "Could not delete upload "+file.getStoragePath()+" from database.");
+            }            
+        }
+        
+        public void retry(Account account, OCFile file) {
+            //get upload from db and add to mPendingUploads. Then start upload.
+            UploadDbObject[] list = mDb.getUploadByLocalPath(file.getStoragePath());
+            if(list.length == 1) {
+                String uploadKey = buildRemoteName(list[0]);
+                mPendingUploads.putIfAbsent(uploadKey, list[0]);
+                FileUploadService.retry(getApplicationContext(), uploadKey);
+            } else {
+                Log_OC.e(TAG, "Upload file " + file + " not found. Cannot upload.");
+            }  
         }
 
         public void clearListeners() {
@@ -640,6 +694,8 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
                 boundListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, localFileName);
             }
         }
+
+        
     }
     
     enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR};
@@ -733,6 +789,8 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
         mCurrentUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
         mCurrentUpload.addDatatransferProgressListener(this);
         
+        mCancellationRequested.set(false);
+        mCancellationPossible.set(true);
         notifyUploadStart(mCurrentUpload);        
 
         RemoteOperationResult uploadResult = null, grantResult = null;
@@ -751,9 +809,15 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
             String remoteParentPath = new File(mCurrentUpload.getRemotePath()).getParent();
             remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ? remoteParentPath : remoteParentPath
                     + OCFile.PATH_SEPARATOR;
+            //TODO this might take a moment and should thus be cancelable, for now: cancel afterwards.
             grantResult = grantFolderExistence(mCurrentUpload, remoteParentPath);
+            
+            if(mCancellationRequested.get()) {
+                throw new OperationCancelledException();
+            }
+            mCancellationPossible.set(false);
 
-            // / perform the upload
+            // perform the upload
             if (grantResult.isSuccess()) {
                 OCFile parent = mStorageManager.getFileByPath(remoteParentPath);
                 mCurrentUpload.getFile().setParentId(parent.getFileId());
@@ -778,6 +842,8 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
             Log_OC.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
             uploadResult = new RemoteOperationResult(e);
 
+        } catch (OperationCancelledException e) {
+            uploadResult = new RemoteOperationResult(e);
         } finally {
             Log_OC.d(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
             if (uploadResult.isException()) {
@@ -1137,9 +1203,19 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
      * Call if all pending uploads are to be retried.
      */
     public static void retry(Context context) {
+        retry(context, null);    
+    }
+
+    /**
+     * Call to retry upload identified by remotePath
+     */
+    private static void retry(Context context, String remotePath) {
         Log_OC.d(TAG, "FileUploadService.retry()");
         Intent i = new Intent(context, FileUploadService.class);
         i.putExtra(FileUploadService.KEY_RETRY, true);
+        if(remotePath != null) {
+            i.putExtra(FileUploadService.KEY_RETRY_REMOTE_PATH, remotePath);
+        }
         context.startService(i);        
     }
 

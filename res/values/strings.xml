@@ -81,6 +81,8 @@
     <string name="common_ok">OK</string>
     <string name="common_cancel_download">Cancel download</string>
     <string name="common_cancel_upload">Cancel upload</string>
+    <string name="common_remove_upload">Remove upload</string>
+    <string name="common_retry_upload">Retry upload</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_save_exit">Save &amp; Exit</string>
     <string name="common_error">Error</string>

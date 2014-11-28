@@ -121,14 +121,26 @@ public class UploadListFragment extends ExpandableListFragment {
         int childPosition = ExpandableListView.getPackedPositionChild(info.packedPosition);
         int groupPosition = ExpandableListView.getPackedPositionGroup(info.packedPosition);
         UploadDbObject uploadFile = (UploadDbObject) mAdapter.getChild(groupPosition, childPosition);
-        if (uploadFile.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED
-                || uploadFile.getUploadStatus() == UploadStatus.UPLOAD_FAILED_GIVE_UP) {
+        if (uploadFile.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
             MenuItem item = menu.findItem(R.id.action_cancel_upload);
             if (item != null) {
                 item.setVisible(false);
                 item.setEnabled(false);
             }
-        } 
+        } else {
+            MenuItem item = menu.findItem(R.id.action_remove_upload);
+            if (item != null) {
+                item.setVisible(false);
+                item.setEnabled(false);
+            }
+        }
+        if (!(uploadFile.getUploadStatus() == UploadStatus.UPLOAD_CANCELLED || uploadFile.getUploadStatus() == UploadStatus.UPLOAD_FAILED_RETRY)) {
+            MenuItem item = menu.findItem(R.id.action_retry_upload);
+            if (item != null) {
+                item.setVisible(false);
+                item.setEnabled(false);
+            }
+        }
     }
     
     @Override
@@ -138,12 +150,16 @@ public class UploadListFragment extends ExpandableListFragment {
         int groupPosition = ExpandableListView.getPackedPositionGroup(info.packedPosition);
         UploadDbObject uploadFile = (UploadDbObject) mAdapter.getChild(groupPosition, childPosition);
         switch (item.getItemId()) {
-        case R.id.action_cancel_upload: {
-            //TODO OCFile does not have UploadBinder. :(
+        case R.id.action_cancel_upload:
             ((FileActivity) getActivity()).getFileOperationsHelper().cancelTransference(uploadFile.getOCFile());
             return true;
-        }
-        case R.id.action_see_details: {
+        case R.id.action_remove_upload: {
+            ((FileActivity) getActivity()).getFileOperationsHelper().removeUploadFromList(uploadFile.getOCFile());
+            return true;
+        }case R.id.action_retry_upload: {
+            ((FileActivity) getActivity()).getFileOperationsHelper().retryUpload(uploadFile.getOCFile());
+            return true;
+        }case R.id.action_see_details: {
             Intent showDetailsIntent = new Intent(getActivity(), FileDisplayActivity.class);
             showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable) uploadFile.getOCFile());
             showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, uploadFile.getAccount(getActivity()));

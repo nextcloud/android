@@ -297,12 +297,20 @@ public class UploadDbHandler extends Observable {
     public int removeUpload(String localPath) {
         int result = getDB().delete(TABLE_UPLOAD, "path = ?", new String[] { localPath });
         Log_OC.d(TABLE_UPLOAD, "delete returns with: " + result + " for file: " + localPath);
+        if(result > 0) {
+            notifyObserversNow();
+        }
         return result;
     }
 
     public UploadDbObject[] getAllStoredUploads() {
         return getUploads(null, null);
     }
+    
+    public UploadDbObject[] getUploadByLocalPath(String localPath) {
+        return getUploads("path = ?", new String[] { localPath });
+    }
+
 
     private UploadDbObject[] getUploads(String selection, String[] selectionArgs) {
         Cursor c = getDB().query(TABLE_UPLOAD, null, selection, selectionArgs, null, null, null);

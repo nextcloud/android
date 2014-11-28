@@ -90,13 +90,13 @@ public class UploadFileOperation extends RemoteOperation {
     PutMethod mPutMethod = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
+    private final AtomicBoolean mUploadStarted = new AtomicBoolean(false);
     private Context mContext;
     
     private UploadRemoteFileOperation mUploadOperation;
 
     protected RequestEntity mEntity = null;
 
-    
     public UploadFileOperation( Account account,
                                 OCFile file,
                                 boolean chunked,
@@ -200,6 +200,8 @@ public class UploadFileOperation extends RemoteOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
+        mCancellationRequested.set(false);
+        mUploadStarted.set(true);
         RemoteOperationResult result = null;
         boolean localCopyPassed = false, nameCheckPassed = false;
         File temporalFile = null, originalFile = new File(mOriginalStoragePath), expectedFile = null;
@@ -220,6 +222,10 @@ public class UploadFileOperation extends RemoteOperation {
                                                                                                 // getAvailableRemotePath()
                                                                                                 // !!!
             expectedFile = new File(expectedPath);
+            
+            if (mCancellationRequested.get()) {
+                throw new OperationCancelledException();
+            }
 
             // check location of local file; if not the expected, copy to a
             // temporal file before upload (if COPY is the expected behaviour)
@@ -307,6 +313,10 @@ public class UploadFileOperation extends RemoteOperation {
                 }
             }
             localCopyPassed = true;
+            
+            if (mCancellationRequested.get()) {
+                throw new OperationCancelledException();
+            }
 
             /// perform the upload
             if ( mChunked && (new File(mFile.getStoragePath())).length() > ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
@@ -366,6 +376,7 @@ public class UploadFileOperation extends RemoteOperation {
             }
 
         } finally {
+            mUploadStarted.set(false);
             if (temporalFile != null && !originalFile.equals(temporalFile)) {
                 temporalFile.delete();
             }
@@ -462,11 +473,29 @@ public class UploadFileOperation extends RemoteOperation {
         return result.isSuccess();
     }
     
+    /**
+     * Allows to cancel the actual upload operation. If actual upload operating
+     * is in progress it is cancelled, if upload preparation is being performed
+     * upload will not take place.
+     */
     public void cancel() {
         if (mUploadOperation == null) {
-            Log_OC.e(TAG, "UploadFileOperation.cancel(): mUploadOperation == null for file: " + mFile + ". Fix that.");
-            return;
+            if (mUploadStarted.get()) {
+                Log_OC.d(TAG, "Cancelling upload during upload preparations.");
+                mCancellationRequested.set(true);
+            } else {
+                Log_OC.e(TAG, "No upload in progress. This should not happen.");
+            }
+        } else {
+            Log_OC.d(TAG, "Cancelling upload during actual upload operation.");
+            mUploadOperation.cancel();
         }
-        mUploadOperation.cancel();
+    }
+    
+    /**
+     * As soon as this method return true, upload can be cancel via cancel().
+     */
+    public boolean isUploadInProgress() {
+        return mUploadStarted.get();
     }
 }
