@@ -279,7 +279,7 @@
   <string name="actionbar_logger">Registri</string>
   <string name="log_send_history_button">Invia cronologia</string>
   <string name="log_mail_subject">Registri applicazione ownCloud Android</string>
-  <string name="log_progress_dialog_text">Caricamento dati...</string>
+  <string name="log_progress_dialog_text">Caricamento dati in corso...</string>
   <string name="saml_authentication_required_text">Autenticazione richiesta</string>
   <string name="saml_authentication_wrong_pass">Password errata</string>
   <string name="actionbar_move">Sposta</string>

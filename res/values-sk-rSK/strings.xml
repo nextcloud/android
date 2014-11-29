@@ -11,6 +11,12 @@
   <string name="actionbar_settings">Nastavenia</string>
   <string name="actionbar_see_details">Podrobnosti</string>
   <string name="actionbar_send_file">Odoslať</string>
+  <string name="actionbar_sort">Zoradiť</string>
+  <string name="actionbar_sort_title">Zoradiť podľa</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Najnovšie - Najstaršie</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Všeobecné</string>
@@ -32,7 +38,10 @@
   <string name="prefs_recommend">Doporučiť známemu</string>
   <string name="prefs_feedback">Spätná väzba</string>
   <string name="prefs_imprint">Podmienky používania</string>
+  <string name="prefs_remember_last_share_location">Zapamätať umiestnenie zdieľania</string>
+  <string name="prefs_remember_last_upload_location_summary">Zapamätať posledné umiestnenie pre nahranie zdieľaných súborov</string>
   <string name="recommend_subject">Skúste %1$s na vašom telefóne!</string>
+  <string name="recommend_text">Chcel by som vám odporučiť %1$s na vašom smartfóne!\nSťahujte tu: %2$s</string>
   <string name="auth_check_server">Skontrolovať Server</string>
   <string name="auth_host_url">Adresa servera https://...</string>
   <string name="auth_username">Používateľské meno</string>
@@ -106,6 +115,7 @@
   <string name="sync_fail_in_favourites_content">Obsah %1$d súborov nemohol byť synchronizovaný (%2$d konfliktov)</string>
   <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
   <string name="sync_foreign_files_forgotten_content">%1$d súborov z %2$s priečinkov sa nepodarilo skopírovať do</string>
+  <string name="sync_foreign_files_forgotten_explanation">Od verzie 1.3.16 sú súbory nahrané z tohoto zariadenia kopírované do lokálneho priečinka %1$s, aby sa zabránilo strate dát pri synchronizácii jedného súboru s viacerými účtami.\n\nVšetky súbory nahraté predchádzajúcimi verziami aplikácie boli z tohoto dôvodu prekopírované do priečinka %2$s. Bohužiaľ sa objavila chyba zabraňujúca dokončeniu tejto operácie v priebehu synchronizácie účtu. Buď môžete súbor(y) ponechať ako sú a odobrať odkaz z priečinka %3$s, alebo presunúť súbor(y) do priečinka %1$s a zachovať odkaz na %4$s.\n\nNižšie je uvedený lokálny súbor(y) a vzdialený súbor(y) v %5$s, s ktorým je prepojený.</string>
   <string name="sync_current_folder_was_removed">Priečinok %1$s už existuje</string>
   <string name="foreign_files_move">Premiestniť všetko</string>
   <string name="foreign_files_success">Všetky súbory boli premiestnené</string>
@@ -239,9 +249,12 @@
   <string name="preview_image_description">Ukážka obrazu</string>
   <string name="preview_image_error_unknown_format">Obrázok nemožno zobraziť</string>
   <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
+  <string name="prefs_instant_upload_path_title">Cesta pre nahrávanie</string>
   <string name="share_link_no_support_share_api">Je nám to ľúto, ale zdieľanie nie je na vašom serveri povolené. Prosím kontaktujte vášho
 		administrátora.</string>
+  <string name="share_link_file_no_exist">Nemožno zdieľať. Skontrolujte, či súbor existuje</string>
   <string name="share_link_file_error">Pri pokuse o zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
+  <string name="unshare_link_file_no_exist">Nemožno ukončiť zdieľanie. Skontrolujte, či súbor existuje</string>
   <string name="unshare_link_file_error">Pri pokuse zrušiť zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
   <string name="activity_chooser_send_file_title">Odoslať</string>
   <string name="copy_link">Kopíruj odkaz</string>
@@ -262,9 +275,21 @@
   <string name="downloader_download_file_not_found">Súbor už na serveri nie je dostupný</string>
   <string name="prefs_category_accounts">Účty</string>
   <string name="prefs_add_account">Pridať účet</string>
+  <string name="auth_redirect_non_secure_connection_title">Zabezpečené pripojenie je presmerované na nezabezpečenú trasu.</string>
+  <string name="actionbar_logger">Logy</string>
+  <string name="log_send_history_button">Odoslať históriu</string>
+  <string name="log_mail_subject">Logy aplikácie ownCloud pre Android</string>
+  <string name="log_progress_dialog_text">Nahrávam dáta...</string>
   <string name="saml_authentication_required_text">Vyžaduje sa overenie</string>
   <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
   <string name="actionbar_move">Presunúť</string>
+  <string name="file_list_empty_moving">Nič tu nie je. Pridajte priečinok!</string>
   <string name="move_choose_button_text">Vybrať</string>
+  <string name="move_file_not_found">Nemožno presunúť. Skontrolujte, či súbor existuje</string>
+  <string name="move_file_invalid_into_descendent">Priečinok nemožno presunúť do vlastného podpriečinka</string>
+  <string name="move_file_invalid_overwrite">Súbor už v cieľovom priečinku existuje</string>
+  <string name="move_file_error">Pri pokuse o presun tohoto súboru alebo priečinka nastala chyba</string>
+  <string name="forbidden_permissions_move">pre presun tohoto súboru</string>
+  <string name="prefs_category_instant_uploading">Okamžité nahratie</string>
   <string name="prefs_category_security">Zabezpečenie</string>
 </resources>
