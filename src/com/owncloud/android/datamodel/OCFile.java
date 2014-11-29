@@ -308,7 +308,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
             // Notify MediaScanner about new file
             Intent intent2 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             String folder = new File(this.getStoragePath()).getParent();
-            Log_OC.d(TAG, "uri: " + folder+PATH_SEPARATOR+name);
             intent2.setData(Uri.fromFile(new File(folder+ PATH_SEPARATOR+name)));
             MainApp.getAppContext().sendBroadcast(intent2);
         }
