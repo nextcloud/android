@@ -154,6 +154,11 @@ implements ConfirmationDialogFragmentListener {
     
     private void triggerMediaScan(String path){
         try {
+            MediaScannerConnection.scanFile(
+                    getActivity().getApplicationContext(),
+                    new String[]{path},
+                    null,null);
+            
             Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             intent.setData(Uri.fromFile(new File(path)));
             MainApp.getAppContext().sendBroadcast(intent);
