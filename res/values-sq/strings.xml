@@ -32,6 +32,7 @@
   <string name="filedetails_created">Krijuar:</string>
   <string name="filedetails_modified">Modifikuar:</string>
   <string name="filedetails_download">Shkarko</string>
+  <string name="action_share_file">Ndaje lidhjen</string>
   <string name="common_yes">Po</string>
   <string name="common_no">Jo</string>
   <string name="common_ok">Ok</string>
