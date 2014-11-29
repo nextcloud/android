@@ -33,7 +33,6 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
-
 import android.accounts.Account;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
@@ -41,6 +40,7 @@ import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -787,6 +787,18 @@ public class FileDataStorageManager {
             }
             Log_OC.d(TAG, "Local file RENAMED : " + renamed);
             
+            // Notify MediaScanner about removed file
+            Intent intent1 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            intent1.setData(Uri.fromFile(new File(file.getStoragePath())));
+            MainApp.getAppContext().sendBroadcast(intent1);
+            
+            // Notify MediaScanner about new file/folder
+            Intent intent2 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            intent2.setData(Uri.fromFile(new File(defaultSavePath + targetPath)));
+            MainApp.getAppContext().sendBroadcast(intent2);
+            
+            Log_OC.d(TAG, "uri old: " + file.getStoragePath());
+            Log_OC.d(TAG, "uri new: " + defaultSavePath + targetPath);
         }
         
     }
@@ -1402,7 +1414,7 @@ public class FileDataStorageManager {
                 path = path + FileUtils.PATH_SEPARATOR;
             }           
 
-            // Update OCFile with data from share: ShareByLink  ¿and publicLink?
+            // Update OCFile with data from share: ShareByLink  ï¿½and publicLink?
             OCFile file = getFileByPath(path);
             if (file != null) {
                 if (share.getShareType().equals(ShareType.PUBLIC_LINK)) {
