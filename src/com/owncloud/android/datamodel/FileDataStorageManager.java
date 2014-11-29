@@ -346,7 +346,13 @@ public class FileDataStorageManager {
                     ).withSelection(where, whereArgs).build());
                     
                     if (file.isDown()) {
+                        String path = file.getStoragePath();
                         new File(file.getStoragePath()).delete();
+                        
+                        // Notify MediaScanner about removed file
+                        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                        intent.setData(Uri.fromFile(new File(path)));
+                        MainApp.getAppContext().sendBroadcast(intent);
                     }
                 }
             }
@@ -542,11 +548,17 @@ public class FileDataStorageManager {
                         success &= removeLocalFolder(file);
                     } else {
                         if (file.isDown()) {
+                            String path = file.getStoragePath();
                             File localFile = new File(file.getStoragePath());
                             success &= localFile.delete();
                             if (success) {
                                 file.setStoragePath(null);
                                 saveFile(file);
+                                
+                             // Notify MediaScanner about removed file
+                                Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                                intent.setData(Uri.fromFile(new File(path)));
+                                MainApp.getAppContext().sendBroadcast(intent);
                             }
                         }
                     }
@@ -568,7 +580,13 @@ public class FileDataStorageManager {
                 if (localFile.isDirectory()) {
                     success &= removeLocalFolder(localFile);
                 } else {
+                    String path = localFile.getAbsolutePath();
                     success &= localFile.delete();
+                    
+                    // Notify MediaScanner about removed file
+                    Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                    intent.setData(Uri.fromFile(new File(path)));
+                    MainApp.getAppContext().sendBroadcast(intent);
                 }
             }
         }
