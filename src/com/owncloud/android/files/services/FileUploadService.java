@@ -40,11 +40,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
-import android.os.HandlerThread;
 import android.os.IBinder;
-import android.os.Looper;
 import android.os.Parcelable;
-import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.webkit.MimeTypeMap;
 
@@ -201,12 +198,8 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
         }
     };
 
-    // public static final int UPLOAD_SINGLE_FILE = 0;
-    // public static final int UPLOAD_MULTIPLE_FILES = 1;
-
     private static final String TAG = FileUploadService.class.getSimpleName();
 
-    private Looper mServiceLooper;
     private IBinder mBinder;
     private OwnCloudClient mUploadClient = null;
     private Account mLastAccount = null;
@@ -276,11 +269,8 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
     @Override
     public void onCreate() {
         super.onCreate();
-        Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size());
+        Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - onCreate");
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        HandlerThread thread = new HandlerThread("FileUploaderThread", Process.THREAD_PRIORITY_BACKGROUND);
-        thread.start();
-        mServiceLooper = thread.getLooper();
         mBinder = new FileUploaderBinder();
         mDb = UploadDbHandler.getInstance(this.getBaseContext());
         mDb.recreateDb(); //for testing only
@@ -288,11 +278,8 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
         //when this service starts there is no upload in progress. if db says so, app probably crashed before.
         mDb.setAllCurrentToUploadLater();
         
-        //TODO This service can be instantiated at any time. Better move this retry call to start of app.
-        if(UploadUtils.isOnline(getApplicationContext())) {
-            Log_OC.d(TAG, "FileUploadService.retry() called by onCreate()");
-            FileUploadService.retry(getApplicationContext());
-        }
+        Log_OC.d(TAG, "FileUploadService.retry() called by onCreate()");
+        FileUploadService.retry(getApplicationContext());
     }
 
     /**
