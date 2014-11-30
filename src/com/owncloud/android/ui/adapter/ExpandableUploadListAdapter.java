@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.UploadDbHandler;
-import com.owncloud.android.db.UploadDbHandler.UploadStatus;
 import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -137,15 +136,61 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             UploadDbObject uploadObject = uploadsItems[position];
 
             TextView fileName = (TextView) view.findViewById(R.id.upload_name);
-            fileName.setText(uploadObject.getLocalPath());
+            String file = uploadObject.getOCFile().getFileName();
+            fileName.setText(file);
+            
+            TextView localPath = (TextView) view.findViewById(R.id.upload_local_path);
+            String path = uploadObject.getOCFile().getStoragePath();
+            path = path.substring(0, path.length() - file.length() - 1);
+            localPath.setText(path);
+
+            TextView fileSize = (TextView) view.findViewById(R.id.upload_file_size);
+            fileSize.setText(DisplayUtils.bytesToHumanReadable(uploadObject.getOCFile().getFileLength()));
 
             TextView statusView = (TextView) view.findViewById(R.id.upload_status);
-            String status = uploadObject.getUploadStatus().toString();
-            if (uploadObject.getLastResult() != null && !uploadObject.getLastResult().isSuccess()) {
-                status += ": " + uploadObject.getLastResult().getLogMessage();
-            }
-            if (uploadObject.getUploadStatus() == UploadStatus.UPLOAD_LATER) {
-                status += ": " + FileUploadService.getUploadLaterReason(mActivity, uploadObject);
+            String status;
+            switch (uploadObject.getUploadStatus()) {
+            case UPLOAD_IN_PROGRESS:
+                status = mActivity.getResources().getString(R.string.uploader_upload_in_progress_ticker);
+                break;
+            case UPLOAD_FAILED_GIVE_UP:
+                if(uploadObject.getLastResult() != null) {
+                status = "Upload failed: " + uploadObject.getLastResult().getLogMessage();
+                 } else {
+                     status = "Upload failed.";
+                }
+                break;
+            case UPLOAD_FAILED_RETRY:
+                if(uploadObject.getLastResult() != null){
+                    status = "Last failure: "
+                        + uploadObject.getLastResult().getLogMessage();
+                } else {
+                    status = "Upload will be retried shortly.";
+                }
+                break;
+            case UPLOAD_LATER:
+                status = FileUploadService.getUploadLaterReason(mActivity, uploadObject);
+                break;
+            case UPLOAD_SUCCEEDED:
+                status = "";
+                break;
+            case UPLOAD_CANCELLED:
+                if(uploadObject.getLastResult() == null){
+                    status = "Upload cancelled.";
+                } else {
+                    status = uploadObject.getLastResult()
+                    .getLogMessage();
+                }
+                break;
+            case UPLOAD_PAUSED:
+                status = "Upload paused.";
+                break;
+            default:
+                status = uploadObject.getUploadStatus().toString();
+                if(uploadObject.getLastResult() != null){
+                    uploadObject.getLastResult().getLogMessage();
+                } 
+                break;
             }
             statusView.setText(status);
 
@@ -160,10 +205,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             } catch (NullPointerException e) {
             }            
 
-            TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
+            TextView uploadDateV = (TextView) view.findViewById(R.id.upload_date);
             CharSequence dateString = DisplayUtils.getRelativeDateTimeString(mActivity, uploadObject.getUploadTime()
                     .getTimeInMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
-            fileSizeV.setText(dateString);
+            uploadDateV.setText(dateString);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             // if (!file.isDirectory()) {
             // fileSizeV.setVisibility(View.VISIBLE);

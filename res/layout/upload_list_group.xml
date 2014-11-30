@@ -17,7 +17,6 @@
         android:id="@+id/uploadListGroupName"
         android:layout_width="fill_parent"
         android:layout_height="25dip"
-        android:gravity="center_vertical|end"
         android:paddingLeft="5dip"
         android:paddingRight="5dip"
         android:textColor="#ffffffff"
