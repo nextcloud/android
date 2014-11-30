@@ -142,7 +142,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             TextView localPath = (TextView) view.findViewById(R.id.upload_local_path);
             String path = uploadObject.getOCFile().getStoragePath();
             path = path.substring(0, path.length() - file.length() - 1);
-            localPath.setText(path);
+            localPath.setText("Path: " + path);
 
             TextView fileSize = (TextView) view.findViewById(R.id.upload_file_size);
             fileSize.setText(DisplayUtils.bytesToHumanReadable(uploadObject.getOCFile().getFileLength()));
@@ -154,10 +154,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 status = mActivity.getResources().getString(R.string.uploader_upload_in_progress_ticker);
                 break;
             case UPLOAD_FAILED_GIVE_UP:
-                if(uploadObject.getLastResult() != null) {
-                status = "Upload failed: " + uploadObject.getLastResult().getLogMessage();
-                 } else {
-                     status = "Upload failed.";
+                if (uploadObject.getLastResult() != null) {
+                    status = "Upload failed: " + uploadObject.getLastResult().getLogMessage();
+                } else {
+                    status = "Upload failed.";
                 }
                 break;
             case UPLOAD_FAILED_RETRY:
@@ -172,15 +172,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 status = FileUploadService.getUploadLaterReason(mActivity, uploadObject);
                 break;
             case UPLOAD_SUCCEEDED:
-                status = "";
+                status = "Completed.";
                 break;
             case UPLOAD_CANCELLED:
-                if(uploadObject.getLastResult() == null){
-                    status = "Upload cancelled.";
-                } else {
-                    status = uploadObject.getLastResult()
-                    .getLogMessage();
-                }
+                status = "Upload cancelled.";
                 break;
             case UPLOAD_PAUSED:
                 status = "Upload paused.";

@@ -480,8 +480,6 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
                 Log_OC.d(TAG, "Calling uploadFile for " + upload);
                 RemoteOperationResult uploadResult = uploadFile(uploadDbObject);
                 
-                //TODO check if cancelled by user
-                
                 updateDataseUploadResult(uploadResult, mCurrentUpload);
                 notifyUploadResult(uploadResult, mCurrentUpload);
                 sendFinalBroadcast(uploadResult, mCurrentUpload);                
@@ -539,7 +537,7 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
             }
         }
         reason.append(".");
-        if (reason.length() > 0) {
+        if (reason.length() > 1) {
             return reason.toString();
         }
         if (uploadDbObject.getUploadStatus() == UploadStatus.UPLOAD_LATER) {
@@ -599,11 +597,8 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
             } else if(mCancellationPossible.get()){
                 mCancellationRequested.set(true);
             } else {
-                Log_OC.e(TAG,
-                        "Cannot cancel upload because not in progress. Instead remove from pending upload list. This should not happen.");
-
-                // in this case we have to update the db here. this should never
-                // happen though!
+                // upload not in progress, but pending.
+                // in this case we have to update the db here.
                 UploadDbObject upload = mPendingUploads.remove(buildRemoteName(account, file));
                 upload.setUploadStatus(UploadStatus.UPLOAD_CANCELLED);
                 upload.setLastResult(new RemoteOperationResult(ResultCode.CANCELLED));
