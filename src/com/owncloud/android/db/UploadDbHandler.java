@@ -17,8 +17,6 @@
  */
 package com.owncloud.android.db;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 
 import android.content.ContentValues;
@@ -201,12 +199,13 @@ public class UploadDbHandler extends Observable {
         long result = getDB().insert(TABLE_UPLOAD, null, cv);
         
         Log_OC.d(TAG, "putFileForLater returns with: " + result + " for file: " + uploadObject.getLocalPath());
-        if (result == 1) {
-            notifyObserversNow();
+        if (result == -1) {
+            Log_OC.e(TAG, "Failed to insert item " + uploadObject.getLocalPath() + " into upload db.");
+            return false;
         } else {
-            Log_OC.e(TAG, "Failed to insert item "+uploadObject.getLocalPath()+" into upload db.");
+            notifyObserversNow();
+            return true;
         }
-        return result != -1;
     }
 
     /**
