@@ -464,6 +464,12 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
             String remotePath = intent.getStringExtra(KEY_RETRY_REMOTE_PATH);
             list.add(remotePath);
             it = list.iterator();
+            // update db status for upload
+            UploadDbObject uploadDbObject = mPendingUploads.get(remotePath);
+            uploadDbObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
+            uploadDbObject.setLastResult(null);
+            mDb.updateUpload(uploadDbObject);
+
             Log_OC.d(TAG, "Start uploading " + remotePath);
         } else {
             it = mPendingUploads.keySet().iterator();

@@ -34,7 +34,6 @@ import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ListView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.db.UploadDbHandler.UploadStatus;
 import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -112,14 +111,14 @@ public class UploadListFragment extends ExpandableListFragment {
         int childPosition = ExpandableListView.getPackedPositionChild(info.packedPosition);
         int groupPosition = ExpandableListView.getPackedPositionGroup(info.packedPosition);
         UploadDbObject uploadFile = (UploadDbObject) mAdapter.getChild(groupPosition, childPosition);
-        if (uploadFile.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
-            MenuItem item = menu.findItem(R.id.action_cancel_upload);
+        if (userCanCancelUpload(uploadFile)) {
+            MenuItem item = menu.findItem(R.id.action_remove_upload);
             if (item != null) {
                 item.setVisible(false);
                 item.setEnabled(false);
             }
         } else {
-            MenuItem item = menu.findItem(R.id.action_remove_upload);
+            MenuItem item = menu.findItem(R.id.action_cancel_upload);
             if (item != null) {
                 item.setVisible(false);
                 item.setEnabled(false);
@@ -134,6 +133,16 @@ public class UploadListFragment extends ExpandableListFragment {
         }
     }
     
+    private boolean userCanCancelUpload(UploadDbObject uploadFile) {
+        switch (uploadFile.getUploadStatus()) {
+        case UPLOAD_IN_PROGRESS:
+        case UPLOAD_LATER:
+            return true;
+        default:
+            return false;
+        }
+    }
+
     /**
      * Returns true when user can choose to retry this upload.
      * 
