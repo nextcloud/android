@@ -21,7 +21,9 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.UploadDbHandler;
+import com.owncloud.android.db.UploadDbHandler.UploadStatus;
 import com.owncloud.android.db.UploadDbObject;
+import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
@@ -141,6 +143,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             String status = uploadObject.getUploadStatus().toString();
             if (uploadObject.getLastResult() != null && !uploadObject.getLastResult().isSuccess()) {
                 status += ": " + uploadObject.getLastResult().getLogMessage();
+            }
+            if (uploadObject.getUploadStatus() == UploadStatus.UPLOAD_LATER) {
+                status += ": " + FileUploadService.getUploadLaterReason(mActivity, uploadObject);
             }
             statusView.setText(status);
 

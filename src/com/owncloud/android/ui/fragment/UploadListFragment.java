@@ -21,34 +21,25 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ListView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.UploadDbHandler.UploadStatus;
 import com.owncloud.android.db.UploadDbObject;
-import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.MoveActivity;
 import com.owncloud.android.ui.adapter.ExpandableUploadListAdapter;
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
-import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.
@@ -134,7 +125,7 @@ public class UploadListFragment extends ExpandableListFragment {
                 item.setEnabled(false);
             }
         }
-        if (!(uploadFile.getUploadStatus() == UploadStatus.UPLOAD_CANCELLED || uploadFile.getUploadStatus() == UploadStatus.UPLOAD_FAILED_RETRY)) {
+        if (!userCanRetryUpload(uploadFile)) {
             MenuItem item = menu.findItem(R.id.action_retry_upload);
             if (item != null) {
                 item.setVisible(false);
@@ -143,6 +134,23 @@ public class UploadListFragment extends ExpandableListFragment {
         }
     }
     
+    /**
+     * Returns true when user can choose to retry this upload.
+     * 
+     * @param uploadFile
+     * @return
+     */
+    private boolean userCanRetryUpload(UploadDbObject uploadFile) {
+        switch (uploadFile.getUploadStatus()) {
+        case UPLOAD_CANCELLED:
+        case UPLOAD_FAILED_RETRY:
+        case UPLOAD_FAILED_GIVE_UP:
+            return true;
+        default:
+            return false;
+        }
+    }
+
     @Override
     public boolean onContextItemSelected (MenuItem item) {
         ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) item.getMenuInfo();  

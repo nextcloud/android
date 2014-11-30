@@ -21,11 +21,9 @@ package com.owncloud.android.files.services;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -48,7 +46,6 @@ import android.os.Looper;
 import android.os.Parcelable;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
-import android.text.format.DateUtils;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
@@ -409,7 +406,7 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
             boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
             boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
             boolean isUseWifiOnly = intent.getBooleanExtra(KEY_WIFI_ONLY, true);
-            boolean isWhileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, true);
+            boolean isWhileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
             long uploadTimestamp = intent.getLongExtra(KEY_UPLOAD_TIMESTAMP, -1);
             
             LocalBehaviour localAction = (LocalBehaviour) intent.getSerializableExtra(KEY_LOCAL_BEHAVIOUR);
@@ -518,6 +515,27 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
 
         Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - after uploading.");
         Log_OC.d(TAG, "onHandleIntent end");
+    }
+
+    /**
+     * Returns the reason as String why state of uploadDbObject is LATER. If
+     * upload state != LATER return null.
+     */
+    static public String getUploadLaterReason(Context context, UploadDbObject uploadDbObject) {
+        if (uploadDbObject.isUseWifiOnly() && !UploadUtils.isConnectedViaWiFi(context)) {
+            return "Upload is wifi-only.";
+        }
+        if (uploadDbObject.isWhileChargingOnly() && !UploadUtils.isCharging(context)) {
+            return "Upload is charging-only.";
+        }
+        Date now = new Date();
+        if (now.getTime() < uploadDbObject.getUploadTimestamp()) {
+            return "Upload scheduled for " + DisplayUtils.unixTimeToHumanReadable(uploadDbObject.getUploadTimestamp());
+        }
+        if (uploadDbObject.getUploadStatus() == UploadStatus.UPLOAD_LATER) {
+            return "Upload delayed for unknown reason.";
+        }
+        return null;
     }
 
     /**
@@ -1158,6 +1176,7 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
         case HOST_NOT_AVAILABLE:
         case NO_NETWORK_CONNECTION:
         case TIMEOUT:
+        case WRONG_CONNECTION: // SocketException
             return true;
         default:
             return false;
