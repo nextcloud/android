@@ -328,6 +328,10 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
             }
             Log_OC.d(TAG, "added " + countAddedEntries
                     + " entrie(s) to mPendingUploads (this should be 0 except for the first time).");
+            // null intent is received when charging or wifi state changes.
+            // fake a mDb change event, so that GUI can update the reason for
+            // LATER status of uploads.
+            mDb.notifyObserversNow();
         } else {
             Log_OC.d(TAG, "Receive upload intent.");
             UploadSingleMulti uploadType = (UploadSingleMulti) intent.getSerializableExtra(KEY_UPLOAD_TYPE);
@@ -515,18 +519,31 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
      * upload state != LATER return null.
      */
     static public String getUploadLaterReason(Context context, UploadDbObject uploadDbObject) {
-        if (uploadDbObject.isUseWifiOnly() && !UploadUtils.isConnectedViaWiFi(context)) {
-            return "Upload is wifi-only.";
-        }
-        if (uploadDbObject.isWhileChargingOnly() && !UploadUtils.isCharging(context)) {
-            return "Upload is charging-only.";
-        }
+        StringBuilder reason = new StringBuilder();
         Date now = new Date();
         if (now.getTime() < uploadDbObject.getUploadTimestamp()) {
-            return "Upload scheduled for " + DisplayUtils.unixTimeToHumanReadable(uploadDbObject.getUploadTimestamp());
+            reason.append("Waiting for " + DisplayUtils.unixTimeToHumanReadable(uploadDbObject.getUploadTimestamp()));
+        }
+        if (uploadDbObject.isUseWifiOnly() && !UploadUtils.isConnectedViaWiFi(context)) {
+            if (reason.length() > 0) {
+                reason.append(" and wifi connectivity");
+            } else {
+                reason.append("Waiting for wifi connectivity");
+            }
+        }
+        if (uploadDbObject.isWhileChargingOnly() && !UploadUtils.isCharging(context)) {
+            if (reason.length() > 0) {
+                reason.append(" and charging");
+            } else {
+                reason.append("Waiting for charging");
+            }
+        }
+        reason.append(".");
+        if (reason.length() > 0) {
+            return reason.toString();
         }
         if (uploadDbObject.getUploadStatus() == UploadStatus.UPLOAD_LATER) {
-            return "Upload delayed for unknown reason.";
+            return "Upload delayed for unknown reason. Fix that!";
         }
         return null;
     }
@@ -589,6 +606,7 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
                 // happen though!
                 UploadDbObject upload = mPendingUploads.remove(buildRemoteName(account, file));
                 upload.setUploadStatus(UploadStatus.UPLOAD_CANCELLED);
+                upload.setLastResult(new RemoteOperationResult(ResultCode.CANCELLED));
                 // storagePath inside upload is the temporary path. file
                 // contains the correct path used as db reference.
                 upload.getOCFile().setStoragePath(file.getStoragePath());
