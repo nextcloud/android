@@ -9,6 +9,7 @@
   <string name="file_list_seconds_ago">sekondes gelede</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Kanseleer</string>
+  <string name="common_error">Fout</string>
   <string name="empty"></string>
   <string name="move_choose_button_text">Kies</string>
 </resources>

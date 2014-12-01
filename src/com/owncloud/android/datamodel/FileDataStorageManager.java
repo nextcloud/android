@@ -1402,7 +1402,7 @@ public class FileDataStorageManager {
                 path = path + FileUtils.PATH_SEPARATOR;
             }           
 
-            // Update OCFile with data from share: ShareByLink  ¿and publicLink?
+            // Update OCFile with data from share: ShareByLink  and publicLink
             OCFile file = getFileByPath(path);
             if (file != null) {
                 if (share.getShareType().equals(ShareType.PUBLIC_LINK)) {

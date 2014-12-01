@@ -18,15 +18,17 @@
 
 package com.owncloud.android.datamodel;
 
+
 import java.io.File;
 import java.io.Serializable;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import third_parties.daveKoeller.AlphanumComparator;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.webkit.MimeTypeMap;
 
 // OCFile needs to be Serializable because it is stored persistently inside UploadDbObject.
 // (Parcelable is not suitable for persistent storage.)
@@ -53,7 +55,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
     public static final String ROOT_PATH = PATH_SEPARATOR;
 
     private static final String TAG = OCFile.class.getSimpleName();
-    
+
     private long mId;
     private long mParentId;
     private long mLength;
@@ -69,7 +71,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
     private boolean mKeepInSync;
 
     private String mEtag;
-    
+
     private boolean mShareByLink;
     private String mPublicLink;
 
@@ -81,9 +83,9 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Create new {@link OCFile} with given path.
-     * 
+     * <p/>
      * The path received must be URL-decoded. Path separator must be OCFile.PATH_SEPARATOR, and it must be the first character in 'path'.
-     * 
+     *
      * @param path The remote path of the file.
      */
     public OCFile(String path) {
@@ -97,7 +99,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Reconstruct from parcel
-     * 
+     *
      * @param source The source parcel
      */
     private OCFile(Parcel source) {
@@ -145,10 +147,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
         dest.writeString(mRemoteId);
         dest.writeInt(mNeedsUpdateThumbnail ? 1 : 0);
     }
-    
+
     /**
      * Gets the ID of the file
-     * 
+     *
      * @return the file ID
      */
     public long getFileId() {
@@ -157,7 +159,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Returns the remote path of the file on ownCloud
-     * 
+     *
      * @return The remote path to the file
      */
     public String getRemotePath() {
@@ -167,7 +169,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
     /**
      * Can be used to check, whether or not this file exists in the database
      * already
-     * 
+     *
      * @return true, if the file exists in the database
      */
     public boolean fileExists() {
@@ -176,7 +178,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Use this to find out if this file is a folder.
-     * 
+     *
      * @return true if it is a folder
      */
     public boolean isFolder() {
@@ -185,7 +187,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Use this to check if this file is available locally
-     * 
+     *
      * @return true if it is
      */
     public boolean isDown() {
@@ -195,10 +197,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
         }
         return false;
     }
-    
+
     /**
      * The path, where the file is stored locally
-     * 
+     *
      * @return The local path to the file
      */
     public String getStoragePath() {
@@ -207,7 +209,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Can be used to set the path where the local file is stored
-     * 
+     *
      * @param storage_path to set
      */
     public void setStoragePath(String storage_path) {
@@ -216,7 +218,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Get a UNIX timestamp of the file creation time
-     * 
+     *
      * @return A UNIX timestamp of the time that file was created
      */
     public long getCreationTimestamp() {
@@ -225,7 +227,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Set a UNIX timestamp of the time the file was created
-     * 
+     *
      * @param creation_timestamp to set
      */
     public void setCreationTimestamp(long creation_timestamp) {
@@ -235,8 +237,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
     /**
      * Get a UNIX timestamp of the file modification time.
      *
-     * @return  A UNIX timestamp of the modification time, corresponding to the value returned by the server
-     *          in the last synchronization of the properties of this file. 
+     * @return A UNIX timestamp of the modification time, corresponding to the value returned by the server
+     * in the last synchronization of the properties of this file.
      */
     public long getModificationTimestamp() {
         return mModifiedTimestamp;
@@ -244,22 +246,22 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Set a UNIX timestamp of the time the time the file was modified.
-     * 
-     * To update with the value returned by the server in every synchronization of the properties 
+     * <p/>
+     * To update with the value returned by the server in every synchronization of the properties
      * of this file.
-     * 
+     *
      * @param modification_timestamp to set
      */
     public void setModificationTimestamp(long modification_timestamp) {
         mModifiedTimestamp = modification_timestamp;
     }
 
-    
+
     /**
      * Get a UNIX timestamp of the file modification time.
      *
-     * @return  A UNIX timestamp of the modification time, corresponding to the value returned by the server
-     *          in the last synchronization of THE CONTENTS of this file. 
+     * @return A UNIX timestamp of the modification time, corresponding to the value returned by the server
+     * in the last synchronization of THE CONTENTS of this file.
      */
     public long getModificationTimestampAtLastSyncForData() {
         return mModifiedTimestampAtLastSyncForData;
@@ -267,39 +269,38 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Set a UNIX timestamp of the time the time the file was modified.
-     * 
-     * To update with the value returned by the server in every synchronization of THE CONTENTS 
+     * <p/>
+     * To update with the value returned by the server in every synchronization of THE CONTENTS
      * of this file.
-     * 
-     * @param modification_timestamp to set
+     *
+     * @param modificationTimestamp to set
      */
     public void setModificationTimestampAtLastSyncForData(long modificationTimestamp) {
         mModifiedTimestampAtLastSyncForData = modificationTimestamp;
     }
 
-    
-    
+
     /**
      * Returns the filename and "/" for the root directory
-     * 
+     *
      * @return The name of the file
      */
     public String getFileName() {
         File f = new File(getRemotePath());
         return f.getName().length() == 0 ? ROOT_PATH : f.getName();
     }
-    
+
     /**
      * Sets the name of the file
-     * 
-     * Does nothing if the new name is null, empty or includes "/" ; or if the file is the root directory 
+     * <p/>
+     * Does nothing if the new name is null, empty or includes "/" ; or if the file is the root directory
      */
     public void setFileName(String name) {
         Log_OC.d(TAG, "OCFile name changin from " + mRemotePath);
         if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) && !mRemotePath.equals(ROOT_PATH)) {
             String parent = (new File(getRemotePath())).getParent();
             parent = (parent.endsWith(PATH_SEPARATOR)) ? parent : parent + PATH_SEPARATOR;
-            mRemotePath =  parent + name;
+            mRemotePath = parent + name;
             if (isFolder()) {
                 mRemotePath += PATH_SEPARATOR;
             }
@@ -309,7 +310,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Can be used to get the Mimetype
-     * 
+     *
      * @return the Mimetype as a String
      */
     public String getMimetype() {
@@ -319,10 +320,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
     /**
      * Adds a file to this directory. If this file is not a directory, an
      * exception gets thrown.
-     * 
+     *
      * @param file to add
      * @throws IllegalStateException if you try to add a something and this is
-     *             not a directory
+     *                               not a directory
      */
     public void addFile(OCFile file) throws IllegalStateException {
         if (isFolder()) {
@@ -361,7 +362,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Sets the ID of the file
-     * 
+     *
      * @param file_id to set
      */
     public void setFileId(long file_id) {
@@ -370,7 +371,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Sets the Mime-Type of the
-     * 
+     *
      * @param mimetype to set
      */
     public void setMimetype(String mimetype) {
@@ -379,7 +380,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Sets the ID of the parent folder
-     * 
+     *
      * @param parent_id to set
      */
     public void setParentId(long parent_id) {
@@ -388,7 +389,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Sets the file size in bytes
-     * 
+     *
      * @param file_len to set
      */
     public void setFileLength(long file_len) {
@@ -397,7 +398,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Returns the size of the file in bytes
-     * 
+     *
      * @return The filesize in bytes
      */
     public long getFileLength() {
@@ -406,7 +407,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Returns the ID of the parent Folder
-     * 
+     *
      * @return The ID
      */
     public long getParentId() {
@@ -415,13 +416,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     /**
      * Check, if this file needs updating
-     * 
+     *
      * @return
      */
     public boolean needsUpdatingWhileSaving() {
         return mNeedsUpdating;
     }
-    
+
     public boolean needsUpdateThumbnail() {
         return mNeedsUpdateThumbnail;
     }
@@ -433,11 +434,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
     public long getLastSyncDateForProperties() {
         return mLastSyncDateForProperties;
     }
-    
+
     public void setLastSyncDateForProperties(long lastSyncDate) {
         mLastSyncDateForProperties = lastSyncDate;
     }
-    
+
     public long getLastSyncDateForData() {
         return mLastSyncDateForData;
     }
@@ -449,14 +450,14 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
     public void setKeepInSync(boolean keepInSync) {
         mKeepInSync = keepInSync;
     }
-    
+
     public boolean keepInSync() {
         return mKeepInSync;
     }
-    
+
     @Override
     public int describeContents() {
-        return this.hashCode();
+        return ((Object) this).hashCode();
     }
 
     @Override
@@ -473,13 +474,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof OCFile){
+        if (o instanceof OCFile) {
             OCFile that = (OCFile) o;
-            if(that != null){
+            if (that != null) {
                 return this.mId == that.mId;
             }
         }
-        
+
         return false;
     }
 
@@ -497,8 +498,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
     public void setEtag(String etag) {
         this.mEtag = etag;
     }
-    
-    
+
+
     public boolean isShareByLink() {
         return mShareByLink;
     }
@@ -523,22 +524,28 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
         return 0;
     }
 
-    /** @return  'True' if the file contains audio */
+    /**
+     * @return 'True' if the file contains audio
+     */
     public boolean isAudio() {
         return (mMimeType != null && mMimeType.startsWith("audio/"));
     }
 
-    /** @return  'True' if the file contains video */
+    /**
+     * @return 'True' if the file contains video
+     */
     public boolean isVideo() {
         return (mMimeType != null && mMimeType.startsWith("video/"));
     }
 
-    /** @return  'True' if the file contains an image */
+    /**
+     * @return 'True' if the file contains an image
+     */
     public boolean isImage() {
         return ((mMimeType != null && mMimeType.startsWith("image/")) ||
-                 getMimeTypeFromName().startsWith("image/"));
+                getMimeTypeFromName().startsWith("image/"));
     }
-    
+
     public String getMimeTypeFromName() {
         String extension = "";
         int pos = mRemotePath.lastIndexOf('.');
