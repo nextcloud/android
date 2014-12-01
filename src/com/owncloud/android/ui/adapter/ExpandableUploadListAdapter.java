@@ -192,7 +192,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
             fileIcon.setImageResource(R.drawable.file);
             try {
-                //?? TODO RemoteID is not set yet. How to get thumbnail?
+                //TODO Wait for https://github.com/owncloud/android/pull/746 and add thumbnail.
                 Bitmap b = ThumbnailsCacheManager.getBitmapFromDiskCache(uploadObject.getOCFile().getRemoteId());
                 if (b != null) {
                     fileIcon.setImageBitmap(b);
