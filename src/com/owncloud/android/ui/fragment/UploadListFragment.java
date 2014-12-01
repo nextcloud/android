@@ -137,6 +137,7 @@ public class UploadListFragment extends ExpandableListFragment {
         switch (uploadFile.getUploadStatus()) {
         case UPLOAD_IN_PROGRESS:
         case UPLOAD_LATER:
+        case UPLOAD_FAILED_RETRY:
             return true;
         default:
             return false;
@@ -152,7 +153,7 @@ public class UploadListFragment extends ExpandableListFragment {
     private boolean userCanRetryUpload(UploadDbObject uploadFile) {
         switch (uploadFile.getUploadStatus()) {
         case UPLOAD_CANCELLED:
-        case UPLOAD_FAILED_RETRY:
+        //case UPLOAD_FAILED_RETRY://automatically retried. no need for user option.
         case UPLOAD_FAILED_GIVE_UP:
             return true;
         default:

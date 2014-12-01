@@ -228,7 +228,7 @@ public class UploadDbHandler extends Observable {
             UploadDbObject uploadObject = UploadDbObject.fromString(uploadObjectString);
             
             String path = c.getString(c.getColumnIndex("path"));
-            Log_OC.e(
+            Log_OC.d(
                     TAG,
                     "Updating " + path + ": " + uploadObject.getLocalPath() + " with uploadStatus=" + status + "(old:"
                             + uploadObject.getUploadStatus() + ") and result=" + result + "(old:"
