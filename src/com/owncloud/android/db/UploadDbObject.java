@@ -307,6 +307,6 @@ public class UploadDbObject implements Serializable {
      * For debugging purposes only.
      */
     public String toFormattedString() {
-        return getLocalPath() + " status:"+getUploadStatus() + " result:" + getLastResult();
+        return getLocalPath() + " status:"+getUploadStatus() + " result:" + (getLastResult()==null?"null":getLastResult().getCode());
     }
 }

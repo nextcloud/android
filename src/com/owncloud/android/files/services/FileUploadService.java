@@ -289,7 +289,9 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
      * 
      * Note: We use an IntentService here. It does not provide simultaneous
      * requests, but instead internally queues them and gets them to this
-     * onHandleIntent method one after another.
+     * onHandleIntent method one after another. This makes implementation less
+     * error-prone but prevents files to be added to list while another upload
+     * is active. If everything else works fine, fixing this should be a TODO.
      * 
      * Entry point to add one or several files to the queue of uploads.
      * 
