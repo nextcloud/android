@@ -24,20 +24,14 @@ package com.owncloud.android.ui.dialog;
  *  
  *  @author David A. Velasco
  */
-import java.io.File;
 import java.util.Vector;
 
 import android.app.Dialog;
-import android.content.Intent;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.Bundle;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 
@@ -101,9 +95,8 @@ implements ConfirmationDialogFragmentListener {
         ComponentsGetter cg = (ComponentsGetter)getSherlockActivity();
         FileDataStorageManager storageManager = cg.getStorageManager();
         if (storageManager.getFileById(mTargetFile.getFileId()) != null) {
-            String path = mTargetFile.getStoragePath();
             cg.getFileOperationsHelper().removeFile(mTargetFile, false);
-            triggerMediaScan(path);
+            storageManager.triggerMediaScan(mTargetFile.getStoragePath());
         }
     }
     
@@ -144,7 +137,7 @@ implements ConfirmationDialogFragmentListener {
         }
         
         // Trigger MediaScan
-        triggerMediaScan(path);
+        storageManager.triggerMediaScan(path);
     }
 
     @Override
@@ -152,18 +145,4 @@ implements ConfirmationDialogFragmentListener {
         // nothing to do here
     }
     
-    private void triggerMediaScan(String path){
-        try {
-            MediaScannerConnection.scanFile(
-                    getActivity().getApplicationContext(),
-                    new String[]{path},
-                    null,null);
-            
-            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            intent.setData(Uri.fromFile(new File(path)));
-            MainApp.getAppContext().sendBroadcast(intent);
-        } catch (Exception e){
-            Log_OC.d("Trigger", "exception: " + e);
-        }
-    }
 }
