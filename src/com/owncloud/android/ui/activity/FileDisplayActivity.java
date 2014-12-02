@@ -603,8 +603,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
-            //getClipData is only supported on api level 16+
-            if (data.getData() == null && Build.VERSION.SDK_INT >= 16){
+            //getClipData is only supported on api level 16+, Jelly Bean
+            if (data.getData() == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
                 for( int i = 0; i < data.getClipData().getItemCount(); i++){
                     Intent intent = new Intent();
                     intent.setData(data.getClipData().getItemAt(i).getUri());
@@ -851,8 +851,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                     } else if (item == 1) {
                         Intent action = new Intent(Intent.ACTION_GET_CONTENT);
                         action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
-                        //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+
-                        if(Build.VERSION.SDK_INT >= 18) {
+                        //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                             action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                         }
                         startActivityForResult(Intent.createChooser(action, getString(R.string.upload_chooser_title)),
