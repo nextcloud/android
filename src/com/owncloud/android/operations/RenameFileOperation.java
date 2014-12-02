@@ -29,8 +29,6 @@ import com.owncloud.android.lib.resources.files.RenameRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import android.accounts.Account;
-
 
 /**
  * Remote operation performing the rename of a remote file (or folder?) in the ownCloud server.

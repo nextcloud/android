@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import com.owncloud.android.MainApp;
@@ -644,6 +645,8 @@ public class FileDataStorageManager {
             ArrayList<ContentProviderOperation> operations = 
                     new ArrayList<ContentProviderOperation>(c.getCount());
             String defaultSavePath = FileStorageUtils.getSavePath(mAccount.name);
+            List<String> originalPathsToTriggerMediaScan = new ArrayList<String>();
+            List<String> newPathsToTriggerMediaScan = new ArrayList<String>();
             if (c.moveToFirst()) {
                 int lengthOfOldPath = file.getRemotePath().length();
                 int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
@@ -657,11 +660,14 @@ public class FileDataStorageManager {
                     if (child.getStoragePath() != null && 
                             child.getStoragePath().startsWith(defaultSavePath)) {
                         // update link to downloaded content - but local move is not done here!
-                        cv.put(
-                            ProviderTableMeta.FILE_STORAGE_PATH, 
-                            defaultSavePath + targetPath + 
-                                child.getStoragePath().substring(lengthOfOldStoragePath)
-                        );
+                        String targetLocalPath = defaultSavePath + targetPath + 
+                                child.getStoragePath().substring(lengthOfOldStoragePath);
+                        
+                        cv.put(ProviderTableMeta.FILE_STORAGE_PATH, targetLocalPath);
+                        
+                        originalPathsToTriggerMediaScan.add(child.getStoragePath());
+                        newPathsToTriggerMediaScan.add(targetLocalPath);
+                        
                     }
                     if (child.getRemotePath().equals(file.getRemotePath())) {
                         cv.put(
@@ -696,11 +702,12 @@ public class FileDataStorageManager {
             }
 
             /// 4. move in local file system 
-            String localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, file);
-            File localFile = new File(localPath);
+            String originalLocalPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, file);
+            String targetLocalPath = defaultSavePath + targetPath;
+            File localFile = new File(originalLocalPath);
             boolean renamed = false;
             if (localFile.exists()) {
-                File targetFile = new File(defaultSavePath + targetPath);
+                File targetFile = new File(targetLocalPath);
                 File targetFolder = targetFile.getParentFile();
                 if (!targetFolder.exists()) {
                     targetFolder.mkdirs();
@@ -709,19 +716,17 @@ public class FileDataStorageManager {
             }
 
             if (renamed) {
-                if (file.isFolder()) {
-                    
-                } else {
+                Iterator<String> it = originalPathsToTriggerMediaScan.iterator();
+                while (it.hasNext()) {
                     // Notify MediaScanner about removed file
-                    triggerMediaScan(file.getStoragePath());
-                    
+                    triggerMediaScan(it.next());
+                }
+                it = newPathsToTriggerMediaScan.iterator();
+                while (it.hasNext()) {
                     // Notify MediaScanner about new file/folder
-                    triggerMediaScan(defaultSavePath + targetPath);
+                    triggerMediaScan(it.next());
                 }
             }
-            
-            Log_OC.d(TAG, "uri old: " + file.getStoragePath());
-            Log_OC.d(TAG, "uri new: " + defaultSavePath + targetPath);
         }
         
     }
