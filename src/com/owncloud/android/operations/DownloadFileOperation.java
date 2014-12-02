@@ -23,7 +23,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -35,7 +34,6 @@ import com.owncloud.android.lib.resources.files.DownloadRemoteFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import android.accounts.Account;
-import android.media.MediaScannerConnection;
 import android.webkit.MimeTypeMap;
 
 /**
@@ -152,11 +150,6 @@ public class DownloadFileOperation extends RemoteOperation {
             newFile = new File(getSavePath());
             newFile.getParentFile().mkdirs();
             moved = tmpFile.renameTo(newFile);
-            
-                MediaScannerConnection.scanFile(MainApp.getAppContext(), 
-                        new String[]{newFile.getAbsolutePath()}, null, null);
-                        
-        
             if (!moved)
                 result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
         }
