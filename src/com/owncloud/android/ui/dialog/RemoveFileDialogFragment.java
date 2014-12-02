@@ -96,7 +96,6 @@ implements ConfirmationDialogFragmentListener {
         FileDataStorageManager storageManager = cg.getStorageManager();
         if (storageManager.getFileById(mTargetFile.getFileId()) != null) {
             cg.getFileOperationsHelper().removeFile(mTargetFile, false);
-            storageManager.triggerMediaScan(mTargetFile.getStoragePath());
         }
     }
     
@@ -105,7 +104,6 @@ implements ConfirmationDialogFragmentListener {
      */
     @Override
     public void onNeutral(String callerTag) {
-        String path = mTargetFile.getStoragePath();
         ComponentsGetter cg = (ComponentsGetter)getSherlockActivity();
         cg.getFileOperationsHelper().removeFile(mTargetFile, true);
         
@@ -135,9 +133,6 @@ implements ConfirmationDialogFragmentListener {
            folder.setEtag("");
            storageManager.saveFile(folder);
         }
-        
-        // Trigger MediaScan
-        storageManager.triggerMediaScan(path);
     }
 
     @Override

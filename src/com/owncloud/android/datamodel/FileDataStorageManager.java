@@ -486,8 +486,12 @@ public class FileDataStorageManager {
                     }
                     success &= (deleted > 0); 
                 }
-                if (removeLocalCopy && file.isDown() && file.getStoragePath() != null && success) {
-                    success = new File(file.getStoragePath()).delete();
+                String localPath = file.getStoragePath();
+                if (removeLocalCopy && file.isDown() && localPath != null && success) {
+                    success = new File(localPath).delete();
+                    if (success) {
+                        triggerMediaScan(localPath);
+                    }
                     if (!removeDBData && success) {
                         // maybe unnecessary, but should be checked TODO remove if unnecessary
                         file.setStoragePath(null);
