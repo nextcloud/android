@@ -1579,4 +1579,10 @@ public class FileDataStorageManager {
         //}
     }
 
+    public void triggerMediaScan(String path) {
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        intent.setData(Uri.fromFile(new File(path)));
+        MainApp.getAppContext().sendBroadcast(intent);
+    }
+
 }

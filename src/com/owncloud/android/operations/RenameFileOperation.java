@@ -134,12 +134,19 @@ public class RenameFileOperation extends SyncOperation {
         
         // try to rename the local copy of the file
         if (mFile.isDown()) {
-            File f = new File(mFile.getStoragePath());
+            String oldPath = mFile.getStoragePath();
+            File f = new File(oldPath);
             String parentStoragePath = f.getParent();
             if (!parentStoragePath.endsWith(File.separator))
                 parentStoragePath += File.separator;
             if (f.renameTo(new File(parentStoragePath + mNewName))) {
-                mFile.setStoragePath(parentStoragePath + mNewName);
+                String newPath = parentStoragePath + mNewName;
+                mFile.setStoragePath(newPath);
+
+                // notify MediaScanner about removed file - TODO really works?
+                getStorageManager().triggerMediaScan(oldPath);
+                // notify to scan about new file
+                getStorageManager().triggerMediaScan(newPath);
             }
             // else - NOTHING: the link to the local file is kept although the local name can't be updated
             // TODO - study conditions when this could be a problem
