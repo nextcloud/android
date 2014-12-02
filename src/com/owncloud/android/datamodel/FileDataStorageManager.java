@@ -347,12 +347,8 @@ public class FileDataStorageManager {
                     
                     if (file.isDown()) {
                         String path = file.getStoragePath();
-                        new File(file.getStoragePath()).delete();
-                        
-                        // Notify MediaScanner about removed file
-                        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                        intent.setData(Uri.fromFile(new File(path)));
-                        MainApp.getAppContext().sendBroadcast(intent);
+                        new File(path).delete();
+                        triggerMediaScan(path); // notify MediaScanner about removed file
                     }
                 }
             }
@@ -554,11 +550,7 @@ public class FileDataStorageManager {
                             if (success) {
                                 file.setStoragePath(null);
                                 saveFile(file);
-                                
-                             // Notify MediaScanner about removed file
-                                Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                                intent.setData(Uri.fromFile(new File(path)));
-                                MainApp.getAppContext().sendBroadcast(intent);
+                                triggerMediaScan(path); // notify MediaScanner about removed file
                             }
                         }
                     }
@@ -582,11 +574,7 @@ public class FileDataStorageManager {
                 } else {
                     String path = localFile.getAbsolutePath();
                     success &= localFile.delete();
-                    
-                    // Notify MediaScanner about removed file
-                    Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                    intent.setData(Uri.fromFile(new File(path)));
-                    MainApp.getAppContext().sendBroadcast(intent);
+                    triggerMediaScan(path); // notify MediaScanner about removed file
                 }
             }
         }
@@ -806,14 +794,10 @@ public class FileDataStorageManager {
             Log_OC.d(TAG, "Local file RENAMED : " + renamed);
             
             // Notify MediaScanner about removed file
-            Intent intent1 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            intent1.setData(Uri.fromFile(new File(file.getStoragePath())));
-            MainApp.getAppContext().sendBroadcast(intent1);
+            triggerMediaScan(file.getStoragePath());
             
             // Notify MediaScanner about new file/folder
-            Intent intent2 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            intent2.setData(Uri.fromFile(new File(defaultSavePath + targetPath)));
-            MainApp.getAppContext().sendBroadcast(intent2);
+            triggerMediaScan(defaultSavePath + targetPath);
             
             Log_OC.d(TAG, "uri old: " + file.getStoragePath());
             Log_OC.d(TAG, "uri new: " + defaultSavePath + targetPath);
