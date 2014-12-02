@@ -586,109 +586,25 @@ public class FileDataStorageManager {
         return success;
     }
 
+    public void moveFolder(OCFile folder, String newPath) {
+        // TODO check newPath
+
+    }
+
+    
     /**
-     * Updates database for a folder that was moved to a different location.
+     * Updates database and file system for a file or folder that was moved to a different location.
      * 
      * TODO explore better (faster) implementations
      * TODO throw exceptions up !
      */
-    public void moveFolder(OCFile folder, String newPath) {
-        // TODO check newPath
-
-        if (    folder != null && folder.isFolder() && 
-                folder.fileExists() && !OCFile.ROOT_PATH.equals(folder.getFileName())
-            ) {
-            /// 1. get all the descendants of 'dir' in a single QUERY (including 'dir')
-            Cursor c = null;
-            if (getContentProviderClient() != null) {
-                try {
-                    c = getContentProviderClient().query (
-                        ProviderTableMeta.CONTENT_URI, 
-                        null,
-                        ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + 
-                                ProviderTableMeta.FILE_PATH + " LIKE ? ",
-                        new String[] { mAccount.name, folder.getRemotePath() + "%"  }, 
-                        ProviderTableMeta.FILE_PATH + " ASC "
-                    );
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, e.getMessage());
-                }
-            } else {
-                c = getContentResolver().query (
-                    ProviderTableMeta.CONTENT_URI, 
-                    null,
-                    ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + 
-                            ProviderTableMeta.FILE_PATH + " LIKE ? ",
-                    new String[] { mAccount.name, folder.getRemotePath() + "%"  }, 
-                    ProviderTableMeta.FILE_PATH + " ASC "
-                );
-            }
-
-            /// 2. prepare a batch of update operations to change all the descendants
-            ArrayList<ContentProviderOperation> operations = 
-                    new ArrayList<ContentProviderOperation>(c.getCount());
-            int lengthOfOldPath = folder.getRemotePath().length();
-            String defaultSavePath = FileStorageUtils.getSavePath(mAccount.name);
-            int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
-            if (c.moveToFirst()) {
-                do {
-                    ContentValues cv = new ContentValues(); // keep the constructor in the loop
-                    OCFile child = createFileInstance(c);
-                    cv.put(
-                        ProviderTableMeta.FILE_PATH, 
-                        newPath + child.getRemotePath().substring(lengthOfOldPath)
-                    );
-                    if (    child.getStoragePath() != null && 
-                            child.getStoragePath().startsWith(defaultSavePath)  ) {
-                        cv.put(
-                                ProviderTableMeta.FILE_STORAGE_PATH, 
-                                defaultSavePath + newPath + 
-                                    child.getStoragePath().substring(lengthOfOldStoragePath)
-                        );
-                    }
-                    operations.add(
-                            ContentProviderOperation.
-                            newUpdate(ProviderTableMeta.CONTENT_URI).
-                            withValues(cv).
-                            withSelection(  
-                                    ProviderTableMeta._ID + "=?", 
-                                    new String[] { String.valueOf(child.getFileId()) }
-                            ).
-                            build()
-                    );
-                } while (c.moveToNext());
-            }
-            c.close();
-
-            /// 3. apply updates in batch
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException e) {
-                Log_OC.e(TAG, "Fail to update descendants of " + 
-                        folder.getFileId() + " in database", e);
-
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Fail to update desendants of " + 
-                        folder.getFileId() + " in database", e);
-            }
-
-        }
-    }
-
-    
     public void moveLocalFile(OCFile file, String targetPath, String targetParentPath) {
 
         if (file != null && file.fileExists() && !OCFile.ROOT_PATH.equals(file.getFileName())) {
             
             OCFile targetParent = getFileByPath(targetParentPath);
             if (targetParent == null) {
-                // TODO panic
+                throw new IllegalStateException("Parent folder of the target path does not exist!!");
             }
             
             /// 1. get all the descendants of the moved element in a single QUERY
@@ -776,11 +692,7 @@ public class FileDataStorageManager {
                 }
 
             } catch (Exception e) {
-                Log_OC.e(
-                    TAG, 
-                    "Fail to update " + file.getFileId() + " and descendants in database", 
-                    e
-                );
+                Log_OC.e(TAG, "Fail to update " + file.getFileId() + " and descendants in database", e);
             }
 
             /// 4. move in local file system 
@@ -795,13 +707,18 @@ public class FileDataStorageManager {
                 }
                 renamed = localFile.renameTo(targetFile);
             }
-            Log_OC.d(TAG, "Local file RENAMED : " + renamed);
-            
-            // Notify MediaScanner about removed file
-            triggerMediaScan(file.getStoragePath());
-            
-            // Notify MediaScanner about new file/folder
-            triggerMediaScan(defaultSavePath + targetPath);
+
+            if (renamed) {
+                if (file.isFolder()) {
+                    
+                } else {
+                    // Notify MediaScanner about removed file
+                    triggerMediaScan(file.getStoragePath());
+                    
+                    // Notify MediaScanner about new file/folder
+                    triggerMediaScan(defaultSavePath + targetPath);
+                }
+            }
             
             Log_OC.d(TAG, "uri old: " + file.getStoragePath());
             Log_OC.d(TAG, "uri new: " + defaultSavePath + targetPath);

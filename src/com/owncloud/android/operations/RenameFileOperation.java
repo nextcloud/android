@@ -44,7 +44,6 @@ public class RenameFileOperation extends SyncOperation {
     
     private OCFile mFile;
     private String mRemotePath;
-    private Account mAccount;
     private String mNewName;
     private String mNewRemotePath;
 
@@ -57,9 +56,8 @@ public class RenameFileOperation extends SyncOperation {
      * @param account               OwnCloud account containing the remote file 
      * @param newName               New name to set as the name of file.
      */
-    public RenameFileOperation(String remotePath, Account account, String newName) {
+    public RenameFileOperation(String remotePath, String newName) {
         mRemotePath = remotePath;
-        mAccount = account;
         mNewName = newName;
         mNewRemotePath = null;
     }
@@ -103,7 +101,8 @@ public class RenameFileOperation extends SyncOperation {
 
             if (result.isSuccess()) {
                 if (mFile.isFolder()) {
-                    saveLocalDirectory();
+                    getStorageManager().moveLocalFile(mFile, mNewRemotePath, parent);
+                    //saveLocalDirectory();
 
                 } else {
                     saveLocalFile();
@@ -116,17 +115,6 @@ public class RenameFileOperation extends SyncOperation {
         }
 
         return result;
-    }
-
-    
-    private void saveLocalDirectory() {
-        getStorageManager().moveFolder(mFile, mNewRemotePath);
-        String localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
-        File localDir = new File(localPath);
-        if (localDir.exists()) {
-            localDir.renameTo(new File(FileStorageUtils.getSavePath(mAccount.name) + mNewRemotePath));
-            // TODO - if renameTo fails, children files that are already down will result unlinked
-        }
     }
 
     private void saveLocalFile() {
