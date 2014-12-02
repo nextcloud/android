@@ -18,8 +18,10 @@
 package com.owncloud.android.ui.fragment;
 
 import java.io.File;
+import java.util.Vector;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -29,6 +31,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.TextView;
+import android.view.LayoutInflater;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -70,6 +74,7 @@ public class OCFileListFragment extends ExtendedListFragment {
    
     private OCFile mFile = null;
     private FileListListAdapter mAdapter;
+    private View mFooterView;
     
     private OCFile mTargetFile;
 
@@ -112,24 +117,28 @@ public class OCFileListFragment extends ExtendedListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated() start");
-        
+
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(KEY_FILE);
         }
-        
+
+        mFooterView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
+                        R.layout.list_footer, null, false);
+        setFooterView(mFooterView);
+
         Bundle args = getArguments();
         boolean justFolders = (args == null) ? false : args.getBoolean(ARG_JUST_FOLDERS, false); 
         mAdapter = new FileListListAdapter(
                 justFolders,
                 getSherlockActivity(), 
                 mContainerActivity
-        );
+                );
         setListAdapter(mAdapter);
-        
+
         registerForContextMenu(getListView());
         getListView().setOnCreateContextMenuListener(this);
-  }
-    
+    }
+
     /**
      * Saves the current listed folder.
      */
@@ -384,7 +393,49 @@ public class OCFileListFragment extends ExtendedListFragment {
                 mList.setSelectionFromTop(0, 0);
             }
             mFile = directory;
+            
+            // Update Footer
+            TextView footerText = (TextView) mFooterView.findViewById(R.id.footerText);
+            Log_OC.d("footer", String.valueOf(System.currentTimeMillis()));
+            footerText.setText(generateFooterText(directory));
+            Log_OC.d("footer", String.valueOf(System.currentTimeMillis()));
         }
+    }
+    
+    private String generateFooterText(OCFile directory) {
+        Integer files = 0;
+        Integer folders = 0;
+
+        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+        Vector<OCFile> mFiles = storageManager.getFolderContent(mFile);
+
+        for (OCFile ocFile : mFiles) {
+            if (ocFile.isFolder()) {
+                folders++;
+            } else {
+                files++;
+            }
+        }
+
+        String output = "";
+       
+        if (files > 0){
+            if (files == 1) {
+                output = output + files.toString() + " " + getResources().getString(R.string.file_list_file);
+            } else {
+                output = output + files.toString() + " " + getResources().getString(R.string.file_list_files);
+            }
+        }
+        if (folders > 0 && files > 0){
+            output = output + ", ";
+        }
+        if (folders == 1) {
+            output = output + folders.toString() + " " + getResources().getString(R.string.file_list_folder);
+        } else if (folders > 1) {
+            output = output + folders.toString() + " " + getResources().getString(R.string.file_list_folders);
+        }
+        
+        return output;
     }
     
     public void sortByName(boolean descending) {
