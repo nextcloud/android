@@ -179,10 +179,6 @@
 			android:label="@string/app_name"/>
 
         <activity
-            android:name=".ui.activity.CopyActivity"
-            android:label="@string/app_name" />
-
-        <activity
 			android:name=".ui.activity.UploadPathActivity"
 			android:label="@string/app_name"/>
         

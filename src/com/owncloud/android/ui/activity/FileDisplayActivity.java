@@ -599,14 +599,7 @@ public class FileDisplayActivity extends HookActivity
                 resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestMultipleUpload(data, resultCode);
 
-//<<<<<<< HEAD
         } else if (requestCode == ACTION_MOVE_FILES && resultCode == RESULT_OK){
-/*=======
-        } else if (requestCode == ACTION_MOVE_FILES && (resultCode == RESULT_OK ||
-                resultCode == MoveActivity.RESULT_OK_AND_MOVE)) {
->>>>>>> Added 'ACTION_COPY_FILES'.
-*/
-
             final Intent fData = data;
             final int fResultCode = resultCode;
             getHandler().postDelayed(
@@ -619,8 +612,7 @@ public class FileDisplayActivity extends HookActivity
                     DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
             );
 
-        } else if (requestCode == ACTION_COPY_FILES && (resultCode == RESULT_OK ||
-                resultCode == CopyActivity.RESULT_OK_AND_COPY)) {
+        } else if (requestCode == ACTION_COPY_FILES && resultCode == RESULT_OK) {
 
             final Intent fData = data;
             final int fResultCode = resultCode;
@@ -756,8 +748,8 @@ public class FileDisplayActivity extends HookActivity
      * @param resultCode Result code received
      */
     private void requestCopyOperation(Intent data, int resultCode) {
-        OCFile folderToMoveAt = data.getParcelableExtra(CopyActivity.EXTRA_CURRENT_FOLDER);
-        OCFile targetFile = data.getParcelableExtra(CopyActivity.EXTRA_TARGET_FILE);
+        OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+        OCFile targetFile = data.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
         getFileOperationsHelper().copyFile(folderToMoveAt, targetFile);
     }
 
