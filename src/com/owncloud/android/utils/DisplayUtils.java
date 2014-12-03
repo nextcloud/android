@@ -29,7 +29,6 @@ import java.util.Set;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
 import com.owncloud.android.MainApp;

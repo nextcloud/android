@@ -328,7 +328,7 @@ public class PreviewImageFragment extends FileFragment {
         finish();
     }
     
-    
+
     private class BitmapLoader extends AsyncTask<String, Void, Bitmap> {
 
         /**

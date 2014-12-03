@@ -27,7 +27,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import java.io.File;
 
 import third_parties.daveKoeller.AlphanumComparator;
-
 public class OCFile implements Parcelable, Comparable<OCFile> {
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
