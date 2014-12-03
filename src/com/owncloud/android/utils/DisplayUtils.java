@@ -33,6 +33,7 @@ import android.text.format.DateUtils;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 
 /**
  * A helper class for some string operations.
@@ -318,5 +319,18 @@ public class DisplayUtils {
         }
         
         return dateString.toString().split(",")[0];
+    }
+
+    /**
+     * Update the passed path removing the last "/" if it is not the root folder
+     * @param path
+     */
+    public static String getPathWithoutLastSlash(String path) {
+
+        // Remove last slash from path
+        if (path.length() > 1 && path.charAt(path.length()-1) == OCFile.PATH_SEPARATOR.charAt(0)) {
+            path = path.substring(0, path.length()-1);
+        }
+        return path;
     }
 }
