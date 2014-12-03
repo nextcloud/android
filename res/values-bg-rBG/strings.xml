@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Настройки</string>
   <string name="actionbar_see_details">Детайли</string>
   <string name="actionbar_send_file">Изпращане</string>
+  <string name="actionbar_sort">Сортиране</string>
+  <string name="actionbar_sort_title">Сортирай по</string>
+  <string-array name="actionbar_sortby">
+    <item>А-Я</item>
+    <item>Нови - Стари</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Общи</string>
   <string name="prefs_category_more">Още</string>
   <string name="prefs_accounts">Профили</string>
@@ -30,6 +38,8 @@
   <string name="prefs_recommend">Препоръчай на приятел</string>
   <string name="prefs_feedback">Обратна Връзка</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Запомни мястото за споделяне</string>
+  <string name="prefs_remember_last_upload_location_summary">Запомни мястото на последната споделена папка</string>
   <string name="recommend_subject">Опитай %1$s на смартфона си!</string>
   <string name="recommend_text">Бих желал да те поканя да ползваш %1$s на своя смартфон!\nИзтеглия я от тук:%2$s</string>
   <string name="auth_check_server">Проверка на сървъра</string>
@@ -49,6 +59,7 @@
   <string name="uploader_wrn_no_content_text">Не беше получено съдържание. Няма какво да се качи.</string>
   <string name="uploader_error_forbidden_content">%1$s няма разрешен достъп до споделеното съдържание.</string>
   <string name="uploader_info_uploading">Качване</string>
+  <string name="file_list_seconds_ago">преди секунди</string>
   <string name="file_list_empty">Тук няма нищо. Качете нещо!</string>
   <string name="file_list_loading">Зареждане...</string>
   <string name="local_file_list_empty">Няма файлове в тази папка.</string>
@@ -238,6 +249,7 @@
   <string name="preview_image_description">Преглед на изображението</string>
   <string name="preview_image_error_unknown_format">Изображението не може да бъде показано</string>
   <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
+  <string name="prefs_instant_upload_path_title">Местоположение на качване</string>
   <string name="share_link_no_support_share_api">За съжаление споделянето не е включено на сървъра ви. 
 Моля, свържете се с администратора.</string>
   <string name="share_link_file_no_exist">Неуспешен опит за споделяне. Моля, провери дали файла съществува.</string>
@@ -266,6 +278,7 @@
   <string name="auth_redirect_non_secure_connection_title">Сигурна връзка е пренасочена по несигурен път.</string>
   <string name="actionbar_logger">Доклади</string>
   <string name="log_send_history_button">Изпрати История</string>
+  <string name="log_mail_subject">ownCloud Android доклади</string>
   <string name="log_progress_dialog_text">Зареждане на информация...</string>
   <string name="saml_authentication_required_text">Нужна е идентификация</string>
   <string name="saml_authentication_wrong_pass">Грешна парола</string>
@@ -277,4 +290,6 @@
   <string name="move_file_invalid_overwrite">Файлът вече съществува в отдалечената папка.</string>
   <string name="move_file_error">Настъпи грешка при опита за преместване на този файл или папка.</string>
   <string name="forbidden_permissions_move">за да преместиш този файл</string>
+  <string name="prefs_category_instant_uploading">Незабавно качване</string>
+  <string name="prefs_category_security">Сигурност</string>
 </resources>

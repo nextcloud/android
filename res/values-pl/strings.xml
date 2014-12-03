@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Ustawienia</string>
   <string name="actionbar_see_details">Szczegóły</string>
   <string name="actionbar_send_file">Wyślij</string>
+  <string name="actionbar_sort">Sortuj</string>
+  <string name="actionbar_sort_title">Sortuj według</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Nowsze - Starsze</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Ogólne</string>
   <string name="prefs_category_more">Więcej</string>
   <string name="prefs_accounts">Konta</string>
@@ -49,6 +57,7 @@
   <string name="uploader_wrn_no_content_text">Nie otrzymano danych. Nie ma nic do wysłania.</string>
   <string name="uploader_error_forbidden_content">%1$s nie ma dostępu do udostępnionych treści</string>
   <string name="uploader_info_uploading">Wysyłanie</string>
+  <string name="file_list_seconds_ago">sekund temu</string>
   <string name="file_list_empty">Pusto. Wyślij coś!</string>
   <string name="file_list_loading">Ładowanie...</string>
   <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
@@ -238,6 +247,7 @@
   <string name="preview_image_description">Podgląd</string>
   <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
+  <string name="prefs_instant_upload_path_title">Katalog wysyłania </string>
   <string name="share_link_no_support_share_api">Przepraszamy, ale współdzielenie nie jest włączone na Twoim serwerze. Proszę skontaktuj się z
 		administratorem.</string>
   <string name="share_link_file_no_exist">Nie można udostępnić. Proszę sprawdzić, czy plik istnieje</string>
@@ -266,6 +276,7 @@
   <string name="auth_redirect_non_secure_connection_title">Bezpieczne połączenie jest przekierowywane przez niezabezpieczone trasy.</string>
   <string name="actionbar_logger">Logi</string>
   <string name="log_send_history_button">Wyślij historię</string>
+  <string name="log_mail_subject">Logi aplikacji ownCloud Android</string>
   <string name="log_progress_dialog_text">Ładuję dane...</string>
   <string name="saml_authentication_required_text">Wymagana autoryzacja</string>
   <string name="saml_authentication_wrong_pass">Złe hasło</string>
@@ -277,4 +288,6 @@
   <string name="move_file_invalid_overwrite">Plik istnieje już w folderze docelowym</string>
   <string name="move_file_error">Pojawił się błąd podczas próby przeniesienia tego pliku lub folderu</string>
   <string name="forbidden_permissions_move">aby przenieść ten plik</string>
+  <string name="prefs_category_instant_uploading">Automatyczne wysyłanie</string>
+  <string name="prefs_category_security">Bezpieczeństwo</string>
 </resources>

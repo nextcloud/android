@@ -17,11 +17,19 @@
  */
 package com.owncloud.android.ui.adapter;
 
+
+import java.io.File;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Vector;
 
+import third_parties.daveKoeller.AlphanumComparator;
 import android.accounts.Account;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +49,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
 
 
 /**
@@ -62,20 +71,36 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
+    private Integer mSortOrder;
+    public static final Integer SORT_NAME = 0;
+    public static final Integer SORT_DATE = 1;
+    public static final Integer SORT_SIZE = 2;
+    private Boolean mSortAscending;
+    private SharedPreferences mAppPreferences;
     
     public FileListListAdapter(
             boolean justFolders, 
             Context context, 
             ComponentsGetter transferServiceGetter
             ) {
-        
+
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+
         mTransferServiceGetter = transferServiceGetter;
+        
+        mAppPreferences = PreferenceManager
+                .getDefaultSharedPreferences(mContext);
+        
+        // Read sorting order, default to sort by name ascending
+        mSortOrder = mAppPreferences
+                .getInt("sortOrder", 0);
+        mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
+
     }
     
     @Override
@@ -159,9 +184,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(
-                        DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp())
-                );
+                lastModV.setText(showRelativeTimestamp(file));
                 // this if-else is needed even thoe fav icon is visible by default
                 // because android reuses views in listview
                 if (!file.keepInSync()) {
@@ -195,7 +218,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task = 
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                            fileIcon, mStorageManager
+                                            fileIcon, mStorageManager, mAccount
                                     );
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
@@ -220,12 +243,16 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 }
             } 
             else {
-                fileSizeV.setVisibility(View.INVISIBLE);
-                //fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                  // TODO Re-enable when server supports folder-size calculation
+//                if (FileStorageUtils.getDefaultSavePathFor(mAccount.name, file) != null){
+//                    fileSizeV.setVisibility(View.VISIBLE);
+//                    fileSizeV.setText(getFolderSizeHuman(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file)));
+//                } else {
+                    fileSizeV.setVisibility(View.INVISIBLE);
+//                }
+
                 lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(
-                        DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp())
-                );
+                lastModV.setText(showRelativeTimestamp(file));
                 checkBoxV.setVisibility(View.GONE);
                 view.findViewById(R.id.imageView3).setVisibility(View.GONE);
 
@@ -254,7 +281,47 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
         return view;
     }
-    
+
+    /**
+     * Local Folder size in human readable format
+     * 
+     * @param path
+     *            String
+     * @return Size in human readable format
+     */
+    private String getFolderSizeHuman(String path) {
+
+        File dir = new File(path);
+
+        if (dir.exists()) {
+            long bytes = getFolderSize(dir);
+            return DisplayUtils.bytesToHumanReadable(bytes);
+        }
+
+        return "0 B";
+    }
+
+    /**
+     * Local Folder size
+     * @param dir File
+     * @return Size in bytes
+     */
+    private long getFolderSize(File dir) {
+        if (dir.exists()) {
+            long result = 0;
+            File[] fileList = dir.listFiles();
+            for(int i = 0; i < fileList.length; i++) {
+                if(fileList[i].isDirectory()) {
+                    result += getFolderSize(fileList[i]);
+                } else {
+                    result += fileList[i].length();
+                }
+            }
+            return result;
+        }
+        return 0;
+    } 
+
     @Override
     public int getViewTypeCount() {
         return 1;
@@ -291,6 +358,26 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         } else {
             mFiles = null;
         }
+
+        sortDirectory();
+    }
+    
+    /**
+     * Sorts all filenames, regarding last user decision 
+     */
+    private void sortDirectory(){
+        switch (mSortOrder){
+        case 0:
+            sortByName(mSortAscending);
+            break;
+        case 1:
+            sortByDate(mSortAscending);
+            break;
+        case 2: 
+            sortBySize(mSortAscending);
+            break;
+        }
+        
         notifyDataSetChanged();
     }
     
@@ -325,5 +412,112 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 && !mFile.getPermissions().contains(PERMISSION_SHARED_WITH_ME)
                 && file.getPermissions() != null 
                 && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME));
+    }
+
+    /**
+     * Sorts list by Date
+     * @param sortAscending true: ascending, false: descending
+     */
+    private void sortByDate(boolean sortAscending){
+        final Integer val;
+        if (sortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+        
+        Collections.sort(mFiles, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    Long obj1 = o1.getModificationTimestamp();
+                    return val * obj1.compareTo(o2.getModificationTimestamp());
+                }
+                else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                } else if (o1.getModificationTimestamp() == 0 || o2.getModificationTimestamp() == 0){
+                    return 0;
+                } else {
+                    Long obj1 = o1.getModificationTimestamp();
+                    return val * obj1.compareTo(o2.getModificationTimestamp());
+                }
+            }
+        });
+    }
+
+    /**
+     * Sorts list by Size
+     * @param sortAscending true: ascending, false: descending
+     */
+    private void sortBySize(boolean sortAscending){
+        final Integer val;
+        if (sortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+        
+        Collections.sort(mFiles, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    Long obj1 = getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o1)));
+                    return val * obj1.compareTo(getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
+                }
+                else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
+                    return 0;
+                } else {
+                    Long obj1 = o1.getFileLength();
+                    return val * obj1.compareTo(o2.getFileLength());
+                }
+            }
+        });
+    }
+
+    /**
+     * Sorts list by Name
+     * @param sortAscending true: ascending, false: descending
+     */
+    private void sortByName(boolean sortAscending){
+        final Integer val;
+        if (sortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+
+        Collections.sort(mFiles, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    return val * o1.getRemotePath().toLowerCase().compareTo(o2.getRemotePath().toLowerCase());
+                } else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                }
+                return val * new AlphanumComparator().compare(o1, o2);
+            }
+        });
+    }
+
+    public void setSortOrder(Integer order, boolean ascending) {
+        SharedPreferences.Editor editor = mAppPreferences.edit();
+        editor.putInt("sortOrder", order);
+        editor.putBoolean("sortAscending", ascending);
+        editor.commit();
+        
+        mSortOrder = order;
+        mSortAscending = ascending;
+        
+        sortDirectory();
+    }    
+    
+    private CharSequence showRelativeTimestamp(OCFile file){
+        return DisplayUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
+                DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
     }
 }

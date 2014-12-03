@@ -31,6 +31,7 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,10 +42,14 @@ import android.content.SyncRequest;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -89,6 +94,7 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -101,6 +107,7 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.UriUtils;
 
 
 /**
@@ -504,6 +511,40 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             }
             break;
         }
+        case R.id.action_sort: {
+            SharedPreferences appPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(this);
+            
+            // Read sorting order, default to sort by name ascending
+            Integer sortOrder = appPreferences
+                    .getInt("sortOrder", FileListListAdapter.SORT_NAME);
+            
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.actionbar_sort_title)
+            .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder , new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    
+                    switch (which){
+                    case 0:
+                        sortByName(true);
+                        break;
+                    case 1:
+                        sortByDate(false);
+                        break;
+                        
+// TODO re-enable when server-side folder size calculation is available                       
+//                    case 2:
+//                        sortBySize(false);
+//                        break;
+                    }
+                    
+                    dialog.dismiss();
+                    
+                }
+            });
+            builder.create().show();
+            break;
+        }
         default:
             retval = super.onOptionsItemSelected(item);
         }
@@ -529,6 +570,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             builder.setExpedited(true);
             builder.setManual(true);
             builder.syncOnce();
+
+            // Fix bug in Android Lollipop when you click on refresh the whole account
+            Bundle extras = new Bundle();
+            builder.setExtras(extras);
+
             SyncRequest request = builder.build();
             ContentResolver.requestSync(request);
         }
@@ -569,8 +615,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestMultipleUpload(data, resultCode);
 
-        } else if (requestCode == ACTION_MOVE_FILES && (resultCode == RESULT_OK || 
-                resultCode == MoveActivity.RESULT_OK_AND_MOVE)){
+        } else if (requestCode == ACTION_MOVE_FILES && resultCode == RESULT_OK){
 
             final Intent fData = data;
             final int fResultCode = resultCode; 
@@ -620,8 +665,12 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     private void requestSimpleUpload(Intent data, int resultCode) {
         String filepath = null;
+        String mimeType = null;
+
+        Uri selectedImageUri = data.getData();
+
         try {
-            Uri selectedImageUri = data.getData();
+            mimeType = getContentResolver().getType(selectedImageUri);
 
             String filemanagerstring = selectedImageUri.getPath();
             String selectedImagePath = getPath(selectedImageUri);
@@ -653,10 +702,34 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         }
         if (!remotepath.endsWith(OCFile.PATH_SEPARATOR))
             remotepath += OCFile.PATH_SEPARATOR;
-        remotepath += new File(filepath).getName();
+
+        if (filepath.startsWith(UriUtils.URI_CONTENT_SCHEME)) {
+
+            Cursor cursor = MainApp.getAppContext().getContentResolver()
+                    .query(Uri.parse(filepath), null, null, null, null, null);
+
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    String displayName = cursor.getString(
+                            cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    Log.i(TAG, "Display Name: " + displayName + "; mimeType: " + mimeType);
+
+                    displayName.replace(File.separatorChar, '_');
+                    displayName.replace(File.pathSeparatorChar, '_');
+                    remotepath += displayName + DisplayUtils.getComposedFileExtension(filepath);
+
+                }
+            } finally {
+                cursor.close();
+            }
+
+        } else {
+            remotepath += new File(filepath).getName();
+        }
 
         i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
         i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
+        i.putExtra(FileUploader.KEY_MIME_TYPE, mimeType);
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
             i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
@@ -670,8 +743,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      * @param resultCode        Result code received
      */
     private void requestMoveOperation(Intent data, int resultCode) {
-        OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(MoveActivity.EXTRA_CURRENT_FOLDER);
-        OCFile targetFile = (OCFile) data.getParcelableExtra(MoveActivity.EXTRA_TARGET_FILE);
+        OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+        OCFile targetFile = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
         getFileOperationsHelper().moveFile(folderToMoveAt, targetFile);
     }
 
@@ -832,22 +905,74 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         return dialog;
     }
 
-
     /**
-     * Translates a content URI of an image to a physical path
-     * on the disk
+     * Translates a content URI of an content to a physical path on the disk
+     * 
      * @param uri The URI to resolve
-     * @return The path to the image or null if it could not be found
+     * @return The path to the content or null if it could not be found
      */
     public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        if (cursor != null) {
-            int column_index = cursor
-                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } 
+        final boolean isKitKatOrLater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        // DocumentProvider
+        if (isKitKatOrLater && DocumentsContract.isDocumentUri(getApplicationContext(), uri)) {
+            // ExternalStorageProvider
+            if (UriUtils.isExternalStorageDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+            }
+            // DownloadsProvider
+            else if (UriUtils.isDownloadsDocument(uri)) {
+
+                final String id = DocumentsContract.getDocumentId(uri);
+                final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),
+                        Long.valueOf(id));
+
+                return UriUtils.getDataColumn(getApplicationContext(), contentUri, null, null);
+            }
+            // MediaProvider
+            else if (UriUtils.isMediaDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[] { split[1] };
+
+                return UriUtils.getDataColumn(getApplicationContext(), contentUri, selection, selectionArgs);
+            }
+            // Documents providers returned as content://...
+            else if (UriUtils.isContentDocument(uri)) {
+                return uri.toString();
+            }
+        }
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+
+            // Return the remote address
+            if (UriUtils.isGooglePhotosUri(uri))
+                return uri.getLastPathSegment();
+
+            return UriUtils.getDataColumn(getApplicationContext(), uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
         return null;
     }
 
@@ -1747,5 +1872,17 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 startSyncFolderOperation(folder, ignoreETag);
             }
         }
+    }
+
+    private void sortByDate(boolean ascending){
+        getListOfFilesFragment().sortByDate(ascending);
+    }
+
+    private void sortBySize(boolean ascending){
+        getListOfFilesFragment().sortBySize(ascending);
+    }
+
+    private void sortByName(boolean ascending){
+        getListOfFilesFragment().sortByName(ascending);
     }
 }

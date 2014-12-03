@@ -26,6 +26,8 @@ import com.owncloud.android.lib.resources.files.RemoteFile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
@@ -73,8 +75,24 @@ public class FileStorageUtils {
     }
 
     public static String getInstantUploadFilePath(Context context, String fileName) {
-        String uploadPath = context.getString(R.string.instant_upload_path);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        String uploadPathdef = context.getString(R.string.instant_upload_path);
+        String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
         String value = uploadPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
+        return value;
+    }
+
+    /**
+     * Gets the composed path when video is or must be stored
+     * @param context
+     * @param fileName: video file name
+     * @return String: video file path composed
+     */
+    public static String getInstantVideoUploadFilePath(Context context, String fileName) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        String uploadVideoPathdef = context.getString(R.string.instant_upload_path);
+        String uploadVideoPath = pref.getString("instant_video_upload_path", uploadVideoPathdef);
+        String value = uploadVideoPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
         return value;
     }
     

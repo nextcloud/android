@@ -11,6 +11,14 @@
   <string name="actionbar_settings">Asetukset</string>
   <string name="actionbar_see_details">Tiedot</string>
   <string name="actionbar_send_file">Lähetä</string>
+  <string name="actionbar_sort">Lajittele</string>
+  <string name="actionbar_sort_title">Lajittelujärjestys</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Ö</item>
+    <item>Uusimmasta vanhimpaan</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Yleiset</string>
   <string name="prefs_category_more">Enemmän</string>
   <string name="prefs_accounts">Tilit</string>
@@ -29,6 +37,8 @@
   <string name="prefs_help">Ohje</string>
   <string name="prefs_recommend">Suosittele kaverille</string>
   <string name="prefs_feedback">Palaute</string>
+  <string name="prefs_remember_last_share_location">Muista jaon sijainti</string>
+  <string name="prefs_remember_last_upload_location_summary">Muista viimeisin jaon lähetyssijainti</string>
   <string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
   <string name="recommend_text">Kutsun sinut käyttämään %1$sia älypuhelimellasi!\nLataa se tästä: %2$s</string>
   <string name="auth_check_server">Tarkista palvelin</string>
@@ -48,6 +58,7 @@
   <string name="uploader_wrn_no_content_text">Sisältöä ei saatu. Ei lähetettävää palvelimelle.</string>
   <string name="uploader_error_forbidden_content">%1$silla ei ole oikeuksia jaettuun sisältöön</string>
   <string name="uploader_info_uploading">Lähetetään</string>
+  <string name="file_list_seconds_ago">sekuntia sitten</string>
   <string name="file_list_empty">Täällä ei ole mitään. Lähetä tänne jotakin!</string>
   <string name="file_list_loading">Ladataan...</string>
   <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
@@ -218,6 +229,7 @@
   <string name="conflict_dont_upload">Älä lähetä</string>
   <string name="preview_image_description">Kuvan esikatselu</string>
   <string name="preview_image_error_unknown_format">Tätä kuvaa ei voi näyttää</string>
+  <string name="prefs_instant_upload_path_title">Lähetyspolku</string>
   <string name="share_link_no_support_share_api">Jakaminen ei ole käytössä palvelimellasi. Ota yhteys
 		ylläpitäjään.</string>
   <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
@@ -253,4 +265,6 @@
   <string name="move_file_not_found">Siirto ei onnistu. Tarkista, ettei tiedostoa ole jo olemassa</string>
   <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
   <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
+  <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
+  <string name="prefs_category_security">Tietoturva</string>
 </resources>

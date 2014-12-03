@@ -11,6 +11,12 @@
   <string name="actionbar_settings">Ρυθμίσεις</string>
   <string name="actionbar_see_details">Λεπτομέρειες</string>
   <string name="actionbar_send_file">Αποστολή</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Νεότερο - Παλαιότερο</item>
+  </string-array>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Γενικά</string>
   <string name="prefs_category_more">Περισσότερα</string>
   <string name="prefs_accounts">Λογαριασμοί</string>
@@ -49,6 +55,7 @@
   <string name="uploader_wrn_no_content_text">Δεν ελήφθη περιεχόμενο. Δεν υπάρχει τίποτα να μεταφορτώσετε.</string>
   <string name="uploader_error_forbidden_content">Ο %1$s δεν επιτρέπεται να έχει πρόσβαση στο κοινόχρηστο περιεχόμενο</string>
   <string name="uploader_info_uploading">Μεταφόρτωση</string>
+  <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
   <string name="file_list_empty">Δεν υπάρχει τίποτα εδώ. Ανεβάστε κάτι!</string>
   <string name="file_list_loading">Φόρτωση ...</string>
   <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
@@ -104,6 +111,7 @@
   <string name="sync_fail_in_favourites_content">Τα περιεχόμενα των %1$d αρχείων δεν μπόρεσαν να συγχρονιστούν (%2$d διενέξεις)</string>
   <string name="sync_foreign_files_forgotten_ticker">Ορισμένα τοπικά αρχεία ξεχάστηκαν</string>
   <string name="sync_foreign_files_forgotten_content">%1$d αρχεία από τον %2$s χώρο αποθήκευσης δεν ήταν δυνατό να αντιγραφούν σε</string>
+  <string name="sync_foreign_files_forgotten_explanation">Από την έκδοση 1.3.16, τα αρχεία που μεταφορτώθηκαν από αυτήν τη συσκευή αντιγράφηκαν στον τοπικό φάκελο %1$s για να αποτραπεί η απώλεια δεδομένων όταν ένα αρχείο είναι συγχρονισμένο με πολλαπλούς λογαριασμούς. \n\nΛόγω αυτής της αλλαγής, όλα τα αρχεία που μεταφορτώθηκαν με προηγούμενες εκδόσεις αυτής της εφαρμογής αντιγράφηκαν στον φάκελο %2$s. Ωστόσο, ένα σφάλμα εμπόδισε την ολοκλήρωση αυτής της λειτουργίας κατά το συγχρονισμό του λογαριασμού. Μπορείτε είτε να αφήσετε το(α) αρχείο(α) όπως είναι και να καταργήσετε τη σύνδεση με το %3$s ή να μετακινήσετε τα αρχεία στο φάκελο %1$s και να διατηρήσετε τη σύνδεση με το %4$s. \n\nΑπαριθμημένα πιο κάτω είναι τα τοπικά αρχεία(ο) και τα απομακρυσμένα αρχεία(ο) στο %5$s με τα οποία συνδέονταν.</string>
   <string name="sync_current_folder_was_removed">Ο φάκελος %1$s δεν υπάρχει πια</string>
   <string name="foreign_files_move">Μετακίνηση όλων</string>
   <string name="foreign_files_success">Όλα τα αρχεία μετακινήθηκαν</string>
@@ -237,9 +245,12 @@
   <string name="preview_image_description">Προεπισκόπηση εικόνας</string>
   <string name="preview_image_error_unknown_format">Αυτή η εικόνα δεν μπορεί να προβληθεί</string>
   <string name="error__upload__local_file_not_copied">Το %1$s δεν μπόρεσε να αντιγραφεί στον τοπικό φάκελο %2$s</string>
+  <string name="prefs_instant_upload_path_title">Διαδρομή Μεταφόρτωσης</string>
   <string name="share_link_no_support_share_api">Λυπούμαστε, ο διαμοιρασμός δεν επιτρέπεται στο διακομιστή σας. Παρακαλούμε επικοινωνείστε με το
 		διαχειριστή σας.</string>
+  <string name="share_link_file_no_exist">Αδύνατη η κοινή χρήση. Παρακαλώ ελέγξτε αν ο φάκελος υπάρχει</string>
   <string name="share_link_file_error">Ένα σφάλμα προέκυψε κατά την προσπάθεια διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
+  <string name="unshare_link_file_no_exist">Αδύνατη η διακοπή κοινής χρήσης.  Παρακαλώ ελέγξτε αν ο φάκελος υπάρχει</string>
   <string name="unshare_link_file_error">Ένα σφάλμα προέκυψε κατά τη διάρκεια ακύρωσης διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
   <string name="activity_chooser_send_file_title">Αποστολή</string>
   <string name="copy_link">Αντιγραφή συνδέσμου</string>
@@ -260,9 +271,21 @@
   <string name="downloader_download_file_not_found">Αυτό το αρχείο δεν είναι πια διαθέσιμο στο διακομιστή</string>
   <string name="prefs_category_accounts">Λογαριασμοί</string>
   <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
-  <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται μέσω μιας μη ασφαλούς διαδρομής.</string>
+  <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται σε μια μη ασφαλή διαδρομή.</string>
+  <string name="actionbar_logger">Αρχεία καταγραφών</string>
+  <string name="log_send_history_button">Αποστολή ιστορικού</string>
+  <string name="log_mail_subject">αρχεία καταγραφής της εφαρμογής ownCloud Android</string>
+  <string name="log_progress_dialog_text">Φόρτωση δεδομένων....</string>
   <string name="saml_authentication_required_text">Απαιτείται πιστοποίηση</string>
   <string name="saml_authentication_wrong_pass">Εσφαλμένο συνθηματικό</string>
+  <string name="actionbar_move">Μετακίνηση</string>
+  <string name="file_list_empty_moving">Δεν υπάρχει τίποτα εδώ. Μπορείτε να προσθέσετε ένα φάκελο!</string>
   <string name="move_choose_button_text">Επιλέξτε</string>
+  <string name="move_file_not_found">Αδύνατη η μετακίνηση. Παρακαλώ ελέγξτε αν ο φάκελος υπάρχει</string>
+  <string name="move_file_invalid_into_descendent">Δεν είναι δυνατό να μετακινηθεί ο φάκελος σε έναν απογονικό</string>
+  <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
+  <string name="move_file_error">Ένα σφάλμα προέκυψε κατά την προσπάθεια μετακίνησης αυτού του αρχείου ή φακέλου</string>
   <string name="forbidden_permissions_move">για μετακίνηση αυτού του αρχείου</string>
+  <string name="prefs_category_instant_uploading">Στιγμιαίες Μεταφορτώσεις</string>
+  <string name="prefs_category_security">Ασφάλεια</string>
 </resources>
