@@ -58,6 +58,7 @@
   <string name="uploader_wrn_no_content_text">Содержимое не получено. Нечего загружать.</string>
   <string name="uploader_error_forbidden_content">%1$s не имеет доступа к опубликованным данным</string>
   <string name="uploader_info_uploading">Загрузка</string>
+  <string name="file_list_seconds_ago">только что</string>
   <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
   <string name="file_list_loading">Загрузка...</string>
   <string name="local_file_list_empty">В данной папке нет файлов.</string>

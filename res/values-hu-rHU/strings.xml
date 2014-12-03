@@ -50,6 +50,7 @@
   <string name="uploader_wrn_no_content_text">Nem jött tartalom. Nincs mit feltölteni.</string>
   <string name="uploader_error_forbidden_content">%1$s nem jogosult a megosztott tartalom elérésére</string>
   <string name="uploader_info_uploading">Feltöltés</string>
+  <string name="file_list_seconds_ago">pár másodperce</string>
   <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
   <string name="file_list_loading">Betöltés...</string>
   <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>

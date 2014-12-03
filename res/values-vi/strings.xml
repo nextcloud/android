@@ -45,6 +45,7 @@
   <string name="uploader_wrn_no_content_text">Không có nội dung được nhận. Không có gì để tải lên.</string>
   <string name="uploader_error_forbidden_content">%1$s không cho phép truy cập vào các nội dung chia sẻ</string>
   <string name="uploader_info_uploading">Đang tải lên</string>
+  <string name="file_list_seconds_ago">vài giây trước</string>
   <string name="file_list_empty">Không có gì ở đây .Hãy tải lên một cái gì đó !</string>
   <string name="filedetails_select_file">Tap vào một tập tin để hiển thị thêm thông tin</string>
   <string name="filedetails_size">Kích thước:</string>

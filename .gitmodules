@@ -1,5 +1,5 @@
 
 [submodule "owncloud-android-library"]
 	path = owncloud-android-library
-	url = git://github.com/owncloudChalmers/android-library.git
-	branch = buildsystem/gradle_develop
+	url = git://github.com/owncloud/android-library.git
+	branch = develop

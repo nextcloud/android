@@ -52,6 +52,7 @@
   <string name="uploader_wrn_no_content_text">Nu a fost primit nici un conţinut .Nu exista nimic de încărcat .</string>
   <string name="uploader_error_forbidden_content">%1$s nu este permis sa acceseze conținutul shared</string>
   <string name="uploader_info_uploading">Încărcare</string>
+  <string name="file_list_seconds_ago">secunde în urmă</string>
   <string name="file_list_empty">Nimic aici. Încarcă ceva!</string>
   <string name="file_list_loading">Se incarca</string>
   <string name="local_file_list_empty">In acest folder nu sunt fisiere.</string>

@@ -12,6 +12,7 @@
   <string name="auth_password">Lykilorð</string>
   <string name="sync_string_files">Skrár</string>
   <string name="uploader_btn_upload_text">Senda inn</string>
+  <string name="file_list_seconds_ago">sek.</string>
   <string name="file_list_empty">Ekkert hér. Settu eitthvað inn!</string>
   <string name="filedetails_download">Niðurhal</string>
   <string name="common_yes">Já</string>

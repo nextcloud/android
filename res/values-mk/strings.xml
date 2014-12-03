@@ -28,6 +28,7 @@
   <string name="uploader_wrn_no_account_title">Не е пронајдена сметка</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Нагодување</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Прекини</string>
+  <string name="file_list_seconds_ago">пред секунди</string>
   <string name="file_list_empty">Тука нема ништо. Снимете нешто!</string>
   <string name="filedetails_size">Големина:</string>
   <string name="filedetails_type">Тип:</string>
