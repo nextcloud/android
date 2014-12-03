@@ -587,11 +587,6 @@ public class FileDataStorageManager {
         return success;
     }
 
-    public void moveFolder(OCFile folder, String newPath) {
-        // TODO check newPath
-
-    }
-
     
     /**
      * Updates database and file system for a file or folder that was moved to a different location.
