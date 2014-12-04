@@ -54,6 +54,10 @@
   <string name="file_list_empty">Aquí non hai nada. Envíe algo!</string>
   <string name="file_list_loading">Cargando...</string>
   <string name="local_file_list_empty">Non hai ficheiros neste cartafol.</string>
+  <string name="file_list_folder">cartafol</string>
+  <string name="file_list_folders">cartafoles</string>
+  <string name="file_list_file">ficheiro</string>
+  <string name="file_list_files">ficheiros</string>
   <string name="filedetails_select_file">Prema nun ficheiro para que amose a información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -265,6 +269,5 @@
   <string name="saml_authentication_required_text">Requírese autenticación</string>
   <string name="saml_authentication_wrong_pass">Contrasinal incorrecto</string>
   <string name="actionbar_move">Mover</string>
-  <string name="move_choose_button_text">Escoller</string>
   <string name="prefs_category_security">Seguranza</string>
 </resources>

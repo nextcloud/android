@@ -63,6 +63,10 @@
   <string name="file_list_empty">Vazio. Envie alguma coisa!</string>
   <string name="file_list_loading">A carregar ...</string>
   <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
+  <string name="file_list_folder">pasta</string>
+  <string name="file_list_folders">pastas</string>
+  <string name="file_list_file">ficheiro</string>
+  <string name="file_list_files">ficheiros</string>
   <string name="filedetails_select_file">Clique no ficheiro para visualizar informação adicional.</string>
   <string name="filedetails_size">Tamanho:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -282,7 +286,6 @@
   <string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
   <string name="actionbar_move">Mover</string>
   <string name="file_list_empty_moving">Não está aqui nada. Pode adicionar uma pasta!</string>
-  <string name="move_choose_button_text">Escolher</string>
   <string name="move_file_not_found">Não é possível mover. Por favor, verifique se o ficheiro existe</string>
   <string name="move_file_invalid_into_descendent">Não é possível mover esta pasta deste modo</string>
   <string name="move_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>

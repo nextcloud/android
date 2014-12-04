@@ -61,6 +61,10 @@
   <string name="file_list_empty">Pusto. Wyślij coś!</string>
   <string name="file_list_loading">Ładowanie...</string>
   <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
+  <string name="file_list_folder">folder</string>
+  <string name="file_list_folders">foldery</string>
+  <string name="file_list_file">plik</string>
+  <string name="file_list_files">pliki</string>
   <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
   <string name="filedetails_size">Rozmiar:</string>
   <string name="filedetails_type">Typ:</string>
@@ -282,7 +286,6 @@
   <string name="saml_authentication_wrong_pass">Złe hasło</string>
   <string name="actionbar_move">Przenieś</string>
   <string name="file_list_empty_moving">Nic tu nie ma. Możesz dodać folder!</string>
-  <string name="move_choose_button_text">Wybierz</string>
   <string name="move_file_not_found">Nie można przenieść. Proszę sprawdzić, czy plik istnieje</string>
   <string name="move_file_invalid_into_descendent">Nie jest możliwe przeniesienie folderu do potomka</string>
   <string name="move_file_invalid_overwrite">Plik istnieje już w folderze docelowym</string>
