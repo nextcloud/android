@@ -30,9 +30,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
-import android.graphics.Matrix;
 import android.graphics.Point;
-import android.media.ExifInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -50,8 +48,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -387,7 +383,8 @@ public class PreviewImageFragment extends FileFragment {
                 File picture = new File(storagePath);
 
                 if (picture != null) {
-                    //Decode file into a bitmap in real size for being able to make zoom on the image
+                    // Decode file into a bitmap in real size for being able to make zoom on 
+                    // the image
                     result = BitmapFactory.decodeStream(new FlushedInputStream
                             (new BufferedInputStream(new FileInputStream(picture))));
                 }
@@ -416,7 +413,8 @@ public class PreviewImageFragment extends FileFragment {
                     
             } catch (NoSuchFieldError e) {
                 mErrorMessageId = R.string.common_error_unknown;
-                Log_OC.e(TAG, "Error from access to unexisting field despite protection; file " + storagePath, e);
+                Log_OC.e(TAG, "Error from access to unexisting field despite protection; file " 
+                                + storagePath, e);
                     
             } catch (Throwable t) {
                 mErrorMessageId = R.string.common_error_unknown;
