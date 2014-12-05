@@ -85,6 +85,6 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">គណនី</string>
   <string name="saml_authentication_wrong_pass">ខុស​ពាក្យ​សម្ងាត់</string>
-  <string name="move_choose_button_text">ជ្រើស</string>
+  <string name="folder_picker_choose_button_text">ជ្រើស</string>
   <string name="prefs_category_security">សុវត្ថិភាព</string>
 </resources>

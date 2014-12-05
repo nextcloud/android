@@ -63,6 +63,10 @@
   <string name="file_list_empty">Non c\'è niente qui. Carica qualcosa!</string>
   <string name="file_list_loading">Caricamento in corso...</string>
   <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
+  <string name="file_list_folder">cartella</string>
+  <string name="file_list_folders">cartelle</string>
+  <string name="file_list_file">file</string>
+  <string name="file_list_files">file</string>
   <string name="filedetails_select_file">Tocca un file per visualizzare informazioni aggiuntive.</string>
   <string name="filedetails_size">Dimensione:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -284,7 +288,7 @@
   <string name="saml_authentication_wrong_pass">Password errata</string>
   <string name="actionbar_move">Sposta</string>
   <string name="file_list_empty_moving">Qui non c\'è niente. Puoi aggiungere una cartella.</string>
-  <string name="move_choose_button_text">Scegli</string>
+  <string name="folder_picker_choose_button_text">Scegli</string>
   <string name="move_file_not_found">Impossibile spostare. Assicurati che il file esista</string>
   <string name="move_file_invalid_into_descendent">Impossibile spostare una cartella in una cartella inferiore</string>
   <string name="move_file_invalid_overwrite">Il file esiste già nella cartella di destinazione</string>

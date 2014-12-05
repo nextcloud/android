@@ -75,6 +75,6 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Llogarit</string>
   <string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
-  <string name="move_choose_button_text">Zgjidh</string>
+  <string name="folder_picker_choose_button_text">Zgjidh</string>
   <string name="prefs_category_security">Siguria</string>
 </resources>

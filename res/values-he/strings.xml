@@ -54,6 +54,10 @@
   <string name="file_list_empty">אין כאן שום דבר. אולי ברצונך להעלות משהו?</string>
   <string name="file_list_loading">בטעינה...</string>
   <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
+  <string name="file_list_folder">תקיה</string>
+  <string name="file_list_folders">תקיות</string>
+  <string name="file_list_file">קובץ</string>
+  <string name="file_list_files">קבצים</string>
   <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
   <string name="filedetails_size">גודל:</string>
   <string name="filedetails_type">סוג:</string>
@@ -263,6 +267,6 @@
   <string name="downloader_download_file_not_found">הקובץ אינו זמין יותר על השרת</string>
   <string name="prefs_category_accounts">חשבונות</string>
   <string name="prefs_add_account">הוספת חשבון</string>
-  <string name="move_choose_button_text">בחירה</string>
+  <string name="folder_picker_choose_button_text">בחירה</string>
   <string name="prefs_category_security">אבטחה</string>
 </resources>

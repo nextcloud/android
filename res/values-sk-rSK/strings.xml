@@ -63,6 +63,10 @@
   <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
   <string name="file_list_loading">Nahráva sa...</string>
   <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
+  <string name="file_list_folder">priečinok</string>
+  <string name="file_list_folders">priečinky</string>
+  <string name="file_list_file">súbor</string>
+  <string name="file_list_files">súbory</string>
   <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
   <string name="filedetails_size">Veľkosť:</string>
   <string name="filedetails_type">Typ:</string>
@@ -284,7 +288,7 @@
   <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
   <string name="actionbar_move">Presunúť</string>
   <string name="file_list_empty_moving">Nič tu nie je. Pridajte priečinok!</string>
-  <string name="move_choose_button_text">Vybrať</string>
+  <string name="folder_picker_choose_button_text">Vybrať</string>
   <string name="move_file_not_found">Nemožno presunúť. Skontrolujte, či súbor existuje</string>
   <string name="move_file_invalid_into_descendent">Priečinok nemožno presunúť do vlastného podpriečinka</string>
   <string name="move_file_invalid_overwrite">Súbor už v cieľovom priečinku existuje</string>
