@@ -272,6 +272,7 @@
   <string name="saml_authentication_wrong_pass">Parolă greșită</string>
   <string name="actionbar_move">Mutare</string>
   <string name="file_list_empty_moving">Nu este nimic aici. Poți adăuga un director!</string>
+  <string name="folder_picker_choose_button_text">Alege</string>
   <string name="forbidden_permissions_move">pentru a muta acest fișier</string>
   <string name="prefs_category_security">Securitate</string>
 </resources>

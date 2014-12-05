@@ -292,6 +292,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
   <string name="actionbar_move">Déplacer</string>
   <string name="file_list_empty_moving">Il n\'y a rien ici. Vous pouvez ajouter un dossier !</string>
+  <string name="folder_picker_choose_button_text">Choisir</string>
   <string name="move_file_not_found">Impossible de déplacer. Vérifiez que le fichier existe</string>
   <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
   <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>

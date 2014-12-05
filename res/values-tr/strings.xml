@@ -288,6 +288,7 @@
   <string name="saml_authentication_wrong_pass">Hatalı parola</string>
   <string name="actionbar_move">Taşı</string>
   <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
+  <string name="folder_picker_choose_button_text">Seç</string>
   <string name="move_file_not_found">Taşıma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
   <string name="move_file_invalid_into_descendent">Klasörü, kendi alt klasörüne taşımak mümkün değil</string>
   <string name="move_file_invalid_overwrite">Dosya zaten hedef klasörde mevcut</string>

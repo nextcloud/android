@@ -286,6 +286,7 @@
   <string name="saml_authentication_wrong_pass">Неправильный пароль</string>
   <string name="actionbar_move">Переместить</string>
   <string name="file_list_empty_moving">Здесь ничего нет. Вы можете добавить папку!</string>
+  <string name="folder_picker_choose_button_text">Выбрать</string>
   <string name="move_file_not_found">Невозможно переместить. Пожалуйста, проверьте, существует ли файл</string>
   <string name="move_file_invalid_into_descendent">Невозможно переместить папку в папку-потомок</string>
   <string name="move_file_invalid_overwrite">Файл уже существует в папке назначения</string>

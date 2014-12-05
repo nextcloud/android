@@ -266,5 +266,6 @@
   <string name="prefs_add_account">Afegeix compte</string>
   <string name="saml_authentication_required_text">Es requereix autenticació</string>
   <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
+  <string name="folder_picker_choose_button_text">Escull</string>
   <string name="prefs_category_security">Seguretat</string>
 </resources>

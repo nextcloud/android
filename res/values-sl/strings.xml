@@ -288,6 +288,7 @@
   <string name="saml_authentication_wrong_pass">Napačno geslo</string>
   <string name="actionbar_move">Premakni</string>
   <string name="file_list_empty_moving">Ni vsebine in datotek. Lahko ustvarite na primer mapo.</string>
+  <string name="folder_picker_choose_button_text">Izbor</string>
   <string name="move_file_not_found">Ni mogoče premakniti datoteke. Preverite, ali obstaja.</string>
   <string name="move_file_invalid_into_descendent">Ni mogoče premakniti mape v podrejeno mapo.</string>
   <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja.</string>

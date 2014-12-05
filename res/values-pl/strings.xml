@@ -286,6 +286,7 @@
   <string name="saml_authentication_wrong_pass">Złe hasło</string>
   <string name="actionbar_move">Przenieś</string>
   <string name="file_list_empty_moving">Nic tu nie ma. Możesz dodać folder!</string>
+  <string name="folder_picker_choose_button_text">Wybierz</string>
   <string name="move_file_not_found">Nie można przenieść. Proszę sprawdzić, czy plik istnieje</string>
   <string name="move_file_invalid_into_descendent">Nie jest możliwe przeniesienie folderu do potomka</string>
   <string name="move_file_invalid_overwrite">Plik istnieje już w folderze docelowym</string>

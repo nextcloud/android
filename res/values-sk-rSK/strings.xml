@@ -288,6 +288,7 @@
   <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
   <string name="actionbar_move">Presunúť</string>
   <string name="file_list_empty_moving">Nič tu nie je. Pridajte priečinok!</string>
+  <string name="folder_picker_choose_button_text">Vybrať</string>
   <string name="move_file_not_found">Nemožno presunúť. Skontrolujte, či súbor existuje</string>
   <string name="move_file_invalid_into_descendent">Priečinok nemožno presunúť do vlastného podpriečinka</string>
   <string name="move_file_invalid_overwrite">Súbor už v cieľovom priečinku existuje</string>

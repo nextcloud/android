@@ -278,6 +278,7 @@
   <string name="saml_authentication_wrong_pass">Feil passord</string>
   <string name="actionbar_move">Flytt</string>
   <string name="file_list_empty_moving">Ingenting her. Du kan legge til en mappe!</string>
+  <string name="folder_picker_choose_button_text">Velg</string>
   <string name="move_file_not_found">Kan ikke flytte. Sjekk om filen eksisterer.</string>
   <string name="move_file_invalid_into_descendent">Det er ikke mulig å flytte en mappe inn i sin egen undermappe</string>
   <string name="move_file_invalid_overwrite">Filen finnes allerede i målmappen</string>

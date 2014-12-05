@@ -284,6 +284,7 @@
   <string name="saml_authentication_wrong_pass">Εσφαλμένο συνθηματικό</string>
   <string name="actionbar_move">Μετακίνηση</string>
   <string name="file_list_empty_moving">Δεν υπάρχει τίποτα εδώ. Μπορείτε να προσθέσετε ένα φάκελο!</string>
+  <string name="folder_picker_choose_button_text">Επιλέξτε</string>
   <string name="move_file_not_found">Αδύνατη η μετακίνηση. Παρακαλώ ελέγξτε αν ο φάκελος υπάρχει</string>
   <string name="move_file_invalid_into_descendent">Δεν είναι δυνατό να μετακινηθεί ο φάκελος σε έναν απογονικό</string>
   <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>

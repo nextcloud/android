@@ -240,5 +240,6 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Paskyros</string>
   <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
+  <string name="folder_picker_choose_button_text">Pasirinkite</string>
   <string name="prefs_category_security">Saugumas</string>
 </resources>

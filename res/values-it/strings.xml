@@ -288,6 +288,7 @@
   <string name="saml_authentication_wrong_pass">Password errata</string>
   <string name="actionbar_move">Sposta</string>
   <string name="file_list_empty_moving">Qui non c\'è niente. Puoi aggiungere una cartella.</string>
+  <string name="folder_picker_choose_button_text">Scegli</string>
   <string name="move_file_not_found">Impossibile spostare. Assicurati che il file esista</string>
   <string name="move_file_invalid_into_descendent">Impossibile spostare una cartella in una cartella inferiore</string>
   <string name="move_file_invalid_overwrite">Il file esiste già nella cartella di destinazione</string>

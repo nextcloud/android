@@ -285,6 +285,7 @@
   <string name="saml_authentication_wrong_pass">Невірний пароль</string>
   <string name="actionbar_move">Перемістити</string>
   <string name="file_list_empty_moving">Тут нічого немає. Ви можете додати теку!</string>
+  <string name="folder_picker_choose_button_text">Обрати</string>
   <string name="move_file_not_found">Неможливо перемістити. Будь ласка, перевірте, чи існує файл</string>
   <string name="move_file_invalid_into_descendent">Неможливо перемістити теку до теки-нащадка</string>
   <string name="move_file_invalid_overwrite">Файл вже існує в теці призначення</string>

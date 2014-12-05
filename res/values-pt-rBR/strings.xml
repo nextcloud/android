@@ -288,6 +288,7 @@
   <string name="saml_authentication_wrong_pass">Senha incorreta</string>
   <string name="actionbar_move">Mover</string>
   <string name="file_list_empty_moving">Nada aqui. Você pode adicionar uma pasta!</string>
+  <string name="folder_picker_choose_button_text">Escolher</string>
   <string name="move_file_not_found">Não é possível mover. Por favor verifique se o arquivo existe</string>
   <string name="move_file_invalid_into_descendent">Não é possível mover a pasta para uma descendente</string>
   <string name="move_file_invalid_overwrite">O arquivo já existe na pasta de destino</string>
@@ -295,4 +296,5 @@
   <string name="forbidden_permissions_move">mover este arquivo</string>
   <string name="prefs_category_instant_uploading">Envios Instantâneos</string>
   <string name="prefs_category_security">Segurança</string>
+  <string name="prefs_instant_video_upload_path_title">Enviar o Caminho do Vídeo</string>
 </resources>

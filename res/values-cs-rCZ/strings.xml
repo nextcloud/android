@@ -287,6 +287,7 @@ správce systému.</string>
   <string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
   <string name="actionbar_move">Přesunout</string>
   <string name="file_list_empty_moving">Zde nic není. Můžete přidat adresář!</string>
+  <string name="folder_picker_choose_button_text">Vybrat</string>
   <string name="move_file_not_found">Nelze přesunout. Zkontrolujte prosím že soubor existuje</string>
   <string name="move_file_invalid_into_descendent">Není možné adresář přesunout do vlastního podadresáře</string>
   <string name="move_file_invalid_overwrite">Soubor již v cílovém adresáři existuje</string>
@@ -294,4 +295,5 @@ správce systému.</string>
   <string name="forbidden_permissions_move">pro přesun tohoto souboru</string>
   <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
   <string name="prefs_category_security">Zabezpečení</string>
+  <string name="prefs_instant_video_upload_path_title">Cesta pro nahrávání videí</string>
 </resources>

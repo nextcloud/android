@@ -128,5 +128,6 @@
   <string name="prefs_category_accounts">Сметки</string>
   <string name="saml_authentication_required_text">Потребна е автентификација</string>
   <string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
+  <string name="folder_picker_choose_button_text">Избери</string>
   <string name="prefs_category_security">Безбедност</string>
 </resources>

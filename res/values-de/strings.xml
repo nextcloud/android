@@ -288,6 +288,7 @@
   <string name="saml_authentication_wrong_pass">Falsches Passwort</string>
   <string name="actionbar_move">Verschieben</string>
   <string name="file_list_empty_moving">Nichts vorhanden. Du kannst einen Ordner hinzufügen!</string>
+  <string name="folder_picker_choose_button_text">Auswählen</string>
   <string name="move_file_not_found">Verschieben nicht möglich. Prüfe, dass die Datei existiert</string>
   <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
   <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>

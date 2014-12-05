@@ -156,4 +156,5 @@
   <string name="activity_chooser_send_file_title">ส่ง</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">บัญชี</string>
+  <string name="folder_picker_choose_button_text">เลือก</string>
 </resources>

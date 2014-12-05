@@ -11,4 +11,5 @@
   <string name="common_cancel">Kanseleer</string>
   <string name="common_error">Fout</string>
   <string name="empty"></string>
+  <string name="folder_picker_choose_button_text">Kies</string>
 </resources>
