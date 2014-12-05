@@ -395,17 +395,23 @@ public class PreviewImageFragment extends FileFragment {
                 if (result == null) {
                     mErrorMessageId = R.string.preview_image_error_unknown_format;
                     Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
+                } else {
+                    // Rotate image, obeying exif tag.
+                    result = BitmapUtils.rotateImage(result, storagePath);
                 }
                 
             } catch (OutOfMemoryError e) {
                 Log_OC.e(TAG, "Out of memory occured for file " + storagePath, e);
 
-                // If out of memory error when loading image, try to load it scaled
+                // If out of memory error when loading or rotating image, try to load it scaled
                 result = loadScaledImage(storagePath);
 
                 if (result == null) {
                     mErrorMessageId = R.string.preview_image_error_unknown_format;
                     Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
+                } else {
+                    // Rotate scaled image, obeying exif tag
+                    result = BitmapUtils.rotateImage(result, storagePath);
                 }
                     
             } catch (NoSuchFieldError e) {
@@ -417,10 +423,6 @@ public class PreviewImageFragment extends FileFragment {
                 Log_OC.e(TAG, "Unexpected error loading " + getFile().getStoragePath(), t);
                 
             }
-            
-            // Rotate image, obeying exif tag
-            result = BitmapUtils.rotateImage(result, storagePath);
-           
             
             return result;
         }
