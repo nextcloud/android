@@ -174,7 +174,7 @@
 			android:label="@string/copy_link"
 			android:icon="@drawable/copy_link"/>
 
-        <activity 
+        <activity
 			android:name=".ui.activity.FolderPickerActivity"
 			android:label="@string/app_name"/>
 
