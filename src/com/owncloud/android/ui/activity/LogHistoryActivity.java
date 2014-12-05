@@ -51,12 +51,15 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
 
     private static final String MAIL_ATTACHMENT_TYPE = "text/plain";
 
+    private static final String KEY_LOG_TEXT = "LOG_TEXT";
+
     private static final String TAG = LogHistoryActivity.class.getSimpleName();
 
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
 
     private String mLogPath = FileStorageUtils.getLogPath();
     private File logDIR = null;
+    private String mLogText;
 
 
     @Override
@@ -70,6 +73,7 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
         actionBar.setDisplayHomeAsUpEnabled(true);
         Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
         Button sendHistoryButton = (Button) findViewById(R.id.sendLogHistoryButton);
+        TextView logTV = (TextView) findViewById(R.id.logTV);
 
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
             
@@ -89,20 +93,22 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
             }
         });
 
-        if (mLogPath != null) {
-            logDIR = new File(mLogPath);
-        }
+        if (savedInstanceState == null) {
+            if (mLogPath != null) {
+                logDIR = new File(mLogPath);
+            }
 
-        if (logDIR != null && logDIR.isDirectory()) {
-            // Show a dialog while log data is being loaded
-            showLoadingDialog();
+            if (logDIR != null && logDIR.isDirectory()) {
+                // Show a dialog while log data is being loaded
+                showLoadingDialog();
 
-            TextView logTV = (TextView) findViewById(R.id.logTV);
-
-            // Start a new thread that will load all the log data
-            LoadingLogTask task = new LoadingLogTask(logTV);
-            task.execute();
-
+                // Start a new thread that will load all the log data
+                LoadingLogTask task = new LoadingLogTask(logTV);
+                task.execute();
+            }
+        } else {
+            mLogText = savedInstanceState.getString(KEY_LOG_TEXT);
+            logTV.setText(mLogText);
         }
     }
 
@@ -183,7 +189,8 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
             if (textViewReference != null && result != null) {
                 final TextView logTV = textViewReference.get();
                 if (logTV != null) {
-                    logTV.setText(result);
+                    mLogText = result;
+                    logTV.setText(mLogText);
                     dismissLoadingDialog();
                 }
             }
@@ -257,5 +264,13 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
             LoadingDialog loading = (LoadingDialog) frag;
             loading.dismiss();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        /// global state
+        outState.putString(KEY_LOG_TEXT, mLogText);
     }
 }
