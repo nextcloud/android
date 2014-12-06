@@ -296,4 +296,5 @@
   <string name="forbidden_permissions_move">per spostare questo file</string>
   <string name="prefs_category_instant_uploading">Caricamenti istantanei</string>
   <string name="prefs_category_security">Protezione</string>
+  <string name="prefs_instant_video_upload_path_title">Percorso di caricamento video</string>
 </resources>
