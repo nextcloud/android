@@ -128,6 +128,8 @@ public class CreateShareOperation extends SyncOperation {
         OCFile file = getStorageManager().getFileByPath(mPath);
         if (file!=null) {
             mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
+            mSendIntent.putExtra(Intent.EXTRA_SUBJECT,
+                    getClient().getCredentials().getUsername() + " shared >>" + file.getFileName() + "<< with you");
             file.setPublicLink(share.getShareLink());
             file.setShareByLink(true);
             getStorageManager().saveFile(file);
