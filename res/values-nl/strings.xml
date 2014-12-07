@@ -299,4 +299,5 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="forbidden_permissions_move">om dit bestand te verplaatsen</string>
   <string name="prefs_category_instant_uploading">Directe uploads</string>
   <string name="prefs_category_security">Beveiliging</string>
+  <string name="prefs_instant_video_upload_path_title">Upload Video Pad</string>
 </resources>

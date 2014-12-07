@@ -35,7 +35,7 @@
   <string name="prefs_log_summary_history">Mostra i log registrati</string>
   <string name="prefs_log_delete_history_button">Elimina la cronologia</string>
   <string name="prefs_help">Aiuto</string>
-  <string name="prefs_recommend">Consiglia ad un amico</string>
+  <string name="prefs_recommend">Consiglia a un amico</string>
   <string name="prefs_feedback">Segnalazioni</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="prefs_remember_last_share_location">Ricorda la posizione della condivisione</string>
