@@ -48,7 +48,20 @@
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_remember_last_share_location">Remember share location</string>
     <string name="prefs_remember_last_upload_location_summary">Remember last share upload location</string>
-
+    
+    <string name="prefs_category_instantUploads">Instant Upload Folders</string>
+    <string name="prefs_add_instantUploadFolder">Add instant upload folder</string>
+    <string name="prefs_instant_upload_local_path_title">Local path</string>
+    <string name="prefs_instant_upload_remote_path_title">Remote path</string>
+    <string name="prefs_instant_upload_only_charging">Upload when charging only</string>
+    <string name="prefs_instant_upload_only_wifi">Upload via WiFi only</string>
+    <string name="instantUploadPref"></string>
+    <string name="instantUploadPref_local">Local path</string>
+    <string name="instantUploadPref_remote">Path on server</string>
+    <string name="instantUploadPref_wifi">Upload via WiFi only</string>
+    <string name="instantUploadPref_charging">onlyCharging</string>
+    <string name="delete_instant_upload_folder">Delete</string>
+    
 	<string name="recommend_subject">"Try %1$s on your smartphone!"</string>
 	<string name="recommend_text">"I want to invite you to use %1$s on your smartphone!\nDownload here: %2$s"</string>
 
@@ -503,3 +516,4 @@
     </plurals>
 
 </resources>
+
