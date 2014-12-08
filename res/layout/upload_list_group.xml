@@ -1,27 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/LinearLayout01"
+    android:id="@+id/ListItemLayout"
     android:layout_width="fill_parent"
-    android:layout_height="45dip"
-    android:background="@drawable/abs__ab_bottom_solid_light_holo" >
+    android:background="@drawable/abs__ab_bottom_solid_light_holo"
+    android:orientation="horizontal"
+    android:layout_height="40dp">
 
-    <ImageView
-        android:id="@+id/uploadListGroupIcon"
-        android:layout_width="20dip"
-        android:layout_height="20dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginStart="10dip"
-        android:layout_marginTop="2dip" >
-    </ImageView>
+    <FrameLayout
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
 
-    <TextView
-        android:id="@+id/uploadListGroupName"
-        android:layout_width="fill_parent"
-        android:layout_height="25dip"
-        android:paddingLeft="5dip"
-        android:paddingRight="5dip"
-        android:textColor="#ffffffff"
-        android:textSize="17sp"
-        android:textStyle="bold" >
-    </TextView>
+        <ImageView
+            android:id="@+id/uploadListGroupIcon"
+            android:layout_width="@dimen/file_icon_size"
+            android:layout_height="@dimen/file_icon_size"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="9dp"
+            android:src="@drawable/ic_menu_archive" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/uploadListGroupName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:text="TextView"
+            android:textColor="#303030"
+            android:textSize="16dip" />
+
+    </LinearLayout>
 
 </LinearLayout>
