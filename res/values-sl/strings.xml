@@ -296,4 +296,5 @@
   <string name="forbidden_permissions_move">med premikanjem datoteke</string>
   <string name="prefs_category_instant_uploading">Takojšnje pošiljanje v oblak</string>
   <string name="prefs_category_security">Varnost</string>
+  <string name="prefs_instant_video_upload_path_title">Pot videa za pošiljanje</string>
 </resources>
