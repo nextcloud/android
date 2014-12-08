@@ -217,6 +217,6 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Cuentas</string>
   <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
-  <string name="move_choose_button_text">Seleccionar</string>
+  <string name="folder_picker_choose_button_text">Seleccionar</string>
   <string name="prefs_category_security">Seguridad</string>
 </resources>

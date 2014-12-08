@@ -39,6 +39,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, Serializable {
      */
     private static final long serialVersionUID = 5604080482686390078L;
 
+
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
         @Override
         public OCFile createFromParcel(Parcel source) {

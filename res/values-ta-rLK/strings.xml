@@ -139,5 +139,5 @@
   <string name="conflict_dont_upload">பதிவேற்ற வேண்டாம்</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">கணக்குகள்</string>
-  <string name="move_choose_button_text">தெரிவுசெய்க </string>
+  <string name="folder_picker_choose_button_text">தெரிவுசெய்க </string>
 </resources>

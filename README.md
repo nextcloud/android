@@ -5,4 +5,4 @@ The app performs file synchronization with an ownCloud server. Other ownCloud fe
 Make sure you read [SETUP.md][1] when you start working on this project.
 
 [0]: https://github.com/owncloud/core
-[1]: https://raw.github.com/owncloud/android/master/SETUP.md
+[1]: https://github.com/owncloud/android/blob/master/SETUP.md

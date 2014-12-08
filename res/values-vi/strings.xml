@@ -47,6 +47,10 @@
   <string name="uploader_info_uploading">Đang tải lên</string>
   <string name="file_list_seconds_ago">vài giây trước</string>
   <string name="file_list_empty">Không có gì ở đây .Hãy tải lên một cái gì đó !</string>
+  <string name="file_list_folder">folder</string>
+  <string name="file_list_folders">folders</string>
+  <string name="file_list_file">file</string>
+  <string name="file_list_files">files</string>
   <string name="filedetails_select_file">Tap vào một tập tin để hiển thị thêm thông tin</string>
   <string name="filedetails_size">Kích thước:</string>
   <string name="filedetails_type">Loại:</string>
@@ -219,5 +223,5 @@
   <string name="activity_chooser_send_file_title">Gởi</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Tài khoản</string>
-  <string name="move_choose_button_text">Chọn</string>
+  <string name="folder_picker_choose_button_text">Chọn</string>
 </resources>

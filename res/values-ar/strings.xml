@@ -252,6 +252,6 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">حسابات</string>
   <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
-  <string name="move_choose_button_text">اختيار</string>
+  <string name="folder_picker_choose_button_text">اختيار</string>
   <string name="prefs_category_security">الأمان</string>
 </resources>

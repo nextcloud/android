@@ -25,16 +25,18 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_files"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
+        android:layout_height="match_parent" 
+        android:layout_weight="1"
+        android:footerDividersEnabled="false" > 
+        
         <com.owncloud.android.ui.ExtendedListView
             android:id="@+id/list_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-        
+            
     </android.support.v4.widget.SwipeRefreshLayout>
-
-    <android.support.v4.widget.SwipeRefreshLayout
+    	
+    	<android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_files_emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -18,18 +18,18 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/move_files_btn_cancel"
+            android:id="@+id/folder_picker_btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/common_cancel" />
 
 		<Button
-		    android:id="@+id/move_files_btn_choose"
+		    android:id="@+id/folder_picker_btn_choose"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="1"
-		    android:text="@string/move_choose_button_text" />
+		    android:text="@string/folder_picker_choose_button_text" />
 
 	</LinearLayout>
 

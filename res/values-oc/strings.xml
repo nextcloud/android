@@ -21,6 +21,10 @@
   <string name="uploader_info_uploading">Al amontcargar</string>
   <string name="file_list_seconds_ago">segonda a</string>
   <string name="file_list_empty">Pas res dedins. Amontcarga qualquaren</string>
+  <string name="file_list_folder">Dorsièr</string>
+  <string name="file_list_folders">Dorsièrs</string>
+  <string name="file_list_file">fichièr</string>
+  <string name="file_list_files">fichièrs</string>
   <string name="filedetails_size">Talha :</string>
   <string name="filedetails_type">Tipe :</string>
   <string name="filedetails_created">Creat :</string>
@@ -44,5 +48,5 @@
   <string name="common_rename">Torna nomenar</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Comptes</string>
-  <string name="move_choose_button_text">Causís</string>
+  <string name="folder_picker_choose_button_text">Causís</string>
 </resources>
