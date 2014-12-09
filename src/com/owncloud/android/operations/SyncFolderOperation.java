@@ -24,6 +24,7 @@ import android.util.Log;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -126,7 +127,7 @@ public class SyncFolderOperation extends RemoteOperation {
      * @param   syncFullAccount         'True' means that this operation is part of a full account
      *                                  synchronization.
      * @param   isShareSupported        'True' means that the server supports the sharing API.
-     * @param   ignoreEtag              'True' means that the content of the remote folder should
+     * @param   ignoreETag              'True' means that the content of the remote folder should
      *                                  be fetched and updated even though the 'eTag' did not
      *                                  change.
      * @param   dataStorageManager      Interface with the local database.
@@ -402,6 +403,11 @@ public class SyncFolderOperation extends RemoteOperation {
                 filesToSyncContents.add(operation);
             }
 
+            // Start the download of all the files in the folder (non recursively)
+            if (!remoteFile.isFolder()) {
+                requestForDownloadFile(remoteFile);
+            }
+
             updatedFiles.add(remoteFile);
         }
 
@@ -601,6 +607,17 @@ public class SyncFolderOperation extends RemoteOperation {
         //LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 
+    /**
+     * Requests for a download to the FileDownloader service
+     *
+     * @param file     OCFile object representing the file to download
+     */
+    private void requestForDownloadFile(OCFile file) {
+        Intent i = new Intent(mContext, FileDownloader.class);
+        i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
+        i.putExtra(FileDownloader.EXTRA_FILE, file);
+        mContext.startService(i);
+    }
 
     public boolean getRemoteFolderChanged() {
         return mRemoteFolderChanged;
