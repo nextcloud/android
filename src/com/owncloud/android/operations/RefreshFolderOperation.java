@@ -67,14 +67,14 @@ import com.owncloud.android.utils.FileStorageUtils;
  * 
  *  @author David A. Velasco
  */
-public class SynchronizeFolderOperation extends RemoteOperation {
+public class RefreshFolderOperation extends RemoteOperation {
 
-    private static final String TAG = SynchronizeFolderOperation.class.getSimpleName();
+    private static final String TAG = RefreshFolderOperation.class.getSimpleName();
 
     public static final String EVENT_SINGLE_FOLDER_CONTENTS_SYNCED  = 
-            SynchronizeFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_CONTENTS_SYNCED";
+            RefreshFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_CONTENTS_SYNCED";
     public static final String EVENT_SINGLE_FOLDER_SHARES_SYNCED    = 
-            SynchronizeFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SHARES_SYNCED";
+            RefreshFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SHARES_SYNCED";
     
     /** Time stamp for the synchronization process in progress */
     private long mCurrentSyncTime;
@@ -120,7 +120,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
 
     
     /**
-     * Creates a new instance of {@link SynchronizeFolderOperation}.
+     * Creates a new instance of {@link RefreshFolderOperation}.
      * 
      * @param   folder                  Folder to synchronize.
      * @param   currentSyncTime         Time stamp for the synchronization process in progress.
@@ -134,14 +134,14 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      * @param   account                 ownCloud account where the folder is located. 
      * @param   context                 Application context.
      */
-    public SynchronizeFolderOperation(  OCFile folder, 
-                                        long currentSyncTime, 
-                                        boolean syncFullAccount,
-                                        boolean isShareSupported,
-                                        boolean ignoreETag,
-                                        FileDataStorageManager dataStorageManager, 
-                                        Account account, 
-                                        Context context ) {
+    public RefreshFolderOperation(OCFile folder,
+                                  long currentSyncTime,
+                                  boolean syncFullAccount,
+                                  boolean isShareSupported,
+                                  boolean ignoreETag,
+                                  FileDataStorageManager dataStorageManager,
+                                  Account account,
+                                  Context context) {
         mLocalFolder = folder;
         mCurrentSyncTime = currentSyncTime;
         mSyncFullAccount = syncFullAccount;
