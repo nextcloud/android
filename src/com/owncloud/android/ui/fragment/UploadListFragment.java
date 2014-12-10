@@ -32,6 +32,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.db.UploadDbObject;
@@ -61,9 +62,9 @@ public class UploadListFragment extends ExpandableListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        setMessageForEmptyList(getString(R.string.upload_list_empty));
         return v;
     }
-
 
     @Override
     public void onAttach(Activity activity) {

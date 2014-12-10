@@ -244,7 +244,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return mUploadGroups[groupPosition].items[childPosition];
+        return mUploadGroups[(int) getGroupId(groupPosition)].items[childPosition];
     }
 
     @Override
@@ -255,27 +255,44 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView,
             ViewGroup parent) {
-        return getView(mUploadGroups[groupPosition].items, childPosition, convertView, parent);
+        return getView(mUploadGroups[(int) getGroupId(groupPosition)].items, childPosition, convertView, parent);
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return mUploadGroups[groupPosition].items.length;
+        return mUploadGroups[(int) getGroupId(groupPosition)].items.length;
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return mUploadGroups[groupPosition];
+        return mUploadGroups[(int) getGroupId(groupPosition)];
     }
 
     @Override
     public int getGroupCount() {
-        return mUploadGroups.length;
+        int size = 0;
+        for (UploadGroup uploadGroup : mUploadGroups) {
+            if(uploadGroup.items.length > 0) {
+                size++;
+            }
+        }
+        return size;
     }
 
+    /**
+     * Returns the groupId (that is, index in mUploadGroups) for group at position groupPosition (0-based).
+     * Could probably be done more intuitive but this tested methods works as intended.
+     */
     @Override
     public long getGroupId(int groupPosition) {
-        return groupPosition;
+        int id = -1;
+        for (int i = 0; i <= groupPosition; ) {
+            id++;
+            if(mUploadGroups[id].items.length > 0){
+                i++;
+            }
+        }
+        return id;
     }
 
     @Override
