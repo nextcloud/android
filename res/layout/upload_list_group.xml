@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ListItemLayout"
     android:layout_width="fill_parent"
-    android:background="@drawable/abs__ab_bottom_solid_light_holo"
     android:orientation="horizontal"
     android:layout_height="40dp">
 
+    <!-- 
     <FrameLayout
         android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_height="40dp"
         android:focusable="false"
         android:focusableInTouchMode="false">
 
@@ -19,7 +18,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="9dp"
             android:src="@drawable/ic_menu_archive" />
-    </FrameLayout>
+    </FrameLayout>  -->
 
     <LinearLayout
         android:layout_width="0dp"
@@ -27,7 +26,19 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:orientation="vertical" >
-
+        
+        <TextView 
+    android:id="@+id/uploadListGroupName"
+    style="?android:attr/listSeparatorTextViewStyle"  
+    		android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" 
+            android:ellipsize="middle"
+            android:singleLine="true" 
+            android:divider="@null"
+			android:dividerHeight="0dp"
+			android:showDividers="none"
+    />
+<!-- 
         <TextView
             android:id="@+id/uploadListGroupName"
             android:layout_width="wrap_content"
@@ -40,7 +51,7 @@
             android:text="TextView"
             android:textColor="#303030"
             android:textSize="16dip" />
-
+ -->
     </LinearLayout>
 
 </LinearLayout>

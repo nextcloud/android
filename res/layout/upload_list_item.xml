@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ListItemLayout"
     android:layout_width="fill_parent"
-    android:background="@drawable/list_selector"
     android:orientation="horizontal"
     android:layout_height="56dp">
 
@@ -16,8 +15,7 @@
             android:id="@+id/imageView1"
             android:layout_width="@dimen/file_icon_size"
             android:layout_height="@dimen/file_icon_size"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="9dp"
+            android:layout_gravity="center"
             android:src="@drawable/ic_menu_archive" />
   
     </FrameLayout>
@@ -34,8 +32,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
             android:ellipsize="middle"
             android:singleLine="true"
             android:textColor="#303030"
@@ -45,8 +41,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
             android:weightSum="1">
 
             <TextView
@@ -71,8 +65,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
             android:weightSum="1">
 
             <TextView

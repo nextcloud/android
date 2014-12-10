@@ -294,8 +294,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         }
         TextView tv = (TextView) convertView.findViewById(R.id.uploadListGroupName);
         tv.setText(group.getGroupName());
-        ImageView icon = (ImageView) convertView.findViewById(R.id.uploadListGroupIcon);
-        icon.setImageResource(group.getGroupIcon());
+//        ImageView icon = (ImageView) convertView.findViewById(R.id.uploadListGroupIcon);
+//        icon.setImageResource(group.getGroupIcon());
         return convertView;
     }
 

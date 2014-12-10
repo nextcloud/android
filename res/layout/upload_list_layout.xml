@@ -6,6 +6,10 @@
         android:id="@+id/UploadListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         class="com.owncloud.android.ui.fragment.UploadListFragment" />
 
 </FrameLayout>
