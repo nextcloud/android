@@ -36,6 +36,7 @@ import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -67,14 +68,9 @@ import java.util.Vector;
  * 
  *  @author David A. Velasco
  */
-public class SyncFolderOperation extends RemoteOperation {
+public class SyncFolderOperation extends SyncOperation {
 
     private static final String TAG = SyncFolderOperation.class.getSimpleName();
-
-    public static final String EVENT_SINGLE_FOLDER_CONTENTS_SYNCED  =
-            SyncFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_CONTENTS_SYNCED";
-    public static final String EVENT_SINGLE_FOLDER_SHARES_SYNCED    =
-            SyncFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SHARES_SYNCED";
 
     /** Time stamp for the synchronization process in progress */
     private long mCurrentSyncTime;
@@ -106,52 +102,26 @@ public class SyncFolderOperation extends RemoteOperation {
      **/
     private Map<String, String> mForgottenLocalFiles;
 
-    /** 'True' means that this operation is part of a full account synchronization */
-    private boolean mSyncFullAccount;
-
-    /** 'True' means that Share resources bound to the files into should be refreshed also */
-    private boolean mIsShareSupported;
-
     /** 'True' means that the remote folder changed and should be fetched */
     private boolean mRemoteFolderChanged;
-
-    /** 'True' means that Etag will be ignored */
-    private boolean mIgnoreETag;
 
 
     /**
      * Creates a new instance of {@link SyncFolderOperation}.
      *
-     * @param   folder                  Folder to synchronize.
-     * @param   currentSyncTime         Time stamp for the synchronization process in progress.
-     * @param   syncFullAccount         'True' means that this operation is part of a full account
-     *                                  synchronization.
-     * @param   isShareSupported        'True' means that the server supports the sharing API.
-     * @param   ignoreETag              'True' means that the content of the remote folder should
-     *                                  be fetched and updated even though the 'eTag' did not
-     *                                  change.
-     * @param   dataStorageManager      Interface with the local database.
-     * @param   account                 ownCloud account where the folder is located.
      * @param   context                 Application context.
+     * @param   remotePath              Path to synchronize.
+     * @param   account                 ownCloud account where the folder is located.
+     * @param   currentSyncTime         Time stamp for the synchronization process in progress.
      */
-    public SyncFolderOperation(OCFile folder,
-                               long currentSyncTime,
-                               boolean syncFullAccount,
-                               boolean isShareSupported,
-                               boolean ignoreETag,
-                               FileDataStorageManager dataStorageManager,
-                               Account account,
-                               Context context) {
-        mLocalFolder = folder;
+    public SyncFolderOperation(Context context, String remotePath, Account account, long currentSyncTime){
+        mLocalFolder = new OCFile(remotePath);
         mCurrentSyncTime = currentSyncTime;
-        mSyncFullAccount = syncFullAccount;
-        mIsShareSupported = isShareSupported;
-        mStorageManager = dataStorageManager;
+        mStorageManager = getStorageManager();
         mAccount = account;
         mContext = context;
         mForgottenLocalFiles = new HashMap<String, String>();
         mRemoteFolderChanged = false;
-        mIgnoreETag = ignoreETag;
     }
 
 
@@ -189,10 +159,6 @@ public class SyncFolderOperation extends RemoteOperation {
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
 
-        if (FileUtils.PATH_SEPARATOR.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount) {
-            updateOCVersion(client);
-        }
-
         result = checkForChanges(client);
 
         if (result.isSuccess()) {
@@ -203,35 +169,9 @@ public class SyncFolderOperation extends RemoteOperation {
             }
         }
 
-        if (!mSyncFullAccount) {
-            sendLocalBroadcast(
-                    EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result
-            );
-        }
-
-        if (result.isSuccess() && mIsShareSupported && !mSyncFullAccount) {
-            refreshSharesForFolder(client); // share result is ignored
-        }
-
-        if (!mSyncFullAccount) {
-            sendLocalBroadcast(
-                    EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result
-            );
-        }
-
         return result;
 
     }
-
-
-    private void updateOCVersion(OwnCloudClient client) {
-        UpdateOCVersionOperation update = new UpdateOCVersionOperation(mAccount, mContext);
-        RemoteOperationResult result = update.execute(client);
-        if (result.isSuccess()) {
-            mIsShareSupported = update.getOCVersion().isSharedSupported();
-        }
-    }
-
 
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {
         mRemoteFolderChanged = true;
@@ -247,11 +187,9 @@ public class SyncFolderOperation extends RemoteOperation {
         if (result.isSuccess()){
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
-            if (!mIgnoreETag) {
-                // check if remote and local folder are different
-                mRemoteFolderChanged =
+            // check if remote and local folder are different
+            mRemoteFolderChanged =
                         !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
-            }
 
             result = new RemoteOperationResult(ResultCode.OK);
 
@@ -545,27 +483,6 @@ public class SyncFolderOperation extends RemoteOperation {
     }
 
 
-    private RemoteOperationResult refreshSharesForFolder(OwnCloudClient client) {
-        RemoteOperationResult result = null;
-
-        // remote request
-        GetRemoteSharesForFileOperation operation =
-                new GetRemoteSharesForFileOperation(mLocalFolder.getRemotePath(), false, true);
-        result = operation.execute(client);
-
-        if (result.isSuccess()) {
-            // update local database
-            ArrayList<OCShare> shares = new ArrayList<OCShare>();
-            for(Object obj: result.getData()) {
-                shares.add((OCShare) obj);
-            }
-            mStorageManager.saveSharesInFolder(shares, mLocalFolder);
-        }
-
-        return result;
-    }
-
-
     /**
      * Scans the default location for saving local copies of files searching for
      * a 'lost' file with the same full name as the {@link com.owncloud.android.datamodel.OCFile} received as
@@ -581,30 +498,6 @@ public class SyncFolderOperation extends RemoteOperation {
                 file.setLastSyncDateForData(f.lastModified());
             }
         }
-    }
-
-    
-    /**
-     * Sends a message to any application component interested in the progress 
-     * of the synchronization.
-     * 
-     * @param event
-     * @param dirRemotePath     Remote path of a folder that was just synchronized 
-     *                          (with or without success)
-     * @param result
-     */
-    private void sendLocalBroadcast(
-            String event, String dirRemotePath, RemoteOperationResult result
-        ) {
-        Log_OC.d(TAG, "Send broadcast " + event);
-        Intent intent = new Intent(event);
-        intent.putExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME, mAccount.name);
-        if (dirRemotePath != null) {
-            intent.putExtra(FileSyncAdapter.EXTRA_FOLDER_PATH, dirRemotePath);
-        }
-        intent.putExtra(FileSyncAdapter.EXTRA_RESULT, result);
-        mContext.sendStickyBroadcast(intent);
-        //LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 
     /**
