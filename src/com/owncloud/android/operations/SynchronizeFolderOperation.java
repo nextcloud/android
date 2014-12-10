@@ -340,7 +340,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 requestForDownloadFile(remoteFile);
             } else {
                 // Run new SyncFolderOperation for download children files recursively from a folder
-                RemoteOperation synchFolderOp =  new SyncFolderOperation( mContext,
+                SynchronizeFolderOperation synchFolderOp =  new SynchronizeFolderOperation( mContext,
                         remoteFile.getRemotePath(),
                         mAccount,
                         mCurrentSyncTime);
