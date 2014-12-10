@@ -794,7 +794,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         // refresh list of files
         refreshListOfFilesFragment();
 
-        // Listen for sync messages. This must be done before calling  super.onResume();
+        // Listen for sync messages.
         IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
@@ -804,8 +804,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
         registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
         //LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
-
-
 
         // Listen for upload messages
         IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
@@ -1059,7 +1057,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                             equals(event)) {
                         mSyncInProgress = false;
                         mLastSyncFailed = true;
-                        Log_OC.d(TAG, "Setting mLastSyncFailed = true. getAccount(): " + getAccount());
                     }
                     else if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
                         mSyncInProgress = true;
@@ -1743,7 +1740,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
         
         if(ignoreETag == false && mLastSyncFailed == true) {
-            Log_OC.d(TAG, "No browsing folder sync because last sync failed.");
+            Log_OC.d(TAG, "Not auto refreshing folder because last sync failed.");
             return;
         }
         
