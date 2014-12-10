@@ -73,6 +73,8 @@ public class SynchronizeFolderOperation extends RemoteOperation {
 
     public static final String EVENT_SINGLE_FOLDER_CONTENTS_SYNCED  = 
             SynchronizeFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_CONTENTS_SYNCED";
+    public static final String EVENT_SINGLE_FOLDER_SYNC_FAILED  = 
+            SynchronizeFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SYNC_FAILED";
     public static final String EVENT_SINGLE_FOLDER_SHARES_SYNCED    = 
             SynchronizeFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SHARES_SYNCED";
     
@@ -190,7 +192,14 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         mForgottenLocalFiles.clear();
         
         if (FileUtils.PATH_SEPARATOR.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount) {
-            updateOCVersion(client);
+            result = updateOCVersion(client);
+            if (!result.isSuccess()) {
+                //if this failed, do not try any further.
+                sendLocalBroadcast(
+                        EVENT_SINGLE_FOLDER_SYNC_FAILED, mLocalFolder.getRemotePath(), result
+                );
+                return result;
+            }
         }
         
         result = checkForChanges(client);
@@ -201,12 +210,17 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             } else {
                 mChildren = mStorageManager.getFolderContent(mLocalFolder);
             }
-        }
-        
-        if (!mSyncFullAccount) {            
+            if (!mSyncFullAccount) {
+                sendLocalBroadcast(
+                        EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result
+                );
+            }
+        } else {
+            //if this failed, do not try any further.
             sendLocalBroadcast(
-                    EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result
+                    EVENT_SINGLE_FOLDER_SYNC_FAILED, mLocalFolder.getRemotePath(), result
             );
+            return result;
         }
         
         if (result.isSuccess() && mIsShareSupported && !mSyncFullAccount) {
@@ -224,12 +238,13 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     }
 
 
-    private void updateOCVersion(OwnCloudClient client) {
+    private RemoteOperationResult updateOCVersion(OwnCloudClient client) {
         UpdateOCVersionOperation update = new UpdateOCVersionOperation(mAccount, mContext);
         RemoteOperationResult result = update.execute(client);
         if (result.isSuccess()) {
             mIsShareSupported = update.getOCVersion().isSharedSupported();
         }
+        return result;
     }
 
     

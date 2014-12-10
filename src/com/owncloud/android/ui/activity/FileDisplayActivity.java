@@ -154,6 +154,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     private OCFile mWaitingToPreview;
     
     private boolean mSyncInProgress = false;
+    private boolean mLastSyncFailed = false;
 
     private String DIALOG_UNTRUSTED_CERT;
     
@@ -793,15 +794,18 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         // refresh list of files
         refreshListOfFilesFragment();
 
-        // Listen for sync messages
+        // Listen for sync messages. This must be done before calling  super.onResume();
         IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
         syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
         syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+        syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SYNC_FAILED);
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
         registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
         //LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+
+
 
         // Listen for upload messages
         IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
@@ -1048,10 +1052,16 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH); 
                 RemoteOperationResult synchResult = (RemoteOperationResult)intent.getSerializableExtra(FileSyncAdapter.EXTRA_RESULT);
                 boolean sameAccount = (getAccount() != null && accountName.equals(getAccount().name) && getStorageManager() != null); 
-    
+
                 if (sameAccount) {
-                    
-                    if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
+                    mLastSyncFailed = false;
+                    if (SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SYNC_FAILED.
+                            equals(event)) {
+                        mSyncInProgress = false;
+                        mLastSyncFailed = true;
+                        Log_OC.d(TAG, "Setting mLastSyncFailed = true. getAccount(): " + getAccount());
+                    }
+                    else if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
                         mSyncInProgress = true;
                         
                     } else {
@@ -1731,6 +1741,12 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     }
     
     public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
+        
+        if(ignoreETag == false && mLastSyncFailed == true) {
+            Log_OC.d(TAG, "No browsing folder sync because last sync failed.");
+            return;
+        }
+        
         long currentSyncTime = System.currentTimeMillis(); 
         
         mSyncInProgress = true;
