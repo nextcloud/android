@@ -159,6 +159,9 @@ public class BitmapUtils {
             
             // Rotate the bitmap
             resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            if (resultBitmap != bitmap) {
+                bitmap.recycle();
+            }
         }
         catch (Exception exception)
         {
