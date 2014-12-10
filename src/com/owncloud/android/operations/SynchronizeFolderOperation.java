@@ -26,7 +26,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -64,9 +63,9 @@ import java.util.Vector;
  * 
  *  @author David A. Velasco
  */
-public class SyncFolderOperation extends SyncOperation {
+public class SynchronizeFolderOperation extends SyncOperation {
 
-    private static final String TAG = SyncFolderOperation.class.getSimpleName();
+    private static final String TAG = SynchronizeFolderOperation.class.getSimpleName();
 
     /** Time stamp for the synchronization process in progress */
     private long mCurrentSyncTime;
@@ -103,14 +102,14 @@ public class SyncFolderOperation extends SyncOperation {
 
 
     /**
-     * Creates a new instance of {@link SyncFolderOperation}.
+     * Creates a new instance of {@link SynchronizeFolderOperation}.
      *
      * @param   context                 Application context.
      * @param   remotePath              Path to synchronize.
      * @param   account                 ownCloud account where the folder is located.
      * @param   currentSyncTime         Time stamp for the synchronization process in progress.
      */
-    public SyncFolderOperation(Context context, String remotePath, Account account, long currentSyncTime){
+    public SynchronizeFolderOperation(Context context, String remotePath, Account account, long currentSyncTime){
         mLocalFolder = new OCFile(remotePath);
         mCurrentSyncTime = currentSyncTime;
         mStorageManager = getStorageManager();

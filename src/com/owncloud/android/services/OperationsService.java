@@ -48,6 +48,7 @@ import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 
 import android.accounts.Account;
@@ -456,11 +457,12 @@ public class OperationsService extends Service {
                     // Sync file
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
-                    /* TODO - merge code for new SynchronizeFolderOperation
                     operation = new SynchronizeFolderOperation(
-                            
+                            this,                       // TODO remove this dependency from construction time 
+                            remotePath,
+                            account, 
+                            System.currentTimeMillis()  // TODO remove this dependency from construction time
                     );
-                    */
                     
                 } else if (action.equals(ACTION_MOVE_FILE)) {
                     // Move file/folder
