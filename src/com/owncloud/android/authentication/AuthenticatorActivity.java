@@ -683,7 +683,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         
         if (mOperationsServiceBinder != null) {
             //Log_OC.wtf(TAG, "getting access token..." );
-            mWaitingForOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
+            mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(getServerInfoIntent);
         }
     }
 
@@ -752,7 +752,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 normalizeUrlSuffix(uri)
             );
             if (mOperationsServiceBinder != null) {
-                mWaitingForOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
+                mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(getServerInfoIntent);
             } else {
               Log_OC.wtf(TAG, "Server check tried with OperationService unbound!" );
             }
@@ -888,7 +888,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         
         if (mOperationsServiceBinder != null) {
             //Log_OC.wtf(TAG, "starting existenceCheckRemoteOperation..." );
-            mWaitingForOpId = mOperationsServiceBinder.newOperation(existenceCheckIntent);
+            mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(existenceCheckIntent);
         }
     }
 
@@ -1704,7 +1704,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         
         if (mOperationsServiceBinder != null) {
             //Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );
-            mWaitingForOpId = mOperationsServiceBinder.newOperation(getUserNameIntent);
+            mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(getUserNameIntent);
         }
     }
 

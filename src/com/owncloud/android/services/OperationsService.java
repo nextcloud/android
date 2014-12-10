@@ -99,10 +99,12 @@ public class OperationsService extends Service {
     public static final String ACTION_REMOVE = "REMOVE";
     public static final String ACTION_CREATE_FOLDER = "CREATE_FOLDER";
     public static final String ACTION_SYNC_FILE = "SYNC_FILE";
+    public static final String ACTION_SYNC_FOLDER = "SYNC_FOLDER";  // for the moment, just to download
     public static final String ACTION_MOVE_FILE = "MOVE_FILE";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
+
 
     private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations = 
             new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
@@ -158,17 +160,21 @@ public class OperationsService extends Service {
      * 
      * New operations are added calling to startService(), resulting in a call to this method. 
      * This ensures the service will keep on working although the caller activity goes away.
-     * 
-     * IMPORTANT: the only operations performed here right now is {@link GetSharedFilesOperation}. The class
-     * is taking advantage of it due to time constraints.
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //Log_OC.wtf(TAG, "onStartCommand init" );
+        if (ACTION_SYNC_FOLDER.equals(intent.getAction())) {
+            // WIP: for the moment, only SYNC_FOLDER is expected here; the rest of the operations are requested through
+            // the Binder
+            Pair<Target, RemoteOperation> itemToQueue = newOperation(intent);
+            if (itemToQueue != null) {
+                mPendingOperations.add(itemToQueue);
+            }
+        }
+        
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
         mServiceHandler.sendMessage(msg);
-        //Log_OC.wtf(TAG, "onStartCommand end" );
         return START_NOT_STICKY;
     }
 
@@ -285,126 +291,26 @@ public class OperationsService extends Service {
 
 
         /**
-         * Creates and adds to the queue a new operation, as described by operationIntent
+         * Creates and adds to the queue a new operation, as described by operationIntent.
+         * 
+         * Calls startService to make the operation is processed by the ServiceHandler.
          * 
          * @param operationIntent       Intent describing a new operation to queue and execute.
          * @return                      Identifier of the operation created, or null if failed.
          */
-        public long newOperation(Intent operationIntent) {
-            RemoteOperation operation = null;
-            Target target = null;
-            try {
-                if (!operationIntent.hasExtra(EXTRA_ACCOUNT) && 
-                        !operationIntent.hasExtra(EXTRA_SERVER_URL)) {
-                    Log_OC.e(TAG, "Not enough information provided in intent");
-                    
-                } else {
-                    Account account = operationIntent.getParcelableExtra(EXTRA_ACCOUNT);
-                    String serverUrl = operationIntent.getStringExtra(EXTRA_SERVER_URL);
-                    String username = operationIntent.getStringExtra(EXTRA_USERNAME);
-                    String password = operationIntent.getStringExtra(EXTRA_PASSWORD);
-                    String authToken = operationIntent.getStringExtra(EXTRA_AUTH_TOKEN);
-                    String cookie = operationIntent.getStringExtra(EXTRA_COOKIE);
-                    target = new Target(
-                            account, 
-                            (serverUrl == null) ? null : Uri.parse(serverUrl),
-                            username,
-                            password,
-                            authToken,
-                            cookie
-                    );
-                    
-                    String action = operationIntent.getAction();
-                    if (action.equals(ACTION_CREATE_SHARE)) {  // Create Share
-                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
-                        if (remotePath.length() > 0) {
-                            operation = new CreateShareOperation(remotePath, ShareType.PUBLIC_LINK, 
-                                    "", false, "", 1, sendIntent);
-                        }
-                        
-                    } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
-                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        if (remotePath.length() > 0) {
-                            operation = new UnshareLinkOperation(
-                                    remotePath, 
-                                    OperationsService.this);
-                        }
-                        
-                    } else if (action.equals(ACTION_GET_SERVER_INFO)) { 
-                        // check OC server and get basic information from it
-                        operation = new GetServerInfoOperation(serverUrl, OperationsService.this);
-                        
-                    } else if (action.equals(ACTION_OAUTH2_GET_ACCESS_TOKEN)) {
-                        /// GET ACCESS TOKEN to the OAuth server
-                        String oauth2QueryParameters =
-                                operationIntent.getStringExtra(EXTRA_OAUTH2_QUERY_PARAMETERS);
-                        operation = new OAuth2GetAccessToken(
-                                getString(R.string.oauth2_client_id), 
-                                getString(R.string.oauth2_redirect_uri),       
-                                getString(R.string.oauth2_grant_type),
-                                oauth2QueryParameters);
-                        
-                    } else if (action.equals(ACTION_EXISTENCE_CHECK)) {
-                        // Existence Check 
-                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        boolean successIfAbsent = operationIntent.getBooleanExtra(EXTRA_SUCCESS_IF_ABSENT, false);
-                        operation = new ExistenceCheckRemoteOperation(remotePath, OperationsService.this, successIfAbsent);
-                        
-                    } else if (action.equals(ACTION_GET_USER_NAME)) {
-                        // Get User Name
-                        operation = new GetRemoteUserNameOperation();
-                        
-                    } else if (action.equals(ACTION_RENAME)) {
-                        // Rename file or folder
-                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        String newName = operationIntent.getStringExtra(EXTRA_NEWNAME);
-                        operation = new RenameFileOperation(remotePath, newName);
-                        
-                    } else if (action.equals(ACTION_REMOVE)) {
-                        // Remove file or folder
-                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        boolean onlyLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_ONLY_LOCAL, false);
-                        operation = new RemoveFileOperation(remotePath, onlyLocalCopy);
-                        
-                    } else if (action.equals(ACTION_CREATE_FOLDER)) {
-                        // Create Folder
-                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        boolean createFullPath = operationIntent.getBooleanExtra(EXTRA_CREATE_FULL_PATH, true);
-                        operation = new CreateFolderOperation(remotePath, createFullPath);
-                        
-                    } else if (action.equals(ACTION_SYNC_FILE)) {
-                        // Sync file
-                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
-                        operation = new SynchronizeFileOperation(remotePath, account, syncFileContents, getApplicationContext());
-                    } else if (action.equals(ACTION_MOVE_FILE)) {
-                        // Move file/folder
-                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        String newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
-                        operation = new MoveFileOperation(remotePath,newParentPath,account);
-                    }
-                    
-                }
-                    
-            } catch (IllegalArgumentException e) {
-                Log_OC.e(TAG, "Bad information provided in intent: " + e.getMessage());
-                operation = null;
-            }
-
-            if (operation != null) {
-                mPendingOperations.add(new Pair<Target , RemoteOperation>(target, operation));
+        public long queueNewOperation(Intent operationIntent) {
+            Pair<Target, RemoteOperation> itemToQueue = newOperation(operationIntent);
+            if (itemToQueue != null) {
+                mPendingOperations.add(itemToQueue);
                 startService(new Intent(OperationsService.this, OperationsService.class));
-                //Log_OC.wtf(TAG, "New operation added, opId: " + operation.hashCode());
-                // better id than hash? ; should be good enough by the time being
-                return operation.hashCode();
+                return itemToQueue.second.hashCode();
                 
             } else {
-                //Log_OC.wtf(TAG, "New operation failed, returned Long.MAX_VALUE");
                 return Long.MAX_VALUE;
             }
         }
-
+        
+        
         public boolean dispatchResultIfFinished(int operationId, OnRemoteOperationListener listener) {
             Pair<RemoteOperation, RemoteOperationResult> undispatched = 
                     mUndispatchedFinishedOperations.remove(operationId);
@@ -445,6 +351,135 @@ public class OperationsService extends Service {
         public void handleMessage(Message msg) {
             mService.nextOperation();
             mService.stopSelf(msg.arg1);
+        }
+    }
+    
+
+    /**
+     * Creates a new operation, as described by operationIntent.
+     * 
+     * @param operationIntent       Intent describing a new operation to queue and execute.
+     * @return                      Pair with the new operation object and the information about its target server.
+     */
+    private Pair<Target , RemoteOperation> newOperation(Intent operationIntent) {
+        RemoteOperation operation = null;
+        Target target = null;
+        try {
+            if (!operationIntent.hasExtra(EXTRA_ACCOUNT) && 
+                    !operationIntent.hasExtra(EXTRA_SERVER_URL)) {
+                Log_OC.e(TAG, "Not enough information provided in intent");
+                
+            } else {
+                Account account = operationIntent.getParcelableExtra(EXTRA_ACCOUNT);
+                String serverUrl = operationIntent.getStringExtra(EXTRA_SERVER_URL);
+                String username = operationIntent.getStringExtra(EXTRA_USERNAME);
+                String password = operationIntent.getStringExtra(EXTRA_PASSWORD);
+                String authToken = operationIntent.getStringExtra(EXTRA_AUTH_TOKEN);
+                String cookie = operationIntent.getStringExtra(EXTRA_COOKIE);
+                target = new Target(
+                        account, 
+                        (serverUrl == null) ? null : Uri.parse(serverUrl),
+                        username,
+                        password,
+                        authToken,
+                        cookie
+                );
+                
+                String action = operationIntent.getAction();
+                if (action.equals(ACTION_CREATE_SHARE)) {  // Create Share
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
+                    if (remotePath.length() > 0) {
+                        operation = new CreateShareOperation(remotePath, ShareType.PUBLIC_LINK, 
+                                "", false, "", 1, sendIntent);
+                    }
+                    
+                } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    if (remotePath.length() > 0) {
+                        operation = new UnshareLinkOperation(
+                                remotePath, 
+                                OperationsService.this);
+                    }
+                    
+                } else if (action.equals(ACTION_GET_SERVER_INFO)) { 
+                    // check OC server and get basic information from it
+                    operation = new GetServerInfoOperation(serverUrl, OperationsService.this);
+                    
+                } else if (action.equals(ACTION_OAUTH2_GET_ACCESS_TOKEN)) {
+                    /// GET ACCESS TOKEN to the OAuth server
+                    String oauth2QueryParameters =
+                            operationIntent.getStringExtra(EXTRA_OAUTH2_QUERY_PARAMETERS);
+                    operation = new OAuth2GetAccessToken(
+                            getString(R.string.oauth2_client_id), 
+                            getString(R.string.oauth2_redirect_uri),       
+                            getString(R.string.oauth2_grant_type),
+                            oauth2QueryParameters);
+                    
+                } else if (action.equals(ACTION_EXISTENCE_CHECK)) {
+                    // Existence Check 
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    boolean successIfAbsent = operationIntent.getBooleanExtra(EXTRA_SUCCESS_IF_ABSENT, false);
+                    operation = new ExistenceCheckRemoteOperation(remotePath, OperationsService.this, successIfAbsent);
+                    
+                } else if (action.equals(ACTION_GET_USER_NAME)) {
+                    // Get User Name
+                    operation = new GetRemoteUserNameOperation();
+                    
+                } else if (action.equals(ACTION_RENAME)) {
+                    // Rename file or folder
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    String newName = operationIntent.getStringExtra(EXTRA_NEWNAME);
+                    operation = new RenameFileOperation(remotePath, newName);
+                    
+                } else if (action.equals(ACTION_REMOVE)) {
+                    // Remove file or folder
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    boolean onlyLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_ONLY_LOCAL, false);
+                    operation = new RemoveFileOperation(remotePath, onlyLocalCopy);
+                    
+                } else if (action.equals(ACTION_CREATE_FOLDER)) {
+                    // Create Folder
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    boolean createFullPath = operationIntent.getBooleanExtra(EXTRA_CREATE_FULL_PATH, true);
+                    operation = new CreateFolderOperation(remotePath, createFullPath);
+                    
+                } else if (action.equals(ACTION_SYNC_FILE)) {
+                    // Sync file
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
+                    operation = new SynchronizeFileOperation(
+                            remotePath, account, syncFileContents, getApplicationContext()
+                    );
+                    
+                } else if (action.equals(ACTION_SYNC_FOLDER)) {
+                    // Sync file
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
+                    /* TODO - merge code for new SynchronizeFolderOperation
+                    operation = new SynchronizeFolderOperation(
+                            
+                    );
+                    */
+                    
+                } else if (action.equals(ACTION_MOVE_FILE)) {
+                    // Move file/folder
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    String newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
+                    operation = new MoveFileOperation(remotePath,newParentPath,account);
+                }
+                
+            }
+                
+        } catch (IllegalArgumentException e) {
+            Log_OC.e(TAG, "Bad information provided in intent: " + e.getMessage());
+            operation = null;
+        }
+
+        if (operation != null) {
+            return new Pair<Target , RemoteOperation>(target, operation);  
+        } else {
+            return null;
         }
     }
     
