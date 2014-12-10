@@ -304,8 +304,9 @@
 
 	<string name="actionbar_logger">Logs</string>
 	<string name="log_send_history_button">Send History</string>
-	<string name="log_mail_subject">ownCloud Android app logs</string>
-	<string name="log_progress_dialog_text">Loading data...</string>
+	<string name="log_send_no_mail_app">No app for sending logs found. Install mail app!</string>
+	<string name="log_send_mail_subject">%1$s Android app logs</string>
+	<string name="log_progress_dialog_text">Loading data&#8230;</string>
 
 	<string name="saml_authentication_required_text">Authentication required</string>
 	<string name="saml_authentication_wrong_pass">Wrong password</string>
