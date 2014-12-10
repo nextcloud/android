@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Рекомендовать другу</string>
   <string name="prefs_feedback">Обратная связь</string>
   <string name="prefs_imprint">Штамп</string>
+  <string name="prefs_remember_last_share_location">Запомнить расположение публикации</string>
+  <string name="prefs_remember_last_upload_location_summary">Запомнить расположение загрузки последней публикации</string>
   <string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
   <string name="recommend_text">Хочу предложить вам использовать %1$s на смартфоне!\nЗагрузить можно здесь: %2$s
 	</string>
@@ -294,4 +296,5 @@
   <string name="forbidden_permissions_move">переместить этот файл</string>
   <string name="prefs_category_instant_uploading">Мгновенные загрузки</string>
   <string name="prefs_category_security">Безопасность</string>
+  <string name="prefs_instant_video_upload_path_title">Путь для загрузки Видео</string>
 </resources>
