@@ -73,9 +73,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
     /** Remote folder to synchronize */
     private OCFile mLocalFolder;
 
-    /** Access to the local database */
-    private FileDataStorageManager mStorageManager;
-
     /** Account where the file to synchronize belongs */
     private Account mAccount;
 
@@ -112,7 +109,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
     public SynchronizeFolderOperation(Context context, String remotePath, Account account, long currentSyncTime){
         mLocalFolder = new OCFile(remotePath);
         mCurrentSyncTime = currentSyncTime;
-        mStorageManager = getStorageManager();
         mAccount = account;
         mContext = context;
         mForgottenLocalFiles = new HashMap<String, String>();
@@ -160,7 +156,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             if (mRemoteFolderChanged) {
                 result = fetchAndSyncRemoteFolder(client);
             } else {
-                mChildren = mStorageManager.getFolderContent(mLocalFolder);
+                mChildren = getStorageManager().getFolderContent(mLocalFolder);
             }
         }
 
@@ -231,9 +227,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
 
     private void removeLocalFolder() {
-        if (mStorageManager.fileExists(mLocalFolder.getFileId())) {
+        FileDataStorageManager storageManager = getStorageManager();
+        if (storageManager.fileExists(mLocalFolder.getFileId())) {
             String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
-            mStorageManager.removeFolder(
+            storageManager.removeFolder(
                     mLocalFolder,
                     true,
                     (   mLocalFolder.isDown() &&
@@ -257,8 +254,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
      *  @return                 'True' when any change was made in the local data, 'false' otherwise
      */
     private void synchronizeData(ArrayList<Object> folderAndFiles, OwnCloudClient client) {
+        FileDataStorageManager storageManager = getStorageManager();
+        
         // get 'fresh data' from the database
-        mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
+        mLocalFolder = storageManager.getFileByPath(mLocalFolder.getRemotePath());
 
         // parse data from remote folder
         OCFile remoteFolder = fillOCFile((RemoteFile)folderAndFiles.get(0));
@@ -272,7 +271,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         List<SynchronizeFileOperation> filesToSyncContents = new Vector<SynchronizeFileOperation>();
 
         // get current data about local contents of the folder to synchronize
-        List<OCFile> localFiles = mStorageManager.getFolderContent(mLocalFolder);
+        List<OCFile> localFiles = storageManager.getFolderContent(mLocalFolder);
         Map<String, OCFile> localFilesMap = new HashMap<String, OCFile>(localFiles.size());
         for (OCFile file : localFiles) {
             localFilesMap.put(file.getRemotePath(), file);
@@ -353,7 +352,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // save updated contents in local database
-        mStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
+        storageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
 
         // request for the synchronization of file contents AFTER saving current remote properties
         startContentSynchronizations(filesToSyncContents, client);
@@ -376,7 +375,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         ) {
         RemoteOperationResult contentsResult = null;
         for (SynchronizeFileOperation op: filesToSyncContents) {
-            contentsResult = op.execute(mStorageManager, mContext);   // async
+            contentsResult = op.execute(getStorageManager(), mContext);   // async
             if (!contentsResult.isSuccess()) {
                 if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
                     mConflictsFound++;
