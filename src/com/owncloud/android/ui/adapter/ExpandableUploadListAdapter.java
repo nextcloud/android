@@ -200,46 +200,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             } catch (NullPointerException e) {
             }            
 
-            TextView uploadDateV = (TextView) view.findViewById(R.id.upload_date);
+            TextView uploadDate = (TextView) view.findViewById(R.id.upload_date);
             CharSequence dateString = DisplayUtils.getRelativeDateTimeString(mActivity, uploadObject.getUploadTime()
                     .getTimeInMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
-            uploadDateV.setText(dateString);
-            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
-            // if (!file.isDirectory()) {
-            // fileSizeV.setVisibility(View.VISIBLE);
-            // fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
-            // lastModV.setVisibility(View.VISIBLE);
-            // lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
-            // ListView parentList = (ListView)parent;
-            // if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) {
-            // checkBoxV.setVisibility(View.GONE);
-            // } else {
-            // if (parentList.isItemChecked(position)) {
-            // checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
-            // } else {
-            // checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
-            // }
-            // checkBoxV.setVisibility(View.VISIBLE);
-            // }
-            //
-            // } else {
-            checkBoxV.setVisibility(View.GONE);
-            // }
-
-            view.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE); // not
-                                                                              // GONE;
-                                                                              // the
-                                                                              // alignment
-                                                                              // changes;
-                                                                              // ugly
-                                                                              // way
-                                                                              // to
-                                                                              // keep
-                                                                              // it
-            view.findViewById(R.id.imageView3).setVisibility(View.GONE);
-
-            view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
-            view.findViewById(R.id.sharedWithMeIcon).setVisibility(View.GONE);
+            uploadDate.setText(dateString);
         }
 
         return view;
