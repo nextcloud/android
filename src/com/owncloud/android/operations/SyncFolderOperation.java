@@ -30,14 +30,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
-import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
-import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.operations.common.SyncOperation;
-import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import org.apache.http.HttpStatus;
@@ -341,9 +337,17 @@ public class SyncFolderOperation extends SyncOperation {
                 filesToSyncContents.add(operation);
             }
 
-            // Start the download of all the files in the folder (non recursively)
             if (!remoteFile.isFolder()) {
+                // Start file download
                 requestForDownloadFile(remoteFile);
+            } else {
+                // Run new SyncFolderOperation for download children files recursively from a folder
+                RemoteOperation synchFolderOp =  new SyncFolderOperation( mContext,
+                        remoteFile.getRemotePath(),
+                        mAccount,
+                        mCurrentSyncTime);
+
+                synchFolderOp.execute(mAccount, mContext, null, null);
             }
 
             updatedFiles.add(remoteFile);
