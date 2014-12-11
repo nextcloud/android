@@ -29,11 +29,11 @@ import java.util.Set;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 
 /**
  * A helper class for some string operations.
@@ -277,7 +277,24 @@ public class DisplayUtils {
             return url;
         }
     }
-    
+
+    /**
+     * Get the file extension if it is on path as type "content://.../DocInfo.doc"
+     * @param filepath: Content Uri converted to string format
+     * @return String: fileExtension (type '.pdf'). Empty if no extension
+     */
+    public static String getComposedFileExtension(String filepath) {
+        String fileExtension = "";
+        String fileNameInContentUri = filepath.substring(filepath.lastIndexOf("/"));
+
+        // Check if extension is included in uri
+        int pos = fileNameInContentUri.lastIndexOf('.');
+        if (pos >= 0) {
+            fileExtension = fileNameInContentUri.substring(pos);
+        }
+        return fileExtension;
+    }
+
     public static CharSequence getRelativeDateTimeString(Context c, long time, long minResolution, long transitionResolution, int flags){
         CharSequence dateString = "";
         
@@ -302,5 +319,18 @@ public class DisplayUtils {
         }
         
         return dateString.toString().split(",")[0];
+    }
+
+    /**
+     * Update the passed path removing the last "/" if it is not the root folder
+     * @param path
+     */
+    public static String getPathWithoutLastSlash(String path) {
+
+        // Remove last slash from path
+        if (path.length() > 1 && path.charAt(path.length()-1) == OCFile.PATH_SEPARATOR.charAt(0)) {
+            path = path.substring(0, path.length()-1);
+        }
+        return path;
     }
 }

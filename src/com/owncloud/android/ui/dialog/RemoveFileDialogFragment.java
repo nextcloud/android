@@ -26,14 +26,14 @@ package com.owncloud.android.ui.dialog;
  */
 import java.util.Vector;
 
+import android.app.Dialog;
+import android.os.Bundle;
+
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
-
-import android.app.Dialog;
-import android.os.Bundle;
 
 public class RemoveFileDialogFragment extends ConfirmationDialogFragment 
 implements ConfirmationDialogFragmentListener {
@@ -105,8 +105,7 @@ implements ConfirmationDialogFragmentListener {
     @Override
     public void onNeutral(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter)getSherlockActivity();
-        cg.getFileOperationsHelper()
-            .removeFile(mTargetFile, true);
+        cg.getFileOperationsHelper().removeFile(mTargetFile, true);
         
         FileDataStorageManager storageManager = cg.getStorageManager();
         

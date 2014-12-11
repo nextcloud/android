@@ -169,5 +169,5 @@
   <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Cuentas</string>
-  <string name="move_choose_button_text">Choose</string>
+  <string name="folder_picker_choose_button_text">Choose</string>
 </resources>

@@ -30,6 +30,10 @@
   <string name="uploader_info_uploading">Augšupielādē</string>
   <string name="file_list_seconds_ago">sekundes atpakaļ</string>
   <string name="file_list_empty">Te vēl nekas nav. Rīkojies, sāc augšupielādēt!</string>
+  <string name="file_list_folder">mape</string>
+  <string name="file_list_folders">mapes</string>
+  <string name="file_list_file">fails</string>
+  <string name="file_list_files">faili</string>
   <string name="filedetails_select_file">Uzsitiet uz datnes, lai redzētu papildinformāciju.</string>
   <string name="filedetails_size">Izmērs:</string>
   <string name="filedetails_type">Tips:</string>
@@ -145,6 +149,6 @@
   <string name="activity_chooser_send_file_title">Sūtīt</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Konti</string>
-  <string name="move_choose_button_text">Izvēlieties</string>
+  <string name="folder_picker_choose_button_text">Izvēlieties</string>
   <string name="prefs_category_security">Drošība</string>
 </resources>

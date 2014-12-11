@@ -150,12 +150,10 @@ public class DownloadFileOperation extends RemoteOperation {
             newFile = new File(getSavePath());
             newFile.getParentFile().mkdirs();
             moved = tmpFile.renameTo(newFile);
-        
             if (!moved)
                 result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
         }
         Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage());
-        
         
         return result;
     }

@@ -19,6 +19,10 @@
   <string name="uploader_wrn_no_account_quit_btn_text">Izlaz</string>
   <string name="file_list_seconds_ago">prije par sekundi</string>
   <string name="file_list_empty">Nema ničega u ovoj mapi. Pošalji nešto!</string>
+  <string name="file_list_folder">mapa</string>
+  <string name="file_list_folders">mape</string>
+  <string name="file_list_file">datoteka</string>
+  <string name="file_list_files">datoteke</string>
   <string name="filedetails_download">Preuzimanje</string>
   <string name="action_share_file">Podijelite vezu</string>
   <string name="common_yes">Da</string>
@@ -38,6 +42,6 @@
   <string name="prefs_category_accounts">Korisnićki računi</string>
   <string name="saml_authentication_required_text">Potrebna autentikacija</string>
   <string name="saml_authentication_wrong_pass">Pogrešna lozinka</string>
-  <string name="move_choose_button_text">Izaberi</string>
+  <string name="folder_picker_choose_button_text">Odaberite</string>
   <string name="prefs_category_security">Sigurnost</string>
 </resources>

@@ -54,6 +54,10 @@
   <string name="file_list_empty">Res per aquí. Pugeu alguna cosa!</string>
   <string name="file_list_loading">Carregant...</string>
   <string name="local_file_list_empty">No hi ha arxius a aquesta carpeta</string>
+  <string name="file_list_folder">carpeta</string>
+  <string name="file_list_folders">carpetes</string>
+  <string name="file_list_file">fitxer</string>
+  <string name="file_list_files">fitxers</string>
   <string name="filedetails_select_file">Feu clic en un fitxer per mostrar informació addicional.</string>
   <string name="filedetails_size">Mida:</string>
   <string name="filedetails_type">Tipus:</string>
@@ -262,6 +266,6 @@
   <string name="prefs_add_account">Afegeix compte</string>
   <string name="saml_authentication_required_text">Es requereix autenticació</string>
   <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
-  <string name="move_choose_button_text">Escull</string>
+  <string name="folder_picker_choose_button_text">Escull</string>
   <string name="prefs_category_security">Seguretat</string>
 </resources>

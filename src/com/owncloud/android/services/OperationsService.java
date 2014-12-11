@@ -359,7 +359,7 @@ public class OperationsService extends Service {
                         // Rename file or folder
                         String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         String newName = operationIntent.getStringExtra(EXTRA_NEWNAME);
-                        operation = new RenameFileOperation(remotePath, account, newName);
+                        operation = new RenameFileOperation(remotePath, newName);
                         
                     } else if (action.equals(ACTION_REMOVE)) {
                         // Remove file or folder

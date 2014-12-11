@@ -29,5 +29,5 @@
   <string name="uploader_info_dirname">Nomine de dossier</string>
   <string name="activity_chooser_send_file_title">Invia</string>
   <string name="empty"></string>
-  <string name="move_choose_button_text">Seliger</string>
+  <string name="folder_picker_choose_button_text">Seliger</string>
 </resources>
