@@ -114,7 +114,14 @@ public class DbHandler {
                 db.execSQL("ALTER TABLE " + TABLE_INSTANT_UPLOAD + " ADD COLUMN attempt INTEGER;");
             }
             db.execSQL("ALTER TABLE " + TABLE_INSTANT_UPLOAD + " ADD COLUMN message TEXT;");
-
+        }
+        
+        @Override
+        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            //downgrading is the exception, so deleting and re-creating is acceptable.
+            //otherwise exception will be thrown (cannot downgrade) and oc app will crash.
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_INSTANT_UPLOAD + ";");
+            onCreate(db);
         }
     }
 }
