@@ -48,6 +48,7 @@ import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 
 import android.accounts.Account;
@@ -106,9 +107,6 @@ public class OperationsService extends Service {
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
 
 
-    private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations = 
-            new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
-
     private ConcurrentMap<Integer, Pair<RemoteOperation, RemoteOperationResult>> 
         mUndispatchedFinishedOperations =
             new ConcurrentHashMap<Integer, Pair<RemoteOperation, RemoteOperationResult>>();
@@ -132,14 +130,10 @@ public class OperationsService extends Service {
         }
     }
 
-    private Looper mServiceLooper;
-    private ServiceHandler mServiceHandler;
-    private OperationsServiceBinder mBinder;
-    private OwnCloudClient mOwnCloudClient = null;
-    private Target mLastTarget = null;
-    private FileDataStorageManager mStorageManager;
-    private RemoteOperation mCurrentOperation = null;
+    private ServiceHandler mOperationsHandler;
+    private OperationsServiceBinder mOperationsBinder;
     
+    private ServiceHandler mSyncFolderHandler;
     
     /**
      * Service initialization
@@ -147,11 +141,16 @@ public class OperationsService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        HandlerThread thread = new HandlerThread("Operations service thread", Process.THREAD_PRIORITY_BACKGROUND);
+        /// First worker thread for most of operations 
+        HandlerThread thread = new HandlerThread("Operations thread", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
-        mServiceLooper = thread.getLooper();
-        mServiceHandler = new ServiceHandler(mServiceLooper, this);
-        mBinder = new OperationsServiceBinder();
+        mOperationsHandler = new ServiceHandler(thread.getLooper(), this);
+        mOperationsBinder = new OperationsServiceBinder(mOperationsHandler);
+        
+        /// Separated worker thread for download of folders (WIP)
+        thread = new HandlerThread("Syncfolder thread", Process.THREAD_PRIORITY_BACKGROUND);
+        thread.start();
+        mSyncFolderHandler = new ServiceHandler(thread.getLooper(), this);
     }
 
     
@@ -168,13 +167,18 @@ public class OperationsService extends Service {
             // the Binder
             Pair<Target, RemoteOperation> itemToQueue = newOperation(intent);
             if (itemToQueue != null) {
-                mPendingOperations.add(itemToQueue);
+                mSyncFolderHandler.mPendingOperations.add(itemToQueue);
+                Message msg = mSyncFolderHandler.obtainMessage();
+                msg.arg1 = startId;
+                mSyncFolderHandler.sendMessage(msg);
             }
+            
+        } else {
+            Message msg = mOperationsHandler.obtainMessage();
+            msg.arg1 = startId;
+            mOperationsHandler.sendMessage(msg);
         }
         
-        Message msg = mServiceHandler.obtainMessage();
-        msg.arg1 = startId;
-        mServiceHandler.sendMessage(msg);
         return START_NOT_STICKY;
     }
 
@@ -212,7 +216,7 @@ public class OperationsService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         //Log_OC.wtf(TAG, "onBind" );
-        return mBinder;
+        return mOperationsBinder;
     }
 
     
@@ -221,7 +225,7 @@ public class OperationsService extends Service {
      */
     @Override
     public boolean onUnbind(Intent intent) {
-        ((OperationsServiceBinder)mBinder).clearListeners();
+        ((OperationsServiceBinder)mOperationsBinder).clearListeners();
         return false;   // not accepting rebinding (default behaviour)
     }
 
@@ -239,6 +243,14 @@ public class OperationsService extends Service {
         private ConcurrentMap<OnRemoteOperationListener, Handler> mBoundListeners = 
                 new ConcurrentHashMap<OnRemoteOperationListener, Handler>();
         
+        private ServiceHandler mServiceHandler = null;   
+        
+        
+        public OperationsServiceBinder(ServiceHandler serviceHandler) {
+            mServiceHandler = serviceHandler;
+        }
+
+
         /**
          * Cancels an operation
          *
@@ -286,7 +298,7 @@ public class OperationsService extends Service {
          * @return  'True' when an operation that enforces the user to wait for completion is in process.
          */
         public boolean isPerformingBlockingOperation() {
-            return (!mPendingOperations.isEmpty());
+            return (!mServiceHandler.mPendingOperations.isEmpty());
         }
 
 
@@ -301,7 +313,7 @@ public class OperationsService extends Service {
         public long queueNewOperation(Intent operationIntent) {
             Pair<Target, RemoteOperation> itemToQueue = newOperation(operationIntent);
             if (itemToQueue != null) {
-                mPendingOperations.add(itemToQueue);
+                mServiceHandler.mPendingOperations.add(itemToQueue);
                 startService(new Intent(OperationsService.this, OperationsService.class));
                 return itemToQueue.second.hashCode();
                 
@@ -319,7 +331,7 @@ public class OperationsService extends Service {
                 return true;
                 //Log_OC.wtf(TAG, "Sending callback later");
             } else {
-                if (!mPendingOperations.isEmpty()) {
+                if (!mServiceHandler.mPendingOperations.isEmpty()) {
                     return true;
                 } else {
                     return false;
@@ -338,7 +350,19 @@ public class OperationsService extends Service {
      */
     private static class ServiceHandler extends Handler {
         // don't make it a final class, and don't remove the static ; lint will warn about a possible memory leak
+        
+        
         OperationsService mService;
+        
+        
+        private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations = 
+                new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
+        private RemoteOperation mCurrentOperation = null;
+        private Target mLastTarget = null;
+        private OwnCloudClient mOwnCloudClient = null;
+        private FileDataStorageManager mStorageManager;
+        
+        
         public ServiceHandler(Looper looper, OperationsService service) {
             super(looper);
             if (service == null) {
@@ -349,14 +373,115 @@ public class OperationsService extends Service {
 
         @Override
         public void handleMessage(Message msg) {
-            mService.nextOperation();
+            nextOperation();
             mService.stopSelf(msg.arg1);
         }
+        
+        
+        /**
+         * Performs the next operation in the queue
+         */
+        private void nextOperation() {
+            
+            //Log_OC.wtf(TAG, "nextOperation init" );
+            
+            Pair<Target, RemoteOperation> next = null;
+            synchronized(mPendingOperations) {
+                next = mPendingOperations.peek();
+            }
+
+            if (next != null) {
+                
+                mCurrentOperation = next.second;
+                RemoteOperationResult result = null;
+                try {
+                    /// prepare client object to send the request to the ownCloud server
+                    if (mLastTarget == null || !mLastTarget.equals(next.first)) {
+                        mLastTarget = next.first;
+                        if (mLastTarget.mAccount != null) {
+                            OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mAccount, mService);
+                            mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                                    getClientFor(ocAccount, mService);
+                            mStorageManager = new FileDataStorageManager(
+                                    mLastTarget.mAccount, 
+                                    mService.getContentResolver()
+                            );
+                        } else {
+                            OwnCloudCredentials credentials = null;
+                            if (mLastTarget.mUsername != null && 
+                                    mLastTarget.mUsername.length() > 0) {
+                                credentials = OwnCloudCredentialsFactory.newBasicCredentials(
+                                        mLastTarget.mUsername, 
+                                        mLastTarget.mPassword);  // basic
+                                
+                            } else if (mLastTarget.mAuthToken != null && 
+                                    mLastTarget.mAuthToken.length() > 0) {
+                                credentials = OwnCloudCredentialsFactory.newBearerCredentials(
+                                        mLastTarget.mAuthToken);  // bearer token
+                                
+                            } else if (mLastTarget.mCookie != null &&
+                                    mLastTarget.mCookie.length() > 0) {
+                                credentials = OwnCloudCredentialsFactory.newSamlSsoCredentials(
+                                        mLastTarget.mCookie); // SAML SSO
+                            }
+                            OwnCloudAccount ocAccount = new OwnCloudAccount(
+                                    mLastTarget.mServerUrl, credentials);
+                            mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                                    getClientFor(ocAccount, mService);
+                            mStorageManager = null;
+                        }
+                    }
+
+                    /// perform the operation
+                    if (mCurrentOperation instanceof SyncOperation) {
+                        result = ((SyncOperation)mCurrentOperation).execute(mOwnCloudClient, mStorageManager);
+                    } else {
+                        result = mCurrentOperation.execute(mOwnCloudClient);
+                    }
+                    
+                } catch (AccountsException e) {
+                    if (mLastTarget.mAccount == null) {
+                        Log_OC.e(TAG, "Error while trying to get authorization for a NULL account", e);
+                    } else {
+                        Log_OC.e(TAG, "Error while trying to get authorization for " + mLastTarget.mAccount.name, e);
+                    }
+                    result = new RemoteOperationResult(e);
+                    
+                } catch (IOException e) {
+                    if (mLastTarget.mAccount == null) {
+                        Log_OC.e(TAG, "Error while trying to get authorization for a NULL account", e);
+                    } else {
+                        Log_OC.e(TAG, "Error while trying to get authorization for " + mLastTarget.mAccount.name, e);
+                    }
+                    result = new RemoteOperationResult(e);
+                } catch (Exception e) {
+                    if (mLastTarget.mAccount == null) {
+                        Log_OC.e(TAG, "Unexpected error for a NULL account", e);
+                    } else {
+                        Log_OC.e(TAG, "Unexpected error for " + mLastTarget.mAccount.name, e);
+                    }
+                    result = new RemoteOperationResult(e);
+                
+                } finally {
+                    synchronized(mPendingOperations) {
+                        mPendingOperations.poll();
+                    }
+                }
+                
+                //sendBroadcastOperationFinished(mLastTarget, mCurrentOperation, result);
+                mService.dispatchResultToOperationListeners(mLastTarget, mCurrentOperation, result);
+            }
+        }
+
+
+        
     }
     
 
     /**
      * Creates a new operation, as described by operationIntent.
+     * 
+     * TODO - move to ServiceHandler (probably)
      * 
      * @param operationIntent       Intent describing a new operation to queue and execute.
      * @return                      Pair with the new operation object and the information about its target server.
@@ -455,12 +580,12 @@ public class OperationsService extends Service {
                 } else if (action.equals(ACTION_SYNC_FOLDER)) {
                     // Sync file
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                    boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
-                    /* TODO - merge code for new SynchronizeFolderOperation
                     operation = new SynchronizeFolderOperation(
-                            
+                            this,                       // TODO remove this dependency from construction time 
+                            remotePath,
+                            account, 
+                            System.currentTimeMillis()  // TODO remove this dependency from construction time
                     );
-                    */
                     
                 } else if (action.equals(ACTION_MOVE_FILE)) {
                     // Move file/folder
@@ -483,102 +608,6 @@ public class OperationsService extends Service {
         }
     }
     
-
-    /**
-     * Performs the next operation in the queue
-     */
-    private void nextOperation() {
-        
-        //Log_OC.wtf(TAG, "nextOperation init" );
-        
-        Pair<Target, RemoteOperation> next = null;
-        synchronized(mPendingOperations) {
-            next = mPendingOperations.peek();
-        }
-
-        if (next != null) {
-            
-            mCurrentOperation = next.second;
-            RemoteOperationResult result = null;
-            try {
-                /// prepare client object to send the request to the ownCloud server
-                if (mLastTarget == null || !mLastTarget.equals(next.first)) {
-                    mLastTarget = next.first;
-                    if (mLastTarget.mAccount != null) {
-                        OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mAccount, this);
-                        mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                                getClientFor(ocAccount, this);
-                        mStorageManager = 
-                                new FileDataStorageManager(
-                                        mLastTarget.mAccount, 
-                                        getContentResolver());
-                    } else {
-                        OwnCloudCredentials credentials = null;
-                        if (mLastTarget.mUsername != null && 
-                                mLastTarget.mUsername.length() > 0) {
-                            credentials = OwnCloudCredentialsFactory.newBasicCredentials(
-                                    mLastTarget.mUsername, 
-                                    mLastTarget.mPassword);  // basic
-                            
-                        } else if (mLastTarget.mAuthToken != null && 
-                                mLastTarget.mAuthToken.length() > 0) {
-                            credentials = OwnCloudCredentialsFactory.newBearerCredentials(
-                                    mLastTarget.mAuthToken);  // bearer token
-                            
-                        } else if (mLastTarget.mCookie != null &&
-                                mLastTarget.mCookie.length() > 0) {
-                            credentials = OwnCloudCredentialsFactory.newSamlSsoCredentials(
-                                    mLastTarget.mCookie); // SAML SSO
-                        }
-                        OwnCloudAccount ocAccount = new OwnCloudAccount(
-                                mLastTarget.mServerUrl, credentials);
-                        mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                                getClientFor(ocAccount, this);
-                        mStorageManager = null;
-                    }
-                }
-
-                /// perform the operation
-                if (mCurrentOperation instanceof SyncOperation) {
-                    result = ((SyncOperation)mCurrentOperation).execute(mOwnCloudClient, mStorageManager);
-                } else {
-                    result = mCurrentOperation.execute(mOwnCloudClient);
-                }
-                
-            } catch (AccountsException e) {
-                if (mLastTarget.mAccount == null) {
-                    Log_OC.e(TAG, "Error while trying to get authorization for a NULL account", e);
-                } else {
-                    Log_OC.e(TAG, "Error while trying to get authorization for " + mLastTarget.mAccount.name, e);
-                }
-                result = new RemoteOperationResult(e);
-                
-            } catch (IOException e) {
-                if (mLastTarget.mAccount == null) {
-                    Log_OC.e(TAG, "Error while trying to get authorization for a NULL account", e);
-                } else {
-                    Log_OC.e(TAG, "Error while trying to get authorization for " + mLastTarget.mAccount.name, e);
-                }
-                result = new RemoteOperationResult(e);
-            } catch (Exception e) {
-                if (mLastTarget.mAccount == null) {
-                    Log_OC.e(TAG, "Unexpected error for a NULL account", e);
-                } else {
-                    Log_OC.e(TAG, "Unexpected error for " + mLastTarget.mAccount.name, e);
-                }
-                result = new RemoteOperationResult(e);
-            
-            } finally {
-                synchronized(mPendingOperations) {
-                    mPendingOperations.poll();
-                }
-            }
-            
-            //sendBroadcastOperationFinished(mLastTarget, mCurrentOperation, result);
-            dispatchResultToOperationListeners(mLastTarget, mCurrentOperation, result);
-        }
-    }
-
 
     /**
      * Sends a broadcast when a new operation is added to the queue.
@@ -636,10 +665,10 @@ public class OperationsService extends Service {
     private void dispatchResultToOperationListeners(
             Target target, final RemoteOperation operation, final RemoteOperationResult result) {
         int count = 0;
-        Iterator<OnRemoteOperationListener> listeners = mBinder.mBoundListeners.keySet().iterator();
+        Iterator<OnRemoteOperationListener> listeners = mOperationsBinder.mBoundListeners.keySet().iterator();
         while (listeners.hasNext()) {
             final OnRemoteOperationListener listener = listeners.next();
-            final Handler handler = mBinder.mBoundListeners.get(listener);
+            final Handler handler = mOperationsBinder.mBoundListeners.get(listener);
             if (handler != null) { 
                 handler.post(new Runnable() {
                     @Override
