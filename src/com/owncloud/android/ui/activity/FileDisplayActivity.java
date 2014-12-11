@@ -141,6 +141,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
+    private static final String KEY_LAST_SYNC_FAILED = "LAST_SYNC_FAILED";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
 
     public static final int DIALOG_SHORT_WAIT = 0;
@@ -191,6 +192,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         if(savedInstanceState != null) {
             mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
+            mLastSyncFailed = savedInstanceState.getBoolean(KEY_LAST_SYNC_FAILED);
             mWaitingToSend = (OCFile) savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
            
         } else {
@@ -785,6 +787,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         outState.putBoolean(FileDisplayActivity.KEY_SYNC_IN_PROGRESS, mSyncInProgress);
+        outState.putBoolean(FileDisplayActivity.KEY_LAST_SYNC_FAILED, mLastSyncFailed);
         //outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS, mRefreshSharesInProgress);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND, mWaitingToSend);
 
