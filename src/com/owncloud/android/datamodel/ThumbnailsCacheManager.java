@@ -29,8 +29,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -216,6 +218,9 @@ public class ThumbnailsCacheManager {
                         
                         if (bitmap != null) {
                             thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+                            
+                            // Rotate image, obeying exif tag
+                            thumbnail = BitmapUtils.rotateImage(thumbnail, mFile.getStoragePath());
     
                             // Add thumbnail to cache
                             addBitmapToCache(imageKey, thumbnail);
@@ -317,5 +322,5 @@ public class ThumbnailsCacheManager {
             mThumbnailsDiskCacheLock.notifyAll(); // Wake any waiting threads
         }
     }
-
+    
 }
