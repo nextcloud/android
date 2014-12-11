@@ -72,14 +72,17 @@ public class SynchronizeFolderOperation extends SyncOperation {
     /** Time stamp for the synchronization process in progress */
     private long mCurrentSyncTime;
 
-    /** Remote folder to synchronize */
-    private OCFile mLocalFolder;
-
+    /** Remote path of the folder to synchronize */
+    private String mRemotePath;
+    
     /** Account where the file to synchronize belongs */
     private Account mAccount;
 
     /** Android context; necessary to send requests to the download service */
     private Context mContext;
+
+    /** Locally cached information about folder to synchronize */
+    private OCFile mLocalFolder;
 
     /** Files and folders contained in the synchronized folder after a successful operation */
     private List<OCFile> mChildren;
@@ -110,7 +113,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * @param   currentSyncTime         Time stamp for the synchronization process in progress.
      */
     public SynchronizeFolderOperation(Context context, String remotePath, Account account, long currentSyncTime){
-        mLocalFolder = new OCFile(remotePath);
+        mRemotePath = remotePath;
         mCurrentSyncTime = currentSyncTime;
         mAccount = account;
         mContext = context;
@@ -153,13 +156,15 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
 
-        /// perform the download
         synchronized(mCancellationRequested) {
             if (mCancellationRequested.get()) {
                 return new RemoteOperationResult(new OperationCancelledException());
             }
         }
 
+        // get locally cached information about folder 
+        OCFile mLocalFolder = getStorageManager().getFileByPath(mRemotePath);   
+        
         result = checkForChanges(client);
 
         if (result.isSuccess()) {
@@ -175,15 +180,13 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {
+        Log_OC.d(TAG, "Checking changes in " + mAccount.name + mRemotePath);
+
         mRemoteFolderChanged = true;
         RemoteOperationResult result = null;
-        String remotePath = null;
-
-        remotePath = mLocalFolder.getRemotePath();
-        Log_OC.d(TAG, "Checking changes in " + mAccount.name + remotePath);
-
+        
         // remote request
-        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(remotePath);
+        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mRemotePath);
         result = operation.execute(client);
         if (result.isSuccess()){
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
@@ -194,7 +197,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
             result = new RemoteOperationResult(ResultCode.OK);
 
-            Log_OC.i(TAG, "Checked " + mAccount.name + remotePath + " : " +
+            Log_OC.i(TAG, "Checked " + mAccount.name + mRemotePath + " : " +
                     (mRemoteFolderChanged ? "changed" : "not changed"));
 
         } else {
@@ -203,10 +206,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 removeLocalFolder();
             }
             if (result.isException()) {
-                Log_OC.e(TAG, "Checked " + mAccount.name + remotePath  + " : " +
+                Log_OC.e(TAG, "Checked " + mAccount.name + mRemotePath  + " : " +
                         result.getLogMessage(), result.getException());
             } else {
-                Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + " : " +
+                Log_OC.e(TAG, "Checked " + mAccount.name + mRemotePath + " : " +
                         result.getLogMessage());
             }
         }
@@ -216,10 +219,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
 
     private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
-        String remotePath = mLocalFolder.getRemotePath();
-        ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(remotePath);
+        ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(mRemotePath);
         RemoteOperationResult result = operation.execute(client);
-        Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
+        Log_OC.d(TAG, "Synchronizing " + mAccount.name + mRemotePath);
 
         if (result.isSuccess()) {
             synchronizeData(result.getData(), client);
@@ -266,9 +268,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private void synchronizeData(ArrayList<Object> folderAndFiles, OwnCloudClient client) {
         FileDataStorageManager storageManager = getStorageManager();
         
-        // get 'fresh data' from the database
-        mLocalFolder = storageManager.getFileByPath(mLocalFolder.getRemotePath());
-
         // parse data from remote folder
         OCFile remoteFolder = fillOCFile((RemoteFile)folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
