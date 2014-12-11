@@ -26,6 +26,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.OperationCancelledException;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -48,6 +49,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 //import android.support.v4.content.LocalBroadcastManager;
 
@@ -96,6 +98,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     /** 'True' means that the remote folder changed and should be fetched */
     private boolean mRemoteFolderChanged;
+    private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
 
 
     /**
@@ -149,6 +152,13 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFailsInFavouritesFound = 0;
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
+
+        /// perform the download
+        synchronized(mCancellationRequested) {
+            if (mCancellationRequested.get()) {
+                return new RemoteOperationResult(new OperationCancelledException());
+            }
+        }
 
         result = checkForChanges(client);
 
@@ -512,6 +522,14 @@ public class SynchronizeFolderOperation extends SyncOperation {
         i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
         i.putExtra(FileDownloader.EXTRA_FILE, file);
         mContext.startService(i);
+    }
+
+    /**
+     * Cancel operation
+     */
+    public void cancel(){
+        // WIP Cancel the sync operation
+        mCancellationRequested.set(true);
     }
 
     public boolean getRemoteFolderChanged() {

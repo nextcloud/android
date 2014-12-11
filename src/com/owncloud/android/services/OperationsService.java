@@ -26,6 +26,7 @@ import java.util.concurrent.ConcurrentMap;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -134,7 +135,7 @@ public class OperationsService extends Service {
     private ServiceHandler mOperationsHandler;
     private OperationsServiceBinder mOperationsBinder;
     
-    private ServiceHandler mSyncFolderHandler;
+    private SyncFolderHandler mSyncFolderHandler;
     
     /**
      * Service initialization
@@ -151,7 +152,7 @@ public class OperationsService extends Service {
         /// Separated worker thread for download of folders (WIP)
         thread = new HandlerThread("Syncfolder thread", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
-        mSyncFolderHandler = new ServiceHandler(thread.getLooper(), this);
+        mSyncFolderHandler = new SyncFolderHandler(thread.getLooper(), this);
     }
 
     
@@ -163,19 +164,35 @@ public class OperationsService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        // WIP: for the moment, only SYNC_FOLDER and CANCEL_SYNC_FOLDER is expected here;
+        // the rest of the operations are requested through the Binder
         if (ACTION_SYNC_FOLDER.equals(intent.getAction())) {
-            // WIP: for the moment, only SYNC_FOLDER is expected here; the rest of the operations are requested through
-            // the Binder
+            if (!intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_REMOTE_PATH)) {
+                Log_OC.e(TAG, "Not enough information provided in intent");
+                return START_NOT_STICKY;
+            }
+            Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
+            OCFile file = intent.getParcelableExtra(EXTRA_REMOTE_PATH);
+            Pair<Account, OCFile> itemSyncKey =  new Pair<Account , OCFile>(account, file);
+
             Pair<Target, RemoteOperation> itemToQueue = newOperation(intent);
             if (itemToQueue != null) {
-                mSyncFolderHandler.mPendingOperations.add(itemToQueue);
+                mSyncFolderHandler.add(account, file, (SynchronizeFolderOperation)itemToQueue.second);
                 Message msg = mSyncFolderHandler.obtainMessage();
                 msg.arg1 = startId;
+                msg.obj = itemSyncKey;
                 mSyncFolderHandler.sendMessage(msg);
             }
-
         } else if (ACTION_CANCEL_SYNC_FOLDER.equals(intent.getAction())) {
+            if (!intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_REMOTE_PATH)) {
+                Log_OC.e(TAG, "Not enough information provided in intent");
+                return START_NOT_STICKY;
+            }
+            Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
+            OCFile file = intent.getParcelableExtra(EXTRA_REMOTE_PATH);
 
+            // Cancel operation
+            mSyncFolderHandler.cancel(account,file);
         } else {
             Message msg = mOperationsHandler.obtainMessage();
             msg.arg1 = startId;
@@ -211,7 +228,6 @@ public class OperationsService extends Service {
         super.onDestroy();
     }
 
-
     /**
      * Provides a binder object that clients can use to perform actions on the queue of operations, 
      * except the addition of new operations. 
@@ -232,7 +248,7 @@ public class OperationsService extends Service {
         return false;   // not accepting rebinding (default behaviour)
     }
 
-    
+
     /**
      *  Binder to let client components to perform actions on the queue of operations.
      * 
@@ -344,8 +360,126 @@ public class OperationsService extends Service {
         }
 
     }
-    
-    
+
+
+    /**
+     * SyncFolder worker. Performs the pending operations in the order they were requested.
+     *
+     * Created with the Looper of a new thread, started in {@link OperationsService#onCreate()}.
+     */
+    private static class SyncFolderHandler extends Handler {
+
+        // don't make it a final class, and don't remove the static ; lint will warn about a possible memory leak
+
+        OperationsService mService;
+
+        private ConcurrentMap<String,SynchronizeFolderOperation> mPendingOperations =
+                new ConcurrentHashMap<String,SynchronizeFolderOperation>();
+        private RemoteOperation mCurrentOperation = null;
+        private OwnCloudClient mOwnCloudClient = null;
+        private FileDataStorageManager mStorageManager;
+        private SynchronizeFolderOperation mCurrentSyncOperation;
+
+
+        public SyncFolderHandler(Looper looper, OperationsService service) {
+            super(looper);
+            if (service == null) {
+                throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
+            }
+            mService = service;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            Pair<Account, OCFile> itemSyncKey = (Pair<Account, OCFile>) msg.obj;
+            nextOperation(itemSyncKey.first,itemSyncKey.second);
+            mService.stopSelf(msg.arg1);
+        }
+
+
+        /**
+         * Performs the next operation in the queue
+         */
+        private void nextOperation(Account account, OCFile file) {
+
+            String syncKey = buildRemoteName(account,file);
+
+            synchronized(mPendingOperations) {
+                mCurrentSyncOperation = mPendingOperations.get(syncKey);
+            }
+
+            if (mCurrentSyncOperation != null) {
+
+                RemoteOperationResult operationResult = null;
+                try {
+
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(account, mService);
+                    mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                            getClientFor(ocAccount, mService);
+                    mStorageManager = new FileDataStorageManager(
+                            account,
+                            mService.getContentResolver()
+                    );
+
+
+                    /// perform the operation
+                    if (mCurrentOperation instanceof SyncOperation) {
+                        operationResult = ((SyncOperation)mCurrentOperation).execute(mOwnCloudClient, mStorageManager);
+                    } else {
+                        operationResult = mCurrentOperation.execute(mOwnCloudClient);
+                    }
+
+                } catch (AccountsException e) {
+                    Log_OC.e(TAG, "Error while trying to get autorization", e);
+                    operationResult = new RemoteOperationResult(e);
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Error while trying to get autorization", e);
+                    operationResult = new RemoteOperationResult(e);
+
+                } finally {
+                    synchronized(mPendingOperations) {
+                        mPendingOperations.remove(syncKey);
+                    }
+                }
+
+                /// TODO notify operation result if needed
+
+            }
+        }
+
+        public void add(Account account, OCFile file, SynchronizeFolderOperation syncFolderOperation){
+            String syncKey = buildRemoteName(account,file);
+            mPendingOperations.putIfAbsent(syncKey,syncFolderOperation);
+        }
+
+        /**
+         * Cancels a pending or current sync operation.
+         *
+         * @param account       Owncloud account where the remote file is stored.
+         * @param file          A file in the queue of pending downloads
+         */
+        public void cancel(Account account, OCFile file) {
+            SynchronizeFolderOperation syncOperation = null;
+            synchronized (mPendingOperations) {
+                syncOperation = mPendingOperations.remove(buildRemoteName(account, file));
+            }
+            if (syncOperation != null) {
+                syncOperation.cancel();
+            }
+        }
+
+        /**
+         * Builds a key from the account and file to download
+         *
+         * @param account   Account where the file to download is stored
+         * @param file      File to download
+         */
+        private String buildRemoteName(Account account, OCFile file) {
+            return account.name + file.getRemotePath();
+        }
+    }
+
+
     /** 
      * Operations worker. Performs the pending operations in the order they were requested. 
      * 
@@ -358,7 +492,7 @@ public class OperationsService extends Service {
         OperationsService mService;
         
         
-        private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations = 
+        private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations =
                 new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
         private RemoteOperation mCurrentOperation = null;
         private Target mLastTarget = null;
@@ -690,6 +824,4 @@ public class OperationsService extends Service {
         }
         Log_OC.d(TAG, "Called " + count + " listeners");
     }
-    
-
 }
