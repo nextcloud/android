@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Priporoči prijateljem</string>
   <string name="prefs_feedback">Odziv</string>
   <string name="prefs_imprint">Natis</string>
+  <string name="prefs_remember_last_share_location">Zapomni si mesto souporabe</string>
+  <string name="prefs_remember_last_upload_location_summary">Zapomni si zadnje mesto za pošiljanje v oblak</string>
   <string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
   <string name="recommend_text">Želim ti predstaviti %1$s na pametnem telefonu!\nPrejmeš ga lahko na: %2$s</string>
   <string name="auth_check_server">Preveri strežnik</string>
@@ -57,9 +59,14 @@
   <string name="uploader_wrn_no_content_text">Ni prejete vsebine. Ni datotek za pošiljanje.</string>
   <string name="uploader_error_forbidden_content">Oblak %1$s nima nastavljenih dovoljenj za dostop do vsebine v souporabi</string>
   <string name="uploader_info_uploading">Pošiljanje</string>
+  <string name="file_list_seconds_ago">pred nekaj sekundami</string>
   <string name="file_list_empty">Tukaj še ni ničesar. Najprej je treba datoteke poslati v oblak!</string>
   <string name="file_list_loading">Poteka nalaganje ...</string>
   <string name="local_file_list_empty">V tej mapi ni datotek.</string>
+  <string name="file_list_folder">mapa</string>
+  <string name="file_list_folders">mape</string>
+  <string name="file_list_file">datoteka</string>
+  <string name="file_list_files">datoteke</string>
   <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
   <string name="filedetails_size">Velikost:</string>
   <string name="filedetails_type">Vrsta:</string>
@@ -281,7 +288,7 @@
   <string name="saml_authentication_wrong_pass">Napačno geslo</string>
   <string name="actionbar_move">Premakni</string>
   <string name="file_list_empty_moving">Ni vsebine in datotek. Lahko ustvarite na primer mapo.</string>
-  <string name="move_choose_button_text">Izbor</string>
+  <string name="folder_picker_choose_button_text">Izbor</string>
   <string name="move_file_not_found">Ni mogoče premakniti datoteke. Preverite, ali obstaja.</string>
   <string name="move_file_invalid_into_descendent">Ni mogoče premakniti mape v podrejeno mapo.</string>
   <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja.</string>
@@ -289,4 +296,5 @@
   <string name="forbidden_permissions_move">med premikanjem datoteke</string>
   <string name="prefs_category_instant_uploading">Takojšnje pošiljanje v oblak</string>
   <string name="prefs_category_security">Varnost</string>
+  <string name="prefs_instant_video_upload_path_title">Pot videa za pošiljanje</string>
 </resources>

@@ -51,9 +51,14 @@
   <string name="uploader_wrn_no_content_text">Intet innhold ble mottatt. Intet å laste opp.</string>
   <string name="uploader_error_forbidden_content">%1$s har ikke tilgang til det delte innholdet</string>
   <string name="uploader_info_uploading">Laster opp</string>
+  <string name="file_list_seconds_ago">for få sekunder siden</string>
   <string name="file_list_empty">Ingenting her. Last opp noe!</string>
   <string name="file_list_loading">Laster...</string>
   <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
+  <string name="file_list_folder">mappe</string>
+  <string name="file_list_folders">mapper</string>
+  <string name="file_list_file">fil</string>
+  <string name="file_list_files">filer</string>
   <string name="filedetails_select_file">Trykk på en fil for å vise ekstra informasjon.</string>
   <string name="filedetails_size">Størrelse:</string>
   <string name="filedetails_type">Type:</string>
@@ -273,7 +278,7 @@
   <string name="saml_authentication_wrong_pass">Feil passord</string>
   <string name="actionbar_move">Flytt</string>
   <string name="file_list_empty_moving">Ingenting her. Du kan legge til en mappe!</string>
-  <string name="move_choose_button_text">Velg</string>
+  <string name="folder_picker_choose_button_text">Velg</string>
   <string name="move_file_not_found">Kan ikke flytte. Sjekk om filen eksisterer.</string>
   <string name="move_file_invalid_into_descendent">Det er ikke mulig å flytte en mappe inn i sin egen undermappe</string>
   <string name="move_file_invalid_overwrite">Filen finnes allerede i målmappen</string>

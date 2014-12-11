@@ -50,9 +50,14 @@
   <string name="uploader_wrn_no_content_text">Nem jött tartalom. Nincs mit feltölteni.</string>
   <string name="uploader_error_forbidden_content">%1$s nem jogosult a megosztott tartalom elérésére</string>
   <string name="uploader_info_uploading">Feltöltés</string>
+  <string name="file_list_seconds_ago">pár másodperce</string>
   <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
   <string name="file_list_loading">Betöltés...</string>
   <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
+  <string name="file_list_folder">mappa</string>
+  <string name="file_list_folders">mappák</string>
+  <string name="file_list_file">fájl</string>
+  <string name="file_list_files">fájlok</string>
   <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
   <string name="filedetails_type">Tipus:</string>
@@ -243,6 +248,6 @@
   <string name="prefs_category_accounts">Fiókok</string>
   <string name="saml_authentication_required_text">Felhasználóazonosítás szükséges</string>
   <string name="saml_authentication_wrong_pass">Hibás jelszó</string>
-  <string name="move_choose_button_text">Válasszon</string>
+  <string name="folder_picker_choose_button_text">Válasszon</string>
   <string name="prefs_category_security">Biztonság</string>
 </resources>

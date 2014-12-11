@@ -52,9 +52,14 @@
   <string name="uploader_wrn_no_content_text">没有接收到内容，无可上传。</string>
   <string name="uploader_error_forbidden_content">%1$s未被允许访问共享内容。</string>
   <string name="uploader_info_uploading">上传</string>
+  <string name="file_list_seconds_ago">秒前</string>
   <string name="file_list_empty">这里还什么都没有。上传些东西吧！</string>
   <string name="file_list_loading">载入中....</string>
   <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
+  <string name="file_list_folder">文件夹</string>
+  <string name="file_list_folders">文件夹</string>
+  <string name="file_list_file">文件</string>
+  <string name="file_list_files">文件</string>
   <string name="filedetails_select_file">点击一个文件来显示额外的信息。</string>
   <string name="filedetails_size">大小：</string>
   <string name="filedetails_type">类型：</string>
@@ -273,7 +278,7 @@
   <string name="saml_authentication_wrong_pass">错误密码</string>
   <string name="actionbar_move">移动</string>
   <string name="file_list_empty_moving">这里还什么都没有。上传些东西吧！</string>
-  <string name="move_choose_button_text">选择(&amp;C)...</string>
+  <string name="folder_picker_choose_button_text">选择(&amp;C)...</string>
   <string name="move_file_not_found">无法移动。请检查文件是否存在</string>
   <string name="move_file_invalid_into_descendent">b不能够把一个目录移动到它的下级</string>
   <string name="move_file_invalid_overwrite">该文件已经存在在目标文件夹</string>

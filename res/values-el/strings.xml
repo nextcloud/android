@@ -11,6 +11,10 @@
   <string name="actionbar_settings">Ρυθμίσεις</string>
   <string name="actionbar_see_details">Λεπτομέρειες</string>
   <string name="actionbar_send_file">Αποστολή</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Νεότερο - Παλαιότερο</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Γενικά</string>
@@ -51,9 +55,14 @@
   <string name="uploader_wrn_no_content_text">Δεν ελήφθη περιεχόμενο. Δεν υπάρχει τίποτα να μεταφορτώσετε.</string>
   <string name="uploader_error_forbidden_content">Ο %1$s δεν επιτρέπεται να έχει πρόσβαση στο κοινόχρηστο περιεχόμενο</string>
   <string name="uploader_info_uploading">Μεταφόρτωση</string>
+  <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
   <string name="file_list_empty">Δεν υπάρχει τίποτα εδώ. Ανεβάστε κάτι!</string>
   <string name="file_list_loading">Φόρτωση ...</string>
   <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
+  <string name="file_list_folder">φάκελος</string>
+  <string name="file_list_folders">φάκελοι</string>
+  <string name="file_list_file">αρχείο</string>
+  <string name="file_list_files">αρχεία</string>
   <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
   <string name="filedetails_size">Μέγεθος:</string>
   <string name="filedetails_type">Τύπος:</string>
@@ -275,7 +284,7 @@
   <string name="saml_authentication_wrong_pass">Εσφαλμένο συνθηματικό</string>
   <string name="actionbar_move">Μετακίνηση</string>
   <string name="file_list_empty_moving">Δεν υπάρχει τίποτα εδώ. Μπορείτε να προσθέσετε ένα φάκελο!</string>
-  <string name="move_choose_button_text">Επιλέξτε</string>
+  <string name="folder_picker_choose_button_text">Επιλέξτε</string>
   <string name="move_file_not_found">Αδύνατη η μετακίνηση. Παρακαλώ ελέγξτε αν ο φάκελος υπάρχει</string>
   <string name="move_file_invalid_into_descendent">Δεν είναι δυνατό να μετακινηθεί ο φάκελος σε έναν απογονικό</string>
   <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>

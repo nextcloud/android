@@ -35,9 +35,11 @@
   <string name="prefs_log_summary_history">Mostra i log registrati</string>
   <string name="prefs_log_delete_history_button">Elimina la cronologia</string>
   <string name="prefs_help">Aiuto</string>
-  <string name="prefs_recommend">Consiglia ad un amico</string>
+  <string name="prefs_recommend">Consiglia a un amico</string>
   <string name="prefs_feedback">Segnalazioni</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Ricorda la posizione della condivisione</string>
+  <string name="prefs_remember_last_upload_location_summary">Ricorda l\'ultima posizione di caricamento della condivisione</string>
   <string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
   <string name="recommend_text">Vorrei invitarti a usare %1$s sul tuo smartphone!\nScarica qui: %2$s</string>
   <string name="auth_check_server">Verifica server</string>
@@ -57,9 +59,14 @@
   <string name="uploader_wrn_no_content_text">Non è stato ricevuto alcun contenuto. Niente da caricare.</string>
   <string name="uploader_error_forbidden_content">%1$s non è abilitato ad accedere al contenuto condiviso</string>
   <string name="uploader_info_uploading">Caricamento in corso</string>
+  <string name="file_list_seconds_ago">secondi fa</string>
   <string name="file_list_empty">Non c\'è niente qui. Carica qualcosa!</string>
   <string name="file_list_loading">Caricamento in corso...</string>
   <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
+  <string name="file_list_folder">cartella</string>
+  <string name="file_list_folders">cartelle</string>
+  <string name="file_list_file">file</string>
+  <string name="file_list_files">file</string>
   <string name="filedetails_select_file">Tocca un file per visualizzare informazioni aggiuntive.</string>
   <string name="filedetails_size">Dimensione:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -74,7 +81,7 @@
   <string name="common_no">No</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel_download">Annulla lo scaricamento</string>
-  <string name="common_cancel_upload">Annulla invio</string>
+  <string name="common_cancel_upload">Annulla caricamento</string>
   <string name="common_cancel">Annulla</string>
   <string name="common_save_exit">Salva ed esci</string>
   <string name="common_error">Errore</string>
@@ -242,7 +249,7 @@
   <string name="conflict_message">Il file remoto %s non è sincronizzato con il file locale. Se continui, il contenuto del file sarà sostituito sul server.</string>
   <string name="conflict_keep_both">Mantieni entrambi</string>
   <string name="conflict_overwrite">Sovrascrivi</string>
-  <string name="conflict_dont_upload">Non inviare</string>
+  <string name="conflict_dont_upload">Non caricare</string>
   <string name="preview_image_description">Anteprima dell\'immagine</string>
   <string name="preview_image_error_unknown_format">Questa immagine non può essere mostrata</string>
   <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
@@ -276,12 +283,12 @@
   <string name="actionbar_logger">Registri</string>
   <string name="log_send_history_button">Invia cronologia</string>
   <string name="log_mail_subject">Registri applicazione ownCloud Android</string>
-  <string name="log_progress_dialog_text">Caricamento dati...</string>
+  <string name="log_progress_dialog_text">Caricamento dati in corso...</string>
   <string name="saml_authentication_required_text">Autenticazione richiesta</string>
   <string name="saml_authentication_wrong_pass">Password errata</string>
   <string name="actionbar_move">Sposta</string>
   <string name="file_list_empty_moving">Qui non c\'è niente. Puoi aggiungere una cartella.</string>
-  <string name="move_choose_button_text">Scegli</string>
+  <string name="folder_picker_choose_button_text">Scegli</string>
   <string name="move_file_not_found">Impossibile spostare. Assicurati che il file esista</string>
   <string name="move_file_invalid_into_descendent">Impossibile spostare una cartella in una cartella inferiore</string>
   <string name="move_file_invalid_overwrite">Il file esiste già nella cartella di destinazione</string>
@@ -289,4 +296,5 @@
   <string name="forbidden_permissions_move">per spostare questo file</string>
   <string name="prefs_category_instant_uploading">Caricamenti istantanei</string>
   <string name="prefs_category_security">Protezione</string>
+  <string name="prefs_instant_video_upload_path_title">Percorso di caricamento video</string>
 </resources>

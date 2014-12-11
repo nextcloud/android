@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Recomendar a um amigo</string>
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Lembre-se do local de compartilhamento</string>
+  <string name="prefs_remember_last_upload_location_summary">Lembrar do último local de envio de compartilhamento</string>
   <string name="recommend_subject">Tentar %1$s em seu smartfone!</string>
   <string name="recommend_text">Gostaria de convida-lo a usar %1$s em seu smartphone!\nBaixe aqui: %2$s</string>
   <string name="auth_check_server">Verificar Servidor</string>
@@ -57,9 +59,14 @@
   <string name="uploader_wrn_no_content_text">Nenhum conteúdo foi recebido. Nada para enviar.</string>
   <string name="uploader_error_forbidden_content">%1$s não é permitido acessar o conteúdo compartilhado</string>
   <string name="uploader_info_uploading">Enviando</string>
+  <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Nada aqui. Envie alguma coisa!</string>
   <string name="file_list_loading">Carregando...</string>
   <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
+  <string name="file_list_folder">pasta</string>
+  <string name="file_list_folders">pastas</string>
+  <string name="file_list_file">arquivo</string>
+  <string name="file_list_files">arquivos</string>
   <string name="filedetails_select_file">Toque em um arquivo para mostrar informações adicionais.</string>
   <string name="filedetails_size">Tamanho:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -281,7 +288,7 @@
   <string name="saml_authentication_wrong_pass">Senha incorreta</string>
   <string name="actionbar_move">Mover</string>
   <string name="file_list_empty_moving">Nada aqui. Você pode adicionar uma pasta!</string>
-  <string name="move_choose_button_text">Escolher</string>
+  <string name="folder_picker_choose_button_text">Escolher</string>
   <string name="move_file_not_found">Não é possível mover. Por favor verifique se o arquivo existe</string>
   <string name="move_file_invalid_into_descendent">Não é possível mover a pasta para uma descendente</string>
   <string name="move_file_invalid_overwrite">O arquivo já existe na pasta de destino</string>
@@ -289,4 +296,5 @@
   <string name="forbidden_permissions_move">mover este arquivo</string>
   <string name="prefs_category_instant_uploading">Envios Instantâneos</string>
   <string name="prefs_category_security">Segurança</string>
+  <string name="prefs_instant_video_upload_path_title">Enviar o Caminho do Vídeo</string>
 </resources>

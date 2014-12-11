@@ -55,9 +55,14 @@
   <string name="uploader_wrn_no_content_text">Ez da edukirik jaso. Ez dago ezer igotzeko.</string>
   <string name="uploader_error_forbidden_content">%1$s-(e)k ez du baimenik elkarbanatutako edukian sartzeko</string>
   <string name="uploader_info_uploading">Igotzen</string>
+  <string name="file_list_seconds_ago">segundu</string>
   <string name="file_list_empty">Ez dago ezer. Igo zerbait!</string>
   <string name="file_list_loading">Kargatzen...</string>
   <string name="local_file_list_empty">Ez dago fitxategirik karpeta honetan.</string>
+  <string name="file_list_folder">karpeta</string>
+  <string name="file_list_folders">Karpetak</string>
+  <string name="file_list_file">fitxategia</string>
+  <string name="file_list_files">fitxategiak</string>
   <string name="filedetails_select_file">Sakatu fitxategi baten gainean informazio gehiago lortzeko</string>
   <string name="filedetails_size">Tamaina:</string>
   <string name="filedetails_type">Mota:</string>
@@ -271,7 +276,7 @@ Mesedez, baimendu berriz</string>
   <string name="saml_authentication_required_text">Autentikazioa beharrezkoa</string>
   <string name="saml_authentication_wrong_pass">Pasahitz okerra</string>
   <string name="actionbar_move">Mugitu</string>
-  <string name="move_choose_button_text">Aukeratu</string>
+  <string name="folder_picker_choose_button_text">Aukeratu</string>
   <string name="prefs_category_instant_uploading">Berehalako Igoerak</string>
   <string name="prefs_category_security">Segurtasuna</string>
 </resources>

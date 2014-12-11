@@ -11,6 +11,12 @@
   <string name="actionbar_settings">設定</string>
   <string name="actionbar_see_details">詳細資料</string>
   <string name="actionbar_send_file">寄出</string>
+  <string name="actionbar_sort">排序</string>
+  <string name="actionbar_sort_title">排序依照</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>最新 - 最舊</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">一般</string>
@@ -32,6 +38,8 @@
   <string name="prefs_recommend">推薦給朋友</string>
   <string name="prefs_feedback">反饋</string>
   <string name="prefs_imprint">法律聲明</string>
+  <string name="prefs_remember_last_share_location">記住分享位置</string>
+  <string name="prefs_remember_last_upload_location_summary">記住上次分享上傳位置</string>
   <string name="recommend_subject">在您的手機中試用%1$s!</string>
   <string name="recommend_text">我想邀請您在您的手機上使用 %1$s ! 可以由這兒下載: %2$s</string>
   <string name="auth_check_server">檢查伺服器</string>
@@ -51,9 +59,14 @@
   <string name="uploader_wrn_no_content_text">沒接到任何內容。沒有什麼可上載。</string>
   <string name="uploader_error_forbidden_content">%1$s 並沒有被允許存取分享的內容</string>
   <string name="uploader_info_uploading">上傳中</string>
+  <string name="file_list_seconds_ago">幾秒前</string>
   <string name="file_list_empty">這裡還沒有東西，上傳一些吧！</string>
   <string name="file_list_loading">載入中…</string>
   <string name="local_file_list_empty">這個目錄中沒有任何檔案.</string>
+  <string name="file_list_folder">資料夾</string>
+  <string name="file_list_folders">資料夾</string>
+  <string name="file_list_file">檔案</string>
+  <string name="file_list_files">檔案</string>
   <string name="filedetails_select_file">在檔案上輕觸來顯示更多資訊。</string>
   <string name="filedetails_size">容量:</string>
   <string name="filedetails_type">類型:</string>
@@ -229,8 +242,8 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">只使用 WiFi 上傳</string>
-  <string name="instant_video_upload_on_wifi">只透過無線網路來執行即時影像上傳的功能</string>
+  <string name="instant_upload_on_wifi">只使用 WiFi 來執行即時圖片上傳的功能</string>
+  <string name="instant_video_upload_on_wifi">只使用 WiFi 來執行即時影像上傳的功能</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">更新衝突</string>
   <string name="conflict_message">遠端檔案 %s 未同步到本地. 繼續將取代伺服器上的文件.</string>
@@ -275,7 +288,7 @@
   <string name="saml_authentication_wrong_pass">密碼錯誤</string>
   <string name="actionbar_move">移動</string>
   <string name="file_list_empty_moving">找不到任何檔案. 你可以新增一個目錄!</string>
-  <string name="move_choose_button_text">選擇</string>
+  <string name="folder_picker_choose_button_text">選擇</string>
   <string name="move_file_not_found">無法搬移. 請檢查該檔案是否存在</string>
   <string name="move_file_invalid_into_descendent">把一個目錄搬移到其底下的子目錄是不可能的</string>
   <string name="move_file_invalid_overwrite">這個檔案已經存在於目的目錄中</string>

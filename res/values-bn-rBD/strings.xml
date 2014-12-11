@@ -50,6 +50,7 @@
   <string name="uploader_wrn_no_content_text">কোন কনটেনট আসেনি৷ আপলোডের কনটেনট নেই</string>
   <string name="uploader_error_forbidden_content">এই যৌথ কনটেন্ট এ %1$s এর প্রবেশ অনুমোদিত নয়</string>
   <string name="uploader_info_uploading">আপলোড করা হচ্ছে</string>
+  <string name="file_list_seconds_ago">সেকেন্ড পূর্বে</string>
   <string name="file_list_empty">এখানে কিছুই নেই। কিছু আপলোড করুন !</string>
   <string name="file_list_loading">লোড হচ্ছে....</string>
   <string name="local_file_list_empty">এই ফোলডারে কোন ফাইল নেই</string>
@@ -264,7 +265,7 @@
   <string name="saml_authentication_wrong_pass">ভুল কুটশব্দ</string>
   <string name="actionbar_move">সরাও</string>
   <string name="file_list_empty_moving">এখানে কিছু নেই। একটি ফোল্ডার যোগ করতে পারেন!</string>
-  <string name="move_choose_button_text">বেছে নিন</string>
+  <string name="folder_picker_choose_button_text">বেছে নিন</string>
   <string name="move_file_not_found">সরাতে ব্যার্থ হলো। ফাইলটি রয়েছে কিনা দেখুন।</string>
   <string name="prefs_category_security">নিরাপত্তা</string>
 </resources>

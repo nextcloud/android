@@ -38,6 +38,8 @@
   <string name="prefs_recommend">友達に推薦</string>
   <string name="prefs_feedback">フィードバック</string>
   <string name="prefs_imprint">インプリント</string>
+  <string name="prefs_remember_last_share_location">共有場所を記憶する</string>
+  <string name="prefs_remember_last_upload_location_summary">最後に共有アップロードした場所を記憶する</string>
   <string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
   <string name="recommend_text">スマートフォンで %1$s を利用してみませんか！
 ここからダウンロードしてください: %2$s</string>
@@ -58,9 +60,14 @@
   <string name="uploader_wrn_no_content_text">コンテンツを受信しませんでした。アップロードするものはありません。</string>
   <string name="uploader_error_forbidden_content">%1$sで共有コンテンツへのアクセスが許可されていません。</string>
   <string name="uploader_info_uploading">アップロード中</string>
+  <string name="file_list_seconds_ago">数秒前</string>
   <string name="file_list_empty">ここには何もありません。何かアップロードしてください。</string>
   <string name="file_list_loading">読込中 ...</string>
   <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
+  <string name="file_list_folder">フォルダ</string>
+  <string name="file_list_folders">フォルダ</string>
+  <string name="file_list_file">ファイル</string>
+  <string name="file_list_files">ファイル</string>
   <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
   <string name="filedetails_size">サイズ:</string>
   <string name="filedetails_type">タイプ:</string>
@@ -282,7 +289,7 @@
   <string name="saml_authentication_wrong_pass">無効なパスワード</string>
   <string name="actionbar_move">移動</string>
   <string name="file_list_empty_moving">ファイルが有りません。フォルダを追加してください。</string>
-  <string name="move_choose_button_text">選択</string>
+  <string name="folder_picker_choose_button_text">選択</string>
   <string name="move_file_not_found">移動できません。ファイルがあるか確認してください。</string>
   <string name="move_file_invalid_into_descendent">フォルダを子フォルダへ移動することはできません。</string>
   <string name="move_file_invalid_overwrite">そのファイルは、宛先フォルダに既に存在しています。</string>
@@ -290,4 +297,5 @@
   <string name="forbidden_permissions_move">このファイルを移動</string>
   <string name="prefs_category_instant_uploading">自動アップロード</string>
   <string name="prefs_category_security">セキュリティ</string>
+  <string name="prefs_instant_video_upload_path_title">動画のアップロードパス</string>
 </resources>

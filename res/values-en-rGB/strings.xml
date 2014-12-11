@@ -38,6 +38,8 @@
   <string name="prefs_recommend">Recommend to a friend</string>
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Remember share location</string>
+  <string name="prefs_remember_last_upload_location_summary">Remember last share upload location</string>
   <string name="recommend_subject">Try %1$s on your smartphone!</string>
   <string name="recommend_text">I want to invite you to use %1$s on your smartphone!\nDownload here: %2$s</string>
   <string name="auth_check_server">Check Server</string>
@@ -57,9 +59,14 @@
   <string name="uploader_wrn_no_content_text">No content was received. Nothing to upload.</string>
   <string name="uploader_error_forbidden_content">%1$s is not allowed to access the shared content</string>
   <string name="uploader_info_uploading">Uploading</string>
+  <string name="file_list_seconds_ago">seconds ago</string>
   <string name="file_list_empty">Nothing in here. Upload something!</string>
   <string name="file_list_loading">Loading...</string>
   <string name="local_file_list_empty">There are no files in this folder.</string>
+  <string name="file_list_folder">folder</string>
+  <string name="file_list_folders">folders</string>
+  <string name="file_list_file">file</string>
+  <string name="file_list_files">files</string>
   <string name="filedetails_select_file">Tap on a file to display additional information.</string>
   <string name="filedetails_size">Size:</string>
   <string name="filedetails_type">Type:</string>
@@ -281,7 +288,7 @@
   <string name="saml_authentication_wrong_pass">Incorrect password</string>
   <string name="actionbar_move">Move</string>
   <string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
-  <string name="move_choose_button_text">Choose</string>
+  <string name="folder_picker_choose_button_text">Choose</string>
   <string name="move_file_not_found">Unable to move. Please check whether the file exists</string>
   <string name="move_file_invalid_into_descendent">It is not possible to move a folder into a descendant</string>
   <string name="move_file_invalid_overwrite">The file exists already in the destination folder</string>
@@ -289,4 +296,5 @@
   <string name="forbidden_permissions_move">to move this file</string>
   <string name="prefs_category_instant_uploading">Instant Uploads</string>
   <string name="prefs_category_security">Security</string>
+  <string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
 </resources>

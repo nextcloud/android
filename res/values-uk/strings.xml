@@ -57,9 +57,14 @@
   <string name="uploader_wrn_no_content_text">Не отримано даних. Нічого завантажувати.</string>
   <string name="uploader_error_forbidden_content">%1$s не може отримати доступ до спільного контенту</string>
   <string name="uploader_info_uploading">Завантаження</string>
+  <string name="file_list_seconds_ago">секунди тому</string>
   <string name="file_list_empty">Тут нічого немає. Відвантажте що-небудь!</string>
   <string name="file_list_loading">Завантаження...</string>
   <string name="local_file_list_empty">В цій теці немає файлів.</string>
+  <string name="file_list_folder">тека</string>
+  <string name="file_list_folders">теки</string>
+  <string name="file_list_file">файл</string>
+  <string name="file_list_files">файли</string>
   <string name="filedetails_select_file">Натисніть на файлі для відображення додаткової інформації</string>
   <string name="filedetails_size">Розмір:</string>
   <string name="filedetails_type">Тип:</string>
@@ -280,7 +285,7 @@
   <string name="saml_authentication_wrong_pass">Невірний пароль</string>
   <string name="actionbar_move">Перемістити</string>
   <string name="file_list_empty_moving">Тут нічого немає. Ви можете додати теку!</string>
-  <string name="move_choose_button_text">Обрати</string>
+  <string name="folder_picker_choose_button_text">Обрати</string>
   <string name="move_file_not_found">Неможливо перемістити. Будь ласка, перевірте, чи існує файл</string>
   <string name="move_file_invalid_into_descendent">Неможливо перемістити теку до теки-нащадка</string>
   <string name="move_file_invalid_overwrite">Файл вже існує в теці призначення</string>
