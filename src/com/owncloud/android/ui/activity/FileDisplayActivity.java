@@ -41,6 +41,13 @@ import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -216,7 +223,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     @Override
     protected void onStart() {
         super.onStart();
-        getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
+        updateIcon();
     }
 
     @Override
@@ -1052,11 +1059,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 boolean sameAccount = (getAccount() != null && accountName.equals(getAccount().name) && getStorageManager() != null); 
 
                 if (sameAccount) {
-                    mLastSyncFailed = false;
                     if (SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SYNC_FAILED.
                             equals(event)) {
                         mSyncInProgress = false;
                         mLastSyncFailed = true;
+                        updateIcon();
                     }
                     else if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
                         mSyncInProgress = true;
@@ -1142,6 +1149,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
                     setBackgroundText();
                         
+                } else {
+                    Log_OC.d(TAG, "For sync broadcast account changed. Ignore.");
                 }
                 
                 if (synchResult != null) {
@@ -1154,6 +1163,39 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 // in owncloud library with broadcast notifications pending to process
                 removeStickyBroadcast(intent);
             }
+        }
+
+    }
+    
+    /**
+     * If mLastSyncFailed == false, use default app icon. Else, take default
+     * symbol, cross out, and set as app icon.
+     */
+    private void updateIcon() {
+        if (mLastSyncFailed) {
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), DisplayUtils.getSeasonalIconId());
+            Bitmap mutableBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvas = new Canvas(mutableBitmap);
+            Paint paint = new Paint();
+            paint.setColor(Color.RED);
+            paint.setStrokeWidth(5);
+            canvas.drawLine(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
+            Drawable icon = new BitmapDrawable(getResources(), mutableBitmap);
+            getSupportActionBar().setIcon(icon);
+        } else {
+            getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
+        }
+    }
+
+    /**
+     * Make sure that online icon is display when syncing is in progress.
+     */
+    @Override
+    public void setSupportProgressBarIndeterminateVisibility(boolean visible) {
+        super.setSupportProgressBarIndeterminateVisibility(visible);
+        if(visible) {
+            mLastSyncFailed = false;
+            updateIcon();
         }
     }
     
