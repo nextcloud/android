@@ -101,6 +101,7 @@ public class OperationsService extends Service {
     public static final String ACTION_CREATE_FOLDER = "CREATE_FOLDER";
     public static final String ACTION_SYNC_FILE = "SYNC_FILE";
     public static final String ACTION_SYNC_FOLDER = "SYNC_FOLDER";  // for the moment, just to download
+    public static final String ACTION_CANCEL_SYNC_FOLDER = "CANCEL_SYNC_FOLDER";  // for the moment, just to download
     public static final String ACTION_MOVE_FILE = "MOVE_FILE";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
@@ -172,7 +173,9 @@ public class OperationsService extends Service {
                 msg.arg1 = startId;
                 mSyncFolderHandler.sendMessage(msg);
             }
-            
+
+        } else if (ACTION_CANCEL_SYNC_FOLDER.equals(intent.getAction())) {
+
         } else {
             Message msg = mOperationsHandler.obtainMessage();
             msg.arg1 = startId;
