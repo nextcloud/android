@@ -174,12 +174,11 @@ public class OperationsService extends Service {
             Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
             String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
 
-            OCFile file = new OCFile(remotePath);
-            Pair<Account, OCFile> itemSyncKey =  new Pair<Account , OCFile>(account, file);
+            Pair<Account, String> itemSyncKey =  new Pair<Account , String>(account, remotePath);
 
             Pair<Target, RemoteOperation> itemToQueue = newOperation(intent);
             if (itemToQueue != null) {
-                mSyncFolderHandler.add(account, file, (SynchronizeFolderOperation)itemToQueue.second);
+                mSyncFolderHandler.add(account, remotePath, (SynchronizeFolderOperation)itemToQueue.second);
                 Message msg = mSyncFolderHandler.obtainMessage();
                 msg.arg1 = startId;
                 msg.obj = itemSyncKey;
@@ -193,10 +192,8 @@ public class OperationsService extends Service {
             Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
             String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
 
-            OCFile file = new OCFile(remotePath);
-
             // Cancel operation
-            mSyncFolderHandler.cancel(account,file);
+            mSyncFolderHandler.cancel(account,remotePath);
         } else {
             Message msg = mOperationsHandler.obtainMessage();
             msg.arg1 = startId;
@@ -394,8 +391,8 @@ public class OperationsService extends Service {
 
         @Override
         public void handleMessage(Message msg) {
-            Pair<Account, OCFile> itemSyncKey = (Pair<Account, OCFile>) msg.obj;
-            nextOperation(itemSyncKey.first,itemSyncKey.second);
+            Pair<Account, String> itemSyncKey = (Pair<Account, String>) msg.obj;
+            doOperation(itemSyncKey.first, itemSyncKey.second);
             mService.stopSelf(msg.arg1);
         }
 
@@ -403,9 +400,9 @@ public class OperationsService extends Service {
         /**
          * Performs the next operation in the queue
          */
-        private void nextOperation(Account account, OCFile file) {
+        private void doOperation(Account account, String remotePath) {
 
-            String syncKey = buildRemoteName(account,file);
+            String syncKey = buildRemoteName(account,remotePath);
 
             synchronized(mPendingOperations) {
                 mCurrentSyncOperation = mPendingOperations.get(syncKey);
@@ -413,7 +410,6 @@ public class OperationsService extends Service {
 
             if (mCurrentSyncOperation != null) {
 
-                RemoteOperationResult operationResult = null;
                 try {
 
                     OwnCloudAccount ocAccount = new OwnCloudAccount(account, mService);
@@ -424,47 +420,36 @@ public class OperationsService extends Service {
                             mService.getContentResolver()
                     );
 
-
-                    /// perform the operation
-                    if (mCurrentSyncOperation instanceof SyncOperation) {
-                        operationResult = ((SyncOperation)mCurrentSyncOperation).execute(mOwnCloudClient, mStorageManager);
-                    } else {
-                        operationResult = mCurrentSyncOperation.execute(mOwnCloudClient);
-                    }
+                    mCurrentSyncOperation.execute(mOwnCloudClient, mStorageManager);
 
                 } catch (AccountsException e) {
                     Log_OC.e(TAG, "Error while trying to get autorization", e);
-                    operationResult = new RemoteOperationResult(e);
                 } catch (IOException e) {
                     Log_OC.e(TAG, "Error while trying to get autorization", e);
-                    operationResult = new RemoteOperationResult(e);
-
                 } finally {
                     synchronized(mPendingOperations) {
                         mPendingOperations.remove(syncKey);
                     }
                 }
-
-                /// TODO notify operation result if needed
-
             }
         }
 
-        public void add(Account account, OCFile file, SynchronizeFolderOperation syncFolderOperation){
-            String syncKey = buildRemoteName(account,file);
+        public void add(Account account, String remotePath, SynchronizeFolderOperation syncFolderOperation){
+            String syncKey = buildRemoteName(account,remotePath);
             mPendingOperations.putIfAbsent(syncKey,syncFolderOperation);
         }
+
 
         /**
          * Cancels a pending or current sync operation.
          *
          * @param account       Owncloud account where the remote file is stored.
-         * @param file          A file in the queue of pending downloads
+         * @param remotePath    A remote file path
          */
-        public void cancel(Account account, OCFile file) {
+        public void cancel(Account account, String remotePath) {
             SynchronizeFolderOperation syncOperation = null;
             synchronized (mPendingOperations) {
-                syncOperation = mPendingOperations.remove(buildRemoteName(account, file));
+                syncOperation = mPendingOperations.remove(buildRemoteName(account, remotePath));
             }
             if (syncOperation != null) {
                 syncOperation.cancel();
@@ -475,10 +460,10 @@ public class OperationsService extends Service {
          * Builds a key from the account and file to download
          *
          * @param account   Account where the file to download is stored
-         * @param file      File to download
+         * @param path      File path
          */
-        private String buildRemoteName(Account account, OCFile file) {
-            return account.name + file.getRemotePath();
+        private String buildRemoteName(Account account, String path) {
+            return account.name + path;
         }
     }
 
