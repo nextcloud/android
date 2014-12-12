@@ -267,7 +267,6 @@
   <string name="downloader_download_file_not_found">Fișierul nu mai este disponibil pe server</string>
   <string name="prefs_category_accounts">Conturi</string>
   <string name="prefs_add_account">Adaugă cont</string>
-  <string name="log_progress_dialog_text">Se încarcă datele...</string>
   <string name="saml_authentication_required_text">Autentificare necesară</string>
   <string name="saml_authentication_wrong_pass">Parolă greșită</string>
   <string name="actionbar_move">Mutare</string>

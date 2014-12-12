@@ -280,8 +280,6 @@
   <string name="auth_redirect_non_secure_connection_title">Sikker forbindelse videredirigeres til en usikker rute.</string>
   <string name="actionbar_logger">Logge</string>
   <string name="log_send_history_button">Send historik</string>
-  <string name="log_mail_subject">App-logregistreringer for ownCloud Android</string>
-  <string name="log_progress_dialog_text">Indlæser data...</string>
   <string name="saml_authentication_required_text">Godkendelse påkrævet</string>
   <string name="saml_authentication_wrong_pass">Forkert kodeord</string>
   <string name="actionbar_move">Flyt</string>

@@ -286,8 +286,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_redirect_non_secure_connection_title">La connexion sécurisée est redirigée via une route non-sécurisée.</string>
   <string name="actionbar_logger">Journaux</string>
   <string name="log_send_history_button">Envoyer l\'historique</string>
-  <string name="log_mail_subject">Journaux de l\'application Android ownCloud</string>
-  <string name="log_progress_dialog_text">Chargement des données...</string>
   <string name="saml_authentication_required_text">Authentification requise</string>
   <string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
   <string name="actionbar_move">Déplacer</string>
@@ -300,4 +298,5 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="forbidden_permissions_move">de déplacer ce fichier</string>
   <string name="prefs_category_instant_uploading">Téléchargements instantanés</string>
   <string name="prefs_category_security">Sécurité</string>
+  <string name="prefs_instant_video_upload_path_title">Chemin d\'accès pour le téléversement</string>
 </resources>

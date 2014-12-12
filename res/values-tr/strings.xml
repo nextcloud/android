@@ -282,8 +282,6 @@
   <string name="auth_redirect_non_secure_connection_title">Güvenli bağlantı, güvenli olmayan bir rotaya yönlendirildi.</string>
   <string name="actionbar_logger">Günlükler</string>
   <string name="log_send_history_button">Geçmişi Gönder</string>
-  <string name="log_mail_subject">ownCloud Android uygulama kayıtları</string>
-  <string name="log_progress_dialog_text">Veri yükleniyor...</string>
   <string name="saml_authentication_required_text">Kimlik doğrulama gerekli</string>
   <string name="saml_authentication_wrong_pass">Hatalı parola</string>
   <string name="actionbar_move">Taşı</string>

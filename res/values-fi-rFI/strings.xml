@@ -259,8 +259,6 @@
   <string name="auth_redirect_non_secure_connection_title">Salattu yhteys on ohjattu uudelleen salaamatonta reittiä pitkin.</string>
   <string name="actionbar_logger">Lokit</string>
   <string name="log_send_history_button">Lähetä historia</string>
-  <string name="log_mail_subject">ownCloudin Android-sovelluksen lokit</string>
-  <string name="log_progress_dialog_text">Ladataan tietoja...</string>
   <string name="saml_authentication_required_text">Tunnistautuminen vaaditaan</string>
   <string name="saml_authentication_wrong_pass">Väärä salasana</string>
   <string name="actionbar_move">Siirrä</string>

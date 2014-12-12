@@ -280,8 +280,6 @@
   <string name="auth_redirect_non_secure_connection_title">Bezpieczne połączenie jest przekierowywane przez niezabezpieczone trasy.</string>
   <string name="actionbar_logger">Logi</string>
   <string name="log_send_history_button">Wyślij historię</string>
-  <string name="log_mail_subject">Logi aplikacji ownCloud Android</string>
-  <string name="log_progress_dialog_text">Ładuję dane...</string>
   <string name="saml_authentication_required_text">Wymagana autoryzacja</string>
   <string name="saml_authentication_wrong_pass">Złe hasło</string>
   <string name="actionbar_move">Przenieś</string>

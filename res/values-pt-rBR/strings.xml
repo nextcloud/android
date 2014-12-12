@@ -282,8 +282,6 @@
   <string name="auth_redirect_non_secure_connection_title">Conexão segura esta redirecionada para uma rota não segura.</string>
   <string name="actionbar_logger">Logs</string>
   <string name="log_send_history_button">Enviar Histórico</string>
-  <string name="log_mail_subject">Logs do aplicativo ownCloud Android</string>
-  <string name="log_progress_dialog_text">Carregamento de dados...</string>
   <string name="saml_authentication_required_text">Autenticação é requerida</string>
   <string name="saml_authentication_wrong_pass">Senha incorreta</string>
   <string name="actionbar_move">Mover</string>

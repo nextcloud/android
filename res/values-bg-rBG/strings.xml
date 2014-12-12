@@ -281,8 +281,6 @@
   <string name="auth_redirect_non_secure_connection_title">Сигурна връзка е пренасочена по несигурен път.</string>
   <string name="actionbar_logger">Доклади</string>
   <string name="log_send_history_button">Изпрати История</string>
-  <string name="log_mail_subject">ownCloud Android доклади</string>
-  <string name="log_progress_dialog_text">Зареждане на информация...</string>
   <string name="saml_authentication_required_text">Нужна е идентификация</string>
   <string name="saml_authentication_wrong_pass">Грешна парола</string>
   <string name="actionbar_move">Премести</string>

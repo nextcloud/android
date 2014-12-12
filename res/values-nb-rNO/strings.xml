@@ -272,8 +272,6 @@
   <string name="prefs_add_account">Legg til en konto</string>
   <string name="actionbar_logger">Logger</string>
   <string name="log_send_history_button">Send historikk</string>
-  <string name="log_mail_subject">logger for ownCloud Android app</string>
-  <string name="log_progress_dialog_text">Laster data...</string>
   <string name="saml_authentication_required_text">Autentisering kreves</string>
   <string name="saml_authentication_wrong_pass">Feil passord</string>
   <string name="actionbar_move">Flytt</string>

@@ -283,8 +283,6 @@
   <string name="auth_redirect_non_secure_connection_title">暗号化接続は非暗号化接続にリダイレクトされました。</string>
   <string name="actionbar_logger">ログ</string>
   <string name="log_send_history_button">ログを送信</string>
-  <string name="log_mail_subject">ownCloud Android アプリログ</string>
-  <string name="log_progress_dialog_text">読込中 ...</string>
   <string name="saml_authentication_required_text">認証を必要とする</string>
   <string name="saml_authentication_wrong_pass">無効なパスワード</string>
   <string name="actionbar_move">移動</string>

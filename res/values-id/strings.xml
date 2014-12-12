@@ -282,8 +282,6 @@
   <string name="auth_redirect_non_secure_connection_title">Sambungan aman dialihkan ke rute yang tidak aman.</string>
   <string name="actionbar_logger">Log</string>
   <string name="log_send_history_button">Kirim Riwayat</string>
-  <string name="log_mail_subject">Log apl ownCloud Android</string>
-  <string name="log_progress_dialog_text">Memuat data...</string>
   <string name="saml_authentication_required_text">Diperlukan otentikasi</string>
   <string name="saml_authentication_wrong_pass">Sandi salah</string>
   <string name="actionbar_move">Pindah</string>

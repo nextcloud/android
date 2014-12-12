@@ -267,7 +267,6 @@
   <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>
   <string name="prefs_category_accounts">Konton</string>
   <string name="prefs_add_account">Lägg till konto</string>
-  <string name="log_progress_dialog_text">Laddar data...</string>
   <string name="saml_authentication_required_text">Autentisering krävs</string>
   <string name="saml_authentication_wrong_pass">Fel lösenord</string>
   <string name="actionbar_move">Flytta</string>

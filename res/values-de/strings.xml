@@ -282,8 +282,6 @@
   <string name="auth_redirect_non_secure_connection_title">Die gesicherte Verbindung wird auf eine unsichere Route weitergeleitet.</string>
   <string name="actionbar_logger">Protokolle</string>
   <string name="log_send_history_button">Verlauf senden</string>
-  <string name="log_mail_subject">Protokolle der ownCloud-Android-App</string>
-  <string name="log_progress_dialog_text">Daten werden geladen …</string>
   <string name="saml_authentication_required_text">Legitimierung benötigt</string>
   <string name="saml_authentication_wrong_pass">Falsches Passwort</string>
   <string name="actionbar_move">Verschieben</string>

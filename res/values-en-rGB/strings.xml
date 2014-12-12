@@ -282,8 +282,6 @@
   <string name="auth_redirect_non_secure_connection_title">Secure connection is redirected to an unsecured route.</string>
   <string name="actionbar_logger">Logs</string>
   <string name="log_send_history_button">Send History</string>
-  <string name="log_mail_subject">ownCloud Android app logs</string>
-  <string name="log_progress_dialog_text">Loading data...</string>
   <string name="saml_authentication_required_text">Authentication required</string>
   <string name="saml_authentication_wrong_pass">Incorrect password</string>
   <string name="actionbar_move">Move</string>

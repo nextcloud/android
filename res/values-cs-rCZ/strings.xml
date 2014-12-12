@@ -281,8 +281,6 @@ správce systému.</string>
   <string name="auth_redirect_non_secure_connection_title">Bezpečné spojení je přesměrováno na nezabezpečenou trasu.</string>
   <string name="actionbar_logger">Logy</string>
   <string name="log_send_history_button">Odeslat historii</string>
-  <string name="log_mail_subject">Logy aplikace ownCloud pro Android</string>
-  <string name="log_progress_dialog_text">Načítám data...</string>
   <string name="saml_authentication_required_text">Vyžadováno přihlášení</string>
   <string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
   <string name="actionbar_move">Přesunout</string>

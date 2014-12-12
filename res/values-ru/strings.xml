@@ -282,8 +282,6 @@
   <string name="auth_redirect_non_secure_connection_title">Защищённое соединение перенаправлено по незащищённому маршруту</string>
   <string name="actionbar_logger">Журналы</string>
   <string name="log_send_history_button">История Отправлений</string>
-  <string name="log_mail_subject">Журналы Андроид-приложения ownCloud</string>
-  <string name="log_progress_dialog_text">Загружаются данные...</string>
   <string name="saml_authentication_required_text">Требуется аутентификация </string>
   <string name="saml_authentication_wrong_pass">Неправильный пароль</string>
   <string name="actionbar_move">Переместить</string>

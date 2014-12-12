@@ -278,8 +278,6 @@
   <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται σε μια μη ασφαλή διαδρομή.</string>
   <string name="actionbar_logger">Αρχεία καταγραφών</string>
   <string name="log_send_history_button">Αποστολή ιστορικού</string>
-  <string name="log_mail_subject">αρχεία καταγραφής της εφαρμογής ownCloud Android</string>
-  <string name="log_progress_dialog_text">Φόρτωση δεδομένων....</string>
   <string name="saml_authentication_required_text">Απαιτείται πιστοποίηση</string>
   <string name="saml_authentication_wrong_pass">Εσφαλμένο συνθηματικό</string>
   <string name="actionbar_move">Μετακίνηση</string>

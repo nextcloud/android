@@ -272,8 +272,6 @@
   <string name="prefs_add_account">添加账号</string>
   <string name="actionbar_logger">日志</string>
   <string name="log_send_history_button">发送历史</string>
-  <string name="log_mail_subject">ownCloud安卓客户端日志</string>
-  <string name="log_progress_dialog_text">加载数据中...</string>
   <string name="saml_authentication_required_text">需要认证</string>
   <string name="saml_authentication_wrong_pass">错误密码</string>
   <string name="actionbar_move">移动</string>

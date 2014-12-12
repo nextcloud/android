@@ -282,8 +282,6 @@
   <string name="auth_redirect_non_secure_connection_title">安全連線被轉向到一個非安全的連線</string>
   <string name="actionbar_logger">紀錄</string>
   <string name="log_send_history_button">傳送歷史記錄</string>
-  <string name="log_mail_subject">ownCloud Android 應用程式記錄</string>
-  <string name="log_progress_dialog_text">資料載入中...</string>
   <string name="saml_authentication_required_text">必須驗證</string>
   <string name="saml_authentication_wrong_pass">密碼錯誤</string>
   <string name="actionbar_move">移動</string>
