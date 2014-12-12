@@ -116,6 +116,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mAccount = account;
         mContext = context;
         mRemoteFolderChanged = false;
+        mFilesForDirectDownload = new Vector<OCFile>();
         mFilesToSyncContentsWithoutUpload = new Vector<SyncOperation>();
         mFavouriteFilesToSyncContents = new Vector<SyncOperation>();
         mFoldersToWalkDown = new Vector<SyncOperation>();
@@ -269,6 +270,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 + " changed - starting update of local data ");
 
         List<OCFile> updatedFiles = new Vector<OCFile>(folderAndFiles.size() - 1);
+        mFilesForDirectDownload.clear();
         mFilesToSyncContentsWithoutUpload.clear();
         mFavouriteFilesToSyncContents.clear();
         mFoldersToWalkDown.clear();

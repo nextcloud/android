@@ -98,9 +98,10 @@ public class SynchronizeFileOperation extends SyncOperation {
      * Useful to include this operation as part of the synchronization of a folder (or a full account), avoiding the
      * repetition of fetch operations (both in local database or remote server).
      * 
-     * At least data from local cache must be provided. If you don't have them, use the other constructor.
+     * At least one of localFile or serverFile MUST NOT BE NULL. If you don't have none of them, use the other 
+     * constructor.
      * 
-     * @param localFile             Data of file (just) retrieved from local cache/database. MUSTN't be null.
+     * @param localFile             Data of file (just) retrieved from local cache/database.
      * @param serverFile            Data of file (just) retrieved from a remote server. If null, will be
      *                              retrieved from network by the operation when executed.
      * @param account               ownCloud account holding the file.
@@ -117,7 +118,16 @@ public class SynchronizeFileOperation extends SyncOperation {
         
         mLocalFile = localFile;
         mServerFile = serverFile;
-        mRemotePath = localFile.getRemotePath();    // this will crash if localFile == null; use the other constructor
+        if (mLocalFile != null) {
+            mRemotePath = mLocalFile.getRemotePath();
+            if (mServerFile != null && !mServerFile.getRemotePath().equals(mRemotePath)) {
+                throw new IllegalArgumentException("serverFile and localFile do not correspond to the same OC file");
+            }
+        } else if (mServerFile != null) {
+            mRemotePath = mServerFile.getRemotePath();
+        } else {
+            throw new IllegalArgumentException("Both serverFile and localFile are NULL");
+        }
         mAccount = account;
         mSyncFileContents = syncFileContents;
         mContext = context;
@@ -153,12 +163,7 @@ public class SynchronizeFileOperation extends SyncOperation {
             boolean allowUploads, 
             Context context) {
         
-        mLocalFile = localFile;
-        mServerFile = serverFile;
-        mRemotePath = localFile.getRemotePath();    // this will crash if localFile == null; use the other constructor
-        mAccount = account;
-        mSyncFileContents = syncFileContents;
-        mContext = context;
+        this(localFile, serverFile, account, syncFileContents, context);
         mAllowUploads = allowUploads;
     }
     
