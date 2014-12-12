@@ -64,7 +64,13 @@ public class UploadListFragment extends ExpandableListFragment {
         View v = super.onCreateView(inflater, container, savedInstanceState);
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         setMessageForEmptyList(getString(R.string.upload_list_empty));
+        setOnRefreshListener(this);
         return v;
+    }
+    
+    @Override
+    public void onRefresh() {
+        mAdapter.notifyDataSetChanged();        
     }
 
     @Override
