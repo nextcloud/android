@@ -29,9 +29,9 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
-
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -248,28 +248,29 @@ public class FileOperationsHelper {
     }
 
     /**
-     * Retry downloading a failed or cancelled upload
+     * Retry uploading a failed or cancelled upload with force. That is, all restrictions (wifi-only, etc.) are removed from upload.
      */
-    public void retryUpload(OCFile file) {
+    public void retryUpload(UploadDbObject upload) {
         Account account = mFileActivity.getAccount();
         FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
         if (uploaderBinder != null) {
-            uploaderBinder.retry(account, file);            
+            upload.removeAllUploadRestrictions();
+            uploaderBinder.retry(account, upload);            
         }  else {
-            Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + file);            
+            Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + upload.getOCFile());            
         }
     }
     
     /**
      * Remove upload from upload list.
      */
-    public void removeUploadFromList(OCFile file) {
+    public void removeUploadFromList(UploadDbObject upload) {
         Account account = mFileActivity.getAccount();
         FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
         if (uploaderBinder != null) {
-            uploaderBinder.remove(account, file);            
+            uploaderBinder.remove(account, upload.getOCFile());            
         }  else {
-            Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + file);            
+            Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + upload.getOCFile());            
         }
     }
     public void cancelTransference(OCFile file) {

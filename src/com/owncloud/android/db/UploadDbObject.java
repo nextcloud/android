@@ -309,4 +309,13 @@ public class UploadDbObject implements Serializable {
     public String toFormattedString() {
         return getLocalPath() + " status:"+getUploadStatus() + " result:" + (getLastResult()==null?"null":getLastResult().getCode());
     }
+
+    /**
+     * Removes all uploads restrictions. After calling this function upload is performed immediately if requested.
+     */
+    public void removeAllUploadRestrictions() {
+        setUseWifiOnly(false);
+        setWhileChargingOnly(false);
+        setUploadTimestamp(0);
+    }
 }

@@ -50,17 +50,14 @@ public class UploadUtils {
     /**
      * Returns true when user can choose to retry this upload. That is, when
      * user cancelled upload before or when upload has failed.
-     * 
-     * TODO Add other cases as described by
-     * https://github.com/owncloud/android/issues/765#issuecomment-66490312
-     * (certificate failure, wrong credentials, remote folder gone, ...) This
-     * needs special handling though!
      */
     static public boolean userCanRetryUpload(UploadDbObject uploadFile) {
         switch (uploadFile.getUploadStatus()) {
         case UPLOAD_CANCELLED:
         case UPLOAD_FAILED_RETRY://automatically retried. no need for user option.
-        case UPLOAD_FAILED_GIVE_UP:
+        case UPLOAD_FAILED_GIVE_UP: //TODO this case needs to be handled as described by
+            // https://github.com/owncloud/android/issues/765#issuecomment-66490312
+        case UPLOAD_LATER: //upload is already schedule but allow user to increase priority
             return true;
         default:
             return false;

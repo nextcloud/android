@@ -153,10 +153,10 @@ public class UploadListFragment extends ExpandableListFragment {
             ((FileActivity) getActivity()).getFileOperationsHelper().cancelTransference(uploadFile.getOCFile());
             return true;
         case R.id.action_remove_upload: {
-            ((FileActivity) getActivity()).getFileOperationsHelper().removeUploadFromList(uploadFile.getOCFile());
+            ((FileActivity) getActivity()).getFileOperationsHelper().removeUploadFromList(uploadFile);
             return true;
         }case R.id.action_retry_upload: {
-            ((FileActivity) getActivity()).getFileOperationsHelper().retryUpload(uploadFile.getOCFile());
+            ((FileActivity) getActivity()).getFileOperationsHelper().retryUpload(uploadFile);
             return true;
         }case R.id.action_see_details: {
             Intent showDetailsIntent = new Intent(getActivity(), FileDisplayActivity.class);

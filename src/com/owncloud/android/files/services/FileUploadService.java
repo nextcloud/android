@@ -622,16 +622,13 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
             }            
         }
         
-        public void retry(Account account, OCFile file) {
-            //get upload from db and add to mPendingUploads. Then start upload.
-            UploadDbObject[] list = mDb.getUploadByLocalPath(file.getStoragePath());
-            if(list.length == 1) {
-                String uploadKey = buildRemoteName(list[0]);
-                mPendingUploads.putIfAbsent(uploadKey, list[0]);
-                FileUploadService.retry(getApplicationContext(), uploadKey);
-            } else {
-                Log_OC.e(TAG, "Upload file " + file + " not found. Cannot upload.");
-            }  
+        /**
+         * Puts upload in upload list and tell FileUploadService to upload items in list. 
+         */
+        public void retry(Account account, UploadDbObject upload) {
+            String uploadKey = buildRemoteName(upload);
+            mPendingUploads.put(uploadKey, upload);
+            FileUploadService.retry(getApplicationContext(), uploadKey);
         }
 
         public void clearListeners() {

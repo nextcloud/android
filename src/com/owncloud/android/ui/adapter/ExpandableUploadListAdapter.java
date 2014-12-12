@@ -204,7 +204,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 rightButton.setOnClickListener(new OnClickListener() {                
                     @Override
                     public void onClick(View v) {
-                        parentFileActivity.getFileOperationsHelper().retryUpload(uploadObject.getOCFile());                                        
+                        parentFileActivity.getFileOperationsHelper().retryUpload(uploadObject);                                        
                     }
                 });
             } else if (UploadUtils.userCanCancelUpload(uploadObject)) {
@@ -220,7 +220,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 rightButton.setOnClickListener(new OnClickListener() {                
                     @Override
                     public void onClick(View v) {
-                        parentFileActivity.getFileOperationsHelper().removeUploadFromList(uploadObject.getOCFile());                                        
+                        parentFileActivity.getFileOperationsHelper().removeUploadFromList(uploadObject);                                        
                     }
                 });
             }
