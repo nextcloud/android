@@ -1,5 +1,7 @@
 package com.owncloud.android.utils;
 
+import com.owncloud.android.db.UploadDbObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -28,5 +30,40 @@ public class UploadUtils {
         return cm != null && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI
                 && cm.getActiveNetworkInfo().getState() == State.CONNECTED;
+    }
+    
+    /**
+     * Returns true when user is able to cancel this upload. That is, when
+     * upload is currently in progress or scheduled for upload.
+     */
+    static public  boolean userCanCancelUpload(UploadDbObject uploadFile) {
+        switch (uploadFile.getUploadStatus()) {
+        case UPLOAD_IN_PROGRESS:
+        case UPLOAD_LATER:
+        case UPLOAD_FAILED_RETRY:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    /**
+     * Returns true when user can choose to retry this upload. That is, when
+     * user cancelled upload before or when upload has failed.
+     * 
+     * TODO Add other cases as described by
+     * https://github.com/owncloud/android/issues/765#issuecomment-66490312
+     * (certificate failure, wrong credentials, remote folder gone, ...) This
+     * needs special handling though!
+     */
+    static public boolean userCanRetryUpload(UploadDbObject uploadFile) {
+        switch (uploadFile.getUploadStatus()) {
+        case UPLOAD_CANCELLED:
+        case UPLOAD_FAILED_RETRY://automatically retried. no need for user option.
+        case UPLOAD_FAILED_GIVE_UP:
+            return true;
+        default:
+            return false;
+        }
     }
 }

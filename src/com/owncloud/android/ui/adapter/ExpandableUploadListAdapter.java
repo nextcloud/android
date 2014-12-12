@@ -12,8 +12,10 @@ import android.graphics.Bitmap;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,7 +27,9 @@ import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.UploadUtils;
 
 /**
  * This Adapter populates a ListView with following types of uploads: pending,
@@ -64,6 +68,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     private UploadGroup[] mUploadGroups = null;
     UploadDbHandler mDb;
 
+    FileActivity parentFileActivity;
+    public void setFileActivity(FileActivity parentFileActivity) {
+        this.parentFileActivity = parentFileActivity;
+    }
+    
     public ExpandableUploadListAdapter(Activity context) {
         Log_OC.d(TAG, "UploadListAdapter");
         mActivity = context;
@@ -133,7 +142,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             view = inflator.inflate(R.layout.upload_list_item, null);
         }
         if (uploadsItems != null && uploadsItems.length > position) {
-            UploadDbObject uploadObject = uploadsItems[position];
+            final UploadDbObject uploadObject = uploadsItems[position];
 
             TextView fileName = (TextView) view.findViewById(R.id.upload_name);
             String file = uploadObject.getOCFile().getFileName();
@@ -188,6 +197,34 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 break;
             }
             statusView.setText(status);
+
+            Button rightButton = (Button) view.findViewById(R.id.upload_right_button);
+            if (UploadUtils.userCanRetryUpload(uploadObject)) {
+                rightButton.setText("\u21BA"); //Anticlockwise Open Circle Arrow U+21BA
+                rightButton.setOnClickListener(new OnClickListener() {                
+                    @Override
+                    public void onClick(View v) {
+                        parentFileActivity.getFileOperationsHelper().retryUpload(uploadObject.getOCFile());                                        
+                    }
+                });
+            } else if (UploadUtils.userCanCancelUpload(uploadObject)) {
+                rightButton.setText("\u274C"); //Cross Mark U+274C
+                rightButton.setOnClickListener(new OnClickListener() {                
+                    @Override
+                    public void onClick(View v) {
+                        parentFileActivity.getFileOperationsHelper().cancelTransference(uploadObject.getOCFile());                                        
+                    }
+                });
+            } else {
+                rightButton.setText("\u267B"); //Black Universal Recycling Symbol U+267B
+                rightButton.setOnClickListener(new OnClickListener() {                
+                    @Override
+                    public void onClick(View v) {
+                        parentFileActivity.getFileOperationsHelper().removeUploadFromList(uploadObject.getOCFile());                                        
+                    }
+                });
+            }
+            
 
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
             fileIcon.setImageResource(R.drawable.file);

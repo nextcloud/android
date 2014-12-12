@@ -1,11 +1,14 @@
 package com.owncloud.android.ui.activity;
 
+import java.io.File;
+
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
+import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -19,6 +22,8 @@ import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.errorhandling.ExceptionHandler;
 import com.owncloud.android.ui.fragment.UploadListFragment;
+import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 
 /**
  * Activity listing pending, active, and completed uploads. User can delete
@@ -44,12 +49,32 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     // ////////////////////////////////////////
     @Override
     public boolean onUploadItemClick(UploadDbObject file) {
+        File f = new File(file.getLocalPath());
+        if(!f.exists()) {
+            Toast.makeText(this, "Cannot open. Local file does not exist.", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        
+        if (PreviewImageFragment.canBePreviewed(file.getOCFile())) {
+            // preview image
+            Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+            showDetailsIntent.putExtra(EXTRA_FILE, (Parcelable)file.getOCFile());
+            showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+            startActivity(showDetailsIntent);            
+        } else {
+            //open file
+            getFileOperationsHelper().openFile(file.getOCFile());
+        }
+        return true;
+    }
+
+    @SuppressWarnings("unused")
+    private void openDetails(UploadDbObject file) {
         OCFile ocFile = file.getOCFile();
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable) ocFile);
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, file.getAccount(this));
         startActivity(showDetailsIntent);
-        return true;
     }
     
     @Override

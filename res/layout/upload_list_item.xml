@@ -88,4 +88,26 @@
 
     </LinearLayout>
 
+    
+    <FrameLayout
+        android:layout_width="40dp"
+        android:layout_height="56dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:paddingLeft="8dp"
+     >
+    
+     <Button
+        android:id="@+id/upload_right_button"
+        android:background ="@drawable/btn_small_round"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+     />
+
+	</FrameLayout>
+    
+    
 </LinearLayout>
