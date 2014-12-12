@@ -172,7 +172,9 @@ public class OperationsService extends Service {
                 return START_NOT_STICKY;
             }
             Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
-            OCFile file = intent.getParcelableExtra(EXTRA_REMOTE_PATH);
+            String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
+
+            OCFile file = new OCFile(remotePath);
             Pair<Account, OCFile> itemSyncKey =  new Pair<Account , OCFile>(account, file);
 
             Pair<Target, RemoteOperation> itemToQueue = newOperation(intent);
@@ -189,7 +191,9 @@ public class OperationsService extends Service {
                 return START_NOT_STICKY;
             }
             Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
-            OCFile file = intent.getParcelableExtra(EXTRA_REMOTE_PATH);
+            String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
+
+            OCFile file = new OCFile(remotePath);
 
             // Cancel operation
             mSyncFolderHandler.cancel(account,file);
@@ -375,7 +379,6 @@ public class OperationsService extends Service {
 
         private ConcurrentMap<String,SynchronizeFolderOperation> mPendingOperations =
                 new ConcurrentHashMap<String,SynchronizeFolderOperation>();
-        private RemoteOperation mCurrentOperation = null;
         private OwnCloudClient mOwnCloudClient = null;
         private FileDataStorageManager mStorageManager;
         private SynchronizeFolderOperation mCurrentSyncOperation;
@@ -423,10 +426,10 @@ public class OperationsService extends Service {
 
 
                     /// perform the operation
-                    if (mCurrentOperation instanceof SyncOperation) {
-                        operationResult = ((SyncOperation)mCurrentOperation).execute(mOwnCloudClient, mStorageManager);
+                    if (mCurrentSyncOperation instanceof SyncOperation) {
+                        operationResult = ((SyncOperation)mCurrentSyncOperation).execute(mOwnCloudClient, mStorageManager);
                     } else {
-                        operationResult = mCurrentOperation.execute(mOwnCloudClient);
+                        operationResult = mCurrentSyncOperation.execute(mOwnCloudClient);
                     }
 
                 } catch (AccountsException e) {
