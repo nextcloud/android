@@ -248,13 +248,13 @@ public class FileOperationsHelper {
     }
 
     /**
-     * Retry uploading a failed or cancelled upload with force. That is, all restrictions (wifi-only, etc.) are removed from upload.
+     * Retry uploading a failed or cancelled upload with force.
      */
     public void retryUpload(UploadDbObject upload) {
         Account account = mFileActivity.getAccount();
         FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
         if (uploaderBinder != null) {
-            upload.removeAllUploadRestrictions();
+            upload.removeAllUploadRestrictions(); //only this object, upload DB stays untouched.
             uploaderBinder.retry(account, upload);            
         }  else {
             Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + upload.getOCFile());            

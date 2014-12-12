@@ -213,8 +213,8 @@ public class UploadDbHandler extends Observable {
      * 
      * @return 1 if file status was updated, else 0.
      */
-    public int updateUpload(UploadDbObject uploadDbObject) {
-        return updateUpload(uploadDbObject.getLocalPath(), uploadDbObject.getUploadStatus(),
+    public int updateUploadStatus(UploadDbObject uploadDbObject) {
+        return updateUploadStatus(uploadDbObject.getLocalPath(), uploadDbObject.getUploadStatus(),
                 uploadDbObject.getLastResult());
     }
 
@@ -262,7 +262,7 @@ public class UploadDbHandler extends Observable {
      * @param result new result of upload operation
      * @return 1 if file status was updated, else 0.
      */
-    public int updateUpload(String filepath, UploadStatus status, RemoteOperationResult result) {
+    public int updateUploadStatus(String filepath, UploadStatus status, RemoteOperationResult result) {
         
 //        Log_OC.e(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
         
@@ -384,7 +384,7 @@ public class UploadDbHandler extends Observable {
     }
 
     public long clearFailedUploads() {
-        String[] where = new String[3];
+        String[] where = new String[2];
         where[0] = String.valueOf(UploadStatus.UPLOAD_CANCELLED.value);
         where[1] = String.valueOf(UploadStatus.UPLOAD_FAILED_GIVE_UP.value);
         long result = getDB().delete(TABLE_UPLOAD, "uploadStatus = ? OR uploadStatus = ?", where);
@@ -396,7 +396,7 @@ public class UploadDbHandler extends Observable {
     }
 
     public long clearFinishedUploads() {
-        String[] where = new String[3];
+        String[] where = new String[1];
         where[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
         long result = getDB().delete(TABLE_UPLOAD, "uploadStatus = ?", where);
         Log_OC.d(TABLE_UPLOAD, "delete all finished uploads");

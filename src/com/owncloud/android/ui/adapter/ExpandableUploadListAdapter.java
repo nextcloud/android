@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -173,6 +174,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 if(uploadObject.getLastResult() != null){
                     status = "Last failure: "
                         + uploadObject.getLastResult().getLogMessage();
+                    String laterReason =FileUploadService.getUploadLaterReason(mActivity, uploadObject);
+                    if(laterReason != null) {
+                        //Upload is delayed, show reason.
+                        status += "\n" + laterReason;
+                    }
                 } else {
                     status = "Upload will be retried shortly.";
                 }

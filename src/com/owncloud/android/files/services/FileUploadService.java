@@ -461,7 +461,7 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
             UploadDbObject uploadDbObject = mPendingUploads.get(remotePath);
             uploadDbObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
             uploadDbObject.setLastResult(null);
-            mDb.updateUpload(uploadDbObject);
+            mDb.updateUploadStatus(uploadDbObject);
 
             Log_OC.d(TAG, "Start uploading " + remotePath);
         } else {
@@ -500,7 +500,7 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
                 // KEY_UPLOAD_TIMESTAMP - TODO use AlarmManager to wake up this service
                 break;
             case FILE_GONE:
-                mDb.updateUpload(uploadDbObject.getLocalPath(), UploadStatus.UPLOAD_FAILED_GIVE_UP,
+                mDb.updateUploadStatus(uploadDbObject.getLocalPath(), UploadStatus.UPLOAD_FAILED_GIVE_UP,
                         new RemoteOperationResult(ResultCode.FILE_NOT_FOUND));
                 it.remove();
                 break;
@@ -607,7 +607,7 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
                 // storagePath inside upload is the temporary path. file
                 // contains the correct path used as db reference.
                 upload.getOCFile().setStoragePath(file.getStoragePath());
-                mDb.updateUpload(upload);
+                mDb.updateUploadStatus(upload);
             }
         }
         
@@ -1058,7 +1058,7 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
      * Updates the persistent upload database that upload is in progress.
      */
     private void updateDatabaseUploadStart(UploadFileOperation upload) {
-        mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_IN_PROGRESS, null);    
+        mDb.updateUploadStatus(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_IN_PROGRESS, null);    
     }
 
     /**
@@ -1152,16 +1152,16 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
         // result: success or fail notification
         Log_OC.d(TAG, "updateDataseUploadResult uploadResult: " + uploadResult + " upload: " + upload);
         if (uploadResult.isCancelled()) {
-            mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_CANCELLED, uploadResult);
+            mDb.updateUploadStatus(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_CANCELLED, uploadResult);
         } else {
 
             if (uploadResult.isSuccess()) {
-                mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_SUCCEEDED, uploadResult);
+                mDb.updateUploadStatus(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_SUCCEEDED, uploadResult);
             } else {
                 if (shouldRetryFailedUpload(uploadResult)) {
-                    mDb.updateUpload(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED_RETRY, uploadResult);
+                    mDb.updateUploadStatus(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED_RETRY, uploadResult);
                 } else {
-                    mDb.updateUpload(upload.getOriginalStoragePath(),
+                    mDb.updateUploadStatus(upload.getOriginalStoragePath(),
                             UploadDbHandler.UploadStatus.UPLOAD_FAILED_GIVE_UP, uploadResult);
                 }
             }
