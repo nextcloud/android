@@ -278,23 +278,34 @@ public class FileOperationsHelper {
         mFileActivity.showLoadingDialog();
     }
 
-    
+    /**
+     * Cancel the transference in downloads (files/folders) and file uploads
+     * @param file OCFile
+     */
     public void cancelTransference(OCFile file) {
         Account account = mFileActivity.getAccount();
-        FileDownloaderBinder downloaderBinder = mFileActivity.getFileDownloaderBinder();
-        FileUploaderBinder uploaderBinder =  mFileActivity.getFileUploaderBinder();
-        if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
-            // Remove etag for parent, if file is a keep_in_sync
-            if (file.keepInSync()) {
-               OCFile parent = mFileActivity.getStorageManager().getFileById(file.getParentId());
-               parent.setEtag("");
-               mFileActivity.getStorageManager().saveFile(parent);
+        if (!file.isFolder()) {
+            FileDownloaderBinder downloaderBinder = mFileActivity.getFileDownloaderBinder();
+            FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
+            if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
+                // Remove etag for parent, if file is a keep_in_sync
+                if (file.keepInSync()) {
+                    OCFile parent = mFileActivity.getStorageManager().getFileById(file.getParentId());
+                    parent.setEtag("");
+                    mFileActivity.getStorageManager().saveFile(parent);
+                }
+
+                downloaderBinder.cancel(account, file);
+
+            } else if (uploaderBinder != null && uploaderBinder.isUploading(account, file)) {
+                uploaderBinder.cancel(account, file);
             }
-            
-            downloaderBinder.cancel(account, file);
-            
-        } else if (uploaderBinder != null && uploaderBinder.isUploading(account, file)) {
-            uploaderBinder.cancel(account, file);
+        } else {
+            Intent intent = new Intent(mFileActivity, OperationsService.class);
+            intent.setAction(OperationsService.ACTION_CANCEL_SYNC_FOLDER);
+            intent.putExtra(OperationsService.EXTRA_ACCOUNT, account);
+            intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            mFileActivity.startService(intent);
         }
     }
 
