@@ -3,11 +3,11 @@
     android:id="@+id/ListItemLayout"
     android:layout_width="fill_parent"
     android:orientation="horizontal"
-    android:layout_height="56dp">
+    android:layout_height="wrap_content">
 
     <FrameLayout
         android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_height="match_parent"
         android:focusable="false"
         android:focusableInTouchMode="false">
 
@@ -22,7 +22,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:orientation="vertical" >
@@ -91,7 +91,7 @@
     
     <FrameLayout
         android:layout_width="40dp"
-        android:layout_height="56dp"
+        android:layout_height="match_parent"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:paddingLeft="8dp"
