@@ -2,9 +2,11 @@ package com.owncloud.android.ui.activity;
 
 import java.io.File;
 
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
@@ -52,22 +54,53 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         File f = new File(file.getLocalPath());
         if(!f.exists()) {
             Toast.makeText(this, "Cannot open. Local file does not exist.", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        
-        if (PreviewImageFragment.canBePreviewed(file.getOCFile())) {
-            // preview image
-            Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-            showDetailsIntent.putExtra(EXTRA_FILE, (Parcelable)file.getOCFile());
-            showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
-            startActivity(showDetailsIntent);            
         } else {
-            //open file
-            getFileOperationsHelper().openFile(file.getOCFile());
+            openFileWithDefault(file.getLocalPath());
         }
         return true;
     }
 
+    /**
+     * Open file with app associates with its mimetype. If mimetype unknown, show list with all apps.  
+     */
+    private void openFileWithDefault(String localPath) {
+        Intent myIntent = new Intent(android.content.Intent.ACTION_VIEW);
+        File file = new File(localPath);
+        String extension = android.webkit.MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(file).toString());
+        String mimetype = android.webkit.MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        if (mimetype == null)
+            mimetype = "*/*";
+        myIntent.setDataAndType(Uri.fromFile(file), mimetype);
+        try {
+            startActivity(myIntent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "Found no app to open this file.", Toast.LENGTH_LONG).show();
+            Log_OC.i(TAG, "Could not find app for sending log history.");
+
+        }        
+    }
+    
+    /**
+     * Same as openFileWithDefault() but user cannot save default app.
+     * @param localPath
+     */
+    @SuppressWarnings("unused")
+    private void openFileWithDefaultNoDefault(OCFile ocFile) {
+        getFileOperationsHelper().openFile(ocFile);
+    }
+
+    /**
+     * WARNING! This opens the local copy inside owncloud directory. If file not uploaded yet, there is none.
+     */
+    @SuppressWarnings("unused")
+    private void openPreview(UploadDbObject file) {
+     // preview image
+        Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+        showDetailsIntent.putExtra(EXTRA_FILE, (Parcelable)file.getOCFile());
+        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+        startActivity(showDetailsIntent);  
+    }
+    
     @SuppressWarnings("unused")
     private void openDetails(UploadDbObject file) {
         OCFile ocFile = file.getOCFile();
