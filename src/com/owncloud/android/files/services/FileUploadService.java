@@ -482,7 +482,7 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
                 Log_OC.d(TAG, "Calling uploadFile for " + upload);
                 RemoteOperationResult uploadResult = uploadFile(uploadDbObject);
                 
-                updateDataseUploadResult(uploadResult, mCurrentUpload);
+                updateDatabaseUploadResult(uploadResult, mCurrentUpload);
                 notifyUploadResult(uploadResult, mCurrentUpload);
                 sendFinalBroadcast(uploadResult, mCurrentUpload);                
                 if (!shouldRetryFailedUpload(uploadResult)) {
@@ -1148,7 +1148,7 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
     /**
      * Updates the persistent upload database with upload result.
      */
-    private void updateDataseUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
+    private void updateDatabaseUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
         // result: success or fail notification
         Log_OC.d(TAG, "updateDataseUploadResult uploadResult: " + uploadResult + " upload: " + upload);
         if (uploadResult.isCancelled()) {

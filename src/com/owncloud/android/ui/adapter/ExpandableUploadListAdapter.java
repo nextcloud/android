@@ -174,13 +174,13 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 if(uploadObject.getLastResult() != null){
                     status = "Last failure: "
                         + uploadObject.getLastResult().getLogMessage();
-                    String laterReason =FileUploadService.getUploadLaterReason(mActivity, uploadObject);
-                    if(laterReason != null) {
-                        //Upload is delayed, show reason.
-                        status += "\n" + laterReason;
-                    }
                 } else {
                     status = "Upload will be retried shortly.";
+                }
+                String laterReason = FileUploadService.getUploadLaterReason(mActivity, uploadObject);
+                if(laterReason != null) {
+                    //Upload failed once but is delayed now, show reason.
+                    status += "\n" + laterReason;
                 }
                 break;
             case UPLOAD_LATER:
