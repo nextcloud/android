@@ -189,7 +189,7 @@ public class FileMenuFilter {
         
         
         // CANCEL DOWNLOAD
-        if (mFile == null || !downloading || mFile.isFolder()) {
+        if (mFile == null || !downloading) {
             toHide.add(R.id.action_cancel_download);
         } else {
             toShow.add(R.id.action_cancel_download);
