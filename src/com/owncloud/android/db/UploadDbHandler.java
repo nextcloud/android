@@ -383,19 +383,29 @@ public class UploadDbHandler extends Observable {
         this.mDB = mDB;
     }
 
-    public long cleanDoneUploads() {
+    public long clearFailedUploads() {
         String[] where = new String[3];
         where[0] = String.valueOf(UploadStatus.UPLOAD_CANCELLED.value);
         where[1] = String.valueOf(UploadStatus.UPLOAD_FAILED_GIVE_UP.value);
-        where[2] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
-        long result = getDB().delete(TABLE_UPLOAD, "uploadStatus = ? OR uploadStatus = ? OR uploadStatus = ?", where);
-        Log_OC.d(TABLE_UPLOAD, "delete all done uploads");
+        long result = getDB().delete(TABLE_UPLOAD, "uploadStatus = ? OR uploadStatus = ?", where);
+        Log_OC.d(TABLE_UPLOAD, "delete all failed uploads");
         if (result > 0) {
             notifyObserversNow();
         }
         return result;
     }
 
+    public long clearFinishedUploads() {
+        String[] where = new String[3];
+        where[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
+        long result = getDB().delete(TABLE_UPLOAD, "uploadStatus = ?", where);
+        Log_OC.d(TABLE_UPLOAD, "delete all finished uploads");
+        if (result > 0) {
+            notifyObserversNow();
+        }
+        return result;
+    }
+    
     public void setAllCurrentToUploadLater() {
         
         Cursor c = getDB().query(TABLE_UPLOAD, null, "uploadStatus==" + UploadStatus.UPLOAD_IN_PROGRESS.value, null, null, null, null);

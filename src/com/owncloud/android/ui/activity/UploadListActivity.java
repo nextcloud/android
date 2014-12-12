@@ -86,9 +86,14 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
             FileUploadService.retry(this);
             break;
         }
-        case R.id.action_clear_upload_list: {
+        case R.id.action_clear_failed_uploads: {
             UploadDbHandler db = UploadDbHandler.getInstance(this);
-            db.cleanDoneUploads();
+            db.clearFailedUploads();
+            break;
+        }
+        case R.id.action_clear_finished_uploads: {
+            UploadDbHandler db = UploadDbHandler.getInstance(this);
+            db.clearFinishedUploads();
             break;
         }
         default:

@@ -20,9 +20,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/action_clear_upload_list"
-        android:title="Clear list"/>
-    <item
         android:id="@+id/action_retry_uploads"
-        android:title="Retry uploads"/>    
+        android:title="Retry current uploads"/>
+    <item
+        android:id="@+id/action_clear_failed_uploads"
+        android:title="Clear failed uploads"/>
+    <item
+        android:id="@+id/action_clear_finished_uploads"
+        android:title="Clear finished uploads"/>    
 </menu>
