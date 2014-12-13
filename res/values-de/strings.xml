@@ -282,6 +282,9 @@
   <string name="auth_redirect_non_secure_connection_title">Die gesicherte Verbindung wird auf eine unsichere Route weitergeleitet.</string>
   <string name="actionbar_logger">Protokolle</string>
   <string name="log_send_history_button">Verlauf senden</string>
+  <string name="log_send_no_mail_app">Keine App zum Versenden der Meldungen gefunden. Bitte installiere die Mail-App!</string>
+  <string name="log_send_mail_subject">%1$s Android-App Meldungen</string>
+  <string name="log_progress_dialog_text">Lade Daten…</string>
   <string name="saml_authentication_required_text">Legitimierung benötigt</string>
   <string name="saml_authentication_wrong_pass">Falsches Passwort</string>
   <string name="actionbar_move">Verschieben</string>

@@ -281,6 +281,9 @@ správce systému.</string>
   <string name="auth_redirect_non_secure_connection_title">Bezpečné spojení je přesměrováno na nezabezpečenou trasu.</string>
   <string name="actionbar_logger">Logy</string>
   <string name="log_send_history_button">Odeslat historii</string>
+  <string name="log_send_no_mail_app">Nebyla nalezena žádná aplikace pro zasílání logů. Nainstalujte poštovní aplikaci!</string>
+  <string name="log_send_mail_subject">%1$s logy aplikace pro Android</string>
+  <string name="log_progress_dialog_text">Načítání dat…</string>
   <string name="saml_authentication_required_text">Vyžadováno přihlášení</string>
   <string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
   <string name="actionbar_move">Přesunout</string>
