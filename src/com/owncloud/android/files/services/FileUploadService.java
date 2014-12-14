@@ -29,6 +29,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.accounts.Account;
@@ -104,6 +106,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 
     private volatile Looper mServiceLooper;
     private volatile ServiceHandler mServiceHandler;
+    private ExecutorService uploadExecutor;
 
     public FileUploadService() {
         super();
@@ -285,11 +288,13 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         //when this service starts there is no upload in progress. if db says so, app probably crashed before.
         mDb.setAllCurrentToUploadLater();
         
-        HandlerThread thread = new HandlerThread("FileUploadService");
+        HandlerThread thread = new HandlerThread("FileUploadService-Requester");
         thread.start();
-
+        
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper);
+
+        uploadExecutor = Executors.newFixedThreadPool(1);
 
         Log_OC.d(TAG, "FileUploadService.retry() called by onCreate()");
         FileUploadService.retry(getApplicationContext());
@@ -487,7 +492,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         }
         // at this point mPendingUploads is filled.
 
-        Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before uploading.");
+
 
         Iterator<String> it;
         if (intent != null && intent.getStringExtra(KEY_RETRY_REMOTE_PATH) != null) {
@@ -510,14 +515,31 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             String upload = it.next();
             UploadDbObject uploadDbObject = mPendingUploads.get(upload);
             
-            if(uploadDbObject == null) {
+            if (uploadDbObject == null) {
                 Log_OC.e(TAG, "Cannot upload null. Fix that!");
                 continue;
             }
 
+            UploadTask uploadTask = new UploadTask(uploadDbObject);
+            uploadExecutor.submit(uploadTask);
+        }
+
+        Log_OC.d(TAG, "onHandleIntent end");
+    }
+
+    public class UploadTask implements Runnable {
+        UploadDbObject uploadDbObject;
+
+        public UploadTask(UploadDbObject uploadDbObject) {
+            this.uploadDbObject = uploadDbObject;
+        }
+
+        @Override
+        public void run() {
+            Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before uploading.");
             switch (canUploadFileNow(uploadDbObject)) {
             case NOW:
-                Log_OC.d(TAG, "Calling uploadFile for " + upload);
+                Log_OC.d(TAG, "Calling uploadFile for " + uploadDbObject.getRemotePath());
                 RemoteOperationResult uploadResult = uploadFile(uploadDbObject);
                 
                 updateDatabaseUploadResult(uploadResult, mCurrentUpload);
@@ -540,16 +562,19 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             case FILE_GONE:
                 mDb.updateUploadStatus(uploadDbObject.getLocalPath(), UploadStatus.UPLOAD_FAILED_GIVE_UP,
                         new RemoteOperationResult(ResultCode.FILE_NOT_FOUND));
-                it.remove();
+                if (mPendingUploads.remove(uploadDbObject.getRemotePath()) == null) {
+                    Log_OC.w(TAG, "Could remove " + uploadDbObject.getRemotePath()
+                            + " from mPendingUploads because it does not exist.");
+                }
+
                 break;
             case ERROR:
                 Log_OC.e(TAG, "canUploadFileNow() returned ERROR. Fix that!");
                 break;
             }
+            Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - after uploading.");
         }
 
-        Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - after uploading.");
-        Log_OC.d(TAG, "onHandleIntent end");
     }
 
     /**
