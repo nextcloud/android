@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
-import android.os.Environment;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +23,7 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.UploadDbHandler;
+import com.owncloud.android.db.UploadDbHandler.UploadStatus;
 import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -205,7 +205,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             statusView.setText(status);
 
             Button rightButton = (Button) view.findViewById(R.id.upload_right_button);
-            if (UploadUtils.userCanRetryUpload(uploadObject)) {
+            if (UploadUtils.userCanRetryUpload(uploadObject)
+                    && uploadObject.getUploadStatus() != UploadStatus.UPLOAD_SUCCEEDED) {
                 rightButton.setText("\u21BA"); //Anticlockwise Open Circle Arrow U+21BA
                 rightButton.setOnClickListener(new OnClickListener() {                
                     @Override

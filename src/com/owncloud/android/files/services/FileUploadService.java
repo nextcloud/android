@@ -34,13 +34,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountsException;
-import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.os.Parcelable;
 import android.support.v4.app.NotificationCompat;
 import android.webkit.MimeTypeMap;
@@ -96,10 +100,13 @@ import com.owncloud.android.utils.UriUtils;
  * 
  */
 @SuppressWarnings("unused")
-public class FileUploadService extends IntentService implements OnDatatransferProgressListener {
+public class FileUploadService extends Service implements OnDatatransferProgressListener {
+
+    private volatile Looper mServiceLooper;
+    private volatile ServiceHandler mServiceHandler;
 
     public FileUploadService() {
-        super("FileUploadService");        
+        super();
     }
 
     private static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
@@ -278,8 +285,40 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
         //when this service starts there is no upload in progress. if db says so, app probably crashed before.
         mDb.setAllCurrentToUploadLater();
         
+        HandlerThread thread = new HandlerThread("FileUploadService");
+        thread.start();
+
+        mServiceLooper = thread.getLooper();
+        mServiceHandler = new ServiceHandler(mServiceLooper);
+
         Log_OC.d(TAG, "FileUploadService.retry() called by onCreate()");
         FileUploadService.retry(getApplicationContext());
+    }
+
+    private final class ServiceHandler extends Handler {
+        public ServiceHandler(Looper looper) {
+            super(looper);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            onHandleIntent((Intent) msg.obj);
+            stopSelf(msg.arg1);
+        }
+    }
+
+    @Override
+    public void onStart(Intent intent, int startId) {
+        Message msg = mServiceHandler.obtainMessage();
+        msg.arg1 = startId;
+        msg.obj = intent;
+        mServiceHandler.sendMessage(msg);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        onStart(intent, startId);
+        return START_NOT_STICKY;
     }
 
     /**
@@ -305,7 +344,6 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
      * {@link UploadDbHandler} is taken and upload is started.
      */
 
-    @Override
     protected void onHandleIntent(Intent intent) {
         Log_OC.d(TAG, "onHandleIntent start");
         Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before adding new uploads.");
@@ -543,7 +581,7 @@ public class FileUploadService extends IntentService implements OnDatatransferPr
             return reason.toString();
         }
         if (uploadDbObject.getUploadStatus() == UploadStatus.UPLOAD_LATER) {
-            return "Upload delayed for unknown reason. Fix that!";
+            return "Upload is pending and will start shortly.";
         }
         return null;
     }

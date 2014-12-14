@@ -1,13 +1,13 @@
 package com.owncloud.android.utils;
 
-import com.owncloud.android.db.UploadDbObject;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.os.BatteryManager;
+
+import com.owncloud.android.db.UploadDbObject;
 
 
 public class UploadUtils {
@@ -58,6 +58,8 @@ public class UploadUtils {
         case UPLOAD_FAILED_GIVE_UP: //TODO this case needs to be handled as described by
             // https://github.com/owncloud/android/issues/765#issuecomment-66490312
         case UPLOAD_LATER: //upload is already schedule but allow user to increase priority
+        case UPLOAD_SUCCEEDED: // if user wants let him to re-upload (maybe
+                               // remote file was deleted...)
             return true;
         default:
             return false;
