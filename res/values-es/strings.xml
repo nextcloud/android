@@ -282,6 +282,7 @@
   <string name="auth_redirect_non_secure_connection_title">La conexión segura está siendo desviada por una ruta insegura.</string>
   <string name="actionbar_logger">Logs</string>
   <string name="log_send_history_button">Enviar historial</string>
+  <string name="log_progress_dialog_text">Cargando datos...</string>
   <string name="saml_authentication_required_text">Se necesita autenticación</string>
   <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
   <string name="actionbar_move">Mover</string>
