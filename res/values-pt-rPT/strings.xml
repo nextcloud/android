@@ -280,6 +280,8 @@
   <string name="auth_redirect_non_secure_connection_title">Ligação segura é redireccionada para um caminho inseguro.</string>
   <string name="actionbar_logger">Registos de Alterações</string>
   <string name="log_send_history_button">Enviar Histórico</string>
+  <string name="log_send_no_mail_app">Não foi encontrado o aplicativo para envio de registos . Instale app e-mail!</string>
+  <string name="log_send_mail_subject">%1$s Android Aplicação de Registyos</string>
   <string name="log_progress_dialog_text">A carregar os dados...</string>
   <string name="saml_authentication_required_text">Autenticação necessária</string>
   <string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
