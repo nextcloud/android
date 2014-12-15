@@ -2,6 +2,7 @@ package com.owncloud.android.ui.activity;
 
 import java.io.File;
 
+import android.accounts.Account;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.errorhandling.ExceptionHandler;
 import com.owncloud.android.ui.fragment.UploadListFragment;

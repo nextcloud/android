@@ -1,5 +1,6 @@
 package com.owncloud.android.ui.adapter;
 
+import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Observable;
@@ -18,6 +19,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -37,10 +39,12 @@ import com.owncloud.android.utils.UploadUtils;
  * active, completed. Filtering possible.
  * 
  */
-public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer, OnDatatransferProgressListener {
+public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer {
 
     private static final String TAG = "ExpandableUploadListAdapter";
     private Activity mActivity;
+    
+    public ProgressListener mProgressListener; 
     
     interface Refresh {
         public void refresh();
@@ -162,6 +166,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             switch (uploadObject.getUploadStatus()) {
             case UPLOAD_IN_PROGRESS:
                 status = mActivity.getResources().getString(R.string.uploader_upload_in_progress_ticker);
+                ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
+                progressBar.setVisibility(View.VISIBLE);
+                mProgressListener = new ProgressListener(progressBar);
+                parentFileActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener,
+                        uploadObject.getAccount(mActivity), uploadObject.getOCFile());
                 break;
             case UPLOAD_FAILED_GIVE_UP:
                 if (uploadObject.getLastResult() != null) {
@@ -201,6 +210,13 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     uploadObject.getLastResult().getLogMessage();
                 } 
                 break;
+            }
+            if(uploadObject.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
+                ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
+                progressBar.setVisibility(View.GONE);
+                parentFileActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener,
+                        uploadObject.getAccount(mActivity), uploadObject.getOCFile());
+                mProgressListener = null;
             }
             statusView.setText(status);
 
@@ -364,11 +380,27 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
-
-    @Override
-    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
-            String fileAbsoluteName) {
-        // TODO Auto-generated method stub
+    
+    private class ProgressListener implements OnDatatransferProgressListener {
+        int mLastPercent = 0;
+        WeakReference<ProgressBar> mProgressBar = null;
         
-    }
+        ProgressListener(ProgressBar progressBar) {
+            mProgressBar = new WeakReference<ProgressBar>(progressBar);
+        }
+        
+        @Override
+        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
+            int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
+            if (percent != mLastPercent) {
+                ProgressBar pb = mProgressBar.get();
+                if (pb != null) {
+                    pb.setProgress(percent);
+                    pb.postInvalidate();
+                }
+            }
+            mLastPercent = percent;
+        }
+
+    }; 
 }
