@@ -299,6 +299,13 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         Log_OC.d(TAG, "FileUploadService.retry() called by onCreate()");
         FileUploadService.retry(getApplicationContext());
     }
+    
+    @Override
+    public void onDestroy() {
+        Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - onDestroy");
+        mServiceLooper.quit();
+        uploadExecutor.shutdown();
+    }
 
     private final class ServiceHandler extends Handler {
         public ServiceHandler(Looper looper) {
@@ -307,15 +314,14 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 
         @Override
         public void handleMessage(Message msg) {
-            onHandleIntent((Intent) msg.obj);
-            stopSelf(msg.arg1);
+            onHandleIntent((Intent) msg.obj, (int)msg.arg1);
         }
     }
 
     @Override
-    public void onStart(Intent intent, int startId) {
+    public void onStart(Intent intent, int intentStartId) {
         Message msg = mServiceHandler.obtainMessage();
-        msg.arg1 = startId;
+        msg.arg1 = intentStartId;
         msg.obj = intent;
         mServiceHandler.sendMessage(msg);
     }
@@ -323,7 +329,9 @@ public class FileUploadService extends Service implements OnDatatransferProgress
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         onStart(intent, startId);
-        return START_NOT_STICKY;
+        return START_STICKY; // if service is killed by OS before calling
+                             // stopSelf(), tell OS to restart service with
+                             // null-intent. 
     }
 
     /**
@@ -347,9 +355,10 @@ public class FileUploadService extends Service implements OnDatatransferProgress
      * in a {@link UploadDbObject} which is stored persistently using
      * {@link UploadDbHandler}. Then, the oldest, pending upload from
      * {@link UploadDbHandler} is taken and upload is started.
+     * @param intentStartId 
      */
 
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleIntent(Intent intent, int intentStartId) {
         Log_OC.d(TAG, "onHandleIntent start");
         Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before adding new uploads.");
         if (intent == null || intent.hasExtra(KEY_RETRY)) {
@@ -510,23 +519,48 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         } else {
             it = mPendingUploads.keySet().iterator();
         }
+        if (it.hasNext()) {
+            while (it.hasNext()) {
+                String upload = it.next();
+                UploadDbObject uploadDbObject = mPendingUploads.get(upload);
 
-        while (it.hasNext()) {
-            String upload = it.next();
-            UploadDbObject uploadDbObject = mPendingUploads.get(upload);
-            
-            if (uploadDbObject == null) {
-                Log_OC.e(TAG, "Cannot upload null. Fix that!");
-                continue;
+                if (uploadDbObject == null) {
+                    Log_OC.e(TAG, "Cannot upload null. Fix that!");
+                    continue;
+                }
+
+                UploadTask uploadTask = new UploadTask(uploadDbObject);
+                uploadExecutor.submit(uploadTask);
             }
-
-            UploadTask uploadTask = new UploadTask(uploadDbObject);
-            uploadExecutor.submit(uploadTask);
+            StopSelfTask stopSelfTask = new StopSelfTask(intentStartId);
+            uploadExecutor.submit(stopSelfTask);
+        
+        } else {
+            stopSelf(intentStartId);
         }
 
         Log_OC.d(TAG, "onHandleIntent end");
     }
+    
+    /**
+     * Stops this services if latest intent id is intentStartId.
+     */
+    public class StopSelfTask implements Runnable {
+        int intentStartId;
 
+        public StopSelfTask(int intentStartId) {
+            this.intentStartId = intentStartId;
+        }
+        
+        @Override
+        public void run() {
+            stopSelf(intentStartId);
+        }
+    }
+
+    /**
+     * Tries uploading uploadDbObject, creates notifications, and updates mDb.
+     */
     public class UploadTask implements Runnable {
         UploadDbObject uploadDbObject;
 
