@@ -214,9 +214,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             if(uploadObject.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
                 ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                 progressBar.setVisibility(View.GONE);
-                parentFileActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener,
-                        uploadObject.getAccount(mActivity), uploadObject.getOCFile());
-                mProgressListener = null;
+                if(parentFileActivity.getFileUploaderBinder() != null && mProgressListener != null) {
+                    parentFileActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener,
+                            uploadObject.getAccount(mActivity), uploadObject.getOCFile());
+                    mProgressListener = null;
+                }                
             }
             statusView.setText(status);
 
