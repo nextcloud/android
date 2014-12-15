@@ -575,7 +575,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             case NOW:
                 Log_OC.d(TAG, "Calling uploadFile for " + uploadDbObject.getRemotePath());
                 RemoteOperationResult uploadResult = uploadFile(uploadDbObject);
-                
+                //TODO store renamed upload path?
                 updateDatabaseUploadResult(uploadResult, mCurrentUpload);
                 notifyUploadResult(uploadResult, mCurrentUpload);
                 sendFinalBroadcast(uploadResult, mCurrentUpload);                
@@ -679,7 +679,14 @@ public class FileUploadService extends Service implements OnDatatransferProgress
          * a {@link FileUploaderBinder} instance
          */
         private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<String, OnDatatransferProgressListener>();
-
+        
+        /**
+         * Returns ongoing upload operation. May be null.
+         */
+        public UploadFileOperation getCurrentUploadOperation() {
+            return mCurrentUpload;
+        }
+        
         /**
          * Cancels a pending or current upload of a remote file.
          * 
@@ -1140,14 +1147,19 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 .setContentText(
                         String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName()));
 
-        // / includes a pending intent in the notification showing the details
-        // view of the file
-        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)upload.getFile());
-        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
-        showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        // / includes a pending intent in the notification showing the details
+//        // view of the file
+//        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+//        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)upload.getFile());
+//        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
+//        showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
+        showUploadListIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)upload.getFile());
+        showUploadListIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
+        showUploadListIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        showUploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
-                showDetailsIntent, 0));
+                showUploadListIntent, 0));
 
         mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
         

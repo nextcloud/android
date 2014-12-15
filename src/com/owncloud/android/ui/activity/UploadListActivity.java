@@ -154,20 +154,26 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
-                
-            if (component.equals(new ComponentName(UploadListActivity.this, FileUploadService.class))) {
-                Log_OC.d(TAG, "UploadListActivty connected to Upload service");
-                mUploaderBinder = (FileUploaderBinder) service;
+            if (service instanceof FileUploaderBinder) {
+                if(mUploaderBinder == null)
+                {
+                    mUploaderBinder = (FileUploaderBinder) service;
+                    Log_OC.e(TAG, "UploadListActivity connected to Upload service. component: " + component + " service: "
+                            + service);
+                } else {
+                    Log_OC.e(TAG, "mUploaderBinder already set. mUploaderBinder: " + mUploaderBinder + " service:" + service);
+                }
             } else {
+                Log_OC.e(TAG, "UploadListActivity not connected to Upload service. component: " + component
+                        + " service: " + service);
                 return;
-            }
-            
+            }            
         }
 
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(UploadListActivity.this, FileUploadService.class))) {
-                Log_OC.d(TAG, "UploadListActivty suddenly disconnected from Upload service");
+                Log_OC.d(TAG, "UploadListActivity suddenly disconnected from Upload service");
                 mUploaderBinder = null;
             }
         }

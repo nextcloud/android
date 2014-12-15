@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.db.UploadDbHandler.UploadStatus;
@@ -30,6 +31,7 @@ import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.UploadUtils;
@@ -45,6 +47,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     private Activity mActivity;
     
     public ProgressListener mProgressListener; 
+    UploadFileOperation mCurrentUpload;
     
     interface Refresh {
         public void refresh();
@@ -139,7 +142,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     public boolean areAllItemsEnabled() {
         return true;
     }
-
+    
     private View getView(UploadDbObject[] uploadsItems, int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
@@ -167,10 +170,17 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             case UPLOAD_IN_PROGRESS:
                 status = mActivity.getResources().getString(R.string.uploader_upload_in_progress_ticker);
                 ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
+                progressBar.setProgress(0);
                 progressBar.setVisibility(View.VISIBLE);
                 mProgressListener = new ProgressListener(progressBar);
-                parentFileActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener,
-                        uploadObject.getAccount(mActivity), uploadObject.getOCFile());
+                if (parentFileActivity.getFileUploaderBinder() != null) {
+                    mCurrentUpload = parentFileActivity.getFileUploaderBinder().getCurrentUploadOperation();
+                    mCurrentUpload.addDatatransferProgressListener(mProgressListener);
+                } else {
+                    Log_OC.e(
+                            TAG,
+                            "UploadBinder == null. It should have been created on creating parentFileActivity which inherits from FileActivity. Fix that!");
+                }
                 break;
             case UPLOAD_FAILED_GIVE_UP:
                 if (uploadObject.getLastResult() != null) {
@@ -214,11 +224,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             if(uploadObject.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
                 ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                 progressBar.setVisibility(View.GONE);
-                if(parentFileActivity.getFileUploaderBinder() != null && mProgressListener != null) {
-                    parentFileActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener,
-                            uploadObject.getAccount(mActivity), uploadObject.getOCFile());
+                if(mCurrentUpload != null){
+                    mCurrentUpload.removeDatatransferProgressListener(mProgressListener);
                     mProgressListener = null;
-                }                
+                    mCurrentUpload = null;
+                }
             }
             statusView.setText(status);
 
