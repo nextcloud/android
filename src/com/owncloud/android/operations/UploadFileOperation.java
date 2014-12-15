@@ -187,6 +187,9 @@ public class UploadFileOperation extends RemoteOperation {
         if (mEntity != null) {
             ((ProgressiveDataTransferer)mEntity).addDatatransferProgressListener(listener);
         }
+        if(mUploadOperation != null){
+            mUploadOperation.addDatatransferProgressListener(listener);
+        }
     }
     
     public void removeDatatransferProgressListener(OnDatatransferProgressListener listener) {
@@ -195,6 +198,9 @@ public class UploadFileOperation extends RemoteOperation {
         }
         if (mEntity != null) {
             ((ProgressiveDataTransferer)mEntity).removeDatatransferProgressListener(listener);
+        }
+        if(mUploadOperation != null){
+            mUploadOperation.removeDatatransferProgressListener(listener);
         }
     }
 
