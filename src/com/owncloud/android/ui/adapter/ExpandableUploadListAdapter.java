@@ -173,13 +173,17 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 progressBar.setProgress(0);
                 progressBar.setVisibility(View.VISIBLE);
                 mProgressListener = new ProgressListener(progressBar);
-                if (parentFileActivity.getFileUploaderBinder() != null) {
+                if(parentFileActivity.getFileUploaderBinder() != null) {
                     mCurrentUpload = parentFileActivity.getFileUploaderBinder().getCurrentUploadOperation();
-                    mCurrentUpload.addDatatransferProgressListener(mProgressListener);
+                    if(mCurrentUpload != null) {
+                        mCurrentUpload.addDatatransferProgressListener(mProgressListener);
+                        Log_OC.d(TAG, "added progress listener for current upload: " + mCurrentUpload);
+                    } else {
+                        Log_OC.w(TAG, "getFileUploaderBinder().getCurrentUploadOperation() return null. That is odd.");
+                    }
                 } else {
-                    Log_OC.e(
-                            TAG,
-                            "UploadBinder == null. It should have been created on creating parentFileActivity which inherits from FileActivity. Fix that!");
+                    Log_OC.e(TAG, "UploadBinder == null. It should have been created on creating parentFileActivity"
+                            + " which inherits from FileActivity. Fix that!");
                 }
                 break;
             case UPLOAD_FAILED_GIVE_UP:
@@ -224,11 +228,14 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             if(uploadObject.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
                 ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                 progressBar.setVisibility(View.GONE);
-                if(mCurrentUpload != null){
-                    mCurrentUpload.removeDatatransferProgressListener(mProgressListener);
+                if (parentFileActivity.getFileUploaderBinder() != null && mProgressListener != null
+                        && mCurrentUpload != null) {
+                    OCFile currentOcFile = mCurrentUpload.getFile();
+                    parentFileActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener,
+                            uploadObject.getAccount(mActivity), currentOcFile);
                     mProgressListener = null;
                     mCurrentUpload = null;
-                }
+                }            
             }
             statusView.setText(status);
 
