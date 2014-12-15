@@ -398,7 +398,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         startDirectDownloads();
         startContentSynchronizations(mFilesToSyncContentsWithoutUpload, client);
         startContentSynchronizations(mFavouriteFilesToSyncContents, client);
-        walkSubfolders(mFoldersToWalkDown, client);    // this must be the last!
+        walkSubfolders(client);    // this must be the last!
     }
 
     
@@ -444,9 +444,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
 
-    private void walkSubfolders(List<SyncOperation> foldersToWalkDown, OwnCloudClient client) {
+    private void walkSubfolders(OwnCloudClient client) {
         RemoteOperationResult contentsResult = null;
-        for (SyncOperation op: foldersToWalkDown) {
+        for (SyncOperation op: mFoldersToWalkDown) {
             contentsResult = op.execute(client, getStorageManager());   // to watch out: possibly deep recursion
             if (!contentsResult.isSuccess()) {
                 // TODO - some kind of error count, and use it with notifications
