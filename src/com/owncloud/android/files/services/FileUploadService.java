@@ -692,10 +692,13 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             // after upload finishes. Following cancel call makes sure that is
             // does finish right now.
             if (mCurrentUpload != null && mCurrentUpload.isUploadInProgress()) {
+                Log_OC.d(TAG, "Calling cancel for " + file.getRemotePath() + " during upload operation.");
                 mCurrentUpload.cancel();
             } else if(mCancellationPossible.get()){
+                Log_OC.d(TAG, "Calling cancel for " + file.getRemotePath() + " during preparing for upload.");
                 mCancellationRequested.set(true);
             } else {
+                Log_OC.d(TAG, "Calling cancel for " + file.getRemotePath() + " while upload is pending.");                
                 // upload not in progress, but pending.
                 // in this case we have to update the db here.
                 UploadDbObject upload = mPendingUploads.remove(buildRemoteName(account, file));
