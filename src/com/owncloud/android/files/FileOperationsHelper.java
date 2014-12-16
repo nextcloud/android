@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 
@@ -304,8 +305,9 @@ public class FileOperationsHelper {
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_CANCEL_SYNC_FOLDER);
             intent.putExtra(OperationsService.EXTRA_ACCOUNT, account);
-            intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            intent.putExtra(OperationsService.EXTRA_FILE, file);
             mFileActivity.startService(intent);
+
         }
     }
 

@@ -21,6 +21,7 @@ package com.owncloud.android.files.services;
 import java.io.File;
 import java.io.IOException;
 import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -69,7 +70,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_FILE = "FILE";
-    
+
+    public static final String ACTION_CANCEL_FILE_DOWNLOAD = "CANCEL_FILE_DOWNLOAD";
+
     private static final String DOWNLOAD_ADDED_MESSAGE = "DOWNLOAD_ADDED";
     private static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
     public static final String EXTRA_DOWNLOAD_RESULT = "RESULT";    
@@ -143,30 +146,39 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
            ) {
             Log_OC.e(TAG, "Not enough information provided in intent");
             return START_NOT_STICKY;
-        }
-        Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
-        OCFile file = intent.getParcelableExtra(EXTRA_FILE);
-        
-        AbstractList<String> requestedDownloads = new Vector<String>(); // dvelasco: now this always contains just one element, but that can change in a near future (download of multiple selection)
-        String downloadKey = buildRemoteName(account, file);
-        try {
-            DownloadFileOperation newDownload = new DownloadFileOperation(account, file); 
-            mPendingDownloads.putIfAbsent(downloadKey, newDownload);
-            newDownload.addDatatransferProgressListener(this);
-            newDownload.addDatatransferProgressListener((FileDownloaderBinder)mBinder);
-            requestedDownloads.add(downloadKey);
-            sendBroadcastNewDownload(newDownload);
-            
-        } catch (IllegalArgumentException e) {
-            Log_OC.e(TAG, "Not enough information provided in intent: " + e.getMessage());
-            return START_NOT_STICKY;
-        }
-        
-        if (requestedDownloads.size() > 0) {
-            Message msg = mServiceHandler.obtainMessage();
-            msg.arg1 = startId;
-            msg.obj = requestedDownloads;
-            mServiceHandler.sendMessage(msg);
+        } else {
+            Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
+            OCFile file = intent.getParcelableExtra(EXTRA_FILE);
+
+            if (ACTION_CANCEL_FILE_DOWNLOAD.equals(intent.getAction())) {
+
+                // Cancel the download
+                cancel(account,file);
+
+            } else {
+
+                AbstractList<String> requestedDownloads = new Vector<String>(); // dvelasco: now this always contains just one element, but that can change in a near future (download of multiple selection)
+                String downloadKey = buildRemoteName(account, file);
+                try {
+                    DownloadFileOperation newDownload = new DownloadFileOperation(account, file);
+                    mPendingDownloads.putIfAbsent(downloadKey, newDownload);
+                    newDownload.addDatatransferProgressListener(this);
+                    newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
+                    requestedDownloads.add(downloadKey);
+                    sendBroadcastNewDownload(newDownload);
+
+                } catch (IllegalArgumentException e) {
+                    Log_OC.e(TAG, "Not enough information provided in intent: " + e.getMessage());
+                    return START_NOT_STICKY;
+                }
+
+                if (requestedDownloads.size() > 0) {
+                    Message msg = mServiceHandler.obtainMessage();
+                    msg.arg1 = startId;
+                    msg.obj = requestedDownloads;
+                    mServiceHandler.sendMessage(msg);
+                }
+            }
         }
 
         return START_NOT_STICKY;
@@ -205,11 +217,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
          * Map of listeners that will be reported about progress of downloads from a {@link FileDownloaderBinder} instance 
          */
         private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<String, OnDatatransferProgressListener>();
-        
-        
+
+
         /**
          * Cancels a pending or current download of a remote file.
-         * 
+         *
          * @param account       Owncloud account where the remote file is stored.
          * @param file          A file in the queue of pending downloads
          */
@@ -555,4 +567,45 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         sendStickyBroadcast(added);
     }
 
+    /**
+     * Cancel operation
+     * @param account       Owncloud account where the remote file is stored.
+     * @param file          File OCFile
+     */
+    public void cancel(Account account, OCFile file){
+        if(Looper.myLooper() == Looper.getMainLooper()) {
+            Log_OC.d(TAG, "Current Thread is Main Thread.");
+        } else {
+            Log_OC.d(TAG, "Current Thread is NOT Main Thread.");
+        }
+
+        DownloadFileOperation download = null;
+        String targetKey = buildRemoteName(account, file);
+        ArrayList<String> keyItems = new ArrayList<String>();
+        synchronized (mPendingDownloads) {
+            if (file.isFolder()) {
+                Log_OC.d(TAG, "Folder download. Canceling pending downloads (from folder)");
+                Iterator<String> it = mPendingDownloads.keySet().iterator();
+                boolean found = false;
+                while (it.hasNext()) {
+                    String keyDownloadOperation = it.next();
+                    found = keyDownloadOperation.startsWith(targetKey);
+                    if (found) {
+                        keyItems.add(keyDownloadOperation);
+                    }
+                }
+            } else {
+                Log_OC.d(TAG, "Canceling file download");
+                keyItems.add(buildRemoteName(account, file));
+            }
+        }
+        for (String item: keyItems) {
+            download = mPendingDownloads.remove(item);
+            Log_OC.d(TAG, "Key removed: " + item);
+
+            if (download != null) {
+                download.cancel();
+            }
+        }
+    }
 }
