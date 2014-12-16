@@ -27,6 +27,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -145,6 +146,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
         synchronized(mCancellationRequested) {
             if (mCancellationRequested.get()) {
+                // Cancel each operation in mFoldersToWalkDown
+                for (SyncOperation  synchOp: mFoldersToWalkDown) {
+                    ((SynchronizeFolderOperation) synchOp).cancel();
+                }
                 return new RemoteOperationResult(new OperationCancelledException());
             }
         }
@@ -502,8 +507,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * Cancel operation
      */
     public void cancel(){
-        // WIP Cancel the sync operation
         mCancellationRequested.set(true);
     }
-
 }
