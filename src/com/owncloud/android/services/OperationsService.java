@@ -52,6 +52,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountsException;
@@ -181,6 +182,7 @@ public class OperationsService extends Service {
             Pair<Target, RemoteOperation> itemToQueue = newOperation(intent);
             if (itemToQueue != null) {
                 mSyncFolderHandler.add(account, remotePath, (SynchronizeFolderOperation)itemToQueue.second);
+                sendBroadcastNewSyncFolder(account, remotePath);
                 Message msg = mSyncFolderHandler.obtainMessage();
                 msg.arg1 = startId;
                 msg.obj = itemSyncKey;
@@ -204,6 +206,19 @@ public class OperationsService extends Service {
         
         return START_NOT_STICKY;
     }
+
+    /**
+     * TODO remove this method when "folder synchronization" replaces "folder download"; this is a fast and ugly 
+     * patch. 
+     */
+    private void sendBroadcastNewSyncFolder(Account account, String remotePath) {
+        Intent added = new Intent(FileDownloader.getDownloadAddedMessage());
+        added.putExtra(FileDownloader.ACCOUNT_NAME, account.name);
+        added.putExtra(FileDownloader.EXTRA_REMOTE_PATH, remotePath);
+        added.putExtra(FileDownloader.EXTRA_FILE_PATH, FileStorageUtils.getSavePath(account.name) + remotePath);
+        sendStickyBroadcast(added);
+    }
+
 
     @Override
     public void onDestroy() {
@@ -361,6 +376,19 @@ public class OperationsService extends Service {
                 //Log_OC.wtf(TAG, "Not finished yet");
             }
         }
+        
+        
+        /**
+         * Returns True when the file described by 'file' in the ownCloud account 'account' is downloading or waiting to download.
+         * 
+         * If 'file' is a directory, returns 'true' if some of its descendant files is downloading or waiting to download. 
+         * 
+         * @param account       ownCloud account where the remote file is stored.
+         * @param file          A file that could be affected 
+         */
+        public boolean isSynchronizing(Account account, String remotePath) {
+            return mSyncFolderHandler.isSynchronizing(account, remotePath);
+        }
 
     }
 
@@ -390,6 +418,16 @@ public class OperationsService extends Service {
             }
             mService = service;
         }
+
+        
+        public boolean isSynchronizing(Account account, String remotePath) {
+            if (account == null || remotePath == null) return false;
+            String targetKey = buildRemoteName(account, remotePath);
+            synchronized (mPendingOperations) {
+                return (mPendingOperations.containsKey(targetKey));
+            }
+        }
+        
 
         @Override
         public void handleMessage(Message msg) {

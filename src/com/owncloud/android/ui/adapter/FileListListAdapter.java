@@ -47,6 +47,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncDrawable;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -163,7 +164,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             FileDownloaderBinder downloaderBinder = 
                     mTransferServiceGetter.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
-            if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
+            OperationsServiceBinder opsBinder = mTransferServiceGetter.getOperationsServiceBinder();
+            if ((downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) ||
+                 (opsBinder != null && opsBinder.isSynchronizing(mAccount, file.getRemotePath()))) {
                 localStateView.setImageResource(R.drawable.downloading_file_indicator);
                 localStateView.setVisibility(View.VISIBLE);
             } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
