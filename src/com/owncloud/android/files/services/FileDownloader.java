@@ -95,6 +95,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
+
+    private Account mAccount;
+    private OCFile mFile;
     
     
     public static String getDownloadAddedMessage() {
@@ -147,20 +150,24 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             Log_OC.e(TAG, "Not enough information provided in intent");
             return START_NOT_STICKY;
         } else {
-            Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
-            OCFile file = intent.getParcelableExtra(EXTRA_FILE);
+            mAccount = intent.getParcelableExtra(EXTRA_ACCOUNT);
+            mFile = intent.getParcelableExtra(EXTRA_FILE);
 
             if (ACTION_CANCEL_FILE_DOWNLOAD.equals(intent.getAction())) {
 
-                // Cancel the download
-                cancel(account,file);
+                new Thread(new Runnable() {
+                    public void run() {
+                        // Cancel the download
+                        cancel(mAccount,mFile);
+                    }
+                }).start();
 
             } else {
 
                 AbstractList<String> requestedDownloads = new Vector<String>(); // dvelasco: now this always contains just one element, but that can change in a near future (download of multiple selection)
-                String downloadKey = buildRemoteName(account, file);
+                String downloadKey = buildRemoteName(mAccount, mFile);
                 try {
-                    DownloadFileOperation newDownload = new DownloadFileOperation(account, file);
+                    DownloadFileOperation newDownload = new DownloadFileOperation(mAccount, mFile);
                     mPendingDownloads.putIfAbsent(downloadKey, newDownload);
                     newDownload.addDatatransferProgressListener(this);
                     newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
