@@ -282,6 +282,9 @@
   <string name="auth_redirect_non_secure_connection_title">Varna povezava je preusmerjena preko ne-varne poti.</string>
   <string name="actionbar_logger">Dnevnik</string>
   <string name="log_send_history_button">Pošlji zgodovino</string>
+  <string name="log_send_no_mail_app">Ni nameščenega poštnega programa za pošiljanje dnevnikov.</string>
+  <string name="log_send_mail_subject">%1$s dnevniki programa</string>
+  <string name="log_progress_dialog_text">Poteka nalaganje podatkov ...</string>
   <string name="saml_authentication_required_text">Zahtevana je overitev</string>
   <string name="saml_authentication_wrong_pass">Napačno geslo</string>
   <string name="actionbar_move">Premakni</string>
