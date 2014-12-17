@@ -27,7 +27,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -89,7 +88,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     /** 'True' means that the remote folder changed and should be fetched */
     private boolean mRemoteFolderChanged;
-    private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
 
     private List<OCFile> mFilesForDirectDownload;
         // to avoid extra PROPFINDs when there was no change in the folder
@@ -102,6 +100,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     private List<SyncOperation> mFoldersToWalkDown;
 
+    private final AtomicBoolean mCancellationRequested;
 
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
@@ -121,7 +120,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFilesToSyncContentsWithoutUpload = new Vector<SyncOperation>();
         mFavouriteFilesToSyncContents = new Vector<SyncOperation>();
         mFoldersToWalkDown = new Vector<SyncOperation>();
-        
+        mCancellationRequested = new AtomicBoolean(false);
     }
 
 
@@ -143,32 +142,31 @@ public class SynchronizeFolderOperation extends SyncOperation {
         RemoteOperationResult result = null;
         mFailsInFileSyncsFound = 0;
         mConflictsFound = 0;
-
-        synchronized(mCancellationRequested) {
-            if (mCancellationRequested.get()) {
-                // Cancel each operation in mFoldersToWalkDown
-                for (SyncOperation  synchOp: mFoldersToWalkDown) {
-                    ((SynchronizeFolderOperation) synchOp).cancel();
-                }
-                return new RemoteOperationResult(new OperationCancelledException());
-            }
-        }
-
-        // get locally cached information about folder 
-        mLocalFolder = getStorageManager().getFileByPath(mRemotePath);   
         
-        result = checkForChanges(client);
-
-        if (result.isSuccess()) {
-            if (mRemoteFolderChanged) {
-                result = fetchAndSyncRemoteFolder(client);
-                
-            } else {
-                prepareOpsFromLocalKnowledge();
-            }
+        try {
+            // get locally cached information about folder 
+            mLocalFolder = getStorageManager().getFileByPath(mRemotePath);   
             
+            result = checkForChanges(client);
+    
             if (result.isSuccess()) {
-                syncContents(client);
+                if (mRemoteFolderChanged) {
+                    result = fetchAndSyncRemoteFolder(client);
+                    
+                } else {
+                    prepareOpsFromLocalKnowledge();
+                }
+                
+                if (result.isSuccess()) {
+                    syncContents(client);
+                }
+            }
+        } catch (OperationCancelledException e) {
+            result = new RemoteOperationResult(e);
+            
+            // cancel 'child' synchronizations
+            for (SyncOperation  synchOp: mFoldersToWalkDown) {
+                ((SynchronizeFolderOperation) synchOp).cancel();
             }
         }
 
@@ -176,11 +174,15 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     }
 
-    private RemoteOperationResult checkForChanges(OwnCloudClient client) {
+    private RemoteOperationResult checkForChanges(OwnCloudClient client) throws OperationCancelledException {
         Log_OC.d(TAG, "Checking changes in " + mAccount.name + mRemotePath);
 
         mRemoteFolderChanged = true;
         RemoteOperationResult result = null;
+        
+        if (mCancellationRequested.get()) {
+            throw new OperationCancelledException();
+        }
         
         // remote request
         ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mRemotePath);
@@ -215,7 +217,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
 
-    private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
+    private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) throws OperationCancelledException {
+        if (mCancellationRequested.get()) {
+            throw new OperationCancelledException();
+        }
+        
         ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(mRemotePath);
         RemoteOperationResult result = operation.execute(client);
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + mRemotePath);
@@ -399,7 +405,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
 
-    private void syncContents(OwnCloudClient client) {
+    private void syncContents(OwnCloudClient client) throws OperationCancelledException {
         startDirectDownloads();
         startContentSynchronizations(mFilesToSyncContentsWithoutUpload, client);
         startContentSynchronizations(mFavouriteFilesToSyncContents, client);
@@ -407,8 +413,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
     
-    private void startDirectDownloads() {
+    private void startDirectDownloads() throws OperationCancelledException {
         for (OCFile file : mFilesForDirectDownload) {
+            if (mCancellationRequested.get()) {
+                throw new OperationCancelledException();
+            }
             Intent i = new Intent(mContext, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
             i.putExtra(FileDownloader.EXTRA_FILE, file);
@@ -426,9 +435,14 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * @param filesToSyncContents       Synchronization operations to execute.
      * @param client                    Interface to the remote ownCloud server.
      */
-    private void startContentSynchronizations(List<SyncOperation> filesToSyncContents, OwnCloudClient client) {
+    private void startContentSynchronizations(List<SyncOperation> filesToSyncContents, OwnCloudClient client) 
+            throws OperationCancelledException {
+        
         RemoteOperationResult contentsResult = null;
         for (SyncOperation op: filesToSyncContents) {
+            if (mCancellationRequested.get()) {
+                throw new OperationCancelledException();
+            }
             contentsResult = op.execute(getStorageManager(), mContext);
             if (!contentsResult.isSuccess()) {
                 if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
@@ -449,9 +463,12 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
 
-    private void walkSubfolders(OwnCloudClient client) {
+    private void walkSubfolders(OwnCloudClient client) throws OperationCancelledException {
         RemoteOperationResult contentsResult = null;
         for (SyncOperation op: mFoldersToWalkDown) {
+            if (mCancellationRequested.get()) {
+                throw new OperationCancelledException();
+            }
             contentsResult = op.execute(client, getStorageManager());   // to watch out: possibly deep recursion
             if (!contentsResult.isSuccess()) {
                 // TODO - some kind of error count, and use it with notifications
@@ -465,7 +482,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
     }
 
-
+    
     /**
      * Creates and populates a new {@link com.owncloud.android.datamodel.OCFile} object with the data read from the server.
      *
@@ -506,7 +523,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     /**
      * Cancel operation
      */
-    public void cancel(){
+    public void cancel() {
         mCancellationRequested.set(true);
     }
 }
