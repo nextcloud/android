@@ -246,8 +246,11 @@
   <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Fiókok</string>
+  <string name="prefs_add_account">Fiók hozzáadása</string>
+  <string name="actionbar_logger">Naplók</string>
   <string name="saml_authentication_required_text">Felhasználóazonosítás szükséges</string>
   <string name="saml_authentication_wrong_pass">Hibás jelszó</string>
+  <string name="actionbar_move">Mozgatás</string>
   <string name="folder_picker_choose_button_text">Válasszon</string>
   <string name="prefs_category_security">Biztonság</string>
 </resources>

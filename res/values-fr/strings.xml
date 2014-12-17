@@ -144,7 +144,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="media_notif_ticker">%1$s lecteur de musique</string>
   <string name="media_state_playing">%1$s (lecture)</string>
   <string name="media_state_loading">%1$s (chargement)</string>
-  <string name="media_event_done">%1$s pourcentage de lecture finie</string>
+  <string name="media_event_done">Lecture de %1$s terminée</string>
   <string name="media_err_nothing_to_play">Fichier média introuvable </string>
   <string name="media_err_no_account">Aucun compte n\'a été trouvé</string>
   <string name="media_err_not_in_owncloud">Le fichier n\'est pas dans un compte valide</string>

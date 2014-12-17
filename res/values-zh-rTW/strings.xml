@@ -282,6 +282,9 @@
   <string name="auth_redirect_non_secure_connection_title">安全連線被轉向到一個非安全的連線</string>
   <string name="actionbar_logger">紀錄</string>
   <string name="log_send_history_button">傳送歷史記錄</string>
+  <string name="log_send_no_mail_app">找不到可以傳送記錄的電子郵件程式. 請安裝電子郵件軟體!</string>
+  <string name="log_send_mail_subject">%1$s Android 應用程式記錄</string>
+  <string name="log_progress_dialog_text">資料載入中...</string>
   <string name="saml_authentication_required_text">必須驗證</string>
   <string name="saml_authentication_wrong_pass">密碼錯誤</string>
   <string name="actionbar_move">移動</string>
@@ -294,4 +297,5 @@
   <string name="forbidden_permissions_move">移動這個檔案</string>
   <string name="prefs_category_instant_uploading">即時上傳</string>
   <string name="prefs_category_security">安全性</string>
+  <string name="prefs_instant_video_upload_path_title">影片上傳路徑</string>
 </resources>

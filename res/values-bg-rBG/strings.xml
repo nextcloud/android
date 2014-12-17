@@ -66,6 +66,7 @@
   <string name="file_list_folder">папка</string>
   <string name="file_list_folders">папки</string>
   <string name="file_list_file">файл</string>
+  <string name="file_list_files">файл</string>
   <string name="filedetails_select_file">Натисни върху файл, за да видиш допълнителна информация.</string>
   <string name="filedetails_size">Размер:</string>
   <string name="filedetails_type">Тип:</string>
