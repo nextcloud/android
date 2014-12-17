@@ -158,7 +158,7 @@ public class RenameFileOperation extends SyncOperation {
      */
     private boolean isValidNewName() throws IOException {
         // check tricky names
-        if (mNewName == null || mNewName.length() <= 0 || mNewName.contains(File.separator) || mNewName.contains("%")) { 
+        if (mNewName == null || mNewName.length() <= 0 || mNewName.contains(File.separator)) {
             return false;
         }
         // create a test file
