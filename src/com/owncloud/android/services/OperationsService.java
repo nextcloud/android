@@ -495,12 +495,13 @@ public class OperationsService extends Service {
                 syncOperation.cancel();
             }
 
-            Intent intent = new Intent( MainApp.getAppContext(), FileDownloader.class);
+            /// cancellation of download needs to be done separately in any case; a SynchronizeFolderOperation
+            //  may finish much sooner than the real download of the files in the folder 
+            Intent intent = new Intent(mService, FileDownloader.class);
             intent.setAction(FileDownloader.ACTION_CANCEL_FILE_DOWNLOAD);
             intent.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
             intent.putExtra(FileDownloader.EXTRA_FILE, file);
-            MainApp.getAppContext().startService(intent);
-
+            mService.startService(intent);
         }
 
         /**

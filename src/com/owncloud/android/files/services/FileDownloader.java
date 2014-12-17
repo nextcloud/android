@@ -580,12 +580,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      * @param file          File OCFile
      */
     public void cancel(Account account, OCFile file){
-        if(Looper.myLooper() == Looper.getMainLooper()) {
-            Log_OC.d(TAG, "Current Thread is Main Thread.");
-        } else {
-            Log_OC.d(TAG, "Current Thread is NOT Main Thread.");
-        }
-
         DownloadFileOperation download = null;
         String targetKey = buildRemoteName(account, file);
         ArrayList<String> keyItems = new ArrayList<String>();
@@ -602,6 +596,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                     }
                 }
             } else {
+                // this is not really expected...
                 Log_OC.d(TAG, "Canceling file download");
                 keyItems.add(buildRemoteName(account, file));
             }
