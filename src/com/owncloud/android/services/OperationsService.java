@@ -26,6 +26,7 @@ import java.util.concurrent.ConcurrentMap;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -84,7 +85,8 @@ public class OperationsService extends Service {
     public static final String EXTRA_SYNC_FILE_CONTENTS = "SYNC_FILE_CONTENTS";
     public static final String EXTRA_RESULT = "RESULT";
     public static final String EXTRA_NEW_PARENT_PATH = "NEW_PARENT_PATH";
-    
+    public static final String EXTRA_FILE = "FILE";
+
     // TODO review if ALL OF THEM are necessary
     public static final String EXTRA_SUCCESS_IF_ABSENT = "SUCCESS_IF_ABSENT";
     public static final String EXTRA_USERNAME = "USERNAME";
@@ -187,15 +189,15 @@ public class OperationsService extends Service {
                 mSyncFolderHandler.sendMessage(msg);
             }
         } else if (ACTION_CANCEL_SYNC_FOLDER.equals(intent.getAction())) {
-            if (!intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_REMOTE_PATH)) {
+            if (!intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_FILE)) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
                 return START_NOT_STICKY;
             }
             Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
-            String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
+            OCFile file = intent.getParcelableExtra(EXTRA_FILE);
 
             // Cancel operation
-            mSyncFolderHandler.cancel(account,remotePath);
+            mSyncFolderHandler.cancel(account,file);
         } else {
             Message msg = mOperationsHandler.obtainMessage();
             msg.arg1 = startId;
@@ -482,16 +484,23 @@ public class OperationsService extends Service {
          * Cancels a pending or current sync operation.
          *
          * @param account       Owncloud account where the remote file is stored.
-         * @param remotePath    A remote file path
+         * @param file          File
          */
-        public void cancel(Account account, String remotePath) {
+        public void cancel(Account account, OCFile file) {
             SynchronizeFolderOperation syncOperation = null;
             synchronized (mPendingOperations) {
-                syncOperation = mPendingOperations.remove(buildRemoteName(account, remotePath));
+                syncOperation = mPendingOperations.remove(buildRemoteName(account, file.getRemotePath()));
             }
             if (syncOperation != null) {
                 syncOperation.cancel();
             }
+
+            Intent intent = new Intent( MainApp.getAppContext(), FileDownloader.class);
+            intent.setAction(FileDownloader.ACTION_CANCEL_FILE_DOWNLOAD);
+            intent.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
+            intent.putExtra(FileDownloader.EXTRA_FILE, file);
+            MainApp.getAppContext().startService(intent);
+
         }
 
         /**
