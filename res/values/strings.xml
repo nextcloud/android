@@ -325,4 +325,6 @@
 
 	<string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
 
+    <string name="auth_refresh_button">Refresh connection</string>
+
 </resources>
