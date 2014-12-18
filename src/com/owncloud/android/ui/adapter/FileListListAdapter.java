@@ -337,7 +337,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             mFiles = null;
         }
 
-        mFiles = FileStorageUtils.sortDirectory(mFiles);
+        mFiles = FileStorageUtils.sortFolder(mFiles);
         notifyDataSetChanged();
     }
     
@@ -383,7 +383,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         FileStorageUtils.mSortOrder = order;
         FileStorageUtils.mSortAscending = ascending;
         
-        mFiles = FileStorageUtils.sortDirectory(mFiles);
+        mFiles = FileStorageUtils.sortFolder(mFiles);
         notifyDataSetChanged();
     }    
 }

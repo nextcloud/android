@@ -139,7 +139,7 @@ public class FileStorageUtils {
     /**
      * Sorts all filenames, regarding last user decision 
      */
-    public static Vector<OCFile> sortDirectory(Vector<OCFile> files){
+    public static Vector<OCFile> sortFolder(Vector<OCFile> files){
         switch (mSortOrder){
         case 0:
             files = FileStorageUtils.sortByName(files);
