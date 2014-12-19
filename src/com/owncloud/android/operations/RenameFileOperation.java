@@ -29,8 +29,6 @@ import com.owncloud.android.lib.resources.files.RenameRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import android.accounts.Account;
-
 
 /**
  * Remote operation performing the rename of a remote file (or folder?) in the ownCloud server.
@@ -44,7 +42,6 @@ public class RenameFileOperation extends SyncOperation {
     
     private OCFile mFile;
     private String mRemotePath;
-    private Account mAccount;
     private String mNewName;
     private String mNewRemotePath;
 
@@ -57,9 +54,8 @@ public class RenameFileOperation extends SyncOperation {
      * @param account               OwnCloud account containing the remote file 
      * @param newName               New name to set as the name of file.
      */
-    public RenameFileOperation(String remotePath, Account account, String newName) {
+    public RenameFileOperation(String remotePath, String newName) {
         mRemotePath = remotePath;
-        mAccount = account;
         mNewName = newName;
         mNewRemotePath = null;
     }
@@ -103,7 +99,8 @@ public class RenameFileOperation extends SyncOperation {
 
             if (result.isSuccess()) {
                 if (mFile.isFolder()) {
-                    saveLocalDirectory();
+                    getStorageManager().moveLocalFile(mFile, mNewRemotePath, parent);
+                    //saveLocalDirectory();
 
                 } else {
                     saveLocalFile();
@@ -118,28 +115,24 @@ public class RenameFileOperation extends SyncOperation {
         return result;
     }
 
-    
-    private void saveLocalDirectory() {
-        getStorageManager().moveFolder(mFile, mNewRemotePath);
-        String localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
-        File localDir = new File(localPath);
-        if (localDir.exists()) {
-            localDir.renameTo(new File(FileStorageUtils.getSavePath(mAccount.name) + mNewRemotePath));
-            // TODO - if renameTo fails, children files that are already down will result unlinked
-        }
-    }
-
     private void saveLocalFile() {
         mFile.setFileName(mNewName);
         
         // try to rename the local copy of the file
         if (mFile.isDown()) {
-            File f = new File(mFile.getStoragePath());
+            String oldPath = mFile.getStoragePath();
+            File f = new File(oldPath);
             String parentStoragePath = f.getParent();
             if (!parentStoragePath.endsWith(File.separator))
                 parentStoragePath += File.separator;
             if (f.renameTo(new File(parentStoragePath + mNewName))) {
-                mFile.setStoragePath(parentStoragePath + mNewName);
+                String newPath = parentStoragePath + mNewName;
+                mFile.setStoragePath(newPath);
+
+                // notify MediaScanner about removed file - TODO really works?
+                getStorageManager().triggerMediaScan(oldPath);
+                // notify to scan about new file
+                getStorageManager().triggerMediaScan(newPath);
             }
             // else - NOTHING: the link to the local file is kept although the local name can't be updated
             // TODO - study conditions when this could be a problem

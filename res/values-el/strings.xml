@@ -59,6 +59,10 @@
   <string name="file_list_empty">Δεν υπάρχει τίποτα εδώ. Ανεβάστε κάτι!</string>
   <string name="file_list_loading">Φόρτωση ...</string>
   <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
+  <string name="file_list_folder">φάκελος</string>
+  <string name="file_list_folders">φάκελοι</string>
+  <string name="file_list_file">αρχείο</string>
+  <string name="file_list_files">αρχεία</string>
   <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
   <string name="filedetails_size">Μέγεθος:</string>
   <string name="filedetails_type">Τύπος:</string>
@@ -274,13 +278,11 @@
   <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται σε μια μη ασφαλή διαδρομή.</string>
   <string name="actionbar_logger">Αρχεία καταγραφών</string>
   <string name="log_send_history_button">Αποστολή ιστορικού</string>
-  <string name="log_mail_subject">αρχεία καταγραφής της εφαρμογής ownCloud Android</string>
-  <string name="log_progress_dialog_text">Φόρτωση δεδομένων....</string>
   <string name="saml_authentication_required_text">Απαιτείται πιστοποίηση</string>
   <string name="saml_authentication_wrong_pass">Εσφαλμένο συνθηματικό</string>
   <string name="actionbar_move">Μετακίνηση</string>
   <string name="file_list_empty_moving">Δεν υπάρχει τίποτα εδώ. Μπορείτε να προσθέσετε ένα φάκελο!</string>
-  <string name="move_choose_button_text">Επιλέξτε</string>
+  <string name="folder_picker_choose_button_text">Επιλέξτε</string>
   <string name="move_file_not_found">Αδύνατη η μετακίνηση. Παρακαλώ ελέγξτε αν ο φάκελος υπάρχει</string>
   <string name="move_file_invalid_into_descendent">Δεν είναι δυνατό να μετακινηθεί ο φάκελος σε έναν απογονικό</string>
   <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>

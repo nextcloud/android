@@ -63,6 +63,10 @@
   <string name="file_list_empty">Alles leer. Lade etwas hoch!</string>
   <string name="file_list_loading">Ladevorgang …</string>
   <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
+  <string name="file_list_folder">Ordner</string>
+  <string name="file_list_folders">Ordner</string>
+  <string name="file_list_file">Datei</string>
+  <string name="file_list_files">Dateien</string>
   <string name="filedetails_select_file">Klicken Sie auf eine Datei für weitere Informationen.</string>
   <string name="filedetails_size">Größe:</string>
   <string name="filedetails_type">Art:</string>
@@ -278,13 +282,14 @@
   <string name="auth_redirect_non_secure_connection_title">Die gesicherte Verbindung wird auf eine unsichere Route weitergeleitet.</string>
   <string name="actionbar_logger">Protokolle</string>
   <string name="log_send_history_button">Verlauf senden</string>
-  <string name="log_mail_subject">Protokolle der ownCloud-Android-App</string>
-  <string name="log_progress_dialog_text">Daten werden geladen …</string>
+  <string name="log_send_no_mail_app">Keine App zum Versenden der Meldungen gefunden. Bitte installiere die Mail-App!</string>
+  <string name="log_send_mail_subject">%1$s Android-App Meldungen</string>
+  <string name="log_progress_dialog_text">Lade Daten…</string>
   <string name="saml_authentication_required_text">Legitimierung benötigt</string>
   <string name="saml_authentication_wrong_pass">Falsches Passwort</string>
   <string name="actionbar_move">Verschieben</string>
   <string name="file_list_empty_moving">Nichts vorhanden. Du kannst einen Ordner hinzufügen!</string>
-  <string name="move_choose_button_text">Auswählen</string>
+  <string name="folder_picker_choose_button_text">Auswählen</string>
   <string name="move_file_not_found">Verschieben nicht möglich. Prüfe, dass die Datei existiert</string>
   <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
   <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
@@ -292,4 +297,5 @@
   <string name="forbidden_permissions_move">um diese Datei zu verschieben</string>
   <string name="prefs_category_instant_uploading">Sofortiges Hochladen</string>
   <string name="prefs_category_security">Sicherheit</string>
+  <string name="prefs_instant_video_upload_path_title">Verzeichnis zum Hochladen der Videos</string>
 </resources>

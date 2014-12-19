@@ -26,6 +26,10 @@
   <string name="uploader_info_uploading">Eroplueden</string>
   <string name="file_list_seconds_ago">Sekonnen hir</string>
   <string name="file_list_empty">Hei ass näischt. Lued eppes rop!</string>
+  <string name="file_list_folder">Dossier</string>
+  <string name="file_list_folders">Dossieren</string>
+  <string name="file_list_file">Datei</string>
+  <string name="file_list_files">Dateien</string>
   <string name="filedetails_size">Gréisst:</string>
   <string name="filedetails_type">Typ:</string>
   <string name="filedetails_created">Erstallt:</string>
@@ -87,5 +91,5 @@
   <string name="activity_chooser_send_file_title">Schécken</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Accounten</string>
-  <string name="move_choose_button_text">Auswielen</string>
+  <string name="folder_picker_choose_button_text">Auswielen</string>
 </resources>

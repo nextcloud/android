@@ -64,6 +64,10 @@ Téléchargez-le ici : %2$s</string>
   <string name="file_list_empty">Il n\'y a rien ici ! Envoyez donc quelque chose :)</string>
   <string name="file_list_loading">Chargement…</string>
   <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
+  <string name="file_list_folder">dossier</string>
+  <string name="file_list_folders">dossiers</string>
+  <string name="file_list_file">fichier</string>
+  <string name="file_list_files">fichiers</string>
   <string name="filedetails_select_file">Effleurez un fichier pour afficher les informations complémentaires</string>
   <string name="filedetails_size">Taille :</string>
   <string name="filedetails_type">Type :</string>
@@ -140,7 +144,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="media_notif_ticker">%1$s lecteur de musique</string>
   <string name="media_state_playing">%1$s (lecture)</string>
   <string name="media_state_loading">%1$s (chargement)</string>
-  <string name="media_event_done">%1$s pourcentage de lecture finie</string>
+  <string name="media_event_done">Lecture de %1$s terminée</string>
   <string name="media_err_nothing_to_play">Fichier média introuvable </string>
   <string name="media_err_no_account">Aucun compte n\'a été trouvé</string>
   <string name="media_err_not_in_owncloud">Le fichier n\'est pas dans un compte valide</string>
@@ -178,7 +182,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_unauthorized">Nom d\'utilisateur ou mot de passe incorrect</string>
   <string name="auth_oauth_error">Échec d\'autorisation</string>
   <string name="auth_oauth_error_access_denied">Accès refusé par le serveur d\'autorisation</string>
-  <string name="auth_wtf_reenter_URL">État inattendu ; veuillez entrer à nouveau l\'URL du serveur</string>
+  <string name="auth_wtf_reenter_URL">État inattendu ; veuillez saisir à nouveau l\'URL du serveur</string>
   <string name="auth_expired_oauth_token_toast">Votre autorisation a expiré. Merci de vous authentifier à nouveau</string>
   <string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe courant</string>
   <string name="auth_expired_saml_sso_token_toast">Votre session a expiré. Merci de vous reconnecter</string>
@@ -282,13 +286,13 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_redirect_non_secure_connection_title">La connexion sécurisée est redirigée via une route non-sécurisée.</string>
   <string name="actionbar_logger">Journaux</string>
   <string name="log_send_history_button">Envoyer l\'historique</string>
-  <string name="log_mail_subject">Journaux de l\'application Android ownCloud</string>
+  <string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
   <string name="log_progress_dialog_text">Chargement des données...</string>
   <string name="saml_authentication_required_text">Authentification requise</string>
   <string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
   <string name="actionbar_move">Déplacer</string>
   <string name="file_list_empty_moving">Il n\'y a rien ici. Vous pouvez ajouter un dossier !</string>
-  <string name="move_choose_button_text">Choisir</string>
+  <string name="folder_picker_choose_button_text">Choisir</string>
   <string name="move_file_not_found">Impossible de déplacer. Vérifiez que le fichier existe</string>
   <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
   <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
@@ -296,4 +300,5 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="forbidden_permissions_move">de déplacer ce fichier</string>
   <string name="prefs_category_instant_uploading">Téléchargements instantanés</string>
   <string name="prefs_category_security">Sécurité</string>
+  <string name="prefs_instant_video_upload_path_title">Chemin d\'accès pour le téléversement</string>
 </resources>

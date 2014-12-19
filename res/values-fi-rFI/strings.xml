@@ -62,6 +62,10 @@
   <string name="file_list_empty">Täällä ei ole mitään. Lähetä tänne jotakin!</string>
   <string name="file_list_loading">Ladataan...</string>
   <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
+  <string name="file_list_folder">kansio</string>
+  <string name="file_list_folders">kansiota</string>
+  <string name="file_list_file">tiedosto</string>
+  <string name="file_list_files">tiedostoa</string>
   <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
   <string name="filedetails_size">Koko:</string>
   <string name="filedetails_type">Tyyppi:</string>
@@ -255,13 +259,13 @@
   <string name="auth_redirect_non_secure_connection_title">Salattu yhteys on ohjattu uudelleen salaamatonta reittiä pitkin.</string>
   <string name="actionbar_logger">Lokit</string>
   <string name="log_send_history_button">Lähetä historia</string>
-  <string name="log_mail_subject">ownCloudin Android-sovelluksen lokit</string>
-  <string name="log_progress_dialog_text">Ladataan tietoja...</string>
+  <string name="log_send_no_mail_app">Lokien lähettämistä varten ei löytynyt sovellusta. Asenna sähköpostisovellus!</string>
+  <string name="log_progress_dialog_text">Ladataan tietoja…</string>
   <string name="saml_authentication_required_text">Tunnistautuminen vaaditaan</string>
   <string name="saml_authentication_wrong_pass">Väärä salasana</string>
   <string name="actionbar_move">Siirrä</string>
   <string name="file_list_empty_moving">Täällä ei ole mitään. Voit lisätä kansion!</string>
-  <string name="move_choose_button_text">Valitse</string>
+  <string name="folder_picker_choose_button_text">Valitse</string>
   <string name="move_file_not_found">Siirto ei onnistu. Tarkista, ettei tiedostoa ole jo olemassa</string>
   <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
   <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>

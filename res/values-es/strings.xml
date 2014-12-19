@@ -63,6 +63,10 @@
   <string name="file_list_empty">No hay nada aquí. ¡Suba algo!</string>
   <string name="file_list_loading">Cargando...</string>
   <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
+  <string name="file_list_folder">carpeta</string>
+  <string name="file_list_folders">carpetas</string>
+  <string name="file_list_file">archivo</string>
+  <string name="file_list_files">archivos</string>
   <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -278,13 +282,14 @@
   <string name="auth_redirect_non_secure_connection_title">La conexión segura está siendo desviada por una ruta insegura.</string>
   <string name="actionbar_logger">Logs</string>
   <string name="log_send_history_button">Enviar historial</string>
-  <string name="log_mail_subject">Logs de las apps ownCloud Android</string>
+  <string name="log_send_no_mail_app">No se ha encontrado una app para enviar logs. Instale la app mail!</string>
+  <string name="log_send_mail_subject">Se han encontrado %1$s logs de la app Android</string>
   <string name="log_progress_dialog_text">Cargando datos...</string>
   <string name="saml_authentication_required_text">Se necesita autenticación</string>
   <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
   <string name="actionbar_move">Mover</string>
   <string name="file_list_empty_moving">Aquí no hay nada. ¡Puede agregar una carpeta!</string>
-  <string name="move_choose_button_text">Seleccionar</string>
+  <string name="folder_picker_choose_button_text">Seleccionar</string>
   <string name="move_file_not_found">No se puede mover. Revise si el archivo existe</string>
   <string name="move_file_invalid_into_descendent">No se puede mover una carpeta dentro de una de SUS subcarpetas.</string>
   <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
@@ -292,4 +297,5 @@
   <string name="forbidden_permissions_move">para mover este archivo</string>
   <string name="prefs_category_instant_uploading">Subidas instantáneas</string>
   <string name="prefs_category_security">Seguridad</string>
+  <string name="prefs_instant_video_upload_path_title">Ruta de vídeo de subida</string>
 </resources>

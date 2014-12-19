@@ -63,6 +63,10 @@
   <string name="file_list_empty">Nada aqui. Envie alguma coisa!</string>
   <string name="file_list_loading">Carregando...</string>
   <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
+  <string name="file_list_folder">pasta</string>
+  <string name="file_list_folders">pastas</string>
+  <string name="file_list_file">arquivo</string>
+  <string name="file_list_files">arquivos</string>
   <string name="filedetails_select_file">Toque em um arquivo para mostrar informações adicionais.</string>
   <string name="filedetails_size">Tamanho:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -278,13 +282,14 @@
   <string name="auth_redirect_non_secure_connection_title">Conexão segura esta redirecionada para uma rota não segura.</string>
   <string name="actionbar_logger">Logs</string>
   <string name="log_send_history_button">Enviar Histórico</string>
-  <string name="log_mail_subject">Logs do aplicativo ownCloud Android</string>
-  <string name="log_progress_dialog_text">Carregamento de dados...</string>
+  <string name="log_send_no_mail_app">Não foi encontrado nenhum app para envio de logs. Instale o mail app!</string>
+  <string name="log_send_mail_subject">%1$s logs do Android app</string>
+  <string name="log_progress_dialog_text">Carregando dados...</string>
   <string name="saml_authentication_required_text">Autenticação é requerida</string>
   <string name="saml_authentication_wrong_pass">Senha incorreta</string>
   <string name="actionbar_move">Mover</string>
   <string name="file_list_empty_moving">Nada aqui. Você pode adicionar uma pasta!</string>
-  <string name="move_choose_button_text">Escolher</string>
+  <string name="folder_picker_choose_button_text">Escolher</string>
   <string name="move_file_not_found">Não é possível mover. Por favor verifique se o arquivo existe</string>
   <string name="move_file_invalid_into_descendent">Não é possível mover a pasta para uma descendente</string>
   <string name="move_file_invalid_overwrite">O arquivo já existe na pasta de destino</string>
@@ -292,4 +297,5 @@
   <string name="forbidden_permissions_move">mover este arquivo</string>
   <string name="prefs_category_instant_uploading">Envios Instantâneos</string>
   <string name="prefs_category_security">Segurança</string>
+  <string name="prefs_instant_video_upload_path_title">Enviar o Caminho do Vídeo</string>
 </resources>

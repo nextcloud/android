@@ -7,8 +7,11 @@
   <string name="auth_username">Gebruikersnaam</string>
   <string name="auth_password">Wagwoord</string>
   <string name="file_list_seconds_ago">sekondes gelede</string>
+  <string name="common_yes">Ja</string>
+  <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Kanseleer</string>
+  <string name="common_error">Fout</string>
   <string name="empty"></string>
-  <string name="move_choose_button_text">Kies</string>
+  <string name="folder_picker_choose_button_text">Kies</string>
 </resources>

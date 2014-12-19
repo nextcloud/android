@@ -64,6 +64,10 @@ Download hier: %2$s</string>
   <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
   <string name="file_list_loading">Laden ...</string>
   <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
+  <string name="file_list_folder">map</string>
+  <string name="file_list_folders">mappen</string>
+  <string name="file_list_file">bestand</string>
+  <string name="file_list_files">bestanden</string>
   <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
   <string name="filedetails_size">Grootte:</string>
   <string name="filedetails_type">Type:</string>
@@ -281,13 +285,14 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="auth_redirect_non_secure_connection_title">De beveiligde verbinding is omgeleid naar een onveilige route.</string>
   <string name="actionbar_logger">Logs</string>
   <string name="log_send_history_button">Verstuur geschiedenis</string>
-  <string name="log_mail_subject">ownCloud Android app logs</string>
+  <string name="log_send_no_mail_app">Geen app voor versturen van logs gevonden. Installeer de mail app!</string>
+  <string name="log_send_mail_subject">%1$s Android app logs</string>
   <string name="log_progress_dialog_text">Laden data...</string>
   <string name="saml_authentication_required_text">Authenticatie vereist</string>
   <string name="saml_authentication_wrong_pass">Onjuist wachtwoord</string>
   <string name="actionbar_move">verplaatsen</string>
   <string name="file_list_empty_moving">Niets hier. U kunt een map toevoegen!</string>
-  <string name="move_choose_button_text">Kies</string>
+  <string name="folder_picker_choose_button_text">Kies</string>
   <string name="move_file_not_found">Kan niet verplaatsen. Ga na of het bestand wel bestaat</string>
   <string name="move_file_invalid_into_descendent">De map kan niet naar een onderliggende map worden verplaatst</string>
   <string name="move_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
@@ -295,4 +300,5 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="forbidden_permissions_move">om dit bestand te verplaatsen</string>
   <string name="prefs_category_instant_uploading">Directe uploads</string>
   <string name="prefs_category_security">Beveiliging</string>
+  <string name="prefs_instant_video_upload_path_title">Upload Video Pad</string>
 </resources>

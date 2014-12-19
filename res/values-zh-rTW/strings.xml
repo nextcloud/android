@@ -63,6 +63,10 @@
   <string name="file_list_empty">這裡還沒有東西，上傳一些吧！</string>
   <string name="file_list_loading">載入中…</string>
   <string name="local_file_list_empty">這個目錄中沒有任何檔案.</string>
+  <string name="file_list_folder">資料夾</string>
+  <string name="file_list_folders">資料夾</string>
+  <string name="file_list_file">檔案</string>
+  <string name="file_list_files">檔案</string>
   <string name="filedetails_select_file">在檔案上輕觸來顯示更多資訊。</string>
   <string name="filedetails_size">容量:</string>
   <string name="filedetails_type">類型:</string>
@@ -238,8 +242,8 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">只使用 WiFi 上傳</string>
-  <string name="instant_video_upload_on_wifi">只透過無線網路來執行即時影像上傳的功能</string>
+  <string name="instant_upload_on_wifi">只使用 WiFi 來執行即時圖片上傳的功能</string>
+  <string name="instant_video_upload_on_wifi">只使用 WiFi 來執行即時影像上傳的功能</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">更新衝突</string>
   <string name="conflict_message">遠端檔案 %s 未同步到本地. 繼續將取代伺服器上的文件.</string>
@@ -278,13 +282,14 @@
   <string name="auth_redirect_non_secure_connection_title">安全連線被轉向到一個非安全的連線</string>
   <string name="actionbar_logger">紀錄</string>
   <string name="log_send_history_button">傳送歷史記錄</string>
-  <string name="log_mail_subject">ownCloud Android 應用程式記錄</string>
+  <string name="log_send_no_mail_app">找不到可以傳送記錄的電子郵件程式. 請安裝電子郵件軟體!</string>
+  <string name="log_send_mail_subject">%1$s Android 應用程式記錄</string>
   <string name="log_progress_dialog_text">資料載入中...</string>
   <string name="saml_authentication_required_text">必須驗證</string>
   <string name="saml_authentication_wrong_pass">密碼錯誤</string>
   <string name="actionbar_move">移動</string>
   <string name="file_list_empty_moving">找不到任何檔案. 你可以新增一個目錄!</string>
-  <string name="move_choose_button_text">選擇</string>
+  <string name="folder_picker_choose_button_text">選擇</string>
   <string name="move_file_not_found">無法搬移. 請檢查該檔案是否存在</string>
   <string name="move_file_invalid_into_descendent">把一個目錄搬移到其底下的子目錄是不可能的</string>
   <string name="move_file_invalid_overwrite">這個檔案已經存在於目的目錄中</string>
@@ -292,4 +297,5 @@
   <string name="forbidden_permissions_move">移動這個檔案</string>
   <string name="prefs_category_instant_uploading">即時上傳</string>
   <string name="prefs_category_security">安全性</string>
+  <string name="prefs_instant_video_upload_path_title">影片上傳路徑</string>
 </resources>

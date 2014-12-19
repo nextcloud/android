@@ -615,8 +615,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestMultipleUpload(data, resultCode);
 
-        } else if (requestCode == ACTION_MOVE_FILES && (resultCode == RESULT_OK || 
-                resultCode == MoveActivity.RESULT_OK_AND_MOVE)){
+        } else if (requestCode == ACTION_MOVE_FILES && resultCode == RESULT_OK){
 
             final Intent fData = data;
             final int fResultCode = resultCode; 
@@ -744,8 +743,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      * @param resultCode        Result code received
      */
     private void requestMoveOperation(Intent data, int resultCode) {
-        OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(MoveActivity.EXTRA_CURRENT_FOLDER);
-        OCFile targetFile = (OCFile) data.getParcelableExtra(MoveActivity.EXTRA_TARGET_FILE);
+        OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+        OCFile targetFile = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
         getFileOperationsHelper().moveFile(folderToMoveAt, targetFile);
     }
 

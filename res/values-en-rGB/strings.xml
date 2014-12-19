@@ -63,6 +63,10 @@
   <string name="file_list_empty">Nothing in here. Upload something!</string>
   <string name="file_list_loading">Loading...</string>
   <string name="local_file_list_empty">There are no files in this folder.</string>
+  <string name="file_list_folder">folder</string>
+  <string name="file_list_folders">folders</string>
+  <string name="file_list_file">file</string>
+  <string name="file_list_files">files</string>
   <string name="filedetails_select_file">Tap on a file to display additional information.</string>
   <string name="filedetails_size">Size:</string>
   <string name="filedetails_type">Type:</string>
@@ -278,13 +282,14 @@
   <string name="auth_redirect_non_secure_connection_title">Secure connection is redirected to an unsecured route.</string>
   <string name="actionbar_logger">Logs</string>
   <string name="log_send_history_button">Send History</string>
-  <string name="log_mail_subject">ownCloud Android app logs</string>
-  <string name="log_progress_dialog_text">Loading data...</string>
+  <string name="log_send_no_mail_app">No app for sending logs found. Install mail app!</string>
+  <string name="log_send_mail_subject">%1$s Android app logs</string>
+  <string name="log_progress_dialog_text">Loading data…</string>
   <string name="saml_authentication_required_text">Authentication required</string>
   <string name="saml_authentication_wrong_pass">Incorrect password</string>
   <string name="actionbar_move">Move</string>
   <string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
-  <string name="move_choose_button_text">Choose</string>
+  <string name="folder_picker_choose_button_text">Choose</string>
   <string name="move_file_not_found">Unable to move. Please check whether the file exists</string>
   <string name="move_file_invalid_into_descendent">It is not possible to move a folder into a descendant</string>
   <string name="move_file_invalid_overwrite">The file exists already in the destination folder</string>
@@ -292,4 +297,5 @@
   <string name="forbidden_permissions_move">to move this file</string>
   <string name="prefs_category_instant_uploading">Instant Uploads</string>
   <string name="prefs_category_security">Security</string>
+  <string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
 </resources>

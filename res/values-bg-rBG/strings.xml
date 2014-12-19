@@ -63,6 +63,10 @@
   <string name="file_list_empty">Тук няма нищо. Качете нещо!</string>
   <string name="file_list_loading">Зареждане...</string>
   <string name="local_file_list_empty">Няма файлове в тази папка.</string>
+  <string name="file_list_folder">папка</string>
+  <string name="file_list_folders">папки</string>
+  <string name="file_list_file">файл</string>
+  <string name="file_list_files">файл</string>
   <string name="filedetails_select_file">Натисни върху файл, за да видиш допълнителна информация.</string>
   <string name="filedetails_size">Размер:</string>
   <string name="filedetails_type">Тип:</string>
@@ -278,13 +282,11 @@
   <string name="auth_redirect_non_secure_connection_title">Сигурна връзка е пренасочена по несигурен път.</string>
   <string name="actionbar_logger">Доклади</string>
   <string name="log_send_history_button">Изпрати История</string>
-  <string name="log_mail_subject">ownCloud Android доклади</string>
-  <string name="log_progress_dialog_text">Зареждане на информация...</string>
   <string name="saml_authentication_required_text">Нужна е идентификация</string>
   <string name="saml_authentication_wrong_pass">Грешна парола</string>
   <string name="actionbar_move">Премести</string>
   <string name="file_list_empty_moving">Тук няма нищо. Можеш да добавиш папка!</string>
-  <string name="move_choose_button_text">Избери</string>
+  <string name="folder_picker_choose_button_text">Избери</string>
   <string name="move_file_not_found">Неуспешно преместване. Моля, провери дали файла съществува.</string>
   <string name="move_file_invalid_into_descendent">Не е възможно да преместиш папка в нейна под папка.</string>
   <string name="move_file_invalid_overwrite">Файлът вече съществува в отдалечената папка.</string>

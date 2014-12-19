@@ -63,6 +63,10 @@
   <string name="file_list_empty">Burada hiçbir şey yok. Bir şeyler yükleyin!</string>
   <string name="file_list_loading">Yükleniyor...</string>
   <string name="local_file_list_empty">Bu klasörde dosya yok.</string>
+  <string name="file_list_folder">klasör</string>
+  <string name="file_list_folders">klasörler</string>
+  <string name="file_list_file">dosya</string>
+  <string name="file_list_files">dosyalar</string>
   <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
   <string name="filedetails_size">Boyut:</string>
   <string name="filedetails_type">Tür:</string>
@@ -278,13 +282,14 @@
   <string name="auth_redirect_non_secure_connection_title">Güvenli bağlantı, güvenli olmayan bir rotaya yönlendirildi.</string>
   <string name="actionbar_logger">Günlükler</string>
   <string name="log_send_history_button">Geçmişi Gönder</string>
-  <string name="log_mail_subject">ownCloud Android uygulama kayıtları</string>
-  <string name="log_progress_dialog_text">Veri yükleniyor...</string>
+  <string name="log_send_no_mail_app">Logları göndermek için uygulama bulunamadı. Eposta uygulamasını yükleyin!</string>
+  <string name="log_send_mail_subject">%1$s Android uygulama kayıtları</string>
+  <string name="log_progress_dialog_text">Yükleniyor...</string>
   <string name="saml_authentication_required_text">Kimlik doğrulama gerekli</string>
   <string name="saml_authentication_wrong_pass">Hatalı parola</string>
   <string name="actionbar_move">Taşı</string>
   <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
-  <string name="move_choose_button_text">Seç</string>
+  <string name="folder_picker_choose_button_text">Seç</string>
   <string name="move_file_not_found">Taşıma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
   <string name="move_file_invalid_into_descendent">Klasörü, kendi alt klasörüne taşımak mümkün değil</string>
   <string name="move_file_invalid_overwrite">Dosya zaten hedef klasörde mevcut</string>
@@ -292,4 +297,5 @@
   <string name="forbidden_permissions_move">bu dosyayı taşımak için</string>
   <string name="prefs_category_instant_uploading">Anında Yüklemeler</string>
   <string name="prefs_category_security">Güvenlik</string>
+  <string name="prefs_instant_video_upload_path_title">Video Yükleme Yolu</string>
 </resources>

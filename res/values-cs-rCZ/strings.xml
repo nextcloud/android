@@ -63,6 +63,10 @@
   <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
   <string name="file_list_loading">Načítám...</string>
   <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
+  <string name="file_list_folder">adresář</string>
+  <string name="file_list_folders">adresáře</string>
+  <string name="file_list_file">soubor</string>
+  <string name="file_list_files">soubory</string>
   <string name="filedetails_select_file">Více informací získáte klepnutím na soubor.</string>
   <string name="filedetails_size">Velikost:</string>
   <string name="filedetails_type">Typ:</string>
@@ -277,13 +281,14 @@ správce systému.</string>
   <string name="auth_redirect_non_secure_connection_title">Bezpečné spojení je přesměrováno na nezabezpečenou trasu.</string>
   <string name="actionbar_logger">Logy</string>
   <string name="log_send_history_button">Odeslat historii</string>
-  <string name="log_mail_subject">Logy aplikace ownCloud pro Android</string>
-  <string name="log_progress_dialog_text">Načítám data...</string>
+  <string name="log_send_no_mail_app">Nebyla nalezena žádná aplikace pro zasílání logů. Nainstalujte poštovní aplikaci!</string>
+  <string name="log_send_mail_subject">%1$s logy aplikace pro Android</string>
+  <string name="log_progress_dialog_text">Načítání dat…</string>
   <string name="saml_authentication_required_text">Vyžadováno přihlášení</string>
   <string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
   <string name="actionbar_move">Přesunout</string>
   <string name="file_list_empty_moving">Zde nic není. Můžete přidat adresář!</string>
-  <string name="move_choose_button_text">Vybrat</string>
+  <string name="folder_picker_choose_button_text">Vybrat</string>
   <string name="move_file_not_found">Nelze přesunout. Zkontrolujte prosím že soubor existuje</string>
   <string name="move_file_invalid_into_descendent">Není možné adresář přesunout do vlastního podadresáře</string>
   <string name="move_file_invalid_overwrite">Soubor již v cílovém adresáři existuje</string>
@@ -291,4 +296,5 @@ správce systému.</string>
   <string name="forbidden_permissions_move">pro přesun tohoto souboru</string>
   <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
   <string name="prefs_category_security">Zabezpečení</string>
+  <string name="prefs_instant_video_upload_path_title">Cesta pro nahrávání videí</string>
 </resources>

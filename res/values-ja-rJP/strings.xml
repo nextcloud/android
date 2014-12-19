@@ -64,6 +64,10 @@
   <string name="file_list_empty">ここには何もありません。何かアップロードしてください。</string>
   <string name="file_list_loading">読込中 ...</string>
   <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
+  <string name="file_list_folder">フォルダ</string>
+  <string name="file_list_folders">フォルダ</string>
+  <string name="file_list_file">ファイル</string>
+  <string name="file_list_files">ファイル</string>
   <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
   <string name="filedetails_size">サイズ:</string>
   <string name="filedetails_type">タイプ:</string>
@@ -279,13 +283,11 @@
   <string name="auth_redirect_non_secure_connection_title">暗号化接続は非暗号化接続にリダイレクトされました。</string>
   <string name="actionbar_logger">ログ</string>
   <string name="log_send_history_button">ログを送信</string>
-  <string name="log_mail_subject">ownCloud Android アプリログ</string>
-  <string name="log_progress_dialog_text">読込中 ...</string>
   <string name="saml_authentication_required_text">認証を必要とする</string>
   <string name="saml_authentication_wrong_pass">無効なパスワード</string>
   <string name="actionbar_move">移動</string>
   <string name="file_list_empty_moving">ファイルが有りません。フォルダを追加してください。</string>
-  <string name="move_choose_button_text">選択</string>
+  <string name="folder_picker_choose_button_text">選択</string>
   <string name="move_file_not_found">移動できません。ファイルがあるか確認してください。</string>
   <string name="move_file_invalid_into_descendent">フォルダを子フォルダへ移動することはできません。</string>
   <string name="move_file_invalid_overwrite">そのファイルは、宛先フォルダに既に存在しています。</string>
@@ -293,4 +295,5 @@
   <string name="forbidden_permissions_move">このファイルを移動</string>
   <string name="prefs_category_instant_uploading">自動アップロード</string>
   <string name="prefs_category_security">セキュリティ</string>
+  <string name="prefs_instant_video_upload_path_title">動画のアップロードパス</string>
 </resources>

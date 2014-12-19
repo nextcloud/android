@@ -61,6 +61,10 @@
   <string name="file_list_empty">Тут нічого немає. Відвантажте що-небудь!</string>
   <string name="file_list_loading">Завантаження...</string>
   <string name="local_file_list_empty">В цій теці немає файлів.</string>
+  <string name="file_list_folder">тека</string>
+  <string name="file_list_folders">теки</string>
+  <string name="file_list_file">файл</string>
+  <string name="file_list_files">файли</string>
   <string name="filedetails_select_file">Натисніть на файлі для відображення додаткової інформації</string>
   <string name="filedetails_size">Розмір:</string>
   <string name="filedetails_type">Тип:</string>
@@ -275,13 +279,11 @@
   <string name="auth_redirect_non_secure_connection_title">Безпечне підключення перенаправляється через незабезпечений маршрут.</string>
   <string name="actionbar_logger">Журнали</string>
   <string name="log_send_history_button">Надіслати історію</string>
-  <string name="log_mail_subject">Журнали Android-додатка ownCloud</string>
-  <string name="log_progress_dialog_text">Завантаження даних...</string>
   <string name="saml_authentication_required_text">Потрібна аутентифікація</string>
   <string name="saml_authentication_wrong_pass">Невірний пароль</string>
   <string name="actionbar_move">Перемістити</string>
   <string name="file_list_empty_moving">Тут нічого немає. Ви можете додати теку!</string>
-  <string name="move_choose_button_text">Обрати</string>
+  <string name="folder_picker_choose_button_text">Обрати</string>
   <string name="move_file_not_found">Неможливо перемістити. Будь ласка, перевірте, чи існує файл</string>
   <string name="move_file_invalid_into_descendent">Неможливо перемістити теку до теки-нащадка</string>
   <string name="move_file_invalid_overwrite">Файл вже існує в теці призначення</string>

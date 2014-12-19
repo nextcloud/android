@@ -63,6 +63,10 @@
   <string name="file_list_empty">Her er tomt. Upload noget!</string>
   <string name="file_list_loading">Indlæser...</string>
   <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
+  <string name="file_list_folder">mappe</string>
+  <string name="file_list_folders">mapper</string>
+  <string name="file_list_file">fil</string>
+  <string name="file_list_files">filer</string>
   <string name="filedetails_select_file">Tryk på en fil for at vise yderligere information.</string>
   <string name="filedetails_size">Størelse:</string>
   <string name="filedetails_type">Type:</string>
@@ -276,13 +280,14 @@
   <string name="auth_redirect_non_secure_connection_title">Sikker forbindelse videredirigeres til en usikker rute.</string>
   <string name="actionbar_logger">Logge</string>
   <string name="log_send_history_button">Send historik</string>
-  <string name="log_mail_subject">App-logregistreringer for ownCloud Android</string>
-  <string name="log_progress_dialog_text">Indlæser data...</string>
+  <string name="log_send_no_mail_app">Der blev ikke fundet apps, der kan sende logge. Installér mail-app\'en!</string>
+  <string name="log_send_mail_subject">%1$s Android-app - logge</string>
+  <string name="log_progress_dialog_text">Indlæser data ...</string>
   <string name="saml_authentication_required_text">Godkendelse påkrævet</string>
   <string name="saml_authentication_wrong_pass">Forkert kodeord</string>
   <string name="actionbar_move">Flyt</string>
   <string name="file_list_empty_moving">Der er intet her. Du kan tilføje en mappe!</string>
-  <string name="move_choose_button_text">Vælg</string>
+  <string name="folder_picker_choose_button_text">Vælg</string>
   <string name="move_file_not_found">Kan ikke flytte. Tjek venligst om filen findes</string>
   <string name="move_file_invalid_into_descendent">Det er ikke muligt at flytte en mappe til en undermappe</string>
   <string name="move_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
@@ -290,4 +295,5 @@
   <string name="forbidden_permissions_move">til at flytte denne fil</string>
   <string name="prefs_category_instant_uploading">Øjeblikkelige uploads</string>
   <string name="prefs_category_security">Sikkerhed</string>
+  <string name="prefs_instant_video_upload_path_title">Sti til videoupload</string>
 </resources>

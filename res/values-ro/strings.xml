@@ -56,6 +56,10 @@
   <string name="file_list_empty">Nimic aici. Încarcă ceva!</string>
   <string name="file_list_loading">Se incarca</string>
   <string name="local_file_list_empty">In acest folder nu sunt fisiere.</string>
+  <string name="file_list_folder">director</string>
+  <string name="file_list_folders">directoare</string>
+  <string name="file_list_file">fișier</string>
+  <string name="file_list_files">fișiere</string>
   <string name="filedetails_select_file">Selectati un fisier pentru a afisa informatia aditionala</string>
   <string name="filedetails_size">Mărime:</string>
   <string name="filedetails_type">Tip:</string>
@@ -263,12 +267,11 @@
   <string name="downloader_download_file_not_found">Fișierul nu mai este disponibil pe server</string>
   <string name="prefs_category_accounts">Conturi</string>
   <string name="prefs_add_account">Adaugă cont</string>
-  <string name="log_progress_dialog_text">Se încarcă datele...</string>
   <string name="saml_authentication_required_text">Autentificare necesară</string>
   <string name="saml_authentication_wrong_pass">Parolă greșită</string>
   <string name="actionbar_move">Mutare</string>
   <string name="file_list_empty_moving">Nu este nimic aici. Poți adăuga un director!</string>
-  <string name="move_choose_button_text">Alege</string>
+  <string name="folder_picker_choose_button_text">Alege</string>
   <string name="forbidden_permissions_move">pentru a muta acest fișier</string>
   <string name="prefs_category_security">Securitate</string>
 </resources>

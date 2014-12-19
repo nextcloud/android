@@ -63,6 +63,10 @@
   <string name="file_list_empty">Siin pole midagi. Lae midagi üles!</string>
   <string name="file_list_loading">Laen ...</string>
   <string name="local_file_list_empty">Kaustas pole faile.</string>
+  <string name="file_list_folder">kaust</string>
+  <string name="file_list_folders">kausta</string>
+  <string name="file_list_file">fail</string>
+  <string name="file_list_files">faili</string>
   <string name="filedetails_select_file">Lisainfo vaatamiseks vajuta failile.</string>
   <string name="filedetails_size">Suurus:</string>
   <string name="filedetails_type">Tüüp:</string>
@@ -282,13 +286,11 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="auth_redirect_non_secure_connection_title">Turvaline ühendus suunatakse läbi turvamata ühenduse.</string>
   <string name="actionbar_logger">Logid</string>
   <string name="log_send_history_button">Saada ajalugu</string>
-  <string name="log_mail_subject">ownCloud Android rakenduse logid</string>
-  <string name="log_progress_dialog_text">Andmete laadimine...</string>
   <string name="saml_authentication_required_text">Autentimine on vajalik</string>
   <string name="saml_authentication_wrong_pass">Vale parool</string>
   <string name="actionbar_move">Tõsta ümber</string>
   <string name="file_list_empty_moving">Siin pole midagi. Sa võid lisada kausta!</string>
-  <string name="move_choose_button_text">Vali</string>
+  <string name="folder_picker_choose_button_text">Vali</string>
   <string name="move_file_not_found">Liigutamine ebaõnnestus. Palun kontrolli, kas fail on olemas</string>
   <string name="move_file_invalid_into_descendent">Kausta ei saa liigutada selle alamkausta</string>
   <string name="move_file_invalid_overwrite">See fail on juba sihtkaustas olemas</string>
