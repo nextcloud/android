@@ -160,6 +160,16 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 if (result.isSuccess()) {
                     syncContents(client);
                 }
+
+                if (mFilesForDirectDownload.isEmpty()) {
+                    // Send a broadcast message for notifying UI update
+                    Intent uiUpdate = new Intent(FileDownloader.getDownloadFinishMessage());
+                    uiUpdate.putExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, result.isSuccess());
+                    uiUpdate.putExtra(FileDownloader.ACCOUNT_NAME, mAccount.name);
+                    uiUpdate.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mRemotePath);
+                    uiUpdate.putExtra(FileDownloader.EXTRA_FILE_PATH, mLocalFolder.getRemotePath());
+                    mContext.sendStickyBroadcast(uiUpdate);
+                }
             }
         } catch (OperationCancelledException e) {
             result = new RemoteOperationResult(e);
