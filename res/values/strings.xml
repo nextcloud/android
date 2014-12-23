@@ -326,6 +326,6 @@
 
 	<string name="shared_subject_header">shared</string>
 	<string name="with_you_subject_header">with you</string>
-    <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
+	<string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 
 </resources>
