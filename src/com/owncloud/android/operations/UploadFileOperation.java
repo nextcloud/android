@@ -31,11 +31,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 
+import android.accounts.Account;
+import android.content.Context;
+import android.net.Uri;
+
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.network.ProgressiveDataTransferer;
-import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.network.ProgressiveDataTransferer;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -45,9 +50,7 @@ import com.owncloud.android.lib.resources.files.ChunkedUploadRemoteFileOperation
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
-
-import android.accounts.Account;
-import android.content.Context;
+import com.owncloud.android.utils.UriUtils;
 
 
 /**
@@ -92,10 +95,9 @@ public class UploadFileOperation extends RemoteOperation {
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation creation");
         if (file == null)
             throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
-        if (file.getStoragePath() == null || file.getStoragePath().length() <= 0
-                || !(new File(file.getStoragePath()).exists())) {
+        if (file.getStoragePath() == null || file.getStoragePath().length() <= 0) {
             throw new IllegalArgumentException(
-                    "Illegal file in UploadFileOperation; storage path invalid or file not found: "
+                    "Illegal file in UploadFileOperation; storage path invalid: "
                             + file.getStoragePath());
         }
 
@@ -218,51 +220,76 @@ public class UploadFileOperation extends RemoteOperation {
                                    // copied
 
                 } else {
+
                     String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
                     mFile.setStoragePath(temporalPath);
                     temporalFile = new File(temporalPath);
-                    if (!mOriginalStoragePath.equals(temporalPath)) { // preventing
-                                                                      // weird
-                                                                      // but
-                                                                      // possible
-                                                                      // situation
-                        InputStream in = null;
-                        OutputStream out = null;
-                        try {
-                            File temporalParent = temporalFile.getParentFile();
-                            temporalParent.mkdirs();
-                            if (!temporalParent.isDirectory()) {
-                                throw new IOException("Unexpected error: parent directory could not be created");
-                            }
-                            temporalFile.createNewFile();
-                            if (!temporalFile.isFile()) {
-                                throw new IOException("Unexpected error: target file could not be created");
-                            }
-                            in = new FileInputStream(originalFile);
+
+                    File temporalParent = temporalFile.getParentFile();
+                    temporalParent.mkdirs();
+                    if (!temporalParent.isDirectory()) {
+                        throw new IOException("Unexpected error: parent directory could not be created");
+                    }
+                    temporalFile.createNewFile();
+                    if (!temporalFile.isFile()) {
+                        throw new IOException("Unexpected error: target file could not be created");
+                    }
+
+                    InputStream in = null;
+                    OutputStream out = null;
+
+                    try {
+
+                        // In case document provider schema as 'content://'
+                        if (mOriginalStoragePath.startsWith(UriUtils.URI_CONTENT_SCHEME)) {
+
+                            Uri uri = Uri.parse(mOriginalStoragePath);
+
+                            in = MainApp.getAppContext().getContentResolver().openInputStream(uri);
                             out = new FileOutputStream(temporalFile);
-                            byte[] buf = new byte[1024];
-                            int len;
-                            while ((len = in.read(buf)) > 0) {
-                                out.write(buf, 0, len);
+
+                            int nRead;
+                            byte[] data = new byte[16384];
+
+                            while ((nRead = in.read(data, 0, data.length)) != -1) {
+                                out.write(data, 0, nRead);
                             }
 
+                            out.flush();
+
+                        } else {
+                            if (!mOriginalStoragePath.equals(temporalPath)) { // preventing
+                                                                          // weird
+                                                                          // but
+                                                                          // possible
+                                                                          // situation
+
+                                in = new FileInputStream(originalFile);
+                                out = new FileOutputStream(temporalFile);
+                                byte[] buf = new byte[1024];
+                                int len;
+                                while ((len = in.read(buf)) > 0) {
+                                    out.write(buf, 0, len);
+                                }
+                            }
+                        }
+
+                    } catch (Exception e) {
+                        result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_COPIED);
+                        return result;
+
+                    } finally {
+                        try {
+                            if (in != null)
+                                in.close();
                         } catch (Exception e) {
-                            result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_COPIED);
-                            return result;
-
-                        } finally {
-                            try {
-                                if (in != null)
-                                    in.close();
-                            } catch (Exception e) {
-                                Log_OC.d(TAG, "Weird exception while closing input stream for " + mOriginalStoragePath + " (ignoring)", e);
-                            }
-                            try {
-                                if (out != null)
-                                    out.close();
-                            } catch (Exception e) {
-                                Log_OC.d(TAG, "Weird exception while closing output stream for " + expectedPath + " (ignoring)", e);
-                            }
+                            Log_OC.d(TAG, "Weird exception while closing input stream for " + mOriginalStoragePath + " (ignoring)", e);
+                        }
+                        try {
+                            if (out != null)
+                                out.close();
+                        } catch (Exception e) {
+                            Log_OC.d(TAG, "Weird exception while closing output stream for " + expectedPath + " (ignoring)", e);
                         }
                     }
                 }
@@ -417,5 +444,4 @@ public class UploadFileOperation extends RemoteOperation {
     public void cancel() {
         mUploadOperation.cancel();
     }
-
 }

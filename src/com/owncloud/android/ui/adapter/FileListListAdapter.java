@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,10 +79,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             Context context, 
             ComponentsGetter transferServiceGetter
             ) {
-        
+
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+
         mTransferServiceGetter = transferServiceGetter;
         
         mAppPreferences = PreferenceManager
@@ -94,6 +96,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
+
     }
     
     @Override
@@ -177,9 +180,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(
-                        DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp())
-                );
+                lastModV.setText(showRelativeTimestamp(file));
                 // this if-else is needed even thoe fav icon is visible by default
                 // because android reuses views in listview
                 if (!file.keepInSync()) {
@@ -213,7 +214,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task = 
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                            fileIcon, mStorageManager
+                                            fileIcon, mStorageManager, mAccount
                                     );
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
@@ -247,9 +248,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 //                }
 
                 lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(
-                        DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp())
-                );
+                lastModV.setText(showRelativeTimestamp(file));
                 checkBoxV.setVisibility(View.GONE);
                 view.findViewById(R.id.imageView3).setVisibility(View.GONE);
 
@@ -383,7 +382,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         FileStorageUtils.mSortOrder = order;
         FileStorageUtils.mSortAscending = ascending;
         
+
         mFiles = FileStorageUtils.sortFolder(mFiles);
         notifyDataSetChanged();
+
     }    
+    
+    private CharSequence showRelativeTimestamp(OCFile file){
+        return DisplayUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
+                DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
+    }
+
 }

@@ -11,6 +11,12 @@
   <string name="actionbar_settings">Настройки</string>
   <string name="actionbar_see_details">Подробно</string>
   <string name="actionbar_send_file">Отправить</string>
+  <string name="actionbar_sort">Упорядочить</string>
+  <string name="actionbar_sort_title">Упорядочить по</string>
+  <string-array name="actionbar_sortby">
+    <item>А-Я</item>
+    <item>Новые - Старые</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Основные</string>
@@ -32,6 +38,8 @@
   <string name="prefs_recommend">Рекомендовать другу</string>
   <string name="prefs_feedback">Обратная связь</string>
   <string name="prefs_imprint">Штамп</string>
+  <string name="prefs_remember_last_share_location">Запомнить расположение публикации</string>
+  <string name="prefs_remember_last_upload_location_summary">Запомнить расположение загрузки последней публикации</string>
   <string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
   <string name="recommend_text">Хочу предложить вам использовать %1$s на смартфоне!\nЗагрузить можно здесь: %2$s
 	</string>
@@ -52,9 +60,14 @@
   <string name="uploader_wrn_no_content_text">Содержимое не получено. Нечего загружать.</string>
   <string name="uploader_error_forbidden_content">%1$s не имеет доступа к опубликованным данным</string>
   <string name="uploader_info_uploading">Загрузка</string>
+  <string name="file_list_seconds_ago">только что</string>
   <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
   <string name="file_list_loading">Загрузка...</string>
   <string name="local_file_list_empty">В данной папке нет файлов.</string>
+  <string name="file_list_folder">папка</string>
+  <string name="file_list_folders">папки</string>
+  <string name="file_list_file">файл</string>
+  <string name="file_list_files">файлы</string>
   <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
   <string name="filedetails_size">Размер:</string>
   <string name="filedetails_type">Тип:</string>
@@ -241,6 +254,7 @@
   <string name="preview_image_description">Предпросмотр</string>
   <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
   <string name="error__upload__local_file_not_copied">%1$s не возможно скопировать в локальною папку %2$s </string>
+  <string name="prefs_instant_upload_path_title">Путь для загрузки</string>
   <string name="share_link_no_support_share_api">К сожалению, на вашем сервере отключен совместный доступ. Пожалуйста, свяжитесь с вашим администратором.</string>
   <string name="share_link_file_no_exist">Невозможно добавить в общий доступ. Пожалуйста, проверьте, существует ли файл</string>
   <string name="share_link_file_error">Ошибка предоставления общего доступа к этому файлу или каталогу</string>
@@ -265,19 +279,23 @@
   <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
   <string name="prefs_category_accounts">Учётные записи</string>
   <string name="prefs_add_account">Добавить учетную запись</string>
+  <string name="auth_redirect_non_secure_connection_title">Защищённое соединение перенаправлено по незащищённому маршруту</string>
   <string name="actionbar_logger">Журналы</string>
   <string name="log_send_history_button">История Отправлений</string>
-  <string name="log_mail_subject">Журналы Андроид-приложения ownCloud</string>
-  <string name="log_progress_dialog_text">Загружаются данные...</string>
+  <string name="log_send_no_mail_app">Приложение для отправки журнала не найдено. Установите почтовое приложение!</string>
+  <string name="log_send_mail_subject">Журналы приложения %1$s для Android</string>
+  <string name="log_progress_dialog_text">Загрузка данных…</string>
   <string name="saml_authentication_required_text">Требуется аутентификация </string>
   <string name="saml_authentication_wrong_pass">Неправильный пароль</string>
   <string name="actionbar_move">Переместить</string>
   <string name="file_list_empty_moving">Здесь ничего нет. Вы можете добавить папку!</string>
-  <string name="move_choose_button_text">Выбрать</string>
+  <string name="folder_picker_choose_button_text">Выбрать</string>
   <string name="move_file_not_found">Невозможно переместить. Пожалуйста, проверьте, существует ли файл</string>
   <string name="move_file_invalid_into_descendent">Невозможно переместить папку в папку-потомок</string>
   <string name="move_file_invalid_overwrite">Файл уже существует в папке назначения</string>
   <string name="move_file_error">Произошла ошибка при попытке перемещения этого файла или папки</string>
   <string name="forbidden_permissions_move">переместить этот файл</string>
+  <string name="prefs_category_instant_uploading">Мгновенные загрузки</string>
   <string name="prefs_category_security">Безопасность</string>
+  <string name="prefs_instant_video_upload_path_title">Путь для загрузки Видео</string>
 </resources>

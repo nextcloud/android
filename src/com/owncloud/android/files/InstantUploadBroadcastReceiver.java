@@ -161,7 +161,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         Intent i = new Intent(context, FileUploader.class);
         i.putExtra(FileUploader.KEY_ACCOUNT, account);
         i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
+        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantVideoUploadFilePath(context, file_name));
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
