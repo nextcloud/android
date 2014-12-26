@@ -11,6 +11,12 @@
   <string name="actionbar_settings">Nustatymai</string>
   <string name="actionbar_see_details">Informacija</string>
   <string name="actionbar_send_file">Siųsti</string>
+  <string name="actionbar_sort">Rikiuoti</string>
+  <string name="actionbar_sort_title">Rikiuoti pagal</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Naujausi - Seniausi</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Bendras</string>
@@ -32,6 +38,8 @@
   <string name="prefs_recommend">Rekomenduoti draugui</string>
   <string name="prefs_feedback">Atsiliepimai</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Prisiminti bendrinimo vietą</string>
+  <string name="prefs_remember_last_upload_location_summary">Prisiminti paskutinio bendrinimo įkėlimo vietą</string>
   <string name="recommend_subject">Išbandykite %1$s savo išmaniajame telefone!</string>
   <string name="auth_check_server">Patikrinti Serverį</string>
   <string name="auth_host_url">Serverio adresas </string>
