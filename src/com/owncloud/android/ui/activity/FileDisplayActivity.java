@@ -168,12 +168,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
 
-        // PIN CODE request ;  best location is to decide, let's try this first
-        if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_MAIN) && savedInstanceState == null) {
-            requestPinCode();
-        } else if (getIntent().getAction() == null && savedInstanceState == null) {
-            requestPinCode();
-        }
+        checkIfRequestPin(savedInstanceState);
 
         /// grant that FileObserverService is watching favourite files
         if (savedInstanceState == null) {
@@ -212,6 +207,15 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         setBackgroundText();
 
         Log_OC.d(TAG, "onCreate() end");
+    }
+    
+    private void checkIfRequestPin(Bundle savedInstanceState){
+     // PIN CODE request ;  best location is to decide, let's try this first
+        if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_MAIN) && savedInstanceState == null) {
+            requestPinCode();
+        } else if (getIntent().getAction() == null && savedInstanceState == null) {
+            requestPinCode();
+        }
     }
     
     @Override
@@ -612,6 +616,14 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        
+        Log_OC.d(TAG, "requestCode: " + requestCode);
+        if (requestCode == PinCodeActivity.EXTRA_PIN_CORRECT){
+            Log_OC.d(TAG, "Extra pin: " + resultCode);
+            if (resultCode == RESULT_OK) {
+                resume();
+            }
+        }
 
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             //getClipData is only supported on api level 16+, Jelly Bean
@@ -802,6 +814,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         super.onResume();
         Log_OC.e(TAG, "onResume() start");
         
+        checkIfRequestPin(null);
+    }
+    
+    private void resume(){
         // refresh list of files
         refreshListOfFilesFragment();
 
@@ -1450,8 +1466,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         pinStart = appPrefs.getBoolean("set_pincode", false);
         if (pinStart) {
             Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
-            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
-            startActivity(i);
+            // i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
+            startActivityForResult(i, PinCodeActivity.EXTRA_PIN_CORRECT);
         }
     }
 

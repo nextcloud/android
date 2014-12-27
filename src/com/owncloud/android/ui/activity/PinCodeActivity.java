@@ -46,6 +46,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
   
     public final static String EXTRA_ACTIVITY = "com.owncloud.android.ui.activity.PinCodeActivity.ACTIVITY";
     public final static String EXTRA_NEW_STATE = "com.owncloud.android.ui.activity.PinCodeActivity.NEW_STATE";
+    public final static Integer EXTRA_PIN_CORRECT = 1;
     
     private Button mBCancel;
     private TextView mPinHdr;
