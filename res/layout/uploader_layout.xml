@@ -18,18 +18,33 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="wrap_content" android:orientation="vertical"
-	android:layout_width="wrap_content" android:background="#fefefe"
-	android:gravity="center">
-	<TextView android:layout_width="fill_parent" android:text="@string/uploader_top_message"
-		android:layout_height="wrap_content" android:id="@+id/textView1" android:textColor="@android:color/black"
-		android:gravity="center_horizontal"></TextView>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_selector"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+	<TextView
+	    android:id="@+id/textView1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/list_selector"
+	    android:gravity="center_horizontal"
+	    android:text="@string/uploader_top_message"
+	    android:textColor="@android:color/black" >
+</TextView>
 	<FrameLayout android:layout_height="fill_parent"
 		android:layout_width="fill_parent" android:id="@+id/frameLayout1"
 		android:layout_below="@+id/textView1" android:layout_above="@+id/linearLayout1">
-		<ListView android:id="@android:id/list" android:layout_width="fill_parent"
-			android:layout_height="fill_parent" android:divider="@drawable/uploader_list_separator"
-			android:dividerHeight="1dip"></ListView>
+
+		<ListView
+		    android:id="@android:id/list"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:background="@drawable/list_selector"
+		    android:divider="@drawable/uploader_list_separator"
+		    android:dividerHeight="1dip" >
+</ListView>
 	</FrameLayout>
 	<LinearLayout android:id="@+id/linearLayout1"
 		android:layout_width="fill_parent" android:layout_alignParentBottom="true" android:layout_height="wrap_content" android:orientation="vertical">

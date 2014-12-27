@@ -19,6 +19,7 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -29,19 +30,33 @@ import java.util.Vector;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.OwnCloudCredentials;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.SynchronizeFolderOperation;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.IntentFilter;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -65,6 +80,8 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 
 /**
@@ -84,6 +101,8 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
     private String mUploadPath;
     private FileDataStorageManager mStorageManager;
     private OCFile mFile;
+    private SyncBroadcastReceiver mSyncBroadcastReceiver;
+    private boolean mSyncInProgress = false;
 
     private final static int DIALOG_NO_ACCOUNT = 0;
     private final static int DIALOG_WAITING = 1;
@@ -120,6 +139,13 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
         } else {
             showDialog(DIALOG_NO_STREAM);
         }
+        
+        // Listen for sync messages
+        IntentFilter syncIntentFilter = new IntentFilter(SynchronizeFolderOperation.
+                                                         EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+        syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+        mSyncBroadcastReceiver = new SyncBroadcastReceiver();
+        registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
     }
     
     @Override
@@ -135,15 +161,16 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
         case DIALOG_NO_ACCOUNT:
             builder.setIcon(android.R.drawable.ic_dialog_alert);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
-            builder.setMessage(String.format(getString(R.string.uploader_wrn_no_account_text), getString(R.string.app_name)));
+            builder.setMessage(String.format(getString(R.string.uploader_wrn_no_account_text), 
+                                             getString(R.string.app_name)));
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.ECLAIR_MR1) {
                         // using string value since in API7 this
-                        // constatn is not defined
-                        // in API7 < this constatant is defined in
+                        // constant is not defined
+                        // in API7 < this constant is defined in
                         // Settings.ADD_ACCOUNT_SETTINGS
                         // and Settings.EXTRA_AUTHORITIES
                         Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
@@ -170,7 +197,8 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
         case DIALOG_MULTIPLE_ACCOUNT:
             CharSequence ac[] = new CharSequence[mAccountManager.getAccountsByType(MainApp.getAccountType()).length];
             for (int i = 0; i < ac.length; ++i) {
-                ac[i] = DisplayUtils.convertIdn(mAccountManager.getAccountsByType(MainApp.getAccountType())[i].name, false);
+                ac[i] = DisplayUtils.convertIdn(mAccountManager.getAccountsByType(MainApp.getAccountType())[i].name, 
+                                                false);
             }
             builder.setTitle(R.string.common_choose_account);
             builder.setItems(ac, new OnClickListener() {
@@ -227,12 +255,14 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
 
     @Override
     public void onBackPressed() {
-
         if (mParents.size() <= 1) {
+            unregisterReceiver(mSyncBroadcastReceiver);
             super.onBackPressed();
             return;
         } else {
             mParents.pop();
+            String full_path = generatePath(mParents);
+            startSyncFolderOperation(mStorageManager.getFileByPath(full_path));
             populateDirectoryList();
         }
     }
@@ -246,13 +276,16 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
         // filter on dirtype
         Vector<OCFile> files = new Vector<OCFile>();
         for (OCFile f : tmpfiles)
-            if (f.isFolder())
                 files.add(f);
         if (files.size() < position) {
             throw new IndexOutOfBoundsException("Incorrect item selected");
         }
-        mParents.push(files.get(position).getFileName());
-        populateDirectoryList();
+        if (files.get(position).isFolder()){
+            OCFile folderToEnter = files.get(position);
+            startSyncFolderOperation(folderToEnter);
+            mParents.push(folderToEnter.getFileName());
+            populateDirectoryList();
+        }
     }
 
     @Override
@@ -260,7 +293,8 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
         // click on button
         switch (v.getId()) {
         case R.id.uploader_choose_folder:
-            mUploadPath = "";   // first element in mParents is root dir, represented by ""; init mUploadPath with "/" results in a "//" prefix
+            mUploadPath = "";   // first element in mParents is root dir, represented by ""; 
+                                // init mUploadPath with "/" results in a "//" prefix
             for (String p : mParents)
                 mUploadPath += p + OCFile.PATH_SEPARATOR;
             Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
@@ -315,27 +349,49 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
         Log_OC.d(TAG, "Populating view with content of : " + full_path);
 
         mFile = mStorageManager.getFileByPath(full_path);
+        Log_OC.d(TAG, "directory exists: " + (mFile != null));  
+        
         if (mFile != null) {
             Vector<OCFile> files = mStorageManager.getFolderContent(mFile);
-            List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
+            List<HashMap<String, OCFile>> data = new LinkedList<HashMap<String,OCFile>>();
             for (OCFile f : files) {
-                HashMap<String, Object> h = new HashMap<String, Object>();
-                if (f.isFolder()) {
-                    h.put("dirname", f.getFileName());
+                HashMap<String, OCFile> h = new HashMap<String, OCFile>();
+                    h.put("dirname", f);
                     data.add(h);
-                }
             }
-            SimpleAdapter sa = new SimpleAdapter(this,
+            
+            ImageSimpleAdapter sa = new ImageSimpleAdapter(this,
                                                 data,
                                                 R.layout.uploader_list_item_layout,
-                                                new String[] {"dirname"},
-                                                new int[] {R.id.textView1});
+                                                new String[] {},
+                                                new int[] {}, mStorageManager, mAccount);
             setListAdapter(sa);
             Button btn = (Button) findViewById(R.id.uploader_choose_folder);
             btn.setOnClickListener(this);
             getListView().setOnItemClickListener(this);
         }
     }
+    
+    public void startSyncFolderOperation(OCFile folder) {
+        long currentSyncTime = System.currentTimeMillis(); 
+        
+        mSyncInProgress = true;
+        
+        // perform folder synchronization
+        RemoteOperation synchFolderOp = new SynchronizeFolderOperation( folder,  
+                                                                        currentSyncTime, 
+                                                                        false,
+                                                                        false,
+                                                                        false,
+                                                                        mStorageManager, 
+                                                                        mAccount, 
+                                                                        getApplicationContext()
+                                                                      );
+        synchFolderOp.execute(mAccount, this, null, null);
+        
+        setSupportProgressBarIndeterminateVisibility(true);
+    }
+
 
     private String generatePath(Stack<String> dirs) {
         String full_path = "";
@@ -371,7 +427,8 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
                        String mimeType = getContentResolver().getType(uri);
                        
                        if (mimeType.contains("image")) {
-                           String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE};
+                           String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME, 
+                                                           Images.Media.MIME_TYPE, Images.Media.SIZE};
                            Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null, null, null);
                            c.moveToFirst();
                            int index = c.getColumnIndex(Images.Media.DATA);
@@ -381,7 +438,9 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
                        
                        }
                        else if (mimeType.contains("video")) {
-                           String[] CONTENT_PROJECTION = { Video.Media.DATA, Video.Media.DISPLAY_NAME, Video.Media.MIME_TYPE, Video.Media.SIZE, Video.Media.DATE_MODIFIED };
+                           String[] CONTENT_PROJECTION = { Video.Media.DATA, Video.Media.DISPLAY_NAME, 
+                                                           Video.Media.MIME_TYPE, Video.Media.SIZE, 
+                                                           Video.Media.DATE_MODIFIED };
                            Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null, null, null);
                            c.moveToFirst();
                            int index = c.getColumnIndex(Video.Media.DATA);
@@ -391,7 +450,8 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
                           
                        }
                        else if (mimeType.contains("audio")) {
-                           String[] CONTENT_PROJECTION = { Audio.Media.DATA, Audio.Media.DISPLAY_NAME, Audio.Media.MIME_TYPE, Audio.Media.SIZE };
+                           String[] CONTENT_PROJECTION = { Audio.Media.DATA, Audio.Media.DISPLAY_NAME, 
+                                                           Audio.Media.MIME_TYPE, Audio.Media.SIZE };
                            Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null, null, null);
                            c.moveToFirst();
                            int index = c.getColumnIndex(Audio.Media.DATA);
@@ -402,7 +462,8 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
                        }
                        else {
                            String filePath = Uri.decode(uri.toString()).replace(uri.getScheme() + "://", "");
-                           // cut everything whats before mnt. It occured to me that sometimes apps send their name into the URI
+                           // cut everything whats before mnt. It occured to me that sometimes apps send 
+                           // their name into the URI
                            if (filePath.contains("mnt")) {
                               String splitedFilePath[] = filePath.split("/mnt");
                               filePath = splitedFilePath[1];
@@ -447,7 +508,8 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
             }
             
         } catch (SecurityException e) {
-            String message = String.format(getString(R.string.uploader_error_forbidden_content), getString(R.string.app_name));
+            String message = String.format(getString(R.string.uploader_error_forbidden_content), 
+                                           getString(R.string.app_name));
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();            
         }
     }
@@ -497,6 +559,141 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
         }
         return retval;
     }
-
     
+    private OCFile getCurrentFolder(){
+        OCFile file = mFile;
+        if (file != null) {
+            if (file.isFolder()) {
+                return file;
+            } else if (mStorageManager != null) {
+                String parentPath = file.getRemotePath().substring(0, 
+                                                            file.getRemotePath().lastIndexOf(file.getFileName()));
+                return mStorageManager.getFileByPath(parentPath);
+            }
+        }
+        return null;
+    }
+    
+    private void browseToRoot() {
+        OCFile root = mStorageManager.getFileByPath(OCFile.ROOT_PATH);
+        mFile = root;
+        startSyncFolderOperation(root);
+    }
+    
+    protected void requestCredentialsUpdate() {
+        Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, mAccount);
+        updateAccountCredentials.putExtra(
+                AuthenticatorActivity.EXTRA_ACTION, 
+                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
+        updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        startActivity(updateAccountCredentials);
+    }
+    
+    private class SyncBroadcastReceiver extends BroadcastReceiver {
+
+        /**
+         * {@link BroadcastReceiver} to enable syncing feedback in UI
+         */
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                String event = intent.getAction();
+                Log_OC.d(TAG, "Received broadcast " + event);
+                String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
+                String synchFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
+                RemoteOperationResult synchResult = (RemoteOperationResult)intent.getSerializableExtra(
+                                                                                  FileSyncAdapter.EXTRA_RESULT);
+                boolean sameAccount = (mAccount != null && accountName.equals(mAccount.name) 
+                                                        && mStorageManager != null); 
+
+                if (sameAccount) {
+                    if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
+                        mSyncInProgress = true;
+                    } else {
+                        OCFile currentFile = (mFile == null) ? null : 
+                            mStorageManager.getFileByPath(mFile.getRemotePath());
+                        OCFile currentDir = (getCurrentFolder() == null) ? null : 
+                            mStorageManager.getFileByPath(getCurrentFolder().getRemotePath());
+    
+                        if (currentDir == null) {
+                            // current folder was removed from the server 
+                            Toast.makeText( context, 
+                                            String.format(
+                                                    getString(R.string.sync_current_folder_was_removed), 
+                                                    getCurrentFolder().getFileName()), 
+                                            Toast.LENGTH_LONG)
+                                .show();
+                            browseToRoot();
+
+                        } else {
+                            if (currentFile == null && !mFile.isFolder()) {
+                                // currently selected file was removed in the server, and now we know it
+                                currentFile = currentDir;
+                            }
+
+                            if (synchFolderRemotePath != null && 
+                                    currentDir.getRemotePath().equals(synchFolderRemotePath)) {
+                                populateDirectoryList();
+                            }
+                            mFile = currentFile;
+                        }
+                        
+                        mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && 
+                                !SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
+                                
+                        if (SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
+                                    equals(event) &&
+                                /// TODO refactor and make common
+                                synchResult != null && !synchResult.isSuccess() &&  
+                                (synchResult.getCode() == ResultCode.UNAUTHORIZED   || 
+                                    synchResult.isIdPRedirection()                  ||
+                                    (synchResult.isException() && synchResult.getException() 
+                                            instanceof AuthenticatorException))) {
+
+                            OwnCloudClient client = null;
+                            try {
+                                OwnCloudAccount ocAccount = 
+                                        new OwnCloudAccount(mAccount, context);
+                                client = (OwnCloudClientManagerFactory.getDefaultSingleton().
+                                        removeClientFor(ocAccount));
+                                // TODO get rid of these exceptions
+                            } catch (AccountNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (AuthenticatorException e) {
+                                e.printStackTrace();
+                            } catch (OperationCanceledException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            
+                            if (client != null) {
+                                OwnCloudCredentials cred = client.getCredentials();
+                                if (cred != null) {
+                                    AccountManager am = AccountManager.get(context);
+                                    if (cred.authTokenExpires()) {
+                                        am.invalidateAuthToken(
+                                                mAccount.type, 
+                                                cred.getAuthToken()
+                                        );
+                                    } else {
+                                        am.clearPassword(mAccount);
+                                    }
+                                }
+                            }
+                            requestCredentialsUpdate();
+                        }
+                    }
+                    removeStickyBroadcast(intent);
+                    Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
+                    setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);    
+                }
+            } catch (RuntimeException e) {
+                // avoid app crashes after changing the serial id of RemoteOperationResult 
+                // in owncloud library with broadcast notifications pending to process
+                removeStickyBroadcast(intent);
+            }
+        }
+    }
 }
