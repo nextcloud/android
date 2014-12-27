@@ -39,6 +39,7 @@ import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PinCodeActivity extends SherlockFragmentActivity {
 
@@ -483,21 +484,9 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         
         }else {
             Arrays.fill(mTempText, null);
-            AlertDialog aDialog = new AlertDialog.Builder(this).create();
             CharSequence errorSeq = getString(R.string.common_error);
-            aDialog.setTitle(errorSeq);
-            CharSequence cseq = getString(R.string.pincode_wrong);
-            aDialog.setMessage(cseq);
-            CharSequence okSeq = getString(R.string.common_ok);
-            aDialog.setButton(okSeq, new DialogInterface.OnClickListener(){
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                   return; 
-                }
-                
-            });
-            aDialog.show();
+            Toast.makeText(this, errorSeq, Toast.LENGTH_LONG).show();
+            
             clearBoxes(); 
             mPinHdr.setText(R.string.pincode_enter_pin_code);
             mPinHdrExplanation.setVisibility(View.INVISIBLE);
@@ -527,23 +516,10 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             savePincodeAndExit();
             
         } else {
-            
             Arrays.fill(mTempText, null);
-            AlertDialog aDialog = new AlertDialog.Builder(this).create();
-            CharSequence errorSeq = getString(R.string.common_error);
-            aDialog.setTitle(errorSeq);
             CharSequence cseq = getString(R.string.pincode_mismatch);
-            aDialog.setMessage(cseq);
-            CharSequence okSeq = getString(R.string.common_ok);
-            aDialog.setButton(okSeq, new DialogInterface.OnClickListener(){
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                   return; 
-                }
-                
-            });
-            aDialog.show();
+            Toast.makeText(this, cseq, Toast.LENGTH_LONG).show();
+            
             mPinHdr.setText(R.string.pincode_configure_your_pin);
             mPinHdrExplanation.setVisibility(View.VISIBLE);
             clearBoxes();
@@ -553,32 +529,15 @@ public class PinCodeActivity extends SherlockFragmentActivity {
    
     
     protected void pinCodeEnd(boolean state){
-        AlertDialog aDialog = new AlertDialog.Builder(this).create();
-        
+        CharSequence cseq;
         if (state){
-            CharSequence saveSeq = getString(R.string.common_save_exit);
-            aDialog.setTitle(saveSeq);
-            CharSequence cseq = getString(R.string.pincode_stored);
-            aDialog.setMessage(cseq);
-            
+           cseq = getString(R.string.pincode_stored);
         }else{
-            CharSequence saveSeq = getString(R.string.common_save_exit);
-            aDialog.setTitle(saveSeq);
-            CharSequence cseq = getString(R.string.pincode_removed);
-            aDialog.setMessage(cseq);
-            
+             cseq = getString(R.string.pincode_removed);
         }
-        CharSequence okSeq = getString(R.string.common_ok);
-        aDialog.setButton(okSeq, new DialogInterface.OnClickListener(){
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-                return; 
-            }
-            
-        });
-        aDialog.show(); 
+        
+        Toast.makeText(this, cseq, Toast.LENGTH_LONG).show();
+        finish();
     }
     
     protected void savePincodeAndExit(){
