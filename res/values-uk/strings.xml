@@ -291,4 +291,5 @@
   <string name="forbidden_permissions_move">перемістити цей файл</string>
   <string name="prefs_category_instant_uploading">Миттєво завантаження</string>
   <string name="prefs_category_security">Безпека</string>
+  <string name="shared_subject_header">спільне</string>
 </resources>

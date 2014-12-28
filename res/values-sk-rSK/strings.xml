@@ -294,4 +294,5 @@
   <string name="forbidden_permissions_move">pre presun tohoto súboru</string>
   <string name="prefs_category_instant_uploading">Okamžité nahratie</string>
   <string name="prefs_category_security">Zabezpečenie</string>
+  <string name="shared_subject_header">zdieľané</string>
 </resources>

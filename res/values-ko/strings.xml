@@ -225,4 +225,5 @@
   <string name="saml_authentication_wrong_pass">잘못된 암호</string>
   <string name="folder_picker_choose_button_text">선택</string>
   <string name="prefs_category_security">보안</string>
+  <string name="shared_subject_header">공유됨</string>
 </resources>

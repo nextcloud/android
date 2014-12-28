@@ -301,4 +301,5 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="prefs_category_instant_uploading">Téléchargements instantanés</string>
   <string name="prefs_category_security">Sécurité</string>
   <string name="prefs_instant_video_upload_path_title">Chemin d\'accès pour le téléversement</string>
+  <string name="shared_subject_header">partagé(e)</string>
 </resources>

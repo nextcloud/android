@@ -294,4 +294,5 @@
   <string name="forbidden_permissions_move">за да преместиш този файл</string>
   <string name="prefs_category_instant_uploading">Незабавно качване</string>
   <string name="prefs_category_security">Сигурност</string>
+  <string name="shared_subject_header">споделен</string>
 </resources>

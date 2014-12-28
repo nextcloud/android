@@ -283,4 +283,5 @@
   <string name="move_file_error">En feil oppstod ved flytting av denne filen eller mappen</string>
   <string name="forbidden_permissions_move">å flytte denne filen</string>
   <string name="prefs_category_security">Sikkerhet</string>
+  <string name="shared_subject_header">delt</string>
 </resources>
