@@ -37,6 +37,7 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncLocalDrawable;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
 /**
@@ -133,7 +134,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 }
                 
              // get Thumbnail if file is image
-                if (isImage(file)){
+                if (BitmapUtils.isImage(file)){
                 // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                             String.valueOf(file.hashCode())
@@ -222,12 +223,4 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
         }
         notifyDataSetChanged();
     }
-    
-    private boolean isImage(File file) {
-        Uri selectedUri = Uri.fromFile(file);
-        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString());
-        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
-        
-        return (mimeType != null && mimeType.startsWith("image/"));
-   }
 }
