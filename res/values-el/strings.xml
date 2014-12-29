@@ -11,6 +11,8 @@
   <string name="actionbar_settings">Ρυθμίσεις</string>
   <string name="actionbar_see_details">Λεπτομέρειες</string>
   <string name="actionbar_send_file">Αποστολή</string>
+  <string name="actionbar_sort">Ταξινόμηση</string>
+  <string name="actionbar_sort_title">Ταξινόμηση κατά</string>
   <string-array name="actionbar_sortby">
     <item>A-Z</item>
     <item>Νεότερο - Παλαιότερο</item>
@@ -36,6 +38,8 @@
   <string name="prefs_recommend">Προτείνετε σε φίλο</string>
   <string name="prefs_feedback">Σχόλια </string>
   <string name="prefs_imprint">Αποτύπωμα</string>
+  <string name="prefs_remember_last_share_location">Αποθήκευση σημείου διαμοιρασμού</string>
+  <string name="prefs_remember_last_upload_location_summary">Αποθήκευση τελευταίου σημείου διαμοιρασμού μεταφόρτωσης</string>
   <string name="recommend_subject">Δοκιμάστε %1$s στο κινητό σας!</string>
   <string name="recommend_text">Θα ήθελα να σε προσκαλέσω να χρησιμοποιήσεις το %1$s στο κινητό σου!\nΛήψη εδώ: %2$s</string>
   <string name="auth_check_server">Έλεγχος Διακομιστή</string>
@@ -278,6 +282,9 @@
   <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται σε μια μη ασφαλή διαδρομή.</string>
   <string name="actionbar_logger">Αρχεία καταγραφών</string>
   <string name="log_send_history_button">Αποστολή ιστορικού</string>
+  <string name="log_send_no_mail_app">Δεν εντοπίστηκε εφαρμογή αποστολής αναφορών συστήματος. Εγκαταστήστε το mail app!</string>
+  <string name="log_send_mail_subject">%1$s αναφορές του Android app</string>
+  <string name="log_progress_dialog_text">Φόρτωση δεδομένων....</string>
   <string name="saml_authentication_required_text">Απαιτείται πιστοποίηση</string>
   <string name="saml_authentication_wrong_pass">Εσφαλμένο συνθηματικό</string>
   <string name="actionbar_move">Μετακίνηση</string>
@@ -290,4 +297,6 @@
   <string name="forbidden_permissions_move">για μετακίνηση αυτού του αρχείου</string>
   <string name="prefs_category_instant_uploading">Στιγμιαίες Μεταφορτώσεις</string>
   <string name="prefs_category_security">Ασφάλεια</string>
+  <string name="prefs_instant_video_upload_path_title">Διαδρομή Μεταφόρτωσης Βίντεο</string>
+  <string name="shared_subject_header">μοιρασμένο </string>
 </resources>
