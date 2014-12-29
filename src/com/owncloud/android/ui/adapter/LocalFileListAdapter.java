@@ -36,7 +36,6 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncLocalDrawable;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -142,20 +141,21 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                     if (thumbnail != null){
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
+                        ThumbnailsCacheManager.AsyncTaskFile asyncTaskFile = new ThumbnailsCacheManager.AsyncTaskFileLocal(file);
                         // generate new Thumbnail
-                        if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
-                            final ThumbnailsCacheManager.ThumbnailLocalGenerationTask task = 
-                                    new ThumbnailsCacheManager.ThumbnailLocalGenerationTask(fileIcon);
+                        if (ThumbnailsCacheManager.cancelPotentialGlobalWork(asyncTaskFile, fileIcon)) {
+                            final ThumbnailsCacheManager.ThumbnailGenerationGlobalTask task =
+                                    new ThumbnailsCacheManager.ThumbnailGenerationGlobalTask(fileIcon);
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
-                            final AsyncLocalDrawable asyncDrawable = new AsyncLocalDrawable(
+                            final  ThumbnailsCacheManager.AsyncGlobalDrawable  asyncDrawable = new  ThumbnailsCacheManager.AsyncGlobalDrawable (
                                     mContext.getResources(), 
                                     thumbnail, 
                                     task
                             );
                             fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
+                            task.execute(asyncTaskFile);
                         }
                     }
                 } else {

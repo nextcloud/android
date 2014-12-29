@@ -44,7 +44,6 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncDrawable;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -214,22 +213,24 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     if (thumbnail != null && !file.needsUpdateThumbnail()){
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
+
+                        ThumbnailsCacheManager.AsyncTaskFile asyncTaskFile = new ThumbnailsCacheManager.AsyncTaskOCFile(file);
                         // generate new Thumbnail
-                        if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task = 
-                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                        if (ThumbnailsCacheManager.cancelPotentialGlobalWork(asyncTaskFile, fileIcon)) {
+                            final ThumbnailsCacheManager.ThumbnailGenerationGlobalTask task =
+                                    new ThumbnailsCacheManager.ThumbnailGenerationGlobalTask(
                                             fileIcon, mStorageManager, mAccount
                                     );
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
-                            final AsyncDrawable asyncDrawable = new AsyncDrawable(
+                            final ThumbnailsCacheManager.AsyncGlobalDrawable asyncDrawable = new ThumbnailsCacheManager.AsyncGlobalDrawable(
                                     mContext.getResources(), 
                                     thumbnail, 
                                     task
                             );
                             fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
+                            task.execute(asyncTaskFile);
                         }
                     }
                 } else {
