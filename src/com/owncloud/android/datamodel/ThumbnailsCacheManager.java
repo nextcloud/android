@@ -29,10 +29,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.ExifInterface;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -148,7 +146,6 @@ public class ThumbnailsCacheManager {
         public void setNeedsUpdateThumbnail(boolean needsUpdate);
         public boolean getIsDown();
         public Object getFile();
-
     }
 
     public static class AsyncTaskFileLocal implements AsyncTaskFile{
@@ -293,14 +290,13 @@ public class ThumbnailsCacheManager {
                 // Check disk cache in background thread
                 thumbnail = getBitmapFromDiskCache(imageKey);
 
+                // Check if mFile passed is an OCFile (for OCFile thumbs)
                 if (mFile instanceof AsyncTaskOCFile) {
 
                     // Not found in disk cache
                     if (thumbnail == null || mFile.getNeedsUpdateThumbnail()) {
-                        // Converts dp to pixel
-                        Resources r = MainApp.getAppContext().getResources();
 
-                        int px = (int) Math.round(r.getDimension(R.dimen.file_icon_size));
+                        int px = getThumbnailDimension();
 
                         if (mFile.getIsDown()) {
                             Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
@@ -345,14 +341,13 @@ public class ThumbnailsCacheManager {
                             }
                         }
                     }
+                // Check if mFile passed is a File (for local thumbs)
                 } else if (mFile instanceof AsyncTaskFileLocal) {
 
                     // Not found in disk cache
                     if (thumbnail == null) {
-                        // Converts dp to pixel
-                        Resources r = MainApp.getAppContext().getResources();
 
-                        int px = (int) Math.round(r.getDimension(R.dimen.file_icon_size));
+                        int px = getThumbnailDimension();
 
                         Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
                                 mFile.getPath(), px, px);
@@ -392,6 +387,14 @@ public class ThumbnailsCacheManager {
             }
         }
 
+        /**
+         * Add thumbnail to cache
+         * @param imageKey: thumb key
+         * @param bitmap:   image for extracting thumbnail
+         * @param path:     image path
+         * @param px:       thumbnail dp
+         * @return Bitmap
+         */
         private Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int px){
 
             Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
@@ -403,7 +406,16 @@ public class ThumbnailsCacheManager {
             addBitmapToCache(imageKey, thumbnail);
 
             return thumbnail;
+        }
 
+        /**
+         * Converts size of file icon from dp to pixel
+         * @return int
+         */
+        private int getThumbnailDimension(){
+            // Converts dp to pixel
+            Resources r = MainApp.getAppContext().getResources();
+            return (int) Math.round(r.getDimension(R.dimen.file_icon_size));
         }
     }
 
