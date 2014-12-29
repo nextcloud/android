@@ -19,6 +19,7 @@ package com.owncloud.android;
 import android.app.Application;
 import android.content.Context;
 
+import com.owncloud.android.authentication.PinCheck;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
@@ -45,7 +46,7 @@ public class MainApp extends Application {
     
     public void onCreate(){
         super.onCreate();
-        MainApp.mContext = getApplicationContext();
+        MainApp.mContext = getApplicationContext();     
         
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
         
@@ -74,7 +75,7 @@ public class MainApp extends Application {
     public static Context getAppContext() {
         return MainApp.mContext;
     }
-
+    
     // Methods to obtain Strings referring app_name 
     //   From AccountAuthenticator 
     //   public static final String ACCOUNT_TYPE = "owncloud";    

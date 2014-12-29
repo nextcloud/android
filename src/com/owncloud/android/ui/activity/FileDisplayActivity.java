@@ -71,6 +71,7 @@ import com.actionbarsherlock.view.Window;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.PinCheck;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -160,6 +161,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     private String DIALOG_UNTRUSTED_CERT;
     
     private OCFile mWaitingToSend;
+    
+    private Boolean mUnlocked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,9 +171,20 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
 
-        checkIfRequestPin(savedInstanceState);
-
-        /// grant that FileObserverService is watching favourite files
+        
+        if (PinCheck.checkIfPinEntry()){
+            Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
+            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
+            startActivity(i);
+        }
+        
+//        if (mUnlocked == false){
+//            checkIfRequestPin(savedInstanceState);
+//        } else {
+//            mUnlocked = false;
+//        }
+        
+        /// grant that FileObserverService is watching favorite files
         if (savedInstanceState == null) {
             Intent initObserversIntent = FileObserverService.makeInitIntent(this);
             startService(initObserversIntent);
@@ -207,15 +221,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         setBackgroundText();
 
         Log_OC.d(TAG, "onCreate() end");
-    }
-    
-    private void checkIfRequestPin(Bundle savedInstanceState){
-     // PIN CODE request ;  best location is to decide, let's try this first
-        if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_MAIN) && savedInstanceState == null) {
-            requestPinCode();
-        } else if (getIntent().getAction() == null && savedInstanceState == null) {
-            requestPinCode();
-        }
     }
     
     @Override
@@ -617,14 +622,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         
-        Log_OC.d(TAG, "requestCode: " + requestCode);
-        if (requestCode == PinCodeActivity.EXTRA_PIN_CORRECT){
-            Log_OC.d(TAG, "Extra pin: " + resultCode);
-            if (resultCode == RESULT_OK) {
-                resume();
-            }
-        }
-
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             //getClipData is only supported on api level 16+, Jelly Bean
             if (data.getData() == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
@@ -814,7 +811,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         super.onResume();
         Log_OC.e(TAG, "onResume() start");
         
-        checkIfRequestPin(null);
+        if (PinCheck.checkIfPinEntry()){
+            Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
+            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
+            startActivity(i);
+        }
     }
     
     private void resume(){
@@ -863,7 +864,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             mDownloadFinishReceiver = null;
         }
         
-        
+        PinCheck.setUnlockTimestamp();
         Log_OC.d(TAG, "onPause() end");
         super.onPause();
     }
@@ -1454,23 +1455,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             }
         }
     };    
-
-
-
-    /**
-     * Launch an intent to request the PIN code to the user before letting him use the app
-     */
-    private void requestPinCode() {
-        boolean pinStart = false;
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        pinStart = appPrefs.getBoolean("set_pincode", false);
-        if (pinStart) {
-            Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
-            // i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
-            startActivityForResult(i, PinCodeActivity.EXTRA_PIN_CORRECT);
-        }
-    }
-
 
     @Override
     public void onSavedCertificate() {

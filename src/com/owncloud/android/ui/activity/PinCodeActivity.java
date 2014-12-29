@@ -20,7 +20,9 @@ import java.util.Arrays;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.PinCheck;
 import com.owncloud.android.utils.DisplayUtils;
 
 import android.app.AlertDialog;
@@ -46,7 +48,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
   
     public final static String EXTRA_ACTIVITY = "com.owncloud.android.ui.activity.PinCodeActivity.ACTIVITY";
     public final static String EXTRA_NEW_STATE = "com.owncloud.android.ui.activity.PinCodeActivity.NEW_STATE";
-    public final static Integer EXTRA_PIN_CORRECT = 1;
     
     private Button mBCancel;
     private TextView mPinHdr;
@@ -367,8 +368,15 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                         mPinCodeChecked = checkPincode();
                     }
                     
-                    if (mPinCodeChecked && 
-                            ( mActivity.equals("FileDisplayActivity") || mActivity.equals("PreviewImageActivity") ) ){
+//                    if (mPinCodeChecked && 
+//                            ( mActivity.equals("FileDisplayActivity") || mActivity.equals("PreviewImageActivity") ) ){
+//                        Intent data = new Intent();
+//                        data.putExtra(EXTRA_PIN_CORRECT, true);
+//                        setResult(RESULT_FIRST_USER, data);
+//                        finish();
+                    
+                    if (mPinCodeChecked){
+                        PinCheck.setUnlockTimestamp();
                         finish();
                     } else if (mPinCodeChecked){
                         
