@@ -12,10 +12,10 @@
   <string name="actionbar_see_details">Détails</string>
   <string name="actionbar_send_file">Envoyer</string>
   <string name="actionbar_sort">Trier</string>
-  <string name="actionbar_sort_title">Trier par</string>
+  <string name="actionbar_sort_title">Trier</string>
   <string-array name="actionbar_sortby">
-    <item>A-Z</item>
-    <item>Plus récent - Plus ancien</item>
+    <item>par ordre alphabétique</item>
+    <item>du plus récent au plus ancien</item>
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
@@ -23,12 +23,12 @@
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_accounts">Comptes</string>
   <string name="prefs_manage_accounts">Gestion des comptes utilisateur</string>
-  <string name="prefs_pincode">Utilisation d\'un code de sécurité</string>
-  <string name="prefs_pincode_summary">Protéger l\'accès aux données manipulées par le client</string>
-  <string name="prefs_instant_upload">Téléchargements instantanés d\'images</string>
-  <string name="prefs_instant_upload_summary">Téléversement instantané des photos prises par la caméra</string>
-  <string name="prefs_instant_video_upload">Téléchargements instantanés de vidéos</string>
-  <string name="prefs_instant_video_upload_summary">Téléversement instantané des vidéos prises par la caméra</string>
+  <string name="prefs_pincode">Code de sécurité</string>
+  <string name="prefs_pincode_summary">Protéger l\'accès à l\'application</string>
+  <string name="prefs_instant_upload">Envoi instantané des photos</string>
+  <string name="prefs_instant_upload_summary">Téléverser immédiatement les photos prises par la caméra</string>
+  <string name="prefs_instant_video_upload">Envoi instantané des vidéos</string>
+  <string name="prefs_instant_video_upload_summary">Téléverser immédiatement les vidéos prises par la caméra</string>
   <string name="prefs_log_title">Activer les logs</string>
   <string name="prefs_log_summary">Utilisé pour enregistrer les problèmes dans les logs</string>
   <string name="prefs_log_title_history">Historique des logs</string>
@@ -40,14 +40,14 @@
   <string name="prefs_imprint">Empreinte</string>
   <string name="prefs_remember_last_share_location">Mémoriser l\'emplacement de partage</string>
   <string name="prefs_remember_last_upload_location_summary">Mémoriser le dernier emplacement d\'upload</string>
-  <string name="recommend_subject">Essayez %1$s sur votre smartphone&amp;nbsp;!</string>
+  <string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
   <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !
 Téléchargez-le ici : %2$s</string>
   <string name="auth_check_server">Vérifier le serveur</string>
   <string name="auth_host_url">Adresse du serveur https://…</string>
   <string name="auth_username">Nom d\'utilisateur</string>
   <string name="auth_password">Mot de passe</string>
-  <string name="auth_register">Nouveau dans %1$s&amp;nbsp;?</string>
+  <string name="auth_register">Nouveau dans %1$s ?</string>
   <string name="sync_string_files">Fichiers</string>
   <string name="setup_btn_connect">Connecter</string>
   <string name="uploader_btn_upload_text">Téléverser</string>
@@ -125,7 +125,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="foreign_files_move">Tout déplacer</string>
   <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
   <string name="foreign_files_fail">Certains fichiers n\'ont pu être déplacés</string>
-  <string name="foreign_files_local_text">Local&amp;nbsp;: %1$s</string>
+  <string name="foreign_files_local_text">Local : %1$s</string>
   <string name="foreign_files_remote_text">Distant : %1$s</string>
   <string name="upload_query_move_foreign_files">Il n\'y a pas assez de place disponible pour copier les fichiers sélectionnés dans le dossier %1$s. Voulez-vous quand même les déplacer ?</string>
   <string name="pincode_enter_pin_code">Veuillez saisir votre code de sécurité</string>
@@ -191,8 +191,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="fd_keep_in_sync">Maintenir le fichier à jour</string>
   <string name="common_rename">Renommer</string>
   <string name="common_remove">Supprimer</string>
-  <string name="confirmation_remove_alert">Voulez-vous vraiment supprimer %1$s&amp;nbsp;?</string>
-  <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et son contenu&amp;nbsp;?</string>
+  <string name="confirmation_remove_alert">Voulez-vous vraiment supprimer %1$s ?</string>
+  <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et son contenu ?</string>
   <string name="confirmation_remove_local">Local seulement</string>
   <string name="confirmation_remove_folder_local">Le contenu local uniquement</string>
   <string name="confirmation_remove_remote">Effacer du serveur</string>
@@ -205,7 +205,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="sync_file_fail_msg">Le fichier distant n\'a pu être vérifié</string>
   <string name="sync_file_nothing_to_do_msg">Le contenu des fichiers est déjà synchronisé</string>
   <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
-  <string name="filename_forbidden_characters">Caractères interdits&amp;nbsp;: / \\ &amp;lt; &amp;gt; : " | ? *</string>
+  <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
   <string name="filename_empty">Le nom du fichier ne peut pas être vide</string>
   <string name="wait_a_moment">Veuillez patienter</string>
   <string name="filedisplay_unexpected_bad_get_content">Problème inattendu. Veuillez essayer une autre application pour la sélection du fichier</string>
@@ -218,23 +218,23 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="ssl_validator_reason_cert_expired">- Le certificat du serveur a expiré</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Le certificat du serveur n\'est pas encore valide</string>
   <string name="ssl_validator_reason_hostname_not_verified">- L\'URL ne correspond pas au nom d\'hôte du certificat</string>
-  <string name="ssl_validator_question">Voulez-vous tout de même faire confiance à ce certificat&amp;nbsp;?</string>
+  <string name="ssl_validator_question">Voulez-vous tout de même faire confiance à ce certificat ?</string>
   <string name="ssl_validator_not_saved">Impossible de sauvegarder le certificat</string>
   <string name="ssl_validator_btn_details_see">Détails</string>
   <string name="ssl_validator_btn_details_hide">Masquer</string>
-  <string name="ssl_validator_label_subject">Délivré à&amp;nbsp;:</string>
-  <string name="ssl_validator_label_issuer">Délivré par&amp;nbsp;:</string>
+  <string name="ssl_validator_label_subject">Délivré à :</string>
+  <string name="ssl_validator_label_issuer">Délivré par :</string>
   <string name="ssl_validator_label_CN">Nom d\'usage :</string>
-  <string name="ssl_validator_label_O">Organisation&amp;nbsp;:</string>
-  <string name="ssl_validator_label_OU">Unité organisationnelle&amp;nbsp;:</string>
-  <string name="ssl_validator_label_C">Pays&amp;nbsp;:</string>
-  <string name="ssl_validator_label_ST">Région&amp;nbsp;:</string>
-  <string name="ssl_validator_label_L">Localisation&amp;nbsp;:</string>
-  <string name="ssl_validator_label_validity">Validité&amp;nbsp;:</string>
-  <string name="ssl_validator_label_validity_from">De&amp;nbsp;:</string>
-  <string name="ssl_validator_label_validity_to">À&amp;nbsp;:</string>
-  <string name="ssl_validator_label_signature">Signature&amp;nbsp;:</string>
-  <string name="ssl_validator_label_signature_algorithm">Algorithme&amp;nbsp;:</string>
+  <string name="ssl_validator_label_O">Organisation :</string>
+  <string name="ssl_validator_label_OU">Unité organisationnelle :</string>
+  <string name="ssl_validator_label_C">Pays :</string>
+  <string name="ssl_validator_label_ST">Région :</string>
+  <string name="ssl_validator_label_L">Localisation :</string>
+  <string name="ssl_validator_label_validity">Validité :</string>
+  <string name="ssl_validator_label_validity_from">Du :</string>
+  <string name="ssl_validator_label_validity_to">Au :</string>
+  <string name="ssl_validator_label_signature">Signature :</string>
+  <string name="ssl_validator_label_signature_algorithm">Algorithme :</string>
   <string name="ssl_validator_null_cert">Impossible d\'afficher le certificat.</string>
   <string name="ssl_validator_no_info_about_error">- Aucune information sur l\'erreur</string>
   <string name="placeholder_sentence">Ceci est un espace réservé</string>
@@ -245,7 +245,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Téléverser les images via une connexion WiFi uniquement</string>
   <string name="instant_video_upload_on_wifi">Téléverser les vidéos via une connexion WiFi uniquement</string>
-  <string name="instant_upload_path">/TéléversementInstantané</string>
+  <string name="instant_upload_path">/Instantané</string>
   <string name="conflict_title">Conflit de mise à jour</string>
   <string name="conflict_message">Le fichier distant %s n\'est pas synchronisé avec le fichier local. En choisissant de continuer, vous remplacerez le contenu de fichier sur le serveur.</string>
   <string name="conflict_keep_both">Garder les deux versions</string>
@@ -254,7 +254,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="preview_image_description">Prévisualisation de l\'image</string>
   <string name="preview_image_error_unknown_format">Cette image ne peut pas être affichée</string>
   <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
-  <string name="prefs_instant_upload_path_title">Chemin d\'accès pour le téléversement</string>
+  <string name="prefs_instant_upload_path_title">Répertoire d\'envoi</string>
   <string name="share_link_no_support_share_api">Désolé, le partage n\'est pas disponible sur votre serveur. Veuillez contacter votre administrateur.</string>
   <string name="share_link_file_no_exist">Impossible de partager. Vérifiez que le fichier est bien présent</string>
   <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
@@ -263,7 +263,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="activity_chooser_send_file_title">Envoyer</string>
   <string name="copy_link">Copier le lien</string>
   <string name="clipboard_text_copied">Copié dans le presse-papiers</string>
-  <string name="error_cant_bind_to_operations_service">Erreur critique&amp;nbsp;: impossible de réaliser des opérations</string>
+  <string name="error_cant_bind_to_operations_service">Erreur critique : impossible de réaliser des opérations</string>
   <string name="network_error_socket_exception">Une erreur s\'est produite pendant la connection au serveur</string>
   <string name="network_error_socket_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée.</string>
   <string name="network_error_connect_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée.</string>
@@ -294,6 +294,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
   <string name="move_file_error">Une erreur est survenue lors de la tentative de déplacement de ce fichier ou dossier</string>
   <string name="forbidden_permissions_move">de déplacer ce fichier</string>
-  <string name="prefs_category_instant_uploading">Téléchargements instantanés</string>
+  <string name="prefs_category_instant_uploading">Envoi instantané</string>
   <string name="prefs_category_security">Sécurité</string>
 </resources>
