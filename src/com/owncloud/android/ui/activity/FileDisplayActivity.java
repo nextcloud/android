@@ -25,7 +25,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -177,12 +176,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
             startActivity(i);
         }
-        
-//        if (mUnlocked == false){
-//            checkIfRequestPin(savedInstanceState);
-//        } else {
-//            mUnlocked = false;
-//        }
         
         /// grant that FileObserverService is watching favorite files
         if (savedInstanceState == null) {
@@ -816,9 +809,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
             startActivity(i);
         }
-    }
     
-    private void resume(){
         // refresh list of files
         refreshListOfFilesFragment();
 

@@ -17,20 +17,17 @@
 package com.owncloud.android.ui.preview;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -110,7 +107,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         // PIN CODE request
         if (PinCheck.checkIfPinEntry()){
             Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
-            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
+            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "PreviewImageActivity");
             startActivity(i);
         }
 
@@ -332,12 +329,10 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         
         if (PinCheck.checkIfPinEntry()){
             Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
-            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
+            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "PreviewImageActivity");
             startActivity(i);
         }
-    }
-      
-    private void resume(){
+        
         //Log_OC.e(TAG, "ACTIVITY, ONRESUME");
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         
@@ -345,7 +340,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         filter.addAction(FileDownloader.getDownloadAddedMessage());
         registerReceiver(mDownloadFinishReceiver, filter);
     }
-
+  
     @Override
     protected void onPostResume() {
         //Log_OC.e(TAG, "ACTIVITY, ONPOSTRESUME");

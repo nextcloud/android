@@ -18,15 +18,6 @@ package com.owncloud.android.ui.activity;
 
 import java.util.Arrays;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.PinCheck;
-import com.owncloud.android.utils.DisplayUtils;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -42,6 +33,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.PinCheck;
+import com.owncloud.android.utils.DisplayUtils;
 
 public class PinCodeActivity extends SherlockFragmentActivity {
 
@@ -368,17 +365,12 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                         mPinCodeChecked = checkPincode();
                     }
                     
-//                    if (mPinCodeChecked && 
-//                            ( mActivity.equals("FileDisplayActivity") || mActivity.equals("PreviewImageActivity") ) ){
-//                        Intent data = new Intent();
-//                        data.putExtra(EXTRA_PIN_CORRECT, true);
-//                        setResult(RESULT_FIRST_USER, data);
-//                        finish();
-                    
-                    if (mPinCodeChecked){
+                    if (mPinCodeChecked && 
+                       (mActivity.equals("FileDisplayActivity") || mActivity.equals("PreviewImageActivity"))){
                         PinCheck.setUnlockTimestamp();
                         finish();
                     } else if (mPinCodeChecked){
+                        PinCheck.setUnlockTimestamp();
                         
                         Intent intent = getIntent();
                         String newState = intent.getStringExtra(EXTRA_NEW_STATE);
