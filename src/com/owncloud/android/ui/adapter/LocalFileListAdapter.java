@@ -160,7 +160,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                     }
                 } else {
                     Uri selectedUri = Uri.fromFile(file);
-                    String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString());
+                    String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase());
                     String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
                     fileIcon.setImageResource(DisplayUtils.getResourceId(mimeType, file.getName()));
                 }  

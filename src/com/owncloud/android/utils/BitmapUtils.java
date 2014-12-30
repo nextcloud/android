@@ -181,7 +181,7 @@ public class BitmapUtils {
      */
     public static boolean isImage(File file) {
         Uri selectedUri = Uri.fromFile(file);
-        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString());
+        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase());
         String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
 
         return (mimeType != null && mimeType.startsWith("image/"));
