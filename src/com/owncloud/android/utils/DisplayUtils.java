@@ -164,9 +164,12 @@ public class DisplayUtils {
      */
     public static int getResourceId(String mimetype, String filename) {
 
-        if (mimetype == null || "DIR".equals(mimetype)) {
+        if (mimetype == null) {
+            return R.drawable.file;
+
+        } else if ("DIR".equals(mimetype)) {
             return R.drawable.ic_menu_archive;
-            
+
         } else {
             String [] parts = mimetype.split("/");
             String type = parts[0];
