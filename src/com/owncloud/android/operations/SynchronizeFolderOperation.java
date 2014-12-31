@@ -162,13 +162,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 }
 
                 if (mFilesForDirectDownload.isEmpty()) {
-                    // Send a broadcast message for notifying UI update
-                    Intent uiUpdate = new Intent(FileDownloader.getDownloadFinishMessage());
-                    uiUpdate.putExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, result.isSuccess());
-                    uiUpdate.putExtra(FileDownloader.ACCOUNT_NAME, mAccount.name);
-                    uiUpdate.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mRemotePath);
-                    uiUpdate.putExtra(FileDownloader.EXTRA_FILE_PATH, mLocalFolder.getRemotePath());
-                    mContext.sendStickyBroadcast(uiUpdate);
+                    sendBroadcastForNotifyingUIUpdate(result.isSuccess());
                 }
             }
         } catch (OperationCancelledException e) {
@@ -221,6 +215,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 Log_OC.e(TAG, "Checked " + mAccount.name + mRemotePath + " : " +
                         result.getLogMessage());
             }
+
+            sendBroadcastForNotifyingUIUpdate(result.isSuccess());
         }
 
         return result;
@@ -527,6 +523,16 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 file.setLastSyncDateForData(f.lastModified());
             }
         }
+    }
+
+    private void sendBroadcastForNotifyingUIUpdate(boolean result) {
+        // Send a broadcast message for notifying UI update
+        Intent uiUpdate = new Intent(FileDownloader.getDownloadFinishMessage());
+        uiUpdate.putExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, result);
+        uiUpdate.putExtra(FileDownloader.ACCOUNT_NAME, mAccount.name);
+        uiUpdate.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mRemotePath);
+        uiUpdate.putExtra(FileDownloader.EXTRA_FILE_PATH, mLocalFolder.getRemotePath());
+        mContext.sendStickyBroadcast(uiUpdate);
     }
 
     
