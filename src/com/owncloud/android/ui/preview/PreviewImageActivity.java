@@ -340,7 +340,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         filter.addAction(FileDownloader.getDownloadAddedMessage());
         registerReceiver(mDownloadFinishReceiver, filter);
     }
-  
+
     @Override
     protected void onPostResume() {
         //Log_OC.e(TAG, "ACTIVITY, ONPOSTRESUME");
@@ -541,7 +541,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             }
         }
     }
-   
+
     @Override
     public void onBrowsedDownTo(OCFile folder) {
         // TODO Auto-generated method stub
@@ -587,5 +587,4 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         }
         return false;
     }
-
 }

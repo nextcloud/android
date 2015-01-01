@@ -46,7 +46,7 @@ public class MainApp extends Application {
     
     public void onCreate(){
         super.onCreate();
-        MainApp.mContext = getApplicationContext();     
+        MainApp.mContext = getApplicationContext();
         
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
         

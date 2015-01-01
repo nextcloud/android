@@ -176,7 +176,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
             startActivity(i);
         }
-        
+
         /// grant that FileObserverService is watching favorite files
         if (savedInstanceState == null) {
             Intent initObserversIntent = FileObserverService.makeInitIntent(this);
@@ -614,7 +614,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        
+
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             //getClipData is only supported on api level 16+, Jelly Bean
             if (data.getData() == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){

@@ -553,14 +553,10 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         appPrefs.commit();
         
         pinCodeEnd(true);
-        
-        
-        
     }
     
     
     protected void clearBoxes(){
-        
         mText1.setText("");
         mText2.setText("");
         mText3.setText("");
@@ -572,7 +568,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount()== 0){
-            
             if (mActivity.equals("preferences")){
                 SharedPreferences.Editor appPrefsE = PreferenceManager
             
@@ -588,14 +583,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                 finish();
             }
             return true; 
-            
         }
-        
         return super.onKeyDown(keyCode, event);
-    }
-    
-   
-
-    
-            
+    }     
 }
