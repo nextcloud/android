@@ -366,7 +366,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                     }
                     
                     if (mPinCodeChecked && 
-                       (mActivity.equals("FileDisplayActivity") || mActivity.equals("PreviewImageActivity"))){
+                       (mActivity.equals("FileDisplayActivity") || mActivity.equals("PreviewImageActivity") || mActivity.equals("ownCloudUploader"))){
                         PinCheck.setUnlockTimestamp();
                         finish();
                     } else if (mPinCodeChecked){

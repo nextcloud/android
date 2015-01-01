@@ -26,14 +26,6 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.utils.Log_OC;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
@@ -65,6 +57,14 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.authentication.PinCheck;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 
 /**
@@ -96,7 +96,14 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParents = new Stack<String>();
-
+        
+        // Check Pin entry
+        if (PinCheck.checkIfPinEntry()){
+            Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
+            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "ownCloudUploader");
+            startActivity(i);
+        }
+        
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
 
