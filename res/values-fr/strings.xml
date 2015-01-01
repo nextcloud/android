@@ -173,7 +173,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_unknown_host_title">Impossible de trouver l\'hôte</string>
   <string name="auth_incorrect_path_title">Aucune instance du serveur n\'a été trouvée</string>
   <string name="auth_timeout_title">Le serveur met trop longtemps à répondre</string>
-  <string name="auth_incorrect_address_title">Adresse invalide</string>
+  <string name="auth_incorrect_address_title">Adresse non valide</string>
   <string name="auth_ssl_general_error_title">Échec de l\'initialisation SSL</string>
   <string name="auth_ssl_unverified_server_title">Impossible de vérifier l\'identité du serveur SSL</string>
   <string name="auth_bad_oc_version_title">La version du serveur n\'est pas reconnue</string>
@@ -207,14 +207,14 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="rename_local_fail_msg">La version locale ne peut être renommée, veuillez réessayer avec un nom différent</string>
   <string name="rename_server_fail_msg">Renommage impossible</string>
   <string name="sync_file_fail_msg">Le fichier distant n\'a pu être vérifié</string>
-  <string name="sync_file_nothing_to_do_msg">Le contenu des fichiers est déjà synchronisé</string>
+  <string name="sync_file_nothing_to_do_msg">Le contenu du fichier est déjà synchronisé</string>
   <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
   <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
   <string name="filename_empty">Le nom du fichier ne peut pas être vide</string>
   <string name="wait_a_moment">Veuillez patienter</string>
   <string name="filedisplay_unexpected_bad_get_content">Problème inattendu. Veuillez essayer une autre application pour la sélection du fichier</string>
   <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
-  <string name="activity_chooser_title">Envoyer un lien à…</string>
+  <string name="activity_chooser_title">Envoyer le lien vers…</string>
   <string name="oauth_check_onoff">Connexion avec oAuth2</string>
   <string name="oauth_login_connection">Connexion au serveur oAuth2…</string>
   <string name="ssl_validator_header">L\'identité du site ne peut être vérifiée</string>
