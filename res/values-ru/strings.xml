@@ -185,9 +185,9 @@
   <string name="auth_connecting_auth_server">Подключение к серверу аутентификации...</string>
   <string name="auth_unsupported_auth_method">Сервер не поддерживает выбранный метод аутентификации</string>
   <string name="auth_unsupported_multiaccount">%1$s не поддерживает сразу несколько учётных записей</string>
-  <string name="auth_fail_get_user_name">Ваш сервер не возвращает корректный пользовательский идентификатор, пожалуйста свяжитесь с администратором
+  <string name="auth_fail_get_user_name">Cервер не возвращает корректный пользовательский идентификатор. Пожалуйста, свяжитесь с вашим администратором
 ⇥</string>
-  <string name="auth_can_not_auth_against_server">Невозможно аутентифицироваться на этом сервере</string>
+  <string name="auth_can_not_auth_against_server">Невозможно авторизоваться на этом сервере</string>
   <string name="fd_keep_in_sync">Обновлять файл</string>
   <string name="common_rename">Переименовать</string>
   <string name="common_remove">Удалить</string>
@@ -255,7 +255,8 @@
   <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
   <string name="error__upload__local_file_not_copied">%1$s не возможно скопировать в локальною папку %2$s </string>
   <string name="prefs_instant_upload_path_title">Путь для загрузки</string>
-  <string name="share_link_no_support_share_api">К сожалению, на вашем сервере отключен совместный доступ. Пожалуйста, свяжитесь с вашим администратором.</string>
+  <string name="share_link_no_support_share_api">Механизм общего доступа не включен на вашем сервере. Пожалуйста, свяжитесь с вашим
+⇥⇥администратором.</string>
   <string name="share_link_file_no_exist">Невозможно добавить в общий доступ. Пожалуйста, проверьте, существует ли файл</string>
   <string name="share_link_file_error">Ошибка предоставления общего доступа к этому файлу или каталогу</string>
   <string name="unshare_link_file_no_exist">Невозможно убрать из общего доступа. Пожалуйста, проверьте, существует ли файл</string>
@@ -290,7 +291,7 @@
   <string name="actionbar_move">Переместить</string>
   <string name="file_list_empty_moving">Здесь ничего нет. Вы можете добавить папку!</string>
   <string name="folder_picker_choose_button_text">Выбрать</string>
-  <string name="move_file_not_found">Невозможно переместить. Пожалуйста, проверьте, существует ли файл</string>
+  <string name="move_file_not_found">Невозможно переместить. Убедитесь, что файл существует</string>
   <string name="move_file_invalid_into_descendent">Невозможно переместить папку в папку-потомок</string>
   <string name="move_file_invalid_overwrite">Файл уже существует в папке назначения</string>
   <string name="move_file_error">Произошла ошибка при попытке перемещения этого файла или папки</string>
@@ -300,4 +301,5 @@
   <string name="prefs_instant_video_upload_path_title">Путь для загрузки Видео</string>
   <string name="shared_subject_header">Общие</string>
   <string name="with_you_subject_header">с вами</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>
