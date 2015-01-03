@@ -21,10 +21,10 @@
   <string name="prefs_manage_accounts">Administrare conturi</string>
   <string name="prefs_pincode">PIN-ul aplicaţiei</string>
   <string name="prefs_pincode_summary">Protejaţi-vă clientul</string>
-  <string name="prefs_instant_upload">Încărcare instanta de imagine</string>
-  <string name="prefs_instant_upload_summary">Încărca instantaneu imagini luate de camera</string>
+  <string name="prefs_instant_upload">Încărcare instantă de imagini</string>
+  <string name="prefs_instant_upload_summary">Încarcă instantant imagini luate cu camera</string>
   <string name="prefs_instant_video_upload">Încărcare instantă de videoclipuri.</string>
-  <string name="prefs_instant_video_upload_summary">Încarcă videoclipuri instant, filmate cu camera.</string>
+  <string name="prefs_instant_video_upload_summary">Încarcă instant videoclipuri înregistrate cu camera</string>
   <string name="prefs_log_title">Permite logarea</string>
   <string name="prefs_log_summary">Acesta este folosit pentru a înregistra problemele</string>
   <string name="prefs_log_title_history">Istoria logarilor</string>
@@ -236,7 +236,7 @@
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Incarca poze doar via WiFi</string>
   <string name="instant_video_upload_on_wifi">Încarcă videoclipuri doar via WiFi</string>
-  <string name="instant_upload_path">/Încărcare instanta</string>
+  <string name="instant_upload_path">/Încărcare instantă</string>
   <string name="conflict_title">Actualizați conflictul</string>
   <string name="conflict_message">Fișierul de la distanță %s nu este sincronizat cu fișierul local. Continuand, se va înlocui conținutul fișierului de pe server.</string>
   <string name="conflict_keep_both">Pastreaza amandoua</string>
@@ -273,5 +273,6 @@
   <string name="file_list_empty_moving">Nu este nimic aici. Poți adăuga un director!</string>
   <string name="folder_picker_choose_button_text">Alege</string>
   <string name="forbidden_permissions_move">pentru a muta acest fișier</string>
+  <string name="prefs_category_instant_uploading">Încărcări instante</string>
   <string name="prefs_category_security">Securitate</string>
 </resources>
