@@ -39,7 +39,7 @@
             android:src="@drawable/local_file_indicator" />
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/drawer_userIcon"
             android:layout_width="@dimen/file_icon_size"
             android:layout_height="@dimen/file_icon_size"
             android:layout_gravity="center_vertical"

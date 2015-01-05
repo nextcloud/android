@@ -25,7 +25,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -41,6 +40,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SyncRequest;
+import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -52,13 +52,21 @@ import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,9 +76,9 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
-import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -97,6 +105,7 @@ import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
+import com.owncloud.android.ui.adapter.NavigationDrawerListAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -160,12 +169,17 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     private String DIALOG_UNTRUSTED_CERT;
     
     private OCFile mWaitingToSend;
-
+    
+    
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private boolean showAccounts = false;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-
+        
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
 
         // PIN CODE request ;  best location is to decide, let's try this first
@@ -196,7 +210,89 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         /// USER INTERFACE
 
         // Inflate and set the layout view
-        setContentView(R.layout.files);    
+        setContentView(R.layout.files);
+        
+        // TODO move to another place that all activity can use it
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  
+                mDrawerLayout,         
+                R.drawable.ic_drawer,  
+                R.string.drawer_open,  
+                R.string.empty  
+                ) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setDisplayShowTitleEnabled(true);
+                getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+                initFragmentsWithFile();
+                invalidateOptionsMenu();
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle(R.string.drawer_open);
+                getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                invalidateOptionsMenu();
+            }
+        };
+        
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        
+        // Notification Drawer
+        LinearLayout notificatonDrawer = (LinearLayout) findViewById(R.id.left_drawer);
+        
+        // ListView
+        ListView listView = (ListView) notificatonDrawer.findViewById(R.id.drawer_list);
+        final NavigationDrawerListAdapter adapter = new NavigationDrawerListAdapter(getApplicationContext(), this);
+        
+        listView.setAdapter(adapter);
+        
+        listView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (showAccounts && position > 0){
+                    position = position - 1;
+                }
+                switch (position){
+                case 0:
+                    showAccounts = !showAccounts;
+                    adapter.setShowAccounts(showAccounts);
+                    adapter.notifyDataSetChanged();
+                    break;
+                case 1:
+                    MainApp.showOnlyFilesOnDevice(false);
+                    mDrawerLayout.closeDrawers();
+                    break;
+                case 2:
+                    MainApp.showOnlyFilesOnDevice(true);
+                    mDrawerLayout.closeDrawers();
+                    break;
+                case 3:
+                    Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
+                    startActivity(settingsIntent);
+                    break;
+                }
+            }
+        });
+        
+        // User-Icon
+        ImageView userIcon = (ImageView) notificatonDrawer.findViewById(R.id.drawer_userIcon);
+        userIcon.setImageResource(DisplayUtils.getSeasonalIconId());
+        
+        // Username
+        TextView username = (TextView) notificatonDrawer.findViewById(R.id.drawer_username);
+        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        int lastAtPos = account.name.lastIndexOf("@");
+        username.setText(account.name.substring(0, lastAtPos));
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
@@ -206,8 +302,13 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         // Action bar setup
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
+        getSupportActionBar().setDisplayShowCustomEnabled(true); // CRUCIAL - for displaying your custom actionbar
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);    // always AFTER setContentView(...) ; to work around bug in its implementation
+        
+        mDrawerToggle.syncState();
         
         setBackgroundText();
 
@@ -218,6 +319,19 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     protected void onStart() {
         super.onStart();
         getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
+    }
+    
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+    
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -297,7 +411,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             /// First fragment
             OCFileListFragment listOfFiles = getListOfFilesFragment(); 
             if (listOfFiles != null) {
-                listOfFiles.listDirectory(getCurrentDir());   
+                listOfFiles.listDirectory(getCurrentDir(), MainApp.getOnlyOnDevice());   
             } else {
                 Log_OC.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
             }
@@ -417,7 +531,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     protected void refreshListOfFilesFragment() {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) { 
-            fileListFragment.listDirectory();
+            fileListFragment.listDirectory(MainApp.getOnlyOnDevice());
         }
     }
 
@@ -460,11 +574,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (BuildConfig.DEBUG) {
-            menu.findItem(R.id.action_logger).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_logger).setVisible(false);
-        }
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(GravityCompat.START);
+        menu.findItem(R.id.action_upload).setVisible(!drawerOpen);
+        menu.findItem(R.id.action_create_dir).setVisible(!drawerOpen);
+        menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
+        
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -474,6 +588,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
+    
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -485,32 +600,17 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             dialog.show(getSupportFragmentManager(), "createdirdialog");
             break;
         }
-        case R.id.action_sync_account: {
-            startSynchronization();
-            break;
-        }
         case R.id.action_upload: {
             showDialog(DIALOG_CHOOSE_UPLOAD_SOURCE);
             break;
         }
-        case R.id.action_settings: {
-            Intent settingsIntent = new Intent(this, Preferences.class);
-            startActivity(settingsIntent);
-            break;
-        }
-        case R.id.action_logger: {
-            Intent loggerIntent = new Intent(getApplicationContext(),LogHistoryActivity.class);
-            startActivity(loggerIntent);
-            break;
-        }
         case android.R.id.home: {
-            FileFragment second = getSecondFragment();
-            OCFile currentDir = getCurrentDir();
-            if((currentDir != null && currentDir.getParentId() != 0) || 
-                    (second != null && second.getFile() != null)) {                
-                onBackPressed(); 
-                
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                mDrawerLayout.openDrawer(GravityCompat.START);
             }
+            // TODO add hamburger to left of android.R.id.home
             break;
         }
         case R.id.action_sort: {
@@ -1092,7 +1192,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                             if (synchFolderRemotePath != null && currentDir.getRemotePath().equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
-                                    fileListFragment.listDirectory(currentDir);
+                                    fileListFragment.listDirectory(currentDir, MainApp.getOnlyOnDevice());
                                 }
                             }
                             setFile(currentFile);
@@ -1305,7 +1405,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 popDirname();
             }
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
-            listOfFiles.listDirectory(root);
+            listOfFiles.listDirectory(root, MainApp.getOnlyOnDevice());
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root, false);
         }
@@ -1320,7 +1420,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (listOfFiles != null) {
             setNavigationListWithFolder(folder);
-            listOfFiles.listDirectory(folder);
+            listOfFiles.listDirectory(folder, MainApp.getOnlyOnDevice());
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(folder, false);
         } else {
@@ -1370,8 +1470,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             // only list of files - set for browsing through folders
             OCFile currentDir = getCurrentDir();
             boolean noRoot = (currentDir != null && currentDir.getParentId() != 0);
-            actionBar.setDisplayHomeAsUpEnabled(noRoot);
-            actionBar.setDisplayShowTitleEnabled(!noRoot); 
+//            actionBar.setDisplayHomeAsUpEnabled(noRoot);
+//            actionBar.setDisplayShowTitleEnabled(!noRoot); 
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
             if (!noRoot) {
                 actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
             }
@@ -1417,7 +1519,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             // a new chance to get the mDownloadBinder through getFileDownloadBinder() - THIS IS A MESS
             OCFileListFragment listOfFiles = getListOfFilesFragment(); 
             if (listOfFiles != null) {
-                listOfFiles.listDirectory();
+                listOfFiles.listDirectory(MainApp.getOnlyOnDevice());
             }
             FileFragment secondFragment = getSecondFragment();
             if (secondFragment != null && secondFragment instanceof FileDetailFragment) {
@@ -1900,5 +2002,15 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     private void sortByName(boolean ascending){
         getListOfFilesFragment().sortByName(ascending);
+    }
+    
+    public void restart(){
+        Intent i = new Intent(this, FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
+    public void closeDrawer() {
+        mDrawerLayout.closeDrawers();
     }
 }

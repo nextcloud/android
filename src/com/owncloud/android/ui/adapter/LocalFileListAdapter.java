@@ -99,7 +99,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             String name = file.getName();
             fileName.setText(name);
             
-            ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
+            ImageView fileIcon = (ImageView) view.findViewById(R.id.drawer_userIcon);
             if (!file.isDirectory()) {
                 fileIcon.setImageResource(R.drawable.file);
             } else {

@@ -30,12 +30,12 @@
         android:layout_gravity="center_vertical|center"
         android:layout_margin="4dp"
         android:src="@drawable/ic_menu_archive" 
-        android:id="@+id/imageView1" />
+        android:id="@+id/drawer_userIcon" />
     
     <TextView 
         android:text="TextView" 
         android:layout_width="fill_parent" 
-        android:id="@+id/textView1" 
+        android:id="@+id/drawer_username" 
         android:layout_height="wrap_content" 
         android:textColor="@android:color/black"
 		android:layout_gravity="center_vertical"

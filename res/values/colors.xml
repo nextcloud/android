@@ -22,5 +22,6 @@
     <color name="filelist_icon_backgorund">#DDDDDD</color>
     <color name="owncloud_blue_bright">#00ddff</color>
     <color name="list_item_lastmod_and_filesize_text">#989898</color>
+    <color name="black">#000000</color>
     
 </resources>

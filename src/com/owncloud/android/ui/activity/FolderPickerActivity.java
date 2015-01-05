@@ -139,7 +139,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             
             if (!stateWasRecovered) {
                 OCFileListFragment listOfFolders = getListOfFilesFragment(); 
-                listOfFolders.listDirectory(folder);   
+                listOfFolders.listDirectory(folder, false);   
                 
                 startSyncFolderOperation(folder, false);
             }
@@ -262,9 +262,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         MenuInflater inflater = getSherlock().getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.action_upload).setVisible(false);
-        menu.findItem(R.id.action_settings).setVisible(false);
-        menu.findItem(R.id.action_sync_account).setVisible(false);
-        menu.findItem(R.id.action_logger).setVisible(false);
         menu.findItem(R.id.action_sort).setVisible(false);
         return true;
     }
@@ -311,7 +308,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     protected void refreshListOfFilesFragment() {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) { 
-            fileListFragment.listDirectory();
+            fileListFragment.listDirectory(false);
         }
     }
 
@@ -319,7 +316,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (listOfFiles != null) {  // should never be null, indeed
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
-            listOfFiles.listDirectory(root);
+            listOfFiles.listDirectory(root, false);
             setFile(listOfFiles.getCurrentFile());
             updateNavigationElementsInActionBar();
             startSyncFolderOperation(root, false);
@@ -471,7 +468,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                     equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
-                                    fileListFragment.listDirectory(currentDir);
+                                    fileListFragment.listDirectory(currentDir, false);
                                 }
                             }
                             setFile(currentFile);

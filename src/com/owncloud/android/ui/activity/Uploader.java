@@ -26,14 +26,6 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.utils.Log_OC;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
@@ -65,6 +57,13 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 
 /**
@@ -241,7 +240,7 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
         Log_OC.d(TAG, "on item click");
-        Vector<OCFile> tmpfiles = mStorageManager.getFolderContent(mFile);
+        Vector<OCFile> tmpfiles = mStorageManager.getFolderContent(mFile, false);
         if (tmpfiles.size() <= 0) return;
         // filter on dirtype
         Vector<OCFile> files = new Vector<OCFile>();
@@ -316,7 +315,7 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
 
         mFile = mStorageManager.getFileByPath(full_path);
         if (mFile != null) {
-            Vector<OCFile> files = mStorageManager.getFolderContent(mFile);
+            Vector<OCFile> files = mStorageManager.getFolderContent(mFile, false);
             List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
             for (OCFile f : files) {
                 HashMap<String, Object> h = new HashMap<String, Object>();
@@ -329,7 +328,7 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
                                                 data,
                                                 R.layout.uploader_list_item_layout,
                                                 new String[] {"dirname"},
-                                                new int[] {R.id.textView1});
+                                                new int[] {R.id.drawer_username});
             setListAdapter(sa);
             Button btn = (Button) findViewById(R.id.uploader_choose_folder);
             btn.setOnClickListener(this);

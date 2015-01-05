@@ -111,7 +111,7 @@ implements ConfirmationDialogFragmentListener {
         
         boolean containsKeepInSync = false;
         if (mTargetFile.isFolder()) {
-            Vector<OCFile> files = storageManager.getFolderContent(mTargetFile);
+            Vector<OCFile> files = storageManager.getFolderContent(mTargetFile, false);
             for(OCFile file: files) {
                 containsKeepInSync = file.keepInSync() || containsKeepInSync;
 

@@ -152,7 +152,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             String name = file.getFileName();
 
             fileName.setText(name);
-            ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
+            ImageView fileIcon = (ImageView) view.findViewById(R.id.drawer_userIcon);
             fileIcon.setTag(file.getFileId());
             ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
             ImageView sharedWithMeIconV = (ImageView) view.findViewById(R.id.sharedWithMeIcon);
@@ -344,14 +344,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
      * @param updatedStorageManager     Optional updated storage manager; used to replace 
      *                                  mStorageManager if is different (and not NULL)
      */
-    public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager) {
+    public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager, boolean onlyOnDevice) {
         mFile = directory;
         if (updatedStorageManager != null && updatedStorageManager != mStorageManager) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         }
         if (mStorageManager != null) {
-            mFiles = mStorageManager.getFolderContent(mFile);
+            mFiles = mStorageManager.getFolderContent(mFile, onlyOnDevice);
             if (mJustFolders) {
                 mFiles = getFolders(mFiles);
             }

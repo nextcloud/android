@@ -20,6 +20,14 @@
     	<!-- TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>  -->
     </string-array>
+    <string-array name="drawer_items">
+        <item>Accounts</item>
+	    <item>All Files</item>
+	    <item>On device</item>
+	    <item>Settings</item>
+    </string-array>
+    <string name="drawer_open">ownCloud</string>
+	<string name="drawer_close">Close</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_accounts">Accounts</string>
@@ -328,5 +336,6 @@
 	<string name="shared_subject_header">shared</string>
 	<string name="with_you_subject_header">with you</string>
 	<string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
+	<string name="username">Username</string>
 
 </resources>

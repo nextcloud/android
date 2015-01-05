@@ -43,6 +43,10 @@ public class MainApp extends Application {
 
     private static Context mContext;
     
+    // TODO better place
+    private static boolean mOnlyOnDevice = false;
+
+    
     public void onCreate(){
         super.onCreate();
         MainApp.mContext = getApplicationContext();
@@ -115,5 +119,12 @@ public class MainApp extends Application {
     public static String getLogName() {
         return getAppContext().getResources().getString(R.string.log_name);
     }
-
+    
+    public static void showOnlyFilesOnDevice(boolean state){
+        mOnlyOnDevice = state;
+    }
+    
+    public static boolean getOnlyOnDevice(){
+        return mOnlyOnDevice;
+    }
 }

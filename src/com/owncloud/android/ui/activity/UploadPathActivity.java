@@ -18,7 +18,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-
 import android.os.Bundle;
 import android.view.View.OnClickListener;
 
@@ -66,7 +65,7 @@ public class UploadPathActivity extends FolderPickerActivity implements FileFrag
 
             if (!stateWasRecovered) {
                 OCFileListFragment listOfFolders = getListOfFilesFragment();
-                listOfFolders.listDirectory(folder);
+                listOfFolders.listDirectory(folder, false);
 
                 startSyncFolderOperation(folder, false);
             }

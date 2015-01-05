@@ -46,6 +46,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -82,7 +83,6 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     private Preference mPrefInstantUploadPath;
     private Preference mPrefInstantVideoUploadPath;
     private String mUploadVideoPath;
-
 
     @SuppressWarnings("deprecation")
     @Override
@@ -174,7 +174,20 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
             
         }
         
-       
+        if (BuildConfig.DEBUG) {
+            Preference pLog =  findPreference("log");
+            if (pLog != null ){
+                pLog.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent loggerIntent = new Intent(getApplicationContext(),LogHistoryActivity.class);
+                        startActivity(loggerIntent);
+                        return true;
+                    }
+                });
+            } 
+        }
+        
        boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
        Preference pRecommend =  findPreference("recommend");
         if (pRecommend != null){

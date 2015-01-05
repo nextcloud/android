@@ -26,14 +26,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView;
-import android.view.LayoutInflater;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -77,7 +78,8 @@ public class OCFileListFragment extends ExtendedListFragment {
     private View mFooterView;
     
     private OCFile mTargetFile;
-
+    
+   
     
     /**
      * {@inheritDoc}
@@ -182,7 +184,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             }   // exit is granted because storageManager.getFileByPath("/") never returns null
             mFile = parentDir;
             
-            listDirectory(mFile);
+            listDirectory(mFile, MainApp.getOnlyOnDevice());
 
             onRefresh(false);
             
@@ -200,7 +202,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         if (file != null) {
             if (file.isFolder()) { 
                 // update state and view of this fragment
-                listDirectory(file);
+                listDirectory(file, MainApp.getOnlyOnDevice());
                 // then, notify parent activity to let it update its state and view
                 mContainerActivity.onBrowsedDownTo(file);
                 // save index and top position
@@ -354,8 +356,12 @@ public class OCFileListFragment extends ExtendedListFragment {
     /**
      * Calls {@link OCFileListFragment#listDirectory(OCFile)} with a null parameter
      */
-    public void listDirectory(){
-        listDirectory(null);
+    public void listDirectory(boolean onlyOnDevice){
+        listDirectory(null, onlyOnDevice);
+    }
+    
+    public void refreshDirectory(){
+        listDirectory(getCurrentFile(), MainApp.getOnlyOnDevice());
     }
     
     /**
@@ -365,7 +371,7 @@ public class OCFileListFragment extends ExtendedListFragment {
      * 
      * @param directory File to be listed
      */
-    public void listDirectory(OCFile directory) {
+    public void listDirectory(OCFile directory, boolean onlyOnDevice) {
         FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
         if (storageManager != null) {
 
@@ -386,7 +392,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                 directory = storageManager.getFileById(directory.getParentId());
             }
 
-            mAdapter.swapDirectory(directory, storageManager);
+            mAdapter.swapDirectory(directory, storageManager, onlyOnDevice);
             if (mFile == null || !mFile.equals(directory)) {
                 mList.setSelectionFromTop(0, 0);
             }
@@ -395,17 +401,17 @@ public class OCFileListFragment extends ExtendedListFragment {
             // Update Footer
             TextView footerText = (TextView) mFooterView.findViewById(R.id.footerText);
             Log_OC.d("footer", String.valueOf(System.currentTimeMillis()));
-            footerText.setText(generateFooterText(directory));
+            footerText.setText(generateFooterText(directory, onlyOnDevice));
             Log_OC.d("footer", String.valueOf(System.currentTimeMillis()));
         }
     }
     
-    private String generateFooterText(OCFile directory) {
+    private String generateFooterText(OCFile directory, boolean onlyOnDevice) {
         Integer files = 0;
         Integer folders = 0;
 
         FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-        Vector<OCFile> mFiles = storageManager.getFolderContent(mFile);
+        Vector<OCFile> mFiles = storageManager.getFolderContent(mFile, onlyOnDevice);
 
         for (OCFile ocFile : mFiles) {
             if (ocFile.isFolder()) {
@@ -447,5 +453,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     public void sortBySize(boolean descending) {
         mAdapter.setSortOrder(FileListListAdapter.SORT_SIZE, descending);
     }  
-
+    
+   
+    
 }
