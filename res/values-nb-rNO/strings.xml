@@ -11,6 +11,12 @@
   <string name="actionbar_settings">Innstillinger</string>
   <string name="actionbar_see_details">Detaljer</string>
   <string name="actionbar_send_file">Send</string>
+  <string name="actionbar_sort">Sorter</string>
+  <string name="actionbar_sort_title">Sorter på</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Nyeste - Eldste</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Generelt</string>
@@ -32,6 +38,8 @@
   <string name="prefs_recommend">Anbefal til en venn</string>
   <string name="prefs_feedback">Tilbakemelding</string>
   <string name="prefs_imprint">Avtrykk</string>
+  <string name="prefs_remember_last_share_location">Husk delt plassering</string>
+  <string name="prefs_remember_last_upload_location_summary">Husk sist delt plassering for opplasting</string>
   <string name="recommend_subject">Prøv %1$s på smarttelefonen din!</string>
   <string name="recommend_text">Jeg ønsker å invitere deg til å bruke %1$s på smarttelefonen din!\nLast ned her: %2$s</string>
   <string name="auth_check_server">Sjekk server</string>
@@ -245,6 +253,7 @@
   <string name="preview_image_description">Bildeforhåndsvisning</string>
   <string name="preview_image_error_unknown_format">Dette bildet kan ikke vises</string>
   <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til lokal mappe %2$s</string>
+  <string name="prefs_instant_upload_path_title">Sti til opplasting</string>
   <string name="share_link_no_support_share_api">Beklager, deling er ikke skrudd på for din tjener. Ta kontakt med
 		administratoren.</string>
   <string name="share_link_file_no_exist">Kan ikke dele. Sjekk om filen eksisterer.</string>
@@ -270,8 +279,12 @@
   <string name="downloader_download_file_not_found">Filen finnes ikke på serveren lenger</string>
   <string name="prefs_category_accounts">Kontoer</string>
   <string name="prefs_add_account">Legg til en konto</string>
+  <string name="auth_redirect_non_secure_connection_title">Sikker forbindelse er omdirigert til en usikker rute.</string>
   <string name="actionbar_logger">Logger</string>
   <string name="log_send_history_button">Send historikk</string>
+  <string name="log_send_no_mail_app">Ingen app for sending av logger funnet. Installer epost-app!</string>
+  <string name="log_send_mail_subject">%1$s Android app logger</string>
+  <string name="log_progress_dialog_text">Laster data...</string>
   <string name="saml_authentication_required_text">Autentisering kreves</string>
   <string name="saml_authentication_wrong_pass">Feil passord</string>
   <string name="actionbar_move">Flytt</string>
@@ -282,6 +295,10 @@
   <string name="move_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
   <string name="move_file_error">En feil oppstod ved flytting av denne filen eller mappen</string>
   <string name="forbidden_permissions_move">å flytte denne filen</string>
+  <string name="prefs_category_instant_uploading">Umiddelbare opplastinger</string>
   <string name="prefs_category_security">Sikkerhet</string>
+  <string name="prefs_instant_video_upload_path_title">Sti til video-opplasting</string>
   <string name="shared_subject_header">delt</string>
+  <string name="with_you_subject_header">med deg</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>
