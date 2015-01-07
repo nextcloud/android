@@ -542,4 +542,12 @@ public class SynchronizeFolderOperation extends SyncOperation {
     public void cancel() {
         mCancellationRequested.set(true);
     }
+
+    public String getFolderPath() {
+        String path = mLocalFolder.getStoragePath();
+        if (path != null && path.length() > 0) {
+            return path;
+        }
+        return FileStorageUtils.getDefaultSavePathFor(mAccount.name, mLocalFolder);
+    }
 }
