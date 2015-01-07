@@ -210,13 +210,16 @@ public class ErrorMessageAdapter {
         } else if (operation instanceof SynchronizeFolderOperation) {
 
             if (!result.isSuccess()) {
+                String folderPathName = new File(
+                        ((SynchronizeFolderOperation) operation).getFolderPath()).getName();
                 if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                    message = res.getString(R.string.download_folder_not_found);
+                    message = String.format(res.getString(R.string.download_folder_not_found),
+                            folderPathName);
 
                 } else {    // Generic error
                     // Show a Message, operation finished without success
-                    message = String.format(res.getString(R.string.downloader_download_folder_failed_content), new File(
-                            ((SynchronizeFolderOperation) operation).getFolderPath()).getName());
+                    message = String.format(res.getString(R.string.download_folder_failed_content),
+                            folderPathName);
                 }
             }
         }
