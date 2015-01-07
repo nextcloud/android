@@ -283,7 +283,8 @@ Descárgueo de aquí: %2$s</string>
   <string name="auth_redirect_non_secure_connection_title">A conexión segura está a ser redirixida a unha ruta non segura.</string>
   <string name="actionbar_logger">Rexistros</string>
   <string name="log_send_history_button">Enviar o historial</string>
-  <string name="log_mail_subject">Rexistros da app ownCloud Android</string>
+  <string name="log_send_no_mail_app">Non se atopou unha aplicación para enviar os rexistros. Instale unha aplicación de correo!</string>
+  <string name="log_send_mail_subject">Rexistros da aplicación %1$s Android</string>
   <string name="log_progress_dialog_text">Cargando os datos...</string>
   <string name="saml_authentication_required_text">Requírese autenticación</string>
   <string name="saml_authentication_wrong_pass">Contrasinal incorrecto</string>
@@ -298,4 +299,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="prefs_category_instant_uploading">Envío instantáneo</string>
   <string name="prefs_category_security">Seguranza</string>
   <string name="prefs_instant_video_upload_path_title">Enviar a ruta do vídeo</string>
+  <string name="shared_subject_header">compartido</string>
+  <string name="with_you_subject_header">con vostede</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>

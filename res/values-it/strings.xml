@@ -282,7 +282,8 @@
   <string name="auth_redirect_non_secure_connection_title">La connessione sicura è rediretta su un percorso non sicuro.</string>
   <string name="actionbar_logger">Registri</string>
   <string name="log_send_history_button">Invia cronologia</string>
-  <string name="log_mail_subject">Registri applicazione ownCloud Android</string>
+  <string name="log_send_no_mail_app">Non è stata trovata alcuna applicazione per l\'invio dei registri. Installa l\'applicazione mail!</string>
+  <string name="log_send_mail_subject">Registri applicazione %1$s Android</string>
   <string name="log_progress_dialog_text">Caricamento dati in corso...</string>
   <string name="saml_authentication_required_text">Autenticazione richiesta</string>
   <string name="saml_authentication_wrong_pass">Password errata</string>
@@ -297,4 +298,7 @@
   <string name="prefs_category_instant_uploading">Caricamenti istantanei</string>
   <string name="prefs_category_security">Protezione</string>
   <string name="prefs_instant_video_upload_path_title">Percorso di caricamento video</string>
+  <string name="shared_subject_header">condiviso</string>
+  <string name="with_you_subject_header">con te</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>

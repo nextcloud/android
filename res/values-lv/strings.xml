@@ -149,6 +149,7 @@
   <string name="activity_chooser_send_file_title">Sūtīt</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Konti</string>
+  <string name="saml_authentication_wrong_pass">Nepareiza parole</string>
   <string name="folder_picker_choose_button_text">Izvēlieties</string>
   <string name="prefs_category_security">Drošība</string>
 </resources>
