@@ -213,7 +213,7 @@ public class ErrorMessageAdapter {
                 String folderPathName = new File(
                         ((SynchronizeFolderOperation) operation).getFolderPath()).getName();
                 if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                    message = String.format(res.getString(R.string.download_folder_not_found),
+                    message = String.format(res.getString(R.string.sync_current_folder_was_removed),
                             folderPathName);
 
                 } else {    // Generic error
