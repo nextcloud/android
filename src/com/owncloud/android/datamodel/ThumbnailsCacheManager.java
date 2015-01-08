@@ -74,7 +74,7 @@ public class ThumbnailsCacheManager {
     public static Bitmap mDefaultImg = 
             BitmapFactory.decodeResource(
                     MainApp.getAppContext().getResources(), 
-                    DisplayUtils.getResourceId("image/png", "default.png")
+                    DisplayUtils.getFileTypeIconId("image/png", "default.png")
             );
 
     

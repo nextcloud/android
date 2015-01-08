@@ -23,11 +23,9 @@ import java.util.Comparator;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -141,7 +139,8 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                     if (thumbnail != null){
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
-                        ThumbnailsCacheManager.AsyncTaskFile asyncTaskFile = new ThumbnailsCacheManager.AsyncTaskFileLocal(file);
+                        ThumbnailsCacheManager.AsyncTaskFile asyncTaskFile = 
+                        		new ThumbnailsCacheManager.AsyncTaskFileLocal(file);
                         // generate new Thumbnail
                         if (ThumbnailsCacheManager.cancelPotentialGlobalWork(asyncTaskFile, fileIcon)) {
                             final ThumbnailsCacheManager.ThumbnailGenerationGlobalTask task =
@@ -149,20 +148,18 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
-                            final  ThumbnailsCacheManager.AsyncGlobalDrawable  asyncDrawable = new  ThumbnailsCacheManager.AsyncGlobalDrawable (
+                            final  ThumbnailsCacheManager.AsyncGlobalDrawable  asyncDrawable = 
+                        		new  ThumbnailsCacheManager.AsyncGlobalDrawable (
                                     mContext.getResources(), 
                                     thumbnail, 
                                     task
-                            );
+                		        );
                             fileIcon.setImageDrawable(asyncDrawable);
                             task.execute(asyncTaskFile);
                         }
                     }
                 } else {
-                    Uri selectedUri = Uri.fromFile(file);
-                    String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase());
-                    String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
-                    fileIcon.setImageResource(DisplayUtils.getResourceId(mimeType, file.getName()));
+                    fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(null, file.getName()));
                 }  
 
             } else {
@@ -171,7 +168,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 checkBoxV.setVisibility(View.GONE);
             }
             
-            view.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);   // not GONE; the alignment changes; ugly way to keep it
+            view.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);   // not GONE; the alignment would change
             view.findViewById(R.id.imageView3).setVisibility(View.GONE);
             
             view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);

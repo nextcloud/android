@@ -234,7 +234,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         }
                     }
                 } else {
-                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
+                    fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName()));
                 }
 
                 if (checkIfFileIsSharedWithMe(file)) {
@@ -260,7 +260,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     sharedWithMeIconV.setVisibility(View.VISIBLE);
                 } else {
                     fileIcon.setImageResource(
-                            DisplayUtils.getResourceId(file.getMimetype(), file.getFileName())
+                            DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName())
                     );
                 }
 

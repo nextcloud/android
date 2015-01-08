@@ -19,6 +19,7 @@
 package com.owncloud.android.utils;
 
 import java.net.IDN;
+import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,6 +31,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.text.format.DateUtils;
+import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -74,21 +76,26 @@ public class DisplayUtils {
     
     private static final String SUBTYPE_PDF = "pdf";
     private static final String SUBTYPE_XML = "xml";
-    private static final String[] SUBTYPES_DOCUMENT = { "msword",
-                                                        "vnd.openxmlformats-officedocument.wordprocessingml.document",
-                                                        "vnd.oasis.opendocument.text",
-                                                        "rtf"
-                                                        };
+    private static final String[] SUBTYPES_DOCUMENT = { 
+        "msword",
+        "vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "vnd.oasis.opendocument.text",
+        "rtf"
+    };
     private static Set<String> SUBTYPES_DOCUMENT_SET = new HashSet<String>(Arrays.asList(SUBTYPES_DOCUMENT));
-    private static final String[] SUBTYPES_SPREADSHEET = { "msexcel",
-                                                           "vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                                                           "vnd.oasis.opendocument.spreadsheet"
-                                                           };
+    private static final String[] SUBTYPES_SPREADSHEET = {
+        "msexcel",
+        "vnd.ms-excel",
+        "vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "vnd.oasis.opendocument.spreadsheet"
+    };
     private static Set<String> SUBTYPES_SPREADSHEET_SET = new HashSet<String>(Arrays.asList(SUBTYPES_SPREADSHEET));
-    private static final String[] SUBTYPES_PRESENTATION = { "mspowerpoint",
-                                                            "vnd.openxmlformats-officedocument.presentationml.presentation",
-                                                            "vnd.oasis.opendocument.presentation"
-                                                            };
+    private static final String[] SUBTYPES_PRESENTATION = { 
+        "mspowerpoint",
+        "vnd.ms-powerpoint",
+        "vnd.openxmlformats-officedocument.presentationml.presentation",
+        "vnd.oasis.opendocument.presentation"
+    };
     private static Set<String> SUBTYPES_PRESENTATION_SET = new HashSet<String>(Arrays.asList(SUBTYPES_PRESENTATION));
     private static final String[] SUBTYPES_COMPRESSED = {"x-tar", "x-gzip", "zip"};
     private static final Set<String> SUBTYPES_COMPRESSED_SET = new HashSet<String>(Arrays.asList(SUBTYPES_COMPRESSED));
@@ -96,6 +103,8 @@ public class DisplayUtils {
     private static final String EXTENSION_RAR = "rar";
     private static final String EXTENSION_RTF = "rtf";
     private static final String EXTENSION_3GP = "3gp";
+    private static final String EXTENSION_PY = "py";
+    private static final String EXTENSION_JS = "js";
     
     /**
      * Converts the file size in bytes to human readable output.
@@ -112,30 +121,6 @@ public class DisplayUtils {
         }
         result = ((int) (result * 100)) / 100.;
         return result + " " + sizeSuffixes[attachedsuff];
-    }
-
-    /**
-     * Removes special HTML entities from a string
-     * 
-     * @param s Input string
-     * @return A cleaned version of the string
-     */
-    public static String HtmlDecode(String s) {
-        /*
-         * TODO: Perhaps we should use something more proven like:
-         * http://commons.apache.org/lang/api-2.6/org/apache/commons/lang/StringEscapeUtils.html#unescapeHtml%28java.lang.String%29
-         */
-
-        String ret = "";
-        for (int i = 0; i < s.length(); ++i) {
-            if (s.charAt(i) == '%') {
-                ret += (char) Integer.parseInt(s.substring(i + 1, i + 3), 16);
-                i += 2;
-            } else {
-                ret += s.charAt(i);
-            }
-        }
-        return ret;
     }
 
     /**
@@ -156,19 +141,23 @@ public class DisplayUtils {
     
     
     /**
-     * Returns the resource identifier of an image resource to use as icon associated to a 
-     * known MIME type.
+     * Returns the resource identifier of an image to use as icon associated to a known MIME type.
      * 
-     * @param mimetype      MIME type string.
-     * @param filename      name, with extension
-     * @return              Resource identifier of an image resource.
+     * @param mimetype      MIME type string; if NULL, the method tries to guess it from the extension in filename
+     * @param filename      Name, with extension.
+     * @return              Identifier of an image resource.
      */
-    public static int getResourceId(String mimetype, String filename) {
+    public static int getFileTypeIconId(String mimetype, String filename) {
 
         if (mimetype == null) {
-            return R.drawable.file;
-
-        } else if ("DIR".equals(mimetype)) {
+            String fileExtension = getExtension(filename);
+            mimetype = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+            if (mimetype == null) {
+                mimetype = TYPE_APPLICATION + "/" + SUBTYPE_OCTET_STREAM;
+            }
+        } 
+            
+        if ("DIR".equals(mimetype)) {
             return R.drawable.ic_menu_archive;
 
         } else {
@@ -217,7 +206,10 @@ public class DisplayUtils {
                         
                     } else if (getExtension(filename).equalsIgnoreCase(EXTENSION_3GP)) {
                         return R.drawable.file_movie;
-                        
+                     
+                    } else if ( getExtension(filename).equalsIgnoreCase(EXTENSION_PY) ||
+                                getExtension(filename).equalsIgnoreCase(EXTENSION_JS)) {
+                        return R.drawable.file_doc;
                     } 
                 } 
             }
@@ -230,7 +222,6 @@ public class DisplayUtils {
     
     private static String getExtension(String filename) {
         String extension = filename.substring(filename.lastIndexOf(".") + 1);
-        
         return extension;
     }
     
@@ -241,7 +232,9 @@ public class DisplayUtils {
      */
     public static String unixTimeToHumanReadable(long milliseconds) {
         Date date = new Date(milliseconds);
-        return date.toLocaleString();
+        DateFormat df = DateFormat.getDateTimeInstance();
+        //return date.toLocaleString();
+        return df.format(date); 
     }
     
     
@@ -302,7 +295,11 @@ public class DisplayUtils {
         return fileExtension;
     }
 
-    public static CharSequence getRelativeDateTimeString(Context c, long time, long minResolution, long transitionResolution, int flags){
+    @SuppressWarnings("deprecation")
+    public static CharSequence getRelativeDateTimeString (
+            Context c, long time, long minResolution, long transitionResolution, int flags
+            ){
+        
         CharSequence dateString = "";
         
         // in Future
@@ -314,12 +311,15 @@ public class DisplayUtils {
             return c.getString(R.string.file_list_seconds_ago);
         } else {
             // Workaround 2.x bug (see https://github.com/owncloud/android/issues/716)
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.HONEYCOMB && (System.currentTimeMillis() - time) > 24 * 60 * 60 * 1000){
+            if (    Build.VERSION.SDK_INT <= Build.VERSION_CODES.HONEYCOMB && 
+                    (System.currentTimeMillis() - time) > 24 * 60 * 60 * 1000   ) {
                 Date date = new Date(time);
                 date.setHours(0);
                 date.setMinutes(0);
                 date.setSeconds(0);
-                dateString = DateUtils.getRelativeDateTimeString(c, date.getTime(), minResolution, transitionResolution, flags);
+                dateString = DateUtils.getRelativeDateTimeString(
+                        c, date.getTime(), minResolution, transitionResolution, flags
+                );
             } else {
                 dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
             }
