@@ -173,6 +173,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
         } catch (OperationCancelledException e) {
             result = new RemoteOperationResult(e);
 
+            // Needed in case that cancellation occurs before starting any download.
+            // If not, yellow arrow continues being shown.
+            sendBroadcastForNotifyingUIUpdate(result.isSuccess());
+
             /// cancellation of download needs to be done separately in any case; a SynchronizeFolderOperation
             //  may finish much sooner than the real download of the files in the folder 
             Intent intent = new Intent(mContext, FileDownloader.class);
