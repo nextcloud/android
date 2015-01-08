@@ -73,6 +73,7 @@ public class DisplayUtils {
     private static final String TYPE_VIDEO = "video";
     
     private static final String SUBTYPE_PDF = "pdf";
+    private static final String SUBTYPE_XML = "xml";
     private static final String[] SUBTYPES_DOCUMENT = { "msword",
                                                         "vnd.openxmlformats-officedocument.wordprocessingml.document",
                                                         "vnd.oasis.opendocument.text",
@@ -192,6 +193,9 @@ public class DisplayUtils {
                 if (SUBTYPE_PDF.equals(subtype)) {
                     return R.drawable.file_pdf;
                     
+                } else if (SUBTYPE_XML.equals(subtype)) {
+                    return R.drawable.file_doc;
+
                 } else if (SUBTYPES_DOCUMENT_SET.contains(subtype)) {
                     return R.drawable.file_doc;
 
@@ -203,7 +207,7 @@ public class DisplayUtils {
 
                 } else if (SUBTYPES_COMPRESSED_SET.contains(subtype)) {
                     return R.drawable.file_zip;
-                    
+
                 } else if (SUBTYPE_OCTET_STREAM.equals(subtype) ) {
                     if (getExtension(filename).equalsIgnoreCase(EXTENSION_RAR)) {
                         return R.drawable.file_zip;
