@@ -92,6 +92,7 @@
 						android:inputType="textUri"
 						android:drawablePadding="5dp"
 						android:paddingRight="55dp"
+						android:contentDescription="@string/auth_host_address"
 						>
 						<requestFocus />
 					</EditText>
@@ -164,7 +165,8 @@
 					android:layout_height="wrap_content"
 					android:ems="10"
 					android:hint="@string/auth_username"
-					android:inputType="textNoSuggestions"/>
+					android:inputType="textNoSuggestions"
+					android:contentDescription="@string/auth_username"/>
 		
 				<EditText
 				    android:id="@+id/account_password"
@@ -174,6 +176,7 @@
 					android:hint="@string/auth_password"
 					android:inputType="textPassword"
 					android:drawablePadding="5dp"
+					android:contentDescription="@string/auth_password"
 					/>
 		        
 				<TextView
