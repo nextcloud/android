@@ -96,9 +96,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
 
-    private Account mAccount;
-    private OCFile mFile;
-    
     
     public static String getDownloadAddedMessage() {
         return FileDownloader.class.getName().toString() + DOWNLOAD_ADDED_MESSAGE;
@@ -150,24 +147,24 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             Log_OC.e(TAG, "Not enough information provided in intent");
             return START_NOT_STICKY;
         } else {
-            mAccount = intent.getParcelableExtra(EXTRA_ACCOUNT);
-            mFile = intent.getParcelableExtra(EXTRA_FILE);
+            final Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
+            final OCFile file = intent.getParcelableExtra(EXTRA_FILE);
 
             if (ACTION_CANCEL_FILE_DOWNLOAD.equals(intent.getAction())) {
 
                 new Thread(new Runnable() {
                     public void run() {
                         // Cancel the download
-                        cancel(mAccount,mFile);
+                        cancel(account, file);
                     }
                 }).start();
 
             } else {
 
                 AbstractList<String> requestedDownloads = new Vector<String>(); // dvelasco: now this always contains just one element, but that can change in a near future (download of multiple selection)
-                String downloadKey = buildRemoteName(mAccount, mFile);
+                String downloadKey = buildRemoteName(account, file);
                 try {
-                    DownloadFileOperation newDownload = new DownloadFileOperation(mAccount, mFile);
+                    DownloadFileOperation newDownload = new DownloadFileOperation(account, file);
                     mPendingDownloads.putIfAbsent(downloadKey, newDownload);
                     newDownload.addDatatransferProgressListener(this);
                     newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);

@@ -512,7 +512,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
     }
 
     private void onSynchronizeFolderOperationFinish(SynchronizeFolderOperation operation, RemoteOperationResult result) {
-        if (!result.isSuccess()){
+        if (!result.isSuccess() && result.getCode() != ResultCode.CANCELLED){
             Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                     Toast.LENGTH_LONG);
             t.show();
