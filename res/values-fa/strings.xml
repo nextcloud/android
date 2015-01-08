@@ -240,4 +240,5 @@
   <string name="saml_authentication_wrong_pass">رمز عبور اشتباه است</string>
   <string name="folder_picker_choose_button_text">انتخاب کردن</string>
   <string name="prefs_category_security">امنیت</string>
+  <string name="shared_subject_header">اشتراک گذاشته شده</string>
 </resources>

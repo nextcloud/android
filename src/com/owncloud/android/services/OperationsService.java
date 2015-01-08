@@ -449,6 +449,7 @@ public class OperationsService extends Service {
             }
 
             if (mCurrentSyncOperation != null) {
+                RemoteOperationResult result = null;
 
                 try {
 
@@ -460,7 +461,7 @@ public class OperationsService extends Service {
                             mService.getContentResolver()
                     );
 
-                    mCurrentSyncOperation.execute(mOwnCloudClient, mStorageManager);
+                    result = mCurrentSyncOperation.execute(mOwnCloudClient, mStorageManager);
 
                 } catch (AccountsException e) {
                     Log_OC.e(TAG, "Error while trying to get autorization", e);
@@ -470,6 +471,8 @@ public class OperationsService extends Service {
                     synchronized(mPendingOperations) {
                         mPendingOperations.remove(syncKey);
                     }
+
+                    mService.dispatchResultToOperationListeners(null, mCurrentSyncOperation, result);
                 }
             }
         }
@@ -688,7 +691,7 @@ public class OperationsService extends Service {
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
                     if (remotePath.length() > 0) {
-                        operation = new CreateShareOperation(remotePath, ShareType.PUBLIC_LINK, 
+                        operation = new CreateShareOperation(OperationsService.this, remotePath, ShareType.PUBLIC_LINK,
                                 "", false, "", 1, sendIntent);
                     }
                     
@@ -830,7 +833,7 @@ public class OperationsService extends Service {
     
     /**
      * Notifies the currently subscribed listeners about the end of an operation.
-     * 
+     *
      * @param target            Account or URL pointing to an OC server.
      * @param operation         Finished operation.
      * @param result            Result of the operation.

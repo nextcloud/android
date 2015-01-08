@@ -282,8 +282,6 @@
   <string name="auth_redirect_non_secure_connection_title">Zabezpečené pripojenie je presmerované na nezabezpečenú trasu.</string>
   <string name="actionbar_logger">Logy</string>
   <string name="log_send_history_button">Odoslať históriu</string>
-  <string name="log_mail_subject">Logy aplikácie ownCloud pre Android</string>
-  <string name="log_progress_dialog_text">Nahrávam dáta...</string>
   <string name="saml_authentication_required_text">Vyžaduje sa overenie</string>
   <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
   <string name="actionbar_move">Presunúť</string>
@@ -296,4 +294,5 @@
   <string name="forbidden_permissions_move">pre presun tohoto súboru</string>
   <string name="prefs_category_instant_uploading">Okamžité nahratie</string>
   <string name="prefs_category_security">Zabezpečenie</string>
+  <string name="shared_subject_header">zdieľané</string>
 </resources>

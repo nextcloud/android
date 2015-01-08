@@ -75,6 +75,7 @@
   <string name="filedetails_sync_file">Päivitä tiedosto</string>
   <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s siirron yhteydessä</string>
   <string name="action_share_file">Jaa linkki</string>
+  <string name="action_unshare_file">Poista linkin jako</string>
   <string name="common_yes">Kyllä</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
@@ -151,6 +152,7 @@
   <string name="auth_testing_connection">Testataan yhteyttä...</string>
   <string name="auth_not_configured_title">Väärin tehdyt palvelin-asetukset</string>
   <string name="auth_account_not_new">Laitteella on jo tili samalle käyttäjälle ja palvelimelle</string>
+  <string name="auth_account_not_the_same">Syötetty käyttäjä ei täsmää tämän tilin käyttäjän kanssa</string>
   <string name="auth_unknown_error_title">Tuntematon virhe</string>
   <string name="auth_unknown_host_title">Isäntää ei löydy</string>
   <string name="auth_incorrect_path_title">Palvelin-instanssia ei löydetty</string>
@@ -259,8 +261,8 @@
   <string name="auth_redirect_non_secure_connection_title">Salattu yhteys on ohjattu uudelleen salaamatonta reittiä pitkin.</string>
   <string name="actionbar_logger">Lokit</string>
   <string name="log_send_history_button">Lähetä historia</string>
-  <string name="log_mail_subject">ownCloudin Android-sovelluksen lokit</string>
-  <string name="log_progress_dialog_text">Ladataan tietoja...</string>
+  <string name="log_send_no_mail_app">Lokien lähettämistä varten ei löytynyt sovellusta. Asenna sähköpostisovellus!</string>
+  <string name="log_progress_dialog_text">Ladataan tietoja…</string>
   <string name="saml_authentication_required_text">Tunnistautuminen vaaditaan</string>
   <string name="saml_authentication_wrong_pass">Väärä salasana</string>
   <string name="actionbar_move">Siirrä</string>
@@ -271,4 +273,6 @@
   <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
   <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
   <string name="prefs_category_security">Tietoturva</string>
+  <string name="shared_subject_header">jaettu</string>
+  <string name="with_you_subject_header">kanssasi</string>
 </resources>

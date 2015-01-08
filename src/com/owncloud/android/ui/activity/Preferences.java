@@ -53,7 +53,7 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.LongClickableCheckBoxPreference;
+import com.owncloud.android.ui.RadioButtonPreference;
 import com.owncloud.android.utils.DisplayUtils;
 
 
@@ -107,9 +107,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                 ListAdapter listAdapter = listView.getAdapter();
                 Object obj = listAdapter.getItem(position);
 
-                if (obj != null && obj instanceof LongClickableCheckBoxPreference) {
+                if (obj != null && obj instanceof RadioButtonPreference) {
                     mShowContextMenu = true;
-                    mAccountName = ((LongClickableCheckBoxPreference) obj).getKey();
+                    mAccountName = ((RadioButtonPreference) obj).getKey();
 
                     Preferences.this.openContextMenu(listView);
 
@@ -119,7 +119,18 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                 return false;
             }
         });
-
+        
+        // Load package info
+        String temp;
+        try {
+            PackageInfo pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
+            temp = pkg.versionName;
+        } catch (NameNotFoundException e) {
+            temp = "";
+            Log_OC.e(TAG, "Error while showing about dialog", e);
+        } 
+        final String appVersion = temp;
+       
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
@@ -208,7 +219,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         String feedbackMail   =(String) getText(R.string.mail_feedback);
-                        String feedback   =(String) getText(R.string.prefs_feedback);
+                        String feedback   =(String) getText(R.string.prefs_feedback) + " - android v" + appVersion;
                         Intent intent = new Intent(Intent.ACTION_SENDTO); 
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
@@ -286,13 +297,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
        pAboutApp = (Preference) findPreference("about_app");
        if (pAboutApp != null) { 
                pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
-               PackageInfo pkg;
-               try {
-                   pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
-                   pAboutApp.setSummary(String.format(getString(R.string.about_version), pkg.versionName));
-               } catch (NameNotFoundException e) {
-                   Log_OC.e(TAG, "Error while showing about dialog", e);
-               }
+               pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
        }
 
        loadInstantUploadPath();
@@ -463,7 +468,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         else {
 
             for (Account a : accounts) {
-                LongClickableCheckBoxPreference accountPreference = new LongClickableCheckBoxPreference(this);
+                RadioButtonPreference accountPreference = new RadioButtonPreference(this);
                 accountPreference.setKey(a.name);
                 // Handle internationalized domain names
                 accountPreference.setTitle(DisplayUtils.convertIdn(a.name, false));
@@ -483,7 +488,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
                         Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
                         for (Account a : accounts) {
-                            CheckBoxPreference p = (CheckBoxPreference) findPreference(a.name);
+                            RadioButtonPreference p = (RadioButtonPreference) findPreference(a.name);
                             if (key.equals(a.name)) {
                                 boolean accountChanged = !p.isChecked(); 
                                 p.setChecked(true);
