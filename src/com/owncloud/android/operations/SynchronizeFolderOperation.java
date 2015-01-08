@@ -172,12 +172,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             
         } catch (OperationCancelledException e) {
             result = new RemoteOperationResult(e);
-            
-            // cancel 'child' synchronizations
-            for (SyncOperation  synchOp: mFoldersToWalkDown) {
-                ((SynchronizeFolderOperation) synchOp).cancel();
-            }
-            
+
             /// cancellation of download needs to be done separately in any case; a SynchronizeFolderOperation
             //  may finish much sooner than the real download of the files in the folder 
             Intent intent = new Intent(mContext, FileDownloader.class);
@@ -288,7 +283,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
      *                          retrieved.
      *  @return                 'True' when any change was made in the local data, 'false' otherwise
      */
-    private void synchronizeData(ArrayList<Object> folderAndFiles, OwnCloudClient client) {
+    private void synchronizeData(ArrayList<Object> folderAndFiles, OwnCloudClient client)
+            throws OperationCancelledException {
         FileDataStorageManager storageManager = getStorageManager();
         
         // parse data from remote folder
@@ -303,7 +299,13 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFilesForDirectDownload.clear();
         mFilesToSyncContentsWithoutUpload.clear();
         mFavouriteFilesToSyncContents.clear();
-        mFoldersToWalkDown.clear();
+
+        synchronized(mFoldersToWalkDown) {
+            if (mCancellationRequested.get()) {
+                throw new OperationCancelledException();
+            }
+            mFoldersToWalkDown.clear();
+        }
 
         // get current data about local contents of the folder to synchronize
         List<OCFile> localFiles = storageManager.getFolderContent(mLocalFolder);
@@ -365,8 +367,14 @@ public class SynchronizeFolderOperation extends SyncOperation {
                         mAccount,
                         mCurrentSyncTime
                 );
-                mFoldersToWalkDown.add(synchFolderOp);
-                
+
+                synchronized(mFoldersToWalkDown) {
+                    if (mCancellationRequested.get()) {
+                        throw new OperationCancelledException();
+                    }
+                    mFoldersToWalkDown.add(synchFolderOp);
+                }
+
             } else if (remoteFile.keepInSync()) {
                 /// prepare content synchronization for kept-in-sync files
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(
@@ -400,7 +408,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
     
     
-    private void prepareOpsFromLocalKnowledge() {
+    private void prepareOpsFromLocalKnowledge() throws OperationCancelledException {
         List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder);
         for (OCFile child : children) {
             /// classify file to sync/download contents later
@@ -412,8 +420,14 @@ public class SynchronizeFolderOperation extends SyncOperation {
                         mAccount,
                         mCurrentSyncTime
                 );
-                mFoldersToWalkDown.add(synchFolderOp);
-                
+
+                synchronized(mFoldersToWalkDown) {
+                    if (mCancellationRequested.get()) {
+                        throw new OperationCancelledException();
+                    }
+                    mFoldersToWalkDown.add(synchFolderOp);
+                }
+
             } else {
                 /// prepare limited synchronization for regular files
                 if (!child.isDown()) {
@@ -554,6 +568,13 @@ public class SynchronizeFolderOperation extends SyncOperation {
      */
     public void cancel() {
         mCancellationRequested.set(true);
+
+        synchronized(mFoldersToWalkDown) {
+            // cancel 'child' synchronizations
+            for (SyncOperation synchOp : mFoldersToWalkDown) {
+                ((SynchronizeFolderOperation) synchOp).cancel();
+            }
+        }
     }
 
     public String getFolderPath() {
