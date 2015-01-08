@@ -38,14 +38,14 @@ import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 
 /**
- *  TODO extending SherlockListFragment instead of SherlockFragment 
+ * TODO extending SherlockListFragment instead of SherlockFragment
  */
 public class ExtendedListFragment extends SherlockFragment 
 implements OnItemClickListener, OnEnforceableRefreshListener {
-    
+
     private static final String TAG = ExtendedListFragment.class.getSimpleName();
 
-    private static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION"; 
+    private static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION";
     private static final String KEY_INDEXES = "INDEXES";
     private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
     private static final String KEY_TOPS = "TOPS";
@@ -53,7 +53,7 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
 
     protected ExtendedListView mList;
-    
+
     private SwipeRefreshLayout mRefreshLayout;
     private SwipeRefreshLayout mRefreshEmptyLayout;
     private TextView mEmptyListMessage;
@@ -72,18 +72,22 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         mList.invalidate();
     }
 
+    public void setFooterView(View footer) {
+        mList.addFooterView(footer, null, false);
+        mList.invalidate();
+    }
+
     public ListView getListView() {
         return mList;
     }
-    
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.e(TAG, "onCreateView");
-        
+
         View v = inflater.inflate(R.layout.list_fragment, null);
         mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
-        mList = (ExtendedListView)(v.findViewById(R.id.list_root));
+        mList = (ExtendedListView) (v.findViewById(R.id.list_root));
         mList.setOnItemClickListener(this);
 
         mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
@@ -93,7 +97,7 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
             int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
             setReferencePosition(referencePosition);
         }
-        
+
         // Pull down refresh
         mRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files);
         mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files_emptyView);
@@ -106,7 +110,6 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         return v;
     }
 
-    
     /**
      * {@inheritDoc}
      */
@@ -142,14 +145,16 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
     }
 
-    
     /**
-     * Calculates the position of the item that will be used as a reference to reposition the visible items in the list when
-     * the device is turned to other position. 
+     * Calculates the position of the item that will be used as a reference to
+     * reposition the visible items in the list when the device is turned to
+     * other position.
      * 
-     * THe current policy is take as a reference the visible item in the center of the screen.  
+     * THe current policy is take as a reference the visible item in the center
+     * of the screen.
      * 
-     * @return      The position in the list of the visible item in the center of the screen.
+     * @return The position in the list of the visible item in the center of the
+     *         screen.
      */
     protected int getReferencePosition() {
         if (mList != null) {
@@ -159,11 +164,11 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         }
     }
 
-    
     /**
      * Sets the visible part of the list from the reference position.
      * 
-     * @param   position    Reference position previously returned by {@link LocalFileListFragment#getReferencePosition()}
+     * @param position Reference position previously returned by
+     *            {@link LocalFileListFragment#getReferencePosition()}
      */
     protected void setReferencePosition(int position) {
         if (mList != null) {
@@ -227,7 +232,7 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     
     @Override
     public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
-        // to be @overriden  
+        // to be @overriden
     }
 
     @Override
@@ -240,7 +245,6 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
             mOnRefreshListener.onRefresh();
         }
     }
-    
     public void setOnRefreshListener(OnEnforceableRefreshListener listener) {
         mOnRefreshListener = listener;
     }

@@ -32,16 +32,16 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/file_icon_size"
+            android:layout_height="@dimen/file_icon_size"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="22dp"
             android:src="@drawable/local_file_indicator" />
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/file_icon_size"
+            android:layout_height="@dimen/file_icon_size"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="9dp"
             android:src="@drawable/ic_menu_archive" />

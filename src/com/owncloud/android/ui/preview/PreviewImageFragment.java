@@ -53,6 +53,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.TouchImageViewCustom;
 
 
@@ -82,6 +83,8 @@ public class PreviewImageFragment extends FileFragment {
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
 
     private boolean mIgnoreFirstSavedState;
+    
+    private LoadBitmapTask mLoadBitmapTask = null;
 
     
     /**
@@ -190,11 +193,21 @@ public class PreviewImageFragment extends FileFragment {
     public void onStart() {
         super.onStart();
         if (getFile() != null) {
-           BitmapLoader bl = new BitmapLoader(mImageView, mMessageView, mProgressWheel);
-           bl.execute(new String[]{getFile().getStoragePath()});
+           mLoadBitmapTask = new LoadBitmapTask(mImageView, mMessageView, mProgressWheel);
+           mLoadBitmapTask.execute(new String[]{getFile().getStoragePath()});
         }
     }
     
+    
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mLoadBitmapTask != null) {
+            mLoadBitmapTask.cancel(true);
+            mLoadBitmapTask = null;
+        }
+        
+    }
     
     /**
      * {@inheritDoc}
@@ -329,7 +342,7 @@ public class PreviewImageFragment extends FileFragment {
     }
     
     
-    private class BitmapLoader extends AsyncTask<String, Void, Bitmap> {
+    private class LoadBitmapTask extends AsyncTask<String, Void, Bitmap> {
 
         /**
          * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
@@ -365,7 +378,7 @@ public class PreviewImageFragment extends FileFragment {
          * 
          * @param imageView     Target {@link ImageView} where the bitmap will be loaded into.
          */
-        public BitmapLoader(ImageViewCustom imageView, TextView messageView, ProgressBar progressWheel) {
+        public LoadBitmapTask(ImageViewCustom imageView, TextView messageView, ProgressBar progressWheel) {
             mImageViewRef = new WeakReference<ImageViewCustom>(imageView);
             mMessageViewRef = new WeakReference<TextView>(messageView);
             mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
@@ -379,42 +392,64 @@ public class PreviewImageFragment extends FileFragment {
             String storagePath = params[0];
             try {
 
+                if (isCancelled()) return result;
+                
                 File picture = new File(storagePath);
 
                 if (picture != null) {
-                    //Decode file into a bitmap in real size for being able to make zoom on the image
+                    // Decode file into a bitmap in real size for being able to make zoom on 
+                    // the image
                     result = BitmapFactory.decodeStream(new FlushedInputStream
                             (new BufferedInputStream(new FileInputStream(picture))));
                 }
 
+                if (isCancelled()) return result;
+                
                 if (result == null) {
                     mErrorMessageId = R.string.preview_image_error_unknown_format;
                     Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
+                } else {
+                    // Rotate image, obeying exif tag.
+                    result = BitmapUtils.rotateImage(result, storagePath);
                 }
                 
             } catch (OutOfMemoryError e) {
                 Log_OC.e(TAG, "Out of memory occured for file " + storagePath, e);
 
-                // If out of memory error when loading image, try to load it scaled
+                if (isCancelled()) return result;
+                
+                // If out of memory error when loading or rotating image, try to load it scaled
                 result = loadScaledImage(storagePath);
 
                 if (result == null) {
                     mErrorMessageId = R.string.preview_image_error_unknown_format;
                     Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
+                } else {
+                    // Rotate scaled image, obeying exif tag
+                    result = BitmapUtils.rotateImage(result, storagePath);
                 }
                     
             } catch (NoSuchFieldError e) {
                 mErrorMessageId = R.string.common_error_unknown;
-                Log_OC.e(TAG, "Error from access to unexisting field despite protection; file " + storagePath, e);
+                Log_OC.e(TAG, "Error from access to unexisting field despite protection; file " 
+                                + storagePath, e);
                     
             } catch (Throwable t) {
                 mErrorMessageId = R.string.common_error_unknown;
                 Log_OC.e(TAG, "Unexpected error loading " + getFile().getStoragePath(), t);
                 
             }
+            
             return result;
         }
         
+        @Override
+        protected void onCancelled(Bitmap result) {
+            if (result != null) {
+                result.recycle();
+            }
+        }
+
         @Override
         protected void onPostExecute(Bitmap result) {
             hideProgressWheel();
@@ -424,7 +459,7 @@ public class PreviewImageFragment extends FileFragment {
                 showErrorMessage();
             }
         }
-
+        
         @SuppressLint("InlinedApi")
         private void showLoadedImage(Bitmap result) {
             if (mImageViewRef != null) {

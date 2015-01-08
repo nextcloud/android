@@ -220,4 +220,5 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="prefs_category_accounts">Hesablar</string>
   <string name="prefs_add_account">Hesab əlavə et</string>
   <string name="saml_authentication_wrong_pass">Yalnış şifrə</string>
+  <string name="shared_subject_header">yayımlanmış</string>
 </resources>
