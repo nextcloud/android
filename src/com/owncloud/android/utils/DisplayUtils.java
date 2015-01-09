@@ -80,7 +80,8 @@ public class DisplayUtils {
         "msword",
         "vnd.openxmlformats-officedocument.wordprocessingml.document",
         "vnd.oasis.opendocument.text",
-        "rtf"
+        "rtf",
+        "javascript"
     };
     private static Set<String> SUBTYPES_DOCUMENT_SET = new HashSet<String>(Arrays.asList(SUBTYPES_DOCUMENT));
     private static final String[] SUBTYPES_SPREADSHEET = {
