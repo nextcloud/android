@@ -222,7 +222,7 @@ public class DisplayUtils {
 
     
     private static String getExtension(String filename) {
-        String extension = filename.substring(filename.lastIndexOf(".") + 1);
+        String extension = filename.toLowerCase().substring(filename.lastIndexOf(".") + 1);
         return extension;
     }
     
