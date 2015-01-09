@@ -34,6 +34,7 @@ import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
@@ -98,8 +99,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private List<SyncOperation> mFavouriteFilesToSyncContents;
         // this will be used for every file when 'folder synchronization' replaces 'folder download' 
 
-    private List<SyncOperation> mFoldersToWalkDown;
-
     private final AtomicBoolean mCancellationRequested;
 
     /**
@@ -119,7 +118,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFilesForDirectDownload = new Vector<OCFile>();
         mFilesToSyncContentsWithoutUpload = new Vector<SyncOperation>();
         mFavouriteFilesToSyncContents = new Vector<SyncOperation>();
-        mFoldersToWalkDown = new Vector<SyncOperation>();
         mCancellationRequested = new AtomicBoolean(false);
     }
 
@@ -302,11 +300,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFilesToSyncContentsWithoutUpload.clear();
         mFavouriteFilesToSyncContents.clear();
 
-        synchronized(mFoldersToWalkDown) {
-            if (mCancellationRequested.get()) {
-                throw new OperationCancelledException();
-            }
-            mFoldersToWalkDown.clear();
+        if (mCancellationRequested.get()) {
+            throw new OperationCancelledException();
         }
 
         // get current data about local contents of the folder to synchronize
@@ -363,18 +358,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
             /// classify file to sync/download contents later
             if (remoteFile.isFolder()) {
                 /// to download children files recursively
-                SynchronizeFolderOperation synchFolderOp =  new SynchronizeFolderOperation( 
-                        mContext,
-                        remoteFile.getRemotePath(),
-                        mAccount,
-                        mCurrentSyncTime
-                );
+                startSyncFolderOperation(remoteFile.getRemotePath());
 
-                synchronized(mFoldersToWalkDown) {
-                    if (mCancellationRequested.get()) {
-                        throw new OperationCancelledException();
-                    }
-                    mFoldersToWalkDown.add(synchFolderOp);
+                if (mCancellationRequested.get()) {
+                    throw new OperationCancelledException();
                 }
 
             } else if (remoteFile.keepInSync()) {
@@ -416,18 +403,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
             /// classify file to sync/download contents later
             if (child.isFolder()) {
                 /// to download children files recursively
-                SynchronizeFolderOperation synchFolderOp =  new SynchronizeFolderOperation( 
-                        mContext,
-                        child.getRemotePath(),
-                        mAccount,
-                        mCurrentSyncTime
-                );
-
-                synchronized(mFoldersToWalkDown) {
-                    if (mCancellationRequested.get()) {
-                        throw new OperationCancelledException();
-                    }
-                    mFoldersToWalkDown.add(synchFolderOp);
+                startSyncFolderOperation(child.getRemotePath());
+                if (mCancellationRequested.get()) {
+                    throw new OperationCancelledException();
                 }
 
             } else {
@@ -444,7 +422,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
         startDirectDownloads();
         startContentSynchronizations(mFilesToSyncContentsWithoutUpload, client);
         startContentSynchronizations(mFavouriteFilesToSyncContents, client);
-        walkSubfolders(client);    // this must be the last!
     }
 
     
@@ -493,26 +470,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     }
                 }
                 // TODO - use the errors count in notifications
-            }   // won't let these fails break the synchronization process
-        }
-    }
-
-
-    private void walkSubfolders(OwnCloudClient client) throws OperationCancelledException {
-        RemoteOperationResult contentsResult = null;
-        for (SyncOperation op: mFoldersToWalkDown) {
-            if (mCancellationRequested.get()) {
-                throw new OperationCancelledException();
-            }
-            contentsResult = op.execute(client, getStorageManager());   // to watch out: possibly deep recursion
-            if (!contentsResult.isSuccess()) {
-                // TODO - some kind of error count, and use it with notifications
-                if (contentsResult.getException() != null) {
-                    Log_OC.e(TAG, "Non blocking exception : "
-                            +  contentsResult.getLogMessage(), contentsResult.getException());
-                } else {
-                    Log_OC.e(TAG, "Non blocking error : " + contentsResult.getLogMessage());
-                }
             }   // won't let these fails break the synchronization process
         }
     }
@@ -570,13 +527,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
      */
     public void cancel() {
         mCancellationRequested.set(true);
-
-        synchronized(mFoldersToWalkDown) {
-            // cancel 'child' synchronizations
-            for (SyncOperation synchOp : mFoldersToWalkDown) {
-                ((SynchronizeFolderOperation) synchOp).cancel();
-            }
-        }
     }
 
     public String getFolderPath() {
@@ -585,5 +535,13 @@ public class SynchronizeFolderOperation extends SyncOperation {
             return path;
         }
         return FileStorageUtils.getDefaultSavePathFor(mAccount.name, mLocalFolder);
+    }
+
+    private void startSyncFolderOperation(String path){
+        Intent intent = new Intent(mContext, OperationsService.class);
+        intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
+        intent.putExtra(OperationsService.EXTRA_ACCOUNT, mAccount);
+        intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
+        mContext.startService(intent);
     }
 }
