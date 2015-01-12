@@ -48,6 +48,7 @@ import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -437,15 +438,15 @@ public class OCFileListFragment extends ExtendedListFragment {
     }
     
     public void sortByName(boolean descending) {
-        mAdapter.setSortOrder(FileListListAdapter.SORT_NAME, descending);
+        mAdapter.setSortOrder(FileStorageUtils.SORT_NAME, descending);
     }
 
     public void sortByDate(boolean descending) {
-        mAdapter.setSortOrder(FileListListAdapter.SORT_DATE, descending);
+        mAdapter.setSortOrder(FileStorageUtils.SORT_DATE, descending);
     }
 
     public void sortBySize(boolean descending) {
-        mAdapter.setSortOrder(FileListListAdapter.SORT_SIZE, descending);
+        mAdapter.setSortOrder(FileStorageUtils.SORT_SIZE, descending);
     }  
 
 }

@@ -70,11 +70,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
-    private Integer mSortOrder;
-    public static final Integer SORT_NAME = 0;
-    public static final Integer SORT_DATE = 1;
-    public static final Integer SORT_SIZE = 2;
-    private Boolean mSortAscending;
+    
     private SharedPreferences mAppPreferences;
     
     public FileListListAdapter(
@@ -93,9 +89,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 .getDefaultSharedPreferences(mContext);
         
         // Read sorting order, default to sort by name ascending
-        mSortOrder = mAppPreferences
-                .getInt("sortOrder", 0);
-        mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
+        FileStorageUtils.mSortOrder = mAppPreferences.getInt("sortOrder", 0);
+        FileStorageUtils.mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
+
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -293,7 +289,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         File dir = new File(path);
 
         if (dir.exists()) {
-            long bytes = getFolderSize(dir);
+            long bytes = FileStorageUtils.getFolderSize(dir);
             return DisplayUtils.bytesToHumanReadable(bytes);
         }
 
@@ -358,29 +354,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             mFiles = null;
         }
 
-        sortDirectory();
-    }
-    
-    /**
-     * Sorts all filenames, regarding last user decision 
-     */
-    private void sortDirectory(){
-        switch (mSortOrder){
-        case 0:
-            sortByName(mSortAscending);
-            break;
-        case 1:
-            sortByDate(mSortAscending);
-            break;
-        case 2: 
-            sortBySize(mSortAscending);
-            break;
-        }
-        
+        mFiles = FileStorageUtils.sortFolder(mFiles);
         notifyDataSetChanged();
     }
     
-    
+
     /**
      * Filter for getting only the folders
      * @param files
@@ -413,106 +391,19 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME));
     }
 
-    /**
-     * Sorts list by Date
-     * @param sortAscending true: ascending, false: descending
-     */
-    private void sortByDate(boolean sortAscending){
-        final Integer val;
-        if (sortAscending){
-            val = 1;
-        } else {
-            val = -1;
-        }
-        
-        Collections.sort(mFiles, new Comparator<OCFile>() {
-            public int compare(OCFile o1, OCFile o2) {
-                if (o1.isFolder() && o2.isFolder()) {
-                    Long obj1 = o1.getModificationTimestamp();
-                    return val * obj1.compareTo(o2.getModificationTimestamp());
-                }
-                else if (o1.isFolder()) {
-                    return -1;
-                } else if (o2.isFolder()) {
-                    return 1;
-                } else if (o1.getModificationTimestamp() == 0 || o2.getModificationTimestamp() == 0){
-                    return 0;
-                } else {
-                    Long obj1 = o1.getModificationTimestamp();
-                    return val * obj1.compareTo(o2.getModificationTimestamp());
-                }
-            }
-        });
-    }
-
-    /**
-     * Sorts list by Size
-     * @param sortAscending true: ascending, false: descending
-     */
-    private void sortBySize(boolean sortAscending){
-        final Integer val;
-        if (sortAscending){
-            val = 1;
-        } else {
-            val = -1;
-        }
-        
-        Collections.sort(mFiles, new Comparator<OCFile>() {
-            public int compare(OCFile o1, OCFile o2) {
-                if (o1.isFolder() && o2.isFolder()) {
-                    Long obj1 = getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o1)));
-                    return val * obj1.compareTo(getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
-                }
-                else if (o1.isFolder()) {
-                    return -1;
-                } else if (o2.isFolder()) {
-                    return 1;
-                } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
-                    return 0;
-                } else {
-                    Long obj1 = o1.getFileLength();
-                    return val * obj1.compareTo(o2.getFileLength());
-                }
-            }
-        });
-    }
-
-    /**
-     * Sorts list by Name
-     * @param sortAscending true: ascending, false: descending
-     */
-    private void sortByName(boolean sortAscending){
-        final Integer val;
-        if (sortAscending){
-            val = 1;
-        } else {
-            val = -1;
-        }
-
-        Collections.sort(mFiles, new Comparator<OCFile>() {
-            public int compare(OCFile o1, OCFile o2) {
-                if (o1.isFolder() && o2.isFolder()) {
-                    return val * o1.getRemotePath().toLowerCase().compareTo(o2.getRemotePath().toLowerCase());
-                } else if (o1.isFolder()) {
-                    return -1;
-                } else if (o2.isFolder()) {
-                    return 1;
-                }
-                return val * new AlphanumComparator().compare(o1, o2);
-            }
-        });
-    }
-
     public void setSortOrder(Integer order, boolean ascending) {
         SharedPreferences.Editor editor = mAppPreferences.edit();
         editor.putInt("sortOrder", order);
         editor.putBoolean("sortAscending", ascending);
         editor.commit();
         
-        mSortOrder = order;
-        mSortAscending = ascending;
+        FileStorageUtils.mSortOrder = order;
+        FileStorageUtils.mSortAscending = ascending;
         
-        sortDirectory();
+
+        mFiles = FileStorageUtils.sortFolder(mFiles);
+        notifyDataSetChanged();
+
     }    
     
     private CharSequence showRelativeTimestamp(OCFile file){
