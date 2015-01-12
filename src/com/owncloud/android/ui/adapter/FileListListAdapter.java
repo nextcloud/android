@@ -214,23 +214,22 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
 
-                        ThumbnailsCacheManager.AsyncTaskFile asyncTaskFile = new ThumbnailsCacheManager.AsyncTaskOCFile(file);
                         // generate new Thumbnail
-                        if (ThumbnailsCacheManager.cancelPotentialGlobalWork(asyncTaskFile, fileIcon)) {
-                            final ThumbnailsCacheManager.ThumbnailGenerationGlobalTask task =
-                                    new ThumbnailsCacheManager.ThumbnailGenerationGlobalTask(
+                        if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
+                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                             fileIcon, mStorageManager, mAccount
                                     );
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
-                            final ThumbnailsCacheManager.AsyncGlobalDrawable asyncDrawable = new ThumbnailsCacheManager.AsyncGlobalDrawable(
+                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable = new ThumbnailsCacheManager.AsyncDrawable(
                                     mContext.getResources(), 
                                     thumbnail, 
                                     task
                             );
                             fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(asyncTaskFile);
+                            task.execute(file);
                         }
                     }
                 } else {

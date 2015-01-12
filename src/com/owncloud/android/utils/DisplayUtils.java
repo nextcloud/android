@@ -222,7 +222,7 @@ public class DisplayUtils {
 
     
     private static String getExtension(String filename) {
-        String extension = filename.toLowerCase().substring(filename.lastIndexOf(".") + 1);
+        String extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
         return extension;
     }
     
@@ -234,8 +234,7 @@ public class DisplayUtils {
     public static String unixTimeToHumanReadable(long milliseconds) {
         Date date = new Date(milliseconds);
         DateFormat df = DateFormat.getDateTimeInstance();
-        //return date.toLocaleString();
-        return df.format(date); 
+        return df.format(date);
     }
     
     
