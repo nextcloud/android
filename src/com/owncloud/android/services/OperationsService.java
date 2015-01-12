@@ -499,7 +499,7 @@ public class OperationsService extends Service {
                     boolean found = false;
                     while (it.hasNext()) {
                         String keySyncOperation = it.next();
-                        found = keySyncOperation.contains(targetKey);
+                        found = keySyncOperation.startsWith(targetKey);
                         if (found) {
                             keyItems.add(keySyncOperation);
                         }
