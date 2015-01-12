@@ -18,7 +18,6 @@
 package com.owncloud.android.services;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -491,7 +490,6 @@ public class OperationsService extends Service {
         public void cancel(Account account, OCFile file){
             SynchronizeFolderOperation syncOperation = null;
             String targetKey = buildRemoteName(account, file.getRemotePath());
-            ArrayList<String> keyItems = new ArrayList<String>();
             synchronized (mPendingOperations) {
                 if (file.isFolder()) {
                     Log_OC.d(TAG, "Canceling pending sync operations");
@@ -501,21 +499,22 @@ public class OperationsService extends Service {
                         String keySyncOperation = it.next();
                         found = keySyncOperation.startsWith(targetKey);
                         if (found) {
-                            keyItems.add(keySyncOperation);
+                            syncOperation = mPendingOperations.get(keySyncOperation);
+                            if (syncOperation != null) {
+                                syncOperation.cancel();
+                                // Leave the ops in the hash; the cancellation is "passive"
+                                // TODO review full life-cicle of operations when folder download is replaced with
+                                //  folder synchronization
+                            }
                         }
                     }
                 } else {
                     // this is not really expected...
                     Log_OC.d(TAG, "Canceling sync operation");
-                    keyItems.add(buildRemoteName(account, file.getRemotePath()));
-                }
-            }
-            for (String item: keyItems) {
-                syncOperation = mPendingOperations.remove(item);
-                Log_OC.d(TAG, "Key sync operations removed: " + item);
-
-                if (syncOperation != null) {
-                    syncOperation.cancel();
+                    syncOperation = mPendingOperations.get(buildRemoteName(account, file.getRemotePath()));
+                    if (syncOperation != null) {
+                        syncOperation.cancel();
+                    }
                 }
             }
 
