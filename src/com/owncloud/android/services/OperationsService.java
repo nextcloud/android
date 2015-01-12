@@ -18,6 +18,7 @@
 package com.owncloud.android.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -482,24 +483,44 @@ public class OperationsService extends Service {
             mPendingOperations.putIfAbsent(syncKey,syncFolderOperation);
         }
 
-
         /**
-         * Cancels a pending or current sync operation.
-         *
+         * Cancels sync operations.
          * @param account       Owncloud account where the remote file is stored.
-         * @param file          File
+         * @param file          File OCFile
          */
-        public void cancel(Account account, OCFile file) {
+        public void cancel(Account account, OCFile file){
             SynchronizeFolderOperation syncOperation = null;
+            String targetKey = buildRemoteName(account, file.getRemotePath());
+            ArrayList<String> keyItems = new ArrayList<String>();
             synchronized (mPendingOperations) {
-                syncOperation = mPendingOperations.remove(buildRemoteName(account, file.getRemotePath()));
+                if (file.isFolder()) {
+                    Log_OC.d(TAG, "Canceling pending sync operations");
+                    Iterator<String> it = mPendingOperations.keySet().iterator();
+                    boolean found = false;
+                    while (it.hasNext()) {
+                        String keySyncOperation = it.next();
+                        found = keySyncOperation.startsWith(targetKey);
+                        if (found) {
+                            keyItems.add(keySyncOperation);
+                        }
+                    }
+                } else {
+                    // this is not really expected...
+                    Log_OC.d(TAG, "Canceling sync operation");
+                    keyItems.add(buildRemoteName(account, file.getRemotePath()));
+                }
             }
-            if (syncOperation != null) {
-                syncOperation.cancel();
+            for (String item: keyItems) {
+                syncOperation = mPendingOperations.remove(item);
+                Log_OC.d(TAG, "Key sync operations removed: " + item);
+
+                if (syncOperation != null) {
+                    syncOperation.cancel();
+                }
             }
 
             /// cancellation of download needs to be done separately in any case; a SynchronizeFolderOperation
-            //  may finish much sooner than the real download of the files in the folder 
+            //  may finish much sooner than the real download of the files in the folder
             Intent intent = new Intent(mService, FileDownloader.class);
             intent.setAction(FileDownloader.ACTION_CANCEL_FILE_DOWNLOAD);
             intent.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
