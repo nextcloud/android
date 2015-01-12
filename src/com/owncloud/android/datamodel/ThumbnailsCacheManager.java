@@ -248,26 +248,27 @@ public class ThumbnailsCacheManager {
 
         private Bitmap doOCFileInBackground() {
             Bitmap thumbnail = null;
+            OCFile file = (OCFile)mFile;
 
-            final String imageKey = String.valueOf(((OCFile) mFile).getRemoteId());
+            final String imageKey = String.valueOf(file.getRemoteId());
 
             // Check disk cache in background thread
             thumbnail = getBitmapFromDiskCache(imageKey);
 
             // Not found in disk cache
-            if (thumbnail == null || ((OCFile)mFile).needsUpdateThumbnail()) {
+            if (thumbnail == null || file.needsUpdateThumbnail()) {
 
                 int px = getThumbnailDimension();
 
-                if (((OCFile)mFile).isDown()) {
+                if (file.isDown()) {
                     Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
-                            ((OCFile)mFile).getStoragePath(), px, px);
+                            file.getStoragePath(), px, px);
 
                     if (bitmap != null) {
-                        thumbnail = addThumbnailToCache(imageKey, bitmap, ((OCFile)mFile).getStoragePath(), px);
+                        thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), px);
 
-                        ((OCFile)mFile).setNeedsUpdateThumbnail(false);
-                        mStorageManager.saveFile(((OCFile)mFile));
+                        file.setNeedsUpdateThumbnail(false);
+                        mStorageManager.saveFile(file);
                     }
 
                 } else {
@@ -279,7 +280,7 @@ public class ThumbnailsCacheManager {
                                 int status = -1;
 
                                 String uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
-                                        px + "/" + px + Uri.encode(((OCFile)mFile).getRemotePath(), "/");
+                                        px + "/" + px + Uri.encode(file.getRemotePath(), "/");
                                 Log_OC.d("Thumbnail", "URI: " + uri);
                                 GetMethod get = new GetMethod(uri);
                                 status = mClient.executeMethod(get);
@@ -309,7 +310,9 @@ public class ThumbnailsCacheManager {
 
         private Bitmap doFileInBackground() {
             Bitmap thumbnail = null;
-            final String imageKey = String.valueOf(mFile.hashCode());
+            File file = (File)mFile;
+
+            final String imageKey = String.valueOf(file.hashCode());
 
             // Check disk cache in background thread
             thumbnail = getBitmapFromDiskCache(imageKey);
@@ -320,10 +323,10 @@ public class ThumbnailsCacheManager {
                 int px = getThumbnailDimension();
 
                 Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
-                        ((File)mFile).getAbsolutePath(), px, px);
+                        file.getAbsolutePath(), px, px);
 
                 if (bitmap != null) {
-                    thumbnail = addThumbnailToCache(imageKey, bitmap, ((File)mFile).getPath(), px);
+                    thumbnail = addThumbnailToCache(imageKey, bitmap, file.getPath(), px);
                 }
             }
             return thumbnail;
