@@ -280,7 +280,7 @@
   <string name="prefs_category_accounts">Cuentas</string>
   <string name="prefs_add_account">Agregar cuenta</string>
   <string name="auth_redirect_non_secure_connection_title">La conexión segura está siendo desviada por una ruta insegura.</string>
-  <string name="actionbar_logger">Logs</string>
+  <string name="actionbar_logger">Registros</string>
   <string name="log_send_history_button">Enviar historial</string>
   <string name="log_send_no_mail_app">No se ha encontrado una app para enviar logs. Instale la app mail!</string>
   <string name="log_send_mail_subject">Se han encontrado %1$s logs de la app Android</string>
