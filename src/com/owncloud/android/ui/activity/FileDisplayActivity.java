@@ -1349,7 +1349,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      * TODO
      */
     private void updateNavigationElementsInActionBar(OCFile chosenFile) {
-        ActionBar actionBar = getSupportActionBar(); 
+        ActionBar actionBar = getSupportActionBar();
+
+        // For adding content description tag to a title field in the action bar
+        int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
+
         if (chosenFile == null || mDualPane) {
             // only list of files - set for browsing through folders
             OCFile currentDir = getCurrentDir();
@@ -1358,6 +1362,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             actionBar.setDisplayShowTitleEnabled(!noRoot); 
             if (!noRoot) {
                 actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
+                getWindow().getDecorView().findViewById(actionBarTitleId).setContentDescription(getString(R.string.default_display_name_for_root_folder));
             }
             actionBar.setNavigationMode(!noRoot ? ActionBar.NAVIGATION_MODE_STANDARD : ActionBar.NAVIGATION_MODE_LIST);
             actionBar.setListNavigationCallbacks(mDirectories, this);   // assuming mDirectories is updated
@@ -1367,6 +1372,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setTitle(chosenFile.getFileName());
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+            getWindow().getDecorView().findViewById(actionBarTitleId).setContentDescription(chosenFile.getFileName());
         }
     }
 

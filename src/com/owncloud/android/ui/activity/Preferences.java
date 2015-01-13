@@ -96,6 +96,10 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.actionbar_settings);
 
+        // For adding content description tag to a title field in the action bar
+        int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
+        getWindow().getDecorView().findViewById(actionBarTitleId).setContentDescription(getString(R.string.actionbar_settings));
+
         // Load the accounts category for adding the list of accounts
         mAccountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
 
