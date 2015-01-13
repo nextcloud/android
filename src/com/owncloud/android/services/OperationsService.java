@@ -18,6 +18,7 @@
 package com.owncloud.android.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -182,7 +183,7 @@ public class OperationsService extends Service {
             Pair<Target, RemoteOperation> itemToQueue = newOperation(intent);
             if (itemToQueue != null) {
                 mSyncFolderHandler.add(account, remotePath, (SynchronizeFolderOperation)itemToQueue.second);
-                sendBroadcastNewSyncFolder(account, remotePath);
+                mSyncFolderHandler.sendBroadcastNewSyncFolder(account, remotePath);
                 Message msg = mSyncFolderHandler.obtainMessage();
                 msg.arg1 = startId;
                 msg.obj = itemSyncKey;
@@ -193,11 +194,16 @@ public class OperationsService extends Service {
                 Log_OC.e(TAG, "Not enough information provided in intent");
                 return START_NOT_STICKY;
             }
-            Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
-            OCFile file = intent.getParcelableExtra(EXTRA_FILE);
-
+            final Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
+            final OCFile file = intent.getParcelableExtra(EXTRA_FILE);
             // Cancel operation
-            mSyncFolderHandler.cancel(account,file);
+            new Thread(new Runnable() {
+                public void run() {
+                    // Cancel the download
+                    mSyncFolderHandler.cancel(account,file);
+                }
+            }).start();
+
         } else {
             Message msg = mOperationsHandler.obtainMessage();
             msg.arg1 = startId;
@@ -206,19 +212,6 @@ public class OperationsService extends Service {
         
         return START_NOT_STICKY;
     }
-
-    /**
-     * TODO remove this method when "folder synchronization" replaces "folder download"; this is a fast and ugly 
-     * patch. 
-     */
-    private void sendBroadcastNewSyncFolder(Account account, String remotePath) {
-        Intent added = new Intent(FileDownloader.getDownloadAddedMessage());
-        added.putExtra(FileDownloader.ACCOUNT_NAME, account.name);
-        added.putExtra(FileDownloader.EXTRA_REMOTE_PATH, remotePath);
-        added.putExtra(FileDownloader.EXTRA_FILE_PATH, FileStorageUtils.getSavePath(account.name) + remotePath);
-        sendStickyBroadcast(added);
-    }
-
 
     @Override
     public void onDestroy() {
@@ -424,7 +417,13 @@ public class OperationsService extends Service {
             if (account == null || remotePath == null) return false;
             String targetKey = buildRemoteName(account, remotePath);
             synchronized (mPendingOperations) {
-                return (mPendingOperations.containsKey(targetKey));
+                // TODO - this can be slow when synchronizing a big tree - need a better data structure
+                Iterator<String> it = mPendingOperations.keySet().iterator();
+                boolean found = false;
+                while (it.hasNext() && !found) {
+                    found = it.next().startsWith(targetKey);
+                }
+                return found;
             }
         }
         
@@ -473,6 +472,8 @@ public class OperationsService extends Service {
                     }
 
                     mService.dispatchResultToOperationListeners(null, mCurrentSyncOperation, result);
+                    
+                    sendBroadcastFinishedSyncFolder(account, remotePath, result.isSuccess());
                 }
             }
         }
@@ -490,6 +491,7 @@ public class OperationsService extends Service {
         public void cancel(Account account, OCFile file){
             SynchronizeFolderOperation syncOperation = null;
             String targetKey = buildRemoteName(account, file.getRemotePath());
+            ArrayList<String> keyItems = new ArrayList<String>();
             synchronized (mPendingOperations) {
                 if (file.isFolder()) {
                     Log_OC.d(TAG, "Canceling pending sync operations");
@@ -499,25 +501,25 @@ public class OperationsService extends Service {
                         String keySyncOperation = it.next();
                         found = keySyncOperation.startsWith(targetKey);
                         if (found) {
-                            syncOperation = mPendingOperations.get(keySyncOperation);
-                            if (syncOperation != null) {
-                                syncOperation.cancel();
-                                // Leave the ops in the hash; the cancellation is "passive"
-                                // TODO review full life-cicle of operations when folder download is replaced with
-                                //  folder synchronization
-                            }
+                            keyItems.add(keySyncOperation);
                         }
                     }
+                    
                 } else {
                     // this is not really expected...
                     Log_OC.d(TAG, "Canceling sync operation");
-                    syncOperation = mPendingOperations.get(buildRemoteName(account, file.getRemotePath()));
+                    keyItems.add(buildRemoteName(account, file.getRemotePath()));
+                }
+                for (String item: keyItems) {
+                    syncOperation = mPendingOperations.remove(item);
                     if (syncOperation != null) {
                         syncOperation.cancel();
                     }
                 }
             }
 
+            //sendBroadcastFinishedSyncFolder(account, file.getRemotePath());
+            
             /// cancellation of download needs to be done separately in any case; a SynchronizeFolderOperation
             //  may finish much sooner than the real download of the files in the folder
             Intent intent = new Intent(mService, FileDownloader.class);
@@ -536,6 +538,34 @@ public class OperationsService extends Service {
         private String buildRemoteName(Account account, String path) {
             return account.name + path;
         }
+        
+        
+        /**
+         * TODO review this method when "folder synchronization" replaces "folder download"; this is a fast and ugly 
+         * patch. 
+         */
+        private void sendBroadcastNewSyncFolder(Account account, String remotePath) {
+            Intent added = new Intent(FileDownloader.getDownloadAddedMessage());
+            added.putExtra(FileDownloader.ACCOUNT_NAME, account.name);
+            added.putExtra(FileDownloader.EXTRA_REMOTE_PATH, remotePath);
+            added.putExtra(FileDownloader.EXTRA_FILE_PATH, FileStorageUtils.getSavePath(account.name) + remotePath);
+            mService.sendStickyBroadcast(added);
+        }
+
+        /**
+         * TODO review this method when "folder synchronization" replaces "folder download"; this is a fast and ugly 
+         * patch. 
+         */
+        private void sendBroadcastFinishedSyncFolder(Account account, String remotePath, boolean success) {
+            Intent finished = new Intent(FileDownloader.getDownloadFinishMessage());
+            finished.putExtra(FileDownloader.ACCOUNT_NAME, account.name);
+            finished.putExtra(FileDownloader.EXTRA_REMOTE_PATH, remotePath);
+            finished.putExtra(FileDownloader.EXTRA_FILE_PATH, FileStorageUtils.getSavePath(account.name) + remotePath);
+            finished.putExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, success);
+            mService.sendStickyBroadcast(finished);
+        }
+
+
     }
 
 

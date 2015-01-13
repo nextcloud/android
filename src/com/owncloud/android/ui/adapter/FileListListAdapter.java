@@ -166,7 +166,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
             OperationsServiceBinder opsBinder = mTransferServiceGetter.getOperationsServiceBinder();
             if ((downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) ||
-                 (opsBinder != null && opsBinder.isSynchronizing(mAccount, file.getRemotePath()))) {
+                 (file.isFolder() && opsBinder != null && opsBinder.isSynchronizing(mAccount, file.getRemotePath()))) {
                 localStateView.setImageResource(R.drawable.downloading_file_indicator);
                 localStateView.setVisibility(View.VISIBLE);
             } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {

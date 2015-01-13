@@ -143,7 +143,9 @@ public class FileMenuFilter {
             FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
             downloading = downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile);
             OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
-            downloading |= (opsBinder != null && opsBinder.isSynchronizing(mAccount, mFile.getRemotePath()));
+            downloading |= (
+                    mFile.isFolder() && opsBinder != null && opsBinder.isSynchronizing(mAccount, mFile.getRemotePath())
+            );
             FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
             uploading = uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile);
         }

@@ -159,9 +159,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     syncContents(client);
                 }
 
-                if (mFilesForDirectDownload.isEmpty()) {
-                    sendBroadcastForNotifyingUIUpdate(result.isSuccess());
-                }
             }
             
             if (mCancellationRequested.get()) {
@@ -170,16 +167,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
             
         } catch (OperationCancelledException e) {
             result = new RemoteOperationResult(e);
-
-            // Needed in case that cancellation occurs before starting any download.
-            // If not, yellow arrow continues being shown.
-            sendBroadcastForNotifyingUIUpdate(false);
-
-            Intent intent = new Intent(mContext, FileDownloader.class);
-            intent.setAction(FileDownloader.ACTION_CANCEL_FILE_DOWNLOAD);
-            intent.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-            intent.putExtra(FileDownloader.EXTRA_FILE, mLocalFolder);
-            mContext.startService(intent);            
         }
 
         return result;
@@ -224,7 +211,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
                         result.getLogMessage());
             }
 
-            sendBroadcastForNotifyingUIUpdate(result.isSuccess());
         }
 
         return result;
@@ -509,16 +495,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 file.setLastSyncDateForData(f.lastModified());
             }
         }
-    }
-
-    private void sendBroadcastForNotifyingUIUpdate(boolean result) {
-        // Send a broadcast message for notifying UI update
-        Intent uiUpdate = new Intent(FileDownloader.getDownloadFinishMessage());
-        uiUpdate.putExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, result);
-        uiUpdate.putExtra(FileDownloader.ACCOUNT_NAME, mAccount.name);
-        uiUpdate.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mRemotePath);
-        uiUpdate.putExtra(FileDownloader.EXTRA_FILE_PATH, mLocalFolder.getRemotePath());
-        mContext.sendStickyBroadcast(uiUpdate);
     }
 
     
