@@ -2,6 +2,7 @@
 <resources>
   <string name="actionbar_upload">Pošalji</string>
   <string name="actionbar_upload_files">Fajlovi</string>
+  <string name="actionbar_mkdir">Novi direktorijum</string>
   <string name="actionbar_settings">Podešavanja</string>
   <string name="actionbar_see_details">Detaljnije</string>
   <string name="actionbar_send_file">Pošalji</string>
@@ -26,8 +27,10 @@
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Ok</string>
+  <string name="common_cancel_upload">Otkaži otpremanje</string>
   <string name="common_cancel">Otkaži</string>
   <string name="common_error">Greška</string>
+  <string name="common_error_unknown">Nepoznata greška</string>
   <string name="change_password">Izmeni lozinku</string>
   <string name="delete_account">Ukloni nalog</string>
   <string name="create_account">Novi nalog</string>

@@ -76,7 +76,7 @@
   <string name="filedetails_sync_file">Atualizar ficheiro</string>
   <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado para %1$s durante o envio.</string>
   <string name="action_share_file">Partilhar a hiperligação</string>
-  <string name="action_unshare_file">Deixar de partilhar a ligação</string>
+  <string name="action_unshare_file">Deixar de partilhar a hiperligação</string>
   <string name="common_yes">Sim</string>
   <string name="common_no">Não</string>
   <string name="common_ok">ACEITAR</string>
@@ -100,11 +100,11 @@
   <string name="uploader_upload_failed_ticker">Não foi possível enviar</string>
   <string name="uploader_upload_failed_content_single">Não foi possível concluir o envio de %1$s.</string>
   <string name="uploader_upload_failed_credentials_error">Falha no carregamento, é necessário fazer novo login</string>
-  <string name="downloader_download_in_progress_ticker">A transferir ...</string>
+  <string name="downloader_download_in_progress_ticker">A transferir...</string>
   <string name="downloader_download_in_progress_content">%1$d%% A transferir %2$s</string>
   <string name="downloader_download_succeeded_ticker">Transferência bem sucedida</string>
-  <string name="downloader_download_succeeded_content">%1$s foi descarregado com sucesso</string>
-  <string name="downloader_download_failed_ticker">Descarga falhou</string>
+  <string name="downloader_download_succeeded_content">%1$s foi transferido com sucesso</string>
+  <string name="downloader_download_failed_ticker">Transferência falhada</string>
   <string name="downloader_download_failed_content">Não foi possível concluir a transferência de %1$s</string>
   <string name="downloader_not_downloaded_yet">Ainda não foi transferido</string>
   <string name="downloader_download_failed_credentials_error">Não foi possível transferir, tem de iniciar a sessão novamente</string>
