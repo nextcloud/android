@@ -44,7 +44,6 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncDrawable;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -90,9 +89,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 .getDefaultSharedPreferences(mContext);
         
         // Read sorting order, default to sort by name ascending
-        FileStorageUtils.mSortOrder = mAppPreferences
-                .getInt("sortOrder", 0);
+        FileStorageUtils.mSortOrder = mAppPreferences.getInt("sortOrder", 0);
         FileStorageUtils.mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
+
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -210,16 +209,18 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     if (thumbnail != null && !file.needsUpdateThumbnail()){
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
+
                         // generate new Thumbnail
                         if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task = 
+                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                             fileIcon, mStorageManager, mAccount
                                     );
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
-                            final AsyncDrawable asyncDrawable = new AsyncDrawable(
+                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                    new ThumbnailsCacheManager.AsyncDrawable(
                                     mContext.getResources(), 
                                     thumbnail, 
                                     task
@@ -229,9 +230,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         }
                     }
                 } else {
-                    fileIcon.setImageResource(
-                            DisplayUtils.getResourceId(file.getMimetype(), file.getFileName())
-                    );
+                    fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName()));
                 }
 
                 if (checkIfFileIsSharedWithMe(file)) {
@@ -257,7 +256,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     sharedWithMeIconV.setVisibility(View.VISIBLE);
                 } else {
                     fileIcon.setImageResource(
-                            DisplayUtils.getResourceId(file.getMimetype(), file.getFileName())
+                            DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName())
                     );
                 }
 
@@ -297,7 +296,26 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return "0 B";
     }
 
-    
+    /**
+     * Local Folder size
+     * @param dir File
+     * @return Size in bytes
+     */
+    private long getFolderSize(File dir) {
+        if (dir.exists()) {
+            long result = 0;
+            File[] fileList = dir.listFiles();
+            for(int i = 0; i < fileList.length; i++) {
+                if(fileList[i].isDirectory()) {
+                    result += getFolderSize(fileList[i]);
+                } else {
+                    result += fileList[i].length();
+                }
+            }
+            return result;
+        }
+        return 0;
+    } 
 
     @Override
     public int getViewTypeCount() {
@@ -392,5 +410,4 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return DisplayUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
                 DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
     }
-
 }
