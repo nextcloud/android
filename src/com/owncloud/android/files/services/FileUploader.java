@@ -727,6 +727,7 @@ public class FileUploader extends Service
         }
         file.setNeedsUpdateThumbnail(true);
         mStorageManager.saveFile(file);
+        mStorageManager.triggerMediaScan(file.getStoragePath());
     }
 
     private void updateOCFile(OCFile file, RemoteFile remoteFile) {
