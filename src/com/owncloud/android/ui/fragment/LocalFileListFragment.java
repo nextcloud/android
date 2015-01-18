@@ -113,18 +113,12 @@ public class LocalFileListFragment extends ExtendedListFragment {
         }
     }
     
-    public void deselectAll(){        
-        mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity());
-        setListAdapter(mAdapter);
-    }
-    
     /**
      * Checks the file clicked over. Browses inside if it is a directory. Notifies the container activity in any case.
      */
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        File file = (File) mAdapter.getItem(position);
-        
+        File file = (File) mAdapter.getItem(position); 
         if (file != null) {
             /// Click on a directory
             if (file.isDirectory()) {

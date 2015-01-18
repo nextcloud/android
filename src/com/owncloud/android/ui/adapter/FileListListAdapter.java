@@ -48,10 +48,8 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncDrawable;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -100,9 +98,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 .getDefaultSharedPreferences(mContext);
         
         // Read sorting order, default to sort by name ascending
-        mSortOrder = mAppPreferences
-                .getInt("sortOrder", 0);
-        mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
+        FileStorageUtils.mSortOrder = mAppPreferences.getInt("sortOrder", 0);
+        FileStorageUtils.mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
+
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -304,6 +302,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     if (thumbnail != null && !file.needsUpdateThumbnail()){
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
+
                         // generate new Thumbnail
                         if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
@@ -313,9 +312,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
-                            final AsyncDrawable asyncDrawable = new AsyncDrawable(
-                                    mContext.getResources(),
-                                    thumbnail,
+                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                    new ThumbnailsCacheManager.AsyncDrawable(
+                                    mContext.getResources(), 
+                                    thumbnail, 
                                     task
                                     );
                             fileIcon.setImageDrawable(asyncDrawable);
@@ -323,6 +323,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
                         }
                     }
+                } else {
+                    fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName()));
                 }
                 else {
                     fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
@@ -336,7 +338,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     // folder-public one
                     fileIcon.setImageResource(R.drawable.folder_public);
                 } else {
-                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
+                    fileIcon.setImageResource(
+                            DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName())
+                    );
                 }
             }           
         }
@@ -356,7 +360,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         File dir = new File(path);
 
         if (dir.exists()) {
-            long bytes = getFolderSize(dir);
+            long bytes = FileStorageUtils.getFolderSize(dir);
             return DisplayUtils.bytesToHumanReadable(bytes);
         }
 
@@ -424,29 +428,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             mFiles = null;
         }
 
-        sortDirectory();
-    }
-    
-    /**
-     * Sorts all filenames, regarding last user decision 
-     */
-    private void sortDirectory(){
-        switch (mSortOrder){
-        case 0:
-            sortByName(mSortAscending);
-            break;
-        case 1:
-            sortByDate(mSortAscending);
-            break;
-        case 2: 
-            sortBySize(mSortAscending);
-            break;
-        }
-        
+        mFiles = FileStorageUtils.sortFolder(mFiles);
         notifyDataSetChanged();
     }
     
-    
+
     /**
      * Filter for getting only the folders
      * @param files
@@ -527,8 +513,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
                     Long obj1 = getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o1)));
-                    return val * obj1.compareTo(getFolderSize(
-                            new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
+                    return val * obj1.compareTo(getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
                 }
                 else if (o1.isFolder()) {
                     return -1;
@@ -576,9 +561,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         editor.putBoolean("sortAscending", ascending);
         editor.commit();
         
-        mSortOrder = order;
-        mSortAscending = ascending;
+        FileStorageUtils.mSortOrder = order;
+        FileStorageUtils.mSortAscending = ascending;
         
+
+        mFiles = FileStorageUtils.sortFolder(mFiles);
+        notifyDataSetChanged();
+
+    }    
         sortDirectory();
     }
     

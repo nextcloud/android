@@ -319,7 +319,7 @@ public class OperationsService extends Service {
                         String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
                         if (remotePath.length() > 0) {
-                            operation = new CreateShareOperation(remotePath, ShareType.PUBLIC_LINK, 
+                            operation = new CreateShareOperation(OperationsService.this, remotePath, ShareType.PUBLIC_LINK,
                                     "", false, "", 1, sendIntent);
                         }
                         
@@ -359,7 +359,7 @@ public class OperationsService extends Service {
                         // Rename file or folder
                         String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         String newName = operationIntent.getStringExtra(EXTRA_NEWNAME);
-                        operation = new RenameFileOperation(remotePath, account, newName);
+                        operation = new RenameFileOperation(remotePath, newName);
                         
                     } else if (action.equals(ACTION_REMOVE)) {
                         // Remove file or folder

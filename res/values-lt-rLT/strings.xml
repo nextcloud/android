@@ -11,6 +11,12 @@
   <string name="actionbar_settings">Nustatymai</string>
   <string name="actionbar_see_details">Informacija</string>
   <string name="actionbar_send_file">Siųsti</string>
+  <string name="actionbar_sort">Rikiuoti</string>
+  <string name="actionbar_sort_title">Rikiuoti pagal</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Naujausi - Seniausi</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Bendras</string>
@@ -32,6 +38,8 @@
   <string name="prefs_recommend">Rekomenduoti draugui</string>
   <string name="prefs_feedback">Atsiliepimai</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Prisiminti bendrinimo vietą</string>
+  <string name="prefs_remember_last_upload_location_summary">Prisiminti paskutinio bendrinimo įkėlimo vietą</string>
   <string name="recommend_subject">Išbandykite %1$s savo išmaniajame telefone!</string>
   <string name="auth_check_server">Patikrinti Serverį</string>
   <string name="auth_host_url">Serverio adresas </string>
@@ -54,6 +62,10 @@
   <string name="file_list_empty">Čia tuščia. Įkelkite ką nors!</string>
   <string name="file_list_loading">Įkeliama ...</string>
   <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
+  <string name="file_list_folder">katalogas</string>
+  <string name="file_list_folders">katalogai</string>
+  <string name="file_list_file">failas</string>
+  <string name="file_list_files">failai</string>
   <string name="filedetails_select_file">Palieskite failą, kad parodyti papildomą informaciją.</string>
   <string name="filedetails_size">Dydis:</string>
   <string name="filedetails_type">Tipas:</string>
@@ -236,6 +248,7 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Paskyros</string>
   <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
-  <string name="move_choose_button_text">Pasirinkite</string>
+  <string name="folder_picker_choose_button_text">Pasirinkite</string>
   <string name="prefs_category_security">Saugumas</string>
+  <string name="shared_subject_header">bendrinamas</string>
 </resources>

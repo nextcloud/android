@@ -38,6 +38,10 @@
   <string name="uploader_info_uploading">Alŝutante</string>
   <string name="file_list_seconds_ago">sekundoj antaŭe</string>
   <string name="file_list_empty">Nenio estas ĉi tie. Alŝutu ion!</string>
+  <string name="file_list_folder">dosierujo</string>
+  <string name="file_list_folders">dosierujoj</string>
+  <string name="file_list_file">dosiero</string>
+  <string name="file_list_files">dosieroj</string>
   <string name="filedetails_size">Grando:</string>
   <string name="filedetails_type">Tipo:</string>
   <string name="filedetails_created">Kreita je:</string>
@@ -188,6 +192,7 @@
   <string name="prefs_category_accounts">Kontoj</string>
   <string name="saml_authentication_required_text">Aŭtentiĝo nepras</string>
   <string name="saml_authentication_wrong_pass">Malĝusta pasvorto</string>
-  <string name="move_choose_button_text">Elekti</string>
+  <string name="folder_picker_choose_button_text">Elekti</string>
   <string name="prefs_category_security">Sekuro</string>
+  <string name="shared_subject_header">kunhavigita</string>
 </resources>

@@ -16,9 +16,17 @@
  */
 package com.owncloud.android.utils;
 
+import com.owncloud.android.lib.common.utils.Log_OC;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.BitmapFactory.Options;
+import android.media.ExifInterface;
+import android.net.Uri;
+import android.webkit.MimeTypeMap;
+
+import java.io.File;
 
 /**
  * Utility class with methods for decoding Bitmaps.
@@ -94,6 +102,89 @@ public class BitmapUtils {
         }
         
         return inSampleSize;
+    }
+    
+    /**
+     * Rotate bitmap according to EXIF orientation. 
+     * Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/ 
+     * @param bitmap Bitmap to be rotated
+     * @param storagePath Path to source file of bitmap. Needed for EXIF information. 
+     * @return correctly EXIF-rotated bitmap
+     */
+    public static Bitmap rotateImage(Bitmap bitmap, String storagePath){
+        Bitmap resultBitmap = bitmap;
+
+        try
+        {
+            ExifInterface exifInterface = new ExifInterface(storagePath);
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+
+            Matrix matrix = new Matrix();
+
+            // 1: nothing to do
+            
+            // 2
+            if (orientation == ExifInterface.ORIENTATION_FLIP_HORIZONTAL)
+            {
+                matrix.postScale(-1.0f, 1.0f);
+            }
+            // 3
+            else if (orientation == ExifInterface.ORIENTATION_ROTATE_180)
+            {
+                matrix.postRotate(180);
+            }
+            // 4
+            else if (orientation == ExifInterface.ORIENTATION_FLIP_VERTICAL)
+            {
+                matrix.postScale(1.0f, -1.0f);
+            }
+            // 5
+            else if (orientation == ExifInterface.ORIENTATION_TRANSPOSE)
+            {
+                matrix.postRotate(-90);
+                matrix.postScale(1.0f, -1.0f);
+            }
+            // 6
+            else if (orientation == ExifInterface.ORIENTATION_ROTATE_90)
+            {
+                matrix.postRotate(90);
+            }
+            // 7
+            else if (orientation == ExifInterface.ORIENTATION_TRANSVERSE)
+            {
+                matrix.postRotate(90);
+                matrix.postScale(1.0f, -1.0f);
+            }
+            // 8
+            else if (orientation == ExifInterface.ORIENTATION_ROTATE_270)
+            {
+                matrix.postRotate(270);
+            } 
+            
+            // Rotate the bitmap
+            resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            if (resultBitmap != bitmap) {
+                bitmap.recycle();
+            }
+        }
+        catch (Exception exception)
+        {
+            Log_OC.e("BitmapUtil", "Could not rotate the image: " + storagePath);
+        }
+        return resultBitmap;
+    }
+
+    /**
+     * Checks if file passed is an image
+     * @param file
+     * @return true/false
+     */
+    public static boolean isImage(File file) {
+        Uri selectedUri = Uri.fromFile(file);
+        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase());
+        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+
+        return (mimeType != null && mimeType.startsWith("image/"));
     }
     
 }

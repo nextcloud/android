@@ -38,6 +38,7 @@
   <string name="prefs_recommend">Poleć znajomemu</string>
   <string name="prefs_feedback">Wsparcie</string>
   <string name="prefs_imprint">Stopka</string>
+  <string name="prefs_remember_last_share_location">Zapamiętaj położenie udostępnienia</string>
   <string name="recommend_subject">Wypróbuj %1$s na swoim smartphonie!</string>
   <string name="recommend_text">Chciałbym zaprosić Cię do używania %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>
   <string name="auth_check_server">Sprawdź serwer</string>
@@ -61,6 +62,10 @@
   <string name="file_list_empty">Pusto. Wyślij coś!</string>
   <string name="file_list_loading">Ładowanie...</string>
   <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
+  <string name="file_list_folder">folder</string>
+  <string name="file_list_folders">foldery</string>
+  <string name="file_list_file">plik</string>
+  <string name="file_list_files">pliki</string>
   <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
   <string name="filedetails_size">Rozmiar:</string>
   <string name="filedetails_type">Typ:</string>
@@ -276,13 +281,13 @@
   <string name="auth_redirect_non_secure_connection_title">Bezpieczne połączenie jest przekierowywane przez niezabezpieczone trasy.</string>
   <string name="actionbar_logger">Logi</string>
   <string name="log_send_history_button">Wyślij historię</string>
-  <string name="log_mail_subject">Logi aplikacji ownCloud Android</string>
+  <string name="log_send_mail_subject">%1$s Logi aplikacji Android</string>
   <string name="log_progress_dialog_text">Ładuję dane...</string>
   <string name="saml_authentication_required_text">Wymagana autoryzacja</string>
   <string name="saml_authentication_wrong_pass">Złe hasło</string>
   <string name="actionbar_move">Przenieś</string>
   <string name="file_list_empty_moving">Nic tu nie ma. Możesz dodać folder!</string>
-  <string name="move_choose_button_text">Wybierz</string>
+  <string name="folder_picker_choose_button_text">Wybierz</string>
   <string name="move_file_not_found">Nie można przenieść. Proszę sprawdzić, czy plik istnieje</string>
   <string name="move_file_invalid_into_descendent">Nie jest możliwe przeniesienie folderu do potomka</string>
   <string name="move_file_invalid_overwrite">Plik istnieje już w folderze docelowym</string>
@@ -290,4 +295,6 @@
   <string name="forbidden_permissions_move">aby przenieść ten plik</string>
   <string name="prefs_category_instant_uploading">Automatyczne wysyłanie</string>
   <string name="prefs_category_security">Bezpieczeństwo</string>
+  <string name="prefs_instant_video_upload_path_title">Katalog wysyłania dla wideo</string>
+  <string name="shared_subject_header">współdzielone</string>
 </resources>

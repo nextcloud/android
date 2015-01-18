@@ -63,6 +63,10 @@
   <string name="file_list_empty">Tukaj še ni ničesar. Najprej je treba datoteke poslati v oblak!</string>
   <string name="file_list_loading">Poteka nalaganje ...</string>
   <string name="local_file_list_empty">V tej mapi ni datotek.</string>
+  <string name="file_list_folder">mapa</string>
+  <string name="file_list_folders">mape</string>
+  <string name="file_list_file">datoteka</string>
+  <string name="file_list_files">datoteke</string>
   <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
   <string name="filedetails_size">Velikost:</string>
   <string name="filedetails_type">Vrsta:</string>
@@ -278,13 +282,14 @@
   <string name="auth_redirect_non_secure_connection_title">Varna povezava je preusmerjena preko ne-varne poti.</string>
   <string name="actionbar_logger">Dnevnik</string>
   <string name="log_send_history_button">Pošlji zgodovino</string>
-  <string name="log_mail_subject">Dnevnik programa ownCloud</string>
+  <string name="log_send_no_mail_app">Ni nameščenega poštnega programa za pošiljanje dnevnikov.</string>
+  <string name="log_send_mail_subject">%1$s dnevniki programa</string>
   <string name="log_progress_dialog_text">Poteka nalaganje podatkov ...</string>
   <string name="saml_authentication_required_text">Zahtevana je overitev</string>
   <string name="saml_authentication_wrong_pass">Napačno geslo</string>
   <string name="actionbar_move">Premakni</string>
   <string name="file_list_empty_moving">Ni vsebine in datotek. Lahko ustvarite na primer mapo.</string>
-  <string name="move_choose_button_text">Izbor</string>
+  <string name="folder_picker_choose_button_text">Izbor</string>
   <string name="move_file_not_found">Ni mogoče premakniti datoteke. Preverite, ali obstaja.</string>
   <string name="move_file_invalid_into_descendent">Ni mogoče premakniti mape v podrejeno mapo.</string>
   <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja.</string>
@@ -292,4 +297,8 @@
   <string name="forbidden_permissions_move">med premikanjem datoteke</string>
   <string name="prefs_category_instant_uploading">Takojšnje pošiljanje v oblak</string>
   <string name="prefs_category_security">Varnost</string>
+  <string name="prefs_instant_video_upload_path_title">Pot videa za pošiljanje</string>
+  <string name="shared_subject_header">v souporabi</string>
+  <string name="with_you_subject_header">z vami</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>

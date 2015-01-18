@@ -53,6 +53,10 @@
   <string name="file_list_seconds_ago">منذ ثواني</string>
   <string name="file_list_empty">لا يوجد شيء هنا. إرفع بعض الملفات!</string>
   <string name="file_list_loading">جاري التحميل ...</string>
+  <string name="file_list_folder">مجلد</string>
+  <string name="file_list_folders">مجلدات</string>
+  <string name="file_list_file">ملف</string>
+  <string name="file_list_files">ملفات</string>
   <string name="filedetails_select_file">اضغظ على الملف ليتم عرض خيارات أكثر</string>
   <string name="filedetails_size">الحجم :</string>
   <string name="filedetails_type">النوع :</string>
@@ -252,6 +256,7 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">حسابات</string>
   <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
-  <string name="move_choose_button_text">اختيار</string>
+  <string name="folder_picker_choose_button_text">اختيار</string>
   <string name="prefs_category_security">الأمان</string>
+  <string name="shared_subject_header">مُشارك</string>
 </resources>

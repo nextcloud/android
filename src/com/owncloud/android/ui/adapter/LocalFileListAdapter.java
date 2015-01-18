@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
 /**
@@ -46,7 +49,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
     private Context mContext;
     private File mDirectory;
     private File[] mFiles = null;
-
+    
     public LocalFileListAdapter(File directory, Context context) {
         mContext = context;
         swapDirectory(directory);
@@ -105,6 +108,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             } else {
                 fileIcon.setImageResource(R.drawable.ic_menu_archive);
             }
+            fileIcon.setTag(file.hashCode());
 
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
@@ -124,6 +128,37 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                     }
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
+                
+             // get Thumbnail if file is image
+                if (BitmapUtils.isImage(file)){
+                // Thumbnail in Cache?
+                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                            String.valueOf(file.hashCode())
+                    );
+                    if (thumbnail != null){
+                        fileIcon.setImageBitmap(thumbnail);
+                    } else {
+
+                        // generate new Thumbnail
+                        if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
+                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
+                            if (thumbnail == null) {
+                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                            }
+                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                        		new ThumbnailsCacheManager.AsyncDrawable(
+                                    mContext.getResources(), 
+                                    thumbnail, 
+                                    task
+                		        );
+                            fileIcon.setImageDrawable(asyncDrawable);
+                            task.execute(file);
+                        }
+                    }
+                } else {
+                    fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(null, file.getName()));
+                }  
 
             } else {
                 //fileSizeV.setVisibility(View.GONE);
