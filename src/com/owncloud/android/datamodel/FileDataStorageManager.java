@@ -491,7 +491,7 @@ public class FileDataStorageManager {
                 if (removeLocalCopy && file.isDown() && localPath != null && success) {
                     success = new File(localPath).delete();
                     if (success) {
-                        triggerMediaScan(localPath);
+                        triggerMediaScan(FileStorageUtils.getParentPath(localPath));
                     }
                     if (!removeDBData && success) {
                         // maybe unnecessary, but should be checked TODO remove if unnecessary
@@ -539,7 +539,8 @@ public class FileDataStorageManager {
 
     private boolean removeLocalFolder(OCFile folder) {
         boolean success = true;
-        File localFolder = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, folder));
+        String localFolderPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, folder);
+        File localFolder = new File(localFolderPath);
         if (localFolder.exists()) {
             // stage 1: remove the local files already registered in the files database
             Vector<OCFile> files = getFolderContent(folder.getFileId());
@@ -549,17 +550,16 @@ public class FileDataStorageManager {
                         success &= removeLocalFolder(file);
                     } else {
                         if (file.isDown()) {
-                            String path = file.getStoragePath();
                             File localFile = new File(file.getStoragePath());
                             success &= localFile.delete();
                             if (success) {
                                 file.setStoragePath(null);
                                 saveFile(file);
-                                triggerMediaScan(path); // notify MediaScanner about removed file
                             }
                         }
                     }
                 }
+                triggerMediaScan(localFolderPath); // notify MediaScanner about removed file in folder
             }
 
             // stage 2: remove the folder itself and any local file inside out of sync; 
