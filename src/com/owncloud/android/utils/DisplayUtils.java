@@ -228,7 +228,7 @@ public class DisplayUtils {
     
     /**
      * Converts Unix time to human readable format
-     * @param miliseconds that have passed since 01/01/1970
+     * @param milliseconds that have passed since 01/01/1970
      * @return The human readable time for the users locale
      */
     public static String unixTimeToHumanReadable(long milliseconds) {

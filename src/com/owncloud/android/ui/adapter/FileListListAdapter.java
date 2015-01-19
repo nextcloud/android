@@ -302,7 +302,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     if (thumbnail != null && !file.needsUpdateThumbnail()){
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
-
                         // generate new Thumbnail
                         if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
@@ -320,14 +319,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                     );
                             fileIcon.setImageDrawable(asyncDrawable);
                             task.execute(file);
-
                         }
                     }
                 } else {
                     fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName()));
-                }
-                else {
-                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
                 }
             } else {
                 // Folder
@@ -568,8 +563,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mFiles = FileStorageUtils.sortFolder(mFiles);
         notifyDataSetChanged();
 
-    }    
-        sortDirectory();
     }
     
     private CharSequence showRelativeTimestamp(OCFile file){

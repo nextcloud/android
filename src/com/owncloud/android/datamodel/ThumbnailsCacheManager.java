@@ -173,26 +173,7 @@ public class ThumbnailsCacheManager {
                 }
 
                 mFile = params[0];
-                final String imageKey = String.valueOf(mFile.getRemoteId());
-    
-                // Check disk cache in background thread
-                thumbnail = getBitmapFromDiskCache(imageKey);
-    
-                // Not found in disk cache
-                if (thumbnail == null || mFile.needsUpdateThumbnail()) { 
-                    // Use Width of imageView -> no blurry images on big screens
-                    int px = mImageViewReference.get().getWidth();
-                    
-                    if (mFile.isDown()){
-                        Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
-                                mFile.getStoragePath(), px, px);
-                        
-                        if (bitmap != null) {
-                            thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
-    
-                            // Add thumbnail to cache
-                            addBitmapToCache(imageKey, thumbnail);
-
+                
                 if (mFile instanceof OCFile) {
                     thumbnail = doOCFileInBackground();
                 }  else if (mFile instanceof File) {
@@ -262,7 +243,7 @@ public class ThumbnailsCacheManager {
         private int getThumbnailDimension(){
             // Converts dp to pixel
             Resources r = MainApp.getAppContext().getResources();
-            return (int) Math.round(r.getDimension(R.dimen.file_icon_size));
+            return (int) Math.round(r.getDimension(R.dimen.file_icon_size_grid));
         }
 
         private Bitmap doOCFileInBackground() {

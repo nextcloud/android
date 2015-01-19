@@ -77,9 +77,11 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     public GridView getGridView() {
         return imageView;
     }
+
     public void setFooterView(View footer) {
-        mList.addFooterView(footer, null, false);
-        mList.invalidate();
+        // TODO find solution
+        // mList.addFooterView(footer, null, false);
+        // mList.invalidate();
     }
 
 
