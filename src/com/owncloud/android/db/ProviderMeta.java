@@ -71,6 +71,8 @@ public class ProviderMeta {
         public static final String FILE_PERMISSIONS = "permissions";
         public static final String FILE_REMOTE_ID = "remote_id";
         public static final String FILE_UPDATE_THUMBNAIL = "update_thumbnail";
+        public static final String FILE_IS_DOWNLOADING= "is_downloading";
+        public static final String FILE_IS_UPLOADING = "is_uploading";
 
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME
                 + " collate nocase asc";

@@ -97,6 +97,10 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_REMOTE_ID);
         mFileProjectionMap.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL,
                 ProviderTableMeta.FILE_UPDATE_THUMBNAIL);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_IS_DOWNLOADING,
+                ProviderTableMeta.FILE_IS_DOWNLOADING);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_IS_UPLOADING,
+                ProviderTableMeta.FILE_IS_UPLOADING);
     }
 
     private static final int SINGLE_FILE = 1;
@@ -624,7 +628,9 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_PUBLIC_LINK  + " TEXT, "
                     + ProviderTableMeta.FILE_PERMISSIONS  + " TEXT null,"
                     + ProviderTableMeta.FILE_REMOTE_ID  + " TEXT null,"
-                    + ProviderTableMeta.FILE_UPDATE_THUMBNAIL  + " INTEGER);" //boolean
+                    + ProviderTableMeta.FILE_UPDATE_THUMBNAIL  + " INTEGER," //boolean
+                    + ProviderTableMeta.FILE_IS_DOWNLOADING  + " INTEGER," //boolean
+                    + ProviderTableMeta.FILE_IS_UPLOADING  + " INTEGER);" //boolean
                     );
             
             // Create table ocshares
@@ -795,7 +801,28 @@ public class FileContentProvider extends ContentProvider {
                 }
             }
             if (!upgraded)
-                Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion + 
+                Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
+                        ", newVersion == " + newVersion);
+
+            if (oldVersion < 9 && newVersion >= 9) {
+                Log_OC.i("SQL", "Entering in the #9 ADD in onUpgrade");
+                db.beginTransaction();
+                try {
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_IS_DOWNLOADING + " INTEGER " +
+                            " DEFAULT 0");
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_IS_UPLOADING + " INTEGER " +
+                            " DEFAULT 0");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+            if (!upgraded)
+                Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
                         ", newVersion == " + newVersion);
         }
     }
