@@ -161,7 +161,6 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 }  
 
             } else {
-                //fileSizeV.setVisibility(View.GONE);
                 lastModV.setVisibility(View.GONE);
                 checkBoxV.setVisibility(View.GONE);
             }

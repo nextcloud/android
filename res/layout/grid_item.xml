@@ -62,7 +62,7 @@
         android:gravity="center_horizontal"
         android:singleLine="true"
         android:text="TextView"
-        android:textColor="#303030"
+        android:textColor="@color/textColor"
         android:textSize="16dip" />
 
 </com.owncloud.android.ui.SquareLinearLayout>
