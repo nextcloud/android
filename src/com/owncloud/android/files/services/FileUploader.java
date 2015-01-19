@@ -635,6 +635,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
               // in the instance returned by mCurrentUpload.getFile()
         }
         file.setNeedsUpdateThumbnail(true);
+        file.setDownloading(false);
+        file.setUploading(false);
         mStorageManager.saveFile(file);
     }
 

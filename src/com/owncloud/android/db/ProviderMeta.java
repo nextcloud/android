@@ -31,7 +31,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 8;
+    public static final int DB_VERSION = 9;
 
     private ProviderMeta() {
     }
