@@ -215,7 +215,7 @@
   <string name="ssl_validator_header">La identidad del sitio no puede ser verificada</string>
   <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
   <string name="ssl_validator_reason_cert_expired">- El certificado del servidor expiró</string>
-  <string name="ssl_validator_reason_cert_not_yet_valid">- El certificado del servidor es de una fecha que aún no llega</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">- El certificado del servidor es de una fecha que aún no ha llegado</string>
   <string name="ssl_validator_reason_hostname_not_verified">- La URL no coincide con el nombre de dominio del certificado</string>
   <string name="ssl_validator_question">¿Confías de todas formas en este certificado?</string>
   <string name="ssl_validator_not_saved">El certificado no pudo ser guardado</string>
@@ -280,7 +280,7 @@
   <string name="prefs_category_accounts">Cuentas</string>
   <string name="prefs_add_account">Agregar cuenta</string>
   <string name="auth_redirect_non_secure_connection_title">La conexión segura está siendo desviada por una ruta insegura.</string>
-  <string name="actionbar_logger">Logs</string>
+  <string name="actionbar_logger">Registros</string>
   <string name="log_send_history_button">Enviar historial</string>
   <string name="log_send_no_mail_app">No se ha encontrado una app para enviar logs. Instale la app mail!</string>
   <string name="log_send_mail_subject">Se han encontrado %1$s logs de la app Android</string>

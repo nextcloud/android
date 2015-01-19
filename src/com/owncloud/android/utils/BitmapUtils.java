@@ -23,6 +23,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.BitmapFactory.Options;
 import android.media.ExifInterface;
+import android.net.Uri;
+import android.webkit.MimeTypeMap;
+
+import java.io.File;
 
 /**
  * Utility class with methods for decoding Bitmaps.
@@ -169,6 +173,18 @@ public class BitmapUtils {
         }
         return resultBitmap;
     }
-    
+
+    /**
+     * Checks if file passed is an image
+     * @param file
+     * @return true/false
+     */
+    public static boolean isImage(File file) {
+        Uri selectedUri = Uri.fromFile(file);
+        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase());
+        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+
+        return (mimeType != null && mimeType.startsWith("image/"));
+    }
     
 }

@@ -109,6 +109,7 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.UriUtils;
 
 
@@ -519,7 +520,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             
             // Read sorting order, default to sort by name ascending
             Integer sortOrder = appPreferences
-                    .getInt("sortOrder", FileListListAdapter.SORT_NAME);
+                    .getInt("sortOrder", FileStorageUtils.SORT_NAME);
             
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.actionbar_sort_title)

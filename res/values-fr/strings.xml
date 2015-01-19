@@ -22,7 +22,7 @@
   <string name="prefs_category_general">Général</string>
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_accounts">Comptes</string>
-  <string name="prefs_manage_accounts">Gestion des comptes utilisateur</string>
+  <string name="prefs_manage_accounts">Gestion des comptes</string>
   <string name="prefs_pincode">Code de sécurité</string>
   <string name="prefs_pincode_summary">Protéger l\'accès à l\'application</string>
   <string name="prefs_instant_upload">Envoi instantané des photos</string>

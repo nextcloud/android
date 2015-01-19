@@ -64,8 +64,8 @@
   <string name="file_list_empty">ここには何もありません。何かアップロードしてください。</string>
   <string name="file_list_loading">読込中 ...</string>
   <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
-  <string name="file_list_folder">フォルダ</string>
-  <string name="file_list_folders">フォルダ</string>
+  <string name="file_list_folder">フォルダー</string>
+  <string name="file_list_folders">フォルダー</string>
   <string name="file_list_file">ファイル</string>
   <string name="file_list_files">ファイル</string>
   <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
@@ -289,11 +289,11 @@
   <string name="saml_authentication_required_text">認証を必要とする</string>
   <string name="saml_authentication_wrong_pass">無効なパスワード</string>
   <string name="actionbar_move">移動</string>
-  <string name="file_list_empty_moving">ファイルが有りません。フォルダを追加してください。</string>
+  <string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
   <string name="folder_picker_choose_button_text">選択</string>
   <string name="move_file_not_found">移動できません。ファイルがあるか確認してください。</string>
-  <string name="move_file_invalid_into_descendent">フォルダを子フォルダへ移動することはできません。</string>
-  <string name="move_file_invalid_overwrite">そのファイルは、宛先フォルダに既に存在しています。</string>
+  <string name="move_file_invalid_into_descendent">フォルダーを子フォルダーへ移動することはできません。</string>
+  <string name="move_file_invalid_overwrite">そのファイルは宛先フォルダーにすでに存在します。</string>
   <string name="move_file_error">このファイルまたはフォルダーを移動する際にエラーが発生しました</string>
   <string name="forbidden_permissions_move">このファイルを移動</string>
   <string name="prefs_category_instant_uploading">自動アップロード</string>
