@@ -65,7 +65,7 @@ import com.owncloud.android.utils.FileStorageUtils;
  */
 public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private final static String PERMISSION_SHARED_WITH_ME = "S";
-    
+
     private Context mContext;
     private OCFile mFile = null;
     private Vector<OCFile> mFiles = null;
@@ -142,29 +142,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-     // decide image vs. file view
-        double countImages = 0;
-        double countFiles = 0;
-        
-        for (OCFile file : mFiles){
-            if (!file.isFolder()){
-                countFiles++;
-                
-                if (file.isImage()){
-                    countImages++;
-                }
-            }
-        }
-        
-        // TODO threshold as constant in Preferences
-        // > 50% Images --> image view
-        boolean fileView = true;
-        if ((countImages / countFiles) >= 0.5){
-            fileView = false;
-        } else {
-            fileView = true;
-        }
-        
+
+        boolean fileView = DisplayUtils.decideViewLayout(mFiles);
+
         View view = convertView;
         OCFile file = null;
         LayoutInflater inflator = (LayoutInflater) mContext
@@ -176,7 +156,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         
         // Find out which layout should be displayed
         ViewType viewType;
-        if (fileView){
+        if (!fileView){
             viewType = ViewType.LIST_ITEM;
         } else if (file.isImage()){
             viewType = ViewType.GRID_IMAGE;

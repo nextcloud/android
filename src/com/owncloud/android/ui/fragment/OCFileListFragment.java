@@ -48,6 +48,7 @@ import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 /**
@@ -392,35 +393,15 @@ public class OCFileListFragment extends ExtendedListFragment {
                 imageView.setSelection(0);
             }
             mFile = directory;
-            
-            // Update Footer
-            TextView footerText = (TextView) mFooterView.findViewById(R.id.footerText);
-            Log_OC.d("footer", String.valueOf(System.currentTimeMillis()));
-            footerText.setText(generateFooterText(directory));
-            Log_OC.d("footer", String.valueOf(System.currentTimeMillis()));
-            
-         // decide image vs. file view
-            double countImages = 0;
-            double countFiles = 0;
-            
+
             Vector<OCFile> files = storageManager.getFolderContent(directory);
-            for (OCFile file : files){
-                if (!file.isFolder()){
-                    countFiles++;
-                    
-                    if (file.isImage()){
-                        countImages++;
-                    }
-                }
-            }
-            
-            // > 50% Images --> image view
-            // TODO threshold as constant in Preferences
-            if ((countImages / countFiles) >= 0.5){
-                Log_OC.i(TAG, "Image View");
+            if (DisplayUtils.decideViewLayout(files)){
                 switchImageView();
             } else {
-                Log_OC.i(TAG, "Folder View");
+                // Update Footer
+                TextView footerText = (TextView) mFooterView.findViewById(R.id.footerText);
+                footerText.setText(generateFooterText(directory));
+
                 switchFileView();
             }
         }
