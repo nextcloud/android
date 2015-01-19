@@ -379,9 +379,11 @@ public class OperationsService extends Service {
          * @param account       ownCloud account where the remote file is stored.
          * @param file          A file that could be affected 
          */
+        /*
         public boolean isSynchronizing(Account account, String remotePath) {
             return mSyncFolderHandler.isSynchronizing(account, remotePath);
         }
+        */
 
     }
 

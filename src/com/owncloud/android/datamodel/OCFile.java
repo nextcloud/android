@@ -562,4 +562,18 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         this.mRemoteId = remoteId;
     }
 
+    public boolean isSynchronizing() {
+        // TODO real implementation
+        return false;
+    }
+
+    public boolean isDownloading() {
+        // TODO real implementation
+        return false;
+    }
+
+    public boolean isUploading() {
+        // TODO real implementation
+        return false;
+    }
 }

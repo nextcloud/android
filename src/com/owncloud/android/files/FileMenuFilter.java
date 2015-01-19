@@ -43,7 +43,6 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 public class FileMenuFilter {
 
     private OCFile mFile;
-    private ComponentsGetter mComponentsGetter;
     private Account mAccount;
     private Context mContext;
     
@@ -52,14 +51,11 @@ public class FileMenuFilter {
      * 
      * @param targetFile        {@link OCFile} target of the action to filter in the {@link Menu}.
      * @param account           ownCloud {@link Account} holding targetFile.
-     * @param cg                Accessor to app components, needed to get access the 
-     *                          {@link FileUploader} and {@link FileDownloader} services.
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
-    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context) {
+    public FileMenuFilter(OCFile targetFile, Account account, Context context) {
         mFile = targetFile;
         mAccount = account;
-        mComponentsGetter = cg;
         mContext = context;
     }
     
@@ -139,15 +135,9 @@ public class FileMenuFilter {
     private void filter(List<Integer> toShow, List <Integer> toHide) {
         boolean downloading = false;
         boolean uploading = false;
-        if (mComponentsGetter != null && mFile != null && mAccount != null) {
-            FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
-            downloading = downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile);
-            OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
-            downloading |= (
-                    mFile.isFolder() && opsBinder != null && opsBinder.isSynchronizing(mAccount, mFile.getRemotePath())
-            );
-            FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
-            uploading = uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile);
+        if (mFile != null && mAccount != null) {
+            downloading = mFile.isDownloading() || mFile.isSynchronizing();
+            uploading = mFile.isUploading();
         }
         
         /// decision is taken for each possible action on a file in the menu

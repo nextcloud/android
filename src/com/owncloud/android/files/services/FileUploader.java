@@ -199,7 +199,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         if (uploadType == UPLOAD_SINGLE_FILE) {
 
             if (intent.hasExtra(KEY_FILE)) {
-                files = new OCFile[] { intent.getParcelableExtra(KEY_FILE) };
+                files = new OCFile[] { (OCFile) intent.getParcelableExtra(KEY_FILE) };
 
             } else {
                 localPaths = new String[] { intent.getStringExtra(KEY_LOCAL_FILE) };
@@ -375,6 +375,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
          * @param account Owncloud account where the remote file will be stored.
          * @param file A file that could be in the queue of pending uploads
          */
+        /*
         public boolean isUploading(Account account, OCFile file) {
             if (account == null || file == null)
                 return false;
@@ -393,6 +394,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 }
             }
         }
+        */
 
 
         /**
@@ -400,7 +402,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
          * 
          * @param listener      Object to notify about progress of transfer.    
          * @param account       ownCloud account holding the file of interest.
-         * @param file          {@link OCfile} of interest for listener. 
+         * @param file          {@link OCFile} of interest for listener.
          */
         public void addDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
             if (account == null || file == null || listener == null) return;
@@ -415,7 +417,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
          * 
          * @param listener      Object to notify about progress of transfer.    
          * @param account       ownCloud account holding the file of interest.
-         * @param file          {@link OCfile} of interest for listener. 
+         * @param file          {@link OCFile} of interest for listener.
          */
         public void removeDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
             if (account == null || file == null || listener == null) return;

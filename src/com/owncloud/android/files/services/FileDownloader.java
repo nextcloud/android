@@ -253,6 +253,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
          * @param account       Owncloud account where the remote file is stored.
          * @param file          A file that could be in the queue of downloads.
          */
+        /*
         public boolean isDownloading(Account account, OCFile file) {
             if (account == null || file == null) return false;
             String targetKey = buildRemoteName(account, file);
@@ -270,6 +271,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 }
             }
         }
+        */
 
         
         /**
