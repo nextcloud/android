@@ -70,6 +70,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     private boolean mNeedsUpdateThumbnail;
 
+    private boolean mIsDownloading;
+
 
     /**
      * Create new {@link OCFile} with given path.
@@ -112,6 +114,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mPermissions = source.readString();
         mRemoteId = source.readString();
         mNeedsUpdateThumbnail = source.readInt() == 0;
+        mIsDownloading = source.readInt() == 0;
 
     }
 
@@ -136,6 +139,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mPermissions);
         dest.writeString(mRemoteId);
         dest.writeInt(mNeedsUpdateThumbnail ? 1 : 0);
+        dest.writeInt(mIsDownloading ? 1 : 0);
     }
 
     /**
@@ -348,6 +352,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mPermissions = null;
         mRemoteId = null;
         mNeedsUpdateThumbnail = false;
+        mIsDownloading = false;
     }
 
     /**
@@ -562,14 +567,16 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         this.mRemoteId = remoteId;
     }
 
+    public boolean isDownloading() {
+        return mIsDownloading;
+    }
+
+    public void setDownloading(boolean isDownloading) {
+        this.mIsDownloading = isDownloading;
+    }
+
     public boolean isSynchronizing() {
         // TODO real implementation
         return false;
     }
-
-    public boolean isDownloading() {
-        // TODO real implementation
-        return false;
-    }
-
 }
