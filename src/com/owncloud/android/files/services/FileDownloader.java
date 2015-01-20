@@ -383,6 +383,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 downloadResult = mCurrentDownload.execute(mDownloadClient);
                 if (downloadResult.isSuccess()) {
                     saveDownloadedFile();
+                } else {
+                    updateUnsuccessfulDownloadedFile();
                 }
             
             } catch (AccountsException e) {
@@ -426,6 +428,15 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         file.setDownloading(false);
         mStorageManager.saveFile(file);
         mStorageManager.triggerMediaScan(file.getStoragePath());
+    }
+
+    /**
+     * Update the OC File after a unsuccessful download
+     */
+    private void updateUnsuccessfulDownloadedFile() {
+        OCFile file = mStorageManager.getFileById(mCurrentDownload.getFile().getFileId());
+        file.setDownloading(false);
+        mStorageManager.saveFile(file);
     }
 
 
