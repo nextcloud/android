@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_version">verzija %1$s</string>
   <string name="actionbar_upload">Učitaj</string>
   <string name="actionbar_upload_files">Datoteke</string>
   <string name="actionbar_mkdir">Nova mapa</string>
