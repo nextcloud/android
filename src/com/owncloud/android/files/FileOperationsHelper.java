@@ -297,7 +297,7 @@ public class FileOperationsHelper {
 
                 downloaderBinder.cancel(account, file);
 
-            } else if (uploaderBinder != null && file.isUploading()) {
+            } else if (uploaderBinder != null && uploaderBinder.isUploading(account, file)) {
                 uploaderBinder.cancel(account, file);
             }
         } else {

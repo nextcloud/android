@@ -572,8 +572,4 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return false;
     }
 
-    public boolean isUploading() {
-        // TODO real implementation
-        return false;
-    }
 }

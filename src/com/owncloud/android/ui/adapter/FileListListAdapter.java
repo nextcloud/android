@@ -41,6 +41,8 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -63,17 +65,21 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
+    private ComponentsGetter mTransferServiceGetter;
 
     private SharedPreferences mAppPreferences;
     
     public FileListListAdapter(
             boolean justFolders, 
-            Context context
+            Context context,
+            ComponentsGetter transferServiceGetter
             ) {
 
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+
+        mTransferServiceGetter = transferServiceGetter;
 
         mAppPreferences = PreferenceManager
                 .getDefaultSharedPreferences(mContext);
@@ -145,10 +151,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
             ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
             localStateView.bringToFront();
+            FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
             if (file.isSynchronizing() || file.isDownloading()) {
                 localStateView.setImageResource(R.drawable.downloading_file_indicator);
                 localStateView.setVisibility(View.VISIBLE);
-            } else if (file.isUploading()) {
+            } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
                 localStateView.setImageResource(R.drawable.uploading_file_indicator);
                 localStateView.setVisibility(View.VISIBLE);
             } else if (file.isDown()) {

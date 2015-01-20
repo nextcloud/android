@@ -277,6 +277,7 @@ public class PreviewMediaFragment extends FileFragment implements
             FileMenuFilter mf = new FileMenuFilter(
                 getFile(),
                 mContainerActivity.getStorageManager().getAccount(),
+                mContainerActivity,
                 getSherlockActivity()
             );
             mf.filter(menu);

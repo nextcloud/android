@@ -372,10 +372,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
          * 
          * If 'file' is a directory, returns 'true' if some of its descendant files is uploading or waiting to upload. 
          * 
-         * @param account Owncloud account where the remote file will be stored.
-         * @param file A file that could be in the queue of pending uploads
+         * @param account   ownCloud account where the remote file will be stored.
+         * @param file      A file that could be in the queue of pending uploads
          */
-        /*
         public boolean isUploading(Account account, OCFile file) {
             if (account == null || file == null)
                 return false;
@@ -394,7 +393,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 }
             }
         }
-        */
 
 
         /**

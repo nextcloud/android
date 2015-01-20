@@ -232,6 +232,7 @@ public class PreviewImageFragment extends FileFragment {
             FileMenuFilter mf = new FileMenuFilter(
                 getFile(),
                 mContainerActivity.getStorageManager().getAccount(),
+                mContainerActivity,
                 getSherlockActivity()
             );
             mf.filter(menu);
