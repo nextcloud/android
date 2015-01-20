@@ -287,7 +287,7 @@ public class FileOperationsHelper {
         if (!file.isFolder()) {
             FileDownloaderBinder downloaderBinder = mFileActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
-            if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
+            if (downloaderBinder != null && file.isDownloading()) {
                 // Remove etag for parent, if file is a keep_in_sync
                 if (file.keepInSync()) {
                     OCFile parent = mFileActivity.getStorageManager().getFileById(file.getParentId());

@@ -575,4 +575,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         this.mIsDownloading = isDownloading;
     }
 
+    public boolean isSynchronizing() {
+        // TODO real implementation
+        return false;
+    }
 }

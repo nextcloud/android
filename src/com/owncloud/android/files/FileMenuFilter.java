@@ -52,8 +52,8 @@ public class FileMenuFilter {
      * 
      * @param targetFile        {@link OCFile} target of the action to filter in the {@link Menu}.
      * @param account           ownCloud {@link Account} holding targetFile.
-     * @param cg                Accessor to app components, needed to get access the 
-     *                          {@link FileUploader} and {@link FileDownloader} services.
+     * @param cg                Accessor to app components, needed to access the
+     *                          {@link FileUploader} and {@link FileDownloader} services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
     public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context) {
@@ -140,14 +140,9 @@ public class FileMenuFilter {
         boolean downloading = false;
         boolean uploading = false;
         if (mComponentsGetter != null && mFile != null && mAccount != null) {
-            FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
-            downloading = downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile);
-            OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
-            downloading |= (
-                    mFile.isFolder() && opsBinder != null && opsBinder.isSynchronizing(mAccount, mFile.getRemotePath())
-            );
+            downloading = mFile.isDownloading() || mFile.isSynchronizing();
             FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
-            uploading = uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile);
+            uploading = (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile));
         }
         
         /// decision is taken for each possible action on a file in the menu

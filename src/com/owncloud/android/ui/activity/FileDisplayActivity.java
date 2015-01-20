@@ -1725,7 +1725,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     private void requestForDownload() {
         Account account = getAccount();
-        if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
+        if (mWaitingToPreview.isDownloading()) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
             i.putExtra(FileDownloader.EXTRA_FILE, mWaitingToPreview);
@@ -1781,10 +1781,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     }
     
     private void requestForDownload(OCFile file) {
-        Account account = getAccount();
-        if (!mDownloaderBinder.isDownloading(account, file)) {
+        if (file.isDownloading()) {
             Intent i = new Intent(this, FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
+            i.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
             i.putExtra(FileDownloader.EXTRA_FILE, file);
             startService(i);
         }
