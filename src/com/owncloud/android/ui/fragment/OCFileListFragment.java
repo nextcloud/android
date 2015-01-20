@@ -48,6 +48,7 @@ import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -257,15 +258,9 @@ public class OCFileListFragment extends ExtendedListFragment {
                 );
                 mf.filter(menu);
             }
-            
-            /// additional restrictions for this fragment 
-            // TODO allow in the future 'open with' for previewable files
-            MenuItem item = menu.findItem(R.id.action_open_file_with);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
+                 
             /// TODO break this direct dependency on FileDisplayActivity... if possible
+            MenuItem item = menu.findItem(R.id.action_open_file_with);
             FileFragment frag = ((FileDisplayActivity)getSherlockActivity()).getSecondFragment();
             if (frag != null && frag instanceof FileDetailFragment && 
                     frag.getFile().getFileId() == targetFile.getFileId()) {
@@ -289,6 +284,10 @@ public class OCFileListFragment extends ExtendedListFragment {
         switch (item.getItemId()) {                
             case R.id.action_share_file: {
                 mContainerActivity.getFileOperationsHelper().shareFileWithLink(mTargetFile);
+                return true;
+            }
+            case R.id.action_open_file_with: {
+                mContainerActivity.getFileOperationsHelper().openFile(mTargetFile);
                 return true;
             }
             case R.id.action_unshare_file: {
@@ -439,15 +438,15 @@ public class OCFileListFragment extends ExtendedListFragment {
     }
     
     public void sortByName(boolean descending) {
-        mAdapter.setSortOrder(FileListListAdapter.SORT_NAME, descending);
+        mAdapter.setSortOrder(FileStorageUtils.SORT_NAME, descending);
     }
 
     public void sortByDate(boolean descending) {
-        mAdapter.setSortOrder(FileListListAdapter.SORT_DATE, descending);
+        mAdapter.setSortOrder(FileStorageUtils.SORT_DATE, descending);
     }
 
     public void sortBySize(boolean descending) {
-        mAdapter.setSortOrder(FileListListAdapter.SORT_SIZE, descending);
+        mAdapter.setSortOrder(FileStorageUtils.SORT_SIZE, descending);
     }  
 
 }

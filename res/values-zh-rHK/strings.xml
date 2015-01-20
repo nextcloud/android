@@ -71,4 +71,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">帳號</string>
   <string name="saml_authentication_wrong_pass">密碼錯誤</string>
+  <string name="prefs_category_security">安全</string>
 </resources>

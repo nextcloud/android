@@ -194,4 +194,5 @@
   <string name="saml_authentication_wrong_pass">Malĝusta pasvorto</string>
   <string name="folder_picker_choose_button_text">Elekti</string>
   <string name="prefs_category_security">Sekuro</string>
+  <string name="shared_subject_header">kunhavigita</string>
 </resources>

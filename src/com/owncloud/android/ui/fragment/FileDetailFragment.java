@@ -396,7 +396,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
         ImageView iv = (ImageView) getView().findViewById(R.id.fdIcon);
         if (iv != null) {
-            iv.setImageResource(DisplayUtils.getResourceId(mimetype, filename));
+            iv.setImageResource(DisplayUtils.getFileTypeIconId(mimetype, filename));
         }
     }
 

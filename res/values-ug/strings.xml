@@ -44,4 +44,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">ھېساباتلار</string>
   <string name="prefs_category_security">بىخەتەرلىك</string>
+  <string name="shared_subject_header">ھەمبەھىرلەنگەن</string>
 </resources>

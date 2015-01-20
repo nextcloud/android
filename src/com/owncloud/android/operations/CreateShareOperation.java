@@ -24,8 +24,10 @@ package com.owncloud.android.operations;
  *
  */
 
+import android.content.Context;
 import android.content.Intent;
 
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -46,6 +48,7 @@ public class CreateShareOperation extends SyncOperation {
 
     protected FileDataStorageManager mStorageManager;
 
+    private Context mContext;
     private String mPath;
     private ShareType mShareType;
     private String mShareWith;
@@ -56,6 +59,7 @@ public class CreateShareOperation extends SyncOperation {
 
     /**
      * Constructor
+     * @param context       The context that the share is coming from.
      * @param path          Full path of the file/folder being shared. Mandatory argument
      * @param shareType     0 = user, 1 = group, 3 = Public link. Mandatory argument
      * @param shareWith     User/group ID with who the file should be shared.  This is mandatory for shareType of 0 or 1
@@ -72,9 +76,10 @@ public class CreateShareOperation extends SyncOperation {
      *                      To obtain combinations, add the desired values together.  
      *                      For instance, for Re-Share, delete, read, update, add 16+8+2+1 = 27.
      */
-    public CreateShareOperation(String path, ShareType shareType, String shareWith, boolean publicUpload, 
+    public CreateShareOperation(Context context, String path, ShareType shareType, String shareWith, boolean publicUpload,
             String password, int permissions, Intent sendIntent) {
 
+        mContext = context;
         mPath = path;
         mShareType = shareType;
         mShareWith = shareWith;
@@ -128,6 +133,9 @@ public class CreateShareOperation extends SyncOperation {
         OCFile file = getStorageManager().getFileByPath(mPath);
         if (file!=null) {
             mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
+            mSendIntent.putExtra(Intent.EXTRA_SUBJECT, String.format(mContext.getString(R.string.subject_token),
+                    getClient().getCredentials().getUsername(), mContext.getString(R.string.shared_subject_header),
+                    file.getFileName(), mContext.getString(R.string.with_you_subject_header)));
             file.setPublicLink(share.getShareLink());
             file.setShareByLink(true);
             getStorageManager().saveFile(file);
