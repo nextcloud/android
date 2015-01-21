@@ -29,13 +29,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.ExtendedListView;
+import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 
 /**
@@ -53,8 +52,6 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
 
-    protected ExtendedListView mList;
-
     private SwipeRefreshLayout mRefreshLayout;
     private SwipeRefreshLayout mRefreshEmptyLayout;
     private TextView mEmptyListMessage;
@@ -67,7 +64,7 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
 
     private OnEnforceableRefreshListener mOnRefreshListener = null;
     
-    protected GridView imageView;
+    protected GridViewWithHeaderAndFooter imageView;
        
     public void setListAdapter(ListAdapter listAdapter) {
         imageView.setAdapter(listAdapter);
@@ -80,8 +77,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
 
     public void setFooterView(View footer) {
         // TODO find solution
-        // mList.addFooterView(footer, null, false);
-        // mList.invalidate();
+        imageView.addFooterView(footer, null, false);
+        imageView.invalidate();
     }
 
 
@@ -103,7 +100,7 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
 
         View v = inflater.inflate(R.layout.list_fragment, null);
         
-        imageView = (ExtendedListView)(v.findViewById(R.id.list_root));
+        imageView = (GridViewWithHeaderAndFooter)(v.findViewById(R.id.list_root));
         imageView.setOnItemClickListener(this);
 
         if (savedInstanceState != null) {
@@ -114,9 +111,12 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         // Pull down refresh
         mRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files);
         mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files_emptyView);
+        mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         
         onCreateSwipeToRefresh(mRefreshLayout);
         onCreateSwipeToRefresh(mRefreshEmptyLayout);
+
+        imageView.setEmptyView(mRefreshEmptyLayout);
         
         return v;
     }

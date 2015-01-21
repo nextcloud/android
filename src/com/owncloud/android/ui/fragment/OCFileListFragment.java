@@ -395,13 +395,12 @@ public class OCFileListFragment extends ExtendedListFragment {
             mFile = directory;
 
             Vector<OCFile> files = storageManager.getFolderContent(directory);
+            // Update Footer
+            TextView footerText = (TextView) mFooterView.findViewById(R.id.footerText);
+            footerText.setText(generateFooterText(directory));
             if (DisplayUtils.decideViewLayout(files)){
                 switchImageView();
             } else {
-                // Update Footer
-                TextView footerText = (TextView) mFooterView.findViewById(R.id.footerText);
-                footerText.setText(generateFooterText(directory));
-
                 switchFileView();
             }
         }
