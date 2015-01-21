@@ -37,6 +37,8 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
+import third_parties.liaohuqiu.GridViewWithHeaderAndFooter;
+
 /**
  * This Adapter populates a ListView with all files and directories contained
  * in a local directory
@@ -117,7 +119,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
-                ListView parentList = (ListView)parent;
+                GridViewWithHeaderAndFooter parentList = (GridViewWithHeaderAndFooter)parent;
                 if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
                     checkBoxV.setVisibility(View.GONE);
                 } else {
