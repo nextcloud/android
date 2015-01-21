@@ -34,7 +34,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import third_parties.liaohuqiu.GridViewWithHeaderAndFooter;
+import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 
 /**
