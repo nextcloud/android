@@ -225,11 +225,11 @@ public class LocalFileListFragment extends ExtendedListFragment {
      */
     public String[] getCheckedFilePaths() {
         ArrayList<String> result = new ArrayList<String>();
-        SparseBooleanArray positions = mList.getCheckedItemPositions();
+        SparseBooleanArray positions = imageView.getCheckedItemPositions();
         if (positions.size() > 0) {
             for (int i = 0; i < positions.size(); i++) {
                 if (positions.get(positions.keyAt(i)) == true) {
-                    result.add(((File) mList.getItemAtPosition(positions.keyAt(i))).getAbsolutePath());
+                    result.add(((File) imageView.getItemAtPosition(positions.keyAt(i))).getAbsolutePath());
                 }
             }
 
