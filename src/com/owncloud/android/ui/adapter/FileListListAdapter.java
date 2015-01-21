@@ -249,7 +249,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     } else {
                         sharedWithMeIconV.setVisibility(View.GONE);
                     }
-                } else {
+                } else { //Folder
+                    fileSizeV.setVisibility(View.INVISIBLE);
                     localStateView.setVisibility(View.INVISIBLE);
                 }
                 break;
