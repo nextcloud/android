@@ -116,7 +116,9 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             if (!file.isDirectory()) {
-                
+                fileSizeV.setVisibility(View.VISIBLE);
+                fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
                 GridViewWithHeaderAndFooter parentList = (GridViewWithHeaderAndFooter)parent;
@@ -163,12 +165,11 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 }  
 
             } else {
+                fileSizeV.setVisibility(View.GONE);
                 lastModV.setVisibility(View.GONE);
                 checkBoxV.setVisibility(View.GONE);
             }
-            fileSizeV.setVisibility(View.VISIBLE);
-            fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
-            
+
             // not GONE; the alignment changes; ugly way to keep it
             view.findViewById(R.id.localFileIndicator).setVisibility(View.INVISIBLE);   
             view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
