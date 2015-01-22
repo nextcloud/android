@@ -223,7 +223,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         /**
          * Cancels a pending or current download of a remote file.
          *
-         * @param account       Owncloud account where the remote file is stored.
+         * @param account       ownCloud account where the remote file is stored.
          * @param file          A file in the queue of pending downloads
          */
         public void cancel(Account account, OCFile file) {
@@ -231,6 +231,12 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             download = mPendingDownloads.remove(account, file.getRemotePath());
             if (download != null) {
                 download.cancel();
+            } else {
+                // TODO synchronize
+                if (mCurrentDownload.getRemotePath().startsWith(file.getRemotePath()) &&
+                        account.name.equals(mLastAccount)) {
+                    mCurrentDownload.cancel();
+                }
             }
         }
         

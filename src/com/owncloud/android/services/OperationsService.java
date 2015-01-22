@@ -172,6 +172,7 @@ public class OperationsService extends Service {
         // WIP: for the moment, only SYNC_FOLDER and CANCEL_SYNC_FOLDER is expected here;
         // the rest of the operations are requested through the Binder
         if (ACTION_SYNC_FOLDER.equals(intent.getAction())) {
+
             if (!intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_REMOTE_PATH)) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
                 return START_NOT_STICKY;
@@ -190,6 +191,7 @@ public class OperationsService extends Service {
                 msg.obj = itemSyncKey;
                 mSyncFolderHandler.sendMessage(msg);
             }
+
         } else if (ACTION_CANCEL_SYNC_FOLDER.equals(intent.getAction())) {
             if (!intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_FILE)) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
@@ -536,14 +538,6 @@ public class OperationsService extends Service {
             }
 
             //sendBroadcastFinishedSyncFolder(account, file.getRemotePath());
-            
-            /// cancellation of download needs to be done separately in any case; a SynchronizeFolderOperation
-            //  may finish much sooner than the real download of the files in the folder
-            Intent intent = new Intent(mService, FileDownloader.class);
-            intent.setAction(FileDownloader.ACTION_CANCEL_FILE_DOWNLOAD);
-            intent.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
-            intent.putExtra(FileDownloader.EXTRA_FILE, file);
-            mService.startService(intent);
         }
 
         /**

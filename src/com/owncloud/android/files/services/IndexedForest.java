@@ -23,6 +23,7 @@ import com.owncloud.android.datamodel.OCFile;
 
 import java.io.File;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -128,6 +129,10 @@ public class IndexedForest<V> {
         Node<V> firstRemoved = mMap.remove(targetKey);
 
         if (firstRemoved != null) {
+            /// remove children
+            removeDescendants(firstRemoved);
+
+            /// remove ancestors if only here due to firstRemoved
             Node<V> removed = firstRemoved;
             Node<V> parent = removed.getParent();
             while (parent != null) {
@@ -147,6 +152,16 @@ public class IndexedForest<V> {
             return null;
         }
 
+    }
+
+    private void removeDescendants(Node<V> removed) {
+        Iterator<Node<V>> childrenIt = removed.getChildren().iterator();
+        Node<V> child = null;
+        while (childrenIt.hasNext()) {
+            child = childrenIt.next();
+            mMap.remove(child.getKey());
+            removeDescendants(child);
+        }
     }
 
     public boolean contains(Account account, String remotePath) {
