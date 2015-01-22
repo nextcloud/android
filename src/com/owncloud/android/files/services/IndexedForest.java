@@ -18,6 +18,7 @@
 package com.owncloud.android.files.services;
 
 import android.accounts.Account;
+import android.util.Pair;
 
 import com.owncloud.android.datamodel.OCFile;
 
@@ -91,7 +92,7 @@ public class IndexedForest<V> {
     }
 
 
-    public /* synchronized */ String putIfAbsent(Account account, String remotePath, V value) {
+    public /* synchronized */ Pair<String, String> putIfAbsent(Account account, String remotePath, V value) {
         String targetKey = buildKey(account, remotePath);
         Node<V> valuedNode = new Node(targetKey, value);
         mMap.putIfAbsent(
@@ -121,12 +122,17 @@ public class IndexedForest<V> {
             currentNode = parentNode;
         }
 
-        return targetKey;
+        String linkedTo = OCFile.ROOT_PATH;
+        if (linked) {
+            linkedTo = parentNode.getKey().substring(account.name.length());
+        }
+        return new Pair<String, String>(targetKey, linkedTo);
     };
 
-    public /* synchronized */ V remove(Account account, String remotePath) {
+    public /* synchronized */ Pair<V, String> remove(Account account, String remotePath) {
         String targetKey = buildKey(account, remotePath);
         Node<V> firstRemoved = mMap.remove(targetKey);
+        String unlinkedFrom = null;
 
         if (firstRemoved != null) {
             /// remove children
@@ -135,21 +141,26 @@ public class IndexedForest<V> {
             /// remove ancestors if only here due to firstRemoved
             Node<V> removed = firstRemoved;
             Node<V> parent = removed.getParent();
+            boolean unlinked = false;
             while (parent != null) {
                 parent.removeChild(removed);
                 if (!parent.hasChildren()) {
                     removed = mMap.remove(parent.getKey());
                     parent = removed.getParent();
                 } else {
-                    parent = null;
+                    break;
                 }
+            }
+
+            if (parent != null) {
+                unlinkedFrom = parent.getKey().substring(account.name.length());
             }
         }
 
         if (firstRemoved != null) {
-            return firstRemoved.getPayload();
+            return new Pair<V, String>(firstRemoved.getPayload(), unlinkedFrom);
         } else {
-            return null;
+            return new Pair<V, String>(null, unlinkedFrom);
         }
 
     }
