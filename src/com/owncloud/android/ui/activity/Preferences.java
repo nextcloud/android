@@ -316,7 +316,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         
         mPrefInstantVideoUploadPathWiFi =  findPreference("instant_video_upload_on_wifi");
         mPrefInstantVideoUpload = findPreference("instant_video_uploading");
-        toggleInstantVideoOptions(((CheckBoxPreference) mPrefInstantUpload).isChecked());
+        toggleInstantVideoOptions(((CheckBoxPreference) mPrefInstantVideoUpload).isChecked());
         
         mPrefInstantVideoUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             
