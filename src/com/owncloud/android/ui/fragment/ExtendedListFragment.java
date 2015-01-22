@@ -76,12 +76,18 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     }
 
     public void setFooterView(View footer) {
-        // TODO find solution
         imageView.addFooterView(footer, null, false);
         imageView.invalidate();
     }
 
+    public void removeFooterView(View footer) {
+        imageView.removeFooterView(footer);
+        imageView.invalidate();
+    }
 
+    public int getFooterViewCount() {
+        return imageView.getFooterViewCount();
+    }
     
     protected void switchImageView(){
        imageView.setNumColumns(GridView.AUTO_FIT);
