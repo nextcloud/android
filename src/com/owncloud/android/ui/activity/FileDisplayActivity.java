@@ -1255,7 +1255,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
 
     /**
-     * Class waiting for broadcast events from the {@link FielDownloader} service.
+     * Class waiting for broadcast events from the {@link FileDownloader} service.
      * 
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * current folder.
@@ -1725,7 +1725,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     private void requestForDownload() {
         Account account = getAccount();
-        if (mWaitingToPreview.isDownloading()) {
+        //if (!mWaitingToPreview.isDownloading()) {
+        if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
             i.putExtra(FileDownloader.EXTRA_FILE, mWaitingToPreview);
@@ -1781,9 +1782,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     }
     
     private void requestForDownload(OCFile file) {
-        if (file.isDownloading()) {
+        Account account = getAccount();
+        if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
+            i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
             i.putExtra(FileDownloader.EXTRA_FILE, file);
             startService(i);
         }

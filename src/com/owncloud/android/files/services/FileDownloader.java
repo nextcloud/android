@@ -26,8 +26,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -89,7 +87,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private Account mLastAccount = null;
     private FileDataStorageManager mStorageManager;
     
-    private ConcurrentMap<String, DownloadFileOperation> mPendingDownloads = new ConcurrentHashMap<String, DownloadFileOperation>();
+    private IndexedForest<DownloadFileOperation> mPendingDownloads = new IndexedForest<DownloadFileOperation>();
+
     private DownloadFileOperation mCurrentDownload = null;
     
     private NotificationManager mNotificationManager;
@@ -104,17 +103,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     public static String getDownloadFinishMessage() {
         return FileDownloader.class.getName().toString() + DOWNLOAD_FINISH_MESSAGE;
     }
-    
-    /**
-     * Builds a key for mPendingDownloads from the account and file to download
-     * 
-     * @param account   Account where the file to download is stored
-     * @param file      File to download
-     */
-    private String buildRemoteName(Account account, OCFile file) {
-        return account.name + file.getRemotePath();
-    }
-
     
     /**
      * Service initialization
@@ -133,16 +121,14 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
 
     /**
      * Entry point to add one or several files to the queue of downloads.
-     * 
-     * New downloads are added calling to startService(), resulting in a call to this method. This ensures the service will keep on working 
-     * although the caller activity goes away.
+     *
+     * New downloads are added calling to startService(), resulting in a call to this method.
+     * This ensures the service will keep on working although the caller activity goes away.
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (    !intent.hasExtra(EXTRA_ACCOUNT) ||
                 !intent.hasExtra(EXTRA_FILE)
-                /*!intent.hasExtra(EXTRA_FILE_PATH) ||
-                !intent.hasExtra(EXTRA_REMOTE_PATH)*/
            ) {
             Log_OC.e(TAG, "Not enough information provided in intent");
             return START_NOT_STICKY;
@@ -161,19 +147,21 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
 
             } else {
 
-                AbstractList<String> requestedDownloads = new Vector<String>(); // dvelasco: now this always contains just one element, but that can change in a near future (download of multiple selection)
-                String downloadKey = buildRemoteName(account, file);
+                AbstractList<String> requestedDownloads = new Vector<String>();
                 try {
                     DownloadFileOperation newDownload = new DownloadFileOperation(account, file);
-                    mPendingDownloads.putIfAbsent(downloadKey, newDownload);
+                    String downloadKey = mPendingDownloads.putIfAbsent(account, file.getRemotePath(), newDownload);
                     newDownload.addDatatransferProgressListener(this);
                     newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
                     requestedDownloads.add(downloadKey);
 
                     // Store file on db with state 'downloading'
+                    /*
+                    TODO - check if helps with UI responsiveness, letting only folders use FileDownloaderBinder to check
                     FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
                     file.setDownloading(true);
                     storageManager.saveFile(file);
+                    */
 
                     sendBroadcastNewDownload(newDownload);
 
@@ -193,11 +181,12 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
 
         return START_NOT_STICKY;
     }
-    
-    
+
+
     /**
-     * Provides a binder object that clients can use to perform operations on the queue of downloads, excepting the addition of new files. 
-     * 
+     * Provides a binder object that clients can use to perform operations on the queue of downloads,
+     * excepting the addition of new files.
+     *
      * Implemented to perform cancellation, pause and resume of existing downloads.
      */
     @Override
@@ -215,18 +204,20 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         return false;   // not accepting rebinding (default behaviour)
     }
 
-    
+
     /**
      *  Binder to let client components to perform operations on the queue of downloads.
-     * 
+     *
      *  It provides by itself the available operations.
      */
     public class FileDownloaderBinder extends Binder implements OnDatatransferProgressListener {
         
         /** 
-         * Map of listeners that will be reported about progress of downloads from a {@link FileDownloaderBinder} instance 
+         * Map of listeners that will be reported about progress of downloads from a {@link FileDownloaderBinder}
+         * instance.
          */
-        private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<String, OnDatatransferProgressListener>();
+        private Map<Long, OnDatatransferProgressListener> mBoundListeners =
+                new HashMap<Long, OnDatatransferProgressListener>();
 
 
         /**
@@ -237,9 +228,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
          */
         public void cancel(Account account, OCFile file) {
             DownloadFileOperation download = null;
-            synchronized (mPendingDownloads) {
-                download = mPendingDownloads.remove(buildRemoteName(account, file));
-            }
+            download = mPendingDownloads.remove(account, file.getRemotePath());
             if (download != null) {
                 download.cancel();
             }
@@ -252,32 +241,19 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
 
 
         /**
-         * Returns True when the file described by 'file' in the ownCloud account 'account' is downloading or waiting to download.
+         * Returns True when the file described by 'file' in the ownCloud account 'account' is downloading or
+         * waiting to download.
          * 
-         * If 'file' is a directory, returns 'true' if some of its descendant files is downloading or waiting to download. 
+         * If 'file' is a directory, returns 'true' if any of its descendant files is downloading or
+         * waiting to download.
          * 
-         * @param account       Owncloud account where the remote file is stored.
+         * @param account       ownCloud account where the remote file is stored.
          * @param file          A file that could be in the queue of downloads.
          */
-        /*
         public boolean isDownloading(Account account, OCFile file) {
             if (account == null || file == null) return false;
-            String targetKey = buildRemoteName(account, file);
-            synchronized (mPendingDownloads) {
-                if (file.isFolder()) {
-                    // this can be slow if there are many downloads :(
-                    Iterator<String> it = mPendingDownloads.keySet().iterator();
-                    boolean found = false;
-                    while (it.hasNext() && !found) {
-                        found = it.next().startsWith(targetKey);
-                    }
-                    return found;
-                } else {
-                    return (mPendingDownloads.containsKey(targetKey));
-                }
-            }
+            return (mPendingDownloads.contains(account, file.getRemotePath()));
         }
-        */
 
         
         /**
@@ -285,12 +261,14 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
          * 
          * @param listener      Object to notify about progress of transfer.    
          * @param account       ownCloud account holding the file of interest.
-         * @param file          {@link OCfile} of interest for listener. 
+         * @param file          {@link OCFile} of interest for listener.
          */
-        public void addDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
+        public void addDatatransferProgressListener (
+                OnDatatransferProgressListener listener, Account account, OCFile file
+        ) {
             if (account == null || file == null || listener == null) return;
-            String targetKey = buildRemoteName(account, file);
-            mBoundListeners.put(targetKey, listener);
+            //String targetKey = buildKey(account, file.getRemotePath());
+            mBoundListeners.put(file.getFileId(), listener);
         }
         
         
@@ -299,21 +277,24 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
          * 
          * @param listener      Object to notify about progress of transfer.    
          * @param account       ownCloud account holding the file of interest.
-         * @param file          {@link OCfile} of interest for listener. 
+         * @param file          {@link OCFile} of interest for listener.
          */
-        public void removeDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
+        public void removeDatatransferProgressListener (
+                OnDatatransferProgressListener listener, Account account, OCFile file
+        ) {
             if (account == null || file == null || listener == null) return;
-            String targetKey = buildRemoteName(account, file);
-            if (mBoundListeners.get(targetKey) == listener) {
-                mBoundListeners.remove(targetKey);
+            //String targetKey = buildKey(account, file.getRemotePath());
+            Long fileId = file.getFileId();
+            if (mBoundListeners.get(fileId) == listener) {
+                mBoundListeners.remove(fileId);
             }
         }
 
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
                 String fileName) {
-            String key = buildRemoteName(mCurrentDownload.getAccount(), mCurrentDownload.getFile());
-            OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
+            //String key = buildKey(mCurrentDownload.getAccount(), mCurrentDownload.getFile().getRemotePath());
+            OnDatatransferProgressListener boundListener = mBoundListeners.get(mCurrentDownload.getFile().getFileId());
             if (boundListener != null) {
                 boundListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName);
             }
@@ -358,11 +339,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      * @param downloadKey   Key to access the download to perform, contained in mPendingDownloads 
      */
     private void downloadFile(String downloadKey) {
-        
-        synchronized(mPendingDownloads) {
-            mCurrentDownload = mPendingDownloads.get(downloadKey);
-        }
-        
+
+        mCurrentDownload = mPendingDownloads.get(downloadKey);
+
         if (mCurrentDownload != null) {
             
             notifyDownloadStart(mCurrentDownload);
@@ -383,21 +362,20 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 downloadResult = mCurrentDownload.execute(mDownloadClient);
                 if (downloadResult.isSuccess()) {
                     saveDownloadedFile();
-                } else {
+                /*} else {
                     updateUnsuccessfulDownloadedFile();
+                    */
                 }
             
             } catch (AccountsException e) {
-                Log_OC.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
+                Log_OC.e(TAG, "Error while trying to get authorization for " + mLastAccount.name, e);
                 downloadResult = new RemoteOperationResult(e);
             } catch (IOException e) {
-                Log_OC.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
+                Log_OC.e(TAG, "Error while trying to get authorization for " + mLastAccount.name, e);
                 downloadResult = new RemoteOperationResult(e);
                 
             } finally {
-                synchronized(mPendingDownloads) {
-                    mPendingDownloads.remove(downloadKey);
-                }
+                mPendingDownloads.remove(mLastAccount, mCurrentDownload.getRemotePath());
             }
 
             
@@ -425,7 +403,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         file.setStoragePath(mCurrentDownload.getSavePath());
         file.setFileLength((new File(mCurrentDownload.getSavePath()).length()));
         file.setRemoteId(mCurrentDownload.getFile().getRemoteId());
-        file.setDownloading(false);
+        //file.setDownloading(false);
         mStorageManager.saveFile(file);
         mStorageManager.triggerMediaScan(file.getStoragePath());
     }
@@ -484,7 +462,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      * Callback method to update the progress bar in the status notification.
      */
     @Override
-    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath) {
+    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath)
+    {
         int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
         if (percent != mLastPercent) {
             mNotificationBuilder.setProgress(100, percent, totalToTransfer < 0);
@@ -528,7 +507,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 // let the user update credentials with one click
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
                 updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, download.getAccount());
-                updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
+                updateAccountCredentials.putExtra(
+                        AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
+                );
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
@@ -536,7 +517,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                     .setContentIntent(PendingIntent.getActivity(
                         this, (int) System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT));
                 
-                mDownloadClient = null;   // grant that future retries on the same account will get the fresh credentials
+                mDownloadClient = null;  // grant that future retries on the same account will get the fresh credentials
                 
             } else {
                 // TODO put something smart in showDetailsIntent
@@ -546,7 +527,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                         this, (int) System.currentTimeMillis(), showDetailsIntent, 0));
             }
             
-            mNotificationBuilder.setContentText(ErrorMessageAdapter.getErrorCauseMessage(downloadResult, download, getResources()));
+            mNotificationBuilder.setContentText(
+                    ErrorMessageAdapter.getErrorCauseMessage(downloadResult, download, getResources())
+            );
             mNotificationManager.notify(tickerId, mNotificationBuilder.build());
             
             // Remove success notification
@@ -593,38 +576,47 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
 
     /**
      * Cancel operation
-     * @param account       Owncloud account where the remote file is stored.
+     * @param account       ownCloud account where the remote file is stored.
      * @param file          File OCFile
      */
     public void cancel(Account account, OCFile file){
         DownloadFileOperation download = null;
-        String targetKey = buildRemoteName(account, file);
+        //String targetKey = buildKey(account, file.getRemotePath());
         ArrayList<String> keyItems = new ArrayList<String>();
-        synchronized (mPendingDownloads) {
-            if (file.isFolder()) {
-                Log_OC.d(TAG, "Folder download. Canceling pending downloads (from folder)");
-                Iterator<String> it = mPendingDownloads.keySet().iterator();
-                boolean found = false;
-                while (it.hasNext()) {
-                    String keyDownloadOperation = it.next();
-                    found = keyDownloadOperation.startsWith(targetKey);
-                    if (found) {
-                        keyItems.add(keyDownloadOperation);
-                    }
-                }
-            } else {
-                // this is not really expected...
-                Log_OC.d(TAG, "Canceling file download");
-                keyItems.add(buildRemoteName(account, file));
-            }
-        }
-        for (String item: keyItems) {
-            download = mPendingDownloads.remove(item);
-            Log_OC.d(TAG, "Key removed: " + item);
+        if (file.isFolder()) {
+            Log_OC.d(TAG, "Folder download. Canceling pending downloads (from folder)");
 
+            // TODO
+            /*
+            Iterator<String> it = mPendingDownloads.keySet().iterator();
+            boolean found = false;
+            while (it.hasNext()) {
+                String keyDownloadOperation = it.next();
+                found = keyDownloadOperation.startsWith(targetKey);
+                if (found) {
+                    keyItems.add(keyDownloadOperation);
+                }
+            }
+
+            for (String item: keyItems) {
+                download = mPendingDownloads.remove(item);
+                Log_OC.d(TAG, "Key removed: " + item);
+
+                if (download != null) {
+                    download.cancel();
+                }
+            }
+
+            */
+
+        } else {
+            // this is not really expected...
+            Log_OC.d(TAG, "Canceling file download");
+            download = mPendingDownloads.remove(account, file.getRemotePath());
             if (download != null) {
                 download.cancel();
             }
         }
     }
+
 }

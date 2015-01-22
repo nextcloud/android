@@ -365,7 +365,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");
             
-        } else if (!file.isDownloading()) {
+        } else if (!mDownloaderBinder.isDownloading(getAccount(), file)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
             i.putExtra(FileDownloader.EXTRA_FILE, file);

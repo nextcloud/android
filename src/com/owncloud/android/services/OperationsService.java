@@ -17,6 +17,7 @@
 
 package com.owncloud.android.services;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -469,8 +470,22 @@ public class OperationsService extends Service {
                 } catch (IOException e) {
                     Log_OC.e(TAG, "Error while trying to get autorization", e);
                 } finally {
-                    synchronized(mPendingOperations) {
+                    synchronized (mPendingOperations) {
                         mPendingOperations.remove(syncKey);
+                        /*
+                        SynchronizeFolderOperation checkedOp = mCurrentSyncOperation;
+                        String checkedKey = syncKey;
+                        while (checkedOp.getPendingChildrenCount() <= 0) {
+                        // while (!checkedOp.hasChildren()) {
+                            mPendingOperations.remove(checkedKey);
+                            String parentKey = buildRemoteName(account, (new File(checkedOp.getFolderPath())).getParent());
+                            // String parentKey = buildRemoteName(account, checkedOp.getParentPath());
+                            SynchronizeFolderOperation parentOp = mPendingOperations.get(parentKey);
+                            if (parentOp != null) {
+                                parentOp.decreasePendingChildrenCount();
+                            }
+                        }
+                        */
                     }
 
                     mService.dispatchResultToOperationListeners(null, mCurrentSyncOperation, result);

@@ -140,7 +140,9 @@ public class FileMenuFilter {
         boolean downloading = false;
         boolean uploading = false;
         if (mComponentsGetter != null && mFile != null && mAccount != null) {
-            downloading = mFile.isDownloading() || mFile.isSynchronizing();
+            //downloading = mFile.isDownloading() || mFile.isSynchronizing();
+            FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
+            downloading = (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile));
             FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
             uploading = (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile));
         }
