@@ -1262,7 +1262,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      */
     private class DownloadFinishReceiver extends BroadcastReceiver {
 
-        int refreshCounter = 0;
+        //int refreshCounter = 0;
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
@@ -1273,7 +1273,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 if (sameAccount && isDescendant) {
                     String linkedToRemotePath = intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
                     if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
-                        Log_OC.v(TAG, "NOW: refresh #" + ++refreshCounter);
+                        //Log_OC.v(TAG, "refresh #" + ++refreshCounter);
                         refreshListOfFilesFragment();
                     }
                     refreshSecondFragment(

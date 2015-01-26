@@ -135,6 +135,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             final Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
             final OCFile file = intent.getParcelableExtra(EXTRA_FILE);
 
+            Log_OC.v(
+                    "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
+                    "Received request to download file"
+            );
+
             /*
             if (ACTION_CANCEL_FILE_DOWNLOAD.equals(intent.getAction())) {
 
@@ -158,6 +163,10 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                     );
                     String downloadKey = putResult.first;
                     requestedDownloads.add(downloadKey);
+                    Log_OC.v(
+                        "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
+                        "Download on " + file.getRemotePath() + " added to queue"
+                    );
 
                     // Store file on db with state 'downloading'
                     /*
@@ -231,14 +240,24 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
          * @param file          A file in the queue of pending downloads
          */
         public void cancel(Account account, OCFile file) {
+            Log_OC.v(
+                    "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
+                    "Received request to cancel download of " + file.getRemotePath()
+            );
+            Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
+                    "Removing download of " + file.getRemotePath());
             Pair<DownloadFileOperation, String> removeResult = mPendingDownloads.remove(account, file.getRemotePath());
             DownloadFileOperation download = removeResult.first;
             if (download != null) {
+                Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
+                        "Canceling returned download of " + file.getRemotePath());
                 download.cancel();
             } else {
                 if (mCurrentDownload != null && mCurrentAccount != null &&
                         mCurrentDownload.getRemotePath().startsWith(file.getRemotePath()) &&
                         account.name.equals(mCurrentAccount.name)) {
+                    Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
+                            "Canceling current sync as descendant: " + mCurrentDownload.getRemotePath());
                     mCurrentDownload.cancel();
                 }
             }
@@ -335,7 +354,10 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             if (msg.obj != null) {
                 Iterator<String> it = requestedDownloads.iterator();
                 while (it.hasNext()) {
-                    mService.downloadFile(it.next());
+                    String next = it.next();
+                    Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
+                            "Handling download file " + next);
+                    mService.downloadFile(next);
                 }
             }
             mService.stopSelf(msg.arg1);
@@ -350,6 +372,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      */
     private void downloadFile(String downloadKey) {
 
+        Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
+                "Getting download of " + downloadKey);
         mCurrentDownload = mPendingDownloads.get(downloadKey);
 
         if (mCurrentDownload != null) {
@@ -369,6 +393,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 }
 
                 /// perform the download
+                Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
+                        "Executing download of " + mCurrentDownload.getRemotePath());
                 downloadResult = mCurrentDownload.execute(mDownloadClient);
                 if (downloadResult.isSuccess()) {
                     saveDownloadedFile();
@@ -385,6 +411,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 downloadResult = new RemoteOperationResult(e);
                 
             } finally {
+                Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
+                        "Removing payload " + mCurrentDownload.getRemotePath());
+
                 Pair<DownloadFileOperation, String> removeResult =
                         mPendingDownloads.removePayload(mCurrentAccount, mCurrentDownload.getRemotePath());
 
@@ -593,51 +622,5 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         added.putExtra(EXTRA_LINKED_TO_PATH, linkedToRemotePath);
         sendStickyBroadcast(added);
     }
-
-    /**
-     * Cancel operation
-     * @param account       ownCloud account where the remote file is stored.
-     * @param file          File OCFile
-     *-/
-    public void cancel(Account account, OCFile file){
-        DownloadFileOperation download = null;
-        //String targetKey = buildKey(account, file.getRemotePath());
-        ArrayList<String> keyItems = new ArrayList<String>();
-        if (file.isFolder()) {
-            Log_OC.d(TAG, "Folder download. Canceling pending downloads (from folder)");
-
-            // TODO
-            /*
-            Iterator<String> it = mPendingDownloads.keySet().iterator();
-            boolean found = false;
-            while (it.hasNext()) {
-                String keyDownloadOperation = it.next();
-                found = keyDownloadOperation.startsWith(targetKey);
-                if (found) {
-                    keyItems.add(keyDownloadOperation);
-                }
-            }
-
-            for (String item: keyItems) {
-                download = mPendingDownloads.remove(item);
-                Log_OC.d(TAG, "Key removed: " + item);
-
-                if (download != null) {
-                    download.cancel();
-                }
-            }
-
-            *-/
-
-        } else {
-            // this is not really expected...
-            Log_OC.d(TAG, "Canceling file download");
-            download = mPendingDownloads.remove(account, file.getRemotePath());
-            if (download != null) {
-                download.cancel();
-            }
-        }
-    }
-    */
 
 }

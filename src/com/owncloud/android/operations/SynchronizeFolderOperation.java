@@ -344,10 +344,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
             /// classify file to sync/download contents later
             if (remoteFile.isFolder()) {
                 /// to download children files recursively
-                startSyncFolderOperation(remoteFile.getRemotePath());
-
-                if (mCancellationRequested.get()) {
-                    throw new OperationCancelledException();
+                synchronized(mCancellationRequested) {
+                    if (mCancellationRequested.get()) {
+                        throw new OperationCancelledException();
+                    }
+                    startSyncFolderOperation(remoteFile.getRemotePath());
                 }
 
             } else if (remoteFile.keepInSync()) {
@@ -389,9 +390,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
             /// classify file to sync/download contents later
             if (child.isFolder()) {
                 /// to download children files recursively
-                startSyncFolderOperation(child.getRemotePath());
-                if (mCancellationRequested.get()) {
-                    throw new OperationCancelledException();
+                synchronized(mCancellationRequested) {
+                    if (mCancellationRequested.get()) {
+                        throw new OperationCancelledException();
+                    }
+                    startSyncFolderOperation(child.getRemotePath());
                 }
 
             } else {
@@ -413,13 +416,15 @@ public class SynchronizeFolderOperation extends SyncOperation {
     
     private void startDirectDownloads() throws OperationCancelledException {
         for (OCFile file : mFilesForDirectDownload) {
-            if (mCancellationRequested.get()) {
-                throw new OperationCancelledException();
+            synchronized(mCancellationRequested) {
+                if (mCancellationRequested.get()) {
+                    throw new OperationCancelledException();
+                }
+                Intent i = new Intent(mContext, FileDownloader.class);
+                i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
+                i.putExtra(FileDownloader.EXTRA_FILE, file);
+                mContext.startService(i);
             }
-            Intent i = new Intent(mContext, FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-            i.putExtra(FileDownloader.EXTRA_FILE, file);
-            mContext.startService(i);
         }
     }
 
@@ -519,5 +524,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, mAccount);
         intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
         mContext.startService(intent);
+    }
+
+    public String getRemotePath() {
+        return mRemotePath;
     }
 }
