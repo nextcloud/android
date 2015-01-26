@@ -46,6 +46,7 @@ import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
+import android.provider.MediaStore;
 
 public class FileDataStorageManager {
 
@@ -261,8 +262,8 @@ public class FileDataStorageManager {
      * HERE ONLY DATA CONSISTENCY SHOULD BE GRANTED
      *  
      * @param folder
-     * @param files
-     * @param removeNotUpdated
+     * @param updatedFiles
+     * @param filesToRemove
      */
     public void saveFolder(
             OCFile folder, Collection<OCFile> updatedFiles, Collection<OCFile> filesToRemove
@@ -491,7 +492,7 @@ public class FileDataStorageManager {
                 if (removeLocalCopy && file.isDown() && localPath != null && success) {
                     success = new File(localPath).delete();
                     if (success) {
-                        triggerMediaScan(FileStorageUtils.getParentPath(localPath));
+                        deleteFileInMediaScan(localPath);
                     }
                     if (!removeDBData && success) {
                         // maybe unnecessary, but should be checked TODO remove if unnecessary
@@ -553,13 +554,14 @@ public class FileDataStorageManager {
                             File localFile = new File(file.getStoragePath());
                             success &= localFile.delete();
                             if (success) {
+                                deleteFileInMediaScan(file.getStoragePath()); // notify MediaScanner about removed file
                                 file.setStoragePath(null);
                                 saveFile(file);
                             }
                         }
                     }
                 }
-                triggerMediaScan(localFolderPath); // notify MediaScanner about removed file in folder
+                //triggerMediaScan(localFolderPath); // notify MediaScanner about removed file in folder
             }
 
             // stage 2: remove the folder itself and any local file inside out of sync; 
@@ -579,7 +581,8 @@ public class FileDataStorageManager {
                 } else {
                     String path = localFile.getAbsolutePath();
                     success &= localFile.delete();
-                    triggerMediaScan(path); // notify MediaScanner about removed file
+                    deleteFileInMediaScan(path); // notify MediaScanner about removed file
+                    //triggerMediaScan(path); // notify MediaScanner about removed file
                 }
             }
         }
@@ -714,11 +717,13 @@ public class FileDataStorageManager {
                 Iterator<String> it = originalPathsToTriggerMediaScan.iterator();
                 while (it.hasNext()) {
                     // Notify MediaScanner about removed file
+                    deleteFileInMediaScan(file.getStoragePath());
                     triggerMediaScan(it.next());
                 }
                 it = newPathsToTriggerMediaScan.iterator();
                 while (it.hasNext()) {
                     // Notify MediaScanner about new file/folder
+                    deleteFileInMediaScan(file.getStoragePath());
                     triggerMediaScan(it.next());
                 }
             }
@@ -1488,6 +1493,11 @@ public class FileDataStorageManager {
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         intent.setData(Uri.fromFile(new File(path)));
         MainApp.getAppContext().sendBroadcast(intent);
+    }
+
+    public void deleteFileInMediaScan(String path) {
+        getContentResolver().delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Images.Media.DATA + "=?", new String[]{path});
     }
 
 }
