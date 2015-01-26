@@ -91,6 +91,7 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     
     protected void switchImageView(){
        imageView.setNumColumns(GridView.AUTO_FIT);
+       imageView.invalidateRowHeight();  // Force to recalculate mRowHeight of imageView
        imageView.invalidate();
     }
     
