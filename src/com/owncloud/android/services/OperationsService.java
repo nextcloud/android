@@ -103,7 +103,7 @@ public class OperationsService extends Service {
     public static final String ACTION_CREATE_FOLDER = "CREATE_FOLDER";
     public static final String ACTION_SYNC_FILE = "SYNC_FILE";
     public static final String ACTION_SYNC_FOLDER = "SYNC_FOLDER";  // for the moment, just to download
-    public static final String ACTION_CANCEL_SYNC_FOLDER = "CANCEL_SYNC_FOLDER";  // for the moment, just to download
+    //public static final String ACTION_CANCEL_SYNC_FOLDER = "CANCEL_SYNC_FOLDER";  // for the moment, just to download
     public static final String ACTION_MOVE_FILE = "MOVE_FILE";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
@@ -187,21 +187,6 @@ public class OperationsService extends Service {
                 mSyncFolderHandler.sendMessage(msg);
             }
 
-        } else if (ACTION_CANCEL_SYNC_FOLDER.equals(intent.getAction())) {
-            if (!intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_FILE)) {
-                Log_OC.e(TAG, "Not enough information provided in intent");
-                return START_NOT_STICKY;
-            }
-            final Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
-            final OCFile file = intent.getParcelableExtra(EXTRA_FILE);
-            // Cancel operation
-            new Thread(new Runnable() {
-                public void run() {
-                    // Cancel the download
-                    mSyncFolderHandler.cancel(account,file);
-                }
-            }).start();
-
         } else {
             Message msg = mOperationsHandler.obtainMessage();
             msg.arg1 = startId;
@@ -272,23 +257,23 @@ public class OperationsService extends Service {
                 new ConcurrentHashMap<OnRemoteOperationListener, Handler>();
         
         private ServiceHandler mServiceHandler = null;   
-        
-        
+
         public OperationsServiceBinder(ServiceHandler serviceHandler) {
             mServiceHandler = serviceHandler;
         }
 
 
         /**
-         * Cancels an operation
+         * Cancels a pending or current synchronization.
          *
-         * TODO
+         * @param account       ownCloud account where the remote folder is stored.
+         * @param file          A folder in the queue of pending synchronizations
          */
-        public void cancel() {
-            // TODO
+        public void cancel(Account account, OCFile file) {
+            mSyncFolderHandler.cancel(account, file);
         }
-        
-        
+
+
         public void clearListeners() {
             
             mBoundListeners.clear();

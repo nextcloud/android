@@ -31,6 +31,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 
@@ -140,9 +141,10 @@ public class FileMenuFilter {
         boolean downloading = false;
         boolean uploading = false;
         if (mComponentsGetter != null && mFile != null && mAccount != null) {
-            //downloading = mFile.isDownloading() || mFile.isSynchronizing();
             FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
             downloading = (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile));
+            OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
+            downloading |= (opsBinder != null && opsBinder.isSynchronizing(mAccount, mFile.getRemotePath()));
             FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
             uploading = (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile));
         }

@@ -89,6 +89,10 @@ public class IndexedForest<V> {
         public void removeChild(Node<V> removed) {
             mChildren.remove(removed);
         }
+
+        public void clearPayload() {
+            mPayload = null;
+        }
     }
 
 
@@ -129,6 +133,20 @@ public class IndexedForest<V> {
         return new Pair<String, String>(targetKey, linkedTo);
     };
 
+
+    public Pair<V, String> removePayload(Account account, String remotePath) {
+        String targetKey = buildKey(account, remotePath);
+        Node<V> target = mMap.get(targetKey);
+        if (target != null) {
+            target.clearPayload();
+            if (!target.hasChildren()) {
+                return remove(account, remotePath);
+            }
+        }
+        return new Pair<V, String>(null, null);
+    }
+
+
     public /* synchronized */ Pair<V, String> remove(Account account, String remotePath) {
         String targetKey = buildKey(account, remotePath);
         Node<V> firstRemoved = mMap.remove(targetKey);
@@ -155,14 +173,11 @@ public class IndexedForest<V> {
             if (parent != null) {
                 unlinkedFrom = parent.getKey().substring(account.name.length());
             }
-        }
 
-        if (firstRemoved != null) {
             return new Pair<V, String>(firstRemoved.getPayload(), unlinkedFrom);
-        } else {
-            return new Pair<V, String>(null, unlinkedFrom);
         }
 
+        return new Pair<V, String>(null, null);
     }
 
     private void removeDescendants(Node<V> removed) {
@@ -187,6 +202,11 @@ public class IndexedForest<V> {
         } else {
             return null;
         }
+    }
+
+    public V get(Account account, String remotePath) {
+        String key = buildKey(account, remotePath);
+        return get(key);
     }
 
 

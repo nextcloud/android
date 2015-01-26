@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,7 +21,6 @@ package com.owncloud.android.files.services;
 import java.io.File;
 import java.io.IOException;
 import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -70,8 +69,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_FILE = "FILE";
 
-    public static final String ACTION_CANCEL_FILE_DOWNLOAD = "CANCEL_FILE_DOWNLOAD";
-
     private static final String DOWNLOAD_ADDED_MESSAGE = "DOWNLOAD_ADDED";
     private static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
     public static final String EXTRA_DOWNLOAD_RESULT = "RESULT";    
@@ -86,7 +83,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
     private OwnCloudClient mDownloadClient = null;
-    private Account mLastAccount = null;
+    private Account mCurrentAccount = null;
     private FileDataStorageManager mStorageManager;
     
     private IndexedForest<DownloadFileOperation> mPendingDownloads = new IndexedForest<DownloadFileOperation>();
@@ -154,12 +151,12 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 AbstractList<String> requestedDownloads = new Vector<String>();
                 try {
                     DownloadFileOperation newDownload = new DownloadFileOperation(account, file);
+                    newDownload.addDatatransferProgressListener(this);
+                    newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
                     Pair<String, String> putResult = mPendingDownloads.putIfAbsent(
                         account, file.getRemotePath(), newDownload
                     );
                     String downloadKey = putResult.first;
-                    newDownload.addDatatransferProgressListener(this);
-                    newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
                     requestedDownloads.add(downloadKey);
 
                     // Store file on db with state 'downloading'
@@ -239,9 +236,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             if (download != null) {
                 download.cancel();
             } else {
-                // TODO synchronize
-                if (mCurrentDownload.getRemotePath().startsWith(file.getRemotePath()) &&
-                        account.name.equals(mLastAccount.name)) {
+                if (mCurrentDownload != null && mCurrentAccount != null &&
+                        mCurrentDownload.getRemotePath().startsWith(file.getRemotePath()) &&
+                        account.name.equals(mCurrentAccount.name)) {
                     mCurrentDownload.cancel();
                 }
             }
@@ -362,11 +359,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             RemoteOperationResult downloadResult = null;
             try {
                 /// prepare client object to send the request to the ownCloud server
-                if (mDownloadClient == null || !mLastAccount.equals(mCurrentDownload.getAccount())) {
-                    mLastAccount = mCurrentDownload.getAccount();
+                if (mDownloadClient == null || !mCurrentAccount.equals(mCurrentDownload.getAccount())) {
+                    mCurrentAccount = mCurrentDownload.getAccount();
                     mStorageManager = 
-                            new FileDataStorageManager(mLastAccount, getContentResolver());
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mLastAccount, this);
+                            new FileDataStorageManager(mCurrentAccount, getContentResolver());
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
                     mDownloadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, this);
                 }
@@ -381,15 +378,15 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 }
             
             } catch (AccountsException e) {
-                Log_OC.e(TAG, "Error while trying to get authorization for " + mLastAccount.name, e);
+                Log_OC.e(TAG, "Error while trying to get authorization for " + mCurrentAccount.name, e);
                 downloadResult = new RemoteOperationResult(e);
             } catch (IOException e) {
-                Log_OC.e(TAG, "Error while trying to get authorization for " + mLastAccount.name, e);
+                Log_OC.e(TAG, "Error while trying to get authorization for " + mCurrentAccount.name, e);
                 downloadResult = new RemoteOperationResult(e);
                 
             } finally {
                 Pair<DownloadFileOperation, String> removeResult =
-                        mPendingDownloads.remove(mLastAccount, mCurrentDownload.getRemotePath());
+                        mPendingDownloads.removePayload(mCurrentAccount, mCurrentDownload.getRemotePath());
 
                 /// notify result
                 notifyDownloadResult(mCurrentDownload, downloadResult);

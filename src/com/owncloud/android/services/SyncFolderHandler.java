@@ -28,6 +28,7 @@ import android.util.Pair;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.IndexedForest;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -37,10 +38,6 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * SyncFolder worker. Performs the pending operations in the order they were requested.
@@ -55,9 +52,11 @@ class SyncFolderHandler extends Handler {
 
     OperationsService mService;
 
-    private ConcurrentMap<String,SynchronizeFolderOperation> mPendingOperations =
-            new ConcurrentHashMap<String,SynchronizeFolderOperation>();
+    private IndexedForest<SynchronizeFolderOperation> mPendingOperations =
+            new IndexedForest<SynchronizeFolderOperation>();
+
     private OwnCloudClient mOwnCloudClient = null;
+    private Account mCurrentAccount = null;
     private FileDataStorageManager mStorageManager;
     private SynchronizeFolderOperation mCurrentSyncOperation;
 
@@ -71,18 +70,16 @@ class SyncFolderHandler extends Handler {
     }
 
 
+    /**
+     * Returns True when the folder located in 'remotePath' in the ownCloud account 'account', or any of its
+     * descendants, is being synchronized (or waiting for it).
+     *
+     * @param account       ownCloud account where the remote folder is stored.
+     * @param remotePath    The path to a folder that could be in the queue of synchronizations.
+     */
     public boolean isSynchronizing(Account account, String remotePath) {
         if (account == null || remotePath == null) return false;
-        String targetKey = buildRemoteName(account, remotePath);
-        synchronized (mPendingOperations) {
-            // TODO - this can be slow when synchronizing a big tree - need a better data structure
-            Iterator<String> it = mPendingOperations.keySet().iterator();
-            boolean found = false;
-            while (it.hasNext() && !found) {
-                found = it.next().startsWith(targetKey);
-            }
-            return found;
-        }
+        return (mPendingOperations.contains(account, remotePath));
     }
 
 
@@ -99,24 +96,24 @@ class SyncFolderHandler extends Handler {
      */
     private void doOperation(Account account, String remotePath) {
 
-        String syncKey = buildRemoteName(account,remotePath);
-
-        synchronized(mPendingOperations) {
-            mCurrentSyncOperation = mPendingOperations.get(syncKey);
-        }
+        mCurrentSyncOperation = mPendingOperations.get(account, remotePath);
 
         if (mCurrentSyncOperation != null) {
             RemoteOperationResult result = null;
 
             try {
+                if (mOwnCloudClient == null || !account.equals(mCurrentAccount)) {
+                    /// get client object to send the request to the ownCloud server, if cannot
+                    mCurrentAccount = account;
+                    mStorageManager = new FileDataStorageManager(
+                            account,
+                            mService.getContentResolver()
+                    );
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(account, mService);
+                    mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                            getClientFor(ocAccount, mService);
 
-                OwnCloudAccount ocAccount = new OwnCloudAccount(account, mService);
-                mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                        getClientFor(ocAccount, mService);
-                mStorageManager = new FileDataStorageManager(
-                        account,
-                        mService.getContentResolver()
-                );
+                }   // else, reuse client from previous operation
 
                 result = mCurrentSyncOperation.execute(mOwnCloudClient, mStorageManager);
 
@@ -125,23 +122,7 @@ class SyncFolderHandler extends Handler {
             } catch (IOException e) {
                 Log_OC.e(TAG, "Error while trying to get autorization", e);
             } finally {
-                synchronized (mPendingOperations) {
-                    mPendingOperations.remove(syncKey);
-                    /*
-                    SynchronizeFolderOperation checkedOp = mCurrentSyncOperation;
-                    String checkedKey = syncKey;
-                    while (checkedOp.getPendingChildrenCount() <= 0) {
-                    // while (!checkedOp.hasChildren()) {
-                        mPendingOperations.remove(checkedKey);
-                        String parentKey = buildRemoteName(account, (new File(checkedOp.getFolderPath())).getParent());
-                        // String parentKey = buildRemoteName(account, checkedOp.getParentPath());
-                        SynchronizeFolderOperation parentOp = mPendingOperations.get(parentKey);
-                        if (parentOp != null) {
-                            parentOp.decreasePendingChildrenCount();
-                        }
-                    }
-                    */
-                }
+                mPendingOperations.removePayload(account, remotePath);
 
                 mService.dispatchResultToOperationListeners(null, mCurrentSyncOperation, result);
 
@@ -151,59 +132,38 @@ class SyncFolderHandler extends Handler {
     }
 
     public void add(Account account, String remotePath, SynchronizeFolderOperation syncFolderOperation){
-        String syncKey = buildRemoteName(account,remotePath);
-        mPendingOperations.putIfAbsent(syncKey,syncFolderOperation);
-        sendBroadcastNewSyncFolder(account, remotePath);
+        mPendingOperations.putIfAbsent(account, remotePath, syncFolderOperation);
+        sendBroadcastNewSyncFolder(account, remotePath);    // TODO upgrade!
     }
 
+
     /**
-     * Cancels sync operations.
-     * @param account       Owncloud account where the remote file is stored.
-     * @param file          File OCFile
+     * Cancels a pending or current sync' operation.
+     *
+     * @param account       ownCloud account where the remote file is stored.
+     * @param file          A file in the queue of pending synchronizations
      */
     public void cancel(Account account, OCFile file){
-        SynchronizeFolderOperation syncOperation = null;
-        String targetKey = buildRemoteName(account, file.getRemotePath());
-        ArrayList<String> keyItems = new ArrayList<String>();
-        synchronized (mPendingOperations) {
-            if (file.isFolder()) {
-                Log_OC.d(TAG, "Canceling pending sync operations");
-                Iterator<String> it = mPendingOperations.keySet().iterator();
-                boolean found = false;
-                while (it.hasNext()) {
-                    String keySyncOperation = it.next();
-                    found = keySyncOperation.startsWith(targetKey);
-                    if (found) {
-                        keyItems.add(keySyncOperation);
-                    }
-                }
-
-            } else {
-                // this is not really expected...
-                Log_OC.d(TAG, "Canceling sync operation");
-                keyItems.add(buildRemoteName(account, file.getRemotePath()));
-            }
-            for (String item: keyItems) {
-                syncOperation = mPendingOperations.remove(item);
-                if (syncOperation != null) {
-                    syncOperation.cancel();
-                }
+        if (account == null || file == null) {
+            Log_OC.e(TAG, "Cannot cancel with NULL parameters");
+            return;
+        }
+        Pair<SynchronizeFolderOperation, String> removeResult =
+                mPendingOperations.remove(account, file.getRemotePath());
+        SynchronizeFolderOperation synchronization = removeResult.first;
+        if (synchronization != null) {
+            synchronization.cancel();
+        } else {
+            // TODO synchronize
+            if (mCurrentSyncOperation != null && mCurrentAccount != null &&
+                    mCurrentSyncOperation.getFolderPath().startsWith(file.getRemotePath()) &&
+                    account.name.equals(mCurrentAccount.name)) {
+                mCurrentSyncOperation.cancel();
             }
         }
 
         //sendBroadcastFinishedSyncFolder(account, file.getRemotePath());
     }
-
-    /**
-     * Builds a key from the account and file to download
-     *
-     * @param account   Account where the file to download is stored
-     * @param path      File path
-     */
-    private String buildRemoteName(Account account, String path) {
-        return account.name + path;
-    }
-
 
     /**
      * TODO review this method when "folder synchronization" replaces "folder download"; this is a fast and ugly

@@ -285,18 +285,15 @@ public class FileOperationsHelper {
     public void cancelTransference(OCFile file) {
         Account account = mFileActivity.getAccount();
         if (file.isFolder()) {
-            // this goes to the queue!! :S
-            Intent intent = new Intent(mFileActivity, OperationsService.class);
-            intent.setAction(OperationsService.ACTION_CANCEL_SYNC_FOLDER);
-            intent.putExtra(OperationsService.EXTRA_ACCOUNT, account);
-            intent.putExtra(OperationsService.EXTRA_FILE, file);
-            mFileActivity.startService(intent);
+            OperationsService.OperationsServiceBinder opsBinder = mFileActivity.getOperationsServiceBinder();
+            if (opsBinder != null) {
+                opsBinder.cancel(account, file);
+            }
         }
 
         // for both files and folders
         FileDownloaderBinder downloaderBinder = mFileActivity.getFileDownloaderBinder();
         FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
-        //if (downloaderBinder != null && file.isDownloading()) {
         if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
             downloaderBinder.cancel(account, file);
 
