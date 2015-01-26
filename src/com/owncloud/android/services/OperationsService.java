@@ -169,7 +169,7 @@ public class OperationsService extends Service {
         // the rest of the operations are requested through the Binder
         if (ACTION_SYNC_FOLDER.equals(intent.getAction())) {
 
-            Log_OC.v("NOW " + TAG + ", thread " + Thread.currentThread().getName(), "Received request to sync folder");
+            /*Log_OC.v("NOW " + TAG + ", thread " + Thread.currentThread().getName(), "Received request to sync folder");*/
 
             if (!intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_REMOTE_PATH)) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
@@ -186,10 +186,10 @@ public class OperationsService extends Service {
                 Message msg = mSyncFolderHandler.obtainMessage();
                 msg.arg1 = startId;
                 msg.obj = itemSyncKey;
-                Log_OC.v(
+                /*Log_OC.v(
                         "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
                         "Sync folder " + remotePath + " added to queue"
-                );
+                );*/
                 mSyncFolderHandler.sendMessage(msg);
             }
 
@@ -276,10 +276,10 @@ public class OperationsService extends Service {
          * @param file          A folder in the queue of pending synchronizations
          */
         public void cancel(Account account, OCFile file) {
-            Log_OC.v(
+            /*Log_OC.v(
                     "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
                     "Received request to cancel folder " + file.getRemotePath()
-            );
+            );*/
             mSyncFolderHandler.cancel(account, file);
         }
 
