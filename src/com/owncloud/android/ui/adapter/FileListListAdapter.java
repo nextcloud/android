@@ -149,11 +149,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         OCFile file = null;
         LayoutInflater inflator = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        
+
         if (mFiles != null && mFiles.size() > position) {
             file = mFiles.get(position);
         }
-        
+
         // Find out which layout should be displayed
         ViewType viewType;
         if (!fileView){
@@ -166,15 +166,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
         // Create View
         switch (viewType){
-        case GRID_IMAGE:
-            view = inflator.inflate(R.layout.grid_image, null);
-            break;
-        case GRID_ITEM:
-            view = inflator.inflate(R.layout.grid_item, null);
-            break;
-        case LIST_ITEM:
-            view = inflator.inflate(R.layout.list_item, null);
-            break;
+            case GRID_IMAGE:
+                view = inflator.inflate(R.layout.grid_image, null);
+                break;
+            case GRID_ITEM:
+                view = inflator.inflate(R.layout.grid_item, null);
+                break;
+            case LIST_ITEM:
+                view = inflator.inflate(R.layout.list_item, null);
+                break;
         }
 
         view.invalidate();
@@ -184,49 +184,56 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
             TextView fileName;
             String name;
-            
-            switch (viewType){
-            case LIST_ITEM:
-                fileName = (TextView) view.findViewById(R.id.Filename);
-                name = file.getFileName();
-                fileName.setText(name);
-                
-                TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
-                TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
-                ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
-                
-                lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(showRelativeTimestamp(file));
-                
-                checkBoxV.setVisibility(View.GONE);
-                
-                fileSizeV.setVisibility(View.VISIBLE);
-                fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
-                
-                ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
-                
 
-                if (file.isShareByLink()) {
-                    sharedIconV.setVisibility(View.VISIBLE);
-                } else {
-                    sharedIconV.setVisibility(View.GONE);
-                }
-                
-                ImageView localStateView = (ImageView) view.findViewById(R.id.localFileIndicator);
-                
-                if (!file.isFolder()) {
-                    GridView parentList = (GridView)parent;
-                    if (parentList.getChoiceMode() == GridView.CHOICE_MODE_NONE) { 
-                        checkBoxV.setVisibility(View.GONE);
-                    } else {
-                        if (parentList.isItemChecked(position)) {
-                            checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
+            switch (viewType){
+                case LIST_ITEM:
+                    TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
+                    TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
+                    ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
+
+                    lastModV.setVisibility(View.VISIBLE);
+                    lastModV.setText(showRelativeTimestamp(file));
+
+                    checkBoxV.setVisibility(View.GONE);
+
+                    fileSizeV.setVisibility(View.VISIBLE);
+                    fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+
+                    if (!file.isFolder()) {
+                        GridView parentList = (GridView)parent;
+                        if (parentList.getChoiceMode() == GridView.CHOICE_MODE_NONE) {
+                            checkBoxV.setVisibility(View.GONE);
                         } else {
-                            checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
+                            if (parentList.isItemChecked(position)) {
+                                checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
+                            } else {
+                                checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
+                            }
+                            checkBoxV.setVisibility(View.VISIBLE);
                         }
-                        checkBoxV.setVisibility(View.VISIBLE);
+
+                    } else { //Folder
+                        fileSizeV.setVisibility(View.INVISIBLE);
                     }
-                    
+
+                case GRID_ITEM:
+                    // filename
+                    fileName = (TextView) view.findViewById(R.id.Filename);
+                    name = file.getFileName();
+                    fileName.setText(name);
+
+                case GRID_IMAGE:
+                    // sharedIcon
+                    ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
+                    if (file.isShareByLink()) {
+                        sharedIconV.setVisibility(View.VISIBLE);
+                        sharedIconV.bringToFront();
+                    } else {
+                        sharedIconV.setVisibility(View.GONE);
+                    }
+
+                    // local state
+                    ImageView localStateView = (ImageView) view.findViewById(R.id.localFileIndicator);
                     localStateView.bringToFront();
                     FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
                     FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
@@ -242,25 +249,19 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     } else {
                         localStateView.setVisibility(View.INVISIBLE);
                     }
-                    
-                    ImageView sharedWithMeIconV = (ImageView) view.findViewById(R.id.sharedWithMeIcon);
-                    if (checkIfFileIsSharedWithMe(file)) {
-                        sharedWithMeIconV.setVisibility(View.VISIBLE);
-                    } else {
-                        sharedWithMeIconV.setVisibility(View.GONE);
+
+                    // share with me icon
+                    if (!file.isFolder()) {
+                        ImageView sharedWithMeIconV = (ImageView) view.findViewById(R.id.sharedWithMeIcon);
+                        sharedWithMeIconV.bringToFront();
+                        if (checkIfFileIsSharedWithMe(file)) {
+                            sharedWithMeIconV.setVisibility(View.VISIBLE);
+                        } else {
+                            sharedWithMeIconV.setVisibility(View.GONE);
+                        }
                     }
-                } else { //Folder
-                    fileSizeV.setVisibility(View.INVISIBLE);
-                    localStateView.setVisibility(View.INVISIBLE);
-                }
-                break;
-            case GRID_ITEM:
-                fileName = (TextView) view.findViewById(R.id.Filename);
-                name = file.getFileName();
-                fileName.setText(name);
-                break;
-            case GRID_IMAGE:
-                break;
+
+                    break;
             }
             
             // For all Views
@@ -318,7 +319,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName())
                     );
                 }
-            }           
+            }
         }
 
         return view;
