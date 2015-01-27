@@ -383,14 +383,19 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             RemoteOperationResult downloadResult = null;
             try {
                 /// prepare client object to send the request to the ownCloud server
-                if (mDownloadClient == null || !mCurrentAccount.equals(mCurrentDownload.getAccount())) {
+                if (mCurrentAccount == null || !mCurrentAccount.equals(mCurrentDownload.getAccount())) {
                     mCurrentAccount = mCurrentDownload.getAccount();
-                    mStorageManager = 
-                            new FileDataStorageManager(mCurrentAccount, getContentResolver());
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
-                    mDownloadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                            getClientFor(ocAccount, this);
-                }
+                    mStorageManager = new FileDataStorageManager(
+                            mCurrentAccount,
+                            getContentResolver()
+                    );
+                }   // else, reuse storage manager from previous operation
+
+                // always get client from client manager, to get fresh credentials in case of update
+                OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
+                mDownloadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                        getClientFor(ocAccount, this);
+
 
                 /// perform the download
                 /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
@@ -398,9 +403,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 downloadResult = mCurrentDownload.execute(mDownloadClient);
                 if (downloadResult.isSuccess()) {
                     saveDownloadedFile();
-                /*} else {
-                    updateUnsuccessfulDownloadedFile();
-                    */
                 }
             
             } catch (AccountsException e) {
@@ -443,7 +445,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         file.setStoragePath(mCurrentDownload.getSavePath());
         file.setFileLength((new File(mCurrentDownload.getSavePath()).length()));
         file.setRemoteId(mCurrentDownload.getFile().getRemoteId());
-        //file.setDownloading(false);
         mStorageManager.saveFile(file);
         mStorageManager.triggerMediaScan(file.getStoragePath());
     }
@@ -556,8 +557,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 mNotificationBuilder
                     .setContentIntent(PendingIntent.getActivity(
                         this, (int) System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT));
-                
-                mDownloadClient = null;  // grant that future retries on the same account will get the fresh credentials
                 
             } else {
                 // TODO put something smart in showDetailsIntent

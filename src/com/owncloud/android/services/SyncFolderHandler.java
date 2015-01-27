@@ -106,18 +106,19 @@ class SyncFolderHandler extends Handler {
             RemoteOperationResult result = null;
 
             try {
-                if (mOwnCloudClient == null || !account.equals(mCurrentAccount)) {
-                    /// get client object to send the request to the ownCloud server, if cannot
+
+                if (mCurrentAccount == null || !mCurrentAccount.equals(account)) {
                     mCurrentAccount = account;
                     mStorageManager = new FileDataStorageManager(
                             account,
                             mService.getContentResolver()
                     );
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(account, mService);
-                    mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                            getClientFor(ocAccount, mService);
+                }   // else, reuse storage manager from previous operation
 
-                }   // else, reuse client from previous operation
+                // always get client from client manager, to get fresh credentials in case of update
+                OwnCloudAccount ocAccount = new OwnCloudAccount(account, mService);
+                mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                        getClientFor(ocAccount, mService);
 
                 /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
                         "Executing sync folder " + remotePath);*/
