@@ -216,8 +216,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('owncloud.1', 'owncloud', u'Android synchronisation and file management 
-utility.',
+    ('owncloud.1', 'owncloud', u'Android synchronisation and file management utility.',
      [u'The ownCloud developers'], 1),
     ('owncloudcmd.1', 'owncloudcmd', u'ownCloud Android app.',
      [u'The ownCloud developers'], 1),
