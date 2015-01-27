@@ -2,8 +2,7 @@
 <!--
   ownCloud Android client application
 
-  Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2012-2013 ownCloud Inc.
+  Copyright (C) 2014 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -31,6 +30,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
+        <ImageView
+            android:id="@+id/sharedIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|left"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/sharedlink" />
+
+        <ImageView
+            android:id="@+id/sharedWithMeIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/shared_with_me" />
+
         <com.owncloud.android.ui.SquareImageView
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
@@ -41,6 +58,15 @@
             android:src="@drawable/ic_menu_archive" />
 
         <ImageView
+            android:id="@+id/localFileIndicator"
+            android:layout_width="@dimen/file_icon_size"
+            android:layout_height="@dimen/file_icon_size"
+            android:layout_gravity="top|right"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
+            android:src="@drawable/local_file_indicator" />
+
+        <ImageView
             android:id="@+id/favoriteIcon"
             android:layout_width="15dp"
             android:layout_height="15dp"
@@ -48,6 +74,8 @@
             android:layout_marginBottom="2dp"
             android:layout_marginRight="2dp"
             android:src="@drawable/ic_favorite" />
+
+
 
     </FrameLayout>
 
