@@ -19,11 +19,8 @@ package com.owncloud.android.ui.adapter;
 
 
 import java.io.File;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Vector;
 
-import third_parties.daveKoeller.AlphanumComparator;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -46,6 +43,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -70,12 +68,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
-    
+
     private SharedPreferences mAppPreferences;
     
     public FileListListAdapter(
             boolean justFolders, 
-            Context context, 
+            Context context,
             ComponentsGetter transferServiceGetter
             ) {
 
@@ -84,7 +82,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
         mTransferServiceGetter = transferServiceGetter;
-        
+
         mAppPreferences = PreferenceManager
                 .getDefaultSharedPreferences(mContext);
         
@@ -155,10 +153,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
             ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
             localStateView.bringToFront();
-            FileDownloaderBinder downloaderBinder = 
-                    mTransferServiceGetter.getFileDownloaderBinder();
+            FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
-            if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
+            boolean downloading = (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file));
+            OperationsServiceBinder opsBinder = mTransferServiceGetter.getOperationsServiceBinder();
+            downloading |= (opsBinder != null && opsBinder.isSynchronizing(mAccount, file.getRemotePath()));
+            if (downloading) {
                 localStateView.setImageResource(R.drawable.downloading_file_indicator);
                 localStateView.setVisibility(View.VISIBLE);
             } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
