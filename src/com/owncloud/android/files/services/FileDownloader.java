@@ -140,19 +140,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                     "Received request to download file"
             );*/
 
-            /*
-            if (ACTION_CANCEL_FILE_DOWNLOAD.equals(intent.getAction())) {
-
-                new Thread(new Runnable() {
-                    public void run() {
-                        // Cancel the download
-                        cancel(account, file);
-                    }
-                }).start();
-
-            } else {
-            */
-
                 AbstractList<String> requestedDownloads = new Vector<String>();
                 try {
                     DownloadFileOperation newDownload = new DownloadFileOperation(account, file);

@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
+ *   Copyright (C) 2012-2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -208,35 +208,11 @@ public class FileOperationsHelper {
             mFileActivity.showLoadingDialog();
             
         } else {
-            /*
-            // Add files recursivly
-            FileDataStorageManager storageManager = mFileActivity.getStorageManager();
-            filesList.addAll(storageManager.getFolderContent(file));
-            boolean newfiles;
-            do {
-                Vector<OCFile> tmpFolders = new Vector<OCFile>();
-                for (OCFile tmpfile : filesList) {
-                    if (tmpfile.isFolder()) {
-                        tmpFolders.add(tmpfile);
-                    }
-                }
-                if (tmpFolders.isEmpty()){
-                    newfiles = false;
-                }else {
-                    for(OCFile tmpFolder : tmpFolders){
-                        filesList.remove(tmpFolder);
-                        filesList.addAll(storageManager.getFolderContent(tmpFolder));
-                    }
-                    newfiles = true;
-                }
-            } while(newfiles);
-            */
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
             intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            mFileActivity.startService(intent);   // reevaluating: with or without Binder?
-            //mFileActivity.getOperationsServiceBinder().queueNewOperation(intent);
+            mFileActivity.startService(intent);
         }
     }
     
