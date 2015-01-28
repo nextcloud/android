@@ -29,6 +29,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
+        <com.owncloud.android.ui.SquareImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_menu_archive"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,14 +62,6 @@
                 android:src="@drawable/shared_with_me"
                 android:visibility="invisible" />
         </LinearLayout>
-        <com.owncloud.android.ui.SquareImageView
-            android:id="@+id/thumbnail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_menu_archive"/>
 
         <ImageView
             android:id="@+id/localFileIndicator"
