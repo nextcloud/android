@@ -194,6 +194,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
         cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
+        cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
         
         boolean sameRemotePath = fileExists(file.getRemotePath());
         if (sameRemotePath ||
@@ -303,6 +304,7 @@ public class FileDataStorageManager {
             cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
             cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
             cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
+            cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
 
             boolean existsByPath = fileExists(file.getRemotePath());
             if (existsByPath || fileExists(file.getFileId())) {
@@ -879,6 +881,8 @@ public class FileDataStorageManager {
             file.setRemoteId(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID)));
             file.setNeedsUpdateThumbnail(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1 ? true : false);
+            file.setDownloading(c.getInt(
+                    c.getColumnIndex(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1 ? true : false);
                     
         }
         return file;
@@ -1260,6 +1264,10 @@ public class FileDataStorageManager {
                 cv.put(
                     ProviderTableMeta.FILE_UPDATE_THUMBNAIL, 
                     file.needsUpdateThumbnail() ? 1 : 0
+                );
+                cv.put(
+                        ProviderTableMeta.FILE_IS_DOWNLOADING,
+                        file.isDownloading() ? 1 : 0
                 );
 
                 boolean existsByPath = fileExists(file.getRemotePath());

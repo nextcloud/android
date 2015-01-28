@@ -54,6 +54,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 
 import com.owncloud.android.services.OperationsService;
@@ -464,7 +465,10 @@ implements OnRemoteOperationListener, ComponentsGetter {
         } else if (operation instanceof UnshareLinkOperation) {
             onUnshareLinkOperationFinish((UnshareLinkOperation)operation, result);
         
-        } 
+        } else if (operation instanceof SynchronizeFolderOperation) {
+            onSynchronizeFolderOperationFinish((SynchronizeFolderOperation)operation, result);
+
+        }
     }
 
     protected void requestCredentialsUpdate() {
@@ -506,7 +510,14 @@ implements OnRemoteOperationListener, ComponentsGetter {
             t.show();
         } 
     }
-    
+
+    private void onSynchronizeFolderOperationFinish(SynchronizeFolderOperation operation, RemoteOperationResult result) {
+        if (!result.isSuccess() && result.getCode() != ResultCode.CANCELLED){
+            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                    Toast.LENGTH_LONG);
+            t.show();
+        }
+    }
     
     protected void updateFileFromDB(){
         OCFile file = getFile();

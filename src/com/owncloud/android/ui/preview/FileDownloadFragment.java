@@ -211,10 +211,11 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
      * @param   transferring    When true, the view must be updated assuming that the holded file is 
      *                          downloading, no matter what the downloaderBinder says.
      */
+    /*
     public void updateView(boolean transferring) {
         // configure UI for depending upon local state of the file
-        FileDownloaderBinder downloaderBinder = (mContainerActivity == null) ? null : mContainerActivity.getFileDownloaderBinder();
-        if (transferring || (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, getFile()))) {
+        // TODO remove
+        if (transferring || getFile().isDownloading()) {
             setButtonsForTransferring();
             
         } else if (getFile().isDown()) {
@@ -227,7 +228,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         getView().invalidate();
         
     }
-
+    */
 
     /**
      * Enables or disables buttons for a file being downloaded

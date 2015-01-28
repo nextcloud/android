@@ -79,8 +79,13 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     private String mAccountName;
     private boolean mShowContextMenu = false;
     private String mUploadPath;
+    private PreferenceCategory mPrefInstantUploadCategory;
+    private Preference mPrefInstantUpload;
     private Preference mPrefInstantUploadPath;
+    private Preference mPrefInstantUploadPathWiFi;
+    private Preference mPrefInstantVideoUpload;
     private Preference mPrefInstantVideoUploadPath;
+    private Preference mPrefInstantVideoUploadPathWiFi;
     private String mUploadVideoPath;
 
 
@@ -275,7 +280,23 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                     }
                 });
         }
-
+        
+        mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
+        
+        mPrefInstantUploadPathWiFi =  findPreference("instant_upload_on_wifi");
+        mPrefInstantUpload = findPreference("instant_uploading");
+        
+        toggleInstantPictureOptions(((CheckBoxPreference) mPrefInstantUpload).isChecked());
+        
+        mPrefInstantUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                toggleInstantPictureOptions((Boolean) newValue);
+                return true;
+            }
+        });
+       
         mPrefInstantVideoUploadPath =  findPreference("instant_video_upload_path");
         if (mPrefInstantVideoUploadPath != null){
 
@@ -292,6 +313,19 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                     }
                 });
         }
+        
+        mPrefInstantVideoUploadPathWiFi =  findPreference("instant_video_upload_on_wifi");
+        mPrefInstantVideoUpload = findPreference("instant_video_uploading");
+        toggleInstantVideoOptions(((CheckBoxPreference) mPrefInstantVideoUpload).isChecked());
+        
+        mPrefInstantVideoUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                toggleInstantVideoOptions((Boolean) newValue);
+                return true;
+            }
+        });
             
         /* About App */
        pAboutApp = (Preference) findPreference("about_app");
@@ -303,6 +337,26 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
        loadInstantUploadPath();
        loadInstantUploadVideoPath();
 
+    }
+    
+    private void toggleInstantPictureOptions(Boolean value){
+        if (value){
+            mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPathWiFi);
+            mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPath);
+        } else {
+            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPathWiFi);
+            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPath);
+        }
+    }
+    
+    private void toggleInstantVideoOptions(Boolean value){
+        if (value){
+            mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPathWiFi);
+            mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPath);
+        } else {
+            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPathWiFi);
+            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPath);
+        }
     }
 
     @Override
