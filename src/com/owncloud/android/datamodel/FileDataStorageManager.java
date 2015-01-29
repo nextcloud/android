@@ -494,7 +494,7 @@ public class FileDataStorageManager {
                 if (removeLocalCopy && file.isDown() && localPath != null && success) {
                     success = new File(localPath).delete();
                     if (success) {
-                        deleteFileInMediaScan(file);
+                        deleteFileInMediaScan(localPath);
                     }
                     if (!removeDBData && success) {
                         // maybe unnecessary, but should be checked TODO remove if unnecessary
@@ -556,7 +556,8 @@ public class FileDataStorageManager {
                             File localFile = new File(file.getStoragePath());
                             success &= localFile.delete();
                             if (success) {
-                                deleteFileInMediaScan(file); // notify MediaScanner about removed file
+                                // notify MediaScanner about removed file
+                                deleteFileInMediaScan(file.getStoragePath());
                                 file.setStoragePath(null);
                                 saveFile(file);
                             }
@@ -716,13 +717,11 @@ public class FileDataStorageManager {
                 Iterator<String> it = originalPathsToTriggerMediaScan.iterator();
                 while (it.hasNext()) {
                     // Notify MediaScanner about removed file
-                    deleteFileInMediaScan(file);
-                    triggerMediaScan(it.next());
+                    deleteFileInMediaScan(it.next());
                 }
                 it = newPathsToTriggerMediaScan.iterator();
                 while (it.hasNext()) {
                     // Notify MediaScanner about new file/folder
-                    deleteFileInMediaScan(file);
                     triggerMediaScan(it.next());
                 }
             }
@@ -1500,22 +1499,23 @@ public class FileDataStorageManager {
         MainApp.getAppContext().sendBroadcast(intent);
     }
 
-    public void deleteFileInMediaScan(OCFile file) {
+    public void deleteFileInMediaScan(String path) {
 
-        String path = file.getStoragePath();
-        if (file.isImage()) {
+        String mimetypeString = FileStorageUtils.getMimeTypeFromName(path);
+        if (mimetypeString.startsWith("image/")) {
             // Images
             getContentResolver().delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                     MediaStore.Images.Media.DATA + "=?", new String[]{path});
-        } else if (file.isAudio()) {
+        } else if (mimetypeString.startsWith("audio/")) {
             // Audio
             getContentResolver().delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                     MediaStore.Audio.Media.DATA + "=?", new String[]{path});
-        } else if (file.isVideo()) {
+        } else if (mimetypeString.startsWith("video/")) {
             // Video
             getContentResolver().delete(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                     MediaStore.Video.Media.DATA + "=?", new String[]{path});
         }
+
     }
 
 }
