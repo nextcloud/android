@@ -46,7 +46,7 @@
   <string name="auth_host_url">Dirección del servidor https://…</string>
   <string name="auth_username">Nombre de usuario</string>
   <string name="auth_password">Contraseña</string>
-  <string name="auth_register">¿Nuevo para %1$s?</string>
+  <string name="auth_register">¿Nuevo en %1$s?</string>
   <string name="sync_string_files">Archivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
@@ -297,7 +297,7 @@
   <string name="forbidden_permissions_move">para mover este archivo</string>
   <string name="prefs_category_instant_uploading">Subidas instantáneas</string>
   <string name="prefs_category_security">Seguridad</string>
-  <string name="prefs_instant_video_upload_path_title">Ruta de vídeo de subida</string>
+  <string name="prefs_instant_video_upload_path_title">Guardar videos subidos en la carpeta:</string>
   <string name="shared_subject_header">compartido</string>
   <string name="with_you_subject_header">contigo</string>
   <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
