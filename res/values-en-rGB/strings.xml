@@ -298,6 +298,7 @@
   <string name="prefs_category_instant_uploading">Instant Uploads</string>
   <string name="prefs_category_security">Security</string>
   <string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
+  <string name="download_folder_failed_content">Download of %1$s folder could not be completed</string>
   <string name="shared_subject_header">shared</string>
   <string name="with_you_subject_header">with you</string>
   <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>

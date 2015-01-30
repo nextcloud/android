@@ -283,7 +283,7 @@
   <string name="auth_redirect_non_secure_connection_title">暗号化接続は非暗号化接続にリダイレクトされました。</string>
   <string name="actionbar_logger">ログ</string>
   <string name="log_send_history_button">ログを送信</string>
-  <string name="log_send_no_mail_app">ログを送るアプリが見つかりませんでした。メールアプリをインストールして下さい。</string>
+  <string name="log_send_no_mail_app">ログを送信するアプリが見つかりませんでした。メールアプリをインストールしてください。</string>
   <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
   <string name="log_progress_dialog_text">読込中 ...</string>
   <string name="saml_authentication_required_text">認証を必要とする</string>

@@ -299,6 +299,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="prefs_category_instant_uploading">Envío instantáneo</string>
   <string name="prefs_category_security">Seguranza</string>
   <string name="prefs_instant_video_upload_path_title">Enviar a ruta do vídeo</string>
+  <string name="download_folder_failed_content">A descarga do cartafol %1$s non se puido completar</string>
   <string name="shared_subject_header">compartido</string>
   <string name="with_you_subject_header">con vostede</string>
   <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
