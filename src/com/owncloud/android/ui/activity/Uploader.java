@@ -26,14 +26,6 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.utils.Log_OC;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
@@ -46,6 +38,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -59,13 +52,26 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ErrorMessageAdapter;
+
 
 /**
  * This can be used to upload things to an ownCloud instance.
@@ -73,7 +79,7 @@ import com.owncloud.android.utils.DisplayUtils;
  * @author Bartek Przybylski
  * 
  */
-public class Uploader extends SherlockListActivity implements OnItemClickListener, android.view.View.OnClickListener {
+public class Uploader extends FileActivity implements OnItemClickListener, android.view.View.OnClickListener {
     private static final String TAG = "ownCloudUploader";
 
     private Account mAccount;
@@ -84,7 +90,7 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
     private String mUploadPath;
     private FileDataStorageManager mStorageManager;
     private OCFile mFile;
-
+    
     private final static int DIALOG_NO_ACCOUNT = 0;
     private final static int DIALOG_WAITING = 1;
     private final static int DIALOG_NO_STREAM = 2;
@@ -268,6 +274,13 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
             uploadFiles();
 
             break;
+            
+        case R.id.uploader_new_folder:
+            CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(mFile);
+            dialog.show(getSupportFragmentManager(), "createdirdialog");
+            break;
+            
+            
         default:
             throw new IllegalArgumentException("Wrong element clicked");
         }
@@ -297,6 +310,8 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
 
     private void populateDirectoryList() {
         setContentView(R.layout.uploader_layout);
+        
+        ListView mListView = (ListView) findViewById(android.R.id.list);
 
         String current_dir = mParents.peek();
         if(current_dir.equals("")){
@@ -330,10 +345,15 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
                                                 R.layout.uploader_list_item_layout,
                                                 new String[] {"dirname"},
                                                 new int[] {R.id.textView1});
-            setListAdapter(sa);
-            Button btn = (Button) findViewById(R.id.uploader_choose_folder);
-            btn.setOnClickListener(this);
-            getListView().setOnItemClickListener(this);
+            
+            mListView.setAdapter(sa);
+            Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
+            btnChooseFolder.setOnClickListener(this);
+            
+            Button btnNewFolder = (Button) findViewById(R.id.uploader_new_folder);
+            btnNewFolder.setOnClickListener(this);
+            
+            mListView.setOnItemClickListener(this);
         }
     }
 
@@ -451,6 +471,42 @@ public class Uploader extends SherlockListActivity implements OnItemClickListene
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();            
         }
     }
+    
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        super.onRemoteOperationFinish(operation, result);
+        
+      
+        if (operation instanceof CreateFolderOperation) {
+            onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
+        }
+        
+    }
+    
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying create a new folder
+     * 
+     * @param operation     Creation operation performed.
+     * @param result        Result of the creation.
+     */
+    private void onCreateFolderOperationFinish(CreateFolderOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            dismissLoadingDialog();
+            populateDirectoryList();
+        } else {
+            dismissLoadingDialog();
+            try {
+                Toast msg = Toast.makeText(this, 
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                        Toast.LENGTH_LONG); 
+                msg.show();
+
+            } catch (NotFoundException e) {
+                Log_OC.e(TAG, "Error while trying to show fail message " , e);
+            }
+        }
+    }
+    
     
     /**
      *  Loads the target folder initialize shown to the user.

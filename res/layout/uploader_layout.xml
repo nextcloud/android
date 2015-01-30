@@ -31,10 +31,29 @@
 			android:layout_height="fill_parent" android:divider="@drawable/uploader_list_separator"
 			android:dividerHeight="1dip"></ListView>
 	</FrameLayout>
-	<LinearLayout android:id="@+id/linearLayout1"
-		android:layout_width="fill_parent" android:layout_alignParentBottom="true" android:layout_height="wrap_content" android:orientation="vertical">
-		<Button android:layout_gravity="bottom" android:layout_height="wrap_content"
-			android:layout_width="fill_parent" android:id="@+id/uploader_choose_folder"
-			android:text="@string/uploader_btn_upload_text"/>
+
+	<LinearLayout
+	    android:id="@+id/linearLayout1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:orientation="horizontal" >
+
+		<Button
+		    android:id="@+id/uploader_new_folder"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="bottom"
+		    android:layout_weight="1"
+		    android:text="@string/uploader_btn_new_folder_text" />
+		
+		<Button
+		    android:id="@+id/uploader_choose_folder"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="bottom"
+		    android:layout_weight="1"
+		    android:text="@string/uploader_btn_upload_text" />
+
 	</LinearLayout>
 </RelativeLayout>
