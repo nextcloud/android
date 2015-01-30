@@ -120,11 +120,11 @@ public class SsoWebViewClient extends WebViewClient {
     public void onPageFinished (WebView view, String url) {
         Log_OC.d(TAG, "onPageFinished : " + url);
         mLastReloadedUrlAtError = null;
+        CookieManager cookieManager = CookieManager.getInstance();
+        final String cookies = cookieManager.getCookie(url);
+        Log_OC.d(TAG, "Cookies: " + cookies);
         if (url.startsWith(mTargetUrl)) {
             view.setVisibility(View.GONE);
-            CookieManager cookieManager = CookieManager.getInstance();
-            final String cookies = cookieManager.getCookie(url);
-            Log_OC.d(TAG, "Cookies: " + cookies);
             if (mListenerHandler != null && mListenerRef != null) {
                 // this is good idea because onPageFinished is not running in the UI thread
                 mListenerHandler.post(new Runnable() {

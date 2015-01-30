@@ -1020,12 +1020,11 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         dismissDialog(WAIT_DIALOG_TAG);
 
         if (result.isIdPRedirection()) {
-            String url = result.getRedirectedLocation();
             String targetUrl = mServerInfo.mBaseUrl 
                     + AccountUtils.getWebdavPath(mServerInfo.mVersion, mAuthTokenType);
 
             // Show dialog
-            SamlWebViewDialog dialog = SamlWebViewDialog.newInstance(url, targetUrl);            
+            SamlWebViewDialog dialog = SamlWebViewDialog.newInstance(targetUrl, targetUrl);            
             dialog.show(getSupportFragmentManager(), SAML_DIALOG_TAG);
 
             mAuthStatusIcon = 0;

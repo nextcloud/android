@@ -17,6 +17,8 @@
 
 package com.owncloud.android.ui.dialog;
 
+import org.apache.commons.httpclient.methods.PostMethod;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -144,11 +146,6 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
             mSsoWebView.setFocusableInTouchMode(true);
             mSsoWebView.setClickable(true);
             
-            CookieManager cookieManager = CookieManager.getInstance();
-            cookieManager.setAcceptCookie(true);
-            cookieManager.removeAllCookie();
-            mSsoWebView.loadUrl(mInitialUrl);
-          
             WebSettings webSettings = mSsoWebView.getSettings();
             webSettings.setJavaScriptEnabled(true);
             webSettings.setBuiltInZoomControls(false);
@@ -156,6 +153,12 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
             webSettings.setSavePassword(false);
             webSettings.setUserAgentString(OwnCloudClient.USER_AGENT);
             webSettings.setSaveFormData(false);
+            
+            CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.setAcceptCookie(true);
+            cookieManager.removeAllCookie();
+            
+            mSsoWebView.loadUrl(mInitialUrl);
         }
         
         mWebViewClient.setTargetUrl(mTargetUrl);
