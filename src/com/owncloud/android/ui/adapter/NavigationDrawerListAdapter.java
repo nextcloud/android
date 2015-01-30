@@ -1,10 +1,13 @@
 package com.owncloud.android.ui.adapter;
 
+import java.nio.ByteBuffer;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +20,9 @@ import android.widget.TextView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.utils.BitmapUtils;
 
 public class NavigationDrawerListAdapter extends BaseAdapter {
 
@@ -94,8 +99,29 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
                 for (Account account : mAccounts) {
                     RadioButton rb = new RadioButton(mContext);
                     rb.setText(account.name);
-                    rb.setTextColor(mContext.getResources().getColor(R.color.black));
 
+                    try {
+                        byte[] bytesOfMessage = account.name.substring(0,5).getBytes("UTF-8");
+                        MessageDigest md = MessageDigest.getInstance("MD5");
+                        byte[] digest = md.digest(bytesOfMessage);
+                        int result = Math.abs(ByteBuffer.wrap(digest).getInt());
+
+                        Log_OC.d(TAG, "Integer: " + result % 100000);
+                        Log_OC.d(TAG, "length: " + digest.length);
+
+
+                        Double hue = (result % 100000) / 99999.0;
+
+                        Log_OC.d(TAG, "hue: " + hue);
+
+                        int[] rgb = BitmapUtils.hslToRgb(hue, 0.9, 0.65);
+                        rb.setTextColor(Color.rgb(rgb[0], rgb[1], rgb[2]));
+                        Log_OC.d(TAG, "Color: " + rgb[0] + " " + rgb[1] + rgb[2]);
+
+                    } catch (Exception e){
+                        Log_OC.d(TAG, e.toString());
+                        rb.setTextColor(mContext.getResources().getColor(R.color.black));
+                    }
                     RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
                             LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
                     params.weight=1.0f;
