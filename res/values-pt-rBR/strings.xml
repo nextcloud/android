@@ -298,6 +298,7 @@
   <string name="prefs_category_instant_uploading">Envios Instantâneos</string>
   <string name="prefs_category_security">Segurança</string>
   <string name="prefs_instant_video_upload_path_title">Enviar o Caminho do Vídeo</string>
+  <string name="download_folder_failed_content">Baixar %1$s da pasta não pode ser completado</string>
   <string name="shared_subject_header">compartilhado</string>
   <string name="with_you_subject_header">com você</string>
   <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
