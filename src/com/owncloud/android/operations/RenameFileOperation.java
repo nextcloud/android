@@ -51,7 +51,6 @@ public class RenameFileOperation extends SyncOperation {
      * Constructor
      * 
      * @param remotePath            RemotePath of the OCFile instance describing the remote file or folder to rename
-     * @param account               OwnCloud account containing the remote file 
      * @param newName               New name to set as the name of file.
      */
     public RenameFileOperation(String remotePath, String newName) {
@@ -117,7 +116,7 @@ public class RenameFileOperation extends SyncOperation {
 
     private void saveLocalFile() {
         mFile.setFileName(mNewName);
-        
+
         // try to rename the local copy of the file
         if (mFile.isDown()) {
             String oldPath = mFile.getStoragePath();
@@ -129,8 +128,8 @@ public class RenameFileOperation extends SyncOperation {
                 String newPath = parentStoragePath + mNewName;
                 mFile.setStoragePath(newPath);
 
-                // notify MediaScanner about removed file - TODO really works?
-                getStorageManager().triggerMediaScan(oldPath);
+                // notify MediaScanner about removed file
+                getStorageManager().deleteFileInMediaScan(oldPath);
                 // notify to scan about new file
                 getStorageManager().triggerMediaScan(newPath);
             }
