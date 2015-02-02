@@ -133,7 +133,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         boolean justFolders = (args == null) ? false : args.getBoolean(ARG_JUST_FOLDERS, false); 
         mAdapter = new FileListListAdapter(
                 justFolders,
-                getSherlockActivity(), 
+                getSherlockActivity(),
                 mContainerActivity
                 );
         setListAdapter(mAdapter);

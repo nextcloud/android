@@ -54,12 +54,21 @@ public class SynchronizeFileOperation extends SyncOperation {
     
     private boolean mTransferWasRequested = false;
 
+    /** 
+     * When 'false', uploads to the server are not done; only downloads or conflict detection.  
+     * This is a temporal field. 
+     * TODO Remove when 'folder synchronization' replaces 'folder download'.
+     */    
+    private boolean mAllowUploads;
+
     
     /**
-     * Constructor.
+     * Constructor for "full synchronization mode".
      * 
-     * Uses remotePath to retrieve all the data in local cache and remote server when the operation
+     * Uses remotePath to retrieve all the data both in local cache and in the remote OC server when the operation
      * is executed, instead of reusing {@link OCFile} instances.
+     * 
+     * Useful for direct synchronization of a single file.
      * 
      * @param 
      * @param account               ownCloud account holding the file.
@@ -79,16 +88,21 @@ public class SynchronizeFileOperation extends SyncOperation {
         mAccount = account;
         mSyncFileContents = syncFileContents;
         mContext = context;
+        mAllowUploads = true;
     }
 
     
     /**
-     * Constructor allowing to reuse {@link OCFile} instances just queried from cache or network.
+     * Constructor allowing to reuse {@link OCFile} instances just queried from local cache or from remote OC server.
      * 
-     * Useful for folder / account synchronizations.
+     * Useful to include this operation as part of the synchronization of a folder (or a full account), avoiding the
+     * repetition of fetch operations (both in local database or remote server).
      * 
-     * @param localFile             Data of file currently hold in device cache. MUSTN't be null.
-     * @param serverFile            Data of file just retrieved from network. If null, will be
+     * At least one of localFile or serverFile MUST NOT BE NULL. If you don't have none of them, use the other 
+     * constructor.
+     * 
+     * @param localFile             Data of file (just) retrieved from local cache/database.
+     * @param serverFile            Data of file (just) retrieved from a remote server. If null, will be
      *                              retrieved from network by the operation when executed.
      * @param account               ownCloud account holding the file.
      * @param syncFileContents      When 'true', transference of data will be started by the 
@@ -104,10 +118,53 @@ public class SynchronizeFileOperation extends SyncOperation {
         
         mLocalFile = localFile;
         mServerFile = serverFile;
-        mRemotePath = localFile.getRemotePath();
+        if (mLocalFile != null) {
+            mRemotePath = mLocalFile.getRemotePath();
+            if (mServerFile != null && !mServerFile.getRemotePath().equals(mRemotePath)) {
+                throw new IllegalArgumentException("serverFile and localFile do not correspond to the same OC file");
+            }
+        } else if (mServerFile != null) {
+            mRemotePath = mServerFile.getRemotePath();
+        } else {
+            throw new IllegalArgumentException("Both serverFile and localFile are NULL");
+        }
         mAccount = account;
         mSyncFileContents = syncFileContents;
         mContext = context;
+        mAllowUploads = true;
+    }
+    
+
+    /**
+     * Temporal constructor.
+     * 
+     * Extends the previous one to allow constrained synchronizations where uploads are never performed - only
+     * downloads or conflict detection.
+     * 
+     * Do not use unless you are involved in 'folder synchronization' or 'folder download' work in progress.
+     * 
+     * TODO Remove when 'folder synchronization' replaces 'folder download'.
+     * 
+     * @param localFile             Data of file (just) retrieved from local cache/database. MUSTN't be null.
+     * @param serverFile            Data of file (just) retrieved from a remote server. If null, will be
+     *                              retrieved from network by the operation when executed.
+     * @param account               ownCloud account holding the file.
+     * @param syncFileContents      When 'true', transference of data will be started by the 
+     *                              operation if needed and no conflict is detected.
+     * @param allowUploads          When 'false', uploads to the server are not done; only downloads or conflict
+     *                              detection. 
+     * @param context               Android context; needed to start transfers.
+     */
+    public SynchronizeFileOperation(
+            OCFile localFile,
+            OCFile serverFile, 
+            Account account, 
+            boolean syncFileContents,
+            boolean allowUploads, 
+            Context context) {
+        
+        this(localFile, serverFile, account, syncFileContents, context);
+        mAllowUploads = allowUploads;
     }
     
 
@@ -145,13 +202,15 @@ public class SynchronizeFileOperation extends SyncOperation {
                 boolean serverChanged = false;
                 /* time for eTag is coming, but not yet
                     if (mServerFile.getEtag() != null) {
-                        serverChanged = (!mServerFile.getEtag().equals(mLocalFile.getEtag()));   // TODO could this be dangerous when the user upgrades the server from non-tagged to tagged?
+                        serverChanged = (!mServerFile.getEtag().equals(mLocalFile.getEtag()));
                     } else { */
-                // server without etags
-                serverChanged = (mServerFile.getModificationTimestamp() != mLocalFile.getModificationTimestampAtLastSyncForData());
+                serverChanged = (
+                    mServerFile.getModificationTimestamp() != mLocalFile.getModificationTimestampAtLastSyncForData()
+                );
                 //}
-                boolean localChanged = (mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData());
-                // TODO this will be always true after the app is upgraded to database version 2; will result in unnecessary uploads
+                boolean localChanged = (
+                    mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData()
+                );
 
                 /// decide action to perform depending upon changes
                 //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
@@ -159,7 +218,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                     result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
 
                 } else if (localChanged) {
-                    if (mSyncFileContents) {
+                    if (mSyncFileContents && mAllowUploads) {
                         requestForUpload(mLocalFile);
                         // the local update of file properties will be done by the FileUploader service when the upload finishes
                     } else {
@@ -195,7 +254,8 @@ public class SynchronizeFileOperation extends SyncOperation {
 
         }
 
-        Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() + ": " + result.getLogMessage());
+        Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() + ": " 
+                + result.getLogMessage());
 
         return result;
     }

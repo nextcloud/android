@@ -426,7 +426,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
 
     /**
-     * Class waiting for broadcast events from the {@link FielDownloader} service.
+     * Class waiting for broadcast events from the {@link FileDownloader} service.
      * 
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * folder displayed in the gallery.

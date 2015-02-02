@@ -131,12 +131,15 @@
   <string name="pincode_wrong">Väärä sovelluksen PIN</string>
   <string name="pincode_removed">Sovelluksen PIN poistettu</string>
   <string name="pincode_stored">Sovelluksen PIN-koodi tallennettu</string>
+  <string name="media_notif_ticker">%1$s-musiikkisoitin</string>
   <string name="media_state_playing">%1$s (toistetaan)</string>
   <string name="media_state_loading">%1$s (ladataan)</string>
   <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
   <string name="media_err_no_account">Tiliä ei määritetty</string>
   <string name="media_err_not_in_owncloud">Tiedosto ei ole kelvollisella tilillä</string>
+  <string name="media_err_unsupported">Mediakoodekki ei ole tuettu</string>
   <string name="media_err_io">Mediatiedoston luku ei onnistunut</string>
+  <string name="media_err_malformed">Mediatiedostoa ei ole koodattu kelvollisesti</string>
   <string name="media_err_timeout">Aikakatkaisu toistoa yrittäessä</string>
   <string name="media_err_invalid_progressive_playback">Mediatiedostoa ei voi suoratoistaa</string>
   <string name="media_err_security_ex">Turvallisuusvirhe yrittäessä toistaa kohdetta %1$s</string>

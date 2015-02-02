@@ -301,6 +301,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="prefs_category_instant_uploading">Directe uploads</string>
   <string name="prefs_category_security">Beveiliging</string>
   <string name="prefs_instant_video_upload_path_title">Upload Video Pad</string>
+  <string name="download_folder_failed_content">Download van %1$s map kon niet worden voltooid</string>
   <string name="shared_subject_header">gedeeld</string>
   <string name="with_you_subject_header">met u</string>
   <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>

@@ -1,17 +1,27 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s កម្មវិធីអានដ្រយ</string>
+  <string name="about_version">ជំនាន់ %1$s</string>
   <string name="actionbar_upload">ផ្ទុក​ឡើង</string>
   <string name="actionbar_upload_files">ឯកសារ</string>
+  <string name="actionbar_open_with">បើកជាមួយ</string>
   <string name="actionbar_mkdir">ថត​ថ្មី</string>
   <string name="actionbar_settings">ការកំណត់</string>
   <string name="actionbar_see_details">ព័ត៌មាន​លម្អិត</string>
   <string name="actionbar_send_file">ផ្ញើ</string>
+  <string name="actionbar_sort">តម្រៀប</string>
+  <string name="actionbar_sort_title">តម្រៀបដោយ</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>ថ្មីបំផុត-ចាស់បំផុត</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">ទូទៅ</string>
   <string name="prefs_category_more">ច្រើន​ទៀត</string>
   <string name="prefs_accounts">គណនី</string>
   <string name="prefs_manage_accounts">គ្រប់គ្រង​គណនី</string>
+  <string name="prefs_pincode">ភីន​កូដ កម្មវិធី</string>
   <string name="prefs_help">ជំនួយ</string>
   <string name="auth_username">ឈ្មោះ​អ្នកប្រើ</string>
   <string name="auth_password">ពាក្យសម្ងាត់</string>
@@ -41,6 +51,7 @@
   <string name="common_error">កំហុស</string>
   <string name="common_loading">កំពុងដំណើរការ</string>
   <string name="common_error_unknown">មិន​ស្គាល់​កំហុស</string>
+  <string name="about_title">អំពី</string>
   <string name="change_password">ប្តូរ​ពាក្យសម្ងាត់</string>
   <string name="delete_account">លប់គណនី</string>
   <string name="create_account">បង្កើតគណនី</string>
@@ -69,6 +80,9 @@
   <string name="fd_keep_in_sync">រក្សាឯកសាររហូតដល់កាលបរិច្ឆេទ</string>
   <string name="common_rename">ប្ដូរ​ឈ្មោះ</string>
   <string name="common_remove">ដកចេញ</string>
+  <string name="confirmation_remove_local">ទីកន្លែងតែមួយ</string>
+  <string name="confirmation_remove_remote">ដកចេញពី​សឺវឺ</string>
+  <string name="confirmation_remove_remote_and_local">បញ្ជារ និងទីតាំង</string>
   <string name="remove_success_msg">ការដកយកចេញបានជោគជ័យ</string>
   <string name="remove_fail_msg">ការដកយកចេញបានបរាជ័យ</string>
   <string name="rename_dialog_title">បញ្ចូលឈ្មោះថ្មី</string>

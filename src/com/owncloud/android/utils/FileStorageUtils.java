@@ -36,6 +36,7 @@ import android.preference.PreferenceManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
+import android.webkit.MimeTypeMap;
 
 
 /**
@@ -135,7 +136,7 @@ public class FileStorageUtils {
     /**
      * Creates and populates a new {@link RemoteFile} object with the data read from an {@link OCFile}.
      * 
-     * @param oCFile    OCFile 
+     * @param ocFile    OCFile
      * @return          New RemoteFile instance representing the resource described by ocFile.
      */
     public static RemoteFile fillRemoteFile(OCFile ocFile){
@@ -171,7 +172,7 @@ public class FileStorageUtils {
     
     /**
      * Sorts list by Date
-     * @param sortAscending true: ascending, false: descending
+     * @param files
      */
     public static Vector<OCFile> sortByDate(Vector<OCFile> files){
         final Integer val;
@@ -239,7 +240,7 @@ public class FileStorageUtils {
 
     /**
      * Sorts list by Name
-     * @param sortAscending true: ascending, false: descending
+     * @param files     files to sort
      */
     public static Vector<OCFile> sortByName(Vector<OCFile> files){
         final Integer val;
@@ -284,6 +285,21 @@ public class FileStorageUtils {
             return result;
         }
         return 0;
-    } 
+    }
+
+    /**
+     * Mimetype String of a file
+     * @param path
+     * @return
+     */
+    public static String getMimeTypeFromName(String path) {
+        String extension = "";
+        int pos = path.lastIndexOf('.');
+        if (pos >= 0) {
+            extension = path.substring(pos + 1);
+        }
+        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
+        return (result != null) ? result : "";
+    }
   
 }

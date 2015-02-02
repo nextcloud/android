@@ -112,10 +112,10 @@ Téléchargez-le ici : %2$s</string>
   <string name="common_choose_account">Choisissez un compte</string>
   <string name="sync_fail_ticker">La synchronisation a échoué</string>
   <string name="sync_fail_ticker_unauthorized">Échec de la synchronisation, vous devez vous reconnecter à nouveau</string>
-  <string name="sync_fail_content">La synchronisation de %1$s ne peut pas être complétée</string>
-  <string name="sync_fail_content_unauthorized">Mot de passe invalide pour %1$s</string>
+  <string name="sync_fail_content">La synchronisation de %1$s n\'a pu être terminée</string>
+  <string name="sync_fail_content_unauthorized">Mot de passe non valide pour %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
-  <string name="sync_conflicts_in_favourites_content">%1$d fichiers à garder synchronisés n\'ont put être synchronisé</string>
+  <string name="sync_conflicts_in_favourites_content">%1$d fichiers à garder synchronisés n\'ont pu être synchronisés</string>
   <string name="sync_fail_in_favourites_ticker">La synchronisation des fichiers a échoué</string>
   <string name="sync_fail_in_favourites_content">Le contenu de %1$d fichiers n\'a pu être synchronisé (%2$d conflits)</string>
   <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été oubliés</string>
@@ -151,7 +151,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="media_err_unsupported">Le codec de ce média n\'est pas pris en charge </string>
   <string name="media_err_io">Le fichier média ne peut pas être lu</string>
   <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>
-  <string name="media_err_timeout">Délai dépassé pour la lecture du morceau.</string>
+  <string name="media_err_timeout">Délai dépassé pour la lecture du morceau</string>
   <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
   <string name="media_err_unknown">Le fichier média ne peut être joué avec le lecteur standard</string>
   <string name="media_err_security_ex">Erreur de sécurité à la lecture de %1$s</string>
@@ -302,6 +302,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="prefs_category_instant_uploading">Envoi instantané</string>
   <string name="prefs_category_security">Sécurité</string>
   <string name="prefs_instant_video_upload_path_title">Répertoire d\'envoi des vidéos</string>
+  <string name="download_folder_failed_content">Le téléchargement du dossier %1$s n\'a pas pu être achevé complètement</string>
   <string name="shared_subject_header">partagé(e)</string>
   <string name="with_you_subject_header">avec vous</string>
   <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>

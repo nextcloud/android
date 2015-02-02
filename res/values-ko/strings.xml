@@ -297,6 +297,7 @@
   <string name="prefs_category_instant_uploading">즉시 업로드</string>
   <string name="prefs_category_security">보안</string>
   <string name="prefs_instant_video_upload_path_title">동영상 업로드 경로</string>
+  <string name="download_folder_failed_content">%1$s 폴더를 다운로드할 수 없습니다</string>
   <string name="shared_subject_header">공유됨</string>
   <string name="with_you_subject_header">나와</string>
   <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>

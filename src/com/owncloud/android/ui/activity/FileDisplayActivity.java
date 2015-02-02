@@ -92,7 +92,7 @@ import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.operations.SynchronizeFolderOperation;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
@@ -810,8 +810,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
-        syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
-        syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+        syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+        syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
         registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
         //LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
@@ -1099,9 +1099,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                             setFile(currentFile);
                         }
                         
-                        mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
+                        mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
                                 
-                        if (SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
+                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
                                     equals(event) &&
                                 /// TODO refactor and make common
                                 synchResult != null && !synchResult.isSuccess() &&  
@@ -1255,26 +1255,36 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
 
     /**
-     * Class waiting for broadcast events from the {@link FielDownloader} service.
+     * Class waiting for broadcast events from the {@link FileDownloader} service.
      * 
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * current folder.
      */
     private class DownloadFinishReceiver extends BroadcastReceiver {
+
+        //int refreshCounter = 0;
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
                 boolean sameAccount = isSameAccount(context, intent);
                 String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
                 boolean isDescendant = isDescendant(downloadedRemotePath);
-    
+
                 if (sameAccount && isDescendant) {
-                    refreshListOfFilesFragment();
-                    refreshSecondFragment(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
+                    String linkedToRemotePath = intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
+                    if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
+                        //Log_OC.v(TAG, "refresh #" + ++refreshCounter);
+                        refreshListOfFilesFragment();
+                    }
+                    refreshSecondFragment(
+                            intent.getAction(),
+                            downloadedRemotePath,
+                            intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false)
+                    );
                 }
     
                 if (mWaitingToSend != null) {
-                    mWaitingToSend = getStorageManager().getFileByPath(mWaitingToSend.getRemotePath()); // Update the file to send
+                    mWaitingToSend = getStorageManager().getFileByPath(mWaitingToSend.getRemotePath());
                     if (mWaitingToSend.isDown()) { 
                         sendDownloadedFile();
                     }
@@ -1289,7 +1299,19 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         private boolean isDescendant(String downloadedRemotePath) {
             OCFile currentDir = getCurrentDir();
-            return (currentDir != null && downloadedRemotePath != null && downloadedRemotePath.startsWith(currentDir.getRemotePath()));
+            return (
+                currentDir != null &&
+                downloadedRemotePath != null &&
+                downloadedRemotePath.startsWith(currentDir.getRemotePath())
+            );
+        }
+
+        private boolean isAscendant(String linkedToRemotePath) {
+            OCFile currentDir = getCurrentDir();
+            return (
+                currentDir != null &&
+                currentDir.getRemotePath().startsWith(linkedToRemotePath)
+            );
         }
 
         private boolean isSameAccount(Context context, Intent intent) {
@@ -1725,6 +1747,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     private void requestForDownload() {
         Account account = getAccount();
+        //if (!mWaitingToPreview.isDownloading()) {
         if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
@@ -1753,7 +1776,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         mSyncInProgress = true;
                 
         // perform folder synchronization
-        RemoteOperation synchFolderOp = new SynchronizeFolderOperation( folder,  
+        RemoteOperation synchFolderOp = new RefreshFolderOperation( folder,
                                                                         currentSyncTime, 
                                                                         false,
                                                                         getFileOperationsHelper().isSharedSupported(),
@@ -1782,7 +1805,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     private void requestForDownload(OCFile file) {
         Account account = getAccount();
-        if (!mDownloaderBinder.isDownloading(account, file)) {
+        if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
             i.putExtra(FileDownloader.EXTRA_FILE, file);

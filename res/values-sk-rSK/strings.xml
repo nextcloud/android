@@ -282,6 +282,9 @@
   <string name="auth_redirect_non_secure_connection_title">Zabezpečené pripojenie je presmerované na nezabezpečenú trasu.</string>
   <string name="actionbar_logger">Logy</string>
   <string name="log_send_history_button">Odoslať históriu</string>
+  <string name="log_send_no_mail_app">Nebola nájdená aplikácia pre odosielanie log protokolov. Nainštalujte si mailovú aplikáciu!</string>
+  <string name="log_send_mail_subject">%1$s Android app logs</string>
+  <string name="log_progress_dialog_text">Načítavam dáta...</string>
   <string name="saml_authentication_required_text">Vyžaduje sa overenie</string>
   <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
   <string name="actionbar_move">Presunúť</string>
@@ -294,5 +297,9 @@
   <string name="forbidden_permissions_move">pre presun tohoto súboru</string>
   <string name="prefs_category_instant_uploading">Okamžité nahratie</string>
   <string name="prefs_category_security">Zabezpečenie</string>
+  <string name="prefs_instant_video_upload_path_title">Cesta pre nahrávanie videí</string>
+  <string name="download_folder_failed_content">Sťahovanie %1$s priečinka nebolo dokončené</string>
   <string name="shared_subject_header">zdieľané</string>
+  <string name="with_you_subject_header">s vami</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>

@@ -297,5 +297,6 @@
   <string name="prefs_category_instant_uploading">即时上传</string>
   <string name="prefs_category_security">安全</string>
   <string name="prefs_instant_video_upload_path_title">视频上传路径</string>
+  <string name="download_folder_failed_content">%1$s 文件夹的下载无法完成</string>
   <string name="shared_subject_header">分享</string>
 </resources>

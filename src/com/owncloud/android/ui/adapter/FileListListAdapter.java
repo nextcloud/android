@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2014 ownCloud Inc.
+ *   Copyright (C) 2012-2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -19,25 +19,18 @@ package com.owncloud.android.ui.adapter;
 
 
 import java.io.File;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Vector;
 
-import third_parties.daveKoeller.AlphanumComparator;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -50,6 +43,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -75,17 +69,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
+
     private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM };
-    private Integer mSortOrder;
-    public static final Integer SORT_NAME = 0;
-    public static final Integer SORT_DATE = 1;
-    public static final Integer SORT_SIZE = 2;
-    private Boolean mSortAscending;
+
     private SharedPreferences mAppPreferences;
     
     public FileListListAdapter(
             boolean justFolders, 
-            Context context, 
+            Context context,
             ComponentsGetter transferServiceGetter
             ) {
         
@@ -93,7 +84,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
-        
+
         mAppPreferences = PreferenceManager
                 .getDefaultSharedPreferences(mContext);
         
@@ -182,6 +173,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         if (file != null){
 
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
+            fileIcon.setTag(file.getFileId());
             TextView fileName;
             String name;
 
@@ -237,7 +229,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     localStateView.bringToFront();
                     FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
                     FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
-                    if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
+                    boolean downloading = (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file));
+                    OperationsServiceBinder opsBinder = mTransferServiceGetter.getOperationsServiceBinder();
+                    downloading |= (opsBinder != null && opsBinder.isSynchronizing(mAccount, file.getRemotePath()));
+                    if (downloading) {
                         localStateView.setImageResource(R.drawable.downloading_file_indicator);
                         localStateView.setVisibility(View.VISIBLE);
                     } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
@@ -440,96 +435,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 && !mFile.getPermissions().contains(PERMISSION_SHARED_WITH_ME)
                 && file.getPermissions() != null 
                 && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME));
-    }
-
-    /**
-     * Sorts list by Date
-     * @param sortAscending true: ascending, false: descending
-     */
-    private void sortByDate(boolean sortAscending){
-        final Integer val;
-        if (sortAscending){
-            val = 1;
-        } else {
-            val = -1;
-        }
-        
-        Collections.sort(mFiles, new Comparator<OCFile>() {
-            public int compare(OCFile o1, OCFile o2) {
-                if (o1.isFolder() && o2.isFolder()) {
-                    Long obj1 = o1.getModificationTimestamp();
-                    return val * obj1.compareTo(o2.getModificationTimestamp());
-                }
-                else if (o1.isFolder()) {
-                    return -1;
-                } else if (o2.isFolder()) {
-                    return 1;
-                } else if (o1.getModificationTimestamp() == 0 || o2.getModificationTimestamp() == 0){
-                    return 0;
-                } else {
-                    Long obj1 = o1.getModificationTimestamp();
-                    return val * obj1.compareTo(o2.getModificationTimestamp());
-                }
-            }
-        });
-    }
-
-    /**
-     * Sorts list by Size
-     * @param sortAscending true: ascending, false: descending
-     */
-    private void sortBySize(boolean sortAscending){
-        final Integer val;
-        if (sortAscending){
-            val = 1;
-        } else {
-            val = -1;
-        }
-        
-        Collections.sort(mFiles, new Comparator<OCFile>() {
-            public int compare(OCFile o1, OCFile o2) {
-                if (o1.isFolder() && o2.isFolder()) {
-                    Long obj1 = getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o1)));
-                    return val * obj1.compareTo(getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
-                }
-                else if (o1.isFolder()) {
-                    return -1;
-                } else if (o2.isFolder()) {
-                    return 1;
-                } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
-                    return 0;
-                } else {
-                    Long obj1 = o1.getFileLength();
-                    return val * obj1.compareTo(o2.getFileLength());
-                }
-            }
-        });
-    }
-
-    /**
-     * Sorts list by Name
-     * @param sortAscending true: ascending, false: descending
-     */
-    private void sortByName(boolean sortAscending){
-        final Integer val;
-        if (sortAscending){
-            val = 1;
-        } else {
-            val = -1;
-        }
-
-        Collections.sort(mFiles, new Comparator<OCFile>() {
-            public int compare(OCFile o1, OCFile o2) {
-                if (o1.isFolder() && o2.isFolder()) {
-                    return val * o1.getRemotePath().toLowerCase().compareTo(o2.getRemotePath().toLowerCase());
-                } else if (o1.isFolder()) {
-                    return -1;
-                } else if (o2.isFolder()) {
-                    return 1;
-                }
-                return val * new AlphanumComparator().compare(o1, o2);
-            }
-        });
     }
 
     public void setSortOrder(Integer order, boolean ascending) {
