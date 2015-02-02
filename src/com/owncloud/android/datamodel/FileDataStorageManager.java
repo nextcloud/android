@@ -1502,18 +1502,41 @@ public class FileDataStorageManager {
     public void deleteFileInMediaScan(String path) {
 
         String mimetypeString = FileStorageUtils.getMimeTypeFromName(path);
-        if (mimetypeString.startsWith("image/")) {
-            // Images
-            getContentResolver().delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    MediaStore.Images.Media.DATA + "=?", new String[]{path});
-        } else if (mimetypeString.startsWith("audio/")) {
-            // Audio
-            getContentResolver().delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                    MediaStore.Audio.Media.DATA + "=?", new String[]{path});
-        } else if (mimetypeString.startsWith("video/")) {
-            // Video
-            getContentResolver().delete(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                    MediaStore.Video.Media.DATA + "=?", new String[]{path});
+        ContentResolver contentResolver = getContentResolver();
+
+        if (contentResolver != null) {
+            if (mimetypeString.startsWith("image/")) {
+                // Images
+                contentResolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        MediaStore.Images.Media.DATA + "=?", new String[]{path});
+            } else if (mimetypeString.startsWith("audio/")) {
+                // Audio
+                contentResolver.delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        MediaStore.Audio.Media.DATA + "=?", new String[]{path});
+            } else if (mimetypeString.startsWith("video/")) {
+                // Video
+                contentResolver.delete(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                        MediaStore.Video.Media.DATA + "=?", new String[]{path});
+            }
+        } else {
+            ContentProviderClient contentProviderClient = getContentProviderClient();
+            try {
+                if (mimetypeString.startsWith("image/")) {
+                    // Images
+                    contentProviderClient.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            MediaStore.Images.Media.DATA + "=?", new String[]{path});
+                } else if (mimetypeString.startsWith("audio/")) {
+                    // Audio
+                    contentProviderClient.delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                            MediaStore.Audio.Media.DATA + "=?", new String[]{path});
+                } else if (mimetypeString.startsWith("video/")) {
+                    // Video
+                    contentProviderClient.delete(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                            MediaStore.Video.Media.DATA + "=?", new String[]{path});
+                }
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Exception deleting media file in MediaStore " + e.getMessage());
+            }
         }
 
     }
