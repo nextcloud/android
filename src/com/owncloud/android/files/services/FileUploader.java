@@ -327,7 +327,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         return false;   // not accepting rebinding (default behaviour)
     }
 
-
     /**
      * Binder to let client components to perform operations on the queue of
      * uploads.
@@ -357,14 +356,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             }
         }
 
-
-
         public void clearListeners() {
             mBoundListeners.clear();
         }
-
-
-
 
         /**
          * Returns True when the file described by 'file' is being uploaded to
@@ -548,6 +542,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             } else {
                 // Cancel the transfer
                 Log_OC.d(TAG, "Account " + mCurrentUpload.getAccount().toString() + " doesn't exist");
+                cancelUploadForAccount(mCurrentUpload.getAccount().name);
+
             }
         }
 
@@ -887,4 +883,21 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 !localPath.endsWith(FILE_EXTENSION_PDF);
     }
 
+    /**
+     * Remove uploads of an account
+     * @param accountName
+     */
+    private void cancelUploadForAccount(String accountName){
+        // this can be slow if there are many uploads :(
+        Iterator<String> it = mPendingUploads.keySet().iterator();
+        Log_OC.d(TAG, "Number of pending updloads= "  + mPendingUploads.size());
+        boolean found;
+        while (it.hasNext()) {
+            String key = it.next();
+            Log_OC.d(TAG, "mPendingUploads CANCELLED" + key);
+            if (key.startsWith(accountName)) {
+                mPendingUploads.remove(key);
+            }
+        }
+    }
 }
