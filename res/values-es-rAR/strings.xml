@@ -249,5 +249,4 @@
   <string name="saml_authentication_wrong_pass">Clave incorrecta</string>
   <string name="folder_picker_choose_button_text">Elegir</string>
   <string name="prefs_category_security">Seguridad</string>
-  <string name="shared_subject_header">compartido</string>
 </resources>

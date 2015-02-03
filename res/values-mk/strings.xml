@@ -130,5 +130,4 @@
   <string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
   <string name="folder_picker_choose_button_text">Избери</string>
   <string name="prefs_category_security">Безбедност</string>
-  <string name="shared_subject_header">споделен</string>
 </resources>

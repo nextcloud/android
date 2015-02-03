@@ -296,5 +296,4 @@
   <string name="prefs_category_instant_uploading">Automatyczne wysyłanie</string>
   <string name="prefs_category_security">Bezpieczeństwo</string>
   <string name="prefs_instant_video_upload_path_title">Katalog wysyłania dla wideo</string>
-  <string name="shared_subject_header">współdzielone</string>
 </resources>
