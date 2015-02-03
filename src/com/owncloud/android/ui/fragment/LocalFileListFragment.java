@@ -76,7 +76,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        getGridView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         disableSwipe(); // Disable pull refresh
         setMessageForEmptyList(getString(R.string.local_file_list_empty));
         Log_OC.i(TAG, "onCreateView() end");
@@ -98,7 +98,6 @@ public class LocalFileListFragment extends ExtendedListFragment {
         Log_OC.i(TAG, "onActivityCreated() stop");
     }
     
-    
     /**
      * Checks the file clicked over. Browses inside if it is a directory. Notifies the container activity in any case.
      */
@@ -118,7 +117,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
             } else {    /// Click on a file
                 ImageView checkBoxV = (ImageView) v.findViewById(R.id.custom_checkbox);
                 if (checkBoxV != null) {
-                    if (getListView().isItemChecked(position)) {
+                    if (getGridView().isItemChecked(position)) {
                         checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
                     } else {
                         checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
@@ -195,10 +194,10 @@ public class LocalFileListFragment extends ExtendedListFragment {
             directory = directory.getParentFile();
         }
 
-        mList.clearChoices();   // by now, only files in the same directory will be kept as selected
+        imageView.clearChoices();   // by now, only files in the same directory will be kept as selected
         mAdapter.swapDirectory(directory);
         if (mDirectory == null || !mDirectory.equals(directory)) {
-            mList.setSelectionFromTop(0, 0);
+            imageView.setSelection(0);
         }
         mDirectory = directory;
     }
@@ -211,11 +210,11 @@ public class LocalFileListFragment extends ExtendedListFragment {
      */
     public String[] getCheckedFilePaths() {
         ArrayList<String> result = new ArrayList<String>();
-        SparseBooleanArray positions = mList.getCheckedItemPositions();
+        SparseBooleanArray positions = imageView.getCheckedItemPositions();
         if (positions.size() > 0) {
             for (int i = 0; i < positions.size(); i++) {
                 if (positions.get(positions.keyAt(i)) == true) {
-                    result.add(((File) mList.getItemAtPosition(positions.keyAt(i))).getAbsolutePath());
+                    result.add(((File) imageView.getItemAtPosition(positions.keyAt(i))).getAbsolutePath());
                 }
             }
 

@@ -30,7 +30,7 @@
         android:layout_gravity="center_vertical|center"
         android:layout_margin="4dp"
         android:src="@drawable/ic_menu_archive" 
-        android:id="@+id/imageView1" />
+        android:id="@+id/thumbnail" />
     
     <TextView 
         android:text="TextView" 

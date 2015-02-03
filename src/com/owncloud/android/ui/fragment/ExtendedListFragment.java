@@ -27,14 +27,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.ExtendedListView;
+import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 
 /**
@@ -52,8 +52,6 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
 
-    protected ExtendedListView mList;
-
     private SwipeRefreshLayout mRefreshLayout;
     private SwipeRefreshLayout mRefreshEmptyLayout;
     private TextView mEmptyListMessage;
@@ -66,32 +64,51 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
 
     private OnEnforceableRefreshListener mOnRefreshListener = null;
     
-    
+    protected GridViewWithHeaderAndFooter imageView;
+       
     public void setListAdapter(ListAdapter listAdapter) {
-        mList.setAdapter(listAdapter);
-        mList.invalidate();
+        imageView.setAdapter(listAdapter);
+        imageView.invalidate();
+    }
+
+    public GridView getGridView() {
+        return imageView;
     }
 
     public void setFooterView(View footer) {
-        mList.addFooterView(footer, null, false);
-        mList.invalidate();
+        imageView.addFooterView(footer, null, false);
+        imageView.invalidate();
     }
 
-    public ListView getListView() {
-        return mList;
+    public void removeFooterView(View footer) {
+        imageView.removeFooterView(footer);
+        imageView.invalidate();
     }
 
+    public int getFooterViewCount() {
+        return imageView.getFooterViewCount();
+    }
+    
+    protected void switchImageView(){
+       imageView.setNumColumns(GridView.AUTO_FIT);
+       imageView.invalidateRowHeight();  // Force to recalculate mRowHeight of imageView
+       imageView.invalidate();
+    }
+    
+    protected void switchFileView(){
+       imageView.setNumColumns(1);
+       imageView.invalidate();
+    }
+    
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.e(TAG, "onCreateView");
 
         View v = inflater.inflate(R.layout.list_fragment, null);
-        mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
-        mList = (ExtendedListView) (v.findViewById(R.id.list_root));
-        mList.setOnItemClickListener(this);
-
-        mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
-        mList.setDividerHeight(1);
+        
+        imageView = (GridViewWithHeaderAndFooter)(v.findViewById(R.id.list_root));
+        imageView.setOnItemClickListener(this);
 
         if (savedInstanceState != null) {
             int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
@@ -101,12 +118,13 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         // Pull down refresh
         mRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files);
         mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files_emptyView);
+        mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         
         onCreateSwipeToRefresh(mRefreshLayout);
         onCreateSwipeToRefresh(mRefreshEmptyLayout);
-        
-        mList.setEmptyView(mRefreshEmptyLayout);
 
+        imageView.setEmptyView(mRefreshEmptyLayout);
+        
         return v;
     }
 
@@ -157,8 +175,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
      *         screen.
      */
     protected int getReferencePosition() {
-        if (mList != null) {
-            return (mList.getFirstVisiblePosition() + mList.getLastVisiblePosition()) / 2;
+        if (imageView != null) {
+            return (imageView.getFirstVisiblePosition() + imageView.getLastVisiblePosition()) / 2;
         } else {
             return 0;
         }
@@ -171,8 +189,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
      *            {@link LocalFileListFragment#getReferencePosition()}
      */
     protected void setReferencePosition(int position) {
-        if (mList != null) {
-            mList.setAndCenterSelection(position);
+        if (imageView != null) {
+            imageView.setSelection(position);
         }
     }
 
@@ -190,22 +208,14 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
             
             int top = mTops.remove(mTops.size() - 1);
             
-            mList.setSelectionFromTop(firstPosition, top);
+            imageView.smoothScrollToPosition(firstPosition);
             
             // Move the scroll if the selection is not visible
             int indexPosition = mHeightCell*index;
-            int height = mList.getHeight();
+            int height = imageView.getHeight();
             
             if (indexPosition > height) {
-                if (android.os.Build.VERSION.SDK_INT >= 11)
-                {
-                    mList.smoothScrollToPosition(index); 
-                }
-                else if (android.os.Build.VERSION.SDK_INT >= 8)
-                {
-                    mList.setSelectionFromTop(index, 0);
-                }
-                
+                imageView.smoothScrollToPosition(index);
             }
         }
     }
@@ -217,10 +227,10 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         
         mIndexes.add(index);
         
-        int firstPosition = mList.getFirstVisiblePosition();
+        int firstPosition = imageView.getFirstVisiblePosition();
         mFirstPositions.add(firstPosition);
         
-        View view = mList.getChildAt(0);
+        View view = imageView.getChildAt(0);
         int top = (view == null) ? 0 : view.getTop() ;
 
         mTops.add(top);

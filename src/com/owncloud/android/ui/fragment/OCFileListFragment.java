@@ -29,6 +29,7 @@ import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 /**
@@ -135,11 +137,11 @@ public class OCFileListFragment extends ExtendedListFragment {
                 mContainerActivity
                 );
         setListAdapter(mAdapter);
-
-        registerForContextMenu(getListView());
-        getListView().setOnCreateContextMenuListener(this);
-    }
-
+        
+        registerForContextMenu(getGridView());
+        getGridView().setOnCreateContextMenuListener(this);
+  }
+    
     /**
      * Saves the current listed folder.
      */
@@ -389,15 +391,19 @@ public class OCFileListFragment extends ExtendedListFragment {
 
             mAdapter.swapDirectory(directory, storageManager);
             if (mFile == null || !mFile.equals(directory)) {
-                mList.setSelectionFromTop(0, 0);
+                imageView.setSelection(0);
             }
             mFile = directory;
-            
+
+            Vector<OCFile> files = storageManager.getFolderContent(directory);
             // Update Footer
             TextView footerText = (TextView) mFooterView.findViewById(R.id.footerText);
-            Log_OC.d("footer", String.valueOf(System.currentTimeMillis()));
             footerText.setText(generateFooterText(directory));
-            Log_OC.d("footer", String.valueOf(System.currentTimeMillis()));
+            if (DisplayUtils.decideViewLayout(files)){
+                switchImageView();
+            } else {
+                switchFileView();
+            }
         }
     }
     
@@ -432,6 +438,17 @@ public class OCFileListFragment extends ExtendedListFragment {
             output = output + folders.toString() + " " + getResources().getString(R.string.file_list_folder);
         } else if (folders > 1) {
             output = output + folders.toString() + " " + getResources().getString(R.string.file_list_folders);
+        }
+
+        // Fix for showing or not to show the footerView
+        if (folders == 0 && files == 0) {   // If no files or folders, remove footerView for allowing
+                                            // to show the emptyList message
+            removeFooterView(mFooterView);
+        } else { // set a new footerView if there is not one for showing the number or files/folders
+            if (getFooterViewCount()== 0) {
+                ((ViewGroup)mFooterView.getParent()).removeView(mFooterView);
+                setFooterView(mFooterView);
+            }
         }
         
         return output;
