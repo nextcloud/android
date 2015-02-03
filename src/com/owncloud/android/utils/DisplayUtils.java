@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Vector;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -50,6 +51,8 @@ public class DisplayUtils {
     //private static String TAG = DisplayUtils.class.getSimpleName(); 
     
     private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+
+    private final static Double THUMBNAIL_THRESHOLD = 0.5;
 
     private static HashMap<String, String> mimeType2HUmanReadable;
     static {
@@ -228,7 +231,7 @@ public class DisplayUtils {
     
     /**
      * Converts Unix time to human readable format
-     * @param miliseconds that have passed since 01/01/1970
+     * @param milliseconds that have passed since 01/01/1970
      * @return The human readable time for the users locale
      */
     public static String unixTimeToHumanReadable(long milliseconds) {
@@ -339,5 +342,32 @@ public class DisplayUtils {
             path = path.substring(0, path.length()-1);
         }
         return path;
+    }
+
+    /**
+     *
+     * @param mFiles
+     * @return true: imageView, false: listView
+     */
+    public static boolean decideViewLayout(Vector<OCFile> mFiles){
+        // decide image vs. file view
+        double countImages = 0;
+        double countFiles = 0;
+
+        for (OCFile file : mFiles){
+            if (!file.isFolder()){
+                countFiles++;
+
+                if (file.isImage()){
+                    countImages++;
+                }
+            }
+        }
+
+        if ((countImages / countFiles) >= THUMBNAIL_THRESHOLD){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
