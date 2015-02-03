@@ -98,21 +98,6 @@ public class LocalFileListFragment extends ExtendedListFragment {
         Log_OC.i(TAG, "onActivityCreated() stop");
     }
     
-    public void selectAll(){
-        int numberOfFiles = mAdapter.getCount();
-        for(int i = 0; i < numberOfFiles; i++){
-            File file = (File) mAdapter.getItem(i);
-            if (file != null) {                
-                if (!file.isDirectory()) {  
-                    /// Click on a file
-                    getGridView().setItemChecked(i, true);                       
-                    // notify the change to the container Activity
-                    mContainerActivity.onFileClick(file);
-                }
-            }
-        }
-    }
-    
     /**
      * Checks the file clicked over. Browses inside if it is a directory. Notifies the container activity in any case.
      */
