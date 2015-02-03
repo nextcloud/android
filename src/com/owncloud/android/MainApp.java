@@ -36,26 +36,15 @@ public class MainApp extends Application {
     
     private static final String AUTH_ON = "on";
     
-    @SuppressWarnings("unused")
-    private static final String POLICY_SINGLE_SESSION_PER_ACCOUNT = "single session per account";
-    @SuppressWarnings("unused")
-    private static final String POLICY_ALWAYS_NEW_CLIENT = "always new client";
-
     private static Context mContext;
     
     public void onCreate(){
         super.onCreate();
         MainApp.mContext = getApplicationContext();
-        
-        boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
-        
-        if (isSamlAuth) {   
-            OwnCloudClientManagerFactory.setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT);
-            
-        } else {
-            OwnCloudClientManagerFactory.setDefaultPolicy(Policy.ALWAYS_NEW_CLIENT);
-        }
 
+        // keep a single session per account handling session cookie in requests (& all the other cookies)
+        OwnCloudClientManagerFactory.setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT);
+            
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
         
