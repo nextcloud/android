@@ -142,8 +142,8 @@
   <string name="media_event_done">%1$s reproducción finalizada</string>
   <string name="media_err_nothing_to_play">No se encontró el archivo multimedia</string>
   <string name="media_err_no_account">No se ha proporcionado cuenta</string>
-  <string name="media_err_not_in_owncloud">El archivo no esta en una cuenta valida </string>
-  <string name="media_err_unsupported">Codec No Soportado</string>
+  <string name="media_err_not_in_owncloud">El archivo no está en una cuenta válida </string>
+  <string name="media_err_unsupported">Codec no soportado</string>
   <string name="media_err_io">El archivo de medios no pudo ser leído </string>
   <string name="media_err_malformed">Archivo no codificado correctamente</string>
   <string name="media_err_timeout">Tiempo de espera agotado en el intento de reproducción</string>
@@ -174,7 +174,7 @@
   <string name="auth_bad_oc_version_title">No se reconoce  la versión del servidor </string>
   <string name="auth_wrong_connection_title">No se ha podido establecer la conexión</string>
   <string name="auth_secure_connection">Conexión segura establecida</string>
-  <string name="auth_unauthorized">Nombre de usuario o contraseña incorrecta</string>
+  <string name="auth_unauthorized">Nombre de usuario o contraseña incorrectos</string>
   <string name="auth_oauth_error">Autorización no satisfactoria</string>
   <string name="auth_oauth_error_access_denied">Acceso denegado por servidor de autorización</string>
   <string name="auth_wtf_reenter_URL">Estado inesperado; por favor, introduzca la URL del servidor de nuevo</string>
@@ -299,7 +299,4 @@
   <string name="prefs_category_security">Seguridad</string>
   <string name="prefs_instant_video_upload_path_title">Guardar videos subidos en la carpeta:</string>
   <string name="download_folder_failed_content">Descarga de la carpeta %1$s no ha podido ser completada</string>
-  <string name="shared_subject_header">compartido</string>
-  <string name="with_you_subject_header">contigo</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>
