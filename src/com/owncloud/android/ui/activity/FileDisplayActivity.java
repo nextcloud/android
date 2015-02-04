@@ -649,6 +649,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         if (filePaths != null) {
             String[] remotePaths = new String[filePaths.length];
             String remotePathBase = "";
+
             for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
                 remotePathBase += OCFile.PATH_SEPARATOR + mDirectories.getItem(j);
             }
@@ -1890,6 +1891,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             mWaitingToSend = null;
         }
         onTransferStateChanged(file, false, false);
+    }
+
+    public void cancelUploadsForAnAccount(Account account) {
+        mUploaderBinder.cancel(account);
     }
 
     @Override

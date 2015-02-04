@@ -356,6 +356,38 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             }
         }
 
+        /**
+         * Cancels a pending or current upload for an account
+         *
+         * @param account Owncloud accountName where the remote file will be stored.
+         */
+        public void cancel(Account account) {
+            Log_OC.d(TAG, "Account= " + account.name);
+
+            if (mCurrentUpload != null) {
+                Log_OC.d(TAG, "Current Upload Account= " + mCurrentUpload.getAccount().name);
+                if (mCurrentUpload.getAccount().name == account.name) {
+                    mCurrentUpload.cancel();
+                }
+            }
+            // Cancel pending uploads
+            Iterator<String> it = mPendingUploads.keySet().iterator();
+            Log_OC.d(TAG, "Number of pending updloads= "  + mPendingUploads.size());
+            while (it.hasNext()) {
+                String key = it.next();
+                Log_OC.d(TAG, "mPendingUploads CANCELLED " + key);
+                if (key.startsWith(account.name)) {
+                    UploadFileOperation upload;
+                    synchronized (mPendingUploads) {
+                        upload = mPendingUploads.remove(key);
+                    }
+                    if (upload != null) {
+                        upload.cancel();
+                    }
+                }
+            }
+        }
+
         public void clearListeners() {
             mBoundListeners.clear();
         }
@@ -891,12 +923,13 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         // this can be slow if there are many uploads :(
         Iterator<String> it = mPendingUploads.keySet().iterator();
         Log_OC.d(TAG, "Number of pending updloads= "  + mPendingUploads.size());
-        boolean found;
         while (it.hasNext()) {
             String key = it.next();
-            Log_OC.d(TAG, "mPendingUploads CANCELLED" + key);
+            Log_OC.d(TAG, "mPendingUploads CANCELLED " + key);
             if (key.startsWith(accountName)) {
-                mPendingUploads.remove(key);
+                synchronized (mPendingUploads) {
+                    mPendingUploads.remove(key);
+                }
             }
         }
     }

@@ -400,7 +400,8 @@ public class UploadFileOperation extends RemoteOperation {
      * Checks if remotePath does not exist in the server and returns it, or adds
      * a suffix to it in order to avoid the server file is overwritten.
      * 
-     * @param string
+     * @param wc
+     * @param remotePath
      * @return
      */
     private String getAvailableRemotePath(OwnCloudClient wc, String remotePath) throws Exception {
@@ -442,6 +443,7 @@ public class UploadFileOperation extends RemoteOperation {
     }
     
     public void cancel() {
-        mUploadOperation.cancel();
+        if (mUploadOperation != null)
+            mUploadOperation.cancel();
     }
 }

@@ -605,7 +605,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
     @Override
     public FileUploaderBinder getFileUploaderBinder() {
         return mUploaderBinder;
-    };    
+    }
     
     
 }
