@@ -274,4 +274,5 @@
   <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
   <string name="folder_picker_choose_button_text">Escull</string>
   <string name="prefs_category_security">Seguretat</string>
+  <string name="shared_subject_header">compartit</string>
 </resources>

@@ -299,4 +299,7 @@
   <string name="prefs_category_security">Güvenlik</string>
   <string name="prefs_instant_video_upload_path_title">Video Yükleme Yolu</string>
   <string name="download_folder_failed_content">%1$s klasörün indirilmesi tamamlanamadı</string>
+  <string name="shared_subject_header">paylaşılan</string>
+  <string name="with_you_subject_header">sizinle</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>

@@ -279,4 +279,7 @@ Mesedez, baimendu berriz</string>
   <string name="folder_picker_choose_button_text">Aukeratu</string>
   <string name="prefs_category_instant_uploading">Berehalako Igoerak</string>
   <string name="prefs_category_security">Segurtasuna</string>
+  <string name="shared_subject_header">konpartitua</string>
+  <string name="with_you_subject_header">zurekin</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>
