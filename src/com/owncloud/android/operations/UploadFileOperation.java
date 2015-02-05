@@ -76,7 +76,7 @@ public class UploadFileOperation extends RemoteOperation {
     private String mOriginalStoragePath = null;
     PutMethod mPutMethod = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
-    private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
+    private AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     private Context mContext;
     
     private UploadRemoteFileOperation mUploadOperation;
@@ -443,7 +443,9 @@ public class UploadFileOperation extends RemoteOperation {
     }
     
     public void cancel() {
-        if (mUploadOperation != null)
+        mCancellationRequested = new AtomicBoolean(true);
+        if (mUploadOperation != null) {
             mUploadOperation.cancel();
+        }
     }
 }
