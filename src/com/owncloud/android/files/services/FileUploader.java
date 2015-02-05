@@ -161,7 +161,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     @Override
     public void onCreate() {
         super.onCreate();
-        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size());
+        Log_OC.d(TAG, "Creating service");
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         HandlerThread thread = new HandlerThread("FileUploaderThread", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
@@ -169,6 +169,21 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileUploaderBinder();
     }
+
+    /**
+     * Service clean up
+     */
+    @Override
+    public void onDestroy() {
+        Log_OC.v(TAG, "Destroying service" );
+        mBinder = null;
+        mServiceHandler = null;
+        mServiceLooper.quit();
+        mServiceLooper = null;
+        mNotificationManager = null;
+        super.onDestroy();
+    }
+
 
     /**
      * Entry point to add one or several files to the queue of uploads.
@@ -179,6 +194,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log_OC.d(TAG, "Starting command with id " + startId);
+
         if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_UPLOAD_TYPE)
                 || !(intent.hasExtra(KEY_LOCAL_FILE) || intent.hasExtra(KEY_FILE))) {
             Log_OC.e(TAG, "Not enough information provided in intent");
@@ -467,6 +484,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                     mService.uploadFile(it.next());
                 }
             }
+            Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
             mService.stopSelf(msg.arg1);
         }
     }

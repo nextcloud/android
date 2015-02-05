@@ -86,9 +86,8 @@ class SyncFolderHandler extends Handler {
     @Override
     public void handleMessage(Message msg) {
         Pair<Account, String> itemSyncKey = (Pair<Account, String>) msg.obj;
-        /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                    "Handling sync folder " + itemSyncKey.second);*/
         doOperation(itemSyncKey.first, itemSyncKey.second);
+        Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
         mService.stopSelf(msg.arg1);
     }
 
@@ -98,8 +97,6 @@ class SyncFolderHandler extends Handler {
      */
     private void doOperation(Account account, String remotePath) {
 
-        /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                "Getting sync folder " + remotePath);*/
         mCurrentSyncOperation = mPendingOperations.get(account, remotePath);
 
         if (mCurrentSyncOperation != null) {
@@ -120,8 +117,6 @@ class SyncFolderHandler extends Handler {
                 mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, mService);
 
-                /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Executing sync folder " + remotePath);*/
                 result = mCurrentSyncOperation.execute(mOwnCloudClient, mStorageManager);
 
             } catch (AccountsException e) {
@@ -129,9 +124,6 @@ class SyncFolderHandler extends Handler {
             } catch (IOException e) {
                 Log_OC.e(TAG, "Error while trying to get authorization", e);
             } finally {
-                /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Removing payload " + remotePath);*/
-
                 mPendingOperations.removePayload(account, remotePath);
 
                 mService.dispatchResultToOperationListeners(null, mCurrentSyncOperation, result);
@@ -158,26 +150,17 @@ class SyncFolderHandler extends Handler {
             Log_OC.e(TAG, "Cannot cancel with NULL parameters");
             return;
         }
-        /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                "Removing sync folder " + file.getRemotePath());*/
         Pair<SynchronizeFolderOperation, String> removeResult =
                 mPendingOperations.remove(account, file.getRemotePath());
         SynchronizeFolderOperation synchronization = removeResult.first;
         if (synchronization != null) {
-            /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                    "Canceling returned sync of " + file.getRemotePath());*/
             synchronization.cancel();
         } else {
             // TODO synchronize?
             if (mCurrentSyncOperation != null && mCurrentAccount != null &&
                     mCurrentSyncOperation.getRemotePath().startsWith(file.getRemotePath()) &&
                     account.name.equals(mCurrentAccount.name)) {
-                /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Canceling current sync as descendant: " + mCurrentSyncOperation.getRemotePath());*/
                 mCurrentSyncOperation.cancel();
-            } else {
-                /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Nothing else in cancelation of " + file.getRemotePath());*/
             }
         }
 

@@ -440,7 +440,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
      */
     private void startContentSynchronizations(List<SyncOperation> filesToSyncContents, OwnCloudClient client) 
             throws OperationCancelledException {
-        
+
+        Log_OC.v(TAG, "Starting content synchronization... ");
         RemoteOperationResult contentsResult = null;
         for (SyncOperation op: filesToSyncContents) {
             if (mCancellationRequested.get()) {
