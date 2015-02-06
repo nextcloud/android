@@ -18,11 +18,14 @@
 
 package com.owncloud.android.authentication;
 
+import java.io.IOException;
 import java.security.cert.X509Certificate;
 import java.util.Map;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -64,6 +67,9 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
@@ -222,6 +228,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mWaitingForOpId = savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID);
             mIsFirstAuthAttempt = savedInstanceState.getBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG);
         }
+
+
         
         /// load user interface
         setContentView(R.layout.account_setup);
@@ -549,7 +557,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      * intended to defer the processing of the redirection caught in 
      * {@link #onNewIntent(Intent)} until {@link #onResume()} 
      * 
-     * See {@link #loadSavedInstanceState(Bundle)}
+     * See {@link #onSaveInstanceState(Bundle)}
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -878,6 +886,12 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     }
 
     private void accessRootFolderRemoteOperation(String username, String password) {
+        // delete the account if the token has changed
+        if (mAction == ACTION_UPDATE_TOKEN || mAction == ACTION_UPDATE_EXPIRED_TOKEN) {
+            // Remove the cookies in AccountManager
+            mAccountMgr.setUserData(mAccount, Constants.KEY_COOKIES, null);
+        }
+
         Intent existenceCheckIntent = new Intent();
         existenceCheckIntent.setAction(OperationsService.ACTION_EXISTENCE_CHECK);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mServerInfo.mBaseUrl);
@@ -1042,8 +1056,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     /**
      * Processes the result of the server check performed when the user finishes the enter of the
      * server URL.
-     * 
-     * @param operation     Server check performed.
+     *
      * @param result        Result of the check.
      */
     private void onGetServerInfoFinish(RemoteOperationResult result) {
@@ -1353,8 +1366,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      * Processes the result of the access check performed to try the user credentials.
      * 
      * Creates a new account through the AccountManager.
-     * 
-     * @param operation     Access check performed.
+     *
      * @param result        Result of the operation.
      */
     private void onAuthorizationCheckFinish(RemoteOperationResult result) {
@@ -1546,9 +1558,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     /**
      * Updates the content and visibility state of the icon and text associated
      * to the last check on the ownCloud server.
-     * 
-     * @param serverStatusText      Resource identifier of the text to show.
-     * @param serverStatusIcon      Resource identifier of the icon to show.
      */
     private void showServerStatus() {
         if (mServerStatusIcon == 0 && mServerStatusText == 0) {
