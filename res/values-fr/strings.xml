@@ -39,7 +39,7 @@
   <string name="prefs_feedback">Commentaires</string>
   <string name="prefs_imprint">Empreinte</string>
   <string name="prefs_remember_last_share_location">Mémoriser l\'emplacement de partage</string>
-  <string name="prefs_remember_last_upload_location_summary">Mémoriser le dernier emplacement d\'upload</string>
+  <string name="prefs_remember_last_upload_location_summary">Mémoriser le dernier emplacement de téléversement</string>
   <string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
   <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !
 Téléchargez-le ici : %2$s</string>
@@ -59,7 +59,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="uploader_wrn_no_content_title">Rien à envoyer</string>
   <string name="uploader_wrn_no_content_text">Aucun contenu reçu. Rien à envoyer.</string>
   <string name="uploader_error_forbidden_content">%1$s n\'est pas autorisé à accéder au contenu partagé</string>
-  <string name="uploader_info_uploading">Téléversement</string>
+  <string name="uploader_info_uploading">Téléversement...</string>
   <string name="file_list_seconds_ago">il y a quelques secondes</string>
   <string name="file_list_empty">Il n\'y a rien ici ! Envoyez donc quelque chose :)</string>
   <string name="file_list_loading">Chargement…</string>
@@ -90,7 +90,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="common_error_unknown">Erreur inconnue </string>
   <string name="about_title">À propos de</string>
   <string name="change_password">Changer de mot de passe</string>
-  <string name="delete_account">Effacer ce compte</string>
+  <string name="delete_account">Supprimer ce compte</string>
   <string name="create_account">Créer un compte</string>
   <string name="upload_chooser_title">Téléverser un fichier depuis…</string>
   <string name="uploader_info_dirname">Nom du dossier</string>

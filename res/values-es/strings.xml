@@ -298,7 +298,7 @@
   <string name="prefs_category_instant_uploading">Subidas instantáneas</string>
   <string name="prefs_category_security">Seguridad</string>
   <string name="prefs_instant_video_upload_path_title">Guardar videos subidos en la carpeta:</string>
-  <string name="download_folder_failed_content">Descarga de la carpeta %1$s no ha podido ser completada</string>
+  <string name="download_folder_failed_content">La descarga de la carpeta %1$s no ha podido ser completada</string>
   <string name="shared_subject_header">compartido</string>
   <string name="with_you_subject_header">contigo</string>
   <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
