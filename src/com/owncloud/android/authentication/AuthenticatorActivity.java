@@ -101,8 +101,9 @@ import com.owncloud.android.utils.DisplayUtils;
  * @author masensio
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
-implements  OnRemoteOperationListener, OnFocusChangeListener, OnEditorActionListener, 
-SsoWebViewClientListener, OnSslUntrustedCertListener {
+        implements  OnRemoteOperationListener, OnFocusChangeListener, OnEditorActionListener,
+        SsoWebViewClientListener, OnSslUntrustedCertListener,
+        AuthenticatorAsyncTask.OnAuthenticatorTaskListener {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 
@@ -892,18 +893,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mAccountMgr.setUserData(mAccount, Constants.KEY_COOKIES, null);
         }
 
-        Intent existenceCheckIntent = new Intent();
-        existenceCheckIntent.setAction(OperationsService.ACTION_EXISTENCE_CHECK);
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mServerInfo.mBaseUrl);
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, "/");
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_USERNAME, username);
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_PASSWORD, password);
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN, mAuthToken);
-        
-        if (mOperationsServiceBinder != null) {
-            //Log_OC.wtf(TAG, "starting existenceCheckRemoteOperation..." );
-            mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(existenceCheckIntent);
-        }
+        AuthenticatorAsyncTask asyncTask = new AuthenticatorAsyncTask(this);
+        String[] params = { mServerInfo.mBaseUrl, username, password, mAuthToken, mAuthTokenType};
+        asyncTask.execute(params);
+
     }
 
     /**
@@ -974,6 +967,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             onGetOAuthAccessTokenFinish(result);
 
         } else if (operation instanceof ExistenceCheckRemoteOperation)  {
+            // TODO : remove this response??
             //Log_OC.wtf(TAG, "received detection response through callback" );
             if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).
                     equals(mAuthTokenType)) {
@@ -1899,5 +1893,18 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      */
     public void doNegativeAuthenticatioDialogClick(){
         mIsFirstAuthAttempt = true;
+    }
+
+
+    @Override
+    public void onAuthenticatorTaskCallback(RemoteOperationResult result) {
+        //Log_OC.wtf(TAG, "received detection response through callback" );
+        if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).
+                equals(mAuthTokenType)) {
+            onSamlBasedFederatedSingleSignOnAuthorizationStart(result);
+
+        } else {
+            onAuthorizationCheckFinish(result);
+        }
     }
 }
