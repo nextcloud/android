@@ -68,7 +68,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
 import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
@@ -996,19 +995,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (!mUsernameInput.getText().toString().equals(username)) {
                     // fail - not a new account, but an existing one; disallow
                     result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME);
-                    /*
-                    OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(
-                            new OwnCloudAccount(
-                                    Uri.parse(mServerInfo.mBaseUrl),
-                                    OwnCloudCredentialsFactory.newSamlSsoCredentials(mAuthToken))
-                            );
-                            */
                     mAuthToken = "";
                     updateAuthStatusIconAndText(result);
                     showAuthStatus();
                     Log_OC.d(TAG, result.getLogMessage());
                 } else {
-                    updateToken();
+                    updateAccountAuthentication();
                     success = true;
                 }
             }
@@ -1375,7 +1367,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 success = createAccount();
 
             } else {
-                updateToken();
+                updateAccountAuthentication();
                 success = true;
             }
 
@@ -1417,10 +1409,25 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 
     /**
-     * Sets the proper response to get that the Account Authenticator that started this activity 
+     * Updates the authentication token.
+     *
+     * Sets the proper response so that the AccountAuthenticator that started this activity
      * saves a new authorization token for mAccount.
+     *
+     * Kills the session kept by OwnCloudClientManager so that a new one will created with
+     * the new credentials when needed.
      */
-    private void updateToken() {
+    private void updateAccountAuthentication() {
+
+        try {
+            OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(
+                new OwnCloudAccount(mAccount, this)     // TODO avoid this creation may block the main thread
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         Bundle response = new Bundle();
         response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
         response.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccount.type);
