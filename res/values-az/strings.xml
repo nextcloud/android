@@ -11,6 +11,12 @@
   <string name="actionbar_settings">Quraşdırmalar</string>
   <string name="actionbar_see_details">Detallar</string>
   <string name="actionbar_send_file">Göndər</string>
+  <string name="actionbar_sort">Çeşidləmək</string>
+  <string name="actionbar_sort_title">Təyinata görə çeşidləmək </string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Yenisi - Köhnəsi</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Ümumi</string>
@@ -32,6 +38,8 @@
   <string name="prefs_recommend">Dostuna məsləhət gör</string>
   <string name="prefs_feedback">Geriyə cavab</string>
   <string name="prefs_imprint">İşarələmək</string>
+  <string name="prefs_remember_last_share_location">Paylaşma ünvanını yadda saxla</string>
+  <string name="prefs_remember_last_upload_location_summary">Son paylaşılmış yüklənmə ünvanını yadda saxla</string>
   <string name="recommend_subject">%1$s-i ağıllı telefonunuzda yoxlayın!</string>
   <string name="recommend_text">Mən sizi öz smartfonunuzda %1$s istifadə etmək üçün dəvət etmək istəyirəm! Burdan endirin: %2$s</string>
   <string name="auth_check_server">Serveri yoxla</string>
@@ -51,9 +59,14 @@
   <string name="uploader_wrn_no_content_text">Heç bir kontent gəlmədi. Yukləmək üçün heçnə yoxdur.</string>
   <string name="uploader_error_forbidden_content">%1$s yayımlanmış kontent üçün yetkili deyil</string>
   <string name="uploader_info_uploading">Yüklənmə gedir</string>
+  <string name="file_list_seconds_ago">saniyələr öncə</string>
   <string name="file_list_empty">Burda heçnə yoxdur. Nese yükləyin!</string>
   <string name="file_list_loading">Yüklənir...</string>
   <string name="local_file_list_empty">Bu qovluqda heç bir fayl movcud deyil.</string>
+  <string name="file_list_folder">qovluq</string>
+  <string name="file_list_folders">qovluqlar</string>
+  <string name="file_list_file">fayl</string>
+  <string name="file_list_files">fayllar</string>
   <string name="filedetails_select_file">Faylın üstünə sıxın ki, əlavə məlumat ekrana çıxsın.</string>
   <string name="filedetails_size">Həcm:</string>
   <string name="filedetails_type">Tip:</string>
@@ -206,7 +219,11 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="ssl_validator_reason_cert_not_trusted">Server sertifikati inamlı deyil</string>
   <string name="ssl_validator_reason_cert_expired">- Server sertifikatının vaxtı bitmişdir</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Server sertifikatının düzgün tarixi gələcəkdədir</string>
+  <string name="ssl_validator_reason_hostname_not_verified">URL sertifikatda olan host adına uyğun deyil</string>
+  <string name="ssl_validator_question">İstənilən halda bu sertifikata inanmaq istəyirsinizmi?</string>
+  <string name="ssl_validator_not_saved">Sertifikat saxlanıla bilməz</string>
   <string name="ssl_validator_btn_details_see">Detallar</string>
+  <string name="ssl_validator_btn_details_hide">Gizlə</string>
   <string name="unshare_link_file_error">Bu fayl və ya qovluğun yayımlanmasının dayandırılmasında səhv baş verdi</string>
   <string name="activity_chooser_send_file_title">Göndər</string>
   <string name="copy_link">linki nüsxələ</string>

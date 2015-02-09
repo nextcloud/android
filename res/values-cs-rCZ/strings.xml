@@ -40,7 +40,7 @@
   <string name="prefs_imprint">Imprint</string>
   <string name="prefs_remember_last_share_location">Zapamatovat umístění sdílení</string>
   <string name="prefs_remember_last_upload_location_summary">Zapamatovat poslední umístění pro nahrání sdílených souborů</string>
-  <string name="recommend_subject">Zkuste %1$s na vašem smartphonu!</string>
+  <string name="recommend_subject">Zkuste %1$s na svém chytrém telefonu!</string>
   <string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>
   <string name="auth_check_server">Zkontrolovat server</string>
   <string name="auth_host_url">Adresa serveru https://...</string>
@@ -178,9 +178,9 @@
   <string name="auth_oauth_error">Neúspěšné přihlášení</string>
   <string name="auth_oauth_error_access_denied">Přístup zamítnut autorizačním serverem</string>
   <string name="auth_wtf_reenter_URL">Neočekávaný stav; prosím vložte znovu URL adresu serveru</string>
-  <string name="auth_expired_oauth_token_toast">Vaše přihlášení vypršelo. Přihlašte se, prosím, znovu</string>
+  <string name="auth_expired_oauth_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
   <string name="auth_expired_basic_auth_toast">Zadejte prosím aktuální heslo</string>
-  <string name="auth_expired_saml_sso_token_toast">Vaše přihlášení vypršelo. Přihlašte se, prosím, znovu</string>
+  <string name="auth_expired_saml_sso_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
   <string name="auth_connecting_auth_server">Připojuji se k přihlašovacímu serveru...</string>
   <string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
   <string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
