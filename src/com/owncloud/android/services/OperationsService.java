@@ -435,12 +435,13 @@ public class OperationsService extends Service {
                 mCurrentOperation = next.second;
                 RemoteOperationResult result = null;
                 try {
-                    OwnCloudAccount ocAccount;
                     /// prepare client object to send the request to the ownCloud server
                     if (mLastTarget == null || !mLastTarget.equals(next.first)) {
                         mLastTarget = next.first;
                         if (mLastTarget.mAccount != null) {
-                            ocAccount = new OwnCloudAccount(mLastTarget.mAccount, mService);
+                            OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mAccount, mService);
+                            mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                                    getClientFor(ocAccount, mService);
                             mStorageManager = new FileDataStorageManager(
                                     mLastTarget.mAccount, 
                                     mService.getContentResolver()
@@ -463,12 +464,12 @@ public class OperationsService extends Service {
                                 credentials = OwnCloudCredentialsFactory.newSamlSsoCredentials(
                                         mLastTarget.mCookie); // SAML SSO
                             }
-                            ocAccount = new OwnCloudAccount(
+                            OwnCloudAccount ocAccount = new OwnCloudAccount(
                                     mLastTarget.mServerUrl, credentials);
+                            mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                                    getClientFor(ocAccount, mService);
                             mStorageManager = null;
                         }
-                        mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                                getClientFor(ocAccount, mService);
                     }
 
                     /// perform the operation
