@@ -68,9 +68,9 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
 import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
@@ -996,20 +996,20 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (!mUsernameInput.getText().toString().equals(username)) {
                     // fail - not a new account, but an existing one; disallow
                     result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME);
-                    /*
-                    OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(
-                            new OwnCloudAccount(
-                                    Uri.parse(mServerInfo.mBaseUrl),
-                                    OwnCloudCredentialsFactory.newSamlSsoCredentials(mAuthToken))
-                            );
-                            */
                     mAuthToken = "";
                     updateAuthStatusIconAndText(result);
                     showAuthStatus();
                     Log_OC.d(TAG, result.getLogMessage());
                 } else {
-                    updateToken();
-                    success = true;
+                    try {
+                        updateAccountAuthentication();
+                        success = true;
+
+                    } catch (AccountNotFoundException e) {
+                        Log_OC.e(TAG, "Account " + mAccount + " was removed!", e);
+                        Toast.makeText(this, R.string.auth_account_does_not_exist, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
                 }
             }
 
@@ -1375,8 +1375,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 success = createAccount();
 
             } else {
-                updateToken();
-                success = true;
+                try {
+                    updateAccountAuthentication();
+                    success = true;
+
+                } catch (AccountNotFoundException e) {
+                    Log_OC.e(TAG, "Account " + mAccount + " was removed!", e);
+                    Toast.makeText(this, R.string.auth_account_does_not_exist, Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
 
             if (success) {
@@ -1417,10 +1424,20 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 
     /**
-     * Sets the proper response to get that the Account Authenticator that started this activity 
+     * Updates the authentication token.
+     *
+     * Sets the proper response so that the AccountAuthenticator that started this activity
      * saves a new authorization token for mAccount.
+     *
+     * Kills the session kept by OwnCloudClientManager so that a new one will created with
+     * the new credentials when needed.
      */
-    private void updateToken() {
+    private void updateAccountAuthentication() throws AccountNotFoundException {
+
+        OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(
+            new OwnCloudAccount(mAccount, this)
+        );
+
         Bundle response = new Bundle();
         response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
         response.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccount.type);
