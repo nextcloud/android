@@ -33,7 +33,7 @@ public class AuthenticatorAsyncTask  extends AsyncTask<String, Void, RemoteOpera
 
     public AuthenticatorAsyncTask(Activity activity) {
         mContext = activity.getApplicationContext();
-        mListener = new WeakReference<>((OnAuthenticatorTaskListener)activity);
+        mListener = new WeakReference<OnAuthenticatorTaskListener>((OnAuthenticatorTaskListener)activity);
     }
 
     @Override
