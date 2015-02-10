@@ -78,6 +78,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     private OCFile mFile = null;
     private FileListListAdapter mAdapter;
     private View mFooterView;
+    private boolean mJustFolders;
     
     private OCFile mTargetFile;
 
@@ -130,9 +131,9 @@ public class OCFileListFragment extends ExtendedListFragment {
         setFooterView(mFooterView);
 
         Bundle args = getArguments();
-        boolean justFolders = (args == null) ? false : args.getBoolean(ARG_JUST_FOLDERS, false); 
+        mJustFolders = (args == null) ? false : args.getBoolean(ARG_JUST_FOLDERS, false);
         mAdapter = new FileListListAdapter(
-                justFolders,
+                mJustFolders,
                 getSherlockActivity(),
                 mContainerActivity
                 );
@@ -399,7 +400,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             // Update Footer
             TextView footerText = (TextView) mFooterView.findViewById(R.id.footerText);
             footerText.setText(generateFooterText(directory));
-            if (DisplayUtils.decideViewLayout(files)){
+            if (DisplayUtils.decideViewLayout(files) && !mJustFolders){
                 switchImageView();
             } else {
                 switchFileView();
