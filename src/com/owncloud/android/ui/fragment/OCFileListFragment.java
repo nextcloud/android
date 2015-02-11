@@ -127,8 +127,12 @@ public class OCFileListFragment extends ExtendedListFragment {
         }
 
         mFooterView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
-                        R.layout.list_footer, null, false);
-        setFooterView(mFooterView);
+                R.layout.list_footer, null, false);
+        if (mJustFolders) {
+            removeFooterView(mFooterView);
+        } else {
+            setFooterView(mFooterView);
+        }
 
         Bundle args = getArguments();
         mJustFolders = (args == null) ? false : args.getBoolean(ARG_JUST_FOLDERS, false);
@@ -442,8 +446,10 @@ public class OCFileListFragment extends ExtendedListFragment {
         }
 
         // Fix for showing or not to show the footerView
-        if (folders == 0 && files == 0) {   // If no files or folders, remove footerView for allowing
-                                            // to show the emptyList message
+        if (mJustFolders || (folders == 0 && files == 0)) {
+                // If fragment to choose target folder for a MOVE or
+                // no files or folders,
+                // remove footerView for allowing to show the emptyList message
             removeFooterView(mFooterView);
         } else { // set a new footerView if there is not one for showing the number or files/folders
             if (getFooterViewCount()== 0) {
