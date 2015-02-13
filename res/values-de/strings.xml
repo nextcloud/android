@@ -43,7 +43,7 @@
   <string name="recommend_subject">Probiere %1$s auf Deinem Smartphone!</string>
   <string name="recommend_text">Ich möchte Dich zum Benutzen von %1$s auf Deinem Smartphone einladen!\nLade es hier herunter: %2$s</string>
   <string name="auth_check_server">Überprüfe den Server</string>
-  <string name="auth_host_url">Server-Adresse https://…</string>
+  <string name="auth_host_url">Serveradresse https://…</string>
   <string name="auth_username">Benutzername</string>
   <string name="auth_password">Passwort</string>
   <string name="auth_register">Ist %1$s neu für dich?</string>
@@ -61,7 +61,7 @@
   <string name="uploader_info_uploading">Lade hoch</string>
   <string name="file_list_seconds_ago">Gerade eben</string>
   <string name="file_list_empty">Alles leer. Lade etwas hoch!</string>
-  <string name="file_list_loading">Ladevorgang …</string>
+  <string name="file_list_loading">Laden…</string>
   <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
   <string name="file_list_folder">Ordner</string>
   <string name="file_list_folders">Ordner</string>
