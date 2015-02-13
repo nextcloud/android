@@ -100,7 +100,7 @@
   <string name="uploader_upload_failed_ticker">Помилка завантаження</string>
   <string name="uploader_upload_failed_content_single">Завантаження %1$s не може завершитись</string>
   <string name="uploader_upload_failed_credentials_error">Завантажити не вдалося, необхідно повторити вхід</string>
-  <string name="downloader_download_in_progress_ticker">Зкачування …</string>
+  <string name="downloader_download_in_progress_ticker">Скачування …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Зкачування %2$s</string>
   <string name="downloader_download_succeeded_ticker">Успішно зкачано</string>
   <string name="downloader_download_succeeded_content">%1$s успішно завантажено</string>
@@ -297,6 +297,7 @@
   <string name="prefs_category_instant_uploading">Миттєво завантаження</string>
   <string name="prefs_category_security">Безпека</string>
   <string name="prefs_instant_video_upload_path_title">Шлях завантаження відео</string>
+  <string name="download_folder_failed_content">Скачування теки %1$s не може бути завершено</string>
   <string name="shared_subject_header">спільне</string>
   <string name="with_you_subject_header">з тобою</string>
   <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
