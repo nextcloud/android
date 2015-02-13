@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2012-2014 ownCloud Inc.
+ *   Copyright (C) 2012-2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,14 +18,11 @@
 
 package com.owncloud.android.authentication;
 
-import java.io.IOException;
 import java.security.cert.X509Certificate;
 import java.util.Map;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -36,6 +33,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -67,9 +65,6 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
@@ -139,6 +134,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String CREDENTIALS_DIALOG_TAG = "CREDENTIALS_DIALOG";
     private static final String KEY_AUTH_IS_FIRST_ATTEMPT_TAG = "KEY_AUTH_IS_FIRST_ATTEMPT";
 
+    private static final String KEY_USERNAME = "USERNAME";
+    private static final String KEY_PASSWORD = "PASSWORD";
+    private static final String KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS";
     
     /// parameters from EXTRAs in starter Intent
     private byte mAction;
@@ -182,9 +180,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private int mAuthStatusText = 0, mAuthStatusIcon = 0;
     
     private String mAuthToken = "";
+    private AuthenticatorAsyncTask mAsyncTask;
 
     private boolean mIsFirstAuthAttempt;
-
     
     /// Identifier of operation in progress which result shouldn't be lost 
     private long mWaitingForOpId = Long.MAX_VALUE;
@@ -424,9 +422,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     if (
                             AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(
                                     MainApp.getAccountType()
-                                    ).equals(mAuthTokenType) &&
-                            mHostUrlInput.hasFocus()
-                    ) {
+                            ).equals(mAuthTokenType) &&
+                                    mHostUrlInput.hasFocus()
+                            ) {
                         checkOcServer();
                     }
                 }
@@ -590,9 +588,35 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         /// authentication
         outState.putBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG, mIsFirstAuthAttempt);
 
+        /// AsyncTask (User and password)
+        outState.putString(KEY_USERNAME, mUsernameInput.getText().toString());
+        outState.putString(KEY_PASSWORD, mPasswordInput.getText().toString());
+
+        if (mAsyncTask != null) {
+            mAsyncTask.cancel(true);
+            outState.putBoolean(KEY_ASYNC_TASK_IN_PROGRESS, true);
+        } else {
+            outState.putBoolean(KEY_ASYNC_TASK_IN_PROGRESS, false);
+        }
+        mAsyncTask = null;
+
         //Log_OC.wtf(TAG, "onSaveInstanceState end" );
     }
 
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // AsyncTask
+        boolean inProgress = savedInstanceState.getBoolean(KEY_ASYNC_TASK_IN_PROGRESS);
+        if (inProgress){
+            mAsyncTask = new AuthenticatorAsyncTask(this);
+            String username = savedInstanceState.getString(KEY_USERNAME);
+            String password = savedInstanceState.getString(KEY_PASSWORD);
+            String[] params = {mServerInfo.mBaseUrl, username, password, mAuthToken, mAuthTokenType};
+            mAsyncTask.execute(params);
+        }
+    }
 
     /**
      * The redirection triggered by the OAuth authentication server as response to the 
@@ -893,9 +917,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAccountMgr.setUserData(mAccount, Constants.KEY_COOKIES, null);
         }
 
-        AuthenticatorAsyncTask asyncTask = new AuthenticatorAsyncTask(this);
+        mAsyncTask = new AuthenticatorAsyncTask(this);
         String[] params = { mServerInfo.mBaseUrl, username, password, mAuthToken, mAuthTokenType};
-        asyncTask.execute(params);
+        mAsyncTask.execute(params);
 
     }
 
