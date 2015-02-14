@@ -754,7 +754,7 @@ public class FileDataStorageManager {
         }
     }
 
-    private static boolean copyFile(File src, File target) {
+    private boolean copyFile(File src, File target) {
         boolean ret = true;
 
         InputStream in = null;
