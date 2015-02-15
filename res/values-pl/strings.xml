@@ -39,6 +39,7 @@
   <string name="prefs_feedback">Wsparcie</string>
   <string name="prefs_imprint">Stopka</string>
   <string name="prefs_remember_last_share_location">Zapamiętaj położenie udostępnienia</string>
+  <string name="prefs_remember_last_upload_location_summary">Zapamiętaj ostatnią lokalizację wgrywania</string>
   <string name="recommend_subject">Wypróbuj %1$s na swoim smartphonie!</string>
   <string name="recommend_text">Chciałbym zaprosić Cię do używania %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>
   <string name="auth_check_server">Sprawdź serwer</string>
@@ -281,6 +282,7 @@
   <string name="auth_redirect_non_secure_connection_title">Bezpieczne połączenie jest przekierowywane przez niezabezpieczone trasy.</string>
   <string name="actionbar_logger">Logi</string>
   <string name="log_send_history_button">Wyślij historię</string>
+  <string name="log_send_no_mail_app">Brak aplikacji do wysyłania logów. Zainstaluj klienta poczty!</string>
   <string name="log_send_mail_subject">%1$s Logi aplikacji Android</string>
   <string name="log_progress_dialog_text">Ładuję dane...</string>
   <string name="saml_authentication_required_text">Wymagana autoryzacja</string>
@@ -296,5 +298,8 @@
   <string name="prefs_category_instant_uploading">Automatyczne wysyłanie</string>
   <string name="prefs_category_security">Bezpieczeństwo</string>
   <string name="prefs_instant_video_upload_path_title">Katalog wysyłania dla wideo</string>
+  <string name="download_folder_failed_content">Pobieranie %1$s katalogu nie może zostać ukończone</string>
   <string name="shared_subject_header">współdzielone</string>
+  <string name="with_you_subject_header">z Tobą</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>
