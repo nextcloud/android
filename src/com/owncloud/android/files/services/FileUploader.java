@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -56,6 +56,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.operations.OperationCancelledException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -211,11 +212,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
             if (intent.hasExtra(KEY_FILE)) {
                 files = (OCFile[]) intent.getParcelableArrayExtra(KEY_FILE); // TODO
-                // will
-                // this
-                // casting
-                // work
-                // fine?
+                                                                             // will
+                                                                             // this
+                                                                             // casting
+                                                                             // work
+                                                                             // fine?
 
             } else {
                 localPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
@@ -352,7 +353,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 upload = mPendingUploads.remove(buildRemoteName(account, file));
             }
             if (upload != null) {
-                upload.cancel();
+                mCurrentUpload.cancel();
             }
         }
 
@@ -382,7 +383,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                         upload = mPendingUploads.remove(key);
                     }
                     if (upload != null) {
-                        upload.cancel();
+                        mCurrentUpload.cancel();
                     }
                 }
             }
@@ -594,7 +595,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private RemoteOperationResult grantFolderExistence(String pathToGrant) {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, this, false);
         RemoteOperationResult result = operation.execute(mUploadClient);
-        if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mCurrentUpload.isRemoteFolderToBeCreated()) {
+        if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND &&
+                mCurrentUpload.isRemoteFolderToBeCreated()) {
             SyncOperation syncOp = new CreateFolderOperation( pathToGrant, true);
             result = syncOp.execute(mUploadClient, mStorageManager);
         }
@@ -615,7 +617,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
     private OCFile createLocalFolder(String remotePath) {
         String parentPath = new File(remotePath).getParent();
-        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ?
+                parentPath : parentPath + OCFile.PATH_SEPARATOR;
         OCFile parent = mStorageManager.getFileByPath(parentPath);
         if (parent == null) {
             parent = createLocalFolder(parentPath);

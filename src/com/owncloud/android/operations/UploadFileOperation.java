@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -26,6 +26,7 @@ import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.httpclient.methods.PutMethod;
@@ -212,7 +213,8 @@ public class UploadFileOperation extends RemoteOperation {
 
             // check location of local file; if not the expected, copy to a
             // temporal file before upload (if COPY is the expected behaviour)
-            if (!mOriginalStoragePath.equals(expectedPath) && mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY) {
+            if (!mOriginalStoragePath.equals(expectedPath) &&
+                    mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY) {
 
                 if (FileStorageUtils.getUsableSpace(mAccount.name) < originalFile.length()) {
                     result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_FULL);
@@ -221,7 +223,8 @@ public class UploadFileOperation extends RemoteOperation {
 
                 } else {
 
-                    String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                    String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) +
+                            mFile.getRemotePath();
                     mFile.setStoragePath(temporalPath);
                     temporalFile = new File(temporalPath);
 
@@ -251,7 +254,8 @@ public class UploadFileOperation extends RemoteOperation {
                             int nRead;
                             byte[] data = new byte[16384];
 
-                            while ((nRead = in.read(data, 0, data.length)) != -1) {
+                            while (!mCancellationRequested.get() &&
+                                    (nRead = in.read(data, 0, data.length)) != -1) {
                                 out.write(data, 0, nRead);
                             }
 
@@ -268,7 +272,7 @@ public class UploadFileOperation extends RemoteOperation {
                                 out = new FileOutputStream(temporalFile);
                                 byte[] buf = new byte[1024];
                                 int len;
-                                while ((len = in.read(buf)) > 0) {
+                                while (!mCancellationRequested.get() && (len = in.read(buf)) > 0) {
                                     out.write(buf, 0, len);
                                 }
                             }
@@ -283,13 +287,15 @@ public class UploadFileOperation extends RemoteOperation {
                             if (in != null)
                                 in.close();
                         } catch (Exception e) {
-                            Log_OC.d(TAG, "Weird exception while closing input stream for " + mOriginalStoragePath + " (ignoring)", e);
+                            Log_OC.d(TAG, "Weird exception while closing input stream for " +
+                                    mOriginalStoragePath + " (ignoring)", e);
                         }
                         try {
                             if (out != null)
                                 out.close();
                         } catch (Exception e) {
-                            Log_OC.d(TAG, "Weird exception while closing output stream for " + expectedPath + " (ignoring)", e);
+                            Log_OC.d(TAG, "Weird exception while closing output stream for " +
+                                    expectedPath + " (ignoring)", e);
                         }
                     }
                 }
@@ -297,19 +303,22 @@ public class UploadFileOperation extends RemoteOperation {
             localCopyPassed = true;
 
             /// perform the upload
-            if ( mChunked && (new File(mFile.getStoragePath())).length() > ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
-                mUploadOperation = new ChunkedUploadRemoteFileOperation(mFile.getStoragePath(), mFile.getRemotePath(), 
-                        mFile.getMimetype());
+            if ( mChunked &&
+                    (new File(mFile.getStoragePath())).length() >
+                            ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
+                mUploadOperation = new ChunkedUploadRemoteFileOperation(mFile.getStoragePath(),
+                        mFile.getRemotePath(), mFile.getMimetype());
             } else {
-                mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(), mFile.getRemotePath(), 
-                        mFile.getMimetype());
+                mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
+                        mFile.getRemotePath(), mFile.getMimetype());
             }
             Iterator <OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
             while (listener.hasNext()) {
                 mUploadOperation.addDatatransferProgressListener(listener.next());
             }
-            result = mUploadOperation.execute(client);
-
+            if (!mCancellationRequested.get()) {
+                result = mUploadOperation.execute(client);
+            }
             /// move local temporal file or original file to its corresponding
             // location in the ownCloud local folder
             if (result.isSuccess()) {
@@ -348,6 +357,7 @@ public class UploadFileOperation extends RemoteOperation {
         } catch (Exception e) {
             // TODO something cleaner with cancellations
             if (mCancellationRequested.get()) {
+                mUploadOperation.cancel();
                 result = new RemoteOperationResult(new OperationCancelledException());
             } else {
                 result = new RemoteOperationResult(e);
@@ -358,19 +368,23 @@ public class UploadFileOperation extends RemoteOperation {
                 temporalFile.delete();
             }
             if (result.isSuccess()) {
-                Log_OC.i(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
+                Log_OC.i(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " +
+                        result.getLogMessage());
             } else {
                 if (result.getException() != null) {
                     String complement = "";
                     if (!nameCheckPassed) {
                         complement = " (while checking file existence in server)";
                     } else if (!localCopyPassed) {
-                        complement = " (while copying local file to " + FileStorageUtils.getSavePath(mAccount.name)
+                        complement = " (while copying local file to " +
+                                FileStorageUtils.getSavePath(mAccount.name)
                                 + ")";
                     }
-                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage() + complement, result.getException());
+                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
+                            ": " + result.getLogMessage() + complement, result.getException());
                 } else {
-                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
+                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
+                            ": " + result.getLogMessage());
                 }
             }
         }
@@ -385,7 +399,8 @@ public class UploadFileOperation extends RemoteOperation {
         newFile.setFileLength(mFile.getFileLength());
         newFile.setMimetype(mFile.getMimetype());
         newFile.setModificationTimestamp(mFile.getModificationTimestamp());
-        newFile.setModificationTimestampAtLastSyncForData(mFile.getModificationTimestampAtLastSyncForData());
+        newFile.setModificationTimestampAtLastSyncForData(
+                mFile.getModificationTimestampAtLastSyncForData());
         // newFile.setEtag(mFile.getEtag())
         newFile.setKeepInSync(mFile.keepInSync());
         newFile.setLastSyncDateForProperties(mFile.getLastSyncDateForProperties());
@@ -437,7 +452,8 @@ public class UploadFileOperation extends RemoteOperation {
     }
 
     private boolean existsFile(OwnCloudClient client, String remotePath){
-        ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, mContext, false);
+        ExistenceCheckRemoteOperation existsOperation =
+                new ExistenceCheckRemoteOperation(remotePath, mContext, false);
         RemoteOperationResult result = existsOperation.execute(client);
         return result.isSuccess();
     }
