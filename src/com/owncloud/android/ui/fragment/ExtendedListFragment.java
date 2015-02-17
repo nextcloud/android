@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,11 +20,13 @@ package com.owncloud.android.ui.fragment;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
@@ -34,8 +36,11 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
+import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.adapter.FileListListAdapter;
+
+import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
 /**
  * TODO extending SherlockListFragment instead of SherlockFragment
@@ -52,7 +57,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
 
-    private SwipeRefreshLayout mRefreshLayout;
+    private SwipeRefreshLayout mRefreshListLayout;
+    private SwipeRefreshLayout mRefreshGridLayout;
     private SwipeRefreshLayout mRefreshEmptyLayout;
     private TextView mEmptyListMessage;
     
@@ -64,40 +70,55 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
 
     private OnEnforceableRefreshListener mOnRefreshListener = null;
     
-    protected GridViewWithHeaderAndFooter imageView;
-       
-    public void setListAdapter(ListAdapter listAdapter) {
-        imageView.setAdapter(listAdapter);
-        imageView.invalidate();
+    protected AbsListView mCurrentListView;
+    private ExtendedListView mListView;
+    private View mListFooterView;
+    private GridViewWithHeaderAndFooter mGridView;
+    private View mGridFooterView;
+
+    private ListAdapter mAdapter;
+
+
+    protected void setListAdapter(ListAdapter listAdapter) {
+        mAdapter = listAdapter;
+        mCurrentListView.setAdapter(listAdapter);
+        mCurrentListView.invalidate();
     }
 
-    public GridView getGridView() {
-        return imageView;
+    protected AbsListView getListView() {
+        return mCurrentListView;
     }
 
-    public void setFooterView(View footer) {
-        imageView.addFooterView(footer, null, false);
-        imageView.invalidate();
-    }
 
-    public void removeFooterView(View footer) {
-        imageView.removeFooterView(footer);
-        imageView.invalidate();
-    }
+    protected void switchToGridView() {
+        if ((mCurrentListView == mListView)) {
 
-    public int getFooterViewCount() {
-        return imageView.getFooterViewCount();
+            mListView.setAdapter(null);
+            mRefreshListLayout.setVisibility(View.GONE);
+
+            if (mAdapter instanceof FileListListAdapter) {
+                ((FileListListAdapter) mAdapter).setGridMode(true);
+            }
+            mGridView.setAdapter(mAdapter);
+            mRefreshGridLayout.setVisibility(View.VISIBLE);
+
+            mCurrentListView = mGridView;
+        }
     }
     
-    protected void switchImageView(){
-       imageView.setNumColumns(GridView.AUTO_FIT);
-       imageView.invalidateRowHeight();  // Force to recalculate mRowHeight of imageView
-       imageView.invalidate();
-    }
-    
-    protected void switchFileView(){
-       imageView.setNumColumns(1);
-       imageView.invalidate();
+    protected void switchToListView() {
+        if (mCurrentListView == mGridView) {
+            mGridView.setAdapter(null);
+            mRefreshGridLayout.setVisibility(View.GONE);
+
+            if (mAdapter instanceof FileListListAdapter) {
+                ((FileListListAdapter) mAdapter).setGridMode(false);
+            }
+            mListView.setAdapter(mAdapter);
+            mRefreshListLayout.setVisibility(View.VISIBLE);
+
+            mCurrentListView = mListView;
+        }
     }
     
     
@@ -106,25 +127,37 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         Log_OC.d(TAG, "onCreateView");
 
         View v = inflater.inflate(R.layout.list_fragment, null);
-        
-        imageView = (GridViewWithHeaderAndFooter)(v.findViewById(R.id.list_root));
-        imageView.setOnItemClickListener(this);
+
+        mListView = (ExtendedListView)(v.findViewById(R.id.list_root));
+        mListView.setOnItemClickListener(this);
+        mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
+
+        mGridView = (GridViewWithHeaderAndFooter) (v.findViewById(R.id.grid_root));
+        mGridView.setNumColumns(GridView.AUTO_FIT);
+        mGridView.setOnItemClickListener(this);
+        mGridFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
         if (savedInstanceState != null) {
             int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
-            setReferencePosition(referencePosition);
+            mListView.setAndCenterSelection(referencePosition);
+            mGridView.setSelection(referencePosition);
         }
 
-        // Pull down refresh
-        mRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files);
-        mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files_emptyView);
+        // Pull-down to refresh layout
+        mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_list);
+        mRefreshGridLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_grid);
+        mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_empty);
         mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         
-        onCreateSwipeToRefresh(mRefreshLayout);
+        onCreateSwipeToRefresh(mRefreshListLayout);
+        onCreateSwipeToRefresh(mRefreshGridLayout);
         onCreateSwipeToRefresh(mRefreshEmptyLayout);
 
-        imageView.setEmptyView(mRefreshEmptyLayout);
-        
+        mListView.setEmptyView(mRefreshEmptyLayout);
+        mGridView.setEmptyView(mRefreshEmptyLayout);
+
+        mCurrentListView = mListView;   // list as default
+
         return v;
     }
 
@@ -168,29 +201,17 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
      * reposition the visible items in the list when the device is turned to
      * other position.
      * 
-     * THe current policy is take as a reference the visible item in the center
+     * The current policy is take as a reference the visible item in the center
      * of the screen.
      * 
      * @return The position in the list of the visible item in the center of the
      *         screen.
      */
     protected int getReferencePosition() {
-        if (imageView != null) {
-            return (imageView.getFirstVisiblePosition() + imageView.getLastVisiblePosition()) / 2;
+        if (mCurrentListView != null) {
+            return (mCurrentListView.getFirstVisiblePosition() + mCurrentListView.getLastVisiblePosition()) / 2;
         } else {
             return 0;
-        }
-    }
-
-    /**
-     * Sets the visible part of the list from the reference position.
-     * 
-     * @param position Reference position previously returned by
-     *            {@link LocalFileListFragment#getReferencePosition()}
-     */
-    protected void setReferencePosition(int position) {
-        if (imageView != null) {
-            imageView.setSelection(position);
         }
     }
 
@@ -203,20 +224,28 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
             // needs to be checked; not every browse-up had a browse-down before 
             
             int index = mIndexes.remove(mIndexes.size() - 1);
-            
-            int firstPosition = mFirstPositions.remove(mFirstPositions.size() -1);
-            
+            final int firstPosition = mFirstPositions.remove(mFirstPositions.size() -1);
             int top = mTops.remove(mTops.size() - 1);
-            
-            imageView.smoothScrollToPosition(firstPosition);
-            
-            // Move the scroll if the selection is not visible
-            int indexPosition = mHeightCell*index;
-            int height = imageView.getHeight();
-            
-            if (indexPosition > height) {
-                imageView.smoothScrollToPosition(index);
+
+            Log_OC.d(TAG, "Setting selection to position: " + firstPosition + "; top: " + top + "; index: " + index);
+
+            if (mCurrentListView == mListView) {
+                if (mHeightCell*index <= mListView.getHeight()) {
+                    mListView.setSelectionFromTop(firstPosition, top);
+                } else {
+                    mListView.setSelectionFromTop(index, 0);
+                }
+
+            } else {
+                if (mHeightCell*index <= mGridView.getHeight()) {
+                    mGridView.setSelection(firstPosition);
+                    //mGridView.smoothScrollToPosition(firstPosition);
+                } else {
+                    mGridView.setSelection(index);
+                    //mGridView.smoothScrollToPosition(index);
+                }
             }
+
         }
     }
     
@@ -227,10 +256,10 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         
         mIndexes.add(index);
         
-        int firstPosition = imageView.getFirstVisiblePosition();
+        int firstPosition = mCurrentListView.getFirstVisiblePosition();
         mFirstPositions.add(firstPosition);
         
-        View view = imageView.getChildAt(0);
+        View view = mCurrentListView.getChildAt(0);
         int top = (view == null) ? 0 : view.getTop() ;
 
         mTops.add(top);
@@ -247,10 +276,10 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
 
     @Override
     public void onRefresh() {
-        // to be @overriden
-        mRefreshLayout.setRefreshing(false);
+        mRefreshListLayout.setRefreshing(false);
+        mRefreshGridLayout.setRefreshing(false);
         mRefreshEmptyLayout.setRefreshing(false);
-        
+
         if (mOnRefreshListener != null) {
             mOnRefreshListener.onRefresh();
         }
@@ -261,32 +290,18 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     
 
     /**
-     * Enables swipe gesture
+     * Disables swipe gesture.
+     *
+     * Sets the 'enabled' state of the refresh layouts contained in the fragment.
+     *
+     * When 'false' is set, prevents user gestures but keeps the option to refresh programatically,
+     *
+     * @param   enabled     Desired state for capturing swipe gesture.
      */
-    public void enableSwipe() {
-        mRefreshLayout.setEnabled(true);
-    }
- 
-    /**
-     * Disables swipe gesture. It prevents manual gestures but keeps the option you show
-     * refreshing programmatically.
-     */
-    public void disableSwipe() {
-        mRefreshLayout.setEnabled(false);
-    }
-    
-    /**
-     * It shows the SwipeRefreshLayout progress
-     */
-    public void showSwipeProgress() {
-        mRefreshLayout.setRefreshing(true);
-    }
- 
-    /**
-     * It shows the SwipeRefreshLayout progress
-     */
-    public void hideSwipeProgress() {
-        mRefreshLayout.setRefreshing(false);
+    public void setSwipeEnabled(boolean enabled) {
+        mRefreshListLayout.setEnabled(enabled);
+        mRefreshGridLayout.setEnabled(enabled);
+        mRefreshEmptyLayout.setEnabled(enabled);
     }
 
     /**
@@ -317,11 +332,71 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
 
     @Override
     public void onRefresh(boolean ignoreETag) {
-        mRefreshLayout.setRefreshing(false);
+        mRefreshListLayout.setRefreshing(false);
+        mRefreshGridLayout.setRefreshing(false);
         mRefreshEmptyLayout.setRefreshing(false);
 
         if (mOnRefreshListener != null) {
             mOnRefreshListener.onRefresh(ignoreETag);
         }
     }
+
+
+    protected void setChoiceMode(int choiceMode) {
+        mListView.setChoiceMode(choiceMode);
+        mGridView.setChoiceMode(choiceMode);
+    }
+
+    protected void registerForContextMenu() {
+        registerForContextMenu(mListView);
+        registerForContextMenu(mGridView);
+        mListView.setOnCreateContextMenuListener(this);
+        mGridView.setOnCreateContextMenuListener(this);
+    }
+
+    /**
+     * TODO doc
+     * To be called before setAdapter, or GridViewWithHeaderAndFooter will throw an exception
+     *
+     * @param enabled
+     */
+    protected void setFooterEnabled(boolean enabled) {
+        if (enabled) {
+            if (mGridView.getFooterViewCount() == 0) {
+                if (mGridFooterView.getParent() != null ) {
+                    ((ViewGroup) mGridFooterView.getParent()).removeView(mGridFooterView);
+                }
+                mGridView.addFooterView(mGridFooterView, null, false);
+            }
+            mGridFooterView.invalidate();
+
+            if (mListView.getFooterViewsCount() == 0) {
+                if (mListFooterView.getParent() != null ) {
+                    ((ViewGroup) mListFooterView.getParent()).removeView(mListFooterView);
+                }
+                mListView.addFooterView(mListFooterView, null, false);
+            }
+            mListFooterView.invalidate();
+
+        } else {
+            mGridView.removeFooterView(mGridFooterView);
+            mListView.removeFooterView(mListFooterView);
+        }
+    }
+
+    /**
+     * TODO doc
+     * @param text
+     */
+    protected void setFooterText(String text) {
+        if (text != null && text.length() > 0) {
+            ((TextView)mListFooterView.findViewById(R.id.footerText)).setText(text);
+            ((TextView)mGridFooterView.findViewById(R.id.footerText)).setText(text);
+            setFooterEnabled(true);
+
+        } else {
+            setFooterEnabled(false);
+        }
+    }
+
 }

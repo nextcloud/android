@@ -30,6 +30,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -69,6 +70,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
+    private boolean mGridMode;
 
     private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM };
 
@@ -95,6 +97,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
+
+        mGridMode = false;
     }
     
     @Override
@@ -134,8 +138,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        boolean fileView = DisplayUtils.decideViewLayout(mFiles);
-
         View view = convertView;
         OCFile file = null;
         LayoutInflater inflator = (LayoutInflater) mContext
@@ -147,7 +149,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
         // Find out which layout should be displayed
         ViewType viewType;
-        if (!fileView){
+        if (!mGridMode){
             viewType = ViewType.LIST_ITEM;
         } else if (file.isImage()){
             viewType = ViewType.GRID_IMAGE;
@@ -192,8 +194,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
                     if (!file.isFolder()) {
-                        GridView parentList = (GridView)parent;
-                        if (parentList.getChoiceMode() == GridView.CHOICE_MODE_NONE) {
+                        AbsListView parentList = (AbsListView)parent;
+                        if (parentList.getChoiceMode() == AbsListView.CHOICE_MODE_NONE) {
                             checkBoxV.setVisibility(View.GONE);
                         } else {
                             if (parentList.isItemChecked(position)) {
@@ -455,5 +457,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private CharSequence showRelativeTimestamp(OCFile file){
         return DisplayUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
                 DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
+    }
+
+    public void setGridMode(boolean gridMode) {
+        mGridMode = gridMode;
     }
 }

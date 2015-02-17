@@ -52,8 +52,6 @@ public class DisplayUtils {
     
     private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
 
-    private final static Double THUMBNAIL_THRESHOLD = 0.5;
-
     private static HashMap<String, String> mimeType2HUmanReadable;
     static {
         mimeType2HUmanReadable = new HashMap<String, String>();
@@ -344,30 +342,4 @@ public class DisplayUtils {
         return path;
     }
 
-    /**
-     *
-     * @param mFiles
-     * @return true: imageView, false: listView
-     */
-    public static boolean decideViewLayout(Vector<OCFile> mFiles){
-        // decide image vs. file view
-        double countImages = 0;
-        double countFiles = 0;
-
-        for (OCFile file : mFiles){
-            if (!file.isFolder()){
-                countFiles++;
-
-                if (file.isImage()){
-                    countImages++;
-                }
-            }
-        }
-
-        if ((countImages / countFiles) >= THUMBNAIL_THRESHOLD){
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

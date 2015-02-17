@@ -17,22 +17,28 @@
 package third_parties.in.srain.cube;
 
 
-        import android.annotation.TargetApi;
-        import android.content.Context;
-        import android.database.DataSetObservable;
-        import android.database.DataSetObserver;
-        import android.os.Build;
-        import android.util.AttributeSet;
-        import android.util.Log;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.*;
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.database.DataSetObservable;
+import android.database.DataSetObserver;
+import android.os.Build;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.FrameLayout;
+import android.widget.GridView;
+import android.widget.ListAdapter;
+import android.widget.WrapperListAdapter;
 
-        import java.lang.reflect.Field;
-        import java.util.ArrayList;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 /**
- * A {@link GridView} that supports adding header rows in a
+ * A {@link android.widget.GridView} that supports adding header rows in a
  * very similar way to {@link android.widget.ListView}.
  * See {@link GridViewWithHeaderAndFooter#addHeaderView(View, Object, boolean)}
  * See {@link GridViewWithHeaderAndFooter#addFooterView(View, Object, boolean)}
@@ -52,7 +58,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
         public View view;
         public ViewGroup viewContainer;
         /**
-         * The data backing the view. This is returned from {@link ListAdapter#getItem(int)}.
+         * The data backing the view. This is returned from {@link android.widget.ListAdapter#getItem(int)}.
          */
         public Object data;
         /**
@@ -151,7 +157,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
 
         if (lyp != null) {
             v.setLayoutParams(new FrameLayout.LayoutParams(lyp.width, lyp.height));
-            fl.setLayoutParams(new AbsListView.LayoutParams(lyp.width, lyp.height));
+            fl.setLayoutParams(new LayoutParams(lyp.width, lyp.height));
         }
         fl.addView(v);
         info.view = v;
@@ -184,7 +190,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
 
         if (lyp != null) {
             v.setLayoutParams(new FrameLayout.LayoutParams(lyp.width, lyp.height));
-            fl.setLayoutParams(new AbsListView.LayoutParams(lyp.width, lyp.height));
+            fl.setLayoutParams(new LayoutParams(lyp.width, lyp.height));
         }
         fl.addView(v);
         info.view = v;
@@ -315,9 +321,9 @@ public class GridViewWithHeaderAndFooter extends GridView {
         }
         int mColumnWidth = getColumnWidthCompatible();
         View view = getAdapter().getView(numColumns * mHeaderViewInfos.size(), mViewForMeasureRowHeight, this);
-        AbsListView.LayoutParams p = (AbsListView.LayoutParams) view.getLayoutParams();
+        LayoutParams p = (LayoutParams) view.getLayoutParams();
         if (p == null) {
-            p = new AbsListView.LayoutParams(-1, -2, 0);
+            p = new LayoutParams(-1, -2, 0);
             view.setLayoutParams(p);
         }
         int childHeightSpec = getChildMeasureSpec(
@@ -784,4 +790,52 @@ public class GridViewWithHeaderAndFooter extends GridView {
             mDataSetObservable.notifyChanged();
         }
     }
+
+
+    /**
+     * Sets the selected item and positions the selection y pixels from the top edge of the ListView.
+     * (If in touch mode, the item will not be selected but it will still be positioned appropriately.)
+     *
+     * @param position     Index (starting at 0) of the data item to be selected.
+     * @param y            The distance from the top edge of the ListView (plus padding)
+     *                     that the item will be positioned.
+     *
+     * @see <a href="http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/4.4_r1/android/widget/ListView.java#ListView.setSelectionFromTop%28int%2Cint%29">Original code</a>
+     */
+    public void setSelectionFromTop(int position, int y) {
+        if (getAdapter() == null) {
+            return;
+        }
+
+        setSelection(position);
+        //setSelectionInt(position);
+
+        /*if (!isInTouchMode()) {
+            position = super.lookForSelectablePosition(position, true);
+            if (position >= 0) {
+                setNextSelectedPositionInt(position);
+            }
+        } else {
+            mResurrectToPosition = position;
+        }*/
+
+        /*
+        if (position >= 0) {
+            mLayoutMode = LAYOUT_SPECIFIC;
+            mSpecificTop = mListPadding.top + y;
+
+            if (mNeedSync) {
+                mSyncPosition = position;
+                mSyncRowId = getAdapter().getItemId(position);
+            }
+
+            if (mPositionScroller != null) {
+                mPositionScroller.stop();
+            }
+
+            requestLayout();
+        }
+        */
+    }
+
 }
