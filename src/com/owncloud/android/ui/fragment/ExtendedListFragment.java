@@ -139,8 +139,13 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
 
         if (savedInstanceState != null) {
             int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
-            mListView.setAndCenterSelection(referencePosition);
-            mGridView.setSelection(referencePosition);
+            if (mCurrentListView == mListView) {
+                Log_OC.v(TAG, "Setting and centering around list position " + referencePosition);
+                mListView.setAndCenterSelection(referencePosition);
+            } else {
+                Log_OC.v(TAG, "Setting grid position " + referencePosition);
+                mGridView.setSelection(referencePosition);
+            }
         }
 
         // Pull-down to refresh layout
@@ -227,7 +232,7 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
             final int firstPosition = mFirstPositions.remove(mFirstPositions.size() -1);
             int top = mTops.remove(mTops.size() - 1);
 
-            Log_OC.d(TAG, "Setting selection to position: " + firstPosition + "; top: " + top + "; index: " + index);
+            Log_OC.v(TAG, "Setting selection to position: " + firstPosition + "; top: " + top + "; index: " + index);
 
             if (mCurrentListView == mListView) {
                 if (mHeightCell*index <= mListView.getHeight()) {

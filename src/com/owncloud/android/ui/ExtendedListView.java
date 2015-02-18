@@ -23,6 +23,8 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
+import com.owncloud.android.lib.common.utils.Log_OC;
+
 /**
  * ListView allowing to specify the position of an item that should be centered in the visible area, if possible.
  *
@@ -31,6 +33,8 @@ import android.widget.ListView;
  * @author David A. Velasco
  */
 public class ExtendedListView extends ListView {
+
+    private static final String TAG = ExtendedListView.class.getSimpleName();
 
     private int mPositionToSetAndCenter = 0;
 
@@ -55,6 +59,7 @@ public class ExtendedListView extends ListView {
     protected void onDraw (Canvas canvas) {
         super.onDraw(canvas);
         if (mPositionToSetAndCenter > 0) {
+            Log_OC.v(TAG, "Centering around position " + mPositionToSetAndCenter);
             this.setSelectionFromTop(mPositionToSetAndCenter, getHeight() / 2);
             mPositionToSetAndCenter = 0;
         }
