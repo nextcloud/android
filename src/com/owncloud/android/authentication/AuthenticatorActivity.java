@@ -1461,9 +1461,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     private void updateAccountAuthentication() throws AccountNotFoundException {
         
-        OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(
-                new OwnCloudAccount(mAccount, this)
-        );
+//        OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(
+//                new OwnCloudAccount(mAccount, this)
+//        );
 
         Bundle response = new Bundle();
         response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
