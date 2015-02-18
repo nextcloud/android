@@ -1892,10 +1892,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         onTransferStateChanged(file, false, false);
     }
 
-    public void cancelUploadsForAnAccount(Account account) {
-        mUploaderBinder.cancel(account);
-    }
-
     @Override
     public void onRefresh(boolean ignoreETag) {
         refreshList(ignoreETag);

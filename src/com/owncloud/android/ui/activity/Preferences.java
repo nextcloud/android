@@ -65,6 +65,8 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.RadioButtonPreference;
 import com.owncloud.android.utils.DisplayUtils;
 
+import java.io.File;
+
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -443,6 +445,7 @@ public class Preferences extends SherlockPreferenceActivity
             if (!AccountUtils.exists(account, MainApp.getAppContext())) {
                 // Cancel tranfers
                 mUploaderBinder.cancel(account);
+                mDownloaderBinder.cancel(account);
             }
 
             Account a = AccountUtils.getCurrentOwnCloudAccount(this);

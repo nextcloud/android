@@ -177,5 +177,4 @@ public class DownloadFileOperation extends RemoteOperation {
             mDataTransferListeners.remove(listener);
         }
     }
-    
 }

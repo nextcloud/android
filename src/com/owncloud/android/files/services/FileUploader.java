@@ -367,23 +367,19 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
             if (mCurrentUpload != null) {
                 Log_OC.d(TAG, "Current Upload Account= " + mCurrentUpload.getAccount().name);
-                if (mCurrentUpload.getAccount().name == account.name) {
+                if (mCurrentUpload.getAccount().name.equals(account.name)) {
                     mCurrentUpload.cancel();
                 }
             }
             // Cancel pending uploads
             Iterator<String> it = mPendingUploads.keySet().iterator();
-            Log_OC.d(TAG, "Number of pending updloads= "  + mPendingUploads.size());
+            Log_OC.d(TAG, "Number of pending uploads= "  + mPendingUploads.size());
             while (it.hasNext()) {
                 String key = it.next();
                 Log_OC.d(TAG, "mPendingUploads CANCELLED " + key);
                 if (key.startsWith(account.name)) {
-                    UploadFileOperation upload;
                     synchronized (mPendingUploads) {
-                        upload = mPendingUploads.remove(key);
-                    }
-                    if (upload != null) {
-                        mCurrentUpload.cancel();
+                        mPendingUploads.remove(key);
                     }
                 }
             }

@@ -21,8 +21,11 @@ import android.accounts.Account;
 import android.util.Pair;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.UploadFileOperation;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -209,6 +212,21 @@ public class IndexedForest<V> {
         return get(key);
     }
 
+
+    public ConcurrentMap<String, Node<V>> get(Account account){
+        ConcurrentMap<String, Node<V>> accountMap = new ConcurrentHashMap<String, Node<V>>();
+        Iterator<String> it = mMap.keySet().iterator();
+        while (it.hasNext()) {
+            String key = it.next();
+            Log_OC.d("IndexedForest", "Number of pending downloads= "  + mMap.size());
+            if (key.startsWith(account.name)) {
+                synchronized (accountMap) {
+                    accountMap.putIfAbsent(key, mMap.get(key));
+                }
+            }
+        }
+        return accountMap;
+    }
 
     /**
      * Builds a key to index files

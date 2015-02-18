@@ -25,8 +25,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentMap;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -249,7 +251,42 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 }
             }
         }
-        
+
+        /**
+         * Cancels a pending or current upload for an account
+         *
+         * @param account Owncloud accountName where the remote file will be stored.
+         */
+        public void cancel(Account account) {
+            Log_OC.d(TAG, "Account= " + account.name);
+
+            if (mCurrentDownload != null) {
+                Log_OC.d(TAG, "Current Download Account= " + mCurrentDownload.getAccount().name);
+                if (mCurrentDownload.getAccount().name.equals(account.name)) {
+                    mCurrentDownload.cancel();
+                }
+            }
+            // Cancel pending downloads
+            ConcurrentMap downloadsAccount = mPendingDownloads.get(account);
+            Iterator<String> it = downloadsAccount.keySet().iterator();
+            Log_OC.d(TAG, "Number of pending downloads= " + downloadsAccount.size());
+            while (it.hasNext()) {
+                String key = it.next();
+                Log_OC.d(TAG, "download CANCELLED " + key);
+                if (key.startsWith(account.name)) {
+                    DownloadFileOperation download;
+                    synchronized (mPendingDownloads) {
+                        download = mPendingDownloads.get(key);
+                        if (download != null) {
+                            String remotePath = download.getRemotePath();
+                            if (mPendingDownloads.contains(account, remotePath)) {
+                                mPendingDownloads.remove(account, remotePath);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         
         public void clearListeners() {
             mBoundListeners.clear();
@@ -350,11 +387,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             mService.stopSelf(msg.arg1);
         }
     }
-    
+
 
     /**
      * Core download method: requests a file to download and stores it.
-     * 
+     *
      * @param downloadKey   Key to access the download to perform, contained in mPendingDownloads 
      */
     private void downloadFile(String downloadKey) {
@@ -364,54 +401,61 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         mCurrentDownload = mPendingDownloads.get(downloadKey);
 
         if (mCurrentDownload != null) {
-            
-            notifyDownloadStart(mCurrentDownload);
+            // Detect if the account exists
+            if (AccountUtils.exists(mCurrentDownload.getAccount(), getApplicationContext())) {
+                Log_OC.d(TAG, "Account " + mCurrentDownload.getAccount().toString() + " exists");
+                notifyDownloadStart(mCurrentDownload);
 
-            RemoteOperationResult downloadResult = null;
-            try {
-                /// prepare client object to send the request to the ownCloud server
-                if (mCurrentAccount == null || !mCurrentAccount.equals(mCurrentDownload.getAccount())) {
-                    mCurrentAccount = mCurrentDownload.getAccount();
-                    mStorageManager = new FileDataStorageManager(
-                            mCurrentAccount,
-                            getContentResolver()
-                    );
-                }   // else, reuse storage manager from previous operation
+                RemoteOperationResult downloadResult = null;
+                try {
+                    /// prepare client object to send the request to the ownCloud server
+                    if (mCurrentAccount == null || !mCurrentAccount.equals(mCurrentDownload.getAccount())) {
+                        mCurrentAccount = mCurrentDownload.getAccount();
+                        mStorageManager = new FileDataStorageManager(
+                                mCurrentAccount,
+                                getContentResolver()
+                        );
+                    }   // else, reuse storage manager from previous operation
 
-                // always get client from client manager, to get fresh credentials in case of update
-                OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
-                mDownloadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                        getClientFor(ocAccount, this);
+                    // always get client from client manager, to get fresh credentials in case of update
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
+                    mDownloadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                            getClientFor(ocAccount, this);
 
 
-                /// perform the download
-                /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
+                    /// perform the download
+                    /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
                         "Executing download of " + mCurrentDownload.getRemotePath());*/
-                downloadResult = mCurrentDownload.execute(mDownloadClient);
-                if (downloadResult.isSuccess()) {
-                    saveDownloadedFile();
-                }
-            
-            } catch (AccountsException e) {
-                Log_OC.e(TAG, "Error while trying to get authorization for " + mCurrentAccount.name, e);
-                downloadResult = new RemoteOperationResult(e);
-            } catch (IOException e) {
-                Log_OC.e(TAG, "Error while trying to get authorization for " + mCurrentAccount.name, e);
-                downloadResult = new RemoteOperationResult(e);
-                
-            } finally {
+                    downloadResult = mCurrentDownload.execute(mDownloadClient);
+                    if (downloadResult.isSuccess()) {
+                        saveDownloadedFile();
+                    }
+
+                } catch (AccountsException e) {
+                    Log_OC.e(TAG, "Error while trying to get authorization for " + mCurrentAccount.name, e);
+                    downloadResult = new RemoteOperationResult(e);
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Error while trying to get authorization for " + mCurrentAccount.name, e);
+                    downloadResult = new RemoteOperationResult(e);
+
+                } finally {
                 /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
                         "Removing payload " + mCurrentDownload.getRemotePath());*/
 
-                Pair<DownloadFileOperation, String> removeResult =
-                        mPendingDownloads.removePayload(mCurrentAccount, mCurrentDownload.getRemotePath());
+                    Pair<DownloadFileOperation, String> removeResult =
+                            mPendingDownloads.removePayload(mCurrentAccount, mCurrentDownload.getRemotePath());
 
-                /// notify result
-                notifyDownloadResult(mCurrentDownload, downloadResult);
+                    /// notify result
+                    notifyDownloadResult(mCurrentDownload, downloadResult);
 
-                sendBroadcastDownloadFinished(mCurrentDownload, downloadResult, removeResult.second);
+                    sendBroadcastDownloadFinished(mCurrentDownload, downloadResult, removeResult.second);
+                }
+            } else {
+                // Cancel the transfer
+                Log_OC.d(TAG, "Account " + mCurrentDownload.getAccount().toString() + " doesn't exist");
+                cancelDownloadsForAccount(mCurrentDownload.getAccount());
+
             }
-
         }
     }
 
@@ -608,5 +652,33 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         added.putExtra(EXTRA_LINKED_TO_PATH, linkedToRemotePath);
         sendStickyBroadcast(added);
     }
+
+    /**
+     * Remove downloads of an account
+     * @param account
+     */
+    private void cancelDownloadsForAccount(Account account){
+        // Cancel pending downloads
+        ConcurrentMap downloadsAccount = mPendingDownloads.get(account);
+        Iterator<String> it = downloadsAccount.keySet().iterator();
+        Log_OC.d(TAG, "Number of pending downloads= " + downloadsAccount.size());
+        while (it.hasNext()) {
+            String key = it.next();
+            Log_OC.d(TAG, "download CANCELLED " + key);
+            if (key.startsWith(account.name)) {
+                DownloadFileOperation download;
+                synchronized (mPendingDownloads) {
+                    download = mPendingDownloads.get(key);
+                    if (download != null) {
+                        String remotePath = download.getRemotePath();
+                        if (mPendingDownloads.contains(account, remotePath)) {
+                            mPendingDownloads.remove(account, remotePath);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
 }
