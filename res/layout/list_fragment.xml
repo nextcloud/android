@@ -24,14 +24,31 @@
     android:layout_weight="1" >
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_files"
+        android:id="@+id/swipe_containing_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
         android:layout_weight="1"
-        android:footerDividersEnabled="false" > 
+        android:footerDividersEnabled="false"
+        android:visibility="visible" >
         
-        <third_parties.in.srain.cube.GridViewWithHeaderAndFooter
+        <com.owncloud.android.ui.ExtendedListView
             android:id="@+id/list_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_containing_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:footerDividersEnabled="false"
+        android:visibility="gone" >
+
+        <third_parties.in.srain.cube.GridViewWithHeaderAndFooter
+            android:id="@+id/grid_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:columnWidth="100dp"
@@ -42,9 +59,9 @@
             android:visibility="visible" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
-    	
+
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_files_emptyView"
+        android:id="@+id/swipe_containing_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" >

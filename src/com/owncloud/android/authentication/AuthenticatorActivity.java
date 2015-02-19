@@ -230,8 +230,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mWaitingForOpId = savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID);
             mIsFirstAuthAttempt = savedInstanceState.getBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG);
         }
-
-
         
         /// load user interface
         setContentView(R.layout.account_setup);
@@ -1596,6 +1594,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     /**
      * Updates the content and visibility state of the icon and text associated
      * to the last check on the ownCloud server.
+     *
      */
     private void showServerStatus() {
         if (mServerStatusIcon == 0 && mServerStatusText == 0) {

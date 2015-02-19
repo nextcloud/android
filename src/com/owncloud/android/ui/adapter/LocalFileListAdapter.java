@@ -121,7 +121,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
 
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
-                GridViewWithHeaderAndFooter parentList = (GridViewWithHeaderAndFooter)parent;
+                ListView parentList = (ListView) parent;
                 if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
                     checkBoxV.setVisibility(View.GONE);
                 } else {

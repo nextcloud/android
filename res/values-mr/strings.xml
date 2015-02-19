@@ -1,8 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="actionbar_upload_files">Archivos</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
-  <string name="sync_string_files">Archivos</string>
   <string name="empty"></string>
 </resources>
