@@ -23,6 +23,7 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
+import android.accounts.OnAccountsUpdateListener;
 import android.accounts.OperationCanceledException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -68,8 +69,8 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
  * 
  * @author David A. Velasco
  */
-public class FileActivity extends SherlockFragmentActivity 
-implements OnRemoteOperationListener, ComponentsGetter {
+public class FileActivity extends SherlockFragmentActivity
+        implements OnRemoteOperationListener, ComponentsGetter, OnAccountsUpdateListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
@@ -79,7 +80,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
     public static final String TAG = FileActivity.class.getSimpleName();
     
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
-    private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";;
+    private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     
     protected static final long DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS = 200;
     
@@ -158,6 +159,10 @@ implements OnRemoteOperationListener, ComponentsGetter {
         if (mUploadServiceConnection != null) {
             bindService(new Intent(this, FileUploader.class), mUploadServiceConnection, Context.BIND_AUTO_CREATE);
         }
+
+        // add AccountsUpdatedListener
+        AccountManager am = AccountManager.get(getApplicationContext());
+        am.addOnAccountsUpdatedListener(this, null, false);
         
     }
 
@@ -221,6 +226,11 @@ implements OnRemoteOperationListener, ComponentsGetter {
             unbindService(mUploadServiceConnection);
             mUploadServiceConnection = null;
         }
+
+        // remove AccountsUpdatedListener
+        AccountManager am = AccountManager.get(getApplicationContext());
+        am.removeOnAccountsUpdatedListener(this);
+
         super.onDestroy();
     }
     
@@ -256,8 +266,6 @@ implements OnRemoteOperationListener, ComponentsGetter {
      *  to create a new ownCloud {@link Account}.
      *  
      *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
-     *   
-     *  @return     'True' if the checked {@link Account} was valid.
      */
     private void swapToDefaultAccount() {
         // default to the most recently used account
@@ -289,6 +297,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
                         this, 
                         new AccountCreationCallback(),                        
                         null);
+        am.addOnAccountsUpdatedListener(this, null, true);
     }
 
     
@@ -356,7 +365,15 @@ implements OnRemoteOperationListener, ComponentsGetter {
     protected ServiceConnection newTransferenceServiceConnection() {
         return null;
     }
-    
+
+    @Override
+    public void onAccountsUpdated(Account[] accounts) {
+        // detect a change in the list of accounts
+        Log_OC.d(TAG, "onAccountsUpdated");
+        mDownloaderBinder.reviewDownloads();
+        mUploaderBinder.reviewUploads();
+    }
+
 
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of

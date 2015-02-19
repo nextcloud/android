@@ -235,7 +235,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             );
             Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
                     "Removing download of " + file.getRemotePath());*/
-            Pair<DownloadFileOperation, String> removeResult = mPendingDownloads.remove(account, file.getRemotePath());
+            Pair<DownloadFileOperation, String> removeResult =
+                    mPendingDownloads.remove(account, file.getRemotePath());
             DownloadFileOperation download = removeResult.first;
             if (download != null) {
                 /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
@@ -351,6 +352,17 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             if (boundListener != null) {
                 boundListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName);
             }
+        }
+
+        /**
+         * Review downloads and cancel it if its account doesn't exist
+         */
+        public void reviewDownloads() {
+            if (mCurrentDownload != null &&
+                    !AccountUtils.exists(mCurrentDownload.getAccount(), getApplicationContext())) {
+                mCurrentDownload.cancel();
+            }
+            // The rest of downloads are cancelled when they try to start
         }
         
     }

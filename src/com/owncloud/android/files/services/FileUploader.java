@@ -459,6 +459,16 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             }
         }
 
+        /**
+         * Review uploads and cancel it if its account doesn't exist
+         */
+        public void reviewUploads() {
+            if (mCurrentUpload != null &&
+                    !AccountUtils.exists(mCurrentUpload.getAccount(), getApplicationContext())) {
+                mCurrentUpload.cancel();
+            }
+            // The rest of uploads are cancelled when they try to start
+        }
     }
 
     /**
