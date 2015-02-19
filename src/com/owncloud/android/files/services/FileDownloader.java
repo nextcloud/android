@@ -111,14 +111,30 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     @Override
     public void onCreate() {
         super.onCreate();
+        Log_OC.d(TAG, "Creating service");
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        HandlerThread thread = new HandlerThread("FileDownloaderThread",
-                Process.THREAD_PRIORITY_BACKGROUND);
+        HandlerThread thread = new HandlerThread("FileDownloaderThread", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileDownloaderBinder();
     }
+
+
+    /**
+     * Service clean up
+     */
+    @Override
+    public void onDestroy() {
+        Log_OC.v(TAG, "Destroying service" );
+        mBinder = null;
+        mServiceHandler = null;
+        mServiceLooper.quit();
+        mServiceLooper = null;
+        mNotificationManager = null;
+        super.onDestroy();
+    }
+
 
     /**
      * Entry point to add one or several files to the queue of downloads.
@@ -128,6 +144,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log_OC.d(TAG, "Starting command with id " + startId);
+
         if (    !intent.hasExtra(EXTRA_ACCOUNT) ||
                 !intent.hasExtra(EXTRA_FILE)
            ) {
@@ -391,11 +409,10 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 Iterator<String> it = requestedDownloads.iterator();
                 while (it.hasNext()) {
                     String next = it.next();
-                    /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                            "Handling download file " + next);*/
                     mService.downloadFile(next);
                 }
             }
+            Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
             mService.stopSelf(msg.arg1);
         }
     }
