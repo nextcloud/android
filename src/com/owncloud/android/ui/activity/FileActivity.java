@@ -370,8 +370,12 @@ public class FileActivity extends SherlockFragmentActivity
     public void onAccountsUpdated(Account[] accounts) {
         // detect a change in the list of accounts
         Log_OC.d(TAG, "onAccountsUpdated");
-        mDownloaderBinder.reviewDownloads();
-        mUploaderBinder.reviewUploads();
+        if (mDownloaderBinder != null) {
+            mDownloaderBinder.checkAccountOfCurrentDownload();
+        }
+        if (mUploaderBinder != null) {
+            mUploaderBinder.checkAccountOfCurrentUpload();
+        }
     }
 
 

@@ -444,8 +444,12 @@ public class Preferences extends SherlockPreferenceActivity
             Account account = new Account(mAccountName, MainApp.getAccountType());
             if (!AccountUtils.exists(account, MainApp.getAppContext())) {
                 // Cancel tranfers
-                mUploaderBinder.cancel(account);
-                mDownloaderBinder.cancel(account);
+                if (mUploaderBinder != null) {
+                    mUploaderBinder.cancel(account);
+                }
+                if (mDownloaderBinder != null) {
+                    mDownloaderBinder.cancel(account);
+                }
             }
 
             Account a = AccountUtils.getCurrentOwnCloudAccount(this);

@@ -370,7 +370,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 upload = mPendingUploads.remove(buildRemoteName(account, file));
             }
             if (upload != null) {
-                mCurrentUpload.cancel();
+                upload.cancel();
             }
         }
 
@@ -389,17 +389,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 }
             }
             // Cancel pending uploads
-            Iterator<String> it = mPendingUploads.keySet().iterator();
-            Log_OC.d(TAG, "Number of pending uploads= "  + mPendingUploads.size());
-            while (it.hasNext()) {
-                String key = it.next();
-                Log_OC.d(TAG, "mPendingUploads CANCELLED " + key);
-                if (key.startsWith(account.name)) {
-                    synchronized (mPendingUploads) {
-                        mPendingUploads.remove(key);
-                    }
-                }
-            }
+            cancelUploadForAccount(account.name);
         }
 
         public void clearListeners() {
@@ -479,7 +469,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         /**
          * Review uploads and cancel it if its account doesn't exist
          */
-        public void reviewUploads() {
+        public void checkAccountOfCurrentUpload() {
             if (mCurrentUpload != null &&
                     !AccountUtils.exists(mCurrentUpload.getAccount(), getApplicationContext())) {
                 mCurrentUpload.cancel();
@@ -538,7 +528,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
             // Detect if the account exists
             if (AccountUtils.exists(mCurrentUpload.getAccount(), getApplicationContext())) {
-                Log_OC.d(TAG, "Account " + mCurrentUpload.getAccount().toString() + " exists");
+                Log_OC.d(TAG, "Account " + mCurrentUpload.getAccount().name + " exists");
 
                 notifyUploadStart(mCurrentUpload);
 
@@ -557,7 +547,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
                     /// check the existence of the parent folder for the file to upload
                     String remoteParentPath = new File(mCurrentUpload.getRemotePath()).getParent();
-                    remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ? remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
+                    remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
+                            remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
                     grantResult = grantFolderExistence(remoteParentPath);
 
                     /// perform the upload

@@ -220,9 +220,7 @@ public class IndexedForest<V> {
             String key = it.next();
             Log_OC.d("IndexedForest", "Number of pending downloads= "  + mMap.size());
             if (key.startsWith(account.name)) {
-                synchronized (accountMap) {
-                    accountMap.putIfAbsent(key, mMap.get(key));
-                }
+                accountMap.putIfAbsent(key, mMap.get(key));
             }
         }
         return accountMap;
