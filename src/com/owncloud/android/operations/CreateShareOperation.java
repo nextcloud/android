@@ -134,8 +134,7 @@ public class CreateShareOperation extends SyncOperation {
         if (file!=null) {
             mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
             mSendIntent.putExtra(Intent.EXTRA_SUBJECT, String.format(mContext.getString(R.string.subject_token),
-                    getClient().getCredentials().getUsername(), mContext.getString(R.string.shared_subject_header),
-                    file.getFileName(), mContext.getString(R.string.with_you_subject_header)));
+                    getClient().getCredentials().getUsername(), file.getFileName()));
             file.setPublicLink(share.getShareLink());
             file.setShareByLink(true);
             getStorageManager().saveFile(file);

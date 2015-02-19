@@ -76,12 +76,12 @@ public class LocalFileListFragment extends ExtendedListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        getGridView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        disableSwipe(); // Disable pull refresh
+        setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        setSwipeEnabled(false); // Disable pull-to-refresh
         setMessageForEmptyList(getString(R.string.local_file_list_empty));
         Log_OC.i(TAG, "onCreateView() end");
         return v;
-    }    
+    }
 
 
     /**
@@ -117,7 +117,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
             } else {    /// Click on a file
                 ImageView checkBoxV = (ImageView) v.findViewById(R.id.custom_checkbox);
                 if (checkBoxV != null) {
-                    if (getGridView().isItemChecked(position)) {
+                    if (getListView().isItemChecked(position)) {
                         checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
                     } else {
                         checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
@@ -194,10 +194,10 @@ public class LocalFileListFragment extends ExtendedListFragment {
             directory = directory.getParentFile();
         }
 
-        imageView.clearChoices();   // by now, only files in the same directory will be kept as selected
+        mCurrentListView.clearChoices();   // by now, only files in the same directory will be kept as selected
         mAdapter.swapDirectory(directory);
         if (mDirectory == null || !mDirectory.equals(directory)) {
-            imageView.setSelection(0);
+            mCurrentListView.setSelection(0);
         }
         mDirectory = directory;
     }
@@ -210,11 +210,11 @@ public class LocalFileListFragment extends ExtendedListFragment {
      */
     public String[] getCheckedFilePaths() {
         ArrayList<String> result = new ArrayList<String>();
-        SparseBooleanArray positions = imageView.getCheckedItemPositions();
+        SparseBooleanArray positions = mCurrentListView.getCheckedItemPositions();
         if (positions.size() > 0) {
             for (int i = 0; i < positions.size(); i++) {
                 if (positions.get(positions.keyAt(i)) == true) {
-                    result.add(((File) imageView.getItemAtPosition(positions.keyAt(i))).getAbsolutePath());
+                    result.add(((File) mCurrentListView.getItemAtPosition(positions.keyAt(i))).getAbsolutePath());
                 }
             }
 
@@ -234,7 +234,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         /**
          * Callback method invoked when a directory is clicked by the user on the files list
          *  
-         * @param file
+         * @param directory
          */
         public void onDirectoryClick(File directory);
         

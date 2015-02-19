@@ -299,7 +299,4 @@
   <string name="prefs_category_security">Ασφάλεια</string>
   <string name="prefs_instant_video_upload_path_title">Διαδρομή Μεταφόρτωσης Βίντεο</string>
   <string name="download_folder_failed_content">Η λήψη του φακέλου %1$s δεν ολοκληρώθηκε με επιτυχία.</string>
-  <string name="shared_subject_header">μοιρασμένο </string>
-  <string name="with_you_subject_header">με εσένα</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>

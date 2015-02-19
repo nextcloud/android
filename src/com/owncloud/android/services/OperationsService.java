@@ -144,6 +144,8 @@ public class OperationsService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log_OC.d(TAG, "Creating service");
+
         /// First worker thread for most of operations 
         HandlerThread thread = new HandlerThread("Operations thread", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
@@ -165,11 +167,11 @@ public class OperationsService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // WIP: for the moment, only SYNC_FOLDER and CANCEL_SYNC_FOLDER is expected here;
+        Log_OC.d(TAG, "Starting command with id " + startId);
+
+        // WIP: for the moment, only SYNC_FOLDER is expected here;
         // the rest of the operations are requested through the Binder
         if (ACTION_SYNC_FOLDER.equals(intent.getAction())) {
-
-            /*Log_OC.v("NOW " + TAG + ", thread " + Thread.currentThread().getName(), "Received request to sync folder");*/
 
             if (!intent.hasExtra(EXTRA_ACCOUNT) || !intent.hasExtra(EXTRA_REMOTE_PATH)) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
@@ -186,10 +188,6 @@ public class OperationsService extends Service {
                 Message msg = mSyncFolderHandler.obtainMessage();
                 msg.arg1 = startId;
                 msg.obj = itemSyncKey;
-                /*Log_OC.v(
-                        "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Sync folder " + remotePath + " added to queue"
-                );*/
                 mSyncFolderHandler.sendMessage(msg);
             }
 
@@ -204,7 +202,7 @@ public class OperationsService extends Service {
 
     @Override
     public void onDestroy() {
-        //Log_OC.wtf(TAG, "onDestroy init" );
+        Log_OC.v(TAG, "Destroying service" );
         // Saving cookies
         try {
             OwnCloudClientManagerFactory.getDefaultSingleton().
@@ -221,10 +219,16 @@ public class OperationsService extends Service {
             e.printStackTrace();
         }
         
-        //Log_OC.wtf(TAG, "Clear mUndispatchedFinishedOperations" );
         mUndispatchedFinishedOperations.clear();
-        
-        //Log_OC.wtf(TAG, "onDestroy end" );
+
+        mOperationsBinder = null;
+
+        mOperationsHandler.getLooper().quit();
+        mOperationsHandler = null;
+
+        mSyncFolderHandler.getLooper().quit();
+        mSyncFolderHandler = null;
+
         super.onDestroy();
     }
 
@@ -276,10 +280,6 @@ public class OperationsService extends Service {
          * @param file          A folder in the queue of pending synchronizations
          */
         public void cancel(Account account, OCFile file) {
-            /*Log_OC.v(
-                    "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                    "Received request to cancel folder " + file.getRemotePath()
-            );*/
             mSyncFolderHandler.cancel(account, file);
         }
 
@@ -413,6 +413,7 @@ public class OperationsService extends Service {
         @Override
         public void handleMessage(Message msg) {
             nextOperation();
+            Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
             mService.stopSelf(msg.arg1);
         }
         
