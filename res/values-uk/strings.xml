@@ -298,7 +298,4 @@
   <string name="prefs_category_security">Безпека</string>
   <string name="prefs_instant_video_upload_path_title">Шлях завантаження відео</string>
   <string name="download_folder_failed_content">Скачування теки %1$s не може бути завершено</string>
-  <string name="shared_subject_header">спільне</string>
-  <string name="with_you_subject_header">з тобою</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>
