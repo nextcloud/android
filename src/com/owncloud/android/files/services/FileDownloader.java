@@ -671,22 +671,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      */
     private void cancelDownloadsForAccount(Account account) {
         // Cancel pending downloads
-        ConcurrentMap downloadsAccount = mPendingDownloads.get(account);
-        Iterator<String> it = downloadsAccount.keySet().iterator();
-        Log_OC.d(TAG, "Number of pending downloads= " + downloadsAccount.size());
-        DownloadFileOperation download;
-        while (it.hasNext()) {
-            String key = it.next();
-            Log_OC.d(TAG, "download CANCELLED " + key);
-            if (key.startsWith(account.name)) {
-                synchronized (mPendingDownloads) {
-                    download = mPendingDownloads.get(key);
-                    if (download != null) {
-                        String remotePath = download.getRemotePath();
-                        mPendingDownloads.remove(account, remotePath);
-                    }
-                }
-            }
-        }
+        mPendingDownloads.remove(account);
     }
 }

@@ -213,17 +213,19 @@ public class IndexedForest<V> {
     }
 
 
-    public ConcurrentMap<String, Node<V>> get(Account account){
-        ConcurrentMap<String, Node<V>> accountMap = new ConcurrentHashMap<String, Node<V>>();
+    /**
+     * Remove the elements that contains account as a part of its key
+     * @param account
+     */
+    public void remove(Account account){
         Iterator<String> it = mMap.keySet().iterator();
         while (it.hasNext()) {
             String key = it.next();
             Log_OC.d("IndexedForest", "Number of pending downloads= "  + mMap.size());
             if (key.startsWith(account.name)) {
-                accountMap.putIfAbsent(key, mMap.get(key));
+                mMap.remove(key);
             }
         }
-        return accountMap;
     }
 
     /**
