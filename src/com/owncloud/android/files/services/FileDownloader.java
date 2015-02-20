@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
-import java.util.concurrent.ConcurrentMap;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -51,7 +50,9 @@ import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.accounts.AccountsException;
+import android.accounts.OnAccountsUpdateListener;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -66,7 +67,8 @@ import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.util.Pair;
 
-public class FileDownloader extends Service implements OnDatatransferProgressListener {
+public class FileDownloader extends Service
+        implements OnDatatransferProgressListener, OnAccountsUpdateListener {
 
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_FILE = "FILE";
@@ -118,6 +120,10 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileDownloaderBinder();
+
+        // add AccountsUpdatedListener
+        AccountManager am = AccountManager.get(getApplicationContext());
+        am.addOnAccountsUpdatedListener(this, null, false);
     }
 
 
@@ -132,6 +138,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         mServiceLooper.quit();
         mServiceLooper = null;
         mNotificationManager = null;
+
+        // remove AccountsUpdatedListener
+        AccountManager am = AccountManager.get(getApplicationContext());
+        am.removeOnAccountsUpdatedListener(this);
+
         super.onDestroy();
     }
 
@@ -222,6 +233,16 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     public boolean onUnbind(Intent intent) {
         ((FileDownloaderBinder) mBinder).clearListeners();
         return false;   // not accepting rebinding (default behaviour)
+    }
+
+    @Override
+    public void onAccountsUpdated(Account[] accounts) {
+         //review the current download and cancel it if its account doesn't exist
+        if (mCurrentDownload != null &&
+                !AccountUtils.exists(mCurrentDownload.getAccount(), getApplicationContext())) {
+            mCurrentDownload.cancel();
+        }
+        // The rest of downloads are cancelled when they try to start
     }
 
 
@@ -667,7 +688,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     /**
      * Remove downloads of an account
      *
-     * @param account
+     * @param account       Downloads account to remove
      */
     private void cancelDownloadsForAccount(Account account) {
         // Cancel pending downloads

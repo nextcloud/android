@@ -31,6 +31,7 @@ import java.util.concurrent.ConcurrentMap;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountsException;
+import android.accounts.OnAccountsUpdateListener;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -56,7 +57,6 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
-import com.owncloud.android.lib.common.operations.OperationCancelledException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -77,8 +77,8 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.UriUtils;
 
 
-
-public class FileUploader extends Service implements OnDatatransferProgressListener {
+public class FileUploader extends Service
+        implements OnDatatransferProgressListener, OnAccountsUpdateListener {
 
     private static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
     public static final String EXTRA_UPLOAD_RESULT = "RESULT";
@@ -169,6 +169,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileUploaderBinder();
+
+        // add AccountsUpdatedListener
+        AccountManager am = AccountManager.get(getApplicationContext());
+        am.addOnAccountsUpdatedListener(this, null, false);
     }
 
     /**
@@ -182,6 +186,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mServiceLooper.quit();
         mServiceLooper = null;
         mNotificationManager = null;
+
+        // remove AccountsUpdatedListener
+        AccountManager am = AccountManager.get(getApplicationContext());
+        am.removeOnAccountsUpdatedListener(this);
+
         super.onDestroy();
     }
 
@@ -343,6 +352,16 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public boolean onUnbind(Intent intent) {
         ((FileUploaderBinder)mBinder).clearListeners();
         return false;   // not accepting rebinding (default behaviour)
+    }
+
+    @Override
+    public void onAccountsUpdated(Account[] accounts) {
+        // Review current upload, and cancel it if its account doen't exist
+        if (mCurrentUpload != null &&
+                !AccountUtils.exists(mCurrentUpload.getAccount(), getApplicationContext())) {
+            mCurrentUpload.cancel();
+        }
+        // The rest of uploads are cancelled when they try to start
     }
 
     /**

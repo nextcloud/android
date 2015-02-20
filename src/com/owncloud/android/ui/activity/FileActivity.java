@@ -23,7 +23,6 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
-import android.accounts.OnAccountsUpdateListener;
 import android.accounts.OperationCanceledException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -57,7 +56,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
-
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.dialog.LoadingDialog;
@@ -70,7 +68,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
  * @author David A. Velasco
  */
 public class FileActivity extends SherlockFragmentActivity
-        implements OnRemoteOperationListener, ComponentsGetter, OnAccountsUpdateListener {
+        implements OnRemoteOperationListener, ComponentsGetter {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
@@ -160,10 +158,6 @@ public class FileActivity extends SherlockFragmentActivity
             bindService(new Intent(this, FileUploader.class), mUploadServiceConnection, Context.BIND_AUTO_CREATE);
         }
 
-        // add AccountsUpdatedListener
-        AccountManager am = AccountManager.get(getApplicationContext());
-        am.addOnAccountsUpdatedListener(this, null, false);
-        
     }
 
     
@@ -226,10 +220,6 @@ public class FileActivity extends SherlockFragmentActivity
             unbindService(mUploadServiceConnection);
             mUploadServiceConnection = null;
         }
-
-        // remove AccountsUpdatedListener
-        AccountManager am = AccountManager.get(getApplicationContext());
-        am.removeOnAccountsUpdatedListener(this);
 
         super.onDestroy();
     }
@@ -297,7 +287,6 @@ public class FileActivity extends SherlockFragmentActivity
                         this, 
                         new AccountCreationCallback(),                        
                         null);
-        am.addOnAccountsUpdatedListener(this, null, true);
     }
 
     
@@ -365,19 +354,6 @@ public class FileActivity extends SherlockFragmentActivity
     protected ServiceConnection newTransferenceServiceConnection() {
         return null;
     }
-
-    @Override
-    public void onAccountsUpdated(Account[] accounts) {
-        // detect a change in the list of accounts
-        Log_OC.d(TAG, "onAccountsUpdated");
-        if (mDownloaderBinder != null) {
-            mDownloaderBinder.checkAccountOfCurrentDownload();
-        }
-        if (mUploaderBinder != null) {
-            mUploaderBinder.checkAccountOfCurrentUpload();
-        }
-    }
-
 
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of

@@ -22,10 +22,8 @@ import android.util.Pair;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.UploadFileOperation;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -237,7 +235,5 @@ public class IndexedForest<V> {
     private String buildKey(Account account, String remotePath) {
         return account.name + remotePath;
     }
-
-
 
 }
