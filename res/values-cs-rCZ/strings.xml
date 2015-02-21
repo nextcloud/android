@@ -298,4 +298,5 @@ správce systému.</string>
   <string name="prefs_category_security">Zabezpečení</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pro nahrávání videí</string>
   <string name="download_folder_failed_content">Stažení adresáře %1$s nemohlo být dokončeno</string>
+  <string name="subject_token">%1$s sdílí \"%2$s\"</string>
 </resources>

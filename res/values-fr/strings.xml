@@ -303,4 +303,5 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="prefs_category_security">Sécurité</string>
   <string name="prefs_instant_video_upload_path_title">Répertoire de téléversement des vidéos</string>
   <string name="download_folder_failed_content">Le téléchargement du dossier %1$s n\'a pas pu être achevé</string>
+  <string name="subject_token">%1$s a partagé \"%2$s\" avec vous</string>
 </resources>
