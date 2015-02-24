@@ -295,7 +295,4 @@ Mesedez, baimendu berriz</string>
   <string name="prefs_category_security">Segurtasuna</string>
   <string name="prefs_instant_video_upload_path_title">Bideo Igoera Bidea</string>
   <string name="download_folder_failed_content">%1$s karpetaren deskarga ezin izan da burutu</string>
-  <string name="shared_subject_header">konpartitua</string>
-  <string name="with_you_subject_header">zurekin</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 </resources>

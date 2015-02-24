@@ -64,9 +64,9 @@
   <string name="file_list_loading">Yükleniyor...</string>
   <string name="local_file_list_empty">Bu klasörde dosya yok.</string>
   <string name="file_list_folder">klasör</string>
-  <string name="file_list_folders">klasörler</string>
+  <string name="file_list_folders">klasör</string>
   <string name="file_list_file">dosya</string>
-  <string name="file_list_files">dosyalar</string>
+  <string name="file_list_files">dosya</string>
   <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
   <string name="filedetails_size">Boyut:</string>
   <string name="filedetails_type">Tür:</string>
@@ -299,5 +299,5 @@
   <string name="prefs_category_security">Güvenlik</string>
   <string name="prefs_instant_video_upload_path_title">Video Yükleme Yolu</string>
   <string name="download_folder_failed_content">%1$s klasörün indirilmesi tamamlanamadı</string>
-  <string name="subject_token">%1$s sizinle \"%2$s\" paylaştı</string>
+  <string name="subject_token">%1$s sizinle \"%2$s\" paylaşımını yaptı</string>
 </resources>

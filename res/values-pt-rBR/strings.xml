@@ -299,4 +299,5 @@
   <string name="prefs_category_security">Segurança</string>
   <string name="prefs_instant_video_upload_path_title">Enviar o Caminho do Vídeo</string>
   <string name="download_folder_failed_content">Baixar %1$s da pasta não pode ser completado</string>
+  <string name="subject_token">%1$s compartilhou \"%2$s\" com você</string>
 </resources>
