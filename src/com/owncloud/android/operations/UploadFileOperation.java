@@ -258,7 +258,6 @@ public class UploadFileOperation extends RemoteOperation {
                                     (nRead = in.read(data, 0, data.length)) != -1) {
                                 out.write(data, 0, nRead);
                             }
-
                             out.flush();
 
                         } else {
@@ -277,6 +276,11 @@ public class UploadFileOperation extends RemoteOperation {
                                 }
                             }
                         }
+
+                        if (mCancellationRequested.get()) {
+                            result = new RemoteOperationResult(new OperationCancelledException());
+                        }
+
 
                     } catch (Exception e) {
                         result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_COPIED);
@@ -300,7 +304,7 @@ public class UploadFileOperation extends RemoteOperation {
                     }
                 }
             }
-            localCopyPassed = true;
+            localCopyPassed = result.isSuccess();
 
             /// perform the upload
             if ( mChunked &&
