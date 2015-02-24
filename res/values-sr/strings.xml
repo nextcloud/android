@@ -48,12 +48,14 @@
   <string name="common_cancel">Откажи</string>
   <string name="common_save_exit">Сачувај и изађи</string>
   <string name="common_error">Грешка</string>
+  <string name="common_loading">Учитавам...</string>
   <string name="common_error_unknown">Непозната грешка</string>
   <string name="about_title">О програму</string>
   <string name="change_password">Измени лозинку</string>
   <string name="delete_account">Обриши налог</string>
   <string name="create_account">Отвори налог</string>
   <string name="upload_chooser_title">Отпреми из…</string>
+  <string name="uploader_info_dirname">Назив фасцикле</string>
   <string name="uploader_upload_in_progress_ticker">Отпремам…</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Отпремам %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Отпремање је успело</string>
