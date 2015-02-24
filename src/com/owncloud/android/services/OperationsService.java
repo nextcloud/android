@@ -37,7 +37,6 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 import com.owncloud.android.operations.common.SyncOperation;
@@ -85,25 +84,18 @@ public class OperationsService extends Service {
     public static final String EXTRA_NEW_PARENT_PATH = "NEW_PARENT_PATH";
     public static final String EXTRA_FILE = "FILE";
 
-    // TODO review if ALL OF THEM are necessary
-    public static final String EXTRA_SUCCESS_IF_ABSENT = "SUCCESS_IF_ABSENT";
-    public static final String EXTRA_USERNAME = "USERNAME";
-    public static final String EXTRA_PASSWORD = "PASSWORD";
-    public static final String EXTRA_AUTH_TOKEN = "AUTH_TOKEN";
     public static final String EXTRA_COOKIE = "COOKIE";
     
     public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
     public static final String ACTION_UNSHARE = "UNSHARE";
     public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
     public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
-    public static final String ACTION_EXISTENCE_CHECK = "EXISTENCE_CHECK";
     public static final String ACTION_GET_USER_NAME = "GET_USER_NAME";
     public static final String ACTION_RENAME = "RENAME";
     public static final String ACTION_REMOVE = "REMOVE";
     public static final String ACTION_CREATE_FOLDER = "CREATE_FOLDER";
     public static final String ACTION_SYNC_FILE = "SYNC_FILE";
     public static final String ACTION_SYNC_FOLDER = "SYNC_FOLDER";  // for the moment, just to download
-    //public static final String ACTION_CANCEL_SYNC_FOLDER = "CANCEL_SYNC_FOLDER";  // for the moment, just to download
     public static final String ACTION_MOVE_FILE = "MOVE_FILE";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
@@ -117,18 +109,11 @@ public class OperationsService extends Service {
     private static class Target {
         public Uri mServerUrl = null;
         public Account mAccount = null;
-        public String mUsername = null;
-        public String mPassword = null;
-        public String mAuthToken = null;
         public String mCookie = null;
         
-        public Target(Account account, Uri serverUrl, String username, String password, String authToken,
-                String cookie) {
+        public Target(Account account, Uri serverUrl, String cookie) {
             mAccount = account;
             mServerUrl = serverUrl;
-            mUsername = username;
-            mPassword = password;
-            mAuthToken = authToken;
             mCookie = cookie;
         }
     }
@@ -248,7 +233,7 @@ public class OperationsService extends Service {
      */
     @Override
     public boolean onUnbind(Intent intent) {
-        ((OperationsServiceBinder)mOperationsBinder).clearListeners();
+        mOperationsBinder.clearListeners();
         return false;   // not accepting rebinding (default behaviour)
     }
 
@@ -448,19 +433,10 @@ public class OperationsService extends Service {
                             );
                         } else {
                             OwnCloudCredentials credentials = null;
-                            if (mLastTarget.mUsername != null && 
-                                    mLastTarget.mUsername.length() > 0) {
-                                credentials = OwnCloudCredentialsFactory.newBasicCredentials(
-                                        mLastTarget.mUsername, 
-                                        mLastTarget.mPassword);  // basic
-                                
-                            } else if (mLastTarget.mAuthToken != null && 
-                                    mLastTarget.mAuthToken.length() > 0) {
-                                credentials = OwnCloudCredentialsFactory.newBearerCredentials(
-                                        mLastTarget.mAuthToken);  // bearer token
-                                
-                            } else if (mLastTarget.mCookie != null &&
+                            if (mLastTarget.mCookie != null &&
                                     mLastTarget.mCookie.length() > 0) {
+                                // just used for GetUserName
+                                // TODO refactor to run GetUserName as AsyncTask in the context of AuthenticatorActivity
                                 credentials = OwnCloudCredentialsFactory.newSamlSsoCredentials(
                                         mLastTarget.mCookie); // SAML SSO
                             }
@@ -509,7 +485,7 @@ public class OperationsService extends Service {
                 }
                 
                 //sendBroadcastOperationFinished(mLastTarget, mCurrentOperation, result);
-                mService.dispatchResultToOperationListeners(mLastTarget, mCurrentOperation, result);
+                mService.dispatchResultToOperationListeners(mCurrentOperation, result);
             }
         }
 
@@ -537,16 +513,10 @@ public class OperationsService extends Service {
             } else {
                 Account account = operationIntent.getParcelableExtra(EXTRA_ACCOUNT);
                 String serverUrl = operationIntent.getStringExtra(EXTRA_SERVER_URL);
-                String username = operationIntent.getStringExtra(EXTRA_USERNAME);
-                String password = operationIntent.getStringExtra(EXTRA_PASSWORD);
-                String authToken = operationIntent.getStringExtra(EXTRA_AUTH_TOKEN);
                 String cookie = operationIntent.getStringExtra(EXTRA_COOKIE);
                 target = new Target(
                         account, 
                         (serverUrl == null) ? null : Uri.parse(serverUrl),
-                        username,
-                        password,
-                        authToken,
                         cookie
                 );
                 
@@ -580,12 +550,6 @@ public class OperationsService extends Service {
                             getString(R.string.oauth2_redirect_uri),       
                             getString(R.string.oauth2_grant_type),
                             oauth2QueryParameters);
-                    
-                } else if (action.equals(ACTION_EXISTENCE_CHECK)) {
-                    // Existence Check 
-                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                    boolean successIfAbsent = operationIntent.getBooleanExtra(EXTRA_SUCCESS_IF_ABSENT, false);
-                    operation = new ExistenceCheckRemoteOperation(remotePath, OperationsService.this, successIfAbsent);
                     
                 } else if (action.equals(ACTION_GET_USER_NAME)) {
                     // Get User Name
@@ -698,12 +662,12 @@ public class OperationsService extends Service {
     /**
      * Notifies the currently subscribed listeners about the end of an operation.
      *
-     * @param target            Account or URL pointing to an OC server.
      * @param operation         Finished operation.
      * @param result            Result of the operation.
      */
     protected void dispatchResultToOperationListeners(
-            Target target, final RemoteOperation operation, final RemoteOperationResult result) {
+            final RemoteOperation operation, final RemoteOperationResult result
+    ) {
         int count = 0;
         Iterator<OnRemoteOperationListener> listeners = mOperationsBinder.mBoundListeners.keySet().iterator();
         while (listeners.hasNext()) {

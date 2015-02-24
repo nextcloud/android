@@ -126,7 +126,7 @@ class SyncFolderHandler extends Handler {
             } finally {
                 mPendingOperations.removePayload(account, remotePath);
 
-                mService.dispatchResultToOperationListeners(null, mCurrentSyncOperation, result);
+                mService.dispatchResultToOperationListeners(mCurrentSyncOperation, result);
 
                 sendBroadcastFinishedSyncFolder(account, remotePath, result.isSuccess());
             }
