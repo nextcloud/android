@@ -3,7 +3,7 @@
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2012-2014 ownCloud Inc.
+  Copyright (C) 2012-2015 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -86,7 +86,6 @@
             android:name=".ui.activity.Preferences"
             android:theme="@style/Theme.ownCloud" >
         </activity>
-
         <activity	
             android:name=".ui.preview.PreviewImageActivity" 
             />
