@@ -20,6 +20,7 @@
   <string name="prefs_log_delete_history_button">Обриши Историју</string>
   <string name="prefs_help">Помоћ</string>
   <string name="prefs_recommend">Препоручи пријатељу</string>
+  <string name="prefs_imprint">Жиг</string>
   <string name="auth_username">Корисничко име</string>
   <string name="auth_password">Лозинка</string>
   <string name="sync_string_files">Фајлови</string>
