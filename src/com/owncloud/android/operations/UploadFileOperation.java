@@ -304,7 +304,7 @@ public class UploadFileOperation extends RemoteOperation {
                     }
                 }
             }
-            localCopyPassed = result.isSuccess();
+            localCopyPassed = (result == null);
 
             /// perform the upload
             if ( mChunked &&
