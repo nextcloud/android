@@ -186,6 +186,7 @@
   <string name="auth_unsupported_multiaccount">%1$s não suporta contas múltiplas</string>
   <string name="auth_fail_get_user_name">O seu servidor não transmite o ID correcto. Por favor contacte o administrador.</string>
   <string name="auth_can_not_auth_against_server">Não foi possível autenticar no servidor</string>
+  <string name="auth_account_does_not_exist">Conta ainda não existe no dispositivo</string>
   <string name="fd_keep_in_sync">manter ficheiro actualizado</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Remover</string>

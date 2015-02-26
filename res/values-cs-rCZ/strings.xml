@@ -186,6 +186,7 @@
   <string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
   <string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
   <string name="auth_can_not_auth_against_server">Není možné provést ověření  </string>
+  <string name="auth_account_does_not_exist">Ještě není nastaven žádný účet v přístroji</string>
   <string name="fd_keep_in_sync">Udržovat soubor aktuální</string>
   <string name="common_rename">Přejmenovat</string>
   <string name="common_remove">Odstranit</string>

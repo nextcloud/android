@@ -2,7 +2,9 @@
 <resources>
   <string name="about_android">%1$s កម្មវិធីអានដ្រយ</string>
   <string name="about_version">ជំនាន់ %1$s</string>
+  <string name="actionbar_sync">គណនីឱ្យថ្មីឡើងវិញ</string>
   <string name="actionbar_upload">ផ្ទុក​ឡើង</string>
+  <string name="actionbar_upload_from_apps">មាតិការ​ពីកម្មវិធីផ្សេងទៀត</string>
   <string name="actionbar_upload_files">ឯកសារ</string>
   <string name="actionbar_open_with">បើកជាមួយ</string>
   <string name="actionbar_mkdir">ថត​ថ្មី</string>
@@ -22,7 +24,14 @@
   <string name="prefs_accounts">គណនី</string>
   <string name="prefs_manage_accounts">គ្រប់គ្រង​គណនី</string>
   <string name="prefs_pincode">ភីន​កូដ កម្មវិធី</string>
+  <string name="prefs_log_title">ដំណើរការការចូលទៅកាន់</string>
+  <string name="prefs_log_summary">នេះជាបញ្ហា​សម្រាប់​អ្នក​ដែល​បាន​ចូលទៅកាន់</string>
+  <string name="prefs_log_title_history">ប្រវត្តិនៃការចូលទៅកាន់</string>
+  <string name="prefs_log_summary_history">នៅទីនេះ​គឺបង្ហាញការដែលបាន​ចូលទៅកាន់</string>
+  <string name="prefs_log_delete_history_button">លុប​ប្រវត្តិ</string>
   <string name="prefs_help">ជំនួយ</string>
+  <string name="prefs_recommend">ផ្ដល់អនុសាសន៍ទៅកាន់មិត្តភក្ដិ</string>
+  <string name="prefs_feedback">មតិត្រឡប់</string>
   <string name="auth_username">ឈ្មោះ​អ្នកប្រើ</string>
   <string name="auth_password">ពាក្យសម្ងាត់</string>
   <string name="sync_string_files">ឯកសារ</string>
