@@ -187,6 +187,7 @@
   <string name="auth_fail_get_user_name">Seu servidor não está retornando um ID de usuário correto, por favor, entre em contato com um administrador
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Não foi possível autenticar neste servidor</string>
+  <string name="auth_account_does_not_exist">Conta ainda não existe no dispositivo</string>
   <string name="fd_keep_in_sync">Manter arquivo atualizado</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Remover</string>
