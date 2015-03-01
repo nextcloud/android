@@ -188,6 +188,7 @@
   <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返しませんでした。管理者に連絡してください。
 	</string>
   <string name="auth_can_not_auth_against_server">このサーバーに対して認証できません</string>
+  <string name="auth_account_does_not_exist">デバイス上にまだアカウントが存在しません</string>
   <string name="fd_keep_in_sync">ファイルを最新に保つ</string>
   <string name="common_rename">名前を変更</string>
   <string name="common_remove">削除</string>

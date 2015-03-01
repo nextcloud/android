@@ -187,6 +187,7 @@
   <string name="auth_fail_get_user_name">Váš server nevracia správne používateľské id, kontaktujte prosím správcu systému
 	</string>
   <string name="auth_can_not_auth_against_server">Nie je možné vykonať autentifikáciu na server</string>
+  <string name="auth_account_does_not_exist">Účet zatiaľ v zariadení neexistuje</string>
   <string name="fd_keep_in_sync">Udržiavať súbor aktuálny.</string>
   <string name="common_rename">Premenuj</string>
   <string name="common_remove">Odober</string>
@@ -299,4 +300,5 @@
   <string name="prefs_category_security">Zabezpečenie</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pre nahrávanie videí</string>
   <string name="download_folder_failed_content">Sťahovanie %1$s priečinka nebolo dokončené</string>
+  <string name="subject_token">%1$s vám zdieľa „%2$s“</string>
 </resources>
