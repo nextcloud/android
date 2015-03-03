@@ -35,6 +35,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -150,6 +151,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             OCFile file = mFiles.get(position);
             TextView fileName = (TextView) view.findViewById(R.id.Filename);           
             String name = file.getFileName();
+
+            LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.ListItemLayout);
+            linearLayout.setContentDescription("LinearLayout-" + name);
 
             fileName.setText(name);
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
