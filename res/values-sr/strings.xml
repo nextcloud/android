@@ -41,6 +41,7 @@
   <string name="filedetails_modified">Измењено:</string>
   <string name="filedetails_download">Преузми</string>
   <string name="filedetails_sync_file">Освежи датотеку</string>
+  <string name="action_share_file">Веза дељења</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">У реду</string>
