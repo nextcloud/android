@@ -525,7 +525,8 @@ public class OperationsService extends Service {
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
                     if (remotePath.length() > 0) {
-                        operation = new CreateShareOperation(OperationsService.this, remotePath, ShareType.PUBLIC_LINK,
+                        operation = new CreateShareOperation(OperationsService.this, remotePath,
+                                ShareType.PUBLIC_LINK,
                                 "", false, "", 1, sendIntent);
                     }
                     

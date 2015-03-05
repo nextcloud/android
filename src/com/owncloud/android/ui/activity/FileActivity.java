@@ -487,10 +487,15 @@ public class FileActivity extends SherlockFragmentActivity
             Intent sendIntent = operation.getSendIntent();
             startActivity(sendIntent);
             
-        } else { 
-            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
-                    Toast.LENGTH_LONG);
-            t.show();
+        } else {
+            // TODO Detect Failure (403) --> needs Password
+            if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
+
+            } else {
+                Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
+                t.show();
+            }
         } 
     }
     

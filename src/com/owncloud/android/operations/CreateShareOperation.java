@@ -98,7 +98,8 @@ public class CreateShareOperation extends SyncOperation {
         RemoteOperationResult result = ((GetRemoteSharesForFileOperation)operation).execute(client);
 
         if (!result.isSuccess() || result.getData().size() <= 0) {
-            operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload, mPassword, mPermissions);
+            operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload,
+                    mPassword, mPermissions);
             result = ((CreateRemoteShareOperation)operation).execute(client);
         }
         
