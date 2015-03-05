@@ -1,4 +1,5 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
  *
  *   @author Michael Ortiz
  *   @updated Patrick Lackemacher

@@ -1,4 +1,5 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
  *
  *   @author masensio
  *   Copyright (C) 2014 ownCloud Inc.

@@ -1,4 +1,5 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
  *
  *   @author David A. Velasco
  *   Copyright (C) 2012 Bartek Przybylski

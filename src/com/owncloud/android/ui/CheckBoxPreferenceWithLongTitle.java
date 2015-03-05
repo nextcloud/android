@@ -1,4 +1,6 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
  *   Copyright (C) 2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
