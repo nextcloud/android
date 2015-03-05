@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author masensio
  *   Copyright (C) 2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -19,9 +21,6 @@ package com.owncloud.android.operations;
 
 /**
  * Creates a new share from a given file
- * 
- * @author masensio
- *
  */
 
 import android.content.Context;

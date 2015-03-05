@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -32,8 +34,6 @@ import android.os.Handler;
  * with local data in the device.
  * 
  * Provides methods to execute the operation both synchronously or asynchronously.
- * 
- * @author David A. Velasco 
  */
 public abstract class SyncOperation extends RemoteOperation {
 	

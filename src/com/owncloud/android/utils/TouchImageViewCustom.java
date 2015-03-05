@@ -1,13 +1,26 @@
-/*
- * TouchImageView.java
- * By: Michael Ortiz
- * Updated By: Patrick Lackemacher
- * Updated By: Babay88
- * Updated By: @ipsilondev
- * Updated By: hank-cp
- * Updated By: singpolyma
- * -------------------
- * Extends Android ImageView to include pinch zooming, panning, fling and double tap zoom.
+/* ownCloud Android client application
+ *
+ *   @author Michael Ortiz
+ *   @updated Patrick Lackemacher
+ *   @updated Babay88
+ *   @updated @ipsilondev
+ *   @updated hank-cp
+ *   @updated singpolyma
+ *   Copyright (c) 2012 Michael Ortiz
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 package com.owncloud.android.utils;
@@ -39,6 +52,9 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.OverScroller;
 import android.widget.Scroller;
 
+/**
+ * Extends Android ImageView to include pinch zooming, panning, fling and double tap zoom.
+ */
 public class TouchImageViewCustom extends ImageViewCustom {
     private static final String DEBUG = "DEBUG";
 	
@@ -401,7 +417,7 @@ public class TouchImageViewCustom extends ImageViewCustom {
     /**
      * Set zoom parameters equal to another TouchImageView. Including scale, position,
      * and ScaleType.
-     * @param TouchImageView
+     * @param img
      */
     public void setZoom(TouchImageViewCustom img) {
     	PointF center = img.getScrollPosition();

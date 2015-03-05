@@ -1,4 +1,7 @@
 /* ownCloud Android client application
+ *
+ *   @author masensio
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -31,9 +34,6 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * 
- * @author masensio
- * @author David A. Velasco
  *
  */
 public class X509CertificateViewAdapter implements SslUntrustedCertDialog.CertificateViewAdapter {

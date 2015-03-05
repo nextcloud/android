@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -19,9 +21,6 @@ package com.owncloud.android.utils;
 
 /**
  * Represents a session to an ownCloud instance
- * 
- * @author Bartek Przybylski
- * 
  */
 public class OwnCloudSession {
     private String mSessionName;

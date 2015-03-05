@@ -1,4 +1,7 @@
 /* ownCloud Android client application
+ *
+ *   @author masensio
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -47,10 +50,7 @@ import com.owncloud.android.ui.adapter.X509CertificateViewAdapter;
  * to decide trust on it or not.
  * 
  * Abstract implementation of common functionality for different dialogs that
- * get the information about the error and the certificate from different classes. 
- * 
- * @author masensio
- * @author David A. Velasco
+ * get the information about the error and the certificate from different classes.
  */
 public class SslUntrustedCertDialog extends SherlockDialogFragment {
     

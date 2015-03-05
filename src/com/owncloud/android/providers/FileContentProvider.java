@@ -1,4 +1,7 @@
 /* ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -45,10 +48,6 @@ import android.text.TextUtils;
 
 /**
  * The ContentProvider for the ownCloud App.
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
- * 
  */
 public class FileContentProvider extends ContentProvider {
 

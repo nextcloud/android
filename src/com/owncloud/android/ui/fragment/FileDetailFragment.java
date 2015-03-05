@@ -1,4 +1,7 @@
 /* ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -52,9 +55,6 @@ import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * This Fragment is used to display the details about a file.
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
  */
 public class FileDetailFragment extends FileFragment implements OnClickListener {
 
@@ -536,9 +536,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     
     /**
-     * Helper class responsible for updating the progress bar shown for file uploading or downloading  
-     * 
-     * @author David A. Velasco
+     * Helper class responsible for updating the progress bar shown for file uploading or downloading
      */
     private class ProgressListener implements OnDatatransferProgressListener {
         int mLastPercent = 0;

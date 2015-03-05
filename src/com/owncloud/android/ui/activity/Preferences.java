@@ -1,4 +1,7 @@
 /* ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2015 ownCloud Inc.
  *
@@ -70,9 +73,6 @@ import java.io.File;
 
 /**
  * An Activity that allows the user to change the application's settings.
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
  */
 public class Preferences extends SherlockPreferenceActivity
         implements AccountManagerCallback<Boolean>, ComponentsGetter {

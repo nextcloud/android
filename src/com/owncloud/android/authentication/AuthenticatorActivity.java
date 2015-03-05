@@ -1,4 +1,8 @@
 /* ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
+ *   @author masensio
  *   Copyright (C) 2012  Bartek Przybylski
  *   Copyright (C) 2012-2015 ownCloud Inc.
  *
@@ -91,10 +95,6 @@ import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * This Activity is used to add an ownCloud account to the App
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
- * @author masensio
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
         implements  OnRemoteOperationListener, OnFocusChangeListener, OnEditorActionListener,

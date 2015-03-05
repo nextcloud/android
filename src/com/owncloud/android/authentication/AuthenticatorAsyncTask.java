@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author masensio on 09/02/2015.
  *   Copyright (C) 2012-2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -32,8 +34,6 @@ import java.lang.ref.WeakReference;
 
 /**
  * Async Task to verify the credentials of a user
- *
- * @author masensio on 09/02/2015.
  */
 public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOperationResult> {
 

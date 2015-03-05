@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2014 ownCloud Inc.
  *
@@ -42,9 +44,6 @@ import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 /**
  * This Adapter populates a ListView with all files and directories contained
  * in a local directory
- * 
- * @author David A. Velasco
- * 
  */
 public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
     

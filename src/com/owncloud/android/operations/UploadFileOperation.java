@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -56,8 +58,6 @@ import com.owncloud.android.utils.UriUtils;
 
 /**
  * Remote operation performing the upload of a file to an ownCloud server
- * 
- * @author David A. Velasco
  */
 public class UploadFileOperation extends RemoteOperation {
 

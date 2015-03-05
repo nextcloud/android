@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author Lorensius. W. T
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -42,8 +44,6 @@ import com.owncloud.android.R;
 /**
  * Popup window, shows action list as icon and text like the one in Gallery3D
  * app.
- * 
- * @author Lorensius. W. T
  */
 public class QuickAction extends CustomPopup {
     private final View root;

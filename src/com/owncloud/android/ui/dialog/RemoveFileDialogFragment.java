@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -20,9 +22,7 @@ package com.owncloud.android.ui.dialog;
 /**
  *  Dialog requiring confirmation before removing a given OCFile.  
  * 
- *  Triggers the removal according to the user response. 
- *  
- *  @author David A. Velasco
+ *  Triggers the removal according to the user response.
  */
 import java.util.Vector;
 

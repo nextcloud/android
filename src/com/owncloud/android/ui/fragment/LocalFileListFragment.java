@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -38,9 +40,6 @@ import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.
- * 
- * @author David A. Velasco
- * 
  */
 public class LocalFileListFragment extends ExtendedListFragment {
     private static final String TAG = "LocalFileListFragment";
@@ -226,8 +225,6 @@ public class LocalFileListFragment extends ExtendedListFragment {
     
     /**
      * Interface to implement by any Activity that includes some instance of LocalFileListFragment
-     * 
-     * @author David A. Velasco
      */
     public interface ContainerActivity {
 

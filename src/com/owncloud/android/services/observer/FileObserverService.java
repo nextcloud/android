@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2012 Bartek Przybylski
  *   Copyright (C) 2012-2014 ownCloud Inc.
  *
@@ -54,8 +56,6 @@ import com.owncloud.android.utils.FileStorageUtils;
  * memory. To minimize the impact of this, the service always returns
  * Service.START_STICKY, and the later restart of the service is explicitly
  * considered in {@link FileObserverService#onStartCommand(Intent, int, int)}.
- * 
- * @author David A. Velasco
  */
 public class FileObserverService extends Service {
 

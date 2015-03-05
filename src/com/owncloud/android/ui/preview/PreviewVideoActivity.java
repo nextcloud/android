@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -45,9 +47,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  *  Used as an utility to preview video files contained in an ownCloud account.
  *  
  *  Currently, it always plays in landscape mode, full screen. When the playback ends,
- *  the activity is finished. 
- *  
- *  @author David A. Velasco
+ *  the activity is finished.
  */
 public class PreviewVideoActivity extends FileActivity implements OnCompletionListener, OnPreparedListener, OnErrorListener {
 

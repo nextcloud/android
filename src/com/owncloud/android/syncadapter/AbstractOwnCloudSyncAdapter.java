@@ -1,4 +1,7 @@
 /* ownCloud Android client application
+ *
+ *   @author sassman
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -44,9 +47,6 @@ import android.content.Context;
  * resource types, like FileSync, ConcatsSync, CalendarSync, etc..
  * 
  * Implements the standard {@link AbstractThreadedSyncAdapter}.
- * 
- * @author sassman
- * @author David A. Velasco
  */
 public abstract class AbstractOwnCloudSyncAdapter extends
         AbstractThreadedSyncAdapter {

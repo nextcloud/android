@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
  *   Copyright (C) 2012  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -69,9 +71,6 @@ import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * This can be used to upload things to an ownCloud instance.
- * 
- * @author Bartek Przybylski
- * 
  */
 public class Uploader extends SherlockListActivity implements OnItemClickListener, android.view.View.OnClickListener {
     private static final String TAG = "ownCloudUploader";

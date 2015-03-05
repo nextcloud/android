@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -36,8 +38,6 @@ import java.util.concurrent.ConcurrentMap;
  *  A map provides the indexation based in hashing.
  *
  *  A tree is created per account.
- *
- * @author David A. Velasco
  */
 public class IndexedForest<V> {
 

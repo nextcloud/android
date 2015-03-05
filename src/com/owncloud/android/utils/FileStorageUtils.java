@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -41,8 +43,6 @@ import android.webkit.MimeTypeMap;
 
 /**
  * Static methods to help in access to local file system.
- * 
- * @author David A. Velasco
  */
 public class FileStorageUtils {
     public static Integer mSortOrder;

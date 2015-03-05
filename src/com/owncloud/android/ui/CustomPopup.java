@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author Lorensius. W. T
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -32,9 +34,6 @@ import android.widget.PopupWindow;
 
 /**
  * Represents a custom PopupWindows
- * 
- * @author Lorensius. W. T
- * 
  */
 public class CustomPopup {
     protected final View mAnchor;

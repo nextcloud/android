@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *   @author Tobias Kaminsky
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -49,10 +51,7 @@ import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
 /**
- * Manager for concurrent access to thumbnails cache. 
- *  
- * @author Tobias Kaminsky
- * @author David A. Velasco
+ * Manager for concurrent access to thumbnails cache.
  */
 public class ThumbnailsCacheManager {
     

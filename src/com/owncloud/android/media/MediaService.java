@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -49,8 +51,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
  * 
  * Waits for Intents which signal the service to perform specific operations: Play, Pause,
  * Rewind, etc.
- * 
- * @author David A. Velasco
  */
 public class MediaService extends Service implements OnCompletionListener, OnPreparedListener,
                 OnErrorListener, AudioManager.OnAudioFocusChangeListener {

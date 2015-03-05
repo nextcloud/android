@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
  *   Copyright (C) 2011-2012  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -28,9 +30,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Custom database helper for ownCloud
- * 
- * @author Bartek Przybylski
- * 
  */
 public class DbHandler {
     private SQLiteDatabase mDB;

@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -34,8 +36,6 @@ import android.widget.MediaController;
  * 
  *  Provides the operations of {@link MediaController.MediaPlayerControl}, and an extra method to check if
  *  an {@link OCFile} instance is handled by the MediaService.
- *  
- *  @author David A. Velasco
  */
 public class MediaServiceBinder extends Binder implements MediaController.MediaPlayerControl {
 

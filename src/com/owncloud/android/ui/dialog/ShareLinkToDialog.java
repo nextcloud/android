@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -50,8 +52,6 @@ import com.owncloud.android.ui.activity.FileActivity;
 /**
  * Dialog showing a list activities able to resolve a given Intent, 
  * filtering out the activities matching give package names.
- * 
- * @author David A. Velasco
  */
 public class ShareLinkToDialog  extends SherlockDialogFragment {
     

@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -24,9 +26,6 @@ import com.owncloud.android.MainApp;
 
 /**
  * Meta-Class that holds various static field information
- * 
- * @author Bartek Przybylski
- * 
  */
 public class ProviderMeta {
 

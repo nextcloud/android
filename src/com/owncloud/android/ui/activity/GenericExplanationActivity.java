@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -41,8 +43,6 @@ import com.owncloud.android.utils.DisplayUtils;
  * 
  * Added to show explanations for notifications when the user clicks on them, and there no place
  * better to show them.
- * 
- * @author David A. Velasco
  */
 public class GenericExplanationActivity  extends SherlockFragmentActivity {
 

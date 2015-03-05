@@ -1,4 +1,7 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   @author masensio
  *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -32,9 +35,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * Remote operation performing the rename of a remote file (or folder?) in the ownCloud server.
- * 
- * @author David A. Velasco
- * @author masensio
  */
 public class RenameFileOperation extends SyncOperation {
     

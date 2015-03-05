@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -31,8 +33,6 @@ import android.widget.RemoteViews;
  * a progress bar is available in every Android version, because 
  * {@link NotificationCompat.Builder#setProgress(int, int, boolean)} has no
  * real effect for Android < 4.0
- * 
- * @author David A. Velasco
  */
 public class NotificationBuilderWithProgressBar extends NotificationCompat.Builder {
 

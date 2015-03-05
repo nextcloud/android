@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -22,9 +24,6 @@ import android.view.View.OnClickListener;
 
 /**
  * Represents an Item on the ActionBar.
- * 
- * @author Bartek Przybylski
- * 
  */
 public class ActionItem {
     private Drawable mIcon;

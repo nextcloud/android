@@ -1,4 +1,7 @@
 /* ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2012 Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -32,10 +35,7 @@ import android.os.Bundle;
 
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external
- * application. 
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
+ * application.
  */
 public class ConflictsResolveActivity extends FileActivity implements OnConflictDecisionMadeListener {
 

@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -46,8 +48,6 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
  *  The second case requires to monitor the folder parent of the files, since a direct 
  *  {@link FileObserver} on it will not receive more events after the file is deleted to
  *  be replaced.
- * 
- * @author David A. Velasco
  */
 public class FolderObserver extends FileObserver {
 

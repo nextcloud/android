@@ -1,4 +1,5 @@
 /* ownCloud Android client application
+ *   @author David A. Velasco
  *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -64,8 +65,6 @@ import com.owncloud.android.utils.FileStorageUtils;
  *  properties, and updates the local database with them.
  *  
  *  Does NOT enter in the child folders to synchronize their contents also.
- * 
- *  @author David A. Velasco
  */
 public class RefreshFolderOperation extends RemoteOperation {
 

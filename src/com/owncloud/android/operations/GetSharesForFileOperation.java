@@ -1,4 +1,6 @@
 /* ownCloud Android client application
+ *
+ *   @author masensio
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -28,10 +30,7 @@ import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation
 import com.owncloud.android.operations.common.SyncOperation;
 
 /**
- * Provide a list shares for a specific file.  
- * 
- * @author masensio
- *
+ * Provide a list shares for a specific file.
  */
 public class GetSharesForFileOperation extends SyncOperation {
     

@@ -1,4 +1,5 @@
 /* ownCloud Android client application
+ *   @author David A. Velasco
  *   Copyright (C) 2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -38,8 +39,6 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile} 
  * according to the current state of the latest. 
- * 
- * @author David A. Velasco
  */
 public class FileMenuFilter {
 
