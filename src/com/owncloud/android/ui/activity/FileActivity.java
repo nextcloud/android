@@ -58,7 +58,9 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
+import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 
@@ -79,6 +81,7 @@ public class FileActivity extends SherlockFragmentActivity
     
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
+    private static final String DIALOG_SHARE_PASSWORD = "DIALOG_SHARE_PASSWORD";
     
     protected static final long DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS = 200;
     
@@ -490,7 +493,9 @@ public class FileActivity extends SherlockFragmentActivity
         } else {
             // TODO Detect Failure (403) --> needs Password
             if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
-
+                SharePasswordDialogFragment dialog =
+                        SharePasswordDialogFragment.newInstance(getFile());
+                dialog.show(getSupportFragmentManager(), DIALOG_SHARE_PASSWORD);
             } else {
                 Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                         Toast.LENGTH_LONG);
