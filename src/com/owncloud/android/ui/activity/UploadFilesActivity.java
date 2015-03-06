@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -48,9 +51,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 /**
  * Displays local files and let the user choose what of them wants to upload
  * to the current ownCloud account
- * 
- * @author David A. Velasco
- * 
  */
 
 public class UploadFilesActivity extends FileActivity implements
@@ -289,8 +289,6 @@ public class UploadFilesActivity extends FileActivity implements
      * to upload into the ownCloud local folder.
      * 
      * Maybe an AsyncTask is not strictly necessary, but who really knows.
-     * 
-     * @author David A. Velasco
      */
     private class CheckAvailableSpaceTask extends AsyncTask<Void, Void, Boolean> {
 

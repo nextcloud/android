@@ -1,4 +1,6 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
  *   Copyright (C) 2012 Bartek Przybylski
  *   Copyright (C) 2012-2015 ownCloud Inc.
  *

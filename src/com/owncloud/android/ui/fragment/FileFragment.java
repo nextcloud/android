@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013  ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015  ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -30,9 +33,6 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 
 /**
  * Common methods for {@link Fragment}s containing {@link OCFile}s
- * 
- * @author David A. Velasco
- *
  */
 public class FileFragment extends SherlockFragment {
     
@@ -102,8 +102,6 @@ public class FileFragment extends SherlockFragment {
     /**
      * Interface to implement by any Activity that includes some instance of FileListFragment
      * Interface to implement by any Activity that includes some instance of FileFragment
-     * 
-     * @author David A. Velasco
      */
     public interface ContainerActivity extends ComponentsGetter {
 

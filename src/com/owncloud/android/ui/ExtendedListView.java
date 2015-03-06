@@ -1,4 +1,7 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2012 Bartek Przybylski
  *   Copyright (C) 2012-2015 ownCloud Inc.
  *
@@ -28,9 +31,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 /**
  * ListView allowing to specify the position of an item that should be centered in the visible area, if possible.
  *
- * The cleanest way I found to overcome the problem due to getHeight() returns 0 until the view is really drawn. 
- *
- * @author David A. Velasco
+ * The cleanest way I found to overcome the problem due to getHeight() returns 0 until the view is really drawn.
  */
 public class ExtendedListView extends ListView {
 

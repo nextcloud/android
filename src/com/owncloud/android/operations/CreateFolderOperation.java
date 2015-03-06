@@ -1,5 +1,9 @@
-/* ownCloud Android client application
- *   Copyright (C) 2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   @author masensio
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -31,9 +35,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 /**
  * Access to remote operation performing the creation of a new folder in the ownCloud server.
  * Save the new folder in Database
- * 
- * @author David A. Velasco 
- * @author masensio
  */
 public class CreateFolderOperation extends SyncOperation implements OnRemoteOperationListener{
     
