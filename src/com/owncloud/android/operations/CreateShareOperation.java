@@ -44,7 +44,6 @@ import com.owncloud.android.operations.common.SyncOperation;
 public class CreateShareOperation extends SyncOperation {
 
     private static final String TAG = CreateShareOperation.class.getSimpleName();
-    
 
     protected FileDataStorageManager mStorageManager;
 
@@ -76,8 +75,9 @@ public class CreateShareOperation extends SyncOperation {
      *                      To obtain combinations, add the desired values together.  
      *                      For instance, for Re-Share, delete, read, update, add 16+8+2+1 = 27.
      */
-    public CreateShareOperation(Context context, String path, ShareType shareType, String shareWith, boolean publicUpload,
-            String password, int permissions, Intent sendIntent) {
+    public CreateShareOperation(Context context, String path, ShareType shareType, String shareWith,
+                                boolean publicUpload, String password, int permissions,
+                                Intent sendIntent) {
 
         mContext = context;
         mPath = path;
@@ -113,7 +113,30 @@ public class CreateShareOperation extends SyncOperation {
         return result;
     }
     
-    
+    public String getPath() {
+        return mPath;
+    }
+
+    public ShareType getShareType() {
+        return mShareType;
+    }
+
+    public String getShareWith() {
+        return mShareWith;
+    }
+
+    public boolean getPublicUpload() {
+        return mPublicUpload;
+    }
+
+    public String getPassword() {
+        return mPassword;
+    }
+
+    public int getPermissions() {
+        return mPermissions;
+    }
+
     public Intent getSendIntent() {
         return mSendIntent;
     }

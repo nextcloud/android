@@ -85,6 +85,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_RESULT = "RESULT";
     public static final String EXTRA_NEW_PARENT_PATH = "NEW_PARENT_PATH";
     public static final String EXTRA_FILE = "FILE";
+    public static final String EXTRA_PASSWORD_SHARE = "PASSWORD_SHARE";
 
     public static final String EXTRA_COOKIE = "COOKIE";
     
@@ -525,11 +526,12 @@ public class OperationsService extends Service {
                 String action = operationIntent.getAction();
                 if (action.equals(ACTION_CREATE_SHARE)) {  // Create Share
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    String password = operationIntent.getStringExtra(EXTRA_PASSWORD_SHARE);
                     Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
                     if (remotePath.length() > 0) {
                         operation = new CreateShareOperation(OperationsService.this, remotePath,
                                 ShareType.PUBLIC_LINK,
-                                "", false, "", 1, sendIntent);
+                                "", false, password, 1, sendIntent);
                     }
                     
                 } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file

@@ -453,7 +453,8 @@ public class FileActivity extends SherlockFragmentActivity
             
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
                 dismissLoadingDialog();
-                Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
+                                operation, getResources()),
                         Toast.LENGTH_LONG);
                 t.show();
             }
@@ -481,7 +482,8 @@ public class FileActivity extends SherlockFragmentActivity
     }
     
 
-    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
+    private void onCreateShareOperationFinish(CreateShareOperation operation,
+                                              RemoteOperationResult result) {
         dismissLoadingDialog();
         if (result.isSuccess()) {
             updateFileFromDB();
@@ -490,13 +492,15 @@ public class FileActivity extends SherlockFragmentActivity
             startActivity(sendIntent);
             
         } else {
-            // TODO Detect Failure (403) --> needs Password
+            // Detect Failure (403) --> needs Password
             if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
                 SharePasswordDialogFragment dialog =
-                        SharePasswordDialogFragment.newInstance(getFile());
+                        SharePasswordDialogFragment.newInstance( new OCFile(operation.getPath()),
+                                operation.getSendIntent());
                 dialog.show(getSupportFragmentManager(), DIALOG_SHARE_PASSWORD);
             } else {
-                Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                Toast t = Toast.makeText(this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                         Toast.LENGTH_LONG);
                 t.show();
             }

@@ -20,8 +20,8 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.activity.FileActivity;
 
 /**
  * Dialog to input the password for sharing a file/folder.
@@ -43,23 +44,35 @@ import com.owncloud.android.datamodel.OCFile;
 public class SharePasswordDialogFragment extends SherlockDialogFragment
         implements DialogInterface.OnClickListener {
 
-        public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
+    private static final String ARG_FILE = "FILE";
+    private static final String ARG_SEND_INTENT = "SEND_INTENT";
+
+    public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
+
+    private OCFile mFile;
+    private Intent mSendIntent;
 
     /**
      * Public factory method to create new SharePasswordDialogFragment instances.
      *
-     * @param file            File to share
-     * @return                Dialog ready to show.
+     * @param file
+     * @param sendIntent
+     * @return              Dialog ready to show.
      */
-    public static SharePasswordDialogFragment newInstance(OCFile file) {
+    public static SharePasswordDialogFragment newInstance(OCFile file, Intent sendIntent) {
         SharePasswordDialogFragment frag = new SharePasswordDialogFragment();
         Bundle args = new Bundle();
+        args.putParcelable(ARG_FILE, file);
+        args.putParcelable(ARG_SEND_INTENT, sendIntent);
         frag.setArguments(args);
         return frag;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        mFile = getArguments().getParcelable(ARG_FILE);
+        mSendIntent = getArguments().getParcelable(ARG_SEND_INTENT);
+
         // Inflate the layout for the dialog
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.password_dialog, null);
@@ -96,8 +109,9 @@ public class SharePasswordDialogFragment extends SherlockDialogFragment
                 return;
             }
 
-            // TODO
             // Share the file
+            ((FileActivity)getSherlockActivity()).getFileOperationsHelper()
+                                    .shareFileWithLinkToApp(mFile, password, mSendIntent);
 
         }
     }
