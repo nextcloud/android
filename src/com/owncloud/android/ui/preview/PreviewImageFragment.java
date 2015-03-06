@@ -57,8 +57,8 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.TouchImageViewCustom;
 
+import third_parties.michaelOrtiz.TouchImageViewCustom;
 
 
 /**

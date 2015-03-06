@@ -43,7 +43,7 @@
         android:layout_centerInParent="true"
         />
     
-    <com.owncloud.android.utils.TouchImageViewCustom
+    <third_parties.michaelOrtiz.TouchImageViewCustom
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
