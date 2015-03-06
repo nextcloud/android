@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author masensio
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -19,9 +22,6 @@ package com.owncloud.android.operations;
 
 /**
  * Creates a new share from a given file
- * 
- * @author masensio
- *
  */
 
 import android.content.Context;
