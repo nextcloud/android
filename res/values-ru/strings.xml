@@ -28,7 +28,7 @@
   <string name="prefs_instant_upload">Мгновенная загрузка фотографий</string>
   <string name="prefs_instant_upload_summary">Немедленно загружать фотографии сделанные камерой</string>
   <string name="prefs_instant_video_upload">Мгновенная загрузка видео</string>
-  <string name="prefs_instant_video_upload_summary">Немедленно загружать видео сделанные камерой</string>
+  <string name="prefs_instant_video_upload_summary">Немедленно загружать видео, сделанные камерой</string>
   <string name="prefs_log_title">Включить журналирование</string>
   <string name="prefs_log_summary">Используется для регистрации ошибок</string>
   <string name="prefs_log_title_history">Журнал</string>
@@ -53,7 +53,7 @@
   <string name="uploader_btn_upload_text">Загрузить</string>
   <string name="uploader_top_message">Выберите каталог для загрузки</string>
   <string name="uploader_wrn_no_account_title">Учётная запись не найдена</string>
-  <string name="uploader_wrn_no_account_text">На вашем устройстве нет учётных записей %1$s. Пожалуйста настройте учётную запись.</string>
+  <string name="uploader_wrn_no_account_text">На вашем устройстве нет учётных записей %1$s. Пожалуйста, настройте учётную запись.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Выход</string>
   <string name="uploader_wrn_no_content_title">Нет содержимого для загрузки</string>

@@ -1,6 +1,9 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2015 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -64,8 +67,6 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 
 /**
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud {@link Account}s .
- * 
- * @author David A. Velasco
  */
 public class FileActivity extends SherlockFragmentActivity
         implements OnRemoteOperationListener, ComponentsGetter {
@@ -360,8 +361,6 @@ public class FileActivity extends SherlockFragmentActivity
      * a new ownCloud {@link Account} finished, successfully or not.
      * 
      * At this moment, only called after the creation of the first account.
-     * 
-     * @author David A. Velasco
      */
     public class AccountCreationCallback implements AccountManagerCallback<Bundle> {
 

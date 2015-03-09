@@ -2,7 +2,7 @@
 <!--
   ownCloud Android client application
 
-  Copyright (C) 2012-2013  ownCloud Inc.
+  Copyright (C) 2015  ownCloud Inc.
   
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -43,7 +43,7 @@
         android:layout_centerInParent="true"
         />
     
-    <com.owncloud.android.utils.TouchImageViewCustom
+    <third_parties.michaelOrtiz.TouchImageViewCustom
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
