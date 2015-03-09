@@ -97,6 +97,9 @@ public class SharePasswordDialogFragment extends SherlockDialogFragment
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
+            // Enable the flag "Share again"
+            ((FileActivity) getSherlockActivity()).setTryShareAgain(true);
+
             String password =
                     ((TextView)(getDialog().findViewById(R.id.share_password)))
                         .getText().toString();
@@ -113,6 +116,9 @@ public class SharePasswordDialogFragment extends SherlockDialogFragment
             ((FileActivity)getSherlockActivity()).getFileOperationsHelper()
                                     .shareFileWithLinkToApp(mFile, password, mSendIntent);
 
+        } else {
+            // Disable the flag "Share again"
+            ((FileActivity) getSherlockActivity()).setTryShareAgain(false);
         }
     }
 }
