@@ -516,6 +516,7 @@ public class FileActivity extends SherlockFragmentActivity
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                         Toast.LENGTH_LONG);
                     t.show();
+                    mTryShareAgain = false;
                 }
             } else {
                 Toast t = Toast.makeText(this,
