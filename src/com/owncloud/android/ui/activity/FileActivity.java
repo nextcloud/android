@@ -61,7 +61,9 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
+import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 
@@ -74,12 +76,14 @@ public class FileActivity extends SherlockFragmentActivity
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
     public static final String EXTRA_WAITING_TO_PREVIEW = "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
-    public static final String EXTRA_FROM_NOTIFICATION= "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
+    public static final String EXTRA_FROM_NOTIFICATION = "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     
     public static final String TAG = FileActivity.class.getSimpleName();
     
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
+    private static final String DIALOG_SHARE_PASSWORD = "DIALOG_SHARE_PASSWORD";
+    private static final String KEY_TRY_SHARE_AGAIN = "TRY_SHARE_AGAIN";
     
     protected static final long DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS = 200;
     
@@ -117,6 +121,8 @@ public class FileActivity extends SherlockFragmentActivity
     protected FileDownloaderBinder mDownloaderBinder = null;
     protected FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
+
+    private boolean mTryShareAgain = false;
     
     
     /**
@@ -139,6 +145,7 @@ public class FileActivity extends SherlockFragmentActivity
             mFileOperationsHelper.setOpIdWaitingFor(
                     savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
                     );
+            mTryShareAgain = savedInstanceState.getBoolean(KEY_TRY_SHARE_AGAIN);
         } else {
             account = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
@@ -301,6 +308,7 @@ public class FileActivity extends SherlockFragmentActivity
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, mAccount);
         outState.putBoolean(FileActivity.EXTRA_FROM_NOTIFICATION, mFromNotification);
         outState.putLong(KEY_WAITING_FOR_OP_ID, mFileOperationsHelper.getOpIdWaitingFor());
+        outState.putBoolean(KEY_TRY_SHARE_AGAIN, mTryShareAgain);
     }
     
     
@@ -346,7 +354,14 @@ public class FileActivity extends SherlockFragmentActivity
     protected boolean isRedirectingToSetupAccount() {
         return mRedirectingToSetupAccount;
     }
-    
+
+    public boolean isTryShareAgain(){
+        return mTryShareAgain;
+    }
+
+    public void setTryShareAgain(boolean tryShareAgain) {
+       mTryShareAgain = tryShareAgain;
+    }
     
     public OperationsServiceBinder getOperationsServiceBinder() {
         return mOperationsServiceBinder;
@@ -450,10 +465,12 @@ public class FileActivity extends SherlockFragmentActivity
             
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
                 dismissLoadingDialog();
-                Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
+                                operation, getResources()),
                         Toast.LENGTH_LONG);
                 t.show();
             }
+            mTryShareAgain = false;
 
         } else if (operation instanceof CreateShareOperation) {
             onCreateShareOperationFinish((CreateShareOperation) operation, result);
@@ -478,18 +495,36 @@ public class FileActivity extends SherlockFragmentActivity
     }
     
 
-    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
+    private void onCreateShareOperationFinish(CreateShareOperation operation,
+                                              RemoteOperationResult result) {
         dismissLoadingDialog();
         if (result.isSuccess()) {
+            mTryShareAgain = false;
             updateFileFromDB();
             
             Intent sendIntent = operation.getSendIntent();
             startActivity(sendIntent);
-            
-        } else { 
-            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
-                    Toast.LENGTH_LONG);
-            t.show();
+        } else {
+            // Detect Failure (403) --> needs Password
+            if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
+                if (!isTryShareAgain()) {
+                    SharePasswordDialogFragment dialog =
+                            SharePasswordDialogFragment.newInstance(new OCFile(operation.getPath()),
+                                    operation.getSendIntent());
+                    dialog.show(getSupportFragmentManager(), DIALOG_SHARE_PASSWORD);
+                } else {
+                    Toast t = Toast.makeText(this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
+                    t.show();
+                    mTryShareAgain = false;
+                }
+            } else {
+                Toast t = Toast.makeText(this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
+                t.show();
+            }
         } 
     }
     

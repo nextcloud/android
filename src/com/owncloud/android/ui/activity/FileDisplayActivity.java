@@ -23,13 +23,10 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
-import java.io.IOException;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
