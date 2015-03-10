@@ -470,6 +470,7 @@ public class FileActivity extends SherlockFragmentActivity
                         Toast.LENGTH_LONG);
                 t.show();
             }
+            mTryShareAgain = false;
 
         } else if (operation instanceof CreateShareOperation) {
             onCreateShareOperationFinish((CreateShareOperation) operation, result);
