@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013  ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015  ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -62,8 +65,6 @@ import com.owncloud.android.utils.DisplayUtils;
 
 /**
  *  Holds a swiping galley where image files contained in an ownCloud directory are shown
- *  
- *  @author David A. Velasco
  */
 public class PreviewImageActivity extends FileActivity implements 
  FileFragment.ContainerActivity,
@@ -426,7 +427,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
 
     /**
-     * Class waiting for broadcast events from the {@link FielDownloader} service.
+     * Class waiting for broadcast events from the {@link FileDownloader} service.
      * 
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * folder displayed in the gallery.

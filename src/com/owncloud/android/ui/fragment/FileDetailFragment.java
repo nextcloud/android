@@ -1,6 +1,10 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -52,9 +56,6 @@ import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * This Fragment is used to display the details about a file.
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
  */
 public class FileDetailFragment extends FileFragment implements OnClickListener {
 
@@ -348,7 +349,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
-            if (transferring || (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) || (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file))) {
+            if (transferring ||
+                    (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) ||
+                    (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file))
+                    ) {
                 setButtonsForTransferring();
                 
             } else if (file.isDown()) {
@@ -396,7 +400,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
         ImageView iv = (ImageView) getView().findViewById(R.id.fdIcon);
         if (iv != null) {
-            iv.setImageResource(DisplayUtils.getResourceId(mimetype, filename));
+            iv.setImageResource(DisplayUtils.getFileTypeIconId(mimetype, filename));
         }
     }
 
@@ -449,6 +453,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             progressText.setVisibility(View.VISIBLE);
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
+            //if (getFile().isDownloading()) {
             if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, getFile())) {
                 progressText.setText(R.string.downloader_download_in_progress_ticker);
             } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, getFile())) {
@@ -532,9 +537,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     
     /**
-     * Helper class responsible for updating the progress bar shown for file uploading or downloading  
-     * 
-     * @author David A. Velasco
+     * Helper class responsible for updating the progress bar shown for file uploading or downloading
      */
     private class ProgressListener implements OnDatatransferProgressListener {
         int mLastPercent = 0;

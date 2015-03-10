@@ -1,6 +1,10 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2014 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -25,6 +29,8 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -90,11 +96,10 @@ import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.operations.SynchronizeFolderOperation;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
-import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -107,14 +112,12 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.UriUtils;
 
 
 /**
  * Displays, what files the user has available in his ownCloud.
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
  */
 
 public class FileDisplayActivity extends HookActivity implements
@@ -253,7 +256,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             setNavigationListWithFolder(file);
             
             if (!stateWasRecovered) {
-                Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
+                Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
                 if (file.isFolder()) {
                     startSyncFolderOperation(file, false);
@@ -517,7 +520,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             
             // Read sorting order, default to sort by name ascending
             Integer sortOrder = appPreferences
-                    .getInt("sortOrder", FileListListAdapter.SORT_NAME);
+                    .getInt("sortOrder", FileStorageUtils.SORT_NAME);
             
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.actionbar_sort_title)
@@ -552,19 +555,19 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     }
 
     private void startSynchronization() {
-        Log_OC.e(TAG, "Got to start sync");
+        Log_OC.d(TAG, "Got to start sync");
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-            Log_OC.e(TAG, "Canceling all syncs for " + MainApp.getAuthority());
+            Log_OC.d(TAG, "Canceling all syncs for " + MainApp.getAuthority());
             ContentResolver.cancelSync(null, MainApp.getAuthority());   // cancel the current synchronizations of any ownCloud account
             Bundle bundle = new Bundle();
             bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
             bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-            Log_OC.e(TAG, "Requesting sync for " + getAccount().name + " at " + MainApp.getAuthority());
+            Log_OC.d(TAG, "Requesting sync for " + getAccount().name + " at " + MainApp.getAuthority());
             ContentResolver.requestSync(
                     getAccount(),
                     MainApp.getAuthority(), bundle);
         } else {
-            Log_OC.e(TAG, "Requesting sync for " + getAccount().name + " at " + MainApp.getAuthority() + " with new API");
+            Log_OC.d(TAG, "Requesting sync for " + getAccount().name + " at " + MainApp.getAuthority() + " with new API");
             SyncRequest.Builder builder = new SyncRequest.Builder();
             builder.setSyncAdapter(getAccount(), MainApp.getAuthority());
             builder.setExpedited(true);
@@ -605,13 +608,23 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     /**
      * Called, when the user selected something for uploading
+     *
      */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
-            requestSimpleUpload(data, resultCode);
-
+            //getClipData is only supported on api level 16+, Jelly Bean
+            if (data.getData() == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
+                for( int i = 0; i < data.getClipData().getItemCount(); i++){
+                    Intent intent = new Intent();
+                    intent.setData(data.getClipData().getItemAt(i).getUri());
+                    requestSimpleUpload(intent, resultCode);
+                }
+            }else {
+                requestSimpleUpload(data, resultCode);
+            }
         } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestMultipleUpload(data, resultCode);
 
@@ -636,6 +649,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         if (filePaths != null) {
             String[] remotePaths = new String[filePaths.length];
             String remotePathBase = "";
+
             for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
                 remotePathBase += OCFile.PATH_SEPARATOR + mDirectories.getItem(j);
             }
@@ -686,7 +700,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         } finally {
             if (filepath == null) {
-                Log_OC.e(TAG, "Couldnt resolve path to file");
+                Log_OC.e(TAG, "Couldn't resolve path to file");
                 Toast t = Toast.makeText(this, getString(R.string.filedisplay_unexpected_bad_get_content), Toast.LENGTH_LONG);
                 t.show();
                 return;
@@ -773,7 +787,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in onRestoreInstanceState when there are Fragments involved
-        Log_OC.e(TAG, "onSaveInstanceState() start");
+        Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         outState.putBoolean(FileDisplayActivity.KEY_SYNC_IN_PROGRESS, mSyncInProgress);
@@ -788,7 +802,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     @Override
     protected void onResume() {
         super.onResume();
-        Log_OC.e(TAG, "onResume() start");
+        Log_OC.d(TAG, "onResume() start");
         
         // refresh list of files
         refreshListOfFilesFragment();
@@ -797,8 +811,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
-        syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
-        syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+        syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+        syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
         registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
         //LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
@@ -820,7 +834,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     @Override
     protected void onPause() {
-        Log_OC.e(TAG, "onPause() start");
+        Log_OC.d(TAG, "onPause() start");
         if (mSyncBroadcastReceiver != null) {
             unregisterReceiver(mSyncBroadcastReceiver);
             //LocalBroadcastManager.getInstance(this).unregisterReceiver(mSyncBroadcastReceiver);
@@ -877,6 +891,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                     } else if (item == 1) {
                         Intent action = new Intent(Intent.ACTION_GET_CONTENT);
                         action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
+                        //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                            action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                        }
                         startActivityForResult(Intent.createChooser(action, getString(R.string.upload_chooser_title)),
                                 ACTION_SELECT_CONTENT_FROM_APPS);
                     }
@@ -1082,9 +1100,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                             setFile(currentFile);
                         }
                         
-                        mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
+                        mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
                                 
-                        if (SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
+                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
                                     equals(event) &&
                                 /// TODO refactor and make common
                                 synchResult != null && !synchResult.isSuccess() &&  
@@ -1093,40 +1111,34 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                                     (synchResult.isException() && synchResult.getException() 
                                             instanceof AuthenticatorException))) {
 
-                            OwnCloudClient client = null;
+
                             try {
-                                OwnCloudAccount ocAccount = 
+                                OwnCloudClient client;
+                                OwnCloudAccount ocAccount =
                                         new OwnCloudAccount(getAccount(), context);
                                 client = (OwnCloudClientManagerFactory.getDefaultSingleton().
                                         removeClientFor(ocAccount));
-                                // TODO get rid of these exceptions
-                            } catch (AccountNotFoundException e) {
-                                e.printStackTrace();
-                            } catch (AuthenticatorException e) {
-                                e.printStackTrace();
-                            } catch (OperationCanceledException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            
-                            if (client != null) {
-                                OwnCloudCredentials cred = client.getCredentials();
-                                if (cred != null) {
-                                    AccountManager am = AccountManager.get(context);
-                                    if (cred.authTokenExpires()) {
-                                        am.invalidateAuthToken(
-                                                getAccount().type, 
-                                                cred.getAuthToken()
-                                        );
-                                    } else {
-                                        am.clearPassword(getAccount());
+
+                                if (client != null) {
+                                    OwnCloudCredentials cred = client.getCredentials();
+                                    if (cred != null) {
+                                        AccountManager am = AccountManager.get(context);
+                                        if (cred.authTokenExpires()) {
+                                            am.invalidateAuthToken(
+                                                    getAccount().type,
+                                                    cred.getAuthToken()
+                                            );
+                                        } else {
+                                            am.clearPassword(getAccount());
+                                        }
                                     }
                                 }
+                                requestCredentialsUpdate();
+
+                            } catch (AccountNotFoundException e) {
+                                Log_OC.e(TAG, "Account " + getAccount() + " was removed!", e);
                             }
-                            
-                            requestCredentialsUpdate();
-                            
+
                         }
                     }
                     removeStickyBroadcast(intent);
@@ -1238,26 +1250,36 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
 
     /**
-     * Class waiting for broadcast events from the {@link FielDownloader} service.
+     * Class waiting for broadcast events from the {@link FileDownloader} service.
      * 
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * current folder.
      */
     private class DownloadFinishReceiver extends BroadcastReceiver {
+
+        //int refreshCounter = 0;
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
                 boolean sameAccount = isSameAccount(context, intent);
                 String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
                 boolean isDescendant = isDescendant(downloadedRemotePath);
-    
+
                 if (sameAccount && isDescendant) {
-                    refreshListOfFilesFragment();
-                    refreshSecondFragment(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
+                    String linkedToRemotePath = intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
+                    if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
+                        //Log_OC.v(TAG, "refresh #" + ++refreshCounter);
+                        refreshListOfFilesFragment();
+                    }
+                    refreshSecondFragment(
+                            intent.getAction(),
+                            downloadedRemotePath,
+                            intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false)
+                    );
                 }
     
                 if (mWaitingToSend != null) {
-                    mWaitingToSend = getStorageManager().getFileByPath(mWaitingToSend.getRemotePath()); // Update the file to send
+                    mWaitingToSend = getStorageManager().getFileByPath(mWaitingToSend.getRemotePath());
                     if (mWaitingToSend.isDown()) { 
                         sendDownloadedFile();
                     }
@@ -1272,7 +1294,19 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         private boolean isDescendant(String downloadedRemotePath) {
             OCFile currentDir = getCurrentDir();
-            return (currentDir != null && downloadedRemotePath != null && downloadedRemotePath.startsWith(currentDir.getRemotePath()));
+            return (
+                currentDir != null &&
+                downloadedRemotePath != null &&
+                downloadedRemotePath.startsWith(currentDir.getRemotePath())
+            );
+        }
+
+        private boolean isAscendant(String linkedToRemotePath) {
+            OCFile currentDir = getCurrentDir();
+            return (
+                currentDir != null &&
+                currentDir.getRemotePath().startsWith(linkedToRemotePath)
+            );
         }
 
         private boolean isSameAccount(Context context, Intent intent) {
@@ -1714,6 +1748,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     private void requestForDownload() {
         Account account = getAccount();
+        //if (!mWaitingToPreview.isDownloading()) {
         if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
@@ -1742,7 +1777,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         mSyncInProgress = true;
                 
         // perform folder synchronization
-        RemoteOperation synchFolderOp = new SynchronizeFolderOperation( folder,  
+        RemoteOperation synchFolderOp = new RefreshFolderOperation( folder,
                                                                         currentSyncTime, 
                                                                         false,
                                                                         getFileOperationsHelper().isSharedSupported(),
@@ -1771,7 +1806,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     private void requestForDownload(OCFile file) {
         Account account = getAccount();
-        if (!mDownloaderBinder.isDownloading(account, file)) {
+        if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
             i.putExtra(FileDownloader.EXTRA_FILE, file);

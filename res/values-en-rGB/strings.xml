@@ -187,6 +187,7 @@
   <string name="auth_fail_get_user_name">Your server is not returning a correct user id, please contact an administrator
 	</string>
   <string name="auth_can_not_auth_against_server">Cannot authenticate against this server</string>
+  <string name="auth_account_does_not_exist">Account does not exist on the device yet</string>
   <string name="fd_keep_in_sync">Keep file up to date</string>
   <string name="common_rename">Rename</string>
   <string name="common_remove">Remove</string>
@@ -298,4 +299,6 @@
   <string name="prefs_category_instant_uploading">Instant Uploads</string>
   <string name="prefs_category_security">Security</string>
   <string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
+  <string name="download_folder_failed_content">Download of %1$s folder could not be completed</string>
+  <string name="subject_token">%1$s shared \"%2$s\" with you</string>
 </resources>

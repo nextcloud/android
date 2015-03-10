@@ -1,6 +1,8 @@
-/* ownCloud Android client application
- * 
- *   Copyright (C) 2012-2013  ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015  ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -42,8 +44,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  * This Fragment is used to monitor the progress of a file downloading.
- * 
- * @author David A. Velasco
  */
 public class FileDownloadFragment extends FileFragment implements OnClickListener {
 
@@ -211,10 +211,11 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
      * @param   transferring    When true, the view must be updated assuming that the holded file is 
      *                          downloading, no matter what the downloaderBinder says.
      */
+    /*
     public void updateView(boolean transferring) {
         // configure UI for depending upon local state of the file
-        FileDownloaderBinder downloaderBinder = (mContainerActivity == null) ? null : mContainerActivity.getFileDownloaderBinder();
-        if (transferring || (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, getFile()))) {
+        // TODO remove
+        if (transferring || getFile().isDownloading()) {
             setButtonsForTransferring();
             
         } else if (getFile().isDown()) {
@@ -227,7 +228,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         getView().invalidate();
         
     }
-
+    */
 
     /**
      * Enables or disables buttons for a file being downloaded
@@ -307,9 +308,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     
     /**
-     * Helper class responsible for updating the progress bar shown for file uploading or downloading  
-     * 
-     * @author David A. Velasco
+     * Helper class responsible for updating the progress bar shown for file uploading or downloading
      */
     private class ProgressListener implements OnDatatransferProgressListener {
         int mLastPercent = 0;

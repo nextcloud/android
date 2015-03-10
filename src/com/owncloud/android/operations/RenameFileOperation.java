@@ -1,5 +1,9 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   @author masensio
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -32,9 +36,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * Remote operation performing the rename of a remote file (or folder?) in the ownCloud server.
- * 
- * @author David A. Velasco
- * @author masensio
  */
 public class RenameFileOperation extends SyncOperation {
     
@@ -51,7 +52,6 @@ public class RenameFileOperation extends SyncOperation {
      * Constructor
      * 
      * @param remotePath            RemotePath of the OCFile instance describing the remote file or folder to rename
-     * @param account               OwnCloud account containing the remote file 
      * @param newName               New name to set as the name of file.
      */
     public RenameFileOperation(String remotePath, String newName) {
@@ -117,7 +117,7 @@ public class RenameFileOperation extends SyncOperation {
 
     private void saveLocalFile() {
         mFile.setFileName(mNewName);
-        
+
         // try to rename the local copy of the file
         if (mFile.isDown()) {
             String oldPath = mFile.getStoragePath();
@@ -129,8 +129,8 @@ public class RenameFileOperation extends SyncOperation {
                 String newPath = parentStoragePath + mNewName;
                 mFile.setStoragePath(newPath);
 
-                // notify MediaScanner about removed file - TODO really works?
-                getStorageManager().triggerMediaScan(oldPath);
+                // notify MediaScanner about removed file
+                getStorageManager().deleteFileInMediaScan(oldPath);
                 // notify to scan about new file
                 getStorageManager().triggerMediaScan(newPath);
             }
@@ -158,7 +158,7 @@ public class RenameFileOperation extends SyncOperation {
      */
     private boolean isValidNewName() throws IOException {
         // check tricky names
-        if (mNewName == null || mNewName.length() <= 0 || mNewName.contains(File.separator) || mNewName.contains("%")) { 
+        if (mNewName == null || mNewName.length() <= 0 || mNewName.contains(File.separator)) {
             return false;
         }
         // create a test file

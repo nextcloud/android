@@ -1,5 +1,9 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   @author masensio
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -38,9 +42,6 @@ import android.webkit.MimeTypeMap;
 
 /**
  * Remote mDownloadOperation performing the download of a file to an ownCloud server
- * 
- * @author David A. Velasco
- * @author masensio
  */
 public class DownloadFileOperation extends RemoteOperation {
     
@@ -177,5 +178,4 @@ public class DownloadFileOperation extends RemoteOperation {
             mDataTransferListeners.remove(listener);
         }
     }
-    
 }

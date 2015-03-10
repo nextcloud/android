@@ -8,7 +8,7 @@
   <string name="actionbar_upload_files">Ficheiros</string>
   <string name="actionbar_open_with">Abrir con</string>
   <string name="actionbar_mkdir">Novo cartafol</string>
-  <string name="actionbar_settings">Preferencias</string>
+  <string name="actionbar_settings">Axustes</string>
   <string name="actionbar_see_details">Detalles</string>
   <string name="actionbar_send_file">Enviar</string>
   <string name="actionbar_sort">Ordenar</string>
@@ -188,6 +188,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="auth_fail_get_user_name">O seu servidor non devolveu un ID de usuario correcto, contacte cun administrador
 	</string>
   <string name="auth_can_not_auth_against_server">Non pode autenticarse neste servidor</string>
+  <string name="auth_account_does_not_exist">Aínda non existe a conta no dispositivo</string>
   <string name="fd_keep_in_sync">Manter actualizado o ficheiro</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Retirar</string>
@@ -283,6 +284,9 @@ Descárgueo de aquí: %2$s</string>
   <string name="auth_redirect_non_secure_connection_title">A conexión segura está a ser redirixida a unha ruta non segura.</string>
   <string name="actionbar_logger">Rexistros</string>
   <string name="log_send_history_button">Enviar o historial</string>
+  <string name="log_send_no_mail_app">Non se atopou unha aplicación para enviar os rexistros. Instale unha aplicación de correo!</string>
+  <string name="log_send_mail_subject">Rexistros da aplicación %1$s Android</string>
+  <string name="log_progress_dialog_text">Cargando os datos...</string>
   <string name="saml_authentication_required_text">Requírese autenticación</string>
   <string name="saml_authentication_wrong_pass">Contrasinal incorrecto</string>
   <string name="actionbar_move">Mover</string>
@@ -296,4 +300,6 @@ Descárgueo de aquí: %2$s</string>
   <string name="prefs_category_instant_uploading">Envío instantáneo</string>
   <string name="prefs_category_security">Seguranza</string>
   <string name="prefs_instant_video_upload_path_title">Enviar a ruta do vídeo</string>
+  <string name="download_folder_failed_content">Non foi posíbel completar a descarga do cartafol %1$s</string>
+  <string name="subject_token">%1$s compartiu «%2$s» con vostede</string>
 </resources>

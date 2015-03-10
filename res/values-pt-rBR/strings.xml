@@ -187,6 +187,7 @@
   <string name="auth_fail_get_user_name">Seu servidor não está retornando um ID de usuário correto, por favor, entre em contato com um administrador
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Não foi possível autenticar neste servidor</string>
+  <string name="auth_account_does_not_exist">Conta ainda não existe no dispositivo</string>
   <string name="fd_keep_in_sync">Manter arquivo atualizado</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Remover</string>
@@ -298,4 +299,6 @@
   <string name="prefs_category_instant_uploading">Envios Instantâneos</string>
   <string name="prefs_category_security">Segurança</string>
   <string name="prefs_instant_video_upload_path_title">Enviar o Caminho do Vídeo</string>
+  <string name="download_folder_failed_content">Baixar %1$s da pasta não pode ser completado</string>
+  <string name="subject_token">%1$s compartilhou \"%2$s\" com você</string>
 </resources>

@@ -11,6 +11,12 @@
   <string name="actionbar_settings">Configuració</string>
   <string name="actionbar_see_details">Detalls</string>
   <string name="actionbar_send_file">Envia</string>
+  <string name="actionbar_sort">Ordena</string>
+  <string name="actionbar_sort_title">Ordena per</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Més nou - Més antic</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">General</string>

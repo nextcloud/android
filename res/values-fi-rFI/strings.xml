@@ -75,6 +75,7 @@
   <string name="filedetails_sync_file">Päivitä tiedosto</string>
   <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s siirron yhteydessä</string>
   <string name="action_share_file">Jaa linkki</string>
+  <string name="action_unshare_file">Poista linkin jako</string>
   <string name="common_yes">Kyllä</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
@@ -130,12 +131,15 @@
   <string name="pincode_wrong">Väärä sovelluksen PIN</string>
   <string name="pincode_removed">Sovelluksen PIN poistettu</string>
   <string name="pincode_stored">Sovelluksen PIN-koodi tallennettu</string>
+  <string name="media_notif_ticker">%1$s-musiikkisoitin</string>
   <string name="media_state_playing">%1$s (toistetaan)</string>
   <string name="media_state_loading">%1$s (ladataan)</string>
   <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
   <string name="media_err_no_account">Tiliä ei määritetty</string>
   <string name="media_err_not_in_owncloud">Tiedosto ei ole kelvollisella tilillä</string>
+  <string name="media_err_unsupported">Mediakoodekki ei ole tuettu</string>
   <string name="media_err_io">Mediatiedoston luku ei onnistunut</string>
+  <string name="media_err_malformed">Mediatiedostoa ei ole koodattu kelvollisesti</string>
   <string name="media_err_timeout">Aikakatkaisu toistoa yrittäessä</string>
   <string name="media_err_invalid_progressive_playback">Mediatiedostoa ei voi suoratoistaa</string>
   <string name="media_err_security_ex">Turvallisuusvirhe yrittäessä toistaa kohdetta %1$s</string>
@@ -151,6 +155,7 @@
   <string name="auth_testing_connection">Testataan yhteyttä...</string>
   <string name="auth_not_configured_title">Väärin tehdyt palvelin-asetukset</string>
   <string name="auth_account_not_new">Laitteella on jo tili samalle käyttäjälle ja palvelimelle</string>
+  <string name="auth_account_not_the_same">Syötetty käyttäjä ei täsmää tämän tilin käyttäjän kanssa</string>
   <string name="auth_unknown_error_title">Tuntematon virhe</string>
   <string name="auth_unknown_host_title">Isäntää ei löydy</string>
   <string name="auth_incorrect_path_title">Palvelin-instanssia ei löydetty</string>
@@ -172,6 +177,7 @@
   <string name="auth_unsupported_auth_method">Palvelin ei tue tätä tunnistautumistapaa</string>
   <string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
   <string name="auth_can_not_auth_against_server">Tunnistautuminen palvelinta vastaan ei onnistu</string>
+  <string name="auth_account_does_not_exist">Tiliä ei ole olemassa vielä laitteella</string>
   <string name="fd_keep_in_sync">Pidä tiedosto ajan tasalla</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
@@ -271,4 +277,5 @@
   <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
   <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
   <string name="prefs_category_security">Tietoturva</string>
+  <string name="subject_token">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
 </resources>
