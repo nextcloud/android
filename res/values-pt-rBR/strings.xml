@@ -261,6 +261,8 @@
   <string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>
   <string name="unshare_link_file_no_exist">Não é possível cancelar o compartilhamento. Por favor verifique se o arquivo existe</string>
   <string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta</string>
+  <string name="share_link_password_title">Digite uma senha</string>
+  <string name="share_link_empty_password">Você deve digitar uma senha</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar o link</string>
   <string name="clipboard_text_copied">Copiado para área de transferência</string>

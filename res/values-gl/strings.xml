@@ -262,6 +262,8 @@ Descárgueo de aquí: %2$s</string>
   <string name="share_link_file_error">Produciuse un erro ao tentar compartir este ficheiro ou cartafol.</string>
   <string name="unshare_link_file_no_exist">Non foi posíbel deixar de compartir. Comprobe que existe o ficheiro</string>
   <string name="unshare_link_file_error">Produciuse un erro ao tentar deixar de compartir este ficheiro ou cartafol</string>
+  <string name="share_link_password_title">Escriba un contrasinal</string>
+  <string name="share_link_empty_password">Ten que escribir un contrasinal</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar a ligazón</string>
   <string name="clipboard_text_copied">Copiado no portapapeis.</string>

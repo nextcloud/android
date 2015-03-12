@@ -264,6 +264,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="share_link_file_error">Er trad een fout op bij uw poging dit bestand of deze map te delen</string>
   <string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Ga na of het bestand bestaat</string>
   <string name="unshare_link_file_error">Er trad een fout op bij uw poging het delen van dit bestand of deze map te beëindigen</string>
+  <string name="share_link_password_title">Vul het wachtwoord in</string>
+  <string name="share_link_empty_password">U moet een wachtwoord opgeven</string>
   <string name="activity_chooser_send_file_title">Versturen</string>
   <string name="copy_link">Link kopiëren</string>
   <string name="clipboard_text_copied">Gekopieerd naar het klembord</string>

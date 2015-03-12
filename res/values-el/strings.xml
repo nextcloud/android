@@ -261,6 +261,8 @@
   <string name="share_link_file_error">Ένα σφάλμα προέκυψε κατά την προσπάθεια διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
   <string name="unshare_link_file_no_exist">Αδύνατη η διακοπή κοινής χρήσης.  Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
   <string name="unshare_link_file_error">Ένα σφάλμα προέκυψε κατά τη διάρκεια ακύρωσης διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
+  <string name="share_link_password_title">Εισάγετε ένα κωδικό πρόσβασης.</string>
+  <string name="share_link_empty_password">Πρέπει να εισάγετε ένα κωδικό πρόσβασης.</string>
   <string name="activity_chooser_send_file_title">Αποστολή</string>
   <string name="copy_link">Αντιγραφή συνδέσμου</string>
   <string name="clipboard_text_copied">Αντιγραφθηκε στο πρόχειρο</string>

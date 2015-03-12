@@ -260,6 +260,8 @@
   <string name="share_link_file_error">이 파일이나 폴더를 공유하는 중 오류 발생</string>
   <string name="unshare_link_file_no_exist">공유를 해제할 수 없습니다. 파일이 있는지 확인하십시오</string>
   <string name="unshare_link_file_error">이 파일이나 폴더의 공유를 해제하는 중 오류 발생</string>
+  <string name="share_link_password_title">비밀번호를 입력하십시요.</string>
+  <string name="share_link_empty_password">비밀번호를 입력해야만 합니다.</string>
   <string name="activity_chooser_send_file_title">보내기</string>
   <string name="copy_link">링크 주소 복사</string>
   <string name="clipboard_text_copied">클립보드로 복사됨</string>

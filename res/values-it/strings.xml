@@ -261,6 +261,8 @@
   <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
   <string name="unshare_link_file_no_exist">Impossibile rimuovere dalla condivisione. Assicurati che il file esista</string>
   <string name="unshare_link_file_error">Si è verificato un errore durante il tentativo di rimuovere la condivisione del file o della cartella</string>
+  <string name="share_link_password_title">Digita una password</string>
+  <string name="share_link_empty_password">Devi digitare una password</string>
   <string name="activity_chooser_send_file_title">Invia</string>
   <string name="copy_link">Copia collegamento</string>
   <string name="clipboard_text_copied">Copiato negli appunti</string>

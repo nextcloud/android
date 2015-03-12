@@ -259,6 +259,8 @@
   <string name="share_link_file_error">Der opstod en fejl ved deling af denne fil eller mappe</string>
   <string name="unshare_link_file_no_exist">Kan ikke fjerne deling. Tjek venligst om filen findes.</string>
   <string name="unshare_link_file_error">Der opstod en fejl ved stopning af deling af denne mappe.</string>
+  <string name="share_link_password_title">Angiv et kodeord</string>
+  <string name="share_link_empty_password">Du skal angive et kodeord</string>
   <string name="activity_chooser_send_file_title">Send</string>
   <string name="copy_link">Kopiér link</string>
   <string name="clipboard_text_copied">Kopieret til udklipsholder</string>
