@@ -30,6 +30,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -196,15 +197,17 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
                     if (!file.isFolder()) {
                         AbsListView parentList = (AbsListView)parent;
-                        if (parentList.getChoiceMode() == AbsListView.CHOICE_MODE_NONE) {
-                            checkBoxV.setVisibility(View.GONE);
-                        } else {
-                            if (parentList.isItemChecked(position)) {
-                                checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
+                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                            if (parentList.getChoiceMode() == AbsListView.CHOICE_MODE_NONE) {
+                                checkBoxV.setVisibility(View.GONE);
                             } else {
-                                checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
+                                if (parentList.isItemChecked(position)) {
+                                    checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
+                                } else {
+                                    checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
+                                }
+                                checkBoxV.setVisibility(View.VISIBLE);
                             }
-                            checkBoxV.setVisibility(View.VISIBLE);
                         }
 
                     } else { //Folder

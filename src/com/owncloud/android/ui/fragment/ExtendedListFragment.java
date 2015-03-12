@@ -22,7 +22,9 @@ package com.owncloud.android.ui.fragment;
 
 import java.util.ArrayList;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -80,10 +83,14 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
 
     private ListAdapter mAdapter;
 
-
     protected void setListAdapter(ListAdapter listAdapter) {
         mAdapter = listAdapter;
-        mCurrentListView.setAdapter(listAdapter);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            mCurrentListView.setAdapter(listAdapter);
+        } else {
+            ((ListView)mCurrentListView).setAdapter(listAdapter);
+        }
+
         mCurrentListView.invalidate();
     }
 
@@ -348,10 +355,11 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         }
     }
 
-
     protected void setChoiceMode(int choiceMode) {
-        mListView.setChoiceMode(choiceMode);
-        mGridView.setChoiceMode(choiceMode);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            mListView.setChoiceMode(choiceMode);
+            mGridView.setChoiceMode(choiceMode);
+        }
     }
 
     protected void registerForContextMenu() {
