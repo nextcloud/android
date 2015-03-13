@@ -22,8 +22,6 @@ package com.owncloud.android.ui.fragment;
 
 import java.util.ArrayList;
 
-import android.annotation.TargetApi;
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -223,7 +221,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
      */
     protected int getReferencePosition() {
         if (mCurrentListView != null) {
-            return (mCurrentListView.getFirstVisiblePosition() + mCurrentListView.getLastVisiblePosition()) / 2;
+            return (mCurrentListView.getFirstVisiblePosition() +
+                    mCurrentListView.getLastVisiblePosition()) / 2;
         } else {
             return 0;
         }
@@ -241,7 +240,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
             final int firstPosition = mFirstPositions.remove(mFirstPositions.size() -1);
             int top = mTops.remove(mTops.size() - 1);
 
-            Log_OC.v(TAG, "Setting selection to position: " + firstPosition + "; top: " + top + "; index: " + index);
+            Log_OC.v(TAG, "Setting selection to position: " + firstPosition + "; top: "
+                    + top + "; index: " + index);
 
             if (mCurrentListView == mListView) {
                 if (mHeightCell*index <= mListView.getHeight()) {
@@ -338,8 +338,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
 
     private void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
         // Colors in animations: background
-        refreshLayout.setColorScheme(R.color.background_color, R.color.background_color, R.color.background_color,
-                R.color.background_color);
+        refreshLayout.setColorScheme(R.color.background_color, R.color.background_color,
+                R.color.background_color, R.color.background_color);
 
         refreshLayout.setOnRefreshListener(this);
     }
@@ -359,6 +359,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             mListView.setChoiceMode(choiceMode);
             mGridView.setChoiceMode(choiceMode);
+        } else {
+            ((ListView)mListView).setChoiceMode(choiceMode);
         }
     }
 
