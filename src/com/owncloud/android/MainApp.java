@@ -117,4 +117,9 @@ public class MainApp extends Application {
         return getAppContext().getResources().getString(R.string.log_name);
     }
 
+    // user agent
+    // TODO: decide if it use account_type or another string for user_agent
+    public static String getUserAgent() {
+        return getAppContext().getResources().getString(R.string.account_type);
+    }
 }

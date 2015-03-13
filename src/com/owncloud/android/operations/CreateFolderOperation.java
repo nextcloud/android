@@ -21,6 +21,7 @@
 
 package com.owncloud.android.operations;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.files.CreateRemoteFolderOperation;
@@ -46,7 +47,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     /**
      * Constructor
      * 
-     * @param createFullPath        'True' means that all the ancestor folders should be created if don't exist yet.
+     * @param createFullPath        'True' means that all the ancestor folders should be created
+     *                              if don't exist yet.
      */
     public CreateFolderOperation(String remotePath, boolean createFullPath) {
         mRemotePath = remotePath;
@@ -57,8 +59,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        CreateRemoteFolderOperation operation = new CreateRemoteFolderOperation(mRemotePath, mCreateFullPath);
-        RemoteOperationResult result =  operation.execute(client);
+        CreateRemoteFolderOperation operation = new CreateRemoteFolderOperation(mRemotePath,
+                mCreateFullPath);
+        RemoteOperationResult result =  operation.execute(client, MainApp.getUserAgent());
         
         if (result.isSuccess()) {
             saveFolderInDB();
@@ -77,7 +80,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     }
     
     
-    private void onCreateRemoteFolderOperationFinish(CreateRemoteFolderOperation operation, RemoteOperationResult result) {
+    private void onCreateRemoteFolderOperationFinish(CreateRemoteFolderOperation operation,
+                                                     RemoteOperationResult result) {
        if (result.isSuccess()) {
            saveFolderInDB();
        } else {

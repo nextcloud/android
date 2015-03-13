@@ -22,6 +22,7 @@ package com.owncloud.android.operations;
 
 import android.content.Context;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -57,11 +58,13 @@ public class UnshareLinkOperation extends SyncOperation {
         RemoteOperationResult result  = null;
         
         // Get Share for a file
-        OCShare share = getStorageManager().getFirstShareByPathAndType(mRemotePath, ShareType.PUBLIC_LINK);
+        OCShare share = getStorageManager().getFirstShareByPathAndType(mRemotePath,
+                ShareType.PUBLIC_LINK);
         
         if (share != null) {
-            RemoveRemoteShareOperation operation = new RemoveRemoteShareOperation((int) share.getIdRemoteShared());
-            result = operation.execute(client);
+            RemoveRemoteShareOperation operation =
+                    new RemoveRemoteShareOperation((int) share.getIdRemoteShared());
+            result = operation.execute(client, MainApp.getUserAgent());
 
             if (result.isSuccess() || result.getCode() == ResultCode.SHARE_NOT_FOUND) {
                 Log_OC.d(TAG, "Share id = " + share.getIdRemoteShared() + " deleted");
@@ -89,8 +92,9 @@ public class UnshareLinkOperation extends SyncOperation {
     }
     
     private boolean existsFile(OwnCloudClient client, String remotePath){
-        ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, mContext, false);
-        RemoteOperationResult result = existsOperation.execute(client);
+        ExistenceCheckRemoteOperation existsOperation =
+                new ExistenceCheckRemoteOperation(remotePath, mContext, false);
+        RemoteOperationResult result = existsOperation.execute(client, MainApp.getUserAgent());
         return result.isSuccess();
     }
 

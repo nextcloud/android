@@ -455,7 +455,7 @@ public class OperationsService extends Service {
                     if (mCurrentOperation instanceof SyncOperation) {
                         result = ((SyncOperation)mCurrentOperation).execute(mOwnCloudClient, mStorageManager);
                     } else {
-                        result = mCurrentOperation.execute(mOwnCloudClient);
+                        result = mCurrentOperation.execute(mOwnCloudClient, MainApp.getUserAgent());
                     }
                     
                 } catch (AccountsException e) {

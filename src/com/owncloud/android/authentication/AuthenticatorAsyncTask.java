@@ -24,6 +24,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
@@ -70,7 +71,7 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
                     mContext,
                     SUCCESS_IF_ABSENT
             );
-            result = operation.execute(client);
+            result = operation.execute(client, MainApp.getUserAgent());
 
         } else {
             result = new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);

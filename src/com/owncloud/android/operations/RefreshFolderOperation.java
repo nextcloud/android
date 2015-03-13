@@ -39,6 +39,7 @@ import android.content.Intent;
 import android.util.Log;
 //import android.support.v4.content.LocalBroadcastManager;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 
@@ -128,7 +129,7 @@ public class RefreshFolderOperation extends RemoteOperation {
      * @param   syncFullAccount         'True' means that this operation is part of a full account 
      *                                  synchronization.
      * @param   isShareSupported        'True' means that the server supports the sharing API.           
-     * @param   ignoreEtag              'True' means that the content of the remote folder should
+     * @param   ignoreETag              'True' means that the content of the remote folder should
      *                                  be fetched and updated even though the 'eTag' did not 
      *                                  change.  
      * @param   dataStorageManager      Interface with the local database.
@@ -227,7 +228,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private void updateOCVersion(OwnCloudClient client) {
         UpdateOCVersionOperation update = new UpdateOCVersionOperation(mAccount, mContext);
-        RemoteOperationResult result = update.execute(client);
+        RemoteOperationResult result = update.execute(client, MainApp.getUserAgent());
         if (result.isSuccess()) {
             mIsShareSupported = update.getOCVersion().isSharedSupported();
         }
@@ -244,7 +245,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         
         // remote request 
         ReadRemoteFileOperation operation = new ReadRemoteFileOperation(remotePath);
-        result = operation.execute(client);
+        result = operation.execute(client, MainApp.getUserAgent());
         if (result.isSuccess()){
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
@@ -280,7 +281,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
         ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(remotePath);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult result = operation.execute(client, MainApp.getUserAgent());
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
         
         if (result.isSuccess()) {
@@ -375,7 +376,8 @@ public class RefreshFolderOperation extends RemoteOperation {
                     remoteFile.setFileLength(localFile.getFileLength()); 
                         // TODO move operations about size of folders to FileContentProvider
                 } else if (mRemoteFolderChanged && remoteFile.isImage() &&
-                        remoteFile.getModificationTimestamp() != localFile.getModificationTimestamp()) {
+                        remoteFile.getModificationTimestamp() !=
+                                localFile.getModificationTimestamp()) {
                     remoteFile.setNeedsUpdateThumbnail(true);
                     Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
                 }
@@ -547,7 +549,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         // remote request 
         GetRemoteSharesForFileOperation operation = 
                 new GetRemoteSharesForFileOperation(mLocalFolder.getRemotePath(), false, true);
-        result = operation.execute(client);
+        result = operation.execute(client, MainApp.getUserAgent());
         
         if (result.isSuccess()) {
             // update local database

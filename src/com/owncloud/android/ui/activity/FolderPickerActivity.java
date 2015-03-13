@@ -45,6 +45,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -219,7 +220,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                                                         getAccount(), 
                                                                         getApplicationContext()
                                                                       );
-        synchFolderOp.execute(getAccount(), this, null, null);
+        synchFolderOp.execute(getAccount(), this, MainApp.getUserAgent(), null, null);
         
         setSupportProgressBarIndeterminateVisibility(true);
 

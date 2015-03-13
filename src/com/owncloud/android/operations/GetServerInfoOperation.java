@@ -23,6 +23,7 @@ package com.owncloud.android.operations;
 
 import java.util.ArrayList;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -78,7 +79,7 @@ public class GetServerInfoOperation extends RemoteOperation {
 	    
 	    // first: check the status of the server (including its version)
 	    GetRemoteStatusOperation getStatus = new GetRemoteStatusOperation(mContext);
-	    RemoteOperationResult result = getStatus.execute(client);
+	    RemoteOperationResult result = getStatus.execute(client, MainApp.getUserAgent());
 	    
         if (result.isSuccess()) {
             // second: get authentication method required by the server
@@ -106,7 +107,7 @@ public class GetServerInfoOperation extends RemoteOperation {
         Log_OC.d(TAG, "Trying empty authorization to detect authentication method");
         DetectAuthenticationMethodOperation operation = 
                 new DetectAuthenticationMethodOperation(mContext);
-        return operation.execute(client);
+        return operation.execute(client, MainApp.getUserAgent());
     }
     
 

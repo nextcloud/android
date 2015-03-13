@@ -48,6 +48,7 @@ import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.webkit.MimeTypeMap;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -166,7 +167,8 @@ public class FileUploader extends Service
         super.onCreate();
         Log_OC.d(TAG, "Creating service");
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        HandlerThread thread = new HandlerThread("FileUploaderThread", Process.THREAD_PRIORITY_BACKGROUND);
+        HandlerThread thread = new HandlerThread("FileUploaderThread",
+                Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
@@ -253,7 +255,8 @@ public class FileUploader extends Service
             }
         }
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
+        FileDataStorageManager storageManager = new FileDataStorageManager(account,
+                getContentResolver());
 
         boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
         boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false);
@@ -279,8 +282,8 @@ public class FileUploader extends Service
 
             files = new OCFile[localPaths.length];
             for (int i = 0; i < localPaths.length; i++) {
-                files[i] = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes != null) ? mimeTypes[i]
-                        : (String) null), storageManager);
+                files[i] = obtainNewOCFileToUpload(remotePaths[i], localPaths[i],
+                        ((mimeTypes != null) ? mimeTypes[i] : (String) null), storageManager);
                 if (files[i] == null) {
                     // TODO @andomaex add failure Notification
                     return Service.START_NOT_STICKY;
@@ -299,12 +302,14 @@ public class FileUploader extends Service
         try {
             for (int i = 0; i < files.length; i++) {
                 uploadKey = buildRemoteName(account, files[i].getRemotePath());
-                newUpload = new UploadFileOperation(account, files[i], chunked, isInstant, forceOverwrite, localAction,
+                newUpload = new UploadFileOperation(account, files[i], chunked, isInstant,
+                        forceOverwrite, localAction,
                         getApplicationContext());
                 if (isInstant) {
                     newUpload.setRemoteFolderToBeCreated();
                 }
-                mPendingUploads.putIfAbsent(uploadKey, newUpload); // Grants that the file only upload once time
+                // Grants that the file only upload once time
+                mPendingUploads.putIfAbsent(uploadKey, newUpload);
 
                 newUpload.addDatatransferProgressListener(this);
                 newUpload.addDatatransferProgressListener((FileUploaderBinder)mBinder);
@@ -375,7 +380,8 @@ public class FileUploader extends Service
     public class FileUploaderBinder extends Binder implements OnDatatransferProgressListener {
 
         /**
-         * Map of listeners that will be reported about progress of uploads from a {@link FileUploaderBinder} instance 
+         * Map of listeners that will be reported about progress of uploads from a
+         * {@link FileUploaderBinder} instance
          */
         private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<String, OnDatatransferProgressListener>();
 
@@ -421,7 +427,8 @@ public class FileUploader extends Service
          * Returns True when the file described by 'file' is being uploaded to
          * the ownCloud account 'account' or waiting for it
          *
-         * If 'file' is a directory, returns 'true' if some of its descendant files is uploading or waiting to upload. 
+         * If 'file' is a directory, returns 'true' if some of its descendant files
+         * is uploading or waiting to upload.
          *
          * @param account   ownCloud account where the remote file will be stored.
          * @param file      A file that could be in the queue of pending uploads
@@ -453,7 +460,8 @@ public class FileUploader extends Service
          * @param account       ownCloud account holding the file of interest.
          * @param file          {@link OCFile} of interest for listener.
          */
-        public void addDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
+        public void addDatatransferProgressListener (OnDatatransferProgressListener listener,
+                                                     Account account, OCFile file) {
             if (account == null || file == null || listener == null) return;
             String targetKey = buildRemoteName(account, file);
             mBoundListeners.put(targetKey, listener);
@@ -468,7 +476,8 @@ public class FileUploader extends Service
          * @param account       ownCloud account holding the file of interest.
          * @param file          {@link OCFile} of interest for listener.
          */
-        public void removeDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
+        public void removeDatatransferProgressListener (OnDatatransferProgressListener listener,
+                                                        Account account, OCFile file) {
             if (account == null || file == null || listener == null) return;
             String targetKey = buildRemoteName(account, file);
             if (mBoundListeners.get(targetKey) == listener) {
@@ -478,12 +487,13 @@ public class FileUploader extends Service
 
 
         @Override
-        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
-                                       String fileName) {
+        public void onTransferProgress(long progressRate, long totalTransferredSoFar,
+                                       long totalToTransfer, String fileName) {
             String key = buildRemoteName(mCurrentUpload.getAccount(), mCurrentUpload.getFile());
             OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
             if (boundListener != null) {
-                boundListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName);
+                boundListener.onTransferProgress(progressRate, totalTransferredSoFar,
+                        totalToTransfer, fileName);
             }
         }
 
@@ -557,7 +567,8 @@ public class FileUploader extends Service
 
                 try {
                     /// prepare client object to send requests to the ownCloud server
-                    if (mUploadClient == null || !mLastAccount.equals(mCurrentUpload.getAccount())) {
+                    if (mUploadClient == null ||
+                            !mLastAccount.equals(mCurrentUpload.getAccount())) {
                         mLastAccount = mCurrentUpload.getAccount();
                         mStorageManager =
                                 new FileDataStorageManager(mLastAccount, getContentResolver());
@@ -576,7 +587,8 @@ public class FileUploader extends Service
                     if (grantResult.isSuccess()) {
                         OCFile parent = mStorageManager.getFileByPath(remoteParentPath);
                         mCurrentUpload.getFile().setParentId(parent.getFileId());
-                        uploadResult = mCurrentUpload.execute(mUploadClient);
+                        uploadResult = mCurrentUpload.execute(mUploadClient,
+                                MainApp.getUserAgent());
                         if (uploadResult.isSuccess()) {
                             saveUploadedFile();
                         }
@@ -585,11 +597,13 @@ public class FileUploader extends Service
                     }
 
                 } catch (AccountsException e) {
-                    Log_OC.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
+                    Log_OC.e(TAG, "Error while trying to get autorization for " +
+                            mLastAccount.name, e);
                     uploadResult = new RemoteOperationResult(e);
 
                 } catch (IOException e) {
-                    Log_OC.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
+                    Log_OC.e(TAG, "Error while trying to get autorization for " +
+                            mLastAccount.name, e);
                     uploadResult = new RemoteOperationResult(e);
 
                 } finally {
@@ -598,8 +612,9 @@ public class FileUploader extends Service
                         Log_OC.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
                     }
                     if (uploadResult.isException()) {
-                        // enforce the creation of a new client object for next uploads; this grant that a new socket will
-                        // be created in the future if the current exception is due to an abrupt lose of network connection
+                        // enforce the creation of a new client object for next uploads;
+                        // this grant that a new socket will be created in the future if
+                        // the current exception is due to an abrupt lose of network connection
                         mUploadClient = null;
                     }
                 }
@@ -610,7 +625,8 @@ public class FileUploader extends Service
 
             } else {
                 // Cancel the transfer
-                Log_OC.d(TAG, "Account " + mCurrentUpload.getAccount().toString() + " doesn't exist");
+                Log_OC.d(TAG, "Account " + mCurrentUpload.getAccount().toString() +
+                        " doesn't exist");
                 cancelUploadForAccount(mCurrentUpload.getAccount().name);
 
             }
@@ -619,18 +635,19 @@ public class FileUploader extends Service
     }
 
     /**
-     * Checks the existence of the folder where the current file will be uploaded both in the remote server 
-     * and in the local database.
+     * Checks the existence of the folder where the current file will be uploaded both
+     * in the remote server and in the local database.
      *
-     * If the upload is set to enforce the creation of the folder, the method tries to create it both remote
-     * and locally.
+     * If the upload is set to enforce the creation of the folder, the method tries to
+     * create it both remote and locally.
      *
      *  @param  pathToGrant     Full remote path whose existence will be granted.
-     *  @return  An {@link OCFile} instance corresponding to the folder where the file will be uploaded.
+     *  @return  An {@link OCFile} instance corresponding to the folder where the file
+     *  will be uploaded.
      */
     private RemoteOperationResult grantFolderExistence(String pathToGrant) {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, this, false);
-        RemoteOperationResult result = operation.execute(mUploadClient);
+        RemoteOperationResult result = operation.execute(mUploadClient, MainApp.getUserAgent());
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND &&
                 mCurrentUpload.isRemoteFolderToBeCreated()) {
             SyncOperation syncOp = new CreateFolderOperation( pathToGrant, true);
@@ -689,8 +706,9 @@ public class FileUploader extends Service
 
         // new PROPFIND to keep data consistent with server 
         // in theory, should return the same we already have
-        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mCurrentUpload.getRemotePath());
-        RemoteOperationResult result = operation.execute(mUploadClient);
+        ReadRemoteFileOperation operation =
+                new ReadRemoteFileOperation(mCurrentUpload.getRemotePath());
+        RemoteOperationResult result = operation.execute(mUploadClient, MainApp.getUserAgent());
         if (result.isSuccess()) {
             updateOCFile(file, (RemoteFile) result.getData().get(0));
             file.setLastSyncDateForProperties(syncDate);
@@ -731,7 +749,8 @@ public class FileUploader extends Service
                 mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
                         remotePath.substring(remotePath.lastIndexOf('.') + 1));
             } catch (IndexOutOfBoundsException e) {
-                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + remotePath);
+                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " +
+                        remotePath);
             }
         }
         if (mimeType == null) {
@@ -796,11 +815,13 @@ public class FileUploader extends Service
      * Callback method to update the progress bar in the status notification
      */
     @Override
-    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath) {
+    public void onTransferProgress(long progressRate, long totalTransferredSoFar,
+                                   long totalToTransfer, String filePath) {
         int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
         if (percent != mLastPercent) {
             mNotificationBuilder.setProgress(100, percent, false);
-            String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
+            String fileName = filePath.substring(
+                    filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
             String text = String.format(getString(R.string.uploader_upload_in_progress_content), percent, fileName);
             mNotificationBuilder.setContentText(text);
             mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
@@ -948,7 +969,8 @@ public class FileUploader extends Service
      * @param mimeType
      * @return true if is needed to add the pdf file extension to the file
      */
-    private boolean isPdfFileFromContentProviderWithoutExtension(String localPath, String mimeType) {
+    private boolean isPdfFileFromContentProviderWithoutExtension(String localPath,
+                                                                 String mimeType) {
         return localPath.startsWith(UriUtils.URI_CONTENT_SCHEME) &&
                 mimeType.equals(MIME_TYPE_PDF) &&
                 !localPath.endsWith(FILE_EXTENSION_PDF);

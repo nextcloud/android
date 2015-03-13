@@ -29,7 +29,6 @@ import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.concurrent.CancellationException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.httpclient.methods.PutMethod;
@@ -94,7 +93,8 @@ public class UploadFileOperation extends RemoteOperation {
                                 int localBehaviour, 
                                 Context context) {
         if (account == null)
-            throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation creation");
+            throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " +
+                    "creation");
         if (file == null)
             throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
         if (file.getStoragePath() == null || file.getStoragePath().length() <= 0) {
@@ -322,7 +322,7 @@ public class UploadFileOperation extends RemoteOperation {
                 mUploadOperation.addDatatransferProgressListener(listener.next());
             }
             if (!mCancellationRequested.get()) {
-                result = mUploadOperation.execute(client);
+                result = mUploadOperation.execute(client, MainApp.getUserAgent());
 
                 /// move local temporal file or original file to its corresponding
                 // location in the ownCloud local folder
@@ -459,7 +459,7 @@ public class UploadFileOperation extends RemoteOperation {
     private boolean existsFile(OwnCloudClient client, String remotePath){
         ExistenceCheckRemoteOperation existsOperation =
                 new ExistenceCheckRemoteOperation(remotePath, mContext, false);
-        RemoteOperationResult result = existsOperation.execute(client);
+        RemoteOperationResult result = existsOperation.execute(client, MainApp.getUserAgent());
         return result.isSuccess();
     }
     

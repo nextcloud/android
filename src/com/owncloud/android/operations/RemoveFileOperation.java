@@ -21,6 +21,7 @@
 
 package com.owncloud.android.operations;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -78,7 +79,7 @@ public class RemoveFileOperation extends SyncOperation {
         boolean localRemovalFailed = false;
         if (!mOnlyLocalCopy) {
             RemoveRemoteFileOperation operation = new RemoveRemoteFileOperation(mRemotePath);
-            result = operation.execute(client);
+            result = operation.execute(client, MainApp.getUserAgent());
             if (result.isSuccess() || result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 localRemovalFailed = !(getStorageManager().removeFile(mFileToRemove, true, true));
             }

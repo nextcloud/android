@@ -20,6 +20,7 @@
 
 package com.owncloud.android.operations;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -47,8 +48,8 @@ public class MoveFileOperation extends SyncOperation {
     /**
      * Constructor
      * 
-     * @param path              Remote path of the {@link OCFile} to move.
-     * @param newParentPath     Path to the folder where the file will be moved into. 
+     * @param srcPath           Remote path of the {@link OCFile} to move.
+     * @param targetParentPath  Path to the folder where the file will be moved into.
      * @param account           OwnCloud account containing both the file and the target folder 
      */
     public MoveFileOperation(String srcPath, String targetParentPath, Account account) {
@@ -89,7 +90,7 @@ public class MoveFileOperation extends SyncOperation {
                 targetPath, 
                 false
         );
-        result = operation.execute(client);
+        result = operation.execute(client, MainApp.getUserAgent());
         
         /// 3. local move
         if (result.isSuccess()) {

@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -110,7 +111,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * @param   account                 ownCloud account where the folder is located.
      * @param   currentSyncTime         Time stamp for the synchronization process in progress.
      */
-    public SynchronizeFolderOperation(Context context, String remotePath, Account account, long currentSyncTime){
+    public SynchronizeFolderOperation(Context context, String remotePath, Account account,
+                                      long currentSyncTime){
         mRemotePath = remotePath;
         mCurrentSyncTime = currentSyncTime;
         mAccount = account;
@@ -174,7 +176,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     }
 
-    private RemoteOperationResult checkForChanges(OwnCloudClient client) throws OperationCancelledException {
+    private RemoteOperationResult checkForChanges(OwnCloudClient client)
+            throws OperationCancelledException {
         Log_OC.d(TAG, "Checking changes in " + mAccount.name + mRemotePath);
 
         mRemoteFolderChanged = true;
@@ -186,7 +189,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         
         // remote request
         ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mRemotePath);
-        result = operation.execute(client);
+        result = operation.execute(client, MainApp.getUserAgent());
         if (result.isSuccess()){
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
@@ -218,13 +221,14 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
 
-    private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) throws OperationCancelledException {
+    private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client)
+            throws OperationCancelledException {
         if (mCancellationRequested.get()) {
             throw new OperationCancelledException();
         }
         
         ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(mRemotePath);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult result = operation.execute(client, MainApp.getUserAgent());
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + mRemotePath);
 
         if (result.isSuccess()) {
@@ -250,7 +254,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
             storageManager.removeFolder(
                     mLocalFolder,
                     true,
-                    (   mLocalFolder.isDown() &&        // TODO: debug, I think this is always false for folders
+                    (   mLocalFolder.isDown() &&        // TODO: debug, I think this is
+                                                        // always false for folders
                             mLocalFolder.getStoragePath().startsWith(currentSavePath)
                     )
             );
@@ -327,7 +332,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     remoteFile.setFileLength(localFile.getFileLength());
                         // TODO move operations about size of folders to FileContentProvider
                 } else if (mRemoteFolderChanged && remoteFile.isImage() &&
-                        remoteFile.getModificationTimestamp() != localFile.getModificationTimestamp()) {
+                        remoteFile.getModificationTimestamp() !=
+                                localFile.getModificationTimestamp()) {
                     remoteFile.setNeedsUpdateThumbnail(true);
                     Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
                 }
@@ -439,7 +445,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * @param filesToSyncContents       Synchronization operations to execute.
      * @param client                    Interface to the remote ownCloud server.
      */
-    private void startContentSynchronizations(List<SyncOperation> filesToSyncContents, OwnCloudClient client) 
+    private void startContentSynchronizations(List<SyncOperation> filesToSyncContents,
+                                              OwnCloudClient client)
             throws OperationCancelledException {
 
         Log_OC.v(TAG, "Starting content synchronization... ");
@@ -469,7 +476,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     
     /**
-     * Creates and populates a new {@link com.owncloud.android.datamodel.OCFile} object with the data read from the server.
+     * Creates and populates a new {@link com.owncloud.android.datamodel.OCFile}
+     * object with the data read from the server.
      *
      * @param remote    remote file read from the server (remote file or folder).
      * @return          New OCFile instance representing the remote resource described by we.
@@ -489,8 +497,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     /**
      * Scans the default location for saving local copies of files searching for
-     * a 'lost' file with the same full name as the {@link com.owncloud.android.datamodel.OCFile} received as
-     * parameter.
+     * a 'lost' file with the same full name as the {@link com.owncloud.android.datamodel.OCFile}
+     * received as parameter.
      *  
      * @param file      File to associate a possible 'lost' local file.
      */

@@ -22,6 +22,7 @@ package com.owncloud.android.operations;
 
 import java.util.ArrayList;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -63,7 +64,6 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
      * Constructor
      * 
      * @param context       Android context of the caller.
-     * @param webdavUrl
      */
     public DetectAuthenticationMethodOperation(Context context) {
         mContext = context;
@@ -89,12 +89,12 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         client.setFollowRedirects(false);
         
         // try to access the root folder, following redirections but not SAML SSO redirections
-        result = operation.execute(client);
+        result = operation.execute(client, MainApp.getUserAgent());
         String redirectedLocation = result.getRedirectedLocation(); 
         while (redirectedLocation != null && redirectedLocation.length() > 0 && 
                 !result.isIdPRedirection()) {
             client.setBaseUri(Uri.parse(result.getRedirectedLocation()));
-            result = operation.execute(client);
+            result = operation.execute(client, MainApp.getUserAgent());
             redirectedLocation = result.getRedirectedLocation();
         } 
 
@@ -124,7 +124,8 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         ArrayList<Object> data = new ArrayList<Object>();
         data.add(authMethod);
         result.setData(data);
-        return result;  // same result instance, so that other errors can be handled by the caller transparently
+        return result;  // same result instance, so that other errors
+                        // can be handled by the caller transparently
 	}
 	
 	
