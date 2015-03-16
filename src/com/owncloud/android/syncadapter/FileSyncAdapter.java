@@ -1,6 +1,10 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -55,9 +59,6 @@ import android.support.v4.app.NotificationCompat;
  * ownCloud files.
  * 
  * Performs a full synchronization of the account recieved in {@link #onPerformSync(Account, Bundle, String, ContentProviderClient, SyncResult)}.
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
  */
 public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 

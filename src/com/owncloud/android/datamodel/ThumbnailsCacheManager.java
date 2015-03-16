@@ -1,5 +1,9 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Tobias Kaminsky
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -49,10 +53,7 @@ import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
 /**
- * Manager for concurrent access to thumbnails cache. 
- *  
- * @author Tobias Kaminsky
- * @author David A. Velasco
+ * Manager for concurrent access to thumbnails cache.
  */
 public class ThumbnailsCacheManager {
     
@@ -173,7 +174,7 @@ public class ThumbnailsCacheManager {
                 }
 
                 mFile = params[0];
-
+                
                 if (mFile instanceof OCFile) {
                     thumbnail = doOCFileInBackground();
                 }  else if (mFile instanceof File) {
@@ -243,7 +244,7 @@ public class ThumbnailsCacheManager {
         private int getThumbnailDimension(){
             // Converts dp to pixel
             Resources r = MainApp.getAppContext().getResources();
-            return (int) Math.round(r.getDimension(R.dimen.file_icon_size));
+            return (int) Math.round(r.getDimension(R.dimen.file_icon_size_grid));
         }
 
         private Bitmap doOCFileInBackground() {

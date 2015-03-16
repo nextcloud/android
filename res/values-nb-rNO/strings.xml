@@ -12,7 +12,7 @@
   <string name="actionbar_see_details">Detaljer</string>
   <string name="actionbar_send_file">Send</string>
   <string name="actionbar_sort">Sorter</string>
-  <string name="actionbar_sort_title">Sorter på</string>
+  <string name="actionbar_sort_title">Sorter etter</string>
   <string-array name="actionbar_sortby">
     <item>A-Z</item>
     <item>Nyeste - Eldste</item>
@@ -298,7 +298,5 @@
   <string name="prefs_category_instant_uploading">Umiddelbare opplastinger</string>
   <string name="prefs_category_security">Sikkerhet</string>
   <string name="prefs_instant_video_upload_path_title">Sti til video-opplasting</string>
-  <string name="shared_subject_header">delt</string>
-  <string name="with_you_subject_header">med deg</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
+  <string name="download_folder_failed_content">Nedlasting av %1$s mappen kunne ikke fullføres</string>
 </resources>

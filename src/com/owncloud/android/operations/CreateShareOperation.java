@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author masensio
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -19,9 +22,6 @@ package com.owncloud.android.operations;
 
 /**
  * Creates a new share from a given file
- * 
- * @author masensio
- *
  */
 
 import android.content.Context;
@@ -44,7 +44,6 @@ import com.owncloud.android.operations.common.SyncOperation;
 public class CreateShareOperation extends SyncOperation {
 
     private static final String TAG = CreateShareOperation.class.getSimpleName();
-    
 
     protected FileDataStorageManager mStorageManager;
 
@@ -76,8 +75,9 @@ public class CreateShareOperation extends SyncOperation {
      *                      To obtain combinations, add the desired values together.  
      *                      For instance, for Re-Share, delete, read, update, add 16+8+2+1 = 27.
      */
-    public CreateShareOperation(Context context, String path, ShareType shareType, String shareWith, boolean publicUpload,
-            String password, int permissions, Intent sendIntent) {
+    public CreateShareOperation(Context context, String path, ShareType shareType, String shareWith,
+                                boolean publicUpload, String password, int permissions,
+                                Intent sendIntent) {
 
         mContext = context;
         mPath = path;
@@ -98,7 +98,8 @@ public class CreateShareOperation extends SyncOperation {
         RemoteOperationResult result = ((GetRemoteSharesForFileOperation)operation).execute(client);
 
         if (!result.isSuccess() || result.getData().size() <= 0) {
-            operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload, mPassword, mPermissions);
+            operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload,
+                    mPassword, mPermissions);
             result = ((CreateRemoteShareOperation)operation).execute(client);
         }
         
@@ -112,7 +113,30 @@ public class CreateShareOperation extends SyncOperation {
         return result;
     }
     
-    
+    public String getPath() {
+        return mPath;
+    }
+
+    public ShareType getShareType() {
+        return mShareType;
+    }
+
+    public String getShareWith() {
+        return mShareWith;
+    }
+
+    public boolean getPublicUpload() {
+        return mPublicUpload;
+    }
+
+    public String getPassword() {
+        return mPassword;
+    }
+
+    public int getPermissions() {
+        return mPermissions;
+    }
+
     public Intent getSendIntent() {
         return mSendIntent;
     }
@@ -134,8 +158,7 @@ public class CreateShareOperation extends SyncOperation {
         if (file!=null) {
             mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
             mSendIntent.putExtra(Intent.EXTRA_SUBJECT, String.format(mContext.getString(R.string.subject_token),
-                    getClient().getCredentials().getUsername(), mContext.getString(R.string.shared_subject_header),
-                    file.getFileName(), mContext.getString(R.string.with_you_subject_header)));
+                    getClient().getCredentials().getUsername(), file.getFileName()));
             file.setPublicLink(share.getShareLink());
             file.setShareByLink(true);
             getStorageManager().saveFile(file);

@@ -1,6 +1,8 @@
-/* ownCloud Android client application
- * 
- *   Copyright (C) 2012-2013  ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015  ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -42,8 +44,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  * This Fragment is used to monitor the progress of a file downloading.
- * 
- * @author David A. Velasco
  */
 public class FileDownloadFragment extends FileFragment implements OnClickListener {
 
@@ -308,9 +308,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     
     /**
-     * Helper class responsible for updating the progress bar shown for file uploading or downloading  
-     * 
-     * @author David A. Velasco
+     * Helper class responsible for updating the progress bar shown for file uploading or downloading
      */
     private class ProgressListener implements OnDatatransferProgressListener {
         int mLastPercent = 0;

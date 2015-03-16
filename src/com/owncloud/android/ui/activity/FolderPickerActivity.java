@@ -1,5 +1,7 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -489,40 +491,33 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                     (synchResult.isException() && synchResult.getException() 
                                             instanceof AuthenticatorException))) {
 
-                            OwnCloudClient client = null;
                             try {
-                                OwnCloudAccount ocAccount = 
+                                OwnCloudClient client;
+                                OwnCloudAccount ocAccount =
                                         new OwnCloudAccount(getAccount(), context);
                                 client = (OwnCloudClientManagerFactory.getDefaultSingleton().
                                         removeClientFor(ocAccount));
-                                // TODO get rid of these exceptions
-                            } catch (AccountNotFoundException e) {
-                                e.printStackTrace();
-                            } catch (AuthenticatorException e) {
-                                e.printStackTrace();
-                            } catch (OperationCanceledException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            
-                            if (client != null) {
-                                OwnCloudCredentials cred = client.getCredentials();
-                                if (cred != null) {
-                                    AccountManager am = AccountManager.get(context);
-                                    if (cred.authTokenExpires()) {
-                                        am.invalidateAuthToken(
-                                                getAccount().type, 
-                                                cred.getAuthToken()
-                                        );
-                                    } else {
-                                        am.clearPassword(getAccount());
+
+                                if (client != null) {
+                                    OwnCloudCredentials cred = client.getCredentials();
+                                    if (cred != null) {
+                                        AccountManager am = AccountManager.get(context);
+                                        if (cred.authTokenExpires()) {
+                                            am.invalidateAuthToken(
+                                                    getAccount().type,
+                                                    cred.getAuthToken()
+                                            );
+                                        } else {
+                                            am.clearPassword(getAccount());
+                                        }
                                     }
                                 }
+                                requestCredentialsUpdate();
+
+                            } catch (AccountNotFoundException e) {
+                                Log_OC.e(TAG, "Account " + getAccount() + " was removed!", e);
                             }
-                            
-                            requestCredentialsUpdate();
-                            
+
                         }
                     }
                     removeStickyBroadcast(intent);

@@ -1,6 +1,10 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,13 +25,17 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -50,20 +58,25 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.files.FileOperationsHelper;
+import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.RadioButtonPreference;
 import com.owncloud.android.utils.DisplayUtils;
+
+import java.io.File;
 
 
 /**
  * An Activity that allows the user to change the application's settings.
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
  */
-public class Preferences extends SherlockPreferenceActivity implements AccountManagerCallback<Boolean> {
+public class Preferences extends SherlockPreferenceActivity
+        implements AccountManagerCallback<Boolean>, ComponentsGetter {
     
     private static final String TAG = "OwnCloudPreferences";
 
@@ -88,6 +101,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     private Preference mPrefInstantVideoUploadPathWiFi;
     private String mUploadVideoPath;
 
+    protected FileDownloader.FileDownloaderBinder mDownloaderBinder = null;
+    protected FileUploader.FileUploaderBinder mUploaderBinder = null;
+    private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -199,12 +215,12 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                         String username = currentAccount.name.substring(0, currentAccount.name.lastIndexOf('@'));
                         
                         String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
-                        String recommendText = String.format(getString(R.string.recommend_text), appName, downloadUrl, username);
+                        String recommendText = String.format(getString(R.string.recommend_text),
+                                appName, downloadUrl, username);
                         
                         intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
                         intent.putExtra(Intent.EXTRA_TEXT, recommendText);
                         startActivity(intent);
-
 
                         return(true);
 
@@ -337,6 +353,18 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
        loadInstantUploadPath();
        loadInstantUploadVideoPath();
 
+        /* ComponentsGetter */
+        mDownloadServiceConnection = newTransferenceServiceConnection();
+        if (mDownloadServiceConnection != null) {
+            bindService(new Intent(this, FileDownloader.class), mDownloadServiceConnection,
+                    Context.BIND_AUTO_CREATE);
+        }
+        mUploadServiceConnection = newTransferenceServiceConnection();
+        if (mUploadServiceConnection != null) {
+            bindService(new Intent(this, FileUploader.class), mUploadServiceConnection,
+                    Context.BIND_AUTO_CREATE);
+        }
+
     }
     
     private void toggleInstantPictureOptions(Boolean value){
@@ -402,6 +430,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
 
                     // Remove account
                     am.removeAccount(a, this, mHandler);
+                    Log_OC.d(TAG, "Remove an account " + a.name);
                 }
             }
         }
@@ -412,6 +441,18 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     @Override
     public void run(AccountManagerFuture<Boolean> future) {
         if (future.isDone()) {
+            // after remove account
+            Account account = new Account(mAccountName, MainApp.getAccountType());
+            if (!AccountUtils.exists(account, MainApp.getAppContext())) {
+                // Cancel tranfers
+                if (mUploaderBinder != null) {
+                    mUploaderBinder.cancel(account);
+                }
+                if (mDownloaderBinder != null) {
+                    mDownloaderBinder.cancel(account);
+                }
+            }
+
             Account a = AccountUtils.getCurrentOwnCloudAccount(this);
             String accountName = "";
             if (a == null) {
@@ -494,6 +535,16 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
     @Override
     protected void onDestroy() {
         mDbHandler.close();
+
+        if (mDownloadServiceConnection != null) {
+            unbindService(mDownloadServiceConnection);
+            mDownloadServiceConnection = null;
+        }
+        if (mUploadServiceConnection != null) {
+            unbindService(mUploadServiceConnection);
+            mUploadServiceConnection = null;
+        }
+
         super.onDestroy();
     }
 
@@ -637,4 +688,65 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         editor.putString("instant_video_upload_path", mUploadVideoPath);
         editor.commit();
     }
+
+    // Methods for ComponetsGetter
+    @Override
+    public FileDownloader.FileDownloaderBinder getFileDownloaderBinder() {
+        return mDownloaderBinder;
+    }
+
+
+    @Override
+    public FileUploader.FileUploaderBinder getFileUploaderBinder() {
+        return mUploaderBinder;
+    }
+
+    @Override
+    public OperationsService.OperationsServiceBinder getOperationsServiceBinder() {
+        return null;
+    }
+
+    @Override
+    public FileDataStorageManager getStorageManager() {
+        return null;
+    }
+
+    @Override
+    public FileOperationsHelper getFileOperationsHelper() {
+        return null;
+    }
+
+    protected ServiceConnection newTransferenceServiceConnection() {
+        return new PreferencesServiceConnection();
+    }
+
+    /** Defines callbacks for service binding, passed to bindService() */
+    private class PreferencesServiceConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName component, IBinder service) {
+
+            if (component.equals(new ComponentName(Preferences.this, FileDownloader.class))) {
+                mDownloaderBinder = (FileDownloader.FileDownloaderBinder) service;
+
+            } else if (component.equals(new ComponentName(Preferences.this, FileUploader.class))) {
+                Log_OC.d(TAG, "Upload service connected");
+                mUploaderBinder = (FileUploader.FileUploaderBinder) service;
+            } else {
+                return;
+            }
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName component) {
+            if (component.equals(new ComponentName(Preferences.this, FileDownloader.class))) {
+                Log_OC.d(TAG, "Download service suddenly disconnected");
+                mDownloaderBinder = null;
+            } else if (component.equals(new ComponentName(Preferences.this, FileUploader.class))) {
+                Log_OC.d(TAG, "Upload service suddenly disconnected");
+                mUploaderBinder = null;
+            }
+        }
+    };
 }

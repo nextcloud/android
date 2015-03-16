@@ -1,6 +1,9 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2014 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -37,12 +40,11 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
+import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
+
 /**
  * This Adapter populates a ListView with all files and directories contained
  * in a local directory
- * 
- * @author David A. Velasco
- * 
  */
 public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
     
@@ -102,7 +104,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             String name = file.getName();
             fileName.setText(name);
             
-            ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
+            ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
             if (!file.isDirectory()) {
                 fileIcon.setImageResource(R.drawable.file);
             } else {
@@ -116,9 +118,10 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             if (!file.isDirectory()) {
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
-                ListView parentList = (ListView)parent;
+                ListView parentList = (ListView) parent;
                 if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
                     checkBoxV.setVisibility(View.GONE);
                 } else {
@@ -166,9 +169,10 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 lastModV.setVisibility(View.GONE);
                 checkBoxV.setVisibility(View.GONE);
             }
-            
-            view.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);   // not GONE; the alignment would change
-            view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+
+            // not GONE; the alignment changes; ugly way to keep it
+            view.findViewById(R.id.localFileIndicator).setVisibility(View.INVISIBLE);   
+            view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
             
             view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
             view.findViewById(R.id.sharedWithMeIcon).setVisibility(View.GONE);

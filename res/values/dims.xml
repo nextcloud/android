@@ -18,4 +18,5 @@
 -->
 <resources>
 	<dimen name="file_icon_size">32dp</dimen>
+    <dimen name="file_icon_size_grid">128dp</dimen>
 </resources>

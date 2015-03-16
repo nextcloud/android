@@ -1,6 +1,10 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2014 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -19,13 +23,10 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
-import java.io.IOException;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -96,7 +97,6 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
-import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -115,9 +115,6 @@ import com.owncloud.android.utils.UriUtils;
 
 /**
  * Displays, what files the user has available in his ownCloud.
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
  */
 
 public class FileDisplayActivity extends HookActivity implements
@@ -256,7 +253,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             setNavigationListWithFolder(file);
             
             if (!stateWasRecovered) {
-                Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
+                Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
                 if (file.isFolder()) {
                     startSyncFolderOperation(file, false);
@@ -555,19 +552,19 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     }
 
     private void startSynchronization() {
-        Log_OC.e(TAG, "Got to start sync");
+        Log_OC.d(TAG, "Got to start sync");
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-            Log_OC.e(TAG, "Canceling all syncs for " + MainApp.getAuthority());
+            Log_OC.d(TAG, "Canceling all syncs for " + MainApp.getAuthority());
             ContentResolver.cancelSync(null, MainApp.getAuthority());   // cancel the current synchronizations of any ownCloud account
             Bundle bundle = new Bundle();
             bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
             bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-            Log_OC.e(TAG, "Requesting sync for " + getAccount().name + " at " + MainApp.getAuthority());
+            Log_OC.d(TAG, "Requesting sync for " + getAccount().name + " at " + MainApp.getAuthority());
             ContentResolver.requestSync(
                     getAccount(),
                     MainApp.getAuthority(), bundle);
         } else {
-            Log_OC.e(TAG, "Requesting sync for " + getAccount().name + " at " + MainApp.getAuthority() + " with new API");
+            Log_OC.d(TAG, "Requesting sync for " + getAccount().name + " at " + MainApp.getAuthority() + " with new API");
             SyncRequest.Builder builder = new SyncRequest.Builder();
             builder.setSyncAdapter(getAccount(), MainApp.getAuthority());
             builder.setExpedited(true);
@@ -649,6 +646,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         if (filePaths != null) {
             String[] remotePaths = new String[filePaths.length];
             String remotePathBase = "";
+
             for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
                 remotePathBase += OCFile.PATH_SEPARATOR + mDirectories.getItem(j);
             }
@@ -699,7 +697,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         } finally {
             if (filepath == null) {
-                Log_OC.e(TAG, "Couldnt resolve path to file");
+                Log_OC.e(TAG, "Couldn't resolve path to file");
                 Toast t = Toast.makeText(this, getString(R.string.filedisplay_unexpected_bad_get_content), Toast.LENGTH_LONG);
                 t.show();
                 return;
@@ -786,7 +784,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in onRestoreInstanceState when there are Fragments involved
-        Log_OC.e(TAG, "onSaveInstanceState() start");
+        Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         outState.putBoolean(FileDisplayActivity.KEY_SYNC_IN_PROGRESS, mSyncInProgress);
@@ -801,7 +799,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     @Override
     protected void onResume() {
         super.onResume();
-        Log_OC.e(TAG, "onResume() start");
+        Log_OC.d(TAG, "onResume() start");
         
         // refresh list of files
         refreshListOfFilesFragment();
@@ -833,7 +831,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     @Override
     protected void onPause() {
-        Log_OC.e(TAG, "onPause() start");
+        Log_OC.d(TAG, "onPause() start");
         if (mSyncBroadcastReceiver != null) {
             unregisterReceiver(mSyncBroadcastReceiver);
             //LocalBroadcastManager.getInstance(this).unregisterReceiver(mSyncBroadcastReceiver);
@@ -1110,40 +1108,34 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                                     (synchResult.isException() && synchResult.getException() 
                                             instanceof AuthenticatorException))) {
 
-                            OwnCloudClient client = null;
+
                             try {
-                                OwnCloudAccount ocAccount = 
+                                OwnCloudClient client;
+                                OwnCloudAccount ocAccount =
                                         new OwnCloudAccount(getAccount(), context);
                                 client = (OwnCloudClientManagerFactory.getDefaultSingleton().
                                         removeClientFor(ocAccount));
-                                // TODO get rid of these exceptions
-                            } catch (AccountNotFoundException e) {
-                                e.printStackTrace();
-                            } catch (AuthenticatorException e) {
-                                e.printStackTrace();
-                            } catch (OperationCanceledException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            
-                            if (client != null) {
-                                OwnCloudCredentials cred = client.getCredentials();
-                                if (cred != null) {
-                                    AccountManager am = AccountManager.get(context);
-                                    if (cred.authTokenExpires()) {
-                                        am.invalidateAuthToken(
-                                                getAccount().type, 
-                                                cred.getAuthToken()
-                                        );
-                                    } else {
-                                        am.clearPassword(getAccount());
+
+                                if (client != null) {
+                                    OwnCloudCredentials cred = client.getCredentials();
+                                    if (cred != null) {
+                                        AccountManager am = AccountManager.get(context);
+                                        if (cred.authTokenExpires()) {
+                                            am.invalidateAuthToken(
+                                                    getAccount().type,
+                                                    cred.getAuthToken()
+                                            );
+                                        } else {
+                                            am.clearPassword(getAccount());
+                                        }
                                     }
                                 }
+                                requestCredentialsUpdate();
+
+                            } catch (AccountNotFoundException e) {
+                                Log_OC.e(TAG, "Account " + getAccount() + " was removed!", e);
                             }
-                            
-                            requestCredentialsUpdate();
-                            
+
                         }
                     }
                     removeStickyBroadcast(intent);

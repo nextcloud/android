@@ -1,4 +1,7 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author masensio
  *   Copyright (C) 2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -41,10 +44,8 @@ import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 
 /**
- * Class to choose proper error messages to show to the user depending on the results of operations, always following the same policy
- * 
- * @author masensio
- *
+ * Class to choose proper error messages to show to the user depending on the results of operations,
+ * always following the same policy
  */
 
 public class ErrorMessageAdapter {

@@ -1,6 +1,9 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -38,9 +41,6 @@ import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.
- * 
- * @author David A. Velasco
- * 
  */
 public class LocalFileListFragment extends ExtendedListFragment {
     private static final String TAG = "LocalFileListFragment";
@@ -76,12 +76,12 @@ public class LocalFileListFragment extends ExtendedListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
-        getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        disableSwipe(); // Disable pull refresh
+        setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        setSwipeEnabled(false); // Disable pull-to-refresh
         setMessageForEmptyList(getString(R.string.local_file_list_empty));
         Log_OC.i(TAG, "onCreateView() end");
         return v;
-    }    
+    }
 
 
     /**
@@ -97,7 +97,6 @@ public class LocalFileListFragment extends ExtendedListFragment {
         
         Log_OC.i(TAG, "onActivityCreated() stop");
     }
-    
     
     /**
      * Checks the file clicked over. Browses inside if it is a directory. Notifies the container activity in any case.
@@ -195,10 +194,10 @@ public class LocalFileListFragment extends ExtendedListFragment {
             directory = directory.getParentFile();
         }
 
-        mList.clearChoices();   // by now, only files in the same directory will be kept as selected
+        mCurrentListView.clearChoices();   // by now, only files in the same directory will be kept as selected
         mAdapter.swapDirectory(directory);
         if (mDirectory == null || !mDirectory.equals(directory)) {
-            mList.setSelectionFromTop(0, 0);
+            mCurrentListView.setSelection(0);
         }
         mDirectory = directory;
     }
@@ -211,11 +210,11 @@ public class LocalFileListFragment extends ExtendedListFragment {
      */
     public String[] getCheckedFilePaths() {
         ArrayList<String> result = new ArrayList<String>();
-        SparseBooleanArray positions = mList.getCheckedItemPositions();
+        SparseBooleanArray positions = mCurrentListView.getCheckedItemPositions();
         if (positions.size() > 0) {
             for (int i = 0; i < positions.size(); i++) {
                 if (positions.get(positions.keyAt(i)) == true) {
-                    result.add(((File) mList.getItemAtPosition(positions.keyAt(i))).getAbsolutePath());
+                    result.add(((File) mCurrentListView.getItemAtPosition(positions.keyAt(i))).getAbsolutePath());
                 }
             }
 
@@ -227,15 +226,13 @@ public class LocalFileListFragment extends ExtendedListFragment {
     
     /**
      * Interface to implement by any Activity that includes some instance of LocalFileListFragment
-     * 
-     * @author David A. Velasco
      */
     public interface ContainerActivity {
 
         /**
          * Callback method invoked when a directory is clicked by the user on the files list
          *  
-         * @param file
+         * @param directory
          */
         public void onDirectoryClick(File directory);
         

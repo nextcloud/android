@@ -1,6 +1,10 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -26,6 +30,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Vector;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -39,9 +44,6 @@ import com.owncloud.android.datamodel.OCFile;
 
 /**
  * A helper class for some string operations.
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
  */
 public class DisplayUtils {
     
@@ -228,7 +230,7 @@ public class DisplayUtils {
     
     /**
      * Converts Unix time to human readable format
-     * @param miliseconds that have passed since 01/01/1970
+     * @param milliseconds that have passed since 01/01/1970
      * @return The human readable time for the users locale
      */
     public static String unixTimeToHumanReadable(long milliseconds) {
@@ -340,4 +342,5 @@ public class DisplayUtils {
         }
         return path;
     }
+
 }

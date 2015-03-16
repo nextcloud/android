@@ -1,4 +1,7 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -21,6 +24,7 @@ import android.accounts.Account;
 import android.util.Pair;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.File;
 import java.util.HashSet;
@@ -35,8 +39,6 @@ import java.util.concurrent.ConcurrentMap;
  *  A map provides the indexation based in hashing.
  *
  *  A tree is created per account.
- *
- * @author David A. Velasco
  */
 public class IndexedForest<V> {
 
@@ -211,6 +213,21 @@ public class IndexedForest<V> {
 
 
     /**
+     * Remove the elements that contains account as a part of its key
+     * @param account
+     */
+    public void remove(Account account){
+        Iterator<String> it = mMap.keySet().iterator();
+        while (it.hasNext()) {
+            String key = it.next();
+            Log_OC.d("IndexedForest", "Number of pending downloads= "  + mMap.size());
+            if (key.startsWith(account.name)) {
+                mMap.remove(key);
+            }
+        }
+    }
+
+    /**
      * Builds a key to index files
      *
      * @param account       Account where the file to download is stored
@@ -219,7 +236,5 @@ public class IndexedForest<V> {
     private String buildKey(Account account, String remotePath) {
         return account.name + remotePath;
     }
-
-
 
 }

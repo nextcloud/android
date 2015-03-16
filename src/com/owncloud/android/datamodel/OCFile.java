@@ -1,6 +1,8 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
  *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,9 +22,9 @@ package com.owncloud.android.datamodel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 
@@ -538,17 +540,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      */
     public boolean isImage() {
         return ((mMimeType != null && mMimeType.startsWith("image/")) ||
-                getMimeTypeFromName().startsWith("image/"));
-    }
-
-    public String getMimeTypeFromName() {
-        String extension = "";
-        int pos = mRemotePath.lastIndexOf('.');
-        if (pos >= 0) {
-            extension = mRemotePath.substring(pos + 1);
-        }
-        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
-        return (result != null) ? result : "";
+                FileStorageUtils.getMimeTypeFromName(mRemotePath).startsWith("image/"));
     }
 
     public String getPermissions() {
