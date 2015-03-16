@@ -396,8 +396,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
             mListFooterView.invalidate();
 
         } else {
-            mGridView.removeFooterView(mGridFooterView);
-            mListView.removeFooterView(mListFooterView);
+//            mGridView.removeFooterView(mGridFooterView);
+//            mListView.removeFooterView(mListFooterView);
         }
     }
 
