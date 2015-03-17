@@ -79,8 +79,10 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 /**
  * This can be used to upload things to an ownCloud instance.
  */
-public class Uploader extends FileActivity implements OnItemClickListener, android.view.View.OnClickListener {
-    private static final String TAG = "ownCloudUploader";
+public class Uploader extends FileActivity
+        implements OnItemClickListener, android.view.View.OnClickListener {
+
+    private static final String TAG = Uploader.class.getSimpleName();
 
     private Account mAccount;
     private AccountManager mAccountManager;
@@ -90,6 +92,7 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
     private String mUploadPath;
     private FileDataStorageManager mStorageManager;
     private OCFile mFile;
+    private boolean mAccountSelected = false;
     
     private final static int DIALOG_NO_ACCOUNT = 0;
     private final static int DIALOG_WAITING = 1;
@@ -98,10 +101,24 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
 
     private final static int REQUEST_CODE_SETUP_ACCOUNT = 0;
 
+    private final static String KEY_PARENTS = "PARENTS";
+    private final static String KEY_ACCOUNT = "ACCOUNT";
+    private final static String KEY_FILE = "FILE";
+    private final static String KEY_ACCOUNT_SELECTED = "ACCOUNT_SELECTED";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mParents = new Stack<String>();
+
+        if (savedInstanceState == null) {
+            mParents = new Stack<String>();
+        } else {
+            mParents = (Stack<String>) savedInstanceState.getSerializable(KEY_PARENTS);
+            mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
+            mFile = savedInstanceState.getParcelable(KEY_FILE);
+            mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+            mAccountSelected = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTED);
+        }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
@@ -112,8 +129,8 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
             if (accounts.length == 0) {
                 Log_OC.i(TAG, "No ownCloud account is available");
                 showDialog(DIALOG_NO_ACCOUNT);
-            } else if (accounts.length > 1) {
-                Log_OC.i(TAG, "More then one ownCloud is available");
+            } else if (accounts.length > 1 && !mAccountSelected) {
+                Log_OC.i(TAG, "More than one ownCloud is available");
                 showDialog(DIALOG_MULTIPLE_ACCOUNT);
             } else {
                 mAccount = accounts[0];
@@ -126,8 +143,21 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
         } else {
             showDialog(DIALOG_NO_STREAM);
         }
+
     }
-    
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+         Log_OC.d(TAG, "onSaveInstanceState() start");
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(KEY_PARENTS, mParents);
+        outState.putParcelable(KEY_ACCOUNT, mAccount);
+        outState.putParcelable(KEY_FILE, mFile);
+        outState.putBoolean(KEY_ACCOUNT_SELECTED, mAccountSelected);
+
+        Log_OC.d(TAG, "onSaveInstanceState() end");
+    }
+
     @Override
     protected Dialog onCreateDialog(final int id) {
         final AlertDialog.Builder builder = new Builder(this);
@@ -141,7 +171,8 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
         case DIALOG_NO_ACCOUNT:
             builder.setIcon(android.R.drawable.ic_dialog_alert);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
-            builder.setMessage(String.format(getString(R.string.uploader_wrn_no_account_text), getString(R.string.app_name)));
+            builder.setMessage(String.format(
+                    getString(R.string.uploader_wrn_no_account_text), getString(R.string.app_name)));
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
                 @Override
@@ -174,9 +205,11 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
             });
             return builder.create();
         case DIALOG_MULTIPLE_ACCOUNT:
-            CharSequence ac[] = new CharSequence[mAccountManager.getAccountsByType(MainApp.getAccountType()).length];
+            CharSequence ac[] = new CharSequence[
+                    mAccountManager.getAccountsByType(MainApp.getAccountType()).length];
             for (int i = 0; i < ac.length; ++i) {
-                ac[i] = DisplayUtils.convertIdn(mAccountManager.getAccountsByType(MainApp.getAccountType())[i].name, false);
+                ac[i] = DisplayUtils.convertIdn(
+                        mAccountManager.getAccountsByType(MainApp.getAccountType())[i].name, false);
             }
             builder.setTitle(R.string.common_choose_account);
             builder.setItems(ac, new OnClickListener() {
@@ -186,6 +219,8 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
                     mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
                     initTargetFolder();
                     populateDirectoryList();
+                    dialog.dismiss();
+                    mAccountSelected = true;
                 }
             });
             builder.setCancelable(true);
@@ -391,38 +426,52 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
                        String mimeType = getContentResolver().getType(uri);
                        
                        if (mimeType.contains("image")) {
-                           String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE};
-                           Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null, null, null);
+                           String[] CONTENT_PROJECTION = { Images.Media.DATA,
+                                   Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE,
+                                   Images.Media.SIZE};
+                           Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null,
+                                   null, null);
                            c.moveToFirst();
                            int index = c.getColumnIndex(Images.Media.DATA);
                            String data = c.getString(index);
                            local.add(data);
-                           remote.add(mUploadPath + c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME)));
+                           remote.add(mUploadPath +
+                                   c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME)));
                        
                        }
                        else if (mimeType.contains("video")) {
-                           String[] CONTENT_PROJECTION = { Video.Media.DATA, Video.Media.DISPLAY_NAME, Video.Media.MIME_TYPE, Video.Media.SIZE, Video.Media.DATE_MODIFIED };
-                           Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null, null, null);
+                           String[] CONTENT_PROJECTION = { Video.Media.DATA,
+                                   Video.Media.DISPLAY_NAME, Video.Media.MIME_TYPE,
+                                   Video.Media.SIZE, Video.Media.DATE_MODIFIED };
+                           Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null,
+                                   null, null);
                            c.moveToFirst();
                            int index = c.getColumnIndex(Video.Media.DATA);
                            String data = c.getString(index);
                            local.add(data);
-                           remote.add(mUploadPath + c.getString(c.getColumnIndex(Video.Media.DISPLAY_NAME)));
+                           remote.add(mUploadPath +
+                                   c.getString(c.getColumnIndex(Video.Media.DISPLAY_NAME)));
                           
                        }
                        else if (mimeType.contains("audio")) {
-                           String[] CONTENT_PROJECTION = { Audio.Media.DATA, Audio.Media.DISPLAY_NAME, Audio.Media.MIME_TYPE, Audio.Media.SIZE };
-                           Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null, null, null);
+                           String[] CONTENT_PROJECTION = { Audio.Media.DATA,
+                                   Audio.Media.DISPLAY_NAME, Audio.Media.MIME_TYPE,
+                                   Audio.Media.SIZE };
+                           Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null,
+                                   null, null);
                            c.moveToFirst();
                            int index = c.getColumnIndex(Audio.Media.DATA);
                            String data = c.getString(index);
                            local.add(data);
-                           remote.add(mUploadPath + c.getString(c.getColumnIndex(Audio.Media.DISPLAY_NAME)));
+                           remote.add(mUploadPath +
+                                   c.getString(c.getColumnIndex(Audio.Media.DISPLAY_NAME)));
                         
                        }
                        else {
-                           String filePath = Uri.decode(uri.toString()).replace(uri.getScheme() + "://", "");
-                           // cut everything whats before mnt. It occured to me that sometimes apps send their name into the URI
+                           String filePath = Uri.decode(uri.toString()).replace(uri.getScheme() +
+                                   "://", "");
+                           // cut everything whats before mnt. It occurred to me that sometimes
+                           // apps send their name into the URI
                            if (filePath.contains("mnt")) {
                               String splitedFilePath[] = filePath.split("/mnt");
                               filePath = splitedFilePath[1];
@@ -433,7 +482,8 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
                        }
                         
                     } else if (uri.getScheme().equals("file")) {
-                        String filePath = Uri.decode(uri.toString()).replace(uri.getScheme() + "://", "");
+                        String filePath = Uri.decode(uri.toString()).replace(uri.getScheme() +
+                                "://", "");
                         if (filePath.contains("mnt")) {
                            String splitedFilePath[] = filePath.split("/mnt");
                            filePath = splitedFilePath[1];
@@ -453,7 +503,8 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
             Intent intent = new Intent(getApplicationContext(), FileUploader.class);
             intent.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
             intent.putExtra(FileUploader.KEY_LOCAL_FILE, local.toArray(new String[local.size()]));
-            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remote.toArray(new String[remote.size()]));
+            intent.putExtra(FileUploader.KEY_REMOTE_FILE,
+                    remote.toArray(new String[remote.size()]));
             intent.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
             startService(intent);
 
@@ -467,7 +518,8 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
             }
             
         } catch (SecurityException e) {
-            String message = String.format(getString(R.string.uploader_error_forbidden_content), getString(R.string.app_name));
+            String message = String.format(getString(R.string.uploader_error_forbidden_content),
+                    getString(R.string.app_name));
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();            
         }
     }
@@ -484,12 +536,14 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
     }
     
     /**
-     * Updates the view associated to the activity after the finish of an operation trying create a new folder
+     * Updates the view associated to the activity after the finish of an operation
+     * trying create a new folder
      * 
      * @param operation     Creation operation performed.
      * @param result        Result of the creation.
      */
-    private void onCreateFolderOperationFinish(CreateFolderOperation operation, RemoteOperationResult result) {
+    private void onCreateFolderOperationFinish(CreateFolderOperation operation,
+                                               RemoteOperationResult result) {
         if (result.isSuccess()) {
             dismissLoadingDialog();
             populateDirectoryList();
@@ -515,7 +569,8 @@ public class Uploader extends FileActivity implements OnItemClickListener, andro
      */
     private void initTargetFolder() {
         if (mStorageManager == null) {
-            throw new IllegalStateException("Do not call this method before initializing mStorageManager");
+            throw new IllegalStateException("Do not call this method before " +
+                    "initializing mStorageManager");
         }
         
         SharedPreferences appPreferences = PreferenceManager
