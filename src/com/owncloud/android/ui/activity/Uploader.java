@@ -133,8 +133,10 @@ public class Uploader extends FileActivity
                 Log_OC.i(TAG, "More than one ownCloud is available");
                 showDialog(DIALOG_MULTIPLE_ACCOUNT);
             } else {
-                mAccount = accounts[0];
-                mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+                if (savedInstanceState == null) {
+                    mAccount = accounts[0];
+                    mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+                }
                 initTargetFolder();
                 populateDirectoryList();
                 
