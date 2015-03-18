@@ -145,7 +145,8 @@ public class ThumbnailsCacheManager {
         private FileDataStorageManager mStorageManager;
 
 
-        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager, Account account) {
+        public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
+                                       Account account) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<ImageView>(imageView);
             if (storageManager == null)
@@ -168,9 +169,11 @@ public class ThumbnailsCacheManager {
                     AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
 
                     mServerVersion = accountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION);
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, MainApp.getAppContext());
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount,
+                            MainApp.getAppContext());
                     mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                            getClientFor(ocAccount, MainApp.getAppContext());
+                            getClientFor(ocAccount, MainApp.getAppContext(),
+                                    MainApp.getUserAgent());
                 }
 
                 mFile = params[0];
@@ -276,18 +279,21 @@ public class ThumbnailsCacheManager {
                     // Download thumbnail from server
                     if (mClient != null && mServerVersion != null) {
                         OwnCloudVersion serverOCVersion = new OwnCloudVersion(mServerVersion);
-                        if (serverOCVersion.compareTo(new OwnCloudVersion(MINOR_SERVER_VERSION_FOR_THUMBS)) >= 0) {
+                        if (serverOCVersion.compareTo(
+                                new OwnCloudVersion(MINOR_SERVER_VERSION_FOR_THUMBS)) >= 0) {
                             try {
                                 int status = -1;
 
-                                String uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
+                                String uri = mClient.getBaseUri() + "" +
+                                        "/index.php/apps/files/api/v1/thumbnail/" +
                                         px + "/" + px + Uri.encode(file.getRemotePath(), "/");
                                 Log_OC.d("Thumbnail", "URI: " + uri);
                                 GetMethod get = new GetMethod(uri);
                                 status = mClient.executeMethod(get);
                                 if (status == HttpStatus.SC_OK) {
                                     byte[] bytes = get.getResponseBody();
-                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
+                                            bytes.length);
                                     thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
 
                                     // Add thumbnail to cache

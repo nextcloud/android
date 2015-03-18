@@ -574,7 +574,7 @@ public class FileUploader extends Service
                                 new FileDataStorageManager(mLastAccount, getContentResolver());
                         OwnCloudAccount ocAccount = new OwnCloudAccount(mLastAccount, this);
                         mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                                getClientFor(ocAccount, this);
+                                getClientFor(ocAccount, this, MainApp.getUserAgent());
                     }
 
                     /// check the existence of the parent folder for the file to upload

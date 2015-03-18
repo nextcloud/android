@@ -466,7 +466,7 @@ public class FileDownloader extends Service
                     // of update
                     OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
                     mDownloadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                            getClientFor(ocAccount, this);
+                            getClientFor(ocAccount, this, MainApp.getUserAgent());
 
 
                     /// perform the download

@@ -61,7 +61,8 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
 
             // Client
             Uri uri = Uri.parse(url);
-            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(uri, mContext, true);
+            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(uri, mContext, true,
+                    MainApp.getUserAgent());
 
             client.setCredentials(credentials);
 
