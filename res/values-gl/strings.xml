@@ -168,9 +168,9 @@ Descárgueo de aquí: %2$s</string>
   <string name="auth_unknown_error_title">Produciuse un erro descoñecido!</string>
   <string name="auth_unknown_host_title">Non foi posíbel atopar a máquina</string>
   <string name="auth_incorrect_path_title">Non se atopou unha instancia do servidor</string>
-  <string name="auth_timeout_title">O servidor tardou demasiado en responder</string>
+  <string name="auth_timeout_title">O servidor tardou de máis en responder</string>
   <string name="auth_incorrect_address_title">URL incorrecto</string>
-  <string name="auth_ssl_general_error_title">Produciuse un fallo ao iniciar o SSL</string>
+  <string name="auth_ssl_general_error_title">Produciuse un fallo ao preparar o SSL</string>
   <string name="auth_ssl_unverified_server_title">Non foi posíbel verificar a identidade do servidor SSL</string>
   <string name="auth_bad_oc_version_title">Versión do servidor non recoñecida</string>
   <string name="auth_wrong_connection_title">Non é posíbel estabelecer a conexión</string>
