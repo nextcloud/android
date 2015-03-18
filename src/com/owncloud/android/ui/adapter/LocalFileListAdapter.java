@@ -40,8 +40,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
-import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
-
 /**
  * This Adapter populates a ListView with all files and directories contained
  * in a local directory
