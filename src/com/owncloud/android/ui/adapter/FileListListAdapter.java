@@ -39,6 +39,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -94,7 +95,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         // Read sorting order, default to sort by name ascending
         FileStorageUtils.mSortOrder = mAppPreferences.getInt("sortOrder", 0);
         FileStorageUtils.mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
-
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -176,9 +176,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         if (file != null){
 
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
+
             fileIcon.setTag(file.getFileId());
             TextView fileName;
-            String name;
+            String name = file.getFileName();
+
+            LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.ListItemLayout);
+            linearLayout.setContentDescription("LinearLayout-" + name);
 
             switch (viewType){
                 case LIST_ITEM:
@@ -316,6 +320,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(file.getMimetype(),
                             file.getFileName()));
                 }
+
             } else {
                 // Folder
                 if (checkIfFileIsSharedWithMe(file)) {
