@@ -92,7 +92,6 @@
   <string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
   <string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
   <string name="auth_connection_established">Savienojums ir izveidots</string>
-  <string name="auth_testing_connection">Testē savienojumu...</string>
   <string name="auth_not_configured_title">Slikti formatēta servera konfigurācija</string>
   <string name="auth_unknown_error_title">Gadījās nezināma kļūda!</string>
   <string name="auth_unknown_host_title">Nevarēja atrast datoru</string>

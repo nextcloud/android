@@ -146,7 +146,6 @@
   <string name="auth_no_net_conn_title">নেটওয়ার্ক সংযোগ নেই</string>
   <string name="auth_nossl_plain_ok_title">নিরাপদ যোগাযোগ পাওয়া গেলনা</string>
   <string name="auth_connection_established">যোগাযোগ স্থাপিত হয়েছে</string>
-  <string name="auth_testing_connection">যোগাযোগ পরীক্ষা করা হচ্ছে...</string>
   <string name="auth_not_configured_title">সার্ভারের কনফিগারেশনে ভুল রয়েছে</string>
   <string name="auth_account_not_new">এই যন্ত্রে ইতোমধ্যে এই ব্যবহারকারী এবং সার্ভারের নামে একটি একাউন্ট রয়েছে</string>
   <string name="auth_account_not_the_same">এই একাউন্টের ব্যবহারকারীর সঙ্গে প্রদত্ত ব্যবহারকারী মেলেনা</string>

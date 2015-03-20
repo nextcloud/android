@@ -160,7 +160,6 @@
   <string name="auth_no_net_conn_title">Ingen nätverksanslutning</string>
   <string name="auth_nossl_plain_ok_title">Säker anslutning inte tillgänglig.</string>
   <string name="auth_connection_established">Anslutning etablerad</string>
-  <string name="auth_testing_connection">Testar anslutning...</string>
   <string name="auth_not_configured_title">Felaktig konfiguration</string>
   <string name="auth_account_not_new">En användare med samma namn och server finns redan i denna aparat</string>
   <string name="auth_account_not_the_same">Den angivna användaren matchar inte användaren för detta konto</string>

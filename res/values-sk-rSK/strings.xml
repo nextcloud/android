@@ -160,7 +160,6 @@
   <string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
   <string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
   <string name="auth_connection_established">Pripojenie vytvorené</string>
-  <string name="auth_testing_connection">Testovane pripojenia...</string>
   <string name="auth_not_configured_title">Nesprávna konfigurácia servera</string>
   <string name="auth_account_not_new">Účet pre tohoto používateľa a tento server už v tomto zariadení existuje</string>
   <string name="auth_account_not_the_same">Zadané prihlasovacie údaje používateľa sú nesprávne</string>

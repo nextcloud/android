@@ -160,7 +160,6 @@
   <string name="auth_no_net_conn_title">Sem conexão de rede</string>
   <string name="auth_nossl_plain_ok_title">Conexão segura indisponível.</string>
   <string name="auth_connection_established">Conexão estabelecida</string>
-  <string name="auth_testing_connection">Testando conexão...</string>
   <string name="auth_not_configured_title">Configuração do servidor mal formada</string>
   <string name="auth_account_not_new">Uma conta para o mesmo usuário e servidor já existe no dispositivo</string>
   <string name="auth_account_not_the_same">As informações que o usuário digitou não correspondem ao usuário da conta</string>

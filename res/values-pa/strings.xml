@@ -77,7 +77,6 @@
   <string name="auth_no_net_conn_title">ਕੋਈ ਨੈੱਟਵਰਕ ਕੁਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ</string>
   <string name="auth_nossl_plain_ok_title">ਸੁਰੱਖਿਅਤ ਕੁਨੈਕਸ਼ਨ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।</string>
   <string name="auth_connection_established">ਕੁਨੈਕਸ਼ਨ ਬਣਾਇਆ ਗਿਆ ਹੈ</string>
-  <string name="auth_testing_connection">...ਕੁਨੈਕਸ਼ਨ ਟੈਸਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
   <string name="auth_unknown_error_title">ਅਣਜਾਣ ਗਲਤੀ ਆਈ ਹੈ!</string>
   <string name="auth_unknown_host_title">ਹੋਸਟ ਨਹੀਂ ਲੱਭਿਆ ਜਾ ਸਕਿਆ</string>
   <string name="auth_ssl_general_error_title">SSL ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਫੇਲ੍ਹ ਹੈ</string>

@@ -105,7 +105,6 @@
   <string name="auth_no_net_conn_title">Sin conexión de red</string>
   <string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
   <string name="auth_connection_established">Conexión establecida</string>
-  <string name="auth_testing_connection">Probando conexión...</string>
   <string name="auth_not_configured_title">La configuración del servidor está mal formada</string>
   <string name="auth_unknown_error_title">Ocurrió un error desconocido</string>
   <string name="auth_unknown_host_title">No se puede encontrar el host</string>

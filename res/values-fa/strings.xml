@@ -140,7 +140,6 @@
   <string name="auth_no_net_conn_title">هیچ ارتباطی به شبکه موجود نیست</string>
   <string name="auth_nossl_plain_ok_title">اتصال امن در دسترس نیست</string>
   <string name="auth_connection_established">اتصال برقرار شد</string>
-  <string name="auth_testing_connection">آزمایش اتصال...</string>
   <string name="auth_not_configured_title">پیکربندی سرور ناقص است</string>
   <string name="auth_account_not_new">یک اکانت با همین نام کاربری و سرور بر روی این دستگاه موجود می‌باشد.</string>
   <string name="auth_account_not_the_same">نام کاربری وارد شده با نام کاربری این اکانت مطابقت ندارد</string>

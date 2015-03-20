@@ -154,7 +154,6 @@
   <string name="auth_no_net_conn_title">Nėra tinklo ryšio</string>
   <string name="auth_nossl_plain_ok_title">Saugus prisijungimas negalimas.</string>
   <string name="auth_connection_established">Ryšys užmegztas</string>
-  <string name="auth_testing_connection">Išbandomas prisijungimas...</string>
   <string name="auth_not_configured_title">Sugadinta serverio konfigūracija</string>
   <string name="auth_account_not_new">To paties vartotojo ir serverio paskyra jau egzistuoja šiame įrenginyje</string>
   <string name="auth_unknown_error_title">Įvyko nežinoma klaida!</string>

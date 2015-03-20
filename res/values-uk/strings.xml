@@ -160,7 +160,6 @@
   <string name="auth_no_net_conn_title">Відсутнє підключення до мережі</string>
   <string name="auth_nossl_plain_ok_title">Безпечне з\'єднання не доступне.</string>
   <string name="auth_connection_established">З\'єднання встановлено</string>
-  <string name="auth_testing_connection">Перевірка з\'єднання…</string>
   <string name="auth_not_configured_title">Не вірні налаштування сервер </string>
   <string name="auth_account_not_new">Такий обліковий запис вже існує на пристрої</string>
   <string name="auth_account_not_the_same">Введений користувач не відповідає обліковому запису</string>

@@ -111,7 +111,6 @@
   <string name="auth_no_net_conn_title">Neniu reta konekto</string>
   <string name="auth_nossl_plain_ok_title">Sekura konekto ne haveblas.</string>
   <string name="auth_connection_established">Konekto stariĝis</string>
-  <string name="auth_testing_connection">Testante konekton...</string>
   <string name="auth_not_configured_title">Malĝuste formita servilo-agordo</string>
   <string name="auth_unknown_error_title">Nekonata eraro okazis</string>
   <string name="auth_unknown_host_title">Ne eblis trovi gastigon</string>
