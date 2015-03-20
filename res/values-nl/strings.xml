@@ -163,7 +163,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="auth_no_net_conn_title">Geen netwerkverbinding</string>
   <string name="auth_nossl_plain_ok_title">Veilige verbinding niet beschikbaar.</string>
   <string name="auth_connection_established">Verbinding tot stand gebracht</string>
-  <string name="auth_testing_connection">Probeer verbinding...</string>
   <string name="auth_not_configured_title">Foutieve server configuratie</string>
   <string name="auth_account_not_new">Er bestaat al een account voor deze gebruiker en server op dit apparaat.</string>
   <string name="auth_account_not_the_same">De opgegeven gebruiker komt niet overeen met de gebruiker van dit account</string>

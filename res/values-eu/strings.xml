@@ -158,7 +158,6 @@
   <string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
   <string name="auth_nossl_plain_ok_title">Konexio segurua ez dago eskuragarri</string>
   <string name="auth_connection_established">Konexioa ezarri da</string>
-  <string name="auth_testing_connection">Konexioa probatzen...</string>
   <string name="auth_not_configured_title">gaizki egindako server konfigurazioa</string>
   <string name="auth_account_not_new">Erabiltzaile eta zerbitzari hauendako dagoeneko kontu bat  existitzen da gailu honetan</string>
   <string name="auth_account_not_the_same">Sartutako erabiltzaileak ez du bat egiten kontu honetako erabiltzailearekin</string>

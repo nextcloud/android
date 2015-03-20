@@ -57,11 +57,16 @@
   <string name="uploader_wrn_no_account_quit_btn_text">Напусти</string>
   <string name="uploader_wrn_no_content_title">Нема садржаја за отпремање</string>
   <string name="uploader_wrn_no_content_text">Садржај није примљен. Нема шта да се отпреми.</string>
+  <string name="uploader_error_forbidden_content">%1$s није дозвољен приступ дељеном садржају</string>
   <string name="uploader_info_uploading">Отпремање</string>
   <string name="file_list_seconds_ago">пре пар секунди</string>
   <string name="file_list_empty">Овде нема ничег. Отпремите нешто!</string>
   <string name="file_list_loading">Учитавам</string>
   <string name="local_file_list_empty">Нема фајлова у овој фасцикли.</string>
+  <string name="file_list_folder">фасцикла</string>
+  <string name="file_list_folders">фасцикле</string>
+  <string name="file_list_file">фајл</string>
+  <string name="file_list_files">фајлови</string>
   <string name="filedetails_select_file">Тапните на фајл ради приказа додатних информација.</string>
   <string name="filedetails_size">Величина:</string>
   <string name="filedetails_type">Врста:</string>
@@ -109,6 +114,11 @@
   <string name="sync_fail_content">Не могу да довршим синхронизацију %1$s</string>
   <string name="sync_fail_content_unauthorized">Неисправна лозинка за %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Постоје сукоби</string>
+  <string name="sync_conflicts_in_favourites_content">%1$d држи-синх фајлови нису синхронизовани</string>
+  <string name="sync_fail_in_favourites_ticker">Синхронизација није успела</string>
+  <string name="sync_fail_in_favourites_content">Садржај %1$d фајлова не може бити синхронизован (%2$d сукоба)</string>
+  <string name="sync_foreign_files_forgotten_ticker">Неки локални фајлови нису обрађени</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d фајлова из фасцикле %2$s није се могло копирати у</string>
   <string name="sync_foreign_files_forgotten_explanation">Од верзије 1.3.16, фајлови отпремљени са уређаја се копирају у локалну фасциклу %1$s да би се спречио губитак података када се исти фајл синхронизује са више налога.\n\nЗбог ове измене, сви фајлови отпремљени са претходним верзијама ове апликације се копирају у фасциклу %2$s. Међутим, грешка је онемогућила довршавање ове радње током синхронизације налога. Можете или оставити фајлове како јесу и уклонити линк до %3$s или преместити фајлове у фасциклу %1$s и задржати везу до %4$s.\n\nИспод су наведени локални фајлови и удаљени фајлови у %5$s са којима су повезани.</string>
   <string name="sync_current_folder_was_removed">Фасцикла %1$s више не постоји</string>
   <string name="foreign_files_move">Премести све</string>
@@ -138,7 +148,7 @@
   <string name="media_err_malformed">Медијски фајл није исправно кодиран</string>
   <string name="media_err_timeout">Време истекло у покушавању пуштања</string>
   <string name="media_err_invalid_progressive_playback">Медијски фајл се не може пустити</string>
-  <string name="media_err_unknown">Медијски фајл се не може пустити са фабричким плејером</string>
+  <string name="media_err_unknown">Медијски фајл се не може пустити са системским плејером</string>
   <string name="media_err_security_ex">Безбедносна грешка при покушају пуштања %1$s</string>
   <string name="media_err_io_ex">Улазна грешка при покушају пуштања %1$s</string>
   <string name="media_err_unexpected">Неочекивана грешка при покушају пуштања %1$s</string>
@@ -150,7 +160,6 @@
   <string name="auth_no_net_conn_title">Нема мрежне везе</string>
   <string name="auth_nossl_plain_ok_title">Безбедна веза није доступна.</string>
   <string name="auth_connection_established">Веза је успостављена</string>
-  <string name="auth_testing_connection">Тестирам везу...</string>
   <string name="auth_not_configured_title">Лоше подешавање сервера</string>
   <string name="auth_account_not_new">Налог са истим корисником и сервером већ постоји на уређају</string>
   <string name="auth_account_not_the_same">Унесени корисник се не поклапа са корисником овог налога</string>
@@ -235,6 +244,7 @@
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Отпремај слике само путем бежичне мреже</string>
   <string name="instant_video_upload_on_wifi">Отпремај видео само путем бежичне мреже</string>
+  <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Ажурирај сукоб</string>
   <string name="conflict_message">Удаљени фајл %s није синхронизован са локалним. Ако наставите, заменићете фајл на серверу.</string>
   <string name="conflict_keep_both">Задржи оба</string>
@@ -277,7 +287,7 @@
   <string name="log_send_no_mail_app">Нема начина за слање записника. Инсталирајте апликацију е-поште!</string>
   <string name="log_send_mail_subject">Записници %1$s Андроид апликације</string>
   <string name="log_progress_dialog_text">Учитавам податке...</string>
-  <string name="saml_authentication_required_text">Неопходна провера идентитета</string>
+  <string name="saml_authentication_required_text">Неопходна аутентификација</string>
   <string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
   <string name="actionbar_move">Премести</string>
   <string name="file_list_empty_moving">Овде нема ничега. Можете додати фасциклу!</string>

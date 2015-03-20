@@ -164,7 +164,6 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="auth_no_net_conn_title">Şəbəkə qoşulması yoxdur</string>
   <string name="auth_nossl_plain_ok_title">Təhlükəsiz qoşulma mümkün deyil.</string>
   <string name="auth_connection_established">Əlaqə quruldu</string>
-  <string name="auth_testing_connection">Qoşulma test edilir...</string>
   <string name="auth_not_configured_title">Yalnış qurulmuş server konfiqurasiyası</string>
   <string name="auth_account_not_new">Avadanlıqda eyni istifadəçi və server üçün artıq hesab mövcuddur</string>
   <string name="auth_account_not_the_same">Daxil edilən hesab bu hesabla üst-üstə düşmür</string>

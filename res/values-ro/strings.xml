@@ -157,7 +157,6 @@
   <string name="auth_no_net_conn_title">Nu exista conexiune</string>
   <string name="auth_nossl_plain_ok_title">Conexiune securizată indisponibilă</string>
   <string name="auth_connection_established">Conexiune stabilită</string>
-  <string name="auth_testing_connection">Se testează conexiunea...</string>
   <string name="auth_not_configured_title">Configurație serverului incorectă</string>
   <string name="auth_account_not_new">Un cont pentru același utilizator și server există deja în dispozitiv</string>
   <string name="auth_account_not_the_same">Utilizatorul introdus nu se potrivește cu utilizatorul acestui cont</string>

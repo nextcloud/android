@@ -160,7 +160,6 @@
   <string name="auth_no_net_conn_title">Ingen netværksforbindelse</string>
   <string name="auth_nossl_plain_ok_title">Sikker forbindelse ikke tilgængelig.</string>
   <string name="auth_connection_established">Forbindelse oprettet</string>
-  <string name="auth_testing_connection">Afprøver forbindelse ...</string>
   <string name="auth_not_configured_title">Misdannet server konfiguration</string>
   <string name="auth_account_not_new">En konto for den samme bruger og server eksisterer allerede på enheden</string>
   <string name="auth_account_not_the_same">Den indtastede bruger passer ikke til brugeren for denne konto</string>

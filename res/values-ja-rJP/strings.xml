@@ -161,7 +161,6 @@
   <string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
   <string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
   <string name="auth_connection_established">接続が確立しました</string>
-  <string name="auth_testing_connection">接続をテスト中...</string>
   <string name="auth_not_configured_title">サーバー設定が間違っています</string>
   <string name="auth_account_not_new">同じユーザーとサーバーのアカウントがデバイス上にすでに存在します</string>
   <string name="auth_account_not_the_same">入力されたユーザーはこのアカウントのユーザーと一致しません</string>

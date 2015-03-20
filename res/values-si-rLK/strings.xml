@@ -55,7 +55,6 @@
   <string name="auth_no_net_conn_title">ජාල සම්බන්ධතාවක් නොමැත</string>
   <string name="auth_nossl_plain_ok_title">ආරක්ෂිත සම්බන්ධතාවක් නොලැබුණි</string>
   <string name="auth_connection_established">සම්බන්ධතාවක් සාදන ලදී</string>
-  <string name="auth_testing_connection">සම්බන්ධතාව පරීක්ෂා කෙරේ</string>
   <string name="auth_not_configured_title">විකෘතිවු හැඩගැසුමක්</string>
   <string name="auth_unknown_error_title">නොදන්නා දෝෂයක් ඇතිවිය</string>
   <string name="auth_unknown_host_title">සේවාදායකයා සොයාගත නොහැක</string>

@@ -75,7 +75,6 @@
   <string name="auth_no_net_conn_title">Нема мрежна конекција</string>
   <string name="auth_nossl_plain_ok_title">Нема безбедна конекција.</string>
   <string name="auth_connection_established">Конекцијата е воспоставена</string>
-  <string name="auth_testing_connection">Ја тестирам врската...</string>
   <string name="auth_unknown_error_title">Се појави непознаа грешка!</string>
   <string name="auth_unknown_host_title">Не можев да го најдам хостот</string>
   <string name="auth_incorrect_path_title">Серверската инстанца не е пронајдена</string>

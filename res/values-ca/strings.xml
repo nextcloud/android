@@ -156,7 +156,6 @@
   <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
   <string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
   <string name="auth_connection_established">S\'ha establert la connexió</string>
-  <string name="auth_testing_connection">S\'està comprovant la connexió...</string>
   <string name="auth_not_configured_title">La configuració del servidor està malformada</string>
   <string name="auth_account_not_new">Ja hi ha un compte al dispositiu pel mateix usuari i mateix servidor</string>
   <string name="auth_account_not_the_same">L\'usuari introduït no coincideix amb l\'usuari d\'aquest compte</string>

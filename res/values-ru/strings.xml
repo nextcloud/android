@@ -161,7 +161,6 @@
   <string name="auth_no_net_conn_title">Нет подключения к сети</string>
   <string name="auth_nossl_plain_ok_title">Защищённое соединение недоступно.</string>
   <string name="auth_connection_established">Соединение установлено</string>
-  <string name="auth_testing_connection">Тестирование соединения...</string>
   <string name="auth_not_configured_title">Конфигурация сервера задана неверно</string>
   <string name="auth_account_not_new">Учётная запись такого пользователя и сервера уже существует на устройстве</string>
   <string name="auth_account_not_the_same">Введённый пользователь не соответствует этой учётной записи</string>

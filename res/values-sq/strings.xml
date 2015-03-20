@@ -67,7 +67,6 @@
   <string name="pincode_stored">PIN-i u ruajt</string>
   <string name="auth_no_net_conn_title">Nuk ka lidhje ne Rrjet</string>
   <string name="auth_connection_established">Lidhja u vendos</string>
-  <string name="auth_testing_connection">Duke testuar lidhjen</string>
   <string name="auth_secure_connection">Lidhja e Sigurt vendos</string>
   <string name="common_rename">Riemërto</string>
   <string name="common_remove">Hiq</string>
