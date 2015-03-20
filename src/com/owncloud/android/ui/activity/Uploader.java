@@ -64,7 +64,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -84,13 +83,13 @@ public class Uploader extends FileActivity
 
     private static final String TAG = Uploader.class.getSimpleName();
 
-    private Account mAccount;
+    //private Account mAccount;
     private AccountManager mAccountManager;
     private Stack<String> mParents;
     private ArrayList<Parcelable> mStreamsToUpload;
     private boolean mCreateDir;
     private String mUploadPath;
-    private FileDataStorageManager mStorageManager;
+    //private FileDataStorageManager mStorageManager;
     private OCFile mFile;
     private boolean mAccountSelected = false;
     
@@ -108,22 +107,52 @@ public class Uploader extends FileActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        prepareStreamsToUpload();
+
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
             mParents = new Stack<String>();
         } else {
             mParents = (Stack<String>) savedInstanceState.getSerializable(KEY_PARENTS);
-            mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
+//            mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
             mFile = savedInstanceState.getParcelable(KEY_FILE);
-            mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+//            mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
             mAccountSelected = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTED);
         }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
 
-        if (prepareStreamsToUpload()) {
+
+//        if (somethingToUpload()) {
+//            mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
+//            Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType());
+//            if (accounts.length == 0) {
+//                Log_OC.i(TAG, "No ownCloud account is available");
+//                showDialog(DIALOG_NO_ACCOUNT);
+//            } else if (accounts.length > 1 && !mAccountSelected) {
+//                Log_OC.i(TAG, "More than one ownCloud is available");
+//                showDialog(DIALOG_MULTIPLE_ACCOUNT);
+//            } else {
+//                if (savedInstanceState == null) {
+//                    mAccount = accounts[0];
+//                    mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+//                }
+//                initTargetFolder();
+//                populateDirectoryList();
+//
+//            }
+//
+//        } else {
+//            showDialog(DIALOG_NO_STREAM);
+//        }
+
+    }
+
+    @Override
+    protected void setAccount(Account account, boolean savedAccount) {
+        if (somethingToUpload()) {
             mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
             Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType());
             if (accounts.length == 0) {
@@ -133,19 +162,47 @@ public class Uploader extends FileActivity
                 Log_OC.i(TAG, "More than one ownCloud is available");
                 showDialog(DIALOG_MULTIPLE_ACCOUNT);
             } else {
-                if (savedInstanceState == null) {
-                    mAccount = accounts[0];
-                    mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+                if (!savedAccount) {
+                    //mAccount = accounts[0];
+                    //mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+                    setAccount(accounts[0]);
                 }
-                initTargetFolder();
-                populateDirectoryList();
-                
+                // Part in onAccountSet
+//                initTargetFolder();
+//                populateDirectoryList();
+
             }
-            
+
         } else {
             showDialog(DIALOG_NO_STREAM);
         }
 
+        super.setAccount(account, savedAccount);
+
+//        Account oldAccount = mAccount;
+//        boolean validAccount = (account != null &&
+//                AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account.name));
+//        if (validAccount) {
+//            mAccount = account;
+//            mAccountWasSet = true;
+//            mAccountWasRestored = (savedAccount || mAccount.equals(oldAccount));
+//
+//        } else {
+//            swapToDefaultAccount();
+//        }
+    }
+
+    @Override
+    protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(mAccountWasRestored);
+        initTargetFolder();
+        populateDirectoryList();
+//        if (getAccount() != null) {
+//            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
+//
+//        } else {
+//            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
+//        }
     }
 
     @Override
@@ -153,7 +210,7 @@ public class Uploader extends FileActivity
          Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putSerializable(KEY_PARENTS, mParents);
-        outState.putParcelable(KEY_ACCOUNT, mAccount);
+        //outState.putParcelable(KEY_ACCOUNT, mAccount);
         outState.putParcelable(KEY_FILE, mFile);
         outState.putBoolean(KEY_ACCOUNT_SELECTED, mAccountSelected);
 
@@ -217,10 +274,11 @@ public class Uploader extends FileActivity
             builder.setItems(ac, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    mAccount = mAccountManager.getAccountsByType(MainApp.getAccountType())[which];
-                    mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
-                    initTargetFolder();
-                    populateDirectoryList();
+                    setAccount(mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
+                    onAccountSet(mAccountWasRestored);
+//                    mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+//                    initTargetFolder();
+//                    populateDirectoryList();
                     dialog.dismiss();
                     mAccountSelected = true;
                 }
@@ -284,7 +342,7 @@ public class Uploader extends FileActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
         Log_OC.d(TAG, "on item click");
-        Vector<OCFile> tmpfiles = mStorageManager.getFolderContent(mFile);
+        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile);
         if (tmpfiles.size() <= 0) return;
         // filter on dirtype
         Vector<OCFile> files = new Vector<OCFile>();
@@ -339,7 +397,7 @@ public class Uploader extends FileActivity
                 // there is no need for checking for is there more then one
                 // account at this point
                 // since account setup can set only one account at time
-                mAccount = accounts[0];
+                setAccount(accounts[0]);
                 populateDirectoryList();
             }
         }
@@ -366,9 +424,9 @@ public class Uploader extends FileActivity
         
         Log_OC.d(TAG, "Populating view with content of : " + full_path);
 
-        mFile = mStorageManager.getFileByPath(full_path);
+        mFile = getStorageManager().getFileByPath(full_path);
         if (mFile != null) {
-            Vector<OCFile> files = mStorageManager.getFolderContent(mFile);
+            Vector<OCFile> files = getStorageManager().getFolderContent(mFile);
             List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
             for (OCFile f : files) {
                 HashMap<String, Object> h = new HashMap<String, Object>();
@@ -402,13 +460,16 @@ public class Uploader extends FileActivity
         return full_path;
     }
 
-    private boolean prepareStreamsToUpload() {
+    private void prepareStreamsToUpload() {
         if (getIntent().getAction().equals(Intent.ACTION_SEND)) {
             mStreamsToUpload = new ArrayList<Parcelable>();
             mStreamsToUpload.add(getIntent().getParcelableExtra(Intent.EXTRA_STREAM));
         } else if (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
             mStreamsToUpload = getIntent().getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         }
+    }
+
+    private boolean somethingToUpload() {
         return (mStreamsToUpload != null && mStreamsToUpload.get(0) != null);
     }
 
@@ -507,7 +568,7 @@ public class Uploader extends FileActivity
             intent.putExtra(FileUploader.KEY_LOCAL_FILE, local.toArray(new String[local.size()]));
             intent.putExtra(FileUploader.KEY_REMOTE_FILE,
                     remote.toArray(new String[remote.size()]));
-            intent.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
+            intent.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
             startService(intent);
 
             //Save the path to shared preferences
@@ -570,7 +631,7 @@ public class Uploader extends FileActivity
      *  The target account has to be chosen before this method is called. 
      */
     private void initTargetFolder() {
-        if (mStorageManager == null) {
+        if (getStorageManager() == null) {
             throw new IllegalStateException("Do not call this method before " +
                     "initializing mStorageManager");
         }
@@ -589,7 +650,7 @@ public class Uploader extends FileActivity
                 mParents.add(dir);
         }
         //Make sure that path still exists, if it doesn't pop the stack and try the previous path
-            while(!mStorageManager.fileExists(generatePath(mParents)) && mParents.size() > 1){
+            while(!getStorageManager().fileExists(generatePath(mParents)) && mParents.size() > 1){
                 mParents.pop();
             }
     }
