@@ -160,6 +160,7 @@
   <string name="auth_no_net_conn_title">Ingen netværksforbindelse</string>
   <string name="auth_nossl_plain_ok_title">Sikker forbindelse ikke tilgængelig.</string>
   <string name="auth_connection_established">Forbindelse oprettet</string>
+  <string name="auth_testing_connection">Tester forbindelsen</string>
   <string name="auth_not_configured_title">Misdannet server konfiguration</string>
   <string name="auth_account_not_new">En konto for den samme bruger og server eksisterer allerede på enheden</string>
   <string name="auth_account_not_the_same">Den indtastede bruger passer ikke til brugeren for denne konto</string>
@@ -300,4 +301,6 @@
   <string name="prefs_instant_video_upload_path_title">Sti til videoupload</string>
   <string name="download_folder_failed_content">Download af %1$s mappe kunne ikke fuldføres</string>
   <string name="subject_token">%1$s delt \"%2$s\" med dig</string>
+  <string name="auth_refresh_button">Genopfrisk forbindelsen</string>
+  <string name="auth_host_address">Serveradresse</string>
 </resources>
