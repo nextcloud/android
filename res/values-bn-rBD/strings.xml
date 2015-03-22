@@ -267,4 +267,5 @@
   <string name="folder_picker_choose_button_text">বেছে নিন</string>
   <string name="move_file_not_found">সরাতে ব্যার্থ হলো। ফাইলটি রয়েছে কিনা দেখুন।</string>
   <string name="prefs_category_security">নিরাপত্তা</string>
+  <string name="auth_host_address">সার্ভার ঠিকানা</string>
 </resources>

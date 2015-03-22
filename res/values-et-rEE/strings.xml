@@ -297,4 +297,5 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="forbidden_permissions_move">selle faili liigutamiseks</string>
   <string name="prefs_category_instant_uploading">Kohesed üleslaadimised</string>
   <string name="prefs_category_security">Turvalisus</string>
+  <string name="auth_host_address">Serveri aadress</string>
 </resources>

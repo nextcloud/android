@@ -31,4 +31,5 @@
   <string name="saml_authentication_wrong_pass">Pogrešna lozinka</string>
   <string name="folder_picker_choose_button_text">Izaberite</string>
   <string name="prefs_category_security">Sigurnost</string>
+  <string name="auth_host_address">Adresa servera</string>
 </resources>

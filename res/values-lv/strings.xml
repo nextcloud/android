@@ -154,4 +154,5 @@
   <string name="saml_authentication_wrong_pass">Nepareiza parole</string>
   <string name="folder_picker_choose_button_text">Izvēlieties</string>
   <string name="prefs_category_security">Drošība</string>
+  <string name="auth_host_address">Servera adrese</string>
 </resources>

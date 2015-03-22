@@ -76,4 +76,5 @@
   <string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
   <string name="folder_picker_choose_button_text">Zgjidh</string>
   <string name="prefs_category_security">Siguria</string>
+  <string name="auth_host_address">Adresa e serverit</string>
 </resources>

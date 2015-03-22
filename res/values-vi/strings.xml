@@ -223,4 +223,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Tài khoản</string>
   <string name="folder_picker_choose_button_text">Chọn</string>
+  <string name="auth_host_address">Địa chỉ máy chủ</string>
 </resources>

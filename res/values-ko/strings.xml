@@ -301,4 +301,5 @@
   <string name="prefs_instant_video_upload_path_title">동영상 업로드 경로</string>
   <string name="download_folder_failed_content">%1$s 폴더를 다운로드할 수 없습니다</string>
   <string name="subject_token">%1$s에서 \"%2$s\"를 당신과 공유하였습니다.</string>
+  <string name="auth_host_address">서버 주소</string>
 </resources>
