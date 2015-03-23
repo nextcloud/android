@@ -80,4 +80,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">ගිණුම්</string>
   <string name="folder_picker_choose_button_text">තෝරන්න</string>
+  <string name="auth_host_address">සේවාදායකයේ ලිපිනය</string>
 </resources>

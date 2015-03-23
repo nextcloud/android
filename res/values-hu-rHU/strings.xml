@@ -252,4 +252,5 @@
   <string name="actionbar_move">Mozgatás</string>
   <string name="folder_picker_choose_button_text">Válasszon</string>
   <string name="prefs_category_security">Biztonság</string>
+  <string name="auth_host_address">A kiszolgáló címe</string>
 </resources>

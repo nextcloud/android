@@ -160,6 +160,7 @@
   <string name="auth_no_net_conn_title">Ağ bağlantısı yok</string>
   <string name="auth_nossl_plain_ok_title">Güvenli bağlantı mevcut değil.</string>
   <string name="auth_connection_established">Bağlantı kuruldu</string>
+  <string name="auth_testing_connection">Bağlantı sınanıyor</string>
   <string name="auth_not_configured_title">Hatalı sunucu yapılandırması</string>
   <string name="auth_account_not_new">Cihazda aynı kullanıcı adı ve sunucu için bir hesap zaten mevcut</string>
   <string name="auth_account_not_the_same">Girilen kullanıcı bu hesabın kullanıcısı ile eşleşmiyor</string>
@@ -302,4 +303,6 @@
   <string name="prefs_instant_video_upload_path_title">Video Yükleme Yolu</string>
   <string name="download_folder_failed_content">%1$s klasörün indirilmesi tamamlanamadı</string>
   <string name="subject_token">%1$s sizinle \"%2$s\" paylaşımını yaptı</string>
+  <string name="auth_refresh_button">Bağlantıyı yenile</string>
+  <string name="auth_host_address">Sunucu adresi</string>
 </resources>

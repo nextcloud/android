@@ -249,4 +249,5 @@
   <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
   <string name="folder_picker_choose_button_text">Pasirinkite</string>
   <string name="prefs_category_security">Saugumas</string>
+  <string name="auth_host_address">Serverio adresas</string>
 </resources>

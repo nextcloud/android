@@ -268,4 +268,5 @@
   <string name="prefs_add_account">הוספת חשבון</string>
   <string name="folder_picker_choose_button_text">בחירה</string>
   <string name="prefs_category_security">אבטחה</string>
+  <string name="auth_host_address">כתובת שרת</string>
 </resources>

@@ -275,4 +275,5 @@
   <string name="actionbar_move">Moure</string>
   <string name="folder_picker_choose_button_text">Escull</string>
   <string name="prefs_category_security">Seguretat</string>
+  <string name="auth_host_address">Adreça del servidor</string>
 </resources>

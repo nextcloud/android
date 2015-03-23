@@ -298,4 +298,5 @@
   <string name="prefs_category_security">Bezpieczeństwo</string>
   <string name="prefs_instant_video_upload_path_title">Katalog wysyłania dla wideo</string>
   <string name="download_folder_failed_content">Pobieranie %1$s katalogu nie może zostać ukończone</string>
+  <string name="auth_host_address">Adres Serwera</string>
 </resources>

@@ -303,4 +303,5 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="prefs_instant_video_upload_path_title">Video ünvanını yüklə</string>
   <string name="download_folder_failed_content">Qovluğun endirilməsinin %1$s hissəsi tamamlana bilməz </string>
   <string name="subject_token">%1$s paylaşdı \"%2$s\" sizinlə</string>
+  <string name="auth_host_address">Server ünvanı</string>
 </resources>

@@ -279,4 +279,6 @@
   <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
   <string name="prefs_category_security">Tietoturva</string>
   <string name="subject_token">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
+  <string name="auth_refresh_button">Päivitä yhteys</string>
+  <string name="auth_host_address">Palvelimen osoite</string>
 </resources>

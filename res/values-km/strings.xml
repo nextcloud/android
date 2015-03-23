@@ -109,4 +109,5 @@
   <string name="saml_authentication_wrong_pass">ខុស​ពាក្យ​សម្ងាត់</string>
   <string name="folder_picker_choose_button_text">ជ្រើស</string>
   <string name="prefs_category_security">សុវត្ថិភាព</string>
+  <string name="auth_host_address">អាសយដ្ឋាន​ម៉ាស៊ីន​បម្រើ</string>
 </resources>

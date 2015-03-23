@@ -302,4 +302,5 @@
   <string name="prefs_instant_video_upload_path_title">Διαδρομή Μεταφόρτωσης Βίντεο</string>
   <string name="download_folder_failed_content">Η λήψη του φακέλου %1$s δεν ολοκληρώθηκε με επιτυχία.</string>
   <string name="subject_token">%1$s μοιράστηκε \"%2$s\" μαζί σας</string>
+  <string name="auth_host_address">Διεύθυνση διακομιστή</string>
 </resources>
