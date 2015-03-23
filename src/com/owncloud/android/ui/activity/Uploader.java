@@ -91,7 +91,7 @@ public class Uploader extends FileActivity
     private String mUploadPath;
     //private FileDataStorageManager mStorageManager;
     private OCFile mFile;
-    private boolean mAccountSelected = false;
+    private boolean mAccountSelected;
     
     private final static int DIALOG_NO_ACCOUNT = 0;
     private final static int DIALOG_WAITING = 1;
@@ -109,10 +109,9 @@ public class Uploader extends FileActivity
     protected void onCreate(Bundle savedInstanceState) {
         prepareStreamsToUpload();
 
-        super.onCreate(savedInstanceState);
-
         if (savedInstanceState == null) {
             mParents = new Stack<String>();
+            mAccountSelected = false;
         } else {
             mParents = (Stack<String>) savedInstanceState.getSerializable(KEY_PARENTS);
 //            mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
@@ -120,6 +119,7 @@ public class Uploader extends FileActivity
 //            mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
             mAccountSelected = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTED);
         }
+        super.onCreate(savedInstanceState);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
@@ -361,7 +361,8 @@ public class Uploader extends FileActivity
         // click on button
         switch (v.getId()) {
         case R.id.uploader_choose_folder:
-            mUploadPath = "";   // first element in mParents is root dir, represented by ""; init mUploadPath with "/" results in a "//" prefix
+            mUploadPath = "";   // first element in mParents is root dir, represented by "";
+                                // init mUploadPath with "/" results in a "//" prefix
             for (String p : mParents)
                 mUploadPath += p + OCFile.PATH_SEPARATOR;
             Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
