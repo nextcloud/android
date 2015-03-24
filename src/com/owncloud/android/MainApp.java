@@ -22,6 +22,8 @@ package com.owncloud.android;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -119,6 +121,22 @@ public class MainApp extends Application {
 
     // user agent
     public static String getUserAgent() {
-        return getAppContext().getResources().getString(R.string.user_agent);
+        String appString = getAppContext().getResources().getString(R.string.user_agent);
+        String packageName = getAppContext().getPackageName();
+        PackageInfo pInfo = null;
+        try {
+            pInfo = getAppContext().getPackageManager().getPackageInfo(packageName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+
+        }
+        String version = "";
+        if (pInfo != null) {
+            version = pInfo.versionName;
+        }
+
+        // Mozilla/5.0 (Android) ownCloud /1.7.0
+        String userAgent = "Mozilla/5.0 "+ appString + "/" + version;
+
+        return userAgent;
     }
 }
