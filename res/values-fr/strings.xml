@@ -165,6 +165,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_no_net_conn_title">Pas de connexion réseau</string>
   <string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
   <string name="auth_connection_established">Connexion établie</string>
+  <string name="auth_testing_connection">Test de connexion</string>
   <string name="auth_not_configured_title">Configuration du serveur erronée</string>
   <string name="auth_account_not_new">Un compte pour le même utilisateur et serveur existe déjà sur cet appareil</string>
   <string name="auth_account_not_the_same">L\'utilisateur entré ne correspond pas à l\'utilisateur de ce compte</string>
@@ -306,5 +307,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="prefs_instant_video_upload_path_title">Répertoire de téléversement des vidéos</string>
   <string name="download_folder_failed_content">Le téléchargement du dossier %1$s n\'a pas pu être achevé</string>
   <string name="subject_token">%1$s a partagé \"%2$s\" avec vous</string>
+  <string name="auth_refresh_button">Actualiser la connexion</string>
   <string name="auth_host_address">Adresse du serveur</string>
 </resources>

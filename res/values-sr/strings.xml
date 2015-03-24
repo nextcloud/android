@@ -160,6 +160,7 @@
   <string name="auth_no_net_conn_title">Нема мрежне везе</string>
   <string name="auth_nossl_plain_ok_title">Безбедна веза није доступна.</string>
   <string name="auth_connection_established">Веза је успостављена</string>
+  <string name="auth_testing_connection">Провера везе</string>
   <string name="auth_not_configured_title">Лоше подешавање сервера</string>
   <string name="auth_account_not_new">Налог са истим корисником и сервером већ постоји на уређају</string>
   <string name="auth_account_not_the_same">Унесени корисник се не поклапа са корисником овог налога</string>
@@ -302,5 +303,6 @@
   <string name="prefs_instant_video_upload_path_title">Путања отпремања видеа</string>
   <string name="download_folder_failed_content">Преузимање фасцикле %1$s не може бити довршено</string>
   <string name="subject_token">%1$s подели „%2$s“ са вама</string>
+  <string name="auth_refresh_button">Освежавање везе</string>
   <string name="auth_host_address">Адреса сервера</string>
 </resources>
