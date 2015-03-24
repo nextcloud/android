@@ -79,7 +79,7 @@ public class RemoveFileOperation extends SyncOperation {
         boolean localRemovalFailed = false;
         if (!mOnlyLocalCopy) {
             RemoveRemoteFileOperation operation = new RemoveRemoteFileOperation(mRemotePath);
-            result = operation.execute(client, MainApp.getUserAgent());
+            result = operation.execute(client);
             if (result.isSuccess() || result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 localRemovalFailed = !(getStorageManager().removeFile(mFileToRemove, true, true));
             }

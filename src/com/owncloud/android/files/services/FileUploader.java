@@ -574,7 +574,7 @@ public class FileUploader extends Service
                                 new FileDataStorageManager(mLastAccount, getContentResolver());
                         OwnCloudAccount ocAccount = new OwnCloudAccount(mLastAccount, this);
                         mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                                getClientFor(ocAccount, this, MainApp.getUserAgent());
+                                getClientFor(ocAccount, this);
                     }
 
                     /// check the existence of the parent folder for the file to upload
@@ -587,8 +587,7 @@ public class FileUploader extends Service
                     if (grantResult.isSuccess()) {
                         OCFile parent = mStorageManager.getFileByPath(remoteParentPath);
                         mCurrentUpload.getFile().setParentId(parent.getFileId());
-                        uploadResult = mCurrentUpload.execute(mUploadClient,
-                                MainApp.getUserAgent());
+                        uploadResult = mCurrentUpload.execute(mUploadClient);
                         if (uploadResult.isSuccess()) {
                             saveUploadedFile();
                         }
@@ -647,7 +646,7 @@ public class FileUploader extends Service
      */
     private RemoteOperationResult grantFolderExistence(String pathToGrant) {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, this, false);
-        RemoteOperationResult result = operation.execute(mUploadClient, MainApp.getUserAgent());
+        RemoteOperationResult result = operation.execute(mUploadClient);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND &&
                 mCurrentUpload.isRemoteFolderToBeCreated()) {
             SyncOperation syncOp = new CreateFolderOperation( pathToGrant, true);
@@ -708,7 +707,7 @@ public class FileUploader extends Service
         // in theory, should return the same we already have
         ReadRemoteFileOperation operation =
                 new ReadRemoteFileOperation(mCurrentUpload.getRemotePath());
-        RemoteOperationResult result = operation.execute(mUploadClient, MainApp.getUserAgent());
+        RemoteOperationResult result = operation.execute(mUploadClient);
         if (result.isSuccess()) {
             updateOCFile(file, (RemoteFile) result.getData().get(0));
             file.setLastSyncDateForProperties(syncDate);

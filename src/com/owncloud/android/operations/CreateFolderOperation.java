@@ -61,7 +61,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     protected RemoteOperationResult run(OwnCloudClient client) {
         CreateRemoteFolderOperation operation = new CreateRemoteFolderOperation(mRemotePath,
                 mCreateFullPath);
-        RemoteOperationResult result =  operation.execute(client, MainApp.getUserAgent());
+        RemoteOperationResult result =  operation.execute(client);
         
         if (result.isSuccess()) {
             saveFolderInDB();

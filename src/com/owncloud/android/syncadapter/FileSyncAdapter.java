@@ -228,7 +228,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * locally saved. 
      * 
      * See {@link #onPerformSync(Account, Bundle, String, ContentProviderClient, SyncResult)}
-     * and {@link #synchronizeFolder(String, long)}.
+     * and {@link #synchronizeFolder(OCFile)}.
      */
     @Override
     public void onSyncCanceled() {
@@ -243,7 +243,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      */
     private void updateOCVersion() {
         UpdateOCVersionOperation update = new UpdateOCVersionOperation(getAccount(), getContext());
-        RemoteOperationResult result = update.execute(getClient(), MainApp.getUserAgent());
+        RemoteOperationResult result = update.execute(getClient());
         if (!result.isSuccess()) {
             mLastFailedResult = result; 
         } else {
@@ -288,7 +288,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                                                                                    getAccount(),
                                                                                    getContext()
                                                                                   );
-        RemoteOperationResult result = synchFolderOp.execute(getClient(), MainApp.getUserAgent());
+        RemoteOperationResult result = synchFolderOp.execute(getClient());
         
         
         // synchronized folder -> notice to UI - ALWAYS, although !result.isSuccess

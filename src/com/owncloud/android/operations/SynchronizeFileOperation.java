@@ -197,7 +197,7 @@ public class SynchronizeFileOperation extends SyncOperation {
 
             if (mServerFile == null) {
                 ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mRemotePath);
-                result = operation.execute(client, MainApp.getUserAgent());
+                result = operation.execute(client);
                 if (result.isSuccess()){
                     mServerFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
                     mServerFile.setLastSyncDateForProperties(System.currentTimeMillis());

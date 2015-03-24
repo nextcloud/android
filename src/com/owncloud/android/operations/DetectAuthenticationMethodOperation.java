@@ -89,12 +89,12 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         client.setFollowRedirects(false);
         
         // try to access the root folder, following redirections but not SAML SSO redirections
-        result = operation.execute(client, MainApp.getUserAgent());
+        result = operation.execute(client);
         String redirectedLocation = result.getRedirectedLocation(); 
         while (redirectedLocation != null && redirectedLocation.length() > 0 && 
                 !result.isIdPRedirection()) {
             client.setBaseUri(Uri.parse(result.getRedirectedLocation()));
-            result = operation.execute(client, MainApp.getUserAgent());
+            result = operation.execute(client);
             redirectedLocation = result.getRedirectedLocation();
         } 
 

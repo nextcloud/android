@@ -64,7 +64,7 @@ public class UnshareLinkOperation extends SyncOperation {
         if (share != null) {
             RemoveRemoteShareOperation operation =
                     new RemoveRemoteShareOperation((int) share.getIdRemoteShared());
-            result = operation.execute(client, MainApp.getUserAgent());
+            result = operation.execute(client);
 
             if (result.isSuccess() || result.getCode() == ResultCode.SHARE_NOT_FOUND) {
                 Log_OC.d(TAG, "Share id = " + share.getIdRemoteShared() + " deleted");
@@ -94,7 +94,7 @@ public class UnshareLinkOperation extends SyncOperation {
     private boolean existsFile(OwnCloudClient client, String remotePath){
         ExistenceCheckRemoteOperation existsOperation =
                 new ExistenceCheckRemoteOperation(remotePath, mContext, false);
-        RemoteOperationResult result = existsOperation.execute(client, MainApp.getUserAgent());
+        RemoteOperationResult result = existsOperation.execute(client);
         return result.isSuccess();
     }
 

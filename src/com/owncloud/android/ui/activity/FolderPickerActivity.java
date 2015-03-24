@@ -220,7 +220,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                                                         getAccount(), 
                                                                         getApplicationContext()
                                                                       );
-        synchFolderOp.execute(getAccount(), this, MainApp.getUserAgent(), null, null);
+        synchFolderOp.execute(getAccount(), this, null, null);
         
         setSupportProgressBarIndeterminateVisibility(true);
 

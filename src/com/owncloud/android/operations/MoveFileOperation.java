@@ -90,7 +90,7 @@ public class MoveFileOperation extends SyncOperation {
                 targetPath, 
                 false
         );
-        result = operation.execute(client, MainApp.getUserAgent());
+        result = operation.execute(client);
         
         /// 3. local move
         if (result.isSuccess()) {

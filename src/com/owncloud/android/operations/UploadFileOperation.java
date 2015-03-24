@@ -322,7 +322,7 @@ public class UploadFileOperation extends RemoteOperation {
                 mUploadOperation.addDatatransferProgressListener(listener.next());
             }
             if (!mCancellationRequested.get()) {
-                result = mUploadOperation.execute(client, MainApp.getUserAgent());
+                result = mUploadOperation.execute(client);
 
                 /// move local temporal file or original file to its corresponding
                 // location in the ownCloud local folder
@@ -459,7 +459,7 @@ public class UploadFileOperation extends RemoteOperation {
     private boolean existsFile(OwnCloudClient client, String remotePath){
         ExistenceCheckRemoteOperation existsOperation =
                 new ExistenceCheckRemoteOperation(remotePath, mContext, false);
-        RemoteOperationResult result = existsOperation.execute(client, MainApp.getUserAgent());
+        RemoteOperationResult result = existsOperation.execute(client);
         return result.isSuccess();
     }
     

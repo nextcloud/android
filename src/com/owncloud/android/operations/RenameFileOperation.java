@@ -99,7 +99,7 @@ public class RenameFileOperation extends SyncOperation {
             RenameRemoteFileOperation operation = new RenameRemoteFileOperation(mFile.getFileName(),
                     mFile.getRemotePath(),
                     mNewName, mFile.isFolder());
-            result = operation.execute(client, MainApp.getUserAgent());
+            result = operation.execute(client);
 
             if (result.isSuccess()) {
                 if (mFile.isFolder()) {

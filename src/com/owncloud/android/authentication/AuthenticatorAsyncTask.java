@@ -61,8 +61,7 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
 
             // Client
             Uri uri = Uri.parse(url);
-            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(uri, mContext, true,
-                    MainApp.getUserAgent());
+            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(uri, mContext, true);
 
             client.setCredentials(credentials);
 
@@ -72,7 +71,7 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
                     mContext,
                     SUCCESS_IF_ABSENT
             );
-            result = operation.execute(client, MainApp.getUserAgent());
+            result = operation.execute(client);
 
         } else {
             result = new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);

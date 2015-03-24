@@ -100,12 +100,12 @@ public class CreateShareOperation extends SyncOperation {
         // Check if the share link already exists
         operation = new GetRemoteSharesForFileOperation(mPath, false, false);
         RemoteOperationResult result =
-                ((GetRemoteSharesForFileOperation)operation).execute(client, MainApp.getUserAgent());
+                ((GetRemoteSharesForFileOperation)operation).execute(client);
 
         if (!result.isSuccess() || result.getData().size() <= 0) {
             operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload,
                     mPassword, mPermissions);
-            result = ((CreateRemoteShareOperation)operation).execute(client, MainApp.getUserAgent());
+            result = ((CreateRemoteShareOperation)operation).execute(client);
         }
         
         if (result.isSuccess()) {

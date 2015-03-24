@@ -61,7 +61,7 @@ public class GetSharesForFileOperation extends SyncOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
         GetRemoteSharesForFileOperation operation = new GetRemoteSharesForFileOperation(mPath,
                 mReshares, mSubfiles);
-        RemoteOperationResult result = operation.execute(client, MainApp.getUserAgent());
+        RemoteOperationResult result = operation.execute(client);
 
         if (result.isSuccess()) {
 

@@ -228,7 +228,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private void updateOCVersion(OwnCloudClient client) {
         UpdateOCVersionOperation update = new UpdateOCVersionOperation(mAccount, mContext);
-        RemoteOperationResult result = update.execute(client, MainApp.getUserAgent());
+        RemoteOperationResult result = update.execute(client);
         if (result.isSuccess()) {
             mIsShareSupported = update.getOCVersion().isSharedSupported();
         }
@@ -245,7 +245,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         
         // remote request 
         ReadRemoteFileOperation operation = new ReadRemoteFileOperation(remotePath);
-        result = operation.execute(client, MainApp.getUserAgent());
+        result = operation.execute(client);
         if (result.isSuccess()){
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
@@ -281,7 +281,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
         ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(remotePath);
-        RemoteOperationResult result = operation.execute(client, MainApp.getUserAgent());
+        RemoteOperationResult result = operation.execute(client);
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
         
         if (result.isSuccess()) {
@@ -549,7 +549,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         // remote request 
         GetRemoteSharesForFileOperation operation = 
                 new GetRemoteSharesForFileOperation(mLocalFolder.getRemotePath(), false, true);
-        result = operation.execute(client, MainApp.getUserAgent());
+        result = operation.execute(client);
         
         if (result.isSuccess()) {
             // update local database

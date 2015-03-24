@@ -172,8 +172,7 @@ public class ThumbnailsCacheManager {
                     OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount,
                             MainApp.getAppContext());
                     mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                            getClientFor(ocAccount, MainApp.getAppContext(),
-                                    MainApp.getUserAgent());
+                            getClientFor(ocAccount, MainApp.getAppContext());
                 }
 
                 mFile = params[0];

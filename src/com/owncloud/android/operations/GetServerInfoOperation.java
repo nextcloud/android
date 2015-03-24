@@ -79,7 +79,7 @@ public class GetServerInfoOperation extends RemoteOperation {
 	    
 	    // first: check the status of the server (including its version)
 	    GetRemoteStatusOperation getStatus = new GetRemoteStatusOperation(mContext);
-	    RemoteOperationResult result = getStatus.execute(client, MainApp.getUserAgent());
+	    RemoteOperationResult result = getStatus.execute(client);
 	    
         if (result.isSuccess()) {
             // second: get authentication method required by the server
@@ -107,7 +107,7 @@ public class GetServerInfoOperation extends RemoteOperation {
         Log_OC.d(TAG, "Trying empty authorization to detect authentication method");
         DetectAuthenticationMethodOperation operation = 
                 new DetectAuthenticationMethodOperation(mContext);
-        return operation.execute(client, MainApp.getUserAgent());
+        return operation.execute(client);
     }
     
 

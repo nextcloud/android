@@ -441,7 +441,7 @@ public class OperationsService extends Service {
                             OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mAccount,
                                     mService);
                             mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                                    getClientFor(ocAccount, mService, MainApp.getUserAgent());
+                                    getClientFor(ocAccount, mService);
                             mStorageManager = new FileDataStorageManager(
                                     mLastTarget.mAccount, 
                                     mService.getContentResolver()
@@ -459,7 +459,7 @@ public class OperationsService extends Service {
                             OwnCloudAccount ocAccount = new OwnCloudAccount(
                                     mLastTarget.mServerUrl, credentials);
                             mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                                    getClientFor(ocAccount, mService, MainApp.getUserAgent());
+                                    getClientFor(ocAccount, mService);
                             mStorageManager = null;
                         }
                     }
@@ -469,7 +469,7 @@ public class OperationsService extends Service {
                         result = ((SyncOperation)mCurrentOperation).execute(mOwnCloudClient,
                                 mStorageManager);
                     } else {
-                        result = mCurrentOperation.execute(mOwnCloudClient, MainApp.getUserAgent());
+                        result = mCurrentOperation.execute(mOwnCloudClient);
                     }
                     
                 } catch (AccountsException e) {

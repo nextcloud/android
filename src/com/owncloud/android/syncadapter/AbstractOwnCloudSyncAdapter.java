@@ -108,7 +108,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         AccountUtils.constructFullURLForAccount(getContext(), account);
         OwnCloudAccount ocAccount = new OwnCloudAccount(account, getContext());
         mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                getClientFor(ocAccount, getContext(), MainApp.getUserAgent());
+                getClientFor(ocAccount, getContext());
     }
     
     protected OwnCloudClient getClient() {

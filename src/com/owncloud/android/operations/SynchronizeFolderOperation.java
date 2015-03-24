@@ -189,7 +189,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         
         // remote request
         ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mRemotePath);
-        result = operation.execute(client, MainApp.getUserAgent());
+        result = operation.execute(client);
         if (result.isSuccess()){
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
@@ -228,7 +228,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
         
         ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(mRemotePath);
-        RemoteOperationResult result = operation.execute(client, MainApp.getUserAgent());
+        RemoteOperationResult result = operation.execute(client);
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + mRemotePath);
 
         if (result.isSuccess()) {

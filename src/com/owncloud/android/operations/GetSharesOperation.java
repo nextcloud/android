@@ -43,7 +43,7 @@ public class GetSharesOperation extends SyncOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         GetRemoteSharesOperation operation = new GetRemoteSharesOperation();
-        RemoteOperationResult result = operation.execute(client, MainApp.getUserAgent());
+        RemoteOperationResult result = operation.execute(client);
 
         if (result.isSuccess()) {
 

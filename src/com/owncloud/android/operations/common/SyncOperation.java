@@ -70,7 +70,7 @@ public abstract class SyncOperation extends RemoteOperation {
                     "storage manager for a NULL account");
         }
         mStorageManager = storageManager;
-        return super.execute(mStorageManager.getAccount(), context, getUserAgent());
+        return super.execute(mStorageManager.getAccount(), context);
     }
     
 	
@@ -90,7 +90,7 @@ public abstract class SyncOperation extends RemoteOperation {
             throw new IllegalArgumentException("Trying to execute a sync operation with a " +
                     "NULL storage manager");
         mStorageManager = storageManager;
-		return super.execute(client, MainApp.getUserAgent());
+		return super.execute(client);
 	}
 
 	
@@ -143,7 +143,7 @@ public abstract class SyncOperation extends RemoteOperation {
                     "with a NULL storage manager");
         }
         mStorageManager = storageManager;
-        return super.execute(client, MainApp.getUserAgent(), listener, listenerHandler);
+        return super.execute(client, listener, listenerHandler);
 	}
 
 	
