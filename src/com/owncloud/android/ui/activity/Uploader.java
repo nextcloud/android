@@ -83,13 +83,11 @@ public class Uploader extends FileActivity
 
     private static final String TAG = Uploader.class.getSimpleName();
 
-    //private Account mAccount;
     private AccountManager mAccountManager;
     private Stack<String> mParents;
     private ArrayList<Parcelable> mStreamsToUpload;
     private boolean mCreateDir;
     private String mUploadPath;
-    //private FileDataStorageManager mStorageManager;
     private OCFile mFile;
     private boolean mAccountSelected;
     
@@ -101,7 +99,6 @@ public class Uploader extends FileActivity
     private final static int REQUEST_CODE_SETUP_ACCOUNT = 0;
 
     private final static String KEY_PARENTS = "PARENTS";
-    private final static String KEY_ACCOUNT = "ACCOUNT";
     private final static String KEY_FILE = "FILE";
     private final static String KEY_ACCOUNT_SELECTED = "ACCOUNT_SELECTED";
 
@@ -114,39 +111,13 @@ public class Uploader extends FileActivity
             mAccountSelected = false;
         } else {
             mParents = (Stack<String>) savedInstanceState.getSerializable(KEY_PARENTS);
-//            mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
             mFile = savedInstanceState.getParcelable(KEY_FILE);
-//            mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
             mAccountSelected = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTED);
         }
         super.onCreate(savedInstanceState);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-
-
-//        if (somethingToUpload()) {
-//            mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
-//            Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType());
-//            if (accounts.length == 0) {
-//                Log_OC.i(TAG, "No ownCloud account is available");
-//                showDialog(DIALOG_NO_ACCOUNT);
-//            } else if (accounts.length > 1 && !mAccountSelected) {
-//                Log_OC.i(TAG, "More than one ownCloud is available");
-//                showDialog(DIALOG_MULTIPLE_ACCOUNT);
-//            } else {
-//                if (savedInstanceState == null) {
-//                    mAccount = accounts[0];
-//                    mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
-//                }
-//                initTargetFolder();
-//                populateDirectoryList();
-//
-//            }
-//
-//        } else {
-//            showDialog(DIALOG_NO_STREAM);
-//        }
 
     }
 
@@ -163,14 +134,8 @@ public class Uploader extends FileActivity
                 showDialog(DIALOG_MULTIPLE_ACCOUNT);
             } else {
                 if (!savedAccount) {
-                    //mAccount = accounts[0];
-                    //mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
                     setAccount(accounts[0]);
                 }
-                // Part in onAccountSet
-//                initTargetFolder();
-//                populateDirectoryList();
-
             }
 
         } else {
@@ -178,18 +143,6 @@ public class Uploader extends FileActivity
         }
 
         super.setAccount(account, savedAccount);
-
-//        Account oldAccount = mAccount;
-//        boolean validAccount = (account != null &&
-//                AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account.name));
-//        if (validAccount) {
-//            mAccount = account;
-//            mAccountWasSet = true;
-//            mAccountWasRestored = (savedAccount || mAccount.equals(oldAccount));
-//
-//        } else {
-//            swapToDefaultAccount();
-//        }
     }
 
     @Override
@@ -197,12 +150,6 @@ public class Uploader extends FileActivity
         super.onAccountSet(mAccountWasRestored);
         initTargetFolder();
         populateDirectoryList();
-//        if (getAccount() != null) {
-//            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-//
-//        } else {
-//            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
-//        }
     }
 
     @Override
@@ -276,9 +223,6 @@ public class Uploader extends FileActivity
                 public void onClick(DialogInterface dialog, int which) {
                     setAccount(mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
                     onAccountSet(mAccountWasRestored);
-//                    mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
-//                    initTargetFolder();
-//                    populateDirectoryList();
                     dialog.dismiss();
                     mAccountSelected = true;
                 }
