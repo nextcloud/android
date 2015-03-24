@@ -132,11 +132,11 @@ public class MainApp extends Application {
         }
         String version = "";
         if (pInfo != null) {
-            version = pInfo.versionName;
+            version = "/" + pInfo.versionName;
         }
 
         // Mozilla/5.0 (Android) ownCloud /1.7.0
-        String userAgent = "Mozilla/5.0 "+ appString + "/" + version;
+        String userAgent = appString + version;
 
         return userAgent;
     }
