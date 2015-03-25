@@ -1393,7 +1393,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             actionBar.setDisplayShowTitleEnabled(!noRoot); 
             if (!noRoot) {
                 actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
-                getWindow().getDecorView().findViewById(actionBarTitleId).setContentDescription(getString(R.string.default_display_name_for_root_folder));
+                View actionBarView = getWindow().getDecorView().findViewById(actionBarTitleId);
+                if (actionBarView != null) {    // it's null in Android 2.x (at least)
+                    actionBarView.setContentDescription(getString(R.string.default_display_name_for_root_folder));
+                }
             }
             actionBar.setNavigationMode(!noRoot ? ActionBar.NAVIGATION_MODE_STANDARD : ActionBar.NAVIGATION_MODE_LIST);
             actionBar.setListNavigationCallbacks(mDirectories, this);   // assuming mDirectories is updated
