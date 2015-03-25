@@ -23,6 +23,8 @@
     android:background="@color/background_color"
     android:orientation="horizontal"
     android:baselineAligned="false"
+    android:id="@+id/ListLayout"
+    android:contentDescription="@string/list_layout"
     >
 
 	<FrameLayout 
