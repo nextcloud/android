@@ -156,7 +156,6 @@
   <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
   <string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
   <string name="auth_connection_established">S\'ha establert la connexió</string>
-  <string name="auth_testing_connection">S\'està comprovant la connexió...</string>
   <string name="auth_not_configured_title">La configuració del servidor està malformada</string>
   <string name="auth_account_not_new">Ja hi ha un compte al dispositiu pel mateix usuari i mateix servidor</string>
   <string name="auth_account_not_the_same">L\'usuari introduït no coincideix amb l\'usuari d\'aquest compte</string>
@@ -270,8 +269,11 @@
   <string name="downloader_download_file_not_found">El fitxer ja no està disponible en el servidor</string>
   <string name="prefs_category_accounts">Comptes</string>
   <string name="prefs_add_account">Afegeix compte</string>
+  <string name="log_progress_dialog_text">Carregant dades...</string>
   <string name="saml_authentication_required_text">Es requereix autenticació</string>
   <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
+  <string name="actionbar_move">Moure</string>
   <string name="folder_picker_choose_button_text">Escull</string>
   <string name="prefs_category_security">Seguretat</string>
+  <string name="auth_host_address">Adreça del servidor</string>
 </resources>

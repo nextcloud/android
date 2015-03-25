@@ -161,7 +161,7 @@
   <string name="auth_no_net_conn_title">Нет подключения к сети</string>
   <string name="auth_nossl_plain_ok_title">Защищённое соединение недоступно.</string>
   <string name="auth_connection_established">Соединение установлено</string>
-  <string name="auth_testing_connection">Тестирование соединения...</string>
+  <string name="auth_testing_connection">Проверка соединения</string>
   <string name="auth_not_configured_title">Конфигурация сервера задана неверно</string>
   <string name="auth_account_not_new">Учётная запись такого пользователя и сервера уже существует на устройстве</string>
   <string name="auth_account_not_the_same">Введённый пользователь не соответствует этой учётной записи</string>
@@ -304,4 +304,6 @@
   <string name="prefs_instant_video_upload_path_title">Путь для загрузки Видео</string>
   <string name="download_folder_failed_content">Загрузка папки %1$s не может быть завершена</string>
   <string name="subject_token">%1$s предоставил вам доступ к \"%2$s\"</string>
+  <string name="auth_refresh_button">Обновить соединение</string>
+  <string name="auth_host_address">Адрес сервера</string>
 </resources>

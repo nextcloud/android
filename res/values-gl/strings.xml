@@ -161,16 +161,16 @@ Descárgueo de aquí: %2$s</string>
   <string name="auth_no_net_conn_title">Sen conexión de rede</string>
   <string name="auth_nossl_plain_ok_title">Non hai conexión seguras dispoñíbeis.</string>
   <string name="auth_connection_established">Estabeleceuse a conexión</string>
-  <string name="auth_testing_connection">Comprobando a conexión...</string>
+  <string name="auth_testing_connection">Probando a conexión</string>
   <string name="auth_not_configured_title">Configuración errada do servidor</string>
   <string name="auth_account_not_new">Xa existe unha conta do mesmo usuario e servidor neste dispositivo</string>
   <string name="auth_account_not_the_same">O usuario que introduciu non coincide co usuario desta conta</string>
   <string name="auth_unknown_error_title">Produciuse un erro descoñecido!</string>
   <string name="auth_unknown_host_title">Non foi posíbel atopar a máquina</string>
   <string name="auth_incorrect_path_title">Non se atopou unha instancia do servidor</string>
-  <string name="auth_timeout_title">O servidor tardou demasiado en responder</string>
+  <string name="auth_timeout_title">O servidor tardou de máis en responder</string>
   <string name="auth_incorrect_address_title">URL incorrecto</string>
-  <string name="auth_ssl_general_error_title">Produciuse un fallo ao iniciar o SSL</string>
+  <string name="auth_ssl_general_error_title">Produciuse un fallo ao preparar o SSL</string>
   <string name="auth_ssl_unverified_server_title">Non foi posíbel verificar a identidade do servidor SSL</string>
   <string name="auth_bad_oc_version_title">Versión do servidor non recoñecida</string>
   <string name="auth_wrong_connection_title">Non é posíbel estabelecer a conexión</string>
@@ -304,4 +304,6 @@ Descárgueo de aquí: %2$s</string>
   <string name="prefs_instant_video_upload_path_title">Enviar a ruta do vídeo</string>
   <string name="download_folder_failed_content">Non foi posíbel completar a descarga do cartafol %1$s</string>
   <string name="subject_token">%1$s compartiu «%2$s» con vostede</string>
+  <string name="auth_refresh_button">Actualizar a conexión</string>
+  <string name="auth_host_address">Enderezo do servidor</string>
 </resources>

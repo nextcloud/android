@@ -160,7 +160,7 @@
   <string name="auth_no_net_conn_title">Sem ligação à rede</string>
   <string name="auth_nossl_plain_ok_title">Ligação segura indisponível.</string>
   <string name="auth_connection_established">Ligação estabelecida</string>
-  <string name="auth_testing_connection">A testar a ligação...</string>
+  <string name="auth_testing_connection">A testar a ligação</string>
   <string name="auth_not_configured_title">Configuração do servidor incorrecta.</string>
   <string name="auth_account_not_new">Uma conta para este utilizador e servidor já existe no dispositivo</string>
   <string name="auth_account_not_the_same">O utilizador que escreveu não coincide com o nome de utilizador desta conta</string>
@@ -301,4 +301,6 @@
   <string name="prefs_instant_video_upload_path_title">Envio do Caminho do Vídeo</string>
   <string name="download_folder_failed_content">Não foi possível completar o download da pasta %1$s</string>
   <string name="subject_token">%1$s partilhou \"%2$s\" consigo</string>
+  <string name="auth_refresh_button">Recarregar ligação</string>
+  <string name="auth_host_address">Endereço do servidor</string>
 </resources>

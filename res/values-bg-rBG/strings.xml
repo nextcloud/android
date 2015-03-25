@@ -160,7 +160,6 @@
   <string name="auth_no_net_conn_title">Няма интернет връзка</string>
   <string name="auth_nossl_plain_ok_title">Няма сигурна връзка</string>
   <string name="auth_connection_established">Осъществена връзка</string>
-  <string name="auth_testing_connection">Проверка на свързаност...</string>
   <string name="auth_not_configured_title">Неправилно зададена сървърна конфигурация.</string>
   <string name="auth_account_not_new">Профил за същия потребител на същия сървър е вече настроен на устройството.</string>
   <string name="auth_account_not_the_same">Въведният потребител не съвпада с потребителя на профила.</string>
@@ -299,4 +298,5 @@
   <string name="prefs_category_security">Сигурност</string>
   <string name="prefs_instant_video_upload_path_title">Качване на видео път</string>
   <string name="download_folder_failed_content">Свалянето на директорията %1$s не може да бъде завършено</string>
+  <string name="auth_host_address">Адрес на сървъра</string>
 </resources>

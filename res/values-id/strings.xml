@@ -160,7 +160,6 @@
   <string name="auth_no_net_conn_title">Tidak ada koneksi internet</string>
   <string name="auth_nossl_plain_ok_title">Sambungan aman tidak tersedia</string>
   <string name="auth_connection_established">Sambungan dibuat</string>
-  <string name="auth_testing_connection">Pengetesan koneksi ...</string>
   <string name="auth_not_configured_title">Konfigurasi server cacat</string>
   <string name="auth_account_not_new">Akun untuk pengguna dan server yang sama sudah ada dalam perangkat</string>
   <string name="auth_account_not_the_same">Pengguna yang dimasukkan tidak cocok dengan pengguna akun ini</string>
@@ -294,4 +293,5 @@
   <string name="forbidden_permissions_move">untuk memindahkan berkas ini</string>
   <string name="prefs_category_instant_uploading">Unggah Cepat</string>
   <string name="prefs_category_security">Keamanan</string>
+  <string name="auth_host_address">Alamat server</string>
 </resources>

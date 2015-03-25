@@ -137,7 +137,6 @@
   <string name="auth_no_net_conn_title">Không có kết nối mạng</string>
   <string name="auth_nossl_plain_ok_title">Bảo mật kết nối không có giá trị.</string>
   <string name="auth_connection_established">Kết nối đã thiết lập</string>
-  <string name="auth_testing_connection">Đang kiểm tra kết nối...</string>
   <string name="auth_not_configured_title">Thay đổi cấu hình máy chủ </string>
   <string name="auth_account_not_new">Một tài khoản với cùng tên người dùng và máy chủ đã tồn tại trong thiết bị</string>
   <string name="auth_account_not_the_same">Tên người dùng đã nhập không đúng với tên người dùng của tài khoản này</string>
@@ -224,4 +223,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Tài khoản</string>
   <string name="folder_picker_choose_button_text">Chọn</string>
+  <string name="auth_host_address">Địa chỉ máy chủ</string>
 </resources>

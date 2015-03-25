@@ -160,7 +160,6 @@
   <string name="auth_no_net_conn_title">Brak połączenia sieciowego</string>
   <string name="auth_nossl_plain_ok_title">Nie można nawiązać bezpiecznego połączenia.</string>
   <string name="auth_connection_established">Połączenie nawiązane</string>
-  <string name="auth_testing_connection">Testowanie połączenia…</string>
   <string name="auth_not_configured_title">Uszkodzona konfiguracja serwera</string>
   <string name="auth_account_not_new">Konto tego samego użytkownika i serwera już istnieje na tym urządzeniu</string>
   <string name="auth_account_not_the_same">Podany login nie pasuje do użytkowników </string>
@@ -299,4 +298,5 @@
   <string name="prefs_category_security">Bezpieczeństwo</string>
   <string name="prefs_instant_video_upload_path_title">Katalog wysyłania dla wideo</string>
   <string name="download_folder_failed_content">Pobieranie %1$s katalogu nie może zostać ukończone</string>
+  <string name="auth_host_address">Adres Serwera</string>
 </resources>

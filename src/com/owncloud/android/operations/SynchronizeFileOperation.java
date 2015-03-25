@@ -22,6 +22,7 @@
 
 package com.owncloud.android.operations;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
@@ -66,8 +67,8 @@ public class SynchronizeFileOperation extends SyncOperation {
     /**
      * Constructor for "full synchronization mode".
      * 
-     * Uses remotePath to retrieve all the data both in local cache and in the remote OC server when the operation
-     * is executed, instead of reusing {@link OCFile} instances.
+     * Uses remotePath to retrieve all the data both in local cache and in the remote OC server
+     * when the operation is executed, instead of reusing {@link OCFile} instances.
      * 
      * Useful for direct synchronization of a single file.
      * 
@@ -94,17 +95,19 @@ public class SynchronizeFileOperation extends SyncOperation {
 
     
     /**
-     * Constructor allowing to reuse {@link OCFile} instances just queried from local cache or from remote OC server.
+     * Constructor allowing to reuse {@link OCFile} instances just queried from local cache or
+     * from remote OC server.
      * 
-     * Useful to include this operation as part of the synchronization of a folder (or a full account), avoiding the
-     * repetition of fetch operations (both in local database or remote server).
+     * Useful to include this operation as part of the synchronization of a folder
+     * (or a full account), avoiding the repetition of fetch operations (both in local database
+     * or remote server).
      * 
-     * At least one of localFile or serverFile MUST NOT BE NULL. If you don't have none of them, use the other 
-     * constructor.
+     * At least one of localFile or serverFile MUST NOT BE NULL. If you don't have none of them,
+     * use the other constructor.
      * 
      * @param localFile             Data of file (just) retrieved from local cache/database.
-     * @param serverFile            Data of file (just) retrieved from a remote server. If null, will be
-     *                              retrieved from network by the operation when executed.
+     * @param serverFile            Data of file (just) retrieved from a remote server. If null,
+     *                              will be retrieved from network by the operation when executed.
      * @param account               ownCloud account holding the file.
      * @param syncFileContents      When 'true', transference of data will be started by the 
      *                              operation if needed and no conflict is detected.
@@ -122,7 +125,8 @@ public class SynchronizeFileOperation extends SyncOperation {
         if (mLocalFile != null) {
             mRemotePath = mLocalFile.getRemotePath();
             if (mServerFile != null && !mServerFile.getRemotePath().equals(mRemotePath)) {
-                throw new IllegalArgumentException("serverFile and localFile do not correspond to the same OC file");
+                throw new IllegalArgumentException("serverFile and localFile do not correspond" +
+                        " to the same OC file");
             }
         } else if (mServerFile != null) {
             mRemotePath = mServerFile.getRemotePath();
@@ -139,21 +143,24 @@ public class SynchronizeFileOperation extends SyncOperation {
     /**
      * Temporal constructor.
      * 
-     * Extends the previous one to allow constrained synchronizations where uploads are never performed - only
-     * downloads or conflict detection.
+     * Extends the previous one to allow constrained synchronizations where uploads are never
+     * performed - only downloads or conflict detection.
      * 
-     * Do not use unless you are involved in 'folder synchronization' or 'folder download' work in progress.
+     * Do not use unless you are involved in 'folder synchronization' or 'folder download' work
+     * in progress.
      * 
      * TODO Remove when 'folder synchronization' replaces 'folder download'.
      * 
-     * @param localFile             Data of file (just) retrieved from local cache/database. MUSTN't be null.
-     * @param serverFile            Data of file (just) retrieved from a remote server. If null, will be
-     *                              retrieved from network by the operation when executed.
+     * @param localFile             Data of file (just) retrieved from local cache/database.
+     *                              MUSTN't be null.
+     * @param serverFile            Data of file (just) retrieved from a remote server.
+     *                              If null, will be retrieved from network by the operation
+     *                              when executed.
      * @param account               ownCloud account holding the file.
      * @param syncFileContents      When 'true', transference of data will be started by the 
      *                              operation if needed and no conflict is detected.
-     * @param allowUploads          When 'false', uploads to the server are not done; only downloads or conflict
-     *                              detection. 
+     * @param allowUploads          When 'false', uploads to the server are not done;
+     *                              only downloads or conflict detection.
      * @param context               Android context; needed to start transfers.
      */
     public SynchronizeFileOperation(
@@ -206,7 +213,8 @@ public class SynchronizeFileOperation extends SyncOperation {
                         serverChanged = (!mServerFile.getEtag().equals(mLocalFile.getEtag()));
                     } else { */
                 serverChanged = (
-                    mServerFile.getModificationTimestamp() != mLocalFile.getModificationTimestampAtLastSyncForData()
+                    mServerFile.getModificationTimestamp() !=
+                            mLocalFile.getModificationTimestampAtLastSyncForData()
                 );
                 //}
                 boolean localChanged = (
@@ -221,10 +229,13 @@ public class SynchronizeFileOperation extends SyncOperation {
                 } else if (localChanged) {
                     if (mSyncFileContents && mAllowUploads) {
                         requestForUpload(mLocalFile);
-                        // the local update of file properties will be done by the FileUploader service when the upload finishes
+                        // the local update of file properties will be done by the FileUploader
+                        // service when the upload finishes
                     } else {
-                        // NOTHING TO DO HERE: updating the properties of the file in the server without uploading the contents would be stupid; 
-                        // So, an instance of SynchronizeFileOperation created with syncFileContents == false is completely useless when we suspect
+                        // NOTHING TO DO HERE: updating the properties of the file in the server
+                        // without uploading the contents would be stupid;
+                        // So, an instance of SynchronizeFileOperation created with
+                        // syncFileContents == false is completely useless when we suspect
                         // that an upload is necessary (for instance, in FileObserverService).
                     }
                     result = new RemoteOperationResult(ResultCode.OK);
@@ -233,8 +244,10 @@ public class SynchronizeFileOperation extends SyncOperation {
                     mLocalFile.setRemoteId(mServerFile.getRemoteId());
                     
                     if (mSyncFileContents) {
-                        requestForDownload(mLocalFile); // local, not server; we won't to keep the value of keepInSync!
-                        // the update of local data will be done later by the FileUploader service when the upload finishes
+                        requestForDownload(mLocalFile); // local, not server; we won't to keep
+                        // the value of keepInSync!
+                        // the update of local data will be done later by the FileUploader
+                        // service when the upload finishes
                     } else {
                         // TODO CHECK: is this really useful in some point in the code?
                         mServerFile.setKeepInSync(mLocalFile.keepInSync());
@@ -255,8 +268,8 @@ public class SynchronizeFileOperation extends SyncOperation {
 
         }
 
-        Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() + ": " 
-                + result.getLogMessage());
+        Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() +
+                ": " + result.getLogMessage());
 
         return result;
     }
@@ -271,7 +284,9 @@ public class SynchronizeFileOperation extends SyncOperation {
         Intent i = new Intent(mContext, FileUploader.class);
         i.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
         i.putExtra(FileUploader.KEY_FILE, file);
-        /*i.putExtra(FileUploader.KEY_REMOTE_FILE, mRemotePath);    // doing this we would lose the value of keepInSync in the road, and maybe it's not updated in the database when the FileUploader service gets it!  
+        /*i.putExtra(FileUploader.KEY_REMOTE_FILE, mRemotePath);
+        // doing this we would lose the value of keepInSync in the road, and maybe
+        // it's not updated in the database when the FileUploader service gets it!
         i.putExtra(FileUploader.KEY_LOCAL_FILE, localFile.getStoragePath());*/
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploader.KEY_FORCE_OVERWRITE, true);

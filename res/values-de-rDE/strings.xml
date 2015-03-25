@@ -160,7 +160,7 @@
   <string name="auth_no_net_conn_title">Keine Netzwerkverbindung</string>
   <string name="auth_nossl_plain_ok_title">Sichere Verbindung nicht verfügbar.</string>
   <string name="auth_connection_established">Verbindung hergestellt</string>
-  <string name="auth_testing_connection">Verbindungstest…</string>
+  <string name="auth_testing_connection">Verbindung testen</string>
   <string name="auth_not_configured_title">Fehlerhafte Server Konfiguration</string>
   <string name="auth_account_not_new">Ein Benutzerkonto für den gleichen Benutzer und Server existiert auf diesem Gerät bereits</string>
   <string name="auth_account_not_the_same">Der eingegebene Benutzer passt nicht zu dem Benutzer dieses Benutzerkontos</string>
@@ -303,4 +303,6 @@
   <string name="prefs_instant_video_upload_path_title">Verzeichnis zum Hochladen der Videos</string>
   <string name="download_folder_failed_content">Herunterladen des %1$s - Ordners konnte nicht abgeschlossen werden</string>
   <string name="subject_token">%1$s hat „%2$s“ mit Ihnen geteilt</string>
+  <string name="auth_refresh_button">Verbindung aktualisieren</string>
+  <string name="auth_host_address">Serveradresse</string>
 </resources>

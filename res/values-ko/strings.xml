@@ -160,7 +160,6 @@
   <string name="auth_no_net_conn_title">네트워크에 연결할 수 없습니다</string>
   <string name="auth_nossl_plain_ok_title">암호화된 연결을 사용할 수 없습니다.</string>
   <string name="auth_connection_established">연결됨</string>
-  <string name="auth_testing_connection">연결 테스트 중...</string>
   <string name="auth_not_configured_title">서버 설정이 잘못됨</string>
   <string name="auth_account_not_new">같은 사용자와 서버에 대한 계정이 이미 존재합니다</string>
   <string name="auth_account_not_the_same">입력된 사용자가 이 계정의 사용자와 일치하지 않습니다</string>
@@ -302,4 +301,5 @@
   <string name="prefs_instant_video_upload_path_title">동영상 업로드 경로</string>
   <string name="download_folder_failed_content">%1$s 폴더를 다운로드할 수 없습니다</string>
   <string name="subject_token">%1$s에서 \"%2$s\"를 당신과 공유하였습니다.</string>
+  <string name="auth_host_address">서버 주소</string>
 </resources>

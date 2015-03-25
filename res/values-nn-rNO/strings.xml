@@ -97,7 +97,6 @@
   <string name="auth_no_net_conn_title">Inga nettilkopling</string>
   <string name="auth_nossl_plain_ok_title">Trygg tilkopling ikkje tilgjengeleg.</string>
   <string name="auth_connection_established">Tilkopling oppretta</string>
-  <string name="auth_testing_connection">Testar tilkopling...</string>
   <string name="auth_not_configured_title">Ugyldig tenarkonfigurasjon</string>
   <string name="auth_unknown_error_title">Ein ukjend feil oppstod!</string>
   <string name="auth_unknown_host_title">Klarte ikkje å finna tenaren</string>
@@ -133,4 +132,5 @@
   <string name="saml_authentication_wrong_pass">Feil passord</string>
   <string name="folder_picker_choose_button_text">Vel</string>
   <string name="prefs_category_security">Tryggleik</string>
+  <string name="auth_host_address">Tenaradresse</string>
 </resources>

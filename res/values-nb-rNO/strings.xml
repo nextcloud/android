@@ -160,7 +160,6 @@
   <string name="auth_no_net_conn_title">Ingen nettverkstilkobling</string>
   <string name="auth_nossl_plain_ok_title">Sikker tilkobling ikke tilgjengelig.</string>
   <string name="auth_connection_established">Tilkobling opprettet</string>
-  <string name="auth_testing_connection">Tester tilgang...</string>
   <string name="auth_not_configured_title">Feil i server konfigurasjon</string>
   <string name="auth_account_not_new">En konto for samme bruker og server finnes allerede på enheten</string>
   <string name="auth_account_not_the_same">Den innskrevne brukeren matcher ikke brukeren av denne kontoen</string>
@@ -187,6 +186,7 @@
   <string name="auth_fail_get_user_name">Tjeneren din svarer ikke med korrekt bruker-ID, vennligst ta kontakt med en administrator
 	</string>
   <string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne serveren</string>
+  <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
   <string name="fd_keep_in_sync">Hold filen oppdatert</string>
   <string name="common_rename">Endre navn</string>
   <string name="common_remove">Fjern</string>
@@ -260,6 +260,8 @@
   <string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen</string>
   <string name="unshare_link_file_no_exist">Kan ikke fjerne deling. Sjekk om filen eksisterer.</string>
   <string name="unshare_link_file_error">En feil oppstod ved avslutting av delingen av denne filen eller mappen</string>
+  <string name="share_link_password_title">Skriv inn ett passord</string>
+  <string name="share_link_empty_password">Du må skrive inn ett passord</string>
   <string name="activity_chooser_send_file_title">Send</string>
   <string name="copy_link">Kopier lenke</string>
   <string name="clipboard_text_copied">Kopiert til utklippstavlen</string>
@@ -299,4 +301,6 @@
   <string name="prefs_category_security">Sikkerhet</string>
   <string name="prefs_instant_video_upload_path_title">Sti til video-opplasting</string>
   <string name="download_folder_failed_content">Nedlasting av %1$s mappen kunne ikke fullføres</string>
+  <string name="subject_token">%1$s har delt \"%2$s\" med deg</string>
+  <string name="auth_host_address">Server-adresse</string>
 </resources>

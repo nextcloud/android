@@ -160,7 +160,7 @@
   <string name="auth_no_net_conn_title">Žádné síťové spojení</string>
   <string name="auth_nossl_plain_ok_title">Zabezpečené spojení není k dispozici</string>
   <string name="auth_connection_established">Spojení navázáno</string>
-  <string name="auth_testing_connection">Zkouším spojení...</string>
+  <string name="auth_testing_connection">Testuje se připojení</string>
   <string name="auth_not_configured_title">Neplatné nastavení serveru</string>
   <string name="auth_account_not_new">Účet pro stejného uživatele a server již v zařízení existuje</string>
   <string name="auth_account_not_the_same">Zadaný uživatel neodpovídá uživateli tohoto účtu</string>
@@ -302,4 +302,6 @@ správce systému.</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pro nahrávání videí</string>
   <string name="download_folder_failed_content">Stažení adresáře %1$s nemohlo být dokončeno</string>
   <string name="subject_token">%1$s sdílí \"%2$s\" s vámi</string>
+  <string name="auth_refresh_button">Obnovit připojení</string>
+  <string name="auth_host_address">Adresa serveru</string>
 </resources>

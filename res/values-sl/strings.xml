@@ -160,7 +160,6 @@
   <string name="auth_no_net_conn_title">Ni omrežne povezave</string>
   <string name="auth_nossl_plain_ok_title">Varna povezava ni na voljo.</string>
   <string name="auth_connection_established">Povezava je vzpostavljena</string>
-  <string name="auth_testing_connection">Preizkušanje povezave ...</string>
   <string name="auth_not_configured_title">Napačno oblikovane nastavitve strežnika</string>
   <string name="auth_account_not_new">Na napravi račun za istega uporabnika in strežnik že obstaja</string>
   <string name="auth_account_not_the_same">Vpisan uporabnik ni lastnik tega računa</string>
@@ -303,4 +302,5 @@
   <string name="prefs_instant_video_upload_path_title">Pot videa za pošiljanje</string>
   <string name="download_folder_failed_content">Imenika %1$s  ni mogoče prejeti v celoti</string>
   <string name="subject_token">Uporabnik %1$s je omogočil souporabo \"%2$s\".</string>
+  <string name="auth_host_address">Naslov strežnika</string>
 </resources>

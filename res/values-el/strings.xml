@@ -160,7 +160,7 @@
   <string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
   <string name="auth_nossl_plain_ok_title">Μη διαθέσιμη ασφαλής σύνδεση.</string>
   <string name="auth_connection_established">Επετεύχθη σύνδεση</string>
-  <string name="auth_testing_connection">Έλεγχος σύνδεσης...</string>
+  <string name="auth_testing_connection">Έλεγχος σύνδεσης</string>
   <string name="auth_not_configured_title">Λανθασμένες ρυθμίσεις διακομιστή</string>
   <string name="auth_account_not_new">Ένας λογαριασμός για τον ίδιο χρήστη και διακομιστή υπάρχει ήδη στη συσκευή</string>
   <string name="auth_account_not_the_same">Ο χρήστης που εισάγατε δεν ταιριάζει με το χρήστη αυτού του λογαριασμού</string>
@@ -303,4 +303,6 @@
   <string name="prefs_instant_video_upload_path_title">Διαδρομή Μεταφόρτωσης Βίντεο</string>
   <string name="download_folder_failed_content">Η λήψη του φακέλου %1$s δεν ολοκληρώθηκε με επιτυχία.</string>
   <string name="subject_token">%1$s μοιράστηκε \"%2$s\" μαζί σας</string>
+  <string name="auth_refresh_button">Ανανέωση σύνδεσης</string>
+  <string name="auth_host_address">Διεύθυνση διακομιστή</string>
 </resources>

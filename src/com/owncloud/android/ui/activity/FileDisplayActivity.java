@@ -1380,7 +1380,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      * TODO
      */
     private void updateNavigationElementsInActionBar(OCFile chosenFile) {
-        ActionBar actionBar = getSupportActionBar(); 
+        ActionBar actionBar = getSupportActionBar();
+
+        // For adding content description tag to a title field in the action bar
+        int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
+
         if (chosenFile == null || mDualPane) {
             // only list of files - set for browsing through folders
             OCFile currentDir = getCurrentDir();
@@ -1389,6 +1393,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             actionBar.setDisplayShowTitleEnabled(!noRoot); 
             if (!noRoot) {
                 actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
+                View actionBarView = getWindow().getDecorView().findViewById(actionBarTitleId);
+                if (actionBarView != null) {    // it's null in Android 2.x (at least)
+                    actionBarView.setContentDescription(getString(R.string.default_display_name_for_root_folder));
+                }
             }
             actionBar.setNavigationMode(!noRoot ? ActionBar.NAVIGATION_MODE_STANDARD : ActionBar.NAVIGATION_MODE_LIST);
             actionBar.setListNavigationCallbacks(mDirectories, this);   // assuming mDirectories is updated
@@ -1398,6 +1406,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setTitle(chosenFile.getFileName());
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+            getWindow().getDecorView().findViewById(actionBarTitleId).setContentDescription(chosenFile.getFileName());
         }
     }
 
@@ -1755,7 +1764,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             if (file.isFolder()) {
                 return file;
             } else if (getStorageManager() != null) {
-                String parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
+                String parentPath = file.getRemotePath().substring(0,
+                        file.getRemotePath().lastIndexOf(file.getFileName()));
                 return getStorageManager().getFileByPath(parentPath);
             }
         }
@@ -1777,7 +1787,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                                                                         getAccount(), 
                                                                         getApplicationContext()
                                                                       );
-        synchFolderOp.execute(getAccount(), this, null, null);
+        synchFolderOp.execute(getAccount(), MainApp.getAppContext(), this, null, null);
         
         setSupportProgressBarIndeterminateVisibility(true);
 
@@ -1789,7 +1799,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      */
     public void showUntrustedCertDialog(RemoteOperationResult result) {
         // Show a dialog with the certificate info
-        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstanceForFullSslError((CertificateCombinedException)result.getException());
+        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstanceForFullSslError(
+                (CertificateCombinedException)result.getException());
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         dialog.show(ft, DIALOG_UNTRUSTED_CERT);

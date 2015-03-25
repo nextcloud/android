@@ -12,4 +12,5 @@
   <string name="common_cancel">Abbrechen</string>
   <string name="common_error">Fehler</string>
   <string name="empty"></string>
+  <string name="auth_host_address">Adresse des Servers</string>
 </resources>

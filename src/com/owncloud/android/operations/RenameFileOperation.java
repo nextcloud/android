@@ -24,6 +24,7 @@ package com.owncloud.android.operations;
 import java.io.File;
 import java.io.IOException;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -51,7 +52,8 @@ public class RenameFileOperation extends SyncOperation {
     /**
      * Constructor
      * 
-     * @param remotePath            RemotePath of the OCFile instance describing the remote file or folder to rename
+     * @param remotePath            RemotePath of the OCFile instance describing the remote file or
+     *                              folder to rename
      * @param newName               New name to set as the name of file.
      */
     public RenameFileOperation(String remotePath, String newName) {
@@ -82,7 +84,8 @@ public class RenameFileOperation extends SyncOperation {
                 return new RemoteOperationResult(ResultCode.INVALID_LOCAL_FILE_NAME);
             }
             String parent = (new File(mFile.getRemotePath())).getParent();
-            parent = (parent.endsWith(OCFile.PATH_SEPARATOR)) ? parent : parent + OCFile.PATH_SEPARATOR; 
+            parent = (parent.endsWith(OCFile.PATH_SEPARATOR)) ? parent : parent +
+                    OCFile.PATH_SEPARATOR;
             mNewRemotePath =  parent + mNewName;
             if (mFile.isFolder()) {
                 mNewRemotePath += OCFile.PATH_SEPARATOR;
@@ -93,7 +96,8 @@ public class RenameFileOperation extends SyncOperation {
                 return new RemoteOperationResult(ResultCode.INVALID_OVERWRITE);
             }
             
-            RenameRemoteFileOperation operation = new RenameRemoteFileOperation(mFile.getFileName(), mFile.getRemotePath(), 
+            RenameRemoteFileOperation operation = new RenameRemoteFileOperation(mFile.getFileName(),
+                    mFile.getRemotePath(),
                     mNewName, mFile.isFolder());
             result = operation.execute(client);
 
@@ -108,7 +112,8 @@ public class RenameFileOperation extends SyncOperation {
             }
             
         } catch (IOException e) {
-            Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ? mNewName : mNewRemotePath) + ": " + 
+            Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ?
+                    mNewName : mNewRemotePath) + ": " +
                     ((result!= null) ? result.getLogMessage() : ""), e);
         }
 
@@ -134,7 +139,8 @@ public class RenameFileOperation extends SyncOperation {
                 // notify to scan about new file
                 getStorageManager().triggerMediaScan(newPath);
             }
-            // else - NOTHING: the link to the local file is kept although the local name can't be updated
+            // else - NOTHING: the link to the local file is kept although the local name
+            // can't be updated
             // TODO - study conditions when this could be a problem
         }
         
@@ -144,16 +150,17 @@ public class RenameFileOperation extends SyncOperation {
     /**
      * Checks if the new name to set is valid in the file system 
      * 
-     * The only way to be sure is trying to create a file with that name. It's made in the temporal directory
-     * for downloads, out of any account, and then removed. 
+     * The only way to be sure is trying to create a file with that name. It's made in the
+     * temporal directory for downloads, out of any account, and then removed.
      * 
-     * IMPORTANT: The test must be made in the same file system where files are download. The internal storage
-     * could be formatted with a different file system.
+     * IMPORTANT: The test must be made in the same file system where files are download.
+     * The internal storage could be formatted with a different file system.
      * 
-     * TODO move this method, and maybe FileDownload.get***Path(), to a class with utilities specific for the interactions with the file system
+     * TODO move this method, and maybe FileDownload.get***Path(), to a class with utilities
+     * specific for the interactions with the file system
      * 
-     * @return              'True' if a temporal file named with the name to set could be created in the file system where 
-     *                      local files are stored.
+     * @return              'True' if a temporal file named with the name to set could be
+     *                      created in the file system where local files are stored.
      * @throws IOException  When the temporal folder can not be created.
      */
     private boolean isValidNewName() throws IOException {
@@ -170,14 +177,16 @@ public class RenameFileOperation extends SyncOperation {
             throw new IOException("Unexpected error: temporal directory could not be created");
         }
         try {
-            testFile.createNewFile();   // return value is ignored; it could be 'false' because the file already existed, that doesn't invalidate the name
+            testFile.createNewFile();   // return value is ignored; it could be 'false' because
+            // the file already existed, that doesn't invalidate the name
         } catch (IOException e) {
             Log_OC.i(TAG, "Test for validity of name " + mNewName + " in the file system failed");
             return false;
         }
         boolean result = (testFile.exists() && testFile.isFile());
         
-        // cleaning ; result is ignored, since there is not much we could do in case of failure, but repeat and repeat...
+        // cleaning ; result is ignored, since there is not much we could do in case of failure,
+        // but repeat and repeat...
         testFile.delete();
         
         return result;
