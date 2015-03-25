@@ -36,7 +36,9 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  * classes
  */
 public class MainApp extends Application {
-    
+
+    private static final String TAG = MainApp.class.getSimpleName();
+
     private static final String AUTH_ON = "on";
     
     @SuppressWarnings("unused")
@@ -124,18 +126,19 @@ public class MainApp extends Application {
     public static String getUserAgent() {
         String appString = getAppContext().getResources().getString(R.string.user_agent);
         String packageName = getAppContext().getPackageName();
+        String version = "";
+
         PackageInfo pInfo = null;
         try {
             pInfo = getAppContext().getPackageManager().getPackageInfo(packageName, 0);
+            if (pInfo != null) {
+                version = "/" + pInfo.versionName;
+            }
         } catch (PackageManager.NameNotFoundException e) {
-
-        }
-        String version = "";
-        if (pInfo != null) {
-            version = "/" + pInfo.versionName;
+            Log_OC.e(TAG, "Trying to get packageName", e.getCause());
         }
 
-        // Mozilla/5.0 (Android) ownCloud /1.7.0
+       // Mozilla/5.0 (Android) ownCloud /1.7.0
         String userAgent = appString + version;
 
         return userAgent;
