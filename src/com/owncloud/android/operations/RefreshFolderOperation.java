@@ -39,6 +39,7 @@ import android.content.Intent;
 import android.util.Log;
 //import android.support.v4.content.LocalBroadcastManager;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 
@@ -128,7 +129,7 @@ public class RefreshFolderOperation extends RemoteOperation {
      * @param   syncFullAccount         'True' means that this operation is part of a full account 
      *                                  synchronization.
      * @param   isShareSupported        'True' means that the server supports the sharing API.           
-     * @param   ignoreEtag              'True' means that the content of the remote folder should
+     * @param   ignoreETag              'True' means that the content of the remote folder should
      *                                  be fetched and updated even though the 'eTag' did not 
      *                                  change.  
      * @param   dataStorageManager      Interface with the local database.
@@ -375,7 +376,8 @@ public class RefreshFolderOperation extends RemoteOperation {
                     remoteFile.setFileLength(localFile.getFileLength()); 
                         // TODO move operations about size of folders to FileContentProvider
                 } else if (mRemoteFolderChanged && remoteFile.isImage() &&
-                        remoteFile.getModificationTimestamp() != localFile.getModificationTimestamp()) {
+                        remoteFile.getModificationTimestamp() !=
+                                localFile.getModificationTimestamp()) {
                     remoteFile.setNeedsUpdateThumbnail(true);
                     Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
                 }

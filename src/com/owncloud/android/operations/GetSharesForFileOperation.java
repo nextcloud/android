@@ -23,6 +23,7 @@ package com.owncloud.android.operations;
 
 import java.util.ArrayList;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -58,7 +59,8 @@ public class GetSharesForFileOperation extends SyncOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        GetRemoteSharesForFileOperation operation = new GetRemoteSharesForFileOperation(mPath, mReshares, mSubfiles);
+        GetRemoteSharesForFileOperation operation = new GetRemoteSharesForFileOperation(mPath,
+                mReshares, mSubfiles);
         RemoteOperationResult result = operation.execute(client);
 
         if (result.isSuccess()) {

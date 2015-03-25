@@ -23,6 +23,7 @@ package com.owncloud.android.operations;
 
 import java.util.ArrayList;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;

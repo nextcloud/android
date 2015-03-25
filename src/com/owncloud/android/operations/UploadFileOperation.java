@@ -29,7 +29,6 @@ import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.concurrent.CancellationException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.httpclient.methods.PutMethod;
@@ -94,7 +93,8 @@ public class UploadFileOperation extends RemoteOperation {
                                 int localBehaviour, 
                                 Context context) {
         if (account == null)
-            throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation creation");
+            throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " +
+                    "creation");
         if (file == null)
             throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
         if (file.getStoragePath() == null || file.getStoragePath().length() <= 0) {

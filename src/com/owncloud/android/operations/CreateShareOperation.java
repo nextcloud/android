@@ -27,6 +27,7 @@ package com.owncloud.android.operations;
 import android.content.Context;
 import android.content.Intent;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -61,10 +62,13 @@ public class CreateShareOperation extends SyncOperation {
      * @param context       The context that the share is coming from.
      * @param path          Full path of the file/folder being shared. Mandatory argument
      * @param shareType     0 = user, 1 = group, 3 = Public link. Mandatory argument
-     * @param shareWith     User/group ID with who the file should be shared.  This is mandatory for shareType of 0 or 1
+     * @param shareWith     User/group ID with who the file should be shared.
+     *                      This is mandatory for shareType of 0 or 1
      * @param publicUpload  If false (default) public cannot upload to a public shared folder. 
-     *                      If true public can upload to a shared folder. Only available for public link shares
-     * @param password      Password to protect a public link share. Only available for public link shares
+     *                      If true public can upload to a shared folder.
+     *                      Only available for public link shares
+     * @param password      Password to protect a public link share.
+     *                      Only available for public link shares
      * @param permissions   1 - Read only - Default for public shares
      *                      2 - Update
      *                      4 - Create
@@ -95,7 +99,8 @@ public class CreateShareOperation extends SyncOperation {
         
         // Check if the share link already exists
         operation = new GetRemoteSharesForFileOperation(mPath, false, false);
-        RemoteOperationResult result = ((GetRemoteSharesForFileOperation)operation).execute(client);
+        RemoteOperationResult result =
+                ((GetRemoteSharesForFileOperation)operation).execute(client);
 
         if (!result.isSuccess() || result.getData().size() <= 0) {
             operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload,

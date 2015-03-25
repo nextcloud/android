@@ -1761,7 +1761,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             if (file.isFolder()) {
                 return file;
             } else if (getStorageManager() != null) {
-                String parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
+                String parentPath = file.getRemotePath().substring(0,
+                        file.getRemotePath().lastIndexOf(file.getFileName()));
                 return getStorageManager().getFileByPath(parentPath);
             }
         }
@@ -1783,7 +1784,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                                                                         getAccount(), 
                                                                         getApplicationContext()
                                                                       );
-        synchFolderOp.execute(getAccount(), this, null, null);
+        synchFolderOp.execute(getAccount(), MainApp.getAppContext(), this, null, null);
         
         setSupportProgressBarIndeterminateVisibility(true);
 
@@ -1795,7 +1796,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      */
     public void showUntrustedCertDialog(RemoteOperationResult result) {
         // Show a dialog with the certificate info
-        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstanceForFullSslError((CertificateCombinedException)result.getException());
+        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstanceForFullSslError(
+                (CertificateCombinedException)result.getException());
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         dialog.show(ft, DIALOG_UNTRUSTED_CERT);

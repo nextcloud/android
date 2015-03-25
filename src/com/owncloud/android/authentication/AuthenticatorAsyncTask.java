@@ -24,6 +24,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;

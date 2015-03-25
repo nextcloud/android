@@ -39,10 +39,10 @@ import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 
@@ -70,10 +70,9 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
 
     /**
      * Public factory method to get dialog instances.
-     * 
-     * @param handler
-     * @param Url           Url to open at WebView
-     * @param targetURL     mBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType)
+     *
+     * @param url           Url to open at WebView
+     * @param targetUrl     mBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType)
      * @return              New dialog instance, ready to show.
      */
     public static SamlWebViewDialog newInstance(String url, String targetUrl) {
@@ -101,7 +100,8 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
             mWebViewClient = new SsoWebViewClient(activity, mHandler, mSsoWebViewClientListener);
             
        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " + SsoWebViewClientListener.class.getSimpleName());
+            throw new ClassCastException(activity.toString() + " must implement " +
+                    SsoWebViewClientListener.class.getSimpleName());
         }
     }
 
@@ -130,11 +130,13 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
     @SuppressWarnings("deprecation")
     @SuppressLint("SetJavaScriptEnabled")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreateView, savedInsanceState is " + savedInstanceState);
         
         // Inflate layout of the dialog  
-        RelativeLayout ssoRootView = (RelativeLayout) inflater.inflate(R.layout.sso_dialog, container, false);  // null parent view because it will go in the dialog layout
+        RelativeLayout ssoRootView = (RelativeLayout) inflater.inflate(R.layout.sso_dialog,
+                container, false);  // null parent view because it will go in the dialog layout
         
         if (mSsoWebView == null) {
             // initialize the WebView
@@ -148,7 +150,7 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
             webSettings.setBuiltInZoomControls(false);
             webSettings.setLoadWithOverviewMode(false);
             webSettings.setSavePassword(false);
-            webSettings.setUserAgentString(OwnCloudClient.USER_AGENT);
+            webSettings.setUserAgentString(MainApp.getUserAgent());
             webSettings.setSaveFormData(false);
             
             CookieManager cookieManager = CookieManager.getInstance();
