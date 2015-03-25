@@ -98,10 +98,10 @@ public class FileActivity extends SherlockFragmentActivity
     private boolean mRedirectingToSetupAccount = false;
     
     /** Flag to signal when the value of mAccount was set */ 
-    private boolean mAccountWasSet;
+    protected boolean mAccountWasSet;
     
     /** Flag to signal when the value of mAccount was restored from a saved state */ 
-    private boolean mAccountWasRestored;
+    protected boolean mAccountWasRestored;
     
     /** Flag to signal if the activity is launched by a notification */
     private boolean mFromNotification;
@@ -243,7 +243,7 @@ public class FileActivity extends SherlockFragmentActivity
      *  @param account          New {@link Account} to set.
      *  @param savedAccount     When 'true', account was retrieved from a saved instance state.
      */
-    private void setAccount(Account account, boolean savedAccount) {
+    protected void setAccount(Account account, boolean savedAccount) {
         Account oldAccount = mAccount;
         boolean validAccount = (account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account.name));
         if (validAccount) {
@@ -339,6 +339,10 @@ public class FileActivity extends SherlockFragmentActivity
      */
     public Account getAccount() {
         return mAccount;
+    }
+
+    protected void setAccount(Account account) {
+        mAccount = account;
     }
 
     /**
