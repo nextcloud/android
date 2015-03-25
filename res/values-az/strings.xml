@@ -164,6 +164,7 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="auth_no_net_conn_title">Şəbəkə qoşulması yoxdur</string>
   <string name="auth_nossl_plain_ok_title">Təhlükəsiz qoşulma mümkün deyil.</string>
   <string name="auth_connection_established">Əlaqə quruldu</string>
+  <string name="auth_testing_connection">Qoşulma test edilir</string>
   <string name="auth_not_configured_title">Yalnış qurulmuş server konfiqurasiyası</string>
   <string name="auth_account_not_new">Avadanlıqda eyni istifadəçi və server üçün artıq hesab mövcuddur</string>
   <string name="auth_account_not_the_same">Daxil edilən hesab bu hesabla üst-üstə düşmür</string>
@@ -263,6 +264,8 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="share_link_file_error">Bu faylın yada qovluğun paylaşımı zamanı səhv baş verdi </string>
   <string name="unshare_link_file_no_exist">Paylaşımı dayandırmaq olmur. Xahiş olunur fayl mövcudluğunu yoxlayasınız</string>
   <string name="unshare_link_file_error">Bu fayl və ya qovluğun yayımlanmasının dayandırılmasında səhv baş verdi</string>
+  <string name="share_link_password_title">Şifrəni daxil et</string>
+  <string name="share_link_empty_password">Siz şifrəni daxil etməlisiniz</string>
   <string name="activity_chooser_send_file_title">Göndər</string>
   <string name="copy_link">linki nüsxələ</string>
   <string name="clipboard_text_copied">Mübadilə buferinə nüsxələndi</string>
@@ -303,5 +306,6 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="prefs_instant_video_upload_path_title">Video ünvanını yüklə</string>
   <string name="download_folder_failed_content">Qovluğun endirilməsinin %1$s hissəsi tamamlana bilməz </string>
   <string name="subject_token">%1$s paylaşdı \"%2$s\" sizinlə</string>
+  <string name="auth_refresh_button">Qoşulmanı yenilə</string>
   <string name="auth_host_address">Server ünvanı</string>
 </resources>

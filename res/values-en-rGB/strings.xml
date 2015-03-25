@@ -160,6 +160,7 @@
   <string name="auth_no_net_conn_title">No network connection</string>
   <string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
   <string name="auth_connection_established">Connection established</string>
+  <string name="auth_testing_connection">Testing connection</string>
   <string name="auth_not_configured_title">Malformed server configuration</string>
   <string name="auth_account_not_new">An account for the same user and server already exists on the device</string>
   <string name="auth_account_not_the_same">The entered user does not match the user of this account</string>
@@ -302,5 +303,6 @@
   <string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
   <string name="download_folder_failed_content">Download of %1$s folder could not be completed</string>
   <string name="subject_token">%1$s shared \"%2$s\" with you</string>
+  <string name="auth_refresh_button">Refresh connection</string>
   <string name="auth_host_address">Server address</string>
 </resources>
