@@ -50,6 +50,7 @@
   <string name="sync_string_files">Arquivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Enviar</string>
+  <string name="uploader_btn_new_folder_text">Nova pasta</string>
   <string name="uploader_top_message">Escolher pasta para enviar:</string>
   <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
   <string name="uploader_wrn_no_account_text">Não existem contas %1$s no seu dispositivo. Por favor, configure uma conta primeiro.</string>

@@ -39,6 +39,7 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Kopla til</string>
   <string name="uploader_btn_upload_text">Last opp</string>
+  <string name="uploader_btn_new_folder_text">Ny mappe</string>
   <string name="uploader_wrn_no_account_title">Fann ingen konto</string>
   <string name="uploader_wrn_no_account_text">Det er ingen %1$s kontoar på eininga di. Gjer vel å konfigurer ein konto først.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>

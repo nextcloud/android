@@ -46,6 +46,7 @@
   <string name="sync_string_files">Fișiere</string>
   <string name="setup_btn_connect">Conectare</string>
   <string name="uploader_btn_upload_text">Încărcare</string>
+  <string name="uploader_btn_new_folder_text">Un nou dosar</string>
   <string name="uploader_top_message">Alegeţi fişierul pentru încărcare</string>
   <string name="uploader_wrn_no_account_title">Nici un cont găsit</string>
   <string name="uploader_wrn_no_account_text">Nu există conturi %1$s pe dispozitivul tău. Te rugăm să configurezi un cont mai întâi.</string>

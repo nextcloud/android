@@ -50,6 +50,7 @@
   <string name="sync_string_files">Файлове</string>
   <string name="setup_btn_connect">Свързване</string>
   <string name="uploader_btn_upload_text">Качване</string>
+  <string name="uploader_btn_new_folder_text">Нова папка</string>
   <string name="uploader_top_message">Избери папка за качване:</string>
   <string name="uploader_wrn_no_account_title">Няма открит профил</string>
   <string name="uploader_wrn_no_account_text">Няма %1$s профили на устройстото ти. Моля, първо настрой профил.</string>

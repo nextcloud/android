@@ -50,6 +50,7 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Koble til</string>
   <string name="uploader_btn_upload_text">Last opp</string>
+  <string name="uploader_btn_new_folder_text">Ny mappe</string>
   <string name="uploader_top_message">Velg opplastingsmappe:</string>
   <string name="uploader_wrn_no_account_title">Ingen konto funnet</string>
   <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s kontoer for din enhet. For å bruker denne appen må du først opprette en.</string>

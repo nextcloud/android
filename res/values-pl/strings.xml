@@ -50,6 +50,7 @@
   <string name="sync_string_files">Pliki</string>
   <string name="setup_btn_connect">Połącz</string>
   <string name="uploader_btn_upload_text">Wyślij</string>
+  <string name="uploader_btn_new_folder_text">Nowy folder</string>
   <string name="uploader_top_message">Wybierz folder do wysłania:</string>
   <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
   <string name="uploader_wrn_no_account_text">Nie wykryto kont %1$s na twoim urządzeniu. Załóż konto.</string>

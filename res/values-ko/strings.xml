@@ -50,6 +50,7 @@
   <string name="sync_string_files">파일</string>
   <string name="setup_btn_connect">접속</string>
   <string name="uploader_btn_upload_text">업로드</string>
+  <string name="uploader_btn_new_folder_text">새 폴더</string>
   <string name="uploader_top_message">업로드 폴더 선택:</string>
   <string name="uploader_wrn_no_account_title">계정 없음</string>
   <string name="uploader_wrn_no_account_text">이 장치에 %1$s 계정이 없습니다. 먼저 계정을 설정하십시오.</string>
