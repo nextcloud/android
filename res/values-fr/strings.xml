@@ -303,7 +303,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
   <string name="move_file_error">Une erreur est survenue lors de la tentative de déplacement de ce fichier ou dossier</string>
   <string name="forbidden_permissions_move">de déplacer ce fichier</string>
-  <string name="prefs_category_instant_uploading">Envois immédiats</string>
+  <string name="prefs_category_instant_uploading">Téléversement immédiat</string>
   <string name="prefs_category_security">Sécurité</string>
   <string name="prefs_instant_video_upload_path_title">Répertoire de téléversement des vidéos</string>
   <string name="download_folder_failed_content">Le téléchargement du dossier %1$s n\'a pas pu être achevé</string>
