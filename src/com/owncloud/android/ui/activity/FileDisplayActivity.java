@@ -1393,9 +1393,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             actionBar.setDisplayShowTitleEnabled(!noRoot); 
             if (!noRoot) {
                 actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
-                View actionBarView = getWindow().getDecorView().findViewById(actionBarTitleId);
-                if (actionBarView != null) {    // it's null in Android 2.x (at least)
-                    actionBarView.setContentDescription(getString(R.string.default_display_name_for_root_folder));
+                View actionBarTitleView = getWindow().getDecorView().findViewById(actionBarTitleId);
+                if (actionBarTitleView != null) {    // it's null in Android 2.x
+                    actionBarTitleView.setContentDescription(getString(R.string.default_display_name_for_root_folder));
                 }
             }
             actionBar.setNavigationMode(!noRoot ? ActionBar.NAVIGATION_MODE_STANDARD : ActionBar.NAVIGATION_MODE_LIST);
@@ -1406,7 +1406,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setTitle(chosenFile.getFileName());
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-            getWindow().getDecorView().findViewById(actionBarTitleId).setContentDescription(chosenFile.getFileName());
+            View actionBarTitleView = getWindow().getDecorView().findViewById(actionBarTitleId);
+            if (actionBarTitleView != null) {    // it's null in Android 2.x
+                getWindow().getDecorView().findViewById(actionBarTitleId).
+                        setContentDescription(chosenFile.getFileName());
+            }
         }
     }
 
