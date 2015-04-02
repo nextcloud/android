@@ -266,7 +266,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
   <string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier est bien présent</string>
   <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
-  <string name="share_link_password_title">Saisir un mot de passe</string>
+  <string name="share_link_password_title">Saisissez un mot de passe</string>
   <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
   <string name="activity_chooser_send_file_title">Envoyer</string>
   <string name="copy_link">Copier le lien</string>
