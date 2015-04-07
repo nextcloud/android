@@ -50,6 +50,7 @@
   <string name="sync_string_files">文件</string>
   <string name="setup_btn_connect">连接</string>
   <string name="uploader_btn_upload_text">上传</string>
+  <string name="uploader_btn_new_folder_text">新建文件夹</string>
   <string name="uploader_top_message">选择上传文件夹：</string>
   <string name="uploader_wrn_no_account_title">未找到账号</string>
   <string name="uploader_wrn_no_account_text">设备上未找到 %1$s 账号，请先设置账号。</string>

@@ -50,6 +50,7 @@
   <string name="sync_string_files">Soubory</string>
   <string name="setup_btn_connect">Připojit</string>
   <string name="uploader_btn_upload_text">Odeslat</string>
+  <string name="uploader_btn_new_folder_text">Nová složka</string>
   <string name="uploader_top_message">Vyberte adresář pro nahrání:</string>
   <string name="uploader_wrn_no_account_title">Nenalezen žádný účet</string>
   <string name="uploader_wrn_no_account_text">Nemáte žádné %1$s účty. Vytvořte si, prosím, nejdříve účet.</string>

@@ -49,6 +49,7 @@
   <string name="sync_string_files">Failai</string>
   <string name="setup_btn_connect">Prisijungti</string>
   <string name="uploader_btn_upload_text">Įkelti</string>
+  <string name="uploader_btn_new_folder_text">Naujas aplankas</string>
   <string name="uploader_top_message">Nustatyti įkėlimų aplanką:</string>
   <string name="uploader_wrn_no_account_title">Paskyrų nerasta</string>
   <string name="uploader_wrn_no_account_text">Jūsų įrenginyje nėra nė vienos %1$s paskyros. Prašome pirmiausia susikurti paskyrą.</string>

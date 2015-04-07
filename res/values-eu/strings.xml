@@ -48,6 +48,7 @@
   <string name="sync_string_files">Fitxategiak</string>
   <string name="setup_btn_connect">Konektatu</string>
   <string name="uploader_btn_upload_text">Igo</string>
+  <string name="uploader_btn_new_folder_text">Karpeta berria</string>
   <string name="uploader_top_message">Hautatu igoera karpeta:</string>
   <string name="uploader_wrn_no_account_title">Ez da konturik aurkitu</string>
   <string name="uploader_wrn_no_account_text">Zure gailuan ez dago %1$s konturik. Mesedez konfiguratu kontu bat lehenengo.</string>
