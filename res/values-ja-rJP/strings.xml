@@ -161,7 +161,6 @@
   <string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
   <string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
   <string name="auth_connection_established">接続が確立しました</string>
-  <string name="auth_testing_connection">接続をテスト中...</string>
   <string name="auth_not_configured_title">サーバー設定が間違っています</string>
   <string name="auth_account_not_new">同じユーザーとサーバーのアカウントがデバイス上にすでに存在します</string>
   <string name="auth_account_not_the_same">入力されたユーザーはこのアカウントのユーザーと一致しません</string>
@@ -185,9 +184,10 @@
   <string name="auth_connecting_auth_server">認証サーバーに接続中 ...</string>
   <string name="auth_unsupported_auth_method">サーバーはこの認証方式をサポートしていません</string>
   <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
-  <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返しませんでした。管理者にご連絡ください。
+  <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返しませんでした。管理者に連絡してください。
 	</string>
   <string name="auth_can_not_auth_against_server">このサーバーに対して認証できません</string>
+  <string name="auth_account_does_not_exist">デバイス上にまだアカウントが存在しません</string>
   <string name="fd_keep_in_sync">ファイルを最新に保つ</string>
   <string name="common_rename">名前を変更</string>
   <string name="common_remove">削除</string>
@@ -243,7 +243,7 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">WiFi経由でのみ写真をアップロード</string>
+  <string name="instant_upload_on_wifi">WiFi経由でのみ画像をアップロード</string>
   <string name="instant_video_upload_on_wifi">WiFi経由でのみ動画をアップロード</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">更新が競合</string>
@@ -255,12 +255,14 @@
   <string name="preview_image_error_unknown_format">この画像は表示できません</string>
   <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
   <string name="prefs_instant_upload_path_title">アップロードパス</string>
-  <string name="share_link_no_support_share_api">申し訳ございません。共有がサーバー上で有効になっていません。 管理者に
-		ご連絡ください。</string>
+  <string name="share_link_no_support_share_api">すみませんが、サーバーで共有が有効になっていません。
+		管理者に連絡してください。</string>
   <string name="share_link_file_no_exist">共有できません。ファイルがあるか確認してください。</string>
   <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
   <string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
   <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
+  <string name="share_link_password_title">パスワードを入力</string>
+  <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
   <string name="activity_chooser_send_file_title">送信</string>
   <string name="copy_link">リンクをコピー</string>
   <string name="clipboard_text_copied">クリップボードにコピー</string>
@@ -300,4 +302,6 @@
   <string name="prefs_category_security">セキュリティ</string>
   <string name="prefs_instant_video_upload_path_title">動画のアップロードパス</string>
   <string name="download_folder_failed_content">%1$s のフォルダのダウンロードが完了しませんでした。</string>
+  <string name="subject_token">%1$sがあなたと\"%2$s\"を共有しました</string>
+  <string name="auth_host_address">サーバーアドレス</string>
 </resources>

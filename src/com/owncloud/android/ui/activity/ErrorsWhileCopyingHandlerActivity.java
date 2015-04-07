@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -57,8 +60,6 @@ import com.owncloud.android.utils.FileStorageUtils;
  * files.
  * 
  * Shown when the error notification summarizing the list of errors is clicked by the user.
- * 
- * @author David A. Velasco
  */
 public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity implements OnClickListener {
 
@@ -129,9 +130,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
     
     /**
      * Customized adapter, showing the local files as main text in two-lines list item and the remote files
-     * as the secondary text. 
-     * 
-     * @author David A. Velasco
+     * as the secondary text.
      */
     public class ErrorsWhileCopyingListAdapter extends ArrayAdapter<String> {
         
@@ -200,8 +199,6 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
     
     /**
      * Asynchronous task performing the move of all the local files to the ownCloud folder.
-     * 
-     * @author David A. Velasco
      */
     private class MoveFilesTask extends AsyncTask<Void, Void, Boolean> {
 

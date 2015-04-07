@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -36,6 +39,7 @@ import android.content.Intent;
 import android.util.Log;
 //import android.support.v4.content.LocalBroadcastManager;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 
@@ -64,8 +68,6 @@ import com.owncloud.android.utils.FileStorageUtils;
  *  properties, and updates the local database with them.
  *  
  *  Does NOT enter in the child folders to synchronize their contents also.
- * 
- *  @author David A. Velasco
  */
 public class RefreshFolderOperation extends RemoteOperation {
 
@@ -127,7 +129,7 @@ public class RefreshFolderOperation extends RemoteOperation {
      * @param   syncFullAccount         'True' means that this operation is part of a full account 
      *                                  synchronization.
      * @param   isShareSupported        'True' means that the server supports the sharing API.           
-     * @param   ignoreEtag              'True' means that the content of the remote folder should
+     * @param   ignoreETag              'True' means that the content of the remote folder should
      *                                  be fetched and updated even though the 'eTag' did not 
      *                                  change.  
      * @param   dataStorageManager      Interface with the local database.
@@ -374,7 +376,8 @@ public class RefreshFolderOperation extends RemoteOperation {
                     remoteFile.setFileLength(localFile.getFileLength()); 
                         // TODO move operations about size of folders to FileContentProvider
                 } else if (mRemoteFolderChanged && remoteFile.isImage() &&
-                        remoteFile.getModificationTimestamp() != localFile.getModificationTimestamp()) {
+                        remoteFile.getModificationTimestamp() !=
+                                localFile.getModificationTimestamp()) {
                     remoteFile.setNeedsUpdateThumbnail(true);
                     Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
                 }

@@ -151,7 +151,6 @@
   <string name="auth_no_net_conn_title">אין חיבור לאינטרנט</string>
   <string name="auth_nossl_plain_ok_title">אין חיבור מוצפן זמין.</string>
   <string name="auth_connection_established">החיבור נוצר</string>
-  <string name="auth_testing_connection">החיבור נבדק…</string>
   <string name="auth_not_configured_title">תצורת השרת פגומה</string>
   <string name="auth_account_not_new">חשבון לאותו משתמש ושרת כבר קיים במכשיר זה</string>
   <string name="auth_account_not_the_same">שם המשתמש שהוכנס לא מתאים לשם המשתמש של חשבון זה</string>
@@ -269,4 +268,5 @@
   <string name="prefs_add_account">הוספת חשבון</string>
   <string name="folder_picker_choose_button_text">בחירה</string>
   <string name="prefs_category_security">אבטחה</string>
+  <string name="auth_host_address">כתובת שרת</string>
 </resources>

@@ -3,9 +3,12 @@
   <string name="actionbar_upload">Augšupielādēt</string>
   <string name="actionbar_upload_from_apps">Saturs no citām lietotnēm</string>
   <string name="actionbar_upload_files">Datnes</string>
+  <string name="actionbar_open_with">Atvērt ar</string>
   <string name="actionbar_mkdir">Jauna mape</string>
   <string name="actionbar_settings">Iestatījumi</string>
   <string name="actionbar_send_file">Sūtīt</string>
+  <string name="actionbar_sort">Kārtot</string>
+  <string name="actionbar_sort_title">Kārtot pēc</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Vispārīgi</string>
@@ -89,7 +92,6 @@
   <string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
   <string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
   <string name="auth_connection_established">Savienojums ir izveidots</string>
-  <string name="auth_testing_connection">Testē savienojumu...</string>
   <string name="auth_not_configured_title">Slikti formatēta servera konfigurācija</string>
   <string name="auth_unknown_error_title">Gadījās nezināma kļūda!</string>
   <string name="auth_unknown_host_title">Nevarēja atrast datoru</string>
@@ -152,4 +154,5 @@
   <string name="saml_authentication_wrong_pass">Nepareiza parole</string>
   <string name="folder_picker_choose_button_text">Izvēlieties</string>
   <string name="prefs_category_security">Drošība</string>
+  <string name="auth_host_address">Servera adrese</string>
 </resources>

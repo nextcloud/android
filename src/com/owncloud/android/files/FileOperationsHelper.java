@@ -1,5 +1,9 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2015 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author masensio
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -41,9 +45,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 
 /**
- * 
- * @author masensio
- * @author David A. Velasco
+ *
  */
 public class FileOperationsHelper {
 
@@ -117,7 +119,7 @@ public class FileOperationsHelper {
     }
     
     
-    public void shareFileWithLinkToApp(OCFile file, Intent sendIntent) {
+    public void shareFileWithLinkToApp(OCFile file, String password, Intent sendIntent) {
         
         if (file != null) {
             mFileActivity.showLoadingDialog();
@@ -126,6 +128,7 @@ public class FileOperationsHelper {
             service.setAction(OperationsService.ACTION_CREATE_SHARE);
             service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_PASSWORD_SHARE, password);
             service.putExtra(OperationsService.EXTRA_SEND_INTENT, sendIntent);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
             

@@ -18,4 +18,5 @@
   <string name="uploader_info_dirname">సంచయం పేరు</string>
   <string name="activity_chooser_send_file_title">పంపించు</string>
   <string name="empty"></string>
+  <string name="auth_host_address">సేవకి చిరునామా</string>
 </resources>

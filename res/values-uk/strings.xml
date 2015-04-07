@@ -100,7 +100,7 @@
   <string name="uploader_upload_failed_ticker">Помилка завантаження</string>
   <string name="uploader_upload_failed_content_single">Завантаження %1$s не може завершитись</string>
   <string name="uploader_upload_failed_credentials_error">Завантажити не вдалося, необхідно повторити вхід</string>
-  <string name="downloader_download_in_progress_ticker">Зкачування …</string>
+  <string name="downloader_download_in_progress_ticker">Скачування …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Зкачування %2$s</string>
   <string name="downloader_download_succeeded_ticker">Успішно зкачано</string>
   <string name="downloader_download_succeeded_content">%1$s успішно завантажено</string>
@@ -160,7 +160,7 @@
   <string name="auth_no_net_conn_title">Відсутнє підключення до мережі</string>
   <string name="auth_nossl_plain_ok_title">Безпечне з\'єднання не доступне.</string>
   <string name="auth_connection_established">З\'єднання встановлено</string>
-  <string name="auth_testing_connection">Перевірка з\'єднання…</string>
+  <string name="auth_testing_connection">Перевірка з\'єднання</string>
   <string name="auth_not_configured_title">Не вірні налаштування сервер </string>
   <string name="auth_account_not_new">Такий обліковий запис вже існує на пристрої</string>
   <string name="auth_account_not_the_same">Введений користувач не відповідає обліковому запису</string>
@@ -187,6 +187,7 @@
   <string name="auth_fail_get_user_name">Ваш сервер не повертає коректний ідентифікатор користувача, будь ласка зверніться до адміністратора
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Аутентифікація на цьому сервері неможлива</string>
+  <string name="auth_account_does_not_exist">Користвача в пристрої не існуе</string>
   <string name="fd_keep_in_sync">Оновлювати файл</string>
   <string name="common_rename">Перейменувати</string>
   <string name="common_remove">Видалити</string>
@@ -259,6 +260,8 @@
   <string name="share_link_file_error">Виникла помилка при спробі поділитися файлом або текою</string>
   <string name="unshare_link_file_no_exist">Неможливо заборонити доступ. Будь ласка, перевірте, чи існує файл</string>
   <string name="unshare_link_file_error">Виникла помилка при спробі заборонити доступ до файлу або теки</string>
+  <string name="share_link_password_title">Ввести пароль</string>
+  <string name="share_link_empty_password">Ви повинні ввести пароль</string>
   <string name="activity_chooser_send_file_title">Надіслати</string>
   <string name="copy_link">Копіювати посилання</string>
   <string name="clipboard_text_copied">Скопійовано в буфер обміну</string>
@@ -297,4 +300,8 @@
   <string name="prefs_category_instant_uploading">Миттєво завантаження</string>
   <string name="prefs_category_security">Безпека</string>
   <string name="prefs_instant_video_upload_path_title">Шлях завантаження відео</string>
+  <string name="download_folder_failed_content">Скачування теки %1$s не може бути завершено</string>
+  <string name="subject_token">%1$s розшарено \"%2$s\" з вами</string>
+  <string name="auth_refresh_button">Оновити з\'єднання</string>
+  <string name="auth_host_address">Ареса серверу</string>
 </resources>

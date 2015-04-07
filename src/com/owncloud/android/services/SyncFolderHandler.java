@@ -1,4 +1,6 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -25,6 +27,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Pair;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -126,14 +129,15 @@ class SyncFolderHandler extends Handler {
             } finally {
                 mPendingOperations.removePayload(account, remotePath);
 
-                mService.dispatchResultToOperationListeners(null, mCurrentSyncOperation, result);
+                mService.dispatchResultToOperationListeners(mCurrentSyncOperation, result);
 
                 sendBroadcastFinishedSyncFolder(account, remotePath, result.isSuccess());
             }
         }
     }
 
-    public void add(Account account, String remotePath, SynchronizeFolderOperation syncFolderOperation){
+    public void add(Account account, String remotePath,
+                    SynchronizeFolderOperation syncFolderOperation){
         mPendingOperations.putIfAbsent(account, remotePath, syncFolderOperation);
         sendBroadcastNewSyncFolder(account, remotePath);    // TODO upgrade!
     }
@@ -168,26 +172,29 @@ class SyncFolderHandler extends Handler {
     }
 
     /**
-     * TODO review this method when "folder synchronization" replaces "folder download"; this is a fast and ugly
-     * patch.
+     * TODO review this method when "folder synchronization" replaces "folder download";
+     * this is a fast and ugly patch.
      */
     private void sendBroadcastNewSyncFolder(Account account, String remotePath) {
         Intent added = new Intent(FileDownloader.getDownloadAddedMessage());
         added.putExtra(FileDownloader.ACCOUNT_NAME, account.name);
         added.putExtra(FileDownloader.EXTRA_REMOTE_PATH, remotePath);
-        added.putExtra(FileDownloader.EXTRA_FILE_PATH, FileStorageUtils.getSavePath(account.name) + remotePath);
+        added.putExtra(FileDownloader.EXTRA_FILE_PATH, FileStorageUtils.getSavePath(account.name)
+                + remotePath);
         mService.sendStickyBroadcast(added);
     }
 
     /**
-     * TODO review this method when "folder synchronization" replaces "folder download"; this is a fast and ugly
-     * patch.
+     * TODO review this method when "folder synchronization" replaces "folder download";
+     * this is a fast and ugly patch.
      */
-    private void sendBroadcastFinishedSyncFolder(Account account, String remotePath, boolean success) {
+    private void sendBroadcastFinishedSyncFolder(Account account, String remotePath,
+                                                 boolean success) {
         Intent finished = new Intent(FileDownloader.getDownloadFinishMessage());
         finished.putExtra(FileDownloader.ACCOUNT_NAME, account.name);
         finished.putExtra(FileDownloader.EXTRA_REMOTE_PATH, remotePath);
-        finished.putExtra(FileDownloader.EXTRA_FILE_PATH, FileStorageUtils.getSavePath(account.name) + remotePath);
+        finished.putExtra(FileDownloader.EXTRA_FILE_PATH,
+                FileStorageUtils.getSavePath(account.name) + remotePath);
         finished.putExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, success);
         mService.sendStickyBroadcast(finished);
     }

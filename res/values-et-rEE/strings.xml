@@ -164,7 +164,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="auth_no_net_conn_title">Võrguühendust pole</string>
   <string name="auth_nossl_plain_ok_title">Turvaline ühendus pole saadaval</string>
   <string name="auth_connection_established">Saadi ühendus</string>
-  <string name="auth_testing_connection">Ühenduse testimine...</string>
   <string name="auth_not_configured_title">Vigases vormingus server seadistus</string>
   <string name="auth_account_not_new">Sama konto  kasutaja ja server on juba selles seadmes olemas</string>
   <string name="auth_account_not_the_same">Sisestatud kasutaja ei kattu selle konto kasutajaga</string>
@@ -298,4 +297,5 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="forbidden_permissions_move">selle faili liigutamiseks</string>
   <string name="prefs_category_instant_uploading">Kohesed üleslaadimised</string>
   <string name="prefs_category_security">Turvalisus</string>
+  <string name="auth_host_address">Serveri aadress</string>
 </resources>

@@ -1,6 +1,11 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author masensio
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2014 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -50,10 +55,6 @@ import com.owncloud.android.utils.FileStorageUtils;
  * A Fragment that lists all files and folders in a given path.
  * 
  * TODO refactorize to get rid of direct dependency on FileDisplayActivity
- * 
- * @author Bartek Przybylski
- * @author masensio
- * @author David A. Velasco
  */
 public class OCFileListFragment extends ExtendedListFragment {
     

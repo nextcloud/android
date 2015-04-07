@@ -1,6 +1,9 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -38,9 +41,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  *  Controller class accessed from the system AccountManager, providing integration of ownCloud accounts with the Android system.
  * 
  *  TODO - better separation in operations for OAuth-capable and regular ownCloud accounts.
- *  TODO - review completeness 
- * 
- * @author David A. Velasco
+ *  TODO - review completeness
  */
 public class AccountAuthenticator extends AbstractAccountAuthenticator {
     

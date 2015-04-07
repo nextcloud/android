@@ -52,4 +52,5 @@
   <string name="confirmation_remove_local">Lokal sahaja</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Akaun</string>
+  <string name="auth_host_address">Alamat pelayan</string>
 </resources>

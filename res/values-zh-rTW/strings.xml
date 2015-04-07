@@ -160,7 +160,6 @@
   <string name="auth_no_net_conn_title">沒有網際網路連線</string>
   <string name="auth_nossl_plain_ok_title">安全連線不可用。</string>
   <string name="auth_connection_established">連線已建立</string>
-  <string name="auth_testing_connection">測試連線中…</string>
   <string name="auth_not_configured_title">伺服器設定有問題</string>
   <string name="auth_account_not_new">已經有相同使用者與伺服器的帳號存在於這個裝置</string>
   <string name="auth_account_not_the_same">輸入的使用者與這個帳戶的使用者不一致</string>
@@ -298,4 +297,6 @@
   <string name="prefs_category_instant_uploading">即時上傳</string>
   <string name="prefs_category_security">安全性</string>
   <string name="prefs_instant_video_upload_path_title">影片上傳路徑</string>
+  <string name="download_folder_failed_content">%1$s 目錄的下載未完成</string>
+  <string name="auth_host_address">伺服器位址</string>
 </resources>
