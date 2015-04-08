@@ -50,6 +50,7 @@
   <string name="sync_string_files">Dosyalar</string>
   <string name="setup_btn_connect">Bağlan</string>
   <string name="uploader_btn_upload_text">Yükle</string>
+  <string name="uploader_btn_new_folder_text">Yeni klasör</string>
   <string name="uploader_top_message">Yükleme klasörünü seçin:</string>
   <string name="uploader_wrn_no_account_title">Hesap bulunamadı</string>
   <string name="uploader_wrn_no_account_text">Cihazınızda %1$s hesabı bulunmamaktadır. Lütfen öncelikle bir hesap ayarlayın.</string>

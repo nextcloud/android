@@ -17,6 +17,7 @@
   <string name="sync_string_files">ھۆججەتلەر</string>
   <string name="setup_btn_connect">باغلان</string>
   <string name="uploader_btn_upload_text">يۈكلە</string>
+  <string name="uploader_btn_new_folder_text">يېڭى قىسقۇچ</string>
   <string name="uploader_wrn_no_account_title">ھېسابات تېپىلمىدى</string>
   <string name="uploader_wrn_no_account_setup_btn_text">تەڭشەك</string>
   <string name="uploader_wrn_no_account_quit_btn_text">چېكىن</string>

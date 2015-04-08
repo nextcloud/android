@@ -49,6 +49,7 @@
   <string name="sync_string_files">Tiedostot</string>
   <string name="setup_btn_connect">Yhdistä</string>
   <string name="uploader_btn_upload_text">Lähetä</string>
+  <string name="uploader_btn_new_folder_text">Luo kansio</string>
   <string name="uploader_top_message">Valitse lähetyskansio:</string>
   <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
   <string name="uploader_wrn_no_account_text">Laitteelle ei ole asetettu %1$s-tiliä. Luo tili ensin.</string>
@@ -152,6 +153,7 @@
   <string name="auth_no_net_conn_title">Ei verkkoyhteyttä</string>
   <string name="auth_nossl_plain_ok_title">Salattu yhteys ei ole käytettävissä.</string>
   <string name="auth_connection_established">Yhteys muodostettu</string>
+  <string name="auth_testing_connection">Testataan yhteyttä</string>
   <string name="auth_not_configured_title">Väärin tehdyt palvelin-asetukset</string>
   <string name="auth_account_not_new">Laitteella on jo tili samalle käyttäjälle ja palvelimelle</string>
   <string name="auth_account_not_the_same">Syötetty käyttäjä ei täsmää tämän tilin käyttäjän kanssa</string>

@@ -1,14 +1,22 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s Android lietotne</string>
+  <string name="about_version">versija %1$s</string>
+  <string name="actionbar_sync">Atsvaidzināt kontu</string>
   <string name="actionbar_upload">Augšupielādēt</string>
   <string name="actionbar_upload_from_apps">Saturs no citām lietotnēm</string>
   <string name="actionbar_upload_files">Datnes</string>
   <string name="actionbar_open_with">Atvērt ar</string>
   <string name="actionbar_mkdir">Jauna mape</string>
   <string name="actionbar_settings">Iestatījumi</string>
+  <string name="actionbar_see_details">Detaļas</string>
   <string name="actionbar_send_file">Sūtīt</string>
   <string name="actionbar_sort">Kārtot</string>
   <string name="actionbar_sort_title">Kārtot pēc</string>
+  <string-array name="actionbar_sortby">
+    <item>Alfabēta: A-Z</item>
+    <item>Jaunākie - vecākie</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">Vispārīgi</string>
@@ -17,12 +25,24 @@
   <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
   <string name="prefs_pincode">Lietotnes PIN</string>
   <string name="prefs_pincode_summary">Aizsargā savu klientu</string>
+  <string name="prefs_instant_upload">Automātiskā bilžu augšuplāde</string>
+  <string name="prefs_instant_upload_summary">Automātiski augšuplādēt tikko uzņemtās bildes</string>
+  <string name="prefs_instant_video_upload">Automātiskā video augšuplāde</string>
+  <string name="prefs_instant_video_upload_summary">Automātiski augšuplādēt tikko uzņemtos video</string>
+  <string name="prefs_log_title">Ieslēgt ierakstīšanu</string>
+  <string name="prefs_log_summary">Šo lieto lai ierakstītu informāciju par problēmām</string>
+  <string name="prefs_log_title_history">Ierakstu žurnāls</string>
+  <string name="prefs_log_summary_history">Šis parāda ierakstu žurnālu</string>
+  <string name="prefs_log_delete_history_button">Iztīrīt žurnālu</string>
   <string name="prefs_help">Palīdzība</string>
+  <string name="prefs_recommend">Ieteikt draugam</string>
+  <string name="prefs_feedback">Atsauksmes</string>
   <string name="auth_username">Lietotājvārds</string>
   <string name="auth_password">Parole</string>
   <string name="sync_string_files">Datnes</string>
   <string name="setup_btn_connect">Savienoties</string>
   <string name="uploader_btn_upload_text">Augšupielādēt</string>
+  <string name="uploader_btn_new_folder_text">Jauna mape</string>
   <string name="uploader_wrn_no_account_title">Nav atrastu kontu</string>
   <string name="uploader_wrn_no_account_text">Uz šīs ierīces nav %1$s kontu. Lūdzu, vispirms iestatiet kontu.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Iestatīt</string>
@@ -33,6 +53,8 @@
   <string name="uploader_info_uploading">Augšupielādē</string>
   <string name="file_list_seconds_ago">sekundes atpakaļ</string>
   <string name="file_list_empty">Te vēl nekas nav. Rīkojies, sāc augšupielādēt!</string>
+  <string name="file_list_loading">Ielāde...</string>
+  <string name="local_file_list_empty">Šajā mapē nav failu</string>
   <string name="file_list_folder">mape</string>
   <string name="file_list_folders">mapes</string>
   <string name="file_list_file">fails</string>
@@ -43,6 +65,7 @@
   <string name="filedetails_created">Izveidota:</string>
   <string name="filedetails_modified">Modificēta:</string>
   <string name="filedetails_download">Lejupielādēt</string>
+  <string name="filedetails_sync_file">Atsvaidzināt failu</string>
   <string name="filedetails_renamed_in_upload_msg">Datne tika pārsaukta uz %1$s augšupielādes laikā</string>
   <string name="common_yes">Jā</string>
   <string name="common_no">Nē</string>

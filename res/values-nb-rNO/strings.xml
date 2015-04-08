@@ -50,6 +50,7 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Koble til</string>
   <string name="uploader_btn_upload_text">Last opp</string>
+  <string name="uploader_btn_new_folder_text">Ny mappe</string>
   <string name="uploader_top_message">Velg opplastingsmappe:</string>
   <string name="uploader_wrn_no_account_title">Ingen konto funnet</string>
   <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s kontoer for din enhet. For å bruker denne appen må du først opprette en.</string>
@@ -160,6 +161,7 @@
   <string name="auth_no_net_conn_title">Ingen nettverkstilkobling</string>
   <string name="auth_nossl_plain_ok_title">Sikker tilkobling ikke tilgjengelig.</string>
   <string name="auth_connection_established">Tilkobling opprettet</string>
+  <string name="auth_testing_connection">Tester forbindelsen</string>
   <string name="auth_not_configured_title">Feil i server konfigurasjon</string>
   <string name="auth_account_not_new">En konto for samme bruker og server finnes allerede på enheten</string>
   <string name="auth_account_not_the_same">Den innskrevne brukeren matcher ikke brukeren av denne kontoen</string>
@@ -302,5 +304,6 @@
   <string name="prefs_instant_video_upload_path_title">Sti til video-opplasting</string>
   <string name="download_folder_failed_content">Nedlasting av %1$s mappen kunne ikke fullføres</string>
   <string name="subject_token">%1$s har delt \"%2$s\" med deg</string>
+  <string name="auth_refresh_button">Oppfrisk forbindelse</string>
   <string name="auth_host_address">Server-adresse</string>
 </resources>

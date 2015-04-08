@@ -50,6 +50,7 @@
   <string name="sync_string_files">Pliki</string>
   <string name="setup_btn_connect">Połącz</string>
   <string name="uploader_btn_upload_text">Wyślij</string>
+  <string name="uploader_btn_new_folder_text">Nowy folder</string>
   <string name="uploader_top_message">Wybierz folder do wysłania:</string>
   <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
   <string name="uploader_wrn_no_account_text">Nie wykryto kont %1$s na twoim urządzeniu. Załóż konto.</string>
@@ -160,6 +161,7 @@
   <string name="auth_no_net_conn_title">Brak połączenia sieciowego</string>
   <string name="auth_nossl_plain_ok_title">Nie można nawiązać bezpiecznego połączenia.</string>
   <string name="auth_connection_established">Połączenie nawiązane</string>
+  <string name="auth_testing_connection">Sprawdzanie połączenia</string>
   <string name="auth_not_configured_title">Uszkodzona konfiguracja serwera</string>
   <string name="auth_account_not_new">Konto tego samego użytkownika i serwera już istnieje na tym urządzeniu</string>
   <string name="auth_account_not_the_same">Podany login nie pasuje do użytkowników </string>
@@ -186,6 +188,7 @@
   <string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego id użytkownika, proszę skontaktuj się z administratorem
 	</string>
   <string name="auth_can_not_auth_against_server">Nie można autoryzować przy użyciu tego serwera</string>
+  <string name="auth_account_does_not_exist">Konto nie istnieje jeszcze na tym urządzeniu</string>
   <string name="fd_keep_in_sync">Automatyczne aktualizuj plik</string>
   <string name="common_rename">Zmień nazwę</string>
   <string name="common_remove">Usuń</string>
@@ -259,6 +262,8 @@
   <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>
   <string name="unshare_link_file_no_exist">Nie można wyłączyć udostępniania. Proszę sprawdzić, czy plik istnieje</string>
   <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub folderu.</string>
+  <string name="share_link_password_title">Wprowadź hasło</string>
+  <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
   <string name="activity_chooser_send_file_title">Wyślij</string>
   <string name="copy_link">Skopiuj link</string>
   <string name="clipboard_text_copied">Skopiuj do schowka</string>
@@ -298,5 +303,7 @@
   <string name="prefs_category_security">Bezpieczeństwo</string>
   <string name="prefs_instant_video_upload_path_title">Katalog wysyłania dla wideo</string>
   <string name="download_folder_failed_content">Pobieranie %1$s katalogu nie może zostać ukończone</string>
+  <string name="subject_token">%1$s wspólne \"%2$s\" z tobą</string>
+  <string name="auth_refresh_button">Odśwież połączenie</string>
   <string name="auth_host_address">Adres Serwera</string>
 </resources>

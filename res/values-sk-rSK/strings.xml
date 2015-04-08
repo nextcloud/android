@@ -50,6 +50,7 @@
   <string name="sync_string_files">Súbory</string>
   <string name="setup_btn_connect">Pripojiť</string>
   <string name="uploader_btn_upload_text">Nahrať</string>
+  <string name="uploader_btn_new_folder_text">Nový priečinok</string>
   <string name="uploader_top_message">Vyberte priečinok pre nahrávanie:</string>
   <string name="uploader_wrn_no_account_title">Účet sa nenašiel</string>
   <string name="uploader_wrn_no_account_text">Na tomto zariadení nie je zadaný žiadny %1$s účet. Zadajte ho prosím.</string>

@@ -50,6 +50,7 @@
   <string name="sync_string_files">檔案</string>
   <string name="setup_btn_connect">連線</string>
   <string name="uploader_btn_upload_text">上傳</string>
+  <string name="uploader_btn_new_folder_text">新資料夾</string>
   <string name="uploader_top_message">選取上傳目錄:</string>
   <string name="uploader_wrn_no_account_title">找不到帳號</string>
   <string name="uploader_wrn_no_account_text">在您的裝置上找不到 %1$s 的帳號. 請先設定一組帳號.</string>

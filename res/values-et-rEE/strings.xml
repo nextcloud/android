@@ -50,6 +50,7 @@
   <string name="sync_string_files">Failid</string>
   <string name="setup_btn_connect">Ühenda</string>
   <string name="uploader_btn_upload_text">Lae üles</string>
+  <string name="uploader_btn_new_folder_text">Uus kaust</string>
   <string name="uploader_top_message">Vali kataloog serveris: </string>
   <string name="uploader_wrn_no_account_title">Kontot ei leitud</string>
   <string name="uploader_wrn_no_account_text">Selles seadmes pole ühtegi %1$si kontot. Palun seadista esmalt konto.</string>

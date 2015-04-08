@@ -25,6 +25,7 @@
   <string name="sync_string_files">Датотеки</string>
   <string name="setup_btn_connect">Поврзи се</string>
   <string name="uploader_btn_upload_text">Подигни</string>
+  <string name="uploader_btn_new_folder_text">Нова папка</string>
   <string name="uploader_wrn_no_account_title">Не е пронајдена сметка</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Нагодување</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Прекини</string>

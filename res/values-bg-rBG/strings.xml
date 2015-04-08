@@ -50,6 +50,7 @@
   <string name="sync_string_files">Файлове</string>
   <string name="setup_btn_connect">Свързване</string>
   <string name="uploader_btn_upload_text">Качване</string>
+  <string name="uploader_btn_new_folder_text">Нова папка</string>
   <string name="uploader_top_message">Избери папка за качване:</string>
   <string name="uploader_wrn_no_account_title">Няма открит профил</string>
   <string name="uploader_wrn_no_account_text">Няма %1$s профили на устройстото ти. Моля, първо настрой профил.</string>
@@ -160,6 +161,7 @@
   <string name="auth_no_net_conn_title">Няма интернет връзка</string>
   <string name="auth_nossl_plain_ok_title">Няма сигурна връзка</string>
   <string name="auth_connection_established">Осъществена връзка</string>
+  <string name="auth_testing_connection">Проверка на свързаност</string>
   <string name="auth_not_configured_title">Неправилно зададена сървърна конфигурация.</string>
   <string name="auth_account_not_new">Профил за същия потребител на същия сървър е вече настроен на устройството.</string>
   <string name="auth_account_not_the_same">Въведният потребител не съвпада с потребителя на профила.</string>

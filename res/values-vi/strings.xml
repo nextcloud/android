@@ -37,6 +37,7 @@
   <string name="sync_string_files">Tập tin</string>
   <string name="setup_btn_connect">Kết nối</string>
   <string name="uploader_btn_upload_text">Tải lên</string>
+  <string name="uploader_btn_new_folder_text">Tạo thư mục</string>
   <string name="uploader_wrn_no_account_title">Không tìm thấy tài khoản</string>
   <string name="uploader_wrn_no_account_text">Trên thiết bị của bạn không có tài khoản %1$s. Bước đầu tiên hãy thiết lập một tài khoản.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Cài đặt</string>

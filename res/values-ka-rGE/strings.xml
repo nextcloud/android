@@ -22,6 +22,7 @@
   <string name="sync_string_files">ფაილები</string>
   <string name="setup_btn_connect">დაკავშირება</string>
   <string name="uploader_btn_upload_text">ატვირთვა</string>
+  <string name="uploader_btn_new_folder_text">ახალი ფოლდერი</string>
   <string name="uploader_wrn_no_account_title">ანგარიში ვერ მოიძებნა</string>
   <string name="uploader_wrn_no_account_text"> %1$s ანგარიში არ არის თქვენს მოწყობილობაში. გთხოვთ ჯერ დააყენოთ ის.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">დაყენება</string>

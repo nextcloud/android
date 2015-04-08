@@ -50,6 +50,7 @@
   <string name="sync_string_files">Фајлови</string>
   <string name="setup_btn_connect">Повежи се</string>
   <string name="uploader_btn_upload_text">Отпреми</string>
+  <string name="uploader_btn_new_folder_text">Нова фасцикла</string>
   <string name="uploader_top_message">Изаберите фасциклу отпремања:</string>
   <string name="uploader_wrn_no_account_title">Нема налога</string>
   <string name="uploader_wrn_no_account_text">Нема %1$s налога на вашем уређају. Прво подесите налог.</string>
@@ -94,7 +95,7 @@
   <string name="upload_chooser_title">Отпреми из…</string>
   <string name="uploader_info_dirname">Назив фасцикле</string>
   <string name="uploader_upload_in_progress_ticker">Отпремам…</string>
-  <string name="uploader_upload_in_progress_content">%1$d%% Отпремам %2$s</string>
+  <string name="uploader_upload_in_progress_content">%1$d%% oтпрема %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Отпремање је успело</string>
   <string name="uploader_upload_succeeded_content_single">%1$s је успешно отпремљен</string>
   <string name="uploader_upload_failed_ticker">Отпремање није успело</string>
@@ -114,7 +115,7 @@
   <string name="sync_fail_content">Не могу да довршим синхронизацију %1$s</string>
   <string name="sync_fail_content_unauthorized">Неисправна лозинка за %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Постоје сукоби</string>
-  <string name="sync_conflicts_in_favourites_content">%1$d држи-синх фајлови нису синхронизовани</string>
+  <string name="sync_conflicts_in_favourites_content">%1$d фајловa ниje синхронизованo</string>
   <string name="sync_fail_in_favourites_ticker">Синхронизација није успела</string>
   <string name="sync_fail_in_favourites_content">Садржај %1$d фајлова не може бити синхронизован (%2$d сукоба)</string>
   <string name="sync_foreign_files_forgotten_ticker">Неки локални фајлови нису обрађени</string>
@@ -160,7 +161,7 @@
   <string name="auth_no_net_conn_title">Нема мрежне везе</string>
   <string name="auth_nossl_plain_ok_title">Безбедна веза није доступна.</string>
   <string name="auth_connection_established">Веза је успостављена</string>
-  <string name="auth_testing_connection">Провера везе</string>
+  <string name="auth_testing_connection">Проверавам везу</string>
   <string name="auth_not_configured_title">Лоше подешавање сервера</string>
   <string name="auth_account_not_new">Налог са истим корисником и сервером већ постоји на уређају</string>
   <string name="auth_account_not_the_same">Унесени корисник се не поклапа са корисником овог налога</string>
@@ -303,6 +304,6 @@
   <string name="prefs_instant_video_upload_path_title">Путања отпремања видеа</string>
   <string name="download_folder_failed_content">Преузимање фасцикле %1$s не може бити довршено</string>
   <string name="subject_token">%1$s подели „%2$s“ са вама</string>
-  <string name="auth_refresh_button">Освежавање везе</string>
+  <string name="auth_refresh_button">Освежи везу</string>
   <string name="auth_host_address">Адреса сервера</string>
 </resources>

@@ -47,6 +47,7 @@
   <string name="sync_string_files">Fitxers</string>
   <string name="setup_btn_connect">Connecta</string>
   <string name="uploader_btn_upload_text">Puja</string>
+  <string name="uploader_btn_new_folder_text">Carpeta nova</string>
   <string name="uploader_top_message">Seleccioneu la carpeta de pujada:</string>
   <string name="uploader_wrn_no_account_title">No s\'ha trobat el compte</string>
   <string name="uploader_wrn_no_account_text">No hi ha comptes %1$s en el dispositiu. Configureu un compte primer</string>

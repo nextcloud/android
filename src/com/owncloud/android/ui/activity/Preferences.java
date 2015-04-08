@@ -119,7 +119,11 @@ public class Preferences extends SherlockPreferenceActivity
 
         // For adding content description tag to a title field in the action bar
         int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
-        getWindow().getDecorView().findViewById(actionBarTitleId).setContentDescription(getString(R.string.actionbar_settings));
+        View actionBarTitleView = getWindow().getDecorView().findViewById(actionBarTitleId);
+        if (actionBarTitleView != null) {    // it's null in Android 2.x
+            getWindow().getDecorView().findViewById(actionBarTitleId).
+                    setContentDescription(getString(R.string.actionbar_settings));
+        }
 
         // Load the accounts category for adding the list of accounts
         mAccountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");

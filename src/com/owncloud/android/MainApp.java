@@ -55,9 +55,8 @@ public class MainApp extends Application {
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
-        if (isSamlAuth) {   
+        if (isSamlAuth) {
             OwnCloudClientManagerFactory.setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT);
-            
         } else {
             OwnCloudClientManagerFactory.setDefaultPolicy(Policy.ALWAYS_NEW_CLIENT);
         }

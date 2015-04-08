@@ -21,6 +21,7 @@
   <string name="sync_string_files">ไฟล์</string>
   <string name="setup_btn_connect">เชื่อมต่อ</string>
   <string name="uploader_btn_upload_text">อัพโหลด</string>
+  <string name="uploader_btn_new_folder_text">โฟลเดอร์ใหม่</string>
   <string name="uploader_wrn_no_account_title">ไม่พบบัญชีที่ต้องการ</string>
   <string name="uploader_wrn_no_account_text">ไม่มีบัญชี %1$s บนอุปกรณ์ของคุณ กรุณาตั้งค่าบัญชีของคุณก่อน</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ตั้งค่า</string>

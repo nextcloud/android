@@ -37,6 +37,7 @@
   <string name="sync_string_files">ឯកសារ</string>
   <string name="setup_btn_connect">ភ្ជាប់</string>
   <string name="uploader_btn_upload_text">ផ្ទុក​ឡើង</string>
+  <string name="uploader_btn_new_folder_text">ថត​ថ្មី</string>
   <string name="uploader_wrn_no_account_title">រកមិនឃើញ​គណនី</string>
   <string name="uploader_wrn_no_account_text">គ្មាន %1$s គណនី​លើម៉ាស៊ីន​របស់អ្នកទេ។ សូមរៀបចំគណនីមួយជាមុនសិន។</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ដំឡើង</string>
