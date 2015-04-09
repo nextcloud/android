@@ -8,81 +8,74 @@ import org.junit.Before;
 import org.junit.runners.MethodSorters;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import androidtest.actions.Actions;
 import androidtest.models.AppDetailsView;
-import androidtest.models.FilesView;
+import androidtest.models.ElementMenuOptions;
 import androidtest.models.MainView;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class UploadTestSuite extends CommonTest{
+public class UploadTestSuite extends Common{
+
+	String FILE_NAME = "test";
 
 	@Before
 	public void setUp() throws Exception {
-			setUpCommonDriver();
+		setUpCommonDriver();
 	}
-	
+
 	@Test
 	public void test1UploadFile () throws Exception {
-		String FILE_NAME = "test";
-		
-		MainView mainView = login(Config.URL, Config.user,Config.password);
+
+		MainView mainView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);
 		assertTrue(waitForTextPresent("ownCloud", mainView.getTitleTextElement()));
-		mainView.clickOnUploadButton();
-		FilesView filesView = mainView.clickOnFilesElementUploadFile();
-		filesView.clickOnFileName(FILE_NAME);
-		MainView mainViewAfterUploadFile = filesView.clickOnUploadButton();
-		//TO DO. detect when the file is successfully uploaded
-		Thread.sleep(3000);
+
+		//check if the file already exists and if true, delete it
+		Actions.deleteElement(FILE_NAME, mainView, driver);
+
+		MainView mainViewAfterUploadFile = Actions.uploadFile(FILE_NAME, mainView);
+
 		mainViewAfterUploadFile.scrollTillFindElement(FILE_NAME);
 		assertTrue(mainViewAfterUploadFile.getFileElement().isDisplayed());
-		mainViewAfterUploadFile.tapOnFileElement(FILE_NAME);
-		mainViewAfterUploadFile.clickOnRemoveFileElement();
-		mainViewAfterUploadFile.clickOnRemoteAndLocalButton();
-		assertTrue(waitForTextPresent("Wait a moment" , mainViewAfterUploadFile.getWaitAMomentTextElement()));
-		while(mainViewAfterUploadFile.getWaitAMomentTextElement().isDisplayed()){}
-		Actions.deleteAccount(mainViewAfterUploadFile);
-		
+		waitTillElementIsNotPresent(mainViewAfterUploadFile.getProgressCircular(), 1000);
+		wait.until(ExpectedConditions.visibilityOf(mainViewAfterUploadFile.getFileElementLayout().findElement(By.id(MainView.getLocalFileIndicator()))));
+
+
 	}
-	
+
 	@Test
 	public void test2KeepFileUpToDate () throws Exception {
-		String FILE_NAME = "test";
-		
-		MainView mainView = login(Config.URL, Config.user,Config.password);
+
+		MainView mainView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);
 		assertTrue(waitForTextPresent("ownCloud", mainView.getTitleTextElement()));
-		mainView.clickOnUploadButton();
-		FilesView filesView = mainView.clickOnFilesElementUploadFile();
-		filesView.clickOnFileName(FILE_NAME);
-		MainView mainViewAfterUploadFile = filesView.clickOnUploadButton();
-		//TO DO. detect when the file is successfully uploaded
-		Thread.sleep(3000);
+
+		waitTillElementIsNotPresent(mainView.getProgressCircular(), 1000);
+
+		MainView mainViewAfterUploadFile = Actions.uploadFile(FILE_NAME, mainView);
 		mainViewAfterUploadFile.scrollTillFindElement(FILE_NAME);
 		assertTrue(mainViewAfterUploadFile.getFileElement().isDisplayed());
-		mainViewAfterUploadFile.tapOnFileElement(FILE_NAME);
-		AppDetailsView appDetailsView = mainViewAfterUploadFile.clickOnDetailsFileElement();
+
+		ElementMenuOptions menuOptions = mainViewAfterUploadFile.longPressOnElement(FILE_NAME);
+		AppDetailsView appDetailsView = menuOptions.clickOnDetails();
 		appDetailsView.checkKeepFileUpToDateCheckbox();
-		//assertTrue(appDetailsView.getProgressBar().isDisplayed());
 		Thread.sleep(3000);
 		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_BACK);
-		assertTrue(isElementPresent(mainViewAfterUploadFile.getFileElementLayout(), MobileBy.id("com.owncloud.android:id/imageView3")));
-		mainViewAfterUploadFile.tapOnFileElement(FILE_NAME);
-		mainViewAfterUploadFile.clickOnRemoveFileElement();
-		mainViewAfterUploadFile.clickOnRemoteAndLocalButton();
-		assertTrue(waitForTextPresent("Wait a moment" , mainViewAfterUploadFile.getWaitAMomentTextElement()));
-		while(mainViewAfterUploadFile.getWaitAMomentTextElement().isDisplayed()){}
-		Actions.deleteAccount(mainViewAfterUploadFile);
-		
+		assertTrue(isElementPresent(mainViewAfterUploadFile.getFileElementLayout(), MobileBy.id(MainView.getFavoriteFileIndicator())));
+
 	}
-	
-	
+
+
 	@After
 	public void tearDown() throws Exception {
+		MainView mainView = new MainView(driver);
+		Actions.deleteElement(FILE_NAME,mainView, driver);
 		driver.removeApp("com.owncloud.android");
 		driver.quit();
 	}
-	
+
 
 }
 

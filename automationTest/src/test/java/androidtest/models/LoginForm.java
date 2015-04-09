@@ -2,6 +2,7 @@ package androidtest.models;
 
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
+
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -37,10 +38,11 @@ public class LoginForm {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 
-	public void typeHostUrl (String hostUrl) {
+	public CertificatePopUp typeHostUrl (String hostUrl) {
 		hostUrlInput.clear();
-		hostUrlInput.sendKeys(hostUrl);
-		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_BACK);
+		hostUrlInput.sendKeys(hostUrl + "\n");
+		CertificatePopUp certificatePopUp = new CertificatePopUp(driver);
+		return certificatePopUp;
 	}
 	
 	public void clickOnUserName () {
@@ -50,13 +52,13 @@ public class LoginForm {
 	public void typeUserName (String userName) {
 		userNameInput.clear();
 		userNameInput.sendKeys(userName);
-		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_BACK);
+		driver.hideKeyboard();
 	}
 	
 	public void typePassword (String password) {
 		passwordInput.clear();
 		passwordInput.sendKeys(password);
-		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_BACK);
+		driver.hideKeyboard();
 	}
 	
 	public MainView clickOnConnectButton () {
@@ -64,6 +66,19 @@ public class LoginForm {
 		MainView mainView = new MainView(driver);
 		return mainView;
 	}
+	
+	public AndroidElement gethostUrlInput () {
+		return hostUrlInput;
+	}
+	
+	public AndroidElement getUserNameInput () {
+		return userNameInput;
+	}
+	
+	public AndroidElement getPasswordInput () {
+		return passwordInput;
+	}
+	
 	
 	public AndroidElement getServerStatusTextElement () {
 		return serverStatusText;
