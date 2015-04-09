@@ -30,8 +30,6 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
-import org.apache.commons.codec.StringEncoder;
-
 /**
  * Main Application of the project
  * 
