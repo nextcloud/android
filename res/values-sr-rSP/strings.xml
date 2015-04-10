@@ -12,6 +12,7 @@
   <string name="prefs_accounts">Nalozi</string>
   <string name="prefs_manage_accounts">Upravljaj nalozima</string>
   <string name="prefs_help">Pomoć</string>
+  <string name="prefs_imprint">Žig</string>
   <string name="auth_username">Korisničko ime</string>
   <string name="auth_password">Lozinka</string>
   <string name="sync_string_files">Fajlovi</string>
