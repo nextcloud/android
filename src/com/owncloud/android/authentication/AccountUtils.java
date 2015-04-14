@@ -33,13 +33,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 public class AccountUtils {
-    public static final String WEBDAV_PATH_1_2 = "/webdav/owncloud.php";
-    public static final String WEBDAV_PATH_2_0 = "/files/webdav.php";
-    public static final String WEBDAV_PATH_4_0 = "/remote.php/webdav";
+    public static final String WEBDAV_PATH_4_0_AND_LATER = "/remote.php/webdav";
     private static final String ODAV_PATH = "/remote.php/odav";
     private static final String SAML_SSO_PATH = "/remote.php/webdav";
-    public static final String CARDDAV_PATH_2_0 = "/apps/contacts/carddav.php";
-    public static final String CARDDAV_PATH_4_0 = "/remote/carddav.php";
     public static final String STATUS_PATH = "/status.php";
 
     /**
@@ -132,8 +128,10 @@ public class AccountUtils {
      * according to its version and the authorization method used.
      * 
      * @param   version         Version of ownCloud server.
-     * @param   authTokenType   Authorization token type, matching some of the AUTH_TOKEN_TYPE_* constants in {@link AccountAuthenticator}. 
-     * @return                  WebDAV path for given OC version and authorization method, null if OC version is unknown.
+     * @param   authTokenType   Authorization token type, matching some of the AUTH_TOKEN_TYPE_* constants in
+     *                          {@link AccountAuthenticator}.
+     * @return                  WebDAV path for given OC version and authorization method, null if OC version
+     *                          is unknown; versions prior to ownCloud 4 are not supported anymore
      */
     public static String getWebdavPath(OwnCloudVersion version, String authTokenType) {
         if (version != null) {
@@ -143,13 +141,7 @@ public class AccountUtils {
             if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(authTokenType)) {
                 return SAML_SSO_PATH;
             }
-            if (version.compareTo(OwnCloudVersion.owncloud_v4) >= 0)
-                return WEBDAV_PATH_4_0;
-            if (version.compareTo(OwnCloudVersion.owncloud_v3) >= 0
-                    || version.compareTo(OwnCloudVersion.owncloud_v2) >= 0)
-                return WEBDAV_PATH_2_0;
-            if (version.compareTo(OwnCloudVersion.owncloud_v1) >= 0)
-                return WEBDAV_PATH_1_2;
+            return WEBDAV_PATH_4_0_AND_LATER;
         }
         return null;
     }
