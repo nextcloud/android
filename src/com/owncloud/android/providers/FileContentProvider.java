@@ -25,12 +25,16 @@ package com.owncloud.android.providers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
@@ -684,9 +688,9 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i("SQL", "Entering in the #3 ADD in onUpgrade");
                 db.beginTransaction();
                 try {
-                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
-                           " ADD COLUMN " + ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA +
-                           " INTEGER " + " DEFAULT 0");
+                    db.execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA +
+                            " INTEGER " + " DEFAULT 0");
                 
                     db.execSQL("UPDATE " + ProviderTableMeta.FILE_TABLE_NAME + 
                            " SET " + ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA + " = " +
@@ -707,7 +711,7 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i("SQL", "Entering in the #4 ADD in onUpgrade");
                 db.beginTransaction();
                 try {
-                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                    db.execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
                             " ADD COLUMN " + ProviderTableMeta.FILE_ETAG + " TEXT " +
                             " DEFAULT NULL");
                     
@@ -765,11 +769,11 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i("SQL", "Entering in the #7 ADD in onUpgrade");
                 db.beginTransaction();
                 try {
-                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                    db.execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
                             " ADD COLUMN " + ProviderTableMeta.FILE_PERMISSIONS + " TEXT " +
                             " DEFAULT NULL");
 
-                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                    db.execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
                             " ADD COLUMN " + ProviderTableMeta.FILE_REMOTE_ID + " TEXT " +
                             " DEFAULT NULL");
                     
@@ -787,7 +791,7 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i("SQL", "Entering in the #8 ADD in onUpgrade");
                 db.beginTransaction();
                 try {
-                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                    db.execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
                             " ADD COLUMN " + ProviderTableMeta.FILE_UPDATE_THUMBNAIL + " INTEGER " +
                             " DEFAULT 0");
 
@@ -818,7 +822,56 @@ public class FileContentProvider extends ContentProvider {
             if (!upgraded)
                 Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
                         ", newVersion == " + newVersion);
+
+            if (oldVersion < 10 && newVersion >= 10) {
+                Log_OC.i("SQL", "Entering in the #10 ADD in onUpgrade");
+                upgraded = updateAccountName(db);
+            }
+             if (!upgraded)
+                Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
+                        ", newVersion == " + newVersion);
         }
     }
 
+
+    private boolean updateAccountName(SQLiteDatabase db){
+        AccountManager ama = AccountManager.get(getContext());
+        boolean upgradedResult = true;
+        boolean upgraded = false;
+        try {
+            // get accounts
+			Account[] accounts = AccountManager.get(getContext()).getAccountsByType(MainApp.getAccountType());
+			for (Account account : accounts) {
+                // build new account name
+                String serverUrl = ama.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);
+                String username = account.name.substring(0, account.name.lastIndexOf('@'));
+                String newAccountName = AccountUtils.buildAccountName(
+                        Uri.parse(serverUrl), username);
+
+                // update values in database
+                db.beginTransaction();
+                try{
+                    db.execSQL("UPDATE " + ProviderTableMeta.FILE_TABLE_NAME +
+                            " SET " + ProviderTableMeta.FILE_ACCOUNT_OWNER + " ='" +
+                            newAccountName + "' " +
+                            " WHERE " + ProviderTableMeta.FILE_ACCOUNT_OWNER + " ='" +
+                            account.name + "' " );
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } catch (SQLException e){
+                    upgraded = false;
+                    Log_OC.i("SQL", "OUT of the UpdateAccountName in onUpgrade; account.name == " +
+                        account.name +
+                        ", newAccountName == " + newAccountName);
+                } finally {
+                    db.endTransaction();
+                }
+                upgradedResult = upgraded && upgradedResult;
+			}
+		} catch (Exception e) {
+			Log_OC.i("Exception", "Exception:" + e);
+		}
+
+        return upgradedResult;
+    }
 }
