@@ -105,19 +105,6 @@ public class AccountUtils {
     }
     
 
-    /**
-     * Checks, whether or not there are any ownCloud accounts setup.
-     * 
-     * @return true, if there is at least one account.
-     */
-    public static boolean accountsAreSetup(Context context) {
-        AccountManager accMan = AccountManager.get(context);
-        Account[] accounts = accMan
-                .getAccountsByType(MainApp.getAccountType());
-        return accounts.length > 0;
-    }
-    
-    
     public static boolean setCurrentOwnCloudAccount(Context context, String accountName) {
         boolean result = false;
         if (accountName != null) {
