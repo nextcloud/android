@@ -839,30 +839,31 @@ public class FileContentProvider extends ContentProvider {
         boolean upgradedResult = true;
         boolean upgraded = false;
         try {
-            // get accounts
+            // get accounts ALREADY UPDATED from AccountManager
 			Account[] accounts = AccountManager.get(getContext()).getAccountsByType(MainApp.getAccountType());
+            String serverUrl, username, oldAccountName;
 			for (Account account : accounts) {
                 // build new account name
-                String serverUrl = ama.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);
-                String username = account.name.substring(0, account.name.lastIndexOf('@'));
-                String newAccountName = AccountUtils.buildAccountName(
-                        Uri.parse(serverUrl), username);
+                serverUrl = ama.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);
+                username = account.name.substring(0, account.name.lastIndexOf('@'));
+                oldAccountName = AccountUtils.buildAccountNameOld(Uri.parse(serverUrl), username);
 
                 // update values in database
                 db.beginTransaction();
                 try{
                     db.execSQL("UPDATE " + ProviderTableMeta.FILE_TABLE_NAME +
                             " SET " + ProviderTableMeta.FILE_ACCOUNT_OWNER + " ='" +
-                            newAccountName + "' " +
+                            account.name + "' " +
                             " WHERE " + ProviderTableMeta.FILE_ACCOUNT_OWNER + " ='" +
-                            account.name + "' " );
+                            oldAccountName + "' " );
                     upgraded = true;
                     db.setTransactionSuccessful();
+
+                    Log_OC.i("SQL", "Updated account in database: old name == " + oldAccountName +
+                            ", new name == " + account.name);
+
                 } catch (SQLException e){
                     upgraded = false;
-                    Log_OC.i("SQL", "OUT of the UpdateAccountName in onUpgrade; account.name == " +
-                        account.name +
-                        ", newAccountName == " + newAccountName);
                 } finally {
                     db.endTransaction();
                 }
