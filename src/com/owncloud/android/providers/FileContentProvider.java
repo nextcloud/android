@@ -22,16 +22,19 @@
 
 package com.owncloud.android.providers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -863,6 +866,10 @@ public class FileContentProvider extends ContentProvider {
 
                      Log_OC.d("SQL", "Updated account in database: old name == " + oldAccountName +
                              ", new name == " + account.name + " (" + num + " rows updated )");
+
+                    // update path for downloaded files
+                    upgraded = updateDownloadedFiles(db, account.name, oldAccountName);
+
                 } catch (SQLException e){
                     upgraded = false;
                 } finally {
@@ -875,5 +882,85 @@ public class FileContentProvider extends ContentProvider {
 		}
 
         return upgradedResult;
+    }
+
+    private boolean updateDownloadedFiles(SQLiteDatabase db, String newAccountName,
+                                       String oldAccountName) {
+        boolean upgradedResult = true;
+        boolean upgraded = false;
+        boolean renamedResult = true;
+        boolean renamed = false;
+
+        String selectQuery = "SELECT " + ProviderTableMeta._ID + " FROM " +
+                ProviderTableMeta.FILE_TABLE_NAME +" WHERE " +
+                ProviderTableMeta.FILE_ACCOUNT_OWNER +"=? AND " +
+                ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL;";
+
+        Cursor c = db.rawQuery(selectQuery, new String[] { newAccountName });
+        if (c.moveToFirst()) {
+            // create storage path
+            String oldAccountPath = FileStorageUtils.getSavePath(oldAccountName);
+            String newAccountPath = FileStorageUtils.getSavePath(newAccountName);
+
+            if (oldAccountPath != newAccountPath) {
+                File newAccountFolder = new File(newAccountPath);
+                if (!newAccountFolder.exists()) {
+                    newAccountFolder.mkdirs();
+                }
+                // update  file and database
+                do {
+                    // Update database
+                    String oldPath = c.getString(
+                            c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
+                    OCFile file = new OCFile(
+                            c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH)));
+                    String newPath = FileStorageUtils.getDefaultSavePathFor(newAccountName, file);
+
+                    db.beginTransaction();
+                    try {
+                        ContentValues cv = new ContentValues();
+                        cv.put(ProviderTableMeta.FILE_STORAGE_PATH, newPath);
+                        db.update(ProviderTableMeta.FILE_TABLE_NAME,
+                                cv,
+                                ProviderTableMeta.FILE_STORAGE_PATH + "=?",
+                                new String[]{oldPath});
+                        upgraded = true;
+                        db.setTransactionSuccessful();
+
+                        Log_OC.d("SQL", "Updated downloaded files: old file name == " + oldPath +
+                                ", new file name == " + newPath);
+                    } catch (SQLException e) {
+                        upgraded = false;
+                    } finally {
+                        db.endTransaction();
+                    }
+                    upgradedResult = upgraded && upgradedResult;
+
+                    // move file
+                    File oldFile = new File(oldPath);
+                    renamed = false;
+                    if (oldFile.exists()) {
+                        File newFile = new File(newPath);
+                        File newFolder = newFile.getParentFile();
+                        if (!newFolder.exists()) {
+                            newFolder.mkdirs();
+                        }
+                        renamed = newFile.renameTo(newFile);
+                    }
+                    renamedResult = renamed && renamedResult;
+                } while (c.moveToNext());
+
+                // remove old folder
+                if (renamed && upgradedResult) {
+                    File oldAccountFolder = new File(oldAccountPath);
+                    if (oldAccountFolder.exists()) {
+                        oldAccountFolder.delete();
+                    }
+                }
+            }
+        }
+        c.close();
+
+        return (renamed && upgradedResult);
     }
 }
