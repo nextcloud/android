@@ -374,9 +374,9 @@ public class FileContentProvider extends ContentProvider {
             ) {
         ContentValues fileValues = new ContentValues();
         fileValues.put(
-                ProviderTableMeta.FILE_SHARE_BY_LINK, 
-                ShareType.PUBLIC_LINK.getValue() == 
-                    shareValues.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE)? 1 : 0
+                ProviderTableMeta.FILE_SHARE_BY_LINK,
+                ShareType.PUBLIC_LINK.getValue() ==
+                        shareValues.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE) ? 1 : 0
         );
         String whereShare = ProviderTableMeta.FILE_PATH + "=? AND " + 
                 ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
@@ -888,7 +888,6 @@ public class FileContentProvider extends ContentProvider {
                                        String oldAccountName) {
         boolean upgradedResult = true;
         boolean upgraded = false;
-        boolean renamedResult = true;
         boolean renamed = false;
 
         String selectQuery = "SELECT " + ProviderTableMeta._ID + " FROM " +
@@ -896,18 +895,19 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_ACCOUNT_OWNER +"=? AND " +
                 ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL;";
 
-        Cursor c = db.rawQuery(selectQuery, new String[] { newAccountName });
+        Cursor c = db.rawQuery(selectQuery, new String[]{newAccountName});
         if (c.moveToFirst()) {
             // create storage path
             String oldAccountPath = FileStorageUtils.getSavePath(oldAccountName);
             String newAccountPath = FileStorageUtils.getSavePath(newAccountName);
 
             if (oldAccountPath != newAccountPath) {
+                // move files
+                File oldAccountFolder = new File(oldAccountPath);
                 File newAccountFolder = new File(newAccountPath);
-                if (!newAccountFolder.exists()) {
-                    newAccountFolder.mkdirs();
-                }
-                // update  file and database
+                renamed = oldAccountFolder.renameTo(newAccountFolder);
+
+                // update database
                 do {
                     // Update database
                     String oldPath = c.getString(
@@ -936,27 +936,26 @@ public class FileContentProvider extends ContentProvider {
                     }
                     upgradedResult = upgraded && upgradedResult;
 
-                    // move file
-                    File oldFile = new File(oldPath);
-                    renamed = false;
-                    if (oldFile.exists()) {
-                        File newFile = new File(newPath);
-                        File newFolder = newFile.getParentFile();
-                        if (!newFolder.exists()) {
-                            newFolder.mkdirs();
-                        }
-                        renamed = newFile.renameTo(newFile);
-                    }
-                    renamedResult = renamed && renamedResult;
+//                    // move file
+//                    File oldFile = new File(oldPath);
+//                    renamed = false;
+//                    if (oldFile.exists()) {
+//                        File newFile = new File(newPath);
+//                        File newFolder = newFile.getParentFile();
+//                        if (!newFolder.exists()) {
+//                            newFolder.mkdirs();
+//                        }
+//                        renamed = oldFile.renameTo(newFile);
+//                    }
                 } while (c.moveToNext());
 
-                // remove old folder
-                if (renamed && upgradedResult) {
-                    File oldAccountFolder = new File(oldAccountPath);
-                    if (oldAccountFolder.exists()) {
-                        oldAccountFolder.delete();
-                    }
-                }
+//                // remove old folder
+//                if (renamed && upgradedResult) {
+//                    File oldAccountFolder = new File(oldAccountPath);
+//                    if (oldAccountFolder.exists()) {
+//                        oldAccountFolder.delete();
+//                    }
+//                }
             }
         }
         c.close();
