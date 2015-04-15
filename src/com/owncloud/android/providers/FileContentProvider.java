@@ -844,7 +844,7 @@ public class FileContentProvider extends ContentProvider {
 			Account[] accounts = AccountManager.get(getContext()).getAccountsByType(MainApp.getAccountType());
             String serverUrl, username, oldAccountName;
 			for (Account account : accounts) {
-                // build new account name
+                // build old account name
                 serverUrl = ama.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);
                 username = account.name.substring(0, account.name.lastIndexOf('@'));
                 oldAccountName = AccountUtils.buildAccountNameOld(Uri.parse(serverUrl), username);
