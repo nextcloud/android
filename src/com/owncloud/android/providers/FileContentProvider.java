@@ -745,15 +745,15 @@ public class FileContentProvider extends ContentProvider {
                             + ProviderTableMeta.OCSHARES_SHARE_TYPE + " INTEGER, "
                             + ProviderTableMeta.OCSHARES_SHARE_WITH + " TEXT, "
                             + ProviderTableMeta.OCSHARES_PATH + " TEXT, "
-                            + ProviderTableMeta.OCSHARES_PERMISSIONS+ " INTEGER, "
+                            + ProviderTableMeta.OCSHARES_PERMISSIONS + " INTEGER, "
                             + ProviderTableMeta.OCSHARES_SHARED_DATE + " INTEGER, "
                             + ProviderTableMeta.OCSHARES_EXPIRATION_DATE + " INTEGER, "
                             + ProviderTableMeta.OCSHARES_TOKEN + " TEXT, "
                             + ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME + " TEXT, "
                             + ProviderTableMeta.OCSHARES_IS_DIRECTORY + " INTEGER, "  // boolean
                             + ProviderTableMeta.OCSHARES_USER_ID + " INTEGER, "
-                            + ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + " INTEGER," 
-                            + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + " TEXT );" );
+                            + ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + " INTEGER,"
+                            + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + " TEXT );");
 
                     upgraded = true;
                     db.setTransactionSuccessful();
@@ -835,6 +835,7 @@ public class FileContentProvider extends ContentProvider {
 
 
     private boolean updateAccountName(SQLiteDatabase db){
+        Log_OC.d("SQL", "THREAD:  "+ Thread.currentThread().getName());
         AccountManager ama = AccountManager.get(getContext());
         boolean upgradedResult = true;
         boolean upgraded = false;
@@ -851,17 +852,22 @@ public class FileContentProvider extends ContentProvider {
                 // update values in database
                 db.beginTransaction();
                 try{
-                    db.execSQL("UPDATE " + ProviderTableMeta.FILE_TABLE_NAME +
-                            " SET " + ProviderTableMeta.FILE_ACCOUNT_OWNER + " ='" +
-                            account.name + "' " +
-                            " WHERE " + ProviderTableMeta.FILE_ACCOUNT_OWNER + " ='" +
-                            oldAccountName + "' " );
+//                    db.execSQL("UPDATE " + ProviderTableMeta.FILE_TABLE_NAME +
+//                            " SET " + ProviderTableMeta.FILE_ACCOUNT_OWNER + " ='" +
+//                            account.name + "' " +
+//                            " WHERE " + ProviderTableMeta.FILE_ACCOUNT_OWNER + " ='" +
+//                            oldAccountName + "' " );
+                    ContentValues cv = new ContentValues();
+                    cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
+                    int num = db.update(ProviderTableMeta.FILE_TABLE_NAME,
+                            cv,
+                            ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                            new String[]{ oldAccountName });
                     upgraded = true;
                     db.setTransactionSuccessful();
 
-                    Log_OC.i("SQL", "Updated account in database: old name == " + oldAccountName +
-                            ", new name == " + account.name);
-
+                     Log_OC.i("SQL", "Updated account in database: old name == " + oldAccountName +
+                             ", new name == " + account.name + " (" + num + " rows updated )");
                 } catch (SQLException e){
                     upgraded = false;
                 } finally {
