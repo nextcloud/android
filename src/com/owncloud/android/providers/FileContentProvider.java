@@ -890,7 +890,7 @@ public class FileContentProvider extends ContentProvider {
         boolean upgraded = false;
         boolean renamed = false;
 
-        String selectQuery = "SELECT " + ProviderTableMeta._ID + " FROM " +
+        String selectQuery = "SELECT * FROM " +
                 ProviderTableMeta.FILE_TABLE_NAME +" WHERE " +
                 ProviderTableMeta.FILE_ACCOUNT_OWNER +"=? AND " +
                 ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL;";
