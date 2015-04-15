@@ -1483,6 +1483,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 );
             }
 
+            // include account version with the new account
+            mAccountMgr.setUserData(
+                mAccount,
+                Constants.KEY_OC_ACCOUNT_VERSION,
+                Integer.toString(AccountUtils.ACCOUNT_VERSION)
+            );
+
             /// add the new account as default in preferences, if there is none already
             Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
             if (defaultAccount == null) {

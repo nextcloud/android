@@ -61,7 +61,6 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
-import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -152,6 +151,8 @@ public class FileActivity extends SherlockFragmentActivity
             mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION, false);
         }
 
+        AccountUtils.updateAccountVersion(this); // best place, before any access to AccountManager or database
+
         setAccount(account, savedInstanceState != null);
         
         mOperationsServiceConnection = new OperationsServiceConnection();
@@ -168,7 +169,6 @@ public class FileActivity extends SherlockFragmentActivity
 
     }
 
-    
     /**
      *  Since ownCloud {@link Account}s can be managed from the system setting menu, 
      *  the existence of the {@link Account} associated to the instance must be checked 
