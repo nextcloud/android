@@ -852,11 +852,6 @@ public class FileContentProvider extends ContentProvider {
                 // update values in database
                 db.beginTransaction();
                 try{
-//                    db.execSQL("UPDATE " + ProviderTableMeta.FILE_TABLE_NAME +
-//                            " SET " + ProviderTableMeta.FILE_ACCOUNT_OWNER + " ='" +
-//                            account.name + "' " +
-//                            " WHERE " + ProviderTableMeta.FILE_ACCOUNT_OWNER + " ='" +
-//                            oldAccountName + "' " );
                     ContentValues cv = new ContentValues();
                     cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
                     int num = db.update(ProviderTableMeta.FILE_TABLE_NAME,
@@ -866,7 +861,7 @@ public class FileContentProvider extends ContentProvider {
                     upgraded = true;
                     db.setTransactionSuccessful();
 
-                     Log_OC.i("SQL", "Updated account in database: old name == " + oldAccountName +
+                     Log_OC.d("SQL", "Updated account in database: old name == " + oldAccountName +
                              ", new name == " + account.name + " (" + num + " rows updated )");
                 } catch (SQLException e){
                     upgraded = false;
