@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.runners.MethodSorters;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+
 import androidtest.actions.Actions;
 import androidtest.models.MainView;
 import androidtest.models.WaitAMomentPopUp;
@@ -16,7 +17,6 @@ public class CreateFolderTestSuite extends Common{
 	private Boolean folderHasBeenCreated = false;
 	private final String FOLDER_NAME = "testCreateFolder";
 	private String CurrentCreatedFolder = "";
-
 
 	@Before
 	public void setUp() throws Exception {
@@ -44,6 +44,7 @@ public class CreateFolderTestSuite extends Common{
 
 	@After
 	public void tearDown() throws Exception {
+		takeScreenShotOnFailed(getName());
 		if (folderHasBeenCreated) {
 			MainView mainView = new MainView(driver);
 			Actions.deleteElement(CurrentCreatedFolder, mainView, driver);

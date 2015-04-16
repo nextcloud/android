@@ -57,6 +57,7 @@ public class RenameFolderTestSuite extends Common{
 
 	@After
 	public void tearDown() throws Exception {
+		takeScreenShotOnFailed(getName());
 		if(folderHasBeenCreated){
 			MainView mainView = new MainView(driver);
 			Actions.deleteElement(CurrentCreatedFolder, mainView, driver);

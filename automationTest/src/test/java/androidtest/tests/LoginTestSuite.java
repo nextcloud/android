@@ -88,6 +88,7 @@ public class LoginTestSuite extends Common{
 
 	@After
 	public void tearDown() throws Exception {
+		takeScreenShotOnFailed(getName());
 		driver.removeApp("com.owncloud.android");
 		driver.quit();
 	}

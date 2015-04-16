@@ -1,14 +1,24 @@
 package androidtest.tests;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import junit.framework.TestCase;
@@ -84,4 +94,12 @@ public class Common extends TestCase{
 		throw new TimeoutException();
 	}
 	
+	protected void takeScreenShotOnFailed (String testName) throws IOException {
+		File file  = ((RemoteWebDriver) driver).getScreenshotAs(OutputType.FILE);
+		SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+		Date today = Calendar.getInstance().getTime(); 
+		String screenShotName = "ScreenShots/" + dt1.format(today) + "/" + testName + ".png";
+		FileUtils.copyFile(file, new File(screenShotName));
+	}
+
 }

@@ -59,6 +59,7 @@ public class RenameFileTestSuite extends Common{
 
 	@After
 	public void tearDown() throws Exception {
+		takeScreenShotOnFailed(getName());
 		if (fileHasBeenCreated) {
 			MainView mainView = new MainView(driver);
 			Actions.deleteElement(CurrentCreatedFile,mainView, driver);

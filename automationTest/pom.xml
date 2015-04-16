@@ -20,6 +20,15 @@
     			</includes>
   			</configuration>
 		</plugin>
+		<plugin>
+        	<groupId>org.apache.maven.plugins</groupId>
+        	<artifactId>maven-compiler-plugin</artifactId>
+        	<version>3.3</version>
+        	<configuration>
+          	<source>1.7</source>
+          	<target>1.7</target>
+        </configuration>
+      </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -66,5 +75,4 @@
     	<scope>provided</scope>
   </dependency>
 </dependencies>
-
 </project>

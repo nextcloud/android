@@ -66,6 +66,7 @@ public class MoveFolderTestSuite extends Common{
 
 	@After
 	public void tearDown() throws Exception {
+		takeScreenShotOnFailed(getName());
 		MainView mainView = new MainView(driver);
 		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_BACK);
 		Actions.deleteElement(FOLDER_WHERE_MOVE, mainView, driver);

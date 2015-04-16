@@ -70,6 +70,7 @@ public class UploadTestSuite extends Common{
 
 	@After
 	public void tearDown() throws Exception {
+		takeScreenShotOnFailed(getName());
 		MainView mainView = new MainView(driver);
 		Actions.deleteElement(FILE_NAME,mainView, driver);
 		driver.removeApp("com.owncloud.android");
