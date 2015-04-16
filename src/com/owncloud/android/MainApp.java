@@ -29,6 +29,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
+
 /**
  * Main Application of the project
  * 
@@ -131,14 +132,14 @@ public class MainApp extends Application {
         try {
             pInfo = getAppContext().getPackageManager().getPackageInfo(packageName, 0);
             if (pInfo != null) {
-                version = "/" + pInfo.versionName;
+                version = pInfo.versionName;
             }
         } catch (PackageManager.NameNotFoundException e) {
             Log_OC.e(TAG, "Trying to get packageName", e.getCause());
         }
 
-       // Mozilla/5.0 (Android) ownCloud /1.7.0
-        String userAgent = appString + version;
+        // Mozilla/5.0 (Android) ownCloud-android/1.7.0
+        String userAgent = String.format(appString, version);
 
         return userAgent;
     }
