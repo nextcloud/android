@@ -843,20 +843,23 @@ public class FileContentProvider extends ContentProvider {
         boolean upgradedResult = true;
         boolean upgraded = false;
         try {
-            // get accounts ALREADY UPDATED from AccountManager
-			Account[] accounts = AccountManager.get(getContext()).getAccountsByType(MainApp.getAccountType());
-            String serverUrl, username, oldAccountName;
+            // get accounts from AccountManager ( we cann't know if they are updated or not because
+            // of synchronicity problems)
+			Account[] accounts = AccountManager.get(getContext()).getAccountsByType(
+                    MainApp.getAccountType());
+            String serverUrl, username, oldAccountName, newAccountName;
 			for (Account account : accounts) {
                 // build old account name
                 serverUrl = ama.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);
                 username = account.name.substring(0, account.name.lastIndexOf('@'));
                 oldAccountName = AccountUtils.buildAccountNameOld(Uri.parse(serverUrl), username);
+                newAccountName = AccountUtils.buildAccountName(Uri.parse(serverUrl), username);
 
                 // update values in database
                 db.beginTransaction();
                 try{
                     ContentValues cv = new ContentValues();
-                    cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
+                    cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, newAccountName);
                     int num = db.update(ProviderTableMeta.FILE_TABLE_NAME,
                             cv,
                             ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
@@ -865,10 +868,10 @@ public class FileContentProvider extends ContentProvider {
                     db.setTransactionSuccessful();
 
                      Log_OC.d("SQL", "Updated account in database: old name == " + oldAccountName +
-                             ", new name == " + account.name + " (" + num + " rows updated )");
+                             ", new name == " + newAccountName + " (" + num + " rows updated )");
 
                     // update path for downloaded files
-                    upgraded = updateDownloadedFiles(db, account.name, oldAccountName);
+                    upgraded = updateDownloadedFiles(db, newAccountName, oldAccountName);
 
                 } catch (SQLException e){
                     upgraded = false;
@@ -936,26 +939,7 @@ public class FileContentProvider extends ContentProvider {
                     }
                     upgradedResult = upgraded && upgradedResult;
 
-//                    // move file
-//                    File oldFile = new File(oldPath);
-//                    renamed = false;
-//                    if (oldFile.exists()) {
-//                        File newFile = new File(newPath);
-//                        File newFolder = newFile.getParentFile();
-//                        if (!newFolder.exists()) {
-//                            newFolder.mkdirs();
-//                        }
-//                        renamed = oldFile.renameTo(newFile);
-//                    }
                 } while (c.moveToNext());
-
-//                // remove old folder
-//                if (renamed && upgradedResult) {
-//                    File oldAccountFolder = new File(oldAccountPath);
-//                    if (oldAccountFolder.exists()) {
-//                        oldAccountFolder.delete();
-//                    }
-//                }
             }
         }
         c.close();
