@@ -92,6 +92,7 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -132,9 +133,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
 
-    public static final int DIALOG_SHORT_WAIT = 0;
-    private static final int DIALOG_CERT_NOT_SAVED = 2;
-    
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
     public static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
@@ -150,8 +148,12 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     private boolean mSyncInProgress = false;
 
-    private static String DIALOG_UNTRUSTED_CERT = "untrustedCertDialog";
-    
+    private static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
+    private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
+    private static String DIALOG_UPLOAD_SOURCE = "DIALOG_UPLOAD_SOURCE";
+    private static String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
+
+
     private OCFile mWaitingToSend;
 
     @Override
@@ -476,7 +478,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         switch (item.getItemId()) {
         case R.id.action_create_dir: {
             CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(getCurrentDir());
-            dialog.show(getSupportFragmentManager(), "createDirDialog");
+            dialog.show(getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
             break;
         }
         case R.id.action_sync_account: {
@@ -484,9 +486,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             break;
         }
         case R.id.action_upload: {
-            //showDialog(DIALOG_CHOOSE_UPLOAD_SOURCE);
             UploadSourceDialogFragment dialog = UploadSourceDialogFragment.newInstance(getAccount());
-            dialog.show(getSupportFragmentManager(), "uploadSourceDialog");
+            dialog.show(getSupportFragmentManager(), DIALOG_UPLOAD_SOURCE);
 
             break;
         }
@@ -845,76 +846,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         
         super.onPause();
         Log_OC.d(TAG, "onPause() end");
-    }
-
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog = null;
-        AlertDialog.Builder builder;
-        switch (id) {
-        case DIALOG_SHORT_WAIT: {
-            ProgressDialog working_dialog = new ProgressDialog(this);
-            working_dialog.setMessage(getResources().getString(
-                    R.string.wait_a_moment));
-            working_dialog.setIndeterminate(true);
-            working_dialog.setCancelable(false);
-            dialog = working_dialog;
-            break;
-        }
-        /*
-        case DIALOG_CHOOSE_UPLOAD_SOURCE: {
-
-
-            String[] allTheItems = { getString(R.string.actionbar_upload_files),
-                    getString(R.string.actionbar_upload_from_apps) };
-
-            builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.actionbar_upload);
-            builder.setItems(allTheItems, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int item) {
-                    if (item == 0) {
-                        // if (!mDualPane) {
-                            Intent action = new Intent(FileDisplayActivity.this, UploadFilesActivity.class);
-                            action.putExtra(UploadFilesActivity.EXTRA_ACCOUNT, FileDisplayActivity.this.getAccount());
-                            startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
-                            // } else {
-                            // TODO create and handle new fragment
-                            // LocalFileListFragment
-                            // }
-                    } else if (item == 1) {
-                        Intent action = new Intent(Intent.ACTION_GET_CONTENT);
-                        action = action.setType("*-/*").addCategory(Intent.CATEGORY_OPENABLE);
-                        //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
-                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                            action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                        }
-                        startActivityForResult(Intent.createChooser(action, getString(R.string.upload_chooser_title)),
-                                ACTION_SELECT_CONTENT_FROM_APPS);
-                    }
-                }
-            });
-            dialog = builder.create();
-            break;
-        } */
-        case DIALOG_CERT_NOT_SAVED: {
-            builder = new AlertDialog.Builder(this);
-            builder.setMessage(getResources().getString(R.string.ssl_validator_not_saved));
-            builder.setCancelable(false);
-            builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                };
-            });
-            dialog = builder.create();
-            break;
-        }
-        default:
-            dialog = null;
-        }
-
-        return dialog;
     }
 
     /**
@@ -1418,7 +1349,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     @Override
     public void onFailedSavingCertificate() {
-        showDialog(DIALOG_CERT_NOT_SAVED);
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
+                R.string.ssl_validator_not_saved, new String[]{}, R.string.common_ok, -1, -1
+        );
+        dialog.show(getSupportFragmentManager(), DIALOG_CERT_NOT_SAVED);
     }
 
     @Override
