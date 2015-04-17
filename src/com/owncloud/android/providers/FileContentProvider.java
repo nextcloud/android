@@ -866,9 +866,8 @@ public class FileContentProvider extends ContentProvider {
                             ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
                             new String[]{ oldAccountName });
                     upgraded = true;
-                    db.setTransactionSuccessful();
 
-                     Log_OC.d("SQL", "Updated account in database: old name == " + oldAccountName +
+                    Log_OC.d("SQL", "Updated account in database: old name == " + oldAccountName +
                              ", new name == " + newAccountName + " (" + num + " rows updated )");
 
                     // update path for downloaded files
@@ -894,11 +893,6 @@ public class FileContentProvider extends ContentProvider {
         boolean upgraded = false;
         boolean renamed = false;
 
-//        String selectQuery = "SELECT * FROM " +
-//                ProviderTableMeta.FILE_TABLE_NAME +" WHERE " +
-//                ProviderTableMeta.FILE_ACCOUNT_OWNER +"='"+ newAccountName + "' AND " +
-//                ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL;";
-
         String whereClause = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " +
                 ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL";
 
@@ -908,7 +902,6 @@ public class FileContentProvider extends ContentProvider {
                 new String[] { newAccountName },
                 null, null, null);
 
-//        Log_OC.d("SQL", selectQuery);
         if (c.moveToFirst()) {
             // create storage path
             String oldAccountPath = FileStorageUtils.getSavePath(oldAccountName);
@@ -938,7 +931,6 @@ public class FileContentProvider extends ContentProvider {
                                 ProviderTableMeta.FILE_STORAGE_PATH + "=?",
                                 new String[]{oldPath});
                         upgraded = true;
-                        db.setTransactionSuccessful();
 
                         Log_OC.d("SQL", "Updated downloaded files: old file name == " + oldPath +
                                 ", new file name == " + newPath);
