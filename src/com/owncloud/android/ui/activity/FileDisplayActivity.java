@@ -56,7 +56,6 @@ import android.provider.OpenableColumns;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -100,6 +99,7 @@ import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
+import com.owncloud.android.ui.dialog.UploadSourceDialogFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -142,8 +142,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
-    private static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
-    private static final int ACTION_SELECT_MULTIPLE_FILES = 2;
+    public static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
+    public static final int ACTION_SELECT_MULTIPLE_FILES = 2;
     public static final int ACTION_MOVE_FILES = 3;
 
     private static final String TAG = FileDisplayActivity.class.getSimpleName();
@@ -214,8 +214,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     @Override
     protected void onStart() {
+        Log_OC.d(TAG, "onStart() start");
         super.onStart();
         getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
+        Log_OC.d(TAG, "onStart() end");
     }
 
     @Override
@@ -478,9 +480,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         boolean retval = true;
         switch (item.getItemId()) {
         case R.id.action_create_dir: {
-            CreateFolderDialogFragment dialog = 
-                    CreateFolderDialogFragment.newInstance(getCurrentDir());
-            dialog.show(getSupportFragmentManager(), "createdirdialog");
+            CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(getCurrentDir());
+            dialog.show(getSupportFragmentManager(), "createDirDialog");
             break;
         }
         case R.id.action_sync_account: {
@@ -488,7 +489,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             break;
         }
         case R.id.action_upload: {
-            showDialog(DIALOG_CHOOSE_UPLOAD_SOURCE);
+            //showDialog(DIALOG_CHOOSE_UPLOAD_SOURCE);
+            UploadSourceDialogFragment dialog = UploadSourceDialogFragment.newInstance(getAccount());
+            dialog.show(getSupportFragmentManager(), "uploadSourceDialog");
+
             break;
         }
         case R.id.action_settings: {
@@ -608,8 +612,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      *
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        Log_OC.e(TAG, "ON ACTIVITIRESULT IN FILE_DISPLAY_ACTIVITY");
 
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             //getClipData is only supported on api level 16+, Jelly Bean
@@ -638,7 +643,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 }, 
                 DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
             );
+
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
+
     }
 
     private void requestMultipleUpload(Intent data, int resultCode) {
@@ -723,7 +732,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 if (cursor != null && cursor.moveToFirst()) {
                     String displayName = cursor.getString(
                             cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    Log.i(TAG, "Display Name: " + displayName + "; mimeType: " + mimeType);
+                    Log_OC.i(TAG, "Display Name: " + displayName + "; mimeType: " + mimeType);
 
                     displayName.replace(File.separatorChar, '_');
                     displayName.replace(File.pathSeparatorChar, '_');
@@ -798,9 +807,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     @Override
     protected void onResume() {
-        super.onResume();
         Log_OC.d(TAG, "onResume() start");
-        
+        super.onResume();
+
         // refresh list of files
         refreshListOfFilesFragment();
 
@@ -847,8 +856,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         }
         
         
-        Log_OC.d(TAG, "onPause() end");
         super.onPause();
+        Log_OC.d(TAG, "onPause() end");
     }
 
 
@@ -866,6 +875,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             dialog = working_dialog;
             break;
         }
+        /*
         case DIALOG_CHOOSE_UPLOAD_SOURCE: {
 
 
@@ -887,7 +897,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                             // }
                     } else if (item == 1) {
                         Intent action = new Intent(Intent.ACTION_GET_CONTENT);
-                        action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
+                        action = action.setType("*-/*").addCategory(Intent.CATEGORY_OPENABLE);
                         //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
                         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                             action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
@@ -899,7 +909,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             });
             dialog = builder.create();
             break;
-        }
+        } */
         case DIALOG_CERT_NOT_SAVED: {
             builder = new AlertDialog.Builder(this);
             builder.setMessage(getResources().getString(R.string.ssl_validator_not_saved));
@@ -918,77 +928,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         }
 
         return dialog;
-    }
-
-    /**
-     * Translates a content URI of an content to a physical path on the disk
-     * 
-     * @param uri The URI to resolve
-     * @return The path to the content or null if it could not be found
-     */
-    public String getPath(Uri uri) {
-        final boolean isKitKatOrLater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
-        // DocumentProvider
-        if (isKitKatOrLater && DocumentsContract.isDocumentUri(getApplicationContext(), uri)) {
-            // ExternalStorageProvider
-            if (UriUtils.isExternalStorageDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                if ("primary".equalsIgnoreCase(type)) {
-                    return Environment.getExternalStorageDirectory() + "/" + split[1];
-                }
-            }
-            // DownloadsProvider
-            else if (UriUtils.isDownloadsDocument(uri)) {
-
-                final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),
-                        Long.valueOf(id));
-
-                return UriUtils.getDataColumn(getApplicationContext(), contentUri, null, null);
-            }
-            // MediaProvider
-            else if (UriUtils.isMediaDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                Uri contentUri = null;
-                if ("image".equals(type)) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                } else if ("video".equals(type)) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                } else if ("audio".equals(type)) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-                }
-
-                final String selection = "_id=?";
-                final String[] selectionArgs = new String[] { split[1] };
-
-                return UriUtils.getDataColumn(getApplicationContext(), contentUri, selection, selectionArgs);
-            }
-            // Documents providers returned as content://...
-            else if (UriUtils.isContentDocument(uri)) {
-                return uri.toString();
-            }
-        }
-        // MediaStore (and general)
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
-
-            // Return the remote address
-            if (UriUtils.isGooglePhotosUri(uri))
-                return uri.getLastPathSegment();
-
-            return UriUtils.getDataColumn(getApplicationContext(), uri, null, null);
-        }
-        // File
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-        return null;
     }
 
     /**
@@ -1932,4 +1871,81 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     private void sortByName(boolean ascending){
         getListOfFilesFragment().sortByName(ascending);
     }
+
+
+
+    /**
+     * Translates a content URI of a content to a physical path on the disk
+     *
+     * @param uri The URI to resolve
+     * @return The path to the content or null if it could not be found
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public String getPath(Uri uri) {
+        final boolean isKitKatOrLater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        // DocumentProvider
+        if (isKitKatOrLater && DocumentsContract.isDocumentUri(this, uri)) {
+            // ExternalStorageProvider
+            if (UriUtils.isExternalStorageDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+            }
+            // DownloadsProvider
+            else if (UriUtils.isDownloadsDocument(uri)) {
+
+                final String id = DocumentsContract.getDocumentId(uri);
+                final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),
+                        Long.valueOf(id));
+
+                return UriUtils.getDataColumn(this, contentUri, null, null);
+            }
+            // MediaProvider
+            else if (UriUtils.isMediaDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[] { split[1] };
+
+                return UriUtils.getDataColumn(this, contentUri, selection, selectionArgs);
+            }
+            // Documents providers returned as content://...
+            else if (UriUtils.isContentDocument(uri)) {
+                return uri.toString();
+            }
+        }
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+
+            // Return the remote address
+            if (UriUtils.isGooglePhotosUri(uri))
+                return uri.getLastPathSegment();
+
+            return UriUtils.getDataColumn(this, uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+        return null;
+    }
+
+
+
 }
