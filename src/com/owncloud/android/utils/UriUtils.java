@@ -19,16 +19,30 @@
 
 package com.owncloud.android.utils;
 
+import android.annotation.TargetApi;
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
+
+import com.owncloud.android.MainApp;
+import com.owncloud.android.lib.common.utils.Log_OC;
+
+import java.io.File;
 
 
 /**
  * A helper class for some Uri operations.
  */
 public class UriUtils {
-    
+
+    public static final String TAG = UriUtils.class.getSimpleName();
+
     public static final String URI_CONTENT_SCHEME = "content://";
     
     
@@ -102,4 +116,78 @@ public class UriUtils {
     public static boolean isContentDocument(Uri uri) {
         return uri.toString().startsWith(URI_CONTENT_SCHEME);
     }
+
+
+    /**
+     * Translates a content:// URI referred to a local file file to a path on the local filesystem
+     *
+     * @param uri       The URI to resolve
+     * @return          The path in the file system to the content or null if it could not be found (not a file)
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static String getLocalPath(Uri uri, Context context) {
+        final boolean isKitKatOrLater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        // DocumentProvider
+        if (isKitKatOrLater && DocumentsContract.isDocumentUri(context, uri)) {
+            // ExternalStorageProvider
+            if (UriUtils.isExternalStorageDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+            }
+            // DownloadsProvider
+            else if (UriUtils.isDownloadsDocument(uri)) {
+
+                final String id = DocumentsContract.getDocumentId(uri);
+                final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),
+                        Long.valueOf(id));
+
+                return UriUtils.getDataColumn(context, contentUri, null, null);
+            }
+            // MediaProvider
+            else if (UriUtils.isMediaDocument(uri)) {
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[] { split[1] };
+
+                return UriUtils.getDataColumn(context, contentUri, selection, selectionArgs);
+            }
+            // Documents providers returned as content://...
+            else if (UriUtils.isContentDocument(uri)) {
+                return uri.toString();
+            }
+        }
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+
+            // Return the remote address
+            if (UriUtils.isGooglePhotosUri(uri))
+                return uri.getLastPathSegment();
+
+            return UriUtils.getDataColumn(context, uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+        return null;
+    }
+
 }
