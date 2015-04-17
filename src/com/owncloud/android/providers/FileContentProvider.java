@@ -23,6 +23,7 @@
 package com.owncloud.android.providers;
 
 import java.io.File;
+import java.security.Provider;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -893,12 +894,21 @@ public class FileContentProvider extends ContentProvider {
         boolean upgraded = false;
         boolean renamed = false;
 
-        String selectQuery = "SELECT * FROM " +
-                ProviderTableMeta.FILE_TABLE_NAME +" WHERE " +
-                ProviderTableMeta.FILE_ACCOUNT_OWNER +"=? AND " +
-                ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL;";
+//        String selectQuery = "SELECT * FROM " +
+//                ProviderTableMeta.FILE_TABLE_NAME +" WHERE " +
+//                ProviderTableMeta.FILE_ACCOUNT_OWNER +"='"+ newAccountName + "' AND " +
+//                ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL;";
 
-        Cursor c = db.rawQuery(selectQuery, new String[]{newAccountName});
+        String whereClause = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " +
+                ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL";
+
+        Cursor c = db.query(ProviderTableMeta.FILE_TABLE_NAME,
+                null,
+                whereClause,
+                new String[] { newAccountName },
+                null, null, null);
+
+//        Log_OC.d("SQL", selectQuery);
         if (c.moveToFirst()) {
             // create storage path
             String oldAccountPath = FileStorageUtils.getSavePath(oldAccountName);
