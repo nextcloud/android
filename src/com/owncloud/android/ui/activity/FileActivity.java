@@ -167,7 +167,17 @@ public class FileActivity extends SherlockFragmentActivity
 
     }
 
-    
+
+    @Override
+    protected void onNewIntent (Intent intent) {
+        Log_OC.v(TAG, "onNewIntent() start");
+        Account current = AccountUtils.getCurrentOwnCloudAccount(this);
+        if (current != null && mAccount != null && !mAccount.name.equals(current.name)) {
+            mAccount = current;
+        }
+        Log_OC.v(TAG, "onNewIntent() stop");
+    }
+
     /**
      *  Since ownCloud {@link Account}s can be managed from the system setting menu, 
      *  the existence of the {@link Account} associated to the instance must be checked 
@@ -177,8 +187,7 @@ public class FileActivity extends SherlockFragmentActivity
     protected void onRestart() {
         Log_OC.v(TAG, "onRestart() start");
         super.onRestart();
-        boolean validAccount =
-                (mAccount != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), mAccount.name));
+        boolean validAccount = (mAccount != null && AccountUtils.exists(mAccount, this));
         if (!validAccount) {
             swapToDefaultAccount();
         }
@@ -223,6 +232,7 @@ public class FileActivity extends SherlockFragmentActivity
     
     @Override
     protected void onDestroy() {
+        Log_OC.v(TAG, "onDestroy() start");
         if (mOperationsServiceConnection != null) {
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
@@ -237,6 +247,7 @@ public class FileActivity extends SherlockFragmentActivity
         }
 
         super.onDestroy();
+        Log_OC.v(TAG, "onDestroy() end");
     }
     
     

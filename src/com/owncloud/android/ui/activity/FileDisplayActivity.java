@@ -29,8 +29,6 @@ import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -219,7 +217,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     @Override
     protected void onDestroy() {
+        Log_OC.d(TAG, "onDestroy() start");
         super.onDestroy();
+        Log_OC.d(TAG, "onDestroy() end");
     }
 
     /**
