@@ -158,17 +158,22 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             viewType = ViewType.GRID_ITEM;
         }
 
-        // Create View
-        switch (viewType){
-            case GRID_IMAGE:
-                view = inflator.inflate(R.layout.grid_image, null);
-                break;
-            case GRID_ITEM:
-                view = inflator.inflate(R.layout.grid_item, null);
-                break;
-            case LIST_ITEM:
-                view = inflator.inflate(R.layout.list_item, null);
-                break;
+        // create view only if differs, otherwise reuse
+        if (convertView == null || (convertView != null && convertView.getTag() != viewType)) {
+            switch (viewType) {
+                case GRID_IMAGE:
+                    view = inflator.inflate(R.layout.grid_image, null);
+                    view.setTag(ViewType.GRID_IMAGE);
+                    break;
+                case GRID_ITEM:
+                    view = inflator.inflate(R.layout.grid_item, null);
+                    view.setTag(ViewType.GRID_ITEM);
+                    break;
+                case LIST_ITEM:
+                    view = inflator.inflate(R.layout.list_item, null);
+                    view.setTag(ViewType.LIST_ITEM);
+                    break;
+            }
         }
 
         view.invalidate();
