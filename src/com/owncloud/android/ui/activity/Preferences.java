@@ -616,6 +616,7 @@ public class Preferences extends SherlockPreferenceActivity
                                             FileDisplayActivity.class
                                     );
                                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                     startActivity(i);
                                 } else {
                                     finish();

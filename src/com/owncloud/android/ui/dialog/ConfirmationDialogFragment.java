@@ -93,7 +93,9 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
             builder.setPositiveButton(posBtn,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            mListener.onConfirmation(getTag()); 
+                            if (mListener != null) {
+                                mListener.onConfirmation(getTag());
+                            }
                             dialog.dismiss();
                         }
                     });
@@ -101,7 +103,9 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
             builder.setNeutralButton(neuBtn,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            mListener.onNeutral(getTag()); 
+                            if (mListener != null) {
+                                mListener.onNeutral(getTag());
+                            }
                             dialog.dismiss();
                         }
                     });
@@ -110,7 +114,9 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            mListener.onCancel(getTag());
+                            if (mListener != null) {
+                                mListener.onCancel(getTag());
+                            }
                             dialog.dismiss();
                         }
                     });

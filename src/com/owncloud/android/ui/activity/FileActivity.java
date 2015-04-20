@@ -61,7 +61,6 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
-import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -168,7 +167,17 @@ public class FileActivity extends SherlockFragmentActivity
 
     }
 
-    
+
+    @Override
+    protected void onNewIntent (Intent intent) {
+        Log_OC.v(TAG, "onNewIntent() start");
+        Account current = AccountUtils.getCurrentOwnCloudAccount(this);
+        if (current != null && mAccount != null && !mAccount.name.equals(current.name)) {
+            mAccount = current;
+        }
+        Log_OC.v(TAG, "onNewIntent() stop");
+    }
+
     /**
      *  Since ownCloud {@link Account}s can be managed from the system setting menu, 
      *  the existence of the {@link Account} associated to the instance must be checked 
@@ -176,46 +185,54 @@ public class FileActivity extends SherlockFragmentActivity
      */
     @Override
     protected void onRestart() {
+        Log_OC.v(TAG, "onRestart() start");
         super.onRestart();
-        boolean validAccount = (mAccount != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), mAccount.name));
+        boolean validAccount = (mAccount != null && AccountUtils.exists(mAccount, this));
         if (!validAccount) {
             swapToDefaultAccount();
         }
+        Log_OC.v(TAG, "onRestart() end");
     }
 
     
     @Override 
     protected void onStart() {
+        Log_OC.v(TAG, "onStart() start");
         super.onStart();
 
         if (mAccountWasSet) {
             onAccountSet(mAccountWasRestored);
         }
+        Log_OC.v(TAG, "onStart() end");
     }
     
     @Override
     protected void onResume() {
+        Log_OC.v(TAG, "onResume() start");
         super.onResume();
         
         if (mOperationsServiceBinder != null) {
             doOnResumeAndBound();
         }
-
+        Log_OC.v(TAG, "onResume() end");
     }
     
     @Override
     protected void onPause()  {
-        
+        Log_OC.v(TAG, "onPause() start");
+
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
         
         super.onPause();
+        Log_OC.v(TAG, "onPause() end");
     }
     
     
     @Override
     protected void onDestroy() {
+        Log_OC.v(TAG, "onDestroy() start");
         if (mOperationsServiceConnection != null) {
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
@@ -230,6 +247,7 @@ public class FileActivity extends SherlockFragmentActivity
         }
 
         super.onDestroy();
+        Log_OC.v(TAG, "onDestroy() end");
     }
     
     
@@ -245,7 +263,8 @@ public class FileActivity extends SherlockFragmentActivity
      */
     protected void setAccount(Account account, boolean savedAccount) {
         Account oldAccount = mAccount;
-        boolean validAccount = (account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account.name));
+        boolean validAccount =
+                (account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account.name));
         if (validAccount) {
             mAccount = account;
             mAccountWasSet = true;
@@ -546,7 +565,9 @@ public class FileActivity extends SherlockFragmentActivity
         } 
     }
 
-    private void onSynchronizeFolderOperationFinish(SynchronizeFolderOperation operation, RemoteOperationResult result) {
+    private void onSynchronizeFolderOperationFinish(
+            SynchronizeFolderOperation operation, RemoteOperationResult result
+    ) {
         if (!result.isSuccess() && result.getCode() != ResultCode.CANCELLED){
             Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                     Toast.LENGTH_LONG);
