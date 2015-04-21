@@ -776,9 +776,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (uri.length() != 0) {
             // Handle internationalized domain names
-            if (!uri.startsWith(".")) {
-                uri = DisplayUtils.convertIdn(uri, true);
-            }
+            uri = DisplayUtils.convertIdn(uri, true);
+
             mServerStatusText = R.string.auth_testing_connection;
             mServerStatusIcon = R.drawable.progress_small;
             showServerStatus();

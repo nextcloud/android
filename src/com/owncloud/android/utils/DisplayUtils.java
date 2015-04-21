@@ -257,11 +257,18 @@ public class DisplayUtils {
      */
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public static String convertIdn(String url, boolean toASCII) {
-        
+
+        String urlNoDots = url;
+        String dots="";
+        while (urlNoDots.startsWith(".")) {
+            urlNoDots = url.substring(1);
+            dots = dots + ".";
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             // Find host name after '//' or '@'
             int hostStart = 0;
-            if  (url.indexOf("//") != -1) {
+            if  (urlNoDots.indexOf("//") != -1) {
                 hostStart = url.indexOf("//") + "//".length();
             } else if (url.indexOf("@") != -1) {
                 hostStart = url.indexOf("@") + "@".length();
@@ -269,14 +276,14 @@ public class DisplayUtils {
 
             int hostEnd = url.substring(hostStart).indexOf("/");
             // Handle URL which doesn't have a path (path is implicitly '/')
-            hostEnd = (hostEnd == -1 ? url.length() : hostStart + hostEnd);
+            hostEnd = (hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd);
 
-            String host = url.substring(hostStart, hostEnd);
+            String host = urlNoDots.substring(hostStart, hostEnd);
             host = (toASCII ? IDN.toASCII(host) : IDN.toUnicode(host));
 
-            return url.substring(0, hostStart) + host + url.substring(hostEnd);
+            return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
         } else {
-            return url;
+            return dots + url;
         }
     }
 
