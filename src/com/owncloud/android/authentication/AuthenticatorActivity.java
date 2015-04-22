@@ -380,7 +380,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
             mRefreshButton = findViewById(R.id.centeredRefreshButton);
         }
-        showRefreshButton(mServerIsChecked && !mServerIsValid && 
+        showRefreshButton(mServerIsChecked && !mServerIsValid &&
                 mWaitingForOpId > Integer.MAX_VALUE);
         mServerStatusView = (TextView) findViewById(R.id.server_status_text);
         showServerStatus();
@@ -773,10 +773,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mOkButton.setEnabled(false);
         mServerInfo = new GetServerInfoOperation.ServerInfo();
         showRefreshButton(false);
-        
+
         if (uri.length() != 0) {
             // Handle internationalized domain names
             uri = DisplayUtils.convertIdn(uri, true);
+
             mServerStatusText = R.string.auth_testing_connection;
             mServerStatusIcon = R.drawable.progress_small;
             showServerStatus();
