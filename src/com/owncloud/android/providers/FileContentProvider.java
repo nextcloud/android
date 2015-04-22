@@ -854,7 +854,7 @@ public class FileContentProvider extends ContentProvider {
             // get accounts from AccountManager ;  we can't be sure if accounts in it are updated or not although
             // we know the update was previously done in {link @FileActivity#onCreate} because the changes through
             // AccountManager are not synchronous
-			Account[] accounts = AccountManager.get(getContext()).getAccountsByType(
+            Account[] accounts = AccountManager.get(getContext()).getAccountsByType(
                     MainApp.getAccountType());
             String serverUrl, username, oldAccountName, newAccountName;
 			for (Account account : accounts) {
@@ -888,9 +888,9 @@ public class FileContentProvider extends ContentProvider {
                     db.endTransaction();
                 }
 			}
-		} catch (Exception e) {
-			Log_OC.e(TAG, "Exception upgrading account names or paths in database", e);
-		}
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Exception upgrading account names or paths in database", e);
+        }
     }
 
 

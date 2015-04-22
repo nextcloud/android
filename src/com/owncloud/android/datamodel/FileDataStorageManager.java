@@ -168,12 +168,6 @@ public class FileDataStorageManager {
         return ret;
     }
 
-    public Vector<OCFile> getDownloadedFilesByAccount(String accountName) {
-        Vector<OCFile> ret = new Vector<OCFile>();
-
-        return ret;
-    }
-    
     public boolean saveFile(OCFile file) {
         boolean overriden = false;
         ContentValues cv = new ContentValues();
