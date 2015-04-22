@@ -161,6 +161,7 @@
   <string name="auth_no_net_conn_title">沒有網際網路連線</string>
   <string name="auth_nossl_plain_ok_title">安全連線不可用。</string>
   <string name="auth_connection_established">連線已建立</string>
+  <string name="auth_testing_connection">測試連線</string>
   <string name="auth_not_configured_title">伺服器設定有問題</string>
   <string name="auth_account_not_new">已經有相同使用者與伺服器的帳號存在於這個裝置</string>
   <string name="auth_account_not_the_same">輸入的使用者與這個帳戶的使用者不一致</string>
@@ -187,6 +188,7 @@
   <string name="auth_fail_get_user_name">你的伺服器並沒有傳回正確的使用者 ID, 請聯絡伺服器的管理員
 	</string>
   <string name="auth_can_not_auth_against_server">無法在這個伺服器上取得認證</string>
+  <string name="auth_account_does_not_exist">帳號目前不存在於本裝置</string>
   <string name="fd_keep_in_sync">讓檔案保持最新的</string>
   <string name="common_rename">重新命名</string>
   <string name="common_remove">移除</string>
@@ -260,6 +262,8 @@
   <string name="share_link_file_error">在分享檔案或目錄時發生了錯誤</string>
   <string name="unshare_link_file_no_exist">無法取消分享這個檔案或目錄. 請檢查它們是否存在</string>
   <string name="unshare_link_file_error">在取消分享檔案或目錄時發生了錯誤</string>
+  <string name="share_link_password_title">輸入密碼</string>
+  <string name="share_link_empty_password">您必須輸入密碼</string>
   <string name="activity_chooser_send_file_title">寄出</string>
   <string name="copy_link">複製連結</string>
   <string name="clipboard_text_copied">複製至剪貼簿中</string>
@@ -299,5 +303,7 @@
   <string name="prefs_category_security">安全性</string>
   <string name="prefs_instant_video_upload_path_title">影片上傳路徑</string>
   <string name="download_folder_failed_content">%1$s 目錄的下載未完成</string>
+  <string name="subject_token">%1$s 分享了 \"%2$s\" 給您</string>
+  <string name="auth_refresh_button">重新連線</string>
   <string name="auth_host_address">伺服器位址</string>
 </resources>

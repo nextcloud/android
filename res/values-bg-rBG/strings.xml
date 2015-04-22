@@ -261,6 +261,8 @@
   <string name="share_link_file_error">Настъпи грешка при опита за споделяне на този файл или папка.</string>
   <string name="unshare_link_file_no_exist">Неуспешен опит за прекратяване на споделянето. Моля, провери дали файла съществува.</string>
   <string name="unshare_link_file_error">Настъпи грешка при опита за премахване на споделянето на този файл или папка.</string>
+  <string name="share_link_password_title">Въведи Парола</string>
+  <string name="share_link_empty_password">Вие трябва да въведете парола</string>
   <string name="activity_chooser_send_file_title">Изпращане</string>
   <string name="copy_link">Копиране на връзката</string>
   <string name="clipboard_text_copied">Копирана</string>
@@ -300,5 +302,7 @@
   <string name="prefs_category_security">Сигурност</string>
   <string name="prefs_instant_video_upload_path_title">Качване на видео път</string>
   <string name="download_folder_failed_content">Свалянето на директорията %1$s не може да бъде завършено</string>
+  <string name="subject_token">%1$s споделено \"%2$s\" с теб</string>
+  <string name="auth_refresh_button">Обнови връзката</string>
   <string name="auth_host_address">Адрес на сървъра</string>
 </resources>
