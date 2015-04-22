@@ -1119,13 +1119,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     // TODO remove, if possible
     private String trimUrlWebdav(String url){       
-        if(url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_4_0)){
-            url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_4_0.length());             
-        } else if(url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_2_0)){
-            url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_2_0.length());             
-        } else if (url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_1_2)){
-            url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_1_2.length());             
-        } 
+        if(url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_4_0_AND_LATER)){
+            url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_4_0_AND_LATER.length());
+        }
         return (url != null ? url : "");
     }
 
@@ -1486,6 +1482,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                         mAccount, mPasswordInput.getText().toString(), null
                 );
             }
+
+            // include account version with the new account
+            mAccountMgr.setUserData(
+                mAccount,
+                Constants.KEY_OC_ACCOUNT_VERSION,
+                Integer.toString(AccountUtils.ACCOUNT_VERSION)
+            );
 
             /// add the new account as default in preferences, if there is none already
             Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);

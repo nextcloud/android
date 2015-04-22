@@ -151,6 +151,8 @@ public class FileActivity extends SherlockFragmentActivity
             mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION, false);
         }
 
+        AccountUtils.updateAccountVersion(this); // best place, before any access to AccountManager or database
+
         setAccount(account, savedInstanceState != null);
         
         mOperationsServiceConnection = new OperationsServiceConnection();
@@ -166,7 +168,6 @@ public class FileActivity extends SherlockFragmentActivity
         }
 
     }
-
 
     @Override
     protected void onNewIntent (Intent intent) {

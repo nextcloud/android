@@ -168,7 +168,6 @@ public class FileDataStorageManager {
         return ret;
     }
 
-    
     public boolean saveFile(OCFile file) {
         boolean overriden = false;
         ContentValues cv = new ContentValues();
