@@ -22,6 +22,12 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -45,6 +51,7 @@ import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore.Audio;
@@ -73,6 +80,8 @@ import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.UriUtils;
 
 
 /**
@@ -428,7 +437,7 @@ public class Uploader extends FileActivity
             for (Parcelable mStream : mStreamsToUpload) {
                 
                 Uri uri = (Uri) mStream;
-                if (uri !=null) {
+                if (uri != null) {
                     if (uri.getScheme().equals("content")) {
                         
                        String mimeType = getContentResolver().getType(uri);
@@ -436,16 +445,64 @@ public class Uploader extends FileActivity
                        if (mimeType.contains("image")) {
                            String[] CONTENT_PROJECTION = { Images.Media.DATA,
                                    Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE,
-                                   Images.Media.SIZE};
+                                   Images.Media.SIZE };
                            Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null,
                                    null, null);
                            c.moveToFirst();
                            int index = c.getColumnIndex(Images.Media.DATA);
                            String data = c.getString(index);
+                           String filePath = mUploadPath +
+                                   c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME));
+                           String fullTempPath = FileStorageUtils.getTemporalPath(getAccount().name)
+                                   + filePath;
+                           InputStream inputStream = null;
+                           FileOutputStream outputStream = null;
+                           if (data == null) {
+                             try {
+                                 inputStream = getContentResolver().openInputStream(uri);
+                                 File cacheFile = new File(fullTempPath);
+                                 cacheFile.createNewFile();
+                                 outputStream = new FileOutputStream(fullTempPath);
+                                 byte[]  buffer = new byte[4096];
+
+                                 int count = 0;
+
+                                 while ((count = inputStream.read(buffer)) > 0) {
+                                     outputStream.write(buffer, 0, count);
+                                 }
+
+                                 outputStream.close();
+                                 inputStream.close();
+
+                                 data = fullTempPath;
+                             }catch (Exception e) {
+                                 if (inputStream != null) {
+                                     try {
+                                         inputStream.close();
+                                     } catch (Exception e1) {
+
+                                     }
+                                 }
+
+                                 if (outputStream != null) {
+                                     try {
+                                         outputStream.close();
+                                     } catch (Exception e1) {
+
+                                     }
+                                 }
+
+                                 if (fullTempPath != null) {
+                                     File    f = new File(fullTempPath);
+                                     f.delete();
+                                 }
+                             }
+                           }
+
                            local.add(data);
                            remote.add(mUploadPath +
                                    c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME)));
-                       
+
                        }
                        else if (mimeType.contains("video")) {
                            String[] CONTENT_PROJECTION = { Video.Media.DATA,
