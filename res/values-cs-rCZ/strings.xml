@@ -40,7 +40,7 @@
   <string name="prefs_imprint">Imprint</string>
   <string name="prefs_remember_last_share_location">Zapamatovat umístění sdílení</string>
   <string name="prefs_remember_last_upload_location_summary">Zapamatovat poslední umístění pro nahrání sdílených souborů</string>
-  <string name="recommend_subject">Zkuste %1$s na vašem smartphonu!</string>
+  <string name="recommend_subject">Zkuste %1$s na svém chytrém telefonu!</string>
   <string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>
   <string name="auth_check_server">Zkontrolovat server</string>
   <string name="auth_host_url">Adresa serveru https://...</string>
@@ -50,6 +50,7 @@
   <string name="sync_string_files">Soubory</string>
   <string name="setup_btn_connect">Připojit</string>
   <string name="uploader_btn_upload_text">Odeslat</string>
+  <string name="uploader_btn_new_folder_text">Nová složka</string>
   <string name="uploader_top_message">Vyberte adresář pro nahrání:</string>
   <string name="uploader_wrn_no_account_title">Nenalezen žádný účet</string>
   <string name="uploader_wrn_no_account_text">Nemáte žádné %1$s účty. Vytvořte si, prosím, nejdříve účet.</string>
@@ -160,7 +161,7 @@
   <string name="auth_no_net_conn_title">Žádné síťové spojení</string>
   <string name="auth_nossl_plain_ok_title">Zabezpečené spojení není k dispozici</string>
   <string name="auth_connection_established">Spojení navázáno</string>
-  <string name="auth_testing_connection">Zkouším spojení...</string>
+  <string name="auth_testing_connection">Testuje se připojení</string>
   <string name="auth_not_configured_title">Neplatné nastavení serveru</string>
   <string name="auth_account_not_new">Účet pro stejného uživatele a server již v zařízení existuje</string>
   <string name="auth_account_not_the_same">Zadaný uživatel neodpovídá uživateli tohoto účtu</string>
@@ -178,14 +179,15 @@
   <string name="auth_oauth_error">Neúspěšné přihlášení</string>
   <string name="auth_oauth_error_access_denied">Přístup zamítnut autorizačním serverem</string>
   <string name="auth_wtf_reenter_URL">Neočekávaný stav; prosím vložte znovu URL adresu serveru</string>
-  <string name="auth_expired_oauth_token_toast">Vaše přihlášení vypršelo. Přihlašte se, prosím, znovu</string>
+  <string name="auth_expired_oauth_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
   <string name="auth_expired_basic_auth_toast">Zadejte prosím aktuální heslo</string>
-  <string name="auth_expired_saml_sso_token_toast">Vaše přihlášení vypršelo. Přihlašte se, prosím, znovu</string>
+  <string name="auth_expired_saml_sso_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
   <string name="auth_connecting_auth_server">Připojuji se k přihlašovacímu serveru...</string>
   <string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
   <string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
   <string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
   <string name="auth_can_not_auth_against_server">Není možné provést ověření  </string>
+  <string name="auth_account_does_not_exist">V zařízení není zatím nastaven účet</string>
   <string name="fd_keep_in_sync">Udržovat soubor aktuální</string>
   <string name="common_rename">Přejmenovat</string>
   <string name="common_remove">Odstranit</string>
@@ -259,6 +261,8 @@ správce systému.</string>
   <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky nastala chyba</string>
   <string name="unshare_link_file_no_exist">Nelze ukončit sdílení. Zkontrolujte prosím že soubor existuje</string>
   <string name="unshare_link_file_error">Při pokusu o zrušení sdílení tohoto souboru či složky nastala chyba</string>
+  <string name="share_link_password_title">Zadejte heslo</string>
+  <string name="share_link_empty_password">Musíte zadat heslo</string>
   <string name="activity_chooser_send_file_title">Odeslat</string>
   <string name="copy_link">Zkopírovat odkaz</string>
   <string name="clipboard_text_copied">Zkopírováno do schránky</string>
@@ -281,7 +285,7 @@ správce systému.</string>
   <string name="auth_redirect_non_secure_connection_title">Bezpečné spojení je přesměrováno na nezabezpečenou trasu.</string>
   <string name="actionbar_logger">Logy</string>
   <string name="log_send_history_button">Odeslat historii</string>
-  <string name="log_send_no_mail_app">Nebyla nalezena žádná aplikace pro zasílání logů. Nainstalujte poštovní aplikaci!</string>
+  <string name="log_send_no_mail_app">Nebyla nalezena žádná aplikace pro odesílání logů. Nainstalujte poštovní aplikaci!</string>
   <string name="log_send_mail_subject">%1$s logy aplikace pro Android</string>
   <string name="log_progress_dialog_text">Načítání dat…</string>
   <string name="saml_authentication_required_text">Vyžadováno přihlášení</string>
@@ -297,4 +301,8 @@ správce systému.</string>
   <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
   <string name="prefs_category_security">Zabezpečení</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pro nahrávání videí</string>
+  <string name="download_folder_failed_content">Stažení adresáře %1$s nemohlo být dokončeno</string>
+  <string name="subject_token">%1$s sdílí \"%2$s\" s vámi</string>
+  <string name="auth_refresh_button">Obnovit připojení</string>
+  <string name="auth_host_address">Adresa serveru</string>
 </resources>

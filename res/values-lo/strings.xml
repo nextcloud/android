@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
+  <string name="common_error_unknown">ຂໍ້ຜິດພາດທີ່ບໍ່ຮູ້ສາເຫດ</string>
+  <string name="empty"></string>
+</resources>

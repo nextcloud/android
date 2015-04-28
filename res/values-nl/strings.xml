@@ -51,6 +51,7 @@ Download hier: %2$s</string>
   <string name="sync_string_files">Bestanden</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Uploaden</string>
+  <string name="uploader_btn_new_folder_text">Nieuwe map</string>
   <string name="uploader_top_message">Kies upload map:</string>
   <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
   <string name="uploader_wrn_no_account_text">Er zijn nog geen %1$s accounts op je apparaat. Stel eerst een account in.</string>
@@ -163,7 +164,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="auth_no_net_conn_title">Geen netwerkverbinding</string>
   <string name="auth_nossl_plain_ok_title">Veilige verbinding niet beschikbaar.</string>
   <string name="auth_connection_established">Verbinding tot stand gebracht</string>
-  <string name="auth_testing_connection">Probeer verbinding...</string>
+  <string name="auth_testing_connection">Testen verbinding</string>
   <string name="auth_not_configured_title">Foutieve server configuratie</string>
   <string name="auth_account_not_new">Er bestaat al een account voor deze gebruiker en server op dit apparaat.</string>
   <string name="auth_account_not_the_same">De opgegeven gebruiker komt niet overeen met de gebruiker van dit account</string>
@@ -190,6 +191,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="auth_fail_get_user_name">Uw server geeft geen goede userid terug, neem contact op met uw beheerder
 	</string>
   <string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
+  <string name="auth_account_does_not_exist">Het account bestaat nog niet in dit apparaat</string>
   <string name="fd_keep_in_sync">Houd bestand actueel</string>
   <string name="common_rename">Hernoemen</string>
   <string name="common_remove">Verwijderen</string>
@@ -263,6 +265,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="share_link_file_error">Er trad een fout op bij uw poging dit bestand of deze map te delen</string>
   <string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Ga na of het bestand bestaat</string>
   <string name="unshare_link_file_error">Er trad een fout op bij uw poging het delen van dit bestand of deze map te beëindigen</string>
+  <string name="share_link_password_title">Vul het wachtwoord in</string>
+  <string name="share_link_empty_password">U moet een wachtwoord opgeven</string>
   <string name="activity_chooser_send_file_title">Versturen</string>
   <string name="copy_link">Link kopiëren</string>
   <string name="clipboard_text_copied">Gekopieerd naar het klembord</string>
@@ -301,4 +305,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="prefs_category_instant_uploading">Directe uploads</string>
   <string name="prefs_category_security">Beveiliging</string>
   <string name="prefs_instant_video_upload_path_title">Upload Video Pad</string>
+  <string name="download_folder_failed_content">Download van %1$s map kon niet worden voltooid</string>
+  <string name="subject_token">%1$s deelde \"%2$s\" met u</string>
+  <string name="auth_refresh_button">Verversen verbinding</string>
+  <string name="auth_host_address">Serveradres</string>
 </resources>

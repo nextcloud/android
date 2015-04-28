@@ -43,13 +43,14 @@
   <string name="recommend_subject">Probiere %1$s auf Deinem Smartphone!</string>
   <string name="recommend_text">Ich möchte Dich zum Benutzen von %1$s auf Deinem Smartphone einladen!\nLade es hier herunter: %2$s</string>
   <string name="auth_check_server">Überprüfe den Server</string>
-  <string name="auth_host_url">Server-Adresse https://…</string>
+  <string name="auth_host_url">Serveradresse https://…</string>
   <string name="auth_username">Benutzername</string>
   <string name="auth_password">Passwort</string>
   <string name="auth_register">Ist %1$s neu für dich?</string>
   <string name="sync_string_files">Dateien</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Hochladen</string>
+  <string name="uploader_btn_new_folder_text">Neuer Ordner</string>
   <string name="uploader_top_message">Wähle Zielordner:</string>
   <string name="uploader_wrn_no_account_title">Kein Account gefunden</string>
   <string name="uploader_wrn_no_account_text">Es sind keine %1$s-Accounts auf Deinem Gerät eingerichtet. Bitte richte zuerst ein Konto ein.</string>
@@ -61,7 +62,7 @@
   <string name="uploader_info_uploading">Lade hoch</string>
   <string name="file_list_seconds_ago">Gerade eben</string>
   <string name="file_list_empty">Alles leer. Lade etwas hoch!</string>
-  <string name="file_list_loading">Ladevorgang …</string>
+  <string name="file_list_loading">Laden…</string>
   <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
   <string name="file_list_folder">Ordner</string>
   <string name="file_list_folders">Ordner</string>
@@ -75,7 +76,7 @@
   <string name="filedetails_download">Herunterladen</string>
   <string name="filedetails_sync_file">Datei aktualisieren</string>
   <string name="filedetails_renamed_in_upload_msg">Datei wurde wärend des Uploads zu %1$s umbenannt</string>
-  <string name="action_share_file">Link Teilen</string>
+  <string name="action_share_file">Link teilen</string>
   <string name="action_unshare_file">Link nicht mehr freigeben</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
@@ -85,22 +86,22 @@
   <string name="common_cancel">Abbrechen</string>
   <string name="common_save_exit">Speichern &amp; schließen</string>
   <string name="common_error">Fehler</string>
-  <string name="common_loading">Lädt ...</string>
+  <string name="common_loading">Lade…</string>
   <string name="common_error_unknown">Unbekannter Fehler</string>
   <string name="about_title">Über</string>
   <string name="change_password">Passwort ändern</string>
   <string name="delete_account">Account löschen</string>
   <string name="create_account">Account erstellen</string>
-  <string name="upload_chooser_title">Dateien hochladen von...</string>
+  <string name="upload_chooser_title">Dateien hochladen von…</string>
   <string name="uploader_info_dirname">Ordnername</string>
-  <string name="uploader_upload_in_progress_ticker">Hochladen...</string>
+  <string name="uploader_upload_in_progress_ticker">Hochladen…</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Hochladen %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Hochladen erfolgreich</string>
   <string name="uploader_upload_succeeded_content_single">%1$s wurde(n) erfolgreich hochgeladen</string>
   <string name="uploader_upload_failed_ticker">Hochladen fehlgeschlagen</string>
   <string name="uploader_upload_failed_content_single">Hochladen von  %1$s konnte nicht abgeschlossen werden</string>
   <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, Du musst dich nochmals anmelden</string>
-  <string name="downloader_download_in_progress_ticker">Herunterladen...</string>
+  <string name="downloader_download_in_progress_ticker">Herunterladen…</string>
   <string name="downloader_download_in_progress_content">%1$d%% Herunterladen %2$s</string>
   <string name="downloader_download_succeeded_ticker">Herunterladen erfolgreich</string>
   <string name="downloader_download_succeeded_content">%1$s wurde erfolgreich heruntergeladen</string>
@@ -155,12 +156,12 @@
   <string name="media_rewind_description">Zurückspielen Knopf</string>
   <string name="media_play_pause_description">Play-/Pause Knopf</string>
   <string name="media_forward_description">Vorspulen Knopf</string>
-  <string name="auth_getting_authorization">Autorisierung empfangen...</string>
-  <string name="auth_trying_to_login">Anmeldungsversuch...</string>
+  <string name="auth_getting_authorization">Autorisierung empfangen…</string>
+  <string name="auth_trying_to_login">Anmeldeversuch…</string>
   <string name="auth_no_net_conn_title">Keine Netzwerkverbindung</string>
   <string name="auth_nossl_plain_ok_title">Sichere Verbindung nicht verfügbar.</string>
   <string name="auth_connection_established">Verbindung hergestellt</string>
-  <string name="auth_testing_connection">Verbindung testen...</string>
+  <string name="auth_testing_connection">Verbindung testen</string>
   <string name="auth_not_configured_title">Fehlerhafte Server Konfiguration</string>
   <string name="auth_account_not_new">Ein Benutzerkonto für den gleichen Benutzer und Server existiert auf diesem Gerät bereits</string>
   <string name="auth_account_not_the_same">Der eingegebene Benutzer passt nicht zu dem Benutzer dieses Benutzerkontos</string>
@@ -187,6 +188,7 @@
   <string name="auth_fail_get_user_name">Dein Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktiere einen Administrator
 </string>
   <string name="auth_can_not_auth_against_server">Die Authentifizierung gegenüber dem Server konnte nicht durchgeführt werden</string>
+  <string name="auth_account_does_not_exist">Das Benutzerkonto ist bis jetzt noch nicht auf dem Gerät vorhanden</string>
   <string name="fd_keep_in_sync">Datei aktuell halten</string>
   <string name="common_rename">Umbenennen</string>
   <string name="common_remove">Löschen</string>
@@ -209,7 +211,7 @@
   <string name="wait_a_moment">Bitte warte einen Moment.</string>
   <string name="filedisplay_unexpected_bad_get_content">Ein unerwartetes Problem ist aufgetreten. Bitte versuche, die Datei in einer anderen App zu öffnen</string>
   <string name="filedisplay_no_file_selected">Es wurde keine Datei ausgewählt.</string>
-  <string name="activity_chooser_title">Link senden an ...</string>
+  <string name="activity_chooser_title">Link senden an…</string>
   <string name="oauth_check_onoff">Anmelden mit oAuth2</string>
   <string name="oauth_login_connection">Verbinde mit dem oAuth2-Server.</string>
   <string name="ssl_validator_header">Die Identität der Website konnte nicht überprüft werden</string>
@@ -260,6 +262,8 @@
   <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
   <string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Prüfe, dass die Datei existiert</string>
   <string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
+  <string name="share_link_password_title">Passwort eingeben</string>
+  <string name="share_link_empty_password">Du musst ein Passwort eingeben</string>
   <string name="activity_chooser_send_file_title">Senden</string>
   <string name="copy_link">Link kopieren</string>
   <string name="clipboard_text_copied">In die Zwischenablage kopiert</string>
@@ -298,4 +302,8 @@
   <string name="prefs_category_instant_uploading">Sofortiges Hochladen</string>
   <string name="prefs_category_security">Sicherheit</string>
   <string name="prefs_instant_video_upload_path_title">Verzeichnis zum Hochladen der Videos</string>
+  <string name="download_folder_failed_content">Herunterladen des %1$s - Ordners konnte nicht abgeschlossen werden</string>
+  <string name="subject_token">%1$s hat „%2$s“ mit Dir geteilt</string>
+  <string name="auth_refresh_button">Verbindung aktualisieren</string>
+  <string name="auth_host_address">Serveradresse</string>
 </resources>

@@ -50,6 +50,7 @@
   <string name="sync_string_files">文件</string>
   <string name="setup_btn_connect">连接</string>
   <string name="uploader_btn_upload_text">上传</string>
+  <string name="uploader_btn_new_folder_text">新建文件夹</string>
   <string name="uploader_top_message">选择上传文件夹：</string>
   <string name="uploader_wrn_no_account_title">未找到账号</string>
   <string name="uploader_wrn_no_account_text">设备上未找到 %1$s 账号，请先设置账号。</string>
@@ -160,7 +161,6 @@
   <string name="auth_no_net_conn_title">没有网络连接</string>
   <string name="auth_nossl_plain_ok_title">安全连接不可用。</string>
   <string name="auth_connection_established">连接已建立。</string>
-  <string name="auth_testing_connection">测试连接……</string>
   <string name="auth_not_configured_title">服务器配置不正确</string>
   <string name="auth_account_not_new">此设备中已经存在同名同服务器的帐号</string>
   <string name="auth_account_not_the_same">输入用户与此帐户的用户不符</string>
@@ -297,4 +297,6 @@
   <string name="prefs_category_instant_uploading">即时上传</string>
   <string name="prefs_category_security">安全</string>
   <string name="prefs_instant_video_upload_path_title">视频上传路径</string>
+  <string name="download_folder_failed_content">%1$s 文件夹的下载无法完成</string>
+  <string name="auth_host_address">服务器地址</string>
 </resources>

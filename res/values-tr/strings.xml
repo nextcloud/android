@@ -50,6 +50,7 @@
   <string name="sync_string_files">Dosyalar</string>
   <string name="setup_btn_connect">Bağlan</string>
   <string name="uploader_btn_upload_text">Yükle</string>
+  <string name="uploader_btn_new_folder_text">Yeni klasör</string>
   <string name="uploader_top_message">Yükleme klasörünü seçin:</string>
   <string name="uploader_wrn_no_account_title">Hesap bulunamadı</string>
   <string name="uploader_wrn_no_account_text">Cihazınızda %1$s hesabı bulunmamaktadır. Lütfen öncelikle bir hesap ayarlayın.</string>
@@ -64,9 +65,9 @@
   <string name="file_list_loading">Yükleniyor...</string>
   <string name="local_file_list_empty">Bu klasörde dosya yok.</string>
   <string name="file_list_folder">klasör</string>
-  <string name="file_list_folders">klasörler</string>
+  <string name="file_list_folders">klasör</string>
   <string name="file_list_file">dosya</string>
-  <string name="file_list_files">dosyalar</string>
+  <string name="file_list_files">dosya</string>
   <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
   <string name="filedetails_size">Boyut:</string>
   <string name="filedetails_type">Tür:</string>
@@ -160,7 +161,7 @@
   <string name="auth_no_net_conn_title">Ağ bağlantısı yok</string>
   <string name="auth_nossl_plain_ok_title">Güvenli bağlantı mevcut değil.</string>
   <string name="auth_connection_established">Bağlantı kuruldu</string>
-  <string name="auth_testing_connection">Bağlantı kontrol ediliyor...</string>
+  <string name="auth_testing_connection">Bağlantı sınanıyor</string>
   <string name="auth_not_configured_title">Hatalı sunucu yapılandırması</string>
   <string name="auth_account_not_new">Cihazda aynı kullanıcı adı ve sunucu için bir hesap zaten mevcut</string>
   <string name="auth_account_not_the_same">Girilen kullanıcı bu hesabın kullanıcısı ile eşleşmiyor</string>
@@ -187,6 +188,7 @@
   <string name="auth_fail_get_user_name">Sunucunuz geçerli bir kullanıcı kimliği döndürmüyor, lütfen yöneticinizle iletişime geçin
         </string>
   <string name="auth_can_not_auth_against_server">Bu sunucuya karşı kimlik doğrulama yapılamaz</string>
+  <string name="auth_account_does_not_exist">Hesap henüz cihazda mevcut değil</string>
   <string name="fd_keep_in_sync">Dosyayı güncel tut</string>
   <string name="common_rename">Yeniden adlandır</string>
   <string name="common_remove">Kaldır</string>
@@ -260,6 +262,8 @@
   <string name="share_link_file_error">Bu dosya veya klasörü paylaşmaya çalışılırken bir hata oluştu</string>
   <string name="unshare_link_file_no_exist">Paylaşımı kaldırma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
   <string name="unshare_link_file_error">Bu dosya veya klasör paylaşımı kaldırılmaya çalışılırken bir hata oluştu</string>
+  <string name="share_link_password_title">Bir parola girin</string>
+  <string name="share_link_empty_password">Bir parola girmelisiniz</string>
   <string name="activity_chooser_send_file_title">Gönder</string>
   <string name="copy_link">Bağlantıyı kopyala</string>
   <string name="clipboard_text_copied">Panoya kopyalandı</string>
@@ -282,9 +286,9 @@
   <string name="auth_redirect_non_secure_connection_title">Güvenli bağlantı, güvenli olmayan bir rotaya yönlendirildi.</string>
   <string name="actionbar_logger">Günlükler</string>
   <string name="log_send_history_button">Geçmişi Gönder</string>
-  <string name="log_send_no_mail_app">Logları göndermek için uygulama bulunamadı. Eposta uygulamasını yükleyin!</string>
+  <string name="log_send_no_mail_app">Kayıtları göndermek için uygulama bulunamadı. E-posta uygulamasını yükleyin!</string>
   <string name="log_send_mail_subject">%1$s Android uygulama kayıtları</string>
-  <string name="log_progress_dialog_text">Yükleniyor...</string>
+  <string name="log_progress_dialog_text">Veri yükleniyor...</string>
   <string name="saml_authentication_required_text">Kimlik doğrulama gerekli</string>
   <string name="saml_authentication_wrong_pass">Hatalı parola</string>
   <string name="actionbar_move">Taşı</string>
@@ -298,4 +302,8 @@
   <string name="prefs_category_instant_uploading">Anında Yüklemeler</string>
   <string name="prefs_category_security">Güvenlik</string>
   <string name="prefs_instant_video_upload_path_title">Video Yükleme Yolu</string>
+  <string name="download_folder_failed_content">%1$s klasörün indirilmesi tamamlanamadı</string>
+  <string name="subject_token">%1$s sizinle \"%2$s\" paylaşımını yaptı</string>
+  <string name="auth_refresh_button">Bağlantıyı yenile</string>
+  <string name="auth_host_address">Sunucu adresi</string>
 </resources>

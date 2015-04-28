@@ -27,6 +27,7 @@
   <string name="sync_string_files">Dosieroj</string>
   <string name="setup_btn_connect">Konekti</string>
   <string name="uploader_btn_upload_text">Alŝuti</string>
+  <string name="uploader_btn_new_folder_text">Nova dosierujo</string>
   <string name="uploader_top_message">Elektu alŝutan dosierujon:</string>
   <string name="uploader_wrn_no_account_title">Neniu konto troviĝis</string>
   <string name="uploader_wrn_no_account_text">Estas neniu $1%s-konto en via aparato. Bonvolu agordi konton unue.</string>
@@ -111,7 +112,6 @@
   <string name="auth_no_net_conn_title">Neniu reta konekto</string>
   <string name="auth_nossl_plain_ok_title">Sekura konekto ne haveblas.</string>
   <string name="auth_connection_established">Konekto stariĝis</string>
-  <string name="auth_testing_connection">Testante konekton...</string>
   <string name="auth_not_configured_title">Malĝuste formita servilo-agordo</string>
   <string name="auth_unknown_error_title">Nekonata eraro okazis</string>
   <string name="auth_unknown_host_title">Ne eblis trovi gastigon</string>
@@ -194,4 +194,5 @@
   <string name="saml_authentication_wrong_pass">Malĝusta pasvorto</string>
   <string name="folder_picker_choose_button_text">Elekti</string>
   <string name="prefs_category_security">Sekuro</string>
+  <string name="auth_host_address">Servila adreso</string>
 </resources>

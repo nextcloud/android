@@ -41,6 +41,7 @@
   <string name="sync_string_files">ফাইল</string>
   <string name="setup_btn_connect">সংযুক্ত হও</string>
   <string name="uploader_btn_upload_text">আপলোড</string>
+  <string name="uploader_btn_new_folder_text">নব ফােলডার</string>
   <string name="uploader_top_message">আপলোডের ফোলডার পছনদ করেন</string>
   <string name="uploader_wrn_no_account_title">কোন একাউন্ট খুঁজে পাওয়া গেল না</string>
   <string name="uploader_wrn_no_account_text">আপনার ডিভাইসে কোন %1$s একাউন্ট নেই। দয়া করে প্রথমে একাউন্ট খুলুন।</string>
@@ -146,7 +147,6 @@
   <string name="auth_no_net_conn_title">নেটওয়ার্ক সংযোগ নেই</string>
   <string name="auth_nossl_plain_ok_title">নিরাপদ যোগাযোগ পাওয়া গেলনা</string>
   <string name="auth_connection_established">যোগাযোগ স্থাপিত হয়েছে</string>
-  <string name="auth_testing_connection">যোগাযোগ পরীক্ষা করা হচ্ছে...</string>
   <string name="auth_not_configured_title">সার্ভারের কনফিগারেশনে ভুল রয়েছে</string>
   <string name="auth_account_not_new">এই যন্ত্রে ইতোমধ্যে এই ব্যবহারকারী এবং সার্ভারের নামে একটি একাউন্ট রয়েছে</string>
   <string name="auth_account_not_the_same">এই একাউন্টের ব্যবহারকারীর সঙ্গে প্রদত্ত ব্যবহারকারী মেলেনা</string>
@@ -268,4 +268,5 @@
   <string name="folder_picker_choose_button_text">বেছে নিন</string>
   <string name="move_file_not_found">সরাতে ব্যার্থ হলো। ফাইলটি রয়েছে কিনা দেখুন।</string>
   <string name="prefs_category_security">নিরাপত্তা</string>
+  <string name="auth_host_address">সার্ভার ঠিকানা</string>
 </resources>

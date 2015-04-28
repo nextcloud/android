@@ -41,6 +41,7 @@
   <string name="sync_string_files">الملفات</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">رفع</string>
+  <string name="uploader_btn_new_folder_text">مجلد جديد</string>
   <string name="uploader_top_message">اختر مجلد الرفع</string>
   <string name="uploader_wrn_no_account_title">لم يتم العثور على أي حساب</string>
   <string name="uploader_wrn_no_account_text">لا توجد حسابات  %1$s على جهازك. يرجى تهيئة حساب أولاً.</string>
@@ -53,6 +54,10 @@
   <string name="file_list_seconds_ago">منذ ثواني</string>
   <string name="file_list_empty">لا يوجد شيء هنا. إرفع بعض الملفات!</string>
   <string name="file_list_loading">جاري التحميل ...</string>
+  <string name="file_list_folder">مجلد</string>
+  <string name="file_list_folders">مجلدات</string>
+  <string name="file_list_file">ملف</string>
+  <string name="file_list_files">ملفات</string>
   <string name="filedetails_select_file">اضغظ على الملف ليتم عرض خيارات أكثر</string>
   <string name="filedetails_size">الحجم :</string>
   <string name="filedetails_type">النوع :</string>
@@ -144,7 +149,6 @@
   <string name="auth_no_net_conn_title">لا يتوفر اتصال</string>
   <string name="auth_nossl_plain_ok_title">الاتصال الآمن غير متاح</string>
   <string name="auth_connection_established">تم الاتصال</string>
-  <string name="auth_testing_connection">اختبار الاتصال ...</string>
   <string name="auth_not_configured_title">إعداد الخادم غير صحيحة</string>
   <string name="auth_account_not_new">الحساب لنفس المستخدم والخادم موجود مسبقا على الجهاز </string>
   <string name="auth_account_not_the_same">المستخدم المدخل لا يتوافق مع المستخدم الموجود في الحساب </string>
@@ -254,4 +258,5 @@
   <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
   <string name="folder_picker_choose_button_text">اختيار</string>
   <string name="prefs_category_security">الأمان</string>
+  <string name="auth_host_address">عنوان الخادم</string>
 </resources>

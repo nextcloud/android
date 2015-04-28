@@ -41,6 +41,7 @@
   <string name="sync_string_files">Fájlok</string>
   <string name="setup_btn_connect">Kapcsolódás</string>
   <string name="uploader_btn_upload_text">Feltöltés</string>
+  <string name="uploader_btn_new_folder_text">Új mappa</string>
   <string name="uploader_top_message">Válassz feltöltési mappát:</string>
   <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
   <string name="uploader_wrn_no_account_text">Nem található %1$s fiók ezen a készüléken. Hozzon létre egy fiókot előbb.</string>
@@ -148,7 +149,6 @@
   <string name="auth_no_net_conn_title">Nincs hálózati kapcsolat</string>
   <string name="auth_nossl_plain_ok_title">Nem érhető el biztonságos kapcsolat.</string>
   <string name="auth_connection_established">A kapcsolat létrejött</string>
-  <string name="auth_testing_connection">Kapcsolat tesztelése...</string>
   <string name="auth_not_configured_title">Hibás a kiszolgáló beállítása</string>
   <string name="auth_account_not_new">Egy bejelentkezési beállítás már létezik ugyanehhez a kiszolgálóhoz és felhasználóhoz</string>
   <string name="auth_account_not_the_same">A megadott felhasználó nem azonos ezzel a belépési jogosultsággal</string>
@@ -253,4 +253,5 @@
   <string name="actionbar_move">Mozgatás</string>
   <string name="folder_picker_choose_button_text">Válasszon</string>
   <string name="prefs_category_security">Biztonság</string>
+  <string name="auth_host_address">A kiszolgáló címe</string>
 </resources>

@@ -1,6 +1,9 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2014 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -54,31 +57,32 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
-
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.dialog.LoadingDialog;
+import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 
 /**
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud {@link Account}s .
- * 
- * @author David A. Velasco
  */
-public class FileActivity extends SherlockFragmentActivity 
-implements OnRemoteOperationListener, ComponentsGetter {
+public class FileActivity extends SherlockFragmentActivity
+        implements OnRemoteOperationListener, ComponentsGetter {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
     public static final String EXTRA_WAITING_TO_PREVIEW = "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
-    public static final String EXTRA_FROM_NOTIFICATION= "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
+    public static final String EXTRA_FROM_NOTIFICATION = "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     
     public static final String TAG = FileActivity.class.getSimpleName();
     
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
-    private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";;
+    private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
+    private static final String DIALOG_SHARE_PASSWORD = "DIALOG_SHARE_PASSWORD";
+    private static final String KEY_TRY_SHARE_AGAIN = "TRY_SHARE_AGAIN";
     
     protected static final long DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS = 200;
     
@@ -93,10 +97,10 @@ implements OnRemoteOperationListener, ComponentsGetter {
     private boolean mRedirectingToSetupAccount = false;
     
     /** Flag to signal when the value of mAccount was set */ 
-    private boolean mAccountWasSet;
+    protected boolean mAccountWasSet;
     
     /** Flag to signal when the value of mAccount was restored from a saved state */ 
-    private boolean mAccountWasRestored;
+    protected boolean mAccountWasRestored;
     
     /** Flag to signal if the activity is launched by a notification */
     private boolean mFromNotification;
@@ -116,6 +120,8 @@ implements OnRemoteOperationListener, ComponentsGetter {
     protected FileDownloaderBinder mDownloaderBinder = null;
     protected FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
+
+    private boolean mTryShareAgain = false;
     
     
     /**
@@ -138,11 +144,14 @@ implements OnRemoteOperationListener, ComponentsGetter {
             mFileOperationsHelper.setOpIdWaitingFor(
                     savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
                     );
+            mTryShareAgain = savedInstanceState.getBoolean(KEY_TRY_SHARE_AGAIN);
         } else {
             account = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
             mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION, false);
         }
+
+        AccountUtils.updateAccountVersion(this); // best place, before any access to AccountManager or database
 
         setAccount(account, savedInstanceState != null);
         
@@ -157,10 +166,19 @@ implements OnRemoteOperationListener, ComponentsGetter {
         if (mUploadServiceConnection != null) {
             bindService(new Intent(this, FileUploader.class), mUploadServiceConnection, Context.BIND_AUTO_CREATE);
         }
-        
+
     }
 
-    
+    @Override
+    protected void onNewIntent (Intent intent) {
+        Log_OC.v(TAG, "onNewIntent() start");
+        Account current = AccountUtils.getCurrentOwnCloudAccount(this);
+        if (current != null && mAccount != null && !mAccount.name.equals(current.name)) {
+            mAccount = current;
+        }
+        Log_OC.v(TAG, "onNewIntent() stop");
+    }
+
     /**
      *  Since ownCloud {@link Account}s can be managed from the system setting menu, 
      *  the existence of the {@link Account} associated to the instance must be checked 
@@ -168,46 +186,54 @@ implements OnRemoteOperationListener, ComponentsGetter {
      */
     @Override
     protected void onRestart() {
+        Log_OC.v(TAG, "onRestart() start");
         super.onRestart();
-        boolean validAccount = (mAccount != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), mAccount.name));
+        boolean validAccount = (mAccount != null && AccountUtils.exists(mAccount, this));
         if (!validAccount) {
             swapToDefaultAccount();
         }
+        Log_OC.v(TAG, "onRestart() end");
     }
 
     
     @Override 
     protected void onStart() {
+        Log_OC.v(TAG, "onStart() start");
         super.onStart();
 
         if (mAccountWasSet) {
             onAccountSet(mAccountWasRestored);
         }
+        Log_OC.v(TAG, "onStart() end");
     }
     
     @Override
     protected void onResume() {
+        Log_OC.v(TAG, "onResume() start");
         super.onResume();
         
         if (mOperationsServiceBinder != null) {
             doOnResumeAndBound();
         }
-
+        Log_OC.v(TAG, "onResume() end");
     }
     
     @Override
     protected void onPause()  {
-        
+        Log_OC.v(TAG, "onPause() start");
+
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
         
         super.onPause();
+        Log_OC.v(TAG, "onPause() end");
     }
     
     
     @Override
     protected void onDestroy() {
+        Log_OC.v(TAG, "onDestroy() start");
         if (mOperationsServiceConnection != null) {
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
@@ -220,7 +246,9 @@ implements OnRemoteOperationListener, ComponentsGetter {
             unbindService(mUploadServiceConnection);
             mUploadServiceConnection = null;
         }
+
         super.onDestroy();
+        Log_OC.v(TAG, "onDestroy() end");
     }
     
     
@@ -234,9 +262,10 @@ implements OnRemoteOperationListener, ComponentsGetter {
      *  @param account          New {@link Account} to set.
      *  @param savedAccount     When 'true', account was retrieved from a saved instance state.
      */
-    private void setAccount(Account account, boolean savedAccount) {
+    protected void setAccount(Account account, boolean savedAccount) {
         Account oldAccount = mAccount;
-        boolean validAccount = (account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account.name));
+        boolean validAccount =
+                (account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account.name));
         if (validAccount) {
             mAccount = account;
             mAccountWasSet = true;
@@ -255,8 +284,6 @@ implements OnRemoteOperationListener, ComponentsGetter {
      *  to create a new ownCloud {@link Account}.
      *  
      *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
-     *   
-     *  @return     'True' if the checked {@link Account} was valid.
      */
     private void swapToDefaultAccount() {
         // default to the most recently used account
@@ -301,6 +328,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, mAccount);
         outState.putBoolean(FileActivity.EXTRA_FROM_NOTIFICATION, mFromNotification);
         outState.putLong(KEY_WAITING_FOR_OP_ID, mFileOperationsHelper.getOpIdWaitingFor());
+        outState.putBoolean(KEY_TRY_SHARE_AGAIN, mTryShareAgain);
     }
     
     
@@ -333,6 +361,10 @@ implements OnRemoteOperationListener, ComponentsGetter {
         return mAccount;
     }
 
+    protected void setAccount(Account account) {
+        mAccount = account;
+    }
+
     /**
      * @return Value of mFromNotification: True if the Activity is launched by a notification
      */
@@ -346,7 +378,14 @@ implements OnRemoteOperationListener, ComponentsGetter {
     protected boolean isRedirectingToSetupAccount() {
         return mRedirectingToSetupAccount;
     }
-    
+
+    public boolean isTryShareAgain(){
+        return mTryShareAgain;
+    }
+
+    public void setTryShareAgain(boolean tryShareAgain) {
+       mTryShareAgain = tryShareAgain;
+    }
     
     public OperationsServiceBinder getOperationsServiceBinder() {
         return mOperationsServiceBinder;
@@ -355,15 +394,12 @@ implements OnRemoteOperationListener, ComponentsGetter {
     protected ServiceConnection newTransferenceServiceConnection() {
         return null;
     }
-    
 
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
      * a new ownCloud {@link Account} finished, successfully or not.
      * 
      * At this moment, only called after the creation of the first account.
-     * 
-     * @author David A. Velasco
      */
     public class AccountCreationCallback implements AccountManagerCallback<Bundle> {
 
@@ -453,10 +489,12 @@ implements OnRemoteOperationListener, ComponentsGetter {
             
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
                 dismissLoadingDialog();
-                Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
+                                operation, getResources()),
                         Toast.LENGTH_LONG);
                 t.show();
             }
+            mTryShareAgain = false;
 
         } else if (operation instanceof CreateShareOperation) {
             onCreateShareOperationFinish((CreateShareOperation) operation, result);
@@ -464,7 +502,10 @@ implements OnRemoteOperationListener, ComponentsGetter {
         } else if (operation instanceof UnshareLinkOperation) {
             onUnshareLinkOperationFinish((UnshareLinkOperation)operation, result);
         
-        } 
+        } else if (operation instanceof SynchronizeFolderOperation) {
+            onSynchronizeFolderOperationFinish((SynchronizeFolderOperation)operation, result);
+
+        }
     }
 
     protected void requestCredentialsUpdate() {
@@ -478,18 +519,36 @@ implements OnRemoteOperationListener, ComponentsGetter {
     }
     
 
-    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
+    private void onCreateShareOperationFinish(CreateShareOperation operation,
+                                              RemoteOperationResult result) {
         dismissLoadingDialog();
         if (result.isSuccess()) {
+            mTryShareAgain = false;
             updateFileFromDB();
             
             Intent sendIntent = operation.getSendIntent();
             startActivity(sendIntent);
-            
-        } else { 
-            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
-                    Toast.LENGTH_LONG);
-            t.show();
+        } else {
+            // Detect Failure (403) --> needs Password
+            if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
+                if (!isTryShareAgain()) {
+                    SharePasswordDialogFragment dialog =
+                            SharePasswordDialogFragment.newInstance(new OCFile(operation.getPath()),
+                                    operation.getSendIntent());
+                    dialog.show(getSupportFragmentManager(), DIALOG_SHARE_PASSWORD);
+                } else {
+                    Toast t = Toast.makeText(this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
+                    t.show();
+                    mTryShareAgain = false;
+                }
+            } else {
+                Toast t = Toast.makeText(this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
+                t.show();
+            }
         } 
     }
     
@@ -506,7 +565,16 @@ implements OnRemoteOperationListener, ComponentsGetter {
             t.show();
         } 
     }
-    
+
+    private void onSynchronizeFolderOperationFinish(
+            SynchronizeFolderOperation operation, RemoteOperationResult result
+    ) {
+        if (!result.isSuccess() && result.getCode() != ResultCode.CANCELLED){
+            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                    Toast.LENGTH_LONG);
+            t.show();
+        }
+    }
     
     protected void updateFileFromDB(){
         OCFile file = getFile();
@@ -594,7 +662,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
     @Override
     public FileUploaderBinder getFileUploaderBinder() {
         return mUploaderBinder;
-    };    
+    }
     
     
 }

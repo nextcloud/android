@@ -19,6 +19,7 @@
   <string name="sync_string_files">Skedarët</string>
   <string name="setup_btn_connect">Lidhu</string>
   <string name="uploader_btn_upload_text">Ngarko</string>
+  <string name="uploader_btn_new_folder_text">Dosje e\'re</string>
   <string name="uploader_wrn_no_account_title">Nuk u gjend asnjë llogari</string>
   <string name="uploader_wrn_no_account_text">Nuk ka %1$s llogari në pajisjen tuaj. Ju lutemi të krijojnë një llogari të parë.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Ndërto</string>
@@ -67,7 +68,6 @@
   <string name="pincode_stored">PIN-i u ruajt</string>
   <string name="auth_no_net_conn_title">Nuk ka lidhje ne Rrjet</string>
   <string name="auth_connection_established">Lidhja u vendos</string>
-  <string name="auth_testing_connection">Duke testuar lidhjen</string>
   <string name="auth_secure_connection">Lidhja e Sigurt vendos</string>
   <string name="common_rename">Riemërto</string>
   <string name="common_remove">Hiq</string>
@@ -77,4 +77,5 @@
   <string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
   <string name="folder_picker_choose_button_text">Zgjidh</string>
   <string name="prefs_category_security">Siguria</string>
+  <string name="auth_host_address">Adresa e serverit</string>
 </resources>

@@ -21,6 +21,7 @@
   <string name="sync_string_files">ไฟล์</string>
   <string name="setup_btn_connect">เชื่อมต่อ</string>
   <string name="uploader_btn_upload_text">อัพโหลด</string>
+  <string name="uploader_btn_new_folder_text">โฟลเดอร์ใหม่</string>
   <string name="uploader_wrn_no_account_title">ไม่พบบัญชีที่ต้องการ</string>
   <string name="uploader_wrn_no_account_text">ไม่มีบัญชี %1$s บนอุปกรณ์ของคุณ กรุณาตั้งค่าบัญชีของคุณก่อน</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ตั้งค่า</string>
@@ -95,7 +96,6 @@
   <string name="auth_no_net_conn_title">ไม่มีการเชื่อมต่อเครือข่ายใดๆ</string>
   <string name="auth_nossl_plain_ok_title">การเชื่อมต่อแบบรักษาความปลอดภัยไม่สามารถใช้งานได้</string>
   <string name="auth_connection_established">ติดตั้งการเชื่อมต่อแล้ว</string>
-  <string name="auth_testing_connection">กำลังทดสอบการเชื่อมต่อ...</string>
   <string name="auth_not_configured_title">การกำหนดค่า Malformed เซิร์ฟเวอร์</string>
   <string name="auth_unknown_error_title">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ!</string>
   <string name="auth_unknown_host_title">ไม่พบโฮสต์ที่ต้องการ</string>
@@ -157,4 +157,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">บัญชี</string>
   <string name="folder_picker_choose_button_text">เลือก</string>
+  <string name="auth_host_address">ที่อยู่เซิร์ฟเวอร์</string>
 </resources>

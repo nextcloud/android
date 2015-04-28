@@ -1,4 +1,7 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author masensio
  *   Copyright (C) 2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -36,14 +39,13 @@ import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 
 /**
- * Class to choose proper error messages to show to the user depending on the results of operations, always following the same policy
- * 
- * @author masensio
- *
+ * Class to choose proper error messages to show to the user depending on the results of operations,
+ * always following the same policy
  */
 
 public class ErrorMessageAdapter {
@@ -205,6 +207,21 @@ public class ErrorMessageAdapter {
             }else {    // Generic error
                 // Show a Message, operation finished without success
                 message = res.getString(R.string.move_file_error);
+            }
+        } else if (operation instanceof SynchronizeFolderOperation) {
+
+            if (!result.isSuccess()) {
+                String folderPathName = new File(
+                        ((SynchronizeFolderOperation) operation).getFolderPath()).getName();
+                if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
+                    message = String.format(res.getString(R.string.sync_current_folder_was_removed),
+                            folderPathName);
+
+                } else {    // Generic error
+                    // Show a Message, operation finished without success
+                    message = String.format(res.getString(R.string.download_folder_failed_content),
+                            folderPathName);
+                }
             }
         }
         

@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -31,13 +34,13 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile} 
  * according to the current state of the latest. 
- * 
- * @author David A. Velasco
  */
 public class FileMenuFilter {
 
@@ -51,8 +54,8 @@ public class FileMenuFilter {
      * 
      * @param targetFile        {@link OCFile} target of the action to filter in the {@link Menu}.
      * @param account           ownCloud {@link Account} holding targetFile.
-     * @param cg                Accessor to app components, needed to get access the 
-     *                          {@link FileUploader} and {@link FileDownloader} services.
+     * @param cg                Accessor to app components, needed to access the
+     *                          {@link FileUploader} and {@link FileDownloader} services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
     public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context) {
@@ -140,15 +143,17 @@ public class FileMenuFilter {
         boolean uploading = false;
         if (mComponentsGetter != null && mFile != null && mAccount != null) {
             FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
-            downloading = downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile);
+            downloading = (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile));
+            OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
+            downloading |= (opsBinder != null && opsBinder.isSynchronizing(mAccount, mFile.getRemotePath()));
             FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
-            uploading = uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile);
+            uploading = (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile));
         }
         
         /// decision is taken for each possible action on a file in the menu
         
         // DOWNLOAD 
-        if (mFile == null || mFile.isFolder() || mFile.isDown() || downloading || uploading) {
+        if (mFile == null || mFile.isDown() || downloading || uploading) {
             toHide.add(R.id.action_download_file);
             
         } else {
@@ -189,7 +194,7 @@ public class FileMenuFilter {
         
         
         // CANCEL DOWNLOAD
-        if (mFile == null || !downloading || mFile.isFolder()) {
+        if (mFile == null || !downloading) {
             toHide.add(R.id.action_cancel_download);
         } else {
             toShow.add(R.id.action_cancel_download);

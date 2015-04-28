@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -23,11 +26,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.BitmapFactory.Options;
 import android.media.ExifInterface;
+import android.net.Uri;
+import android.webkit.MimeTypeMap;
+
+import java.io.File;
 
 /**
  * Utility class with methods for decoding Bitmaps.
- * 
- * @author David A. Velasco
  */
 public class BitmapUtils {
     
@@ -169,6 +174,18 @@ public class BitmapUtils {
         }
         return resultBitmap;
     }
-    
+
+    /**
+     * Checks if file passed is an image
+     * @param file
+     * @return true/false
+     */
+    public static boolean isImage(File file) {
+        Uri selectedUri = Uri.fromFile(file);
+        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase());
+        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+
+        return (mimeType != null && mimeType.startsWith("image/"));
+    }
     
 }

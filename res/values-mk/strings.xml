@@ -25,6 +25,7 @@
   <string name="sync_string_files">Датотеки</string>
   <string name="setup_btn_connect">Поврзи се</string>
   <string name="uploader_btn_upload_text">Подигни</string>
+  <string name="uploader_btn_new_folder_text">Нова папка</string>
   <string name="uploader_wrn_no_account_title">Не е пронајдена сметка</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Нагодување</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Прекини</string>
@@ -75,7 +76,6 @@
   <string name="auth_no_net_conn_title">Нема мрежна конекција</string>
   <string name="auth_nossl_plain_ok_title">Нема безбедна конекција.</string>
   <string name="auth_connection_established">Конекцијата е воспоставена</string>
-  <string name="auth_testing_connection">Ја тестирам врската...</string>
   <string name="auth_unknown_error_title">Се појави непознаа грешка!</string>
   <string name="auth_unknown_host_title">Не можев да го најдам хостот</string>
   <string name="auth_incorrect_path_title">Серверската инстанца не е пронајдена</string>
@@ -130,4 +130,5 @@
   <string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
   <string name="folder_picker_choose_button_text">Избери</string>
   <string name="prefs_category_security">Безбедност</string>
+  <string name="auth_host_address">Адреса на сервер</string>
 </resources>

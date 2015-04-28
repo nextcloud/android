@@ -1,5 +1,9 @@
-/* ownCloud Android client application
- *   Copyright (C) 2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   @author masensio
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,6 +21,7 @@
 
 package com.owncloud.android.operations;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.files.CreateRemoteFolderOperation;
@@ -31,9 +36,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 /**
  * Access to remote operation performing the creation of a new folder in the ownCloud server.
  * Save the new folder in Database
- * 
- * @author David A. Velasco 
- * @author masensio
  */
 public class CreateFolderOperation extends SyncOperation implements OnRemoteOperationListener{
     
@@ -45,7 +47,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     /**
      * Constructor
      * 
-     * @param createFullPath        'True' means that all the ancestor folders should be created if don't exist yet.
+     * @param createFullPath        'True' means that all the ancestor folders should be created
+     *                              if don't exist yet.
      */
     public CreateFolderOperation(String remotePath, boolean createFullPath) {
         mRemotePath = remotePath;
@@ -56,7 +59,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        CreateRemoteFolderOperation operation = new CreateRemoteFolderOperation(mRemotePath, mCreateFullPath);
+        CreateRemoteFolderOperation operation = new CreateRemoteFolderOperation(mRemotePath,
+                mCreateFullPath);
         RemoteOperationResult result =  operation.execute(client);
         
         if (result.isSuccess()) {
@@ -76,7 +80,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     }
     
     
-    private void onCreateRemoteFolderOperationFinish(CreateRemoteFolderOperation operation, RemoteOperationResult result) {
+    private void onCreateRemoteFolderOperationFinish(CreateRemoteFolderOperation operation,
+                                                     RemoteOperationResult result) {
        if (result.isSuccess()) {
            saveFolderInDB();
        } else {

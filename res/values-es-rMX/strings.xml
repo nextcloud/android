@@ -37,6 +37,7 @@
   <string name="sync_string_files">Archivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
+  <string name="uploader_btn_new_folder_text">Nueva carpeta</string>
   <string name="uploader_wrn_no_account_title">No se encontraron cuentas</string>
   <string name="uploader_wrn_no_account_text">No hay cuentas de %1$s en tu dispositivo. Por favor configura una cuenta primero.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
@@ -132,7 +133,6 @@
   <string name="auth_no_net_conn_title">Sin conexión de red</string>
   <string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
   <string name="auth_connection_established">Conexión establecida</string>
-  <string name="auth_testing_connection">Probando conexión...</string>
   <string name="auth_not_configured_title">Configuración de servidor en formato incorrecto</string>
   <string name="auth_account_not_new">Una cuenta para el mismo usuario y servidor ya existen en el dispositivo</string>
   <string name="auth_account_not_the_same">El usuario introducido no concuerda con el usuario de esta cuenta</string>
@@ -219,4 +219,5 @@
   <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
   <string name="folder_picker_choose_button_text">Seleccionar</string>
   <string name="prefs_category_security">Seguridad</string>
+  <string name="auth_host_address">Dirección del servidor</string>
 </resources>

@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -48,9 +51,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 /**
  * Displays local files and let the user choose what of them wants to upload
  * to the current ownCloud account
- * 
- * @author David A. Velasco
- * 
  */
 
 public class UploadFilesActivity extends FileActivity implements
@@ -64,11 +64,13 @@ public class UploadFilesActivity extends FileActivity implements
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     
-    public static final String EXTRA_CHOSEN_FILES = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
+    public static final String EXTRA_CHOSEN_FILES =
+            UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
 
     public static final int RESULT_OK_AND_MOVE = RESULT_FIRST_USER; 
     
-    private static final String KEY_DIRECTORY_PATH = UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
+    private static final String KEY_DIRECTORY_PATH =
+            UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
     private static final String TAG = "UploadFilesActivity";
     private static final String WAIT_DIALOG_TAG = "WAIT";
     private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
@@ -180,7 +182,8 @@ public class UploadFilesActivity extends FileActivity implements
     
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        // responsibility of restore is preferred in onCreate() before than in onRestoreInstanceState when there are Fragments involved
+        // responsibility of restore is preferred in onCreate() before than in
+        // onRestoreInstanceState when there are Fragments involved
         Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putString(UploadFilesActivity.KEY_DIRECTORY_PATH, mCurrentDir.getAbsolutePath());
@@ -289,8 +292,6 @@ public class UploadFilesActivity extends FileActivity implements
      * to upload into the ownCloud local folder.
      * 
      * Maybe an AsyncTask is not strictly necessary, but who really knows.
-     * 
-     * @author David A. Velasco
      */
     private class CheckAvailableSpaceTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -319,7 +320,7 @@ public class UploadFilesActivity extends FileActivity implements
                 File localFile = new File(localPath);
                 total += localFile.length();
             }
-            return (FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total);
+            return (new Boolean(FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total));
         }
 
         /**
@@ -343,9 +344,12 @@ public class UploadFilesActivity extends FileActivity implements
                 finish();
                 
             } else {
-                // show a dialog to query the user if wants to move the selected files to the ownCloud folder instead of copying
+                // show a dialog to query the user if wants to move the selected files
+                // to the ownCloud folder instead of copying
                 String[] args = {getString(R.string.app_name)};
-                ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_query_move_foreign_files, args, R.string.common_yes, -1, R.string.common_no);
+                ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
+                    R.string.upload_query_move_foreign_files, args, R.string.common_yes, -1, R.string.common_no
+                );
                 dialog.setOnConfirmationListener(UploadFilesActivity.this);
                 dialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);
             }
@@ -356,7 +360,8 @@ public class UploadFilesActivity extends FileActivity implements
     public void onConfirmation(String callerTag) {
         Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
         if (callerTag.equals(QUERY_TO_MOVE_DIALOG_TAG)) {
-            // return the list of selected files to the caller activity (success), signaling that they should be moved to the ownCloud folder, instead of copied
+            // return the list of selected files to the caller activity (success),
+            // signaling that they should be moved to the ownCloud folder, instead of copied
             Intent data = new Intent();
             data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
             setResult(RESULT_OK_AND_MOVE, data);

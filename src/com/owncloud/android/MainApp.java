@@ -1,5 +1,9 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author masensio
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,22 +22,24 @@ package com.owncloud.android;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
+
 /**
  * Main Application of the project
  * 
  * Contains methods to build the "static" strings. These strings were before constants in different
  * classes
- * 
- * @author masensio
- * @author David A. Velasco
  */
 public class MainApp extends Application {
-    
+
+    private static final String TAG = MainApp.class.getSimpleName();
+
     private static final String AUTH_ON = "on";
     
     @SuppressWarnings("unused")
@@ -48,10 +54,10 @@ public class MainApp extends Application {
         MainApp.mContext = getApplicationContext();
         
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
-        
-        if (isSamlAuth) {   
+
+        OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
+        if (isSamlAuth) {
             OwnCloudClientManagerFactory.setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT);
-            
         } else {
             OwnCloudClientManagerFactory.setDefaultPolicy(Policy.ALWAYS_NEW_CLIENT);
         }
@@ -116,4 +122,25 @@ public class MainApp extends Application {
         return getAppContext().getResources().getString(R.string.log_name);
     }
 
+    // user agent
+    public static String getUserAgent() {
+        String appString = getAppContext().getResources().getString(R.string.user_agent);
+        String packageName = getAppContext().getPackageName();
+        String version = "";
+
+        PackageInfo pInfo = null;
+        try {
+            pInfo = getAppContext().getPackageManager().getPackageInfo(packageName, 0);
+            if (pInfo != null) {
+                version = pInfo.versionName;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log_OC.e(TAG, "Trying to get packageName", e.getCause());
+        }
+
+        // Mozilla/5.0 (Android) ownCloud-android/1.7.0
+        String userAgent = String.format(appString, version);
+
+        return userAgent;
+    }
 }
