@@ -34,6 +34,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
+import java.util.concurrent.ExecutionException;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -78,6 +79,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
+import com.owncloud.android.utils.CopyTmpFileAsyncTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -88,7 +90,8 @@ import com.owncloud.android.utils.UriUtils;
  * This can be used to upload things to an ownCloud instance.
  */
 public class Uploader extends FileActivity
-        implements OnItemClickListener, android.view.View.OnClickListener {
+        implements OnItemClickListener, android.view.View.OnClickListener,
+        CopyTmpFileAsyncTask.OnCopyTmpFileTaskListener {
 
     private static final String TAG = Uploader.class.getSimpleName();
 
@@ -453,50 +456,17 @@ public class Uploader extends FileActivity
                            String data = c.getString(index);
                            String filePath = mUploadPath +
                                    c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME));
-                           String fullTempPath = FileStorageUtils.getTemporalPath(getAccount().name)
-                                   + filePath;
-                           InputStream inputStream = null;
-                           FileOutputStream outputStream = null;
+
                            if (data == null) {
-                             try {
-                                 inputStream = getContentResolver().openInputStream(uri);
-                                 File cacheFile = new File(fullTempPath);
-                                 cacheFile.createNewFile();
-                                 outputStream = new FileOutputStream(fullTempPath);
-                                 byte[]  buffer = new byte[4096];
-
-                                 int count = 0;
-
-                                 while ((count = inputStream.read(buffer)) > 0) {
-                                     outputStream.write(buffer, 0, count);
-                                 }
-
-                                 outputStream.close();
-                                 inputStream.close();
-
-                                 data = fullTempPath;
-                             }catch (Exception e) {
-                                 if (inputStream != null) {
-                                     try {
-                                         inputStream.close();
-                                     } catch (Exception e1) {
-
-                                     }
-                                 }
-
-                                 if (outputStream != null) {
-                                     try {
-                                         outputStream.close();
-                                     } catch (Exception e1) {
-
-                                     }
-                                 }
-
-                                 if (fullTempPath != null) {
-                                     File    f = new File(fullTempPath);
-                                     f.delete();
-                                 }
-                             }
+                               CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
+                               Object[] params = { uri, filePath };
+                               try {
+                                   data = copyTask.execute(params).get();
+                               } catch (ExecutionException e) {
+                                   Log_OC.e(TAG, "ExecutionException " + e);
+                               } catch (InterruptedException e) {
+                                   Log_OC.e(TAG, "InterruptedException " + e);
+                               }
                            }
 
                            local.add(data);
@@ -645,16 +615,15 @@ public class Uploader extends FileActivity
         // "/" equals root-directory
         if(last_path.equals("/")) {
             mParents.add("");
-        }
-        else{
+        } else{
             String[] dir_names = last_path.split("/");
             for (String dir : dir_names)
                 mParents.add(dir);
         }
         //Make sure that path still exists, if it doesn't pop the stack and try the previous path
-            while(!getStorageManager().fileExists(generatePath(mParents)) && mParents.size() > 1){
-                mParents.pop();
-            }
+        while(!getStorageManager().fileExists(generatePath(mParents)) && mParents.size() > 1){
+            mParents.pop();
+        }
     }
 
     
@@ -662,17 +631,26 @@ public class Uploader extends FileActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
-        case android.R.id.home: {
-            if((mParents.size() > 1)) {                
-                onBackPressed(); 
-            }
-            break;
-        }
-        default:
-            retval = super.onOptionsItemSelected(item);
+            case android.R.id.home:
+                if((mParents.size() > 1)) {
+                    onBackPressed();
+                }
+                break;
+
+            default:
+                retval = super.onOptionsItemSelected(item);
         }
         return retval;
     }
 
-    
+
+    /**
+     * Process the result of CopyTmpFileAsyncTask
+     * @param result
+     */
+    @Override
+    public void OnCopyTmpFileTaskListener(String result) {
+
+    }
+
 }
