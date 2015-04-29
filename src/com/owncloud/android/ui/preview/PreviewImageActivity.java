@@ -104,13 +104,6 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.hide();
-        
-        // PIN CODE request
-        if (PinCheck.checkIfPinEntry()){
-            Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
-            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "PreviewImageActivity");
-            startActivity(i);
-        }
 
         // Make sure we're running on Honeycomb or higher to use FullScreen and
         // Immersive Mode
@@ -327,14 +320,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     @Override
     protected void onResume() {
         super.onResume();
-        
-        if (PinCheck.checkIfPinEntry()){
-            Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
-            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "PreviewImageActivity");
-            startActivity(i);
-        }
-        
-        //Log_OC.e(TAG, "ACTIVITY, ONRESUME");
+
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         
         IntentFilter filter = new IntentFilter(FileDownloader.getDownloadFinishMessage());
@@ -344,7 +330,6 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
     @Override
     protected void onPostResume() {
-        //Log_OC.e(TAG, "ACTIVITY, ONPOSTRESUME");
         super.onPostResume();
     }
     

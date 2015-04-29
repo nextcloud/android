@@ -20,15 +20,25 @@
  */
 package com.owncloud.android;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
 
+import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.authentication.PinCheck;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.PinCodeActivity;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Main Application of the project
@@ -41,6 +51,14 @@ public class MainApp extends Application {
     private static final String TAG = MainApp.class.getSimpleName();
 
     private static final String AUTH_ON = "on";
+
+    private static final Set<String> sExemptOfPasscodeActivites;
+
+    static {
+        sExemptOfPasscodeActivites = new HashSet<String>();
+        sExemptOfPasscodeActivites.add(AuthenticatorActivity.class.getCanonicalName());
+        sExemptOfPasscodeActivites.add(PinCodeActivity.class.getCanonicalName());
+    }
     
     @SuppressWarnings("unused")
     private static final String POLICY_SINGLE_SESSION_PER_ACCOUNT = "single session per account";
@@ -74,6 +92,59 @@ public class MainApp extends Application {
 
             Log_OC.startLogging();
             Log_OC.d("Debug", "start logging");
+        }
+
+        // register global protection with pass code
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            this.registerActivityLifecycleCallbacks( new ActivityLifecycleCallbacks() {
+
+                @Override
+                public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onCreate(Bundle)" );
+                }
+
+                @Override
+                public void onActivityStarted(Activity activity) {
+                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onStart()" );
+                }
+
+                @Override
+                public void onActivityResumed(Activity activity) {
+                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onResume()" );
+                    if (!sExemptOfPasscodeActivites.contains(activity.getClass().getCanonicalName()) &&
+                        PinCheck.checkIfPinEntry()
+                            ){
+                        Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
+                        //i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, activity.getClass().getSimpleName());
+                        i.setAction(PinCodeActivity.ACTION_REQUEST);
+                        activity.startActivity(i);
+                    }
+                }
+
+                @Override
+                public void onActivityPaused(Activity activity) {
+                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onPause()");
+                    PinCheck.setUnlockTimestamp();
+                }
+
+                @Override
+                public void onActivityStopped(Activity activity) {
+                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onStop()" );
+
+                }
+
+                @Override
+                public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onSaveInstanceState(Bundle)" );
+
+                }
+
+                @Override
+                public void onActivityDestroyed(Activity activity) {
+                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onDestroy()" );
+
+                }
+            });
         }
     }
 

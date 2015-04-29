@@ -168,7 +168,7 @@ public class Preferences extends SherlockPreferenceActivity
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
-                    i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "preferences");
+                    i.setAction(PinCodeActivity.ACTION_TOGGLE);
                     i.putExtra(PinCodeActivity.EXTRA_NEW_STATE, newValue.toString());
                     startActivity(i);
                     

@@ -118,13 +118,6 @@ public class Uploader extends FileActivity
         }
         super.onCreate(savedInstanceState);
 
-        // Check Pin entry
-        if (PinCheck.checkIfPinEntry()){
-            Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
-            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "ownCloudUploader");
-            startActivity(i);
-        }
-        
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
 

@@ -164,12 +164,13 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
 
-        
+        /* TODO remove
         if (PinCheck.checkIfPinEntry()){
             Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
             i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
             startActivity(i);
         }
+        */
 
         /// grant that FileObserverService is watching favorite files
         if (savedInstanceState == null) {
@@ -535,10 +536,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                         sortByDate(false);
                         break;
                         
-// TODO re-enable when server-side folder size calculation is available                       
-//                    case 2:
-//                        sortBySize(false);
-//                        break;
                     }
                     
                     dialog.dismiss();
@@ -801,12 +798,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         Log_OC.d(TAG, "onResume() start");
         super.onResume();
 
-        if (PinCheck.checkIfPinEntry()){
-            Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
-            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
-            startActivity(i);
-        }
-    
         // refresh list of files
         refreshListOfFilesFragment();
 

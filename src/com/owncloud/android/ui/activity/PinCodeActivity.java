@@ -46,7 +46,9 @@ import com.owncloud.android.utils.DisplayUtils;
 public class PinCodeActivity extends SherlockFragmentActivity {
 
   
-    public final static String EXTRA_ACTIVITY = "com.owncloud.android.ui.activity.PinCodeActivity.ACTIVITY";
+    public final static String ACTION_TOGGLE = PinCodeActivity.class.getCanonicalName() + ".TOGGLE";
+    public final static String ACTION_REQUEST= PinCodeActivity.class.getCanonicalName()  + ".REQUEST";
+
     public final static String EXTRA_NEW_STATE = "com.owncloud.android.ui.activity.PinCodeActivity.NEW_STATE";
     
     private Button mBCancel;
@@ -59,8 +61,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     
     private String [] mTempText ={"","","",""};
     
-    private String mActivity;
-    
     private boolean mConfirmingPinCode = false;
     private boolean mPinCodeChecked = false;
     private boolean mNewPasswordEntered = false;
@@ -72,9 +72,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pincodelock); 
         
-        Intent intent = getIntent();
-        mActivity = intent.getStringExtra(EXTRA_ACTIVITY);
-     
         mBCancel = (Button) findViewById(R.id.cancel);
         mPinHdr = (TextView) findViewById(R.id.pinHdr);
         mPinHdrExplanation = (TextView) findViewById(R.id.pinHdrExpl);
@@ -96,31 +93,32 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             mPinCodeChecked = true; 
             mNewPasswordEntered = true;
             
-        }else{ 
-            
+        } else {
+
+            /// TODO rewrite this activity; this logic is too twisted
             if (appPrefs.getBoolean("set_pincode", false)){
-               // pincode activated
-               if (mActivity.equals("preferences")){
-                // PIN has been activated yet
-                 mPinHdr.setText(R.string.pincode_configure_your_pin);
-                 mPinHdrExplanation.setVisibility(View.VISIBLE);
-                 mPinCodeChecked = true ; // No need to check it 
-                 setChangePincodeView(true);
-               }else{
-                // PIN active
-                 mBCancel.setVisibility(View.INVISIBLE);
-                 mBCancel.setVisibility(View.GONE);
-                 mPinHdr.setText(R.string.pincode_enter_pin_code);
-                 mPinHdrExplanation.setVisibility(View.INVISIBLE);
-                 setChangePincodeView(false);
+                // pincode activated
+                if (ACTION_TOGGLE.equals(getIntent().getAction())) {
+                    // PIN has been activated yet
+                    mPinHdr.setText(R.string.pincode_configure_your_pin);
+                    mPinHdrExplanation.setVisibility(View.VISIBLE);
+                    mPinCodeChecked = true ; // No need to check it
+                    setChangePincodeView(true);
+               } else {
+                    // PIN active
+                    mBCancel.setVisibility(View.INVISIBLE);
+                    mBCancel.setVisibility(View.GONE);
+                    mPinHdr.setText(R.string.pincode_enter_pin_code);
+                    mPinHdrExplanation.setVisibility(View.INVISIBLE);
+                    setChangePincodeView(false);
               }
             
-           }else {
-            // pincode removal
-              mPinHdr.setText(R.string.pincode_remove_your_pincode);
-              mPinHdrExplanation.setVisibility(View.INVISIBLE);
-              mPinCodeChecked = false;
-              setChangePincodeView(true); 
+           } else {
+                // pincode removal
+                mPinHdr.setText(R.string.pincode_remove_your_pincode);
+                mPinHdrExplanation.setVisibility(View.INVISIBLE);
+                mPinCodeChecked = false;
+                setChangePincodeView(true);
            }
            
         }
@@ -368,36 +366,36 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                         mPinCodeChecked = checkPincode();
                     }
                     
-                    if (mPinCodeChecked && 
-                       (mActivity.equals("FileDisplayActivity") || mActivity.equals("PreviewImageActivity") || mActivity.equals("ownCloudUploader"))){
+                    if (mPinCodeChecked) {
                         PinCheck.setUnlockTimestamp();
-                        finish();
-                    } else if (mPinCodeChecked){
-                        PinCheck.setUnlockTimestamp();
-                        
-                        Intent intent = getIntent();
-                        String newState = intent.getStringExtra(EXTRA_NEW_STATE);
-                        
-                        if (newState.equals("false")){
-                            SharedPreferences.Editor appPrefs = PreferenceManager
-                                    .getDefaultSharedPreferences(getApplicationContext()).edit();
-                            appPrefs.putBoolean("set_pincode",false);
-                            appPrefs.commit();
-                            
-                            setInitVars();
-                            pinCodeEnd(false);
-                            
-                        }else{
-                        
-                            if (!mConfirmingPinCode){
-                                pinCodeChangeRequest();
-                             
+
+                        if (ACTION_REQUEST.equals(getIntent().getAction())) {
+                            finish();
+
+                        } else if (mPinCodeChecked) {
+                            String newState = getIntent().getStringExtra(EXTRA_NEW_STATE);
+
+                            // TODO - next decision should done according to the current state of PIN in prefs (enable or not), not whatever says de client
+                            if (newState.equals("false")) {
+                                SharedPreferences.Editor appPrefs = PreferenceManager
+                                        .getDefaultSharedPreferences(getApplicationContext()).edit();
+                                appPrefs.putBoolean("set_pincode", false);
+                                appPrefs.commit();
+
+                                setInitVars();
+                                pinCodeEnd(false);
+
                             } else {
-                                confirmPincode();
+
+                                if (!mConfirmingPinCode) {
+                                    pinCodeChangeRequest();
+
+                                } else {
+                                    confirmPincode();
+                                }
                             }
+
                         }
-                   
-                        
                     }    
                 }
             }
@@ -571,9 +569,8 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount()== 0){
-            if (mActivity.equals("preferences")){
+            if (ACTION_TOGGLE.equals(getIntent().getAction())){
                 SharedPreferences.Editor appPrefsE = PreferenceManager
-            
                     .getDefaultSharedPreferences(getApplicationContext()).edit();
             
                 SharedPreferences appPrefs = PreferenceManager
