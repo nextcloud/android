@@ -17,11 +17,12 @@ public class PassCodeManager {
 
     static {
         sExemptOfPasscodeActivites = new HashSet<Class>();
-        sExemptOfPasscodeActivites.add(AuthenticatorActivity.class);    // maybe not so good idea
         sExemptOfPasscodeActivites.add(PinCodeActivity.class);
+        // other activities may be exempted, if needed
     }
 
     private static int PASS_CODE_TIMEOUT = 1000;
+        // keeping a "low" value (not 0) is the easiest way to avoid prevent the pass code is requested on rotations
 
     public static PassCodeManager mPassCodeManagerInstance = null;
 
@@ -44,6 +45,7 @@ public class PassCodeManager {
 
             Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
             i.setAction(PinCodeActivity.ACTION_REQUEST);
+            i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             activity.startActivity(i);
         }
 
