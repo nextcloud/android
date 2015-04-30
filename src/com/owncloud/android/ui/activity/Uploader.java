@@ -22,19 +22,13 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
-import java.util.concurrent.ExecutionException;
+
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -52,13 +46,15 @@ import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -80,11 +76,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
+import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.CopyTmpFileAsyncTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.UriUtils;
 
 
 /**
@@ -103,6 +98,9 @@ public class Uploader extends FileActivity
     private String mUploadPath;
     private OCFile mFile;
     private boolean mAccountSelected;
+
+    private ArrayList<String> mRemoteCacheData;
+    private int mNumCacheFile;
     
     private final static int DIALOG_NO_ACCOUNT = 0;
     private final static int DIALOG_WAITING = 1;
@@ -114,6 +112,10 @@ public class Uploader extends FileActivity
     private final static String KEY_PARENTS = "PARENTS";
     private final static String KEY_FILE = "FILE";
     private final static String KEY_ACCOUNT_SELECTED = "ACCOUNT_SELECTED";
+    private final static String KEY_NUM_CACHE_FILE = "NUM_CACHE_FILE";
+    private final static String KEY_REMOTE_CACHE_DATA = "REMOTE_CACHE_DATA";
+
+    private static final String DIALOG_WAIT_COPY_FILE = "DIALOG_WAIT_COPY_FILE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,10 +124,16 @@ public class Uploader extends FileActivity
         if (savedInstanceState == null) {
             mParents = new Stack<String>();
             mAccountSelected = false;
+            mNumCacheFile = 0;
+
+            // ArrayList for files with path in private storage
+            mRemoteCacheData = new ArrayList<String>();
         } else {
             mParents = (Stack<String>) savedInstanceState.getSerializable(KEY_PARENTS);
             mFile = savedInstanceState.getParcelable(KEY_FILE);
             mAccountSelected = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTED);
+            mNumCacheFile = savedInstanceState.getInt(KEY_NUM_CACHE_FILE);
+            mRemoteCacheData = savedInstanceState.getStringArrayList(KEY_REMOTE_CACHE_DATA);
         }
         super.onCreate(savedInstanceState);
 
@@ -173,6 +181,8 @@ public class Uploader extends FileActivity
         //outState.putParcelable(KEY_ACCOUNT, mAccount);
         outState.putParcelable(KEY_FILE, mFile);
         outState.putBoolean(KEY_ACCOUNT_SELECTED, mAccountSelected);
+        outState.putInt(KEY_NUM_CACHE_FILE, mNumCacheFile);
+        outState.putStringArrayList(KEY_REMOTE_CACHE_DATA, mRemoteCacheData);
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }
@@ -434,6 +444,7 @@ public class Uploader extends FileActivity
     public void uploadFiles() {
         try {
 
+            // ArrayList for files with path in external storage
             ArrayList<String> local = new ArrayList<String>();
             ArrayList<String> remote = new ArrayList<String>();
             
@@ -494,21 +505,7 @@ public class Uploader extends FileActivity
                                filePath = mUploadPath + cursor.getString(nameIndex);
                             }
                         }
-                        if (data == null) {
-                            CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
-                            Object[] params = { uri, filePath };
-                            try {
-                                data = copyTask.execute(params).get();
-                            } catch (ExecutionException e) {
-                                Log_OC.e(TAG, "ExecutionException " + e);
-                            } catch (InterruptedException e) {
-                                Log_OC.e(TAG, "InterruptedException " + e);
-                            }
-                        }
 
-                        local.add(data);
-                        remote.add(filePath);
-                        
                     } else if (uri.getScheme().equals("file")) {
                         filePath = Uri.decode(uri.toString()).replace(uri.getScheme() +
                                 "://", "");
@@ -517,11 +514,22 @@ public class Uploader extends FileActivity
                            filePath = splitedFilePath[1];
                         }
                         final File file = new File(filePath);
-                        local.add(file.getAbsolutePath());
-                        remote.add(mUploadPath + file.getName());
+                        data = file.getAbsolutePath();
+                        filePath = mUploadPath + file.getName();
                     }
                     else {
                         throw new SecurityException();
+                    }
+                    if (data == null) {
+                        mRemoteCacheData.add(filePath);
+                        CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
+                        Object[] params = { uri, filePath, mRemoteCacheData.size()-1 };
+                        mNumCacheFile++;
+                        showWaitingCopyDialog();
+                        copyTask.execute(params);
+                    } else {
+                        remote.add(filePath);
+                        local.add(data);
                     }
                 }
                 else {
@@ -640,10 +648,51 @@ public class Uploader extends FileActivity
     /**
      * Process the result of CopyTmpFileAsyncTask
      * @param result
+     * @param index
      */
     @Override
-    public void OnCopyTmpFileTaskListener(String result) {
+    public void OnCopyTmpFileTaskListener(String result, int index) {
+        if (mNumCacheFile -- == 0) {
+            dismissWaitingCopyDialog();
+        }
+        if (result != null) {
+            Intent intent = new Intent(getApplicationContext(), FileUploader.class);
+            intent.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
+            intent.putExtra(FileUploader.KEY_LOCAL_FILE, result);
+            intent.putExtra(FileUploader.KEY_REMOTE_FILE, mRemoteCacheData.get(index));
+            intent.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
+            startService(intent);
+
+        } else {
+            String message = String.format(getString(R.string.uploader_error_forbidden_content),
+                    getString(R.string.app_name));
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            Log_OC.d(TAG, message );
+        }
+
+    }
+/**
+     * Show waiting for copy dialog
+     */
+    public void showWaitingCopyDialog() {
+        // Construct dialog
+        LoadingDialog loading = new LoadingDialog(
+                getResources().getString(R.string.wait_for_tmp_copy_from_private_storage));
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        loading.show(ft, DIALOG_WAIT_COPY_FILE);
 
     }
 
+
+    /**
+     * Dismiss waiting for copy dialog
+     */
+    public void dismissWaitingCopyDialog(){
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_COPY_FILE);
+        if (frag != null) {
+            LoadingDialog loading = (LoadingDialog) frag;
+            loading.dismiss();
+        }
+    }
 }

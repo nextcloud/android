@@ -41,6 +41,11 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
     private final WeakReference<OnCopyTmpFileTaskListener> mListener;
     private String mAccountName;
     private ContentResolver mContentResolver;
+    private int mIndex;
+
+    public int getIndex(){
+        return mIndex;
+    }
 
     public CopyTmpFileAsyncTask(Activity activity) {
         mContentResolver = ((FileActivity) activity).getContentResolver();
@@ -52,9 +57,10 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
     protected String doInBackground(Object[] params) {
         String result = null;
 
-        if (params.length == 2) {
+        if (params.length == 3) {
             Uri uri = (Uri) params[0];
             String filePath = (String) params[1];
+            mIndex = (int) params[2];
 
             String fullTempPath = FileStorageUtils.getTemporalPath(mAccountName) + filePath;
             InputStream inputStream = null;
@@ -118,7 +124,7 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
         OnCopyTmpFileTaskListener listener = mListener.get();
         if (listener!= null)
         {
-            listener.OnCopyTmpFileTaskListener(result);
+            listener.OnCopyTmpFileTaskListener(result, mIndex);
         }
     }
 
@@ -127,6 +133,6 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
      */
     public interface OnCopyTmpFileTaskListener{
 
-        void OnCopyTmpFileTaskListener(String result);
+        void OnCopyTmpFileTaskListener(String result, int index);
     }
 }
