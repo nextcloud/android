@@ -30,7 +30,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.authentication.PinCheck;
+import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
@@ -52,14 +52,6 @@ public class MainApp extends Application {
 
     private static final String AUTH_ON = "on";
 
-    private static final Set<String> sExemptOfPasscodeActivites;
-
-    static {
-        sExemptOfPasscodeActivites = new HashSet<String>();
-        sExemptOfPasscodeActivites.add(AuthenticatorActivity.class.getCanonicalName());
-        sExemptOfPasscodeActivites.add(PinCodeActivity.class.getCanonicalName());
-    }
-    
     @SuppressWarnings("unused")
     private static final String POLICY_SINGLE_SESSION_PER_ACCOUNT = "single session per account";
     @SuppressWarnings("unused")
@@ -106,31 +98,23 @@ public class MainApp extends Application {
                 @Override
                 public void onActivityStarted(Activity activity) {
                     Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onStart()" );
+                    PassCodeManager.getPassCodeManager().onActivityStarted(activity);
                 }
 
                 @Override
                 public void onActivityResumed(Activity activity) {
                     Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onResume()" );
-                    if (!sExemptOfPasscodeActivites.contains(activity.getClass().getCanonicalName()) &&
-                        PinCheck.checkIfPinEntry()
-                            ){
-                        Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
-                        //i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, activity.getClass().getSimpleName());
-                        i.setAction(PinCodeActivity.ACTION_REQUEST);
-                        activity.startActivity(i);
-                    }
                 }
 
                 @Override
                 public void onActivityPaused(Activity activity) {
                     Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onPause()");
-                    PinCheck.setUnlockTimestamp();
                 }
 
                 @Override
                 public void onActivityStopped(Activity activity) {
                     Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onStop()" );
-
+                    PassCodeManager.getPassCodeManager().onActivityStopped(activity);
                 }
 
                 @Override

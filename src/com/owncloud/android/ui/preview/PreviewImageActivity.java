@@ -38,10 +38,9 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.ortiz.touch.ExtendedViewPager;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.authentication.PinCheck;
+import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -58,7 +57,6 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.PinCodeActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -340,7 +338,6 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             mDownloadFinishReceiver = null;
         }
         
-        PinCheck.setUnlockTimestamp();
         super.onPause();
     }
     

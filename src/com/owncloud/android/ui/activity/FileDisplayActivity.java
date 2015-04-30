@@ -65,7 +65,7 @@ import com.actionbarsherlock.view.Window;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.PinCheck;
+import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -163,14 +163,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
-
-        /* TODO remove
-        if (PinCheck.checkIfPinEntry()){
-            Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
-            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
-            startActivity(i);
-        }
-        */
 
         /// grant that FileObserverService is watching favorite files
         if (savedInstanceState == null) {
@@ -843,8 +835,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             mDownloadFinishReceiver = null;
         }
         
-        PinCheck.setUnlockTimestamp();
-
         super.onPause();
         Log_OC.d(TAG, "onPause() end");
     }

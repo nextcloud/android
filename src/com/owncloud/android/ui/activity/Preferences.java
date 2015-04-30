@@ -58,7 +58,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.authentication.PinCheck;
+import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
@@ -392,13 +392,6 @@ public class Preferences extends SherlockPreferenceActivity
             mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPathWiFi);
             mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPath);
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        
-        PinCheck.setUnlockTimestamp();
     }
 
     @Override

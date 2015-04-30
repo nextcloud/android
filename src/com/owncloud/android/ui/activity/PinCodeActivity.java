@@ -21,7 +21,6 @@ package com.owncloud.android.ui.activity;
 
 import java.util.Arrays;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -40,7 +39,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.PinCheck;
+import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.utils.DisplayUtils;
 
 public class PinCodeActivity extends SherlockFragmentActivity {
@@ -367,7 +366,8 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                     }
                     
                     if (mPinCodeChecked) {
-                        PinCheck.setUnlockTimestamp();
+                        // TODO remove or update:
+                        // PassCodeManager.setUnlockTimestamp();
 
                         if (ACTION_REQUEST.equals(getIntent().getAction())) {
                             finish();
