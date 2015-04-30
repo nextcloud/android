@@ -135,7 +135,13 @@ public class Uploader extends FileActivity
             mNumCacheFile = savedInstanceState.getInt(KEY_NUM_CACHE_FILE);
             mRemoteCacheData = savedInstanceState.getStringArrayList(KEY_REMOTE_CACHE_DATA);
         }
+
         super.onCreate(savedInstanceState);
+
+        if (mAccountSelected) {
+            setAccount((Account) savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT));
+        }
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
@@ -183,6 +189,7 @@ public class Uploader extends FileActivity
         outState.putBoolean(KEY_ACCOUNT_SELECTED, mAccountSelected);
         outState.putInt(KEY_NUM_CACHE_FILE, mNumCacheFile);
         outState.putStringArrayList(KEY_REMOTE_CACHE_DATA, mRemoteCacheData);
+        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, getAccount());
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }
@@ -389,7 +396,7 @@ public class Uploader extends FileActivity
         actionBar.setHomeButtonEnabled(notRoot);
 
         String full_path = generatePath(mParents);
-        
+
         Log_OC.d(TAG, "Populating view with content of : " + full_path);
 
         mFile = getStorageManager().getFileByPath(full_path);
