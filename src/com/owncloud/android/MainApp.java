@@ -23,22 +23,17 @@ package com.owncloud.android;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.PinCodeActivity;
 
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Main Application of the project
@@ -92,41 +87,39 @@ public class MainApp extends Application {
 
                 @Override
                 public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onCreate(Bundle)" );
+                    Log_OC.d(activity.getClass().getSimpleName(),  "onCreate(Bundle) starting" );
                 }
 
                 @Override
                 public void onActivityStarted(Activity activity) {
-                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onStart()" );
+                    Log_OC.d(activity.getClass().getSimpleName(),  "onStart() starting" );
                     PassCodeManager.getPassCodeManager().onActivityStarted(activity);
                 }
 
                 @Override
                 public void onActivityResumed(Activity activity) {
-                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onResume()" );
+                    Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting" );
                 }
 
                 @Override
                 public void onActivityPaused(Activity activity) {
-                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onPause()");
+                    Log_OC.d(activity.getClass().getSimpleName(), "onPause() ending");
                 }
 
                 @Override
                 public void onActivityStopped(Activity activity) {
-                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onStop()" );
+                    Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending" );
                     PassCodeManager.getPassCodeManager().onActivityStopped(activity);
                 }
 
                 @Override
                 public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onSaveInstanceState(Bundle)" );
-
+                    Log_OC.d(activity.getClass().getSimpleName(), "onSaveInstanceState(Bundle) starting" );
                 }
 
                 @Override
                 public void onActivityDestroyed(Activity activity) {
-                    Log_OC.d(TAG, activity.getClass().getSimpleName() + " in onDestroy()" );
-
+                    Log_OC.d(activity.getClass().getSimpleName(), "onDestroy() ending" );
                 }
             });
         }

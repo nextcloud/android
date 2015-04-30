@@ -159,7 +159,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log_OC.d(TAG, "onCreate() start");
+        Log_OC.v(TAG, "onCreate() start");
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
@@ -200,22 +200,22 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         
         setBackgroundText();
 
-        Log_OC.d(TAG, "onCreate() end");
+        Log_OC.v(TAG, "onCreate() end");
     }
     
     @Override
     protected void onStart() {
-        Log_OC.d(TAG, "onStart() start");
+        Log_OC.v(TAG, "onStart() start");
         super.onStart();
         getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
-        Log_OC.d(TAG, "onStart() end");
+        Log_OC.v(TAG, "onStart() end");
     }
 
     @Override
     protected void onDestroy() {
-        Log_OC.d(TAG, "onDestroy() start");
+        Log_OC.v(TAG, "onDestroy() start");
         super.onDestroy();
-        Log_OC.d(TAG, "onDestroy() end");
+        Log_OC.v(TAG, "onDestroy() end");
     }
 
     /**
@@ -773,21 +773,21 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in onRestoreInstanceState when there are Fragments involved
-        Log_OC.d(TAG, "onSaveInstanceState() start");
+        Log_OC.v(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         outState.putBoolean(FileDisplayActivity.KEY_SYNC_IN_PROGRESS, mSyncInProgress);
         //outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS, mRefreshSharesInProgress);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND, mWaitingToSend);
 
-        Log_OC.d(TAG, "onSaveInstanceState() end");
+        Log_OC.v(TAG, "onSaveInstanceState() end");
     }
     
 
 
     @Override
     protected void onResume() {
-        Log_OC.d(TAG, "onResume() start");
+        Log_OC.v(TAG, "onResume() start");
         super.onResume();
 
         // refresh list of files
@@ -814,13 +814,13 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
         
-        Log_OC.d(TAG, "onResume() end");
+        Log_OC.v(TAG, "onResume() end");
     }
 
 
     @Override
     protected void onPause() {
-        Log_OC.d(TAG, "onPause() start");
+        Log_OC.v(TAG, "onPause() start");
         if (mSyncBroadcastReceiver != null) {
             unregisterReceiver(mSyncBroadcastReceiver);
             //LocalBroadcastManager.getInstance(this).unregisterReceiver(mSyncBroadcastReceiver);
@@ -836,7 +836,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         }
         
         super.onPause();
-        Log_OC.d(TAG, "onPause() end");
+        Log_OC.v(TAG, "onPause() end");
     }
 
     /**
