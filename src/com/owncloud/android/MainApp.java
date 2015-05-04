@@ -88,6 +88,7 @@ public class MainApp extends Application {
                 @Override
                 public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                     Log_OC.d(activity.getClass().getSimpleName(),  "onCreate(Bundle) starting" );
+                    PassCodeManager.getPassCodeManager().onActivityCreated(activity);
                 }
 
                 @Override

@@ -1,9 +1,13 @@
 package com.owncloud.android.authentication;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.view.WindowManager;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.ui.activity.PinCodeActivity;
@@ -22,7 +26,7 @@ public class PassCodeManager {
     }
 
     private static int PASS_CODE_TIMEOUT = 1000;
-        // keeping a "low" value (not 0) is the easiest way to avoid prevent the pass code is requested on rotations
+        // keeping a "low" positive value is the easiest way to prevent the pass code is requested on rotations
 
     public static PassCodeManager mPassCodeManagerInstance = null;
 
@@ -38,6 +42,14 @@ public class PassCodeManager {
 
     protected PassCodeManager() {};
 
+    public void onActivityCreated(Activity activity) {
+        if (passCodeIsEnabled()) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        } else {
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
+    }
+
     public void onActivityStarted(Activity activity) {
         if (!sExemptOfPasscodeActivites.contains(activity.getClass()) &&
                 passCodeShouldBeRequested()
@@ -47,9 +59,10 @@ public class PassCodeManager {
             i.setAction(PinCodeActivity.ACTION_REQUEST);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             activity.startActivity(i);
+
         }
 
-        mVisibleActivitiesCounter++;    // AFTER passCodeShouldBeRequested was checked
+        mVisibleActivitiesCounter++;    // keep it AFTER passCodeShouldBeRequested was checked
     }
 
     public void onActivityStopped(Activity activity) {
@@ -57,22 +70,28 @@ public class PassCodeManager {
             mVisibleActivitiesCounter--;
         }
         setUnlockTimestamp();
+        PowerManager powerMgr = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
+        if (passCodeIsEnabled() && powerMgr != null && !powerMgr.isScreenOn()) {
+            activity.moveTaskToBack(true);
+        }
+    }
+
+    private void setUnlockTimestamp() {
+        mTimestamp = System.currentTimeMillis();
     }
 
     private boolean passCodeShouldBeRequested(){
         if ((System.currentTimeMillis() - mTimestamp) > PASS_CODE_TIMEOUT &&
                 mVisibleActivitiesCounter <= 0
                 ){
-            SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-            if (appPrefs.getBoolean("set_pincode", false)) {
-                return true;
-            }
+            return passCodeIsEnabled();
         }
         return false;
     }
 
-    private void setUnlockTimestamp() {
-        mTimestamp = System.currentTimeMillis();
+    private boolean passCodeIsEnabled() {
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
+        return (appPrefs.getBoolean("set_pincode", false));
     }
 
 }
