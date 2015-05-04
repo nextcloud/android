@@ -98,6 +98,7 @@ public class Uploader extends FileActivity
     private String mUploadPath;
     private OCFile mFile;
     private boolean mAccountSelected;
+    private boolean mAccountSelectionShowing;
 
     private ArrayList<String> mRemoteCacheData;
     private int mNumCacheFile;
@@ -112,6 +113,7 @@ public class Uploader extends FileActivity
     private final static String KEY_PARENTS = "PARENTS";
     private final static String KEY_FILE = "FILE";
     private final static String KEY_ACCOUNT_SELECTED = "ACCOUNT_SELECTED";
+    private final static String KEY_ACCOUNT_SELECTION_SHOWING = "ACCOUNT_SELECTION_SHOWING";
     private final static String KEY_NUM_CACHE_FILE = "NUM_CACHE_FILE";
     private final static String KEY_REMOTE_CACHE_DATA = "REMOTE_CACHE_DATA";
 
@@ -124,6 +126,7 @@ public class Uploader extends FileActivity
         if (savedInstanceState == null) {
             mParents = new Stack<String>();
             mAccountSelected = false;
+            mAccountSelectionShowing = false;
             mNumCacheFile = 0;
 
             // ArrayList for files with path in private storage
@@ -132,6 +135,7 @@ public class Uploader extends FileActivity
             mParents = (Stack<String>) savedInstanceState.getSerializable(KEY_PARENTS);
             mFile = savedInstanceState.getParcelable(KEY_FILE);
             mAccountSelected = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTED);
+            mAccountSelectionShowing = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTION_SHOWING);
             mNumCacheFile = savedInstanceState.getInt(KEY_NUM_CACHE_FILE);
             mRemoteCacheData = savedInstanceState.getStringArrayList(KEY_REMOTE_CACHE_DATA);
         }
@@ -156,9 +160,10 @@ public class Uploader extends FileActivity
             if (accounts.length == 0) {
                 Log_OC.i(TAG, "No ownCloud account is available");
                 showDialog(DIALOG_NO_ACCOUNT);
-            } else if (accounts.length > 1 && !mAccountSelected) {
+            } else if (accounts.length > 1 && !mAccountSelected && !mAccountSelectionShowing) {
                 Log_OC.i(TAG, "More than one ownCloud is available");
                 showDialog(DIALOG_MULTIPLE_ACCOUNT);
+                mAccountSelectionShowing = true;
             } else {
                 if (!savedAccount) {
                     setAccount(accounts[0]);
@@ -187,6 +192,7 @@ public class Uploader extends FileActivity
         //outState.putParcelable(KEY_ACCOUNT, mAccount);
         outState.putParcelable(KEY_FILE, mFile);
         outState.putBoolean(KEY_ACCOUNT_SELECTED, mAccountSelected);
+        outState.putBoolean(KEY_ACCOUNT_SELECTION_SHOWING, mAccountSelectionShowing);
         outState.putInt(KEY_NUM_CACHE_FILE, mNumCacheFile);
         outState.putStringArrayList(KEY_REMOTE_CACHE_DATA, mRemoteCacheData);
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, getAccount());
@@ -255,12 +261,14 @@ public class Uploader extends FileActivity
                     onAccountSet(mAccountWasRestored);
                     dialog.dismiss();
                     mAccountSelected = true;
+                    mAccountSelectionShowing = false;
                 }
             });
             builder.setCancelable(true);
             builder.setOnCancelListener(new OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
+                    mAccountSelectionShowing = false;
                     dialog.cancel();
                     finish();
                 }
@@ -674,7 +682,7 @@ public class Uploader extends FileActivity
             String message = String.format(getString(R.string.uploader_error_forbidden_content),
                     getString(R.string.app_name));
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            Log_OC.d(TAG, message );
+            Log_OC.d(TAG, message);
         }
 
     }
