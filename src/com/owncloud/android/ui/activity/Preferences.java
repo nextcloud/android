@@ -58,7 +58,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
@@ -167,9 +166,9 @@ public class Preferences extends SherlockPreferenceActivity
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
-                    i.setAction(PinCodeActivity.ACTION_TOGGLE);
-                    i.putExtra(PinCodeActivity.EXTRA_NEW_STATE, newValue.toString());
+                    Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
+                    i.setAction(PassCodeActivity.ACTION_TOGGLE);
+                    i.putExtra(PassCodeActivity.EXTRA_NEW_STATE, newValue.toString());
                     startActivity(i);
                     
                     return true;

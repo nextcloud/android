@@ -24,7 +24,7 @@
     <string name="prefs_category_more">More</string>
     <string name="prefs_accounts">Accounts</string>
     <string name="prefs_manage_accounts">Manage Accounts</string>
-    <string name="prefs_pincode">Passcode lock</string>
+    <string name="prefs_passcode">Pass code lock</string>
     <string name="prefs_instant_upload">Instant picture uploads</string>
     <string name="prefs_instant_upload_summary">Instantly upload pictures taken by camera</string>
     <string name="prefs_instant_video_upload">Instant video uploads</string>
@@ -130,16 +130,16 @@
     <string name="foreign_files_local_text">"Local: %1$s"</string>
     <string name="foreign_files_remote_text">"Remote: %1$s"</string>
     <string name="upload_query_move_foreign_files">There is not space enough to copy the selected files into the %1$s folder. Would you like to move them instead? </string>
-    <string name="pincode_enter_pin_code">Please, insert your App PIN</string>
+    <string name="pass_code_enter_pass_code">Please, insert your pass code</string>
     
-    <string name="pincode_configure_your_pin">Enter your App PIN</string>
-    <string name="pincode_configure_your_pin_explanation">The PIN will be requested every time the app is started</string>
-    <string name="pincode_reenter_your_pincode">Please, reenter your App PIN</string>
-    <string name="pincode_remove_your_pincode">Remove your App PIN</string>
-    <string name="pincode_mismatch">The App PINs are not the same</string>
-    <string name="pincode_wrong">Incorrect App PIN</string>
-    <string name="pincode_removed">App PIN removed</string>
-    <string name="pincode_stored">App PIN stored</string>
+    <string name="pass_code_configure_your_pass_code">Enter your pass code</string>
+    <string name="pass_code_configure_your_pass_code_explanation">The pass code will be requested every time the app is started</string>
+    <string name="pass_code_reenter_your_pass_code">Please, reenter your pass code</string>
+    <string name="pass_code_remove_your_pass_code">Remove your pass code</string>
+    <string name="pass_code_mismatch">The pass codes are not the same</string>
+    <string name="pass_code_wrong">Incorrect pass code</string>
+    <string name="pass_code_removed">Pass code removed</string>
+    <string name="pass_code_stored">Pass code stored</string>
     
     <string name="media_notif_ticker">"%1$s music player"</string>
     <string name="media_state_playing">"%1$s (playing)"</string>

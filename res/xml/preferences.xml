@@ -22,11 +22,6 @@
     </PreferenceCategory>
     
 	<PreferenceCategory android:title="@string/prefs_category_security">
-	    <!-- ListPreference
-	        android:key="select_oc_account"
-	        android:title="@string/prefs_select_oc_account"
-	        android:summary="@string/prefs_summary_select_oc_account"
-	        / -->
 	    <android.preference.CheckBoxPreference android:title="@string/prefs_pincode" android:key="set_pincode" />
 	</PreferenceCategory>
 

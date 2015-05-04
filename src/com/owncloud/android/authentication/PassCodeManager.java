@@ -6,11 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.owncloud.android.MainApp;
-import com.owncloud.android.ui.activity.PinCodeActivity;
+import com.owncloud.android.ui.activity.PassCodeActivity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +20,7 @@ public class PassCodeManager {
 
     static {
         sExemptOfPasscodeActivites = new HashSet<Class>();
-        sExemptOfPasscodeActivites.add(PinCodeActivity.class);
+        sExemptOfPasscodeActivites.add(PassCodeActivity.class);
         // other activities may be exempted, if needed
     }
 
@@ -55,8 +54,8 @@ public class PassCodeManager {
                 passCodeShouldBeRequested()
                 ){
 
-            Intent i = new Intent(MainApp.getAppContext(), PinCodeActivity.class);
-            i.setAction(PinCodeActivity.ACTION_REQUEST);
+            Intent i = new Intent(MainApp.getAppContext(), PassCodeActivity.class);
+            i.setAction(PassCodeActivity.ACTION_REQUEST);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             activity.startActivity(i);
 
