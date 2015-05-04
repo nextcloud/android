@@ -22,7 +22,7 @@
     </PreferenceCategory>
     
 	<PreferenceCategory android:title="@string/prefs_category_security">
-	    <android.preference.CheckBoxPreference android:title="@string/prefs_pincode" android:key="set_pincode" />
+	    <android.preference.CheckBoxPreference android:title="@string/prefs_passcode" android:key="set_pincode" />
 	</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefs_category_instant_uploading" android:key="instant_uploading_category">

@@ -167,8 +167,10 @@ public class Preferences extends SherlockPreferenceActivity
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
-                    i.setAction(PassCodeActivity.ACTION_TOGGLE);
-                    i.putExtra(PassCodeActivity.EXTRA_NEW_STATE, newValue.toString());
+                    Boolean enable = (Boolean) newValue;
+                    i.setAction(
+                            enable.booleanValue() ? PassCodeActivity.ACTION_ENABLE : PassCodeActivity.ACTION_DISABLE
+                    );
                     startActivity(i);
                     
                     return true;
