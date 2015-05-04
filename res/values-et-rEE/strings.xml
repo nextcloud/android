@@ -165,6 +165,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="auth_no_net_conn_title">Võrguühendust pole</string>
   <string name="auth_nossl_plain_ok_title">Turvaline ühendus pole saadaval</string>
   <string name="auth_connection_established">Saadi ühendus</string>
+  <string name="auth_testing_connection">Ühenduse testimine</string>
   <string name="auth_not_configured_title">Vigases vormingus server seadistus</string>
   <string name="auth_account_not_new">Sama konto  kasutaja ja server on juba selles seadmes olemas</string>
   <string name="auth_account_not_the_same">Sisestatud kasutaja ei kattu selle konto kasutajaga</string>
@@ -191,6 +192,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="auth_fail_get_user_name">Server ei tagasta korrektset kasutaja ID-d. Palun kontakteeru administraatoriga.
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Ei suuda autoriseerida selle serveriga.</string>
+  <string name="auth_account_does_not_exist">Kontot pole veel seadmes</string>
   <string name="fd_keep_in_sync">Hoia faili ajakohasena</string>
   <string name="common_rename">Nimeta ümber</string>
   <string name="common_remove">Eemalda</string>
@@ -264,6 +266,8 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="share_link_file_error">Faili või kausta jagamisel esines viga</string>
   <string name="unshare_link_file_no_exist">Liigutamise lõpetamine ebaõnnestus. Palun kontrolli, kas fail on olemas</string>
   <string name="unshare_link_file_error">Faili või kausta jagamise tühistamisel esines viga</string>
+  <string name="share_link_password_title">Sisesta parool</string>
+  <string name="share_link_empty_password">Sa pead parooli sisestama</string>
   <string name="activity_chooser_send_file_title">Saada</string>
   <string name="copy_link">Kopeeri link</string>
   <string name="clipboard_text_copied">Kopeeritud lõikepuhvrisse</string>
@@ -286,6 +290,9 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="auth_redirect_non_secure_connection_title">Turvaline ühendus suunatakse läbi turvamata ühenduse.</string>
   <string name="actionbar_logger">Logid</string>
   <string name="log_send_history_button">Saada ajalugu</string>
+  <string name="log_send_no_mail_app">Logide saatmise rakendust ei leitud. Paigalda postirakendus!</string>
+  <string name="log_send_mail_subject">%1$s Androidi rakenduse logid</string>
+  <string name="log_progress_dialog_text">Andmete laadimine...</string>
   <string name="saml_authentication_required_text">Autentimine on vajalik</string>
   <string name="saml_authentication_wrong_pass">Vale parool</string>
   <string name="actionbar_move">Tõsta ümber</string>
@@ -298,5 +305,9 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="forbidden_permissions_move">selle faili liigutamiseks</string>
   <string name="prefs_category_instant_uploading">Kohesed üleslaadimised</string>
   <string name="prefs_category_security">Turvalisus</string>
+  <string name="prefs_instant_video_upload_path_title">Video üleslaadimise asukoht</string>
+  <string name="download_folder_failed_content">Kausta %1$s  allalaadimine ei õnnestunud</string>
+  <string name="subject_token">%1$s jagas sinuga \"%2$s\"</string>
+  <string name="auth_refresh_button">Värskenda ühendust</string>
   <string name="auth_host_address">Serveri aadress</string>
 </resources>
