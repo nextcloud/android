@@ -1,6 +1,9 @@
 /**
  *   ownCloud Android client application
  *
+ *   @author Bartek Przybylski
+ *   @author masensio
+ *   @author David A. Velasco
  *   Copyright (C) 2011 Bartek Przybylski
  *   Copyright (C) 2015 ownCloud Inc.
  *
@@ -29,8 +32,6 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
-import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -54,10 +55,7 @@ public class PassCodeActivity extends SherlockFragmentActivity {
     private Button mBCancel;
     private TextView mPassCodeHdr;
     private TextView mPassCodeHdrExplanation;
-    private EditText mText0;
-    private EditText mText1;
-    private EditText mText2;
-    private EditText mText3;
+    private EditText[] mPassCodeEditTexts = new EditText[4];
     
     private String [] mPassCodeDigits = {"","","",""};
     private boolean mConfirmingPassCode = false;
@@ -79,12 +77,12 @@ public class PassCodeActivity extends SherlockFragmentActivity {
         mBCancel = (Button) findViewById(R.id.cancel);
         mPassCodeHdr = (TextView) findViewById(R.id.header);
         mPassCodeHdrExplanation = (TextView) findViewById(R.id.explanation);
-        mText0 = (EditText) findViewById(R.id.txt0);
-        mText0.requestFocus();
+        mPassCodeEditTexts[0] = (EditText) findViewById(R.id.txt0);
+        mPassCodeEditTexts[0].requestFocus();
         getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        mText1 = (EditText) findViewById(R.id.txt1);
-        mText2 = (EditText) findViewById(R.id.txt2);
-        mText3 = (EditText) findViewById(R.id.txt3);
+        mPassCodeEditTexts[1] = (EditText) findViewById(R.id.txt1);
+        mPassCodeEditTexts[2] = (EditText) findViewById(R.id.txt2);
+        mPassCodeEditTexts[3] = (EditText) findViewById(R.id.txt3);
 
         if (ACTION_REQUEST.equals(getIntent().getAction())) {
             /// this is a pass code request; the user has to input the right value
@@ -115,8 +113,13 @@ public class PassCodeActivity extends SherlockFragmentActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
     }
-    
 
+
+    /**
+     * Enables or disables the cancel button to allow the user interrupt the ACTION requested to the activity.
+     *
+     * @param enabled       'True' makes the cancel button available, 'false' hides it.
+     */
     protected void setCancelButtonEnabled(boolean enabled){
         if(enabled){
             mBCancel.setVisibility(View.VISIBLE);
@@ -131,83 +134,32 @@ public class PassCodeActivity extends SherlockFragmentActivity {
             mBCancel.setVisibility(View.INVISIBLE);
             mBCancel.setOnClickListener(null);
         }
-    
     }
-    
-    
-    /*
-     *  
+
+
+    /**
+     * Binds the appropiate listeners to the input boxes receiving each digit of the pass code.
      */
-    protected void setTextListeners(){
+    protected void setTextListeners() {
     
-        /*------------------------------------------------
-         *  FIRST BOX
-         -------------------------------------------------*/
-        
-        mText0.addTextChangedListener(new TextWatcher() {
+         ///  First input field
+        mPassCodeEditTexts[0].addTextChangedListener(new PassCodeDigitTextWatcher(0, false));
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
-                    if (!mConfirmingPassCode) {
-                        mPassCodeDigits[0] = mText0.getText().toString();
-                    }
-                    mText1.requestFocus();
-                } else {
-                    Log_OC.w(TAG, "Input in text box 0 resulted in empty string");
-                }
-            }
-        });
-        
-        
 
         /*------------------------------------------------
          *  SECOND BOX 
          -------------------------------------------------*/
-        mText1.addTextChangedListener(new TextWatcher() {
+        mPassCodeEditTexts[1].addTextChangedListener(new PassCodeDigitTextWatcher(1, false));
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
-                    if (!mConfirmingPassCode) {
-                        mPassCodeDigits[1] = mText1.getText().toString();
-                    }
-                    mText2.requestFocus();
-                } else {
-                    Log_OC.w(TAG, "Input in text box 1 resulted in empty string");
-                }
-            }
-        });
- 
-        mText1.setOnKeyListener(new OnKeyListener() {
+        mPassCodeEditTexts[1].setOnKeyListener(new View.OnKeyListener() {
 
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_DEL && mBChange) {  // TODO WIP: event should be used to control what's exactly happening with DEL, not any custom field...
-                    mText0.setText("");
-                    mText0.requestFocus();
+                    mPassCodeEditTexts[0].setText("");
+                    mPassCodeEditTexts[0].requestFocus();
                     if (!mConfirmingPassCode)
-                        mPassCodeDigits[0] = "";    // TODO WIP: what is this for??
+                        mPassCodeDigits[0] = "";
                     mBChange = false;
 
                 } else if (!mBChange) {
@@ -215,19 +167,20 @@ public class PassCodeActivity extends SherlockFragmentActivity {
                 }
                 return false;
             }
-        });        
- 
-        mText1.setOnFocusChangeListener(new OnFocusChangeListener() {
+        });
+
+        mPassCodeEditTexts[1].setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                mText1.setCursorVisible(true);      // TODO WIP this could be made static, or just nothing, since default is true...
-                if (mText0.getText().toString().equals("")) {    // TODO WIP is this really needed? when?
-                    mText1.setSelected(false);
-                    mText1.setCursorVisible(false); // TODO WIP really this is a problem?
-                    mText0.requestFocus();  // TODO WIP how many focus requests do we need?
-                    mText0.setSelected(true);   // TODO WIP what is this for?
-                    mText0.setSelection(0);     // TODO WIP what is THIS for?
+                /// TODO WIP: should take advantage of hasFocus to reduce processing
+                mPassCodeEditTexts[1].setCursorVisible(true);      // TODO WIP this could be made static, or just nothing, since default is true
+                if (mPassCodeEditTexts[0].getText().toString().equals("")) {    // TODO WIP validation could be done in a global way, with a single OnFocusChangeListener for all the input fields
+                    mPassCodeEditTexts[1].setSelected(false);
+                    mPassCodeEditTexts[1].setCursorVisible(false); // TODO WIP don't think we really need to enable and disable it; fields without focus should not show it
+                    mPassCodeEditTexts[0].requestFocus();
+                    mPassCodeEditTexts[0].setSelected(true);   // TODO WIP really needed? is it for the colour highlight
+                    mPassCodeEditTexts[0].setSelection(0);     // TODO WIP what is THIS for?
                 }
 
             }
@@ -237,41 +190,17 @@ public class PassCodeActivity extends SherlockFragmentActivity {
         /*------------------------------------------------
          *  THIRD BOX
          -------------------------------------------------*/
-        /// TODO WIP yeah, let's repeat all the code again...
-        mText2.addTextChangedListener(new TextWatcher() {
+        mPassCodeEditTexts[2].addTextChangedListener(new PassCodeDigitTextWatcher(2, false));
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
-                    if (!mConfirmingPassCode) {
-                        mPassCodeDigits[2] = mText2.getText().toString();
-                    }
-                    mText3.requestFocus();
-                } else {
-                    Log_OC.w(TAG, "Input in text box 2 resulted in empty string");
-                }
-            }
-        });
-        
-        mText2.setOnKeyListener(new OnKeyListener() {
+        mPassCodeEditTexts[2].setOnKeyListener(new View.OnKeyListener() {
 
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_DEL && mBChange) {
-                    mText1.requestFocus();
+                    mPassCodeEditTexts[1].requestFocus();
                     if (!mConfirmingPassCode)
                         mPassCodeDigits[1] = "";
-                    mText1.setText("");
+                    mPassCodeEditTexts[1].setText("");
                     mBChange = false;
 
                 } else if (!mBChange) {
@@ -282,24 +211,23 @@ public class PassCodeActivity extends SherlockFragmentActivity {
             }
         });
 
-        mText2.setOnFocusChangeListener(new OnFocusChangeListener() {
+        mPassCodeEditTexts[2].setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                /// TODO WIP: hasFocus is there for some reason; for instance, doing NOTHING if this is not my business, instead of considering all the possible cases in every edit text
-                mText2.setCursorVisible(true);
-                if (mText0.getText().toString().equals("")) {
-                    mText2.setSelected(false);
-                    mText2.setCursorVisible(false);
-                    mText0.requestFocus();
-                    mText0.setSelected(true);
-                    mText0.setSelection(0);
-                } else if (mText1.getText().toString().equals("")) {
-                    mText2.setSelected(false);
-                    mText2.setCursorVisible(false);
-                    mText1.requestFocus();
-                    mText1.setSelected(true);
-                    mText1.setSelection(0);
+                mPassCodeEditTexts[2].setCursorVisible(true);
+                if (mPassCodeEditTexts[0].getText().toString().equals("")) {
+                    mPassCodeEditTexts[2].setSelected(false);
+                    mPassCodeEditTexts[2].setCursorVisible(false);
+                    mPassCodeEditTexts[0].requestFocus();
+                    mPassCodeEditTexts[0].setSelected(true);
+                    mPassCodeEditTexts[0].setSelection(0);
+                } else if (mPassCodeEditTexts[1].getText().toString().equals("")) {
+                    mPassCodeEditTexts[2].setSelected(false);
+                    mPassCodeEditTexts[2].setCursorVisible(false);
+                    mPassCodeEditTexts[1].requestFocus();
+                    mPassCodeEditTexts[1].setSelected(true);
+                    mPassCodeEditTexts[1].setSelection(0);
                 }
 
             }
@@ -309,45 +237,17 @@ public class PassCodeActivity extends SherlockFragmentActivity {
         /*------------------------------------------------
          *  FOURTH BOX
          -------------------------------------------------*/
-        mText3.addTextChangedListener(new TextWatcher() {
+        mPassCodeEditTexts[3].addTextChangedListener(new PassCodeDigitTextWatcher(3, true));
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
-
-                    if (!mConfirmingPassCode) {
-                        mPassCodeDigits[3] = mText3.getText().toString();
-                    }
-                    mText0.requestFocus();
-
-                    processFullPassCode();
-
-                } else {
-                    Log_OC.w(TAG, "Input in text box 3 resulted in empty string");
-                }
-            }
-        });
-
-
-        mText3.setOnKeyListener(new OnKeyListener() {
+        mPassCodeEditTexts[3].setOnKeyListener(new View.OnKeyListener() {
 
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_DEL && mBChange) {
-                    mText2.requestFocus();
+                    mPassCodeEditTexts[2].requestFocus();
                     if (!mConfirmingPassCode)
                         mPassCodeDigits[2] = "";
-                    mText2.setText("");
+                    mPassCodeEditTexts[2].setText("");
                     mBChange = false;
 
                 } else if (!mBChange) {
@@ -357,37 +257,35 @@ public class PassCodeActivity extends SherlockFragmentActivity {
             }
         });
 
-        mText3.setOnFocusChangeListener(new OnFocusChangeListener() {
+        mPassCodeEditTexts[3].setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                mText3.setCursorVisible(true);
+                mPassCodeEditTexts[3]. setCursorVisible(true);
 
-                if (mText0.getText().toString().equals("")) {
-                    mText3.setSelected(false);
-                    mText3.setCursorVisible(false);
-                    mText0.requestFocus();
-                    mText0.setSelected(true);
-                    mText0.setSelection(0);
-                } else if (mText1.getText().toString().equals("")) {
-                    mText3.setSelected(false);
-                    mText3.setCursorVisible(false);
-                    mText1.requestFocus();
-                    mText1.setSelected(true);
-                    mText1.setSelection(0);
-                } else if (mText2.getText().toString().equals("")) {
-                    mText3.setSelected(false);
-                    mText3.setCursorVisible(false);
-                    mText2.requestFocus();
-                    mText2.setSelected(true);
-                    mText2.setSelection(0);
+                if (mPassCodeEditTexts[0].getText().toString().equals("")) {
+                    mPassCodeEditTexts[3].setSelected(false);
+                    mPassCodeEditTexts[3].setCursorVisible(false);
+                    mPassCodeEditTexts[0].requestFocus();
+                    mPassCodeEditTexts[0].setSelected(true);
+                    mPassCodeEditTexts[0].setSelection(0);
+                } else if (mPassCodeEditTexts[1].getText().toString().equals("")) {
+                    mPassCodeEditTexts[3].setSelected(false);
+                    mPassCodeEditTexts[3].setCursorVisible(false);
+                    mPassCodeEditTexts[1].requestFocus();
+                    mPassCodeEditTexts[1].setSelected(true);
+                    mPassCodeEditTexts[1].setSelection(0);
+                } else if (mPassCodeEditTexts[2].getText().toString().equals("")) {
+                    mPassCodeEditTexts[3].setSelected(false);
+                    mPassCodeEditTexts[3].setCursorVisible(false);
+                    mPassCodeEditTexts[2].requestFocus();
+                    mPassCodeEditTexts[2].setSelected(true);
+                    mPassCodeEditTexts[2].setSelection(0);
                 }
 
             }
         });
-        
-        
-        
+
     } // end setTextListener
 
 
@@ -441,7 +339,7 @@ public class PassCodeActivity extends SherlockFragmentActivity {
         }
     }
 
-    
+
     private void showErrorAndRestart(int errorMessage, int headerMessage, int explanationVisibility) {
         Arrays.fill(mPassCodeDigits, null);
         CharSequence errorSeq = getString(errorMessage);
@@ -477,45 +375,36 @@ public class PassCodeActivity extends SherlockFragmentActivity {
         savedPassCodeDigits[2] = appPrefs.getString("PrefPinCode3", null);
         savedPassCodeDigits[3] = appPrefs.getString("PrefPinCode4", null);
 
-        return (
-            mPassCodeDigits[0].equals(savedPassCodeDigits[0]) &&
-            mPassCodeDigits[1].equals(savedPassCodeDigits[0]) &&
-            mPassCodeDigits[2].equals(savedPassCodeDigits[0]) &&
-            mPassCodeDigits[3].equals(savedPassCodeDigits[0])
-        );
+        boolean result = true;
+        for (int i = 0; i < mPassCodeDigits.length && result; i++) {
+            result = result && (mPassCodeDigits[i] != null) && mPassCodeDigits[i].equals(savedPassCodeDigits[i]);
+        }
+        return result;
     }
 
     /**
-     * Compares pass code retyped by the user with the value entered just before.
+     * Compares pass code retyped by the user in the input fields with the value entered just before.
      *
      * @return     'True' if retyped pass code equals to the entered before.
      */
     protected boolean confirmPassCode(){
         mConfirmingPassCode = false;
 
-        String retypedPassCodeDigits[] = new String[4];
-        retypedPassCodeDigits[0] = mText0.getText().toString();
-        retypedPassCodeDigits[1] = mText1.getText().toString();
-        retypedPassCodeDigits[2] = mText2.getText().toString();
-        retypedPassCodeDigits[3] = mText3.getText().toString();
-
-        return (
-            mPassCodeDigits[0].equals(retypedPassCodeDigits[0]) &&
-            mPassCodeDigits[1].equals(retypedPassCodeDigits[0]) &&
-            mPassCodeDigits[2].equals(retypedPassCodeDigits[0]) &&
-            mPassCodeDigits[3].equals(retypedPassCodeDigits[0])
-        );
+        boolean result = true;
+        for (int i = 0; i < mPassCodeEditTexts.length && result; i++) {
+            result = result && ((mPassCodeEditTexts[i].getText().toString()).equals(mPassCodeDigits[i]));
+        }
+        return result;
     }
 
     /**
      * Sets the input fields to empty strings and puts the focus on the first one.
      */
     protected void clearBoxes(){
-        mText0.setText("");
-        mText1.setText("");
-        mText2.setText("");
-        mText3.setText("");
-        mText0.requestFocus();
+        for (int i=0; i < mPassCodeEditTexts.length; i++) {
+            mPassCodeEditTexts[i].setText("");
+        }
+        mPassCodeEditTexts[0].requestFocus();
     }
 
     /**
@@ -573,5 +462,69 @@ public class PassCodeActivity extends SherlockFragmentActivity {
         appPrefsE.commit();
         finish();
     }
+
+
+    private class PassCodeDigitTextWatcher implements TextWatcher {
+
+        private int mIndex = -1;
+        private boolean mLastOne = false;
+
+        /**
+         * Constructor
+         *
+         * @param index         Position in the pass code of the input field that will be bound to this watcher.
+         * @param lastOne       'True' means that watcher corresponds to the last position of the pass code.
+         */
+        public PassCodeDigitTextWatcher(int index, boolean lastOne) {
+            mIndex = index;
+            mLastOne  = lastOne;
+            if (mIndex < 0) {
+                throw new IllegalArgumentException(
+                        "Invalid index in " + PassCodeDigitTextWatcher.class.getSimpleName() + " constructor"
+                );
+            }
+        }
+
+        private int next() {
+            return mLastOne ? 0 : mIndex + 1;
+        }
+
+        /**
+         * Performs several actions when the user types a digit in an input field:
+         *  - saves the input digit to the state of the activity; this will allow retyping the pass code to confirm it.
+         *  - moves the focus automatically to the next field
+         *  - for the last field, triggers the processing of the full pass code
+         *
+         * @param s
+         */
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s.length() > 0) {
+                if (!mConfirmingPassCode) {
+                    mPassCodeDigits[mIndex] = mPassCodeEditTexts[mIndex].getText().toString();
+                }
+                mPassCodeEditTexts[next()].requestFocus();
+
+                if (mLastOne) {
+                    processFullPassCode();
+                }
+
+            } else {
+                Log_OC.d(TAG, "Text box " + mIndex + " was cleaned");
+            }
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            // nothing to do
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // nothing to do
+        }
+
+    }
+
 
 }
