@@ -2,6 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author Bartek Przybylski
+ *   @author masensio
  *   Copyright (C) 2012  Bartek Przybylski
  *   Copyright (C) 2015 ownCloud Inc.
  *
@@ -538,7 +539,8 @@ public class Uploader extends FileActivity
                     if (data == null) {
                         mRemoteCacheData.add(filePath);
                         CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
-                        Object[] params = { uri, filePath, mRemoteCacheData.size()-1 };
+                        Object[] params = { uri, filePath, mRemoteCacheData.size()-1,
+                                getAccount().name, getContentResolver()};
                         mNumCacheFile++;
                         showWaitingCopyDialog();
                         copyTask.execute(params);
@@ -666,7 +668,7 @@ public class Uploader extends FileActivity
      * @param index
      */
     @Override
-    public void OnCopyTmpFileTaskListener(String result, int index) {
+    public void onTmpFileCopied(String result, int index) {
         if (mNumCacheFile -- == 0) {
             dismissWaitingCopyDialog();
         }

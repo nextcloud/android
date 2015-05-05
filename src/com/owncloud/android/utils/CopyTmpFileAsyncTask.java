@@ -1,6 +1,7 @@
 /**
  *   ownCloud Android client application
  *
+ *   @author masensio
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -20,7 +21,6 @@ package com.owncloud.android.utils;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -39,8 +39,6 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
 
     private final String TAG = CopyTmpFileAsyncTask.class.getSimpleName();
     private final WeakReference<OnCopyTmpFileTaskListener> mListener;
-    private String mAccountName;
-    private ContentResolver mContentResolver;
     private int mIndex;
 
     public int getIndex(){
@@ -48,26 +46,34 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
     }
 
     public CopyTmpFileAsyncTask(Activity activity) {
-        mContentResolver = ((FileActivity) activity).getContentResolver();
-        mAccountName = ((FileActivity) activity).getAccount().name;
         mListener = new WeakReference<OnCopyTmpFileTaskListener>((OnCopyTmpFileTaskListener)activity);
     }
 
+    /**
+     * Params for execute:
+     * - Uri: uri of file
+     * - String: path for saving the file into the app
+     * - int: index of upload
+     * - String: accountName
+     * - ContentResolver: content resolver
+     */
     @Override
     protected String doInBackground(Object[] params) {
         String result = null;
 
-        if (params.length == 3) {
+        if (params != null && params.length == 5) {
             Uri uri = (Uri) params[0];
             String filePath = (String) params[1];
             mIndex = ((Integer) params[2]).intValue();
+            String accountName = (String) params[3];
+            ContentResolver contentResolver = (ContentResolver) params[4];
 
-            String fullTempPath = FileStorageUtils.getTemporalPath(mAccountName) + filePath;
+            String fullTempPath = FileStorageUtils.getTemporalPath(accountName) + filePath;
             InputStream inputStream = null;
             FileOutputStream outputStream = null;
 
             try {
-                inputStream = mContentResolver.openInputStream(uri);
+                inputStream = contentResolver.openInputStream(uri);
                 File cacheFile = new File(fullTempPath);
                 File tempDir = cacheFile.getParentFile();
                 if (!tempDir.exists()) {
@@ -112,7 +118,7 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
                 result =  null;
             }
         } else {
-            Log_OC.e(TAG, "Error in parameters number");
+             throw new IllegalArgumentException("Error in parameters number");
         }
 
         return result;
@@ -124,7 +130,7 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
         OnCopyTmpFileTaskListener listener = mListener.get();
         if (listener!= null)
         {
-            listener.OnCopyTmpFileTaskListener(result, mIndex);
+            listener.onTmpFileCopied(result, mIndex);
         }
     }
 
@@ -133,6 +139,6 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
      */
     public interface OnCopyTmpFileTaskListener{
 
-        void OnCopyTmpFileTaskListener(String result, int index);
+        void onTmpFileCopied(String result, int index);
     }
 }
