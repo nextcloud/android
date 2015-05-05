@@ -175,12 +175,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 /// TODO WIP: should take advantage of hasFocus to reduce processing
                 if (mPassCodeEditTexts[0].getText().toString().equals("")) {    // TODO WIP validation could be done in a global way, with a single OnFocusChangeListener for all the input fields
-                    //mPassCodeEditTexts[1].setSelected(false);
                     mPassCodeEditTexts[0].requestFocus();
-                    //mPassCodeEditTexts[0].setSelected(true);   // TODO WIP really needed? is it for the colour highlight
-                    //mPassCodeEditTexts[0].setSelection(0);     // TODO WIP what is THIS for?
                 }
-
             }
         });
         
@@ -214,17 +210,10 @@ public class PassCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (mPassCodeEditTexts[0].getText().toString().equals("")) {
-                    //mPassCodeEditTexts[2].setSelected(false);
                     mPassCodeEditTexts[0].requestFocus();
-                    //mPassCodeEditTexts[0].setSelected(true);
-                    //mPassCodeEditTexts[0].setSelection(0);
                 } else if (mPassCodeEditTexts[1].getText().toString().equals("")) {
-                    //mPassCodeEditTexts[2].setSelected(false);
                     mPassCodeEditTexts[1].requestFocus();
-                    //mPassCodeEditTexts[1].setSelected(true);
-                    //mPassCodeEditTexts[1].setSelection(0);
                 }
-
             }
         });
 
@@ -258,20 +247,11 @@ public class PassCodeActivity extends SherlockFragmentActivity {
             public void onFocusChange(View v, boolean hasFocus) {
 
                 if (mPassCodeEditTexts[0].getText().toString().equals("")) {
-                    //mPassCodeEditTexts[3].setSelected(false);
                     mPassCodeEditTexts[0].requestFocus();
-                    //mPassCodeEditTexts[0].setSelected(true);
-                    //mPassCodeEditTexts[0].setSelection(0);
                 } else if (mPassCodeEditTexts[1].getText().toString().equals("")) {
-                    //mPassCodeEditTexts[3].setSelected(false);
                     mPassCodeEditTexts[1].requestFocus();
-                    //mPassCodeEditTexts[1].setSelected(true);
-                    //mPassCodeEditTexts[1].setSelection(0);
                 } else if (mPassCodeEditTexts[2].getText().toString().equals("")) {
-                    //mPassCodeEditTexts[3].setSelected(false);
                     mPassCodeEditTexts[2].requestFocus();
-                    //mPassCodeEditTexts[2].setSelected(true);
-                    //mPassCodeEditTexts[2].setSelection(0);
                 }
 
             }
