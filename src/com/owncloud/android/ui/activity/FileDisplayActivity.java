@@ -29,12 +29,9 @@ import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -47,16 +44,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -97,9 +90,11 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
+import com.owncloud.android.ui.dialog.UploadSourceDialogFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -136,14 +131,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
 
-    public static final int DIALOG_SHORT_WAIT = 0;
-    private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 1;
-    private static final int DIALOG_CERT_NOT_SAVED = 2;
-    
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
-    private static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
-    private static final int ACTION_SELECT_MULTIPLE_FILES = 2;
+    public static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
+    public static final int ACTION_SELECT_MULTIPLE_FILES = 2;
     public static final int ACTION_MOVE_FILES = 3;
 
     private static final String TAG = FileDisplayActivity.class.getSimpleName();
@@ -155,8 +146,12 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     private boolean mSyncInProgress = false;
 
-    private String DIALOG_UNTRUSTED_CERT;
-    
+    private static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
+    private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
+    private static String DIALOG_UPLOAD_SOURCE = "DIALOG_UPLOAD_SOURCE";
+    private static String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
+
+
     private OCFile mWaitingToSend;
 
     @Override
@@ -214,13 +209,17 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     @Override
     protected void onStart() {
+        Log_OC.d(TAG, "onStart() start");
         super.onStart();
         getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
+        Log_OC.d(TAG, "onStart() end");
     }
 
     @Override
     protected void onDestroy() {
+        Log_OC.d(TAG, "onDestroy() start");
         super.onDestroy();
+        Log_OC.d(TAG, "onDestroy() end");
     }
 
     /**
@@ -478,9 +477,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         boolean retval = true;
         switch (item.getItemId()) {
         case R.id.action_create_dir: {
-            CreateFolderDialogFragment dialog = 
-                    CreateFolderDialogFragment.newInstance(getCurrentDir());
-            dialog.show(getSupportFragmentManager(), "createdirdialog");
+            CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(getCurrentDir());
+            dialog.show(getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
             break;
         }
         case R.id.action_sync_account: {
@@ -488,7 +486,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             break;
         }
         case R.id.action_upload: {
-            showDialog(DIALOG_CHOOSE_UPLOAD_SOURCE);
+            UploadSourceDialogFragment dialog = UploadSourceDialogFragment.newInstance(getAccount());
+            dialog.show(getSupportFragmentManager(), DIALOG_UPLOAD_SOURCE);
+
             break;
         }
         case R.id.action_settings: {
@@ -608,8 +608,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      *
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             //getClipData is only supported on api level 16+, Jelly Bean
@@ -638,7 +638,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 }, 
                 DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
             );
+
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
+
     }
 
     private void requestMultipleUpload(Intent data, int resultCode) {
@@ -675,7 +679,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
 
     private void requestSimpleUpload(Intent data, int resultCode) {
-        String filepath = null;
+        String filePath = null;
         String mimeType = null;
 
         Uri selectedImageUri = data.getData();
@@ -683,67 +687,60 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         try {
             mimeType = getContentResolver().getType(selectedImageUri);
 
-            String filemanagerstring = selectedImageUri.getPath();
-            String selectedImagePath = getPath(selectedImageUri);
+            String fileManagerString = selectedImageUri.getPath();
+            String selectedImagePath = UriUtils.getLocalPath(selectedImageUri, this);
 
             if (selectedImagePath != null)
-                filepath = selectedImagePath;
+                filePath = selectedImagePath;
             else
-                filepath = filemanagerstring;
+                filePath = fileManagerString;
 
         } catch (Exception e) {
             Log_OC.e(TAG, "Unexpected exception when trying to read the result of Intent.ACTION_GET_CONTENT", e);
-            e.printStackTrace();
 
         } finally {
-            if (filepath == null) {
+            if (filePath == null) {
                 Log_OC.e(TAG, "Couldn't resolve path to file");
-                Toast t = Toast.makeText(this, getString(R.string.filedisplay_unexpected_bad_get_content), Toast.LENGTH_LONG);
+                Toast t = Toast.makeText(
+                        this, getString(R.string.filedisplay_unexpected_bad_get_content), Toast.LENGTH_LONG
+                );
                 t.show();
                 return;
             }
         }
 
         Intent i = new Intent(this, FileUploader.class);
-        i.putExtra(FileUploader.KEY_ACCOUNT,
-                getAccount());
-        String remotepath = new String();
-        for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
-            remotepath += OCFile.PATH_SEPARATOR + mDirectories.getItem(j);
-        }
-        if (!remotepath.endsWith(OCFile.PATH_SEPARATOR))
-            remotepath += OCFile.PATH_SEPARATOR;
+        i.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
+        OCFile currentDir = getCurrentDir();
+        String remotePath =  (currentDir != null) ? currentDir.getRemotePath() : OCFile.ROOT_PATH;
 
-        if (filepath.startsWith(UriUtils.URI_CONTENT_SCHEME)) {
-
-            Cursor cursor = MainApp.getAppContext().getContentResolver()
-                    .query(Uri.parse(filepath), null, null, null, null, null);
-
+        if (filePath.startsWith(UriUtils.URI_CONTENT_SCHEME)) {
+            Cursor cursor = getContentResolver().query(Uri.parse(filePath), null, null, null, null);
             try {
                 if (cursor != null && cursor.moveToFirst()) {
-                    String displayName = cursor.getString(
-                            cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    Log.i(TAG, "Display Name: " + displayName + "; mimeType: " + mimeType);
+                    String displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    Log_OC.v(TAG, "Display Name: " + displayName );
 
                     displayName.replace(File.separatorChar, '_');
                     displayName.replace(File.pathSeparatorChar, '_');
-                    remotepath += displayName + DisplayUtils.getComposedFileExtension(filepath);
+                    remotePath += displayName + DisplayUtils.getComposedFileExtension(filePath);
 
                 }
+                // and what happens in case of error?; wrong target name for the upload
             } finally {
                 cursor.close();
             }
 
         } else {
-            remotepath += new File(filepath).getName();
+            remotePath += new File(filePath).getName();
         }
 
-        i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
+        i.putExtra(FileUploader.KEY_LOCAL_FILE, filePath);
+        i.putExtra(FileUploader.KEY_REMOTE_FILE, remotePath);
         i.putExtra(FileUploader.KEY_MIME_TYPE, mimeType);
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+        i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
         startService(i);
     }
 
@@ -798,9 +795,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     @Override
     protected void onResume() {
-        super.onResume();
         Log_OC.d(TAG, "onResume() start");
-        
+        super.onResume();
+
         // refresh list of files
         refreshListOfFilesFragment();
 
@@ -847,148 +844,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         }
         
         
-        Log_OC.d(TAG, "onPause() end");
         super.onPause();
-    }
-
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog = null;
-        AlertDialog.Builder builder;
-        switch (id) {
-        case DIALOG_SHORT_WAIT: {
-            ProgressDialog working_dialog = new ProgressDialog(this);
-            working_dialog.setMessage(getResources().getString(
-                    R.string.wait_a_moment));
-            working_dialog.setIndeterminate(true);
-            working_dialog.setCancelable(false);
-            dialog = working_dialog;
-            break;
-        }
-        case DIALOG_CHOOSE_UPLOAD_SOURCE: {
-
-
-            String[] allTheItems = { getString(R.string.actionbar_upload_files),
-                    getString(R.string.actionbar_upload_from_apps) };
-
-            builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.actionbar_upload);
-            builder.setItems(allTheItems, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int item) {
-                    if (item == 0) {
-                        // if (!mDualPane) {
-                            Intent action = new Intent(FileDisplayActivity.this, UploadFilesActivity.class);
-                            action.putExtra(UploadFilesActivity.EXTRA_ACCOUNT, FileDisplayActivity.this.getAccount());
-                            startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
-                            // } else {
-                            // TODO create and handle new fragment
-                            // LocalFileListFragment
-                            // }
-                    } else if (item == 1) {
-                        Intent action = new Intent(Intent.ACTION_GET_CONTENT);
-                        action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
-                        //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
-                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                            action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                        }
-                        startActivityForResult(Intent.createChooser(action, getString(R.string.upload_chooser_title)),
-                                ACTION_SELECT_CONTENT_FROM_APPS);
-                    }
-                }
-            });
-            dialog = builder.create();
-            break;
-        }
-        case DIALOG_CERT_NOT_SAVED: {
-            builder = new AlertDialog.Builder(this);
-            builder.setMessage(getResources().getString(R.string.ssl_validator_not_saved));
-            builder.setCancelable(false);
-            builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                };
-            });
-            dialog = builder.create();
-            break;
-        }
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }
-
-    /**
-     * Translates a content URI of an content to a physical path on the disk
-     * 
-     * @param uri The URI to resolve
-     * @return The path to the content or null if it could not be found
-     */
-    public String getPath(Uri uri) {
-        final boolean isKitKatOrLater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
-        // DocumentProvider
-        if (isKitKatOrLater && DocumentsContract.isDocumentUri(getApplicationContext(), uri)) {
-            // ExternalStorageProvider
-            if (UriUtils.isExternalStorageDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                if ("primary".equalsIgnoreCase(type)) {
-                    return Environment.getExternalStorageDirectory() + "/" + split[1];
-                }
-            }
-            // DownloadsProvider
-            else if (UriUtils.isDownloadsDocument(uri)) {
-
-                final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),
-                        Long.valueOf(id));
-
-                return UriUtils.getDataColumn(getApplicationContext(), contentUri, null, null);
-            }
-            // MediaProvider
-            else if (UriUtils.isMediaDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                Uri contentUri = null;
-                if ("image".equals(type)) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                } else if ("video".equals(type)) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                } else if ("audio".equals(type)) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-                }
-
-                final String selection = "_id=?";
-                final String[] selectionArgs = new String[] { split[1] };
-
-                return UriUtils.getDataColumn(getApplicationContext(), contentUri, selection, selectionArgs);
-            }
-            // Documents providers returned as content://...
-            else if (UriUtils.isContentDocument(uri)) {
-                return uri.toString();
-            }
-        }
-        // MediaStore (and general)
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
-
-            // Return the remote address
-            if (UriUtils.isGooglePhotosUri(uri))
-                return uri.getLastPathSegment();
-
-            return UriUtils.getDataColumn(getApplicationContext(), uri, null, null);
-        }
-        // File
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-        return null;
+        Log_OC.d(TAG, "onPause() end");
     }
 
     /**
@@ -1492,7 +1349,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     @Override
     public void onFailedSavingCertificate() {
-        showDialog(DIALOG_CERT_NOT_SAVED);
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
+                R.string.ssl_validator_not_saved, new String[]{}, R.string.common_ok, -1, -1
+        );
+        dialog.show(getSupportFragmentManager(), DIALOG_CERT_NOT_SAVED);
     }
 
     @Override
@@ -1932,4 +1792,5 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     private void sortByName(boolean ascending){
         getListOfFilesFragment().sortByName(ascending);
     }
+
 }
