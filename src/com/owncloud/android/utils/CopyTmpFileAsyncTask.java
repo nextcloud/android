@@ -60,7 +60,7 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
         if (params.length == 3) {
             Uri uri = (Uri) params[0];
             String filePath = (String) params[1];
-            mIndex = (int) params[2];
+            mIndex = ((Integer) params[2]).intValue();
 
             String fullTempPath = FileStorageUtils.getTemporalPath(mAccountName) + filePath;
             InputStream inputStream = null;
