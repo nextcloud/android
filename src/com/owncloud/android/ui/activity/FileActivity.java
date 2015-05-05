@@ -136,9 +136,8 @@ public class FileActivity extends SherlockFragmentActivity
         super.onCreate(savedInstanceState);
         mHandler = new Handler();
         mFileOperationsHelper = new FileOperationsHelper(this);
-        Account account;
+        Account account = null;
         if(savedInstanceState != null) {
-            account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
             mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
             mFromNotification = savedInstanceState.getBoolean(FileActivity.EXTRA_FROM_NOTIFICATION);
             mFileOperationsHelper.setOpIdWaitingFor(
@@ -316,7 +315,6 @@ public class FileActivity extends SherlockFragmentActivity
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileActivity.EXTRA_FILE, mFile);
-        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, mAccount);
         outState.putBoolean(FileActivity.EXTRA_FROM_NOTIFICATION, mFromNotification);
         outState.putLong(KEY_WAITING_FOR_OP_ID, mFileOperationsHelper.getOpIdWaitingFor());
         outState.putBoolean(KEY_TRY_SHARE_AGAIN, mTryShareAgain);
