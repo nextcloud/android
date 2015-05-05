@@ -19,13 +19,11 @@
  */
 package com.owncloud.android.utils;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.os.AsyncTask;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.FileActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -45,8 +43,8 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
         return mIndex;
     }
 
-    public CopyTmpFileAsyncTask(Activity activity) {
-        mListener = new WeakReference<OnCopyTmpFileTaskListener>((OnCopyTmpFileTaskListener)activity);
+    public CopyTmpFileAsyncTask(OnCopyTmpFileTaskListener listener) {
+        mListener = new WeakReference<OnCopyTmpFileTaskListener>(listener);
     }
 
     /**
