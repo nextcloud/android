@@ -293,8 +293,7 @@ public class PassCodeActivity extends SherlockFragmentActivity {
                 finish();
 
             }  else {
-                showErrorAndRestart(R.string.common_error, R.string.pass_code_enter_pass_code, View.INVISIBLE);
-                    /// TODO better error message
+                showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code, View.INVISIBLE);
             }
 
         } else if (ACTION_DISABLE.equals(getIntent().getAction())) {
@@ -309,8 +308,7 @@ public class PassCodeActivity extends SherlockFragmentActivity {
                 finish();
 
             } else {
-                showErrorAndRestart(R.string.common_error, R.string.pass_code_enter_pass_code, View.INVISIBLE);
-                    /// TODO better error message
+                showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code, View.INVISIBLE);
             }
 
         } else if (ACTION_ENABLE.equals(getIntent().getAction())) {
