@@ -58,15 +58,21 @@
 
         <EditText
             android:id="@+id/txt1"
-            style="@style/PassCodeStyle" />
+            style="@style/PassCodeStyle"
+            android:cursorVisible="true"
+            />
 
         <EditText
             android:id="@+id/txt2"
-            style="@style/PassCodeStyle" />
+            style="@style/PassCodeStyle"
+            android:cursorVisible="true"
+            />
 
         <EditText
             android:id="@+id/txt3"
-            style="@style/PassCodeStyle" />
+            style="@style/PassCodeStyle"
+            android:cursorVisible="true"
+            />
     </LinearLayout>
 
     <Button

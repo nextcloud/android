@@ -174,10 +174,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 /// TODO WIP: should take advantage of hasFocus to reduce processing
-                mPassCodeEditTexts[1].setCursorVisible(true);      // TODO WIP this could be made static, or just nothing, since default is true
                 if (mPassCodeEditTexts[0].getText().toString().equals("")) {    // TODO WIP validation could be done in a global way, with a single OnFocusChangeListener for all the input fields
                     mPassCodeEditTexts[1].setSelected(false);
-                    mPassCodeEditTexts[1].setCursorVisible(false); // TODO WIP don't think we really need to enable and disable it; fields without focus should not show it
                     mPassCodeEditTexts[0].requestFocus();
                     mPassCodeEditTexts[0].setSelected(true);   // TODO WIP really needed? is it for the colour highlight
                     mPassCodeEditTexts[0].setSelection(0);     // TODO WIP what is THIS for?
@@ -215,16 +213,13 @@ public class PassCodeActivity extends SherlockFragmentActivity {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                mPassCodeEditTexts[2].setCursorVisible(true);
                 if (mPassCodeEditTexts[0].getText().toString().equals("")) {
                     mPassCodeEditTexts[2].setSelected(false);
-                    mPassCodeEditTexts[2].setCursorVisible(false);
                     mPassCodeEditTexts[0].requestFocus();
                     mPassCodeEditTexts[0].setSelected(true);
                     mPassCodeEditTexts[0].setSelection(0);
                 } else if (mPassCodeEditTexts[1].getText().toString().equals("")) {
                     mPassCodeEditTexts[2].setSelected(false);
-                    mPassCodeEditTexts[2].setCursorVisible(false);
                     mPassCodeEditTexts[1].requestFocus();
                     mPassCodeEditTexts[1].setSelected(true);
                     mPassCodeEditTexts[1].setSelection(0);
@@ -261,23 +256,19 @@ public class PassCodeActivity extends SherlockFragmentActivity {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                mPassCodeEditTexts[3]. setCursorVisible(true);
 
                 if (mPassCodeEditTexts[0].getText().toString().equals("")) {
                     mPassCodeEditTexts[3].setSelected(false);
-                    mPassCodeEditTexts[3].setCursorVisible(false);
                     mPassCodeEditTexts[0].requestFocus();
                     mPassCodeEditTexts[0].setSelected(true);
                     mPassCodeEditTexts[0].setSelection(0);
                 } else if (mPassCodeEditTexts[1].getText().toString().equals("")) {
                     mPassCodeEditTexts[3].setSelected(false);
-                    mPassCodeEditTexts[3].setCursorVisible(false);
                     mPassCodeEditTexts[1].requestFocus();
                     mPassCodeEditTexts[1].setSelected(true);
                     mPassCodeEditTexts[1].setSelection(0);
                 } else if (mPassCodeEditTexts[2].getText().toString().equals("")) {
                     mPassCodeEditTexts[3].setSelected(false);
-                    mPassCodeEditTexts[3].setCursorVisible(false);
                     mPassCodeEditTexts[2].requestFocus();
                     mPassCodeEditTexts[2].setSelected(true);
                     mPassCodeEditTexts[2].setSelection(0);
