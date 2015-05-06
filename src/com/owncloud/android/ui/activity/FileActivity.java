@@ -197,42 +197,34 @@ public class FileActivity extends SherlockFragmentActivity
     
     @Override 
     protected void onStart() {
-        Log_OC.v(TAG, "onStart() start");
         super.onStart();
 
         if (mAccountWasSet) {
             onAccountSet(mAccountWasRestored);
         }
-        Log_OC.v(TAG, "onStart() end");
     }
     
     @Override
     protected void onResume() {
-        Log_OC.v(TAG, "onResume() start");
         super.onResume();
         
         if (mOperationsServiceBinder != null) {
             doOnResumeAndBound();
         }
-        Log_OC.v(TAG, "onResume() end");
     }
     
     @Override
     protected void onPause()  {
-        Log_OC.v(TAG, "onPause() start");
-
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
         
         super.onPause();
-        Log_OC.v(TAG, "onPause() end");
     }
     
     
     @Override
     protected void onDestroy() {
-        Log_OC.v(TAG, "onDestroy() start");
         if (mOperationsServiceConnection != null) {
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
@@ -247,7 +239,6 @@ public class FileActivity extends SherlockFragmentActivity
         }
 
         super.onDestroy();
-        Log_OC.v(TAG, "onDestroy() end");
     }
     
     

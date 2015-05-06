@@ -26,13 +26,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -58,7 +56,6 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.PinCodeActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -90,7 +87,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
     private View mFullScreenAnchorView;
     
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,11 +99,6 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.hide();
-        
-        // PIN CODE request
-        if (getIntent().getExtras() != null && savedInstanceState == null && fromNotification()) {
-            requestPinCode();
-        }
 
         // Make sure we're running on Honeycomb or higher to use FullScreen and
         // Immersive Mode
@@ -323,7 +315,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     @Override
     protected void onResume() {
         super.onResume();
-        //Log_OC.e(TAG, "ACTIVITY, ONRESUME");
+
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         
         IntentFilter filter = new IntentFilter(FileDownloader.getDownloadFinishMessage());
@@ -333,14 +325,16 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
     @Override
     protected void onPostResume() {
-        //Log_OC.e(TAG, "ACTIVITY, ONPOSTRESUME");
         super.onPostResume();
     }
     
     @Override
     public void onPause() {
-        unregisterReceiver(mDownloadFinishReceiver);
-        mDownloadFinishReceiver = null;
+        if (mDownloadFinishReceiver != null){
+            unregisterReceiver(mDownloadFinishReceiver);
+            mDownloadFinishReceiver = null;
+        }
+        
         super.onPause();
     }
     
@@ -527,21 +521,6 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             }
         }
     }
-    
-    
-    /**
-     * Launch an intent to request the PIN code to the user before letting him use the app
-     */
-    private void requestPinCode() {
-        boolean pinStart = false;
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        pinStart = appPrefs.getBoolean("set_pincode", false);
-        if (pinStart) {
-            Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
-            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "PreviewImageActivity");
-            startActivity(i);
-        }
-    }
 
     @Override
     public void onBrowsedDownTo(OCFile folder) {
@@ -588,5 +567,4 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         }
         return false;
     }
-
 }
