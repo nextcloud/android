@@ -69,8 +69,6 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.RadioButtonPreference;
 import com.owncloud.android.utils.DisplayUtils;
 
-import java.io.File;
-
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -168,9 +166,11 @@ public class Preferences extends SherlockPreferenceActivity
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
-                    i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "preferences");
-                    i.putExtra(PinCodeActivity.EXTRA_NEW_STATE, newValue.toString());
+                    Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
+                    Boolean enable = (Boolean) newValue;
+                    i.setAction(
+                            enable.booleanValue() ? PassCodeActivity.ACTION_ENABLE : PassCodeActivity.ACTION_DISABLE
+                    );
                     startActivity(i);
                     
                     return true;
@@ -393,11 +393,6 @@ public class Preferences extends SherlockPreferenceActivity
             mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPathWiFi);
             mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPath);
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     @Override
