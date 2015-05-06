@@ -153,22 +153,15 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
 
     private OCFile mWaitingToSend;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log_OC.d(TAG, "onCreate() start");
+        Log_OC.v(TAG, "onCreate() start");
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
 
-        // PIN CODE request ;  best location is to decide, let's try this first
-        if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_MAIN) && savedInstanceState == null) {
-            requestPinCode();
-        } else if (getIntent().getAction() == null && savedInstanceState == null) {
-            requestPinCode();
-        }
-
-        /// grant that FileObserverService is watching favourite files
+        /// grant that FileObserverService is watching favorite files
         if (savedInstanceState == null) {
             Intent initObserversIntent = FileObserverService.makeInitIntent(this);
             startService(initObserversIntent);
@@ -204,22 +197,22 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         
         setBackgroundText();
 
-        Log_OC.d(TAG, "onCreate() end");
+        Log_OC.v(TAG, "onCreate() end");
     }
     
     @Override
     protected void onStart() {
-        Log_OC.d(TAG, "onStart() start");
+        Log_OC.v(TAG, "onStart() start");
         super.onStart();
         getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
-        Log_OC.d(TAG, "onStart() end");
+        Log_OC.v(TAG, "onStart() end");
     }
 
     @Override
     protected void onDestroy() {
-        Log_OC.d(TAG, "onDestroy() start");
+        Log_OC.v(TAG, "onDestroy() start");
         super.onDestroy();
-        Log_OC.d(TAG, "onDestroy() end");
+        Log_OC.v(TAG, "onDestroy() end");
     }
 
     /**
@@ -532,10 +525,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                         sortByDate(false);
                         break;
                         
-// TODO re-enable when server-side folder size calculation is available                       
-//                    case 2:
-//                        sortBySize(false);
-//                        break;
                     }
                     
                     dialog.dismiss();
@@ -781,21 +770,21 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in onRestoreInstanceState when there are Fragments involved
-        Log_OC.d(TAG, "onSaveInstanceState() start");
+        Log_OC.v(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         outState.putBoolean(FileDisplayActivity.KEY_SYNC_IN_PROGRESS, mSyncInProgress);
         //outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS, mRefreshSharesInProgress);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND, mWaitingToSend);
 
-        Log_OC.d(TAG, "onSaveInstanceState() end");
+        Log_OC.v(TAG, "onSaveInstanceState() end");
     }
     
 
 
     @Override
     protected void onResume() {
-        Log_OC.d(TAG, "onResume() start");
+        Log_OC.v(TAG, "onResume() start");
         super.onResume();
 
         // refresh list of files
@@ -822,13 +811,13 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
         
-        Log_OC.d(TAG, "onResume() end");
+        Log_OC.v(TAG, "onResume() end");
     }
 
 
     @Override
     protected void onPause() {
-        Log_OC.d(TAG, "onPause() start");
+        Log_OC.v(TAG, "onPause() start");
         if (mSyncBroadcastReceiver != null) {
             unregisterReceiver(mSyncBroadcastReceiver);
             //LocalBroadcastManager.getInstance(this).unregisterReceiver(mSyncBroadcastReceiver);
@@ -843,9 +832,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             mDownloadFinishReceiver = null;
         }
         
-        
         super.onPause();
-        Log_OC.d(TAG, "onPause() end");
+        Log_OC.v(TAG, "onPause() end");
     }
 
     /**
@@ -1323,23 +1311,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             }
         }
     };    
-
-
-
-    /**
-     * Launch an intent to request the PIN code to the user before letting him use the app
-     */
-    private void requestPinCode() {
-        boolean pinStart = false;
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        pinStart = appPrefs.getBoolean("set_pincode", false);
-        if (pinStart) {
-            Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
-            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
-            startActivity(i);
-        }
-    }
-
 
     @Override
     public void onSavedCertificate() {
