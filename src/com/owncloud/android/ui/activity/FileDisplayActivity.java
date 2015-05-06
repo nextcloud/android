@@ -154,8 +154,6 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     private OCFile mWaitingToSend;
     
-    private Boolean mUnlocked = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
