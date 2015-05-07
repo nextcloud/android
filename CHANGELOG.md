@@ -1,4 +1,15 @@
-## 1.7.0 (19 February 2015)
+
+## 1.7.1 (April 2015)
+
+- Share link even with password enforced by server
+- Get the app ready for oc 8.1 servers
+- Added option to create new folder in uploads from external apps
+- Improved management of deleted users
+- Bugs fixed
+  + Fixed crash on Android 2.x devices
+  + Improvements on uploads
+
+## 1.7.0 (February 2015)
 
 - Download full folders
 - Grid view for images
@@ -15,6 +26,6 @@
 - Settings view updated
 - Improved subjects in e-mails
 - Bugs fixed
-...
+
 
 
