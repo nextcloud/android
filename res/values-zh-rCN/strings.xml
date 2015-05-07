@@ -23,8 +23,6 @@
   <string name="prefs_category_more">更多</string>
   <string name="prefs_accounts">账号</string>
   <string name="prefs_manage_accounts">管理账号</string>
-  <string name="prefs_pincode">App PIN</string>
-  <string name="prefs_pincode_summary">保护客户端</string>
   <string name="prefs_instant_upload">即时图片上传</string>
   <string name="prefs_instant_upload_summary">即时上传相机拍摄的图片</string>
   <string name="prefs_instant_video_upload">即时上传视频</string>
@@ -128,15 +126,6 @@
   <string name="foreign_files_local_text">本地: %1$s</string>
   <string name="foreign_files_remote_text">远程:%1$s</string>
   <string name="upload_query_move_foreign_files">没有足够的空间以复制选定的文件到 %1$s 文件夹，您想移动文件到此文件夹吗？</string>
-  <string name="pincode_enter_pin_code">请输入您的App PIN码</string>
-  <string name="pincode_configure_your_pin">输入 App PIN码</string>
-  <string name="pincode_configure_your_pin_explanation">每次应用启动时都会请求PIN码</string>
-  <string name="pincode_reenter_your_pincode">再次输入 App PIN码</string>
-  <string name="pincode_remove_your_pincode">移除 App PIN码</string>
-  <string name="pincode_mismatch">两次 App PIN码不同</string>
-  <string name="pincode_wrong">App PIN码不正确</string>
-  <string name="pincode_removed">App PIN码已移除</string>
-  <string name="pincode_stored">App PIN码已保存</string>
   <string name="media_notif_ticker">%1$s 音乐播放器</string>
   <string name="media_state_playing">%1$s (播放中)</string>
   <string name="media_state_loading">%1$s (载入中)</string>

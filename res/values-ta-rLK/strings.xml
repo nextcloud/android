@@ -11,8 +11,6 @@
   <string name="prefs_category_more">மேலதிக</string>
   <string name="prefs_accounts">கணக்குகள்</string>
   <string name="prefs_manage_accounts">கணக்குகளை நிர்வகிக்க</string>
-  <string name="prefs_pincode">App PIN</string>
-  <string name="prefs_pincode_summary">உங்களுடைய சேவைப் பயனரை பாதுகாக்க</string>
   <string name="prefs_help">உதவி</string>
   <string name="auth_username">பயனாளர் பெயர்</string>
   <string name="auth_password">கடவுச்சொல்</string>
@@ -67,15 +65,6 @@
   <string name="sync_fail_content">ஒத்திசைவாக்கலின் %1$s ஆனதை முடிக்கமுடியவில்லை</string>
   <string name="sync_conflicts_in_favourites_ticker">முரன்பாடுகள் கண்டுப்பிடிக்கப்பட்டன</string>
   <string name="sync_fail_in_favourites_content">கோப்புகள் %1$d இலுள்ள உள்ளடக்கங்களை ஒத்திசைவாக்கமுடியாது (%2$d முரன்பாடுகள்) </string>
-  <string name="pincode_enter_pin_code">தயவுசெய்து உங்களுடைய App PIN ஐ உள்ளிடுக</string>
-  <string name="pincode_configure_your_pin">இன் App PIN ஐ உள்ளிடுக</string>
-  <string name="pincode_configure_your_pin_explanation">செயலி தொடங்கும் ஒவ்வொரு நேரமும் PIN கேட்கப்படுகின்றது.</string>
-  <string name="pincode_reenter_your_pincode">தயவுசெய்து மீண்டும் App PIN ஐ உள்ளிடுக</string>
-  <string name="pincode_remove_your_pincode">உங்களுடைய App PIN ஐ அகற்றுக</string>
-  <string name="pincode_mismatch">இரண்டு App PIN களும் ஒன்றே அல்ல</string>
-  <string name="pincode_wrong">தவறான App PIN </string>
-  <string name="pincode_removed">App PIN அகற்றப்பட்டது</string>
-  <string name="pincode_stored">App PIN சேமிக்கப்பட்டது</string>
   <string name="auth_trying_to_login">புகுபதிகைக்கு முயற்சிக்கின்றது...</string>
   <string name="auth_no_net_conn_title">வ​லைய​மைப்பு இணைப்பு இல்லை</string>
   <string name="auth_nossl_plain_ok_title">பாதுகாப்பான இணைப்பு காணப்படவில்லை.</string>

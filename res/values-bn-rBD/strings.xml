@@ -17,8 +17,6 @@
   <string name="prefs_category_more">বেশী</string>
   <string name="prefs_accounts">একাউন্ট</string>
   <string name="prefs_manage_accounts">একাউন্ট সামলাও</string>
-  <string name="prefs_pincode">অ্যাপ PIN</string>
-  <string name="prefs_pincode_summary">আপনার ক্লায়েন্ট সামলান</string>
   <string name="prefs_instant_upload">দ্রুত ছবি আপলোড</string>
   <string name="prefs_instant_upload_summary">ক্যামেরা থেকে তোলা ছবি তৎক্ষণাৎ আপলোড</string>
   <string name="prefs_instant_video_upload">দ্রুত ভিডিও আপলোড</string>
@@ -114,15 +112,6 @@
   <string name="foreign_files_local_text">স্থানীয়: %1$s</string>
   <string name="foreign_files_remote_text">দুরবর্তী: %1$s</string>
   <string name="upload_query_move_foreign_files">%1$s ফোল্ডারে ফাইল কপি করার মত যথেষ্ট জায়গা নেই। এগুলো অন্যত্র রাখবেন? </string>
-  <string name="pincode_enter_pin_code">দয়া করে আপনার App PIN দিন</string>
-  <string name="pincode_configure_your_pin">আপনার App PIN দিন</string>
-  <string name="pincode_configure_your_pin_explanation">প্রতিবার অ্যাপ চালু করার সময় PIN এর জন্য অনুরোধ করা হবে</string>
-  <string name="pincode_reenter_your_pincode">দয়া করে আবার App PIN দিন</string>
-  <string name="pincode_remove_your_pincode">আপনার অ্যাপ PIN সরিয়ে নিন</string>
-  <string name="pincode_mismatch">অ্যাপ PINগুলো একরকম নয়</string>
-  <string name="pincode_wrong">অশুদ্ধ অ্যাপ PIN</string>
-  <string name="pincode_removed">অ্যাপ PIN সরানো হয়েছে</string>
-  <string name="pincode_stored">অ্যাপ PIN সংরক্ষণ করা হয়েছে</string>
   <string name="media_notif_ticker">%1$s মিউজিক প্লেয়ার</string>
   <string name="media_state_playing">%1$s (বাজানো হচ্ছে)</string>
   <string name="media_state_loading">%1$s (লোড করা হচ্ছে)</string>

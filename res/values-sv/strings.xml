@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Konton</string>
   <string name="prefs_manage_accounts">Hantera konton</string>
-  <string name="prefs_pincode">applikation PIN</string>
-  <string name="prefs_pincode_summary">Skydda applikation-klienten</string>
   <string name="prefs_instant_upload">Direktuppladdning av kamerabilder</string>
   <string name="prefs_instant_upload_summary">Direktuppladning av bilder tagna med kameran</string>
   <string name="prefs_instant_video_upload">Direktuppladning av video</string>
@@ -128,15 +126,6 @@
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Fjärr: %1$s</string>
   <string name="upload_query_move_foreign_files">Det finns inte tillräckligt med ledigt utrymme för att kopiera de valda filerna till %1$s mappen. Skulle du vilja flytta dem istället?</string>
-  <string name="pincode_enter_pin_code">Ange din PIN</string>
-  <string name="pincode_configure_your_pin">Ange applikation PIN</string>
-  <string name="pincode_configure_your_pin_explanation">Din PIN måste anges varje gång du startar programmet.</string>
-  <string name="pincode_reenter_your_pincode">Ange applikation PIN igen</string>
-  <string name="pincode_remove_your_pincode">Radera applikation PIN</string>
-  <string name="pincode_mismatch">Båda applikation PIN är inte lika</string>
-  <string name="pincode_wrong">Felaktig applikationd PIN</string>
-  <string name="pincode_removed">applikation PIN raderad</string>
-  <string name="pincode_stored">applikation PIN sparad</string>
   <string name="media_notif_ticker">%1$ musikspelare</string>
   <string name="media_state_playing">%1$s (spelar)</string>
   <string name="media_state_loading">%1$s (buffrar)</string>

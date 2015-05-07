@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Mere</string>
   <string name="prefs_accounts">Konti</string>
   <string name="prefs_manage_accounts">Administrér konti</string>
-  <string name="prefs_pincode">App PIN</string>
-  <string name="prefs_pincode_summary">Beskyt din klient</string>
   <string name="prefs_instant_upload">Upload billeder straks</string>
   <string name="prefs_instant_upload_summary">Upload straks billeder taget med kameraet</string>
   <string name="prefs_instant_video_upload">Upload videoer straks</string>
@@ -128,15 +126,6 @@
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Fjernplacering: %1$s</string>
   <string name="upload_query_move_foreign_files">Der er ikke plads nok til at kopiere de valgte filer ind i mappen %1$s. Vil du flytte dem i stedet?</string>
-  <string name="pincode_enter_pin_code">Indsæt venligst din App PIN</string>
-  <string name="pincode_configure_your_pin">Indtast App PIN</string>
-  <string name="pincode_configure_your_pin_explanation">PIN koden vil blive anmodet om hver gang applikationen bliver startet</string>
-  <string name="pincode_reenter_your_pincode">Indtast venligst App PIN igen</string>
-  <string name="pincode_remove_your_pincode">Fjern din App PIN</string>
-  <string name="pincode_mismatch">App PIN er ikke ens</string>
-  <string name="pincode_wrong">Forkert App PIN</string>
-  <string name="pincode_removed">App PIN fjernet</string>
-  <string name="pincode_stored">App PIN gemt</string>
   <string name="media_notif_ticker">%1$s musikafspiller</string>
   <string name="media_state_playing">%1$s (afspiller)</string>
   <string name="media_state_loading">%1$s (indlæser)</string>

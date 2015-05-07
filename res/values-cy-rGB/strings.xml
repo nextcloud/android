@@ -10,8 +10,6 @@
   <string name="prefs_category_general">Cyffredinol</string>
   <string name="prefs_accounts">Cyfrifon</string>
   <string name="prefs_manage_accounts">Rheoli Cyfrifon</string>
-  <string name="prefs_pincode">PIN Ap</string>
-  <string name="prefs_pincode_summary">Amddiffyn eich cleient</string>
   <string name="prefs_help">Cymorth</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="auth_username">Enw defnyddiwr</string>
@@ -73,15 +71,6 @@
   <string name="foreign_files_fail">Methwyd symud rhai ffeiliau</string>
   <string name="foreign_files_local_text">Lleol: %1$s</string>
   <string name="foreign_files_remote_text">Pell: %1$s</string>
-  <string name="pincode_enter_pin_code">Cyflwynwch PIN eich Ap</string>
-  <string name="pincode_configure_your_pin">Cyflwynwch PIN eich Ap</string>
-  <string name="pincode_configure_your_pin_explanation">Bydd cais am y PIN bob tro mae\'r ap yn cychwyn</string>
-  <string name="pincode_reenter_your_pincode">Ailgyflwynwch PIN eich Ap</string>
-  <string name="pincode_remove_your_pincode">Gwaredwch PIN eich Ap</string>
-  <string name="pincode_mismatch">Nid yw PINau yr Ap yr un fath</string>
-  <string name="pincode_wrong">PIN Ap anghywir</string>
-  <string name="pincode_removed">Gwaredwyd PIN Ap</string>
-  <string name="pincode_stored">Cadwyd PIN Ap</string>
   <string name="auth_no_net_conn_title">Dim cysylltiad rhwydwaith</string>
   <string name="auth_nossl_plain_ok_title">Nid oes cysylltiad diogel ar gael.</string>
   <string name="auth_connection_established">Sefydlwyd y cysylltiad</string>

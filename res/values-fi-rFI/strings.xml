@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Enemmän</string>
   <string name="prefs_accounts">Tilit</string>
   <string name="prefs_manage_accounts">Tilien hallinta</string>
-  <string name="prefs_pincode">Sovelluksen PIN-koodi</string>
-  <string name="prefs_pincode_summary">Suojaa asiakasohjelmasi</string>
   <string name="prefs_instant_upload">Kuvien välitön lähetys</string>
   <string name="prefs_instant_upload_summary">Lähetä kameralla otetut kuvat välittömästi</string>
   <string name="prefs_instant_video_upload">Välittömät videolähetykset</string>
@@ -123,15 +121,6 @@
   <string name="foreign_files_fail">Joidenkin tiedostojen siirtäminen epäonnistui</string>
   <string name="foreign_files_local_text">Paikallinen: %1$s</string>
   <string name="foreign_files_remote_text">Etä: %1$s</string>
-  <string name="pincode_enter_pin_code">Aseta sovelluksesi PIN</string>
-  <string name="pincode_configure_your_pin">Anna sovelluksen PIN</string>
-  <string name="pincode_configure_your_pin_explanation">PIN kysytään joka kerta, kun sovellus käynnistetään</string>
-  <string name="pincode_reenter_your_pincode">Anna sovelluksen PIN uudestaan</string>
-  <string name="pincode_remove_your_pincode">Poista sovelluksen PIN</string>
-  <string name="pincode_mismatch">Sovelluksen PIN-koodit eivät täsmää</string>
-  <string name="pincode_wrong">Väärä sovelluksen PIN</string>
-  <string name="pincode_removed">Sovelluksen PIN poistettu</string>
-  <string name="pincode_stored">Sovelluksen PIN-koodi tallennettu</string>
   <string name="media_notif_ticker">%1$s-musiikkisoitin</string>
   <string name="media_state_playing">%1$s (toistetaan)</string>
   <string name="media_state_loading">%1$s (ladataan)</string>

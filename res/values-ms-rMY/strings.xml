@@ -8,7 +8,6 @@
   <string name="prefs_category_general">Umum</string>
   <string name="prefs_category_more">Lanjutan</string>
   <string name="prefs_accounts">Akaun</string>
-  <string name="prefs_pincode">PIN App</string>
   <string name="prefs_help">Bantuan</string>
   <string name="auth_username">Nama pengguna</string>
   <string name="auth_password">Kata laluan</string>
@@ -43,9 +42,6 @@
   <string name="uploader_upload_failed_ticker">Muatnaik gagal</string>
   <string name="downloader_download_in_progress_ticker">Muatturun....</string>
   <string name="common_choose_account">Pilih akaun</string>
-  <string name="pincode_configure_your_pin">Masukkan PIN App anda</string>
-  <string name="pincode_reenter_your_pincode">Sila, memasukkan semula PIN App anda</string>
-  <string name="pincode_stored">PIN App disimpan</string>
   <string name="auth_no_net_conn_title">Tiada sambungan rangkaian</string>
   <string name="common_rename">Namakan</string>
   <string name="common_remove">Buang</string>
