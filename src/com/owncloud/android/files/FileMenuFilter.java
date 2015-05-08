@@ -217,7 +217,7 @@ public class FileMenuFilter {
         // SHARE FILE 
         // TODO add check on SHARE available on server side?
         boolean shareAllowed = (mContext != null  &&
-                mContext.getString(R.string.share_link).equalsIgnoreCase("on"));
+                mContext.getString(R.string.share_feature).equalsIgnoreCase("on"));
         if (!shareAllowed || mFile == null) {
             toHide.add(R.id.action_share_file);
         } else {
