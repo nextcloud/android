@@ -200,6 +200,7 @@
   <string name="filedisplay_unexpected_bad_get_content">Uventet problem; prøv venligst en anden applikation til at vælge filen</string>
   <string name="filedisplay_no_file_selected">Ingen fil blev valgt</string>
   <string name="activity_chooser_title">Send link til ...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
   <string name="oauth_check_onoff">Log på med oAuth2</string>
   <string name="oauth_login_connection">Forbinder til oAuth2-server...</string>
   <string name="ssl_validator_header">Sidens identitet kunne ikke verificeres</string>

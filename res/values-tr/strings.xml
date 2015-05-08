@@ -201,6 +201,7 @@
   <string name="filedisplay_unexpected_bad_get_content">Beklenmedik sorun; lütfen dosya seçmek için farklı bir uygulama kullanın</string>
   <string name="filedisplay_no_file_selected">Hiçbir dosya seçilmedi</string>
   <string name="activity_chooser_title">Bağlantıyı gönder ...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Dosyalar özel alandan kopyalanıyor</string>
   <string name="oauth_check_onoff">oAuth2 ile oturum aç</string>
   <string name="oauth_login_connection">oAuth2 sunucusuna bağlanılıyor…</string>
   <string name="ssl_validator_header">Bu sitenin sertifikası doğrulanamadı</string>
