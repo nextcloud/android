@@ -126,6 +126,7 @@
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
   <string name="upload_query_move_foreign_files">No hay suficiente espacio para copiar los archivos seleccionados a la carpeta %1$s. ¿Desea moverlos en vez de copiarlos?</string>
+  <string name="pass_code_enter_pass_code">Por favor, introduzca su contraseña</string>
   <string name="media_notif_ticker">Reproductor de música %1$s</string>
   <string name="media_state_playing">%1$s (reproduciendo)</string>
   <string name="media_state_loading">%1$s (cargando)</string>
