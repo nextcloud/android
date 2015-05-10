@@ -23,6 +23,7 @@
   <string name="prefs_category_more">Mehr</string>
   <string name="prefs_accounts">Konten</string>
   <string name="prefs_manage_accounts">Konten verwalten</string>
+  <string name="prefs_passcode">PIN gesperrt</string>
   <string name="prefs_instant_upload">Sofortiger Bilder-Upload</string>
   <string name="prefs_instant_upload_summary">Lade Fotos von der Kamera sofort hoch</string>
   <string name="prefs_instant_video_upload">Sofortiger Video-Upload</string>
@@ -126,6 +127,15 @@
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Remote: %1$s</string>
   <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung um die ausgewählten Dateien in den %1$s Ordner zu kopieren. Möchtest du diese stattdessen verschieben?</string>
+  <string name="pass_code_enter_pass_code">Bitte PIN eingeben</string>
+  <string name="pass_code_configure_your_pass_code">Bitte PIN eingeben</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal beim Start der App abgefragt</string>
+  <string name="pass_code_reenter_your_pass_code">Bitte PIN nochmals eingeben</string>
+  <string name="pass_code_remove_your_pass_code">PIN entfernen</string>
+  <string name="pass_code_mismatch">Die PINs stimmen nicht überein</string>
+  <string name="pass_code_wrong">PIN nicht korrekt</string>
+  <string name="pass_code_removed">PIN entfernt</string>
+  <string name="pass_code_stored">PIN gespeichert</string>
   <string name="media_notif_ticker">%1$s Musik Player</string>
   <string name="media_state_playing">%1$s (playing)</string>
   <string name="media_state_loading">%1$s (loading)</string>
