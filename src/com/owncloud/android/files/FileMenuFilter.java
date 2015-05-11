@@ -216,7 +216,9 @@ public class FileMenuFilter {
         
         // SHARE FILE 
         // TODO add check on SHARE available on server side?
-        if (mFile == null) {
+        boolean shareAllowed = (mContext != null  &&
+                mContext.getString(R.string.share_feature).equalsIgnoreCase("on"));
+        if (!shareAllowed || mFile == null) {
             toHide.add(R.id.action_share_file);
         } else {
             toShow.add(R.id.action_share_file);
@@ -224,13 +226,12 @@ public class FileMenuFilter {
         
         // UNSHARE FILE  
         // TODO add check on SHARE available on server side?
-        if (mFile == null || !mFile.isShareByLink()) { 
+        if ( !shareAllowed || (mFile == null || !mFile.isShareByLink())) {
             toHide.add(R.id.action_unshare_file);
         } else {
             toShow.add(R.id.action_unshare_file);
         }
-        
-        
+
         // SEE DETAILS
         if (mFile == null || mFile.isFolder()) {
             toHide.add(R.id.action_see_details);

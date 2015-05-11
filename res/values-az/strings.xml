@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Daha da</string>
   <string name="prefs_accounts">Hesablar</string>
   <string name="prefs_manage_accounts">İstifadəçilərin idarəedilməsi</string>
-  <string name="prefs_pincode">Proqram təminatının PİN-i</string>
-  <string name="prefs_pincode_summary">Müştərini qoru</string>
   <string name="prefs_instant_upload">Ani şəkil yükləmələri</string>
   <string name="prefs_instant_upload_summary">Kamera vasitəsi ilə götürülmüş şəkillərin tez yüklənməsi</string>
   <string name="prefs_instant_video_upload">Ani video yükləmələri</string>
@@ -132,15 +130,6 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="foreign_files_local_text">Daxili: %1$s</string>
   <string name="foreign_files_remote_text">Uzaq: %1$s</string>
   <string name="upload_query_move_foreign_files">Seçdiyiniz faylların %1$s qovluğuna köçüçrülməsi üçün kifayət qədər yer yoxdur. Əvəzinə onları köçürmək istəyirsinizmi?</string>
-  <string name="pincode_enter_pin_code">Xahiş olunur öz proqramınızın PİN-ni daxil edəsiniz</string>
-  <string name="pincode_configure_your_pin">Proqramınızın PİN-ni daxil edin</string>
-  <string name="pincode_configure_your_pin_explanation">Proqram hər dəfə işə düşdükdə PİN yenidən istəniləcək</string>
-  <string name="pincode_reenter_your_pincode">Öz proqramınızn PİN-ni yenidən daxil etməyi xahiş edirik</string>
-  <string name="pincode_remove_your_pincode">Öz proqramınızın PİN-ni silin</string>
-  <string name="pincode_mismatch">Proqram PİN-ləri eyni deyil</string>
-  <string name="pincode_wrong">Yalnış proqram PİN-i</string>
-  <string name="pincode_removed">Proqram PİN-i silindi</string>
-  <string name="pincode_stored">Proqram PİN-i saxlanıldı </string>
   <string name="media_notif_ticker">%1$s musiqi oxuducusu</string>
   <string name="media_state_playing">%1$s (oxuyur)</string>
   <string name="media_state_loading">%1$s (yüklənir)</string>

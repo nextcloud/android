@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Mais</string>
   <string name="prefs_accounts">Contas</string>
   <string name="prefs_manage_accounts">Gerir Contas</string>
-  <string name="prefs_pincode">PIN da App</string>
-  <string name="prefs_pincode_summary">Proteja o seu cliente</string>
   <string name="prefs_instant_upload">Envios instantâneos de imagens</string>
   <string name="prefs_instant_upload_summary">Envio instantâneo de imagens tiradas com a câmara</string>
   <string name="prefs_instant_video_upload">Envios instantâneos dos vídeos</string>
@@ -128,15 +126,6 @@
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
   <string name="upload_query_move_foreign_files">Não existe espaço disponível para copiar o ficheiro seleccionado para a pasta %1$s . Em vez disso deseja mover o ficheiro?</string>
-  <string name="pincode_enter_pin_code">Por favor, insira o PIN da App</string>
-  <string name="pincode_configure_your_pin">Insira o PIN da App</string>
-  <string name="pincode_configure_your_pin_explanation">O PIN será pedido sempre que a app seja iniciada.</string>
-  <string name="pincode_reenter_your_pincode">Por favor, reinsira o PIN da App</string>
-  <string name="pincode_remove_your_pincode">Remover o seu PIN da App</string>
-  <string name="pincode_mismatch">Os CÓDIGOS da APP não são iguais</string>
-  <string name="pincode_wrong">CÓDIGO da App Incorreto</string>
-  <string name="pincode_removed">CÓDIGOS da App removido</string>
-  <string name="pincode_stored">CÓDIGO da App guardado</string>
   <string name="media_notif_ticker">%1$s reprodutor de música</string>
   <string name="media_state_playing">%1$s (a reproduzir)</string>
   <string name="media_state_loading">%1$s (a carregar)</string>

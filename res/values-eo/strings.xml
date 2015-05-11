@@ -16,8 +16,6 @@
   <string name="prefs_category_more">Pli</string>
   <string name="prefs_accounts">Kontoj</string>
   <string name="prefs_manage_accounts">Administri kontojn</string>
-  <string name="prefs_pincode">PIN de App-aplikaĵo</string>
-  <string name="prefs_pincode_summary">Protekti vian klienton</string>
   <string name="prefs_help">Helpo</string>
   <string name="prefs_recommend">Rekomendi al amiko</string>
   <string name="auth_check_server">Kontroli servilon</string>
@@ -97,14 +95,6 @@
   <string name="foreign_files_fail">Iuj dosieroj ne povis moviĝi</string>
   <string name="foreign_files_local_text">Loka: %1$s</string>
   <string name="foreign_files_remote_text">Malloka: %1$s</string>
-  <string name="pincode_enter_pin_code">Bonvolu enigi vian PIN-on de aplikaĵo</string>
-  <string name="pincode_configure_your_pin">Enigu PIN-on de aplikaĵo</string>
-  <string name="pincode_reenter_your_pincode">Bonvolu reenigi PIN-on de aplikaĵo</string>
-  <string name="pincode_remove_your_pincode">Forigu vian PIN-on de aplikaĵo</string>
-  <string name="pincode_mismatch">La du PIN-oj de aplikaĵo malsamas</string>
-  <string name="pincode_wrong">Malĝusta PIN de aplikaĵo</string>
-  <string name="pincode_removed">PIN de aplikaĵo foriĝis</string>
-  <string name="pincode_stored">PIN de aplikaĵo konserviĝis</string>
   <string name="media_state_playing">%1$s (ludanta)</string>
   <string name="media_state_loading">%1$s (ŝarganta)</string>
   <string name="auth_getting_authorization">Ekhavante rajtigon...</string>

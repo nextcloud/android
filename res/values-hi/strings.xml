@@ -16,8 +16,6 @@
   <string name="prefs_category_general">सामान्य </string>
   <string name="prefs_category_more">और अधिक</string>
   <string name="prefs_accounts">खाते </string>
-  <string name="prefs_pincode">एप्प पिन </string>
-  <string name="prefs_pincode_summary">अपने उपभोक्ता की सुरक्षा करें </string>
   <string name="prefs_help">सहायता </string>
   <string name="auth_username">उपभोक्ता  का नाम</string>
   <string name="auth_password">पासवर्ड</string>

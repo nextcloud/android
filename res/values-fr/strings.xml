@@ -23,8 +23,7 @@
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_accounts">Comptes</string>
   <string name="prefs_manage_accounts">Gestion des comptes</string>
-  <string name="prefs_pincode">Code de sécurité</string>
-  <string name="prefs_pincode_summary">Protéger l\'accès à l\'application</string>
+  <string name="prefs_passcode">Code de verrouillage</string>
   <string name="prefs_instant_upload">Téléversement immédiat des photos</string>
   <string name="prefs_instant_upload_summary">Téléverser immédiatement les photos prises par la caméra</string>
   <string name="prefs_instant_video_upload">Téléversement immédiat des vidéos</string>
@@ -37,7 +36,7 @@
   <string name="prefs_help">Aide</string>
   <string name="prefs_recommend">Recommander à un ami</string>
   <string name="prefs_feedback">Commentaires</string>
-  <string name="prefs_imprint">Mentions légales</string>
+  <string name="prefs_imprint">Mentions</string>
   <string name="prefs_remember_last_share_location">Mémoriser l\'emplacement de partage</string>
   <string name="prefs_remember_last_upload_location_summary">Mémoriser le dernier emplacement de téléversement</string>
   <string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
@@ -133,15 +132,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="foreign_files_local_text">Local : %1$s</string>
   <string name="foreign_files_remote_text">Distant : %1$s</string>
   <string name="upload_query_move_foreign_files">Il n\'y a pas assez de place disponible pour copier les fichiers sélectionnés dans le dossier %1$s. Voulez-vous les déplacer à la place ?</string>
-  <string name="pincode_enter_pin_code">Veuillez saisir votre code de sécurité</string>
-  <string name="pincode_configure_your_pin">Veuillez saisir votre code de sécurité </string>
-  <string name="pincode_configure_your_pin_explanation">Le code de sécurité vous sera demandé à chaque lancement de l\'application</string>
-  <string name="pincode_reenter_your_pincode">Veuillez saisir de nouveau votre code de sécurité</string>
-  <string name="pincode_remove_your_pincode">Retirer le code de sécurité</string>
-  <string name="pincode_mismatch">Les deux codes saisis ne concordent pas</string>
-  <string name="pincode_wrong">Code de sécurité incorrect</string>
-  <string name="pincode_removed">Code de sécurité retiré</string>
-  <string name="pincode_stored">Code de sécurité enregistré</string>
   <string name="media_notif_ticker">%1$s lecteur de musique</string>
   <string name="media_state_playing">%1$s (lecture)</string>
   <string name="media_state_loading">%1$s (chargement)</string>
@@ -217,6 +207,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="filedisplay_unexpected_bad_get_content">Problème inattendu. Veuillez essayer une autre application pour la sélection du fichier</string>
   <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
   <string name="activity_chooser_title">Envoyer le lien vers…</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis un emplacement de stockage privé</string>
   <string name="oauth_check_onoff">Connexion avec oAuth2</string>
   <string name="oauth_login_connection">Connexion au serveur oAuth2…</string>
   <string name="ssl_validator_header">L\'identité du site ne peut être vérifiée</string>

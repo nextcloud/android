@@ -24,6 +24,7 @@
     
     <!-- Flags to enable/disable some features -->
     <string name = "send_files_to_other_apps">on</string>
+    <string name = "share_feature">on</string>
     
     
     <!-- Colors -->

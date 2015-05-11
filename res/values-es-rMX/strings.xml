@@ -17,8 +17,6 @@
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
   <string name="prefs_manage_accounts">Gestionar cuentas</string>
-  <string name="prefs_pincode">PIN de aplicación </string>
-  <string name="prefs_pincode_summary">Proteja su cliente</string>
   <string name="prefs_log_title">Habilitar registro</string>
   <string name="prefs_log_summary">Esto es usado para registrar problemas</string>
   <string name="prefs_log_title_history">Historia del Registro</string>
@@ -101,15 +99,6 @@
   <string name="foreign_files_fail">Algunos archivos no han podido ser movidos</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
-  <string name="pincode_enter_pin_code">Por favor, inserta tu PIN de aplicación</string>
-  <string name="pincode_configure_your_pin">Introduzca un PIN para la aplicación</string>
-  <string name="pincode_configure_your_pin_explanation">Se solicitará el PIN cada vez que se inicie la aplicación</string>
-  <string name="pincode_reenter_your_pincode">Repita el PIN para la aplicación, por favor</string>
-  <string name="pincode_remove_your_pincode">Borre su PIN de aplicación</string>
-  <string name="pincode_mismatch">Los PIN introducidos no son iguales</string>
-  <string name="pincode_wrong">PIN de aplicación incorrecto</string>
-  <string name="pincode_removed">PIN de aplicación borrado</string>
-  <string name="pincode_stored">PIN de aplicación guardado</string>
   <string name="media_notif_ticker">Reproductor de música %1$s</string>
   <string name="media_state_playing">%1$s (reproduciendo)</string>
   <string name="media_state_loading">%1$s (cargando)</string>

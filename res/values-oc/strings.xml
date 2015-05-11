@@ -44,7 +44,6 @@
   <string name="uploader_upload_in_progress_ticker">Al avalcargar ...</string>
   <string name="uploader_upload_succeeded_ticker">Capitada d\'avalcargar</string>
   <string name="common_choose_account">Causís lo compte</string>
-  <string name="pincode_enter_pin_code">Dintras ton PIN d\'App, se te plai</string>
   <string name="common_rename">Torna nomenar</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Comptes</string>
