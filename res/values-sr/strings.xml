@@ -23,6 +23,7 @@
   <string name="prefs_category_more">Остало</string>
   <string name="prefs_accounts">Налози</string>
   <string name="prefs_manage_accounts">Управљање налозима</string>
+  <string name="prefs_passcode">Закључавање кодом</string>
   <string name="prefs_instant_upload">Отпремање фотографија</string>
   <string name="prefs_instant_upload_summary">тренутно отпремај фотографије сликане камером</string>
   <string name="prefs_instant_video_upload">Отпремање видеа</string>
@@ -126,6 +127,15 @@
   <string name="foreign_files_local_text">Локално: %1$s</string>
   <string name="foreign_files_remote_text">Удаљено: %1$s</string>
   <string name="upload_query_move_foreign_files">Нема довољно простора да би се изабрани фајлови копирали у фасциклу %1$s. Желите ли да их преместите? </string>
+  <string name="pass_code_enter_pass_code">Унесите код за закључавање</string>
+  <string name="pass_code_configure_your_pass_code">Унесите код за закључавање</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Код ће бити затражен сваки пут кад се апликација покрене</string>
+  <string name="pass_code_reenter_your_pass_code">Поново унесите код</string>
+  <string name="pass_code_remove_your_pass_code">Уклоните код за закључавање</string>
+  <string name="pass_code_mismatch">Кодови се не поклапају</string>
+  <string name="pass_code_wrong">Неисправан код</string>
+  <string name="pass_code_removed">Код за закључавање уклоњен</string>
+  <string name="pass_code_stored">Код за закључавање је сачуван</string>
   <string name="media_notif_ticker">%1$s музички плејер</string>
   <string name="media_state_playing">%1$s (пуштам)</string>
   <string name="media_state_loading">%1$s (учитавам)</string>
