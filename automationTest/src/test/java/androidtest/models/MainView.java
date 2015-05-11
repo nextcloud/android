@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
@@ -11,6 +12,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
 
+import org.openqa.selenium.Point;
 import androidtest.actions.Actions;
 
 public class MainView {
@@ -49,6 +51,10 @@ public class MainView {
 	@AndroidFindBy(name = "Files")
 	private AndroidElement filesElementUploadFile;
 	
+	@CacheLookup
+	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"List Layout\")")
+	private AndroidElement listLayout;
+	
 	private AndroidElement fileElement;
 	
 	private AndroidElement fileElementLayout;
@@ -63,7 +69,12 @@ public class MainView {
 	}
 
 	public MenuList clickOnMenuButton () {
-		menuButton.click();
+		//if the menu option is not in the actionBar, it is opening again
+		try {
+			menuButton.click();
+		} catch (NoSuchElementException e){
+			driver.sendKeyEvent(AndroidKeyCode.MENU);
+		}
 		MenuList menuList = new MenuList (driver);
 		return menuList;
 	}
@@ -91,6 +102,10 @@ public class MainView {
 	
 	public AndroidElement getTitleTextElement () {
 		return titleText;
+	}
+	
+	public AndroidElement getUploadButton () {
+		return uploadButton;
 	}
 	
 	public AndroidElement getWaitAMomentTextElement () {
@@ -140,6 +155,11 @@ public class MainView {
 	
 	public static String getFavoriteFileIndicator() {
 		return favoriteFileIndicator;
+	}
+	
+	public void pulldownToRefresh () throws InterruptedException {
+		Point listLocation = listLayout.getLocation();
+		driver.swipe(listLocation.getX(),listLocation.getY(), listLocation.getX(),listLocation.getY()+1000, 5000);
 	}
 
 

@@ -3,6 +3,7 @@ package androidtest.actions;
 import java.util.HashMap;
 
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import io.appium.java_client.android.AndroidDriver;
@@ -29,10 +30,18 @@ public class Actions {
 		LoginForm loginForm = new LoginForm(driver);
 		CertificatePopUp certificatePopUp = loginForm.typeHostUrl(url);	
 		if(!isTrusted){
-			driver.runAppInBackground(3);
 			WebDriverWait wait = new WebDriverWait(driver, 30);
-			wait.until(ExpectedConditions.visibilityOf(certificatePopUp.getOkButtonElement()));
-			certificatePopUp.clickOnOkButton();
+			//sometimes the certificate has been already accept and it doesn't appear again
+			try {
+				wait.until(ExpectedConditions.visibilityOf(certificatePopUp.getOkButtonElement()));
+				//we need to repaint the screen because of some element are misplaced
+				driver.rotate(ScreenOrientation.LANDSCAPE);
+				driver.rotate(ScreenOrientation.PORTRAIT);
+				certificatePopUp.clickOnOkButton();
+			}catch (NoSuchElementException e) {
+
+			}
+
 		}
 		loginForm.typeUserName(user);
 		loginForm.typePassword(password);
@@ -87,6 +96,8 @@ public class Actions {
 		AndroidElement fileElement;
 		WaitAMomentPopUp waitAMomentPopUp;
 		try{
+			//To open directly the "file list view" and we don't need to know in which view we are
+			driver.startActivity("com.owncloud.android", ".ui.activity.FileDisplayActivity");
 			fileElement = (AndroidElement) driver.findElementByName(elementName);
 			ElementMenuOptions menuOptions = mainView.longPressOnElement(elementName);
 			RemoveConfirmationView removeConfirmationView = menuOptions.clickOnRemove();;

@@ -24,8 +24,8 @@ public class NewFolderPopUp {
 		
 	public void typeNewFolderName (String newFolderName) {
 		newFolderNameField.clear();
-		newFolderNameField.sendKeys(newFolderName);
-		driver.hideKeyboard();
+		newFolderNameField.sendKeys(newFolderName + "\n");
+		//driver.hideKeyboard();
 	}
 
 	public WaitAMomentPopUp clickOnNewFolderOkButton () {

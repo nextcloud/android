@@ -11,6 +11,9 @@ public class ElementMenuOptions {
 
 	final AndroidDriver driver;
 	
+	@AndroidFindBy(name = "Share link")
+	private AndroidElement shareLinkElement;
+	
 	@AndroidFindBy(name = "Details")
 	private AndroidElement detailsFileElement;
 	
@@ -51,5 +54,11 @@ public class ElementMenuOptions {
 		renameFileElement.click();
 		NewFolderPopUp newFolderPopUp = new NewFolderPopUp(driver);
 		return newFolderPopUp;
+	}
+	
+	public ShareView clickOnShareLinkElement () {
+		shareLinkElement.click();
+		ShareView shareView = new ShareView(driver);
+		return shareView;
 	}
 }

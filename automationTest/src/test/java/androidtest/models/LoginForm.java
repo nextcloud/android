@@ -51,14 +51,15 @@ public class LoginForm {
 	
 	public void typeUserName (String userName) {
 		userNameInput.clear();
-		userNameInput.sendKeys(userName);
-		driver.hideKeyboard();
+		//using the \n , it not need to hide the keyboard which sometimes gives problems
+		userNameInput.sendKeys(userName + "\n");
+		//driver.hideKeyboard();
 	}
 	
 	public void typePassword (String password) {
 		passwordInput.clear();
-		passwordInput.sendKeys(password);
-		driver.hideKeyboard();
+		passwordInput.sendKeys(password + "\n");
+		//driver.hideKeyboard();
 	}
 	
 	public MainView clickOnConnectButton () {
