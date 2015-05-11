@@ -67,7 +67,6 @@
   <string name="foreign_files_fail">ਕੁਝ ਫਾਇਲਾਂ ਨੂੰ ਭੇਜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ</string>
   <string name="foreign_files_local_text">ਲੋਕਲ: %1$s</string>
   <string name="foreign_files_remote_text">ਰਿਮੋਟ: %1$s</string>
-  <string name="pincode_enter_pin_code">ਆਪਣਾ ਐਪ ਪਿੰਨ ਦਿਉ ਜੀ</string>
   <string name="media_notif_ticker">%1$s ਸੰਗੀਤ ਪਲੇਅਰ</string>
   <string name="media_state_playing">%1$s (ਚੱਲਦਾ ਹੈ)</string>
   <string name="media_state_loading">%1$s (ਲੋਡ ਹੁੰਦਾ ਹੈ)</string>

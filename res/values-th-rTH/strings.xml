@@ -13,8 +13,6 @@
   <string name="prefs_category_more">มาก</string>
   <string name="prefs_accounts">บัญชี</string>
   <string name="prefs_manage_accounts">บริหารจัดการบัญชี</string>
-  <string name="prefs_pincode">App PIN</string>
-  <string name="prefs_pincode_summary">ป้องกันโปรแกรมไคลเอนต์ ของคุณ</string>
   <string name="prefs_help">ช่วยเหลือ</string>
   <string name="auth_username">ชื่อผู้ใช้</string>
   <string name="auth_password">รหัสผ่าน</string>
@@ -83,15 +81,6 @@
   <string name="foreign_files_fail">มีบางแฟ้มข้อมูลไม่สามารถย้ายได้</string>
   <string name="foreign_files_local_text">ต้นทาง: %1$s</string>
   <string name="foreign_files_remote_text">ปลายทาง: %1$s</string>
-  <string name="pincode_enter_pin_code">กรุณาใส่ PIN แอปของคุณ</string>
-  <string name="pincode_configure_your_pin">กรอกรหัส PIN ของ  App</string>
-  <string name="pincode_configure_your_pin_explanation">หมายเลข PIN ดังกล่าวจะถูกร้องขอทุกครั้งที่เริ่มใช้งานแอปฯ</string>
-  <string name="pincode_reenter_your_pincode">กรุณากรอกรหัส PIN ของแอป  App ใหม่อีกครั้ง</string>
-  <string name="pincode_remove_your_pincode">ลบรหัส PIN แอป ของ App ของคุณ</string>
-  <string name="pincode_mismatch">รหัส App API ไม่ตรงกัน</string>
-  <string name="pincode_wrong">รหัส PIN App ไม่ถูกต้อง</string>
-  <string name="pincode_removed">รหัส PIN แอปสำหรับ   ถูกลบออกแล้ว</string>
-  <string name="pincode_stored">จัดเก็บรหัส PIN แอป ของ  แล้ว</string>
   <string name="auth_trying_to_login">กำลังเข้าสู่ระบบ...</string>
   <string name="auth_no_net_conn_title">ไม่มีการเชื่อมต่อเครือข่ายใดๆ</string>
   <string name="auth_nossl_plain_ok_title">การเชื่อมต่อแบบรักษาความปลอดภัยไม่สามารถใช้งานได้</string>

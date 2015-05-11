@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Больше</string>
   <string name="prefs_accounts">Учётные записи</string>
   <string name="prefs_manage_accounts">Управление учётными записями</string>
-  <string name="prefs_pincode">PIN приложения</string>
-  <string name="prefs_pincode_summary">Защитить ваш клиент</string>
   <string name="prefs_instant_upload">Мгновенная загрузка фотографий</string>
   <string name="prefs_instant_upload_summary">Немедленно загружать фотографии сделанные камерой</string>
   <string name="prefs_instant_video_upload">Мгновенная загрузка видео</string>
@@ -129,15 +127,6 @@
   <string name="foreign_files_local_text">Локальные: %1$s</string>
   <string name="foreign_files_remote_text">Удаленные: %1$s</string>
   <string name="upload_query_move_foreign_files">Для копирования выбранных файлов в каталог %1$s недостаточно свободного места. Скопировать в другое место?</string>
-  <string name="pincode_enter_pin_code">Укажите PIN приложения</string>
-  <string name="pincode_configure_your_pin">Введите PIN приложения</string>
-  <string name="pincode_configure_your_pin_explanation">PIN будет запрашиваться при каждом запуске приложения.</string>
-  <string name="pincode_reenter_your_pincode">Повторите ввод PIN приложения</string>
-  <string name="pincode_remove_your_pincode">Удалить PIN приложения</string>
-  <string name="pincode_mismatch">Введённые PIN не совпадают</string>
-  <string name="pincode_wrong">Неверный PIN приложения</string>
-  <string name="pincode_removed">PIN приложения удалён</string>
-  <string name="pincode_stored">PIN приложения сохранён</string>
   <string name="media_notif_ticker">%1$s аудиоплеер</string>
   <string name="media_state_playing">%1$s (проигрывается)</string>
   <string name="media_state_loading">%1$s (загружается)</string>

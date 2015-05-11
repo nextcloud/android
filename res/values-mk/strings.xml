@@ -13,8 +13,6 @@
   <string name="prefs_category_more">Повеќе</string>
   <string name="prefs_accounts">Сметки</string>
   <string name="prefs_manage_accounts">Управување со сметки</string>
-  <string name="prefs_pincode">Апликативен ПИН</string>
-  <string name="prefs_pincode_summary">Заштитете го вашиот клиент</string>
   <string name="prefs_log_title">Овозможи логирање</string>
   <string name="prefs_help">Помош</string>
   <string name="prefs_recommend">Препорачај на пријател</string>
@@ -64,14 +62,6 @@
   <string name="sync_fail_ticker">Синхронизацијата беше неуспешна</string>
   <string name="sync_conflicts_in_favourites_ticker">Пронајден е конфликт</string>
   <string name="foreign_files_move">Префрли ги сите</string>
-  <string name="pincode_enter_pin_code">Ве молам внесето го вашиот апликативен ПИН</string>
-  <string name="pincode_configure_your_pin">Внесето го вашиот апликативен ПИН</string>
-  <string name="pincode_reenter_your_pincode">Ве молам повторно внесето го вашиот апликативен ПИН</string>
-  <string name="pincode_remove_your_pincode">Одстранете го го вашиот апликативен ПИН</string>
-  <string name="pincode_mismatch">Апликативните ПИН-ови не се исти</string>
-  <string name="pincode_wrong">Грешен апликативен ПИН</string>
-  <string name="pincode_removed">Апликативниот ПИН е одстранет</string>
-  <string name="pincode_stored">Апликативниот ПИН е снимен</string>
   <string name="auth_trying_to_login">Обиди се да се најавиш...</string>
   <string name="auth_no_net_conn_title">Нема мрежна конекција</string>
   <string name="auth_nossl_plain_ok_title">Нема безбедна конекција.</string>

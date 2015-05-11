@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Lainnya</string>
   <string name="prefs_accounts">Akun</string>
   <string name="prefs_manage_accounts">Kelola Akun</string>
-  <string name="prefs_pincode">PIN Apl</string>
-  <string name="prefs_pincode_summary">Lindungi klien Anda</string>
   <string name="prefs_instant_upload">Unggah gambar cepat</string>
   <string name="prefs_instant_upload_summary">Unggah gambar yang diambil kamera dengan cepat</string>
   <string name="prefs_instant_video_upload">Unggah video cepat</string>
@@ -128,15 +126,6 @@
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Jauh: %1$s</string>
   <string name="upload_query_move_foreign_files">Ruang tidak cukup untuk menyalin berkas terpilih kedalam folder %1$s. Apakah Anda ingin memindahkannya saja?</string>
-  <string name="pincode_enter_pin_code">Silakan masukkan PIN Apl</string>
-  <string name="pincode_configure_your_pin">Masukkan PIN Apl</string>
-  <string name="pincode_configure_your_pin_explanation">PIN akan selalu diminta setiap kali apl dijalankan</string>
-  <string name="pincode_reenter_your_pincode">Silakan masukkan ulang PIN Apl</string>
-  <string name="pincode_remove_your_pincode">Hapus PIN Apl</string>
-  <string name="pincode_mismatch">PIN Apl tidak sama</string>
-  <string name="pincode_wrong">PIN Apl salah</string>
-  <string name="pincode_removed">PIN Apl dihapus</string>
-  <string name="pincode_stored">PIN Apl disimpan</string>
   <string name="media_notif_ticker">Pemutar musik %1$s</string>
   <string name="media_state_playing">%1$s (dimainkan)</string>
   <string name="media_state_loading">%1$s (sedang dimuat)</string>

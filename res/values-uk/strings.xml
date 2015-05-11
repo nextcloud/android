@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Більше</string>
   <string name="prefs_accounts">Облікові записи</string>
   <string name="prefs_manage_accounts">Управління обліковими записами</string>
-  <string name="prefs_pincode">App програмний PIN</string>
-  <string name="prefs_pincode_summary">Захист Вашог App клієнта</string>
   <string name="prefs_instant_upload">Миттєві зображення</string>
   <string name="prefs_instant_upload_summary">Миттєві зображення з камери</string>
   <string name="prefs_instant_video_upload">Миттєві відео</string>
@@ -128,15 +126,6 @@
   <string name="foreign_files_local_text">Локально: %1$s</string>
   <string name="foreign_files_remote_text">Віддалено: %1$s</string>
   <string name="upload_query_move_foreign_files">Недостатньо місця для копіювання обраних файлів у теку %1$s. Чи бажаєте ви перемістити їх замість копіювання?</string>
-  <string name="pincode_enter_pin_code">Будь ласка, введіть свій програмний PIN</string>
-  <string name="pincode_configure_your_pin">Введіть програмний PIN</string>
-  <string name="pincode_configure_your_pin_explanation">PIN необхідно буде вводити щоразу при запуску цієї програми</string>
-  <string name="pincode_reenter_your_pincode">Повторно введіть App програмний PIN, будь ласка</string>
-  <string name="pincode_remove_your_pincode">Видалити свій App програмний PIN</string>
-  <string name="pincode_mismatch">Обидва App програмних PIN не однакові</string>
-  <string name="pincode_wrong">Не вірний App програмний PIN</string>
-  <string name="pincode_removed">App програмний PIN видалено</string>
-  <string name="pincode_stored">App програмний PIN збережено</string>
   <string name="media_notif_ticker">%1$s музичний плеєр</string>
   <string name="media_state_playing">%1$s (відтворення)</string>
   <string name="media_state_loading">%1$s (завантаження)</string>
