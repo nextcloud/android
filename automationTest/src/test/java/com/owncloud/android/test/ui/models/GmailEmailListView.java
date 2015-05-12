@@ -10,7 +10,7 @@ public class GmailEmailListView {
 	
 	final AndroidDriver driver;
 	
-	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"me about UploadFile,  at 9:53 AM, conversation read\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"me about UploadFile,  on May 11, conversation read\")")
 	private AndroidElement email;
 		
 	public GmailEmailListView (AndroidDriver driver) {

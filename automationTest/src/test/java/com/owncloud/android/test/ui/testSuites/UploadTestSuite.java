@@ -72,6 +72,7 @@ public class UploadTestSuite{
 		FileListView fileListView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);
 		driver.startActivity("com.google.android.gm", ".ConversationListActivityGmail");
 		GmailEmailListView gmailEmailListView = new GmailEmailListView(driver);
+		Thread.sleep(3000);
 		GmailEmailView gmailEmailView = gmailEmailListView.clickOnEmail();
 		ImageView imageView = gmailEmailView.clickOnfileButton();
 		imageView.clickOnOptionsButton();
