@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Viac</string>
   <string name="prefs_accounts">Účty</string>
   <string name="prefs_manage_accounts">Správa účtov</string>
-  <string name="prefs_pincode">PIN aplikácie</string>
-  <string name="prefs_pincode_summary">Chrániť klienta aplikácie</string>
   <string name="prefs_instant_upload">Okamžité nahratie obrázka</string>
   <string name="prefs_instant_upload_summary">Okamžite nahrať obrázok zaznamenaný fotoaparátom</string>
   <string name="prefs_instant_video_upload">Okamžité nahranie videa</string>
@@ -128,15 +126,6 @@
   <string name="foreign_files_local_text">Lokálne: %1$s</string>
   <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
   <string name="upload_query_move_foreign_files">Nie je dostatok miesta na skopírovanie vybraných súborov do priečinka %1$s. Želáte si ich namiesto toho presunúť?</string>
-  <string name="pincode_enter_pin_code">Zadajte PIN aplikácie</string>
-  <string name="pincode_configure_your_pin">Zadajte PIN aplikácie</string>
-  <string name="pincode_configure_your_pin_explanation">Pri každom spustení aplikácie bude vyžadovaný PIN</string>
-  <string name="pincode_reenter_your_pincode">Zadajte znovu PIN aplikácie</string>
-  <string name="pincode_remove_your_pincode">Zrušiť PIN pre aplikáciu</string>
-  <string name="pincode_mismatch">PINy sa neshodujú</string>
-  <string name="pincode_wrong">Nesprávny PIN aplikácie</string>
-  <string name="pincode_removed">PIN aplikácie bol odstránený</string>
-  <string name="pincode_stored">PIN aplikácie bol uložený</string>
   <string name="media_notif_ticker">Prehrávač hudby %1$s</string>
   <string name="media_state_playing">%1$s (prehráva)</string>
   <string name="media_state_loading">%1$s (načítava)</string>

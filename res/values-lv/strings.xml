@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Vairāk</string>
   <string name="prefs_accounts">Konti</string>
   <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
-  <string name="prefs_pincode">Lietotnes PIN</string>
-  <string name="prefs_pincode_summary">Aizsargā savu klientu</string>
   <string name="prefs_instant_upload">Automātiskā bilžu augšuplāde</string>
   <string name="prefs_instant_upload_summary">Automātiski augšuplādēt tikko uzņemtās bildes</string>
   <string name="prefs_instant_video_upload">Automātiskā video augšuplāde</string>
@@ -102,15 +100,6 @@
   <string name="sync_conflicts_in_favourites_content">Nevarēja sinhronizēt %1$d kept-in-sync datnes</string>
   <string name="sync_fail_in_favourites_ticker">Kept-in-sync datnes cieta neveiksmi</string>
   <string name="sync_fail_in_favourites_content">Nevarēja sinhronizēt %1$d datņu saturu (%2$d konflikti)</string>
-  <string name="pincode_enter_pin_code">Lūdzu, ierakstiet savu lietotnes PIN</string>
-  <string name="pincode_configure_your_pin">Ievadiet savu lietotnes PIN</string>
-  <string name="pincode_configure_your_pin_explanation">PIN tiks pieprasīts katrā lietotnes palaišanas reizē</string>
-  <string name="pincode_reenter_your_pincode">Lūdzu, vēlreiz ievadiet savu lietotnes PIN</string>
-  <string name="pincode_remove_your_pincode">Izņemt savu lietotnes PIN</string>
-  <string name="pincode_mismatch">Lietotņu PIN nav vienādi</string>
-  <string name="pincode_wrong">Nepareizs lietotnes PIN</string>
-  <string name="pincode_removed">Lietotnes PIN ir izņemts</string>
-  <string name="pincode_stored">Lietotnes PIN ir noglabāts</string>
   <string name="auth_trying_to_login">Mēģina ierakstīties...</string>
   <string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
   <string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>

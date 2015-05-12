@@ -12,8 +12,6 @@
   <string name="prefs_category_more">უფრო მეტი</string>
   <string name="prefs_accounts">ანგარიში</string>
   <string name="prefs_manage_accounts">ანგარიშების მენეჯმენტი</string>
-  <string name="prefs_pincode">აპლიკაციის PIN–ი</string>
-  <string name="prefs_pincode_summary">თქვენი კლიენტის დაცვა</string>
   <string name="prefs_help">დახმარება</string>
   <string name="prefs_feedback">უკუკავშირი</string>
   <string name="prefs_imprint">ბეჭედი</string>
@@ -80,15 +78,6 @@
   <string name="foreign_files_fail">რამოდენიმე ფაილის გადატანა ვერ მოხერხდა</string>
   <string name="foreign_files_local_text">ლოკალური: %1$s</string>
   <string name="foreign_files_remote_text">დაშორებული: %1$s</string>
-  <string name="pincode_enter_pin_code">გთხოვთ, ჩასვათ თქვენი აპლიკაციის PIN–ი</string>
-  <string name="pincode_configure_your_pin">შეიყვანეთ თქვენი აპლიკაციის PIN–ი</string>
-  <string name="pincode_configure_your_pin_explanation">PIN–ი მოთხოვნილი იქნება აპლიკაციის ყოველ ჩართვაზე</string>
-  <string name="pincode_reenter_your_pincode">გთხოვთ შეიყვანოთ თქვენი აპლიკაციის PIN–ი ხელთავიდან</string>
-  <string name="pincode_remove_your_pincode">წაშალეთ თქვენი აპლიკაციის PIN–ი</string>
-  <string name="pincode_mismatch">აპლიკაციის PIN–ი არ არის იგივე</string>
-  <string name="pincode_wrong">არასწორი აპლიკაციის PIN–ი</string>
-  <string name="pincode_removed">აპლიკაციის PIN–ი წაიშალა</string>
-  <string name="pincode_stored">აპლიკაციის PIN–ი დამახსოვრებულ იქნა</string>
   <string name="auth_no_net_conn_title">ქსელური კავშირი არ არის</string>
   <string name="auth_nossl_plain_ok_title">დაცული კავშირი არ არსებობს.</string>
   <string name="auth_connection_established">კავშირი დამყარდა</string>

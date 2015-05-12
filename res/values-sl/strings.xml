@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Več</string>
   <string name="prefs_accounts">Računi</string>
   <string name="prefs_manage_accounts">Upravljanje z računi</string>
-  <string name="prefs_pincode">Koda PIN programa</string>
-  <string name="prefs_pincode_summary">Zaščitite odjemalec</string>
   <string name="prefs_instant_upload">Takojšnje pošiljanje slik</string>
   <string name="prefs_instant_upload_summary">Takojšnje pošiljanje slik, zajetih s fotoaparatom, na strežnik</string>
   <string name="prefs_instant_video_upload">Takojšnje pošiljanje posnetkov</string>
@@ -128,15 +126,6 @@
   <string name="foreign_files_local_text">Krajevno: %1$s</string>
   <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
   <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali jih želite premakniti?</string>
-  <string name="pincode_enter_pin_code">Vnesite kodo PIN programa</string>
-  <string name="pincode_configure_your_pin">Vnesite kodo PIN programa</string>
-  <string name="pincode_configure_your_pin_explanation">Koda PIN bo zahtevana vsakič pred zagonom programa.</string>
-  <string name="pincode_reenter_your_pincode">Ponovno vnesite kodo PIN programa</string>
-  <string name="pincode_remove_your_pincode">Odstrani kodo PIN programa</string>
-  <string name="pincode_mismatch">Vrednosti kod PIN programa nista enaki</string>
-  <string name="pincode_wrong">Nepravilna koda PIN programa</string>
-  <string name="pincode_removed">Koda PIN programa je odstranjena</string>
-  <string name="pincode_stored">Koda PIN programa je shranjena</string>
   <string name="media_notif_ticker">Predvajalnik glasbe %1$s</string>
   <string name="media_state_playing">%1$s (se predvaja)</string>
   <string name="media_state_loading">%1$s (se nalaga)</string>

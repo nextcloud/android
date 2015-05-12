@@ -23,8 +23,6 @@
   <string name="prefs_category_more">더 보기</string>
   <string name="prefs_accounts">계정</string>
   <string name="prefs_manage_accounts">계정 관리</string>
-  <string name="prefs_pincode">앱 암호</string>
-  <string name="prefs_pincode_summary">내 클라이언트 보호</string>
   <string name="prefs_instant_upload">사진 즉시 업로드</string>
   <string name="prefs_instant_upload_summary">카메라로 찍은 사진 즉시 업로드</string>
   <string name="prefs_instant_video_upload">동영상 즉시 업로드</string>
@@ -128,15 +126,6 @@
   <string name="foreign_files_local_text">로컬: %1$s</string>
   <string name="foreign_files_remote_text">원격: %1$s</string>
   <string name="upload_query_move_foreign_files">선택한 파일을 폴더 %1$s(으)로 복사할 공간이 부족합니다. 파일을 이동하시겠습니까?</string>
-  <string name="pincode_enter_pin_code">앱 암호를 입력하십시오</string>
-  <string name="pincode_configure_your_pin">앱 암호를 입력하십시오</string>
-  <string name="pincode_configure_your_pin_explanation">앱을 시작할 때마다 암호를 물어봅니다</string>
-  <string name="pincode_reenter_your_pincode">앱 암호를 다시 입력하십시오</string>
-  <string name="pincode_remove_your_pincode">앱 암호 삭제</string>
-  <string name="pincode_mismatch">앱 암호가 일치하지 않습니다</string>
-  <string name="pincode_wrong">앱 암호가 잘못되었습니다</string>
-  <string name="pincode_removed">앱 암호가 삭제되었습니다</string>
-  <string name="pincode_stored">앱 암호가 저장되었습니다</string>
   <string name="media_notif_ticker">%1$s 음악 재생기</string>
   <string name="media_state_playing">%1$s (재생 중)</string>
   <string name="media_state_loading">%1$s (불러오는 중)</string>
