@@ -469,7 +469,7 @@ public class PreviewImageFragment extends FileFragment {
             } else {
                 showErrorMessage();
             }
-            if (mBitmap != result)  {
+            if (mBitmap != null && mBitmap != result)  {
                 // unused bitmap, release it! (just in case)
                 result.recycle();
             }
