@@ -12,10 +12,13 @@ import android.widget.ImageView;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 public class ImageViewCustom extends ImageView {
-    
+
+    private static final String TAG = ImageViewCustom.class.getSimpleName();
+
     private static final boolean IS_ICS_OR_HIGHER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
-    
-    private Bitmap mBitmap;
+
+    private int mBitmapHeight;
+    private int mBitmapWidth;
 
     
     public ImageViewCustom(Context context) {
@@ -45,26 +48,29 @@ public class ImageViewCustom extends ImageView {
 
     /**
      * Checks if current bitmaps exceed the maximum OpenGL texture size limit
-     * @param bitmap
-     * @return boolean
+     * @param canvas        Canvas where the view will be drawn into.
+     * @return boolean      True means that the bitmap is too big for the canvas.
      */
     @SuppressLint("NewApi")
 	private boolean checkIfMaximumBitmapExceed(Canvas canvas) {
-        Log_OC.d("OC", "Canvas maximum: " + canvas.getMaximumBitmapWidth() + " - " + canvas.getMaximumBitmapHeight());
-        if (mBitmap!= null && (mBitmap.getWidth() > canvas.getMaximumBitmapWidth() 
-                || mBitmap.getHeight() > canvas.getMaximumBitmapHeight())) {
+        Log_OC.v(TAG, "Canvas maximum: " + canvas.getMaximumBitmapWidth() + " - " + canvas.getMaximumBitmapHeight());
+        if (mBitmapWidth > canvas.getMaximumBitmapWidth()
+                || mBitmapHeight > canvas.getMaximumBitmapHeight()) {
             return true;
         }
         
         return false;
     }
     
+    @Override
     /**
-     * Set current bitmap
-     * @param bitmap
+     * Keeps the size of the bitmap cached in member variables for faster access in {@link #onDraw(Canvas)} ,
+     * but without keeping another reference to the {@link Bitmap}
      */
-    public void setBitmap (Bitmap bitmap) {
-        mBitmap = bitmap;
+    public void setImageBitmap (Bitmap bm) {
+        mBitmapWidth = bm.getWidth();
+        mBitmapHeight = bm.getHeight();
+        super.setImageBitmap(bm);
     }
 
 }

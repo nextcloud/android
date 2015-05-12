@@ -202,12 +202,12 @@ public class PreviewImageFragment extends FileFragment {
     
     @Override
     public void onStop() {
-        super.onStop();
+        Log_OC.d(TAG, "onStop starts");
         if (mLoadBitmapTask != null) {
             mLoadBitmapTask.cancel(true);
             mLoadBitmapTask = null;
         }
-        
+        super.onStop();
     }
     
     /**
@@ -329,6 +329,8 @@ public class PreviewImageFragment extends FileFragment {
         if (mBitmap != null) {
             mBitmap.recycle();
             System.gc();
+                // putting this in onStop() is just the same; the fragment is always destroyed by the ViewPager
+                // when swipes further than the valid offset, and onStop() is never called before than that
         }
         super.onDestroy();
     }
@@ -415,7 +417,7 @@ public class PreviewImageFragment extends FileFragment {
                 }
                 
             } catch (OutOfMemoryError e) {
-                Log_OC.e(TAG, "Out of memory occured for file " + storagePath, e);
+                Log_OC.w(TAG, "Out of memory rendering file " + storagePath + " in full size; scaling down");
 
                 if (isCancelled()) return result;
                 
@@ -459,6 +461,10 @@ public class PreviewImageFragment extends FileFragment {
             } else {
                 showErrorMessage();
             }
+            if (mBitmap != result)  {
+                // unused bitmap, release it! (just in case)
+                result.recycle();
+            }
         }
         
         @SuppressLint("InlinedApi")
@@ -466,11 +472,10 @@ public class PreviewImageFragment extends FileFragment {
             if (mImageViewRef != null) {
                 final ImageViewCustom imageView = mImageViewRef.get();
                 if (imageView != null) {
-                    imageView.setBitmap(result);
                     imageView.setImageBitmap(result);
                     imageView.setVisibility(View.VISIBLE);
-                    mBitmap  = result;
-                } // else , silently finish, the fragment was destroyed
+                    mBitmap  = result;  // needs to be kept for recycling when not useful
+                }
             }
             if (mMessageViewRef != null) {
                 final TextView messageView = mMessageViewRef.get();
