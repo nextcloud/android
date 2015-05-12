@@ -393,6 +393,7 @@ public class PreviewImageFragment extends FileFragment {
             Bitmap result = null;
             if (params.length != 1) return result;
             String storagePath = params[0];
+            InputStream is = null;
             try {
 
                 if (isCancelled()) return result;
@@ -400,10 +401,9 @@ public class PreviewImageFragment extends FileFragment {
                 File picture = new File(storagePath);
 
                 if (picture != null) {
-                    // Decode file into a bitmap in real size for being able to make zoom on 
-                    // the image
-                    result = BitmapFactory.decodeStream(new FlushedInputStream
-                            (new BufferedInputStream(new FileInputStream(picture))));
+                    // Decode file into a bitmap in real size for being able to make zoom on the image
+                    is = new FlushedInputStream(new BufferedInputStream(new FileInputStream(picture)));
+                    result = BitmapFactory.decodeStream(is);
                 }
 
                 if (isCancelled()) return result;
@@ -441,6 +441,14 @@ public class PreviewImageFragment extends FileFragment {
                 mErrorMessageId = R.string.common_error_unknown;
                 Log_OC.e(TAG, "Unexpected error loading " + getFile().getStoragePath(), t);
                 
+            } finally {
+                if (is != null) {
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        Log_OC.e(TAG, "Unexpected exception closing stream; trying to continue ", e);
+                    }
+                }
             }
             
             return result;
