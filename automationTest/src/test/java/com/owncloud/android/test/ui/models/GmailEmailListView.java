@@ -13,9 +13,9 @@ public class GmailEmailListView {
 	final AndroidDriver driver;
 	
 	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"me about UploadFile,  on May 11, conversation read\")")
-	private AndroidElement email;
+	private AndroidElement emailAmericanFormatDate;
 	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"me about UploadFile,  on 11 May, conversation read\")")
-	private AndroidElement email2;
+	private AndroidElement emailEuropeanFormatDate;
 	
 		
 	public GmailEmailListView (AndroidDriver driver) {
@@ -25,9 +25,9 @@ public class GmailEmailListView {
 	
 	public GmailEmailView clickOnEmail (){
 		try{
-			email.click();
+			emailAmericanFormatDate.click();
 		}catch (NoSuchElementException e) {
-			email2.click();
+			emailEuropeanFormatDate.click();
 		}
 		GmailEmailView gmailEmailView = new GmailEmailView(driver);
 		return gmailEmailView;
