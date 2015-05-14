@@ -64,17 +64,18 @@ import third_parties.michaelOrtiz.TouchImageViewCustom;
 /**
  * This fragment shows a preview of a downloaded image.
  * 
- * Trying to get an instance with NULL {@link OCFile} or ownCloud {@link Account} values will produce an {@link IllegalStateException}.
+ * Trying to get an instance with a NULL {@link OCFile} will produce an {@link IllegalStateException}.
  * 
  * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on instantiation too.
  */
 public class PreviewImageFragment extends FileFragment {
 
     public static final String EXTRA_FILE = "FILE";
-    public static final String EXTRA_ACCOUNT = "ACCOUNT";
+
+    private static final String ARG_FILE = "FILE";
+    private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
 
     private View mView;
-    private Account mAccount;
     private TouchImageViewCustom mImageView;
     private TextView mMessageView;
     private ProgressBar mProgressWheel;
@@ -87,33 +88,39 @@ public class PreviewImageFragment extends FileFragment {
     
     private LoadBitmapTask mLoadBitmapTask = null;
 
-    
+
     /**
-     * Creates a fragment to preview an image.
-     * 
-     * When 'imageFile' or 'ocAccount' are null
-     * 
+     * Public factory method to create a new fragment that previews an image.
+     *
+     * Android strongly recommends keep the empty constructor of fragments as the only public constructor, and
+     * use {@link #setArguments(Bundle)} to set the needed arguments.
+     *
+     * This method hides to client objects the need of doing the construction in two steps.
+     *
      * @param imageFile                 An {@link OCFile} to preview as an image in the fragment
-     * @param ocAccount                 An ownCloud account; needed to start downloads
-     * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}; TODO better solution 
+     * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}
+     *                                  ; TODO better solution
      */
-    public PreviewImageFragment(OCFile fileToDetail, Account ocAccount, boolean ignoreFirstSavedState) {
-        super(fileToDetail);
-        mAccount = ocAccount;
-        mIgnoreFirstSavedState = ignoreFirstSavedState;
+    public static PreviewImageFragment newInstance(OCFile imageFile, boolean ignoreFirstSavedState) {
+        PreviewImageFragment frag = new PreviewImageFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_FILE, imageFile);
+        args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
+        frag.setArguments(args);
+        return frag;
     }
+
     
     
     /**
      *  Creates an empty fragment for image previews.
      * 
-     *  MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically (for instance, when the device is turned a aside).
+     *  MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically
+     *  (for instance, when the device is turned a aside).
      * 
      *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful construction 
      */
     public PreviewImageFragment() {
-        super();
-        mAccount = null;
         mIgnoreFirstSavedState = false;
     }
     
@@ -124,6 +131,11 @@ public class PreviewImageFragment extends FileFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        setFile((OCFile)args.getParcelable(ARG_FILE));
+            // TODO better in super, but needs to check ALL the class extending FileFragment; not right now
+
+        mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         setHasOptionsMenu(true);
     }
     
@@ -162,16 +174,12 @@ public class PreviewImageFragment extends FileFragment {
             if (!mIgnoreFirstSavedState) {
                 OCFile file = (OCFile)savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE);
                 setFile(file);
-                mAccount = savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_ACCOUNT);
             } else {
                 mIgnoreFirstSavedState = false;
             }
         }
         if (getFile() == null) {
             throw new IllegalStateException("Instanced with a NULL OCFile");
-        }
-        if (mAccount == null) {
-            throw new IllegalStateException("Instanced with a NULL ownCloud Account");
         }
         if (!getFile().isDown()) {
             throw new IllegalStateException("There is no local file to preview");
@@ -186,7 +194,6 @@ public class PreviewImageFragment extends FileFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(PreviewImageFragment.EXTRA_FILE, getFile());
-        outState.putParcelable(PreviewImageFragment.EXTRA_ACCOUNT, mAccount);
     }
     
 
@@ -329,8 +336,9 @@ public class PreviewImageFragment extends FileFragment {
         if (mBitmap != null) {
             mBitmap.recycle();
             System.gc();
-                // putting this in onStop() is just the same; the fragment is always destroyed by the ViewPager
-                // when swipes further than the valid offset, and onStop() is never called before than that
+                // putting this in onStop() is just the same; the fragment is always destroyed by
+                // {@link FragmentStatePagerAdapter} when the fragment in swiped further than the valid offscreen
+                // distance, and onStop() is never called before than that
         }
         super.onDestroy();
     }
@@ -350,20 +358,22 @@ public class PreviewImageFragment extends FileFragment {
         /**
          * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
          * 
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load finishes.
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before
+         * the load finishes.
          */
         private final WeakReference<ImageViewCustom> mImageViewRef;
 
         /**
          * Weak reference to the target {@link TextView} where error messages will be written.
          * 
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load finishes.
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the
+         * load finishes.
          */
         private final WeakReference<TextView> mMessageViewRef;
 
         
         /**
-         * Weak reference to the target {@link Progressbar} shown while the load is in progress.
+         * Weak reference to the target {@link ProgressBar} shown while the load is in progress.
          * 
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load finishes.
          */

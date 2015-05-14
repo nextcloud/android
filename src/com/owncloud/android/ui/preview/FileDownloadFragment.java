@@ -23,18 +23,16 @@ import java.lang.ref.WeakReference;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 import android.accounts.Account;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -50,10 +48,14 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     private static final String EXTRA_ERROR = "ERROR";
+    
+    private static final String ARG_FILE = "FILE";
+    private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
+    private static final String ARG_ACCOUNT = "ACCOUNT" ;
 
     private View mView;
     private Account mAccount;
-    
+
     public ProgressListener mProgressListener;
     private boolean mListening;
     
@@ -61,12 +63,39 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     
     private boolean mIgnoreFirstSavedState;
     private boolean mError;
-    
+
+
+    /**
+     * Public factory method to create a new fragment that shows the progress of a file download.
+     *
+     * Android strongly recommends keep the empty constructor of fragments as the only public constructor, and
+     * use {@link #setArguments(Bundle)} to set the needed arguments.
+     *
+     * This method hides to client objects the need of doing the construction in two steps.
+     *
+     * When 'file' is null creates a dummy layout (useful when a file wasn't tapped before).
+     *
+     * @param file                      An {@link OCFile} to show in the fragment
+     * @param account                   An OC account; needed to start downloads
+     * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}
+     *                                  TODO better solution
+     */
+    public static Fragment newInstance(OCFile file, Account account, boolean ignoreFirstSavedState) {
+        FileDownloadFragment frag = new FileDownloadFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_FILE, file);
+        args.putParcelable(ARG_ACCOUNT, account);
+        args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
+        frag.setArguments(args);
+        return frag;
+    }
+
 
     /**
      * Creates an empty details fragment.
      * 
-     * It's necessary to keep a public constructor without parameters; the system uses it when tries to reinstantiate a fragment automatically. 
+     * It's necessary to keep a public constructor without parameters; the system uses it when tries to
+     * reinstantiate a fragment automatically.
      */
     public FileDownloadFragment() {
         super();
@@ -76,30 +105,17 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         mIgnoreFirstSavedState = false;
         mError = false;
     }
-    
-    
-    /**
-     * Creates a details fragment.
-     * 
-     * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
-     * 
-     * @param fileToDetail      An {@link OCFile} to show in the fragment
-     * @param ocAccount         An ownCloud account; needed to start downloads
-     * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}; TODO better solution 
-     */
-    public FileDownloadFragment(OCFile fileToDetail, Account ocAccount, boolean ignoreFirstSavedState) {
-        super(fileToDetail);
-        mAccount = ocAccount;
-        mProgressListener = null;
-        mListening = false;
-        mIgnoreFirstSavedState = ignoreFirstSavedState;
-        mError = false;
-    }
-    
-    
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        setFile((OCFile)args.getParcelable(ARG_FILE));
+            // TODO better in super, but needs to check ALL the class extending FileFragment; not right now
+
+        mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
+        mAccount = args.getParcelable(ARG_ACCOUNT);
     }
     
 
@@ -125,9 +141,9 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.progressBar);
         mProgressListener = new ProgressListener(progressBar);
         
-        ((ImageButton)mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
+        (mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
         
-        ((LinearLayout)mView.findViewById(R.id.fileDownloadLL)).setOnClickListener(new OnClickListener() {
+        (mView.findViewById(R.id.fileDownloadLL)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((PreviewImageActivity) getActivity()).toggleFullScreen();
@@ -206,31 +222,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     
     /**
-     * Updates the view depending upon the state of the downloading file.
-     * 
-     * @param   transferring    When true, the view must be updated assuming that the holded file is 
-     *                          downloading, no matter what the downloaderBinder says.
-     */
-    /*
-    public void updateView(boolean transferring) {
-        // configure UI for depending upon local state of the file
-        // TODO remove
-        if (transferring || getFile().isDownloading()) {
-            setButtonsForTransferring();
-            
-        } else if (getFile().isDown()) {
-            
-            setButtonsForDown();
-            
-        } else {
-            setButtonsForRemote();
-        }
-        getView().invalidate();
-        
-    }
-    */
-
-    /**
      * Enables or disables buttons for a file being downloaded
      */
     private void setButtonsForTransferring() {
@@ -289,7 +280,9 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void listenForTransferProgress() {
         if (mProgressListener != null && !mListening) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
-                mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(
+                        mProgressListener, mAccount, getFile()
+                );
                 mListening = true;
                 setButtonsForTransferring();
             }
@@ -300,13 +293,15 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void leaveTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
-                mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(
+                        mProgressListener, mAccount, getFile()
+                );
                 mListening = false;
             }
         }
     }
 
-    
+
     /**
      * Helper class responsible for updating the progress bar shown for file uploading or downloading
      */
@@ -319,7 +314,9 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         }
         
         @Override
-        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
+        public void onTransferProgress(
+                long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename
+        ) {
             int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
             if (percent != mLastPercent) {
                 ProgressBar pb = mProgressBar.get();
