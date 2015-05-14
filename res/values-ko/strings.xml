@@ -2,7 +2,7 @@
 <resources>
   <string name="about_android">%1$s 안드로이드 앱</string>
   <string name="about_version">버전 %1$s</string>
-  <string name="actionbar_sync">계정 새로고침</string>
+  <string name="actionbar_sync">계정 새로 고침</string>
   <string name="actionbar_upload">업로드</string>
   <string name="actionbar_upload_from_apps">다른 앱의 콘텐츠</string>
   <string name="actionbar_upload_files">파일</string>
@@ -23,6 +23,7 @@
   <string name="prefs_category_more">더 보기</string>
   <string name="prefs_accounts">계정</string>
   <string name="prefs_manage_accounts">계정 관리</string>
+  <string name="prefs_passcode">암호 잠금</string>
   <string name="prefs_instant_upload">사진 즉시 업로드</string>
   <string name="prefs_instant_upload_summary">카메라로 찍은 사진 즉시 업로드</string>
   <string name="prefs_instant_video_upload">동영상 즉시 업로드</string>
@@ -126,6 +127,15 @@
   <string name="foreign_files_local_text">로컬: %1$s</string>
   <string name="foreign_files_remote_text">원격: %1$s</string>
   <string name="upload_query_move_foreign_files">선택한 파일을 폴더 %1$s(으)로 복사할 공간이 부족합니다. 파일을 이동하시겠습니까?</string>
+  <string name="pass_code_enter_pass_code">암호를 입력하십시오</string>
+  <string name="pass_code_configure_your_pass_code">암호를 입력하십시오</string>
+  <string name="pass_code_configure_your_pass_code_explanation">앱을 시작할 때마다 암호를 물어봅니다</string>
+  <string name="pass_code_reenter_your_pass_code">암호를 다시 입력하십시오</string>
+  <string name="pass_code_remove_your_pass_code">내 암호 삭제</string>
+  <string name="pass_code_mismatch">암호가 일치하지 않습니다</string>
+  <string name="pass_code_wrong">암호가 잘못됨</string>
+  <string name="pass_code_removed">암호 삭제됨</string>
+  <string name="pass_code_stored">암호 저장됨</string>
   <string name="media_notif_ticker">%1$s 음악 재생기</string>
   <string name="media_state_playing">%1$s (재생 중)</string>
   <string name="media_state_loading">%1$s (불러오는 중)</string>
@@ -177,7 +187,7 @@
   <string name="auth_fail_get_user_name">서버에서 올바른 사용자 ID를 반환하지 않았습니다. 관리자에게 연락하십시오
 	</string>
   <string name="auth_can_not_auth_against_server">이 서버에 인증할 수 없음</string>
-  <string name="auth_account_does_not_exist">장치에 아직 계정이 존재하지 않습니다.</string>
+  <string name="auth_account_does_not_exist">장치에 아직 계정이 없음</string>
   <string name="fd_keep_in_sync">파일을 최신 정보로 유지</string>
   <string name="common_rename">이름 바꾸기</string>
   <string name="common_remove">삭제</string>
@@ -201,6 +211,7 @@
   <string name="filedisplay_unexpected_bad_get_content">예상하지 못한 오류입니다. 다른 앱에서 파일을 선택하십시오</string>
   <string name="filedisplay_no_file_selected">선택한 파일 없음</string>
   <string name="activity_chooser_title">다음으로 링크 보내기...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
   <string name="oauth_check_onoff">oAuth2로 로그인하기</string>
   <string name="oauth_login_connection">oAuth2 서버에 연결 중...</string>
   <string name="ssl_validator_header">사이트 인증서를 확인할 수 없습니다</string>
@@ -250,8 +261,8 @@
   <string name="share_link_file_error">이 파일이나 폴더를 공유하는 중 오류 발생</string>
   <string name="unshare_link_file_no_exist">공유를 해제할 수 없습니다. 파일이 있는지 확인하십시오</string>
   <string name="unshare_link_file_error">이 파일이나 폴더의 공유를 해제하는 중 오류 발생</string>
-  <string name="share_link_password_title">비밀번호를 입력하십시요.</string>
-  <string name="share_link_empty_password">비밀번호를 입력해야만 합니다.</string>
+  <string name="share_link_password_title">암호 입력</string>
+  <string name="share_link_empty_password">암호를 입력해야 합니다</string>
   <string name="activity_chooser_send_file_title">보내기</string>
   <string name="copy_link">링크 주소 복사</string>
   <string name="clipboard_text_copied">클립보드로 복사됨</string>
@@ -290,8 +301,8 @@
   <string name="prefs_category_instant_uploading">즉시 업로드</string>
   <string name="prefs_category_security">보안</string>
   <string name="prefs_instant_video_upload_path_title">동영상 업로드 경로</string>
-  <string name="download_folder_failed_content">%1$s 폴더를 다운로드할 수 없습니다</string>
-  <string name="subject_token">%1$s에서 \"%2$s\"를 당신과 공유하였습니다.</string>
+  <string name="download_folder_failed_content">폴더 %1$s을(를) 다운로드할 수 없음</string>
+  <string name="subject_token">%1$s 님이 \"%2$s\"을(를) 공유함</string>
   <string name="auth_refresh_button">연결 새로 고침</string>
   <string name="auth_host_address">서버 주소</string>
 </resources>

@@ -249,6 +249,8 @@
   <string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp</string>
   <string name="unshare_link_file_no_exist">Lyckades ej sluta dela. Vänligen kontrollera om filen existerar</string>
   <string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp</string>
+  <string name="share_link_password_title">Ange ett lösenord</string>
+  <string name="share_link_empty_password">Du måste ange ett lösenord</string>
   <string name="activity_chooser_send_file_title">Skicka</string>
   <string name="copy_link">Kopiera länk</string>
   <string name="clipboard_text_copied">Kopierat till urklipp</string>
@@ -287,5 +289,7 @@
   <string name="prefs_category_instant_uploading">Direktuppladning</string>
   <string name="prefs_category_security">Säkerhet</string>
   <string name="prefs_instant_video_upload_path_title">Uppladdnings-sökväg för video</string>
+  <string name="download_folder_failed_content">Neddladning utav %1$s mappen kunde inte slutföras</string>
+  <string name="subject_token">%1$s delade \"%2$s\" med dig</string>
   <string name="auth_host_address">Serveradress</string>
 </resources>
