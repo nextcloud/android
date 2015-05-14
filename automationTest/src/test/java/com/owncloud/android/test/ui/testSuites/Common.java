@@ -67,7 +67,7 @@ public class Common{
 		}
 	}
 
-	protected boolean isElementPresent(AndroidElement element) {
+	public static boolean isElementPresent(AndroidElement element) {
 		try{
 			element.isDisplayed();
 		} catch (NoSuchElementException e){

@@ -14,12 +14,14 @@ import org.junit.runners.MethodSorters;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.owncloud.android.test.ui.actions.Actions;
 import com.owncloud.android.test.ui.groups.FailingTestCategory;
 import com.owncloud.android.test.ui.groups.IgnoreTestCategory;
 import com.owncloud.android.test.ui.groups.NoIgnoreTestCategory;
+import com.owncloud.android.test.ui.groups.UnfinishedTestCategory;
 import com.owncloud.android.test.ui.models.FileDetailsView;
 import com.owncloud.android.test.ui.models.ElementMenuOptions;
 import com.owncloud.android.test.ui.models.GmailEmailListView;
@@ -36,9 +38,12 @@ public class UploadTestSuite{
 	AndroidDriver driver;
 	Common common;
 	String FILE_NAME = Config.fileToTestName;
-	
+	String FILE_GMAIL_NAME = Config.fileToTestSendByEmailName;
+	private Boolean fileHasBeenUploadedFromGmail = false;
+	private Boolean fileHasBeenUploaded = false;
+
 	@Rule public TestName name = new TestName();
-	
+
 
 	@Before
 	public void setUp() throws Exception {
@@ -63,11 +68,13 @@ public class UploadTestSuite{
 		Common.waitTillElementIsNotPresent(fileListViewAfterUploadFile.getProgressCircular(), 1000);
 		common.wait.until(ExpectedConditions.visibilityOf(fileListViewAfterUploadFile.getFileElementLayout().findElement(By.id(FileListView.getLocalFileIndicator()))));
 		assertTrue(fileListViewAfterUploadFile.getFileElementLayout().findElement(By.id(FileListView.getLocalFileIndicator())).isDisplayed());
-
+		fileListView = new FileListView(driver);
+		fileListView.scrollTillFindElement(FILE_NAME);
+		assertTrue(fileHasBeenUploaded = fileListView.getFileElement().isDisplayed());
 	}
-	
+
 	@Test
-	@Category(IgnoreTestCategory.class)
+	@Category(UnfinishedTestCategory.class)
 	public void testUploadFromGmail () throws Exception {
 		FileListView fileListView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);
 		driver.startActivity("com.google.android.gm", ".ConversationListActivityGmail");
@@ -78,17 +85,26 @@ public class UploadTestSuite{
 		imageView.clickOnOptionsButton();
 		imageView.clickOnShareButton();
 		imageView.clickOnOwnCloudButton();
-		imageView.clickOnJustOnceButton();
+		//justonce button do not appear always
+		try{
+			imageView.clickOnJustOnceButton();
+		}catch (NoSuchElementException e) {
+		}
 		UploadView uploadView = new UploadView(driver);
 		uploadView.clickOUploadButton();
+		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_HOME);
 		driver.startActivity("com.owncloud.android", ".ui.activity.FileDisplayActivity");
-		common.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.name(Config.fileToTestSendByEmailName)));
-		assertEquals(Config.fileToTestSendByEmailName , driver.findElementByName(Config.fileToTestSendByEmailName).getText());
+		common.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.name(FILE_GMAIL_NAME)));
+		assertEquals(Config.fileToTestSendByEmailName , driver.findElementByName(FILE_GMAIL_NAME).getText());
+		fileListView = new FileListView(driver);
+		fileListView.scrollTillFindElement(FILE_GMAIL_NAME);
+		assertTrue(fileHasBeenUploadedFromGmail = fileListView.getFileElement().isDisplayed());
+		//TODO. correct assert if fileListView is shown in grid mode
 	}
 
-	
+
 	@Test	
-	@Category({IgnoreTestCategory.class, FailingTestCategory.class})
+	@Category({FailingTestCategory.class})
 	public void testKeepFileUpToDate () throws Exception {
 
 		FileListView fileListView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);
@@ -105,9 +121,8 @@ public class UploadTestSuite{
 		fileDetailsView.checkKeepFileUpToDateCheckbox();
 		Thread.sleep(3000);
 		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_BACK);
-		//assertTrue(common.isElementPresent(fileListViewAfterUploadFile.getFileElementLayout(), MobileBy.id(FileListView.getFavoriteFileIndicator())));
+		assertTrue(common.isElementPresent(fileListViewAfterUploadFile.getFileElementLayout(), MobileBy.id(FileListView.getFavoriteFileIndicator())));
 		assertTrue(fileListViewAfterUploadFile.getFileElementLayout().findElement(By.id(FileListView.getFavoriteFileIndicator())).isDisplayed());
-
 	}
 
 
@@ -115,7 +130,13 @@ public class UploadTestSuite{
 	public void tearDown() throws Exception {
 		common.takeScreenShotOnFailed(name.getMethodName());
 		FileListView fileListView = new FileListView(driver);
-		Actions.deleteElement(FILE_NAME,fileListView, driver);
+		if (fileHasBeenUploadedFromGmail) {
+			Actions.deleteElement(FILE_GMAIL_NAME,fileListView, driver);
+		}
+		if(fileHasBeenUploaded){
+			Actions.deleteElement(FILE_NAME,fileListView, driver);
+		}
+
 		driver.removeApp("com.owncloud.android");
 		driver.quit();
 	}
