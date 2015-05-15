@@ -21,7 +21,7 @@
 	<style name="Animations" />
 
 	<!-- General ownCloud app style -->
-	<style name="Theme.ownCloud" parent="style/Theme.Sherlock.Light.DarkActionBar">
+	<style name="Theme.ownCloud" parent="style/Theme.AppCompat.Light.DarkActionBar">
     	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
     	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
     	<item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
@@ -29,7 +29,7 @@
     	<item name="android:actionDropDownStyle">@style/Theme.ownCloud.DropDownStyle</item>
 	</style>
 	
-	<style name="Theme.ownCloud.noActionBar" parent="style/Theme.Sherlock.Light.NoActionBar">
+	<style name="Theme.ownCloud.noActionBar" parent="style/Theme.AppCompat.Light.NoActionBar">
       <item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
       <item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
       <item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
@@ -37,7 +37,7 @@
       <item name="android:actionDropDownStyle">@style/Theme.ownCloud.DropDownStyle</item>
     </style>
 	
-	<style name="Theme.ownCloud.Fullscreen" parent="style/Theme.Sherlock.NoActionBar">
+	<style name="Theme.ownCloud.Fullscreen" parent="style/Theme.AppCompat.NoActionBar">
       <item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
       <item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
       <item name="android:windowFullscreen">true</item>
@@ -46,7 +46,8 @@
     </style>
 	
 	
-	<style name="Theme.ownCloud.Widget.ActionBar" parent="style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+	<style name="Theme.ownCloud.Widget.ActionBar"
+		parent="style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
     	<item name="android:background">@drawable/main_header_bg</item>
     	<item name="background">@drawable/main_header_bg</item>
     	<item name="android:textColor">#ffffff</item>
@@ -54,7 +55,9 @@
     	<item name="android:shadowRadius">1</item>
     	<item name="android:shadowDy">1</item>
     	<item name="android:backgroundSplit">@drawable/split_action_bg</item>
-    	<item name="android:indeterminateProgressStyle">@style/Theme.ownCloud.IndeterminateStyle</item>
+    	<item name="android:indeterminateProgressStyle">
+			@style/Theme.ownCloud.IndeterminateStyle
+		</item>
     	<item name="indeterminateProgressStyle">@style/Theme.ownCloud.IndeterminateStyle</item>
 	</style>
 
