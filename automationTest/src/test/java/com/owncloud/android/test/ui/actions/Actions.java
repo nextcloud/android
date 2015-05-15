@@ -1,3 +1,23 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author purigarcia
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.test.ui.actions;
 
 import java.util.HashMap;
@@ -26,15 +46,20 @@ import com.owncloud.android.test.ui.testSuites.Common;
 
 public class Actions {
 
-	public static FileListView login(String url, String user, String password, Boolean isTrusted, AndroidDriver driver) throws InterruptedException {
+	public static FileListView login(String url, String user, String password,
+			Boolean isTrusted, AndroidDriver driver) 
+					throws InterruptedException {
 		LoginForm loginForm = new LoginForm(driver);
 		CertificatePopUp certificatePopUp = loginForm.typeHostUrl(url);	
 		if(!isTrusted){
 			WebDriverWait wait = new WebDriverWait(driver, 30);
-			//sometimes the certificate has been already accept and it doesn't appear again
+			//sometimes the certificate has been already accept 
+			//and it doesn't appear again
 			try {
-				wait.until(ExpectedConditions.visibilityOf(certificatePopUp.getOkButtonElement()));
-				//we need to repaint the screen because of some element are misplaced
+				wait.until(ExpectedConditions
+						.visibilityOf(certificatePopUp.getOkButtonElement()));
+				//we need to repaint the screen 
+				//because of some element are misplaced
 				driver.rotate(ScreenOrientation.LANDSCAPE);
 				driver.rotate(ScreenOrientation.PORTRAIT);
 				certificatePopUp.clickOnOkButton();
@@ -49,26 +74,30 @@ public class Actions {
 		return loginForm.clickOnConnectButton();
 	}
 
-	public static WaitAMomentPopUp createFolder(String folderName, FileListView fileListView){
+	public static WaitAMomentPopUp createFolder(String folderName,
+			FileListView fileListView){
 		NewFolderPopUp newFolderPopUp = fileListView.clickOnNewFolderButton();
 		newFolderPopUp.typeNewFolderName(folderName);
-		WaitAMomentPopUp waitAMomentPopUp = newFolderPopUp.clickOnNewFolderOkButton();
+		WaitAMomentPopUp waitAMomentPopUp = newFolderPopUp
+				.clickOnNewFolderOkButton();
 		//TODO. assert here
 		return waitAMomentPopUp;
 	}
 
 
-	public static AndroidElement scrollTillFindElement (String elementName, AndroidElement element, AndroidDriver driver) {
+	public static AndroidElement scrollTillFindElement (String elementName,
+			AndroidElement element, AndroidDriver driver) {
 		AndroidElement fileElement;
 
 		if(element.getAttribute("scrollable").equals("true")){
-			HashMap<String, String> scrollObject = new HashMap<String, String>();
+			HashMap<String, String> scrollObject = new HashMap<String,String>();
 			scrollObject.put("text", elementName);
 			scrollObject.put("element", ( (RemoteWebElement) element).getId());
 			driver.executeScript("mobile: scrollTo", scrollObject);
 		}
 		try {
-			fileElement = (AndroidElement) driver.findElementByName(elementName);
+			fileElement = (AndroidElement) driver
+					.findElementByName(elementName);
 		} catch (NoSuchElementException e) {
 			fileElement = null;
 		}
@@ -92,28 +121,39 @@ public class Actions {
 	}
 
 	//TODO. convert deleteFodler and deleteFile in deleteElement
-	public static AndroidElement deleteElement(String elementName,  FileListView fileListView, AndroidDriver driver) throws Exception{
+	public static AndroidElement deleteElement(String elementName,  
+			FileListView fileListView, AndroidDriver driver) throws Exception{
 		AndroidElement fileElement;
 		WaitAMomentPopUp waitAMomentPopUp;
 		try{
-			//To open directly the "file list view" and we don't need to know in which view we are
-			driver.startActivity("com.owncloud.android", ".ui.activity.FileDisplayActivity");
-			fileElement = (AndroidElement) driver.findElementByName(elementName);
-			ElementMenuOptions menuOptions = fileListView.longPressOnElement(elementName);
-			RemoveConfirmationView removeConfirmationView = menuOptions.clickOnRemove();;
-			waitAMomentPopUp = removeConfirmationView.clickOnRemoteAndLocalButton();
-			Common.waitTillElementIsNotPresent(waitAMomentPopUp.getWaitAMomentTextElement(), 100);
+			//To open directly the "file list view" and
+			//we don't need to know in which view we are
+			driver.startActivity("com.owncloud.android",
+					".ui.activity.FileDisplayActivity");
+			fileElement = (AndroidElement) driver
+					.findElementByName(elementName);
+			ElementMenuOptions menuOptions = fileListView
+					.longPressOnElement(elementName);
+			RemoveConfirmationView removeConfirmationView = menuOptions
+					.clickOnRemove();;
+			waitAMomentPopUp = removeConfirmationView
+					.clickOnRemoteAndLocalButton();
+			Common.waitTillElementIsNotPresent(
+					waitAMomentPopUp.getWaitAMomentTextElement(), 100);
 		}catch(NoSuchElementException e){
 			fileElement=null;
 		}
 		return fileElement;
 	}
 
-	public static FileListView uploadFile(String elementName,  FileListView fileListView) throws InterruptedException{
+	public static FileListView uploadFile(String elementName,
+			FileListView fileListView) throws InterruptedException{
 		fileListView.clickOnUploadButton();
-		UploadFilesView uploadFilesView = fileListView.clickOnFilesElementUploadFile();
+		UploadFilesView uploadFilesView = fileListView
+				.clickOnFilesElementUploadFile();
 		uploadFilesView.clickOnFileName(elementName);
-		FileListView fileListViewAfterUploadFile = uploadFilesView.clickOnUploadButton();
+		FileListView fileListViewAfterUploadFile = uploadFilesView
+				.clickOnUploadButton();
 		//TO DO. detect when the file is successfully uploaded
 		Thread.sleep(15000);
 		return fileListViewAfterUploadFile; 

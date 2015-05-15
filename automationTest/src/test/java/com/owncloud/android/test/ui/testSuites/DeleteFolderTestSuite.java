@@ -1,3 +1,23 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author purigarcia
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.test.ui.testSuites;
 
 import static org.junit.Assert.*;
@@ -38,19 +58,24 @@ public class DeleteFolderTestSuite{
 	@Test
 	@Category({NoIgnoreTestCategory.class, SmokeTestCategory.class})
 	public void testDeleteFolder () throws Exception {
-		FileListView fileListView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);
+		FileListView fileListView = Actions.login(Config.URL, Config.user,
+				Config.password, Config.isTrusted, driver);
 		common.assertIsInFileListView();
 		
 		//TODO. if the folder already exists, do no created
 		//create the folder
-		WaitAMomentPopUp waitAMomentPopUp = Actions.createFolder(FOLDER_NAME, fileListView);
-		Common.waitTillElementIsNotPresent(waitAMomentPopUp.getWaitAMomentTextElement(), 100);
+		WaitAMomentPopUp waitAMomentPopUp = Actions
+				.createFolder(FOLDER_NAME, fileListView);
+		Common.waitTillElementIsNotPresent(
+				waitAMomentPopUp.getWaitAMomentTextElement(), 100);
 		fileListView.scrollTillFindElement(FOLDER_NAME);
-		assertTrue(folderHasBeenCreated = fileListView.getFileElement().isDisplayed());
+		assertTrue(
+			folderHasBeenCreated = fileListView.getFileElement().isDisplayed());
 
 		//delete the folder
 		Actions.deleteElement(FOLDER_NAME, fileListView, driver);
-		assertFalse(folderHasBeenCreated =fileListView.getFileElement().isDisplayed());
+		assertFalse(
+			folderHasBeenCreated =fileListView.getFileElement().isDisplayed());
 	}
 
 	@After

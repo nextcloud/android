@@ -1,3 +1,23 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author purigarcia
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.test.ui.models;
 
 import org.openqa.selenium.support.CacheLookup;
@@ -12,7 +32,8 @@ public class LoginForm {
 	final AndroidDriver driver;
 	
 	@CacheLookup
-	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"Server address\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector()"
+			+ ".description(\"Server address\")")
 	private AndroidElement hostUrlInput;
 	
 	@CacheLookup
@@ -27,10 +48,12 @@ public class LoginForm {
 	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"Connect\")")
 	private AndroidElement connectButton;
 	
-	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"Testing connection\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector()"
+			+ ".description(\"Testing connection\")")
 	private AndroidElement serverStatusText;
 	
-	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"Wrong username or password\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector()"
+			+ ".description(\"Wrong username or password\")")
 	private AndroidElement authStatusText;
 	
 	public LoginForm (AndroidDriver driver) {
@@ -51,7 +74,8 @@ public class LoginForm {
 	
 	public void typeUserName (String userName) {
 		userNameInput.clear();
-		//using the \n , it not need to hide the keyboard which sometimes gives problems
+		//using the \n , it not need to hide the keyboard
+		//which sometimes gives problems
 		userNameInput.sendKeys(userName + "\n");
 		//driver.hideKeyboard();
 	}

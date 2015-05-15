@@ -1,3 +1,23 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author purigarcia
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.test.ui.testSuites;
 
 import static org.junit.Assert.*;
@@ -34,16 +54,21 @@ public class Common{
 		capabilities.setCapability("deviceName", "test");
 		capabilities.setCapability("app", app.getAbsolutePath());
 		capabilities.setCapability("appPackage", "com.owncloud.android");
-		capabilities.setCapability("appActivity", ".ui.activity.FileDisplayActivity");	
-		capabilities.setCapability("appWaitActivity", ".authentication.AuthenticatorActivity");
-		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-		driver.manage().timeouts().implicitlyWait(waitingTime, TimeUnit.SECONDS);
+		capabilities.setCapability("appActivity", 
+				".ui.activity.FileDisplayActivity");	
+		capabilities.setCapability("appWaitActivity", 
+				".authentication.AuthenticatorActivity");
+		driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),
+				capabilities);
+		driver.manage().timeouts().implicitlyWait(waitingTime,
+				TimeUnit.SECONDS);
 		wait = new WebDriverWait(driver, waitingTime, 50);
 		return driver;
 
 	}
 
-	protected boolean waitForTextPresent(String text, AndroidElement element) throws InterruptedException{
+	protected boolean waitForTextPresent(String text, AndroidElement element)
+			throws InterruptedException{
 		for (int second = 0;;second++){	
 			if (second >= waitingTime)
 				return false;
@@ -77,7 +102,8 @@ public class Common{
 	}
 
 	//pollingTime in milliseconds
-	public static void waitTillElementIsNotPresent (AndroidElement element, int pollingTime) throws Exception {
+	public static void waitTillElementIsNotPresent (AndroidElement element,
+			int pollingTime) throws Exception {
 		for (int time = 0;;time += pollingTime){	
 			if (time >= waitingTime * 1000) //convert to milliseconds
 				break;
@@ -91,24 +117,35 @@ public class Common{
 		throw new TimeoutException();
 	}
 
-	protected void takeScreenShotOnFailed (String testName) throws IOException {
-		File file  = ((RemoteWebDriver) driver).getScreenshotAs(OutputType.FILE);
+	protected void takeScreenShotOnFailed (String testName) 
+			throws IOException {
+		File file  = ((RemoteWebDriver) driver)
+				.getScreenshotAs(OutputType.FILE);
 		SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
 		Date today = Calendar.getInstance().getTime(); 
-		String screenShotName = "ScreenShots/" + dt1.format(today) + "/" + testName + ".png";
+		String screenShotName = "ScreenShots/" + dt1.format(today) + "/"
+		    + testName + ".png";
 		FileUtils.copyFile(file, new File(screenShotName));
 	}
 
 	protected void assertIsInFileListView() throws InterruptedException {
-		assertTrue(waitForTextPresent("ownCloud", (AndroidElement) driver.findElementByAndroidUIAutomator("new UiSelector().resourceId(\"android:id/action_bar_title\")")));
-		assertTrue(isElementPresent((AndroidElement) driver.findElementByAndroidUIAutomator("new UiSelector().description(\"Upload\")")));	
+		assertTrue(waitForTextPresent("ownCloud", (AndroidElement) driver
+				.findElementByAndroidUIAutomator("new UiSelector()"
+						+ ".resourceId(\"android:id/action_bar_title\")")));
+		assertTrue(isElementPresent((AndroidElement) driver
+				.findElementByAndroidUIAutomator("new UiSelector()"
+						+ ".description(\"Upload\")")));	
 	}
 
 	protected void assertIsNotInFileListView() throws InterruptedException {
 		AndroidElement fileElement;
-		assertTrue(waitForTextPresent("ownCloud", (AndroidElement) driver.findElementByAndroidUIAutomator("new UiSelector().resourceId(\"android:id/action_bar_title\")")));
+		assertTrue(waitForTextPresent("ownCloud", (AndroidElement) driver
+				.findElementByAndroidUIAutomator("new UiSelector()"
+						+ ".resourceId(\"android:id/action_bar_title\")")));
 		try {
-			fileElement = (AndroidElement) driver.findElementByAndroidUIAutomator("new UiSelector().description(\"Upload\")");
+			fileElement = (AndroidElement) driver
+					.findElementByAndroidUIAutomator("new UiSelector()"
+							+ ".description(\"Upload\")");
 		} catch (NoSuchElementException e) {
 			fileElement = null;
 		}
@@ -116,13 +153,19 @@ public class Common{
 	}
 	
 	protected void assertIsPasscodeRequestView() throws InterruptedException {
-		assertTrue(waitForTextPresent("ownCloud", (AndroidElement) driver.findElementByAndroidUIAutomator("new UiSelector().resourceId(\"android:id/action_bar_title\")")));
-		assertTrue(((AndroidElement) driver.findElementByAndroidUIAutomator("new UiSelector().text(\"Please, insert your pass code\")")).isDisplayed());
+		assertTrue(waitForTextPresent("ownCloud", (AndroidElement) driver
+				.findElementByAndroidUIAutomator("new UiSelector()"
+						+ ".resourceId(\"android:id/action_bar_title\")")));
+		assertTrue(((AndroidElement) driver.findElementByAndroidUIAutomator(
+				"new UiSelector().text(\"Please, insert your pass code\")"))
+				.isDisplayed());
 
 	}
 
 	protected void assertIsInSettingsView() throws InterruptedException {
-		assertTrue(waitForTextPresent("Settings", (AndroidElement) driver.findElementByAndroidUIAutomator("new UiSelector().resourceId(\"android:id/action_bar_title\")")));
+		assertTrue(waitForTextPresent("Settings", (AndroidElement) driver
+				.findElementByAndroidUIAutomator("new UiSelector()"
+						+ ".resourceId(\"android:id/action_bar_title\")")));
 	}
 
 }

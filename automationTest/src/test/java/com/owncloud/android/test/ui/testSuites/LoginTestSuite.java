@@ -1,3 +1,23 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author purigarcia
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.test.ui.testSuites;
 
 import static org.junit.Assert.*;
@@ -38,7 +58,8 @@ public class LoginTestSuite{
 	public void test1LoginPortrait () throws Exception {
 		driver.rotate(ScreenOrientation.PORTRAIT);
 		
-		FileListView fileListView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);
+		FileListView fileListView = Actions.login(Config.URL, Config.user,
+				Config.password, Config.isTrusted, driver);
 		common.assertIsInFileListView();
 	}
 	
@@ -46,7 +67,8 @@ public class LoginTestSuite{
 	@Category({NoIgnoreTestCategory.class})
 	public void test2LoginLandscape () throws Exception {
 		driver.rotate(ScreenOrientation.LANDSCAPE);
-		FileListView fileListView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);
+		FileListView fileListView = Actions.login(Config.URL, Config.user,
+				Config.password, Config.isTrusted, driver);
 		common.assertIsInFileListView();
 	}
 	
@@ -55,7 +77,8 @@ public class LoginTestSuite{
 	@Category({NoIgnoreTestCategory.class, SmokeTestCategory.class})
 	public void test3MultiAccountRotate () throws Exception {
 		driver.rotate(ScreenOrientation.LANDSCAPE);
-		FileListView fileListView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);
+		FileListView fileListView = Actions.login(Config.URL, Config.user,
+				Config.password, Config.isTrusted, driver);
 		common.assertIsInFileListView();
 		
 		driver.rotate(ScreenOrientation.PORTRAIT);
@@ -63,7 +86,8 @@ public class LoginTestSuite{
 		SettingsView settingsView = menu.clickOnSettingsButton();
 		
 		settingsView.tapOnAddAccount(1, 1000);
-		fileListView = Actions.login(Config.URL2, Config.user2,Config.password2, Config.isTrusted2, driver);
+		fileListView = Actions.login(Config.URL2, Config.user2,
+				Config.password2, Config.isTrusted2, driver);
 		common.assertIsInSettingsView();
 	}
 	
@@ -71,7 +95,8 @@ public class LoginTestSuite{
 	@Category({NoIgnoreTestCategory.class})
 	public void test4ExistingAccountRotate () throws Exception {
 		driver.rotate(ScreenOrientation.PORTRAIT);
-		FileListView fileListView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);
+		FileListView fileListView = Actions.login(Config.URL, Config.user,
+				Config.password, Config.isTrusted, driver);
 		common.assertIsInFileListView();
 		
 		driver.rotate(ScreenOrientation.LANDSCAPE);
@@ -80,23 +105,29 @@ public class LoginTestSuite{
 		settingsView.tapOnAddAccount(1, 1000);
 		
 		LoginForm loginForm = new LoginForm(driver);
-		fileListView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);	
-		assertTrue(common.waitForTextPresent("An account for the same user and server already exists in the device", loginForm.getAuthStatusText()));
+		fileListView = Actions.login(Config.URL, Config.user,Config.password, 
+				Config.isTrusted, driver);	
+		assertTrue(common.waitForTextPresent("An account for the same user and"
+				+ " server already exists in the device", 
+				loginForm.getAuthStatusText()));
 	}
 	
 	@Test
 	@Category({NoIgnoreTestCategory.class})
 	public void test5ChangePasswordWrong () throws Exception {
 		driver.rotate(ScreenOrientation.PORTRAIT);
-		FileListView fileListView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);
+		FileListView fileListView = Actions.login(Config.URL, Config.user,
+				Config.password, Config.isTrusted, driver);
 		common.assertIsInFileListView();
 		MenuList menu = fileListView.clickOnMenuButton();
 		SettingsView settingsView = menu.clickOnSettingsButton();
 		settingsView.tapOnAccountElement(1, 1000);
-		LoginForm changePasswordForm = settingsView.clickOnChangePasswordElement();
+		LoginForm changePasswordForm = settingsView
+				.clickOnChangePasswordElement();
 		changePasswordForm.typePassword("WrongPassword");
 		changePasswordForm.clickOnConnectButton();
-		assertTrue(common.waitForTextPresent("Wrong username or password", changePasswordForm.getAuthStatusText()));
+		assertTrue(common.waitForTextPresent("Wrong username or password", 
+				changePasswordForm.getAuthStatusText()));
 	}
 	
 

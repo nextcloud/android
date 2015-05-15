@@ -1,3 +1,23 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author purigarcia
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.test.ui.testSuites;
 
 import static org.junit.Assert.*;
@@ -41,39 +61,47 @@ public class MoveFolderTestSuite{
 	public void testMoveFolder () throws Exception {
 		WaitAMomentPopUp waitAMomentPopUp;
 
-		FileListView fileListView = Actions.login(Config.URL, Config.user,Config.password, Config.isTrusted, driver);
+		FileListView fileListView = Actions.login(Config.URL, Config.user,
+				Config.password, Config.isTrusted, driver);
 		common.assertIsInFileListView();
 
-		//Common.waitTillElementIsNotPresent(fileListView.getProgressCircular(), 1000);
+		//Common.waitTillElementIsNotPresent(
+		     //fileListView.getProgressCircular(), 1000);
 
 		//check if the folder already exists and if true, delete them
 		Actions.deleteElement(FOLDER_WHERE_MOVE, fileListView, driver);
 		Actions.deleteElement(FOLDER_TO_MOVE, fileListView, driver);
 
 		//Create the folder where the other is gone to be moved
-		waitAMomentPopUp = Actions.createFolder(FOLDER_WHERE_MOVE, fileListView);
-		Common.waitTillElementIsNotPresent(waitAMomentPopUp.getWaitAMomentTextElement(), 100);
+		waitAMomentPopUp = Actions
+				.createFolder(FOLDER_WHERE_MOVE, fileListView);
+		Common.waitTillElementIsNotPresent(
+				waitAMomentPopUp.getWaitAMomentTextElement(), 100);
 		fileListView.scrollTillFindElement(FOLDER_WHERE_MOVE);
 		assertTrue(fileListView.getFileElement().isDisplayed());
 
 		//Create the folder which is going to be moved
 		waitAMomentPopUp = Actions.createFolder(FOLDER_TO_MOVE, fileListView);
-		Common.waitTillElementIsNotPresent(waitAMomentPopUp.getWaitAMomentTextElement(), 100);
+		Common.waitTillElementIsNotPresent(
+				waitAMomentPopUp.getWaitAMomentTextElement(), 100);
 		fileListView.scrollTillFindElement(FOLDER_TO_MOVE);
 		assertTrue(fileListView.getFileElement().isDisplayed());
 
 		//select to move the folder
-		ElementMenuOptions menuOptions = fileListView.longPressOnElement(FOLDER_TO_MOVE);
+		ElementMenuOptions menuOptions = fileListView
+				.longPressOnElement(FOLDER_TO_MOVE);
 		MoveView moveView = menuOptions.clickOnMove();
 
 		//to move to a folder
 		moveView.scrollTillFindElement(FOLDER_WHERE_MOVE).tap(1,1);
 		waitAMomentPopUp = moveView.clickOnChoose();
-		Common.waitTillElementIsNotPresent(waitAMomentPopUp.getWaitAMomentTextElement(), 100);
+		Common.waitTillElementIsNotPresent(waitAMomentPopUp
+				.getWaitAMomentTextElement(), 100);
 		
 		//check that the folder moved is inside the other
 		fileListView.scrollTillFindElement(FOLDER_WHERE_MOVE).tap(1,1);
-		Common.waitTillElementIsNotPresent(fileListView.getProgressCircular(), 1000);
+		Common.waitTillElementIsNotPresent(fileListView.getProgressCircular(),
+				1000);
 		Thread.sleep(1000);
 		fileListView.scrollTillFindElement(FOLDER_TO_MOVE);
 		assertEquals(FOLDER_TO_MOVE , fileListView.getFileElement().getText());

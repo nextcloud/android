@@ -1,3 +1,23 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author purigarcia
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.test.ui.models;
 
 import java.util.List;
@@ -18,7 +38,8 @@ import com.owncloud.android.test.ui.actions.Actions;
 public class FileListView {
 	final AndroidDriver driver;
 	
-	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"More options\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector()"
+			+ ".description(\"More options\")")
 	private AndroidElement menuButton;
 	
 	@CacheLookup
@@ -26,14 +47,16 @@ public class FileListView {
 	private AndroidElement filesLayout;
 	
 	@CacheLookup
-	@AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"android:id/action_bar_title\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector()"
+			+ ".resourceId(\"android:id/action_bar_title\")")
 	private AndroidElement titleText;
 	
 	@AndroidFindBy(id = "android:id/progress_circular")
 	private AndroidElement progressCircular;
 
 	@CacheLookup
-	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"New folder\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector()"
+			+ ".description(\"New folder\")")
 	private AndroidElement newFolderButton;
 	
 	@CacheLookup
@@ -52,16 +75,20 @@ public class FileListView {
 	private AndroidElement filesElementUploadFile;
 	
 	@CacheLookup
-	@AndroidFindBy(uiAutomator = "new UiSelector().description(\"List Layout\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector()"
+			+ ".description(\"List Layout\")")
 	private AndroidElement listLayout;
 	
 	private AndroidElement fileElement;
 	
 	private AndroidElement fileElementLayout;
 	
-	private static String localFileIndicator = "com.owncloud.android:id/localFileIndicator";
-	private static String favoriteFileIndicator = "com.owncloud.android:id/favoriteIcon";
-	private static String sharedElementIndicator = "com.owncloud.android:id/sharedIcon";
+	private static String localFileIndicator = 
+			"com.owncloud.android:id/localFileIndicator";
+	private static String favoriteFileIndicator = 
+			"com.owncloud.android:id/favoriteIcon";
+	private static String sharedElementIndicator = 
+			"com.owncloud.android:id/sharedIcon";
 	
 	
 	public FileListView (AndroidDriver driver) {
@@ -133,9 +160,12 @@ public class FileListView {
 	}
 	
 	public AndroidElement scrollTillFindElement (String elementName) {
-        fileElement = Actions.scrollTillFindElement (elementName,filesLayout,driver);
+        fileElement = Actions
+        		.scrollTillFindElement (elementName,filesLayout,driver);
 		try {
-        	fileElementLayout = (AndroidElement) driver.findElementByAndroidUIAutomator("new UiSelector().description(\"LinearLayout-"+ elementName +"\")");
+        	fileElementLayout = (AndroidElement) driver
+        			.findElementByAndroidUIAutomator("new UiSelector()"
+        				+ ".description(\"LinearLayout-"+ elementName +"\")");
         } catch (NoSuchElementException e) {
         	fileElementLayout = null;
         }
@@ -163,7 +193,8 @@ public class FileListView {
 	}
 	public void pulldownToRefresh () throws InterruptedException {
 		Point listLocation = listLayout.getLocation();
-		driver.swipe(listLocation.getX(),listLocation.getY(), listLocation.getX(),listLocation.getY()+1000, 5000);
+		driver.swipe(listLocation.getX(),listLocation.getY(), 
+				listLocation.getX(),listLocation.getY()+1000, 5000);
 	}
 
 
