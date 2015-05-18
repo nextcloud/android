@@ -42,6 +42,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -65,7 +66,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
@@ -189,8 +189,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     /// Identifier of operation in progress which result shouldn't be lost 
     private long mWaitingForOpId = Long.MAX_VALUE;
 
-    private final String BASIC_TOKEN_TYPE = AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType());
-    private final String OAUTH_TOKEN_TYPE = AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType());
+    private final String BASIC_TOKEN_TYPE = AccountTypeUtils.getAuthTokenTypePass(
+            MainApp.getAccountType());
+    private final String OAUTH_TOKEN_TYPE = AccountTypeUtils.getAuthTokenTypeAccessToken(
+            MainApp.getAccountType());
     private final String SAML_TOKEN_TYPE =
             AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType());
 
@@ -204,7 +206,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     protected void onCreate(Bundle savedInstanceState) {
         //Log_OC.wtf(TAG,  "onCreate init");
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        //getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         mIsFirstAuthAttempt = true;
 
@@ -908,7 +910,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
         /// validate credentials accessing the root folder
-        OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(username, password);
+        OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBasicCredentials(username,
+                password);
         accessRootFolder(credentials);
     }
 
@@ -1016,7 +1019,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                     } catch (AccountNotFoundException e) {
                         Log_OC.e(TAG, "Account " + mAccount + " was removed!", e);
-                        Toast.makeText(this, R.string.auth_account_does_not_exist, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.auth_account_does_not_exist,
+                                Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }
@@ -1324,7 +1328,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Log_OC.d(TAG, "Got ACCESS TOKEN: " + mAuthToken);
 
             /// validate token accessing to root folder / getting session
-            OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBearerCredentials(mAuthToken);
+            OwnCloudCredentials credentials = OwnCloudCredentialsFactory.newBearerCredentials(
+                    mAuthToken);
             accessRootFolder(credentials);
 
         } else {
@@ -1361,7 +1366,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 } catch (AccountNotFoundException e) {
                     Log_OC.e(TAG, "Account " + mAccount + " was removed!", e);
-                    Toast.makeText(this, R.string.auth_account_does_not_exist, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.auth_account_does_not_exist,
+                            Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
@@ -1716,8 +1722,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAuthToken = sessionCookie;
             getRemoteUserNameOperation(sessionCookie, true);
             Fragment fd = getSupportFragmentManager().findFragmentByTag(SAML_DIALOG_TAG);
-            if (fd != null && fd instanceof SherlockDialogFragment) {
-                Dialog d = ((SherlockDialogFragment)fd).getDialog();
+            if (fd != null && fd instanceof DialogFragment) {
+                Dialog d = ((DialogFragment)fd).getDialog();
                 if (d != null && d.isShowing()) {
                     d.dismiss();
                 }
@@ -1819,8 +1825,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     
     private void dismissDialog(String dialogTag){
         Fragment frag = getSupportFragmentManager().findFragmentByTag(dialogTag);
-        if (frag != null && frag instanceof SherlockDialogFragment) {
-            SherlockDialogFragment dialog = (SherlockDialogFragment) frag;
+        if (frag != null && frag instanceof DialogFragment) {
+            DialogFragment dialog = (DialogFragment) frag;
             dialog.dismiss();
         }
     }

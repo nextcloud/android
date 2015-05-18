@@ -37,9 +37,9 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -67,15 +67,18 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 
 
 /**
- * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud {@link Account}s .
+ * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud
+ * {@link Account}s .
  */
-public class FileActivity extends SherlockFragmentActivity
+public class FileActivity extends AppCompatActivity
         implements OnRemoteOperationListener, ComponentsGetter {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
-    public static final String EXTRA_WAITING_TO_PREVIEW = "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
-    public static final String EXTRA_FROM_NOTIFICATION = "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
+    public static final String EXTRA_WAITING_TO_PREVIEW =
+            "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
+    public static final String EXTRA_FROM_NOTIFICATION =
+            "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     
     public static final String TAG = FileActivity.class.getSimpleName();
     
@@ -87,13 +90,14 @@ public class FileActivity extends SherlockFragmentActivity
     protected static final long DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS = 200;
     
     
-    /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located. */
+    /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
     private Account mAccount;
     
     /** Main {@link OCFile} handled by the activity.*/
     private OCFile mFile;
     
-    /** Flag to signal that the activity will is finishing to enforce the creation of an ownCloud {@link Account} */
+    /** Flag to signal that the activity will is finishing to enforce the creation of an ownCloud
+     * {@link Account} */
     private boolean mRedirectingToSetupAccount = false;
     
     /** Flag to signal when the value of mAccount was set */ 
@@ -147,23 +151,28 @@ public class FileActivity extends SherlockFragmentActivity
         } else {
             account = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
-            mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION, false);
+            mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION,
+                    false);
         }
 
-        AccountUtils.updateAccountVersion(this); // best place, before any access to AccountManager or database
+        AccountUtils.updateAccountVersion(this); // best place, before any access to AccountManager
+                                                 // or database
 
         setAccount(account, savedInstanceState != null);
         
         mOperationsServiceConnection = new OperationsServiceConnection();
-        bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection, Context.BIND_AUTO_CREATE);
+        bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
+                Context.BIND_AUTO_CREATE);
         
         mDownloadServiceConnection = newTransferenceServiceConnection();
         if (mDownloadServiceConnection != null) {
-            bindService(new Intent(this, FileDownloader.class), mDownloadServiceConnection, Context.BIND_AUTO_CREATE);
+            bindService(new Intent(this, FileDownloader.class), mDownloadServiceConnection,
+                    Context.BIND_AUTO_CREATE);
         }
         mUploadServiceConnection = newTransferenceServiceConnection();
         if (mUploadServiceConnection != null) {
-            bindService(new Intent(this, FileUploader.class), mUploadServiceConnection, Context.BIND_AUTO_CREATE);
+            bindService(new Intent(this, FileUploader.class), mUploadServiceConnection,
+                    Context.BIND_AUTO_CREATE);
         }
 
     }
@@ -255,7 +264,8 @@ public class FileActivity extends SherlockFragmentActivity
     protected void setAccount(Account account, boolean savedAccount) {
         Account oldAccount = mAccount;
         boolean validAccount =
-                (account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account.name));
+                (account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(),
+                        account.name));
         if (validAccount) {
             mAccount = account;
             mAccountWasSet = true;
@@ -342,9 +352,11 @@ public class FileActivity extends SherlockFragmentActivity
 
     
     /**
-     * Getter for the ownCloud {@link Account} where the main {@link OCFile} handled by the activity is located.
+     * Getter for the ownCloud {@link Account} where the main {@link OCFile} handled by the activity
+     * is located.
      * 
-     * @return  OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.
+     * @return  OwnCloud {@link Account} where the main {@link OCFile} handled by the activity
+     *          is located.
      */
     public Account getAccount() {
         return mAccount;
@@ -464,7 +476,8 @@ public class FileActivity extends SherlockFragmentActivity
      */
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the FileActivities ");
+        Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the " +
+                "FileActivities ");
         
         mFileOperationsHelper.setOpIdWaitingFor(Long.MAX_VALUE);
         
@@ -542,15 +555,16 @@ public class FileActivity extends SherlockFragmentActivity
     }
     
     
-    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
+    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation,
+                                              RemoteOperationResult result) {
         dismissLoadingDialog();
         
         if (result.isSuccess()){
             updateFileFromDB();
             
         } else {
-            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
-                    Toast.LENGTH_LONG);
+            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
+                            operation, getResources()), Toast.LENGTH_LONG);
             t.show();
         } 
     }
@@ -559,8 +573,8 @@ public class FileActivity extends SherlockFragmentActivity
             SynchronizeFolderOperation operation, RemoteOperationResult result
     ) {
         if (!result.isSuccess() && result.getCode() != ResultCode.CANCELLED){
-            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-                    Toast.LENGTH_LONG);
+            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
+                            operation, getResources()), Toast.LENGTH_LONG);
             t.show();
         }
     }
@@ -602,7 +616,8 @@ public class FileActivity extends SherlockFragmentActivity
         mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
         long waitingForOpId = mFileOperationsHelper.getOpIdWaitingFor();
         if (waitingForOpId <= Integer.MAX_VALUE) {
-            boolean wait = mOperationsServiceBinder.dispatchResultIfFinished((int)waitingForOpId, this);
+            boolean wait = mOperationsServiceBinder.dispatchResultIfFinished((int)waitingForOpId,
+                    this);
             if (!wait ) {
                 dismissLoadingDialog();
             }

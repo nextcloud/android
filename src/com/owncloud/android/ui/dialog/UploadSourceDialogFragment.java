@@ -26,8 +26,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -39,10 +39,11 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
  *
  * Assumes that its parent activity extends {@link FileActivity}
  */
-public class UploadSourceDialogFragment extends SherlockDialogFragment {
+public class UploadSourceDialogFragment extends DialogFragment {
 
     private final static String TAG =  UploadSourceDialogFragment.class.getSimpleName();
-    private final static String ARG_ACCOUNT =  UploadSourceDialogFragment.class.getSimpleName() + ".ARG_ACCOUNT";
+    private final static String ARG_ACCOUNT =  UploadSourceDialogFragment.class.getSimpleName() +
+            ".ARG_ACCOUNT";
 
     public static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
     public static final int ACTION_SELECT_MULTIPLE_FILES = 2;
@@ -68,19 +69,20 @@ public class UploadSourceDialogFragment extends SherlockDialogFragment {
                 getString(R.string.actionbar_upload_from_apps)
         };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.actionbar_upload);
         builder.setItems(allTheItems, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 if (item == 0) {
-                    Intent action = new Intent(getSherlockActivity(), UploadFilesActivity.class);
+                    Intent action = new Intent(getActivity(), UploadFilesActivity.class);
                     action.putExtra(
                             UploadFilesActivity.EXTRA_ACCOUNT,
-                            ((FileActivity)getSherlockActivity()).getAccount()
+                            ((FileActivity)getActivity()).getAccount()
                     );
-                    //startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES); // this flow seems broken;
-                                                                                    // Actionbarsherlock, maybe?
-                    getSherlockActivity().startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
+                    //startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
+                    // this flow seems broken;
+                    // Actionbarsherlock, maybe?
+                    getActivity().startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
 
                 } else if (item == 1) {
                     Intent action = new Intent(Intent.ACTION_GET_CONTENT);
@@ -91,7 +93,7 @@ public class UploadSourceDialogFragment extends SherlockDialogFragment {
                     }
                     //startActivityForResult(   // this flow seems broken;
                                                 // Actionbarsherlock, maybe?
-                    getSherlockActivity().startActivityForResult(
+                    getActivity().startActivityForResult(
                             Intent.createChooser(action, getString(R.string.upload_chooser_title)),
                             ACTION_SELECT_CONTENT_FROM_APPS
                     );

@@ -40,20 +40,20 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -73,7 +73,7 @@ import com.owncloud.android.utils.DisplayUtils;
 /**
  * An Activity that allows the user to change the application's settings.
  */
-public class Preferences extends SherlockPreferenceActivity
+public class Preferences extends PreferenceActivity
         implements AccountManagerCallback<Boolean>, ComponentsGetter {
     
     private static final String TAG = "OwnCloudPreferences";
@@ -110,10 +110,11 @@ public class Preferences extends SherlockPreferenceActivity
         mDbHandler = new DbHandler(getBaseContext());
         addPreferencesFromResource(R.xml.preferences);
 
-        ActionBar actionBar = getSherlock().getActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.actionbar_settings);
+        // TODO: Add Toolbar
+//        ActionBar actionBar = getSherlock().getActionBar();
+//        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setTitle(R.string.actionbar_settings);
 
         // For adding content description tag to a title field in the action bar
         int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");

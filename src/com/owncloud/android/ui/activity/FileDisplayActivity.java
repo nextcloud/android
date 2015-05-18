@@ -50,18 +50,17 @@ import android.provider.OpenableColumns;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -113,8 +112,8 @@ import com.owncloud.android.utils.UriUtils;
  */
 
 public class FileDisplayActivity extends HookActivity implements
-FileFragment.ContainerActivity, OnNavigationListener, 
-OnSslUntrustedCertListener, OnEnforceableRefreshListener {
+        FileFragment.ContainerActivity, ActionBar.OnNavigationListener,
+        OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     private ArrayAdapter<String> mDirectories;
 
@@ -159,7 +158,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         Log_OC.v(TAG, "onCreate() start");
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
-        super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
+        super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account
+                                            // is valid
 
         /// grant that FileObserverService is watching favorite files
         if (savedInstanceState == null) {
@@ -169,9 +169,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         
         /// Load of saved instance state
         if(savedInstanceState != null) {
-            mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
+            mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(
+                    FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            mWaitingToSend = (OCFile) savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
+            mWaitingToSend = (OCFile) savedInstanceState.getParcelable(
+                    FileDisplayActivity.KEY_WAITING_TO_SEND);
            
         } else {
             mWaitingToPreview = null;
@@ -191,9 +193,14 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         }
 
         // Action bar setup
-        mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
-        getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
-        setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);    // always AFTER setContentView(...) ; to work around bug in its implementation
+        mDirectories = new CustomArrayAdapter<String>(this,
+                R.layout.support_simple_spinner_dropdown_item);
+        getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS,
+                                                                // according to the official
+                                                                // documentation
+        setSupportProgressBarIndeterminateVisibility(mSyncInProgress
+        /*|| mRefreshSharesInProgress*/);
+        // always AFTER setContentView(...) ; to work around bug in its implementation
         
         setBackgroundText();
 
@@ -222,19 +229,22 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     protected void onAccountSet(boolean stateWasRecovered) {
         super.onAccountSet(stateWasRecovered);
         if (getAccount() != null) {
-            /// Check whether the 'main' OCFile handled by the Activity is contained in the current Account
+            /// Check whether the 'main' OCFile handled by the Activity is contained in the
+            // current Account
             OCFile file = getFile();
             // get parent from path
             String parentPath = "";
             if (file != null) {
                 if (file.isDown() && file.getLastSyncDateForProperties() == 0) {
-                    // upload in progress - right now, files are not inserted in the local cache until the upload is successful
-                    // get parent from path
-                    parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
+                    // upload in progress - right now, files are not inserted in the local
+                    // cache until the upload is successful get parent from path
+                    parentPath = file.getRemotePath().substring(0,
+                            file.getRemotePath().lastIndexOf(file.getFileName()));
                     if (getStorageManager().getFileByPath(parentPath) ==  null)
                         file = null; // not able to know the directory where the file is uploading
                 } else {
-                    file = getStorageManager().getFileByPath(file.getRemotePath());   // currentDir = null if not in the current Account
+                    file = getStorageManager().getFileByPath(file.getRemotePath());
+                    // currentDir = null if not in the current Account
                 }
             }
             if (file == null) {
@@ -268,7 +278,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 mDirectories.add(fileIt.getFileName());
             }
             // get parent from path
-            parentPath = fileIt.getRemotePath().substring(0, fileIt.getRemotePath().lastIndexOf(fileIt.getFileName()));
+            parentPath = fileIt.getRemotePath().substring(0,
+                    fileIt.getRemotePath().lastIndexOf(fileIt.getFileName()));
             fileIt = getStorageManager().getFileByPath(parentPath);
         }
         mDirectories.add(OCFile.PATH_SEPARATOR);
@@ -321,9 +332,12 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             if (file.isDown() && PreviewMediaFragment.canBePreviewed(file) 
                     && file.getLastSyncDateForProperties() > 0  // temporal fix
                     ) {
-                int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
-                boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
-                secondFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition, autoplay);
+                int startPlaybackPosition =
+                        getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
+                boolean autoplay =
+                        getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
+                secondFragment = new PreviewMediaFragment(file, getAccount(),
+                        startPlaybackPosition, autoplay);
 
             } else {
                 secondFragment = new FileDetailFragment(file, getAccount());
@@ -377,7 +391,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
 
     private OCFileListFragment getListOfFilesFragment() {
-        Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(
+                FileDisplayActivity.TAG_LIST_OF_FILES);
         if (listOfFiles != null) {
             return (OCFileListFragment)listOfFiles;
         }
@@ -386,7 +401,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     }
 
     public FileFragment getSecondFragment() {
-        Fragment second = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT);
+        Fragment second = getSupportFragmentManager().findFragmentByTag(
+                FileDisplayActivity.TAG_SECOND_FRAGMENT);
         if (second != null) {
             return (FileFragment)second;
         }
@@ -411,13 +427,16 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         }
     }
 
-    protected void refreshSecondFragment(String downloadEvent, String downloadedRemotePath, boolean success) {
+    protected void refreshSecondFragment(String downloadEvent, String downloadedRemotePath,
+                                         boolean success) {
         FileFragment secondFragment = getSecondFragment();
-        boolean waitedPreview = (mWaitingToPreview != null && mWaitingToPreview.getRemotePath().equals(downloadedRemotePath));
+        boolean waitedPreview = (mWaitingToPreview != null &&
+                mWaitingToPreview.getRemotePath().equals(downloadedRemotePath));
         if (secondFragment != null && secondFragment instanceof FileDetailFragment) {
             FileDetailFragment detailsFragment = (FileDetailFragment) secondFragment;
             OCFile fileInFragment = detailsFragment.getFile();
-            if (fileInFragment != null && !downloadedRemotePath.equals(fileInFragment.getRemotePath())) {
+            if (fileInFragment != null &&
+                    !downloadedRemotePath.equals(fileInFragment.getRemotePath())) {
                 // the user browsed to other file ; forget the automatic preview 
                 mWaitingToPreview = null;
 
@@ -431,7 +450,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 boolean detailsFragmentChanged = false;
                 if (waitedPreview) {
                     if (success) {
-                        mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());   // update the file from database, for the local storage path
+                        mWaitingToPreview = getStorageManager().getFileById(
+                                mWaitingToPreview.getFileId());   // update the file from database,
+                                                                  // for the local storage path
                         if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
                             startMediaPreview(mWaitingToPreview, 0, true);
                             detailsFragmentChanged = true;
@@ -460,7 +481,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSherlock().getMenuInflater();
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return true;
     }
@@ -544,16 +565,19 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         Log_OC.d(TAG, "Got to start sync");
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
             Log_OC.d(TAG, "Canceling all syncs for " + MainApp.getAuthority());
-            ContentResolver.cancelSync(null, MainApp.getAuthority());   // cancel the current synchronizations of any ownCloud account
+            ContentResolver.cancelSync(null, MainApp.getAuthority());
+            // cancel the current synchronizations of any ownCloud account
             Bundle bundle = new Bundle();
             bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
             bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-            Log_OC.d(TAG, "Requesting sync for " + getAccount().name + " at " + MainApp.getAuthority());
+            Log_OC.d(TAG, "Requesting sync for " + getAccount().name + " at " +
+                    MainApp.getAuthority());
             ContentResolver.requestSync(
                     getAccount(),
                     MainApp.getAuthority(), bundle);
         } else {
-            Log_OC.d(TAG, "Requesting sync for " + getAccount().name + " at " + MainApp.getAuthority() + " with new API");
+            Log_OC.d(TAG, "Requesting sync for " + getAccount().name + " at " +
+                    MainApp.getAuthority() + " with new API");
             SyncRequest.Builder builder = new SyncRequest.Builder();
             builder.setSyncAdapter(getAccount(), MainApp.getAuthority());
             builder.setExpedited(true);
@@ -586,7 +610,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             // the next operation triggers a new call to this method, but it's necessary to 
             // ensure that the name exposed in the action bar is the current directory when the 
             // user selected it in the navigation list
-            if (getSupportActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_LIST  && itemPosition != 0) 
+            if (getSupportActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_LIST  &&
+                    itemPosition != 0)
                 getSupportActionBar().setSelectedNavigationItem(0);
         }
         return true;
@@ -600,7 +625,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+        if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK ||
+                resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             //getClipData is only supported on api level 16+, Jelly Bean
             if (data.getData() == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
                 for( int i = 0; i < data.getClipData().getItemCount(); i++){
@@ -611,7 +637,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             }else {
                 requestSimpleUpload(data, resultCode);
             }
-        } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+        } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK ||
+                resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestMultipleUpload(data, resultCode);
 
         } else if (requestCode == ACTION_MOVE_FILES && resultCode == RESULT_OK){
@@ -685,13 +712,15 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 filePath = fileManagerString;
 
         } catch (Exception e) {
-            Log_OC.e(TAG, "Unexpected exception when trying to read the result of Intent.ACTION_GET_CONTENT", e);
+            Log_OC.e(TAG, "Unexpected exception when trying to read the result of " +
+                    "Intent.ACTION_GET_CONTENT", e);
 
         } finally {
             if (filePath == null) {
                 Log_OC.e(TAG, "Couldn't resolve path to file");
                 Toast t = Toast.makeText(
-                        this, getString(R.string.filedisplay_unexpected_bad_get_content), Toast.LENGTH_LONG
+                        this, getString(R.string.filedisplay_unexpected_bad_get_content),
+                        Toast.LENGTH_LONG
                 );
                 t.show();
                 return;
@@ -707,7 +736,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             Cursor cursor = getContentResolver().query(Uri.parse(filePath), null, null, null, null);
             try {
                 if (cursor != null && cursor.moveToFirst()) {
-                    String displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    String displayName = cursor.getString(cursor.getColumnIndex(
+                            OpenableColumns.DISPLAY_NAME));
                     Log_OC.v(TAG, "Display Name: " + displayName );
 
                     displayName.replace(File.separatorChar, '_');
@@ -769,12 +799,14 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        // responsibility of restore is preferred in onCreate() before than in onRestoreInstanceState when there are Fragments involved
+        // responsibility of restore is preferred in onCreate() before than in
+        // onRestoreInstanceState when there are Fragments involved
         Log_OC.v(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         outState.putBoolean(FileDisplayActivity.KEY_SYNC_IN_PROGRESS, mSyncInProgress);
-        //outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS, mRefreshSharesInProgress);
+        //outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS,
+        // mRefreshSharesInProgress);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND, mWaitingToSend);
 
         Log_OC.v(TAG, "onSaveInstanceState() end");
@@ -798,7 +830,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
         registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
-        //LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+        //LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver,
+        // syncIntentFilter);
 
         // Listen for upload messages
         IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
@@ -905,9 +938,13 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 String event = intent.getAction();
                 Log_OC.d(TAG, "Received broadcast " + event);
                 String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
-                String synchFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH); 
-                RemoteOperationResult synchResult = (RemoteOperationResult)intent.getSerializableExtra(FileSyncAdapter.EXTRA_RESULT);
-                boolean sameAccount = (getAccount() != null && accountName.equals(getAccount().name) && getStorageManager() != null); 
+                String synchFolderRemotePath =
+                        intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
+                RemoteOperationResult synchResult =
+                        (RemoteOperationResult)intent.getSerializableExtra(
+                                FileSyncAdapter.EXTRA_RESULT);
+                boolean sameAccount = (getAccount() != null &&
+                        accountName.equals(getAccount().name) && getStorageManager() != null);
     
                 if (sameAccount) {
                     
@@ -915,13 +952,16 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                         mSyncInProgress = true;
                         
                     } else {
-                        OCFile currentFile = (getFile() == null) ? null : getStorageManager().getFileByPath(getFile().getRemotePath());
-                        OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
+                        OCFile currentFile = (getFile() == null) ? null :
+                                getStorageManager().getFileByPath(getFile().getRemotePath());
+                        OCFile currentDir = (getCurrentDir() == null) ? null :
+                                getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
     
                         if (currentDir == null) {
                             // current folder was removed from the server 
                             Toast.makeText( FileDisplayActivity.this, 
-                                            String.format(getString(R.string.sync_current_folder_was_removed), mDirectories.getItem(0)), 
+                                            String.format(getString(R.string.sync_current_folder_was_removed),
+                                                    mDirectories.getItem(0)),
                                             Toast.LENGTH_LONG)
                                 .show();
                             browseToRoot();
@@ -933,7 +973,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                                 currentFile = currentDir;
                             }
 
-                            if (synchFolderRemotePath != null && currentDir.getRemotePath().equals(synchFolderRemotePath)) {
+                            if (synchFolderRemotePath != null &&
+                                    currentDir.getRemotePath().equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
                                     fileListFragment.listDirectory(currentDir);
@@ -942,7 +983,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                             setFile(currentFile);
                         }
                         
-                        mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
+                        mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
+                                !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
                                 
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
                                     equals(event) &&
@@ -985,14 +1027,16 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                     }
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                    setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
+                    setSupportProgressBarIndeterminateVisibility(mSyncInProgress
+                    /*|| mRefreshSharesInProgress*/);
 
                     setBackgroundText();
                         
                 }
                 
                 if (synchResult != null) {
-                    if (synchResult.getCode().equals(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)) {
+                    if (synchResult.getCode().equals(
+                            RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)) {
                         mLastSslUntrustedServerResult = synchResult;
                     }
                 }
@@ -1045,7 +1089,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                     refreshListOfFilesFragment();
                 }
                 
-                boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false);
+                boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT,
+                        false);
                 boolean renamedInUpload = getFile().getRemotePath().
                         equals(intent.getStringExtra(FileUploader.EXTRA_OLD_REMOTE_PATH));
                 boolean sameFile = getFile().getRemotePath().equals(uploadedRemotePath) || 
@@ -1104,11 +1149,13 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         public void onReceive(Context context, Intent intent) {
             try {
                 boolean sameAccount = isSameAccount(context, intent);
-                String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+                String downloadedRemotePath =
+                        intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
                 boolean isDescendant = isDescendant(downloadedRemotePath);
 
                 if (sameAccount && isDescendant) {
-                    String linkedToRemotePath = intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
+                    String linkedToRemotePath =
+                            intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
                     if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
                         //Log_OC.v(TAG, "refresh #" + ++refreshCounter);
                         refreshListOfFilesFragment();
@@ -1121,7 +1168,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 }
     
                 if (mWaitingToSend != null) {
-                    mWaitingToSend = getStorageManager().getFileByPath(mWaitingToSend.getRemotePath());
+                    mWaitingToSend =
+                            getStorageManager().getFileByPath(mWaitingToSend.getRemotePath());
                     if (mWaitingToSend.isDown()) { 
                         sendDownloadedFile();
                     }
@@ -1153,7 +1201,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         private boolean isSameAccount(Context context, Intent intent) {
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
-            return (accountName != null && getAccount() != null && accountName.equals(getAccount().name));
+            return (accountName != null && getAccount() != null &&
+                    accountName.equals(getAccount().name));
         }
     }
     
@@ -1243,8 +1292,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                     actionBarTitleView.setContentDescription(getString(R.string.default_display_name_for_root_folder));
                 }
             }
-            actionBar.setNavigationMode(!noRoot ? ActionBar.NAVIGATION_MODE_STANDARD : ActionBar.NAVIGATION_MODE_LIST);
-            actionBar.setListNavigationCallbacks(mDirectories, this);   // assuming mDirectories is updated
+            actionBar.setNavigationMode(!noRoot ? ActionBar.NAVIGATION_MODE_STANDARD :
+                    ActionBar.NAVIGATION_MODE_LIST);
+            actionBar.setListNavigationCallbacks(mDirectories, this);
+            // assuming mDirectories is updated
 
         } else {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -1275,19 +1326,23 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mWaitingToPreview != null)
                     if (getStorageManager() != null) {
-                        mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId()); // update the file
+                         // update the file
+                        mWaitingToPreview =
+                                getStorageManager().getFileById(mWaitingToPreview.getFileId());
                         if (!mWaitingToPreview.isDown()) {
                             requestForDownload();
                         }
                 }
 
-            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
+            } else if (component.equals(new ComponentName(FileDisplayActivity.this,
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
                 return;
             }
-            // a new chance to get the mDownloadBinder through getFileDownloadBinder() - THIS IS A MESS
+            // a new chance to get the mDownloadBinder through
+            // getFileDownloadBinder() - THIS IS A MESS
             OCFileListFragment listOfFiles = getListOfFilesFragment(); 
             if (listOfFiles != null) {
                 listOfFiles.listDirectory();
@@ -1302,10 +1357,12 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         @Override
         public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
+            if (component.equals(new ComponentName(FileDisplayActivity.this,
+                    FileDownloader.class))) {
                 Log_OC.d(TAG, "Download service disconnected");
                 mDownloaderBinder = null;
-            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
+            } else if (component.equals(new ComponentName(FileDisplayActivity.this,
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service disconnected");
                 mUploaderBinder = null;
             }
@@ -1367,7 +1424,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     }
 
     
-    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
+    private void onCreateShareOperationFinish(CreateShareOperation operation,
+                                              RemoteOperationResult result) {
         if (result.isSuccess()) {
             refreshShowDetails();
             refreshListOfFilesFragment();
@@ -1375,7 +1433,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     }
 
     
-    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
+    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation,
+                                              RemoteOperationResult result) {
         if (result.isSuccess()) {
             refreshShowDetails();
             refreshListOfFilesFragment();
@@ -1404,16 +1463,18 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     }
     
     /**
-     * Updates the view associated to the activity after the finish of an operation trying to remove a 
-     * file. 
+     * Updates the view associated to the activity after the finish of an operation trying to
+     * remove a file.
      * 
      * @param operation     Removal operation performed.
      * @param result        Result of the removal.
      */
-    private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
+    private void onRemoveFileOperationFinish(RemoveFileOperation operation,
+                                             RemoteOperationResult result) {
         dismissLoadingDialog();
         
-        Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+        Toast msg = Toast.makeText(this,
+                ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                 Toast.LENGTH_LONG); 
         msg.show();
         
@@ -1447,7 +1508,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      * @param operation     Move operation performed.
      * @param result        Result of the move operation.
      */
-    private void onMoveFileOperationFinish(MoveFileOperation operation, RemoteOperationResult result) {
+    private void onMoveFileOperationFinish(MoveFileOperation operation,
+                                           RemoteOperationResult result) {
         if (result.isSuccess()) {
             dismissLoadingDialog();
             refreshListOfFilesFragment();
@@ -1467,23 +1529,26 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
 
     /**
-     * Updates the view associated to the activity after the finish of an operation trying to rename a 
-     * file. 
+     * Updates the view associated to the activity after the finish of an operation trying to rename
+     * a file.
      * 
      * @param operation     Renaming operation performed.
      * @param result        Result of the renaming.
      */
-    private void onRenameFileOperationFinish(RenameFileOperation operation, RemoteOperationResult result) {
+    private void onRenameFileOperationFinish(RenameFileOperation operation,
+                                             RemoteOperationResult result) {
         dismissLoadingDialog();
         OCFile renamedFile = operation.getFile();
         if (result.isSuccess()) {
             FileFragment details = getSecondFragment();
             if (details != null) {
-                if (details instanceof FileDetailFragment && renamedFile.equals(details.getFile()) ) {
+                if (details instanceof FileDetailFragment &&
+                        renamedFile.equals(details.getFile()) ) {
                     ((FileDetailFragment) details).updateFileDetails(renamedFile, getAccount());
                     showDetails(renamedFile);
 
-                } else if (details instanceof PreviewMediaFragment && renamedFile.equals(details.getFile())) {
+                } else if (details instanceof PreviewMediaFragment &&
+                        renamedFile.equals(details.getFile())) {
                     ((PreviewMediaFragment) details).updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
                         int position = ((PreviewMediaFragment)details).getPosition();
@@ -1494,12 +1559,13 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 }
             }
             
-            if (getStorageManager().getFileById(renamedFile.getParentId()).equals(getCurrentDir())) {
+            if (getStorageManager().getFileById(renamedFile.getParentId()).equals(getCurrentDir())){
                 refreshListOfFilesFragment();
             }
 
         } else {
-            Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+            Toast msg = Toast.makeText(this,
+                    ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                     Toast.LENGTH_LONG); 
             msg.show();
             
@@ -1510,7 +1576,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         }
     }
 
-    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation, RemoteOperationResult result) {
+    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation,
+                                                  RemoteOperationResult result) {
         dismissLoadingDialog();
         OCFile syncedFile = operation.getLocalFile();
         if (!result.isSuccess()) {
@@ -1527,20 +1594,22 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 onTransferStateChanged(syncedFile, true, true);
                 
             } else {
-                Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
-                        Toast.LENGTH_LONG); 
+                Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
+                                operation, getResources()), Toast.LENGTH_LONG);
                 msg.show();
             }
         }
     }
 
     /**
-     * Updates the view associated to the activity after the finish of an operation trying create a new folder
+     * Updates the view associated to the activity after the finish of an operation trying create a
+     * new folder
      * 
      * @param operation     Creation operation performed.
      * @param result        Result of the creation.
      */
-    private void onCreateFolderOperationFinish(CreateFolderOperation operation, RemoteOperationResult result) {
+    private void onCreateFolderOperationFinish(CreateFolderOperation operation,
+                                               RemoteOperationResult result) {
         if (result.isSuccess()) {
             dismissLoadingDialog();
             refreshListOfFilesFragment();
@@ -1566,7 +1635,8 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
         refreshListOfFilesFragment();
         FileFragment details = getSecondFragment();
-        if (details != null && details instanceof FileDetailFragment && file.equals(details.getFile()) ) {
+        if (details != null && details instanceof FileDetailFragment &&
+                file.equals(details.getFile()) ) {
             if (downloading || uploading) {
                 ((FileDetailFragment)details).updateFileDetails(file, getAccount());
             } else {
@@ -1614,14 +1684,14 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 
         // perform folder synchronization
         RemoteOperation synchFolderOp = new RefreshFolderOperation( folder,
-                                                                        currentSyncTime, 
-                                                                        false,
-                                                                        getFileOperationsHelper().isSharedSupported(),
-                                                                        ignoreETag,
-                                                                        getStorageManager(), 
-                                                                        getAccount(), 
-                                                                        getApplicationContext()
-                                                                      );
+                currentSyncTime,
+                false,
+                getFileOperationsHelper().isSharedSupported(),
+                ignoreETag,
+                getStorageManager(),
+                getAccount(),
+                getApplicationContext()
+        );
         synchFolderOp.execute(getAccount(), MainApp.getAppContext(), this, null, null);
         
         setSupportProgressBarIndeterminateVisibility(true);
@@ -1688,11 +1758,14 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
      * Stars the preview of an already down media {@link OCFile}.
      * 
      * @param file                      Media {@link OCFile} to preview.
-     * @param startPlaybackPosition     Media position where the playback will be started, in milliseconds.
-     * @param autoplay                  When 'true', the playback will start without user interactions.
+     * @param startPlaybackPosition     Media position where the playback will be started,
+     *                                  in milliseconds.
+     * @param autoplay                  When 'true', the playback will start without user
+     *                                  interactions.
      */
     public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay) {
-        Fragment mediaFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition, autoplay);
+        Fragment mediaFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition,
+                autoplay);
         setSecondFragment(mediaFragment);
         updateFragmentsVisibility(true);
         updateNavigationElementsInActionBar(file);

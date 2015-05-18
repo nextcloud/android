@@ -23,9 +23,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.webkit.WebView;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -33,15 +33,17 @@ import com.owncloud.android.utils.DisplayUtils;
 /**
  * Dialog to show the contents of res/raw/CHANGELOG.txt
  */
-public class ChangelogDialog extends SherlockDialogFragment {
+public class ChangelogDialog extends DialogFragment {
 
-    private static final String ARG_CANCELABLE = ChangelogDialog.class.getCanonicalName() + ".ARG_CANCELABLE";
+    private static final String ARG_CANCELABLE = ChangelogDialog.class.getCanonicalName() +
+            ".ARG_CANCELABLE";
 
 
     /**
      * Public factory method to get dialog instances.
      * 
-     * @param cancelable    If 'true', the dialog can be cancelled by the user input (BACK button, touch outside...)
+     * @param cancelable    If 'true', the dialog can be cancelled by the user input
+     *                      (BACK button, touch outside...)
      * @return              New dialog instance, ready to show.
      */
     public static ChangelogDialog newInstance(boolean cancelable) {
@@ -60,7 +62,8 @@ public class ChangelogDialog extends SherlockDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         /// load the custom view to insert in the dialog, between title and 
         WebView webview = new WebView(getActivity());
-        webview.loadUrl("file:///android_res/raw/" + getResources().getResourceEntryName(R.raw.changelog) + ".html");
+        webview.loadUrl("file:///android_res/raw/" +
+                getResources().getResourceEntryName(R.raw.changelog) + ".html");
         
         /// build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -84,7 +87,8 @@ public class ChangelogDialog extends SherlockDialogFragment {
      * {@inheritDoc}
      *-/
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    Bundle savedInstanceState) {
         /// load the custom layout
         View view = inflater.inflate(R.layout.fragment_changelog, container);
         mEditText = (EditText) view.findViewById(R.id.txt_your_name);

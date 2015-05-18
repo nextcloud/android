@@ -30,6 +30,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -53,21 +53,25 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 
 /**
- * Activity reporting errors occurred when local files uploaded to an ownCloud account with an app in
- * version under 1.3.16 where being copied to the ownCloud local folder.
+ * Activity reporting errors occurred when local files uploaded to an ownCloud account with an app
+ * in version under 1.3.16 where being copied to the ownCloud local folder.
  * 
  * Allows the user move the files to the ownCloud local folder. let them unlinked to the remote
  * files.
  * 
  * Shown when the error notification summarizing the list of errors is clicked by the user.
  */
-public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity implements OnClickListener {
+public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity
+        implements OnClickListener {
 
     private static final String TAG = ErrorsWhileCopyingHandlerActivity.class.getSimpleName();
     
-    public static final String EXTRA_ACCOUNT = ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_ACCOUNT";
-    public static final String EXTRA_LOCAL_PATHS = ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_LOCAL_PATHS";
-    public static final String EXTRA_REMOTE_PATHS = ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_REMOTE_PATHS";
+    public static final String EXTRA_ACCOUNT =
+            ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_ACCOUNT";
+    public static final String EXTRA_LOCAL_PATHS =
+            ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_LOCAL_PATHS";
+    public static final String EXTRA_REMOTE_PATHS =
+            ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_REMOTE_PATHS";
 
     private static final String WAIT_DIALOG_TAG = "WAIT_DIALOG";
     
@@ -104,7 +108,8 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
         /// customize text message
         TextView textView = (TextView) findViewById(R.id.message);
         String appName = getString(R.string.app_name);
-        String message = String.format(getString(R.string.sync_foreign_files_forgotten_explanation), appName, appName, appName, appName, mAccount.name);
+        String message = String.format(getString(R.string.sync_foreign_files_forgotten_explanation),
+                appName, appName, appName, appName, mAccount.name);
         textView.setText(message);
         textView.setMovementMethod(new ScrollingMovementMethod());
         
@@ -129,13 +134,14 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
     
     
     /**
-     * Customized adapter, showing the local files as main text in two-lines list item and the remote files
-     * as the secondary text.
+     * Customized adapter, showing the local files as main text in two-lines list item and the
+     * remote files as the secondary text.
      */
     public class ErrorsWhileCopyingListAdapter extends ArrayAdapter<String> {
         
         ErrorsWhileCopyingListAdapter() {
-            super(ErrorsWhileCopyingHandlerActivity.this, android.R.layout.two_line_list_item, android.R.id.text1, mLocalPaths);
+            super(ErrorsWhileCopyingHandlerActivity.this, android.R.layout.two_line_list_item,
+                    android.R.id.text1, mLocalPaths);
         }
 
         @Override
@@ -150,7 +156,8 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
         public View getView (int position, View convertView, ViewGroup parent) {
             View view = convertView;
             if (view == null) {
-                LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater vi = (LayoutInflater) getSystemService(
+                        Context.LAYOUT_INFLATER_SERVICE);
                 view = vi.inflate(android.R.layout.two_line_list_item, null);
             }
             if (view != null)  {
@@ -161,7 +168,8 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
                         text1.setText(String.format(getString(R.string.foreign_files_local_text), localPath));
                     }
                 }
-                if (mRemotePaths != null && mRemotePaths.size() > 0 && position >= 0 && position < mRemotePaths.size()) {
+                if (mRemotePaths != null && mRemotePaths.size() > 0 && position >= 0 &&
+                        position < mRemotePaths.size()) {
                     TextView text2 = (TextView) view.findViewById(android.R.id.text2);
                     String remotePath = mRemotePaths.get(position);
                     if (text2 != null && remotePath != null) {
@@ -261,12 +269,14 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
             
             if (result) {
                 // nothing else to do in this activity
-                Toast t = Toast.makeText(ErrorsWhileCopyingHandlerActivity.this, getString(R.string.foreign_files_success), Toast.LENGTH_LONG);
+                Toast t = Toast.makeText(ErrorsWhileCopyingHandlerActivity.this,
+                        getString(R.string.foreign_files_success), Toast.LENGTH_LONG);
                 t.show();
                 finish();
                 
             } else {
-                Toast t = Toast.makeText(ErrorsWhileCopyingHandlerActivity.this, getString(R.string.foreign_files_fail), Toast.LENGTH_LONG);
+                Toast t = Toast.makeText(ErrorsWhileCopyingHandlerActivity.this,
+                        getString(R.string.foreign_files_fail), Toast.LENGTH_LONG);
                 t.show();
             }
         }

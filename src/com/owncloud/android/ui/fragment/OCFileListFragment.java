@@ -132,7 +132,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         mJustFolders = (args == null) ? false : args.getBoolean(ARG_JUST_FOLDERS, false);
         mAdapter = new FileListListAdapter(
                 mJustFolders,
-                getSherlockActivity(),
+                getActivity(),
                 mContainerActivity
                 );
         setListAdapter(mAdapter);
@@ -244,7 +244,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         boolean allowContextualActions = 
                 (args == null) ? true : args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, true); 
         if (allowContextualActions) {
-            MenuInflater inflater = getSherlockActivity().getMenuInflater();
+            MenuInflater inflater = getActivity().getMenuInflater();
             inflater.inflate(R.menu.file_actions_menu, menu);
             AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
             OCFile targetFile = (OCFile) mAdapter.getItem(info.position);
@@ -254,14 +254,14 @@ public class OCFileListFragment extends ExtendedListFragment {
                     targetFile,
                     mContainerActivity.getStorageManager().getAccount(),
                     mContainerActivity,
-                    getSherlockActivity()
+                    getActivity()
                 );
                 mf.filter(menu);
             }
                  
             /// TODO break this direct dependency on FileDisplayActivity... if possible
             MenuItem item = menu.findItem(R.id.action_open_file_with);
-            FileFragment frag = ((FileDisplayActivity)getSherlockActivity()).getSecondFragment();
+            FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
             if (frag != null && frag instanceof FileDetailFragment && 
                     frag.getFile().getFileId() == targetFile.getFileId()) {
                 item = menu.findItem(R.id.action_see_details);

@@ -27,6 +27,9 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -35,9 +38,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -181,7 +181,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 getFile(),
                 mContainerActivity.getStorageManager().getAccount(),
                 mContainerActivity,
-                getSherlockActivity()
+                getActivity()
             );
             mf.filter(menu);
         }
@@ -360,7 +360,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 setButtonsForDown();
                 
             } else {
-                // TODO load default preview image; when the local file is removed, the preview remains there
+                // TODO load default preview image; when the local file is removed, the preview
+                // remains there
                 setButtonsForRemote();
             }
         }
@@ -500,7 +501,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      */
     private boolean ocVersionSupportsTimeCreated(){
         /*if(mAccount != null){
-            AccountManager accManager = (AccountManager) getActivity().getSystemService(Context.ACCOUNT_SERVICE);
+            AccountManager accManager = (AccountManager) getActivity()
+            .getSystemService(Context.ACCOUNT_SERVICE);
             OwnCloudVersion ocVersion = new OwnCloudVersion(accManager
                     .getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
             if(ocVersion.compareTo(new OwnCloudVersion(0x030000)) < 0) {
@@ -514,10 +516,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public void listenForTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
-                mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                mContainerActivity.getFileDownloaderBinder().
+                        addDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
-                mContainerActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                mContainerActivity.getFileUploaderBinder().
+                        addDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
         }
     }
@@ -526,10 +530,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public void leaveTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
-                mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                mContainerActivity.getFileDownloaderBinder().
+                        removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
-                mContainerActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                mContainerActivity.getFileUploaderBinder().
+                        removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
         }
     }
@@ -537,7 +543,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     
     /**
-     * Helper class responsible for updating the progress bar shown for file uploading or downloading
+     * Helper class responsible for updating the progress bar shown for file uploading or
+     * downloading
      */
     private class ProgressListener implements OnDatatransferProgressListener {
         int mLastPercent = 0;
@@ -548,7 +555,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
         
         @Override
-        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
+        public void onTransferProgress(long progressRate, long totalTransferredSoFar,
+                                       long totalToTransfer, String filename) {
             int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
             if (percent != mLastPercent) {
                 ProgressBar pb = mProgressBar.get();
