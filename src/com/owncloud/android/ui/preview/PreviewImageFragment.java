@@ -49,8 +49,10 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -79,6 +81,8 @@ public class PreviewImageFragment extends FileFragment {
     private TextView mMessageView;
     private ProgressBar mProgressWheel;
 
+    private Boolean mShowResizedImage = false;
+
     public Bitmap mBitmap = null;
     
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
@@ -93,13 +97,14 @@ public class PreviewImageFragment extends FileFragment {
      * 
      * When 'imageFile' or 'ocAccount' are null
      * 
-     * @param imageFile                 An {@link OCFile} to preview as an image in the fragment
+     * @param fileToDetail              An {@link OCFile} to preview as an image in the fragment
      * @param ocAccount                 An ownCloud account; needed to start downloads
      * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}; TODO better solution 
      */
-    public PreviewImageFragment(OCFile fileToDetail, Account ocAccount, boolean ignoreFirstSavedState) {
+    public PreviewImageFragment(OCFile fileToDetail, Account ocAccount, boolean ignoreFirstSavedState, boolean showResizedImage) {
         super(fileToDetail);
         mAccount = ocAccount;
+        mShowResizedImage = showResizedImage;
         mIgnoreFirstSavedState = ignoreFirstSavedState;
     }
     
@@ -173,9 +178,6 @@ public class PreviewImageFragment extends FileFragment {
         if (mAccount == null) {
             throw new IllegalStateException("Instanced with a NULL ownCloud Account");
         }
-        if (!getFile().isDown()) {
-            throw new IllegalStateException("There is no local file to preview");
-        }
     }
         
 
@@ -194,8 +196,43 @@ public class PreviewImageFragment extends FileFragment {
     public void onStart() {
         super.onStart();
         if (getFile() != null) {
-           mLoadBitmapTask = new LoadBitmapTask(mImageView, mMessageView, mProgressWheel);
-           mLoadBitmapTask.execute(new String[]{getFile().getStoragePath()});
+            mImageView.setTag(getFile().getFileId());
+
+            if (mShowResizedImage){
+                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        String.valueOf("r" + getFile().getRemoteId())
+                );
+
+                if (thumbnail != null && !getFile().needsUpdateThumbnail()){
+                    mProgressWheel.setVisibility(View.GONE);
+                    mImageView.setImageBitmap(thumbnail);
+                    mImageView.setBitmap(thumbnail);
+                    mImageView.setVisibility(View.VISIBLE);
+                    mBitmap  = thumbnail;
+                } else {
+                // generate new Thumbnail
+                    if (ThumbnailsCacheManager.cancelPotentialWork(getFile(), mImageView)) {
+                        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                                        mImageView, mContainerActivity.getStorageManager(), mAccount, mProgressWheel
+                                );
+                        if (thumbnail == null) {
+                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                        }
+                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncDrawable(
+                                        MainApp.getAppContext().getResources(),
+                                        thumbnail,
+                                        task
+                                );
+                        mImageView.setImageDrawable(asyncDrawable);
+                        task.execute(getFile(), false);
+                    }
+            }
+            } else {
+                mLoadBitmapTask = new LoadBitmapTask(mImageView, mMessageView, mProgressWheel);
+                mLoadBitmapTask.execute(new String[]{getFile().getStoragePath()});
+            }
         }
     }
     
@@ -294,8 +331,13 @@ public class PreviewImageFragment extends FileFragment {
                 return true;
             }
             case R.id.action_send_file: {
-                mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
-                return true;
+                if (getFile().isImage() && !getFile().isDown()){
+                    mContainerActivity.getFileOperationsHelper().sendCachedImage(getFile());
+                    return true;
+                } else {
+                    mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
+                    return true;
+                }
             }
             case R.id.action_sync_file: {
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
@@ -361,7 +403,7 @@ public class PreviewImageFragment extends FileFragment {
 
         
         /**
-         * Weak reference to the target {@link Progressbar} shown while the load is in progress.
+         * Weak reference to the target {@link ProgressBar} shown while the load is in progress.
          * 
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load finishes.
          */

@@ -220,11 +220,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                         mContainerActivity.getFileOperationsHelper().openFile(file);
                     }
                     
-                } else {
-                    // automatic download, preview on finish
-                    ((FileDisplayActivity)mContainerActivity).startDownloadForPreview(file);
                 }
-                    
             }
             
         } else {
