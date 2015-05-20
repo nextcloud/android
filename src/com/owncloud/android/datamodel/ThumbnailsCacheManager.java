@@ -22,6 +22,7 @@
 package com.owncloud.android.datamodel;
 
 import java.io.File;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -290,9 +291,11 @@ public class ThumbnailsCacheManager {
                                 GetMethod get = new GetMethod(uri);
                                 status = mClient.executeMethod(get);
                                 if (status == HttpStatus.SC_OK) {
-                                    byte[] bytes = get.getResponseBody();
-                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
-                                            bytes.length);
+//                                    byte[] bytes = get.getResponseBody();
+//                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
+//                                            bytes.length);
+                                    InputStream inputStream = get.getResponseBodyAsStream();
+                                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                     thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
 
                                     // Add thumbnail to cache

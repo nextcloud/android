@@ -33,9 +33,12 @@ import java.util.Set;
 import java.util.Vector;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Build;
 import android.text.format.DateUtils;
+import android.view.Display;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
@@ -348,6 +351,26 @@ public class DisplayUtils {
             path = path.substring(0, path.length()-1);
         }
         return path;
+    }
+
+
+    /**
+     * Gets the screen size in pixels in a backwards compatible way
+     *
+     * @param caller        Activity calling; needed to get access to the {@link android.view.WindowManager}
+     * @return              Size in pixels of the screen, or default {@link Point} if caller is null
+     */
+    public static Point getScreenSize(Activity caller) {
+        Point size = new Point();
+        if (caller != null) {
+            Display display = caller.getWindowManager().getDefaultDisplay();
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+                display.getSize(size);
+            } else {
+                size.set(display.getWidth(), display.getHeight());
+            }
+        }
+        return size;
     }
 
 }

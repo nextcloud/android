@@ -334,5 +334,6 @@
 
     <string name="auth_refresh_button">Refresh connection</string>
     <string name="auth_host_address">Server address</string>
+    <string name="common_error_out_memory">Not enough memory</string>
 
 </resources>
