@@ -63,9 +63,9 @@ import com.owncloud.android.utils.DisplayUtils;
 /**
  *  Holds a swiping galley where image files contained in an ownCloud directory are shown
  */
-public class PreviewImageActivity extends FileActivity implements 
- FileFragment.ContainerActivity,
-ViewPager.OnPageChangeListener, OnRemoteOperationListener {
+public class PreviewImageActivity extends FileActivity implements
+        FileFragment.ContainerActivity,
+        ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
     public static final int DIALOG_SHORT_WAIT = 0;
 
