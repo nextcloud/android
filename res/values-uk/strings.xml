@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Більше</string>
   <string name="prefs_accounts">Облікові записи</string>
   <string name="prefs_manage_accounts">Управління обліковими записами</string>
-  <string name="prefs_pincode">App програмний PIN</string>
-  <string name="prefs_pincode_summary">Захист Вашог App клієнта</string>
   <string name="prefs_instant_upload">Миттєві зображення</string>
   <string name="prefs_instant_upload_summary">Миттєві зображення з камери</string>
   <string name="prefs_instant_video_upload">Миттєві відео</string>
@@ -38,6 +36,8 @@
   <string name="prefs_recommend">Порадити товаришу</string>
   <string name="prefs_feedback">Зворотній зв\'язок</string>
   <string name="prefs_imprint">Відбиток</string>
+  <string name="prefs_remember_last_share_location">Запам\'ятати позицію</string>
+  <string name="prefs_remember_last_upload_location_summary">Запам\'ятати останній опублікований шлях завантаження</string>
   <string name="recommend_subject">Спробуйте %1$s на своєму смартфоні!</string>
   <string name="recommend_text">Пропоную вам користуватися %1$s на вашому смартфоні!\nЗавантажити можна за посиланням: %2$s</string>
   <string name="auth_check_server">Перевірити сервер</string>
@@ -48,6 +48,7 @@
   <string name="sync_string_files">Файли</string>
   <string name="setup_btn_connect">З\'єднати</string>
   <string name="uploader_btn_upload_text">Відвантажити</string>
+  <string name="uploader_btn_new_folder_text">Нова тека</string>
   <string name="uploader_top_message">Оберіть теку для завантаження:</string>
   <string name="uploader_wrn_no_account_title">Не знайдено облікового запису</string>
   <string name="uploader_wrn_no_account_text">На Вашому пристрої відсутні облікові записи %1$s. Будь ласка, спочатку створіть запис.</string>
@@ -98,7 +99,7 @@
   <string name="uploader_upload_failed_ticker">Помилка завантаження</string>
   <string name="uploader_upload_failed_content_single">Завантаження %1$s не може завершитись</string>
   <string name="uploader_upload_failed_credentials_error">Завантажити не вдалося, необхідно повторити вхід</string>
-  <string name="downloader_download_in_progress_ticker">Зкачування …</string>
+  <string name="downloader_download_in_progress_ticker">Скачування …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Зкачування %2$s</string>
   <string name="downloader_download_succeeded_ticker">Успішно зкачано</string>
   <string name="downloader_download_succeeded_content">%1$s успішно завантажено</string>
@@ -125,15 +126,6 @@
   <string name="foreign_files_local_text">Локально: %1$s</string>
   <string name="foreign_files_remote_text">Віддалено: %1$s</string>
   <string name="upload_query_move_foreign_files">Недостатньо місця для копіювання обраних файлів у теку %1$s. Чи бажаєте ви перемістити їх замість копіювання?</string>
-  <string name="pincode_enter_pin_code">Будь ласка, введіть свій програмний PIN</string>
-  <string name="pincode_configure_your_pin">Введіть програмний PIN</string>
-  <string name="pincode_configure_your_pin_explanation">PIN необхідно буде вводити щоразу при запуску цієї програми</string>
-  <string name="pincode_reenter_your_pincode">Повторно введіть App програмний PIN, будь ласка</string>
-  <string name="pincode_remove_your_pincode">Видалити свій App програмний PIN</string>
-  <string name="pincode_mismatch">Обидва App програмних PIN не однакові</string>
-  <string name="pincode_wrong">Не вірний App програмний PIN</string>
-  <string name="pincode_removed">App програмний PIN видалено</string>
-  <string name="pincode_stored">App програмний PIN збережено</string>
   <string name="media_notif_ticker">%1$s музичний плеєр</string>
   <string name="media_state_playing">%1$s (відтворення)</string>
   <string name="media_state_loading">%1$s (завантаження)</string>
@@ -158,7 +150,7 @@
   <string name="auth_no_net_conn_title">Відсутнє підключення до мережі</string>
   <string name="auth_nossl_plain_ok_title">Безпечне з\'єднання не доступне.</string>
   <string name="auth_connection_established">З\'єднання встановлено</string>
-  <string name="auth_testing_connection">Перевірка з\'єднання…</string>
+  <string name="auth_testing_connection">Перевірка з\'єднання</string>
   <string name="auth_not_configured_title">Не вірні налаштування сервер </string>
   <string name="auth_account_not_new">Такий обліковий запис вже існує на пристрої</string>
   <string name="auth_account_not_the_same">Введений користувач не відповідає обліковому запису</string>
@@ -185,6 +177,7 @@
   <string name="auth_fail_get_user_name">Ваш сервер не повертає коректний ідентифікатор користувача, будь ласка зверніться до адміністратора
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Аутентифікація на цьому сервері неможлива</string>
+  <string name="auth_account_does_not_exist">Користвача в пристрої не існуе</string>
   <string name="fd_keep_in_sync">Оновлювати файл</string>
   <string name="common_rename">Перейменувати</string>
   <string name="common_remove">Видалити</string>
@@ -257,6 +250,8 @@
   <string name="share_link_file_error">Виникла помилка при спробі поділитися файлом або текою</string>
   <string name="unshare_link_file_no_exist">Неможливо заборонити доступ. Будь ласка, перевірте, чи існує файл</string>
   <string name="unshare_link_file_error">Виникла помилка при спробі заборонити доступ до файлу або теки</string>
+  <string name="share_link_password_title">Ввести пароль</string>
+  <string name="share_link_empty_password">Ви повинні ввести пароль</string>
   <string name="activity_chooser_send_file_title">Надіслати</string>
   <string name="copy_link">Копіювати посилання</string>
   <string name="clipboard_text_copied">Скопійовано в буфер обміну</string>
@@ -279,6 +274,9 @@
   <string name="auth_redirect_non_secure_connection_title">Безпечне підключення перенаправляється через незабезпечений маршрут.</string>
   <string name="actionbar_logger">Журнали</string>
   <string name="log_send_history_button">Надіслати історію</string>
+  <string name="log_send_no_mail_app">Немає додатку для відправки журналів. Встановіть поштовий додаток!</string>
+  <string name="log_send_mail_subject">%1$s Android лог додатку</string>
+  <string name="log_progress_dialog_text">Завантаження даних...</string>
   <string name="saml_authentication_required_text">Потрібна аутентифікація</string>
   <string name="saml_authentication_wrong_pass">Невірний пароль</string>
   <string name="actionbar_move">Перемістити</string>
@@ -291,5 +289,9 @@
   <string name="forbidden_permissions_move">перемістити цей файл</string>
   <string name="prefs_category_instant_uploading">Миттєво завантаження</string>
   <string name="prefs_category_security">Безпека</string>
-  <string name="shared_subject_header">спільне</string>
+  <string name="prefs_instant_video_upload_path_title">Шлях завантаження відео</string>
+  <string name="download_folder_failed_content">Скачування теки %1$s не може бути завершено</string>
+  <string name="subject_token">%1$s розшарено \"%2$s\" з вами</string>
+  <string name="auth_refresh_button">Оновити з\'єднання</string>
+  <string name="auth_host_address">Ареса серверу</string>
 </resources>

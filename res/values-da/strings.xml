@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Mere</string>
   <string name="prefs_accounts">Konti</string>
   <string name="prefs_manage_accounts">Administrér konti</string>
-  <string name="prefs_pincode">App PIN</string>
-  <string name="prefs_pincode_summary">Beskyt din klient</string>
   <string name="prefs_instant_upload">Upload billeder straks</string>
   <string name="prefs_instant_upload_summary">Upload straks billeder taget med kameraet</string>
   <string name="prefs_instant_video_upload">Upload videoer straks</string>
@@ -37,7 +35,7 @@
   <string name="prefs_help">Hjælp</string>
   <string name="prefs_recommend">Anbefal til en ven</string>
   <string name="prefs_feedback">Feedback</string>
-  <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_imprint">Aftryk</string>
   <string name="prefs_remember_last_share_location">Husk delt placering</string>
   <string name="prefs_remember_last_upload_location_summary">Husk seneste delte placering for overførsel</string>
   <string name="recommend_subject">Prøv %1$s på din smartphone!</string>
@@ -46,10 +44,11 @@
   <string name="auth_host_url">Serveradresse https://…</string>
   <string name="auth_username">Brugernavn</string>
   <string name="auth_password">Kodeord</string>
-  <string name="auth_register">Uvant med %1$s</string>
+  <string name="auth_register">Ny med %1$s</string>
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Tilslut</string>
   <string name="uploader_btn_upload_text">Upload</string>
+  <string name="uploader_btn_new_folder_text">Ny mappe</string>
   <string name="uploader_top_message">Vælg upload-mappe:</string>
   <string name="uploader_wrn_no_account_title">Ingen konto fundet</string>
   <string name="uploader_wrn_no_account_text">Der er ingen %1$s brugere på din enhed. Sæt venligst en bruger op først.</string>
@@ -127,15 +126,6 @@
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Fjernplacering: %1$s</string>
   <string name="upload_query_move_foreign_files">Der er ikke plads nok til at kopiere de valgte filer ind i mappen %1$s. Vil du flytte dem i stedet?</string>
-  <string name="pincode_enter_pin_code">Indsæt venligst din App PIN</string>
-  <string name="pincode_configure_your_pin">Indtast App PIN</string>
-  <string name="pincode_configure_your_pin_explanation">PIN koden vil blive anmodet om hver gang applikationen bliver startet</string>
-  <string name="pincode_reenter_your_pincode">Indtast venligst App PIN igen</string>
-  <string name="pincode_remove_your_pincode">Fjern din App PIN</string>
-  <string name="pincode_mismatch">App PIN er ikke ens</string>
-  <string name="pincode_wrong">Forkert App PIN</string>
-  <string name="pincode_removed">App PIN fjernet</string>
-  <string name="pincode_stored">App PIN gemt</string>
   <string name="media_notif_ticker">%1$s musikafspiller</string>
   <string name="media_state_playing">%1$s (afspiller)</string>
   <string name="media_state_loading">%1$s (indlæser)</string>
@@ -145,7 +135,7 @@
   <string name="media_err_not_in_owncloud">Fil er ikke en gyldig konto</string>
   <string name="media_err_unsupported">Ikke-understøttet medie codec</string>
   <string name="media_err_io">Mediefilen kunne ikke læses</string>
-  <string name="media_err_malformed">Mediefilen er ikke korrekt kodet</string>
+  <string name="media_err_malformed">Mediefilen er ikke korrekt \"encoded\"</string>
   <string name="media_err_timeout">Tiden udløb under forsøg på at afspille</string>
   <string name="media_err_invalid_progressive_playback">Mediefilen kan ikke streames</string>
   <string name="media_err_unknown">Mediefil kan ikke afspilles med tilgængelige medieafspiller</string>
@@ -160,7 +150,7 @@
   <string name="auth_no_net_conn_title">Ingen netværksforbindelse</string>
   <string name="auth_nossl_plain_ok_title">Sikker forbindelse ikke tilgængelig.</string>
   <string name="auth_connection_established">Forbindelse oprettet</string>
-  <string name="auth_testing_connection">Afprøver forbindelse ...</string>
+  <string name="auth_testing_connection">Tester forbindelsen</string>
   <string name="auth_not_configured_title">Misdannet server konfiguration</string>
   <string name="auth_account_not_new">En konto for den samme bruger og server eksisterer allerede på enheden</string>
   <string name="auth_account_not_the_same">Den indtastede bruger passer ikke til brugeren for denne konto</string>
@@ -172,7 +162,7 @@
   <string name="auth_ssl_general_error_title">SSL-initialiseringen fejlede</string>
   <string name="auth_ssl_unverified_server_title">Kunne ikke bekræfte SSl-serverens identitet</string>
   <string name="auth_bad_oc_version_title">Ikke genkendt serverversion</string>
-  <string name="auth_wrong_connection_title">Ikke ikke oprette forbindelse</string>
+  <string name="auth_wrong_connection_title">Kunne ikke oprette forbindelse</string>
   <string name="auth_secure_connection">Sikker forbindelse oprettet</string>
   <string name="auth_unauthorized">Forkert brugernavn eller kodeord</string>
   <string name="auth_oauth_error">Mislykket godkendelse</string>
@@ -183,9 +173,10 @@
   <string name="auth_expired_saml_sso_token_toast">Din session udløb. Forbind venligst igen</string>
   <string name="auth_connecting_auth_server">Forbinder til godkendelsesserver ...</string>
   <string name="auth_unsupported_auth_method">Serveren understøtter ikke denne godkendelsesmetode</string>
-  <string name="auth_unsupported_multiaccount">%1$s understøtter ikke multiple konti</string>
+  <string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
   <string name="auth_fail_get_user_name">Din server retunere ikke et korrekt bruger-id. Kontakt venligst din administrator</string>
   <string name="auth_can_not_auth_against_server">Kan ikke autentificere mod denne server</string>
+  <string name="auth_account_does_not_exist">Kontoen findes endnu ikke på enheden</string>
   <string name="fd_keep_in_sync">Hold filen opdateret</string>
   <string name="common_rename">Omdøb</string>
   <string name="common_remove">Fjern</string>
@@ -206,9 +197,10 @@
   <string name="filename_forbidden_characters">Ugyldige tegn: / \\ &lt; &gt; : \" | ? *</string>
   <string name="filename_empty">Filnavnet kan ikke stå tomt.</string>
   <string name="wait_a_moment">Vent et øjeblik</string>
-  <string name="filedisplay_unexpected_bad_get_content">Uforventet problem; prøv venligst anden applikation til at vælge filen</string>
+  <string name="filedisplay_unexpected_bad_get_content">Uventet problem; prøv venligst en anden applikation til at vælge filen</string>
   <string name="filedisplay_no_file_selected">Ingen fil blev valgt</string>
   <string name="activity_chooser_title">Send link til ...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
   <string name="oauth_check_onoff">Log på med oAuth2</string>
   <string name="oauth_login_connection">Forbinder til oAuth2-server...</string>
   <string name="ssl_validator_header">Sidens identitet kunne ikke verificeres</string>
@@ -253,11 +245,14 @@
   <string name="preview_image_error_unknown_format">Dette billede kan ikke vises</string>
   <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mappe</string>
   <string name="prefs_instant_upload_path_title">Sti til upload</string>
-  <string name="share_link_no_support_share_api">Beklager, deling er ikke slået til på din server. Kontakt venligst din administrator.</string>
+  <string name="share_link_no_support_share_api">Beklager, deling er ikke slået til på din server. Kontakt venligst din
+⇥⇥administrator.</string>
   <string name="share_link_file_no_exist">Kan ikke dele. Tjek venligst om filen findes.</string>
   <string name="share_link_file_error">Der opstod en fejl ved deling af denne fil eller mappe</string>
   <string name="unshare_link_file_no_exist">Kan ikke fjerne deling. Tjek venligst om filen findes.</string>
   <string name="unshare_link_file_error">Der opstod en fejl ved stopning af deling af denne mappe.</string>
+  <string name="share_link_password_title">Angiv et kodeord</string>
+  <string name="share_link_empty_password">Du skal angive et kodeord</string>
   <string name="activity_chooser_send_file_title">Send</string>
   <string name="copy_link">Kopiér link</string>
   <string name="clipboard_text_copied">Kopieret til udklipsholder</string>
@@ -296,7 +291,8 @@
   <string name="prefs_category_instant_uploading">Øjeblikkelige uploads</string>
   <string name="prefs_category_security">Sikkerhed</string>
   <string name="prefs_instant_video_upload_path_title">Sti til videoupload</string>
-  <string name="shared_subject_header">delt</string>
-  <string name="with_you_subject_header">med dig</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
+  <string name="download_folder_failed_content">Download af %1$s mappe kunne ikke fuldføres</string>
+  <string name="subject_token">%1$s delt \"%2$s\" med dig</string>
+  <string name="auth_refresh_button">Genopfrisk forbindelsen</string>
+  <string name="auth_host_address">Serveradresse</string>
 </resources>

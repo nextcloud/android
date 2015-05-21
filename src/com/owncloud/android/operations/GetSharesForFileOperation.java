@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author masensio
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,6 +23,7 @@ package com.owncloud.android.operations;
 
 import java.util.ArrayList;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -28,10 +32,7 @@ import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation
 import com.owncloud.android.operations.common.SyncOperation;
 
 /**
- * Provide a list shares for a specific file.  
- * 
- * @author masensio
- *
+ * Provide a list shares for a specific file.
  */
 public class GetSharesForFileOperation extends SyncOperation {
     
@@ -58,7 +59,8 @@ public class GetSharesForFileOperation extends SyncOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        GetRemoteSharesForFileOperation operation = new GetRemoteSharesForFileOperation(mPath, mReshares, mSubfiles);
+        GetRemoteSharesForFileOperation operation = new GetRemoteSharesForFileOperation(mPath,
+                mReshares, mSubfiles);
         RemoteOperationResult result = operation.execute(client);
 
         if (result.isSuccess()) {

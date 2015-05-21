@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013  ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015  ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -23,13 +26,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -56,15 +57,12 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.PinCodeActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 
 
 /**
  *  Holds a swiping galley where image files contained in an ownCloud directory are shown
- *  
- *  @author David A. Velasco
  */
 public class PreviewImageActivity extends FileActivity implements 
  FileFragment.ContainerActivity,
@@ -90,7 +88,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
     private View mFullScreenAnchorView;
     
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,11 +100,6 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.hide();
-        
-        // PIN CODE request
-        if (getIntent().getExtras() != null && savedInstanceState == null && fromNotification()) {
-            requestPinCode();
-        }
 
         // Make sure we're running on Honeycomb or higher to use FullScreen and
         // Immersive Mode
@@ -323,7 +316,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     @Override
     protected void onResume() {
         super.onResume();
-        //Log_OC.e(TAG, "ACTIVITY, ONRESUME");
+
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         
         IntentFilter filter = new IntentFilter(FileDownloader.getDownloadFinishMessage());
@@ -333,14 +326,16 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
     @Override
     protected void onPostResume() {
-        //Log_OC.e(TAG, "ACTIVITY, ONPOSTRESUME");
         super.onPostResume();
     }
     
     @Override
     public void onPause() {
-        unregisterReceiver(mDownloadFinishReceiver);
-        mDownloadFinishReceiver = null;
+        if (mDownloadFinishReceiver != null){
+            unregisterReceiver(mDownloadFinishReceiver);
+            mDownloadFinishReceiver = null;
+        }
+        
         super.onPause();
     }
     
@@ -427,7 +422,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
 
     /**
-     * Class waiting for broadcast events from the {@link FielDownloader} service.
+     * Class waiting for broadcast events from the {@link FileDownloader} service.
      * 
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * folder displayed in the gallery.
@@ -527,21 +522,6 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             }
         }
     }
-    
-    
-    /**
-     * Launch an intent to request the PIN code to the user before letting him use the app
-     */
-    private void requestPinCode() {
-        boolean pinStart = false;
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        pinStart = appPrefs.getBoolean("set_pincode", false);
-        if (pinStart) {
-            Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
-            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "PreviewImageActivity");
-            startActivity(i);
-        }
-    }
 
     @Override
     public void onBrowsedDownTo(OCFile folder) {
@@ -588,5 +568,4 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         }
         return false;
     }
-
 }

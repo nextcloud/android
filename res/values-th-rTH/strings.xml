@@ -13,14 +13,13 @@
   <string name="prefs_category_more">มาก</string>
   <string name="prefs_accounts">บัญชี</string>
   <string name="prefs_manage_accounts">บริหารจัดการบัญชี</string>
-  <string name="prefs_pincode">App PIN</string>
-  <string name="prefs_pincode_summary">ป้องกันโปรแกรมไคลเอนต์ ของคุณ</string>
   <string name="prefs_help">ช่วยเหลือ</string>
   <string name="auth_username">ชื่อผู้ใช้</string>
   <string name="auth_password">รหัสผ่าน</string>
   <string name="sync_string_files">ไฟล์</string>
   <string name="setup_btn_connect">เชื่อมต่อ</string>
   <string name="uploader_btn_upload_text">อัพโหลด</string>
+  <string name="uploader_btn_new_folder_text">โฟลเดอร์ใหม่</string>
   <string name="uploader_wrn_no_account_title">ไม่พบบัญชีที่ต้องการ</string>
   <string name="uploader_wrn_no_account_text">ไม่มีบัญชี %1$s บนอุปกรณ์ของคุณ กรุณาตั้งค่าบัญชีของคุณก่อน</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ตั้งค่า</string>
@@ -82,20 +81,10 @@
   <string name="foreign_files_fail">มีบางแฟ้มข้อมูลไม่สามารถย้ายได้</string>
   <string name="foreign_files_local_text">ต้นทาง: %1$s</string>
   <string name="foreign_files_remote_text">ปลายทาง: %1$s</string>
-  <string name="pincode_enter_pin_code">กรุณาใส่ PIN แอปของคุณ</string>
-  <string name="pincode_configure_your_pin">กรอกรหัส PIN ของ  App</string>
-  <string name="pincode_configure_your_pin_explanation">หมายเลข PIN ดังกล่าวจะถูกร้องขอทุกครั้งที่เริ่มใช้งานแอปฯ</string>
-  <string name="pincode_reenter_your_pincode">กรุณากรอกรหัส PIN ของแอป  App ใหม่อีกครั้ง</string>
-  <string name="pincode_remove_your_pincode">ลบรหัส PIN แอป ของ App ของคุณ</string>
-  <string name="pincode_mismatch">รหัส App API ไม่ตรงกัน</string>
-  <string name="pincode_wrong">รหัส PIN App ไม่ถูกต้อง</string>
-  <string name="pincode_removed">รหัส PIN แอปสำหรับ   ถูกลบออกแล้ว</string>
-  <string name="pincode_stored">จัดเก็บรหัส PIN แอป ของ  แล้ว</string>
   <string name="auth_trying_to_login">กำลังเข้าสู่ระบบ...</string>
   <string name="auth_no_net_conn_title">ไม่มีการเชื่อมต่อเครือข่ายใดๆ</string>
   <string name="auth_nossl_plain_ok_title">การเชื่อมต่อแบบรักษาความปลอดภัยไม่สามารถใช้งานได้</string>
   <string name="auth_connection_established">ติดตั้งการเชื่อมต่อแล้ว</string>
-  <string name="auth_testing_connection">กำลังทดสอบการเชื่อมต่อ...</string>
   <string name="auth_not_configured_title">การกำหนดค่า Malformed เซิร์ฟเวอร์</string>
   <string name="auth_unknown_error_title">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ!</string>
   <string name="auth_unknown_host_title">ไม่พบโฮสต์ที่ต้องการ</string>
@@ -157,4 +146,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">บัญชี</string>
   <string name="folder_picker_choose_button_text">เลือก</string>
+  <string name="auth_host_address">ที่อยู่เซิร์ฟเวอร์</string>
 </resources>

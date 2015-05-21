@@ -17,8 +17,6 @@
   <string name="prefs_category_more">المزيد</string>
   <string name="prefs_accounts">حسابات</string>
   <string name="prefs_manage_accounts">إدارة الحسابات</string>
-  <string name="prefs_pincode">كلمة سر التطبيق</string>
-  <string name="prefs_pincode_summary">حماية العميل</string>
   <string name="prefs_instant_upload">رفع الصورة مباشرة</string>
   <string name="prefs_instant_upload_summary">رفع صورة المؤخذة عبر الكاميرا</string>
   <string name="prefs_instant_video_upload">رفع فيديو مباشرة</string>
@@ -41,6 +39,7 @@
   <string name="sync_string_files">الملفات</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">رفع</string>
+  <string name="uploader_btn_new_folder_text">مجلد جديد</string>
   <string name="uploader_top_message">اختر مجلد الرفع</string>
   <string name="uploader_wrn_no_account_title">لم يتم العثور على أي حساب</string>
   <string name="uploader_wrn_no_account_text">لا توجد حسابات  %1$s على جهازك. يرجى تهيئة حساب أولاً.</string>
@@ -115,15 +114,6 @@
   <string name="foreign_files_local_text">محلي :%1$s</string>
   <string name="foreign_files_remote_text">خارجي : %1$s</string>
   <string name="upload_query_move_foreign_files">لا يوجد مساحة كافية لنسخ الملفات المحددة لمجلد  %1$s . هل ترغب بنقلهم بدلاً من ذلك؟</string>
-  <string name="pincode_enter_pin_code">يرجى إدخال كلمة السر</string>
-  <string name="pincode_configure_your_pin">أدخل كلمة السر</string>
-  <string name="pincode_configure_your_pin_explanation">سيتم طلب PIN في كل مرة يتم فيها تشغيل التطبيق</string>
-  <string name="pincode_reenter_your_pincode">يرجى إدخال كلمة السر مرة أخرى</string>
-  <string name="pincode_remove_your_pincode">إزالة كلمة السر</string>
-  <string name="pincode_mismatch">كلمتا السر غير متطابقتين</string>
-  <string name="pincode_wrong">كلمه السر غير صحيحة</string>
-  <string name="pincode_removed">تمت إزالة كلمه السر</string>
-  <string name="pincode_stored">تم تسجيل كلمت السر</string>
   <string name="media_notif_ticker">مشغل الموسيقى %1$s </string>
   <string name="media_state_playing">%1$s  (يتم التشغيل)</string>
   <string name="media_state_loading">%1$s (يتم التحميل)</string>
@@ -148,7 +138,6 @@
   <string name="auth_no_net_conn_title">لا يتوفر اتصال</string>
   <string name="auth_nossl_plain_ok_title">الاتصال الآمن غير متاح</string>
   <string name="auth_connection_established">تم الاتصال</string>
-  <string name="auth_testing_connection">اختبار الاتصال ...</string>
   <string name="auth_not_configured_title">إعداد الخادم غير صحيحة</string>
   <string name="auth_account_not_new">الحساب لنفس المستخدم والخادم موجود مسبقا على الجهاز </string>
   <string name="auth_account_not_the_same">المستخدم المدخل لا يتوافق مع المستخدم الموجود في الحساب </string>
@@ -258,5 +247,5 @@
   <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
   <string name="folder_picker_choose_button_text">اختيار</string>
   <string name="prefs_category_security">الأمان</string>
-  <string name="shared_subject_header">مُشارك</string>
+  <string name="auth_host_address">عنوان الخادم</string>
 </resources>

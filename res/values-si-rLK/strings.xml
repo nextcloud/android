@@ -9,7 +9,6 @@
   <string name="prefs_category_more">වැඩි</string>
   <string name="prefs_accounts">ගිණුම්</string>
   <string name="prefs_manage_accounts">ගිණුම් කළමනාකරනය</string>
-  <string name="prefs_pincode_summary">ඔබේ සේවාලාභියා සුරකින්න</string>
   <string name="prefs_help">උදව්</string>
   <string name="auth_username">පරිශීලක නම</string>
   <string name="auth_password">මුර පදය</string>
@@ -55,7 +54,6 @@
   <string name="auth_no_net_conn_title">ජාල සම්බන්ධතාවක් නොමැත</string>
   <string name="auth_nossl_plain_ok_title">ආරක්ෂිත සම්බන්ධතාවක් නොලැබුණි</string>
   <string name="auth_connection_established">සම්බන්ධතාවක් සාදන ලදී</string>
-  <string name="auth_testing_connection">සම්බන්ධතාව පරීක්ෂා කෙරේ</string>
   <string name="auth_not_configured_title">විකෘතිවු හැඩගැසුමක්</string>
   <string name="auth_unknown_error_title">නොදන්නා දෝෂයක් ඇතිවිය</string>
   <string name="auth_unknown_host_title">සේවාදායකයා සොයාගත නොහැක</string>
@@ -81,4 +79,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">ගිණුම්</string>
   <string name="folder_picker_choose_button_text">තෝරන්න</string>
+  <string name="auth_host_address">සේවාදායකයේ ලිපිනය</string>
 </resources>

@@ -23,8 +23,6 @@
   <string name="prefs_category_more">Daugiau</string>
   <string name="prefs_accounts">Paskyros</string>
   <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
-  <string name="prefs_pincode">App programos PIN kodas</string>
-  <string name="prefs_pincode_summary">Apsaugokite savo klientą</string>
   <string name="prefs_instant_upload">Momentiniai nuotraukų įkėlimai</string>
   <string name="prefs_instant_upload_summary">Iš karto nusiųsti nufotografuotas nuotraukas</string>
   <string name="prefs_instant_video_upload">Momentiniai video įkėlimai</string>
@@ -49,6 +47,7 @@
   <string name="sync_string_files">Failai</string>
   <string name="setup_btn_connect">Prisijungti</string>
   <string name="uploader_btn_upload_text">Įkelti</string>
+  <string name="uploader_btn_new_folder_text">Naujas aplankas</string>
   <string name="uploader_top_message">Nustatyti įkėlimų aplanką:</string>
   <string name="uploader_wrn_no_account_title">Paskyrų nerasta</string>
   <string name="uploader_wrn_no_account_text">Jūsų įrenginyje nėra nė vienos %1$s paskyros. Prašome pirmiausia susikurti paskyrą.</string>
@@ -121,15 +120,6 @@
   <string name="foreign_files_fail">Kai kurių failų negalima perkelti</string>
   <string name="foreign_files_local_text">Vietinis: %1$s</string>
   <string name="foreign_files_remote_text">Nuotolinis: %1$s</string>
-  <string name="pincode_enter_pin_code">Prašome įvesti savo programos PIN kodą</string>
-  <string name="pincode_configure_your_pin">Įveskite taikymas programos PIN kodą</string>
-  <string name="pincode_configure_your_pin_explanation">PIN bus prašomas kiekvieną kartą paleidus programą</string>
-  <string name="pincode_reenter_your_pincode">Prašome pakartoti taikymas PIN kodą</string>
-  <string name="pincode_remove_your_pincode">Pašalinti taikymas programos PIN kodą</string>
-  <string name="pincode_mismatch">Abu taikymas programos PIN kodai nesutampa</string>
-  <string name="pincode_wrong">Neteisingas taikymas programos PIN kodas</string>
-  <string name="pincode_removed">Taikymas programos PIN kodas pašalintas</string>
-  <string name="pincode_stored">Taikymas programos PIN kodas išsaugotas</string>
   <string name="media_notif_ticker">%1$s muzikos grotuvas</string>
   <string name="media_state_playing">%1$s (grojama)</string>
   <string name="media_state_loading">%1$s (įkeliama)</string>
@@ -154,7 +144,6 @@
   <string name="auth_no_net_conn_title">Nėra tinklo ryšio</string>
   <string name="auth_nossl_plain_ok_title">Saugus prisijungimas negalimas.</string>
   <string name="auth_connection_established">Ryšys užmegztas</string>
-  <string name="auth_testing_connection">Išbandomas prisijungimas...</string>
   <string name="auth_not_configured_title">Sugadinta serverio konfigūracija</string>
   <string name="auth_account_not_new">To paties vartotojo ir serverio paskyra jau egzistuoja šiame įrenginyje</string>
   <string name="auth_unknown_error_title">Įvyko nežinoma klaida!</string>
@@ -250,5 +239,5 @@
   <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
   <string name="folder_picker_choose_button_text">Pasirinkite</string>
   <string name="prefs_category_security">Saugumas</string>
-  <string name="shared_subject_header">bendrinamas</string>
+  <string name="auth_host_address">Serverio adresas</string>
 </resources>

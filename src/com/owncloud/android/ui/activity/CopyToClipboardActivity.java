@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -28,8 +31,6 @@ import android.widget.Toast;
 
 /**
  * Activity copying the text of the received Intent into the system clibpoard.
- * 
- * @author David A. Velasco
  */
 @SuppressWarnings("deprecation")
 public class CopyToClipboardActivity extends Activity {

@@ -3,7 +3,7 @@
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2012-2013 ownCloud Inc.
+  Copyright (C) 2015 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -24,19 +24,22 @@
         android:icon="@drawable/ic_action_upload"
         android:orderInCategory="2"
         android:showAsAction="always"
-        android:title="@string/actionbar_upload"/>
+        android:title="@string/actionbar_upload"
+        android:contentDescription="@string/actionbar_upload"/>
     <item
         android:id="@+id/action_create_dir"
         android:icon="@drawable/ic_action_create_dir"
         android:orderInCategory="2"
         android:showAsAction="always"
-        android:title="@string/actionbar_mkdir"/>
+        android:title="@string/actionbar_mkdir"
+        android:contentDescription="@string/actionbar_mkdir"/>
     <item
         android:id="@+id/action_sort"
         android:icon="@android:drawable/ic_menu_sort_by_size"
         android:orderInCategory="2"
         android:showAsAction="always"
-        android:title="@string/actionbar_sort"/>
+        android:title="@string/actionbar_sort"
+        android:contentDescription="@string/actionbar_sort"/>/>
 
     <!-- <item android:id="@+id/search" android:title="@string/actionbar_search" android:icon="@drawable/ic_action_search"></item> -->
 

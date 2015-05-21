@@ -1,6 +1,9 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
  *   Copyright (C) 2011-2012  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -28,9 +31,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Custom database helper for ownCloud
- * 
- * @author Bartek Przybylski
- * 
  */
 public class DbHandler {
     private SQLiteDatabase mDB;
@@ -114,7 +114,14 @@ public class DbHandler {
                 db.execSQL("ALTER TABLE " + TABLE_INSTANT_UPLOAD + " ADD COLUMN attempt INTEGER;");
             }
             db.execSQL("ALTER TABLE " + TABLE_INSTANT_UPLOAD + " ADD COLUMN message TEXT;");
-
+        }
+        
+        @Override
+        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            //downgrading is the exception, so deleting and re-creating is acceptable.
+            //otherwise exception will be thrown (cannot downgrade) and oc app will crash.
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_INSTANT_UPLOAD + ";");
+            onCreate(db);
         }
     }
 }

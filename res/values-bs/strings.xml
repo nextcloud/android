@@ -13,6 +13,7 @@
   <string name="auth_password">Lozinka</string>
   <string name="sync_string_files">Datoteke</string>
   <string name="uploader_btn_upload_text">Učitaj</string>
+  <string name="uploader_btn_new_folder_text">Novi direktorij</string>
   <string name="filedetails_download">Preuzmite</string>
   <string name="action_share_file">Podijelite vezu</string>
   <string name="common_yes">Da</string>
@@ -31,4 +32,5 @@
   <string name="saml_authentication_wrong_pass">Pogrešna lozinka</string>
   <string name="folder_picker_choose_button_text">Izaberite</string>
   <string name="prefs_category_security">Sigurnost</string>
+  <string name="auth_host_address">Adresa servera</string>
 </resources>
