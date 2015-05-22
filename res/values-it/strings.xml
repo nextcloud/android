@@ -306,4 +306,5 @@
   <string name="subject_token">%1$s ha condiviso \"%2$s\" con te</string>
   <string name="auth_refresh_button">Aggiorna la connessione</string>
   <string name="auth_host_address">Indirizzo del server</string>
+  <string name="common_error_out_memory">Memoria insufficiente</string>
 </resources>
