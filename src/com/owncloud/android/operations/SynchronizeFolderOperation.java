@@ -316,7 +316,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // get current data about local contents of the folder to synchronize
-        List<OCFile> localFiles = storageManager.getFolderContent(mLocalFolder, true);
+        List<OCFile> localFiles = storageManager.getFolderContent(mLocalFolder, false);
         Map<String, OCFile> localFilesMap = new HashMap<String, OCFile>(localFiles.size());
         for (OCFile file : localFiles) {
             localFilesMap.put(file.getRemotePath(), file);
@@ -412,7 +412,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     
     private void prepareOpsFromLocalKnowledge() throws OperationCancelledException {
         // TODO TOBI ist das richtig?
-        List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder, true);
+        List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder, false);
         for (OCFile child : children) {
             /// classify file to sync/download contents later
             if (child.isFolder()) {

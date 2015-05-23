@@ -44,11 +44,15 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
             mDrawerItems.add(string);
         }
 
+        updateAccountList();
+
+        all.addAll(mDrawerItems);
+    }
+
+    public void updateAccountList(){
         AccountManager am = (AccountManager) mContext.getSystemService(mContext.ACCOUNT_SERVICE);
         mAccounts = am.getAccountsByType(MainApp.getAccountType());
         currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
-
-        all.addAll(mDrawerItems);
     }
 
     @Override
@@ -157,6 +161,7 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
         return convertView;
     }
 
+    // TODO update Account List after creating a new account and on fresh installation
     public void setShowAccounts(boolean value){
         all.clear();
         all.addAll(mDrawerItems);

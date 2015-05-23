@@ -414,7 +414,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         }
         if (mStorageManager != null) {
-            mFiles = mStorageManager.getFolderContent(mFile, false);
+            mFiles = mStorageManager.getFolderContent(mFile, onlyOnDevice);
             mFilesOrig.clear();
             mFilesOrig.addAll(mFiles);
             

@@ -164,6 +164,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     private static String DIALOG_UPLOAD_SOURCE = "DIALOG_UPLOAD_SOURCE";
     private static String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
 
+    private NavigationDrawerListAdapter adapter = null;
 
     private OCFile mWaitingToSend;
     
@@ -237,7 +238,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         
         // ListView
         ListView listView = (ListView) notificatonDrawer.findViewById(R.id.drawer_list);
-        final NavigationDrawerListAdapter adapter = new NavigationDrawerListAdapter(getApplicationContext(), this);
+        adapter = new NavigationDrawerListAdapter(getApplicationContext(), this);
         
         listView.setAdapter(adapter);
         
@@ -276,8 +277,11 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         // Username
         TextView username = (TextView) notificatonDrawer.findViewById(R.id.drawer_username);
         Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-        int lastAtPos = account.name.lastIndexOf("@");
-        username.setText(account.name.substring(0, lastAtPos));
+
+        if (account != null) {
+            int lastAtPos = account.name.lastIndexOf("@");
+            username.setText(account.name.substring(0, lastAtPos));
+        }
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -889,6 +893,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
+
+        // refresh Navigation Drawer account list
+        adapter.updateAccountList();
 
         // refresh list of files
         refreshListOfFilesFragment();
