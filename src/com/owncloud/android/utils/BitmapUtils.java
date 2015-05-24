@@ -178,44 +178,81 @@ public class BitmapUtils {
     }
 
     /**
-     * Converts an HSL color value to RGB. Conversion formula
-     * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
-     * Assumes h, s, and l are contained in the set [0, 1] and
-     * returns r, g, and b in the set [0, 255].
-     * from: http://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
+     *  Convert HSL values to a RGB Color.
      *
-     * @param   integer  h       The hue
-     * @param   Integer  s       The saturation
-     * @param   Integer  l       The lightness
-     * @return  Array           The RGB representation
+     *  @param h Hue is specified as degrees in the range 0 - 360.
+     *  @param s Saturation is specified as a percentage in the range 1 - 100.
+     *  @param l Lumanance is specified as a percentage in the range 1 - 100.
+     *  @paran alpha  the alpha value between 0 - 1
+     *  adapted from https://svn.codehaus.org/griffon/builders/gfxbuilder/tags/GFXBUILDER_0.2/
+     *  gfxbuilder-core/src/main/com/camick/awt/HSLColor.java
      */
-    public static int[] hslToRgb(Double h, Double s, Double l){
-        Double r, g, b;
-
-        if(s == 0){
-            r = g = b = l; // achromatic
-        } else {
-            Double q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-            Double p = 2 * l - q;
-            r = hue2rgb(p, q, h + 1/3) * 255;
-            g = hue2rgb(p, q, h) * 255;
-            b = hue2rgb(p, q, h - 1/3) * 255;
+    public static int[] HSLtoRGB(float h, float s, float l, float alpha)
+    {
+        if (s <0.0f || s > 100.0f)
+        {
+            String message = "Color parameter outside of expected range - Saturation";
+            throw new IllegalArgumentException( message );
         }
 
+        if (l <0.0f || l > 100.0f)
+        {
+            String message = "Color parameter outside of expected range - Luminance";
+            throw new IllegalArgumentException( message );
+        }
 
-        int[] array = {r.intValue(), g.intValue(), b.intValue()};
+        if (alpha <0.0f || alpha > 1.0f)
+        {
+            String message = "Color parameter outside of expected range - Alpha";
+            throw new IllegalArgumentException( message );
+        }
+
+        //  Formula needs all values between 0 - 1.
+
+        h = h % 360.0f;
+        h /= 360f;
+        s /= 100f;
+        l /= 100f;
+
+        float q = 0;
+
+        if (l < 0.5)
+            q = l * (1 + s);
+        else
+            q = (l + s) - (s * l);
+
+        float p = 2 * l - q;
+
+        int r = Math.round(Math.max(0, HueToRGB(p, q, h + (1.0f / 3.0f)) * 256));
+        int g = Math.round(Math.max(0, HueToRGB(p, q, h) * 256));
+        int b = Math.round(Math.max(0, HueToRGB(p, q, h - (1.0f / 3.0f)) * 256));
+
+        int[] array = {r, g, b};
         return array;
     }
 
-    private static Double hue2rgb(Double p, Double q, Double t){
-        if(t < 0) t += 1;
-        if(t > 1) t -= 1;
-        if(t < 1/6) return p + (q - p) * 6 * t;
-        if(t < 1/2) return q;
-        if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-        return p;
-    }
-    
+    private static float HueToRGB(float p, float q, float h){
+		if (h < 0) h += 1;
+
+		if (h > 1 ) h -= 1;
+
+		if (6 * h < 1)
+		{
+			return p + ((q - p) * 6 * h);
+		}
+
+		if (2 * h < 1 )
+		{
+			return  q;
+		}
+
+		if (3 * h < 2)
+		{
+			return p + ( (q - p) * 6 * ((2.0f / 3.0f) - h) );
+		}
+
+   		return p;
+	}
 
     /**
      * Checks if file passed is an image

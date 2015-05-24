@@ -24,6 +24,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.BitmapUtils;
 
+import org.apache.commons.codec.binary.Hex;
+
 public class NavigationDrawerListAdapter extends BaseAdapter {
 
     private final static String TAG  = "NavigationDrawerListAdapter";
@@ -105,22 +107,23 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
                     rb.setText(account.name);
 
                     try {
-                        byte[] bytesOfMessage = account.name.substring(0,5).getBytes("UTF-8");
+                        // using adapted algorithm from /core/js/placeholder.js:50
+                        int lastAtPos = account.name.lastIndexOf("@");
+                        String username  = account.name.substring(0, lastAtPos);
+                        byte[] seed = username.getBytes("UTF-8");
                         MessageDigest md = MessageDigest.getInstance("MD5");
-                        byte[] digest = md.digest(bytesOfMessage);
-                        int result = Math.abs(ByteBuffer.wrap(digest).getInt());
+                        byte[] seedMd5 = md.digest(seed);
+                        Integer seedMd5Int = Math.abs(new String(Hex.encodeHex(seedMd5)).hashCode());
 
-                        Log_OC.d(TAG, "Integer: " + result % 100000);
-                        Log_OC.d(TAG, "length: " + digest.length);
-
-
-                        Double hue = (result % 100000) / 99999.0;
+                        double maxRange = java.lang.Integer.MAX_VALUE;
+                        float hue = (float) (seedMd5Int / maxRange * 360);
 
                         Log_OC.d(TAG, "hue: " + hue);
 
-                        int[] rgb = BitmapUtils.hslToRgb(hue, 0.9, 0.65);
+
+                        int[] rgb = BitmapUtils.HSLtoRGB(hue, 90.0f, 65.0f, 1.0f);
                         rb.setTextColor(Color.rgb(rgb[0], rgb[1], rgb[2]));
-                        Log_OC.d(TAG, "Color: " + rgb[0] + " " + rgb[1] + rgb[2]);
+                        Log_OC.d(TAG, "Color: " + rgb[0] + " " + rgb[1] + " " + rgb[2]);
 
                     } catch (Exception e){
                         Log_OC.d(TAG, e.toString());
