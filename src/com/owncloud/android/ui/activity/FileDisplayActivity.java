@@ -255,14 +255,16 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                     adapter.notifyDataSetChanged();
                     break;
                 case 1:
-                    MainApp.showOnlyFilesOnDevice(false);
+                    // TODO Enable when "On Device" is recovered ?
+                    //MainApp.showOnlyFilesOnDevice(false);
                     mDrawerLayout.closeDrawers();
                     break;
+                // TODO Enable when "On Device" is recovered ?
+//                case 2:
+//                    MainApp.showOnlyFilesOnDevice(true);
+//                    mDrawerLayout.closeDrawers();
+//                    break;
                 case 2:
-                    MainApp.showOnlyFilesOnDevice(true);
-                    mDrawerLayout.closeDrawers();
-                    break;
-                case 3:
                     Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
                     startActivity(settingsIntent);
                     break;
@@ -408,7 +410,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             /// First fragment
             OCFileListFragment listOfFiles = getListOfFilesFragment(); 
             if (listOfFiles != null) {
-                listOfFiles.listDirectory(getCurrentDir(), MainApp.getOnlyOnDevice());   
+                listOfFiles.listDirectory(getCurrentDir());
+                // TODO Enable when "On Device" is recovered
+                // listOfFiles.listDirectory(getCurrentDir(), MainApp.getOnlyOnDevice());
             } else {
                 Log_OC.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
             }
@@ -527,8 +531,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     protected void refreshListOfFilesFragment() {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
-        if (fileListFragment != null) { 
-            fileListFragment.listDirectory(MainApp.getOnlyOnDevice());
+        if (fileListFragment != null) {
+            fileListFragment.listDirectory();
+            // TODO Enable when "On Device" is recovered ?
+            // fileListFragment.listDirectory(MainApp.getOnlyOnDevice());
         }
     }
 
@@ -1046,7 +1052,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                             if (synchFolderRemotePath != null && currentDir.getRemotePath().equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
-                                    fileListFragment.listDirectory(currentDir, MainApp.getOnlyOnDevice());
+                                    fileListFragment.listDirectory();
+                                    // TODO Enable when "On Device" is recovered ?
+                                    // fileListFragment.listDirectory(currentDir, MainApp.getOnlyOnDevice());
                                 }
                             }
                             setFile(currentFile);
@@ -1275,7 +1283,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 popDirname();
             }
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
-            listOfFiles.listDirectory(root, MainApp.getOnlyOnDevice());
+            listOfFiles.listDirectory(root);
+            // TODO Enable when "On Device" is recovered ?
+            // listOfFiles.listDirectory(root, MainApp.getOnlyOnDevice());
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root, false);
         }
@@ -1290,7 +1300,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (listOfFiles != null) {
             setNavigationListWithFolder(folder);
-            listOfFiles.listDirectory(folder, MainApp.getOnlyOnDevice());
+            listOfFiles.listDirectory(folder);
+            // TODO Enable when "On Device" is recovered ?
+            // listOfFiles.listDirectory(folder, MainApp.getOnlyOnDevice());
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(folder, false);
         } else {
@@ -1402,7 +1414,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             // a new chance to get the mDownloadBinder through getFileDownloadBinder() - THIS IS A MESS
             OCFileListFragment listOfFiles = getListOfFilesFragment(); 
             if (listOfFiles != null) {
-                listOfFiles.listDirectory(MainApp.getOnlyOnDevice());
+                listOfFiles.listDirectory();
+                // TODO Enable when "On Device" is recovered ?
+                // listOfFiles.listDirectory(MainApp.getOnlyOnDevice());
             }
             FileFragment secondFragment = getSecondFragment();
             if (secondFragment != null && secondFragment instanceof FileDetailFragment) {

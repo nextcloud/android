@@ -112,7 +112,8 @@ implements ConfirmationDialogFragmentListener {
         
         boolean containsKeepInSync = false;
         if (mTargetFile.isFolder()) {
-            Vector<OCFile> files = storageManager.getFolderContent(mTargetFile, false);
+            // TODO Enable when "On Device" is recovered ?
+            Vector<OCFile> files = storageManager.getFolderContent(mTargetFile/*, false*/);
             for(OCFile file: files) {
                 containsKeepInSync = file.keepInSync() || containsKeepInSync;
 

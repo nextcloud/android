@@ -23,7 +23,7 @@
     <string-array name="drawer_items">
         <item>Accounts</item>
 	    <item>All Files</item>
-	    <item>On device</item>
+	    <!--<item>On device</item>-->
 	    <item>Settings</item>
     </string-array>
     <string name="drawer_open">ownCloud</string>
