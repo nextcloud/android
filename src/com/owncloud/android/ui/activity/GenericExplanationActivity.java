@@ -26,7 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +45,7 @@ import com.owncloud.android.utils.DisplayUtils;
  * Added to show explanations for notifications when the user clicks on them, and there no place
  * better to show them.
  */
-public class GenericExplanationActivity  extends AppCompatActivity {
+public class GenericExplanationActivity  extends ActionBarActivity {
 
     public static final String EXTRA_LIST = GenericExplanationActivity.class.getCanonicalName() +
             ".EXTRA_LIST";

@@ -37,7 +37,7 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -70,7 +70,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud
  * {@link Account}s .
  */
-public class FileActivity extends AppCompatActivity
+public class FileActivity extends ActionBarActivity
         implements OnRemoteOperationListener, ComponentsGetter {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";

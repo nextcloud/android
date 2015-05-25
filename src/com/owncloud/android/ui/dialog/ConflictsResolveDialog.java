@@ -28,7 +28,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
 
 import com.owncloud.android.R;
 import com.owncloud.android.utils.DisplayUtils;
@@ -91,7 +91,7 @@ public class ConflictsResolveDialog extends DialogFragment {
                    .create();
     }
     
-    public void showDialog(AppCompatActivity activity) {
+    public void showDialog(ActionBarActivity activity) {
         Fragment prev = activity.getSupportFragmentManager().findFragmentByTag("dialog");
         FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
         if (prev != null) {
@@ -102,7 +102,7 @@ public class ConflictsResolveDialog extends DialogFragment {
         this.show(ft, "dialog");
     }
 
-    public void dismissDialog(AppCompatActivity activity) {
+    public void dismissDialog(ActionBarActivity activity) {
         Fragment prev = activity.getSupportFragmentManager().findFragmentByTag(getTag());
         if (prev != null) {
             FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();

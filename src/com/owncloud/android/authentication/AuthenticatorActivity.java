@@ -206,7 +206,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     protected void onCreate(Bundle savedInstanceState) {
         //Log_OC.wtf(TAG,  "onCreate init");
         super.onCreate(savedInstanceState);
-        //getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         mIsFirstAuthAttempt = true;
 
