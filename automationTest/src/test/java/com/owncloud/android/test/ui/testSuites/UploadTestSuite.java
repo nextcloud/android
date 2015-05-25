@@ -40,7 +40,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.owncloud.android.test.ui.actions.Actions;
 import com.owncloud.android.test.ui.groups.FailingTestCategory;
 import com.owncloud.android.test.ui.groups.IgnoreTestCategory;
+import com.owncloud.android.test.ui.groups.InProgressCategory;
 import com.owncloud.android.test.ui.groups.NoIgnoreTestCategory;
+import com.owncloud.android.test.ui.groups.SmokeTestCategory;
 import com.owncloud.android.test.ui.groups.UnfinishedTestCategory;
 import com.owncloud.android.test.ui.models.FileDetailsView;
 import com.owncloud.android.test.ui.models.ElementMenuOptions;
@@ -72,7 +74,7 @@ public class UploadTestSuite{
 	}
 
 	@Test
-	@Category(NoIgnoreTestCategory.class)
+	@Category({NoIgnoreTestCategory.class, SmokeTestCategory.class})
 	public void testUploadFile () throws Exception {
 
 		FileListView fileListView = Actions.login(Config.URL, Config.user,
@@ -151,7 +153,8 @@ public class UploadTestSuite{
 		FileListView fileListViewAfterUploadFile = Actions
 				.uploadFile(FILE_NAME, fileListView);
 		fileListViewAfterUploadFile.scrollTillFindElement(FILE_NAME);
-		assertTrue(fileListViewAfterUploadFile.getFileElement().isDisplayed());
+		assertTrue(fileHasBeenUploaded = fileListViewAfterUploadFile
+				.getFileElement().isDisplayed());
 
 		ElementMenuOptions menuOptions = fileListViewAfterUploadFile
 				.longPressOnElement(FILE_NAME);
@@ -159,6 +162,43 @@ public class UploadTestSuite{
 		fileDetailsView.checkKeepFileUpToDateCheckbox();
 		Thread.sleep(3000);
 		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_BACK);
+		assertTrue(common.isElementPresent(
+				fileListViewAfterUploadFile.getFileElementLayout(), 
+				MobileBy.id(FileListView.getFavoriteFileIndicator())));
+		assertTrue(fileListViewAfterUploadFile.getFileElementLayout()
+				.findElement(By.id(FileListView.getFavoriteFileIndicator()))
+				.isDisplayed());
+	}
+	
+	@Test	
+	@Category({NoIgnoreTestCategory.class})
+	public void testKeepFileUpToDateAndRefresh () throws Exception {
+
+		FileListView fileListView = Actions.login(Config.URL, Config.user,
+				Config.password, Config.isTrusted, driver);
+		common.assertIsInFileListView();
+
+		Common.waitTillElementIsNotPresent(fileListView.getProgressCircular(), 
+				1000);
+
+		FileListView fileListViewAfterUploadFile = Actions
+				.uploadFile(FILE_NAME, fileListView);
+		fileListViewAfterUploadFile.scrollTillFindElement(FILE_NAME);
+		assertTrue(fileHasBeenUploaded = fileListViewAfterUploadFile
+				.getFileElement().isDisplayed());
+
+		ElementMenuOptions menuOptions = fileListViewAfterUploadFile
+				.longPressOnElement(FILE_NAME);
+		FileDetailsView fileDetailsView = menuOptions.clickOnDetails();
+		fileDetailsView.checkKeepFileUpToDateCheckbox();
+		Thread.sleep(3000);
+		driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_BACK);
+		
+		fileListViewAfterUploadFile.pulldownToRefresh();
+		//assertTrue(fileListView.getProgressCircular().isDisplayed());
+		Common.waitTillElementIsNotPresent(fileListView.getProgressCircular(), 
+				100);
+		
 		assertTrue(common.isElementPresent(
 				fileListViewAfterUploadFile.getFileElementLayout(), 
 				MobileBy.id(FileListView.getFavoriteFileIndicator())));
