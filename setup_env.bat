@@ -29,11 +29,10 @@ if not exist .\actionbarsherlock (
     git checkout "90939dc3925ffaaa0de269bbbe1b35e274968ea1"
     cd ../
 
-    call android.bat update project -p actionbarsherlock/library -n ActionBarSherlock --target android-19
+    call android.bat update project -p libs/android-support-appcompat-v7-exploded-aar --target android-16
     call android.bat update lib-project -p owncloud-android-library
     call android.bat update project -p .
     call android.bat update project -p oc_jb_workaround
-    copy /Y third_party\android-support-library\android-support-v4.jar actionbarsherlock\library\libs\android-support-v4.jar
     call android.bat update test-project -p tests -m ..
 )
 goto complete
@@ -41,6 +40,7 @@ goto complete
 :initDefault
 call git submodule init
 call git submodule update
+call android.bat update project -p libs/android-support-appcompat-v7-exploded-aar --target android-16
 call android.bat update lib-project -p owncloud-android-library
 call android.bat update project -p .
 call android.bat update project -p oc_jb_workaround
