@@ -167,7 +167,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_connection_established">Connexion établie</string>
   <string name="auth_testing_connection">Test de connexion</string>
   <string name="auth_not_configured_title">Configuration du serveur erronée</string>
-  <string name="auth_account_not_new">Un compte pour les même utilisateur et serveur existe déjà sur cet appareil</string>
+  <string name="auth_account_not_new">Un compte pour les mêmes utilisateur et serveur existe déjà sur cet appareil</string>
   <string name="auth_account_not_the_same">L\'utilisateur entré ne correspond pas à l\'utilisateur de ce compte</string>
   <string name="auth_unknown_error_title">Une erreur inconnue s\'est produite.</string>
   <string name="auth_unknown_host_title">Impossible de trouver l\'hôte</string>
@@ -310,4 +310,5 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="subject_token">%1$s a partagé \"%2$s\" avec vous</string>
   <string name="auth_refresh_button">Actualiser la connexion</string>
   <string name="auth_host_address">Adresse du serveur</string>
+  <string name="common_error_out_memory">Mémoire insuffisante</string>
 </resources>
