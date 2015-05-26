@@ -3,7 +3,7 @@ android:
   components:
     - platform-tools
     - tools
-    - build-tools-20.0.0
+    - build-tools-22.0.1
     - android-19
 before_install:
   - rm pom.xml
