@@ -274,12 +274,16 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
         // TODO Enable when "On Device" is recovered
         // On Device
-        // mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2], mDrawerContentDescriptions[2]));
+        //mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2],
+        //        mDrawerContentDescriptions[2]));
 
         // Settings
         mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2], mDrawerContentDescriptions[2]));
         // Logs
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[3],mDrawerContentDescriptions[3]));
+        if (BuildConfig.DEBUG) {
+            mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[3],
+                    mDrawerContentDescriptions[3]));
+        }
 
         // setting the nav drawer list adapter
         mNavigationDrawerAdapter = new NavigationDrawerListAdapter(getApplicationContext(), this,
