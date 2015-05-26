@@ -167,7 +167,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-    private boolean showAccounts = false;
+    private boolean mShowAccounts = false;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,29 +242,39 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (showAccounts && position > 0){
+                if (mShowAccounts && position > 0){
                     position = position - 1;
                 }
                 switch (position){
-                case 0:
-                    showAccounts = !showAccounts;
-                    adapter.setShowAccounts(showAccounts);
-                    adapter.notifyDataSetChanged();
-                    break;
-                case 1:
+                    case 0: // Accounts
+                        mShowAccounts = !mShowAccounts;
+                        adapter.setShowAccounts(mShowAccounts);
+                        adapter.notifyDataSetChanged();
+                        break;
+
+                    case 1: // All Files
+                        // TODO Enable when "On Device" is recovered ?
+                        //MainApp.showOnlyFilesOnDevice(false);
+                        mDrawerLayout.closeDrawers();
+                        break;
+
                     // TODO Enable when "On Device" is recovered ?
-                    //MainApp.showOnlyFilesOnDevice(false);
-                    mDrawerLayout.closeDrawers();
-                    break;
-                // TODO Enable when "On Device" is recovered ?
 //                case 2:
 //                    MainApp.showOnlyFilesOnDevice(true);
 //                    mDrawerLayout.closeDrawers();
 //                    break;
-                case 2:
-                    Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
-                    startActivity(settingsIntent);
-                    break;
+
+                    case 2: // Settings
+                        Intent settingsIntent = new Intent(getApplicationContext(),
+                                Preferences.class);
+                        startActivity(settingsIntent);
+                        break;
+
+                    case 3: // Logs
+                        Intent loggerIntent = new Intent(getApplicationContext(),
+                                LogHistoryActivity.class);
+                        startActivity(loggerIntent);
+                        break;
                 }
             }
         });
