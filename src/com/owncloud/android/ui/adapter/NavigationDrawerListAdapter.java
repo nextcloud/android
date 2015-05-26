@@ -7,7 +7,15 @@ import java.util.ArrayList;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +29,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.BitmapUtils;
 
@@ -104,7 +113,13 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
 
                 for (Account account : mAccounts) {
                     RadioButton rb = new RadioButton(mContext);
+
                     rb.setText(account.name);
+                    rb.setTextColor(Color.BLACK);
+                    rb.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+                    rb.setSingleLine();
+                    rb.setCompoundDrawablePadding(30);
+
 
                     try {
                         // using adapted algorithm from /core/js/placeholder.js:50
@@ -118,12 +133,17 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
                         double maxRange = java.lang.Integer.MAX_VALUE;
                         float hue = (float) (seedMd5Int / maxRange * 360);
 
-                        Log_OC.d(TAG, "hue: " + hue);
-
-
                         int[] rgb = BitmapUtils.HSLtoRGB(hue, 90.0f, 65.0f, 1.0f);
-                        rb.setTextColor(Color.rgb(rgb[0], rgb[1], rgb[2]));
-                        Log_OC.d(TAG, "Color: " + rgb[0] + " " + rgb[1] + " " + rgb[2]);
+
+//                        Drawable drawable = MainApp.getAppContext().getResources().getDrawable(R.drawable.radiobutton_avatar);
+//                        drawable.setColorFilter(Color.rgb(rgb[0], rgb[1], rgb[2]), PorterDuff.Mode.SRC_ATOP);
+
+
+
+                        TextDrawable text = new TextDrawable(username.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2], rb.getTextSize());
+
+                        rb.setCompoundDrawablesWithIntrinsicBounds(text, null, null, null);
+
 
                     } catch (Exception e){
                         Log_OC.d(TAG, e.toString());
