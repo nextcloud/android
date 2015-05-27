@@ -309,4 +309,5 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="subject_token">%1$s deelde \"%2$s\" met u</string>
   <string name="auth_refresh_button">Verversen verbinding</string>
   <string name="auth_host_address">Serveradres</string>
+  <string name="common_error_out_memory">Niet voldoende geheugen</string>
 </resources>

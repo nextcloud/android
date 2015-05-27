@@ -23,6 +23,7 @@
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Kontoer</string>
   <string name="prefs_manage_accounts">Håndter kontoer</string>
+  <string name="prefs_passcode">Passordlås</string>
   <string name="prefs_instant_upload">Umiddelbare bildeopplastninger</string>
   <string name="prefs_instant_upload_summary">Last opp bilder tatt av kameraet umiddelbart</string>
   <string name="prefs_instant_video_upload">Umiddelbare video-opplastninger</string>
@@ -126,6 +127,15 @@
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Ekstern: %1$s</string>
   <string name="upload_query_move_foreign_files">Det er ikke nok plass til å kopiere de valgte filene inn i mappen %1$s. Vil du flytte dem i stedet? </string>
+  <string name="pass_code_enter_pass_code">Legg inn passordet ditt</string>
+  <string name="pass_code_configure_your_pass_code">Skriv inn passordet ditt</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Passordet vil bli krevd hver gang appen startes</string>
+  <string name="pass_code_reenter_your_pass_code">Skriv inn passordet på nytt</string>
+  <string name="pass_code_remove_your_pass_code">Fjern passordet ditt</string>
+  <string name="pass_code_mismatch">Passordene er ikke like</string>
+  <string name="pass_code_wrong">Feil passord</string>
+  <string name="pass_code_removed">Passord fjernet</string>
+  <string name="pass_code_stored">Passord lagret</string>
   <string name="media_notif_ticker">%1$s musikkspiller</string>
   <string name="media_state_playing">%1$s (spiller)</string>
   <string name="media_state_loading">%1$s (laster)</string>
@@ -201,6 +211,7 @@
   <string name="filedisplay_unexpected_bad_get_content">Uforventet problem; vennligst velg filen fra en annen applikasjon</string>
   <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
   <string name="activity_chooser_title">Send lenke til ...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
   <string name="oauth_check_onoff">Logg inn med oAuth2</string>
   <string name="oauth_login_connection">Kobler til oAuth2 server...</string>
   <string name="ssl_validator_header">Identiteten til siden kunne ikke verifiseres</string>
@@ -295,4 +306,5 @@
   <string name="subject_token">%1$s har delt \"%2$s\" med deg</string>
   <string name="auth_refresh_button">Oppfrisk forbindelse</string>
   <string name="auth_host_address">Server-adresse</string>
+  <string name="common_error_out_memory">Ikke nok minne</string>
 </resources>
