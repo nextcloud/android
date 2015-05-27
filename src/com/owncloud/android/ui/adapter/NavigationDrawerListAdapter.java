@@ -21,9 +21,11 @@
 
 package com.owncloud.android.ui.adapter;
 
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -153,8 +155,8 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
                         String username  = account.name.substring(0, lastAtPos);
                         byte[] seed = username.getBytes("UTF-8");
                         MessageDigest md = MessageDigest.getInstance("MD5");
-                        byte[] seedMd5 = md.digest(seed);
-                        Integer seedMd5Int = Math.abs(new String(Hex.encodeHex(seedMd5)).hashCode());
+//                        Integer seedMd5Int = Math.abs(new String(Hex.encodeHex(seedMd5)).hashCode());
+                        Integer seedMd5Int = String.format(Locale.ROOT, "%032x", new BigInteger(1, md.digest(seed))).hashCode();
 
                         double maxRange = java.lang.Integer.MAX_VALUE;
                         float hue = (float) (seedMd5Int / maxRange * 360);
