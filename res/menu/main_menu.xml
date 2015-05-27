@@ -41,25 +41,11 @@
         app:showAsAction="never"
         android:title="@string/actionbar_sync"
         android:contentDescription="@string/actionbar_sync"/>
-    <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_action_settings"
-        android:orderInCategory="2"
-        app:showAsAction="never"
-        android:title="@string/actionbar_settings"
-        android:contentDescription="@string/actionbar_settings"/>
-    <item
-        android:id="@+id/action_logger"
-        android:icon="@drawable/ic_action_settings"
-        android:orderInCategory="2"
-        app:showAsAction="never"
-        android:title="@string/actionbar_logger"
-        android:contentDescription="@string/actionbar_logger"/>
 	<item
         android:id="@+id/action_sort"
         android:icon="@android:drawable/ic_menu_sort_by_size"
         android:orderInCategory="2"
-        app:showAsAction="always"
+        app:showAsAction="never"
         android:title="@string/actionbar_sort"
         android:contentDescription="@string/actionbar_sort"/>
 
