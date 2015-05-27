@@ -96,39 +96,6 @@ public class FileMenuFilter {
         }
     }
 
-    /**
-     * Filters out the file actions available in the passed {@link Menu} taken into account
-     * the state of the {@link OCFile} held by the filter.
-     * 
-     * Second method needed thanks to ActionBarSherlock.
-     * 
-     * TODO Get rid of it when ActionBarSherlock is replaced for newer Android Support Library.
-     *  
-     * @param menu              Options or context menu to filter.
-     */
-    public void filter(com.actionbarsherlock.view.Menu menu) {
-
-        List<Integer> toShow = new ArrayList<Integer>();
-        List<Integer> toHide = new ArrayList<Integer>();
-        
-        filter(toShow, toHide);
-
-        com.actionbarsherlock.view.MenuItem item = null;
-        for (int i : toShow) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(true);
-                item.setEnabled(true);
-            }
-        }
-        for (int i : toHide) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        }
-    }
 
     /**
      * Performs the real filtering, to be applied in the {@link Menu} by the caller methods.

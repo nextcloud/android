@@ -27,6 +27,8 @@ import java.util.Arrays;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -37,20 +39,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 
-public class PassCodeActivity extends SherlockFragmentActivity {
+public class PassCodeActivity extends ActionBarActivity {
 
 
     private static final String TAG = PassCodeActivity.class.getSimpleName();
 
-    public final static String ACTION_ENABLE = PassCodeActivity.class.getCanonicalName() + ".ENABLE";
-    public final static String ACTION_DISABLE = PassCodeActivity.class.getCanonicalName() + ".DISABLE";
-    public final static String ACTION_REQUEST = PassCodeActivity.class.getCanonicalName()  + ".REQUEST";
+    public final static String ACTION_ENABLE = PassCodeActivity.class.getCanonicalName() +
+            ".ENABLE";
+    public final static String ACTION_DISABLE = PassCodeActivity.class.getCanonicalName() +
+            ".DISABLE";
+    public final static String ACTION_REQUEST = PassCodeActivity.class.getCanonicalName()  +
+            ".REQUEST";
 
     private Button mBCancel;
     private TextView mPassCodeHdr;
@@ -66,7 +69,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
     /**
      * Initializes the activity.
      *
-     * An intent with a valid ACTION is expected; if none is found, an {@link IllegalArgumentException} will be thrown.
+     * An intent with a valid ACTION is expected; if none is found, an
+     * {@link IllegalArgumentException} will be thrown.
      *
      * @param savedInstanceState    Previously saved state - irrelevant in this case
      */
@@ -79,7 +83,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
         mPassCodeHdrExplanation = (TextView) findViewById(R.id.explanation);
         mPassCodeEditTexts[0] = (EditText) findViewById(R.id.txt0);
         mPassCodeEditTexts[0].requestFocus();
-        getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        getWindow().setSoftInputMode(
+                android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         mPassCodeEditTexts[1] = (EditText) findViewById(R.id.txt1);
         mPassCodeEditTexts[2] = (EditText) findViewById(R.id.txt2);
         mPassCodeEditTexts[3] = (EditText) findViewById(R.id.txt3);
@@ -91,9 +96,11 @@ public class PassCodeActivity extends SherlockFragmentActivity {
             setCancelButtonEnabled(false);      // no option to cancel
 
         } else if (ACTION_ENABLE.equals(getIntent().getAction())) {
-            /// pass code preference has just been activated in Preferences; will receive and confirm pass code value
+            /// pass code preference has just been activated in Preferences;
+            // will receive and confirm pass code value
             mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
-            //mPassCodeHdr.setText(R.string.pass_code_enter_pass_code); // TODO choose a header, check iOS
+            //mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
+            // TODO choose a header, check iOS
             mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
             setCancelButtonEnabled(true);
 
@@ -105,7 +112,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
             setCancelButtonEnabled(true);
 
         } else {
-            throw new IllegalArgumentException("A valid ACTION is needed in the Intent passed to " + TAG);
+            throw new IllegalArgumentException("A valid ACTION is needed in the Intent passed to "
+                    + TAG);
         }
 
         setTextListeners();
@@ -116,7 +124,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
 
 
     /**
-     * Enables or disables the cancel button to allow the user interrupt the ACTION requested to the activity.
+     * Enables or disables the cancel button to allow the user interrupt the ACTION
+     * requested to the activity.
      *
      * @param enabled       'True' makes the cancel button available, 'false' hides it.
      */
@@ -155,7 +164,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
 
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_DEL && mBChange) {  // TODO WIP: event should be used to control what's exactly happening with DEL, not any custom field...
+                if (keyCode == KeyEvent.KEYCODE_DEL && mBChange) {  // TODO WIP: event should be
+                // used to control what's exactly happening with DEL, not any custom field...
                     mPassCodeEditTexts[0].setText("");
                     mPassCodeEditTexts[0].requestFocus();
                     if (!mConfirmingPassCode)
@@ -174,7 +184,9 @@ public class PassCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 /// TODO WIP: should take advantage of hasFocus to reduce processing
-                if (mPassCodeEditTexts[0].getText().toString().equals("")) {    // TODO WIP validation could be done in a global way, with a single OnFocusChangeListener for all the input fields
+                if (mPassCodeEditTexts[0].getText().toString().equals("")) {  // TODO WIP validation
+                // could be done in a global way, with a single OnFocusChangeListener for all the
+                // input fields
                     mPassCodeEditTexts[0].requestFocus();
                 }
             }
@@ -263,8 +275,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
     /**
      * Processes the pass code entered by the user just after the last digit was in.
      *
-     * Takes into account the action requested to the activity, the currently saved pass code and the previously
-     * typed pass code, if any.
+     * Takes into account the action requested to the activity, the currently saved pass code and
+     * the previously typed pass code, if any.
      */
     private void processFullPassCode() {
         if (ACTION_REQUEST.equals(getIntent().getAction())) {
@@ -273,7 +285,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
                 finish();
 
             }  else {
-                showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code, View.INVISIBLE);
+                showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code,
+                        View.INVISIBLE);
             }
 
         } else if (ACTION_DISABLE.equals(getIntent().getAction())) {
@@ -281,14 +294,16 @@ public class PassCodeActivity extends SherlockFragmentActivity {
                 /// pass code accepted when disabling, pass code is removed
                 SharedPreferences.Editor appPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
-                appPrefs.putBoolean("set_pincode", false);  // TODO remove; this should be unnecessary, was done before entering in the activity
+                appPrefs.putBoolean("set_pincode", false);  // TODO remove; this should be
+                // unnecessary, was done before entering in the activity
                 appPrefs.commit();
 
                 Toast.makeText(PassCodeActivity.this, R.string.pass_code_removed, Toast.LENGTH_LONG).show();
                 finish();
 
             } else {
-                showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code, View.INVISIBLE);
+                showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code,
+                        View.INVISIBLE);
             }
 
         } else if (ACTION_ENABLE.equals(getIntent().getAction())) {
@@ -309,18 +324,20 @@ public class PassCodeActivity extends SherlockFragmentActivity {
     }
 
 
-    private void showErrorAndRestart(int errorMessage, int headerMessage, int explanationVisibility) {
+    private void showErrorAndRestart(int errorMessage, int headerMessage,
+                                     int explanationVisibility) {
         Arrays.fill(mPassCodeDigits, null);
         CharSequence errorSeq = getString(errorMessage);
         Toast.makeText(this, errorSeq, Toast.LENGTH_LONG).show();
         mPassCodeHdr.setText(headerMessage);                // TODO check if really needed
-        mPassCodeHdrExplanation.setVisibility(explanationVisibility);  // TODO check if really needed
+        mPassCodeHdrExplanation.setVisibility(explanationVisibility); // TODO check if really needed
         clearBoxes();
     }
 
 
     /**
-     * Ask to the user for retyping the pass code just entered before saving it as the current pass code.
+     * Ask to the user for retyping the pass code just entered before saving it as the current pass
+     * code.
      */
     protected void requestPassCodeConfirmation(){
         clearBoxes();
@@ -346,13 +363,15 @@ public class PassCodeActivity extends SherlockFragmentActivity {
 
         boolean result = true;
         for (int i = 0; i < mPassCodeDigits.length && result; i++) {
-            result = result && (mPassCodeDigits[i] != null) && mPassCodeDigits[i].equals(savedPassCodeDigits[i]);
+            result = result && (mPassCodeDigits[i] != null) &&
+                    mPassCodeDigits[i].equals(savedPassCodeDigits[i]);
         }
         return result;
     }
 
     /**
-     * Compares pass code retyped by the user in the input fields with the value entered just before.
+     * Compares pass code retyped by the user in the input fields with the value entered just
+     * before.
      *
      * @return     'True' if retyped pass code equals to the entered before.
      */
@@ -361,7 +380,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
 
         boolean result = true;
         for (int i = 0; i < mPassCodeEditTexts.length && result; i++) {
-            result = result && ((mPassCodeEditTexts[i].getText().toString()).equals(mPassCodeDigits[i]));
+            result = result &&
+                    ((mPassCodeEditTexts[i].getText().toString()).equals(mPassCodeDigits[i]));
         }
         return result;
     }
@@ -377,8 +397,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
     }
 
     /**
-     * Overrides click on the BACK arrow to correctly cancel ACTION_ENABLE or ACTION_DISABLE, while preventing
-     * than ACTION_REQUEST may be worked around.
+     * Overrides click on the BACK arrow to correctly cancel ACTION_ENABLE or ACTION_DISABLE, while
+     * preventing than ACTION_REQUEST may be worked around.
      *
      * @param keyCode       Key code of the key that triggered the down event.
      * @param event         Event triggered.
@@ -387,7 +407,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount()== 0){
-            if (ACTION_ENABLE.equals(getIntent().getAction()) || ACTION_DISABLE.equals(getIntent().getAction())) {
+            if (ACTION_ENABLE.equals(getIntent().getAction()) ||
+                    ACTION_DISABLE.equals(getIntent().getAction())) {
                 revertActionAndExit();
             }
             return true;
@@ -406,7 +427,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
         appPrefs.putString("PrefPinCode2", mPassCodeDigits[1]);
         appPrefs.putString("PrefPinCode3", mPassCodeDigits[2]);
         appPrefs.putString("PrefPinCode4", mPassCodeDigits[3]);
-        appPrefs.putBoolean("set_pincode", true);    /// TODO remove; unnecessary, Preferences did it before entering here
+        appPrefs.putBoolean("set_pincode", true);    /// TODO remove; unnecessary,
+                                                     // Preferences did it before entering here
         appPrefs.commit();
 
         Toast.makeText(this, R.string.pass_code_stored, Toast.LENGTH_LONG).show();
@@ -426,7 +448,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
 
         boolean state = appPrefs.getBoolean("set_pincode", false);
         appPrefsE.putBoolean("set_pincode", !state);
-        // TODO WIP: this is reverting the value of the preference because it was changed BEFORE entering
+        // TODO WIP: this is reverting the value of the preference because it was changed BEFORE
+        // entering
         // TODO         in this activity; was the PreferenceCheckBox in the caller who did it
         appPrefsE.commit();
         finish();
@@ -441,15 +464,18 @@ public class PassCodeActivity extends SherlockFragmentActivity {
         /**
          * Constructor
          *
-         * @param index         Position in the pass code of the input field that will be bound to this watcher.
-         * @param lastOne       'True' means that watcher corresponds to the last position of the pass code.
+         * @param index         Position in the pass code of the input field that will be bound to
+         *                      this watcher.
+         * @param lastOne       'True' means that watcher corresponds to the last position of the
+         *                      pass code.
          */
         public PassCodeDigitTextWatcher(int index, boolean lastOne) {
             mIndex = index;
             mLastOne  = lastOne;
             if (mIndex < 0) {
                 throw new IllegalArgumentException(
-                        "Invalid index in " + PassCodeDigitTextWatcher.class.getSimpleName() + " constructor"
+                        "Invalid index in " + PassCodeDigitTextWatcher.class.getSimpleName() +
+                                " constructor"
                 );
             }
         }
@@ -460,7 +486,8 @@ public class PassCodeActivity extends SherlockFragmentActivity {
 
         /**
          * Performs several actions when the user types a digit in an input field:
-         *  - saves the input digit to the state of the activity; this will allow retyping the pass code to confirm it.
+         *  - saves the input digit to the state of the activity; this will allow retyping the
+         *    pass code to confirm it.
          *  - moves the focus automatically to the next field
          *  - for the last field, triggers the processing of the full pass code
          *

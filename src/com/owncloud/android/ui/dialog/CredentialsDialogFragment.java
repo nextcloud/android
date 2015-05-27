@@ -19,7 +19,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 
@@ -28,6 +27,7 @@ import android.app.Dialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.text.InputType;
 import android.view.WindowManager.LayoutParams;
 import android.webkit.HttpAuthHandler;
@@ -41,7 +41,7 @@ import android.widget.LinearLayout;
  *  Dialog to input authentication credentials
  * 
  */
-public class CredentialsDialogFragment extends SherlockDialogFragment
+public class CredentialsDialogFragment extends DialogFragment
     implements DialogInterface.OnClickListener {
 
     private WebView mWebView = null;
@@ -60,9 +60,11 @@ public class CredentialsDialogFragment extends SherlockDialogFragment
      * @param handler       HttpAuthHandler
      * @return              Dialog ready to show
      */
-    public static CredentialsDialogFragment newInstanceForCredentials(WebView webView, HttpAuthHandler handler) {
+    public static CredentialsDialogFragment newInstanceForCredentials(WebView webView,
+                                                                      HttpAuthHandler handler) {
         if (handler == null) {
-            throw new IllegalArgumentException("Trying to create instance with parameter handler == null");
+            throw new IllegalArgumentException("Trying to create instance with parameter handler" +
+                    " == null");
         }
         CredentialsDialogFragment frag = new CredentialsDialogFragment();
         frag.mHandler = handler;
@@ -75,16 +77,16 @@ public class CredentialsDialogFragment extends SherlockDialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         // Create field for username
-        mUsernameET = new EditText(getSherlockActivity());
-        mUsernameET.setHint(getSherlockActivity().getText(R.string.auth_username));
+        mUsernameET = new EditText(getActivity());
+        mUsernameET.setHint(getActivity().getText(R.string.auth_username));
 
         // Create field for password
-        mPasswordET = new EditText(getSherlockActivity());
-        mPasswordET.setHint(getSherlockActivity().getText(R.string.auth_password));
+        mPasswordET = new EditText(getActivity());
+        mPasswordET.setHint(getActivity().getText(R.string.auth_password));
         mPasswordET.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         // Prepare LinearLayout for dialog
-        LinearLayout ll = new LinearLayout(getSherlockActivity());
+        LinearLayout ll = new LinearLayout(getActivity());
         ll.setOrientation(LinearLayout.VERTICAL);
         ll.addView(mUsernameET);
         ll.addView(mPasswordET);
@@ -94,8 +96,8 @@ public class CredentialsDialogFragment extends SherlockDialogFragment
         setRetainInstance(true);
 
         Builder authDialog = new AlertDialog
-                .Builder(getSherlockActivity())
-                .setTitle(getSherlockActivity().getText(R.string.saml_authentication_required_text))
+                .Builder(getActivity())
+                .setTitle(getActivity().getText(R.string.saml_authentication_required_text))
                 .setView(ll)
                 .setCancelable(false)
                 .setPositiveButton(R.string.common_ok, this)

@@ -306,4 +306,5 @@
   <string name="subject_token">%1$s hat „%2$s“ mit Dir geteilt</string>
   <string name="auth_refresh_button">Verbindung aktualisieren</string>
   <string name="auth_host_address">Serveradresse</string>
+  <string name="common_error_out_memory">Nicht genügend Speicher</string>
 </resources>

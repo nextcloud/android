@@ -67,7 +67,7 @@
                 android:id="@+id/drawer_userIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/abs__ab_solid_dark_holo" />
+                android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
 
             <TextView
                 android:id="@+id/drawer_username"
