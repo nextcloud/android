@@ -67,7 +67,8 @@ public class UploadPathActivity extends FolderPickerActivity implements FileFrag
 
             if (!stateWasRecovered) {
                 OCFileListFragment listOfFolders = getListOfFilesFragment();
-                listOfFolders.listDirectory(folder, false);
+                // TODO Enable when "On Device" is recovered ?
+                listOfFolders.listDirectory(folder/*, false*/);
 
                 startSyncFolderOperation(folder, false);
             }

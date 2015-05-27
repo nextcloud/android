@@ -1,25 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright 2013 The Android Open Source Project
+  ownCloud Android client application
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+  Copyright (C) 2015 ownCloud Inc.
 
-      http://www.apache.org/licenses/LICENSE-2.0
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-  -->
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_textView"
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemLayout"
     android:layout_width="fill_parent"
-    android:layout_height="56dp"
-    android:gravity="center_vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:textColor="#000"
-    android:textSize="18dp" />
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:orientation="horizontal"
+    android:background="@color/background_color"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/itemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textColor="@color/textColor"
+        android:text="@string/app_name"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+</LinearLayout>
 

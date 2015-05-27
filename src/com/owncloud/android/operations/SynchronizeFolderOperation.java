@@ -21,51 +21,33 @@
 package com.owncloud.android.operations;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
-
-import org.apache.http.HttpStatus;
 
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.owncloud.android.MainApp;
+
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
-import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 //import android.support.v4.content.LocalBroadcastManager;
@@ -316,7 +298,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // get current data about local contents of the folder to synchronize
-        List<OCFile> localFiles = storageManager.getFolderContent(mLocalFolder, false);
+        // TODO Enable when "On Device" is recovered ?
+        List<OCFile> localFiles = storageManager.getFolderContent(mLocalFolder/*, false*/);
         Map<String, OCFile> localFilesMap = new HashMap<String, OCFile>(localFiles.size());
         for (OCFile file : localFiles) {
             localFilesMap.put(file.getRemotePath(), file);
@@ -411,8 +394,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
     
     
     private void prepareOpsFromLocalKnowledge() throws OperationCancelledException {
-        // TODO TOBI ist das richtig?
-        List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder, false);
+        // TODO Enable when "On Device" is recovered ?
+        List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder/*, false*/);
         for (OCFile child : children) {
             /// classify file to sync/download contents later
             if (child.isFolder()) {

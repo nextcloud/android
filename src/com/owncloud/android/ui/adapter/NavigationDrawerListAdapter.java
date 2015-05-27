@@ -1,3 +1,24 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author tobiasKaminsky
+ *   @author masensio
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.ui.adapter;
 
 import java.nio.ByteBuffer;
@@ -20,6 +41,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.LayoutParams;
@@ -29,6 +51,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.NavigationDrawerItem;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.BitmapUtils;
@@ -37,41 +60,41 @@ import org.apache.commons.codec.binary.Hex;
 
 public class NavigationDrawerListAdapter extends BaseAdapter {
 
-    private final static String TAG  = "NavigationDrawerListAdapter";
+    private final static String TAG  = NavigationDrawerListAdapter.class.getSimpleName();
+
     private Context mContext;
-    private ArrayList<String> mDrawerItems = new ArrayList<String>();
-    ArrayList<Object> all = new ArrayList<Object>();
+
+    private ArrayList<NavigationDrawerItem> mNavigationDrawerItems;
+    private ArrayList<Object> mAll = new ArrayList<Object>();
     private Account[] mAccounts;
     private boolean mShowAccounts;
-    private Account currentAccount;
+    private Account mCurrentAccount;
     private FileDisplayActivity mFileDisplayActivity;
 
 
-    public NavigationDrawerListAdapter(Context context, FileDisplayActivity fileDisplayActivity){
+    public NavigationDrawerListAdapter(Context context, FileDisplayActivity fileDisplayActivity,
+                                       ArrayList<NavigationDrawerItem> navigationDrawerItems){
         mFileDisplayActivity = fileDisplayActivity;
         mContext = context;
-
-        for (String string : mContext.getResources().getStringArray(R.array.drawer_items)) {
-            mDrawerItems.add(string);
-        }
+        mNavigationDrawerItems = navigationDrawerItems;
 
         updateAccountList();
 
-        all.addAll(mDrawerItems);
+        mAll.addAll(mNavigationDrawerItems);
     }
 
     public void updateAccountList(){
         AccountManager am = (AccountManager) mContext.getSystemService(mContext.ACCOUNT_SERVICE);
         mAccounts = am.getAccountsByType(MainApp.getAccountType());
-        currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+        mCurrentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
     }
 
     @Override
     public int getCount() {
         if (mShowAccounts){
-            return mDrawerItems.size() + 1;
+            return mNavigationDrawerItems.size() + 1;
         } else {
-            return mDrawerItems.size();
+            return mNavigationDrawerItems.size();
         }
     }
 
@@ -92,21 +115,23 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
         LayoutInflater inflator = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if (all.size() > position) {
+        if (mAll.size() > position) {
             // Normal entry
-            if (all.get(position) instanceof String){
+            if (mAll.get(position) instanceof NavigationDrawerItem){
+                NavigationDrawerItem navItem = (NavigationDrawerItem) mAll.get(position);
+
                 View view = inflator.inflate(R.layout.drawer_list_item, null);
                 view.setMinimumHeight(40);
-                TextView textView = (TextView) view.findViewById(R.id.drawer_textView);
-
-                String entry = (String) all.get(position);
-                textView.setText(entry);
+                LinearLayout itemLayout = (LinearLayout) view.findViewById(R.id.itemLayout);
+                itemLayout.setContentDescription(navItem.getContentDescription());
+                TextView itemText = (TextView) view.findViewById(R.id.itemTitle);
+                itemText.setText(navItem.getTitle());
 
                 return view;
             }
 
             // Account
-            if (all.get(position) instanceof Account[]){
+            if (mAll.get(position) instanceof Account[]){
                 final View view = inflator.inflate(R.layout.drawer_account_group, null);
 
                 final RadioGroup group = (RadioGroup) view.findViewById(R.id.drawer_radio_group);
@@ -115,6 +140,7 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
                     RadioButton rb = new RadioButton(mContext);
 
                     rb.setText(account.name);
+                    rb.setContentDescription(account.name);
                     rb.setTextColor(Color.BLACK);
                     rb.setEllipsize(TextUtils.TruncateAt.MIDDLE);
                     rb.setSingleLine();
@@ -155,7 +181,7 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
                     params.setMargins(15, 5, 5, 5);
 
                     // Check the current account that is being used
-                    if (account.name.equals(currentAccount.name)) {
+                    if (account.name.equals(mCurrentAccount.name)) {
                         rb.setChecked(true);
                     } else {
                         rb.setChecked(false);
@@ -186,11 +212,11 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
 
     // TODO update Account List after creating a new account and on fresh installation
     public void setShowAccounts(boolean value){
-        all.clear();
-        all.addAll(mDrawerItems);
+        mAll.clear();
+        mAll.addAll(mNavigationDrawerItems);
 
         if (value){
-            all.add(1, mAccounts);
+            mAll.add(1, mAccounts);
         }
         mShowAccounts = value;
     }

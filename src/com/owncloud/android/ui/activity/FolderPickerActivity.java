@@ -19,12 +19,9 @@
 
 package com.owncloud.android.ui.activity;
 
-import java.io.IOException;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -45,7 +42,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -142,7 +138,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             
             if (!stateWasRecovered) {
                 OCFileListFragment listOfFolders = getListOfFilesFragment(); 
-                listOfFolders.listDirectory(folder, false);   
+                listOfFolders.listDirectory(folder/*, false*/);
                 
                 startSyncFolderOperation(folder, false);
             }
@@ -310,8 +306,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     
     protected void refreshListOfFilesFragment() {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
-        if (fileListFragment != null) { 
-            fileListFragment.listDirectory(false);
+        if (fileListFragment != null) {
+            fileListFragment.listDirectory();
+            // TODO Enable when "On Device" is recovered ?
+            // fileListFragment.listDirectory(false);
         }
     }
 
@@ -319,7 +317,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (listOfFiles != null) {  // should never be null, indeed
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
-            listOfFiles.listDirectory(root, false);
+            listOfFiles.listDirectory(root);
+            // TODO Enable when "On Device" is recovered ?
+            // listOfFiles.listDirectory(root, false);
             setFile(listOfFiles.getCurrentFile());
             updateNavigationElementsInActionBar();
             startSyncFolderOperation(root, false);
@@ -471,7 +471,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                     equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
-                                    fileListFragment.listDirectory(currentDir, false);
+                                    fileListFragment.listDirectory(currentDir);
+                                    // TODO Enable when "On Device" is recovered ?
+                                    // fileListFragment.listDirectory(currentDir, false);
                                 }
                             }
                             setFile(currentFile);

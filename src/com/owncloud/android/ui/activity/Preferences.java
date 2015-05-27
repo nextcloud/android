@@ -203,7 +203,7 @@ public class Preferences extends SherlockPreferenceActivity
             }
             
         }
-        
+
         if (BuildConfig.DEBUG) {
             Preference pLog =  findPreference("log");
             if (pLog != null ){
@@ -215,7 +215,7 @@ public class Preferences extends SherlockPreferenceActivity
                         return true;
                     }
                 });
-            } 
+            }
         }
         
        boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
@@ -236,7 +236,8 @@ public class Preferences extends SherlockPreferenceActivity
                         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(Preferences.this);
                         String username = currentAccount.name.substring(0, currentAccount.name.lastIndexOf('@'));
                         
-                        String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
+                        String recommendSubject = String.format(getString(R.string.recommend_subject),
+                                appName);
                         String recommendText = String.format(getString(R.string.recommend_text),
                                 appName, downloadUrl, username);
                         

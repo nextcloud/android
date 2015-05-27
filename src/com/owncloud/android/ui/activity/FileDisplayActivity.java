@@ -23,11 +23,11 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -55,7 +55,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -73,6 +72,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -101,7 +101,7 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
-import com.owncloud.android.ui.adapter.FileListListAdapter;
+import com.owncloud.android.ui.NavigationDrawerItem;
 import com.owncloud.android.ui.adapter.NavigationDrawerListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
@@ -164,13 +164,22 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
     private static String DIALOG_UPLOAD_SOURCE = "DIALOG_UPLOAD_SOURCE";
     private static String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
 
-    private NavigationDrawerListAdapter adapter = null;
-
     private OCFile mWaitingToSend;
-    
+
+    // Navigation Drawer
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-    private boolean showAccounts = false;
+    private ListView mDrawerList;
+
+    // Slide menu items
+    private String[] mDrawerTitles;
+    private String[] mDrawerContentDescriptions;
+
+    private ArrayList<NavigationDrawerItem> mDrawerItems;
+
+    private NavigationDrawerListAdapter mNavigationDrawerAdapter = null;
+
+    private boolean mShowAccounts = false;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,16 +211,91 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         // Inflate and set the layout view
         setContentView(R.layout.files);
         
-        // TODO move to another place that all activity can use it
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // Navigation Drawer
+        initDrawer();
+
+        mDualPane = getResources().getBoolean(R.bool.large_land_layout);
+        mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
+        mRightFragmentContainer = findViewById(R.id.right_fragment_container);
+        if (savedInstanceState == null) {
+            createMinFragments();
+        }
+
+        // Action bar setup
+        mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
+        getSupportActionBar().setDisplayShowCustomEnabled(true); // CRUCIAL - for displaying your custom actionbar
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);    // always AFTER setContentView(...) ; to work around bug in its implementation
+
+        // TODO Remove??, it is done in onPostCreate
+        mDrawerToggle.syncState();
         
+        setBackgroundText();
+
+        Log_OC.v(TAG, "onCreate() end");
+    }
+
+    private void initDrawer(){
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // Notification Drawer
+        LinearLayout navigationDrawerLayout = (LinearLayout) findViewById(R.id.left_drawer);
+        mDrawerList = (ListView) navigationDrawerLayout.findViewById(R.id.drawer_list);
+
+        // load Account in the Drawer Title
+        // User-Icon
+        ImageView userIcon = (ImageView) navigationDrawerLayout.findViewById(R.id.drawer_userIcon);
+        userIcon.setImageResource(DisplayUtils.getSeasonalIconId());
+
+        // Username
+        TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
+        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+
+        if (account != null) {
+            int lastAtPos = account.name.lastIndexOf("@");
+            username.setText(account.name.substring(0, lastAtPos));
+        }
+
+        // load slide menu items
+        mDrawerTitles = getResources().getStringArray(R.array.drawer_items);
+
+        // nav drawer content description from resources
+        mDrawerContentDescriptions = getResources().
+                getStringArray(R.array.drawer_content_descriptions);
+
+        // nav drawer items
+        mDrawerItems = new ArrayList<NavigationDrawerItem>();
+        // adding nav drawer items to array
+        // Accounts
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0]));
+        // All Files
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1]));
+
+        // TODO Enable when "On Device" is recovered
+        // On Device
+        //mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2],
+        //        mDrawerContentDescriptions[2]));
+
+        // Settings
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2], mDrawerContentDescriptions[2]));
+        // Logs
+        if (BuildConfig.DEBUG) {
+            mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[3],
+                    mDrawerContentDescriptions[3]));
+        }
+
+        // setting the nav drawer list adapter
+        mNavigationDrawerAdapter = new NavigationDrawerListAdapter(getApplicationContext(), this,
+                mDrawerItems);
+        mDrawerList.setAdapter(mNavigationDrawerAdapter);
+
         mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  
-                mDrawerLayout,         
-                R.drawable.ic_drawer,  
-                R.string.drawer_open,  
-                R.string.empty  
-                ) {
+                this,
+                mDrawerLayout,
+                R.drawable.ic_drawer,
+                R.string.drawer_open,
+                R.string.empty) {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
@@ -230,84 +314,15 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 invalidateOptionsMenu();
             }
         };
-        
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        
-        // Notification Drawer
-        LinearLayout notificatonDrawer = (LinearLayout) findViewById(R.id.left_drawer);
-        
-        // ListView
-        ListView listView = (ListView) notificatonDrawer.findViewById(R.id.drawer_list);
-        adapter = new NavigationDrawerListAdapter(getApplicationContext(), this);
-        
-        listView.setAdapter(adapter);
-        
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (showAccounts && position > 0){
-                    position = position - 1;
-                }
-                switch (position){
-                case 0:
-                    showAccounts = !showAccounts;
-                    adapter.setShowAccounts(showAccounts);
-                    adapter.notifyDataSetChanged();
-                    break;
-                case 1:
-                    MainApp.showOnlyFilesOnDevice(false);
-                    mDrawerLayout.closeDrawers();
-                    break;
-                case 2:
-                    MainApp.showOnlyFilesOnDevice(true);
-                    mDrawerLayout.closeDrawers();
-                    break;
-                case 3:
-                    Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
-                    startActivity(settingsIntent);
-                    break;
-                }
-            }
-        });
-        
-        // User-Icon
-        ImageView userIcon = (ImageView) notificatonDrawer.findViewById(R.id.drawer_userIcon);
-        userIcon.setImageResource(DisplayUtils.getSeasonalIconId());
-        
-        // Username
-        TextView username = (TextView) notificatonDrawer.findViewById(R.id.drawer_username);
-        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
 
-        if (account != null) {
-            int lastAtPos = account.name.lastIndexOf("@");
-            username.setText(account.name.substring(0, lastAtPos));
-        }
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        // Set the list's click listener
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        mDualPane = getResources().getBoolean(R.bool.large_land_layout);
-        mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
-        mRightFragmentContainer = findViewById(R.id.right_fragment_container);
-        if (savedInstanceState == null) {
-            createMinFragments();
-        }
-
-        // Action bar setup
-        mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
-        getSupportActionBar().setDisplayShowCustomEnabled(true); // CRUCIAL - for displaying your custom actionbar
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);    // always AFTER setContentView(...) ; to work around bug in its implementation
-        
-        mDrawerToggle.syncState();
-        
-        setBackgroundText();
-
-        Log_OC.v(TAG, "onCreate() end");
     }
-    
+
     @Override
     protected void onStart() {
         Log_OC.v(TAG, "onStart() start");
@@ -408,7 +423,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             /// First fragment
             OCFileListFragment listOfFiles = getListOfFilesFragment(); 
             if (listOfFiles != null) {
-                listOfFiles.listDirectory(getCurrentDir(), MainApp.getOnlyOnDevice());   
+                listOfFiles.listDirectory(getCurrentDir());
+                // TODO Enable when "On Device" is recovered
+                // listOfFiles.listDirectory(getCurrentDir(), MainApp.getOnlyOnDevice());
             } else {
                 Log_OC.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
             }
@@ -527,8 +544,10 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
     protected void refreshListOfFilesFragment() {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
-        if (fileListFragment != null) { 
-            fileListFragment.listDirectory(MainApp.getOnlyOnDevice());
+        if (fileListFragment != null) {
+            fileListFragment.listDirectory();
+            // TODO Enable when "On Device" is recovered ?
+            // fileListFragment.listDirectory(MainApp.getOnlyOnDevice());
         }
     }
 
@@ -623,19 +642,16 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             builder.setTitle(R.string.actionbar_sort_title)
             .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder , new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    
                     switch (which){
-                    case 0:
-                        sortByName(true);
-                        break;
-                    case 1:
-                        sortByDate(false);
-                        break;
-                        
+                        case 0:
+                            sortByName(true);
+                            break;
+                        case 1:
+                            sortByDate(false);
+                            break;
                     }
-                    
+
                     dialog.dismiss();
-                    
                 }
             });
             builder.create().show();
@@ -895,7 +911,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         super.onResume();
 
         // refresh Navigation Drawer account list
-        adapter.updateAccountList();
+        mNavigationDrawerAdapter.updateAccountList();
 
         // refresh list of files
         refreshListOfFilesFragment();
@@ -1046,7 +1062,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                             if (synchFolderRemotePath != null && currentDir.getRemotePath().equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
-                                    fileListFragment.listDirectory(currentDir, MainApp.getOnlyOnDevice());
+                                    fileListFragment.listDirectory();
+                                    // TODO Enable when "On Device" is recovered ?
+                                    // fileListFragment.listDirectory(currentDir, MainApp.getOnlyOnDevice());
                                 }
                             }
                             setFile(currentFile);
@@ -1275,7 +1293,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
                 popDirname();
             }
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
-            listOfFiles.listDirectory(root, MainApp.getOnlyOnDevice());
+            listOfFiles.listDirectory(root);
+            // TODO Enable when "On Device" is recovered ?
+            // listOfFiles.listDirectory(root, MainApp.getOnlyOnDevice());
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root, false);
         }
@@ -1290,7 +1310,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (listOfFiles != null) {
             setNavigationListWithFolder(folder);
-            listOfFiles.listDirectory(folder, MainApp.getOnlyOnDevice());
+            listOfFiles.listDirectory(folder);
+            // TODO Enable when "On Device" is recovered ?
+            // listOfFiles.listDirectory(folder, MainApp.getOnlyOnDevice());
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(folder, false);
         } else {
@@ -1402,7 +1424,9 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
             // a new chance to get the mDownloadBinder through getFileDownloadBinder() - THIS IS A MESS
             OCFileListFragment listOfFiles = getListOfFilesFragment(); 
             if (listOfFiles != null) {
-                listOfFiles.listDirectory(MainApp.getOnlyOnDevice());
+                listOfFiles.listDirectory();
+                // TODO Enable when "On Device" is recovered ?
+                // listOfFiles.listDirectory(MainApp.getOnlyOnDevice());
             }
             FileFragment secondFragment = getSecondFragment();
             if (secondFragment != null && secondFragment instanceof FileDetailFragment) {
@@ -1886,4 +1910,43 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         mDrawerLayout.closeDrawers();
     }
 
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (mShowAccounts && position > 0){
+                position = position - 1;
+            }
+            switch (position){
+                case 0: // Accounts
+                    mShowAccounts = !mShowAccounts;
+                    mNavigationDrawerAdapter.setShowAccounts(mShowAccounts);
+                    mNavigationDrawerAdapter.notifyDataSetChanged();
+                    break;
+
+                case 1: // All Files
+                    // TODO Enable when "On Device" is recovered ?
+                    //MainApp.showOnlyFilesOnDevice(false);
+                    mDrawerLayout.closeDrawers();
+                    break;
+
+                // TODO Enable when "On Device" is recovered ?
+//                case 2:
+//                    MainApp.showOnlyFilesOnDevice(true);
+//                    mDrawerLayout.closeDrawers();
+//                    break;
+
+                case 2: // Settings
+                    Intent settingsIntent = new Intent(getApplicationContext(),
+                            Preferences.class);
+                    startActivity(settingsIntent);
+                    break;
+
+                case 3: // Logs
+                    Intent loggerIntent = new Intent(getApplicationContext(),
+                            LogHistoryActivity.class);
+                    startActivity(loggerIntent);
+                    break;
+            }
+        }
+    }
 }
