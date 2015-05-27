@@ -305,4 +305,5 @@ správce systému.</string>
   <string name="subject_token">%1$s sdílí \"%2$s\" s vámi</string>
   <string name="auth_refresh_button">Obnovit připojení</string>
   <string name="auth_host_address">Adresa serveru</string>
+  <string name="common_error_out_memory">Nedostatek paměti</string>
 </resources>

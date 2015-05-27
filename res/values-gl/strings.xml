@@ -307,4 +307,5 @@ Descárgueo de aquí: %2$s</string>
   <string name="subject_token">%1$s compartiu «%2$s» con vostede</string>
   <string name="auth_refresh_button">Actualizar a conexión</string>
   <string name="auth_host_address">Enderezo do servidor</string>
+  <string name="common_error_out_memory">Non hai memoria abondo</string>
 </resources>

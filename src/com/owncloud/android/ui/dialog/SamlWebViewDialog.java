@@ -27,6 +27,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -38,7 +39,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient;
@@ -49,7 +49,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 /**
  * Dialog to show the WebView for SAML Authentication
  */
-public class SamlWebViewDialog extends SherlockDialogFragment {
+public class SamlWebViewDialog extends DialogFragment {
 
     public final String SAML_DIALOG_TAG = "SamlWebViewDialog";
     
@@ -72,7 +72,8 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
      * Public factory method to get dialog instances.
      *
      * @param url           Url to open at WebView
-     * @param targetUrl     mBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType)
+     * @param targetUrl     mBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, m
+     *                      CurrentAuthTokenType)
      * @return              New dialog instance, ready to show.
      */
     public static SamlWebViewDialog newInstance(String url, String targetUrl) {
@@ -114,7 +115,7 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
         
         setRetainInstance(true);
         
-        CookieSyncManager.createInstance(getSherlockActivity().getApplicationContext());
+        CookieSyncManager.createInstance(getActivity().getApplicationContext());
 
         if (savedInstanceState == null) {
             mInitialUrl = getArguments().getString(ARG_INITIAL_URL);
@@ -124,7 +125,7 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
             mTargetUrl = savedInstanceState.getString(ARG_TARGET_URL);
         }
         
-        setStyle(SherlockDialogFragment.STYLE_NO_TITLE, R.style.Theme_ownCloud_Dialog);
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_ownCloud_Dialog);
     }
     
     @SuppressWarnings("deprecation")
@@ -140,7 +141,7 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
         
         if (mSsoWebView == null) {
             // initialize the WebView
-            mSsoWebView = new SsoWebView(getSherlockActivity().getApplicationContext());
+            mSsoWebView = new SsoWebView(getActivity().getApplicationContext());
             mSsoWebView.setFocusable(true);
             mSsoWebView.setFocusableInTouchMode(true);
             mSsoWebView.setClickable(true);
