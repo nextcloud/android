@@ -58,8 +58,6 @@ import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.BitmapUtils;
 
-import org.apache.commons.codec.binary.Hex;
-
 public class NavigationDrawerListAdapter extends BaseAdapter {
 
     private final static String TAG  = NavigationDrawerListAdapter.class.getSimpleName();
