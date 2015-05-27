@@ -161,13 +161,7 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
 
                         int[] rgb = BitmapUtils.HSLtoRGB(hue, 90.0f, 65.0f, 1.0f);
 
-//                        Drawable drawable = MainApp.getAppContext().getResources().getDrawable(R.drawable.radiobutton_avatar);
-//                        drawable.setColorFilter(Color.rgb(rgb[0], rgb[1], rgb[2]), PorterDuff.Mode.SRC_ATOP);
-
-
-
-                        TextDrawable text = new TextDrawable(username.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2], rb.getTextSize());
-
+                        TextDrawable text = new TextDrawable(username.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2]);
                         rb.setCompoundDrawablesWithIntrinsicBounds(text, null, null, null);
 
 
