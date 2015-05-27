@@ -230,6 +230,7 @@ public class FileDisplayActivity extends HookActivity implements
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS,
                                                                 // according to the official
                                                                 // documentation
+
         setSupportProgressBarIndeterminateVisibility(mSyncInProgress
         /*|| mRefreshSharesInProgress*/);
         // always AFTER setContentView(...) ; to work around bug in its implementation
@@ -300,7 +301,7 @@ public class FileDisplayActivity extends HookActivity implements
                 mDrawerLayout,
                 R.drawable.ic_drawer,
                 R.string.drawer_open,
-                R.string.empty) {
+                R.string.drawer_close) {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
@@ -613,6 +614,7 @@ public class FileDisplayActivity extends HookActivity implements
         menu.findItem(R.id.action_upload).setVisible(!drawerOpen);
         menu.findItem(R.id.action_create_dir).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
+        menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
         
         return super.onPrepareOptionsMenu(menu);
     }
@@ -629,53 +631,59 @@ public class FileDisplayActivity extends HookActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
-        case R.id.action_create_dir: {
-            CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(getCurrentDir());
-            dialog.show(getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
-            break;
-        }
-        case R.id.action_upload: {
-            UploadSourceDialogFragment dialog = UploadSourceDialogFragment.newInstance(getAccount());
-            dialog.show(getSupportFragmentManager(), DIALOG_UPLOAD_SOURCE);
-
-            break;
-        }
-        case android.R.id.home: {
-            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-            } else {
-                mDrawerLayout.openDrawer(GravityCompat.START);
+            case R.id.action_create_dir: {
+                CreateFolderDialogFragment dialog =
+                        CreateFolderDialogFragment.newInstance(getCurrentDir());
+                dialog.show(getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
+                break;
             }
-            // TODO add hamburger to left of android.R.id.home
-            break;
-        }
-        case R.id.action_sort: {
-            SharedPreferences appPreferences = PreferenceManager
-                    .getDefaultSharedPreferences(this);
-            
-            // Read sorting order, default to sort by name ascending
-            Integer sortOrder = appPreferences
-                    .getInt("sortOrder", FileStorageUtils.SORT_NAME);
-            
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.actionbar_sort_title)
-            .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder , new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which){
-                        case 0:
-                            sortByName(true);
-                            break;
-                        case 1:
-                            sortByDate(false);
-                            break;
-                    }
+            case R.id.action_sync_account: {
+                startSynchronization();
+                break;
+            }
+            case R.id.action_upload: {
+                UploadSourceDialogFragment dialog =
+                        UploadSourceDialogFragment.newInstance(getAccount());
+                dialog.show(getSupportFragmentManager(), DIALOG_UPLOAD_SOURCE);
 
-                    dialog.dismiss();
+                break;
+            }
+            case android.R.id.home: {
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    mDrawerLayout.openDrawer(GravityCompat.START);
                 }
-            });
-            builder.create().show();
-            break;
-        }
+                break;
+            }
+            case R.id.action_sort: {
+                SharedPreferences appPreferences = PreferenceManager
+                        .getDefaultSharedPreferences(this);
+
+                // Read sorting order, default to sort by name ascending
+                Integer sortOrder = appPreferences
+                        .getInt("sortOrder", FileStorageUtils.SORT_NAME);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.actionbar_sort_title)
+                        .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder ,
+                                new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case 0:
+                                        sortByName(true);
+                                        break;
+                                    case 1:
+                                        sortByDate(false);
+                                        break;
+                                }
+
+                                dialog.dismiss();
+                            }
+                        });
+                builder.create().show();
+                break;
+            }
         default:
             retval = super.onOptionsItemSelected(item);
         }
