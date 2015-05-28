@@ -79,7 +79,7 @@ public class RenameFileTestSuite{
 		assertTrue(fileHasBeenCreated = fileListViewAfterUploadFile
 				.getFileElement().isDisplayed());
 		CurrentCreatedFile = OLD_FILE_NAME;
-		Common.waitTillElementIsNotPresent(fileListViewAfterUploadFile
+		Common.waitTillElementIsNotPresentWithoutTimeout(fileListViewAfterUploadFile
 				.getProgressCircular(), 1000);
 		common.wait.until(ExpectedConditions.visibilityOf(
 				fileListViewAfterUploadFile.getFileElementLayout()
@@ -90,7 +90,7 @@ public class RenameFileTestSuite{
 		newFolderPopUp.typeNewFolderName(FILE_NAME);
 		WaitAMomentPopUp waitAMomentPopUp = newFolderPopUp
 				.clickOnNewFolderOkButton();
-		Common.waitTillElementIsNotPresent(waitAMomentPopUp
+		Common.waitTillElementIsNotPresentWithoutTimeout(waitAMomentPopUp
 				.getWaitAMomentTextElement(), 100);
 		fileListViewAfterUploadFile.scrollTillFindElement(FILE_NAME);
 		assertNotNull(fileListViewAfterUploadFile.getFileElement());

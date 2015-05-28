@@ -34,6 +34,9 @@ public class ElementMenuOptions {
 	@AndroidFindBy(name = "Share link")
 	private AndroidElement shareLinkElement;
 	
+	@AndroidFindBy(name = "Unshare link")
+	private AndroidElement unshareLinkElement;
+	
 	@AndroidFindBy(name = "Details")
 	private AndroidElement detailsFileElement;
 	
@@ -81,5 +84,11 @@ public class ElementMenuOptions {
 		shareLinkElement.click();
 		ShareView shareView = new ShareView(driver);
 		return shareView;
+	}
+	
+	public WaitAMomentPopUp clickOnUnshareLinkElement () {
+		unshareLinkElement.click();
+		WaitAMomentPopUp waitAMomentPopUp = new WaitAMomentPopUp(driver);
+		return waitAMomentPopUp;
 	}
 }

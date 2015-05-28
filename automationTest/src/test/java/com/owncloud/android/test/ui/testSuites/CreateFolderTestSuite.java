@@ -70,7 +70,7 @@ public class CreateFolderTestSuite{
 
 		WaitAMomentPopUp waitAMomentPopUp = Actions
 				.createFolder(NEW_FOLDER_NAME, fileListView);
-		Common.waitTillElementIsNotPresent(waitAMomentPopUp
+		Common.waitTillElementIsNotPresentWithoutTimeout(waitAMomentPopUp
 				.getWaitAMomentTextElement(), 100);
 		fileListView.scrollTillFindElement(FOLDER_NAME);
 		assertNotNull(fileListView.getFileElement());

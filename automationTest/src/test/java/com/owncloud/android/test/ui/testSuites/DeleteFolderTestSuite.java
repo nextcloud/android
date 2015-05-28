@@ -66,7 +66,7 @@ public class DeleteFolderTestSuite{
 		//create the folder
 		WaitAMomentPopUp waitAMomentPopUp = Actions
 				.createFolder(FOLDER_NAME, fileListView);
-		Common.waitTillElementIsNotPresent(
+		Common.waitTillElementIsNotPresentWithoutTimeout(
 				waitAMomentPopUp.getWaitAMomentTextElement(), 100);
 		fileListView.scrollTillFindElement(FOLDER_NAME);
 		assertTrue(

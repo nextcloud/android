@@ -60,7 +60,7 @@ public class RefreshFolderTestSuite{
 		//TODO. Remove the sleep and check why is not working the assert 
 		//when using waitTillElementIsNotPresent
 		Thread.sleep(5000);
-		//waitTillElementIsNotPresent(fileListView.getProgressCircular(), 1000);
+		//waitTillElementIsNotPresentWithoutTimeout(fileListView.getProgressCircular(), 1000);
 		fileListView.pulldownToRefresh();
 		assertTrue(fileListView.getProgressCircular().isDisplayed());
 		//TODO insert a file in the web, and check that it's shown here

@@ -71,7 +71,7 @@ public class RenameFolderTestSuite{
 		//create the folder to rename
 		WaitAMomentPopUp waitAMomentPopUp = Actions
 				.createFolder(OLD_FOLDER_NAME, fileListView);
-		Common.waitTillElementIsNotPresent(
+		Common.waitTillElementIsNotPresentWithoutTimeout(
 				waitAMomentPopUp.getWaitAMomentTextElement(), 100);
 		fileListView.scrollTillFindElement(OLD_FOLDER_NAME);
 
@@ -89,7 +89,7 @@ public class RenameFolderTestSuite{
 		FolderPopUp.typeNewFolderName(FOLDER_NAME);
 		FolderPopUp.clickOnNewFolderOkButton();
 		CurrentCreatedFolder = FOLDER_NAME;
-		Common.waitTillElementIsNotPresent(waitAMomentPopUp
+		Common.waitTillElementIsNotPresentWithoutTimeout(waitAMomentPopUp
 				.getWaitAMomentTextElement(), 100);
 		fileListView.scrollTillFindElement(FOLDER_NAME);
 		assertNotNull(fileListView.getFileElement());

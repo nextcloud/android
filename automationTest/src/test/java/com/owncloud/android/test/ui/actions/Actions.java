@@ -22,18 +22,18 @@ package com.owncloud.android.test.ui.actions;
 
 import java.util.HashMap;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.RemoteWebElement;
-
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
-
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.owncloud.android.test.ui.models.CertificatePopUp;
 import com.owncloud.android.test.ui.models.ElementMenuOptions;
+import com.owncloud.android.test.ui.models.GmailSendMailView;
+import com.owncloud.android.test.ui.models.ShareView;
 import com.owncloud.android.test.ui.models.UploadFilesView;
 import com.owncloud.android.test.ui.models.LoginForm;
 import com.owncloud.android.test.ui.models.FileListView;
@@ -43,6 +43,7 @@ import com.owncloud.android.test.ui.models.RemoveConfirmationView;
 import com.owncloud.android.test.ui.models.SettingsView;
 import com.owncloud.android.test.ui.models.WaitAMomentPopUp;
 import com.owncloud.android.test.ui.testSuites.Common;
+import com.owncloud.android.test.ui.testSuites.Config;
 
 public class Actions {
 
@@ -120,7 +121,7 @@ public class Actions {
 		driver.tap(1, 0, 0, 1);
 	}
 
-	//TODO. convert deleteFodler and deleteFile in deleteElement
+
 	public static AndroidElement deleteElement(String elementName,  
 			FileListView fileListView, AndroidDriver driver) throws Exception{
 		AndroidElement fileElement;
@@ -136,15 +137,96 @@ public class Actions {
 					.longPressOnElement(elementName);
 			RemoveConfirmationView removeConfirmationView = menuOptions
 					.clickOnRemove();;
-			waitAMomentPopUp = removeConfirmationView
-					.clickOnRemoteAndLocalButton();
-			Common.waitTillElementIsNotPresent(
-					waitAMomentPopUp.getWaitAMomentTextElement(), 100);
+					waitAMomentPopUp = removeConfirmationView
+							.clickOnRemoteAndLocalButton();
+					Common.waitTillElementIsNotPresent(
+							waitAMomentPopUp.getWaitAMomentTextElement(), 100);
 		}catch(NoSuchElementException e){
 			fileElement=null;
 		}
 		return fileElement;
 	}
+
+	public static AndroidElement shareLinkElementByGmail(String elementName,  
+			FileListView fileListView, AndroidDriver driver, Common common) 
+					throws Exception{
+		try{
+			//To open directly the "file list view" and
+			//we don't need to know in which view we are
+			driver.startActivity("com.owncloud.android",
+					".ui.activity.FileDisplayActivity");
+			ElementMenuOptions menuOptions = fileListView
+					.longPressOnElement(elementName);
+			ShareView shareView = menuOptions.clickOnShareLinkElement();
+			Actions.scrollTillFindElement("Gmail", shareView
+					.getListViewLayout(), driver).click();
+			GmailSendMailView gmailSendMailView = new GmailSendMailView(driver);
+			gmailSendMailView.typeToEmailAdress(Config.gmailAccount);
+			gmailSendMailView.clickOnSendButton();
+			Common.waitTillElementIsNotPresentWithoutTimeout(fileListView
+					.getProgressCircular(), 1000);
+			common.wait.until(ExpectedConditions.visibilityOf(
+					fileListView.getFileElementLayout()
+					.findElement(By.id(FileListView
+							.getSharedElementIndicator()))));
+
+		}catch(NoSuchElementException e){
+			return null;
+		}
+		return (AndroidElement) fileListView.getFileElementLayout()
+				.findElement(By.id(FileListView.getSharedElementIndicator()));
+	}
+
+	public static AndroidElement shareLinkElementByCopyLink(String elementName,  
+			FileListView fileListView, AndroidDriver driver, Common common) 
+					throws Exception{
+		try{
+			//To open directly the "file list view" and
+			//we don't need to know in which view we are
+			driver.startActivity("com.owncloud.android",
+					".ui.activity.FileDisplayActivity");
+			ElementMenuOptions menuOptions = fileListView
+					.longPressOnElement(elementName);
+			ShareView shareView = menuOptions.clickOnShareLinkElement();
+			Actions.scrollTillFindElement("Copy link", shareView.getListViewLayout(), 
+					driver).click();
+			WaitAMomentPopUp waitAMomentPopUp = new WaitAMomentPopUp(driver);
+			Common.waitTillElementIsNotPresentWithoutTimeout(waitAMomentPopUp
+					.getWaitAMomentTextElement(), 100);
+			common.wait.until(ExpectedConditions.visibilityOf(
+					fileListView.getFileElementLayout()
+					.findElement(By.id(FileListView.getSharedElementIndicator()))));
+		}catch(NoSuchElementException e){
+			return null;
+		}
+		return (AndroidElement) fileListView.getFileElementLayout()
+				.findElement(By.id(FileListView.getSharedElementIndicator()));
+	}
+	
+	
+	public static void unshareLinkElement(String elementName,  
+			FileListView fileListView, AndroidDriver driver, Common common) 
+					throws Exception{
+		try{
+			//To open directly the "file list view" and
+			//we don't need to know in which view we are
+			driver.startActivity("com.owncloud.android",
+					".ui.activity.FileDisplayActivity");
+			ElementMenuOptions menuOptions = fileListView
+					.longPressOnElement(elementName);
+			WaitAMomentPopUp waitAMomentPopUp = menuOptions
+					.clickOnUnshareLinkElement();
+			Common.waitTillElementIsNotPresentWithoutTimeout(waitAMomentPopUp
+					.getWaitAMomentTextElement(), 100);
+			Common.waitTillElementIsNotPresent((AndroidElement) fileListView
+					.getFileElementLayout()
+					.findElement(By.id(FileListView.getSharedElementIndicator())
+					),100);
+		}catch(NoSuchElementException e){
+
+		}
+	}
+
 
 	public static FileListView uploadFile(String elementName,
 			FileListView fileListView) throws InterruptedException{

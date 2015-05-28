@@ -36,11 +36,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import com.owncloud.android.test.ui.actions.Actions;
 import com.owncloud.android.test.ui.groups.FailingTestCategory;
-import com.owncloud.android.test.ui.groups.IgnoreTestCategory;
-import com.owncloud.android.test.ui.groups.InProgressCategory;
 import com.owncloud.android.test.ui.groups.NoIgnoreTestCategory;
 import com.owncloud.android.test.ui.groups.SmokeTestCategory;
 import com.owncloud.android.test.ui.groups.UnfinishedTestCategory;
@@ -89,7 +86,7 @@ public class UploadTestSuite{
 
 		fileListViewAfterUploadFile.scrollTillFindElement(FILE_NAME);
 		assertTrue(fileListViewAfterUploadFile.getFileElement().isDisplayed());
-		Common.waitTillElementIsNotPresent(
+		Common.waitTillElementIsNotPresentWithoutTimeout(
 				fileListViewAfterUploadFile.getProgressCircular(), 1000);
 		common.wait.until(ExpectedConditions.visibilityOf(
 				fileListViewAfterUploadFile.getFileElementLayout()
@@ -147,7 +144,7 @@ public class UploadTestSuite{
 				Config.password, Config.isTrusted, driver);
 		common.assertIsInFileListView();
 
-		Common.waitTillElementIsNotPresent(fileListView.getProgressCircular(), 
+		Common.waitTillElementIsNotPresentWithoutTimeout(fileListView.getProgressCircular(), 
 				1000);
 
 		FileListView fileListViewAfterUploadFile = Actions
@@ -178,7 +175,7 @@ public class UploadTestSuite{
 				Config.password, Config.isTrusted, driver);
 		common.assertIsInFileListView();
 
-		Common.waitTillElementIsNotPresent(fileListView.getProgressCircular(), 
+		Common.waitTillElementIsNotPresentWithoutTimeout(fileListView.getProgressCircular(), 
 				1000);
 
 		FileListView fileListViewAfterUploadFile = Actions
@@ -196,7 +193,7 @@ public class UploadTestSuite{
 		
 		fileListViewAfterUploadFile.pulldownToRefresh();
 		//assertTrue(fileListView.getProgressCircular().isDisplayed());
-		Common.waitTillElementIsNotPresent(fileListView.getProgressCircular(), 
+		Common.waitTillElementIsNotPresentWithoutTimeout(fileListView.getProgressCircular(), 
 				100);
 		
 		assertTrue(common.isElementPresent(

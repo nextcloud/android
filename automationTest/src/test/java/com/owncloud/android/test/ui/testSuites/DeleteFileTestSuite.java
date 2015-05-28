@@ -67,7 +67,7 @@ public class DeleteFileTestSuite{
 				.uploadFile(FILE_NAME, fileListView);
 		
 		fileListViewAfterUploadFile.scrollTillFindElement(FILE_NAME);
-		Common.waitTillElementIsNotPresent(
+		Common.waitTillElementIsNotPresentWithoutTimeout(
 				fileListViewAfterUploadFile.getProgressCircular(), 1000);
 		common.wait.until(ExpectedConditions.visibilityOf(
 				fileListViewAfterUploadFile.getFileElementLayout()

@@ -58,7 +58,7 @@ public class LoginTestSuite{
 	public void test1LoginPortrait () throws Exception {
 		driver.rotate(ScreenOrientation.PORTRAIT);
 		
-		FileListView fileListView = Actions.login(Config.URL, Config.user,
+		Actions.login(Config.URL, Config.user,
 				Config.password, Config.isTrusted, driver);
 		common.assertIsInFileListView();
 	}
@@ -67,7 +67,7 @@ public class LoginTestSuite{
 	@Category({NoIgnoreTestCategory.class})
 	public void test2LoginLandscape () throws Exception {
 		driver.rotate(ScreenOrientation.LANDSCAPE);
-		FileListView fileListView = Actions.login(Config.URL, Config.user,
+		Actions.login(Config.URL, Config.user,
 				Config.password, Config.isTrusted, driver);
 		common.assertIsInFileListView();
 	}

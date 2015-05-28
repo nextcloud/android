@@ -65,7 +65,7 @@ public class MoveFolderTestSuite{
 				Config.password, Config.isTrusted, driver);
 		common.assertIsInFileListView();
 
-		//Common.waitTillElementIsNotPresent(
+		//Common.waitTillElementIsNotPresentWithoutTimeout(
 		     //fileListView.getProgressCircular(), 1000);
 
 		//check if the folder already exists and if true, delete them
@@ -75,7 +75,7 @@ public class MoveFolderTestSuite{
 		//Create the folder where the other is gone to be moved
 		waitAMomentPopUp = Actions
 				.createFolder(FOLDER_WHERE_MOVE, fileListView);
-		Common.waitTillElementIsNotPresent(
+		Common.waitTillElementIsNotPresentWithoutTimeout(
 				waitAMomentPopUp.getWaitAMomentTextElement(), 100);
 		fileListView.scrollTillFindElement(FOLDER_WHERE_MOVE);
 		assertTrue(fileListView.getFileElement().isDisplayed());
@@ -95,12 +95,12 @@ public class MoveFolderTestSuite{
 		//to move to a folder
 		moveView.scrollTillFindElement(FOLDER_WHERE_MOVE).tap(1,1);
 		waitAMomentPopUp = moveView.clickOnChoose();
-		Common.waitTillElementIsNotPresent(waitAMomentPopUp
+		Common.waitTillElementIsNotPresentWithoutTimeout(waitAMomentPopUp
 				.getWaitAMomentTextElement(), 100);
 		
 		//check that the folder moved is inside the other
 		fileListView.scrollTillFindElement(FOLDER_WHERE_MOVE).tap(1,1);
-		Common.waitTillElementIsNotPresent(fileListView.getProgressCircular(),
+		Common.waitTillElementIsNotPresentWithoutTimeout(fileListView.getProgressCircular(),
 				1000);
 		Thread.sleep(1000);
 		fileListView.scrollTillFindElement(FOLDER_TO_MOVE);
