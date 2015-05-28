@@ -520,10 +520,18 @@ public class FileDisplayActivity extends HookActivity implements
                 break;
             }
             case android.R.id.home: {
-                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                FileFragment second = getSecondFragment();
+                OCFile currentDir = getCurrentDir();
+                if((currentDir != null && currentDir.getParentId() != 0) ||
+                        (second != null && second.getFile() != null)) {
+                    onBackPressed();
+
                 } else {
-                    mDrawerLayout.openDrawer(GravityCompat.START);
+                    if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                    } else {
+                        mDrawerLayout.openDrawer(GravityCompat.START);
+                    }
                 }
                 break;
             }
@@ -843,7 +851,8 @@ public class FileDisplayActivity extends HookActivity implements
         registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
 
         // Listen for download messages
-        IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.getDownloadAddedMessage());
+        IntentFilter downloadIntentFilter = new IntentFilter(
+                FileDownloader.getDownloadAddedMessage());
         downloadIntentFilter.addAction(FileDownloader.getDownloadFinishMessage());
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
@@ -965,7 +974,8 @@ public class FileDisplayActivity extends HookActivity implements
                             // current folder was removed from the server 
                             Toast.makeText( FileDisplayActivity.this, 
                                             String.format(
-                                                    getString(R.string.sync_current_folder_was_removed),
+                                                    getString(R.string.
+                                                            sync_current_folder_was_removed),
                                                     mDirectories.getItem(0)),
                                             Toast.LENGTH_LONG)
                                 .show();

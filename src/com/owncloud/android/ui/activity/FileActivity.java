@@ -609,8 +609,8 @@ public class FileActivity extends ActionBarActivity
      */
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the " +
-                "FileActivities ");
+        Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the "
+                + "FileActivities ");
         
         mFileOperationsHelper.setOpIdWaitingFor(Long.MAX_VALUE);
         
