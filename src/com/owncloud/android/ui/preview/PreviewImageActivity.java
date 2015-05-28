@@ -111,7 +111,8 @@ public class PreviewImageActivity extends FileActivity implements
             mFullScreenAnchorView = getWindow().getDecorView();
             // to keep our UI controls visibility in line with system bars
             // visibility
-            mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener
+                    (new View.OnSystemUiVisibilityChangeListener() {
                 @SuppressLint("InlinedApi")
                 @Override
                 public void onSystemUiVisibilityChange(int flags) {
