@@ -594,4 +594,10 @@ public class PreviewImageActivity extends FileActivity implements
         }
         return false;
     }
+
+    @Override
+    public void allFilesOption(){
+        backToDisplayActivity();
+        super.allFilesOption();
+    }
 }

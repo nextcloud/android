@@ -67,6 +67,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
@@ -811,6 +812,10 @@ public class FileActivity extends ActionBarActivity
         mDrawerLayout.closeDrawers();
     }
 
+    public void allFilesOption(){
+        restart();
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -825,8 +830,7 @@ public class FileActivity extends ActionBarActivity
                     break;
 
                 case 1: // All Files
-                    // TODO Enable when "On Device" is recovered ?
-                    //MainApp.showOnlyFilesOnDevice(false);
+                    allFilesOption();
                     mDrawerLayout.closeDrawers();
                     break;
 

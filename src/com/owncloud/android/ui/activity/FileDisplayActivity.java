@@ -77,6 +77,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.MoveFileOperation;
@@ -206,9 +207,6 @@ public class FileDisplayActivity extends HookActivity implements
         setSupportProgressBarIndeterminateVisibility(mSyncInProgress
         /*|| mRefreshSharesInProgress*/);
         // always AFTER setContentView(...) ; to work around bug in its implementation
-
-        // TODO Remove??, it is done in onPostCreate
-//        mDrawerToggle.syncState();
         
         setBackgroundText();
 
@@ -1858,54 +1856,8 @@ public class FileDisplayActivity extends HookActivity implements
     private void sortByName(boolean ascending){
         getListOfFilesFragment().sortByName(ascending);
     }
-    
-//    public void restart(){
-//        Intent i = new Intent(this, FileDisplayActivity.class);
-//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(i);
-//    }
 
-//    public void closeDrawer() {
-//        mDrawerLayout.closeDrawers();
-//    }
-
-//    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-//        @Override
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            if (mShowAccounts && position > 0){
-//                position = position - 1;
-//            }
-//            switch (position){
-//                case 0: // Accounts
-//                    mShowAccounts = !mShowAccounts;
-//                    mNavigationDrawerAdapter.setShowAccounts(mShowAccounts);
-//                    mNavigationDrawerAdapter.notifyDataSetChanged();
-//                    break;
-//
-//                case 1: // All Files
-//                    // TODO Enable when "On Device" is recovered ?
-//                    //MainApp.showOnlyFilesOnDevice(false);
-//                    mDrawerLayout.closeDrawers();
-//                    break;
-//
-//                // TODO Enable when "On Device" is recovered ?
-////                case 2:
-////                    MainApp.showOnlyFilesOnDevice(true);
-////                    mDrawerLayout.closeDrawers();
-////                    break;
-//
-//                case 2: // Settings
-//                    Intent settingsIntent = new Intent(getApplicationContext(),
-//                            Preferences.class);
-//                    startActivity(settingsIntent);
-//                    break;
-//
-//                case 3: // Logs
-//                    Intent loggerIntent = new Intent(getApplicationContext(),
-//                            LogHistoryActivity.class);
-//                    startActivity(loggerIntent);
-//                    break;
-//            }
-//        }
-//    }
+   public void allFilesOption() {
+       browseToRoot();
+   }
 }
