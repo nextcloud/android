@@ -361,9 +361,9 @@ public class FileActivity extends ActionBarActivity
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
+                updateActionBarTitle();
                 getSupportActionBar().setDisplayShowTitleEnabled(true);
-                getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-                //initFragmentsWithFile();
+                getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 invalidateOptionsMenu();
             }
 
@@ -384,6 +384,14 @@ public class FileActivity extends ActionBarActivity
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+    protected void updateActionBarTitle(){
+        if (mFile.getParentId() == 0) {
+            getSupportActionBar().setTitle(getString(
+                    R.string.default_display_name_for_root_folder));
+        } else {
+            getSupportActionBar().setTitle(mFile.getFileName().toString());
+        }
+    }
     /**
      *  Sets and validates the ownCloud {@link Account} associated to the Activity. 
      * 

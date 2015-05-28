@@ -802,6 +802,7 @@ public class FileDisplayActivity extends HookActivity implements
         if (listOfFiles != null) {  // should never be null, indeed
             setFile(listOfFiles.getCurrentFile());
         }
+        updateActionBarTitle();
         cleanSecondFragment();
 
     }
@@ -1239,8 +1240,10 @@ public class FileDisplayActivity extends HookActivity implements
             // listOfFiles.listDirectory(root, MainApp.getOnlyOnDevice());
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root, false);
+            updateActionBarTitle();
         }
         cleanSecondFragment();
+
     }
     
     
@@ -1260,6 +1263,7 @@ public class FileDisplayActivity extends HookActivity implements
             Log_OC.e(TAG, "Unexpected null when accessing list fragment");
         }
         cleanSecondFragment();
+
     }
 
 
@@ -1272,7 +1276,7 @@ public class FileDisplayActivity extends HookActivity implements
     public void onBrowsedDownTo(OCFile directory) {
         pushDirname(directory);
         cleanSecondFragment();
-        
+        updateActionBarTitle();
         // Sync Folder
         startSyncFolderOperation(directory, false);
         
@@ -1308,7 +1312,7 @@ public class FileDisplayActivity extends HookActivity implements
             OCFile currentDir = getCurrentDir();
             boolean noRoot = (currentDir != null && currentDir.getParentId() != 0);
 //            actionBar.setDisplayHomeAsUpEnabled(noRoot);
-//            actionBar.setDisplayShowTitleEnabled(!noRoot); 
+//            actionBar.setDisplayShowTitleEnabled(!noRoot);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
             if (!noRoot) {
@@ -1319,8 +1323,9 @@ public class FileDisplayActivity extends HookActivity implements
                             getString(R.string.default_display_name_for_root_folder));
                 }
             }
-            actionBar.setNavigationMode(!noRoot ? ActionBar.NAVIGATION_MODE_STANDARD :
-                    ActionBar.NAVIGATION_MODE_LIST);
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+//            actionBar.setNavigationMode(!noRoot ? ActionBar.NAVIGATION_MODE_STANDARD :
+//                    ActionBar.NAVIGATION_MODE_LIST);
             actionBar.setListNavigationCallbacks(mDirectories, this);
             // assuming mDirectories is updated
 
