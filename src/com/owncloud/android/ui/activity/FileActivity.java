@@ -31,15 +31,26 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -48,8 +59,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -61,9 +72,14 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.NavigationDrawerItem;
+import com.owncloud.android.ui.adapter.NavigationDrawerListAdapter;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+
+import java.util.ArrayList;
 
 
 /**
@@ -126,7 +142,21 @@ public class FileActivity extends ActionBarActivity
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
 
     private boolean mTryShareAgain = false;
-    
+
+    // Navigation Drawer
+    protected DrawerLayout mDrawerLayout;
+    protected ActionBarDrawerToggle mDrawerToggle;
+    protected ListView mDrawerList;
+
+    // Slide menu items
+    protected String[] mDrawerTitles;
+    protected String[] mDrawerContentDescriptions;
+
+    protected ArrayList<NavigationDrawerItem> mDrawerItems;
+
+    protected NavigationDrawerListAdapter mNavigationDrawerAdapter = null;
+
+    protected boolean mShowAccounts = false;
     
     /**
      * Loads the ownCloud {@link Account} and main {@link OCFile} to be handled by the instance of 
@@ -249,8 +279,110 @@ public class FileActivity extends ActionBarActivity
 
         super.onDestroy();
     }
-    
-    
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        if (mDrawerToggle != null) {
+            mDrawerToggle.syncState();
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (mDrawerToggle != null) {
+            mDrawerToggle.onConfigurationChanged(newConfig);
+        }
+    }
+
+    protected void initDrawer(){
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // Notification Drawer
+        LinearLayout navigationDrawerLayout = (LinearLayout) findViewById(R.id.left_drawer);
+        mDrawerList = (ListView) navigationDrawerLayout.findViewById(R.id.drawer_list);
+
+        // load Account in the Drawer Title
+        // User-Icon
+        ImageView userIcon = (ImageView) navigationDrawerLayout.findViewById(R.id.drawer_userIcon);
+        userIcon.setImageResource(DisplayUtils.getSeasonalIconId());
+
+        // Username
+        TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
+        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+
+        if (account != null) {
+            int lastAtPos = account.name.lastIndexOf("@");
+            username.setText(account.name.substring(0, lastAtPos));
+        }
+
+        // load slide menu items
+        mDrawerTitles = getResources().getStringArray(R.array.drawer_items);
+
+        // nav drawer content description from resources
+        mDrawerContentDescriptions = getResources().
+                getStringArray(R.array.drawer_content_descriptions);
+
+        // nav drawer items
+        mDrawerItems = new ArrayList<NavigationDrawerItem>();
+        // adding nav drawer items to array
+        // Accounts
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0]));
+        // All Files
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1]));
+
+        // TODO Enable when "On Device" is recovered
+        // On Device
+        //mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2],
+        //        mDrawerContentDescriptions[2]));
+
+        // Settings
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2], mDrawerContentDescriptions[2]));
+        // Logs
+        if (BuildConfig.DEBUG) {
+            mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[3],
+                    mDrawerContentDescriptions[3]));
+        }
+
+        // setting the nav drawer list adapter
+        mNavigationDrawerAdapter = new NavigationDrawerListAdapter(getApplicationContext(), this,
+                mDrawerItems);
+        mDrawerList.setAdapter(mNavigationDrawerAdapter);
+
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,
+                mDrawerLayout,
+                R.drawable.ic_drawer,
+                R.string.drawer_open,
+                R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setDisplayShowTitleEnabled(true);
+                getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+                //initFragmentsWithFile();
+                invalidateOptionsMenu();
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle(R.string.drawer_open);
+                getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                invalidateOptionsMenu();
+            }
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        // Set the list's click listener
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
     /**
      *  Sets and validates the ownCloud {@link Account} associated to the Activity. 
      * 
@@ -308,13 +440,13 @@ public class FileActivity extends ActionBarActivity
      */
     private void createFirstAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
-        am.addAccount(MainApp.getAccountType(), 
-                        null,
-                        null, 
-                        null, 
-                        this, 
-                        new AccountCreationCallback(),                        
-                        null);
+        am.addAccount(MainApp.getAccountType(),
+                null,
+                null,
+                null,
+                this,
+                new AccountCreationCallback(),
+                null);
     }
 
     
@@ -667,6 +799,55 @@ public class FileActivity extends ActionBarActivity
     public FileUploaderBinder getFileUploaderBinder() {
         return mUploaderBinder;
     }
-    
-    
+
+
+    public void restart(){
+        Intent i = new Intent(this, FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
+    public void closeDrawer() {
+        mDrawerLayout.closeDrawers();
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (mShowAccounts && position > 0){
+                position = position - 1;
+            }
+            switch (position){
+                case 0: // Accounts
+                    mShowAccounts = !mShowAccounts;
+                    mNavigationDrawerAdapter.setShowAccounts(mShowAccounts);
+                    mNavigationDrawerAdapter.notifyDataSetChanged();
+                    break;
+
+                case 1: // All Files
+                    // TODO Enable when "On Device" is recovered ?
+                    //MainApp.showOnlyFilesOnDevice(false);
+                    mDrawerLayout.closeDrawers();
+                    break;
+
+                // TODO Enable when "On Device" is recovered ?
+//                case 2:
+//                    MainApp.showOnlyFilesOnDevice(true);
+//                    mDrawerLayout.closeDrawers();
+//                    break;
+
+                case 2: // Settings
+                    Intent settingsIntent = new Intent(getApplicationContext(),
+                            Preferences.class);
+                    startActivity(settingsIntent);
+                    break;
+
+                case 3: // Logs
+                    Intent loggerIntent = new Intent(getApplicationContext(),
+                            LogHistoryActivity.class);
+                    startActivity(loggerIntent);
+                    break;
+            }
+        }
+    }
 }

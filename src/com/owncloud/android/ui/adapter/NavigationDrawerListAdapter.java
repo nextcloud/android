@@ -22,7 +22,6 @@
 package com.owncloud.android.ui.adapter;
 
 import java.math.BigInteger;
-import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -30,14 +29,7 @@ import java.util.Locale;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +47,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.NavigationDrawerItem;
 import com.owncloud.android.ui.TextDrawable;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.BitmapUtils;
 
 public class NavigationDrawerListAdapter extends BaseAdapter {
@@ -69,12 +61,12 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
     private Account[] mAccounts;
     private boolean mShowAccounts;
     private Account mCurrentAccount;
-    private FileDisplayActivity mFileDisplayActivity;
+    private FileActivity mFileActivity;
 
 
-    public NavigationDrawerListAdapter(Context context, FileDisplayActivity fileDisplayActivity,
+    public NavigationDrawerListAdapter(Context context, FileActivity fileActivity,
                                        ArrayList<NavigationDrawerItem> navigationDrawerItems){
-        mFileDisplayActivity = fileDisplayActivity;
+        mFileActivity = fileActivity;
         mContext = context;
         mNavigationDrawerItems = navigationDrawerItems;
 
@@ -153,15 +145,18 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
                         String username  = account.name.substring(0, lastAtPos);
                         byte[] seed = username.getBytes("UTF-8");
                         MessageDigest md = MessageDigest.getInstance("MD5");
-//                        Integer seedMd5Int = Math.abs(new String(Hex.encodeHex(seedMd5)).hashCode());
-                        Integer seedMd5Int = String.format(Locale.ROOT, "%032x", new BigInteger(1, md.digest(seed))).hashCode();
+//                        Integer seedMd5Int = Math.abs(new String(Hex.encodeHex(seedMd5))
+//                      .hashCode());
+                        Integer seedMd5Int = String.format(Locale.ROOT, "%032x",
+                                new BigInteger(1, md.digest(seed))).hashCode();
 
                         double maxRange = java.lang.Integer.MAX_VALUE;
                         float hue = (float) (seedMd5Int / maxRange * 360);
 
                         int[] rgb = BitmapUtils.HSLtoRGB(hue, 90.0f, 65.0f, 1.0f);
 
-                        TextDrawable text = new TextDrawable(username.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2]);
+                        TextDrawable text = new TextDrawable(username.substring(0, 1).toUpperCase(),
+                                rgb[0], rgb[1], rgb[2]);
                         rb.setCompoundDrawablesWithIntrinsicBounds(text, null, null, null);
 
 
@@ -191,10 +186,10 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
 
                         AccountUtils.setCurrentOwnCloudAccount(mContext,rb.getText().toString());
                         notifyDataSetChanged();
-                        mFileDisplayActivity.closeDrawer();
+                        mFileActivity.closeDrawer();
                         
                         // restart the main activity
-                        mFileDisplayActivity.restart();
+                        mFileActivity.restart();
                     }
                 });
 

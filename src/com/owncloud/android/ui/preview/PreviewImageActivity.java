@@ -94,7 +94,11 @@ public class PreviewImageActivity extends FileActivity implements
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.preview_image_activity);
-        
+
+        // Navigation Drawer
+        initDrawer();
+
+        // ActionBar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);

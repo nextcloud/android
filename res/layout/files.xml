@@ -46,51 +46,10 @@
             android:layout_weight="2" />
     </LinearLayout>
 
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/left_drawer"
+    <include
+        layout="@layout/drawer"
         android:layout_width="240dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/background_color"
-        android:baselineAligned="false"
-        android:clickable="true"
-        android:orientation="vertical">
+        android:layout_gravity="start"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
-
-            <ImageView
-                android:id="@+id/drawer_userIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
-
-            <TextView
-                android:id="@+id/drawer_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:background="@color/list_item_lastmod_and_filesize_text" />
-
-        <ListView
-            android:id="@+id/drawer_list"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background_color"
-            android:choiceMode="singleChoice"
-            />
-    </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
