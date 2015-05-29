@@ -112,11 +112,9 @@ import java.io.File;
  * Displays, what files the user has available in his ownCloud.
  */
 
-public class FileDisplayActivity extends HookActivity implements
-        FileFragment.ContainerActivity, ActionBar.OnNavigationListener,
+public class FileDisplayActivity extends HookActivity
+        implements FileFragment.ContainerActivity,
         OnSslUntrustedCertListener, OnEnforceableRefreshListener {
-    
-    private ArrayAdapter<String> mDirectories;
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -198,8 +196,6 @@ public class FileDisplayActivity extends HookActivity implements
         }
 
         // Action bar setup
-        mDirectories = new CustomArrayAdapter<String>(this,
-                R.layout.support_simple_spinner_dropdown_item);
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS,
                                                                 // according to the official
                                                                 // documentation
@@ -258,7 +254,6 @@ public class FileDisplayActivity extends HookActivity implements
                 file = getStorageManager().getFileByPath(OCFile.ROOT_PATH);  // never returns null
             }
             setFile(file);
-            setNavigationListWithFolder(file);
             
             if (!stateWasRecovered) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
@@ -272,23 +267,6 @@ public class FileDisplayActivity extends HookActivity implements
                 updateNavigationElementsInActionBar(file.isFolder() ? null : file);
             }
         }
-    }
-
-
-    private void setNavigationListWithFolder(OCFile file) {
-        mDirectories.clear();
-        OCFile fileIt = file;
-        String parentPath;
-        while(fileIt != null && fileIt.getFileName() != OCFile.ROOT_PATH) {
-            if (fileIt.isFolder()) {
-                mDirectories.add(fileIt.getFileName());
-            }
-            // get parent from path
-            parentPath = fileIt.getRemotePath().substring(0,
-                    fileIt.getRemotePath().lastIndexOf(fileIt.getFileName()));
-            fileIt = getStorageManager().getFileByPath(parentPath);
-        }
-        mDirectories.add(OCFile.PATH_SEPARATOR);
     }
 
 
@@ -601,30 +579,6 @@ public class FileDisplayActivity extends HookActivity implements
         }
     }
 
-
-    @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        if (itemPosition != 0) {
-            String targetPath = "";
-            for (int i=itemPosition; i < mDirectories.getCount() - 1; i++) {
-                targetPath = mDirectories.getItem(i) + OCFile.PATH_SEPARATOR + targetPath; 
-            }
-            targetPath = OCFile.PATH_SEPARATOR + targetPath;
-            OCFile targetFolder = getStorageManager().getFileByPath(targetPath);
-            if (targetFolder != null) {
-                browseTo(targetFolder);
-            }
-            
-            // the next operation triggers a new call to this method, but it's necessary to 
-            // ensure that the name exposed in the action bar is the current directory when the 
-            // user selected it in the navigation list
-            if (getSupportActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_LIST  &&
-                    itemPosition != 0)
-                getSupportActionBar().setSelectedNavigationItem(0);
-        }
-        return true;
-    }
-
     /**
      * Called, when the user selected something for uploading
      *
@@ -675,9 +629,6 @@ public class FileDisplayActivity extends HookActivity implements
             String[] remotePaths = new String[filePaths.length];
             String remotePathBase = "";
 
-            for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
-                remotePathBase += OCFile.PATH_SEPARATOR + mDirectories.getItem(j);
-            }
             if (!remotePathBase.endsWith(OCFile.PATH_SEPARATOR))
                 remotePathBase += OCFile.PATH_SEPARATOR;
             for (int j = 0; j< remotePaths.length; j++) {
@@ -789,14 +740,7 @@ public class FileDisplayActivity extends HookActivity implements
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (mDualPane || getSecondFragment() == null) {
             if (listOfFiles != null) {  // should never be null, indeed
-                if (mDirectories.getCount() <= 1) {
-                    finish();
-                    return;
-                }
-                int levelsUp = listOfFiles.onBrowseUp();
-                for (int i=0; i < levelsUp && mDirectories.getCount() > 1 ; i++) {
-                    popDirname();
-                }
+                listOfFiles.onBrowseUp();
             }
         }
         if (listOfFiles != null) {  // should never be null, indeed
@@ -883,63 +827,6 @@ public class FileDisplayActivity extends HookActivity implements
         Log_OC.v(TAG, "onPause() end");
     }
 
-    /**
-     * Pushes a directory to the drop down list
-     * @param directory to push
-     * @throws IllegalArgumentException If the {@link OCFile#isFolder()} returns false.
-     */
-    public void pushDirname(OCFile directory) {
-        if(!directory.isFolder()){
-            throw new IllegalArgumentException("Only directories may be pushed!");
-        }
-        mDirectories.insert(directory.getFileName(), 0);
-        setFile(directory);
-    }
-
-    /**
-     * Pops a directory name from the drop down list
-     * @return True, unless the stack is empty
-     */
-    public boolean popDirname() {
-        mDirectories.remove(mDirectories.getItem(0));
-        return !mDirectories.isEmpty();
-    }
-
-    // Custom array adapter to override text colors
-    private class CustomArrayAdapter<T> extends ArrayAdapter<T> {
-
-        public CustomArrayAdapter(FileDisplayActivity ctx, int view) {
-            super(ctx, view);
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View v = super.getView(position, convertView, parent);
-
-            ((TextView) v).setTextColor(getResources().getColorStateList(
-                    android.R.color.white));
-            
-            fixRoot((TextView) v );
-            return v;
-        }
-
-        public View getDropDownView(int position, View convertView,
-                ViewGroup parent) {
-            View v = super.getDropDownView(position, convertView, parent);
-
-            ((TextView) v).setTextColor(getResources().getColorStateList(
-                    android.R.color.white));
-
-            fixRoot((TextView) v );
-            return v;
-        }
-
-        private void fixRoot(TextView v) {
-            if (v.getText().equals(OCFile.PATH_SEPARATOR)) {
-                v.setText(R.string.default_display_name_for_root_folder);
-            }
-        }
-
-    }
 
     private class SyncBroadcastReceiver extends BroadcastReceiver {
 
@@ -977,7 +864,7 @@ public class FileDisplayActivity extends HookActivity implements
                                             String.format(
                                                     getString(R.string.
                                                             sync_current_folder_was_removed),
-                                                    mDirectories.getItem(0)),
+                                                   synchFolderRemotePath),
                                             Toast.LENGTH_LONG)
                                 .show();
                             browseToRoot();
@@ -1231,9 +1118,6 @@ public class FileDisplayActivity extends HookActivity implements
     public void browseToRoot() {
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (listOfFiles != null) {  // should never be null, indeed
-            while (mDirectories.getCount() > 1) {
-                popDirname();
-            }
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
             listOfFiles.listDirectory(root);
             // TODO Enable when "On Device" is recovered ?
@@ -1241,26 +1125,6 @@ public class FileDisplayActivity extends HookActivity implements
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root, false);
             updateActionBarTitle();
-        }
-        cleanSecondFragment();
-
-    }
-    
-    
-    public void browseTo(OCFile folder) {
-        if (folder == null || !folder.isFolder()) {
-            throw new IllegalArgumentException("Trying to browse to invalid folder " + folder);
-        }
-        OCFileListFragment listOfFiles = getListOfFilesFragment(); 
-        if (listOfFiles != null) {
-            setNavigationListWithFolder(folder);
-            listOfFiles.listDirectory(folder);
-            // TODO Enable when "On Device" is recovered ?
-            // listOfFiles.listDirectory(folder, MainApp.getOnlyOnDevice());
-            setFile(listOfFiles.getCurrentFile());
-            startSyncFolderOperation(folder, false);
-        } else {
-            Log_OC.e(TAG, "Unexpected null when accessing list fragment");
         }
         cleanSecondFragment();
 
@@ -1274,7 +1138,6 @@ public class FileDisplayActivity extends HookActivity implements
      */
     @Override
     public void onBrowsedDownTo(OCFile directory) {
-        pushDirname(directory);
         cleanSecondFragment();
         updateActionBarTitle();
         // Sync Folder
@@ -1324,10 +1187,6 @@ public class FileDisplayActivity extends HookActivity implements
                 }
             }
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-//            actionBar.setNavigationMode(!noRoot ? ActionBar.NAVIGATION_MODE_STANDARD :
-//                    ActionBar.NAVIGATION_MODE_LIST);
-            actionBar.setListNavigationCallbacks(mDirectories, this);
-            // assuming mDirectories is updated
 
         } else {
             actionBar.setDisplayHomeAsUpEnabled(true);
