@@ -21,34 +21,23 @@
 
 package com.owncloud.android.ui.adapter;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.Locale;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
-import android.graphics.Color;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.LayoutParams;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.NavigationDrawerItem;
-import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.utils.BitmapUtils;
+
+import java.util.ArrayList;
 
 public class NavigationDrawerListAdapter extends BaseAdapter {
 
