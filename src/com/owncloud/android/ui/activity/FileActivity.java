@@ -99,6 +99,7 @@ public class FileActivity extends ActionBarActivity
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String DIALOG_SHARE_PASSWORD = "DIALOG_SHARE_PASSWORD";
     private static final String KEY_TRY_SHARE_AGAIN = "TRY_SHARE_AGAIN";
+    private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
     
     protected static final long DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS = 200;
     
@@ -176,6 +177,7 @@ public class FileActivity extends ActionBarActivity
                     savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
                     );
             mTryShareAgain = savedInstanceState.getBoolean(KEY_TRY_SHARE_AGAIN);
+            getSupportActionBar().setTitle(savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
         } else {
             account = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
@@ -472,6 +474,7 @@ public class FileActivity extends ActionBarActivity
         outState.putBoolean(FileActivity.EXTRA_FROM_NOTIFICATION, mFromNotification);
         outState.putLong(KEY_WAITING_FOR_OP_ID, mFileOperationsHelper.getOpIdWaitingFor());
         outState.putBoolean(KEY_TRY_SHARE_AGAIN, mTryShareAgain);
+        outState.putString(KEY_ACTION_BAR_TITLE, getSupportActionBar().getTitle().toString());
     }
     
     

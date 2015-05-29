@@ -195,6 +195,9 @@ public class FileDisplayActivity extends HookActivity
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS,
                                                                 // according to the official
                                                                 // documentation
+        if (getFile() != null) {
+            updateActionBarTitle();
+        }
 
         setSupportProgressBarIndeterminateVisibility(mSyncInProgress
         /*|| mRefreshSharesInProgress*/);
@@ -769,6 +772,7 @@ public class FileDisplayActivity extends HookActivity
 
         // refresh Navigation Drawer account list
         mNavigationDrawerAdapter.updateAccountList();
+
 
         // refresh list of files
         refreshListOfFilesFragment();
