@@ -306,4 +306,5 @@
   <string name="subject_token">%1$s μοιράστηκε \"%2$s\" μαζί σας</string>
   <string name="auth_refresh_button">Ανανέωση σύνδεσης</string>
   <string name="auth_host_address">Διεύθυνση διακομιστή</string>
+  <string name="common_error_out_memory">Δεν υπάρχει αρκετή μνήμη</string>
 </resources>

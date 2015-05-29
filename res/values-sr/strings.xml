@@ -306,4 +306,5 @@
   <string name="subject_token">%1$s подели „%2$s“ са вама</string>
   <string name="auth_refresh_button">Освежи везу</string>
   <string name="auth_host_address">Адреса сервера</string>
+  <string name="common_error_out_memory">Нема довољно меморије</string>
 </resources>

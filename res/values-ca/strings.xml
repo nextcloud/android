@@ -23,6 +23,7 @@
   <string name="prefs_category_more">Més</string>
   <string name="prefs_accounts">Comptes</string>
   <string name="prefs_manage_accounts">Gestió de comptes</string>
+  <string name="prefs_passcode">Contrasenya</string>
   <string name="prefs_instant_upload">Pujada instantànies de fotografies</string>
   <string name="prefs_instant_upload_summary">Puja instantàniament les fotografies preses amb la càmera</string>
   <string name="prefs_instant_video_upload">Pujades de vídeos instantanies</string>
