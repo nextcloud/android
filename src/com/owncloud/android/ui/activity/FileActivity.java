@@ -388,8 +388,10 @@ public class FileActivity extends ActionBarActivity
         if (mFile.getParentId() == 0) {
             getSupportActionBar().setTitle(getString(
                     R.string.default_display_name_for_root_folder));
+            mDrawerToggle.setDrawerIndicatorEnabled(true);
         } else {
             getSupportActionBar().setTitle(mFile.getFileName().toString());
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
         }
     }
     /**
