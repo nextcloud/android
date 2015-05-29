@@ -79,6 +79,9 @@ public class FileListView {
 			+ ".description(\"List Layout\")")
 	private AndroidElement listLayout;
 	
+	@AndroidFindBy(uiAutomator = "new UiSelector().className(\"android.widget.FrameLayout\").index(0)")
+	private AndroidElement deviceScreen;
+	
 	private AndroidElement fileElement;
 	
 	private AndroidElement fileElementLayout;
@@ -197,5 +200,12 @@ public class FileListView {
 				listLocation.getX(),listLocation.getY()+1000, 5000);
 	}
 
+	
+	
+	public void pulldownToSeeNotification () throws InterruptedException {
+		Point listLocation = deviceScreen.getLocation();
+		driver.swipe(listLocation.getX(),listLocation.getY(), 
+				listLocation.getX(),listLocation.getY()+1000, 5000);
+	}
 
 }

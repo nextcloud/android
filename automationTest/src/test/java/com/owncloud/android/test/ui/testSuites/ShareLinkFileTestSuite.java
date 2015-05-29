@@ -23,14 +23,17 @@ package com.owncloud.android.test.ui.testSuites;
 import static org.junit.Assert.*;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.TestName;
+
 import com.owncloud.android.test.ui.actions.Actions;
 import com.owncloud.android.test.ui.groups.IgnoreTestCategory;
+import com.owncloud.android.test.ui.groups.InProgressCategory;
 import com.owncloud.android.test.ui.groups.NoIgnoreTestCategory;
 import com.owncloud.android.test.ui.groups.SmokeTestCategory;
 import com.owncloud.android.test.ui.models.FileListView;;

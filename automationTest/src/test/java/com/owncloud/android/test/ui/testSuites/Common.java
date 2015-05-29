@@ -130,7 +130,22 @@ public class Common{
 			Thread.sleep(pollingTime);
 		}
 	}
-
+	
+	public static void waitTillElementIsPresent (
+			AndroidElement element,int pollingTime) 
+					throws InterruptedException {
+		for (int time = 0;time <= waitingTime * 1000;time += pollingTime){	
+			try{
+				if(element.isDisplayed()){
+					return;
+				}
+			} catch (NoSuchElementException e){
+				
+			}
+			Thread.sleep(pollingTime);
+		}
+	}
+	
 	protected void takeScreenShotOnFailed (String testName) 
 			throws IOException {
 		File file  = ((RemoteWebDriver) driver)
