@@ -860,7 +860,7 @@ public class FileActivity extends ActionBarActivity
                     startActivity(settingsIntent);
                     break;
 
-                case 3: // Logs
+                case 2: // Logs
                     Intent loggerIntent = new Intent(getApplicationContext(),
                             LogHistoryActivity.class);
                     startActivity(loggerIntent);
