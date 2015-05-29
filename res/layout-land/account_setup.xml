@@ -93,7 +93,7 @@
 						android:drawablePadding="5dp"
 						android:paddingRight="55dp"
 						android:contentDescription="@string/auth_host_address"
-						android:textColor="@color/textColor">
+						>
 						<requestFocus />
 					</EditText>
 					<ImageButton
@@ -167,7 +167,7 @@
 					android:hint="@string/auth_username"
 					android:inputType="textNoSuggestions"
 					android:contentDescription="@string/auth_username"
-					android:textColor="@color/textColor" />
+					/>
 		
 				<EditText
 				    android:id="@+id/account_password"
@@ -178,7 +178,7 @@
 					android:inputType="textPassword"
 					android:drawablePadding="5dp"
 					android:contentDescription="@string/auth_password"
-					android:textColor="@color/textColor" />
+					/>
 		        
 				<TextView
 					android:id="@+id/auth_status_text"

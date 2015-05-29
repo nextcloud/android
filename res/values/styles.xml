@@ -27,13 +27,11 @@
     	<item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
 	</style>
 	
-	<style name="Theme.ownCloud.noActionBar" parent="style/Theme.AppCompat">
+	<style name="Theme.ownCloud.noActionBar" parent="style/Theme.AppCompat.Light">
         <item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
     </style>
 
 	<style name="Theme.ownCloud.Fullscreen" parent="style/Theme.AppCompat">
-        <item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
-        <item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 	
