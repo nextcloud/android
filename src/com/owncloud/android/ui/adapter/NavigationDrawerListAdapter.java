@@ -121,92 +121,93 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
 
                 return view;
             }
-
+            // TODO re-enable when "Accounts" is available in Navigation Drawer
             // Account
-            if (mAll.get(position) instanceof Account[]){
-                final View view = inflator.inflate(R.layout.drawer_account_group, null);
-
-                final RadioGroup group = (RadioGroup) view.findViewById(R.id.drawer_radio_group);
-
-                for (Account account : mAccounts) {
-                    RadioButton rb = new RadioButton(mContext);
-
-                    rb.setText(account.name);
-                    rb.setContentDescription(account.name);
-                    rb.setTextColor(Color.BLACK);
-                    rb.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-                    rb.setSingleLine();
-                    rb.setCompoundDrawablePadding(30);
-
-
-                    try {
-                        // using adapted algorithm from /core/js/placeholder.js:50
-                        int lastAtPos = account.name.lastIndexOf("@");
-                        String username  = account.name.substring(0, lastAtPos);
-                        byte[] seed = username.getBytes("UTF-8");
-                        MessageDigest md = MessageDigest.getInstance("MD5");
-//                        Integer seedMd5Int = Math.abs(new String(Hex.encodeHex(seedMd5))
-//                      .hashCode());
-                        Integer seedMd5Int = String.format(Locale.ROOT, "%032x",
-                                new BigInteger(1, md.digest(seed))).hashCode();
-
-                        double maxRange = java.lang.Integer.MAX_VALUE;
-                        float hue = (float) (seedMd5Int / maxRange * 360);
-
-                        int[] rgb = BitmapUtils.HSLtoRGB(hue, 90.0f, 65.0f, 1.0f);
-
-                        TextDrawable text = new TextDrawable(username.substring(0, 1).toUpperCase(),
-                                rgb[0], rgb[1], rgb[2]);
-                        rb.setCompoundDrawablesWithIntrinsicBounds(text, null, null, null);
-
-
-                    } catch (Exception e){
-                        Log_OC.d(TAG, e.toString());
-                        rb.setTextColor(mContext.getResources().getColor(R.color.black));
-                    }
-                    RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
-                            LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-                    params.weight=1.0f;
-                    params.setMargins(15, 5, 5, 5);
-
-                    // Check the current account that is being used
-                    if (account.name.equals(mCurrentAccount.name)) {
-                        rb.setChecked(true);
-                    } else {
-                        rb.setChecked(false);
-                    }
-
-                    group.addView(rb, params);
-                }
-
-                group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        // checkedId is the RadioButton selected
-                        RadioButton rb = (RadioButton) view.findViewById(checkedId);
-
-                        AccountUtils.setCurrentOwnCloudAccount(mContext,rb.getText().toString());
-                        notifyDataSetChanged();
-                        mFileActivity.closeDrawer();
-                        
-                        // restart the main activity
-                        mFileActivity.restart();
-                    }
-                });
-
-                return view;
-            }
+//            if (mAll.get(position) instanceof Account[]){
+//                final View view = inflator.inflate(R.layout.drawer_account_group, null);
+//
+//                final RadioGroup group = (RadioGroup) view.findViewById(R.id.drawer_radio_group);
+//
+//                for (Account account : mAccounts) {
+//                    RadioButton rb = new RadioButton(mContext);
+//
+//                    rb.setText(account.name);
+//                    rb.setContentDescription(account.name);
+//                    rb.setTextColor(Color.BLACK);
+//                    rb.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+//                    rb.setSingleLine();
+//                    rb.setCompoundDrawablePadding(30);
+//
+//
+//                    try {
+//                        // using adapted algorithm from /core/js/placeholder.js:50
+//                        int lastAtPos = account.name.lastIndexOf("@");
+//                        String username  = account.name.substring(0, lastAtPos);
+//                        byte[] seed = username.getBytes("UTF-8");
+//                        MessageDigest md = MessageDigest.getInstance("MD5");
+////                        Integer seedMd5Int = Math.abs(new String(Hex.encodeHex(seedMd5))
+////                      .hashCode());
+//                        Integer seedMd5Int = String.format(Locale.ROOT, "%032x",
+//                                new BigInteger(1, md.digest(seed))).hashCode();
+//
+//                        double maxRange = java.lang.Integer.MAX_VALUE;
+//                        float hue = (float) (seedMd5Int / maxRange * 360);
+//
+//                        int[] rgb = BitmapUtils.HSLtoRGB(hue, 90.0f, 65.0f, 1.0f);
+//
+//                        TextDrawable text = new TextDrawable(username.substring(0, 1).toUpperCase(),
+//                                rgb[0], rgb[1], rgb[2]);
+//                        rb.setCompoundDrawablesWithIntrinsicBounds(text, null, null, null);
+//
+//
+//                    } catch (Exception e){
+//                        Log_OC.d(TAG, e.toString());
+//                        rb.setTextColor(mContext.getResources().getColor(R.color.black));
+//                    }
+//                    RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
+//                            LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+//                    params.weight=1.0f;
+//                    params.setMargins(15, 5, 5, 5);
+//
+//                    // Check the current account that is being used
+//                    if (account.name.equals(mCurrentAccount.name)) {
+//                        rb.setChecked(true);
+//                    } else {
+//                        rb.setChecked(false);
+//                    }
+//
+//                    group.addView(rb, params);
+//                }
+//
+//                group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+//                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                        // checkedId is the RadioButton selected
+//                        RadioButton rb = (RadioButton) view.findViewById(checkedId);
+//
+//                        AccountUtils.setCurrentOwnCloudAccount(mContext,rb.getText().toString());
+//                        notifyDataSetChanged();
+//                        mFileActivity.closeDrawer();
+//
+//                        // restart the main activity
+//                        mFileActivity.restart();
+//                    }
+//                });
+//
+//                return view;
+//            }
         }
         return convertView;
     }
 
+    //TODO re-enable when "Accounts" is available in Navigation Drawer
     // TODO update Account List after creating a new account and on fresh installation
-    public void setShowAccounts(boolean value){
-        mAll.clear();
-        mAll.addAll(mNavigationDrawerItems);
-
-        if (value){
-            mAll.add(1, mAccounts);
-        }
-        mShowAccounts = value;
-    }
+//    public void setShowAccounts(boolean value){
+//        mAll.clear();
+//        mAll.addAll(mNavigationDrawerItems);
+//
+//        if (value){
+//            mAll.add(1, mAccounts);
+//        }
+//        mShowAccounts = value;
+//    }
 }

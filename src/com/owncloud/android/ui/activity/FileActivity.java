@@ -157,7 +157,8 @@ public class FileActivity extends ActionBarActivity
 
     protected NavigationDrawerListAdapter mNavigationDrawerAdapter = null;
 
-    protected boolean mShowAccounts = false;
+    // TODO re-enable when "Accounts" is available in Navigation Drawer
+//    protected boolean mShowAccounts = false;
     
     /**
      * Loads the ownCloud {@link Account} and main {@link OCFile} to be handled by the instance of 
@@ -304,19 +305,20 @@ public class FileActivity extends ActionBarActivity
         LinearLayout navigationDrawerLayout = (LinearLayout) findViewById(R.id.left_drawer);
         mDrawerList = (ListView) navigationDrawerLayout.findViewById(R.id.drawer_list);
 
-        // load Account in the Drawer Title
-        // User-Icon
-        ImageView userIcon = (ImageView) navigationDrawerLayout.findViewById(R.id.drawer_userIcon);
-        userIcon.setImageResource(DisplayUtils.getSeasonalIconId());
-
-        // Username
-        TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
-        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-
-        if (account != null) {
-            int lastAtPos = account.name.lastIndexOf("@");
-            username.setText(account.name.substring(0, lastAtPos));
-        }
+        // TODO re-enable when "Accounts" is available in Navigation Drawer
+//        // load Account in the Drawer Title
+//        // User-Icon
+//        ImageView userIcon = (ImageView) navigationDrawerLayout.findViewById(R.id.drawer_userIcon);
+//        userIcon.setImageResource(DisplayUtils.getSeasonalIconId());
+//
+//        // Username
+//        TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
+//        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+//
+//        if (account != null) {
+//            int lastAtPos = account.name.lastIndexOf("@");
+//            username.setText(account.name.substring(0, lastAtPos));
+//        }
 
         // load slide menu items
         mDrawerTitles = getResources().getStringArray(R.array.drawer_items);
@@ -328,10 +330,12 @@ public class FileActivity extends ActionBarActivity
         // nav drawer items
         mDrawerItems = new ArrayList<NavigationDrawerItem>();
         // adding nav drawer items to array
+        // TODO re-enable when "Accounts" is available in Navigation Drawer
         // Accounts
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0]));
+        // mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0],
+        // mDrawerContentDescriptions[0]));
         // All Files
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1]));
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0]));
 
         // TODO Enable when "On Device" is recovered
         // On Device
@@ -339,11 +343,11 @@ public class FileActivity extends ActionBarActivity
         //        mDrawerContentDescriptions[2]));
 
         // Settings
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2], mDrawerContentDescriptions[2]));
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1]));
         // Logs
         if (BuildConfig.DEBUG) {
-            mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[3],
-                    mDrawerContentDescriptions[3]));
+            mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2],
+                    mDrawerContentDescriptions[2]));
         }
 
         // setting the nav drawer list adapter
@@ -818,9 +822,10 @@ public class FileActivity extends ActionBarActivity
         startActivity(i);
     }
 
-    public void closeDrawer() {
-        mDrawerLayout.closeDrawers();
-    }
+//    TODO re-enable when "Accounts" is available in Navigation Drawer
+//    public void closeDrawer() {
+//        mDrawerLayout.closeDrawers();
+//    }
 
     public void allFilesOption(){
         restart();
@@ -829,17 +834,19 @@ public class FileActivity extends ActionBarActivity
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (mShowAccounts && position > 0){
-                position = position - 1;
-            }
+            // TODO re-enable when "Accounts" is available in Navigation Drawer
+//            if (mShowAccounts && position > 0){
+//                position = position - 1;
+//            }
             switch (position){
-                case 0: // Accounts
-                    mShowAccounts = !mShowAccounts;
-                    mNavigationDrawerAdapter.setShowAccounts(mShowAccounts);
-                    mNavigationDrawerAdapter.notifyDataSetChanged();
-                    break;
+                // TODO re-enable when "Accounts" is available in Navigation Drawer
+//                case 0: // Accounts
+//                    mShowAccounts = !mShowAccounts;
+//                    mNavigationDrawerAdapter.setShowAccounts(mShowAccounts);
+//                    mNavigationDrawerAdapter.notifyDataSetChanged();
+//                    break;
 
-                case 1: // All Files
+                case 0: // All Files
                     allFilesOption();
                     mDrawerLayout.closeDrawers();
                     break;
@@ -850,7 +857,7 @@ public class FileActivity extends ActionBarActivity
 //                    mDrawerLayout.closeDrawers();
 //                    break;
 
-                case 2: // Settings
+                case 1: // Settings
                     Intent settingsIntent = new Intent(getApplicationContext(),
                             Preferences.class);
                     startActivity(settingsIntent);

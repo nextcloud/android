@@ -28,32 +28,33 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+    <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="5dp">-->
 
-        <ImageView
-            android:id="@+id/drawer_userIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+        <!--<ImageView-->
+            <!--android:id="@+id/drawer_userIcon"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:src="@drawable/abc_ab_bottom_solid_dark_holo" />-->
 
-        <TextView
-            android:id="@+id/drawer_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <!--<TextView-->
+            <!--android:id="@+id/drawer_username"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_marginStart="5dp"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge" />-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="2dip"
-        android:background="@color/list_item_lastmod_and_filesize_text" />
+    <!--<TextView-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="2dip"-->
+        <!--android:background="@color/list_item_lastmod_and_filesize_text" />-->
 
     <ListView
         android:id="@+id/drawer_list"
