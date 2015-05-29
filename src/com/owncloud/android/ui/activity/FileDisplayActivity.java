@@ -1139,6 +1139,7 @@ public class FileDisplayActivity extends HookActivity
     @Override
     public void onBrowsedDownTo(OCFile directory) {
         cleanSecondFragment();
+        setFile(directory);
         updateActionBarTitle();
         // Sync Folder
         startSyncFolderOperation(directory, false);
