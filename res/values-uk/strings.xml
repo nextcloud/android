@@ -201,6 +201,7 @@
   <string name="filedisplay_unexpected_bad_get_content">Несподівані проблеми ; будь ласка, спробуйте використати іншу програму для вибору файлу</string>
   <string name="filedisplay_no_file_selected">Не обрано файл</string>
   <string name="activity_chooser_title">Надіслати посилання...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>
   <string name="oauth_check_onoff">Увійти через oAuth2</string>
   <string name="oauth_login_connection">Підключення до серверу oAuth2...</string>
   <string name="ssl_validator_header">Не вдалося перевірити ідентифікацію сайта</string>
