@@ -28,6 +28,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
@@ -509,7 +510,10 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN && v == mVideoPreview) {
-            startFullScreenVideo();
+            // added a margin on the left to avoid interfering with gesture to open navigation drawer
+            if (event.getX() / Resources.getSystem().getDisplayMetrics().density > 24.0) {
+                startFullScreenVideo();
+            }
             return true;        
         }
         return false;
