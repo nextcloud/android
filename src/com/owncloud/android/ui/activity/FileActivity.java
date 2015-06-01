@@ -39,6 +39,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -286,6 +287,10 @@ public class FileActivity extends ActionBarActivity
         // Sync the toggle state after onRestoreInstanceState has occurred.
         if (mDrawerToggle != null) {
             mDrawerToggle.syncState();
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                getSupportActionBar().setTitle(R.string.app_name);
+                mDrawerToggle.setDrawerIndicatorEnabled(true);
+            }
         }
     }
 
@@ -357,13 +362,13 @@ public class FileActivity extends ActionBarActivity
                 this,
                 mDrawerLayout,
                 R.drawable.ic_drawer,
-                R.string.drawer_open,
+                R.string.app_name,
                 R.string.drawer_close) {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                updateActionBarTitle();
+                updateActionBarTitleAndHomeButton();
                 getSupportActionBar().setDisplayShowTitleEnabled(true);
                 getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 invalidateOptionsMenu();
@@ -372,7 +377,7 @@ public class FileActivity extends ActionBarActivity
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(R.string.drawer_open);
+                getSupportActionBar().setTitle(R.string.app_name);
                 getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
                 invalidateOptionsMenu();
@@ -387,7 +392,7 @@ public class FileActivity extends ActionBarActivity
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    protected void updateActionBarTitle(){
+    protected void updateActionBarTitleAndHomeButton(){
         if (mFile.getParentId() == 0) {
             getSupportActionBar().setTitle(getString(
                     R.string.default_display_name_for_root_folder));

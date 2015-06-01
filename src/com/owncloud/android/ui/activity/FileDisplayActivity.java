@@ -195,9 +195,6 @@ public class FileDisplayActivity extends HookActivity
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS,
                                                                 // according to the official
                                                                 // documentation
-        if (getFile() != null) {
-            updateActionBarTitle();
-        }
 
         setSupportProgressBarIndeterminateVisibility(mSyncInProgress
         /*|| mRefreshSharesInProgress*/);
@@ -263,7 +260,7 @@ public class FileDisplayActivity extends HookActivity
                 
             } else {
                 updateFragmentsVisibility(!file.isFolder());
-                updateNavigationElementsInActionBar(file.isFolder() ? null : file);
+                updateActionBarTitleAndHomeButton(file.isFolder() ? null : file);
             }
         }
     }
@@ -294,7 +291,7 @@ public class FileDisplayActivity extends HookActivity
             if (secondFragment != null) {
                 setSecondFragment(secondFragment);
                 updateFragmentsVisibility(true);
-                updateNavigationElementsInActionBar(file);
+                updateActionBarTitleAndHomeButton(file);
                 
             } else {
                 cleanSecondFragment();
@@ -402,7 +399,7 @@ public class FileDisplayActivity extends HookActivity
             tr.commit();
         }
         updateFragmentsVisibility(false);
-        updateNavigationElementsInActionBar(null);
+        updateActionBarTitleAndHomeButton(null);
     }
 
     protected void refreshListOfFilesFragment() {
@@ -747,7 +744,6 @@ public class FileDisplayActivity extends HookActivity
         if (listOfFiles != null) {  // should never be null, indeed
             setFile(listOfFiles.getCurrentFile());
         }
-        updateActionBarTitle();
         cleanSecondFragment();
 
     }
@@ -1126,7 +1122,6 @@ public class FileDisplayActivity extends HookActivity
             // listOfFiles.listDirectory(root, MainApp.getOnlyOnDevice());
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root, false);
-            updateActionBarTitle();
         }
         cleanSecondFragment();
 
@@ -1140,9 +1135,8 @@ public class FileDisplayActivity extends HookActivity
      */
     @Override
     public void onBrowsedDownTo(OCFile directory) {
-        cleanSecondFragment();
         setFile(directory);
-        updateActionBarTitle();
+        cleanSecondFragment();
         // Sync Folder
         startSyncFolderOperation(directory, false);
         
@@ -1159,7 +1153,7 @@ public class FileDisplayActivity extends HookActivity
         Fragment detailFragment = new FileDetailFragment(file, getAccount());
         setSecondFragment(detailFragment);
         updateFragmentsVisibility(true);
-        updateNavigationElementsInActionBar(file);
+        updateActionBarTitleAndHomeButton(file);
         setFile(file);
     }
 
@@ -1167,7 +1161,7 @@ public class FileDisplayActivity extends HookActivity
     /**
      * TODO
      */
-    private void updateNavigationElementsInActionBar(OCFile chosenFile) {
+    private void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
         ActionBar actionBar = getSupportActionBar();
 
         // For adding content description tag to a title field in the action bar
@@ -1177,10 +1171,11 @@ public class FileDisplayActivity extends HookActivity
             // only list of files - set for browsing through folders
             OCFile currentDir = getCurrentDir();
             boolean noRoot = (currentDir != null && currentDir.getParentId() != 0);
-//            actionBar.setDisplayHomeAsUpEnabled(noRoot);
-//            actionBar.setDisplayShowTitleEnabled(!noRoot);
+            //actionBar.setDisplayHomeAsUpEnabled(noRoot);
+            //actionBar.setDisplayShowTitleEnabled(!noRoot);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
+            mDrawerToggle.setDrawerIndicatorEnabled(!noRoot);
             if (!noRoot) {
                 actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
                 View actionBarTitleView = getWindow().getDecorView().findViewById(actionBarTitleId);
@@ -1194,6 +1189,7 @@ public class FileDisplayActivity extends HookActivity
         } else {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
             actionBar.setTitle(chosenFile.getFileName());
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             View actionBarTitleView = getWindow().getDecorView().findViewById(actionBarTitleId);
@@ -1665,7 +1661,7 @@ public class FileDisplayActivity extends HookActivity
                 autoplay);
         setSecondFragment(mediaFragment);
         updateFragmentsVisibility(true);
-        updateNavigationElementsInActionBar(file);
+        updateActionBarTitleAndHomeButton(file);
         setFile(file);
     }
 
@@ -1682,7 +1678,7 @@ public class FileDisplayActivity extends HookActivity
         mWaitingToPreview = file;
         requestForDownload();
         updateFragmentsVisibility(true);
-        updateNavigationElementsInActionBar(file);
+        updateActionBarTitleAndHomeButton(file);
         setFile(file);
     }
 
