@@ -736,6 +736,10 @@ public class FileDisplayActivity extends HookActivity
     public void onBackPressed() {
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (mDualPane || getSecondFragment() == null) {
+            if (getFile() != null && getFile().getParentId() == 0) {
+                finish();
+                return;
+            }
             if (listOfFiles != null) {  // should never be null, indeed
                 listOfFiles.onBrowseUp();
             }
