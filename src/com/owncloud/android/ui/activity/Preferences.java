@@ -33,6 +33,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -43,7 +44,8 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBar;
+//import android.support.v7.app.ActionBar;
+import android.app.ActionBar;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -111,11 +113,18 @@ public class Preferences extends PreferenceActivity
         mDbHandler = new DbHandler(getBaseContext());
         addPreferencesFromResource(R.xml.preferences);
 
-        // TODO: Add Toolbar
-//        ActionBar actionBar = getSherlock().getActionBar();
-//        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setTitle(R.string.actionbar_settings);
+        // Set properties of Action Bar in an ugly workaround to build correctly without upgrading minSdk
+        // TODO : increase minSdk; scheduled for next realease, don't wont to mix with this US
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                actionBar.setIcon(DisplayUtils.getSeasonalIconId());
+            }
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.actionbar_settings);
+        } else {
+            setTitle(R.string.actionbar_settings);
+        }
 
         // For adding content description tag to a title field in the action bar
         int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
