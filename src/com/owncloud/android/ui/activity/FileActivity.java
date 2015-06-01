@@ -866,12 +866,14 @@ public class FileActivity extends ActionBarActivity
                     Intent settingsIntent = new Intent(getApplicationContext(),
                             Preferences.class);
                     startActivity(settingsIntent);
+                    mDrawerLayout.closeDrawers();
                     break;
 
                 case 2: // Logs
                     Intent loggerIntent = new Intent(getApplicationContext(),
                             LogHistoryActivity.class);
                     startActivity(loggerIntent);
+                    mDrawerLayout.closeDrawers();
                     break;
             }
         }
