@@ -271,7 +271,7 @@ OnSslUntrustedCertListener, OnEnforceableRefreshListener {
         mDirectories.clear();
         OCFile fileIt = file;
         String parentPath;
-        while(fileIt != null && fileIt.getFileName() != OCFile.ROOT_PATH) {
+        while(fileIt != null && !fileIt.getFileName().equals(OCFile.ROOT_PATH)) {
             if (fileIt.isFolder()) {
                 mDirectories.add(fileIt.getFileName());
             }
