@@ -10,6 +10,7 @@
   <string name="prefs_accounts">Comptes</string>
   <string name="prefs_manage_accounts">Maneja comptes</string>
   <string name="prefs_help">Ajuda</string>
+  <string name="prefs_imprint">Mencions legalas</string>
   <string name="auth_username">Nom d\'usancièr</string>
   <string name="auth_password">Senhal</string>
   <string name="sync_string_files">Fichièrs</string>
@@ -45,6 +46,7 @@
   <string name="uploader_upload_succeeded_ticker">Capitada d\'avalcargar</string>
   <string name="common_choose_account">Causís lo compte</string>
   <string name="common_rename">Torna nomenar</string>
+  <string name="common_remove">Suprimir</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Comptes</string>
   <string name="folder_picker_choose_button_text">Causís</string>
