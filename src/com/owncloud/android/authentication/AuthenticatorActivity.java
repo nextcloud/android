@@ -216,7 +216,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             getSupportActionBar().setDisplayShowHomeEnabled(false);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-        
+
         mIsFirstAuthAttempt = true;
 
         // bind to Operations Service

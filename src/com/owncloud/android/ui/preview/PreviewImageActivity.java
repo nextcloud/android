@@ -92,7 +92,7 @@ public class PreviewImageActivity extends FileActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+        //requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.preview_image_activity);
 
         // Navigation Drawer
@@ -103,6 +103,8 @@ public class PreviewImageActivity extends FileActivity implements
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.hide();
+
+        updateActionBarTitleAndHomeButton();
 
         // Make sure we're running on Honeycomb or higher to use FullScreen and
         // Immersive Mode
