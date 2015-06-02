@@ -152,6 +152,8 @@ public class ErrorMessageAdapter {
             } else if (isNetworkError(result.getCode())) {
                 message = getErrorMessage(result, res);
                 
+            } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
+                message = res.getString(R.string.filename_forbidden_charaters_from_server);
             } else {
                 message = res.getString(R.string.create_dir_fail_msg);
             }
