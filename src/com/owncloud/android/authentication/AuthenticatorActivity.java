@@ -206,8 +206,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     protected void onCreate(Bundle savedInstanceState) {
         //Log_OC.wtf(TAG,  "onCreate init");
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
+        // Workaround, for fixing a problem with Android Library Suppor v7 19
+        //getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+        
         mIsFirstAuthAttempt = true;
 
         // bind to Operations Service
@@ -787,7 +796,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Intent getServerInfoIntent = new Intent();
             getServerInfoIntent.setAction(OperationsService.ACTION_GET_SERVER_INFO);
             getServerInfoIntent.putExtra(
-                OperationsService.EXTRA_SERVER_URL, 
+                OperationsService.EXTRA_SERVER_URL,
                 normalizeUrlSuffix(uri)
             );
             if (mOperationsServiceBinder != null) {
@@ -1106,7 +1115,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     url = "http://" + url;
                 }
             }
-        
+
             url = normalizeUrlSuffix(url);
         }
         return (url != null ? url : "");
@@ -1425,7 +1434,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         response.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccount.type);
 
         if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).
-                equals(mAuthTokenType)) { 
+                equals(mAuthTokenType)) {
             response.putString(AccountManager.KEY_AUTHTOKEN, mAuthToken);
             // the next line is necessary, notifications are calling directly to the 
             // AuthenticatorActivity to update, without AccountManager intervention
@@ -1897,6 +1906,5 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void doNegativeAuthenticatioDialogClick(){
         mIsFirstAuthAttempt = true;
     }
-
 
 }
