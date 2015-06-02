@@ -119,7 +119,9 @@ extends SherlockDialogFragment implements DialogInterface.OnClickListener {
                 return;
             }
             
-            if (!FileUtils.isValidName(newFileName)) {
+            if (!FileUtils.isValidName(newFileName,
+                    ((ComponentsGetter)getSherlockActivity()).
+                            getFileOperationsHelper().isVersionWithForbiddenCharacters())) {
                 Toast.makeText(
                         getSherlockActivity(), 
                         R.string.filename_forbidden_characters, 
@@ -127,7 +129,8 @@ extends SherlockDialogFragment implements DialogInterface.OnClickListener {
                 return;
             }
 
-            ((ComponentsGetter)getSherlockActivity()).getFileOperationsHelper().renameFile(mTargetFile, newFileName);
+            ((ComponentsGetter)getSherlockActivity()).getFileOperationsHelper().
+                    renameFile(mTargetFile, newFileName);
         }
     }
 }

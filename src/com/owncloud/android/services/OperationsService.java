@@ -34,6 +34,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -54,6 +55,7 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.accounts.AccountsException;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
@@ -442,6 +444,12 @@ public class OperationsService extends Service {
                                     mService);
                             mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                                     getClientFor(ocAccount, mService);
+
+                            AccountManager am = AccountManager.get(mService.getApplicationContext());
+                            String version = am.getUserData(mLastTarget.mAccount,
+                                    AccountUtils.Constants.KEY_OC_VERSION);
+                            mOwnCloudClient.setOwnCloudVersion(version);
+
                             mStorageManager = new FileDataStorageManager(
                                     mLastTarget.mAccount, 
                                     mService.getContentResolver()

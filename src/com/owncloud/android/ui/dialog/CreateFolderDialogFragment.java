@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.dialog;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
@@ -52,8 +53,8 @@ extends SherlockDialogFragment implements DialogInterface.OnClickListener {
     /**
      * Public factory method to create new CreateFolderDialogFragment instances.
      * 
-     * @param file            File to remove.
-     * @return                Dialog ready to show.
+     * @param parentFolder            Folder to create
+     * @return                        Dialog ready to show.
      */
     public static CreateFolderDialogFragment newInstance(OCFile parentFolder) {
         CreateFolderDialogFragment frag = new CreateFolderDialogFragment();
@@ -106,8 +107,11 @@ extends SherlockDialogFragment implements DialogInterface.OnClickListener {
                         Toast.LENGTH_LONG).show();
                 return;
             }
-            
-            if (!FileUtils.isValidName(newFolderName)) {
+
+
+            if (!FileUtils.isValidName(newFolderName,
+                    ((ComponentsGetter)getSherlockActivity()).
+                            getFileOperationsHelper().isVersionWithForbiddenCharacters())) {
                 Toast.makeText(
                         getSherlockActivity(), 
                         R.string.filename_forbidden_characters, 
