@@ -393,12 +393,17 @@ public class FileActivity extends ActionBarActivity
     }
 
     protected void updateActionBarTitleAndHomeButton(){
-        if (mFile.getParentId() == 0) {
+        if (mFile.getParentId() == 0 ||
+                (!mFile.isFolder() && mFile.getParentId() == 1)) {
             getSupportActionBar().setTitle(getString(
                     R.string.default_display_name_for_root_folder));
             mDrawerToggle.setDrawerIndicatorEnabled(true);
-        } else {
+        } else if (mFile.isFolder()) {
             getSupportActionBar().setTitle(mFile.getFileName().toString());
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
+        } else {
+            getSupportActionBar().setTitle(getStorageManager().getFileById(mFile.getParentId())
+                    .getFileName().toString());
             mDrawerToggle.setDrawerIndicatorEnabled(false);
         }
     }

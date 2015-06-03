@@ -1139,7 +1139,6 @@ public class FileDisplayActivity extends HookActivity
         cleanSecondFragment();
         // Sync Folder
         startSyncFolderOperation(directory, false);
-        
     }
 
     /**
@@ -1176,13 +1175,14 @@ public class FileDisplayActivity extends HookActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
             mDrawerToggle.setDrawerIndicatorEnabled(!noRoot);
-            if (!noRoot) {
-                actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
-                View actionBarTitleView = getWindow().getDecorView().findViewById(actionBarTitleId);
-                if (actionBarTitleView != null) {    // it's null in Android 2.x
-                    actionBarTitleView.setContentDescription(
-                            getString(R.string.default_display_name_for_root_folder));
-                }
+            String title = getString(R.string.default_display_name_for_root_folder);
+            if (noRoot) {
+                title = currentDir.getFileName();
+            }
+            actionBar.setTitle(title);
+            View actionBarTitleView = getWindow().getDecorView().findViewById(actionBarTitleId);
+            if (actionBarTitleView != null) {    // it's null in Android 2.x
+                actionBarTitleView.setContentDescription(title);
             }
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 
