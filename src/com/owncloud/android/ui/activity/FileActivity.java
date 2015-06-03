@@ -155,6 +155,7 @@ public class FileActivity extends ActionBarActivity
 
     protected NavigationDrawerListAdapter mNavigationDrawerAdapter = null;
 
+
     // TODO re-enable when "Accounts" is available in Navigation Drawer
 //    protected boolean mShowAccounts = false;
     
@@ -303,6 +304,10 @@ public class FileActivity extends ActionBarActivity
     }
 
     protected void initDrawer(){
+        // constant settings for action bar when navigation drawer is inited
+        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Notification Drawer
         LinearLayout navigationDrawerLayout = (LinearLayout) findViewById(R.id.left_drawer);
@@ -368,9 +373,7 @@ public class FileActivity extends ActionBarActivity
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                updateActionBarTitleAndHomeButton();
-                getSupportActionBar().setDisplayShowTitleEnabled(true);
-                getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                updateActionBarTitleAndHomeButton(null);
                 invalidateOptionsMenu();
             }
 
@@ -378,13 +381,12 @@ public class FileActivity extends ActionBarActivity
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getSupportActionBar().setTitle(R.string.app_name);
-                getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
                 invalidateOptionsMenu();
             }
         };
 
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        //mDrawerToggle.setDrawerIndicatorEnabled(true);
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -392,21 +394,48 @@ public class FileActivity extends ActionBarActivity
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    protected void updateActionBarTitleAndHomeButton(){
-        if (mFile.getParentId() == 0 ||
-                (!mFile.isFolder() && mFile.getParentId() == 1)) {
-            getSupportActionBar().setTitle(getString(
-                    R.string.default_display_name_for_root_folder));
-            mDrawerToggle.setDrawerIndicatorEnabled(true);
-        } else if (mFile.isFolder()) {
-            getSupportActionBar().setTitle(mFile.getFileName().toString());
-            mDrawerToggle.setDrawerIndicatorEnabled(false);
+    /**
+     * Updates title bar and home buttons (state and icon).
+     *
+     * Assumes that navigation drawer is NOT visible.
+     */
+    protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
+        String title = getString(R.string.default_display_name_for_root_folder);    // default
+        boolean inRoot;
+
+        /// choose the appropiate title
+        if (chosenFile == null) {
+            // mFile determines the title
+            inRoot = (mFile == null || mFile.getParentId() == 0);
+            if (!inRoot) {
+                title = mFile.getFileName();
+            }
+
         } else {
-            getSupportActionBar().setTitle(getStorageManager().getFileById(mFile.getParentId())
-                    .getFileName().toString());
-            mDrawerToggle.setDrawerIndicatorEnabled(false);
+            // chosenFile determines the title, instead of mFile
+            title = chosenFile.getFileName();
+            inRoot = false;
         }
+
+        /// set the chosen title
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(title);
+        /// also as content description
+        View actionBarTitleView = getWindow().getDecorView().findViewById(
+                getResources().getIdentifier("action_bar_title", "id", "android")
+        );
+        if (actionBarTitleView != null) {    // it's null in Android 2.x
+            actionBarTitleView.setContentDescription(title);
+        }
+
+        /// set home button properties
+        mDrawerToggle.setDrawerIndicatorEnabled(inRoot);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+
     }
+
+
     /**
      *  Sets and validates the ownCloud {@link Account} associated to the Activity. 
      * 

@@ -1156,48 +1156,16 @@ public class FileDisplayActivity extends HookActivity
         setFile(file);
     }
 
-
-    /**
-     * TODO
-     */
-    private void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        ActionBar actionBar = getSupportActionBar();
-
-        // For adding content description tag to a title field in the action bar
-        int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
-
-        if (chosenFile == null || mDualPane) {
-            // only list of files - set for browsing through folders
-            OCFile currentDir = getCurrentDir();
-            boolean noRoot = (currentDir != null && currentDir.getParentId() != 0);
-            //actionBar.setDisplayHomeAsUpEnabled(noRoot);
-            //actionBar.setDisplayShowTitleEnabled(!noRoot);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(true);
-            mDrawerToggle.setDrawerIndicatorEnabled(!noRoot);
-            String title = getString(R.string.default_display_name_for_root_folder);
-            if (noRoot) {
-                title = currentDir.getFileName();
-            }
-            actionBar.setTitle(title);
-            View actionBarTitleView = getWindow().getDecorView().findViewById(actionBarTitleId);
-            if (actionBarTitleView != null) {    // it's null in Android 2.x
-                actionBarTitleView.setContentDescription(title);
-            }
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+    @Override
+    protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
+        if (mDualPane) {
+            // in dual pane mode, keep the focus of title an action bar in the current folder
+            super.updateActionBarTitleAndHomeButton(null);
 
         } else {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(true);
-            mDrawerToggle.setDrawerIndicatorEnabled(false);
-            actionBar.setTitle(chosenFile.getFileName());
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-            View actionBarTitleView = getWindow().getDecorView().findViewById(actionBarTitleId);
-            if (actionBarTitleView != null) {    // it's null in Android 2.x
-                getWindow().getDecorView().findViewById(actionBarTitleId).
-                        setContentDescription(chosenFile.getFileName());
-            }
+            super.updateActionBarTitleAndHomeButton(chosenFile);
         }
+
     }
 
 

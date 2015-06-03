@@ -102,10 +102,9 @@ public class PreviewImageActivity extends FileActivity implements
         // ActionBar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        updateActionBarTitleAndHomeButton(null);
         actionBar.hide();
 
-        updateActionBarTitleAndHomeButton();
 
         // Make sure we're running on Honeycomb or higher to use FullScreen and
         // Immersive Mode
