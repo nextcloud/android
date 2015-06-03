@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -324,7 +325,11 @@ public class PreviewImageActivity extends FileActivity implements
         
         switch(item.getItemId()){
         case android.R.id.home:
-            backToDisplayActivity();
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                backToDisplayActivity();
+            }
             returnValue = true;
             break;
         default:
