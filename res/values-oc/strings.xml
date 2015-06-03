@@ -2,6 +2,7 @@
 <resources>
   <string name="actionbar_upload">Amontcarga</string>
   <string name="actionbar_upload_files">Fichièrs</string>
+  <string name="actionbar_mkdir">Novèl dorsièr</string>
   <string name="actionbar_settings">Configuracion</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
@@ -16,6 +17,7 @@
   <string name="sync_string_files">Fichièrs</string>
   <string name="setup_btn_connect">Connecta</string>
   <string name="uploader_btn_upload_text">Amontcarga</string>
+  <string name="uploader_btn_new_folder_text">Novèl dorsièr</string>
   <string name="uploader_wrn_no_account_title">Cap de compte trobat</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuracion</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quita</string>
@@ -37,6 +39,7 @@
   <string name="common_cancel_upload"> Anulla l\'amontcargar</string>
   <string name="common_cancel">Annula</string>
   <string name="common_error">Error</string>
+  <string name="common_error_unknown">Error Desconeguda </string>
   <string name="about_title">A prepaus</string>
   <string name="change_password">Cambia lo senhal</string>
   <string name="delete_account">Escafa lo compte</string>

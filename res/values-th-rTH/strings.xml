@@ -1,12 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s แอพพลิเคชัน แอนดรอยด์</string>
+  <string name="about_version">รุ่น %1$s</string>
+  <string name="actionbar_sync">ฟื้นฟูบัญชี</string>
   <string name="actionbar_upload">อัพโหลดไฟล์</string>
-  <string name="actionbar_upload_from_apps">เนื้อหาจากแอปฯอื่นๆ</string>
+  <string name="actionbar_upload_from_apps">เนื้อหาจากแอพอื่นๆ</string>
   <string name="actionbar_upload_files">ไฟล์</string>
+  <string name="actionbar_open_with">เปิดด้วย</string>
   <string name="actionbar_mkdir">โฟลเดอร์ใหม่</string>
   <string name="actionbar_settings">ตั้งค่า</string>
   <string name="actionbar_see_details">รายละเอียด</string>
   <string name="actionbar_send_file">ส่ง</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>ใหม่ลที่สุด - เก่าที่สุด</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">ทั่วไป</string>
