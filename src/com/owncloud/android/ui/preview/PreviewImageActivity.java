@@ -8,7 +8,7 @@
  *   it under the terms of the GNU General Public License version 2,
  *   as published by the Free Software Foundation.
  *
- *   This program is distributed in the hope that it will be useful,
+ *   This program is distributed in the hd that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
@@ -32,6 +32,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
@@ -120,8 +121,10 @@ public class PreviewImageActivity extends FileActivity implements
                     ActionBar actionBar = getSupportActionBar();
                     if (visible) {
                         actionBar.show();
+                        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     } else {
                         actionBar.hide();
+                        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     }
                 }
             });
@@ -496,6 +499,7 @@ public class PreviewImageActivity extends FileActivity implements
 
             if (visible) {
                 hideSystemUI(mFullScreenAnchorView);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 // actionBar.hide(); // propagated through
                 // OnSystemUiVisibilityChangeListener()
             } else {
@@ -509,9 +513,11 @@ public class PreviewImageActivity extends FileActivity implements
             ActionBar actionBar = getSupportActionBar();
             if (!actionBar.isShowing()) {
                 actionBar.show();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
             } else {
                 actionBar.hide();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
             }
 
