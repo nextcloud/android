@@ -105,8 +105,10 @@ public class UploadTestSuite{
 				fileHasBeenUploaded = fileListView.getFileElement().isDisplayed());
 	}
 
+	
+	
 	@Test
-	@Category({NoIgnoreTestCategory.class, SmokeTestCategory.class, InProgressCategory.class})
+	@Category({UnfinishedTestCategory.class, InProgressCategory.class})
 	public void testUploadBigFile () throws Exception {
 
 		FileListView fileListView = Actions.login(Config.URL, Config.user,
@@ -119,31 +121,29 @@ public class UploadTestSuite{
 		FileListView fileListViewAfterUploadFile = Actions
 				.uploadFile(BIG_FILE_NAME, fileListView);
 
-		fileListViewAfterUploadFile.scrollTillFindElement(BIG_FILE_NAME);
+		
 		driver.openNotifications();
 		NotificationView notificationView = new NotificationView(driver);
 
 		try{
 			if(notificationView.getUploadingNotification().isDisplayed()){
 				Common.waitTillElementIsPresent(
-						notificationView.getUploadSucceededNotification(),1000);
+						notificationView.getUploadSucceededNotification(),300000);
+				driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_HOME);
+				driver.startActivity("com.owncloud.android", 
+						".ui.activity.FileDisplayActivity");
+				
 			}
 		} catch (NoSuchElementException e) {
-			try{
-				if(notificationView.getClearAllNotificationButton().isDisplayed()){
-					notificationView.tapOnClearAllNotification();
-				}
-			} catch (NoSuchElementException e2) {
-				notificationView.tapOnBottomNotificationArea();
-			}
+			driver.sendKeyEvent(android.view.KeyEvent.KEYCODE_HOME);
+			driver.startActivity("com.owncloud.android", 
+					".ui.activity.FileDisplayActivity");
 		}
 
-
-
-
-		//fileListViewAfterUploadFile.pulldownToSeeNotification();
+		fileListViewAfterUploadFile.scrollTillFindElement(BIG_FILE_NAME);
 
 		assertTrue(fileListViewAfterUploadFile.getFileElement().isDisplayed());
+		
 		Common.waitTillElementIsNotPresentWithoutTimeout(
 				fileListViewAfterUploadFile.getProgressCircular(), 1000);
 		common.wait.until(ExpectedConditions.visibilityOf(
@@ -157,6 +157,7 @@ public class UploadTestSuite{
 		assertTrue(
 				fileHasBeenUploaded = fileListView.getFileElement().isDisplayed());
 	}
+
 
 	@Test
 	@Category(UnfinishedTestCategory.class)
@@ -275,7 +276,7 @@ public class UploadTestSuite{
 			Actions.deleteElement(BIG_FILE_NAME,fileListView, driver);
 		}
 
-		driver.removeApp("com.owncloud.android");
+		//driver.removeApp("com.owncloud.android");
 		driver.quit();
 	}
 
