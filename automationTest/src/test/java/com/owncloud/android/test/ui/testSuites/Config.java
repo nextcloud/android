@@ -40,6 +40,7 @@ public final class Config {
 	public static final String gmailAccount = "gmailAccountVar";
 	
 	public static final String fileToTestName = "test";
+	public static final String bigFileToTestName = "test";
 	public static final String fileToTestSendByEmailName = "test";
 	
 	public static final String passcode1 = "passcode1";
