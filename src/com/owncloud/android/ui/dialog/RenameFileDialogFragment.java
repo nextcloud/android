@@ -118,14 +118,18 @@ extends SherlockDialogFragment implements DialogInterface.OnClickListener {
                         Toast.LENGTH_LONG).show();
                 return;
             }
-            
-            if (!FileUtils.isValidName(newFileName,
-                    ((ComponentsGetter)getSherlockActivity()).
-                            getFileOperationsHelper().isVersionWithForbiddenCharacters())) {
-                Toast.makeText(
-                        getSherlockActivity(), 
-                        R.string.filename_forbidden_characters, 
-                        Toast.LENGTH_LONG).show();
+
+            boolean serverWithForbiddenChars = ((ComponentsGetter)getSherlockActivity()).
+                    getFileOperationsHelper().isVersionWithForbiddenCharacters();
+
+            if (!FileUtils.isValidName(newFileName, serverWithForbiddenChars)) {
+                int messageId = 0;
+                if (serverWithForbiddenChars) {
+                    messageId = R.string.filename_forbidden_charaters_from_server;
+                } else {
+                    messageId = R.string.filename_forbidden_characters;
+                }
+                Toast.makeText(getSherlockActivity(), messageId, Toast.LENGTH_LONG).show();
                 return;
             }
 
