@@ -113,7 +113,8 @@ public class Preferences extends PreferenceActivity
         mDbHandler = new DbHandler(getBaseContext());
         addPreferencesFromResource(R.xml.preferences);
 
-        // Set properties of Action Bar in an ugly workaround to build correctly without upgrading minSdk
+        // Set properties of Action Bar in an ugly workaround to build correctly without
+        // upgrading minSdk
         // TODO : increase minSdk; scheduled for next realease, don't wont to mix with this US
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ActionBar actionBar = getActionBar();
@@ -180,7 +181,8 @@ public class Preferences extends PreferenceActivity
                     Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
                     Boolean enable = (Boolean) newValue;
                     i.setAction(
-                            enable.booleanValue() ? PassCodeActivity.ACTION_ENABLE : PassCodeActivity.ACTION_DISABLE
+                            enable.booleanValue() ? PassCodeActivity.ACTION_ENABLE :
+                                    PassCodeActivity.ACTION_DISABLE
                     );
                     startActivity(i);
                     
@@ -220,7 +222,8 @@ public class Preferences extends PreferenceActivity
                 pLog.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        Intent loggerIntent = new Intent(getApplicationContext(),LogHistoryActivity.class);
+                        Intent loggerIntent = new Intent(getApplicationContext(),
+                                LogHistoryActivity.class);
                         startActivity(loggerIntent);
                         return true;
                     }
@@ -243,13 +246,15 @@ public class Preferences extends PreferenceActivity
                         
                         String appName = getString(R.string.app_name);
                         String downloadUrl = getString(R.string.url_app_download);
-                        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(Preferences.this);
-                        String username = currentAccount.name.substring(0, currentAccount.name.lastIndexOf('@'));
+                        Account currentAccount = AccountUtils.
+                                getCurrentOwnCloudAccount(Preferences.this);
+                        String username = currentAccount.name.substring(0,
+                                currentAccount.name.lastIndexOf('@'));
                         
                         String recommendSubject = String.format(getString(R.string.recommend_subject),
                                 appName);
                         String recommendText = String.format(getString(R.string.recommend_text),
-                                appName, downloadUrl, username);
+                                appName, downloadUrl);
                         
                         intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
                         intent.putExtra(Intent.EXTRA_TEXT, recommendText);
@@ -330,7 +335,8 @@ public class Preferences extends PreferenceActivity
                 });
         }
         
-        mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
+        mPrefInstantUploadCategory =
+                (PreferenceCategory) findPreference("instant_uploading_category");
         
         mPrefInstantUploadPathWiFi =  findPreference("instant_upload_on_wifi");
         mPrefInstantUpload = findPreference("instant_uploading");
@@ -356,7 +362,8 @@ public class Preferences extends PreferenceActivity
                             mUploadVideoPath += OCFile.PATH_SEPARATOR;
                         }
                         Intent intent = new Intent(Preferences.this, UploadPathActivity.class);
-                        intent.putExtra(UploadPathActivity.KEY_INSTANT_UPLOAD_PATH, mUploadVideoPath);
+                        intent.putExtra(UploadPathActivity.KEY_INSTANT_UPLOAD_PATH,
+                                mUploadVideoPath);
                         startActivityForResult(intent, ACTION_SELECT_UPLOAD_VIDEO_PATH);
                         return true;
                     }
@@ -484,7 +491,8 @@ public class Preferences extends PreferenceActivity
             Account a = AccountUtils.getCurrentOwnCloudAccount(this);
             String accountName = "";
             if (a == null) {
-                Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
+                Account[] accounts = AccountManager.get(this)
+                        .getAccountsByType(MainApp.getAccountType());
                 if (accounts.length != 0)
                     accountName = accounts[0].name;
                 AccountUtils.setCurrentOwnCloudAccount(this, accountName);
@@ -496,7 +504,8 @@ public class Preferences extends PreferenceActivity
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean state = appPrefs.getBoolean("set_pincode", false);
         pCode.setChecked(state);
 
@@ -534,7 +543,8 @@ public class Preferences extends PreferenceActivity
 
         if (requestCode == ACTION_SELECT_UPLOAD_PATH && resultCode == RESULT_OK){
 
-            OCFile folderToUpload = (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
+            OCFile folderToUpload =
+                    (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
 
             mUploadPath = folderToUpload.getRemotePath();
 
@@ -547,7 +557,8 @@ public class Preferences extends PreferenceActivity
 
         } else if (requestCode == ACTION_SELECT_UPLOAD_VIDEO_PATH && resultCode == RESULT_OK){
 
-            OCFile folderToUploadVideo = (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
+            OCFile folderToUploadVideo =
+                    (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
 
             mUploadVideoPath = folderToUploadVideo.getRemotePath();
 
@@ -621,7 +632,8 @@ public class Preferences extends PreferenceActivity
                         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
                         Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
                         for (Account a : accounts) {
-                            RadioButtonPreference p = (RadioButtonPreference) findPreference(a.name);
+                            RadioButtonPreference p =
+                                    (RadioButtonPreference) findPreference(a.name);
                             if (key.equals(a.name)) {
                                 boolean accountChanged = !p.isChecked(); 
                                 p.setChecked(true);
@@ -673,7 +685,8 @@ public class Preferences extends PreferenceActivity
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 AccountManager am = AccountManager.get(getApplicationContext());
-                am.addAccount(MainApp.getAccountType(), null, null, null, Preferences.this, null, null);
+                am.addAccount(MainApp.getAccountType(), null, null, null, Preferences.this,
+                        null, null);
                 return true;
             }
         });
@@ -684,7 +697,8 @@ public class Preferences extends PreferenceActivity
      * Load upload path set on preferences
      */
     private void loadInstantUploadPath() {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mUploadPath = appPrefs.getString("instant_upload_path", getString(R.string.instant_upload_path));
         mPrefInstantUploadPath.setSummary(mUploadPath);
     }
@@ -693,7 +707,8 @@ public class Preferences extends PreferenceActivity
      * Save the "Instant Upload Path" on preferences
      */
     private void saveInstantUploadPathOnPreferences() {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());        
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString("instant_upload_path", mUploadPath);
         editor.commit();
@@ -703,7 +718,8 @@ public class Preferences extends PreferenceActivity
      * Load upload video path set on preferences
      */
     private void loadInstantUploadVideoPath() {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mUploadVideoPath = appPrefs.getString("instant_video_upload_path", getString(R.string.instant_upload_path));
         mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
     }
@@ -712,7 +728,8 @@ public class Preferences extends PreferenceActivity
      * Save the "Instant Video Upload Path" on preferences
      */
     private void saveInstantUploadVideoPathOnPreferences() {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());        
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString("instant_video_upload_path", mUploadVideoPath);
         editor.commit();
