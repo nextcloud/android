@@ -2,6 +2,7 @@
 <resources>
   <string name="actionbar_upload">Amontcarga</string>
   <string name="actionbar_upload_files">Fichièrs</string>
+  <string name="actionbar_mkdir">Novèl dorsièr</string>
   <string name="actionbar_settings">Configuracion</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
@@ -10,11 +11,13 @@
   <string name="prefs_accounts">Comptes</string>
   <string name="prefs_manage_accounts">Maneja comptes</string>
   <string name="prefs_help">Ajuda</string>
+  <string name="prefs_imprint">Mencions legalas</string>
   <string name="auth_username">Nom d\'usancièr</string>
   <string name="auth_password">Senhal</string>
   <string name="sync_string_files">Fichièrs</string>
   <string name="setup_btn_connect">Connecta</string>
   <string name="uploader_btn_upload_text">Amontcarga</string>
+  <string name="uploader_btn_new_folder_text">Novèl dorsièr</string>
   <string name="uploader_wrn_no_account_title">Cap de compte trobat</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuracion</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quita</string>
@@ -36,6 +39,7 @@
   <string name="common_cancel_upload"> Anulla l\'amontcargar</string>
   <string name="common_cancel">Annula</string>
   <string name="common_error">Error</string>
+  <string name="common_error_unknown">Error Desconeguda </string>
   <string name="about_title">A prepaus</string>
   <string name="change_password">Cambia lo senhal</string>
   <string name="delete_account">Escafa lo compte</string>
@@ -45,6 +49,7 @@
   <string name="uploader_upload_succeeded_ticker">Capitada d\'avalcargar</string>
   <string name="common_choose_account">Causís lo compte</string>
   <string name="common_rename">Torna nomenar</string>
+  <string name="common_remove">Suprimir</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Comptes</string>
   <string name="folder_picker_choose_button_text">Causís</string>
