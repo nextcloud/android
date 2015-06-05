@@ -1160,7 +1160,7 @@ public class FileDisplayActivity extends HookActivity
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
         if (mDualPane) {
             // in dual pane mode, keep the focus of title an action bar in the current folder
-            super.updateActionBarTitleAndHomeButton(null);
+            super.updateActionBarTitleAndHomeButton(getCurrentDir());
 
         } else {
             super.updateActionBarTitleAndHomeButton(chosenFile);

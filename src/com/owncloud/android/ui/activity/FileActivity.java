@@ -373,7 +373,7 @@ public class FileActivity extends ActionBarActivity
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                updateActionBarTitleAndHomeButton(mFile);
+                updateActionBarTitleAndHomeButton(null);
                 invalidateOptionsMenu();
             }
 
@@ -406,22 +406,18 @@ public class FileActivity extends ActionBarActivity
         /// choose the appropiate title
         if (chosenFile == null) {
             // mFile determines the title
-            OCFile currentDir = null;
-            if (mFile != null && mFile.isFolder()) {
-                currentDir = mFile;
-            } else {
-                currentDir = getStorageManager().getFileById(mFile.getParentId());
-            }
-            inRoot = (mFile == null || currentDir.getParentId() == 0);
+            inRoot = (mFile == null || mFile.getParentId() == 0);
             if (!inRoot) {
-                    title = mFile.getFileName();
-
+                title = mFile.getFileName();
             }
 
-        } else {
+        } else if (chosenFile.getParentId() != 0){
             // chosenFile determines the title, instead of mFile
             title = chosenFile.getFileName();
             inRoot = false;
+
+        } else{
+            inRoot = true;
         }
 
         /// set the chosen title
