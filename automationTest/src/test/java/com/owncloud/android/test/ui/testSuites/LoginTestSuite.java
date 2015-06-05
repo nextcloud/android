@@ -73,7 +73,7 @@ public class LoginTestSuite{
 	}
 	
 	@Test
-	@Category({NoIgnoreTestCategory.class})
+	@Category({NoIgnoreTestCategory.class, SmokeTestCategory.class})
 	public void testLoginAndShowFiles () throws Exception {
 		driver.rotate(ScreenOrientation.PORTRAIT);
 		
