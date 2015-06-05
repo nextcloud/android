@@ -59,10 +59,12 @@ public class SettingsView {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 
-	public void tapOnAccountElement (int fingers, int milliSeconds) {
-		accountElement.tap(fingers, milliSeconds);
+	public void tapOnAccountElement (int accountPosition, int fingers, int milliSeconds) {
+		if(accountPosition==1)
+			accountElement.tap(fingers, milliSeconds);
+		else
+			accountElement2.tap(fingers, milliSeconds);
 	}
-
 
 	public void tapOnAddAccount (int fingers, int milliSeconds) {
 		addAccountElement.tap(fingers, milliSeconds);
@@ -87,7 +89,7 @@ public class SettingsView {
 		PassCodeView passcodeview = new PassCodeView(driver);
 		return passcodeview;
 	}
-	
+
 	public PassCodeView DisablePassCode(){
 		if(passcodeCheckbox.isSelected()){
 			passcodeCheckbox.click();

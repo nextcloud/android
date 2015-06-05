@@ -106,14 +106,14 @@ public class Actions {
 	}
 
 
-	public static void deleteAccount (FileListView fileListView) {	
+	public static void deleteAccount (int accountPosition,FileListView fileListView) {	
 		MenuList menulist = fileListView.clickOnMenuButton();
 		SettingsView settingView = menulist.clickOnSettingsButton();
-		deleteAccount(settingView);
+		deleteAccount(accountPosition,settingView);
 	}
 
-	public static void deleteAccount (SettingsView settingsView) {
-		settingsView.tapOnAccountElement(1, 1000);
+	public static void deleteAccount (int accountPosition, SettingsView settingsView) {
+		settingsView.tapOnAccountElement(accountPosition,1, 1000);
 		settingsView.clickOnDeleteAccountElement();
 	}
 

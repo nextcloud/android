@@ -158,6 +158,9 @@ public class Common{
 	}
 
 	protected void assertIsInFileListView() throws InterruptedException {
+		//waitForTextPresent("Wrong username or password", 
+			//	changePasswordForm.getAuthStatusText());
+		Thread.sleep(2000);
 		assertTrue(waitForTextPresent("ownCloud", (AndroidElement) driver
 				.findElementByAndroidUIAutomator("new UiSelector()"
 						+ ".resourceId(\"android:id/action_bar_title\")")));

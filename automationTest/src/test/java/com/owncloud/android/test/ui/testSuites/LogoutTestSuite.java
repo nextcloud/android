@@ -60,7 +60,7 @@ public class LogoutTestSuite{
 		common.assertIsInFileListView();
 		MenuList menulist = fileListView.clickOnMenuButton();
 		SettingsView settingsView = menulist.clickOnSettingsButton();
-		settingsView.tapOnAccountElement(1, 1000);
+		settingsView.tapOnAccountElement(1,1, 1000);
 		LoginForm loginForm = settingsView.clickOnDeleteAccountElement();
 		assertEquals("Server address https://…",
 				loginForm.gethostUrlInput().getText());
