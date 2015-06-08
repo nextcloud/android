@@ -72,6 +72,20 @@ public class LoginTestSuite{
 		common.assertIsInFileListView();
 	}
 	
+	@Test
+	@Category({NoIgnoreTestCategory.class, SmokeTestCategory.class})
+	public void testLoginAndShowFiles () throws Exception {
+		driver.rotate(ScreenOrientation.PORTRAIT);
+		
+		FileListView fileListView = Actions.login(Config.URL, Config.user,
+				Config.password, Config.isTrusted, driver);
+		common.assertIsInFileListView();
+		
+		fileListView.scrollTillFindElement(Config.fileWhichIsInTheServer1);
+		assertTrue(fileListView.getFileElement().isDisplayed());
+	}
+	
+	
 	
 	@Test
 	@Category({NoIgnoreTestCategory.class, SmokeTestCategory.class})
@@ -89,6 +103,31 @@ public class LoginTestSuite{
 		fileListView = Actions.login(Config.URL2, Config.user2,
 				Config.password2, Config.isTrusted2, driver);
 		common.assertIsInSettingsView();
+	}
+	
+	@Test
+	@Category({NoIgnoreTestCategory.class, SmokeTestCategory.class})
+	public void testMultiAccountAndShowFiles () throws Exception {
+		driver.rotate(ScreenOrientation.LANDSCAPE);
+		FileListView fileListView = Actions.login(Config.URL, Config.user,
+				Config.password, Config.isTrusted, driver);
+		common.assertIsInFileListView();
+		fileListView.scrollTillFindElement(Config.fileWhichIsInTheServer1);
+		assertTrue(fileListView.getFileElement().isDisplayed());
+		
+		driver.rotate(ScreenOrientation.PORTRAIT);
+		MenuList menu = fileListView.clickOnMenuButton();
+		SettingsView settingsView = menu.clickOnSettingsButton();
+		
+		settingsView.tapOnAddAccount(1, 1000);
+		fileListView = Actions.login(Config.URL2, Config.user2,
+				Config.password2, Config.isTrusted2, driver);
+		common.assertIsInSettingsView();
+		settingsView.tapOnAccountElement(2,1, 100);
+		common.assertIsInFileListView();
+		
+		fileListView.scrollTillFindElement(Config.fileWhichIsInTheServer2);
+		assertTrue(fileListView.getFileElement().isDisplayed());
 	}
 	
 	@Test
@@ -121,7 +160,7 @@ public class LoginTestSuite{
 		common.assertIsInFileListView();
 		MenuList menu = fileListView.clickOnMenuButton();
 		SettingsView settingsView = menu.clickOnSettingsButton();
-		settingsView.tapOnAccountElement(1, 1000);
+		settingsView.tapOnAccountElement(1,1, 1000);
 		LoginForm changePasswordForm = settingsView
 				.clickOnChangePasswordElement();
 		changePasswordForm.typePassword("WrongPassword");

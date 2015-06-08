@@ -108,7 +108,7 @@ public class UploadTestSuite{
 	
 	
 	@Test
-	@Category({UnfinishedTestCategory.class, InProgressCategory.class})
+	@Category({UnfinishedTestCategory.class})
 	public void testUploadBigFile () throws Exception {
 
 		FileListView fileListView = Actions.login(Config.URL, Config.user,
