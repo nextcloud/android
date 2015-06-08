@@ -2,7 +2,7 @@
 
 This project contains a set of automatic tests operating in the UI level.
 
-Tests are to be run with the tool Appium. Check [0] to install it and all its dependencies (including Maven).
+Tests are to be run with the tool Appium. Check [here][0] to install it and all its dependencies (including Maven).
 
 You will need to modify the constants in automationTest/src/test/java/com/owncloud/android/test/ui/testSuites/Config.java to assign appropiate values for your test server and accounts.
 
