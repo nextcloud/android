@@ -92,9 +92,10 @@ public class PreviewImageActivity extends FileActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+
         super.onCreate(savedInstanceState);
 
-        //requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.preview_image_activity);
 
         // Navigation Drawer
@@ -505,7 +506,6 @@ public class PreviewImageActivity extends FileActivity implements
 
             if (visible) {
                 hideSystemUI(mFullScreenAnchorView);
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 // actionBar.hide(); // propagated through
                 // OnSystemUiVisibilityChangeListener()
             } else {
