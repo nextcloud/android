@@ -75,6 +75,7 @@
   <string name="filedetails_download">Baixar</string>
   <string name="filedetails_sync_file">Atualizar arquivo</string>
   <string name="filedetails_renamed_in_upload_msg">Arquivo foi renomeado para %1$s durante o envio</string>
+  <string name="list_layout">Lista de Layout</string>
   <string name="action_share_file">Compartilhar link</string>
   <string name="action_unshare_file">Descompartilhar o link</string>
   <string name="common_yes">Sim</string>

@@ -76,6 +76,7 @@ Download hier: %2$s</string>
   <string name="filedetails_download">Download</string>
   <string name="filedetails_sync_file">Bestand verversen</string>
   <string name="filedetails_renamed_in_upload_msg">Bestand is tijdens het uploaden hernoemd naar %1$s</string>
+  <string name="list_layout">Lijst layout</string>
   <string name="action_share_file">Deel link</string>
   <string name="action_unshare_file">Link niet meer delen</string>
   <string name="common_yes">Ja</string>

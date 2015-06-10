@@ -76,6 +76,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="filedetails_download">Descargar</string>
   <string name="filedetails_sync_file">Actualizar o ficheiro</string>
   <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado a %1$s durante o envío</string>
+  <string name="list_layout">Deseño da lista</string>
   <string name="action_share_file">Ligazón para compartir</string>
   <string name="action_unshare_file">Deixar de compartir a ligazón</string>
   <string name="common_yes">Si</string>
