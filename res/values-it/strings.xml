@@ -75,6 +75,7 @@
   <string name="filedetails_download">Scarica</string>
   <string name="filedetails_sync_file">Aggiorna file</string>
   <string name="filedetails_renamed_in_upload_msg">Il file è stato rinominato in %1$s durante il caricamento</string>
+  <string name="list_layout">Struttura elenco</string>
   <string name="action_share_file">Condividi collegamento</string>
   <string name="action_unshare_file">Rimuovi condivisione collegamento</string>
   <string name="common_yes">Sì</string>
