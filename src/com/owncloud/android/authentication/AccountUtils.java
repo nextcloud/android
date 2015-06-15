@@ -250,4 +250,21 @@ public class AccountUtils {
     }
 
 
+    public static String trimWebdavSuffix(String url) {
+        while(url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
+        }
+        int pos = url.lastIndexOf(WEBDAV_PATH_4_0_AND_LATER);
+        if (pos >= 0) {
+            url = url.substring(0, pos);
+
+        } else {
+            pos = url.lastIndexOf(ODAV_PATH);
+            if (pos >= 0) {
+                url = url.substring(0, pos);
+            }
+        }
+        return url;
+    }
+
 }
