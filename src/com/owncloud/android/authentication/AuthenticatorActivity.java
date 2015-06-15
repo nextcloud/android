@@ -1011,7 +1011,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             if ( mAction == ACTION_CREATE) {
                 mUsernameInput.setText(username);
-                success = createAccount();
+                success = createAccount(result);
             } else {
 
                 if (!mUsernameInput.getText().toString().equals(username)) {
@@ -1365,8 +1365,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Log_OC.d(TAG, "Successful access - time to save the account");
 
             boolean success = false;
+
             if (mAction == ACTION_CREATE) {
-                success = createAccount();
+                success = createAccount(result);
 
             } else {
                 try {
@@ -1464,12 +1465,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * 
      * TODO Decide how to name the OAuth accounts
      */
-    private boolean createAccount() {
+    private boolean createAccount(RemoteOperationResult authResult) {
         /// create and save new ownCloud account
         boolean isOAuth = AccountTypeUtils.
                 getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType);
         boolean isSaml =  AccountTypeUtils.
                 getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType);
+
+        String lastPermanentLocation = authResult.getLastPermanentLocation();
+        if (lastPermanentLocation != null) {
+            mServerInfo.mBaseUrl = AccountUtils.trimWebdavSuffix(lastPermanentLocation);
+        }
 
         Uri uri = Uri.parse(mServerInfo.mBaseUrl);
         String username = mUsernameInput.getText().toString().trim();
@@ -1528,7 +1534,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             /// add user data to the new account; TODO probably can be done in the last parameter 
             //      addAccountExplicitly, or in KEY_USERDATA
             mAccountMgr.setUserData(
-                    mAccount, Constants.KEY_OC_VERSION,    mServerInfo.mVersion.getVersion()
+                    mAccount, Constants.KEY_OC_VERSION, mServerInfo.mVersion.getVersion()
             );
             mAccountMgr.setUserData(
                     mAccount, Constants.KEY_OC_BASE_URL,   mServerInfo.mBaseUrl
