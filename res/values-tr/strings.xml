@@ -23,6 +23,7 @@
   <string name="prefs_category_more">Daha fazla</string>
   <string name="prefs_accounts">Hesaplar</string>
   <string name="prefs_manage_accounts">Hesapları Yönet</string>
+  <string name="prefs_passcode">Parola kod kilidi</string>
   <string name="prefs_instant_upload">Anında fotoğraf yüklemeleri</string>
   <string name="prefs_instant_upload_summary">Kamera ile çekilen fotoğrafları anında yükle</string>
   <string name="prefs_instant_video_upload">Anında video yüklemeleri</string>
@@ -126,6 +127,15 @@
   <string name="foreign_files_local_text">Yerel: %1$s</string>
   <string name="foreign_files_remote_text">Uzak: %1$s</string>
   <string name="upload_query_move_foreign_files">Seçilen dosyaları %1$s dizinine kopyalamak için yeterli alan yok. Bunun yerine dosyayı içine taşımak ister misiniz?</string>
+  <string name="pass_code_enter_pass_code">Lütfen parola kodu kilidini girin</string>
+  <string name="pass_code_configure_your_pass_code">Parola kodunuzu girin</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Parola kodu uygulama her başlatıldığında sorulacaktır</string>
+  <string name="pass_code_reenter_your_pass_code">Lütfen parola kodunuzu yeniden girin</string>
+  <string name="pass_code_remove_your_pass_code">Parola kodunuzu kaldırın</string>
+  <string name="pass_code_mismatch">Parola kodları aynı değil</string>
+  <string name="pass_code_wrong">Hatalı parola kodu</string>
+  <string name="pass_code_removed">Parola kodu kaldırıldı</string>
+  <string name="pass_code_stored">Parola kodu depolandı</string>
   <string name="media_notif_ticker">%1$s müzik çalar</string>
   <string name="media_state_playing">%1$s (oynatılıyor)</string>
   <string name="media_state_loading">%1$s (yükleniyor)</string>
@@ -296,4 +306,5 @@
   <string name="subject_token">%1$s sizinle \"%2$s\" paylaşımını yaptı</string>
   <string name="auth_refresh_button">Bağlantıyı yenile</string>
   <string name="auth_host_address">Sunucu adresi</string>
+  <string name="common_error_out_memory">Yeterli hafıza yok</string>
 </resources>

@@ -75,6 +75,7 @@
   <string name="filedetails_download">Last ned</string>
   <string name="filedetails_sync_file">Oppdater fil</string>
   <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
+  <string name="list_layout">Listeoppsett</string>
   <string name="action_share_file">Del lenke</string>
   <string name="action_unshare_file">Avslutt deling av lenke</string>
   <string name="common_yes">Ja</string>

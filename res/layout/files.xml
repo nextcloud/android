@@ -30,7 +30,10 @@
         android:layout_height="match_parent"
         android:background="@color/background_color"
         android:baselineAligned="false"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:id="@+id/ListLayout"
+        android:contentDescription="@string/list_layout"
+        >
 
 
         <FrameLayout
