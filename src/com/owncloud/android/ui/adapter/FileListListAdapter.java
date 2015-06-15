@@ -407,14 +407,16 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
      * @param updatedStorageManager     Optional updated storage manager; used to replace 
      *                                  mStorageManager if is different (and not NULL)
      */
-    public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager) {
+    public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager
+            /*, boolean onlyOnDevice*/) {
         mFile = directory;
         if (updatedStorageManager != null && updatedStorageManager != mStorageManager) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         }
         if (mStorageManager != null) {
-            mFiles = mStorageManager.getFolderContent(mFile);
+            // TODO Enable when "On Device" is recovered ?
+            mFiles = mStorageManager.getFolderContent(mFile/*, onlyOnDevice*/);
             mFilesOrig.clear();
             mFilesOrig.addAll(mFiles);
             

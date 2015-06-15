@@ -56,6 +56,8 @@ import android.provider.MediaStore.Video;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -65,16 +67,14 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
@@ -220,7 +220,8 @@ public class Uploader extends FileActivity
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.ECLAIR_MR1) {
+                    if (android.os.Build.VERSION.SDK_INT >
+                            android.os.Build.VERSION_CODES.ECLAIR_MR1) {
                         // using string value since in API7 this
                         // constatn is not defined
                         // in API7 < this constatant is defined in
@@ -325,7 +326,8 @@ public class Uploader extends FileActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
         Log_OC.d(TAG, "on item click");
-        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile);
+        // TODO Enable when "On Device" is recovered ?
+        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile /*, false*/);
         if (tmpfiles.size() <= 0) return;
         // filter on dirtype
         Vector<OCFile> files = new Vector<OCFile>();
@@ -410,7 +412,8 @@ public class Uploader extends FileActivity
 
         mFile = getStorageManager().getFileByPath(full_path);
         if (mFile != null) {
-            Vector<OCFile> files = getStorageManager().getFolderContent(mFile);
+            // TODO Enable when "On Device" is recovered ?
+            Vector<OCFile> files = getStorageManager().getFolderContent(mFile/*, false*/);
             List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
             for (OCFile f : files) {
                 HashMap<String, Object> h = new HashMap<String, Object>();

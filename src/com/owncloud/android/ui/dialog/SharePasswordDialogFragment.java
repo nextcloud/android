@@ -23,6 +23,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,7 +31,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -41,7 +41,7 @@ import com.owncloud.android.ui.activity.FileActivity;
  * Triggers the share when the password is introduced.
  */
 
-public class SharePasswordDialogFragment extends SherlockDialogFragment
+public class SharePasswordDialogFragment extends DialogFragment
         implements DialogInterface.OnClickListener {
 
     private static final String ARG_FILE = "FILE";
@@ -98,7 +98,7 @@ public class SharePasswordDialogFragment extends SherlockDialogFragment
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
             // Enable the flag "Share again"
-            ((FileActivity) getSherlockActivity()).setTryShareAgain(true);
+            ((FileActivity) getActivity()).setTryShareAgain(true);
 
             String password =
                     ((TextView)(getDialog().findViewById(R.id.share_password)))
@@ -113,12 +113,12 @@ public class SharePasswordDialogFragment extends SherlockDialogFragment
             }
 
             // Share the file
-            ((FileActivity)getSherlockActivity()).getFileOperationsHelper()
+            ((FileActivity)getActivity()).getFileOperationsHelper()
                                     .shareFileWithLinkToApp(mFile, password, mSendIntent);
 
         } else {
             // Disable the flag "Share again"
-            ((FileActivity) getSherlockActivity()).setTryShareAgain(false);
+            ((FileActivity) getActivity()).setTryShareAgain(false);
         }
     }
 }

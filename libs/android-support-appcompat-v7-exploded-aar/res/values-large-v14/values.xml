@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-large-v14/themes_base.xml -->
+    <eat-comment />
+
+    <style name="Theme.Base.AppCompat.DialogWhenLarge" parent="Theme.Base.AppCompat.DialogWhenLarge.Base" />
+
+    <style name="Theme.Base.AppCompat.Light.DialogWhenLarge" parent="Theme.Base.AppCompat.Light.DialogWhenLarge.Base" />
+
+</resources>

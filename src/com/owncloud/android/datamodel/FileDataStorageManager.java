@@ -28,14 +28,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.utils.FileStorageUtils;
-
 import android.accounts.Account;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
@@ -49,6 +41,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
 import android.provider.MediaStore;
+
+import com.owncloud.android.MainApp;
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.utils.FileStorageUtils;
 
 public class FileDataStorageManager {
 
@@ -142,9 +142,10 @@ public class FileDataStorageManager {
     }
 
     
-    public Vector<OCFile> getFolderContent(OCFile f) {
+    public Vector<OCFile> getFolderContent(OCFile f/*, boolean onlyOnDevice*/) {
         if (f != null && f.isFolder() && f.getFileId() != -1) {
-            return getFolderContent(f.getFileId());
+            // TODO Enable when "On Device" is recovered ?
+            return getFolderContent(f.getFileId()/*, onlyOnDevice*/);
 
         } else {
             return new Vector<OCFile>();
@@ -152,11 +153,12 @@ public class FileDataStorageManager {
     }
     
     
-    public Vector<OCFile> getFolderImages(OCFile folder) {
+    public Vector<OCFile> getFolderImages(OCFile folder/*, boolean onlyOnDevice*/) {
         Vector<OCFile> ret = new Vector<OCFile>(); 
         if (folder != null) {
-            // TODO better implementation, filtering in the access to database instead of here 
-            Vector<OCFile> tmp = getFolderContent(folder);
+            // TODO better implementation, filtering in the access to database instead of here
+            // TODO Enable when "On Device" is recovered ?
+            Vector<OCFile> tmp = getFolderContent(folder/*, onlyOnDevice*/);
             OCFile current = null; 
             for (int i=0; i<tmp.size(); i++) {
                 current = tmp.get(i);
@@ -547,7 +549,8 @@ public class FileDataStorageManager {
         File localFolder = new File(localFolderPath);
         if (localFolder.exists()) {
             // stage 1: remove the local files already registered in the files database
-            Vector<OCFile> files = getFolderContent(folder.getFileId());
+            // TODO Enable when "On Device" is recovered ?
+            Vector<OCFile> files = getFolderContent(folder.getFileId()/*, false*/);
             if (files != null) {
                 for (OCFile file : files) {
                     if (file.isFolder()) {
@@ -731,7 +734,7 @@ public class FileDataStorageManager {
     }
     
     
-    private Vector<OCFile> getFolderContent(long parentId) {
+    private Vector<OCFile> getFolderContent(long parentId/*, boolean onlyOnDevice*/) {
 
         Vector<OCFile> ret = new Vector<OCFile>();
 
@@ -758,7 +761,10 @@ public class FileDataStorageManager {
         if (c.moveToFirst()) {
             do {
                 OCFile child = createFileInstance(c);
-                ret.add(child);
+                // TODO Enable when "On Device" is recovered ?
+                // if (child.isFolder() || !onlyOnDevice || onlyOnDevice && child.isDown()){
+                    ret.add(child);
+                // }
             } while (c.moveToNext());
         }
 
@@ -1435,14 +1441,14 @@ public class FileDataStorageManager {
     }
 
     private ArrayList<ContentProviderOperation> prepareRemoveSharesInFolder(
-            OCFile folder, ArrayList<ContentProviderOperation> preparedOperations
-            ) {
+            OCFile folder, ArrayList<ContentProviderOperation> preparedOperations) {
         if (folder != null) {
             String where = ProviderTableMeta.OCSHARES_PATH + "=?" + " AND " 
                     + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
             String [] whereArgs = new String[]{ "", mAccount.name };
-            
-            Vector<OCFile> files = getFolderContent(folder);
+
+            // TODO Enable when "On Device" is recovered ?
+            Vector<OCFile> files = getFolderContent(folder /*, false*/);
             
             for (OCFile file : files) {
                 whereArgs[0] = file.getRemotePath();

@@ -28,6 +28,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -35,9 +37,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -54,7 +53,8 @@ import com.owncloud.android.utils.FileStorageUtils;
  */
 
 public class UploadFilesActivity extends FileActivity implements
-    LocalFileListFragment.ContainerActivity, OnNavigationListener, OnClickListener, ConfirmationDialogFragmentListener {
+    LocalFileListFragment.ContainerActivity, ActionBar.OnNavigationListener,
+        OnClickListener, ConfirmationDialogFragmentListener {
     
     private ArrayAdapter<String> mDirectories;
     private File mCurrentDir = null;
@@ -82,7 +82,8 @@ public class UploadFilesActivity extends FileActivity implements
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState != null) {
-            mCurrentDir = new File(savedInstanceState.getString(UploadFilesActivity.KEY_DIRECTORY_PATH));
+            mCurrentDir = new File(savedInstanceState.getString(
+                    UploadFilesActivity.KEY_DIRECTORY_PATH));
         } else {
             mCurrentDir = Environment.getExternalStorageDirectory();
         }
@@ -92,7 +93,8 @@ public class UploadFilesActivity extends FileActivity implements
         /// USER INTERFACE
             
         // Drop-down navigation 
-        mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
+        mDirectories = new CustomArrayAdapter<String>(this,
+                R.layout.support_simple_spinner_dropdown_item);
         File currDir = mCurrentDir;
         while(currDir != null && currDir.getParentFile() != null) {
             mDirectories.add(currDir.getName());
@@ -102,7 +104,8 @@ public class UploadFilesActivity extends FileActivity implements
 
         // Inflate and set the layout view
         setContentView(R.layout.upload_files_layout);
-        mFileListFragment = (LocalFileListFragment) getSupportFragmentManager().findFragmentById(R.id.local_files_list);
+        mFileListFragment = (LocalFileListFragment)
+                getSupportFragmentManager().findFragmentById(R.id.local_files_list);
         
         
         // Set input controllers
@@ -115,7 +118,8 @@ public class UploadFilesActivity extends FileActivity implements
         // Action bar setup
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-        actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the official documentation
+        actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the
+                                                // official documentation
         actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && mCurrentDir.getName() != null);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);

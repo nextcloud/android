@@ -8,7 +8,7 @@
  *   it under the terms of the GNU General Public License version 2,
  *   as published by the Free Software Foundation.
  *
- *   This program is distributed in the hope that it will be useful,
+ *   This program is distributed in the hd that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *   GNU General Public License for more details.
@@ -31,12 +31,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
 import com.ortiz.touch.ExtendedViewPager;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -63,9 +65,9 @@ import com.owncloud.android.utils.DisplayUtils;
 /**
  *  Holds a swiping galley where image files contained in an ownCloud directory are shown
  */
-public class PreviewImageActivity extends FileActivity implements 
- FileFragment.ContainerActivity,
-ViewPager.OnPageChangeListener, OnRemoteOperationListener {
+public class PreviewImageActivity extends FileActivity implements
+        FileFragment.ContainerActivity,
+        ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
     public static final int DIALOG_SHORT_WAIT = 0;
 
@@ -90,15 +92,21 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.preview_image_activity);
-        
+
+        // Navigation Drawer
+        initDrawer();
+
+        // ActionBar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        updateActionBarTitleAndHomeButton(null);
         actionBar.hide();
+
 
         // Make sure we're running on Honeycomb or higher to use FullScreen and
         // Immersive Mode
@@ -107,7 +115,8 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             mFullScreenAnchorView = getWindow().getDecorView();
             // to keep our UI controls visibility in line with system bars
             // visibility
-            mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener
+                    (new View.OnSystemUiVisibilityChangeListener() {
                 @SuppressLint("InlinedApi")
                 @Override
                 public void onSystemUiVisibilityChange(int flags) {
@@ -115,8 +124,10 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
                     ActionBar actionBar = getSupportActionBar();
                     if (visible) {
                         actionBar.show();
+                        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     } else {
                         actionBar.hide();
+                        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     }
                 }
             });
@@ -133,21 +144,28 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
     private void initViewPager() {
         // get parent from path
-        String parentPath = getFile().getRemotePath().substring(0, getFile().getRemotePath().lastIndexOf(getFile().getFileName()));
+        String parentPath = getFile().getRemotePath().substring(0,
+                getFile().getRemotePath().lastIndexOf(getFile().getFileName()));
         OCFile parentFolder = getStorageManager().getFileByPath(parentPath);
         if (parentFolder == null) {
             // should not be necessary
             parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         }
-        mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), parentFolder, getAccount(), getStorageManager());
+
+        // TODO Enable when "On Device" is recovered ?
+        mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
+                parentFolder, getAccount(), getStorageManager()/*, MainApp.getOnlyOnDevice()*/);
+
         mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
-        int position = mHasSavedPosition ? mSavedPosition : mPreviewImagePagerAdapter.getFilePosition(getFile());
+        int position = mHasSavedPosition ? mSavedPosition :
+                mPreviewImagePagerAdapter.getFilePosition(getFile());
         position = (position >= 0) ? position : 0;
         mViewPager.setAdapter(mPreviewImagePagerAdapter); 
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setCurrentItem(position);
         if (position == 0 && !getFile().isDown()) {
-            // this is necessary because mViewPager.setCurrentItem(0) just after setting the adapter does not result in a call to #onPageSelected(0) 
+            // this is necessary because mViewPager.setCurrentItem(0) just after setting the
+            // adapter does not result in a call to #onPageSelected(0)
             mRequestWaitingForBinder = true;
         }
     }
@@ -220,7 +238,8 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     }
     
     
-    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
+    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation,
+                                              RemoteOperationResult result) {
         if (result.isSuccess()) {
             OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
             if (file != null) {
@@ -233,7 +252,8 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             
     }
     
-    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
+    private void onCreateShareOperationFinish(CreateShareOperation operation,
+                                              RemoteOperationResult result) {
         if (result.isSuccess()) {
             OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
             if (file != null) {
@@ -254,15 +274,18 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
                 
-            if (component.equals(new ComponentName(PreviewImageActivity.this, FileDownloader.class))) {
+            if (component.equals(new ComponentName(PreviewImageActivity.this,
+                    FileDownloader.class))) {
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mRequestWaitingForBinder) {
                     mRequestWaitingForBinder = false;
-                    Log_OC.d(TAG, "Simulating reselection of current page after connection of download binder");
+                    Log_OC.d(TAG, "Simulating reselection of current page after connection " +
+                            "of download binder");
                     onPageSelected(mViewPager.getCurrentItem());
                 }
 
-            } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
+            } else if (component.equals(new ComponentName(PreviewImageActivity.this,
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
@@ -273,10 +296,12 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
         @Override
         public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(PreviewImageActivity.this, FileDownloader.class))) {
+            if (component.equals(new ComponentName(PreviewImageActivity.this,
+                    FileDownloader.class))) {
                 Log_OC.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
-            } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
+            } else if (component.equals(new ComponentName(PreviewImageActivity.this,
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service suddenly disconnected");
                 mUploaderBinder = null;
             }
@@ -301,7 +326,11 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         
         switch(item.getItemId()){
         case android.R.id.home:
-            backToDisplayActivity();
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                backToDisplayActivity();
+            }
             returnValue = true;
             break;
         default:
@@ -348,7 +377,8 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.setAction(FileDisplayActivity.ACTION_DETAILS);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, file);
-        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT,
+                AccountUtils.getCurrentOwnCloudAccount(this));
         startActivity(showDetailsIntent);
         int pos = mPreviewImagePagerAdapter.getFilePosition(file);
         file = mPreviewImagePagerAdapter.getFileAt(pos);
@@ -369,9 +399,10 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     }
 
     /**
-     * This method will be invoked when a new page becomes selected. Animation is not necessarily complete.
+     * This method will be invoked when a new page becomes selected. Animation is not necessarily
+     * complete.
      * 
-     *  @param  Position        Position index of the new selected page
+     *  @param  position        Position index of the new selected page
      */
     @Override
     public void onPageSelected(int position) {
@@ -383,6 +414,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         } else {
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
             getSupportActionBar().setTitle(currentFile.getFileName());
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
             if (!currentFile.isDown()) {
                 if (!mPreviewImagePagerAdapter.pendingErrorAt(position)) {
                     requestForDownload(currentFile);
@@ -399,20 +431,22 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
      * Called when the scroll state changes. Useful for discovering when the user begins dragging, 
      * when the pager is automatically settling to the current page. when it is fully stopped/idle.
      * 
-     * @param   State       The new scroll state (SCROLL_STATE_IDLE, _DRAGGING, _SETTLING
+     * @param   state       The new scroll state (SCROLL_STATE_IDLE, _DRAGGING, _SETTLING
      */
     @Override
     public void onPageScrollStateChanged(int state) {
     }
 
     /**
-     * This method will be invoked when the current page is scrolled, either as part of a programmatically 
-     * initiated smooth scroll or a user initiated touch scroll.
+     * This method will be invoked when the current page is scrolled, either as part of a
+     * programmatically initiated smooth scroll or a user initiated touch scroll.
      * 
      * @param   position                Position index of the first page currently being displayed. 
-     *                                  Page position+1 will be visible if positionOffset is nonzero.
+     *                                  Page position+1 will be visible if positionOffset is
+     *                                  nonzero.
      *                                  
-     * @param   positionOffset          Value from [0, 1) indicating the offset from the page at position.
+     * @param   positionOffset          Value from [0, 1) indicating the offset from the page
+     *                                  at position.
      * @param   positionOffsetPixels    Value in pixels indicating the offset from position. 
      */
     @Override
@@ -436,17 +470,21 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
                 OCFile file = getStorageManager().getFileByPath(downloadedRemotePath);
                 int position = mPreviewImagePagerAdapter.getFilePosition(file);
-                boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
-                //boolean isOffscreen =  Math.abs((mViewPager.getCurrentItem() - position)) <= mViewPager.getOffscreenPageLimit();
+                boolean downloadWasFine = intent.getBooleanExtra(
+                        FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
+                //boolean isOffscreen =  Math.abs((mViewPager.getCurrentItem() - position))
+                // <= mViewPager.getOffscreenPageLimit();
                 
-                if (position >= 0 && intent.getAction().equals(FileDownloader.getDownloadFinishMessage())) {
+                if (position >= 0 &&
+                        intent.getAction().equals(FileDownloader.getDownloadFinishMessage())) {
                     if (downloadWasFine) {
                         mPreviewImagePagerAdapter.updateFile(position, file);   
                         
                     } else {
                         mPreviewImagePagerAdapter.updateWithDownloadError(position);
                     }
-                    mPreviewImagePagerAdapter.notifyDataSetChanged();   // will trigger the creation of new fragments
+                    mPreviewImagePagerAdapter.notifyDataSetChanged();   // will trigger the creation
+                                                                        // of new fragments
                     
                 } else {
                     Log_OC.d(TAG, "Download finished, but the fragment is offscreen");
@@ -481,9 +519,11 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             ActionBar actionBar = getSupportActionBar();
             if (!actionBar.isShowing()) {
                 actionBar.show();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
             } else {
                 actionBar.hide();
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
             }
 
@@ -566,5 +606,11 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void allFilesOption(){
+        backToDisplayActivity();
+        super.allFilesOption();
     }
 }
