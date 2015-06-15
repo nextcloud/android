@@ -4,6 +4,7 @@
   <string name="actionbar_upload_files">Fichièrs</string>
   <string name="actionbar_mkdir">Novèl dorsièr</string>
   <string name="actionbar_settings">Configuracion</string>
+  <string name="actionbar_send_file">Mandar</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <string name="prefs_category_general">General</string>
@@ -33,6 +34,7 @@
   <string name="filedetails_created">Creat :</string>
   <string name="filedetails_modified">Modificat :</string>
   <string name="filedetails_download">Avalcarga</string>
+  <string name="action_share_file">Partiment per ligam</string>
   <string name="common_yes">Òc</string>
   <string name="common_no">Non</string>
   <string name="common_ok">D\'accòrdi</string>
@@ -45,11 +47,15 @@
   <string name="delete_account">Escafa lo compte</string>
   <string name="create_account">Crea un compte</string>
   <string name="upload_chooser_title">Avalcarga dempuèi ...</string>
+  <string name="uploader_info_dirname">Nom del dorsièr</string>
   <string name="uploader_upload_in_progress_ticker">Al avalcargar ...</string>
   <string name="uploader_upload_succeeded_ticker">Capitada d\'avalcargar</string>
   <string name="common_choose_account">Causís lo compte</string>
   <string name="common_rename">Torna nomenar</string>
   <string name="common_remove">Suprimir</string>
+  <string name="ssl_validator_label_C">País :</string>
+  <string name="activity_chooser_send_file_title">Mandar</string>
+  <string name="clipboard_text_copied">Copiat dins lo quichapapièrs</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Comptes</string>
   <string name="saml_authentication_required_text">Autentificacion requesida</string>

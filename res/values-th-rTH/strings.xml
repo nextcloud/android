@@ -192,14 +192,14 @@
   <string name="common_remove">ลบออก</string>
   <string name="confirmation_remove_alert">คุณต้องการที่จะลบ %1$s?</string>
   <string name="confirmation_remove_folder_alert">คุณต้องการที่จะลบ %1$s และเนื้อหาของมัน?</string>
-  <string name="confirmation_remove_local">เฉพาะต้นทางเซิร์ฟเวอร์เท่านั้น</string>
+  <string name="confirmation_remove_local">เฉพาะต้นทางเท่านั้น</string>
   <string name="confirmation_remove_folder_local">เนื้อหาต้นทางเท่านั้น</string>
   <string name="confirmation_remove_remote">ลบออกจากเซิร์ฟเวอร์</string>
-  <string name="confirmation_remove_remote_and_local">ทั้งเซิร์ฟเวอร์ระยะไกลและเซิร์ฟเวอร์ภายใน</string>
+  <string name="confirmation_remove_remote_and_local">ต้นทางและปลายทาง</string>
   <string name="remove_success_msg">ลบเรียบร้อยแล้ว</string>
   <string name="remove_fail_msg">ไม่สามารถลบได้</string>
   <string name="rename_dialog_title">กรอกชื่อใหม่</string>
-  <string name="rename_local_fail_msg">ไฟล์คัดลอกภายในไม่สามารถเปลี่ยนชื่อได้, กรุณาเปลี่ยนเป็นชื่อใหม่</string>
+  <string name="rename_local_fail_msg">ไฟล์ต้นทางที่คัดลอกไม่สามารถเปลี่ยนชื่อได้, กรุณาเปลี่ยนเป็นชื่อใหม่</string>
   <string name="rename_server_fail_msg">ไม่สามารถเปลี่ยนชื่อได้</string>
   <string name="sync_file_fail_msg">ไม่สามารถตรวจสอบไฟล์ระยะไกลได้</string>
   <string name="sync_file_nothing_to_do_msg">เนื้อหาของไฟล์มีข้อมูลอยู่แล้ว</string>
@@ -247,7 +247,7 @@
   <string name="instant_video_upload_on_wifi">อัพโหลดวีดีโอผ่านทาง WiFi เท่านั้น</string>
   <string name="instant_upload_path">/อัพโหลดทันที</string>
   <string name="conflict_title">ปรับปรุงข้อผิดพลาด</string>
-  <string name="conflict_message">ไฟล์ระยะไกล %s ยังไม่ได้ถูกผสานข้อมูลกับไฟล์ในเครื่อง การดำเนินการต่อไปจะเป็นการแทนที่เนื้อหาของไฟล์ที่มีอยู่บนเซิร์ฟเวอร์</string>
+  <string name="conflict_message">ไฟล์ระยะไกล %s ยังไม่ได้ผสานข้อมูลกับไฟล์ต้นทาง การดำเนินการต่อไปจะเป็นการแทนที่เนื้อหาของไฟล์ที่มีอยู่บนเซิร์ฟเวอร์</string>
   <string name="conflict_keep_both">เก็บไว้ทั้งสองอย่าง</string>
   <string name="conflict_overwrite">เขียนทับ</string>
   <string name="conflict_dont_upload">ไม่ต้องอัพโหลด</string>
