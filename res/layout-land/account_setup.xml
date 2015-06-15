@@ -166,7 +166,8 @@
 					android:ems="10"
 					android:hint="@string/auth_username"
 					android:inputType="textNoSuggestions"
-					android:contentDescription="@string/auth_username"/>
+					android:contentDescription="@string/auth_username"
+					/>
 		
 				<EditText
 				    android:id="@+id/account_password"

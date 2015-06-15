@@ -33,7 +33,44 @@ Before we're able to merge your code into the ownCloud app for Android, you need
 
 [agreement]: http://owncloud.org/about/contributor-agreement/
 
+### 1. Fork and download android/develop repository:
+
+NOTE: You must have the git installation folder in your environment variable PATH to perform the next operations.
+
+* In a web browser, go to https://github.com/owncloud/android, and click the 'Fork' button near the top right corner.
+* In a command line prompt, clone your new repo: ```git clone git@github.com:YOURGITHUBNAME/android.git```.
+* Move to the project folder with ```cd android```.
+* Checkout the remote branch 'develop' in your own local branch: ```git checkout -b develop remotes/origin/develop```.
+* Pull any changes from your remote branch 'develop': ```git pull origin develop```
+* Make official ownCloud repo known as upstream: ```git remote add upstream git@github.com:owncloud/android.git```
+* Make sure to get the latest changes from official android/develop branch: ```git pull upstream develop```
+
+
+### 7. Create pull request:
+
+NOTE: You must sign the [Contributor Agreement][1] before your changes can be accepted!
+
+* Commit your changes locally: "git commit -a"
+* Push your changes to your GitHub repo: "git push"
+* Browse to https://github.com/YOURGITHUBNAME/android/pulls and issue pull request
+* Click "Edit" and set "base:develop"
+* Again, click "Edit" and set "compare:develop"
+* Enter description and send pull request.
+
+### 8. Create another pull request:
+
+To make sure your new pull request does not contain commits which are already contained in previous PRs, create a new branch which is a clone of upstream/develop.
+
+* git fetch upstream
+* git checkout -b my_new_develop_branch upstream/develop
+* If you want to rename that branch later: "git checkout -b my_new_develop_branch_with_new_name"
+* Push branch to server: "git push -u origin name_of_local_develop_branch"
+* Use GitHub to issue PR
+
+
+
 ## Translations
 Please submit translations via [Transifex][transifex].
 
 [transifex]: https://www.transifex.com/projects/p/owncloud/
+

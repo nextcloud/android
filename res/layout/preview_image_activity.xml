@@ -16,16 +16,24 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:clickable="true" >
 
     <com.ortiz.touch.ExtendedViewPager
         android:id="@+id/fragmentPager"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent" 
 		/>
+
+    <include
+        layout="@layout/drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"/>
     
     <!-- LinearLayout
         android:id="@+id/fragment"
@@ -34,4 +42,4 @@
             <!- - Preview: layout=@layout/preview_image_fragment - ->
     </LinearLayout -->
 
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>

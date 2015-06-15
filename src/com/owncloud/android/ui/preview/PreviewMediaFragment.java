@@ -28,6 +28,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
@@ -37,6 +38,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -45,9 +49,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -64,9 +65,11 @@ import com.owncloud.android.ui.fragment.FileFragment;
 /**
  * This fragment shows a preview of a downloaded media file (audio or video).
  * 
- * Trying to get an instance with NULL {@link OCFile} or ownCloud {@link Account} values will produce an {@link IllegalStateException}.
+ * Trying to get an instance with NULL {@link OCFile} or ownCloud {@link Account} values will
+ * produce an {@link IllegalStateException}.
  * 
- * By now, if the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on instantiation too.
+ * By now, if the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is
+ * generated on instantiation too.
  */
 public class PreviewMediaFragment extends FileFragment implements
         OnTouchListener {
@@ -251,9 +254,9 @@ public class PreviewMediaFragment extends FileFragment implements
     
     
     private void stopAudio() {
-        Intent i = new Intent(getSherlockActivity(), MediaService.class);
+        Intent i = new Intent(getActivity(), MediaService.class);
         i.setAction(MediaService.ACTION_STOP_ALL);
-        getSherlockActivity().startService(i);
+        getActivity().startService(i);
     }
 
 
@@ -279,7 +282,7 @@ public class PreviewMediaFragment extends FileFragment implements
                 getFile(),
                 mContainerActivity.getStorageManager().getAccount(),
                 mContainerActivity,
-                getSherlockActivity()
+                getActivity()
             );
             mf.filter(menu);
         }
@@ -393,7 +396,7 @@ public class PreviewMediaFragment extends FileFragment implements
          * 
          * Just starts the playback.
          * 
-         * @param   mp    {@link MediaPlayer} instance performing the playback.
+         * @param   vp    {@link MediaPlayer} instance performing the playback.
          */
         @Override
         public void onPrepared(MediaPlayer vp) {
@@ -449,8 +452,8 @@ public class PreviewMediaFragment extends FileFragment implements
         public boolean onError(MediaPlayer mp, int what, int extra) {
             if (mVideoPreview.getWindowToken() != null) {
                 String message = MediaService.getMessageForMediaError(
-                        getSherlockActivity(), what, extra);
-                new AlertDialog.Builder(getSherlockActivity())
+                        getActivity(), what, extra);
+                new AlertDialog.Builder(getActivity())
                         .setMessage(message)
                         .setPositiveButton(android.R.string.VideoView_error_button,
                                 new DialogInterface.OnClickListener() {
@@ -496,7 +499,7 @@ public class PreviewMediaFragment extends FileFragment implements
             if (mMediaServiceBinder != null && mMediaController != null) {
                 mMediaServiceBinder.unregisterMediaController(mMediaController);
             }
-            getSherlockActivity().unbindService(mMediaServiceConnection);
+            getActivity().unbindService(mMediaServiceConnection);
             mMediaServiceConnection = null;
             mMediaServiceBinder = null;
         }
@@ -507,7 +510,10 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN && v == mVideoPreview) {
-            startFullScreenVideo();
+            // added a margin on the left to avoid interfering with gesture to open navigation drawer
+            if (event.getX() / Resources.getSystem().getDisplayMetrics().density > 24.0) {
+                startFullScreenVideo();
+            }
             return true;        
         }
         return false;
@@ -515,7 +521,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
     
     private void startFullScreenVideo() {
-        Intent i = new Intent(getSherlockActivity(), PreviewVideoActivity.class);
+        Intent i = new Intent(getActivity(), PreviewVideoActivity.class);
         i.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         i.putExtra(FileActivity.EXTRA_FILE, getFile());
         i.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, mVideoPreview.isPlaying());
@@ -561,7 +567,7 @@ public class PreviewMediaFragment extends FileFragment implements
         if (mMediaServiceConnection == null) {
             mMediaServiceConnection = new MediaServiceConnection();
         }
-        getSherlockActivity().bindService(  new Intent(getSherlockActivity(), 
+        getActivity().bindService(  new Intent(getActivity(),
                                     MediaService.class),
                                     mMediaServiceConnection, 
                                     Context.BIND_AUTO_CREATE);
@@ -573,9 +579,9 @@ public class PreviewMediaFragment extends FileFragment implements
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
-            if (getSherlockActivity() != null) {
+            if (getActivity() != null) {
                 if (component.equals(
-                        new ComponentName(getSherlockActivity(), MediaService.class))) {
+                        new ComponentName(getActivity(), MediaService.class))) {
                     Log_OC.d(TAG, "Media service connected");
                     mMediaServiceBinder = (MediaServiceBinder) service;
                     if (mMediaServiceBinder != null) {
@@ -602,13 +608,13 @@ public class PreviewMediaFragment extends FileFragment implements
 
         @Override
         public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(getSherlockActivity(), MediaService.class))) {
+            if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
                 Log_OC.e(TAG, "Media service suddenly disconnected");
                 if (mMediaController != null) {
                     mMediaController.setMediaPlayer(null);
                 } else {
                     Toast.makeText(
-                            getSherlockActivity(), 
+                            getActivity(),
                             "No media controller to release when disconnected from media service", 
                             Toast.LENGTH_SHORT).show();
                 }
@@ -657,7 +663,7 @@ public class PreviewMediaFragment extends FileFragment implements
      * Finishes the preview
      */
     private void finish() {
-        getSherlockActivity().onBackPressed();
+        getActivity().onBackPressed();
     }
 
 

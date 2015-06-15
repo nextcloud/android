@@ -30,6 +30,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -37,9 +40,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -55,10 +55,12 @@ import third_parties.michaelOrtiz.TouchImageViewCustom;
 
 /**
  * This fragment shows a preview of a downloaded image.
+ *
+ * Trying to get an instance with a NULL {@link OCFile} will produce an
+ * {@link IllegalStateException}.
  * 
- * Trying to get an instance with a NULL {@link OCFile} will produce an {@link IllegalStateException}.
- * 
- * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on instantiation too.
+ * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
+ * instantiation too.
  */
 public class PreviewImageFragment extends FileFragment {
 
@@ -83,16 +85,18 @@ public class PreviewImageFragment extends FileFragment {
     /**
      * Public factory method to create a new fragment that previews an image.
      *
-     * Android strongly recommends keep the empty constructor of fragments as the only public constructor, and
+     * Android strongly recommends keep the empty constructor of fragments as the only public
+     * constructor, and
      * use {@link #setArguments(Bundle)} to set the needed arguments.
      *
      * This method hides to client objects the need of doing the construction in two steps.
      *
      * @param imageFile                 An {@link OCFile} to preview as an image in the fragment
-     * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}
+     * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of
+     *                                  {@link FragmentStatePagerAdapter}
      *                                  ; TODO better solution
      */
-    public static PreviewImageFragment newInstance(OCFile imageFile, boolean ignoreFirstSavedState) {
+    public static PreviewImageFragment newInstance(OCFile imageFile, boolean ignoreFirstSavedState){
         PreviewImageFragment frag = new PreviewImageFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, imageFile);
@@ -109,7 +113,8 @@ public class PreviewImageFragment extends FileFragment {
      *  MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically
      *  (for instance, when the device is turned a aside).
      * 
-     *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful construction 
+     *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful
+     *  construction
      */
     public PreviewImageFragment() {
         mIgnoreFirstSavedState = false;
@@ -124,7 +129,8 @@ public class PreviewImageFragment extends FileFragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         setFile((OCFile)args.getParcelable(ARG_FILE));
-            // TODO better in super, but needs to check ALL the class extending FileFragment; not right now
+            // TODO better in super, but needs to check ALL the class extending FileFragment;
+            // not right now
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         setHasOptionsMenu(true);
@@ -233,7 +239,7 @@ public class PreviewImageFragment extends FileFragment {
                 getFile(),
                 mContainerActivity.getStorageManager().getAccount(),
                 mContainerActivity,
-                getSherlockActivity()
+                getActivity()
             );
             mf.filter(menu);
         }
@@ -329,8 +335,8 @@ public class PreviewImageFragment extends FileFragment {
             mBitmap.recycle();
             System.gc();
                 // putting this in onStop() is just the same; the fragment is always destroyed by
-                // {@link FragmentStatePagerAdapter} when the fragment in swiped further than the valid offscreen
-                // distance, and onStop() is never called before than that
+                // {@link FragmentStatePagerAdapter} when the fragment in swiped further than the
+                // valid offscreen distance, and onStop() is never called before than that
         }
         super.onDestroy();
     }
@@ -349,17 +355,17 @@ public class PreviewImageFragment extends FileFragment {
 
         /**
          * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
-         * 
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before
-         * the load finishes.
+         *
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
+         * memory before the load finishes.
          */
         private final WeakReference<ImageViewCustom> mImageViewRef;
 
         /**
          * Weak reference to the target {@link TextView} where error messages will be written.
-         * 
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the
-         * load finishes.
+         *
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
+         * memory before the load finishes.
          */
         private final WeakReference<TextView> mMessageViewRef;
 
@@ -367,7 +373,8 @@ public class PreviewImageFragment extends FileFragment {
         /**
          * Weak reference to the target {@link ProgressBar} shown while the load is in progress.
          * 
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load finishes.
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
+         * memory before the load finishes.
          */
         private final WeakReference<ProgressBar> mProgressWheelRef;
 
@@ -383,7 +390,8 @@ public class PreviewImageFragment extends FileFragment {
          * 
          * @param imageView     Target {@link ImageView} where the bitmap will be loaded into.
          */
-        public LoadBitmapTask(ImageViewCustom imageView, TextView messageView, ProgressBar progressWheel) {
+        public LoadBitmapTask(ImageViewCustom imageView, TextView messageView,
+                              ProgressBar progressWheel) {
             mImageViewRef = new WeakReference<ImageViewCustom>(imageView);
             mMessageViewRef = new WeakReference<TextView>(messageView);
             mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
@@ -404,7 +412,8 @@ public class PreviewImageFragment extends FileFragment {
                 for (int i = 0; i < maxDownScale && result == null; i++) {
                     if (isCancelled()) return null;
                     try {
-                        result = BitmapUtils.decodeSampledBitmapFromFile(storagePath, minWidth, minHeight);
+                        result = BitmapUtils.decodeSampledBitmapFromFile(storagePath, minWidth,
+                                minHeight);
 
                         if (isCancelled()) return result;
 
@@ -420,12 +429,14 @@ public class PreviewImageFragment extends FileFragment {
                     } catch (OutOfMemoryError e) {
                         mErrorMessageId = R.string.common_error_out_memory;
                         if (i < maxDownScale - 1) {
-                            Log_OC.w(TAG, "Out of memory rendering file " + storagePath + " ; scaling down");
+                            Log_OC.w(TAG, "Out of memory rendering file " + storagePath +
+                                    " ; scaling down");
                             minWidth = minWidth / 2;
                             minHeight = minHeight / 2;
 
                         } else {
-                            Log_OC.w(TAG, "Out of memory rendering file " + storagePath + " ; failing");
+                            Log_OC.w(TAG, "Out of memory rendering file " + storagePath +
+                                    " ; failing");
                         }
                         if (result != null) {
                             result.recycle();
@@ -473,7 +484,8 @@ public class PreviewImageFragment extends FileFragment {
         private void showLoadedImage(Bitmap result) {
             final ImageViewCustom imageView = mImageViewRef.get();
             if (imageView != null) {
-                Log_OC.d(TAG, "Showing image with resolution " + result.getWidth() + "x" + result.getHeight());
+                Log_OC.d(TAG, "Showing image with resolution " + result.getWidth() + "x" +
+                        result.getHeight());
                 imageView.setImageBitmap(result);
                 imageView.setVisibility(View.VISIBLE);
                 mBitmap  = result;  // needs to be kept for recycling when not useful
@@ -509,7 +521,8 @@ public class PreviewImageFragment extends FileFragment {
     }
 
     /**
-     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment} to be previewed.
+     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment}
+     * to be previewed.
      * 
      * @param file      File to test if can be previewed.
      * @return          'True' if the file can be handled by the fragment.

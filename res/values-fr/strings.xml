@@ -76,6 +76,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="filedetails_download">Télécharger</string>
   <string name="filedetails_sync_file">Actualiser le fichier</string>
   <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %s pendant le téléversement</string>
+  <string name="list_layout">Disposition en liste</string>
   <string name="action_share_file">Partager le lien</string>
   <string name="action_unshare_file">Ne plus partager ce lien</string>
   <string name="common_yes">Oui</string>
@@ -134,7 +135,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="upload_query_move_foreign_files">Il n\'y a pas assez de place disponible pour copier les fichiers sélectionnés dans le dossier %1$s. Voulez-vous les déplacer à la place ?</string>
   <string name="pass_code_enter_pass_code">Veuillez saisir votre code de sécurité</string>
   <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
-  <string name="pass_code_configure_your_pass_code_explanation">Le code de sécurité sera demandé à chaque démarrage de l\'application</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Le code de sécurité sera demandé à chaque ouverture de l\'application</string>
   <string name="pass_code_reenter_your_pass_code">Veuillez à nouveau saisir votre code de sécurité</string>
   <string name="pass_code_remove_your_pass_code">Supprimer votre code de sécurité</string>
   <string name="pass_code_mismatch">Les codes de sécurité ne sont pas identiques</string>

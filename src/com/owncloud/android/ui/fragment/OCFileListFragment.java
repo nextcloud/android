@@ -77,7 +77,8 @@ public class OCFileListFragment extends ExtendedListFragment {
     private boolean mJustFolders;
     
     private OCFile mTargetFile;
-
+    
+   
     
     /**
      * {@inheritDoc}
@@ -132,7 +133,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         mJustFolders = (args == null) ? false : args.getBoolean(ARG_JUST_FOLDERS, false);
         mAdapter = new FileListListAdapter(
                 mJustFolders,
-                getSherlockActivity(),
+                getActivity(),
                 mContainerActivity
                 );
         setListAdapter(mAdapter);
@@ -182,8 +183,9 @@ public class OCFileListFragment extends ExtendedListFragment {
                 moveCount++;
             }   // exit is granted because storageManager.getFileByPath("/") never returns null
             mFile = parentDir;
-            
-            listDirectory(mFile);
+
+            // TODO Enable when "On Device" is recovered ?
+            listDirectory(mFile /*, MainApp.getOnlyOnDevice()*/);
 
             onRefresh(false);
             
@@ -201,7 +203,8 @@ public class OCFileListFragment extends ExtendedListFragment {
         if (file != null) {
             if (file.isFolder()) { 
                 // update state and view of this fragment
-                listDirectory(file);
+                // TODO Enable when "On Device" is recovered ?
+                listDirectory(file/*, MainApp.getOnlyOnDevice()*/);
                 // then, notify parent activity to let it update its state and view
                 mContainerActivity.onBrowsedDownTo(file);
                 // save index and top position
@@ -244,7 +247,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         boolean allowContextualActions = 
                 (args == null) ? true : args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, true); 
         if (allowContextualActions) {
-            MenuInflater inflater = getSherlockActivity().getMenuInflater();
+            MenuInflater inflater = getActivity().getMenuInflater();
             inflater.inflate(R.menu.file_actions_menu, menu);
             AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
             OCFile targetFile = (OCFile) mAdapter.getItem(info.position);
@@ -254,14 +257,14 @@ public class OCFileListFragment extends ExtendedListFragment {
                     targetFile,
                     mContainerActivity.getStorageManager().getAccount(),
                     mContainerActivity,
-                    getSherlockActivity()
+                    getActivity()
                 );
                 mf.filter(menu);
             }
                  
             /// TODO break this direct dependency on FileDisplayActivity... if possible
             MenuItem item = menu.findItem(R.id.action_open_file_with);
-            FileFragment frag = ((FileDisplayActivity)getSherlockActivity()).getSecondFragment();
+            FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
             if (frag != null && frag instanceof FileDetailFragment && 
                     frag.getFile().getFileId() == targetFile.getFileId()) {
                 item = menu.findItem(R.id.action_see_details);
@@ -355,8 +358,15 @@ public class OCFileListFragment extends ExtendedListFragment {
     /**
      * Calls {@link OCFileListFragment#listDirectory(OCFile)} with a null parameter
      */
-    public void listDirectory(){
+    public void listDirectory(/*boolean onlyOnDevice*/){
         listDirectory(null);
+        // TODO Enable when "On Device" is recovered ?
+        // listDirectory(null, onlyOnDevice);
+    }
+    
+    public void refreshDirectory(){
+        // TODO Enable when "On Device" is recovered ?
+        listDirectory(getCurrentFile()/*, MainApp.getOnlyOnDevice()*/);
     }
     
     /**
@@ -366,7 +376,7 @@ public class OCFileListFragment extends ExtendedListFragment {
      * 
      * @param directory File to be listed
      */
-    public void listDirectory(OCFile directory) {
+    public void listDirectory(OCFile directory/*, boolean onlyOnDevice*/) {
         FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
         if (storageManager != null) {
 
@@ -387,7 +397,8 @@ public class OCFileListFragment extends ExtendedListFragment {
                 directory = storageManager.getFileById(directory.getParentId());
             }
 
-            mAdapter.swapDirectory(directory, storageManager);
+            // TODO Enable when "On Device" is recovered ?
+            mAdapter.swapDirectory(directory, storageManager/*, onlyOnDevice*/);
             if (mFile == null || !mFile.equals(directory)) {
                 mCurrentListView.setSelection(0);
             }
@@ -459,5 +470,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     public void sortBySize(boolean descending) {
         mAdapter.setSortOrder(FileStorageUtils.SORT_SIZE, descending);
     }  
-
+    
+   
+    
 }

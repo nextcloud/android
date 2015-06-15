@@ -24,12 +24,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 
-public class ConfirmationDialogFragment extends SherlockDialogFragment {
+public class ConfirmationDialogFragment extends DialogFragment {
 
     public final static String ARG_CONF_RESOURCE_ID = "resource_id";
     public final static String ARG_CONF_ARGUMENTS = "string_array";

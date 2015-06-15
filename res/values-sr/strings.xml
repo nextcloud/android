@@ -75,6 +75,7 @@
   <string name="filedetails_download">Преузми</string>
   <string name="filedetails_sync_file">Освежи фајл</string>
   <string name="filedetails_renamed_in_upload_msg">Фајл је преименован у %1$s током отпремања</string>
+  <string name="list_layout">Распоред листе</string>
   <string name="action_share_file">Веза дељења</string>
   <string name="action_unshare_file">Не дели везом</string>
   <string name="common_yes">Да</string>

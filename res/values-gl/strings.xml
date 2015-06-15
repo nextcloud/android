@@ -76,6 +76,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="filedetails_download">Descargar</string>
   <string name="filedetails_sync_file">Actualizar o ficheiro</string>
   <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado a %1$s durante o envío</string>
+  <string name="list_layout">Deseño da lista</string>
   <string name="action_share_file">Ligazón para compartir</string>
   <string name="action_unshare_file">Deixar de compartir a ligazón</string>
   <string name="common_yes">Si</string>
@@ -150,7 +151,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="media_err_timeout">Esgotouse o tempo de espera tentando reproducir</string>
   <string name="media_err_invalid_progressive_playback">Non é posíbel enviar como fluxo o ficheiro multimedia</string>
   <string name="media_err_unknown">Non é posíbel reproducir o ficheiro multimedia co reprodutor «stock»</string>
-  <string name="media_err_security_ex">Produciuse un erro de seguranza tentando reproducir %1$s</string>
+  <string name="media_err_security_ex">Produciuse un erro de seguridade tentando reproducir %1$s</string>
   <string name="media_err_io_ex">Produciuse un erro de entrada tentando reproducir %1$s</string>
   <string name="media_err_unexpected">Produciuse un erro non agardado tentando reproducir %1$s</string>
   <string name="media_rewind_description">Botón de retroceso</string>
@@ -301,7 +302,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="move_file_error">Produciuse un erro ao tentar mover este ficheiro ou cartafol.</string>
   <string name="forbidden_permissions_move">para mover este ficheiro</string>
   <string name="prefs_category_instant_uploading">Envío instantáneo</string>
-  <string name="prefs_category_security">Seguranza</string>
+  <string name="prefs_category_security">Seguridade</string>
   <string name="prefs_instant_video_upload_path_title">Enviar a ruta do vídeo</string>
   <string name="download_folder_failed_content">Non foi posíbel completar a descarga do cartafol %1$s</string>
   <string name="subject_token">%1$s compartiu «%2$s» con vostede</string>

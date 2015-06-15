@@ -20,6 +20,14 @@
     	<!-- TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>  -->
     </string-array>
+    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
+    <!--<string name="drawer_item_accounts">Accounts</string>-->
+    <string name="drawer_item_all_files">All files</string>
+    <!-- TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+    <string name="drawer_item_settings">Settings</string>
+    <string name="drawer_item_logs">Logs</string>
+	<string name="drawer_close">Close</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_accounts">Accounts</string>
@@ -78,6 +86,7 @@
     <string name="filedetails_download">Download</string>
     <string name="filedetails_sync_file">Refresh file</string>
     <string name="filedetails_renamed_in_upload_msg">File was renamed to %1$s during upload</string>
+    <string name="list_layout">List Layout</string>
     <string name="action_share_file">Share link</string>
     <string name="action_unshare_file">Unshare link</string>
     <string name="common_yes">Yes</string>
@@ -331,10 +340,14 @@
 	<string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
     <string name="download_folder_failed_content">Download of %1$s folder could not be completed</string>
 
-	<string name="subject_token">%1$s shared \"%2$s\" with you</string>
+	<string name="shared_subject_header">shared</string>
+	<string name="with_you_subject_header">with you</string>
+    
+	<string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
 
     <string name="auth_refresh_button">Refresh connection</string>
     <string name="auth_host_address">Server address</string>
     <string name="common_error_out_memory">Not enough memory</string>
 
+    <string name="username">Username</string>
 </resources>
