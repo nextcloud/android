@@ -6,7 +6,6 @@ android:
     - android-16
 before_install:
   - rm pom.xml
-  - sudo apt-get install lib32stdc++6 lib32z1
 script:
   - ./setup_env.sh ant
   - ant clean
