@@ -19,6 +19,10 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Üldine</string>
   <string name="prefs_category_more">Rohkem</string>
   <string name="prefs_accounts">Kontod</string>
@@ -296,7 +300,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="prefs_category_security">Turvalisus</string>
   <string name="prefs_instant_video_upload_path_title">Video üleslaadimise asukoht</string>
   <string name="download_folder_failed_content">Kausta %1$s  allalaadimine ei õnnestunud</string>
-  <string name="subject_token">%1$s jagas sinuga \"%2$s\"</string>
   <string name="auth_refresh_button">Värskenda ühendust</string>
   <string name="auth_host_address">Serveri aadress</string>
 </resources>

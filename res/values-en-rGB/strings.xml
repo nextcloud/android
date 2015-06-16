@@ -19,6 +19,10 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">More</string>
   <string name="prefs_accounts">Accounts</string>
@@ -303,7 +307,6 @@
   <string name="prefs_category_security">Security</string>
   <string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
   <string name="download_folder_failed_content">Download of %1$s folder could not be completed</string>
-  <string name="subject_token">%1$s shared \"%2$s\" with you</string>
   <string name="auth_refresh_button">Refresh connection</string>
   <string name="auth_host_address">Server address</string>
   <string name="common_error_out_memory">Not enough memory</string>

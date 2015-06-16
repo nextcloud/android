@@ -19,6 +19,10 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Obecné</string>
   <string name="prefs_category_more">Více</string>
   <string name="prefs_accounts">Účty</string>
@@ -302,7 +306,6 @@ správce systému.</string>
   <string name="prefs_category_security">Zabezpečení</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pro nahrávání videí</string>
   <string name="download_folder_failed_content">Stažení adresáře %1$s nemohlo být dokončeno</string>
-  <string name="subject_token">%1$s sdílí \"%2$s\" s vámi</string>
   <string name="auth_refresh_button">Obnovit připojení</string>
   <string name="auth_host_address">Adresa serveru</string>
   <string name="common_error_out_memory">Nedostatek paměti</string>

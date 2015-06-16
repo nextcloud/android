@@ -19,6 +19,10 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">一般</string>
   <string name="prefs_category_more">更多</string>
   <string name="prefs_accounts">帳號</string>
@@ -292,7 +296,6 @@
   <string name="prefs_category_security">安全性</string>
   <string name="prefs_instant_video_upload_path_title">影片上傳路徑</string>
   <string name="download_folder_failed_content">%1$s 目錄的下載未完成</string>
-  <string name="subject_token">%1$s 分享了 \"%2$s\" 給您</string>
   <string name="auth_refresh_button">重新連線</string>
   <string name="auth_host_address">伺服器位址</string>
 </resources>

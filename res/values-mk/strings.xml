@@ -19,6 +19,10 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Општо</string>
   <string name="prefs_category_more">Повеќе</string>
   <string name="prefs_accounts">Сметки</string>
@@ -303,7 +307,6 @@
   <string name="prefs_category_security">Безбедност</string>
   <string name="prefs_instant_video_upload_path_title">Прикачи патека на видео</string>
   <string name="download_folder_failed_content">Превземањето на папката %1$s не може да се заврши</string>
-  <string name="subject_token">%1$s сподели \"%2$s\" со тебе</string>
   <string name="auth_refresh_button">Освежи ја конекцијата</string>
   <string name="auth_host_address">Адреса на сервер</string>
 </resources>

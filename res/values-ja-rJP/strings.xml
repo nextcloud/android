@@ -19,6 +19,10 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">一般</string>
   <string name="prefs_category_more">もっと見る</string>
   <string name="prefs_accounts">アカウント</string>
@@ -294,7 +298,6 @@
   <string name="prefs_category_security">セキュリティ</string>
   <string name="prefs_instant_video_upload_path_title">動画のアップロードパス</string>
   <string name="download_folder_failed_content">%1$s フォルダーのダウンロードが完了しませんでした</string>
-  <string name="subject_token">%1$sがあなたと\"%2$s\"を共有しました</string>
   <string name="auth_refresh_button">再接続中</string>
   <string name="auth_host_address">サーバーアドレス</string>
 </resources>

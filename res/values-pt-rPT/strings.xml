@@ -19,6 +19,10 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Geral</string>
   <string name="prefs_category_more">Mais</string>
   <string name="prefs_accounts">Contas</string>
@@ -290,7 +294,6 @@
   <string name="prefs_category_security">Segurança</string>
   <string name="prefs_instant_video_upload_path_title">Envio do Caminho do Vídeo</string>
   <string name="download_folder_failed_content">Não foi possível completar o download da pasta %1$s</string>
-  <string name="subject_token">%1$s partilhou \"%2$s\" consigo</string>
   <string name="auth_refresh_button">Recarregar ligação</string>
   <string name="auth_host_address">Endereço do servidor</string>
 </resources>

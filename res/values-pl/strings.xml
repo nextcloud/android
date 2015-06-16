@@ -19,6 +19,10 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Ogólne</string>
   <string name="prefs_category_more">Więcej</string>
   <string name="prefs_accounts">Konta</string>
@@ -304,7 +308,6 @@
   <string name="prefs_category_security">Bezpieczeństwo</string>
   <string name="prefs_instant_video_upload_path_title">Katalog wysyłania dla wideo</string>
   <string name="download_folder_failed_content">Pobieranie %1$s katalogu nie może zostać ukończone</string>
-  <string name="subject_token">%1$s wspólne \"%2$s\" z tobą</string>
   <string name="auth_refresh_button">Odśwież połączenie</string>
   <string name="auth_host_address">Adres Serwera</string>
   <string name="common_error_out_memory">Brak wystarczającej pamięci</string>

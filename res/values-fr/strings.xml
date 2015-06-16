@@ -19,6 +19,10 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Général</string>
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_accounts">Comptes</string>
@@ -308,7 +312,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="prefs_category_security">Sécurité</string>
   <string name="prefs_instant_video_upload_path_title">Répertoire de téléversement des vidéos</string>
   <string name="download_folder_failed_content">Le téléchargement de %1$s dossier(s) n\'a pas pu être achevé</string>
-  <string name="subject_token">%1$s a partagé \"%2$s\" avec vous</string>
   <string name="auth_refresh_button">Actualiser la connexion</string>
   <string name="auth_host_address">Adresse du serveur</string>
   <string name="common_error_out_memory">Mémoire insuffisante</string>
