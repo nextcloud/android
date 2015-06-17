@@ -51,9 +51,9 @@ public class CreateFolderDialogFragment
 
     /**
      * Public factory method to create new CreateFolderDialogFragment instances.
-     * 
-     * @param parentFolder    Folder to create
-     * @return                Dialog ready to show.
+     *
+     * @param parentFolder            Folder to create
+     * @return                        Dialog ready to show.
      */
     public static CreateFolderDialogFragment newInstance(OCFile parentFolder) {
         CreateFolderDialogFragment frag = new CreateFolderDialogFragment();
@@ -106,12 +106,18 @@ public class CreateFolderDialogFragment
                         Toast.LENGTH_LONG).show();
                 return;
             }
-            
-            if (!FileUtils.isValidName(newFolderName)) {
-                Toast.makeText(
-                        getActivity(),
-                        R.string.filename_forbidden_characters, 
-                        Toast.LENGTH_LONG).show();
+            boolean serverWithForbiddenChars = ((ComponentsGetter)getActivity()).
+                    getFileOperationsHelper().isVersionWithForbiddenCharacters();
+
+            if (!FileUtils.isValidName(newFolderName, serverWithForbiddenChars)) {
+                int messageId = 0;
+                if (serverWithForbiddenChars) {
+                    messageId = R.string.filename_forbidden_charaters_from_server;
+                } else {
+                    messageId = R.string.filename_forbidden_characters;
+                }
+                Toast.makeText(getActivity(), messageId, Toast.LENGTH_LONG).show();
+
                 return;
             }
             

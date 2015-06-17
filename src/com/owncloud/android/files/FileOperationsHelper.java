@@ -316,5 +316,17 @@ public class FileOperationsHelper {
         mWaitingForOpId = waitingForOpId;
     }
     
-    
+    /**
+     *  @return 'True' if the server doesn't need to check forbidden characters
+     */
+    public boolean isVersionWithForbiddenCharacters() {
+        if (mFileActivity.getAccount() != null) {
+            AccountManager accountManager = AccountManager.get(mFileActivity);
+
+            String version = accountManager.getUserData(mFileActivity.getAccount(),
+                    Constants.KEY_OC_VERSION);
+            return (new OwnCloudVersion(version)).isVersionWithForbiddenCharacters();
+        }
+        return false;
+    }
 }
