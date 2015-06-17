@@ -21,8 +21,12 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Tutti i file</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Impostazioni</string>
+  <string name="drawer_item_logs">Registri</string>
+  <string name="drawer_close">Chiudi</string>
   <string name="prefs_category_general">Generale</string>
   <string name="prefs_category_more">Altro</string>
   <string name="prefs_accounts">Account</string>
@@ -308,7 +312,11 @@
   <string name="prefs_category_security">Protezione</string>
   <string name="prefs_instant_video_upload_path_title">Percorso di caricamento video</string>
   <string name="download_folder_failed_content">Lo scaricamento della cartella %1$s non può essere completato</string>
+  <string name="shared_subject_header">condiviso</string>
+  <string name="with_you_subject_header">con te</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
   <string name="auth_refresh_button">Aggiorna la connessione</string>
   <string name="auth_host_address">Indirizzo del server</string>
   <string name="common_error_out_memory">Memoria insufficiente</string>
+  <string name="username">Nome utente</string>
 </resources>

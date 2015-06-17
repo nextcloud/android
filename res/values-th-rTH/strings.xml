@@ -21,8 +21,12 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">ไฟล์ทั้งหมด</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">ตั้งค่า</string>
+  <string name="drawer_item_logs">บันทึก</string>
+  <string name="drawer_close">ปิด</string>
   <string name="prefs_category_general">ทั่วไป</string>
   <string name="prefs_category_more">เพิ่มเติม</string>
   <string name="prefs_accounts">บัญชี</string>
@@ -79,6 +83,7 @@
   <string name="filedetails_download">ดาวน์โหลด</string>
   <string name="filedetails_sync_file">ฟื้นฟูไฟล์</string>
   <string name="filedetails_renamed_in_upload_msg">ไฟล์ได้ถูกเปลี่ยนชื่อเป็น %1$s ในระหว่างการอัพโหลด</string>
+  <string name="list_layout">เค้าโครงรายการ</string>
   <string name="action_share_file">แชร์ลิงค์</string>
   <string name="action_unshare_file">ยกเลิกการแชร์ลิงค์</string>
   <string name="common_yes">ตกลง</string>
@@ -305,7 +310,11 @@
   <string name="prefs_category_security">ความปลอดภัย</string>
   <string name="prefs_instant_video_upload_path_title">อัพโหลดเส้นทางวิดีโอ</string>
   <string name="download_folder_failed_content">การดาวน์โหลดโฟลเดอร์ %1$s อาจไม่สำเร็จ</string>
+  <string name="shared_subject_header">ถูกแชร์</string>
+  <string name="with_you_subject_header">กับคุณ</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
   <string name="auth_refresh_button">ฟื้นฟูการเชื่อมต่อ</string>
   <string name="auth_host_address">ที่อยู่เซิร์ฟเวอร์</string>
   <string name="common_error_out_memory">หน่วยความจำไม่พอ</string>
+  <string name="username">ชื่อผู้ใช้</string>
 </resources>

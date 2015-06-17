@@ -11,6 +11,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Paramètres</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Mai d\'aquò</string>
   <string name="prefs_accounts">Comptes</string>
@@ -66,4 +67,5 @@
   <string name="saml_authentication_wrong_pass">Senhal incorrècte</string>
   <string name="folder_picker_choose_button_text">Causís</string>
   <string name="auth_host_address">Adreça del servidor</string>
+  <string name="username">Nom d\'utilizaire</string>
 </resources>

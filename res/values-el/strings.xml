@@ -21,8 +21,12 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Όλα τα αρχεία</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Ρυθμίσεις</string>
+  <string name="drawer_item_logs">Αρχεία καταγραφών</string>
+  <string name="drawer_close">Κλείσιμο</string>
   <string name="prefs_category_general">Γενικά</string>
   <string name="prefs_category_more">Περισσότερα</string>
   <string name="prefs_accounts">Λογαριασμοί</string>
@@ -308,7 +312,11 @@
   <string name="prefs_category_security">Ασφάλεια</string>
   <string name="prefs_instant_video_upload_path_title">Διαδρομή Μεταφόρτωσης Βίντεο</string>
   <string name="download_folder_failed_content">Η λήψη του φακέλου %1$s δεν ολοκληρώθηκε με επιτυχία.</string>
+  <string name="shared_subject_header">διαμοιρασμένα</string>
+  <string name="with_you_subject_header">με εσάς</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
   <string name="auth_refresh_button">Ανανέωση σύνδεσης</string>
   <string name="auth_host_address">Διεύθυνση διακομιστή</string>
   <string name="common_error_out_memory">Δεν υπάρχει αρκετή μνήμη</string>
+  <string name="username">Όνομα χρήστη</string>
 </resources>

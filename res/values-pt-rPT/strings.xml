@@ -21,8 +21,11 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Todos os ficheiros</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Definições</string>
+  <string name="drawer_close">Fechar</string>
   <string name="prefs_category_general">Geral</string>
   <string name="prefs_category_more">Mais</string>
   <string name="prefs_accounts">Contas</string>
@@ -294,6 +297,10 @@
   <string name="prefs_category_security">Segurança</string>
   <string name="prefs_instant_video_upload_path_title">Envio do Caminho do Vídeo</string>
   <string name="download_folder_failed_content">Não foi possível completar o download da pasta %1$s</string>
+  <string name="shared_subject_header">partilhado</string>
+  <string name="with_you_subject_header">consigo</string>
   <string name="auth_refresh_button">Recarregar ligação</string>
   <string name="auth_host_address">Endereço do servidor</string>
+  <string name="common_error_out_memory">Falta de memória</string>
+  <string name="username">Nome de utilizador</string>
 </resources>

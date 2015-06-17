@@ -21,12 +21,17 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">全部文件</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">设置</string>
+  <string name="drawer_item_logs">日志</string>
+  <string name="drawer_close">关闭</string>
   <string name="prefs_category_general">常规</string>
   <string name="prefs_category_more">更多</string>
   <string name="prefs_accounts">账号</string>
   <string name="prefs_manage_accounts">管理账号</string>
+  <string name="prefs_passcode">密码锁</string>
   <string name="prefs_instant_upload">即时图片上传</string>
   <string name="prefs_instant_upload_summary">即时上传相机拍摄的图片</string>
   <string name="prefs_instant_video_upload">即时上传视频</string>
@@ -78,6 +83,7 @@
   <string name="filedetails_download">下载</string>
   <string name="filedetails_sync_file">刷新文件</string>
   <string name="filedetails_renamed_in_upload_msg">上传过程中文件被更名为了 %1$s</string>
+  <string name="list_layout">列表布局</string>
   <string name="action_share_file">分享链接</string>
   <string name="action_unshare_file">取消分享链接</string>
   <string name="common_yes">是</string>
@@ -130,6 +136,15 @@
   <string name="foreign_files_local_text">本地: %1$s</string>
   <string name="foreign_files_remote_text">远程:%1$s</string>
   <string name="upload_query_move_foreign_files">没有足够的空间以复制选定的文件到 %1$s 文件夹，您想移动文件到此文件夹吗？</string>
+  <string name="pass_code_enter_pass_code">请输入您的密码</string>
+  <string name="pass_code_configure_your_pass_code">输入您的密码</string>
+  <string name="pass_code_configure_your_pass_code_explanation">每次应用启动将会请求密码</string>
+  <string name="pass_code_reenter_your_pass_code">请重新输入您的密码</string>
+  <string name="pass_code_remove_your_pass_code">移除您的密码</string>
+  <string name="pass_code_mismatch">密码不一致</string>
+  <string name="pass_code_wrong">错误的密码</string>
+  <string name="pass_code_removed">移除的密码</string>
+  <string name="pass_code_stored">存储的密码</string>
   <string name="media_notif_ticker">%1$s 音乐播放器</string>
   <string name="media_state_playing">%1$s (播放中)</string>
   <string name="media_state_loading">%1$s (载入中)</string>
@@ -154,6 +169,7 @@
   <string name="auth_no_net_conn_title">没有网络连接</string>
   <string name="auth_nossl_plain_ok_title">安全连接不可用。</string>
   <string name="auth_connection_established">连接已建立。</string>
+  <string name="auth_testing_connection">测试连接</string>
   <string name="auth_not_configured_title">服务器配置不正确</string>
   <string name="auth_account_not_new">此设备中已经存在同名同服务器的帐号</string>
   <string name="auth_account_not_the_same">输入用户与此帐户的用户不符</string>
@@ -180,6 +196,7 @@
   <string name="auth_fail_get_user_name">您的服务器没有返回一个正确的用户 id，请联系管理员
 	</string>
   <string name="auth_can_not_auth_against_server">无法通过此服务器认证</string>
+  <string name="auth_account_does_not_exist">设备中还未存在该帐号</string>
   <string name="fd_keep_in_sync">保证文件更新</string>
   <string name="common_rename">重命名</string>
   <string name="common_remove">删除</string>
@@ -203,6 +220,7 @@
   <string name="filedisplay_unexpected_bad_get_content">未知问题；请试试用其他程序选择此文件</string>
   <string name="filedisplay_no_file_selected">未选择文件</string>
   <string name="activity_chooser_title">发送链接给 …</string>
+  <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
   <string name="oauth_check_onoff">使用oAuth2登陆</string>
   <string name="oauth_login_connection">连接oAuth2 服务器...</string>
   <string name="ssl_validator_header">站点身份无法验证</string>
@@ -252,6 +270,8 @@
   <string name="share_link_file_error">共享文件或目录出错</string>
   <string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在</string>
   <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
+  <string name="share_link_password_title">输入密码</string>
+  <string name="share_link_empty_password">您必须输入密码</string>
   <string name="activity_chooser_send_file_title">发送</string>
   <string name="copy_link">复制链接</string>
   <string name="clipboard_text_copied">复制到剪贴板</string>
@@ -291,5 +311,11 @@
   <string name="prefs_category_security">安全</string>
   <string name="prefs_instant_video_upload_path_title">视频上传路径</string>
   <string name="download_folder_failed_content">%1$s 文件夹的下载无法完成</string>
+  <string name="shared_subject_header">已共享</string>
+  <string name="with_you_subject_header">与你</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
+  <string name="auth_refresh_button">刷新连接</string>
   <string name="auth_host_address">服务器地址</string>
+  <string name="common_error_out_memory">内存不足</string>
+  <string name="username">用户名</string>
 </resources>
