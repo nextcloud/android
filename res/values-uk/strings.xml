@@ -200,6 +200,7 @@
   <string name="sync_file_nothing_to_do_msg">Зміст файлу вже синхронізовано</string>
   <string name="create_dir_fail_msg">Не вдалося створити теку</string>
   <string name="filename_forbidden_characters">Заборонені символи: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Ім’я файлу містить принаймні один некоректний символ</string>
   <string name="filename_empty"> Ім\'я файлу не може бути порожнім.</string>
   <string name="wait_a_moment">Зачекайте хвилинку</string>
   <string name="filedisplay_unexpected_bad_get_content">Несподівані проблеми ; будь ласка, спробуйте використати іншу програму для вибору файлу</string>

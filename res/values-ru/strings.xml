@@ -21,12 +21,17 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Все файлы</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Настройки</string>
+  <string name="drawer_item_logs">Журналы</string>
+  <string name="drawer_close">Закрыть</string>
   <string name="prefs_category_general">Основные</string>
   <string name="prefs_category_more">Больше</string>
   <string name="prefs_accounts">Учётные записи</string>
   <string name="prefs_manage_accounts">Управление учётными записями</string>
+  <string name="prefs_passcode">Блокировка кодом</string>
   <string name="prefs_instant_upload">Мгновенная загрузка фотографий</string>
   <string name="prefs_instant_upload_summary">Немедленно загружать фотографии сделанные камерой</string>
   <string name="prefs_instant_video_upload">Мгновенная загрузка видео</string>
@@ -79,6 +84,7 @@
   <string name="filedetails_download">Скачать</string>
   <string name="filedetails_sync_file">Обновить файл</string>
   <string name="filedetails_renamed_in_upload_msg">Файл был переименован в %1$s во время загрузки</string>
+  <string name="list_layout">Макет списка</string>
   <string name="action_share_file">Поделиться ссылкой</string>
   <string name="action_unshare_file">Убрать ссылку</string>
   <string name="common_yes">Да</string>
@@ -131,6 +137,15 @@
   <string name="foreign_files_local_text">Локальные: %1$s</string>
   <string name="foreign_files_remote_text">Удаленные: %1$s</string>
   <string name="upload_query_move_foreign_files">Для копирования выбранных файлов в каталог %1$s недостаточно свободного места. Скопировать в другое место?</string>
+  <string name="pass_code_enter_pass_code">Пожалуйста, укажите код</string>
+  <string name="pass_code_configure_your_pass_code">Укажите ваш код</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Код будет запрашиваться каждый раз при запуске приложения</string>
+  <string name="pass_code_reenter_your_pass_code">Пожалуйста, укажите код ещё раз</string>
+  <string name="pass_code_remove_your_pass_code">Убрать код</string>
+  <string name="pass_code_mismatch">Коды не совпадают</string>
+  <string name="pass_code_wrong">Некоррентный код</string>
+  <string name="pass_code_removed">Код удален</string>
+  <string name="pass_code_stored">Код сохранен</string>
   <string name="media_notif_ticker">%1$s аудиоплеер</string>
   <string name="media_state_playing">%1$s (проигрывается)</string>
   <string name="media_state_loading">%1$s (загружается)</string>
@@ -298,7 +313,11 @@
   <string name="prefs_category_security">Безопасность</string>
   <string name="prefs_instant_video_upload_path_title">Путь для загрузки Видео</string>
   <string name="download_folder_failed_content">Загрузка папки %1$s не может быть завершена</string>
+  <string name="shared_subject_header">поделился</string>
+  <string name="with_you_subject_header">с вами</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
   <string name="auth_refresh_button">Обновить соединение</string>
   <string name="auth_host_address">Адрес сервера</string>
   <string name="common_error_out_memory">Недостаточно памяти</string>
+  <string name="username">Имя пользователя</string>
 </resources>
