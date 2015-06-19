@@ -216,6 +216,7 @@
   <string name="sync_file_nothing_to_do_msg">Содержимое файла уже синхронизировано</string>
   <string name="create_dir_fail_msg">Невозможно создать каталог</string>
   <string name="filename_forbidden_characters">Недопустимые символы: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Имя файла содержит по крайней мере один некорректный символ</string>
   <string name="filename_empty">Имя файла не может быть пустым</string>
   <string name="wait_a_moment">Подождите немного</string>
   <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка; выберите этот файл из другого приложения</string>

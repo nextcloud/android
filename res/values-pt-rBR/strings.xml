@@ -215,6 +215,7 @@
   <string name="sync_file_nothing_to_do_msg">Conteúdo do arquivo já foi sincronizado</string>
   <string name="create_dir_fail_msg">A pasta não pode ser criada</string>
   <string name="filename_forbidden_characters">Caracteres proibidos: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">O nome do arquivo contem pelo menos um caractere inválido  </string>
   <string name="filename_empty">O nome do arquivo não pode estar vazio</string>
   <string name="wait_a_moment">Aguarde um momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, tente selecionar o arquivo com outro app</string>

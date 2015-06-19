@@ -220,6 +220,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="sync_file_nothing_to_do_msg">Le contenu du fichier est déjà synchronisé</string>
   <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
   <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Le nom de fichier contient au moins un caractère non valide</string>
   <string name="filename_empty">Le nom du fichier ne peut pas être vide</string>
   <string name="wait_a_moment">Veuillez patienter</string>
   <string name="filedisplay_unexpected_bad_get_content">Problème inattendu. Veuillez essayer une autre application pour la sélection du fichier</string>

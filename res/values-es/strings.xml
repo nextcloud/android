@@ -215,6 +215,7 @@
   <string name="sync_file_nothing_to_do_msg">Ya está sincronizado</string>
   <string name="create_dir_fail_msg">No se pudo crear la carpeta</string>
   <string name="filename_forbidden_characters">Carácteres ilegales: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Nombre de archivo contiene al menos un caracter no válido</string>
   <string name="filename_empty">El nombre de archivo no puede estar vacío</string>
   <string name="wait_a_moment">Espere un momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, pruebe otra app para seleccionar el archivo</string>

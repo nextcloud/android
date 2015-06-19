@@ -21,8 +21,12 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Kaikki tiedostot</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Asetukset</string>
+  <string name="drawer_item_logs">Lokit</string>
+  <string name="drawer_close">Sulje</string>
   <string name="prefs_category_general">Yleiset</string>
   <string name="prefs_category_more">Enemmän</string>
   <string name="prefs_accounts">Tilit</string>
@@ -79,6 +83,7 @@
   <string name="filedetails_download">Lataa</string>
   <string name="filedetails_sync_file">Päivitä tiedosto</string>
   <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s siirron yhteydessä</string>
+  <string name="list_layout">Luettelon asettelu</string>
   <string name="action_share_file">Jaa linkki</string>
   <string name="action_unshare_file">Poista linkin jako</string>
   <string name="common_yes">Kyllä</string>
@@ -201,6 +206,7 @@
   <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
   <string name="create_dir_fail_msg">Kansion luominen epäonnistui</string>
   <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Tiedoston nimi sisältää ainakin yhden virheellisen merkin</string>
   <string name="filename_empty">Tiedoston nimi ei voi olla tyhjä</string>
   <string name="wait_a_moment">Odota hetki</string>
   <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>
@@ -288,7 +294,10 @@
   <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
   <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
   <string name="prefs_category_security">Tietoturva</string>
+  <string name="shared_subject_header">jaettu</string>
+  <string name="with_you_subject_header">kanssasi</string>
   <string name="auth_refresh_button">Päivitä yhteys</string>
   <string name="auth_host_address">Palvelimen osoite</string>
   <string name="common_error_out_memory">Muistia ei ole riittävästi</string>
+  <string name="username">Käyttäjätunnus</string>
 </resources>

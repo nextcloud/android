@@ -216,6 +216,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="sync_file_nothing_to_do_msg">Os contidos do ficheiro xa están sincronizados</string>
   <string name="create_dir_fail_msg">Non foi posíbel crear o cartafol</string>
   <string name="filename_forbidden_characters">Caracteres non permitidos: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">O nome de ficheiro contén algún carácter incorrecto</string>
   <string name="filename_empty">O nome de ficheiro non pode estar baleiro</string>
   <string name="wait_a_moment">Agarde un chisco</string>
   <string name="filedisplay_unexpected_bad_get_content">Produciuse un erro non agardado. Seleccione o ficheiro con outra aplicación diferente</string>
