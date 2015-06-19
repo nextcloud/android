@@ -36,10 +36,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
@@ -54,7 +57,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 /**
  * A Fragment that lists all files and folders in a given path.
  * 
- * TODO refactorize to get rid of direct dependency on FileDisplayActivity
+ * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
 public class OCFileListFragment extends ExtendedListFragment {
     
@@ -67,8 +70,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
             
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
-
-    private final static Double THUMBNAIL_THRESHOLD = 0.5;
 
     private FileFragment.ContainerActivity mContainerActivity;
    
@@ -429,7 +430,9 @@ public class OCFileListFragment extends ExtendedListFragment {
             setFooterText(generateFooterText(filesCount, foldersCount));
 
             // decide grid vs list view
-            if (((double)imagesCount / (double)filesCount) >= THUMBNAIL_THRESHOLD) {
+            OwnCloudVersion version = AccountUtils.getServerVersion(((FileActivity)mContainerActivity).getAccount());
+            if (version != null && version.supportsRemoteThumbnails() &&
+                    imagesCount == filesCount) {
                 switchToGridView();
             } else {
                 switchToListView();

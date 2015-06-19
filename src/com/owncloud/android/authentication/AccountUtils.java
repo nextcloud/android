@@ -23,6 +23,7 @@ package com.owncloud.android.authentication;
 import java.util.Locale;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -265,6 +266,22 @@ public class AccountUtils {
             }
         }
         return url;
+    }
+
+    /**
+     * Access the version of the OC server corresponding to an account SAVED IN THE ACCOUNTMANAGER
+     *
+     * @param   account     ownCloud account
+     * @return              Version of the OC server corresponding to account, according to the data saved
+     *                      in the system AccountManager
+     */
+    public static OwnCloudVersion getServerVersion(Account account) {
+        if (account != null) {
+            AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
+            String serverVersionStr = accountMgr.getUserData(account, Constants.KEY_OC_VERSION);
+            return new OwnCloudVersion(serverVersionStr);
+        }
+        return null;
     }
 
 }
