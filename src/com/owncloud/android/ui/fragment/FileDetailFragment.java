@@ -73,7 +73,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     /**
      * Creates an empty details fragment.
      * 
-     * It's necessary to keep a public constructor without parameters; the system uses it when tries to reinstantiate a fragment automatically. 
+     * It's necessary to keep a public constructor without parameters; the system uses it when tries
+     * to reinstantiate a fragment automatically.
      */
     public FileDetailFragment() {
         super();
@@ -118,9 +119,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             mLayout = R.layout.file_details_fragment;
         }
         
-        View view = null;
-        view = inflater.inflate(mLayout, null);
-        mView = view;
+        mView = inflater.inflate(mLayout, null);
         
         if (mLayout == R.layout.file_details_fragment) {
             mView.findViewById(R.id.fdKeepInSync).setOnClickListener(this);
@@ -128,9 +127,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             mProgressListener = new ProgressListener(progressBar);
             mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
         }
-        
+
         updateFileDetails(false, false);
-        return view;
+        return mView;
     }
 
     @Override
@@ -337,10 +336,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             setFilename(file.getFileName());
             setFiletype(file.getMimetype(), file.getFileName());
             setFilesize(file.getFileLength());
-            if(ocVersionSupportsTimeCreated()){
-                setTimeCreated(file.getCreationTimestamp());
-            }
-           
+
             setTimeModified(file.getModificationTimestamp());
             
             CheckBox cb = (CheckBox)getView().findViewById(R.id.fdKeepInSync);
@@ -390,8 +386,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     /**
      * Updates the MIME type in view
-     * @param mimetype to set
-     * @param filename
+     * @param mimetype      MIME type to set
+     * @param filename      Name of the file, to deduce the icon to use in case the MIME type is not precise enough
      */
     private void setFiletype(String mimetype, String filename) {
         TextView tv = (TextView) getView().findViewById(R.id.fdType);
@@ -413,20 +409,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         TextView tv = (TextView) getView().findViewById(R.id.fdSize);
         if (tv != null)
             tv.setText(DisplayUtils.bytesToHumanReadable(filesize));
-    }
-    
-    /**
-     * Updates the time that the file was created in view
-     * @param milliseconds Unix time to set
-     */
-    private void setTimeCreated(long milliseconds){
-        TextView tv = (TextView) getView().findViewById(R.id.fdCreated);
-        TextView tvLabel = (TextView) getView().findViewById(R.id.fdCreatedLabel);
-        if(tv != null){
-            tv.setText(DisplayUtils.unixTimeToHumanReadable(milliseconds));
-            tv.setVisibility(View.VISIBLE);
-            tvLabel.setVisibility(View.VISIBLE);
-        }
     }
     
     /**
@@ -492,27 +474,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     }
     
 
-    /**
-     * In ownCloud 3.X.X and 4.X.X there is a bug that SabreDAV does not return
-     * the time that the file was created. There is a chance that this will
-     * be fixed in future versions. Use this method to check if this version of
-     * ownCloud has this fix.
-     * @return True, if ownCloud the ownCloud version is supporting creation time
-     */
-    private boolean ocVersionSupportsTimeCreated(){
-        /*if(mAccount != null){
-            AccountManager accManager = (AccountManager) getActivity()
-            .getSystemService(Context.ACCOUNT_SERVICE);
-            OwnCloudVersion ocVersion = new OwnCloudVersion(accManager
-                    .getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
-            if(ocVersion.compareTo(new OwnCloudVersion(0x030000)) < 0) {
-                return true;
-            }
-        }*/
-        return false;
-    }
-    
-
     public void listenForTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
@@ -568,6 +529,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             mLastPercent = percent;
         }
 
-    };
+    }
 
 }

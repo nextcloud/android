@@ -54,7 +54,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
@@ -348,11 +347,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (mAccount != null) {
                 mServerInfo.mBaseUrl = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
                 // TODO do next in a setter for mBaseUrl
-                mServerInfo.mIsSslConn = mServerInfo.mBaseUrl.startsWith("https://");   
-                String ocVersion = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION);
-                if (ocVersion != null) {
-                    mServerInfo.mVersion = new OwnCloudVersion(ocVersion);
-                }
+                mServerInfo.mIsSslConn = mServerInfo.mBaseUrl.startsWith("https://");
+                mServerInfo.mVersion = AccountUtils.getServerVersion(mAccount);
             } else {
                 mServerInfo.mBaseUrl = getString(R.string.server_url).trim();
                 mServerInfo.mIsSslConn = mServerInfo.mBaseUrl.startsWith("https://");
@@ -570,7 +566,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * intended to defer the processing of the redirection caught in 
      * {@link #onNewIntent(Intent)} until {@link #onResume()} 
      * 
-     * See {@link #onSaveInstanceState(Bundle)}
+     * See {@link super#onSaveInstanceState(Bundle)}
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -1136,7 +1132,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if(url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_4_0_AND_LATER)){
             url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_4_0_AND_LATER.length());
         }
-        return (url != null ? url : "");
+        return url;
     }
 
 
@@ -1717,7 +1713,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
 
-    private void getRemoteUserNameOperation(String sessionCookie, boolean followRedirects) {
+    private void getRemoteUserNameOperation(String sessionCookie) {
         
         Intent getUserNameIntent = new Intent();
         getUserNameIntent.setAction(OperationsService.ACTION_GET_USER_NAME);
@@ -1735,7 +1731,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (sessionCookie != null && sessionCookie.length() > 0) {
             Log_OC.d(TAG, "Successful SSO - time to save the account");
             mAuthToken = sessionCookie;
-            getRemoteUserNameOperation(sessionCookie, true);
+            getRemoteUserNameOperation(sessionCookie);
             Fragment fd = getSupportFragmentManager().findFragmentByTag(SAML_DIALOG_TAG);
             if (fd != null && fd instanceof DialogFragment) {
                 Dialog d = ((DialogFragment)fd).getDialog();
@@ -1769,7 +1765,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             X509Certificate x509Certificate, SslError error, SslErrorHandler handler
         ) {
         // Show a dialog with the certificate info
-        SslUntrustedCertDialog dialog = null;
+        SslUntrustedCertDialog dialog;
         if (x509Certificate == null) {
             dialog = SslUntrustedCertDialog.newInstanceForEmptySslError(error, handler);
         } else {
@@ -1861,8 +1857,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 
                 doOnResumeAndBound();
                 
-            } else {
-                return;
             }
             
         }
@@ -1881,8 +1875,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Create and show dialog for request authentication to the user
-     * @param webView
-     * @param handler
+     * @param webView   Web view to emebd into the authentication dialog.
+     * @param handler   Object responsible for catching and recovering HTTP authentication fails.
      */
     public void createAuthenticationDialog(WebView webView, HttpAuthHandler handler) {
 

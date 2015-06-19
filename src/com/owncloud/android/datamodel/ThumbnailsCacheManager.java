@@ -29,7 +29,6 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -43,10 +42,10 @@ import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
@@ -61,8 +60,7 @@ public class ThumbnailsCacheManager {
     private static final String TAG = ThumbnailsCacheManager.class.getSimpleName();
     
     private static final String CACHE_FOLDER = "thumbnailCache";
-    private static final String MINOR_SERVER_VERSION_FOR_THUMBS = "7.8.0";
-    
+
     private static final Object mThumbnailsDiskCacheLock = new Object();
     private static DiskLruImageCache mThumbnailCache = null;
     private static boolean mThumbnailCacheStarting = true;
@@ -71,7 +69,6 @@ public class ThumbnailsCacheManager {
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient = null;
-    private static String mServerVersion = null;
 
     public static Bitmap mDefaultImg = 
             BitmapFactory.decodeResource(
@@ -130,10 +127,12 @@ public class ThumbnailsCacheManager {
             while (mThumbnailCacheStarting) {
                 try {
                     mThumbnailsDiskCacheLock.wait();
-                } catch (InterruptedException e) {}
+                } catch (InterruptedException e) {
+                    Log_OC.e(TAG, "Wait in mThumbnailsDiskCacheLock was interrupted", e);
+                }
             }
             if (mThumbnailCache != null) {
-                return (Bitmap) mThumbnailCache.getBitmap(key);
+                return mThumbnailCache.getBitmap(key);
             }
         }
         return null;
@@ -167,9 +166,6 @@ public class ThumbnailsCacheManager {
 
             try {
                 if (mAccount != null) {
-                    AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
-
-                    mServerVersion = accountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION);
                     OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount,
                             MainApp.getAppContext());
                     mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
@@ -182,8 +178,7 @@ public class ThumbnailsCacheManager {
                     thumbnail = doOCFileInBackground();
                 }  else if (mFile instanceof File) {
                     thumbnail = doFileInBackground();
-                } else {
-                    // do nothing
+                //} else {  do nothing
                 }
 
                 }catch(Throwable t){
@@ -202,15 +197,15 @@ public class ThumbnailsCacheManager {
                 bitmap = null;
             }
 
-            if (mImageViewReference != null && bitmap != null) {
+            if (bitmap != null) {
                 final ImageView imageView = mImageViewReference.get();
                 final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
-                if (this == bitmapWorkerTask && imageView != null) {
+                if (this == bitmapWorkerTask) {
                     String tagId = "";
                     if (mFile instanceof OCFile){
                         tagId = String.valueOf(((OCFile)mFile).getFileId());
                     } else if (mFile instanceof File){
-                        tagId = String.valueOf(((File)mFile).hashCode());
+                        tagId = String.valueOf(mFile.hashCode());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
                         imageView.setImageBitmap(bitmap);
@@ -247,17 +242,16 @@ public class ThumbnailsCacheManager {
         private int getThumbnailDimension(){
             // Converts dp to pixel
             Resources r = MainApp.getAppContext().getResources();
-            return (int) Math.round(r.getDimension(R.dimen.file_icon_size_grid));
+            return Math.round(r.getDimension(R.dimen.file_icon_size_grid));
         }
 
         private Bitmap doOCFileInBackground() {
-            Bitmap thumbnail = null;
             OCFile file = (OCFile)mFile;
 
             final String imageKey = String.valueOf(file.getRemoteId());
 
             // Check disk cache in background thread
-            thumbnail = getBitmapFromDiskCache(imageKey);
+            Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
 
             // Not found in disk cache
             if (thumbnail == null || file.needsUpdateThumbnail()) {
@@ -277,19 +271,16 @@ public class ThumbnailsCacheManager {
 
                 } else {
                     // Download thumbnail from server
-                    if (mClient != null && mServerVersion != null) {
-                        OwnCloudVersion serverOCVersion = new OwnCloudVersion(mServerVersion);
-                        if (serverOCVersion.compareTo(
-                                new OwnCloudVersion(MINOR_SERVER_VERSION_FOR_THUMBS)) >= 0) {
+                    OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(mAccount);
+                    if (mClient != null && serverOCVersion != null) {
+                        if (serverOCVersion.supportsRemoteThumbnails()) {
                             try {
-                                int status = -1;
-
                                 String uri = mClient.getBaseUri() + "" +
                                         "/index.php/apps/files/api/v1/thumbnail/" +
                                         px + "/" + px + Uri.encode(file.getRemotePath(), "/");
                                 Log_OC.d("Thumbnail", "URI: " + uri);
                                 GetMethod get = new GetMethod(uri);
-                                status = mClient.executeMethod(get);
+                                int status = mClient.executeMethod(get);
                                 if (status == HttpStatus.SC_OK) {
 //                                    byte[] bytes = get.getResponseBody();
 //                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
@@ -318,13 +309,12 @@ public class ThumbnailsCacheManager {
         }
 
         private Bitmap doFileInBackground() {
-            Bitmap thumbnail = null;
             File file = (File)mFile;
 
             final String imageKey = String.valueOf(file.hashCode());
 
             // Check disk cache in background thread
-            thumbnail = getBitmapFromDiskCache(imageKey);
+            Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
 
             // Not found in disk cache
             if (thumbnail == null) {
