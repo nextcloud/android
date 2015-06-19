@@ -68,7 +68,28 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
     public static final String FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT";
-    
+
+    private static final String ARG_FILE = "FILE";
+    private static final String ARG_ACCOUNT = "ACCOUNT";
+
+
+    /**
+     * Public factory method to create new FileDetailFragment instances.
+     *
+     * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
+     *
+     * @param fileToDetail      An {@link OCFile} to show in the fragment
+     * @param account           An ownCloud account; needed to start downloads
+     * @return                  New fragment with arguments set
+     */
+    public static FileDetailFragment newInstance(OCFile fileToDetail, Account account) {
+        FileDetailFragment frag = new FileDetailFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_FILE, fileToDetail);
+        args.putParcelable(ARG_ACCOUNT, account);
+        frag.setArguments(args);
+        return frag;
+    }
 
     /**
      * Creates an empty details fragment.
@@ -83,22 +104,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         mProgressListener = null;
     }
     
-    /**
-     * Creates a details fragment.
-     * 
-     * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
-     * 
-     * @param fileToDetail      An {@link OCFile} to show in the fragment
-     * @param ocAccount         An ownCloud account; needed to start downloads
-     */
-    public FileDetailFragment(OCFile fileToDetail, Account ocAccount) {
-        super(fileToDetail);
-        mAccount = ocAccount;
-        mLayout = R.layout.file_details_empty;
-        mProgressListener = null;
-    }
-    
-    
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +115,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        
+
+        setFile((OCFile) getArguments().getParcelable(ARG_FILE));
+        mAccount = getArguments().getParcelable(ARG_ACCOUNT);
+
         if (savedInstanceState != null) {
             setFile((OCFile)savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
             mAccount = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
@@ -392,7 +401,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private void setFiletype(String mimetype, String filename) {
         TextView tv = (TextView) getView().findViewById(R.id.fdType);
         if (tv != null) {
-            String printableMimetype = DisplayUtils.convertMIMEtoPrettyPrint(mimetype);;        
+            String printableMimetype = DisplayUtils.convertMIMEtoPrettyPrint(mimetype);
             tv.setText(printableMimetype);
         }
         ImageView iv = (ImageView) getView().findViewById(R.id.fdIcon);

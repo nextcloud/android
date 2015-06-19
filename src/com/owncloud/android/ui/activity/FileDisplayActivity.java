@@ -49,7 +49,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -322,7 +321,7 @@ public class FileDisplayActivity extends HookActivity
                         startPlaybackPosition, autoplay);
 
             } else {
-                secondFragment = new FileDetailFragment(file, getAccount());
+                secondFragment = FileDetailFragment.newInstance(file, getAccount());
             }
         }
         return secondFragment;
@@ -1149,7 +1148,7 @@ public class FileDisplayActivity extends HookActivity
      */
     @Override
     public void showDetails(OCFile file) {
-        Fragment detailFragment = new FileDetailFragment(file, getAccount());
+        Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount());
         setSecondFragment(detailFragment);
         updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
@@ -1641,7 +1640,7 @@ public class FileDisplayActivity extends HookActivity
      * @param file          {@link OCFile} to download and preview.
      */
     public void startDownloadForPreview(OCFile file) {
-        Fragment detailFragment = new FileDetailFragment(file, getAccount());
+        Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount());
         setSecondFragment(detailFragment);
         mWaitingToPreview = file;
         requestForDownload();
