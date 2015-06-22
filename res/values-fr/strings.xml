@@ -58,7 +58,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="sync_string_files">Fichiers</string>
   <string name="setup_btn_connect">Connecter</string>
   <string name="uploader_btn_upload_text">Téléverser</string>
-  <string name="uploader_btn_new_folder_text">Créer un dossier</string>
+  <string name="uploader_btn_new_folder_text">Nouveau dossier</string>
   <string name="uploader_top_message">Sélectionner le dossier d\'envoi :</string>
   <string name="uploader_wrn_no_account_title">Aucun compte n\'a été trouvé</string>
   <string name="uploader_wrn_no_account_text">Aucun compte %1$s n\'a été trouvé. Veuillez commencer par en configurer un.</string>
