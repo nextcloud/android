@@ -620,10 +620,7 @@ public class FileDisplayActivity extends HookActivity
         String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
         if (filePaths != null) {
             String[] remotePaths = new String[filePaths.length];
-            String remotePathBase = "";
-
-            if (!remotePathBase.endsWith(OCFile.PATH_SEPARATOR))
-                remotePathBase += OCFile.PATH_SEPARATOR;
+            String remotePathBase = getCurrentDir().getRemotePath();
             for (int j = 0; j< remotePaths.length; j++) {
                 remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
             }
