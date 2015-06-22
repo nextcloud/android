@@ -21,15 +21,28 @@
 	android:layout_height="wrap_content" android:orientation="vertical"
 	android:layout_width="wrap_content" android:background="#fefefe"
 	android:gravity="center">
-	<TextView android:layout_width="fill_parent" android:text="@string/uploader_top_message"
-		android:layout_height="wrap_content" android:id="@+id/drawer_username" android:textColor="@android:color/black"
-		android:gravity="center_horizontal"></TextView>
+
+	<TextView android:layout_width="fill_parent"
+		android:text="@string/uploader_top_message"
+		android:layout_height="wrap_content"
+		android:id="@+id/drawer_username"
+		android:textColor="@android:color/black"
+		android:gravity="center_horizontal">
+	</TextView>
+
 	<FrameLayout android:layout_height="fill_parent"
-		android:layout_width="fill_parent" android:id="@+id/frameLayout1"
-		android:layout_below="@+id/drawer_username" android:layout_above="@+id/linearLayout1">
-		<ListView android:id="@android:id/list" android:layout_width="fill_parent"
-			android:layout_height="fill_parent" android:divider="@drawable/uploader_list_separator"
-			android:dividerHeight="1dip"></ListView>
+		android:layout_width="fill_parent"
+		android:id="@+id/frameLayout1"
+		android:layout_below="@+id/drawer_username"
+		android:layout_above="@+id/linearLayout1">
+
+		<ListView android:id="@android:id/list"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:divider="@drawable/uploader_list_separator"
+			android:dividerHeight="1dip">
+		</ListView>
+
 	</FrameLayout>
 
 	<LinearLayout
