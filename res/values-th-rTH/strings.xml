@@ -214,6 +214,7 @@
   <string name="sync_file_nothing_to_do_msg">เนื้อหาของไฟล์มีข้อมูลอยู่แล้ว</string>
   <string name="create_dir_fail_msg">ไม่สามารถสร้างโฟลเดอร์</string>
   <string name="filename_forbidden_characters">ห้ามใช้ตัวอักษรดังนี้: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">มีชื่อแฟ้มอย่างน้อยหนึ่งตัวอักษรที่ไม่ถูกต้อง</string>
   <string name="filename_empty">ต้องใส่ชื่อไฟล์</string>
   <string name="wait_a_moment">กรุณารอสักครู่</string>
   <string name="filedisplay_unexpected_bad_get_content">มีปัญหาเกิดขึ้น กรุณาเลือกไฟล์งานแอพฯอื่นๆ</string>

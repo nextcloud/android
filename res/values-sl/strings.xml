@@ -21,8 +21,12 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Vse datoteke</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Nastavitve</string>
+  <string name="drawer_item_logs">Dnevnik</string>
+  <string name="drawer_close">Zapri</string>
   <string name="prefs_category_general">Splošno</string>
   <string name="prefs_category_more">Več</string>
   <string name="prefs_accounts">Računi</string>
@@ -211,6 +215,7 @@
   <string name="sync_file_nothing_to_do_msg">Vsebina datoteke je že usklajena</string>
   <string name="create_dir_fail_msg">Mape ni mogoče ustvariti</string>
   <string name="filename_forbidden_characters">Nedovoljeni znaki: characters: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Ime datoteke vsebuje vsaj en neveljaven znak.</string>
   <string name="filename_empty">Ime datoteke ne sme biti prazno</string>
   <string name="wait_a_moment">Počakajte trenutek ...</string>
   <string name="filedisplay_unexpected_bad_get_content">Prišlo je do nepričakovane napake. Poskusite datoteko izbrati z drugim programom.</string>
@@ -308,7 +313,11 @@
   <string name="prefs_category_security">Varnost</string>
   <string name="prefs_instant_video_upload_path_title">Pot videa za pošiljanje</string>
   <string name="download_folder_failed_content">Imenika %1$s  ni mogoče prejeti v celoti</string>
+  <string name="shared_subject_header">v souporabi</string>
+  <string name="with_you_subject_header">z vami</string>
+  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
   <string name="auth_refresh_button">Osveži povezavo</string>
   <string name="auth_host_address">Naslov strežnika</string>
   <string name="common_error_out_memory">Ni dovolj pomnilnika</string>
+  <string name="username">Uporabniško ime</string>
 </resources>
