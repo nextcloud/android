@@ -447,9 +447,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                 output = getResources().getString(R.string.file_list__footer__folder);
 
             } else { // foldersCount > 1
-                output = getResources().getString(R.string.file_list__footer__folders);
-                String.format(output, foldersCount);
-
+                output = getResources().getString(R.string.file_list__footer__folders, foldersCount);
             }
 
         } else if (filesCount == 1) {
@@ -460,22 +458,19 @@ public class OCFileListFragment extends ExtendedListFragment {
                 output = getResources().getString(R.string.file_list__footer__file_and_folder);
 
             } else { // foldersCount > 1
-                output = getResources().getString(R.string.file_list__footer__file_and_folders);
-                String.format(output, foldersCount);
-
+                output = getResources().getString(R.string.file_list__footer__file_and_folders, foldersCount);
             }
         } else {    // filesCount > 1
             if (foldersCount <= 0) {
-                output = getResources().getString(R.string.file_list__footer__files);
-                String.format(output, filesCount);
+                output = getResources().getString(R.string.file_list__footer__files, filesCount);
 
             } else if (foldersCount == 1) {
-                output = getResources().getString(R.string.file_list__footer__files_and_folder);
-                String.format(output, filesCount);
+                output = getResources().getString(R.string.file_list__footer__files_and_folder, filesCount);
 
             } else { // foldersCount > 1
-                output = getResources().getString(R.string.file_list__footer__files_and_folders);
-                String.format(output, filesCount, foldersCount);
+                output = getResources().getString(
+                        R.string.file_list__footer__files_and_folders, filesCount, foldersCount
+                );
 
             }
         }
