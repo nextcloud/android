@@ -443,7 +443,7 @@ public class FileDataStorageManager {
 
 
     public boolean removeFile(OCFile file, boolean removeDBData, boolean removeLocalCopy) {
-        boolean success = true;
+        boolean success = false;
         if (file != null) {
             if (file.isFolder()) {
                 success = removeFolder(file, removeDBData, removeLocalCopy);
@@ -491,7 +491,7 @@ public class FileDataStorageManager {
 
 
     public boolean removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
-        boolean success = true;
+        boolean success = false;
         if (folder != null && folder.isFolder()) {
             if (removeDBData && folder.getFileId() != -1) {
                 success = removeFolderInDb(folder);
