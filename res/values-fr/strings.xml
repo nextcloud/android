@@ -319,7 +319,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="download_folder_failed_content">Le téléchargement de %1$s dossier(s) n\'a pas pu être achevé</string>
   <string name="shared_subject_header">partagé</string>
   <string name="with_you_subject_header">avec vous</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
   <string name="auth_refresh_button">Actualiser la connexion</string>
   <string name="auth_host_address">Adresse du serveur</string>
   <string name="common_error_out_memory">Mémoire insuffisante</string>

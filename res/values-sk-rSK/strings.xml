@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Nastavenia</string>
   <string name="prefs_category_general">Všeobecné</string>
   <string name="prefs_category_more">Viac</string>
   <string name="prefs_accounts">Účty</string>

@@ -313,7 +313,6 @@
   <string name="download_folder_failed_content">%1$s 文件夹的下载无法完成</string>
   <string name="shared_subject_header">已共享</string>
   <string name="with_you_subject_header">与你</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
   <string name="auth_refresh_button">刷新连接</string>
   <string name="auth_host_address">服务器地址</string>
   <string name="common_error_out_memory">内存不足</string>

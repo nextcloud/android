@@ -313,7 +313,6 @@
   <string name="download_folder_failed_content">Download af %1$s mappe kunne ikke fuldføres</string>
   <string name="shared_subject_header">delt</string>
   <string name="with_you_subject_header">med dig</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
   <string name="auth_refresh_button">Genopfrisk forbindelsen</string>
   <string name="auth_host_address">Serveradresse</string>
   <string name="common_error_out_memory">Ikke tilstrækkelig hukommelse</string>

@@ -315,7 +315,6 @@
   <string name="download_folder_failed_content">La descarga de la carpeta %1$s no ha podido ser completada</string>
   <string name="shared_subject_header">compartido</string>
   <string name="with_you_subject_header">con usted</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
   <string name="auth_refresh_button">Refrescar la conexión</string>
   <string name="auth_host_address">Dirección del servidor</string>
   <string name="common_error_out_memory">No hay suficiente memoria</string>

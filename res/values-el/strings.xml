@@ -315,7 +315,6 @@
   <string name="download_folder_failed_content">Η λήψη του φακέλου %1$s δεν ολοκληρώθηκε με επιτυχία.</string>
   <string name="shared_subject_header">διαμοιρασμένα</string>
   <string name="with_you_subject_header">με εσάς</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
   <string name="auth_refresh_button">Ανανέωση σύνδεσης</string>
   <string name="auth_host_address">Διεύθυνση διακομιστή</string>
   <string name="common_error_out_memory">Δεν υπάρχει αρκετή μνήμη</string>

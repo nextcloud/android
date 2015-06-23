@@ -302,7 +302,7 @@
   <string name="download_folder_failed_content">%1$s 目錄的下載未完成</string>
   <string name="shared_subject_header">以分享的</string>
   <string name="with_you_subject_header">與你</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
+  <string name="subject_token">%1$s 分享了 \"%2$s\" 給您</string>
   <string name="auth_refresh_button">重新連線</string>
   <string name="auth_host_address">伺服器位址</string>
   <string name="username">使用者名稱</string>
