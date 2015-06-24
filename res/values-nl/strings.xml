@@ -318,6 +318,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="download_folder_failed_content">Download van %1$s map kon niet worden voltooid</string>
   <string name="shared_subject_header">gedeeld</string>
   <string name="with_you_subject_header">met u</string>
+  <string name="subject_token">%1$s deelde \"%2$s\" met u</string>
   <string name="auth_refresh_button">Verversen verbinding</string>
   <string name="auth_host_address">Serveradres</string>
   <string name="common_error_out_memory">Niet voldoende geheugen</string>
