@@ -81,12 +81,13 @@ public class PreviewTextFragment extends FileFragment {
 
         Bundle args = getArguments();
 
-        if (file == null)
+        if (file == null){
             file = args.getParcelable(FileDisplayActivity.EXTRA_FILE);
+    }
 
-        if (mAccount == null)
+        if (mAccount == null) {
             mAccount = args.getParcelable(FileDisplayActivity.EXTRA_ACCOUNT);
-
+        }
 
         if (savedInstanceState == null) {
             if (file == null) {
@@ -137,8 +138,8 @@ public class PreviewTextFragment extends FileFragment {
 
         @Override
         protected StringWriter doInBackground(java.lang.Object... params) {
-            if (params.length != 2)
-                throw new IllegalArgumentException("The parameters to " + TextLoadAsyncTask.class.getName() + " must be (1) the file location and (2) the text view to update");
+            if (params.length != 2) {
+                throw new IllegalArgumentException("The parameters to " + TextLoadAsyncTask.class.getName() + " must be (1) the file location and (2) the text view to update");}
             final String location = (String) params[0];
             mTextView = (TextView) params[1];
 
@@ -195,7 +196,7 @@ public class PreviewTextFragment extends FileFragment {
          * Dismiss loading dialog
          */
         public void dismissLoadingDialog() {
-            Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+            final Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
             if (frag != null) {
                 LoadingDialog loading = (LoadingDialog) frag;
                 loading.dismiss();
