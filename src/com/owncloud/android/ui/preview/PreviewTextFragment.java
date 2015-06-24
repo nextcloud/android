@@ -158,12 +158,14 @@ public class PreviewTextFragment extends FileFragment {
                 IOException exc = sc.ioException();
                 if (exc != null) throw exc;
             } catch (IOException e) {
+                Log_OC.e(TAG, e.getMessage(), e);
                 finish();
             } finally {
                 if (inputStream != null) {
                     try {
                         inputStream.close();
                     } catch (IOException e) {
+                        Log_OC.e(TAG, e.getMessage(), e);
                         finish();
                     }
                 }
