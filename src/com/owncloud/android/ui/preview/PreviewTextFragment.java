@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
@@ -29,6 +28,7 @@ import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.lang.ref.WeakReference;
 import java.util.Scanner;
 
 public class PreviewTextFragment extends FileFragment {
@@ -38,6 +38,7 @@ public class PreviewTextFragment extends FileFragment {
 
     private Account mAccount;
     private TextView mTextPreview;
+    private TextLoadAsyncTask mTextLoadTask;
 
     /**
      * Creates an empty fragment for previews.
@@ -81,9 +82,9 @@ public class PreviewTextFragment extends FileFragment {
 
         Bundle args = getArguments();
 
-        if (file == null){
+        if (file == null) {
             file = args.getParcelable(FileDisplayActivity.EXTRA_FILE);
-    }
+        }
 
         if (mAccount == null) {
             mAccount = args.getParcelable(FileDisplayActivity.EXTRA_ACCOUNT);
@@ -121,15 +122,22 @@ public class PreviewTextFragment extends FileFragment {
     }
 
     private void loadAndShowTextPreview() {
-        new TextLoadAsyncTask().execute(getFile().getStoragePath(), mTextPreview);
+        mTextLoadTask = new TextLoadAsyncTask(new WeakReference<TextView>(mTextPreview));
+        mTextLoadTask.execute(getFile().getStoragePath());
     }
+
 
     /**
      * Reads the file to preview and shows its contents. Too critical to be anonymous.
      */
     private class TextLoadAsyncTask extends AsyncTask<Object, Void, StringWriter> {
         private final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
-        private TextView mTextView;
+        private final WeakReference<TextView> mTextViewReference;
+
+        private TextLoadAsyncTask(WeakReference<TextView> textView) {
+            mTextViewReference = textView;
+        }
+
 
         @Override
         protected void onPreExecute() {
@@ -138,10 +146,10 @@ public class PreviewTextFragment extends FileFragment {
 
         @Override
         protected StringWriter doInBackground(java.lang.Object... params) {
-            if (params.length != 2) {
-                throw new IllegalArgumentException("The parameters to " + TextLoadAsyncTask.class.getName() + " must be (1) the file location and (2) the text view to update");}
+            if (params.length != 1) {
+                throw new IllegalArgumentException("The parameter to " + TextLoadAsyncTask.class.getName() + " must be (1) the file location");
+            }
             final String location = (String) params[0];
-            mTextView = (TextView) params[1];
 
             FileInputStream inputStream = null;
             Scanner sc = null;
@@ -178,8 +186,13 @@ public class PreviewTextFragment extends FileFragment {
 
         @Override
         protected void onPostExecute(final StringWriter stringWriter) {
-            mTextView.setText(new String(stringWriter.getBuffer()));
-            mTextView.setVisibility(View.VISIBLE);
+            final TextView textView = mTextViewReference.get();
+
+            if (textView != null) {
+                textView.setText(new String(stringWriter.getBuffer()));
+                textView.setVisibility(View.VISIBLE);
+            }
+
             dismissLoadingDialog();
         }
 
@@ -360,6 +373,8 @@ public class PreviewTextFragment extends FileFragment {
     public void onStop() {
         super.onStop();
         Log_OC.e(TAG, "onStop");
+        if (mTextLoadTask != null)
+            mTextLoadTask.cancel(Boolean.TRUE);
     }
 
     /**
