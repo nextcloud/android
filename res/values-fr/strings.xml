@@ -84,7 +84,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="filedetails_download">Télécharger</string>
   <string name="filedetails_sync_file">Actualiser le fichier</string>
   <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %s pendant le téléversement</string>
-  <string name="list_layout">Disposition en liste</string>
+  <string name="list_layout">Affichage en liste</string>
   <string name="action_share_file">Partager le lien</string>
   <string name="action_unshare_file">Ne plus partager ce lien</string>
   <string name="common_yes">Oui</string>
