@@ -119,6 +119,8 @@ public class PreviewTextFragment extends FileFragment {
     public void onStart() {
         super.onStart();
         Log_OC.e(TAG, "onStart");
+
+        loadAndShowTextPreview();
     }
 
     private void loadAndShowTextPreview() {
@@ -359,8 +361,6 @@ public class PreviewTextFragment extends FileFragment {
     public void onResume() {
         super.onResume();
         Log_OC.e(TAG, "onResume");
-
-        loadAndShowTextPreview();
     }
 
     @Override
