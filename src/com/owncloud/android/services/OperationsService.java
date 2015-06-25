@@ -34,13 +34,13 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
@@ -354,12 +354,7 @@ public class OperationsService extends Service {
                 return true;
                 //Log_OC.wtf(TAG, "Sending callback later");
             } else {
-                if (!mServiceHandler.mPendingOperations.isEmpty()) {
-                    return true;
-                } else {
-                    return false;
-                }
-                //Log_OC.wtf(TAG, "Not finished yet");
+                return (!mServiceHandler.mPendingOperations.isEmpty());
             }
         }
         
@@ -445,9 +440,9 @@ public class OperationsService extends Service {
                             mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                                     getClientFor(ocAccount, mService);
 
-                            AccountManager am = AccountManager.get(mService.getApplicationContext());
-                            String version = am.getUserData(mLastTarget.mAccount,
-                                    AccountUtils.Constants.KEY_OC_VERSION);
+                            OwnCloudVersion version = com.owncloud.android.authentication.AccountUtils.getServerVersion(
+                                    mLastTarget.mAccount
+                            );
                             mOwnCloudClient.setOwnCloudVersion(version);
 
                             mStorageManager = new FileDataStorageManager(
