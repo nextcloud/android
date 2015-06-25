@@ -315,7 +315,6 @@
   <string name="download_folder_failed_content">%1$s klasörün indirilmesi tamamlanamadı</string>
   <string name="shared_subject_header">sizinle</string>
   <string name="with_you_subject_header">paylaştı</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
   <string name="auth_refresh_button">Bağlantıyı yenile</string>
   <string name="auth_host_address">Sunucu adresi</string>
   <string name="common_error_out_memory">Yeterli hafıza yok</string>

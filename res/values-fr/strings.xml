@@ -84,7 +84,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="filedetails_download">Télécharger</string>
   <string name="filedetails_sync_file">Actualiser le fichier</string>
   <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %s pendant le téléversement</string>
-  <string name="list_layout">Disposition en liste</string>
+  <string name="list_layout">Affichage en liste</string>
   <string name="action_share_file">Partager le lien</string>
   <string name="action_unshare_file">Ne plus partager ce lien</string>
   <string name="common_yes">Oui</string>
@@ -319,7 +319,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="download_folder_failed_content">Le téléchargement de %1$s dossier(s) n\'a pas pu être achevé</string>
   <string name="shared_subject_header">partagé</string>
   <string name="with_you_subject_header">avec vous</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
+  <string name="subject_token">%1$s a partagé \"%2$s\" avec vous</string>
   <string name="auth_refresh_button">Actualiser la connexion</string>
   <string name="auth_host_address">Adresse du serveur</string>
   <string name="common_error_out_memory">Mémoire insuffisante</string>

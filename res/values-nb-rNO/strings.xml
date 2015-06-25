@@ -315,7 +315,6 @@
   <string name="download_folder_failed_content">Nedlasting av %1$s mappen kunne ikke fullføres</string>
   <string name="shared_subject_header">delte</string>
   <string name="with_you_subject_header">med deg</string>
-  <string name="subject_token">%1$s %2$s &gt;&gt;%3$s&lt;&lt; %4$s</string>
   <string name="auth_refresh_button">Oppfrisk forbindelse</string>
   <string name="auth_host_address">Server-adresse</string>
   <string name="common_error_out_memory">Ikke nok minne</string>

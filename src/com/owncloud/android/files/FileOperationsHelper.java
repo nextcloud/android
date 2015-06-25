@@ -24,7 +24,6 @@ package com.owncloud.android.files;
 import org.apache.http.protocol.HTTP;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.DialogFragment;
@@ -32,11 +31,11 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 
-import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -70,19 +69,25 @@ public class FileOperationsHelper {
             
             Intent intentForSavedMimeType = new Intent(Intent.ACTION_VIEW);
             intentForSavedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
-            intentForSavedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intentForSavedMimeType.setFlags(
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            );
             
             Intent intentForGuessedMimeType = null;
             if (storagePath.lastIndexOf('.') >= 0) {
-                String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
+                String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                        storagePath.substring(storagePath.lastIndexOf('.') + 1)
+                );
                 if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
                     intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
                     intentForGuessedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), guessedMimeType);
-                    intentForGuessedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    intentForGuessedMimeType.setFlags(
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    );
                 }
             }
             
-            Intent chooserIntent = null;
+            Intent chooserIntent;
             if (intentForGuessedMimeType != null) {
                 chooserIntent = Intent.createChooser(intentForGuessedMimeType, mFileActivity.getString(R.string.actionbar_open_with));
             } else {
@@ -113,7 +118,9 @@ public class FileOperationsHelper {
             
         } else {
             // Show a Message
-            Toast t = Toast.makeText(mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
+            Toast t = Toast.makeText(
+                    mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG
+            );
             t.show();
         }
     }
@@ -151,10 +158,8 @@ public class FileOperationsHelper {
      */
     public boolean isSharedSupported() {
         if (mFileActivity.getAccount() != null) {
-            AccountManager accountManager = AccountManager.get(mFileActivity);
-
-            String version = accountManager.getUserData(mFileActivity.getAccount(), Constants.KEY_OC_VERSION);
-            return (new OwnCloudVersion(version)).isSharedSupported();
+            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
+            return (serverVersion != null && serverVersion.isSharedSupported());
         }
         return false;
     }
@@ -321,11 +326,8 @@ public class FileOperationsHelper {
      */
     public boolean isVersionWithForbiddenCharacters() {
         if (mFileActivity.getAccount() != null) {
-            AccountManager accountManager = AccountManager.get(mFileActivity);
-
-            String version = accountManager.getUserData(mFileActivity.getAccount(),
-                    Constants.KEY_OC_VERSION);
-            return (new OwnCloudVersion(version)).isVersionWithForbiddenCharacters();
+            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
+            return (serverVersion != null && serverVersion.isVersionWithForbiddenCharacters());
         }
         return false;
     }

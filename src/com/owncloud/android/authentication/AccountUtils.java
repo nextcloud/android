@@ -114,7 +114,7 @@ public class AccountUtils {
         if (accountName != null) {
             Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
                     MainApp.getAccountType());
-            boolean found = false;
+            boolean found;
             for (Account account : ocAccounts) {
                 found = (account.name.equals(accountName));
                 if (found) {
@@ -220,19 +220,20 @@ public class AccountUtils {
                         if (isOAuth) {
                             accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_OAUTH2, "TRUE");
                         }
-                    /* TODO - study if it's possible to run this method in a background thread to copy the authToken
-                    if (isOAuth || isSaml) {
-                        accountMgr.setAuthToken(newAccount, mAuthTokenType, mAuthToken);
-                    }
-                    */
+                        /* TODO - study if it's possible to run this method in a background thread to copy the authToken
+                        if (isOAuth || isSaml) {
+                            accountMgr.setAuthToken(newAccount, mAuthTokenType, mAuthToken);
+                        }
+                        */
 
                         // don't forget the account saved in preferences as the current one
-                        if (currentAccount != null && currentAccount.name.equals(account.name)) {
+                        if (currentAccount.name.equals(account.name)) {
                             AccountUtils.setCurrentOwnCloudAccount(context, newAccountName);
                         }
 
                         // remove the old account
-                        accountMgr.removeAccount(account, null, null);  // will assume it succeeds, not a big deal otherwise
+                        accountMgr.removeAccount(account, null, null);
+                            // will assume it succeeds, not a big deal otherwise
 
                     } else {
                         // servers which base URL is in the root of their domain need no change
@@ -242,7 +243,9 @@ public class AccountUtils {
 
                     // at least, upgrade account version
                     Log_OC.d(TAG, "Setting version " + ACCOUNT_VERSION + " to " + newAccountName);
-                    accountMgr.setUserData(newAccount, Constants.KEY_OC_ACCOUNT_VERSION, Integer.toString(ACCOUNT_VERSION));
+                    accountMgr.setUserData(
+                            newAccount, Constants.KEY_OC_ACCOUNT_VERSION, Integer.toString(ACCOUNT_VERSION)
+                    );
 
                 }
             }
@@ -265,6 +268,25 @@ public class AccountUtils {
             }
         }
         return url;
+    }
+
+    /**
+     * Access the version of the OC server corresponding to an account SAVED IN THE ACCOUNTMANAGER
+     *
+     * @param   account     ownCloud account
+     * @return              Version of the OC server corresponding to account, according to the data saved
+     *                      in the system AccountManager
+     */
+    public static OwnCloudVersion getServerVersion(Account account) {
+        OwnCloudVersion serverVersion = null;
+        if (account != null) {
+            AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
+            String serverVersionStr = accountMgr.getUserData(account, Constants.KEY_OC_VERSION);
+            if (serverVersionStr != null) {
+                serverVersion = new OwnCloudVersion(serverVersionStr);
+            }
+        }
+        return serverVersion;
     }
 
 }
