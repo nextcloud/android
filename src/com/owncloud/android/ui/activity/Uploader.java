@@ -638,6 +638,7 @@ public class Uploader extends FileActivity
             mParents.add("");
         } else{
             String[] dir_names = last_path.split("/");
+            mParents.clear();
             for (String dir : dir_names)
                 mParents.add(dir);
         }
