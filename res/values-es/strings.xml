@@ -305,7 +305,7 @@
   <string name="file_list_empty_moving">Aquí no hay nada. ¡Puede agregar una carpeta!</string>
   <string name="folder_picker_choose_button_text">Elegir</string>
   <string name="move_file_not_found">No se puede mover. Revise si el archivo existe</string>
-  <string name="move_file_invalid_into_descendent">No se puede mover una carpeta dentro de una de SUS subcarpetas.</string>
+  <string name="move_file_invalid_into_descendent">No se puede mover una carpeta dentro de una de sus subcarpetas.</string>
   <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
   <string name="move_file_error">Hubo un error al tratar de mover este archivo o carpeta</string>
   <string name="forbidden_permissions_move">para mover este archivo</string>
