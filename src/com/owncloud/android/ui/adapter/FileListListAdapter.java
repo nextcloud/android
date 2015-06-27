@@ -294,7 +294,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             
             // No Folder
             if (!file.isFolder()) {
-                if (file.isImage() && file.getRemoteId() != null){
+                if ((file.isImage() || file.isVideo()) && file.getRemoteId() != null){
                     // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                             String.valueOf(file.getRemoteId())
