@@ -95,6 +95,9 @@ public class FileUploader extends Service
 
     public static final String KEY_ACCOUNT = "ACCOUNT";
 
+    public static final String KEY_MOVE_FILE = "MOVE_FILE";
+    public static final String KEY_DELETE_FILES = "DELETE_FILES";
+
     public static final String KEY_UPLOAD_TYPE = "UPLOAD_TYPE";
     public static final String KEY_FORCE_OVERWRITE = "KEY_FORCE_OVERWRITE";
     public static final String KEY_INSTANT_UPLOAD = "INSTANT_UPLOAD";
@@ -123,6 +126,9 @@ public class FileUploader extends Service
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
+
+    private Boolean moveUploadedFiles = false;
+    private Boolean deleteUploadedFiles = false;
 
     private static final String MIME_TYPE_PDF = "application/pdf";
     private static final String FILE_EXTENSION_PDF = ".pdf";
@@ -224,6 +230,9 @@ public class FileUploader extends Service
             return Service.START_NOT_STICKY;
         }
 
+        moveUploadedFiles = intent.getBooleanExtra(KEY_MOVE_FILE, false);
+        deleteUploadedFiles = intent.getBooleanExtra(KEY_DELETE_FILES, false);
+
         String[] localPaths = null, remotePaths = null, mimeTypes = null;
         OCFile[] files = null;
         if (uploadType == UPLOAD_SINGLE_FILE) {
@@ -300,7 +309,7 @@ public class FileUploader extends Service
             for (int i = 0; i < files.length; i++) {
                 uploadKey = buildRemoteName(account, files[i].getRemotePath());
                 newUpload = new UploadFileOperation(account, files[i], chunked, isInstant,
-                        forceOverwrite, localAction,
+                        forceOverwrite, localAction, deleteUploadedFiles,
                         getApplicationContext());
                 if (isInstant) {
                     newUpload.setRemoteFolderToBeCreated();

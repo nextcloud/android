@@ -39,6 +39,7 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -72,6 +73,7 @@ public class UploadFileOperation extends RemoteOperation {
     private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
     private int mLocalBehaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
+    private boolean mDeleteFile = false;
     private boolean mWasRenamed = false;
     private String mOriginalFileName = null;
     private String mOriginalStoragePath = null;
@@ -90,7 +92,8 @@ public class UploadFileOperation extends RemoteOperation {
                                 boolean chunked,
                                 boolean isInstant, 
                                 boolean forceOverwrite,
-                                int localBehaviour, 
+                                int localBehaviour,
+                                boolean deleteFile,
                                 Context context) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " +
@@ -110,6 +113,7 @@ public class UploadFileOperation extends RemoteOperation {
         mIsInstant = isInstant;
         mForceOverwrite = forceOverwrite;
         mLocalBehaviour = localBehaviour;
+        mDeleteFile = deleteFile;
         mOriginalStoragePath = mFile.getStoragePath();
         mOriginalFileName = mFile.getFileName();
         mContext = context;
@@ -327,9 +331,17 @@ public class UploadFileOperation extends RemoteOperation {
                 /// move local temporal file or original file to its corresponding
                 // location in the ownCloud local folder
                 if (result.isSuccess()) {
+                    FileDataStorageManager mStorageManager = new FileDataStorageManager(
+                            mAccount,
+                            MainApp.getAppContext().getContentResolver()
+                    );
+
                     if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
                         mFile.setStoragePath(null);
-
+                    } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE) {
+                        String path = originalFile.getPath();
+                        originalFile.delete();
+                        mStorageManager.deleteFileInMediaScan(path);
                     } else {
                         mFile.setStoragePath(expectedPath);
                         File fileToMove = null;
@@ -356,6 +368,16 @@ public class UploadFileOperation extends RemoteOperation {
                                 // return result;
                             }
                         }
+                    }
+                    if (mDeleteFile){
+                        String path = mFile.getStoragePath();
+
+                            mStorageManager.deleteFileInMediaScan(path);
+                            mFile.setStoragePath(null);
+                            mStorageManager.saveFile(mFile);
+
+                    } else {
+                        mStorageManager.triggerMediaScan(mFile.getStoragePath());
                     }
                 }
             }

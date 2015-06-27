@@ -62,6 +62,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -100,6 +101,9 @@ public class Uploader extends FileActivity
     private OCFile mFile;
     private boolean mAccountSelected;
     private boolean mAccountSelectionShowing;
+
+    private CheckBox mBtnMoveUploadedFiles;
+    private CheckBox mBtnDeleteFiles;
 
     private ArrayList<String> mRemoteCacheData;
     private int mNumCacheFile;
@@ -394,6 +398,22 @@ public class Uploader extends FileActivity
         
         ListView mListView = (ListView) findViewById(android.R.id.list);
 
+        SharedPreferences appPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        Integer localBehaviour = appPreferences.getInt("local_behaviour", FileUploader.LOCAL_BEHAVIOUR_COPY);
+        Boolean deleteFiles = appPreferences.getBoolean("delete_files", false);
+
+        mBtnMoveUploadedFiles = (CheckBox) findViewById(R.id.uploader_move_file);
+        if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE){
+            mBtnMoveUploadedFiles.setChecked(true);
+        }
+
+        mBtnDeleteFiles = (CheckBox) findViewById(R.id.uploader_deleteFiles);
+        if (deleteFiles){
+            mBtnDeleteFiles.setChecked(true);
+        }
+
         String current_dir = mParents.peek();
         if(current_dir.equals("")){
             getSupportActionBar().setTitle(getString(R.string.default_display_name_for_root_folder));
@@ -422,11 +442,12 @@ public class Uploader extends FileActivity
                     data.add(h);
                 }
             }
+            // TODO HOTFIX: to must map uploader_list_item_layout
             SimpleAdapter sa = new SimpleAdapter(this,
                                                 data,
                                                 R.layout.uploader_list_item_layout,
                                                 new String[] {"dirname"},
-                                                new int[] {R.id.textView1});
+                                                new int[] {R.id.drawer_username});
             
             mListView.setAdapter(sa);
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
@@ -556,18 +577,35 @@ public class Uploader extends FileActivity
                     throw new SecurityException();
                 }
 
+                // Check if file should be moved
+                Boolean moveUploadedFiles = mBtnMoveUploadedFiles.isChecked();
+
                 Intent intent = new Intent(getApplicationContext(), FileUploader.class);
                 intent.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
                 intent.putExtra(FileUploader.KEY_LOCAL_FILE, local.toArray(new String[local.size()]));
                 intent.putExtra(FileUploader.KEY_REMOTE_FILE,
                         remote.toArray(new String[remote.size()]));
                 intent.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
+
+                Integer localBehaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
+                if (moveUploadedFiles) {
+                    intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                    localBehaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
+                }
+
+                Boolean deleteFiles = mBtnDeleteFiles.isChecked();
+                if (deleteFiles){
+                    intent.putExtra(FileUploader.KEY_DELETE_FILES, true);
+                }
+
                 startService(intent);
 
                 //Save the path to shared preferences
                 SharedPreferences.Editor appPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
                 appPrefs.putString("last_upload_path", mUploadPath);
+                appPrefs.putInt("local_behaviour", localBehaviour);
+                appPrefs.putBoolean("delete_files", deleteFiles);
                 appPrefs.apply();
 
                 finish();

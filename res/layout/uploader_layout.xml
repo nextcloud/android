@@ -37,23 +37,52 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
-	    android:orientation="horizontal" >
+	    android:orientation="vertical" >
 
-		<Button
-		    android:id="@+id/uploader_new_folder"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="bottom"
-		    android:layout_weight="1"
-		    android:text="@string/uploader_btn_new_folder_text" />
-		
-		<Button
-		    android:id="@+id/uploader_choose_folder"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="bottom"
-		    android:layout_weight="1"
-		    android:text="@string/uploader_btn_upload_text" />
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+
+			<CheckBox
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="move File"
+                android:id="@+id/uploader_move_file"
+				android:layout_weight="1" />
+
+			<CheckBox
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:text="delete File"
+				android:id="@+id/uploader_deleteFiles"
+				android:layout_weight="1"
+				android:checked="false" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<Button
+                android:id="@+id/uploader_new_folder"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:text="@string/uploader_btn_new_folder_text" />
+
+			<Button
+                android:id="@+id/uploader_choose_folder"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:text="@string/uploader_btn_upload_text" />
+		</LinearLayout>
 
 	</LinearLayout>
+
+
 </RelativeLayout>
