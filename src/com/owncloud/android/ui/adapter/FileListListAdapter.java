@@ -308,17 +308,19 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                             fileIcon, mStorageManager, mAccount
                                             );
-                            if (thumbnail == null) {
-                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                            if (thumbnail != null) {
+                                final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                        new ThumbnailsCacheManager.AsyncDrawable(
+                                                mContext.getResources(),
+                                                thumbnail,
+                                                task
+                                        );
+                                fileIcon.setImageDrawable(asyncDrawable);
+                                task.execute(file);
+                            } else {
+                                fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(
+                                        file.getMimetype(), file.getFileName()));
                             }
-                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                                    new ThumbnailsCacheManager.AsyncDrawable(
-                                    mContext.getResources(), 
-                                    thumbnail, 
-                                    task
-                                    );
-                            fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
                         }
                     }
                 } else {
