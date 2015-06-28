@@ -83,6 +83,7 @@
   <string name="filedetails_download">Stáhnout</string>
   <string name="filedetails_sync_file">Obnovit soubor</string>
   <string name="filedetails_renamed_in_upload_msg">Soubor byl v průběhu odesílání přejmenován na %1$s</string>
+  <string name="list_layout">Náhled seznamu</string>
   <string name="action_share_file">Sdílet odkaz</string>
   <string name="action_unshare_file">Zrušit sdílení odkazu</string>
   <string name="common_yes">Ano</string>
@@ -213,6 +214,7 @@
   <string name="sync_file_nothing_to_do_msg">Obsah souboru je již synchronizován</string>
   <string name="create_dir_fail_msg">Adresář nemohl být vytvořen</string>
   <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Jméno souboru obsahuje aelspoň jeden neplatný znak</string>
   <string name="filename_empty">Název nemůže být prázdný</string>
   <string name="wait_a_moment">Počkejte chvíli</string>
   <string name="filedisplay_unexpected_bad_get_content">Neočekávaný problém - zkuste zvolit soubor jinou aplikací</string>
@@ -310,7 +312,11 @@ správce systému.</string>
   <string name="prefs_category_security">Zabezpečení</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pro nahrávání videí</string>
   <string name="download_folder_failed_content">Stažení adresáře %1$s nemohlo být dokončeno</string>
+  <string name="shared_subject_header">sdílené</string>
+  <string name="with_you_subject_header">s vámi</string>
+  <string name="subject_token">%1$s s vámi sdílí \"%2$s\"</string>
   <string name="auth_refresh_button">Obnovit připojení</string>
   <string name="auth_host_address">Adresa serveru</string>
   <string name="common_error_out_memory">Nedostatek paměti</string>
+  <string name="username">Uživatelské jméno</string>
 </resources>

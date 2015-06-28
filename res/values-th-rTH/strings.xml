@@ -313,6 +313,7 @@
   <string name="download_folder_failed_content">การดาวน์โหลดโฟลเดอร์ %1$s อาจไม่สำเร็จ</string>
   <string name="shared_subject_header">ถูกแชร์</string>
   <string name="with_you_subject_header">กับคุณ</string>
+  <string name="subject_token">%1$s ได้แชร์ \"%2$s\" กับคุณ</string>
   <string name="auth_refresh_button">ฟื้นฟูการเชื่อมต่อ</string>
   <string name="auth_host_address">ที่อยู่เซิร์ฟเวอร์</string>
   <string name="common_error_out_memory">หน่วยความจำไม่พอ</string>

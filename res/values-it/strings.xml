@@ -315,6 +315,7 @@
   <string name="download_folder_failed_content">Lo scaricamento della cartella %1$s non può essere completato</string>
   <string name="shared_subject_header">condiviso</string>
   <string name="with_you_subject_header">con te</string>
+  <string name="subject_token">%1$s ha condiviso \"%2$s\" con te</string>
   <string name="auth_refresh_button">Aggiorna la connessione</string>
   <string name="auth_host_address">Indirizzo del server</string>
   <string name="common_error_out_memory">Memoria insufficiente</string>
