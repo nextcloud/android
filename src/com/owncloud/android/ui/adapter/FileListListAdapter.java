@@ -30,6 +30,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
@@ -309,12 +310,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                             fileIcon, mStorageManager, mAccount
                                             );
                             if (thumbnail == null) {
-                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+//                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                                Integer id = DisplayUtils.getFileTypeIconId(file.getMimetype(),
+                                        file.getFileName());
+                                thumbnail = BitmapFactory.decodeResource(mContext.getResources(), id);
                             }
                             final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
                                     new ThumbnailsCacheManager.AsyncDrawable(
-                                    mContext.getResources(), 
-                                    thumbnail, 
+                                    mContext.getResources(),
+                                    thumbnail,
                                     task
                                     );
                             fileIcon.setImageDrawable(asyncDrawable);
