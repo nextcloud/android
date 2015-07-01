@@ -608,6 +608,9 @@ public class Uploader extends FileActivity
                                                RemoteOperationResult result) {
         if (result.isSuccess()) {
             dismissLoadingDialog();
+            String remotePath = operation.getRemotePath().substring(0, operation.getRemotePath().length() -1);
+            String newFolder = remotePath.substring(remotePath.lastIndexOf("/") + 1);
+            mParents.push(newFolder);
             populateDirectoryList();
         } else {
             dismissLoadingDialog();
