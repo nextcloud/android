@@ -13,12 +13,14 @@
   <string name="actionbar_send_file">Küldjük el</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Általános</string>
   <string name="prefs_category_more">Több</string>
   <string name="prefs_accounts">Fiókok</string>
   <string name="prefs_manage_accounts">Fiókok kezelése</string>
-  <string name="prefs_pincode">Alkalmazás PIN</string>
-  <string name="prefs_pincode_summary">Védje meg az alkalmazást</string>
   <string name="prefs_instant_upload">Azonnali képfeltöltések</string>
   <string name="prefs_instant_upload_summary">Kamera által készítette képek azonnali feltöltése</string>
   <string name="prefs_instant_video_upload">Azonnali video feltöltések</string>
@@ -117,15 +119,6 @@
   <string name="foreign_files_local_text">Helyi: %1$s</string>
   <string name="foreign_files_remote_text">Távoli: %1$s</string>
   <string name="upload_query_move_foreign_files">Nincs elég hely a kiválasztott fájlok másolására a %1$s könyvtárban. Szeretnéd áthelyezni inkább?</string>
-  <string name="pincode_enter_pin_code">Kérem adja meg az alkalmazás PIN-kódját</string>
-  <string name="pincode_configure_your_pin">Az alkalmazás PIN-kódja</string>
-  <string name="pincode_configure_your_pin_explanation">A PIN-t kötelező lesz megadni az alkalmazás minden indításakor</string>
-  <string name="pincode_reenter_your_pincode">Kérem, adja meg újra az alkalmazás PIN-kódját</string>
-  <string name="pincode_remove_your_pincode">Az alkalmazás PIN-kódjának eltávolítása</string>
-  <string name="pincode_mismatch">A megadott PIN-ek nem egyeznek meg</string>
-  <string name="pincode_wrong">Rossz a megadott PIN</string>
-  <string name="pincode_removed">Az alkalmazás PIN-ját eltávolítottuk</string>
-  <string name="pincode_stored">Az alkalmazás PIN-jét eltároltuk</string>
   <string name="media_notif_ticker">%1$s zene lejátszó</string>
   <string name="media_state_playing">%1$s (lejátszás)</string>
   <string name="media_state_loading">%1$s (betöltés)</string>

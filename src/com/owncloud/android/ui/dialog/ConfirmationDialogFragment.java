@@ -24,12 +24,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 
-public class ConfirmationDialogFragment extends SherlockDialogFragment {
+public class ConfirmationDialogFragment extends DialogFragment {
 
     public final static String ARG_CONF_RESOURCE_ID = "resource_id";
     public final static String ARG_CONF_ARGUMENTS = "string_array";
@@ -93,7 +93,9 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
             builder.setPositiveButton(posBtn,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            mListener.onConfirmation(getTag()); 
+                            if (mListener != null) {
+                                mListener.onConfirmation(getTag());
+                            }
                             dialog.dismiss();
                         }
                     });
@@ -101,7 +103,9 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
             builder.setNeutralButton(neuBtn,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            mListener.onNeutral(getTag()); 
+                            if (mListener != null) {
+                                mListener.onNeutral(getTag());
+                            }
                             dialog.dismiss();
                         }
                     });
@@ -110,7 +114,9 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            mListener.onCancel(getTag());
+                            if (mListener != null) {
+                                mListener.onCancel(getTag());
+                            }
                             dialog.dismiss();
                         }
                     });

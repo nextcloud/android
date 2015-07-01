@@ -22,13 +22,7 @@
     </PreferenceCategory>
     
 	<PreferenceCategory android:title="@string/prefs_category_security">
-	    <!-- ListPreference
-	        android:key="select_oc_account"
-	        android:title="@string/prefs_select_oc_account"
-	        android:summary="@string/prefs_summary_select_oc_account"
-	        / -->
-	    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:title="@string/prefs_pincode" android:key="set_pincode" 
-                        android:summary="@string/prefs_pincode_summary"/>
+	    <android.preference.CheckBoxPreference android:title="@string/prefs_passcode" android:key="set_pincode" />
 	</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefs_category_instant_uploading" android:key="instant_uploading_category">

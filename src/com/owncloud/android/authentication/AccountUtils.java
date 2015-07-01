@@ -24,23 +24,27 @@ import java.util.Locale;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 
 public class AccountUtils {
-    public static final String WEBDAV_PATH_1_2 = "/webdav/owncloud.php";
-    public static final String WEBDAV_PATH_2_0 = "/files/webdav.php";
-    public static final String WEBDAV_PATH_4_0 = "/remote.php/webdav";
+
+    private static final String TAG = AccountUtils.class.getSimpleName();
+
+    public static final String WEBDAV_PATH_4_0_AND_LATER = "/remote.php/webdav";
     private static final String ODAV_PATH = "/remote.php/odav";
     private static final String SAML_SSO_PATH = "/remote.php/webdav";
-    public static final String CARDDAV_PATH_2_0 = "/apps/contacts/carddav.php";
-    public static final String CARDDAV_PATH_4_0 = "/remote/carddav.php";
     public static final String STATUS_PATH = "/status.php";
+
+    public static final int ACCOUNT_VERSION = 1;
 
     /**
      * Can be used to get the currently selected ownCloud {@link Account} in the
@@ -105,25 +109,12 @@ public class AccountUtils {
     }
     
 
-    /**
-     * Checks, whether or not there are any ownCloud accounts setup.
-     * 
-     * @return true, if there is at least one account.
-     */
-    public static boolean accountsAreSetup(Context context) {
-        AccountManager accMan = AccountManager.get(context);
-        Account[] accounts = accMan
-                .getAccountsByType(MainApp.getAccountType());
-        return accounts.length > 0;
-    }
-    
-    
     public static boolean setCurrentOwnCloudAccount(Context context, String accountName) {
         boolean result = false;
         if (accountName != null) {
             Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
                     MainApp.getAccountType());
-            boolean found = false;
+            boolean found;
             for (Account account : ocAccounts) {
                 found = (account.name.equals(accountName));
                 if (found) {
@@ -145,8 +136,10 @@ public class AccountUtils {
      * according to its version and the authorization method used.
      * 
      * @param   version         Version of ownCloud server.
-     * @param   authTokenType   Authorization token type, matching some of the AUTH_TOKEN_TYPE_* constants in {@link AccountAuthenticator}. 
-     * @return                  WebDAV path for given OC version and authorization method, null if OC version is unknown.
+     * @param   authTokenType   Authorization token type, matching some of the AUTH_TOKEN_TYPE_* constants in
+     *                          {@link AccountAuthenticator}.
+     * @return                  WebDAV path for given OC version and authorization method, null if OC version
+     *                          is unknown; versions prior to ownCloud 4 are not supported anymore
      */
     public static String getWebdavPath(OwnCloudVersion version, String authTokenType) {
         if (version != null) {
@@ -156,15 +149,144 @@ public class AccountUtils {
             if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(authTokenType)) {
                 return SAML_SSO_PATH;
             }
-            if (version.compareTo(OwnCloudVersion.owncloud_v4) >= 0)
-                return WEBDAV_PATH_4_0;
-            if (version.compareTo(OwnCloudVersion.owncloud_v3) >= 0
-                    || version.compareTo(OwnCloudVersion.owncloud_v2) >= 0)
-                return WEBDAV_PATH_2_0;
-            if (version.compareTo(OwnCloudVersion.owncloud_v1) >= 0)
-                return WEBDAV_PATH_1_2;
+            return WEBDAV_PATH_4_0_AND_LATER;
         }
         return null;
     }
-    
+
+
+    /**
+     * Update the accounts in AccountManager to meet the current version of accounts expected by the app, if needed.
+     *
+     * Introduced to handle a change in the structure of stored account names needed to allow different OC servers
+     * in the same domain, but not in the same path.
+     *
+     * @param   context     Used to access the AccountManager.
+     */
+    public static void updateAccountVersion(Context context) {
+        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(context);
+        AccountManager accountMgr = AccountManager.get(context);
+
+        if ( currentAccount != null ) {
+            String currentAccountVersion = accountMgr.getUserData(currentAccount, Constants.KEY_OC_ACCOUNT_VERSION);
+
+            if (currentAccountVersion == null) {
+                Log_OC.i(TAG, "Upgrading accounts to account version #" + ACCOUNT_VERSION);
+                Account[] ocAccounts = accountMgr.getAccountsByType(MainApp.getAccountType());
+                String serverUrl, username, newAccountName, password;
+                Account newAccount;
+                for (Account account : ocAccounts) {
+                    // build new account name
+                    serverUrl = accountMgr.getUserData(account, Constants.KEY_OC_BASE_URL);
+                    username = account.name.substring(0, account.name.lastIndexOf('@'));
+                    newAccountName = com.owncloud.android.lib.common.accounts.AccountUtils.
+                            buildAccountName(Uri.parse(serverUrl), username);
+
+                    // migrate to a new account, if needed
+                    if (!newAccountName.equals(account.name)) {
+                        Log_OC.d(TAG, "Upgrading " + account.name + " to " + newAccountName);
+
+                        // create the new account
+                        newAccount = new Account(newAccountName, MainApp.getAccountType());
+                        password = accountMgr.getPassword(account);
+                        accountMgr.addAccountExplicitly(newAccount, (password != null) ? password : "", null);
+
+                        // copy base URL
+                        accountMgr.setUserData(newAccount, Constants.KEY_OC_BASE_URL, serverUrl);
+
+                        // copy server version
+                        accountMgr.setUserData(
+                                newAccount,
+                                Constants.KEY_OC_VERSION,
+                                accountMgr.getUserData(account, Constants.KEY_OC_VERSION)
+                        );
+
+                        // copy cookies
+                        accountMgr.setUserData(
+                                newAccount,
+                                Constants.KEY_COOKIES,
+                                accountMgr.getUserData(account, Constants.KEY_COOKIES)
+                        );
+
+                        // copy type of authentication
+                        String isSamlStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_SAML_WEB_SSO);
+                        boolean isSaml = "TRUE".equals(isSamlStr);
+                        if (isSaml) {
+                            accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE");
+                        }
+
+                        String isOauthStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_OAUTH2);
+                        boolean isOAuth = "TRUE".equals(isOauthStr);
+                        if (isOAuth) {
+                            accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_OAUTH2, "TRUE");
+                        }
+                        /* TODO - study if it's possible to run this method in a background thread to copy the authToken
+                        if (isOAuth || isSaml) {
+                            accountMgr.setAuthToken(newAccount, mAuthTokenType, mAuthToken);
+                        }
+                        */
+
+                        // don't forget the account saved in preferences as the current one
+                        if (currentAccount.name.equals(account.name)) {
+                            AccountUtils.setCurrentOwnCloudAccount(context, newAccountName);
+                        }
+
+                        // remove the old account
+                        accountMgr.removeAccount(account, null, null);
+                            // will assume it succeeds, not a big deal otherwise
+
+                    } else {
+                        // servers which base URL is in the root of their domain need no change
+                        Log_OC.d(TAG, account.name + " needs no upgrade ");
+                        newAccount = account;
+                    }
+
+                    // at least, upgrade account version
+                    Log_OC.d(TAG, "Setting version " + ACCOUNT_VERSION + " to " + newAccountName);
+                    accountMgr.setUserData(
+                            newAccount, Constants.KEY_OC_ACCOUNT_VERSION, Integer.toString(ACCOUNT_VERSION)
+                    );
+
+                }
+            }
+        }
+    }
+
+
+    public static String trimWebdavSuffix(String url) {
+        while(url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
+        }
+        int pos = url.lastIndexOf(WEBDAV_PATH_4_0_AND_LATER);
+        if (pos >= 0) {
+            url = url.substring(0, pos);
+
+        } else {
+            pos = url.lastIndexOf(ODAV_PATH);
+            if (pos >= 0) {
+                url = url.substring(0, pos);
+            }
+        }
+        return url;
+    }
+
+    /**
+     * Access the version of the OC server corresponding to an account SAVED IN THE ACCOUNTMANAGER
+     *
+     * @param   account     ownCloud account
+     * @return              Version of the OC server corresponding to account, according to the data saved
+     *                      in the system AccountManager
+     */
+    public static OwnCloudVersion getServerVersion(Account account) {
+        OwnCloudVersion serverVersion = null;
+        if (account != null) {
+            AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
+            String serverVersionStr = accountMgr.getUserData(account, Constants.KEY_OC_VERSION);
+            if (serverVersionStr != null) {
+                serverVersion = new OwnCloudVersion(serverVersionStr);
+            }
+        }
+        return serverVersion;
+    }
+
 }

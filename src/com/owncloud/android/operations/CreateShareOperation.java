@@ -27,7 +27,6 @@ package com.owncloud.android.operations;
 import android.content.Context;
 import android.content.Intent;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -162,7 +161,8 @@ public class CreateShareOperation extends SyncOperation {
         OCFile file = getStorageManager().getFileByPath(mPath);
         if (file!=null) {
             mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
-            mSendIntent.putExtra(Intent.EXTRA_SUBJECT, String.format(mContext.getString(R.string.subject_token),
+            mSendIntent.putExtra(Intent.EXTRA_SUBJECT,
+                    String.format(mContext.getString(R.string.subject_token),
                     getClient().getCredentials().getUsername(), file.getFileName()));
             file.setPublicLink(share.getShareLink());
             file.setShareByLink(true);

@@ -19,12 +19,19 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Todos los archivos</string>
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Ajustes</string>
+  <string name="drawer_item_logs">Registros</string>
+  <string name="drawer_close">Cerrar</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
   <string name="prefs_manage_accounts">Gestionar cuentas</string>
-  <string name="prefs_pincode">PIN de aplicación </string>
-  <string name="prefs_pincode_summary">Proteja su cliente</string>
+  <string name="prefs_passcode">Contraseña</string>
   <string name="prefs_instant_upload">Subida instantánea de imágenes</string>
   <string name="prefs_instant_upload_summary">Sube instantáneamente las fotos tomadas con la cámara</string>
   <string name="prefs_instant_video_upload">Subidas instantáneas de video</string>
@@ -76,6 +83,7 @@
   <string name="filedetails_download">Descargar</string>
   <string name="filedetails_sync_file">Actualizar archivo</string>
   <string name="filedetails_renamed_in_upload_msg">El fichero fue renombrado como %1$s durante la subida</string>
+  <string name="list_layout">Diseño de lista</string>
   <string name="action_share_file">Compartir con enlace</string>
   <string name="action_unshare_file">Dejar de compartir</string>
   <string name="common_yes">Sí</string>
@@ -128,15 +136,15 @@
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
   <string name="upload_query_move_foreign_files">No hay suficiente espacio para copiar los archivos seleccionados a la carpeta %1$s. ¿Desea moverlos en vez de copiarlos?</string>
-  <string name="pincode_enter_pin_code">Por favor, inserte su PIN de aplicación</string>
-  <string name="pincode_configure_your_pin">Introduzca un PIN para la aplicación</string>
-  <string name="pincode_configure_your_pin_explanation">Se solicitará el PIN cada vez que se inicie la aplicación</string>
-  <string name="pincode_reenter_your_pincode">Repita el PIN para la aplicación, por favor</string>
-  <string name="pincode_remove_your_pincode">Borre su PIN de aplicación</string>
-  <string name="pincode_mismatch">Los PIN introducidos no son iguales</string>
-  <string name="pincode_wrong">PIN de aplicación incorrecto</string>
-  <string name="pincode_removed">PIN de aplicación borrado</string>
-  <string name="pincode_stored">PIN de aplicación guardado</string>
+  <string name="pass_code_enter_pass_code">Por favor, introduzca su contraseña</string>
+  <string name="pass_code_configure_your_pass_code">Introduzca su contraseña</string>
+  <string name="pass_code_configure_your_pass_code_explanation">La contraseña será requerida cada vez que la aplicación sea iniciada</string>
+  <string name="pass_code_reenter_your_pass_code">Reintroduzca la contraseña, por favor.</string>
+  <string name="pass_code_remove_your_pass_code">Borre su contraseña</string>
+  <string name="pass_code_mismatch">Las contraseñas no son identicas</string>
+  <string name="pass_code_wrong">Contraseña incorrecta</string>
+  <string name="pass_code_removed">Contraseña borrada</string>
+  <string name="pass_code_stored">Contraseña almacenada</string>
   <string name="media_notif_ticker">Reproductor de música %1$s</string>
   <string name="media_state_playing">%1$s (reproduciendo)</string>
   <string name="media_state_loading">%1$s (cargando)</string>
@@ -207,11 +215,13 @@
   <string name="sync_file_nothing_to_do_msg">Ya está sincronizado</string>
   <string name="create_dir_fail_msg">No se pudo crear la carpeta</string>
   <string name="filename_forbidden_characters">Carácteres ilegales: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Nombre de archivo contiene al menos un caracter no válido</string>
   <string name="filename_empty">El nombre de archivo no puede estar vacío</string>
   <string name="wait_a_moment">Espere un momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, pruebe otra app para seleccionar el archivo</string>
   <string name="filedisplay_no_file_selected">No hay ficheros seleccionados.</string>
   <string name="activity_chooser_title">Enviar enlace a...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
   <string name="oauth_check_onoff">Ingresar con oAuth2</string>
   <string name="oauth_login_connection">Conectando al servidor oAuth2...</string>
   <string name="ssl_validator_header">La identidad del sitio no puede ser verificada</string>
@@ -295,7 +305,7 @@
   <string name="file_list_empty_moving">Aquí no hay nada. ¡Puede agregar una carpeta!</string>
   <string name="folder_picker_choose_button_text">Elegir</string>
   <string name="move_file_not_found">No se puede mover. Revise si el archivo existe</string>
-  <string name="move_file_invalid_into_descendent">No se puede mover una carpeta dentro de una de SUS subcarpetas.</string>
+  <string name="move_file_invalid_into_descendent">No se puede mover una carpeta dentro de una de sus subcarpetas.</string>
   <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
   <string name="move_file_error">Hubo un error al tratar de mover este archivo o carpeta</string>
   <string name="forbidden_permissions_move">para mover este archivo</string>
@@ -303,7 +313,11 @@
   <string name="prefs_category_security">Seguridad</string>
   <string name="prefs_instant_video_upload_path_title">Guardar videos subidos en la carpeta:</string>
   <string name="download_folder_failed_content">La descarga de la carpeta %1$s no ha podido ser completada</string>
-  <string name="subject_token">%1$s compartió \"%2$s\" contigo</string>
+  <string name="shared_subject_header">compartido</string>
+  <string name="with_you_subject_header">con usted</string>
+  <string name="subject_token">%1$s compartió \"%2$s\" conmigo</string>
   <string name="auth_refresh_button">Refrescar la conexión</string>
   <string name="auth_host_address">Dirección del servidor</string>
+  <string name="common_error_out_memory">No hay suficiente memoria</string>
+  <string name="username">Nombre de usuario</string>
 </resources>

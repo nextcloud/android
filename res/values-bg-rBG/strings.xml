@@ -19,12 +19,14 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Общи</string>
   <string name="prefs_category_more">Още</string>
   <string name="prefs_accounts">Профили</string>
   <string name="prefs_manage_accounts">Управление на профилите</string>
-  <string name="prefs_pincode">App PIN</string>
-  <string name="prefs_pincode_summary">Подсигури програмата</string>
   <string name="prefs_instant_upload">Незабавно качване на снимки</string>
   <string name="prefs_instant_upload_summary">Незабвано качване на снимки направени с камерата</string>
   <string name="prefs_instant_video_upload">Незабавно качване на видео</string>
@@ -128,15 +130,6 @@
   <string name="foreign_files_local_text">Локален: %1$s</string>
   <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
   <string name="upload_query_move_foreign_files">Няма достатъчно място за копирането на избраните файлове до папка %1$s. Да се преместят ли вместо това?</string>
-  <string name="pincode_enter_pin_code">Въведете своя App ПИН</string>
-  <string name="pincode_configure_your_pin">Въведете своя App ПИН</string>
-  <string name="pincode_configure_your_pin_explanation">ПИН-ът ще бъде поискан всеки път, когато програмата стартира.</string>
-  <string name="pincode_reenter_your_pincode">Въведете своя App ПИН отново.</string>
-  <string name="pincode_remove_your_pincode">Премахнете своя App ПИН</string>
-  <string name="pincode_mismatch">App ПИН-овете не съвпадат</string>
-  <string name="pincode_wrong">Неправилен App ПИН</string>
-  <string name="pincode_removed">App ПИН премахнат</string>
-  <string name="pincode_stored">App ПИН запазен</string>
   <string name="media_notif_ticker">%1$s музикален плеър</string>
   <string name="media_state_playing">%1$s (пусната)</string>
   <string name="media_state_loading">%1$s (се зарежда)</string>
@@ -302,7 +295,6 @@
   <string name="prefs_category_security">Сигурност</string>
   <string name="prefs_instant_video_upload_path_title">Качване на видео път</string>
   <string name="download_folder_failed_content">Свалянето на директорията %1$s не може да бъде завършено</string>
-  <string name="subject_token">%1$s споделено \"%2$s\" с теб</string>
   <string name="auth_refresh_button">Обнови връзката</string>
   <string name="auth_host_address">Адрес на сървъра</string>
 </resources>

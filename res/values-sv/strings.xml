@@ -19,12 +19,14 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Allmänt</string>
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Konton</string>
   <string name="prefs_manage_accounts">Hantera konton</string>
-  <string name="prefs_pincode">applikation PIN</string>
-  <string name="prefs_pincode_summary">Skydda applikation-klienten</string>
   <string name="prefs_instant_upload">Direktuppladdning av kamerabilder</string>
   <string name="prefs_instant_upload_summary">Direktuppladning av bilder tagna med kameran</string>
   <string name="prefs_instant_video_upload">Direktuppladning av video</string>
@@ -128,15 +130,6 @@
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Fjärr: %1$s</string>
   <string name="upload_query_move_foreign_files">Det finns inte tillräckligt med ledigt utrymme för att kopiera de valda filerna till %1$s mappen. Skulle du vilja flytta dem istället?</string>
-  <string name="pincode_enter_pin_code">Ange din PIN</string>
-  <string name="pincode_configure_your_pin">Ange applikation PIN</string>
-  <string name="pincode_configure_your_pin_explanation">Din PIN måste anges varje gång du startar programmet.</string>
-  <string name="pincode_reenter_your_pincode">Ange applikation PIN igen</string>
-  <string name="pincode_remove_your_pincode">Radera applikation PIN</string>
-  <string name="pincode_mismatch">Båda applikation PIN är inte lika</string>
-  <string name="pincode_wrong">Felaktig applikationd PIN</string>
-  <string name="pincode_removed">applikation PIN raderad</string>
-  <string name="pincode_stored">applikation PIN sparad</string>
   <string name="media_notif_ticker">%1$ musikspelare</string>
   <string name="media_state_playing">%1$s (spelar)</string>
   <string name="media_state_loading">%1$s (buffrar)</string>
@@ -260,6 +253,8 @@
   <string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp</string>
   <string name="unshare_link_file_no_exist">Lyckades ej sluta dela. Vänligen kontrollera om filen existerar</string>
   <string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp</string>
+  <string name="share_link_password_title">Ange ett lösenord</string>
+  <string name="share_link_empty_password">Du måste ange ett lösenord</string>
   <string name="activity_chooser_send_file_title">Skicka</string>
   <string name="copy_link">Kopiera länk</string>
   <string name="clipboard_text_copied">Kopierat till urklipp</string>
@@ -298,5 +293,6 @@
   <string name="prefs_category_instant_uploading">Direktuppladning</string>
   <string name="prefs_category_security">Säkerhet</string>
   <string name="prefs_instant_video_upload_path_title">Uppladdnings-sökväg för video</string>
+  <string name="download_folder_failed_content">Neddladning utav %1$s mappen kunde inte slutföras</string>
   <string name="auth_host_address">Serveradress</string>
 </resources>

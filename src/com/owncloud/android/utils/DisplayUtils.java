@@ -33,9 +33,12 @@ import java.util.Set;
 import java.util.Vector;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Build;
 import android.text.format.DateUtils;
+import android.view.Display;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
@@ -257,26 +260,33 @@ public class DisplayUtils {
      */
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public static String convertIdn(String url, boolean toASCII) {
-        
+
+        String urlNoDots = url;
+        String dots="";
+        while (urlNoDots.startsWith(".")) {
+            urlNoDots = url.substring(1);
+            dots = dots + ".";
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             // Find host name after '//' or '@'
             int hostStart = 0;
-            if  (url.indexOf("//") != -1) {
+            if  (urlNoDots.indexOf("//") != -1) {
                 hostStart = url.indexOf("//") + "//".length();
             } else if (url.indexOf("@") != -1) {
                 hostStart = url.indexOf("@") + "@".length();
             }
-            
+
             int hostEnd = url.substring(hostStart).indexOf("/");
             // Handle URL which doesn't have a path (path is implicitly '/')
-            hostEnd = (hostEnd == -1 ? url.length() : hostStart + hostEnd);
-            
-            String host = url.substring(hostStart, hostEnd);
+            hostEnd = (hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd);
+
+            String host = urlNoDots.substring(hostStart, hostEnd);
             host = (toASCII ? IDN.toASCII(host) : IDN.toUnicode(host));
-            
-            return url.substring(0, hostStart) + host + url.substring(hostEnd);
+
+            return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
         } else {
-            return url;
+            return dots + url;
         }
     }
 
@@ -341,6 +351,26 @@ public class DisplayUtils {
             path = path.substring(0, path.length()-1);
         }
         return path;
+    }
+
+
+    /**
+     * Gets the screen size in pixels in a backwards compatible way
+     *
+     * @param caller        Activity calling; needed to get access to the {@link android.view.WindowManager}
+     * @return              Size in pixels of the screen, or default {@link Point} if caller is null
+     */
+    public static Point getScreenSize(Activity caller) {
+        Point size = new Point();
+        if (caller != null) {
+            Display display = caller.getWindowManager().getDefaultDisplay();
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+                display.getSize(size);
+            } else {
+                size.set(display.getWidth(), display.getHeight());
+            }
+        }
+        return size;
     }
 
 }

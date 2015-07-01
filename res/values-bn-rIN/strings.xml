@@ -7,6 +7,10 @@
   <string name="actionbar_settings">সেটিংস</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_imprint">অঙ্কিত করা</string>
   <string name="auth_username">ইউজারনেম</string>
   <string name="sync_string_files">ফাইলস</string>

@@ -13,11 +13,13 @@
   <string name="actionbar_send_file">भेजें</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">सामान्य </string>
   <string name="prefs_category_more">और अधिक</string>
   <string name="prefs_accounts">खाते </string>
-  <string name="prefs_pincode">एप्प पिन </string>
-  <string name="prefs_pincode_summary">अपने उपभोक्ता की सुरक्षा करें </string>
   <string name="prefs_help">सहायता </string>
   <string name="auth_username">उपभोक्ता  का नाम</string>
   <string name="auth_password">पासवर्ड</string>

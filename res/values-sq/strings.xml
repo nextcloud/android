@@ -7,11 +7,13 @@
   <string name="actionbar_send_file">Dërgo</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Përgjithshme</string>
   <string name="prefs_category_more">Më tepër</string>
   <string name="prefs_accounts">Llogarit</string>
-  <string name="prefs_pincode">PIN-i Aplikacionit</string>
-  <string name="prefs_pincode_summary">Ruani klientin tuaj</string>
   <string name="prefs_help">Ndihmë</string>
   <string name="prefs_imprint">Stampoj</string>
   <string name="auth_username">Përdoruesi</string>
@@ -59,13 +61,6 @@
   <string name="downloader_download_succeeded_content">%1$s u shkarkua me sukses</string>
   <string name="downloader_download_failed_ticker">Shkarkimi dështoj</string>
   <string name="common_choose_account">Zgjidhni Llogarine</string>
-  <string name="pincode_enter_pin_code">Lutemi, vendosni PIN tuaj</string>
-  <string name="pincode_reenter_your_pincode">Lutemi, rivendosni PIN tuaj</string>
-  <string name="pincode_remove_your_pincode">Hiqni PIN in tuaj</string>
-  <string name="pincode_mismatch">PIN-et nuk jane te njejte</string>
-  <string name="pincode_wrong">PIN i gabuar</string>
-  <string name="pincode_removed">PIN-i u hoq</string>
-  <string name="pincode_stored">PIN-i u ruajt</string>
   <string name="auth_no_net_conn_title">Nuk ka lidhje ne Rrjet</string>
   <string name="auth_connection_established">Lidhja u vendos</string>
   <string name="auth_secure_connection">Lidhja e Sigurt vendos</string>

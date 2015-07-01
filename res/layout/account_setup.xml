@@ -81,7 +81,7 @@
 				android:drawablePadding="5dp"
 				android:paddingRight="55dp"
 				android:contentDescription="@string/auth_host_address"
-				>
+                >
 				<requestFocus />
 			</EditText>
 			<ImageButton
@@ -153,7 +153,7 @@
             android:hint="@string/auth_username"
             android:inputType="textNoSuggestions"
             android:contentDescription="@string/auth_username"
-			/>
+            />
 
 		<EditText
 		    android:id="@+id/account_password"

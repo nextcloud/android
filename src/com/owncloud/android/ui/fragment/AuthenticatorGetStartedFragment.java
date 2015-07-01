@@ -20,8 +20,8 @@
 
 package com.owncloud.android.ui.fragment;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import android.support.v4.app.Fragment;
 
-public class AuthenticatorGetStartedFragment extends SherlockFragment {
+public class AuthenticatorGetStartedFragment extends Fragment {
 
 }

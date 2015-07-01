@@ -40,6 +40,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
@@ -54,6 +55,7 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.accounts.AccountsException;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
@@ -352,12 +354,7 @@ public class OperationsService extends Service {
                 return true;
                 //Log_OC.wtf(TAG, "Sending callback later");
             } else {
-                if (!mServiceHandler.mPendingOperations.isEmpty()) {
-                    return true;
-                } else {
-                    return false;
-                }
-                //Log_OC.wtf(TAG, "Not finished yet");
+                return (!mServiceHandler.mPendingOperations.isEmpty());
             }
         }
         
@@ -442,6 +439,12 @@ public class OperationsService extends Service {
                                     mService);
                             mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                                     getClientFor(ocAccount, mService);
+
+                            OwnCloudVersion version = com.owncloud.android.authentication.AccountUtils.getServerVersion(
+                                    mLastTarget.mAccount
+                            );
+                            mOwnCloudClient.setOwnCloudVersion(version);
+
                             mStorageManager = new FileDataStorageManager(
                                     mLastTarget.mAccount, 
                                     mService.getContentResolver()

@@ -19,12 +19,14 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Üldine</string>
   <string name="prefs_category_more">Rohkem</string>
   <string name="prefs_accounts">Kontod</string>
   <string name="prefs_manage_accounts">Halda kontosid</string>
-  <string name="prefs_pincode">Rakenduse PIN</string>
-  <string name="prefs_pincode_summary">Kaitse oma klienti</string>
   <string name="prefs_instant_upload">Piltide kohene üleslaadimine</string>
   <string name="prefs_instant_upload_summary">Laadi koheselt üles kaameraga tehtud pildid</string>
   <string name="prefs_instant_video_upload">Videote kohene üleslaadimine</string>
@@ -132,15 +134,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="foreign_files_local_text">Kohalik: %1$s</string>
   <string name="foreign_files_remote_text">Serveris: %1$s</string>
   <string name="upload_query_move_foreign_files">Pole piisavalt ruumi kopeerimaks valitud faile kataloogi %1$s. Kas soovid kopeerimise asemel neid ümber tõsta?</string>
-  <string name="pincode_enter_pin_code">Palun sisesta oma rakenduse PIN</string>
-  <string name="pincode_configure_your_pin">Sisesta oma rakenduse PIN</string>
-  <string name="pincode_configure_your_pin_explanation">PIN-i nõutakse iga kord, kui rakendus käivitatakse</string>
-  <string name="pincode_reenter_your_pincode">Palun sisesta oma rakenduse PIN uuesti</string>
-  <string name="pincode_remove_your_pincode">Eemalda oma rakenduse PIN</string>
-  <string name="pincode_mismatch">Mõlemad rakenduse PIN-id pole samad</string>
-  <string name="pincode_wrong">Vigane rakenduse PIN</string>
-  <string name="pincode_removed">Rakenduse PIN on eemaldatud</string>
-  <string name="pincode_stored">Rakenduse PIN on salvestatud</string>
   <string name="media_notif_ticker">%1$s muusika mängija</string>
   <string name="media_state_playing">%1$s (mängib)</string>
   <string name="media_state_loading">%1$s (laeb)</string>
@@ -307,7 +300,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="prefs_category_security">Turvalisus</string>
   <string name="prefs_instant_video_upload_path_title">Video üleslaadimise asukoht</string>
   <string name="download_folder_failed_content">Kausta %1$s  allalaadimine ei õnnestunud</string>
-  <string name="subject_token">%1$s jagas sinuga \"%2$s\"</string>
   <string name="auth_refresh_button">Värskenda ühendust</string>
   <string name="auth_host_address">Serveri aadress</string>
 </resources>

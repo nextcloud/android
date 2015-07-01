@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +37,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
@@ -48,8 +48,8 @@ import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 /**
  * TODO extending SherlockListFragment instead of SherlockFragment
  */
-public class ExtendedListFragment extends SherlockFragment 
-implements OnItemClickListener, OnEnforceableRefreshListener {
+public class ExtendedListFragment extends Fragment
+        implements OnItemClickListener, OnEnforceableRefreshListener {
 
     private static final String TAG = ExtendedListFragment.class.getSimpleName();
 
@@ -130,7 +130,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
     
     
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView");
 
         View v = inflater.inflate(R.layout.list_fragment, null);
@@ -396,8 +397,8 @@ implements OnItemClickListener, OnEnforceableRefreshListener {
             mListFooterView.invalidate();
 
         } else {
-//            mGridView.removeFooterView(mGridFooterView);
-//            mListView.removeFooterView(mListFooterView);
+            mGridView.removeFooterView(mGridFooterView);
+            mListView.removeFooterView(mListFooterView);
         }
     }
 

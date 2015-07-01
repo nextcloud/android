@@ -19,11 +19,14 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">ទូទៅ</string>
   <string name="prefs_category_more">ច្រើន​ទៀត</string>
   <string name="prefs_accounts">គណនី</string>
   <string name="prefs_manage_accounts">គ្រប់គ្រង​គណនី</string>
-  <string name="prefs_pincode">ភីន​កូដ កម្មវិធី</string>
   <string name="prefs_log_title">ដំណើរការការចូលទៅកាន់</string>
   <string name="prefs_log_summary">នេះជាបញ្ហា​សម្រាប់​អ្នក​ដែល​បាន​ចូលទៅកាន់</string>
   <string name="prefs_log_title_history">ប្រវត្តិនៃការចូលទៅកាន់</string>
@@ -75,14 +78,6 @@
   <string name="downloader_download_failed_ticker">ការទាញយក​បានបរាជ័យ</string>
   <string name="common_choose_account">ជ្រើស​គណនី</string>
   <string name="foreign_files_move">ផ្លាស់ទីទាំងអស់</string>
-  <string name="pincode_enter_pin_code">សូម ដាក់​បញ្ចូល App PIN របស់អ្នក</string>
-  <string name="pincode_configure_your_pin">បញ្ចូល App PIN របស់អ្នក</string>
-  <string name="pincode_reenter_your_pincode">សូម បញ្ចូល App PIN របស់អ្នក​ម្តង​ទៀត</string>
-  <string name="pincode_remove_your_pincode">លុប App PIN របស់​អ្នក</string>
-  <string name="pincode_mismatch">App PIN ទាំងនេះ​មិនដូចគ្នាទេ</string>
-  <string name="pincode_wrong">App PIN មិន​ត្រឹម​ត្រូវទេ</string>
-  <string name="pincode_removed">App PIN បាន​លុបចេញហើយ</string>
-  <string name="pincode_stored">App PIN បាន​យក​មកវិញ</string>
   <string name="auth_trying_to_login">កំពុង​​តែ​ព្យាយាម​ដើម្បី​ចូល...</string>
   <string name="auth_no_net_conn_title">គ្មានបណ្តាញ​តភ្ជាប់ទេ</string>
   <string name="auth_unknown_error_title">មិនស្គាល់កំហុសបានកើតឡើង!</string>

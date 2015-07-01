@@ -19,12 +19,19 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Vse datoteke</string>
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Nastavitve</string>
+  <string name="drawer_item_logs">Dnevnik</string>
+  <string name="drawer_close">Zapri</string>
   <string name="prefs_category_general">Splošno</string>
   <string name="prefs_category_more">Več</string>
   <string name="prefs_accounts">Računi</string>
   <string name="prefs_manage_accounts">Upravljanje z računi</string>
-  <string name="prefs_pincode">Koda PIN programa</string>
-  <string name="prefs_pincode_summary">Zaščitite odjemalec</string>
+  <string name="prefs_passcode">Zaklep s kodo PIN</string>
   <string name="prefs_instant_upload">Takojšnje pošiljanje slik</string>
   <string name="prefs_instant_upload_summary">Takojšnje pošiljanje slik, zajetih s fotoaparatom, na strežnik</string>
   <string name="prefs_instant_video_upload">Takojšnje pošiljanje posnetkov</string>
@@ -76,6 +83,7 @@
   <string name="filedetails_download">Prejmi</string>
   <string name="filedetails_sync_file">Osveži datoteko</string>
   <string name="filedetails_renamed_in_upload_msg">Datoteka je bila med nalaganjem preimenovana v %1$s</string>
+  <string name="list_layout">Postavitev seznama</string>
   <string name="action_share_file">Povezava za souporabo</string>
   <string name="action_unshare_file">Odstrani možnost souporabe</string>
   <string name="common_yes">Da</string>
@@ -128,15 +136,15 @@
   <string name="foreign_files_local_text">Krajevno: %1$s</string>
   <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
   <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali jih želite premakniti?</string>
-  <string name="pincode_enter_pin_code">Vnesite kodo PIN programa</string>
-  <string name="pincode_configure_your_pin">Vnesite kodo PIN programa</string>
-  <string name="pincode_configure_your_pin_explanation">Koda PIN bo zahtevana vsakič pred zagonom programa.</string>
-  <string name="pincode_reenter_your_pincode">Ponovno vnesite kodo PIN programa</string>
-  <string name="pincode_remove_your_pincode">Odstrani kodo PIN programa</string>
-  <string name="pincode_mismatch">Vrednosti kod PIN programa nista enaki</string>
-  <string name="pincode_wrong">Nepravilna koda PIN programa</string>
-  <string name="pincode_removed">Koda PIN programa je odstranjena</string>
-  <string name="pincode_stored">Koda PIN programa je shranjena</string>
+  <string name="pass_code_enter_pass_code">Vnesite kodo PIN programa</string>
+  <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Koda bo zahtevana vsakič pred zagonom programa.</string>
+  <string name="pass_code_reenter_your_pass_code">Ponovno vnesite kodo</string>
+  <string name="pass_code_remove_your_pass_code">Odstrani kodo PIN programa</string>
+  <string name="pass_code_mismatch">Vpisani kodi PIN nista enaki</string>
+  <string name="pass_code_wrong">Napačna koda PIN</string>
+  <string name="pass_code_removed">Koda PIN je odstranjena</string>
+  <string name="pass_code_stored">Koda PIN je shranjena</string>
   <string name="media_notif_ticker">Predvajalnik glasbe %1$s</string>
   <string name="media_state_playing">%1$s (se predvaja)</string>
   <string name="media_state_loading">%1$s (se nalaga)</string>
@@ -207,11 +215,13 @@
   <string name="sync_file_nothing_to_do_msg">Vsebina datoteke je že usklajena</string>
   <string name="create_dir_fail_msg">Mape ni mogoče ustvariti</string>
   <string name="filename_forbidden_characters">Nedovoljeni znaki: characters: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Ime datoteke vsebuje vsaj en neveljaven znak.</string>
   <string name="filename_empty">Ime datoteke ne sme biti prazno</string>
   <string name="wait_a_moment">Počakajte trenutek ...</string>
   <string name="filedisplay_unexpected_bad_get_content">Prišlo je do nepričakovane napake. Poskusite datoteko izbrati z drugim programom.</string>
   <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>
   <string name="activity_chooser_title">Pošlji povezavo ...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
   <string name="oauth_check_onoff">Prijava  z oAuth2</string>
   <string name="oauth_login_connection">Poteka povezovanje s strežnikom oAuth2 ...</string>
   <string name="ssl_validator_header">Istovetnosti strani ni mogoče preveriti</string>
@@ -246,7 +256,7 @@
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Pošiljaj slike le preko povezav Wi-Fi</string>
   <string name="instant_video_upload_on_wifi">Pošlji posnetke le preko povezave Wi-Fi</string>
-  <string name="instant_upload_path">/TakojšnjePošiljanje</string>
+  <string name="instant_upload_path">/Poslano</string>
   <string name="conflict_title">Posodobi podatke spora</string>
   <string name="conflict_message">Oddaljena datoteka %s ni usklajena s krajevno. Z nadaljevanem bo datoteka na strežniku zamenjana s krajevno.</string>
   <string name="conflict_keep_both">Ohrani obe</string>
@@ -303,7 +313,10 @@
   <string name="prefs_category_security">Varnost</string>
   <string name="prefs_instant_video_upload_path_title">Pot videa za pošiljanje</string>
   <string name="download_folder_failed_content">Imenika %1$s  ni mogoče prejeti v celoti</string>
-  <string name="subject_token">Uporabnik %1$s je omogočil souporabo \"%2$s\".</string>
+  <string name="shared_subject_header">v souporabi</string>
+  <string name="with_you_subject_header">z vami</string>
   <string name="auth_refresh_button">Osveži povezavo</string>
   <string name="auth_host_address">Naslov strežnika</string>
+  <string name="common_error_out_memory">Ni dovolj pomnilnika</string>
+  <string name="username">Uporabniško ime</string>
 </resources>
