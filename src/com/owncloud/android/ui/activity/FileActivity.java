@@ -405,19 +405,14 @@ public class FileActivity extends ActionBarActivity
 
         /// choose the appropiate title
         if (chosenFile == null) {
-            // mFile determines the title
-            inRoot = (mFile == null || mFile.getParentId() == 0);
-            if (!inRoot) {
-                title = mFile.getFileName();
-            }
-
-        } else if (chosenFile.getParentId() != 0){
-            // chosenFile determines the title, instead of mFile
+            chosenFile = mFile;     // if no file is passed, current file decides
+        }
+        inRoot = (
+                chosenFile == null ||
+                (chosenFile.isFolder() && chosenFile.getParentId() == FileDataStorageManager.ROOT_PARENT_ID)
+        );
+        if (!inRoot) {
             title = chosenFile.getFileName();
-            inRoot = false;
-
-        } else{
-            inRoot = true;
         }
 
         /// set the chosen title
