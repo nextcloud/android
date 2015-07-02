@@ -58,6 +58,7 @@ import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -729,7 +730,8 @@ public class FileDisplayActivity extends HookActivity
     public void onBackPressed() {
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (mDualPane || getSecondFragment() == null) {
-            if (getFile() != null && getFile().getParentId() == 0) {
+            OCFile currentDir = getCurrentDir();
+            if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
                 finish();
                 return;
             }
