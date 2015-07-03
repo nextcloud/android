@@ -2,7 +2,7 @@
 <resources>
   <string name="about_android">%1$s Android приложение</string>
   <string name="about_version">версия %1$s</string>
-  <string name="actionbar_sync">Обновяване на профила</string>
+  <string name="actionbar_sync">Обновяви профила</string>
   <string name="actionbar_upload">Качване</string>
   <string name="actionbar_upload_from_apps">Съдържание от други приложения</string>
   <string name="actionbar_upload_files">Файлове</string>
@@ -21,8 +21,12 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Всички файлове</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Настройки</string>
+  <string name="drawer_item_logs">Логове</string>
+  <string name="drawer_close">Затвори</string>
   <string name="prefs_category_general">Общи</string>
   <string name="prefs_category_more">Още</string>
   <string name="prefs_accounts">Профили</string>
@@ -78,6 +82,7 @@
   <string name="filedetails_download">Изтегляне</string>
   <string name="filedetails_sync_file">Обновяване на файла</string>
   <string name="filedetails_renamed_in_upload_msg">Файлът беше преименуван на %1$s по време на качването.</string>
+  <string name="list_layout">Списък с изгледи</string>
   <string name="action_share_file">Връзка за споделяне</string>
   <string name="action_unshare_file">Премахване връзка за споделяне</string>
   <string name="common_yes">Да</string>
@@ -130,6 +135,11 @@
   <string name="foreign_files_local_text">Локален: %1$s</string>
   <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
   <string name="upload_query_move_foreign_files">Няма достатъчно място за копирането на избраните файлове до папка %1$s. Да се преместят ли вместо това?</string>
+  <string name="pass_code_enter_pass_code">Моля, въведи парола за достъп</string>
+  <string name="pass_code_configure_your_pass_code">Въведи парола за достъп</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Паролата ще се изисква при всяко стартиране на приложението</string>
+  <string name="pass_code_reenter_your_pass_code">Моля,  въведи парола за достъп отново</string>
+  <string name="pass_code_remove_your_pass_code">Премахни парола</string>
   <string name="media_notif_ticker">%1$s музикален плеър</string>
   <string name="media_state_playing">%1$s (пусната)</string>
   <string name="media_state_loading">%1$s (се зарежда)</string>

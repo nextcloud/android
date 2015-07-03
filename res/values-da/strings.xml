@@ -214,6 +214,7 @@
   <string name="sync_file_nothing_to_do_msg">Filindholdet allerede synkroniseret</string>
   <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
   <string name="filename_forbidden_characters">Ugyldige tegn: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Filnavnet indeholder mindst ét ugyldigt tegn</string>
   <string name="filename_empty">Filnavnet kan ikke stå tomt.</string>
   <string name="wait_a_moment">Vent et øjeblik</string>
   <string name="filedisplay_unexpected_bad_get_content">Uventet problem; prøv venligst en anden applikation til at vælge filen</string>
@@ -313,6 +314,7 @@
   <string name="download_folder_failed_content">Download af %1$s mappe kunne ikke fuldføres</string>
   <string name="shared_subject_header">delt</string>
   <string name="with_you_subject_header">med dig</string>
+  <string name="subject_token">%1$s delte \"%2$s\" med dig</string>
   <string name="auth_refresh_button">Genopfrisk forbindelsen</string>
   <string name="auth_host_address">Serveradresse</string>
   <string name="common_error_out_memory">Ikke tilstrækkelig hukommelse</string>
