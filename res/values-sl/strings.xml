@@ -315,6 +315,7 @@
   <string name="download_folder_failed_content">Imenika %1$s  ni mogoče prejeti v celoti</string>
   <string name="shared_subject_header">v souporabi</string>
   <string name="with_you_subject_header">z vami</string>
+  <string name="subject_token">Uporabnik %1$s je omogočil souporabo %2$s z vami</string>
   <string name="auth_refresh_button">Osveži povezavo</string>
   <string name="auth_host_address">Naslov strežnika</string>
   <string name="common_error_out_memory">Ni dovolj pomnilnika</string>

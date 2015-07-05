@@ -21,8 +21,12 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Semua berkas</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Pengaturan</string>
+  <string name="drawer_item_logs">Log</string>
+  <string name="drawer_close">Tutup</string>
   <string name="prefs_category_general">Umum</string>
   <string name="prefs_category_more">Lainnya</string>
   <string name="prefs_accounts">Akun</string>
@@ -79,6 +83,7 @@
   <string name="filedetails_download">Unduh</string>
   <string name="filedetails_sync_file">Segarkan berkas</string>
   <string name="filedetails_renamed_in_upload_msg">Berkas diubah namanya menjadi %1$s saat pengunggahan</string>
+  <string name="list_layout">Daftar Tata Letak</string>
   <string name="action_share_file">Bagikan tautan</string>
   <string name="action_unshare_file">Batal bagikan tautan</string>
   <string name="common_yes">Ya</string>
@@ -210,6 +215,7 @@
   <string name="sync_file_nothing_to_do_msg">Isi berkas sudah diselaraskan</string>
   <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
   <string name="filename_forbidden_characters">Karakter yang dilarang: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Nama berkas berisi setidaknya satu karakter yang tidak sah</string>
   <string name="filename_empty">Nama berkas tidak boleh kosong</string>
   <string name="wait_a_moment">Tunggu sebentar</string>
   <string name="filedisplay_unexpected_bad_get_content">Masalah tidak terduga, silahkan pilih berkas dari apl yang berbeda</string>
@@ -307,6 +313,11 @@
   <string name="prefs_category_security">Keamanan</string>
   <string name="prefs_instant_video_upload_path_title">Unggah Lokasi Video</string>
   <string name="download_folder_failed_content">Mengunduh folder %1$s  tidak selesai</string>
+  <string name="shared_subject_header">dibagikan</string>
+  <string name="with_you_subject_header">kepada Anda</string>
+  <string name="subject_token">%1$s dibagikan \"%2$s\" kepada Anda</string>
   <string name="auth_refresh_button">Menyegarkan sambungan</string>
   <string name="auth_host_address">Alamat server</string>
+  <string name="common_error_out_memory">Memori tidak cukup</string>
+  <string name="username">Nama pengguna</string>
 </resources>
