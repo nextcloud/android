@@ -13,12 +13,14 @@
   <string name="actionbar_send_file">أرسل</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">عام</string>
   <string name="prefs_category_more">المزيد</string>
   <string name="prefs_accounts">حسابات</string>
   <string name="prefs_manage_accounts">إدارة الحسابات</string>
-  <string name="prefs_pincode">كلمة سر التطبيق</string>
-  <string name="prefs_pincode_summary">حماية العميل</string>
   <string name="prefs_instant_upload">رفع الصورة مباشرة</string>
   <string name="prefs_instant_upload_summary">رفع صورة المؤخذة عبر الكاميرا</string>
   <string name="prefs_instant_video_upload">رفع فيديو مباشرة</string>
@@ -41,6 +43,7 @@
   <string name="sync_string_files">الملفات</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">رفع</string>
+  <string name="uploader_btn_new_folder_text">مجلد جديد</string>
   <string name="uploader_top_message">اختر مجلد الرفع</string>
   <string name="uploader_wrn_no_account_title">لم يتم العثور على أي حساب</string>
   <string name="uploader_wrn_no_account_text">لا توجد حسابات  %1$s على جهازك. يرجى تهيئة حساب أولاً.</string>
@@ -115,15 +118,6 @@
   <string name="foreign_files_local_text">محلي :%1$s</string>
   <string name="foreign_files_remote_text">خارجي : %1$s</string>
   <string name="upload_query_move_foreign_files">لا يوجد مساحة كافية لنسخ الملفات المحددة لمجلد  %1$s . هل ترغب بنقلهم بدلاً من ذلك؟</string>
-  <string name="pincode_enter_pin_code">يرجى إدخال كلمة السر</string>
-  <string name="pincode_configure_your_pin">أدخل كلمة السر</string>
-  <string name="pincode_configure_your_pin_explanation">سيتم طلب PIN في كل مرة يتم فيها تشغيل التطبيق</string>
-  <string name="pincode_reenter_your_pincode">يرجى إدخال كلمة السر مرة أخرى</string>
-  <string name="pincode_remove_your_pincode">إزالة كلمة السر</string>
-  <string name="pincode_mismatch">كلمتا السر غير متطابقتين</string>
-  <string name="pincode_wrong">كلمه السر غير صحيحة</string>
-  <string name="pincode_removed">تمت إزالة كلمه السر</string>
-  <string name="pincode_stored">تم تسجيل كلمت السر</string>
   <string name="media_notif_ticker">مشغل الموسيقى %1$s </string>
   <string name="media_state_playing">%1$s  (يتم التشغيل)</string>
   <string name="media_state_loading">%1$s (يتم التحميل)</string>

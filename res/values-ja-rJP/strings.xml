@@ -19,12 +19,15 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">一般</string>
   <string name="prefs_category_more">もっと見る</string>
   <string name="prefs_accounts">アカウント</string>
   <string name="prefs_manage_accounts">アカウント管理</string>
-  <string name="prefs_pincode">アプリのパスワード</string>
-  <string name="prefs_pincode_summary">クライアントを保護する</string>
+  <string name="prefs_passcode">パスコードロック</string>
   <string name="prefs_instant_upload">自動画像アップロード</string>
   <string name="prefs_instant_upload_summary">カメラで撮影した画像を自動アップロード</string>
   <string name="prefs_instant_video_upload">自動動画アップロード</string>
@@ -51,6 +54,7 @@
   <string name="sync_string_files">ファイル</string>
   <string name="setup_btn_connect">接続</string>
   <string name="uploader_btn_upload_text">アップロード</string>
+  <string name="uploader_btn_new_folder_text">新しいフォルダー</string>
   <string name="uploader_top_message">アップロードするフォルダーを選択:</string>
   <string name="uploader_wrn_no_account_title">アカウントが見つかりません</string>
   <string name="uploader_wrn_no_account_text">デバイスに%1$sのアカウントがありません。まず最初にアカウントを登録してください。</string>
@@ -128,15 +132,6 @@
   <string name="foreign_files_local_text">ローカル: %1$s</string>
   <string name="foreign_files_remote_text">リモート: %1$s</string>
   <string name="upload_query_move_foreign_files">十分なスペースがないため、選択されたファイルを %1$s フォルダーにコピーすることができません。コピーする代わりに、それらを移動させますか？</string>
-  <string name="pincode_enter_pin_code">アプリのパスワードを入力してください</string>
-  <string name="pincode_configure_your_pin">アプリのパスワードを入力してください</string>
-  <string name="pincode_configure_your_pin_explanation">アプリ開始時に毎回PINが要求されます。</string>
-  <string name="pincode_reenter_your_pincode">アプリのパスワードを再入力してください</string>
-  <string name="pincode_remove_your_pincode">アプリのパスワードを削除</string>
-  <string name="pincode_mismatch">アプリのパスワードが一致しません</string>
-  <string name="pincode_wrong">無効なアプリのパスワードです</string>
-  <string name="pincode_removed">アプリのパスワードを削除しました</string>
-  <string name="pincode_stored">アプリのパスワードを保存しました</string>
   <string name="media_notif_ticker">%1$s ミュージックプレーヤー</string>
   <string name="media_state_playing">%1$s (プレイ中)</string>
   <string name="media_state_loading">%1$s (読込中)</string>
@@ -161,6 +156,7 @@
   <string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
   <string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
   <string name="auth_connection_established">接続が確立しました</string>
+  <string name="auth_testing_connection">接続のテスト中</string>
   <string name="auth_not_configured_title">サーバー設定が間違っています</string>
   <string name="auth_account_not_new">同じユーザーとサーバーのアカウントがデバイス上にすでに存在します</string>
   <string name="auth_account_not_the_same">入力されたユーザーはこのアカウントのユーザーと一致しません</string>
@@ -301,7 +297,7 @@
   <string name="prefs_category_instant_uploading">自動アップロード</string>
   <string name="prefs_category_security">セキュリティ</string>
   <string name="prefs_instant_video_upload_path_title">動画のアップロードパス</string>
-  <string name="download_folder_failed_content">%1$s のフォルダのダウンロードが完了しませんでした。</string>
-  <string name="subject_token">%1$sがあなたと\"%2$s\"を共有しました</string>
+  <string name="download_folder_failed_content">%1$s フォルダーのダウンロードが完了しませんでした</string>
+  <string name="auth_refresh_button">再接続中</string>
   <string name="auth_host_address">サーバーアドレス</string>
 </resources>

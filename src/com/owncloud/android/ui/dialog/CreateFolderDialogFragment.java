@@ -20,7 +20,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.FileUtils;
@@ -30,6 +29,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
@@ -42,8 +42,8 @@ import android.widget.Toast;
  * 
  *  Triggers the folder creation when name is confirmed.
  */
-public class CreateFolderDialogFragment 
-extends SherlockDialogFragment implements DialogInterface.OnClickListener {
+public class CreateFolderDialogFragment
+        extends DialogFragment implements DialogInterface.OnClickListener {
 
     private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
     
@@ -51,9 +51,9 @@ extends SherlockDialogFragment implements DialogInterface.OnClickListener {
 
     /**
      * Public factory method to create new CreateFolderDialogFragment instances.
-     * 
-     * @param file            File to remove.
-     * @return                Dialog ready to show.
+     *
+     * @param parentFolder            Folder to create
+     * @return                        Dialog ready to show.
      */
     public static CreateFolderDialogFragment newInstance(OCFile parentFolder) {
         CreateFolderDialogFragment frag = new CreateFolderDialogFragment();
@@ -72,7 +72,7 @@ extends SherlockDialogFragment implements DialogInterface.OnClickListener {
         mParentFolder = getArguments().getParcelable(ARG_PARENT_FOLDER);
         
         // Inflate the layout for the dialog
-        LayoutInflater inflater = getSherlockActivity().getLayoutInflater();
+        LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.edit_box_dialog, null);
         
         // Setup layout 
@@ -81,7 +81,7 @@ extends SherlockDialogFragment implements DialogInterface.OnClickListener {
         inputText.requestFocus();
         
         // Build the dialog  
-        AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v)
                .setPositiveButton(R.string.common_ok, this)
                .setNegativeButton(R.string.common_cancel, this)
@@ -101,23 +101,29 @@ extends SherlockDialogFragment implements DialogInterface.OnClickListener {
             
             if (newFolderName.length() <= 0) {
                 Toast.makeText(
-                        getSherlockActivity(), 
+                        getActivity(),
                         R.string.filename_empty, 
                         Toast.LENGTH_LONG).show();
                 return;
             }
-            
-            if (!FileUtils.isValidName(newFolderName)) {
-                Toast.makeText(
-                        getSherlockActivity(), 
-                        R.string.filename_forbidden_characters, 
-                        Toast.LENGTH_LONG).show();
+            boolean serverWithForbiddenChars = ((ComponentsGetter)getActivity()).
+                    getFileOperationsHelper().isVersionWithForbiddenCharacters();
+
+            if (!FileUtils.isValidName(newFolderName, serverWithForbiddenChars)) {
+                int messageId = 0;
+                if (serverWithForbiddenChars) {
+                    messageId = R.string.filename_forbidden_charaters_from_server;
+                } else {
+                    messageId = R.string.filename_forbidden_characters;
+                }
+                Toast.makeText(getActivity(), messageId, Toast.LENGTH_LONG).show();
+
                 return;
             }
             
             String path = mParentFolder.getRemotePath();
             path += newFolderName + OCFile.PATH_SEPARATOR;
-            ((ComponentsGetter)getSherlockActivity()).
+            ((ComponentsGetter)getActivity()).
                 getFileOperationsHelper().createFolder(path, false);
         }
     }

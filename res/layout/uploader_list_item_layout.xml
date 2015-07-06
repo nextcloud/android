@@ -35,7 +35,7 @@
     <TextView 
         android:text="TextView" 
         android:layout_width="fill_parent" 
-        android:id="@+id/textView1" 
+        android:id="@+id/filename"
         android:layout_height="wrap_content" 
         android:textColor="@android:color/black"
 		android:layout_gravity="center_vertical"

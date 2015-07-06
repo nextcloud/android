@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +35,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -45,11 +45,14 @@ import com.owncloud.android.utils.DisplayUtils;
  * Added to show explanations for notifications when the user clicks on them, and there no place
  * better to show them.
  */
-public class GenericExplanationActivity  extends SherlockFragmentActivity {
+public class GenericExplanationActivity  extends ActionBarActivity {
 
-    public static final String EXTRA_LIST = GenericExplanationActivity.class.getCanonicalName() + ".EXTRA_LIST";
-    public static final String EXTRA_LIST_2 = GenericExplanationActivity.class.getCanonicalName() + ".EXTRA_LIST_2";
-    public static final String MESSAGE = GenericExplanationActivity.class.getCanonicalName() + ".MESSAGE";
+    public static final String EXTRA_LIST = GenericExplanationActivity.class.getCanonicalName() +
+            ".EXTRA_LIST";
+    public static final String EXTRA_LIST_2 = GenericExplanationActivity.class.getCanonicalName() +
+            ".EXTRA_LIST_2";
+    public static final String MESSAGE = GenericExplanationActivity.class.getCanonicalName() +
+            ".MESSAGE";
     
     
     @Override
@@ -71,7 +74,8 @@ public class GenericExplanationActivity  extends SherlockFragmentActivity {
         
         ListView listView = (ListView) findViewById(R.id.list);
         if (list != null && list.size() > 0) {
-            //ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+            //ListAdapter adapter = new ArrayAdapter<String>(this,
+            // android.R.layout.simple_list_item_1, list);
             ListAdapter adapter = new ExplanationListAdapterView(this, list, list2);
             listView.setAdapter(adapter);
         } else {
@@ -87,7 +91,8 @@ public class GenericExplanationActivity  extends SherlockFragmentActivity {
         ArrayList<String> mList;
         ArrayList<String> mList2;
         
-        ExplanationListAdapterView(Context context, ArrayList<String> list, ArrayList<String> list2) {
+        ExplanationListAdapterView(Context context, ArrayList<String> list,
+                                   ArrayList<String> list2) {
             super(context, android.R.layout.two_line_list_item, android.R.id.text1, list);
             mList = list;
             mList2 = list2;
@@ -105,7 +110,8 @@ public class GenericExplanationActivity  extends SherlockFragmentActivity {
         public View getView (int position, View convertView, ViewGroup parent) {
             View view = super.getView(position, convertView, parent);
             if (view != null)  {
-                if (mList2 != null && mList2.size() > 0 && position >= 0 && position < mList2.size()) {
+                if (mList2 != null && mList2.size() > 0 && position >= 0 &&
+                        position < mList2.size()) {
                     TextView text2 = (TextView) view.findViewById(android.R.id.text2);
                     if (text2 != null) {
                         text2.setText(mList2.get(position));

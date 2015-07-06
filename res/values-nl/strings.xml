@@ -19,12 +19,19 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Alle bestanden</string>
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Instellingen</string>
+  <string name="drawer_item_logs">Logs</string>
+  <string name="drawer_close">Sluiten</string>
   <string name="prefs_category_general">Algemeen</string>
   <string name="prefs_category_more">Meer</string>
   <string name="prefs_accounts">Accounts</string>
   <string name="prefs_manage_accounts">Beheer accounts</string>
-  <string name="prefs_pincode">App PIN</string>
-  <string name="prefs_pincode_summary">Beveilig je client</string>
+  <string name="prefs_passcode">Pincode slot</string>
   <string name="prefs_instant_upload">Directe uploads van afbeeldingen</string>
   <string name="prefs_instant_upload_summary">Direct uploaden van foto\'s genomen met de camera</string>
   <string name="prefs_instant_video_upload">Direct uploaden van video\'s</string>
@@ -51,6 +58,7 @@ Download hier: %2$s</string>
   <string name="sync_string_files">Bestanden</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Uploaden</string>
+  <string name="uploader_btn_new_folder_text">Nieuwe map</string>
   <string name="uploader_top_message">Kies upload map:</string>
   <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
   <string name="uploader_wrn_no_account_text">Er zijn nog geen %1$s accounts op je apparaat. Stel eerst een account in.</string>
@@ -76,6 +84,7 @@ Download hier: %2$s</string>
   <string name="filedetails_download">Download</string>
   <string name="filedetails_sync_file">Bestand verversen</string>
   <string name="filedetails_renamed_in_upload_msg">Bestand is tijdens het uploaden hernoemd naar %1$s</string>
+  <string name="list_layout">Lijst layout</string>
   <string name="action_share_file">Deel link</string>
   <string name="action_unshare_file">Link niet meer delen</string>
   <string name="common_yes">Ja</string>
@@ -130,15 +139,15 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="foreign_files_local_text">Lokaal: %1$s</string>
   <string name="foreign_files_remote_text">Extern: %1$s</string>
   <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de bestanden te gekopieëren in map %1$s. Wilt u ze erheen verplaatsten? </string>
-  <string name="pincode_enter_pin_code">Voer App PIN in</string>
-  <string name="pincode_configure_your_pin">Voer App PIN in</string>
-  <string name="pincode_configure_your_pin_explanation">De PIN wordt steeds opnieuw gevraagd als de app wordt gestart</string>
-  <string name="pincode_reenter_your_pincode">Voer App PIN opnieuw in</string>
-  <string name="pincode_remove_your_pincode">Verwijder App PIN</string>
-  <string name="pincode_mismatch">App PIN\'s komen niet overeen</string>
-  <string name="pincode_wrong">Foutieve applicatie PIN</string>
-  <string name="pincode_removed">App PIN verwijderd</string>
-  <string name="pincode_stored">App PIN opgeslagen</string>
+  <string name="pass_code_enter_pass_code">Geef uw pincode op</string>
+  <string name="pass_code_configure_your_pass_code">Invoeren pincode</string>
+  <string name="pass_code_configure_your_pass_code_explanation">De pincode wordt elke keer gevraagd bij opstarten van de app</string>
+  <string name="pass_code_reenter_your_pass_code">Voer de pincode nogmaals in</string>
+  <string name="pass_code_remove_your_pass_code">Verwijderen pincode</string>
+  <string name="pass_code_mismatch">De pincodes komen niet overeen</string>
+  <string name="pass_code_wrong">Onjuiste pincode</string>
+  <string name="pass_code_removed">Pincode verwijderd</string>
+  <string name="pass_code_stored">Pincode opgeslagen</string>
   <string name="media_notif_ticker">%1$s muziekspeler</string>
   <string name="media_state_playing">%1$s (speelt)</string>
   <string name="media_state_loading">%1$s (laden)</string>
@@ -209,11 +218,13 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="sync_file_nothing_to_do_msg">Bestandsinhoud is al gesynchroniseerd</string>
   <string name="create_dir_fail_msg">Map kon niet worden aangemaakt</string>
   <string name="filename_forbidden_characters">Verboden tekens: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">De bestandsnaam bevat ten minste één ongeldig teken</string>
   <string name="filename_empty">Bestandsnaam mag niet leeg zijn</string>
   <string name="wait_a_moment">Even geduld</string>
   <string name="filedisplay_unexpected_bad_get_content">Onverwacht probleem; probeer een andere app om het bestand te selecteren</string>
   <string name="filedisplay_no_file_selected">Er werd geen bestand geselecteerd</string>
   <string name="activity_chooser_title">Verstuur link naar ...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Kopiëren bestand vanaf privéopslag</string>
   <string name="oauth_check_onoff">Inloggen met oAuth2</string>
   <string name="oauth_login_connection">Verbinden met oAuth2-server.</string>
   <string name="ssl_validator_header">De identiteit van de site kan niet worden gecontroleerd</string>
@@ -305,7 +316,11 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="prefs_category_security">Beveiliging</string>
   <string name="prefs_instant_video_upload_path_title">Upload Video Pad</string>
   <string name="download_folder_failed_content">Download van %1$s map kon niet worden voltooid</string>
+  <string name="shared_subject_header">gedeeld</string>
+  <string name="with_you_subject_header">met u</string>
   <string name="subject_token">%1$s deelde \"%2$s\" met u</string>
   <string name="auth_refresh_button">Verversen verbinding</string>
   <string name="auth_host_address">Serveradres</string>
+  <string name="common_error_out_memory">Niet voldoende geheugen</string>
+  <string name="username">Gebruikersnaam</string>
 </resources>

@@ -13,14 +13,20 @@
   <string name="actionbar_send_file">Expediază</string>
   <string name="actionbar_sort">Sortare</string>
   <string name="actionbar_sort_title">Sortare după</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Nou - Vechi</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Mai mult</string>
   <string name="prefs_accounts">Conturi</string>
   <string name="prefs_manage_accounts">Administrare conturi</string>
-  <string name="prefs_pincode">PIN-ul aplicaţiei</string>
-  <string name="prefs_pincode_summary">Protejaţi-vă clientul</string>
   <string name="prefs_instant_upload">Încărcare instantă de imagini</string>
   <string name="prefs_instant_upload_summary">Încarcă instantant imagini luate cu camera</string>
   <string name="prefs_instant_video_upload">Încărcare instantă de videoclipuri.</string>
@@ -37,7 +43,7 @@
   <string name="prefs_remember_last_share_location">Reține contribuie locația</string>
   <string name="prefs_remember_last_upload_location_summary">Reține locația fișierului încărcat precedent</string>
   <string name="recommend_subject">Încearcă %1$s pe smartphone-ul tău!</string>
-  <string name="recommend_text">Te invit sa folosești %1$s pe smartfonul tău!\nDescarcă aici: %2$s</string>
+  <string name="recommend_text">Te invit sa folosești %1$s pe smartphone-ul tău!\nDescarcă aici: %2$s</string>
   <string name="auth_check_server">Verificaţi Serverul</string>
   <string name="auth_host_url">Adresa serverului https://...</string>
   <string name="auth_username">Nume utilizator</string>
@@ -46,6 +52,7 @@
   <string name="sync_string_files">Fișiere</string>
   <string name="setup_btn_connect">Conectare</string>
   <string name="uploader_btn_upload_text">Încărcare</string>
+  <string name="uploader_btn_new_folder_text">Un nou dosar</string>
   <string name="uploader_top_message">Alegeţi fişierul pentru încărcare</string>
   <string name="uploader_wrn_no_account_title">Nici un cont găsit</string>
   <string name="uploader_wrn_no_account_text">Nu există conturi %1$s pe dispozitivul tău. Te rugăm să configurezi un cont mai întâi.</string>
@@ -124,15 +131,6 @@
   <string name="foreign_files_remote_text">La distanta: %1$s</string>
   <string name="upload_query_move_foreign_files">Nu este suficient spațiu pentru a copia fișierele selectate în dosarul %1$s . Dorești să le muți în loc?
 </string>
-  <string name="pincode_enter_pin_code">Te rugăm să specifici PIN-ul aplicației</string>
-  <string name="pincode_configure_your_pin">Introduceti PIN-ul aplicatiei</string>
-  <string name="pincode_configure_your_pin_explanation">PIN-ul va fi solicitat ori de cate ori aplicaţia este pornita</string>
-  <string name="pincode_reenter_your_pincode">Va rugam , reintroduceti PIN-ul aplicatiei</string>
-  <string name="pincode_remove_your_pincode">Elimină PIN-ul aplicației</string>
-  <string name="pincode_mismatch">Cele două PIN-uri ale aplicației nu sunt similare</string>
-  <string name="pincode_wrong">PIN-ul aplicației este incorect</string>
-  <string name="pincode_removed">PIN-ul aplicației a fost eliminat</string>
-  <string name="pincode_stored">PIN-ul aplicației a fost memorat</string>
   <string name="media_notif_ticker">%1$s  player de muzică</string>
   <string name="media_state_playing">%1$s (cântă)</string>
   <string name="media_state_loading">%1$s (încarcă)</string>
@@ -157,6 +155,7 @@
   <string name="auth_no_net_conn_title">Nu exista conexiune</string>
   <string name="auth_nossl_plain_ok_title">Conexiune securizată indisponibilă</string>
   <string name="auth_connection_established">Conexiune stabilită</string>
+  <string name="auth_testing_connection">Testare conexiune</string>
   <string name="auth_not_configured_title">Configurație serverului incorectă</string>
   <string name="auth_account_not_new">Un cont pentru același utilizator și server există deja în dispozitiv</string>
   <string name="auth_account_not_the_same">Utilizatorul introdus nu se potrivește cu utilizatorul acestui cont</string>
@@ -251,8 +250,12 @@
   <string name="error__upload__local_file_not_copied">%1$s nu a putut fi copiat in dosarul local %2$s </string>
   <string name="prefs_instant_upload_path_title">Calea de încărcare</string>
   <string name="share_link_no_support_share_api">Ne pare rău, partajarea nu este activată pe server. Vă rugăm să contactați administratorul dvs.</string>
+  <string name="share_link_file_no_exist">Imposibil de partajat. Te rugăm să verifici dacă există fișierul.</string>
   <string name="share_link_file_error">A apărut o eroare în timp ce încerca să partajeze acest fișier sau folder</string>
+  <string name="unshare_link_file_no_exist">Imposibil de șters partajarea. Te rugăm să verifici dacă există fișierul.</string>
   <string name="unshare_link_file_error">A apărut o eroare în timp ce încerca să departajeze sau unshare acest fișier sau folder</string>
+  <string name="share_link_password_title">Introduceţi parola</string>
+  <string name="share_link_empty_password">Trebuie să introduci o parolă</string>
   <string name="activity_chooser_send_file_title">Expediază</string>
   <string name="copy_link">Link copiat</string>
   <string name="clipboard_text_copied">Copiat în clipboard</string>
@@ -284,6 +287,7 @@
   <string name="file_list_empty_moving">Nu este nimic aici. Poți adăuga un director!</string>
   <string name="folder_picker_choose_button_text">Alege</string>
   <string name="move_file_not_found">Incapabil de trasfer. Verifică existența fișierului</string>
+  <string name="move_file_invalid_into_descendent">Nu este posibil să muți un dosar într-un descendent</string>
   <string name="move_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
   <string name="move_file_error">O eroare apare la transferarea acestui fișier sau dosar</string>
   <string name="forbidden_permissions_move">pentru a muta acest fișier</string>
@@ -291,5 +295,6 @@
   <string name="prefs_category_security">Securitate</string>
   <string name="prefs_instant_video_upload_path_title">Calea de încărcare Video</string>
   <string name="download_folder_failed_content">Descărcarea fișierului %1$s nu s-a finisat</string>
+  <string name="auth_refresh_button">Reîmprospătează conexiunea</string>
   <string name="auth_host_address">Adresa server-ului</string>
 </resources>

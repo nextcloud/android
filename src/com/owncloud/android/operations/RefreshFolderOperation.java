@@ -201,7 +201,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             if (mRemoteFolderChanged) {
                 result = fetchAndSyncRemoteFolder(client);
             } else {
-                mChildren = mStorageManager.getFolderContent(mLocalFolder);
+                // TODO Enable when "On Device" is recovered ?
+                mChildren = mStorageManager.getFolderContent(mLocalFolder/*, false*/);
             }
         }
         
@@ -341,7 +342,8 @@ public class RefreshFolderOperation extends RemoteOperation {
         List<SynchronizeFileOperation> filesToSyncContents = new Vector<SynchronizeFileOperation>();
 
         // get current data about local contents of the folder to synchronize
-        List<OCFile> localFiles = mStorageManager.getFolderContent(mLocalFolder);
+        // TODO Enable when "On Device" is recovered ?
+        List<OCFile> localFiles = mStorageManager.getFolderContent(mLocalFolder/*, false*/);
         Map<String, OCFile> localFilesMap = new HashMap<String, OCFile>(localFiles.size());
         for (OCFile file : localFiles) {
             localFilesMap.put(file.getRemotePath(), file);

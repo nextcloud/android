@@ -48,7 +48,6 @@ import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.webkit.MimeTypeMap;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -58,7 +57,6 @@ import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -118,7 +116,8 @@ public class FileUploader extends Service
     private Account mLastAccount = null;
     private FileDataStorageManager mStorageManager;
 
-    private ConcurrentMap<String, UploadFileOperation> mPendingUploads = new ConcurrentHashMap<String, UploadFileOperation>();
+    private ConcurrentMap<String, UploadFileOperation> mPendingUploads =
+            new ConcurrentHashMap<String, UploadFileOperation>();
     private UploadFileOperation mCurrentUpload = null;
 
     private NotificationManager mNotificationManager;
@@ -130,7 +129,7 @@ public class FileUploader extends Service
 
 
     public static String getUploadFinishMessage() {
-        return FileUploader.class.getName().toString() + UPLOAD_FINISH_MESSAGE;
+        return FileUploader.class.getName() + UPLOAD_FINISH_MESSAGE;
     }
 
     /**
@@ -230,7 +229,7 @@ public class FileUploader extends Service
         if (uploadType == UPLOAD_SINGLE_FILE) {
 
             if (intent.hasExtra(KEY_FILE)) {
-                files = new OCFile[] { (OCFile) intent.getParcelableExtra(KEY_FILE) };
+                files = new OCFile[] { intent.getParcelableExtra(KEY_FILE) };
 
             } else {
                 localPaths = new String[] { intent.getStringExtra(KEY_LOCAL_FILE) };
@@ -283,7 +282,7 @@ public class FileUploader extends Service
             files = new OCFile[localPaths.length];
             for (int i = 0; i < localPaths.length; i++) {
                 files[i] = obtainNewOCFileToUpload(remotePaths[i], localPaths[i],
-                        ((mimeTypes != null) ? mimeTypes[i] : (String) null), storageManager);
+                        ((mimeTypes != null) ? mimeTypes[i] : null), storageManager);
                 if (files[i] == null) {
                     // TODO @andomaex add failure Notification
                     return Service.START_NOT_STICKY;
@@ -291,9 +290,7 @@ public class FileUploader extends Service
             }
         }
 
-        AccountManager aMgr = AccountManager.get(this);
-        String version = aMgr.getUserData(account, Constants.KEY_OC_VERSION);
-        OwnCloudVersion ocv = new OwnCloudVersion(version);
+        OwnCloudVersion ocv = AccountUtils.getServerVersion(account);
 
         boolean chunked = FileUploader.chunkedUploadIsSupported(ocv);
         AbstractList<String> requestedUploads = new Vector<String>();
@@ -383,7 +380,8 @@ public class FileUploader extends Service
          * Map of listeners that will be reported about progress of uploads from a
          * {@link FileUploaderBinder} instance
          */
-        private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<String, OnDatatransferProgressListener>();
+        private Map<String, OnDatatransferProgressListener> mBoundListeners =
+                new HashMap<String, OnDatatransferProgressListener>();
 
         /**
          * Cancels a pending or current upload of a remote file.
@@ -392,7 +390,7 @@ public class FileUploader extends Service
          * @param file A file in the queue of pending uploads
          */
         public void cancel(Account account, OCFile file) {
-            UploadFileOperation upload = null;
+            UploadFileOperation upload;
             synchronized (mPendingUploads) {
                 upload = mPendingUploads.remove(buildRemoteName(account, file));
             }
@@ -563,7 +561,7 @@ public class FileUploader extends Service
 
                 notifyUploadStart(mCurrentUpload);
 
-                RemoteOperationResult uploadResult = null, grantResult = null;
+                RemoteOperationResult uploadResult = null, grantResult;
 
                 try {
                     /// prepare client object to send requests to the ownCloud server
@@ -610,7 +608,7 @@ public class FileUploader extends Service
                         mPendingUploads.remove(uploadKey);
                         Log_OC.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
                     }
-                    if (uploadResult.isException()) {
+                    if (uploadResult != null && uploadResult.isException()) {
                         // enforce the creation of a new client object for next uploads;
                         // this grant that a new socket will be created in the future if
                         // the current exception is due to an abrupt lose of network connection
@@ -845,7 +843,7 @@ public class FileUploader extends Service
             int tickerId = (uploadResult.isSuccess()) ? R.string.uploader_upload_succeeded_ticker :
                     R.string.uploader_upload_failed_ticker;
 
-            String content = null;
+            String content;
 
             // check credentials error
             boolean needsToUpdateCredentials = (
@@ -964,8 +962,8 @@ public class FileUploader extends Service
     /**
      * Checks if content provider, using the content:// scheme, returns a file with mime-type 
      * 'application/pdf' but file has not extension
-     * @param localPath
-     * @param mimeType
+     * @param localPath         Full path to a file in the local file system.
+     * @param mimeType          MIME type of the file.
      * @return true if is needed to add the pdf file extension to the file
      */
     private boolean isPdfFileFromContentProviderWithoutExtension(String localPath,
@@ -977,7 +975,7 @@ public class FileUploader extends Service
 
     /**
      * Remove uploads of an account
-     * @param accountName
+     * @param accountName       Name of an OC account
      */
     private void cancelUploadForAccount(String accountName){
         // this can be slow if there are many uploads :(

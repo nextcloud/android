@@ -19,8 +19,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -36,7 +34,6 @@ import android.view.ViewGroup;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -58,11 +55,14 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     /**
      * Constructor.
      * 
-     * @param fragmentManager   {@link FragmentManager} instance that will handle the {@link Fragment}s provided by the adapter. 
+     * @param fragmentManager   {@link FragmentManager} instance that will handle
+     *                          the {@link Fragment}s provided by the adapter.
      * @param parentFolder      Folder where images will be searched for.
      * @param storageManager    Bridge to database.
      */
-    public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder, Account account, FileDataStorageManager storageManager) {
+    public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder,
+                                    Account account, FileDataStorageManager storageManager /*,
+                                    boolean onlyOnDevice*/) {
         super(fragmentManager);
         
         if (fragmentManager == null) {
@@ -77,7 +77,8 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
         mAccount = account;
         mStorageManager = storageManager;
-        mImageFiles = mStorageManager.getFolderImages(parentFolder); 
+        // TODO Enable when "On Device" is recovered ?
+        mImageFiles = mStorageManager.getFolderImages(parentFolder/*, false*/);
         
         mImageFiles = FileStorageUtils.sortFolder(mImageFiles);
         
@@ -102,15 +103,18 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         OCFile file = mImageFiles.get(i);
         Fragment fragment = null;
         if (file.isDown()) {
-            fragment = new PreviewImageFragment(file, mAccount, mObsoletePositions.contains(Integer.valueOf(i)));
+            fragment = PreviewImageFragment.newInstance(file,
+                    mObsoletePositions.contains(Integer.valueOf(i)));
             
         } else if (mDownloadErrors.contains(Integer.valueOf(i))) {
-            fragment = new FileDownloadFragment(file, mAccount, true);
+            fragment = FileDownloadFragment.newInstance(file, mAccount, true);
             ((FileDownloadFragment)fragment).setError(true);
             mDownloadErrors.remove(Integer.valueOf(i));
             
         } else {
-            fragment = new FileDownloadFragment(file, mAccount, mObsoletePositions.contains(Integer.valueOf(i)));
+            fragment = FileDownloadFragment.newInstance(
+                    file, mAccount, mObsoletePositions.contains(Integer.valueOf(i))
+            );
         }
         mObsoletePositions.remove(Integer.valueOf(i));
         return fragment;

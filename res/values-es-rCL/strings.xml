@@ -9,11 +9,13 @@
   <string name="actionbar_see_details">detalles</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">General</string>
   <string name="prefs_accounts">Cuentas</string>
   <string name="prefs_manage_accounts">Administrar Cuentas</string>
-  <string name="prefs_pincode">PIN de la aplicación</string>
-  <string name="prefs_pincode_summary">Proteger su cliente</string>
   <string name="prefs_instant_upload">Subida instantánea de imagenes</string>
   <string name="prefs_instant_upload_summary">Subida instantánea de imágenes tomadas con la cámara</string>
   <string name="prefs_help">Ayuda</string>
@@ -24,6 +26,7 @@
   <string name="sync_string_files">Archivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
+  <string name="uploader_btn_new_folder_text">Nuevo directorio</string>
   <string name="uploader_top_message">Elija el directorio donde subir los archivos:</string>
   <string name="uploader_wrn_no_account_title">No se encuentra la cuenta</string>
   <string name="uploader_wrn_no_account_text">No existe la cuenta %1$s en su dispositivo. Por favor configure una cuenta primero.</string>
@@ -81,15 +84,6 @@
   <string name="foreign_files_fail">algunos archivos no pueden ser transferidos</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
-  <string name="pincode_enter_pin_code">Por favor, ingreses su PIN de aplicación</string>
-  <string name="pincode_configure_your_pin">Ingrese su PIN de aplicación</string>
-  <string name="pincode_configure_your_pin_explanation">El PIN será solicitado cada vez que la aplicación se inicie</string>
-  <string name="pincode_reenter_your_pincode">Por favor, reingrese su PIN de aplicación</string>
-  <string name="pincode_remove_your_pincode">Remover el PIN de su aplicación</string>
-  <string name="pincode_mismatch">Los PINs de su aplicación no coinciden</string>
-  <string name="pincode_wrong">PIN de aplicación incorrecto</string>
-  <string name="pincode_removed">PIN de aplicación removido</string>
-  <string name="pincode_stored">PIN de aplicación almacenada</string>
   <string name="media_notif_ticker">Reproductor de música %1$s</string>
   <string name="media_state_playing">(sonando) %1$s</string>
   <string name="media_state_loading">(cargando) %1$s</string>

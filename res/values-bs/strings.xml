@@ -7,12 +7,17 @@
   <string name="actionbar_send_file">Pošalji</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_more">Više</string>
   <string name="prefs_help">Pomoć</string>
   <string name="auth_username">Korisničko ime</string>
   <string name="auth_password">Lozinka</string>
   <string name="sync_string_files">Datoteke</string>
   <string name="uploader_btn_upload_text">Učitaj</string>
+  <string name="uploader_btn_new_folder_text">Novi direktorij</string>
   <string name="filedetails_download">Preuzmite</string>
   <string name="action_share_file">Podijelite vezu</string>
   <string name="common_yes">Da</string>

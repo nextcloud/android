@@ -13,12 +13,14 @@
   <string name="actionbar_send_file">ارسال</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">عمومی</string>
   <string name="prefs_category_more">بیش‌تر</string>
   <string name="prefs_accounts">حساب‌ها</string>
   <string name="prefs_manage_accounts">مدیریت حسابها</string>
-  <string name="prefs_pincode">PIN برنامه</string>
-  <string name="prefs_pincode_summary">حفاظت از مشتری</string>
   <string name="prefs_log_title">فعال کردن ورود</string>
   <string name="prefs_log_summary">این برای مشکلات ورود استفاده شده است.</string>
   <string name="prefs_log_title_history">تاریخچه ورود</string>
@@ -37,6 +39,7 @@
   <string name="sync_string_files">پرونده‌ها</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">بارگزاری</string>
+  <string name="uploader_btn_new_folder_text">پوشه جدید</string>
   <string name="uploader_top_message">انتخاب پوشه آپلود:</string>
   <string name="uploader_wrn_no_account_title">هیچ حسابی یافت نشد</string>
   <string name="uploader_wrn_no_account_text">هیچ حسابی در %1$s بر روی دستگاه شما موجود نیست.لطفا اول یک حساب ترتیب دهید.</string>
@@ -108,15 +111,6 @@
   <string name="foreign_files_fail">بعضی از فایل ها نمی توانند انتقال یابند</string>
   <string name="foreign_files_local_text">محلی: %1$s</string>
   <string name="foreign_files_remote_text">دور از دسترس:  %1$s</string>
-  <string name="pincode_enter_pin_code">لطفا PIN برنامه خودتان را وارد کنید</string>
-  <string name="pincode_configure_your_pin">PIN برنامه را وارد کنید</string>
-  <string name="pincode_configure_your_pin_explanation">هر زمان که برنامه آغاز شود PIN درخواست خواهد شد.</string>
-  <string name="pincode_reenter_your_pincode">لطفا PIN برنامه خودتان را دوباره وارد کنید</string>
-  <string name="pincode_remove_your_pincode">PIN برنامه خودتان را حذف کنید</string>
-  <string name="pincode_mismatch">PIN های برنامه یکسان نیستند</string>
-  <string name="pincode_wrong">PIN برنامه نادرست است</string>
-  <string name="pincode_removed">PIN برنامه حذف شده است</string>
-  <string name="pincode_stored">PIN برنامه ذخیره شده است</string>
   <string name="media_notif_ticker">%1$s پخش کننده موسیقی</string>
   <string name="media_state_playing">%1$s ( در حال پخش موسیقی )</string>
   <string name="media_state_loading">%1$s (درحال بارگذاری)</string>

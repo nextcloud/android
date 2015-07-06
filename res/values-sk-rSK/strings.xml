@@ -19,12 +19,18 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Všetky súbory</string>
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Nastavenia</string>
+  <string name="drawer_item_logs">Logy</string>
+  <string name="drawer_close">Zavrieť</string>
   <string name="prefs_category_general">Všeobecné</string>
   <string name="prefs_category_more">Viac</string>
   <string name="prefs_accounts">Účty</string>
   <string name="prefs_manage_accounts">Správa účtov</string>
-  <string name="prefs_pincode">PIN aplikácie</string>
-  <string name="prefs_pincode_summary">Chrániť klienta aplikácie</string>
   <string name="prefs_instant_upload">Okamžité nahratie obrázka</string>
   <string name="prefs_instant_upload_summary">Okamžite nahrať obrázok zaznamenaný fotoaparátom</string>
   <string name="prefs_instant_video_upload">Okamžité nahranie videa</string>
@@ -50,6 +56,7 @@
   <string name="sync_string_files">Súbory</string>
   <string name="setup_btn_connect">Pripojiť</string>
   <string name="uploader_btn_upload_text">Nahrať</string>
+  <string name="uploader_btn_new_folder_text">Nový priečinok</string>
   <string name="uploader_top_message">Vyberte priečinok pre nahrávanie:</string>
   <string name="uploader_wrn_no_account_title">Účet sa nenašiel</string>
   <string name="uploader_wrn_no_account_text">Na tomto zariadení nie je zadaný žiadny %1$s účet. Zadajte ho prosím.</string>
@@ -127,15 +134,10 @@
   <string name="foreign_files_local_text">Lokálne: %1$s</string>
   <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
   <string name="upload_query_move_foreign_files">Nie je dostatok miesta na skopírovanie vybraných súborov do priečinka %1$s. Želáte si ich namiesto toho presunúť?</string>
-  <string name="pincode_enter_pin_code">Zadajte PIN aplikácie</string>
-  <string name="pincode_configure_your_pin">Zadajte PIN aplikácie</string>
-  <string name="pincode_configure_your_pin_explanation">Pri každom spustení aplikácie bude vyžadovaný PIN</string>
-  <string name="pincode_reenter_your_pincode">Zadajte znovu PIN aplikácie</string>
-  <string name="pincode_remove_your_pincode">Zrušiť PIN pre aplikáciu</string>
-  <string name="pincode_mismatch">PINy sa neshodujú</string>
-  <string name="pincode_wrong">Nesprávny PIN aplikácie</string>
-  <string name="pincode_removed">PIN aplikácie bol odstránený</string>
-  <string name="pincode_stored">PIN aplikácie bol uložený</string>
+  <string name="pass_code_enter_pass_code">Prosím, vložte svoje heslo:</string>
+  <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
+  <string name="pass_code_reenter_your_pass_code">Prosím, vložte znovu svoje heslo:</string>
+  <string name="pass_code_remove_your_pass_code">Zmazať svoje heslo</string>
   <string name="media_notif_ticker">Prehrávač hudby %1$s</string>
   <string name="media_state_playing">%1$s (prehráva)</string>
   <string name="media_state_loading">%1$s (načítava)</string>
@@ -160,6 +162,7 @@
   <string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
   <string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
   <string name="auth_connection_established">Pripojenie vytvorené</string>
+  <string name="auth_testing_connection">Testuje sa pripojenie</string>
   <string name="auth_not_configured_title">Nesprávna konfigurácia servera</string>
   <string name="auth_account_not_new">Účet pre tohoto používateľa a tento server už v tomto zariadení existuje</string>
   <string name="auth_account_not_the_same">Zadané prihlasovacie údaje používateľa sú nesprávne</string>
@@ -260,6 +263,8 @@
   <string name="share_link_file_error">Pri pokuse o zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
   <string name="unshare_link_file_no_exist">Nemožno ukončiť zdieľanie. Skontrolujte, či súbor existuje</string>
   <string name="unshare_link_file_error">Pri pokuse zrušiť zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
+  <string name="share_link_password_title">Vložte heslo</string>
+  <string name="share_link_empty_password">Musíte vložiť heslo</string>
   <string name="activity_chooser_send_file_title">Odoslať</string>
   <string name="copy_link">Kopíruj odkaz</string>
   <string name="clipboard_text_copied">Skopírované do schránky</string>
@@ -299,6 +304,11 @@
   <string name="prefs_category_security">Zabezpečenie</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pre nahrávanie videí</string>
   <string name="download_folder_failed_content">Sťahovanie %1$s priečinka nebolo dokončené</string>
-  <string name="subject_token">%1$s vám zdieľa „%2$s“</string>
+  <string name="shared_subject_header">zdieľané</string>
+  <string name="with_you_subject_header">s vami</string>
+  <string name="subject_token">%1$s vám zdieľal \"%2$s\"</string>
+  <string name="auth_refresh_button">Obnoviť pripojenie</string>
   <string name="auth_host_address">Adresa servera</string>
+  <string name="common_error_out_memory">Nedostatok pamäte</string>
+  <string name="username">Používateľské meno</string>
 </resources>

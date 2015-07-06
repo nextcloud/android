@@ -19,12 +19,15 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Umum</string>
   <string name="prefs_category_more">Lainnya</string>
   <string name="prefs_accounts">Akun</string>
   <string name="prefs_manage_accounts">Kelola Akun</string>
-  <string name="prefs_pincode">PIN Apl</string>
-  <string name="prefs_pincode_summary">Lindungi klien Anda</string>
+  <string name="prefs_passcode">Kunci kode sandi</string>
   <string name="prefs_instant_upload">Unggah gambar cepat</string>
   <string name="prefs_instant_upload_summary">Unggah gambar yang diambil kamera dengan cepat</string>
   <string name="prefs_instant_video_upload">Unggah video cepat</string>
@@ -50,6 +53,7 @@
   <string name="sync_string_files">Berkas</string>
   <string name="setup_btn_connect">Sambungkan</string>
   <string name="uploader_btn_upload_text">Unggah</string>
+  <string name="uploader_btn_new_folder_text">Folder baru</string>
   <string name="uploader_top_message">Pilih folder unggah:</string>
   <string name="uploader_wrn_no_account_title">Tidak ada akun yang ditemukan</string>
   <string name="uploader_wrn_no_account_text">Belum ada akun %1$s pada perangkat Anda. Silahkan buat akun terlebih dahulu.</string>
@@ -119,7 +123,7 @@
   <string name="sync_fail_in_favourites_content">Konten berkas %1$d tidak dapat disinkronasikan (%2$d konflik)</string>
   <string name="sync_foreign_files_forgotten_ticker">Beberapa berkas lokal terlupakan</string>
   <string name="sync_foreign_files_forgotten_content">%1$d berkas diluar folder %2$s tidak dapat disalin kedalamnya</string>
-  <string name="sync_foreign_files_forgotten_explanation">Sejak versi  1.3.16, berkas-berkas yang diunggah dari piranti ini akan disalin kedalam folder %1$s lokal untuk mencagah kehilangan data saat berkas tunggal disinkronkan dengan akun lebih dari satu.\n\nAkibat perubahan ini, semua berkas yang diunggah di versi aplikasi sebelumnya disalin kedalam folder %2$s. Namun, sebuah kesalahan mencegah penyelesaian operasi ini saat sinkronisasi akun. Anda boleh meninggalkan berkas seperti ini dan menghapus tautan ke %3$s atau memindahkan berkas kedalam folder %1$s dan membiarkan tautan ke %4$s.\n\nYang tampak dibawah adalah berkas lokal, dan berkas remote didalam %5$s yang dihubungkan dengannya.</string>
+  <string name="sync_foreign_files_forgotten_explanation">Sejak versi  1.3.16, berkas-berkas yang diunggah dari perangkat ini akan disalin kedalam folder %1$s lokal untuk mencagah kehilangan data saat berkas tunggal disinkronkan dengan akun lebih dari satu.\n\nAkibat perubahan ini, semua berkas yang diunggah di versi aplikasi sebelumnya disalin kedalam folder %2$s. Namun, sebuah kesalahan mencegah penyelesaian operasi ini saat sinkronisasi akun. Anda boleh meninggalkan berkas seperti ini dan menghapus tautan ke %3$s atau memindahkan berkas kedalam folder %1$s dan membiarkan tautan ke %4$s.\n\nYang tampak dibawah adalah berkas lokal, dan berkas remote didalam %5$s yang dihubungkan dengannya.</string>
   <string name="sync_current_folder_was_removed">Folder %1$s tidak ada lagi</string>
   <string name="foreign_files_move">Pindahkan semua</string>
   <string name="foreign_files_success">Semua berkas sudah dipindahkan</string>
@@ -127,15 +131,15 @@
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Jauh: %1$s</string>
   <string name="upload_query_move_foreign_files">Ruang tidak cukup untuk menyalin berkas terpilih kedalam folder %1$s. Apakah Anda ingin memindahkannya saja?</string>
-  <string name="pincode_enter_pin_code">Silakan masukkan PIN Apl</string>
-  <string name="pincode_configure_your_pin">Masukkan PIN Apl</string>
-  <string name="pincode_configure_your_pin_explanation">PIN akan selalu diminta setiap kali apl dijalankan</string>
-  <string name="pincode_reenter_your_pincode">Silakan masukkan ulang PIN Apl</string>
-  <string name="pincode_remove_your_pincode">Hapus PIN Apl</string>
-  <string name="pincode_mismatch">PIN Apl tidak sama</string>
-  <string name="pincode_wrong">PIN Apl salah</string>
-  <string name="pincode_removed">PIN Apl dihapus</string>
-  <string name="pincode_stored">PIN Apl disimpan</string>
+  <string name="pass_code_enter_pass_code">Silakan masukkan kode sandi Anda</string>
+  <string name="pass_code_configure_your_pass_code">Masukkan kode sandi Anda</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Kode sandi akan diminta setiap kali apl dijalankan.</string>
+  <string name="pass_code_reenter_your_pass_code">Silakan masukkan ulang kode sandi Anda</string>
+  <string name="pass_code_remove_your_pass_code">Hapus kode sandi Anda</string>
+  <string name="pass_code_mismatch">Kode sandi tidak sama</string>
+  <string name="pass_code_wrong">Kode sandi salah</string>
+  <string name="pass_code_removed">Kode sandi dihapus</string>
+  <string name="pass_code_stored">Kode sandi disimpan</string>
   <string name="media_notif_ticker">Pemutar musik %1$s</string>
   <string name="media_state_playing">%1$s (dimainkan)</string>
   <string name="media_state_loading">%1$s (sedang dimuat)</string>
@@ -160,6 +164,7 @@
   <string name="auth_no_net_conn_title">Tidak ada koneksi internet</string>
   <string name="auth_nossl_plain_ok_title">Sambungan aman tidak tersedia</string>
   <string name="auth_connection_established">Sambungan dibuat</string>
+  <string name="auth_testing_connection">Mencoba sambungan</string>
   <string name="auth_not_configured_title">Konfigurasi server cacat</string>
   <string name="auth_account_not_new">Akun untuk pengguna dan server yang sama sudah ada dalam perangkat</string>
   <string name="auth_account_not_the_same">Pengguna yang dimasukkan tidak cocok dengan pengguna akun ini</string>
@@ -186,6 +191,7 @@
   <string name="auth_fail_get_user_name">Server Anda tidak membalas id pengguna dengan banar, Sialakn hubungi Administrator
 	</string>
   <string name="auth_can_not_auth_against_server">Tidak dapat mengotentikasi pada server ini</string>
+  <string name="auth_account_does_not_exist">Akun tidak ada di perangkat ini</string>
   <string name="fd_keep_in_sync">Biarkan berkas tetap terbaru</string>
   <string name="common_rename">Ubah nama</string>
   <string name="common_remove">Hapus</string>
@@ -209,6 +215,7 @@
   <string name="filedisplay_unexpected_bad_get_content">Masalah tidak terduga, silahkan pilih berkas dari apl yang berbeda</string>
   <string name="filedisplay_no_file_selected">Tidak ada berkas yang terpilih</string>
   <string name="activity_chooser_title">Kirim taukan ke</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Menyalin berkas dari penyimpanan pribadi</string>
   <string name="oauth_check_onoff">Masuk dengan oAuth2</string>
   <string name="oauth_login_connection">Menyambungkan ke server oAuth2...</string>
   <string name="ssl_validator_header">Identitas situs tidak dapat diverfikasi</string>
@@ -259,6 +266,8 @@
   <string name="share_link_file_error">Terjadi kesalahan saat mencoba membagikan berkas atau folder ini</string>
   <string name="unshare_link_file_no_exist">Tidak dapat menghapus berbagi. Mohon periksa apakah berkas ada</string>
   <string name="unshare_link_file_error">Terjadi kesalahan saat mencoba menghapus berbagi berkas dan folder ini</string>
+  <string name="share_link_password_title">Masukkan sandi</string>
+  <string name="share_link_empty_password">Anda harus memasukkan sandi</string>
   <string name="activity_chooser_send_file_title">Kirim</string>
   <string name="copy_link">Salin tautan</string>
   <string name="clipboard_text_copied">Disalin ke papan klip</string>
@@ -281,6 +290,9 @@
   <string name="auth_redirect_non_secure_connection_title">Sambungan aman dialihkan ke rute yang tidak aman.</string>
   <string name="actionbar_logger">Log</string>
   <string name="log_send_history_button">Kirim Riwayat</string>
+  <string name="log_send_no_mail_app">Tidak ada apl untuk mengirim log. Instal apl mail!</string>
+  <string name="log_send_mail_subject">%1$s Android apl log</string>
+  <string name="log_progress_dialog_text">Memuat data...</string>
   <string name="saml_authentication_required_text">Diperlukan otentikasi</string>
   <string name="saml_authentication_wrong_pass">Sandi salah</string>
   <string name="actionbar_move">Pindah</string>
@@ -293,5 +305,8 @@
   <string name="forbidden_permissions_move">untuk memindahkan berkas ini</string>
   <string name="prefs_category_instant_uploading">Unggah Cepat</string>
   <string name="prefs_category_security">Keamanan</string>
+  <string name="prefs_instant_video_upload_path_title">Unggah Lokasi Video</string>
+  <string name="download_folder_failed_content">Mengunduh folder %1$s  tidak selesai</string>
+  <string name="auth_refresh_button">Menyegarkan sambungan</string>
   <string name="auth_host_address">Alamat server</string>
 </resources>

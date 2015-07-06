@@ -54,19 +54,22 @@ public class ErrorMessageAdapter {
         
     }
 
-    public static String getErrorCauseMessage(RemoteOperationResult result, RemoteOperation operation, Resources res) {
+    public static String getErrorCauseMessage(RemoteOperationResult result,
+                                              RemoteOperation operation, Resources res) {
         
         String message = null;
         
         if (operation instanceof UploadFileOperation) {
             
             if (result.isSuccess()) {
-                message = String.format(res.getString(R.string.uploader_upload_succeeded_content_single), 
+                message = String.format(
+                        res.getString(R.string.uploader_upload_succeeded_content_single),
                         ((UploadFileOperation) operation).getFileName());
             } else {
                 if (result.getCode() == ResultCode.LOCAL_STORAGE_FULL
                         || result.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
-                    message = String.format(res.getString(R.string.error__upload__local_file_not_copied), 
+                    message = String.format(
+                            res.getString(R.string.error__upload__local_file_not_copied),
                             ((UploadFileOperation) operation).getFileName(), 
                             res.getString(R.string.app_name));
                 /*
@@ -78,8 +81,12 @@ public class ErrorMessageAdapter {
                     message = String.format(res.getString(R.string.forbidden_permissions),
                             res.getString(R.string.uploader_upload_forbidden_permissions));
 
+                } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
+                    message = res.getString(R.string.filename_forbidden_charaters_from_server);
+
                 } else {
-                    message = String.format(res.getString(R.string.uploader_upload_failed_content_single), 
+                    message = String.format(
+                            res.getString(R.string.uploader_upload_failed_content_single),
                             ((UploadFileOperation) operation).getFileName());
                 }
             }
@@ -87,7 +94,8 @@ public class ErrorMessageAdapter {
         } else if (operation instanceof DownloadFileOperation) {
             
             if (result.isSuccess()) {
-                message = String.format(res.getString(R.string.downloader_download_succeeded_content), 
+                message = String.format(
+                        res.getString(R.string.downloader_download_succeeded_content),
                         new File(((DownloadFileOperation) operation).getSavePath()).getName());
                 
             } else {
@@ -95,7 +103,8 @@ public class ErrorMessageAdapter {
                     message = res.getString(R.string.downloader_download_file_not_found);
 
                 } else {
-                    message = String.format(res.getString(R.string.downloader_download_failed_content), new File(
+                    message = String.format(
+                            res.getString(R.string.downloader_download_failed_content), new File(
                             ((DownloadFileOperation) operation).getSavePath()).getName());
                 }
             }
@@ -132,6 +141,9 @@ public class ErrorMessageAdapter {
             } else if (isNetworkError(result.getCode())) {
                 message = getErrorMessage(result, res);
                 
+            } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
+                message = res.getString(R.string.filename_forbidden_charaters_from_server);
+
             } else {
                 message = res.getString(R.string.rename_server_fail_msg); 
             }
@@ -152,11 +164,13 @@ public class ErrorMessageAdapter {
             } else if (isNetworkError(result.getCode())) {
                 message = getErrorMessage(result, res);
                 
+            } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
+                message = res.getString(R.string.filename_forbidden_charaters_from_server);
             } else {
                 message = res.getString(R.string.create_dir_fail_msg);
             }
         } else if (operation instanceof CreateShareOperation) {        
-            if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
+            if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {      // Error --> SHARE_NOT_FOUND
                 message = res.getString(R.string.share_link_file_no_exist);
                 
             } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
@@ -174,7 +188,7 @@ public class ErrorMessageAdapter {
             
         } else if (operation instanceof UnshareLinkOperation) {
         
-            if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
+            if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {      // Error --> SHARE_NOT_FOUND
                 message = res.getString(R.string.unshare_link_file_no_exist);
                 
             } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
@@ -204,7 +218,10 @@ public class ErrorMessageAdapter {
                 message = String.format(res.getString(R.string.forbidden_permissions),
                         res.getString(R.string.forbidden_permissions_move));
 
-            }else {    // Generic error
+            } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
+                message = res.getString(R.string.filename_forbidden_charaters_from_server);
+
+            } else {    // Generic error
                 // Show a Message, operation finished without success
                 message = res.getString(R.string.move_file_error);
             }

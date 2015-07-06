@@ -19,12 +19,19 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Все файлы</string>
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Настройки</string>
+  <string name="drawer_item_logs">Журналы</string>
+  <string name="drawer_close">Закрыть</string>
   <string name="prefs_category_general">Основные</string>
   <string name="prefs_category_more">Больше</string>
   <string name="prefs_accounts">Учётные записи</string>
   <string name="prefs_manage_accounts">Управление учётными записями</string>
-  <string name="prefs_pincode">PIN приложения</string>
-  <string name="prefs_pincode_summary">Защитить ваш клиент</string>
+  <string name="prefs_passcode">Блокировка кодом</string>
   <string name="prefs_instant_upload">Мгновенная загрузка фотографий</string>
   <string name="prefs_instant_upload_summary">Немедленно загружать фотографии сделанные камерой</string>
   <string name="prefs_instant_video_upload">Мгновенная загрузка видео</string>
@@ -51,6 +58,7 @@
   <string name="sync_string_files">Файлы</string>
   <string name="setup_btn_connect">Подключиться</string>
   <string name="uploader_btn_upload_text">Загрузить</string>
+  <string name="uploader_btn_new_folder_text">Новый каталог</string>
   <string name="uploader_top_message">Выберите каталог для загрузки</string>
   <string name="uploader_wrn_no_account_title">Учётная запись не найдена</string>
   <string name="uploader_wrn_no_account_text">На вашем устройстве нет учётных записей %1$s. Пожалуйста, настройте учётную запись.</string>
@@ -76,6 +84,7 @@
   <string name="filedetails_download">Скачать</string>
   <string name="filedetails_sync_file">Обновить файл</string>
   <string name="filedetails_renamed_in_upload_msg">Файл был переименован в %1$s во время загрузки</string>
+  <string name="list_layout">Макет списка</string>
   <string name="action_share_file">Поделиться ссылкой</string>
   <string name="action_unshare_file">Убрать ссылку</string>
   <string name="common_yes">Да</string>
@@ -128,15 +137,15 @@
   <string name="foreign_files_local_text">Локальные: %1$s</string>
   <string name="foreign_files_remote_text">Удаленные: %1$s</string>
   <string name="upload_query_move_foreign_files">Для копирования выбранных файлов в каталог %1$s недостаточно свободного места. Скопировать в другое место?</string>
-  <string name="pincode_enter_pin_code">Укажите PIN приложения</string>
-  <string name="pincode_configure_your_pin">Введите PIN приложения</string>
-  <string name="pincode_configure_your_pin_explanation">PIN будет запрашиваться при каждом запуске приложения.</string>
-  <string name="pincode_reenter_your_pincode">Повторите ввод PIN приложения</string>
-  <string name="pincode_remove_your_pincode">Удалить PIN приложения</string>
-  <string name="pincode_mismatch">Введённые PIN не совпадают</string>
-  <string name="pincode_wrong">Неверный PIN приложения</string>
-  <string name="pincode_removed">PIN приложения удалён</string>
-  <string name="pincode_stored">PIN приложения сохранён</string>
+  <string name="pass_code_enter_pass_code">Пожалуйста, укажите код</string>
+  <string name="pass_code_configure_your_pass_code">Укажите ваш код</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Код будет запрашиваться каждый раз при запуске приложения</string>
+  <string name="pass_code_reenter_your_pass_code">Пожалуйста, укажите код ещё раз</string>
+  <string name="pass_code_remove_your_pass_code">Убрать код</string>
+  <string name="pass_code_mismatch">Коды не совпадают</string>
+  <string name="pass_code_wrong">Некоррентный код</string>
+  <string name="pass_code_removed">Код удален</string>
+  <string name="pass_code_stored">Код сохранен</string>
   <string name="media_notif_ticker">%1$s аудиоплеер</string>
   <string name="media_state_playing">%1$s (проигрывается)</string>
   <string name="media_state_loading">%1$s (загружается)</string>
@@ -207,11 +216,13 @@
   <string name="sync_file_nothing_to_do_msg">Содержимое файла уже синхронизировано</string>
   <string name="create_dir_fail_msg">Невозможно создать каталог</string>
   <string name="filename_forbidden_characters">Недопустимые символы: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Имя файла содержит по крайней мере один некорректный символ</string>
   <string name="filename_empty">Имя файла не может быть пустым</string>
   <string name="wait_a_moment">Подождите немного</string>
   <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка; выберите этот файл из другого приложения</string>
   <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
   <string name="activity_chooser_title">Отправить ссылку ...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частной хранилища</string>
   <string name="oauth_check_onoff">Войти через oAuth2</string>
   <string name="oauth_login_connection">Подключение к серверу oAuth2...</string>
   <string name="ssl_validator_header">Подлинность сайта не может быть проверена</string>
@@ -303,7 +314,11 @@
   <string name="prefs_category_security">Безопасность</string>
   <string name="prefs_instant_video_upload_path_title">Путь для загрузки Видео</string>
   <string name="download_folder_failed_content">Загрузка папки %1$s не может быть завершена</string>
+  <string name="shared_subject_header">поделился</string>
+  <string name="with_you_subject_header">с вами</string>
   <string name="subject_token">%1$s предоставил вам доступ к \"%2$s\"</string>
   <string name="auth_refresh_button">Обновить соединение</string>
   <string name="auth_host_address">Адрес сервера</string>
+  <string name="common_error_out_memory">Недостаточно памяти</string>
+  <string name="username">Имя пользователя</string>
 </resources>
