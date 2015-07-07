@@ -72,12 +72,8 @@
     <string name="uploader_info_uploading">Uploading</string>
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_empty">Nothing in here. Upload something!</string>
-    <string name="file_list_loading">Loading...</string>
+    <string name="file_list_loading">Loading&#8230;</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
-    <string name="file_list_folder">folder</string>
-    <string name="file_list_folders">folders</string>
-    <string name="file_list_file">file</string>
-    <string name="file_list_files">files</string>
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
     <string name="filedetails_size">Size:</string>
     <string name="filedetails_type">Type:</string>
@@ -301,7 +297,7 @@
 	<string name="network_error_connect_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
 	<string name="network_host_not_available">The operation couldn\'t be completed, server is unavailable</string>
 
-	<string name="empty"></string>
+	<string name="empty" />
 	
 	<string name="forbidden_permissions">You do not have permission %s</string>
 	<string name="forbidden_permissions_rename">to rename this file</string>
@@ -350,4 +346,14 @@
     <string name="common_error_out_memory">Not enough memory</string>
 
     <string name="username">Username</string>
+
+    <string name="file_list__footer__folder">1 folder</string>
+    <string name="file_list__footer__folders">%1$d folders</string>
+    <string name="file_list__footer__file">1 file</string>
+    <string name="file_list__footer__file_and_folder">1 file, 1 folder</string>
+    <string name="file_list__footer__file_and_folders">1 file, %1$d folders</string>
+    <string name="file_list__footer__files">%1$d files</string>
+    <string name="file_list__footer__files_and_folder">%1$d files, 1 folder</string>
+    <string name="file_list__footer__files_and_folders">%1$d files, %2$d folders</string>
+
 </resources>
