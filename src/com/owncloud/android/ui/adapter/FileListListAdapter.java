@@ -233,7 +233,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 case GRID_IMAGE:
                     // sharedIcon
                     ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
-                    if (file.isShareByLink() && ((mGridMode && !file.isFolder()) || !mGridMode)) {
+                    //if (file.isShareByLink() && ((mGridMode && !file.isFolder()) || !mGridMode)) {
+                    if (file.isShareByLink()) {
                         sharedIconV.setVisibility(View.VISIBLE);
                         sharedIconV.bringToFront();
                     } else {
