@@ -597,6 +597,10 @@
 
     <string name="storage_description_default">Default</string>
 
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">New in %1$s</string>
     <string name="whats_new_skip">Skip</string>

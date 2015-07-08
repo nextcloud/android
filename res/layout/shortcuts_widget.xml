@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/widget_margin"
+    android:background="@color/actionbar_start_color">
+
+    <TextView android:id="@+id/appwidget_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/app_name"
+        android:textColor="@color/owncloud_blue_bright"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/appwidget_text"
+        android:background="@color/actionbar_start_color"/>
+
+</RelativeLayout>

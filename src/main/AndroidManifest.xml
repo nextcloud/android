@@ -297,13 +297,27 @@
                   android:label="@string/manage_space_title"
                   android:theme="@style/Theme.ownCloud" />
 
-
         <service
             android:name=".services.AccountManagerService"
             android:enabled="true"
             android:exported="true" >
         </service>
 
+        <receiver android:name=".widgets.ShortcutsWidget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/shortcuts_widget_info" />
+        </receiver>
+
+        <activity android:name=".widgets.ShortcutsWidgetConfigureActivity" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
