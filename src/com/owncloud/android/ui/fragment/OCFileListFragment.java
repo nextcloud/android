@@ -42,7 +42,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;

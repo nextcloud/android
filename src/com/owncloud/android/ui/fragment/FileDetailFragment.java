@@ -268,7 +268,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fdKeepInSync: {
-                toggleKeepInSync();
+                CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
+                mContainerActivity.getFileOperationsHelper().toggleKeepInSync(getFile(),cb.isChecked());
                 break;
             }
             case R.id.fdCancelBtn: {
@@ -280,27 +281,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
     }
     
-    
-    private void toggleKeepInSync() {
-        Log_OC.e(TAG, "toggleKeepInSync");
-        CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
-        OCFile file = getFile();
-        file.setKeepInSync(cb.isChecked());
-        mContainerActivity.getStorageManager().saveFile(file);
-        
-        /// register the OCFile instance in the observer service to monitor local updates
-        Intent observedFileIntent = FileObserverService.makeObservedFileIntent(
-                getActivity(),
-                file, 
-                mAccount,
-                cb.isChecked());
-        getActivity().startService(observedFileIntent);
-        
-        /// immediate content synchronization
-        if (file.keepInSync()) {
-            mContainerActivity.getFileOperationsHelper().syncFile(getFile());
-        }
-    }
 
     /**
      * Check if the fragment was created with an empty layout. An empty fragment can't show file details, must be replaced.
