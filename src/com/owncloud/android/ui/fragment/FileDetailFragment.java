@@ -259,6 +259,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 }
                 return true;
             }
+            case R.id.action_favorite_file:{
+                mContainerActivity.getFileOperationsHelper().toggleKeepInSync(getFile(), true);
+                return true;
+            }
+            case R.id.action_unfavorite_file:{
+                mContainerActivity.getFileOperationsHelper().toggleKeepInSync(getFile(), false);
+                return true;
+            }
             default:
                 return false;
         }
@@ -280,7 +288,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 Log_OC.e(TAG, "Incorrect view clicked!");
         }
     }
-    
+
 
     /**
      * Check if the fragment was created with an empty layout. An empty fragment can't show file details, must be replaced.
