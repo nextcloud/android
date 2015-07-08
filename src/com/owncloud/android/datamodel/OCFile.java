@@ -67,8 +67,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private boolean mShareByLink;
     private String mPublicLink;
 
-    private boolean mFavorite;
-
     private String mPermissions;
     private String mRemoteId;
 
@@ -114,7 +112,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLastSyncDateForData = source.readLong();
         mEtag = source.readString();
         mShareByLink = source.readInt() == 1;
-        mFavorite = source.readInt() == 1;
         mPublicLink = source.readString();
         mPermissions = source.readString();
         mRemoteId = source.readString();
@@ -140,7 +137,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeLong(mLastSyncDateForData);
         dest.writeString(mEtag);
         dest.writeInt(mShareByLink ? 1 : 0);
-        dest.writeInt(mFavorite ? 1 : 0);
         dest.writeString(mPublicLink);
         dest.writeString(mPermissions);
         dest.writeString(mRemoteId);
@@ -354,7 +350,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mNeedsUpdating = false;
         mEtag = null;
         mShareByLink = false;
-        mFavorite = false;
         mPublicLink = null;
         mPermissions = null;
         mRemoteId = null;
@@ -508,14 +503,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     public void setShareByLink(boolean shareByLink) {
         this.mShareByLink = shareByLink;
-    }
-
-    public boolean isFavorite() {
-        return mFavorite;
-    }
-
-    public void setFavorite(boolean mFavorite) {
-        this.mFavorite = mFavorite;
     }
 
     public String getPublicLink() {

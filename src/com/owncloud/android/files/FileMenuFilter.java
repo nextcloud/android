@@ -216,14 +216,14 @@ public class FileMenuFilter {
         }
 
         // FAVORITES
-        if (mFile == null || downloading || uploading || mFile.isFolder() || mFile.isFavorite()) {
+        if (mFile == null || downloading || uploading || mFile.isFolder() || mFile.keepInSync()) {
             toHide.add(R.id.action_favorite_file);
         } else {
             toShow.add(R.id.action_favorite_file);
         }
 
         // UNFAVORITES
-        if (mFile == null || downloading || uploading || mFile.isFolder() || !mFile.isFavorite()) {
+        if (mFile == null || downloading || uploading || mFile.isFolder() || !mFile.keepInSync()) {
             toHide.add(R.id.action_unfavorite_file);
         } else {
             toShow.add(R.id.action_unfavorite_file);
