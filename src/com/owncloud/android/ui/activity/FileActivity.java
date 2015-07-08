@@ -67,6 +67,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
@@ -75,6 +76,8 @@ import com.owncloud.android.ui.NavigationDrawerItem;
 import com.owncloud.android.ui.adapter.NavigationDrawerListAdapter;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
+import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import java.util.ArrayList;
@@ -691,6 +694,9 @@ public class FileActivity extends ActionBarActivity
         } else if (operation instanceof SynchronizeFolderOperation) {
             onSynchronizeFolderOperationFinish((SynchronizeFolderOperation)operation, result);
 
+        }else if (operation instanceof SynchronizeFileOperation) {
+            onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
+
         }
     }
 
@@ -768,6 +774,33 @@ public class FileActivity extends ActionBarActivity
         if (file != null) {
             file = getStorageManager().getFileByPath(file.getRemotePath());
             setFile(file);
+        }
+    }
+
+
+
+
+    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation,
+                                                  RemoteOperationResult result) {
+        dismissLoadingDialog();
+        OCFile syncedFile = operation.getLocalFile();
+        if (!result.isSuccess()) {
+            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+                Intent i = new Intent(this, ConflictsResolveActivity.class);
+                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, syncedFile);
+                i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, getAccount());
+                startActivity(i);
+
+            }
+
+        } else {
+            if (operation.transferWasRequested()) {
+
+            } else {
+                Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
+                        operation, getResources()), Toast.LENGTH_LONG);
+                msg.show();
+            }
         }
     }
     
