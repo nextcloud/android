@@ -282,6 +282,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     
     
     private void toggleKeepInSync() {
+        Log_OC.e(TAG, "toggleKeepInSync");
         CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
         OCFile file = getFile();
         file.setKeepInSync(cb.isChecked());

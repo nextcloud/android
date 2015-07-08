@@ -40,6 +40,7 @@ import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 
@@ -221,6 +222,25 @@ public class FileOperationsHelper {
             intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             mFileActivity.startService(intent);
+        }
+    }
+
+    public void toggleKeepInSync(OCFile file, boolean isFavorite) {
+        Log_OC.e(TAG, "KeepInSync");
+        file.setKeepInSync(isFavorite);
+        mFileActivity.getStorageManager().saveFile(file);
+
+        /// register the OCFile instance in the observer service to monitor local updates
+        Intent observedFileIntent = FileObserverService.makeObservedFileIntent(
+                mFileActivity,
+                file,
+                mFileActivity.getAccount(),
+                isFavorite);
+        mFileActivity.startService(observedFileIntent);
+
+        /// immediate content synchronization
+        if (file.keepInSync()) {
+            syncFile(file);
         }
     }
     

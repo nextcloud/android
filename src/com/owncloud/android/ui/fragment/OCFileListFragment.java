@@ -42,6 +42,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -341,6 +342,14 @@ public class OCFileListFragment extends ExtendedListFragment {
                 getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_MOVE_FILES);
                 return true;
             }
+            case R.id.action_favorite_file:{
+                mContainerActivity.getFileOperationsHelper().toggleKeepInSync(mTargetFile, true);
+                return true;
+            }
+            case R.id.action_unfavorite_file:{
+                mContainerActivity.getFileOperationsHelper().toggleKeepInSync(mTargetFile, false);
+                return true;
+            }
             default:
                 return super.onContextItemSelected(item); 
         }
@@ -492,8 +501,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     public void sortBySize(boolean descending) {
         mAdapter.setSortOrder(FileStorageUtils.SORT_SIZE, descending);
-    }  
-    
-   
+    }
+
     
 }
