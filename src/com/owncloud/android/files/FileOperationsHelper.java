@@ -226,7 +226,6 @@ public class FileOperationsHelper {
     }
 
     public void toggleKeepInSync(OCFile file, boolean isFavorite) {
-        Log_OC.e(TAG, "KeepInSync");
         file.setKeepInSync(isFavorite);
         mFileActivity.getStorageManager().saveFile(file);
 
