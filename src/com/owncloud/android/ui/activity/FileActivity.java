@@ -768,17 +768,6 @@ public class FileActivity extends ActionBarActivity
             t.show();
         }
     }
-    
-    protected void updateFileFromDB(){
-        OCFile file = getFile();
-        if (file != null) {
-            file = getStorageManager().getFileByPath(file.getRemotePath());
-            setFile(file);
-        }
-    }
-
-
-
 
     private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation,
                                                   RemoteOperationResult result) {
@@ -803,6 +792,15 @@ public class FileActivity extends ActionBarActivity
             }
         }
     }
+    
+    protected void updateFileFromDB(){
+        OCFile file = getFile();
+        if (file != null) {
+            file = getStorageManager().getFileByPath(file.getRemotePath());
+            setFile(file);
+        }
+    }
+
     
     /**
      * Show loading dialog 
