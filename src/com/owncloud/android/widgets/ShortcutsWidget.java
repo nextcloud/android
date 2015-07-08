@@ -70,7 +70,7 @@ public class ShortcutsWidget extends AppWidgetProvider {
                 ShortcutsWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.shortcuts_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+        views.setTextViewText(R.id.appwidget_title, widgetText);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

@@ -1,20 +1,71 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="@dimen/widget_margin"
-    android:background="@color/actionbar_start_color">
+    android:background="@drawable/rounded">
 
-    <TextView android:id="@+id/appwidget_text"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/app_name"
-        android:textColor="@color/owncloud_blue_bright"
-        android:textSize="24sp"
-        android:textStyle="bold|italic"
+        android:id="@+id/widget_app_button"
+        android:src="@drawable/icon"
         android:layout_margin="8dp"
-        android:contentDescription="@string/appwidget_text"
-        android:background="@color/actionbar_start_color"/>
+        android:layout_gravity="center"/>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <TextView android:id="@+id/appwidget_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/widget_text_color"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:contentDescription="@string/appwidget_title_content_description" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:text="@string/username"
+            android:id="@+id/widget_username"
+            android:textColor="@color/widget_text_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/widget_upload"
+            android:src="@drawable/ic_action_upload"
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:maxWidth="32dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/widget_create"
+            android:src="@drawable/ic_action_create_dir"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:maxWidth="32dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/widget_refresh"
+            android:src="@drawable/ic_action_refresh"
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:maxWidth="32dp" />
+    </LinearLayout>
+</LinearLayout>

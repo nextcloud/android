@@ -32,6 +32,8 @@
     <color name="transparent">#00000000</color>
     <color name="secondaryTextColor">#a0a0a0</color>
     <color name="highlight_textColor_Warning">#e53935</color>
+    <color name="widget_background_color">#601D2D44</color>
+    <color name="widget_text_color">#FFFFFF</color>
 
     <!-- Colors -->
     <color name="standard_grey">#757575</color>
