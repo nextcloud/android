@@ -69,12 +69,7 @@
   <string name="uploader_info_uploading">上传</string>
   <string name="file_list_seconds_ago">几秒前</string>
   <string name="file_list_empty">这里还什么都没有。上传些东西吧！</string>
-  <string name="file_list_loading">载入中....</string>
   <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
-  <string name="file_list_folder">文件夹</string>
-  <string name="file_list_folders">文件夹</string>
-  <string name="file_list_file">文件</string>
-  <string name="file_list_files">文件</string>
   <string name="filedetails_select_file">点击一个文件可以显示额外的信息。</string>
   <string name="filedetails_size">大小：</string>
   <string name="filedetails_type">类型：</string>

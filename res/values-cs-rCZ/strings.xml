@@ -69,12 +69,7 @@
   <string name="uploader_info_uploading">Odesílání</string>
   <string name="file_list_seconds_ago">před pár sekundami</string>
   <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
-  <string name="file_list_loading">Načítám...</string>
   <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
-  <string name="file_list_folder">adresář</string>
-  <string name="file_list_folders">adresářů</string>
-  <string name="file_list_file">soubor</string>
-  <string name="file_list_files">souborů</string>
   <string name="filedetails_select_file">Více informací získáte klepnutím na soubor.</string>
   <string name="filedetails_size">Velikost:</string>
   <string name="filedetails_type">Typ:</string>

@@ -69,12 +69,7 @@
   <string name="uploader_info_uploading">Μεταφόρτωση</string>
   <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
   <string name="file_list_empty">Δεν υπάρχει τίποτα εδώ. Μεταφορτώστε κάτι!</string>
-  <string name="file_list_loading">Φόρτωση...</string>
   <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
-  <string name="file_list_folder">φάκελος</string>
-  <string name="file_list_folders">φάκελοι</string>
-  <string name="file_list_file">αρχείο</string>
-  <string name="file_list_files">αρχεία</string>
   <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
   <string name="filedetails_size">Μέγεθος:</string>
   <string name="filedetails_type">Τύπος:</string>

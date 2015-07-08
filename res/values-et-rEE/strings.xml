@@ -69,12 +69,7 @@
   <string name="uploader_info_uploading">Üleslaadimine</string>
   <string name="file_list_seconds_ago">sekundit tagasi</string>
   <string name="file_list_empty">Siin pole midagi. Lae midagi üles!</string>
-  <string name="file_list_loading">Laen ...</string>
   <string name="local_file_list_empty">Kaustas pole faile.</string>
-  <string name="file_list_folder">kaust</string>
-  <string name="file_list_folders">kausta</string>
-  <string name="file_list_file">fail</string>
-  <string name="file_list_files">faili</string>
   <string name="filedetails_select_file">Lisainfo vaatamiseks vajuta failile.</string>
   <string name="filedetails_size">Suurus:</string>
   <string name="filedetails_type">Tüüp:</string>

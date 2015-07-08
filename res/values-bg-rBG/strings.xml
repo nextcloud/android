@@ -68,12 +68,7 @@
   <string name="uploader_info_uploading">Качване</string>
   <string name="file_list_seconds_ago">преди секунди</string>
   <string name="file_list_empty">Тук няма нищо. Качете нещо!</string>
-  <string name="file_list_loading">Зареждане...</string>
   <string name="local_file_list_empty">Няма файлове в тази папка.</string>
-  <string name="file_list_folder">папка</string>
-  <string name="file_list_folders">папки</string>
-  <string name="file_list_file">файл</string>
-  <string name="file_list_files">файл</string>
   <string name="filedetails_select_file">Натисни върху файл, за да видиш допълнителна информация.</string>
   <string name="filedetails_size">Размер:</string>
   <string name="filedetails_type">Тип:</string>

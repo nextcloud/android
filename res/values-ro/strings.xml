@@ -64,12 +64,7 @@
   <string name="uploader_info_uploading">Încărcare</string>
   <string name="file_list_seconds_ago">secunde în urmă</string>
   <string name="file_list_empty">Nimic aici. Încarcă ceva!</string>
-  <string name="file_list_loading">Se incarca</string>
   <string name="local_file_list_empty">In acest folder nu sunt fisiere.</string>
-  <string name="file_list_folder">director</string>
-  <string name="file_list_folders">directoare</string>
-  <string name="file_list_file">fișier</string>
-  <string name="file_list_files">fișiere</string>
   <string name="filedetails_select_file">Selectati un fisier pentru a afisa informatia aditionala</string>
   <string name="filedetails_size">Mărime:</string>
   <string name="filedetails_type">Tip:</string>

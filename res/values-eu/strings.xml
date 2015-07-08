@@ -62,12 +62,7 @@
   <string name="uploader_info_uploading">Igotzen</string>
   <string name="file_list_seconds_ago">segundu</string>
   <string name="file_list_empty">Ez dago ezer. Igo zerbait!</string>
-  <string name="file_list_loading">Kargatzen...</string>
   <string name="local_file_list_empty">Ez dago fitxategirik karpeta honetan.</string>
-  <string name="file_list_folder">karpeta</string>
-  <string name="file_list_folders">Karpetak</string>
-  <string name="file_list_file">fitxategia</string>
-  <string name="file_list_files">fitxategiak</string>
   <string name="filedetails_select_file">Sakatu fitxategi baten gainean informazio gehiago lortzeko</string>
   <string name="filedetails_size">Tamaina:</string>
   <string name="filedetails_type">Mota:</string>

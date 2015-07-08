@@ -68,12 +68,7 @@
   <string name="uploader_info_uploading">上傳中</string>
   <string name="file_list_seconds_ago">幾秒前</string>
   <string name="file_list_empty">這裡還沒有東西，上傳一些吧！</string>
-  <string name="file_list_loading">載入中…</string>
   <string name="local_file_list_empty">這個目錄中沒有任何檔案.</string>
-  <string name="file_list_folder">資料夾</string>
-  <string name="file_list_folders">資料夾</string>
-  <string name="file_list_file">檔案</string>
-  <string name="file_list_files">檔案</string>
   <string name="filedetails_select_file">在檔案上輕觸來顯示更多資訊。</string>
   <string name="filedetails_size">容量:</string>
   <string name="filedetails_type">類型:</string>

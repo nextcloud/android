@@ -68,12 +68,7 @@
   <string name="uploader_info_uploading">Завантаження</string>
   <string name="file_list_seconds_ago">секунди тому</string>
   <string name="file_list_empty">Тут нічого немає. Відвантажте що-небудь!</string>
-  <string name="file_list_loading">Завантаження...</string>
   <string name="local_file_list_empty">В цій теці немає файлів.</string>
-  <string name="file_list_folder">тека</string>
-  <string name="file_list_folders">теки</string>
-  <string name="file_list_file">файл</string>
-  <string name="file_list_files">файли</string>
   <string name="filedetails_select_file">Натисніть на файлі для відображення додаткової інформації</string>
   <string name="filedetails_size">Розмір:</string>
   <string name="filedetails_type">Тип:</string>

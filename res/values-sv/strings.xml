@@ -64,12 +64,7 @@
   <string name="uploader_info_uploading">Laddar upp</string>
   <string name="file_list_seconds_ago">sekunder sedan</string>
   <string name="file_list_empty">Ingenting här. Ladda upp något!</string>
-  <string name="file_list_loading">Laddar...</string>
   <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
-  <string name="file_list_folder">mapp</string>
-  <string name="file_list_folders">mappar</string>
-  <string name="file_list_file">fil</string>
-  <string name="file_list_files">filer</string>
   <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
   <string name="filedetails_size">Storlek:</string>
   <string name="filedetails_type">Typ:</string>

@@ -67,12 +67,7 @@
   <string name="uploader_info_uploading">A enviar</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Aqui não existe nada. Envie alguma coisa!</string>
-  <string name="file_list_loading">A carregar ...</string>
   <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
-  <string name="file_list_folder">pasta</string>
-  <string name="file_list_folders">pastas</string>
-  <string name="file_list_file">ficheiro</string>
-  <string name="file_list_files">ficheiros</string>
   <string name="filedetails_select_file">Toque num ficheiro para visualizar a informação adicional.</string>
   <string name="filedetails_size">Tamanho:</string>
   <string name="filedetails_type">Tipo:</string>

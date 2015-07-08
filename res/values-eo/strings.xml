@@ -41,11 +41,6 @@
   <string name="uploader_info_uploading">Alŝutante</string>
   <string name="file_list_seconds_ago">sekundoj antaŭe</string>
   <string name="file_list_empty">Nenio estas ĉi tie. Alŝutu ion!</string>
-  <string name="file_list_loading">Ŝargante...</string>
-  <string name="file_list_folder">dosierujo</string>
-  <string name="file_list_folders">dosierujoj</string>
-  <string name="file_list_file">dosiero</string>
-  <string name="file_list_files">dosieroj</string>
   <string name="filedetails_size">Grando:</string>
   <string name="filedetails_type">Tipo:</string>
   <string name="filedetails_created">Kreita je:</string>

@@ -68,12 +68,7 @@
   <string name="uploader_info_uploading">Nahrávanie</string>
   <string name="file_list_seconds_ago">pred sekundami</string>
   <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
-  <string name="file_list_loading">Nahráva sa...</string>
   <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
-  <string name="file_list_folder">priečinok</string>
-  <string name="file_list_folders">priečinky</string>
-  <string name="file_list_file">súbor</string>
-  <string name="file_list_files">súbory</string>
   <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
   <string name="filedetails_size">Veľkosť:</string>
   <string name="filedetails_type">Typ:</string>

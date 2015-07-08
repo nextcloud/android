@@ -66,12 +66,7 @@
   <string name="uploader_info_uploading">Lade hoch</string>
   <string name="file_list_seconds_ago">Gerade eben</string>
   <string name="file_list_empty">Alles leer. Lade etwas hoch!</string>
-  <string name="file_list_loading">Laden…</string>
   <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
-  <string name="file_list_folder">Ordner</string>
-  <string name="file_list_folders">Ordner</string>
-  <string name="file_list_file">Datei</string>
-  <string name="file_list_files">Dateien</string>
   <string name="filedetails_select_file">Klicken Sie auf eine Datei für weitere Informationen.</string>
   <string name="filedetails_size">Größe:</string>
   <string name="filedetails_type">Art:</string>

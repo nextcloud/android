@@ -62,12 +62,7 @@
   <string name="uploader_info_uploading">S\'està pujant</string>
   <string name="file_list_seconds_ago">segons enrere</string>
   <string name="file_list_empty">Res per aquí. Pugeu alguna cosa!</string>
-  <string name="file_list_loading">Carregant...</string>
   <string name="local_file_list_empty">No hi ha arxius a aquesta carpeta</string>
-  <string name="file_list_folder">carpeta</string>
-  <string name="file_list_folders">carpetes</string>
-  <string name="file_list_file">fitxer</string>
-  <string name="file_list_files">fitxers</string>
   <string name="filedetails_select_file">Feu clic en un fitxer per mostrar informació addicional.</string>
   <string name="filedetails_size">Mida:</string>
   <string name="filedetails_type">Tipus:</string>

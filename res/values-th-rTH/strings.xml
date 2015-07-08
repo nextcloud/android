@@ -69,12 +69,7 @@
   <string name="uploader_info_uploading">กำลังอัพโหลด</string>
   <string name="file_list_seconds_ago">วินาที ก่อนหน้านี้</string>
   <string name="file_list_empty">ยังไม่มีไฟล์ใดๆเลย ลองอัปโหลดดูสิ!</string>
-  <string name="file_list_loading">กำลังโหลด ...</string>
   <string name="local_file_list_empty">ยังไม่มีไฟล์ในโฟลเดอร์นี้</string>
-  <string name="file_list_folder">โฟลเดอร์</string>
-  <string name="file_list_folders">โฟลเดอร์</string>
-  <string name="file_list_file">ไฟล์</string>
-  <string name="file_list_files">ไฟล์</string>
   <string name="filedetails_select_file">แตะที่ไฟล์ เพื่อแสดงข้อมูลเพิ่มเติม</string>
   <string name="filedetails_size">ขนาด:</string>
   <string name="filedetails_type">ชนิด:</string>

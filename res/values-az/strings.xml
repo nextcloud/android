@@ -64,12 +64,7 @@
   <string name="uploader_info_uploading">Yüklənmə gedir</string>
   <string name="file_list_seconds_ago">saniyələr öncə</string>
   <string name="file_list_empty">Burda heçnə yoxdur. Nese yükləyin!</string>
-  <string name="file_list_loading">Yüklənir...</string>
   <string name="local_file_list_empty">Bu qovluqda heç bir fayl movcud deyil.</string>
-  <string name="file_list_folder">qovluq</string>
-  <string name="file_list_folders">qovluqlar</string>
-  <string name="file_list_file">fayl</string>
-  <string name="file_list_files">fayllar</string>
   <string name="filedetails_select_file">Faylın üstünə sıxın ki, əlavə məlumat ekrana çıxsın.</string>
   <string name="filedetails_size">Həcm:</string>
   <string name="filedetails_type">Tip:</string>

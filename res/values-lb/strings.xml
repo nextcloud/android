@@ -56,10 +56,6 @@
   <string name="uploader_info_uploading">Eroplueden</string>
   <string name="file_list_seconds_ago">Sekonnen hier</string>
   <string name="file_list_empty">Hei ass näischt. Lued eppes erop!</string>
-  <string name="file_list_folder">Dossier</string>
-  <string name="file_list_folders">Dossieren</string>
-  <string name="file_list_file">Fichier</string>
-  <string name="file_list_files">Fichieren</string>
   <string name="filedetails_size">Gréisst:</string>
   <string name="filedetails_type">Typ:</string>
   <string name="filedetails_created">Erstallt:</string>

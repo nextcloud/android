@@ -63,12 +63,7 @@
   <string name="uploader_info_uploading">Išsiunčiama</string>
   <string name="file_list_seconds_ago">prieš sekundę</string>
   <string name="file_list_empty">Čia tuščia. Įkelkite ką nors!</string>
-  <string name="file_list_loading">Įkeliama ...</string>
   <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
-  <string name="file_list_folder">katalogas</string>
-  <string name="file_list_folders">katalogai</string>
-  <string name="file_list_file">failas</string>
-  <string name="file_list_files">failai</string>
   <string name="filedetails_select_file">Palieskite failą, kad parodyti papildomą informaciją.</string>
   <string name="filedetails_size">Dydis:</string>
   <string name="filedetails_type">Tipas:</string>

@@ -70,12 +70,7 @@
   <string name="uploader_info_uploading">アップロード中</string>
   <string name="file_list_seconds_ago">数秒前</string>
   <string name="file_list_empty">ここには何もありません。何かアップロードしてください。</string>
-  <string name="file_list_loading">読込中 ...</string>
   <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
-  <string name="file_list_folder">フォルダー</string>
-  <string name="file_list_folders">フォルダー</string>
-  <string name="file_list_file">ファイル</string>
-  <string name="file_list_files">ファイル</string>
   <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
   <string name="filedetails_size">サイズ:</string>
   <string name="filedetails_type">タイプ:</string>

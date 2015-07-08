@@ -55,12 +55,7 @@
   <string name="uploader_info_uploading">Feltöltés</string>
   <string name="file_list_seconds_ago">pár másodperce</string>
   <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
-  <string name="file_list_loading">Betöltés...</string>
   <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
-  <string name="file_list_folder">mappa</string>
-  <string name="file_list_folders">mappák</string>
-  <string name="file_list_file">fájl</string>
-  <string name="file_list_files">fájlok</string>
   <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
   <string name="filedetails_type">Tipus:</string>

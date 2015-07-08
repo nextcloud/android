@@ -65,12 +65,7 @@
   <string name="uploader_info_uploading">Uploading</string>
   <string name="file_list_seconds_ago">seconds ago</string>
   <string name="file_list_empty">Nothing in here. Upload something!</string>
-  <string name="file_list_loading">Loading...</string>
   <string name="local_file_list_empty">There are no files in this folder.</string>
-  <string name="file_list_folder">folder</string>
-  <string name="file_list_folders">folders</string>
-  <string name="file_list_file">file</string>
-  <string name="file_list_files">files</string>
   <string name="filedetails_select_file">Tap on a file to display additional information.</string>
   <string name="filedetails_size">Size:</string>
   <string name="filedetails_type">Type:</string>

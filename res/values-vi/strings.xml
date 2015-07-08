@@ -50,10 +50,6 @@
   <string name="uploader_info_uploading">Đang tải lên</string>
   <string name="file_list_seconds_ago">vài giây trước</string>
   <string name="file_list_empty">Không có gì ở đây .Hãy tải lên một cái gì đó !</string>
-  <string name="file_list_folder">folder</string>
-  <string name="file_list_folders">folders</string>
-  <string name="file_list_file">file</string>
-  <string name="file_list_files">files</string>
   <string name="filedetails_select_file">Tap vào một tập tin để hiển thị thêm thông tin</string>
   <string name="filedetails_size">Kích thước:</string>
   <string name="filedetails_type">Loại:</string>

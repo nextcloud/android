@@ -55,7 +55,6 @@
   <string name="uploader_info_uploading">আপলোড করা হচ্ছে</string>
   <string name="file_list_seconds_ago">সেকেন্ড পূর্বে</string>
   <string name="file_list_empty">এখানে কিছুই নেই। কিছু আপলোড করুন !</string>
-  <string name="file_list_loading">লোড হচ্ছে....</string>
   <string name="local_file_list_empty">এই ফোলডারে কোন ফাইল নেই</string>
   <string name="filedetails_select_file">অতিরিক্ত তথ্য প্রদর্শন করতে চাইলে ফাইলে ট্যাপ দিন</string>
   <string name="filedetails_size">আয়তনঃ</string>

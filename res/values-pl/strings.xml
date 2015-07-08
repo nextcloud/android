@@ -65,12 +65,7 @@
   <string name="uploader_info_uploading">Wysyłanie</string>
   <string name="file_list_seconds_ago">sekund temu</string>
   <string name="file_list_empty">Pusto. Wyślij coś!</string>
-  <string name="file_list_loading">Ładowanie...</string>
   <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
-  <string name="file_list_folder">folder</string>
-  <string name="file_list_folders">foldery</string>
-  <string name="file_list_file">plik</string>
-  <string name="file_list_files">pliki</string>
   <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
   <string name="filedetails_size">Rozmiar:</string>
   <string name="filedetails_type">Typ:</string>

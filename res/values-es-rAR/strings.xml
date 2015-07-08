@@ -64,12 +64,7 @@
   <string name="uploader_info_uploading">Subiendo</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">No hay nada. ¡Subí contenido!</string>
-  <string name="file_list_loading">Cargando...</string>
   <string name="local_file_list_empty">No existen archivos en esta carpeta.</string>
-  <string name="file_list_folder">carpeta</string>
-  <string name="file_list_folders">carpetas</string>
-  <string name="file_list_file">archivo</string>
-  <string name="file_list_files">archivos</string>
   <string name="filedetails_select_file">Pulsá sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
   <string name="filedetails_type">Tipo:</string>

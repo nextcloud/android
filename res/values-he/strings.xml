@@ -55,12 +55,7 @@
   <string name="uploader_info_uploading">בהעלאה</string>
   <string name="file_list_seconds_ago">שניות</string>
   <string name="file_list_empty">אין כאן שום דבר. אולי ברצונך להעלות משהו?</string>
-  <string name="file_list_loading">בטעינה...</string>
   <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
-  <string name="file_list_folder">תקיה</string>
-  <string name="file_list_folders">תקיות</string>
-  <string name="file_list_file">קובץ</string>
-  <string name="file_list_files">קבצים</string>
   <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
   <string name="filedetails_size">גודל:</string>
   <string name="filedetails_type">סוג:</string>
