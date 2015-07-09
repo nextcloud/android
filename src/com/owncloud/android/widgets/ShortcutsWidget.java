@@ -26,7 +26,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 
@@ -104,7 +103,7 @@ public class ShortcutsWidget extends AppWidgetProvider {
         intent.setAction(action);
         String accountName = ShortcutsWidgetConfigureActivity.loadAccountPref(context, appWidgetId);
         intent.putExtra(EXTRA_ACCOUNT_NAME, accountName);
-        return PendingIntent.getBroadcast(context, 0, intent, 0);
+        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
 }

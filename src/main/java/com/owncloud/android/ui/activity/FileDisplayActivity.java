@@ -130,6 +130,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.widgets.ShortcutsWidget;
 import com.owncloud.android.utils.PushUtils;
 import com.owncloud.android.utils.ThemeUtils;
 
@@ -173,6 +174,9 @@ public class FileDisplayActivity extends HookActivity
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
     private static final String KEY_SEARCH_QUERY = "KEY_SEARCH_QUERY";
 
+    public static final String EXTRA_UPLOAD_FROM_WIDGET =
+            "com.owncloud.android.ui.activity.UPLOAD_FROM_WIDGET";
+
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
     public static final String DRAWER_MENU_ID = "DRAWER_MENU_ID";
@@ -205,7 +209,9 @@ public class FileDisplayActivity extends HookActivity
     private String searchQuery;
 
     private SearchView searchView;
+    private boolean mUploadFromWidget = false;
 
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -224,7 +230,10 @@ public class FileDisplayActivity extends HookActivity
             mWaitingToPreview = null;
             mSyncInProgress = false;
             mWaitingToSend = null;
-        }
+
+            mUploadFromWidget = getIntent().getBooleanExtra(
+                    FileDisplayActivity.EXTRA_UPLOAD_FROM_WIDGET, false);
+        }        
 
         /// USER INTERFACE
 
@@ -397,6 +406,35 @@ public class FileDisplayActivity extends HookActivity
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        Log_OC.v(TAG, "onStart() start");
+        super.onStart();
+
+        // Widget Actions
+        if (mUploadFromWidget) {
+            UploadSourceDialogFragment dialog =
+                    UploadSourceDialogFragment.newInstance(getAccount());
+            dialog.show(getSupportFragmentManager(), DIALOG_UPLOAD_SOURCE);
+        }
+
+        Log_OC.v(TAG, "onStart() end");
+    }
+
+    @Override
+    protected void onStop() {
+        Log_OC.v(TAG, "onStop() start");
+        super.onStop();
+        Log_OC.v(TAG, "onStop() end");
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log_OC.v(TAG, "onDestroy() start");
+        super.onDestroy();
+        Log_OC.v(TAG, "onDestroy() end");
     }
 
     /**
