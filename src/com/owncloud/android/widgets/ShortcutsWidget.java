@@ -49,7 +49,7 @@ public class ShortcutsWidget extends AppWidgetProvider {
         // When the user deletes the widget, delete the preference associated with it.
         final int N = appWidgetIds.length;
         for (int i = 0; i < N; i++) {
-            ShortcutsWidgetConfigureActivity.deleteTitlePref(context, appWidgetIds[i]);
+            ShortcutsWidgetConfigureActivity.deleteAccountPref(context, appWidgetIds[i]);
         }
     }
 
@@ -66,11 +66,12 @@ public class ShortcutsWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText =
-                ShortcutsWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+        CharSequence widgetAccount =
+                ShortcutsWidgetConfigureActivity.loadAccountPref(context, appWidgetId);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.shortcuts_widget);
-        views.setTextViewText(R.id.appwidget_title, widgetText);
+        views.setTextViewText(R.id.appwidget_title, context.getString(R.string.app_name) );
+        views.setTextViewText(R.id.widget_username, widgetAccount);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
