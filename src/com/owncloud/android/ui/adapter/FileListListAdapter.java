@@ -233,14 +233,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 case GRID_IMAGE:
                     // sharedIcon
                     ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
-                    //if (file.isShareByLink() && ((mGridMode && !file.isFolder()) || !mGridMode)) {
                     if (file.isShareByLink()) {
                         sharedIconV.setVisibility(View.VISIBLE);
                         sharedIconV.bringToFront();
                     } else {
                         sharedIconV.setVisibility(View.GONE);
                     }
-
 
                     // local state
                     ImageView localStateView = (ImageView) view.findViewById(R.id.localFileIndicator);
@@ -270,16 +268,16 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     }
 
                     // share with me icon
-                    ImageView sharedWithMeIconV = (ImageView)
-                            view.findViewById(R.id.sharedWithMeIcon);
-                    sharedWithMeIconV.bringToFront();
-                    if (checkIfFileIsSharedWithMe(file) &&
-                            ((mGridMode && !file.isFolder()) || !mGridMode)) {
-                        sharedWithMeIconV.setVisibility(View.VISIBLE);
-                    } else {
-                        sharedWithMeIconV.setVisibility(View.GONE);
+                    if (!file.isFolder()) {
+                        ImageView sharedWithMeIconV = (ImageView)
+                                view.findViewById(R.id.sharedWithMeIcon);
+                        sharedWithMeIconV.bringToFront();
+                        if (checkIfFileIsSharedWithMe(file)) {
+                            sharedWithMeIconV.setVisibility(View.VISIBLE);
+                        } else {
+                            sharedWithMeIconV.setVisibility(View.GONE);
+                        }
                     }
-
 
 
                     break;
