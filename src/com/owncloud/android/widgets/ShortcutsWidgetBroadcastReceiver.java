@@ -58,7 +58,8 @@ public class ShortcutsWidgetBroadcastReceiver extends BroadcastReceiver {
             appIntent.putExtra(FileDisplayActivity.EXTRA_UPLOAD_FROM_WIDGET, true);
 
         } else if (intent.getAction().equals(ShortcutsWidget.ACTION_NEW_CLICK)) {
-            Toast.makeText(context, ShortcutsWidget.ACTION_NEW_CLICK, Toast.LENGTH_SHORT).show();
+            appIntent = new Intent(context, FileDisplayActivity.class);
+            appIntent.putExtra(FileDisplayActivity.EXTRA_NEW_FROM_WIDGET, true);
 
         } else if (intent.getAction().equals(ShortcutsWidget.ACTION_REFRESH_CLICK)) {
             Toast.makeText(context, ShortcutsWidget.ACTION_REFRESH_CLICK, Toast.LENGTH_SHORT).show();
