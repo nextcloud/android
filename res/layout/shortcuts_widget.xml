@@ -10,7 +10,9 @@
         android:id="@+id/widget_app_button"
         android:src="@drawable/icon"
         android:layout_margin="8dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:maxWidth="32dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10dp"
-            android:text="@string/username"
+            android:text="@string/empty"
             android:id="@+id/widget_username"
             android:textColor="@color/widget_text_color" />
     </LinearLayout>

@@ -3,7 +3,7 @@
     android:minWidth="250dp"
     android:minHeight="40dp"
     android:updatePeriodMillis="86400000"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:previewImage="@drawable/appwidget_preview"
     android:initialLayout="@layout/shortcuts_widget"
     android:configure="com.owncloud.android.widgets.ShortcutsWidgetConfigureActivity"
     android:resizeMode="horizontal|vertical"
