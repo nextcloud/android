@@ -318,6 +318,26 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".widgets.ShortcutsWidgetBroadcastReceiver"
+            android:label="widgetBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="com.owncloud.android.action.appClick" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.owncloud.android.action.uploadClick" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.owncloud.android.action.newClick" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.owncloud.android.action.refreshClick" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/shortcuts_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

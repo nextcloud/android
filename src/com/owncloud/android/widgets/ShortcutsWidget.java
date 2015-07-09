@@ -20,10 +20,13 @@
 
 package com.owncloud.android.widgets;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
 
@@ -34,6 +37,11 @@ import com.owncloud.android.R;
  * {@link ShortcutsWidgetConfigureActivity ShortcutsWidgetConfigureActivity}
  */
 public class ShortcutsWidget extends AppWidgetProvider {
+
+    public static final String ACTION_APPICON_CLICK = "com.owncloud.android.action.appClick";
+    public static final String ACTION_UPLOAD_CLICK = "com.owncloud.android.action.uploadClick";
+    public static final String ACTION_NEW_CLICK = "com.owncloud.android.action.newClick";
+    public static final String ACTION_REFRESH_CLICK = "com.owncloud.android.action.refreshClick";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -69,12 +77,32 @@ public class ShortcutsWidget extends AppWidgetProvider {
         CharSequence widgetAccount =
                 ShortcutsWidgetConfigureActivity.loadAccountPref(context, appWidgetId);
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.shortcuts_widget);
-        views.setTextViewText(R.id.appwidget_title, context.getString(R.string.app_name) );
-        views.setTextViewText(R.id.widget_username, widgetAccount);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                R.layout.shortcuts_widget);
+        remoteViews.setTextViewText(R.id.appwidget_title, context.getString(R.string.app_name) );
+        remoteViews.setTextViewText(R.id.widget_username, widgetAccount);
+
+        // Add events for the buttons
+        remoteViews.setOnClickPendingIntent(R.id.widget_app_button,
+                      getPendingSelfIntent(context, ACTION_APPICON_CLICK));
+        remoteViews.setOnClickPendingIntent(R.id.widget_upload,
+                getPendingSelfIntent(context, ACTION_UPLOAD_CLICK));
+        remoteViews.setOnClickPendingIntent(R.id.widget_create,
+                getPendingSelfIntent(context, ACTION_NEW_CLICK));
+        remoteViews.setOnClickPendingIntent(R.id.widget_refresh,
+                getPendingSelfIntent(context, ACTION_REFRESH_CLICK));
 
         // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+        appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
     }
+
+    static protected PendingIntent getPendingSelfIntent(Context context, String action) {
+        Intent intent = new Intent();
+        intent.setAction(action);
+        return PendingIntent.getBroadcast(context, 0, intent, 0);
+    }
+
 }
+
+
 

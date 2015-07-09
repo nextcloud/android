@@ -20,7 +20,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
