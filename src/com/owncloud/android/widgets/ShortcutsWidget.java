@@ -43,6 +43,8 @@ public class ShortcutsWidget extends AppWidgetProvider {
     public static final String ACTION_NEW_CLICK = "com.owncloud.android.action.newClick";
     public static final String ACTION_REFRESH_CLICK = "com.owncloud.android.action.refreshClick";
 
+    public static final String EXTRA_ACCOUNT_NAME = "account_name";
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
@@ -84,21 +86,24 @@ public class ShortcutsWidget extends AppWidgetProvider {
 
         // Add events for the buttons
         remoteViews.setOnClickPendingIntent(R.id.widget_app_button,
-                      getPendingSelfIntent(context, ACTION_APPICON_CLICK));
+                      getPendingSelfIntent(context, ACTION_APPICON_CLICK, appWidgetId));
         remoteViews.setOnClickPendingIntent(R.id.widget_upload,
-                getPendingSelfIntent(context, ACTION_UPLOAD_CLICK));
+                getPendingSelfIntent(context, ACTION_UPLOAD_CLICK, appWidgetId));
         remoteViews.setOnClickPendingIntent(R.id.widget_create,
-                getPendingSelfIntent(context, ACTION_NEW_CLICK));
+                getPendingSelfIntent(context, ACTION_NEW_CLICK, appWidgetId));
         remoteViews.setOnClickPendingIntent(R.id.widget_refresh,
-                getPendingSelfIntent(context, ACTION_REFRESH_CLICK));
+                getPendingSelfIntent(context, ACTION_REFRESH_CLICK, appWidgetId));
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
     }
 
-    static protected PendingIntent getPendingSelfIntent(Context context, String action) {
+    static protected PendingIntent getPendingSelfIntent(Context context, String action,
+                                                        int appWidgetId) {
         Intent intent = new Intent();
         intent.setAction(action);
+        String accountName = ShortcutsWidgetConfigureActivity.loadAccountPref(context, appWidgetId);
+        intent.putExtra(EXTRA_ACCOUNT_NAME, accountName);
         return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 
