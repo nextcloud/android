@@ -4,46 +4,50 @@
     android:padding="@dimen/widget_margin"
     android:background="@drawable/rounded">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/widget_app_button"
-        android:src="@drawable/icon"
-        android:layout_margin="8dp"
-        android:adjustViewBounds="true"
-        android:maxWidth="36dp"
-        android:layout_centerVertical="true" />
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignTop="@+id/widget_app_button"
-        android:layout_toRightOf="@+id/widget_app_button"
-        android:layout_toLeftOf="@+id/actionsLinearLayout"
+        android:id="@+id/widget_accountLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/actionsLinearLayout"
-        android:layout_centerVertical="true" >
-
-        <TextView android:id="@+id/appwidget_title"
+        android:layout_toLeftOf="@+id/actionsLinearLayout">
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/widget_text_color"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:contentDescription="@string/appwidget_title_content_description" />
+            android:id="@+id/widget_app_button"
+            android:src="@drawable/icon"
+            android:layout_margin="8dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="32dp"
+            android:layout_gravity="center_vertical" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="@string/username"
-            android:id="@+id/widget_username"
-            android:textColor="@color/widget_text_color"
-            android:singleLine="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
 
+            <TextView android:id="@+id/appwidget_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/widget_text_color"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:contentDescription="@string/appwidget_title_content_description" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="@string/empty"
+                android:id="@+id/widget_username"
+                android:textColor="@color/widget_text_color"
+                android:singleLine="true" />
+
+        </LinearLayout>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

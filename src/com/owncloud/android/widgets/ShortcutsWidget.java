@@ -84,7 +84,7 @@ public class ShortcutsWidget extends AppWidgetProvider {
         remoteViews.setTextViewText(R.id.widget_username, widgetAccount);
 
         // Add events for the buttons
-        remoteViews.setOnClickPendingIntent(R.id.widget_app_button,
+        remoteViews.setOnClickPendingIntent(R.id.widget_accountLayout,
                       getPendingSelfIntent(context, ACTION_APPICON_CLICK, appWidgetId));
         remoteViews.setOnClickPendingIntent(R.id.widget_upload,
                 getPendingSelfIntent(context, ACTION_UPLOAD_CLICK, appWidgetId));
