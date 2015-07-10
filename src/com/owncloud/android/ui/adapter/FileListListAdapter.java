@@ -279,7 +279,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         }
                     }
 
-
                     break;
             }
             
