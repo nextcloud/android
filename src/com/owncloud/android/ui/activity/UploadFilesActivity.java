@@ -21,7 +21,8 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -31,6 +32,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -179,6 +181,7 @@ public class UploadFilesActivity extends FileActivity implements
         activity.startActivityForResult(action, requestCode);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionsMenu = menu;
@@ -203,6 +206,34 @@ public class UploadFilesActivity extends FileActivity implements
                 mSelectAll = item.isChecked();
                 setSelectAllMenuItem(item, mSelectAll);
                 mFileListFragment.selectAllFiles(item.isChecked());
+                break;
+            }
+            case R.id.action_sort: {
+                SharedPreferences appPreferences = PreferenceManager
+                        .getDefaultSharedPreferences(this);
+
+                // Read sorting order, default to sort by name ascending
+                Integer sortOrder = appPreferences
+                        .getInt("sortOrder", FileStorageUtils.SORT_NAME);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.actionbar_sort_title)
+                        .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder ,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        switch (which){
+                                            case 0:
+                                                mFileListFragment.sortByName(true);
+                                                break;
+                                            case 1:
+                                                mFileListFragment.sortByDate(false);
+                                                break;
+                                        }
+
+                                        dialog.dismiss();
+                                    }
+                                });
+                builder.create().show();
                 break;
             }
             default:
