@@ -312,7 +312,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="prefs_category_instant_uploading">Téléversement immédiat</string>
   <string name="prefs_category_security">Sécurité</string>
   <string name="prefs_instant_video_upload_path_title">Répertoire de téléversement des vidéos</string>
-  <string name="download_folder_failed_content">Le téléchargement de %1$s dossier(s) n\'a pas pu être achevé</string>
+  <string name="download_folder_failed_content">Le téléchargement du dossier %1$s n\'a pas pu être achevé</string>
   <string name="shared_subject_header">a partagé</string>
   <string name="with_you_subject_header">avec vous</string>
   <string name="subject_token">%1$s a partagé \"%2$s\" avec vous</string>
@@ -323,7 +323,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="file_list__footer__folder">1 dossier</string>
   <string name="file_list__footer__folders">%1$d dossiers</string>
   <string name="file_list__footer__file">1 fichier</string>
-  <string name="file_list__footer__file_and_folder">1 dossier</string>
+  <string name="file_list__footer__file_and_folder">1 fichier, 1 dossier</string>
   <string name="file_list__footer__file_and_folders">1 fichier, %1$d dossiers</string>
   <string name="file_list__footer__files">%1$d fichiers</string>
   <string name="file_list__footer__files_and_folder">%1$d fichiers, 1 dossier</string>

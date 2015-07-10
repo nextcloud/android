@@ -69,6 +69,7 @@
   <string name="uploader_info_uploading">กำลังอัพโหลด</string>
   <string name="file_list_seconds_ago">วินาที ก่อนหน้านี้</string>
   <string name="file_list_empty">ยังไม่มีไฟล์ใดๆเลย ลองอัปโหลดดูสิ!</string>
+  <string name="file_list_loading">กำลังโหลด...</string>
   <string name="local_file_list_empty">ยังไม่มีไฟล์ในโฟลเดอร์นี้</string>
   <string name="filedetails_select_file">แตะที่ไฟล์ เพื่อแสดงข้อมูลเพิ่มเติม</string>
   <string name="filedetails_size">ขนาด:</string>
@@ -313,4 +314,12 @@
   <string name="auth_host_address">ที่อยู่เซิร์ฟเวอร์</string>
   <string name="common_error_out_memory">หน่วยความจำไม่พอ</string>
   <string name="username">ชื่อผู้ใช้</string>
+  <string name="file_list__footer__folder">1 โฟลเดอร์</string>
+  <string name="file_list__footer__folders">%1$d โฟลเดอร์</string>
+  <string name="file_list__footer__file">1 ไฟล์</string>
+  <string name="file_list__footer__file_and_folder">1 ไฟล์, 1 โฟลเดอร์</string>
+  <string name="file_list__footer__file_and_folders">1 ไฟล์, %1$d โฟลเดอร์</string>
+  <string name="file_list__footer__files">%1$d ไฟล์</string>
+  <string name="file_list__footer__files_and_folder">%1$d ไฟล์, 1 โฟลเดอร์</string>
+  <string name="file_list__footer__files_and_folders">%1$d ไฟล์, %2$d โฟลเดอร์</string>
 </resources>
