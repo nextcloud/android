@@ -70,6 +70,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="uploader_info_uploading">Enviando</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Aquí non hai nada. Envíe algo!</string>
+  <string name="file_list_loading">Cargando...</string>
   <string name="local_file_list_empty">Non hai ficheiros neste cartafol.</string>
   <string name="filedetails_select_file">Prema nun ficheiro para que amose a información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
@@ -316,4 +317,12 @@ Descárgueo de aquí: %2$s</string>
   <string name="auth_host_address">Enderezo do servidor</string>
   <string name="common_error_out_memory">Non hai memoria abondo</string>
   <string name="username">Nome de usuario</string>
+  <string name="file_list__footer__folder">1 cartafol</string>
+  <string name="file_list__footer__folders">%1$d cartafoles</string>
+  <string name="file_list__footer__file">1 ficheiro</string>
+  <string name="file_list__footer__file_and_folder">1 ficheiro, 1 cartafol</string>
+  <string name="file_list__footer__file_and_folders">1 ficheiro, %1$d cartafoles</string>
+  <string name="file_list__footer__files">%1$d ficheiros</string>
+  <string name="file_list__footer__files_and_folder">%1$d ficheiros, 1 cartafol</string>
+  <string name="file_list__footer__files_and_folders">%1$d ficheiros, %2$d cartafoles</string>
 </resources>

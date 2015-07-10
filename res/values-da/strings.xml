@@ -69,6 +69,7 @@
   <string name="uploader_info_uploading">Uploader</string>
   <string name="file_list_seconds_ago">sekunder siden</string>
   <string name="file_list_empty">Her er tomt. Upload noget!</string>
+  <string name="file_list_loading">Indlæser...</string>
   <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
   <string name="filedetails_select_file">Tryk på en fil for at vise yderligere information.</string>
   <string name="filedetails_size">Størelse:</string>
@@ -314,4 +315,12 @@
   <string name="auth_host_address">Serveradresse</string>
   <string name="common_error_out_memory">Ikke tilstrækkelig hukommelse</string>
   <string name="username">Brugernavn</string>
+  <string name="file_list__footer__folder">1 mappe</string>
+  <string name="file_list__footer__folders">%1$d mapper</string>
+  <string name="file_list__footer__file">1 fil</string>
+  <string name="file_list__footer__file_and_folder">1 fil, 1 mappe</string>
+  <string name="file_list__footer__file_and_folders">1 fil, %1$d mapper</string>
+  <string name="file_list__footer__files">%1$d filer</string>
+  <string name="file_list__footer__files_and_folder">%1$d filer, 1 mape</string>
+  <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
 </resources>

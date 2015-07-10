@@ -69,6 +69,7 @@
   <string name="uploader_info_uploading">Subiendo...</string>
   <string name="file_list_seconds_ago">hace segundos</string>
   <string name="file_list_empty">No hay nada aquí. ¡Suba algo!</string>
+  <string name="file_list_loading">Cargando...</string>
   <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
   <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
@@ -315,4 +316,12 @@
   <string name="auth_host_address">Dirección del servidor</string>
   <string name="common_error_out_memory">No hay suficiente memoria</string>
   <string name="username">Nombre de usuario</string>
+  <string name="file_list__footer__folder">1 carpeta</string>
+  <string name="file_list__footer__folders">%1$d carpetas</string>
+  <string name="file_list__footer__file">1 archivo</string>
+  <string name="file_list__footer__file_and_folder">1 archivo, 1 carpeta</string>
+  <string name="file_list__footer__file_and_folders">1 archivo %1$d carpetas</string>
+  <string name="file_list__footer__files">%1$d archivos</string>
+  <string name="file_list__footer__files_and_folder">%1$d archivos, 1 carpeta</string>
+  <string name="file_list__footer__files_and_folders">%1$d archivos, %2$d carpetas</string>
 </resources>
