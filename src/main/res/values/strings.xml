@@ -598,8 +598,8 @@
     <string name="storage_description_default">Default</string>
 
     <string name="appwidget_title_content_description">widget</string>
-    <string name="configure">Configure</string>
-    <string name="add_widget">Add widget</string>
+    <string name="appwidget_start_sync">Start synchronization for account %1$s</string>
+
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">New in %1$s</string>

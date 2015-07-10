@@ -32,7 +32,6 @@ import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 
@@ -67,25 +66,20 @@ public class ShortcutsWidgetBroadcastReceiver extends BroadcastReceiver {
             appIntent.putExtra(FileDisplayActivity.EXTRA_NEW_FROM_WIDGET, true);
 
         } else if (intent.getAction().equals(ShortcutsWidget.ACTION_REFRESH_CLICK)) {
-            Toast.makeText(context, "Start synchronization for account " + accountName,
-                    Toast.LENGTH_SHORT).show();
+            String message = context.getString(R.string.appwidget_start_sync, accountName);
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 
             // Start synchronization
             if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
-                Log_OC.d("WIDGET", "Canceling all syncs for " + MainApp.getAuthority());
                 ContentResolver.cancelSync(null, MainApp.getAuthority());
                 // cancel the current synchronizations of any ownCloud account
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
                 bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-                Log_OC.d("WIDGET", "Requesting sync for " + account.name + " at " +
-                        MainApp.getAuthority());
                 ContentResolver.requestSync(
                         account,
                         MainApp.getAuthority(), bundle);
             } else {
-                Log_OC.d("WIDGET", "Requesting sync for " + account.name + " at " +
-                        MainApp.getAuthority() + " with new API");
                 SyncRequest.Builder builder = new SyncRequest.Builder();
                 builder.setSyncAdapter(account, MainApp.getAuthority());
                 builder.setExpedited(true);

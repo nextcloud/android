@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/widget_margin"
@@ -10,15 +10,20 @@
         android:id="@+id/widget_app_button"
         android:src="@drawable/icon"
         android:layout_margin="8dp"
-        android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:maxWidth="32dp"/>
+        android:maxWidth="36dp"
+        android:layout_centerVertical="true" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center">
+        android:layout_alignTop="@+id/widget_app_button"
+        android:layout_toRightOf="@+id/widget_app_button"
+        android:layout_toLeftOf="@+id/actionsLinearLayout"
+        android:layout_toStartOf="@+id/actionsLinearLayout"
+        android:layout_centerVertical="true" >
+
         <TextView android:id="@+id/appwidget_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,15 +37,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10dp"
-            android:text="@string/empty"
+            android:text="@string/username"
             android:id="@+id/widget_username"
-            android:textColor="@color/widget_text_color" />
+            android:textColor="@color/widget_text_color"
+            android:singleLine="true" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="end">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/actionsLinearLayout"
+        android:layout_centerVertical="true">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,4 +81,5 @@
             android:adjustViewBounds="true"
             android:maxWidth="32dp" />
     </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>
