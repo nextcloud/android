@@ -68,6 +68,7 @@
   <string name="uploader_info_uploading">Завантаження</string>
   <string name="file_list_seconds_ago">секунди тому</string>
   <string name="file_list_empty">Тут нічого немає. Відвантажте що-небудь!</string>
+  <string name="file_list_loading">Завантаження…</string>
   <string name="local_file_list_empty">В цій теці немає файлів.</string>
   <string name="filedetails_select_file">Натисніть на файлі для відображення додаткової інформації</string>
   <string name="filedetails_size">Розмір:</string>
@@ -296,9 +297,18 @@
   <string name="prefs_category_security">Безпека</string>
   <string name="prefs_instant_video_upload_path_title">Шлях завантаження відео</string>
   <string name="download_folder_failed_content">Скачування теки %1$s не може бути завершено</string>
+  <string name="with_you_subject_header">з Вами</string>
   <string name="subject_token">%1$s поділився \"%2$s\" з вами</string>
   <string name="auth_refresh_button">Оновити з\'єднання</string>
   <string name="auth_host_address">Ареса серверу</string>
   <string name="common_error_out_memory">Недостатньо пам\'яті</string>
   <string name="username">Ім\'я користувача</string>
+  <string name="file_list__footer__folder">1 тека</string>
+  <string name="file_list__footer__folders">%1$d тек</string>
+  <string name="file_list__footer__file">1 файл</string>
+  <string name="file_list__footer__file_and_folder">1 файл, 1 тека</string>
+  <string name="file_list__footer__file_and_folders">1 файл, %1$d тек</string>
+  <string name="file_list__footer__files">%1$d файлів</string>
+  <string name="file_list__footer__files_and_folder">%1$d файлів, 1 тека</string>
+  <string name="file_list__footer__files_and_folders">%1$d файлів, %2$d тек</string>
 </resources>

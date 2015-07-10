@@ -70,6 +70,7 @@ Download hier: %2$s</string>
   <string name="uploader_info_uploading">Uploaden</string>
   <string name="file_list_seconds_ago">seconden geleden</string>
   <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
+  <string name="file_list_loading">Laden...</string>
   <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
   <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
   <string name="filedetails_size">Grootte:</string>
@@ -318,4 +319,12 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="auth_host_address">Serveradres</string>
   <string name="common_error_out_memory">Niet voldoende geheugen</string>
   <string name="username">Gebruikersnaam</string>
+  <string name="file_list__footer__folder">1 map</string>
+  <string name="file_list__footer__folders">%1$d mappen</string>
+  <string name="file_list__footer__file">1 bestand</string>
+  <string name="file_list__footer__file_and_folder">1 bestand, 1 map</string>
+  <string name="file_list__footer__file_and_folders">1 bestand, %1$d mappen</string>
+  <string name="file_list__footer__files">%1$d bestanden</string>
+  <string name="file_list__footer__files_and_folder">%1$d bestanden, 1 map</string>
+  <string name="file_list__footer__files_and_folders">%1$d bestanden, %2$d mappen</string>
 </resources>
