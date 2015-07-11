@@ -30,6 +30,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
@@ -321,6 +322,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             task.execute(file);
                         }
                     }
+
+                    if (file.getMimetype().equalsIgnoreCase("image/png")){
+                        Drawable backrepeat = mContext.getResources().
+                                              getDrawable(R.drawable.backrepeat);
+                        fileIcon.setBackground(backrepeat);
+                    }
+
                 } else {
                     fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(file.getMimetype(),
                             file.getFileName()));
