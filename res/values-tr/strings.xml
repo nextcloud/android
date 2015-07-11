@@ -69,6 +69,7 @@
   <string name="uploader_info_uploading">Yükleniyor</string>
   <string name="file_list_seconds_ago">saniyeler önce</string>
   <string name="file_list_empty">Burada hiçbir şey yok. Bir şeyler yükleyin!</string>
+  <string name="file_list_loading">Yükleniyor...</string>
   <string name="local_file_list_empty">Bu klasörde dosya yok.</string>
   <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
   <string name="filedetails_size">Boyut:</string>
@@ -310,8 +311,17 @@
   <string name="download_folder_failed_content">%1$s klasörün indirilmesi tamamlanamadı</string>
   <string name="shared_subject_header">sizinle</string>
   <string name="with_you_subject_header">paylaştı</string>
+  <string name="subject_token">%1$s, sizinle \"%2$s\" paylaşımını yaptı</string>
   <string name="auth_refresh_button">Bağlantıyı yenile</string>
   <string name="auth_host_address">Sunucu adresi</string>
   <string name="common_error_out_memory">Yeterli hafıza yok</string>
   <string name="username">Kullanıcı adı</string>
+  <string name="file_list__footer__folder">1 klasör</string>
+  <string name="file_list__footer__folders">%1$d klasör</string>
+  <string name="file_list__footer__file">1 dosya</string>
+  <string name="file_list__footer__file_and_folder">1 dosya, 1 klasör</string>
+  <string name="file_list__footer__file_and_folders">1 dosya, %1$d klasör</string>
+  <string name="file_list__footer__files">%1$d dosya</string>
+  <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
+  <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
 </resources>
