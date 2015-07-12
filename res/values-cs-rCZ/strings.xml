@@ -69,6 +69,7 @@
   <string name="uploader_info_uploading">Odesílání</string>
   <string name="file_list_seconds_ago">před pár sekundami</string>
   <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
+  <string name="file_list_loading">Načítání...</string>
   <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
   <string name="filedetails_select_file">Více informací získáte klepnutím na soubor.</string>
   <string name="filedetails_size">Velikost:</string>
@@ -314,4 +315,12 @@ správce systému.</string>
   <string name="auth_host_address">Adresa serveru</string>
   <string name="common_error_out_memory">Nedostatek paměti</string>
   <string name="username">Uživatelské jméno</string>
+  <string name="file_list__footer__folder">1 adresář</string>
+  <string name="file_list__footer__folders">%1$d adresáře(ů)</string>
+  <string name="file_list__footer__file">1 soubor</string>
+  <string name="file_list__footer__file_and_folder">1 soubor, 1 adresář</string>
+  <string name="file_list__footer__file_and_folders">1 soubor, %1$d adresáře(ů)</string>
+  <string name="file_list__footer__files">%1$d soubory(ů)</string>
+  <string name="file_list__footer__files_and_folder">%1$d soubory(ů), 1 adresář</string>
+  <string name="file_list__footer__files_and_folders">%1$d soubory(ů), %2$d adresáře(ů)</string>
 </resources>
