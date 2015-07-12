@@ -44,9 +44,11 @@ public class InstantUploadPreferencesActivity extends Activity {
 
         final InstantUploadPreference preference = new InstantUploadPreference(getApplicationContext(), message);
 
+        // TODO Tobi: Local path chooseable with dialog
         pLocalPath = (TextView) findViewById(R.id.localPath);
         pLocalPath.setText(preference.getLocalPath());
 
+        // TODO Tobi: remote path chooseable with dialog
         pRemotePath = (TextView) findViewById(R.id.remotePath);                
         pRemotePath.setText(preference.getRemotePath());
 

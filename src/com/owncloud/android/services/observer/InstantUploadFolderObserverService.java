@@ -19,6 +19,9 @@ public class InstantUploadFolderObserverService extends Service {
     private static final String TAG = "InstantUploadFolderObserverService";
     //private static final int MAX_FO = 1;
     //private List<MyFileObserver> fileOb_list = new ArrayList<MyFileObserver>();
+
+    // TODO Tobi: restart Service on change of setting (crud)
+
     @Override
     public void onCreate() {
         File sdcard = new File("/mnt/sdcard/WhatsApp/Media");
@@ -125,13 +128,12 @@ public class InstantUploadFolderObserverService extends Service {
     
     public static boolean checkIfLocalPathIsObserved(String localPath){
         for (InstantUploadPreference i : getAll()){
-            if (i.getLocalPath().startsWith(localPath) 
+            if (!i.getLocalPath().equals("") && (i.getLocalPath().startsWith(localPath)
                 || localPath.startsWith(i.getLocalPath()) 
-                || localPath.equalsIgnoreCase(i.getLocalPath())){
+                || localPath.equalsIgnoreCase(i.getLocalPath()))){
                 return true;
             }
         }
         return false;
     }
-
 }
