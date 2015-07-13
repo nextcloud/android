@@ -69,6 +69,7 @@
   <string name="uploader_info_uploading">Μεταφόρτωση</string>
   <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
   <string name="file_list_empty">Δεν υπάρχει τίποτα εδώ. Μεταφορτώστε κάτι!</string>
+  <string name="file_list_loading">Φόρτωση...</string>
   <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
   <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
   <string name="filedetails_size">Μέγεθος:</string>
@@ -315,4 +316,12 @@
   <string name="auth_host_address">Διεύθυνση διακομιστή</string>
   <string name="common_error_out_memory">Δεν υπάρχει αρκετή μνήμη</string>
   <string name="username">Όνομα χρήστη</string>
+  <string name="file_list__footer__folder">1 φάκελος</string>
+  <string name="file_list__footer__folders">%1$d φάκελοι</string>
+  <string name="file_list__footer__file">1 αρχείο</string>
+  <string name="file_list__footer__file_and_folder">1 αρχείο, 1 φάκελος</string>
+  <string name="file_list__footer__file_and_folders">1 αρχείο, %1$d φάκελοι</string>
+  <string name="file_list__footer__files">%1$d αρχεία</string>
+  <string name="file_list__footer__files_and_folder">%1$d αρχεία, 1 φάκελος</string>
+  <string name="file_list__footer__files_and_folders">%1$d αρχεία, %2$d φάκελοι</string>
 </resources>
