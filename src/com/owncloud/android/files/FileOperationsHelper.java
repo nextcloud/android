@@ -205,9 +205,15 @@ public class FileOperationsHelper {
         }
     }
 
-
-    public void syncFile(OCFile file) {
-
+    /**
+     * Request the synchronization of a file or folder with the OC server, including its contents.
+     *
+     * @param file          The file or folder to synchronize
+     * @param twoWays       TMP parameter: when 'false', only download is tried; valid for folders only, single files
+     *                      are always synchronized in both ways.
+     */
+    public void syncFile(OCFile file, boolean twoWays) {
+        
         if (!file.isFolder()){
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FILE);
@@ -217,12 +223,20 @@ public class FileOperationsHelper {
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(intent);
             mFileActivity.showLoadingDialog();
             
+        } else if (twoWays){
+            Intent intent = new Intent(mFileActivity, OperationsService.class);
+            intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
+            intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            mFileActivity.startService(intent);
+
         } else {
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
             intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             mFileActivity.startService(intent);
+
         }
     }
 
@@ -240,7 +254,7 @@ public class FileOperationsHelper {
 
         /// immediate content synchronization
         if (file.isFavorite()) {
-            syncFile(file);
+            syncFile(file, true);
         }
     }
     

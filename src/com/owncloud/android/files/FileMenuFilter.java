@@ -176,7 +176,7 @@ public class FileMenuFilter {
         }
 
         // SYNC FILE CONTENTS
-        if (mFile == null || mFile.isFolder() || !mFile.isDown() || downloading || uploading) {
+        if (mFile == null || (!mFile.isFolder() && !mFile.isDown()) || downloading || uploading) {
             toHide.add(R.id.action_sync_file);
         } else {
             toShow.add(R.id.action_sync_file);

@@ -99,7 +99,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private List<SyncOperation> mFilesToSyncContentsWithoutUpload;
         // this will go out when 'folder synchronization' replaces 'folder download'; step by step  
 
-    private List<SyncOperation> mFavouriteFilesToSyncContents;
+    private List<SyncOperation> mFilesToSyncContents;
         // this will be used for every file when 'folder synchronization' replaces 'folder download' 
 
     private final AtomicBoolean mCancellationRequested;
@@ -121,7 +121,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mRemoteFolderChanged = false;
         mFilesForDirectDownload = new Vector<OCFile>();
         mFilesToSyncContentsWithoutUpload = new Vector<SyncOperation>();
-        mFavouriteFilesToSyncContents = new Vector<SyncOperation>();
+        mFilesToSyncContents = new Vector<SyncOperation>();
         mCancellationRequested = new AtomicBoolean(false);
     }
 
@@ -291,7 +291,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         List<OCFile> updatedFiles = new Vector<OCFile>(folderAndFiles.size() - 1);
         mFilesForDirectDownload.clear();
         mFilesToSyncContentsWithoutUpload.clear();
-        mFavouriteFilesToSyncContents.clear();
+        mFilesToSyncContents.clear();
 
         if (mCancellationRequested.get()) {
             throw new OperationCancelledException();
@@ -353,14 +353,15 @@ public class SynchronizeFolderOperation extends SyncOperation {
             /// classify file to sync/download contents later
             if (remoteFile.isFolder()) {
                 /// to download children files recursively
-                synchronized(mCancellationRequested) {
+                synchronized (mCancellationRequested) {
                     if (mCancellationRequested.get()) {
                         throw new OperationCancelledException();
                     }
                     startSyncFolderOperation(remoteFile.getRemotePath());
                 }
 
-            } else if (remoteFile.isFavorite()) {
+            //} else if (remoteFile.isFavorite()) {
+            } else {
                 /// prepare content synchronization for kept-in-sync files
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(
                         localFile,
@@ -369,9 +370,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
                         true,
                         mContext
                     );
-                mFavouriteFilesToSyncContents.add(operation);
+                mFilesToSyncContents.add(operation);
                 
-            } else {
+            /*} else {
                 /// prepare limited synchronization for regular files
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(
                         localFile,
@@ -381,7 +382,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                         false,
                         mContext
                     );
-                mFilesToSyncContentsWithoutUpload.add(operation);
+                mFilesToSyncContentsWithoutUpload.add(operation);*/
             }
 
             updatedFiles.add(remoteFile);
@@ -411,7 +412,20 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 /// prepare limited synchronization for regular files
                 if (!child.isDown()) {
                     mFilesForDirectDownload.add(child);
+
+                } else {
+                    /// this should result in direct upload of files that were locally modified
+                    SynchronizeFileOperation operation = new SynchronizeFileOperation(
+                            child,
+                            child,  // cheating with the remote file to get an upadte to server; to refactor
+                            mAccount,
+                            true,
+                            mContext
+                    );
+                    mFilesToSyncContents.add(operation);
+
                 }
+
             }
         }
     }
@@ -420,7 +434,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private void syncContents(OwnCloudClient client) throws OperationCancelledException {
         startDirectDownloads();
         startContentSynchronizations(mFilesToSyncContentsWithoutUpload, client);
-        startContentSynchronizations(mFavouriteFilesToSyncContents, client);
+        startContentSynchronizations(mFilesToSyncContents, client);
     }
 
     
