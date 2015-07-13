@@ -364,11 +364,11 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 return true;
             }
             case R.id.action_download_file: {
-                mContainerActivity.getFileOperationsHelper().syncFile(mTargetFile, false);
+                mContainerActivity.getFileOperationsHelper().downloadFile(mTargetFile);
                 return true;
             }
             case R.id.action_sync_file: {
-                mContainerActivity.getFileOperationsHelper().syncFile(mTargetFile, true);
+                mContainerActivity.getFileOperationsHelper().syncFile(mTargetFile);
                 return true;
             }
             case R.id.action_cancel_download:

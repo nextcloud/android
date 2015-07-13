@@ -252,7 +252,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             }
             case R.id.action_download_file:
             case R.id.action_sync_file: {
-                mContainerActivity.getFileOperationsHelper().syncFile(getFile(), true);
+                mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
             }
             case R.id.action_send_file: {

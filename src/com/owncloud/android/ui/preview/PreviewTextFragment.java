@@ -324,7 +324,7 @@ public class PreviewTextFragment extends FileFragment {
                 return true;
             }
             case R.id.action_sync_file: {
-                mContainerActivity.getFileOperationsHelper().syncFile(getFile(), true);
+                mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
             }
 
