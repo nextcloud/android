@@ -249,24 +249,38 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             mTransferServiceGetter.getFileDownloaderBinder();
                     FileUploaderBinder uploaderBinder =
                             mTransferServiceGetter.getFileUploaderBinder();
-                    boolean downloading = (downloaderBinder != null &&
-                            downloaderBinder.isDownloading(mAccount, file));
                     OperationsServiceBinder opsBinder =
                             mTransferServiceGetter.getOperationsServiceBinder();
-                    downloading |= (opsBinder != null &&
+                    boolean downloading = (downloaderBinder != null &&
+                            downloaderBinder.isDownloading(mAccount, file));
+                    boolean uploading = (uploaderBinder != null &&
+                            uploaderBinder.isUploading(mAccount, file));
+                    boolean synchronizing = (opsBinder != null &&
                             opsBinder.isSynchronizing(mAccount, file.getRemotePath()));
-                    if (downloading) {
+
+                    localStateView.setVisibility(View.INVISIBLE);   // default first
+
+                    if (file.isFolder()) {
+                        if (synchronizing || downloading || uploading) {
+                            localStateView.setImageResource(R.drawable.synchronizing_file_indicator);
+                            localStateView.setVisibility(View.VISIBLE);
+                        }
+
+                    } else if (synchronizing) {
+                        localStateView.setImageResource(R.drawable.synchronizing_file_indicator);
+                        localStateView.setVisibility(View.VISIBLE);
+
+                    } else if (downloading) {
                         localStateView.setImageResource(R.drawable.downloading_file_indicator);
                         localStateView.setVisibility(View.VISIBLE);
-                    } else if (uploaderBinder != null &&
-                            uploaderBinder.isUploading(mAccount, file)) {
+
+                    } else if (uploading) {
                         localStateView.setImageResource(R.drawable.uploading_file_indicator);
                         localStateView.setVisibility(View.VISIBLE);
+
                     } else if (file.isDown()) {
                         localStateView.setImageResource(R.drawable.local_file_indicator);
                         localStateView.setVisibility(View.VISIBLE);
-                    } else {
-                        localStateView.setVisibility(View.INVISIBLE);
                     }
 
                     // share with me icon
