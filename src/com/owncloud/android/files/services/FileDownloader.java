@@ -325,7 +325,7 @@ public class FileDownloader extends Service
         /**
          * Returns True when the file described by 'file' in the ownCloud account 'account'
          * is downloading or waiting to download.
-         * <p/>
+         *
          * If 'file' is a directory, returns 'true' if any of its descendant files is downloading or
          * waiting to download.
          *
@@ -440,14 +440,13 @@ public class FileDownloader extends Service
      */
     private void downloadFile(String downloadKey) {
 
-        /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                "Getting download of " + downloadKey);*/
         mCurrentDownload = mPendingDownloads.get(downloadKey);
 
         if (mCurrentDownload != null) {
             // Detect if the account exists
             if (AccountUtils.exists(mCurrentDownload.getAccount(), getApplicationContext())) {
                 Log_OC.d(TAG, "Account " + mCurrentDownload.getAccount().name + " exists");
+
                 notifyDownloadStart(mCurrentDownload);
 
                 RemoteOperationResult downloadResult = null;
@@ -470,8 +469,6 @@ public class FileDownloader extends Service
 
 
                     /// perform the download
-                    /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Executing download of " + mCurrentDownload.getRemotePath());*/
                     downloadResult = mCurrentDownload.execute(mDownloadClient);
                     if (downloadResult.isSuccess()) {
                         saveDownloadedFile();
@@ -487,9 +484,6 @@ public class FileDownloader extends Service
                     downloadResult = new RemoteOperationResult(e);
 
                 } finally {
-                /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Removing payload " + mCurrentDownload.getRemotePath());*/
-
                     Pair<DownloadFileOperation, String> removeResult =
                             mPendingDownloads.removePayload(mCurrentAccount,
                                     mCurrentDownload.getRemotePath());
@@ -497,9 +491,9 @@ public class FileDownloader extends Service
                     /// notify result
                     notifyDownloadResult(mCurrentDownload, downloadResult);
 
-                    sendBroadcastDownloadFinished(mCurrentDownload, downloadResult,
-                            removeResult.second);
+                    sendBroadcastDownloadFinished(mCurrentDownload, downloadResult, removeResult.second);
                 }
+
             } else {
                 // Cancel the transfer
                 Log_OC.d(TAG, "Account " + mCurrentDownload.getAccount().toString() +
@@ -683,6 +677,7 @@ public class FileDownloader extends Service
             DownloadFileOperation download,
             RemoteOperationResult downloadResult,
             String unlinkedFromRemotePath) {
+
         Intent end = new Intent(getDownloadFinishMessage());
         end.putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess());
         end.putExtra(ACCOUNT_NAME, download.getAccount().name);
