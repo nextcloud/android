@@ -371,10 +371,13 @@ public class UploadFileOperation extends RemoteOperation {
                     }
                     if (mDeleteFile){
                         String path = mFile.getStoragePath();
+                        File toDelete = new File(mFile.getStoragePath());
+                        toDelete.delete();
+                        mStorageManager.deleteFileInMediaScan(path);
 
-                            mStorageManager.deleteFileInMediaScan(path);
-                            mFile.setStoragePath(null);
-                            mStorageManager.saveFile(mFile);
+                        String path2 = originalFile.getPath();
+                        originalFile.delete();
+                        mStorageManager.deleteFileInMediaScan(path2);
 
                     } else {
                         mStorageManager.triggerMediaScan(mFile.getStoragePath());

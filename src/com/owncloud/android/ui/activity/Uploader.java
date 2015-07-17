@@ -62,9 +62,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -102,8 +102,9 @@ public class Uploader extends FileActivity
     private boolean mAccountSelected;
     private boolean mAccountSelectionShowing;
 
-    private CheckBox mBtnMoveUploadedFiles;
-    private CheckBox mBtnDeleteFiles;
+    private RadioButton mRadioBtnMoveUploadedFiles;
+    private RadioButton mRadioBtnDeleteFiles;
+    private RadioButton mRadioBtnCopyFiles;
 
     private ArrayList<String> mRemoteCacheData;
     private int mNumCacheFile;
@@ -404,14 +405,19 @@ public class Uploader extends FileActivity
         Integer localBehaviour = appPreferences.getInt("local_behaviour", FileUploader.LOCAL_BEHAVIOUR_COPY);
         Boolean deleteFiles = appPreferences.getBoolean("delete_files", false);
 
-        mBtnMoveUploadedFiles = (CheckBox) findViewById(R.id.uploader_move_file);
+        mRadioBtnMoveUploadedFiles = (RadioButton) findViewById(R.id.uploader_move_file);
         if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE){
-            mBtnMoveUploadedFiles.setChecked(true);
+            mRadioBtnMoveUploadedFiles.setChecked(true);
         }
 
-        mBtnDeleteFiles = (CheckBox) findViewById(R.id.uploader_deleteFiles);
+        mRadioBtnDeleteFiles = (RadioButton) findViewById(R.id.uploader_delete_file);
         if (deleteFiles){
-            mBtnDeleteFiles.setChecked(true);
+            mRadioBtnDeleteFiles.setChecked(true);
+        }
+
+        mRadioBtnCopyFiles = (RadioButton) findViewById(R.id.uploader_copy_file);
+        if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY){
+            mRadioBtnCopyFiles.setChecked(true);
         }
 
         String current_dir = mParents.peek();
@@ -578,7 +584,7 @@ public class Uploader extends FileActivity
                 }
 
                 // Check if file should be moved
-                Boolean moveUploadedFiles = mBtnMoveUploadedFiles.isChecked();
+                Boolean moveUploadedFiles = mRadioBtnMoveUploadedFiles.isChecked();
 
                 Intent intent = new Intent(getApplicationContext(), FileUploader.class);
                 intent.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
@@ -593,7 +599,7 @@ public class Uploader extends FileActivity
                     localBehaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
                 }
 
-                Boolean deleteFiles = mBtnDeleteFiles.isChecked();
+                Boolean deleteFiles = mRadioBtnDeleteFiles.isChecked();
                 if (deleteFiles){
                     intent.putExtra(FileUploader.KEY_DELETE_FILES, true);
                 }

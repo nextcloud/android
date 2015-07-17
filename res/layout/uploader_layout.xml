@@ -44,20 +44,38 @@
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent">
 
-			<CheckBox
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:text="move File"
-                android:id="@+id/uploader_move_file"
-				android:layout_weight="1" />
-
-			<CheckBox
+			<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+				android:id="@+id/drawer_radio_group"
 				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-				android:text="delete File"
-				android:id="@+id/uploader_deleteFiles"
-				android:layout_weight="1"
-				android:checked="false" />
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:orientation="horizontal" >
+
+				<RadioButton
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/uploader_move_file"
+					android:id="@+id/uploader_move_file"
+					android:layout_weight="1"
+					android:checked="false" />
+
+				<RadioButton
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/uploader_copy_file"
+					android:id="@+id/uploader_copy_file"
+					android:checked="false"
+					android:layout_weight="1" />
+
+				<RadioButton
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/uploader_delete_file"
+					android:id="@+id/uploader_delete_file"
+					android:checked="false"
+					android:layout_weight="1" />
+
+			</RadioGroup>
 		</LinearLayout>
 
 		<LinearLayout
