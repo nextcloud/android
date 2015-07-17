@@ -241,8 +241,8 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="conflict_title">Yüklənmə konflikti</string>
   <string name="conflict_message">Uzaq fayl %s local faylla sinxronizasiya edilmədi. Faylın kontentinin serverdə dəyişdirilməsinə davam edirik.</string>
   <string name="conflict_keep_both">Birlikdə saxla</string>
-  <string name="conflict_overwrite">Sil yenidən yaz</string>
-  <string name="conflict_dont_upload">Yükləmə</string>
+  <string name="conflict_use_local_version">Sil yenidən yaz</string>
+  <string name="conflict_use_server_version">Yükləmə</string>
   <string name="preview_image_description">Şəkili göstər</string>
   <string name="preview_image_error_unknown_format">Bu şəkil göstərilə bilməz</string>
   <string name="error__upload__local_file_not_copied">%1$s nüsxələnə bilməz %2$s local qovluğa</string>

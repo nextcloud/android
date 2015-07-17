@@ -34,7 +34,7 @@
   <string name="auth_unsupported_auth_method">Palvelin ei tue tätä autentikointitapaa</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="ssl_validator_label_L">Sijainti:</string>
-  <string name="conflict_overwrite">Ylikirjoita</string>
+  <string name="conflict_use_local_version">Ylikirjoita</string>
   <string name="copy_link">Kopioi linkki</string>
   <string name="empty"></string>
   <string name="actionbar_move">Siirrä</string>

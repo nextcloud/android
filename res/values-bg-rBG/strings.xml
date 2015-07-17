@@ -256,8 +256,8 @@
   <string name="conflict_title">Обновяване на конфликтите</string>
   <string name="conflict_message">Външния файл %s не е синхронизиран с локалния. Ако продължите, ще замените съдържанието на файла на сървъра.</string>
   <string name="conflict_keep_both">Запазване и на двата</string>
-  <string name="conflict_overwrite">Презаписване</string>
-  <string name="conflict_dont_upload">Да не се качва</string>
+  <string name="conflict_use_local_version">Презаписване</string>
+  <string name="conflict_use_server_version">Да не се качва</string>
   <string name="preview_image_description">Преглед на изображението</string>
   <string name="preview_image_error_unknown_format">Изображението не може да бъде показано</string>
   <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>

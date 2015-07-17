@@ -127,8 +127,8 @@
   <string name="conflict_title">இற்றைப்படுத்தலில் முரண்பாடு</string>
   <string name="conflict_message">இடத்துரி கோப்புடன் தொலைவு கோப்பு %s ஒத்திசைவாக்கப்படவில்லை. தொடர்ந்து மேற்கொண்டால் சேவையகத்தில் உள்ள கோப்பின் உள்ளடக்கம் மாற்றப்படும்.</string>
   <string name="conflict_keep_both">இரண்டையும் வைக்க </string>
-  <string name="conflict_overwrite">மேலெழுதல்</string>
-  <string name="conflict_dont_upload">பதிவேற்ற வேண்டாம்</string>
+  <string name="conflict_use_local_version">மேலெழுதல்</string>
+  <string name="conflict_use_server_version">பதிவேற்ற வேண்டாம்</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">கணக்குகள்</string>
   <string name="folder_picker_choose_button_text">தெரிவுசெய்க </string>

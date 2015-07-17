@@ -139,8 +139,8 @@
   <string name="conflict_title">კონფლიქტი განახლებისას</string>
   <string name="conflict_message">დაშორებული ფაილი %s არ არის სინქრონიზირებული ლოკალურ ფაილთან. ოპერაციის გაგრძელება გამოიწვევს სერვერზე ფაილის შეცვლას.</string>
   <string name="conflict_keep_both">დატოვე ორივე</string>
-  <string name="conflict_overwrite">გადააწერე</string>
-  <string name="conflict_dont_upload">არ ატვირთო</string>
+  <string name="conflict_use_local_version">გადააწერე</string>
+  <string name="conflict_use_server_version">არ ატვირთო</string>
   <string name="activity_chooser_send_file_title">გაგზავნა</string>
   <string name="clipboard_text_copied">კოპირებულია კლიპბორდში</string>
   <string name="empty"></string>

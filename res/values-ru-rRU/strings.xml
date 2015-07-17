@@ -143,6 +143,6 @@
   <string name="conflict_title">Конфликт обновления</string>
   <string name="conflict_message">Удаленный файл %s не синхронизирован с локальным файлом. Продолжение повлечет замену содержимого файла на сервере.</string>
   <string name="conflict_keep_both">Сохранить оба</string>
-  <string name="conflict_overwrite">Перезаписать</string>
-  <string name="conflict_dont_upload">Не загружать</string>
+  <string name="conflict_use_local_version">Перезаписать</string>
+  <string name="conflict_use_server_version">Не загружать</string>
 </resources>

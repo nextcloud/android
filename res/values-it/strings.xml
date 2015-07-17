@@ -257,8 +257,8 @@
   <string name="conflict_title">Conflitto di aggiornamento</string>
   <string name="conflict_message">Il file remoto %s non è sincronizzato con il file locale. Se continui, il contenuto del file sarà sostituito sul server.</string>
   <string name="conflict_keep_both">Mantieni entrambi</string>
-  <string name="conflict_overwrite">Sovrascrivi</string>
-  <string name="conflict_dont_upload">Non caricare</string>
+  <string name="conflict_use_local_version">Sovrascrivi</string>
+  <string name="conflict_use_server_version">Non caricare</string>
   <string name="preview_image_description">Anteprima dell\'immagine</string>
   <string name="preview_image_error_unknown_format">Questa immagine non può essere mostrata</string>
   <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>

@@ -248,8 +248,8 @@
   <string name="conflict_title">Конфликт при ажурирање</string>
   <string name="conflict_message">Одалечената датотека %s не е синхронизирана со локалната датотека. Ако продолжите ќе се замени содржината на датотеката на серверот.</string>
   <string name="conflict_keep_both">Задржи ги и двете</string>
-  <string name="conflict_overwrite">Препиши</string>
-  <string name="conflict_dont_upload">Не прикачувај</string>
+  <string name="conflict_use_local_version">Препиши</string>
+  <string name="conflict_use_server_version">Не прикачувај</string>
   <string name="preview_image_description">Преглед на сликата</string>
   <string name="preview_image_error_unknown_format">Сликата не може да се прикаже</string>
   <string name="error__upload__local_file_not_copied">%1$s не може да се копира во локалната папка %2$s</string>

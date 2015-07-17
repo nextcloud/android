@@ -268,8 +268,8 @@
     <string name="conflict_title">Update conflict</string>
     <string name="conflict_message">Remote file %s is not synchronized with local file. Continuing will replace content of file on server.</string>
     <string name="conflict_keep_both">Keep both</string>
-    <string name="conflict_overwrite">Overwrite</string>
-    <string name="conflict_dont_upload">Don\'t upload</string>
+    <string name="conflict_use_local_version">Use local version</string>
+    <string name="conflict_use_server_version">Use server version</string>
     
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_unknown_format">This image cannot be shown</string>

@@ -257,8 +257,8 @@
   <string name="conflict_title">Posodobi podatke spora</string>
   <string name="conflict_message">Oddaljena datoteka %s ni usklajena s krajevno. Z nadaljevanem bo datoteka na strežniku zamenjana s krajevno.</string>
   <string name="conflict_keep_both">Ohrani obe</string>
-  <string name="conflict_overwrite">Prepiši</string>
-  <string name="conflict_dont_upload">Ne pošlji</string>
+  <string name="conflict_use_local_version">Prepiši</string>
+  <string name="conflict_use_server_version">Ne pošlji</string>
   <string name="preview_image_description">Predogled slike</string>
   <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
   <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
