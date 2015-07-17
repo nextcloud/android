@@ -113,7 +113,7 @@ public class FileUploader extends Service
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
     private OwnCloudClient mUploadClient = null;
-    private Account mLastAccount = null;
+    private Account mCurrentAccount = null;
     private FileDataStorageManager mStorageManager;
 
     private IndexedForest<UploadFileOperation> mPendingUploads = new IndexedForest<UploadFileOperation>();
@@ -132,26 +132,14 @@ public class FileUploader extends Service
     }
 
     /**
-     * Builds a key for mPendingUploads from the account and file to upload
-     *
-     * @param account   Account where the file to upload is stored
-     * @param file      File to upload
-     */
-    private String buildRemoteName(Account account, OCFile file) {
-        return account.name + file.getRemotePath();
-    }
-
-    private String buildRemoteName(Account account, String remotePath) {
-        return account.name + remotePath;
-    }
-
-    /**
      * Checks if an ownCloud server version should support chunked uploads.
      *
      * @param version OwnCloud version instance corresponding to an ownCloud
      *            server.
      * @return 'True' if the ownCloud server with version supports chunked
      *         uploads.
+     *
+     * TODO - move to OCClient
      */
     private static boolean chunkedUploadIsSupported(OwnCloudVersion version) {
         return (version != null && version.compareTo(OwnCloudVersion.owncloud_v4_5) >= 0);
@@ -281,7 +269,7 @@ public class FileUploader extends Service
             files = new OCFile[localPaths.length];
             for (int i = 0; i < localPaths.length; i++) {
                 files[i] = obtainNewOCFileToUpload(remotePaths[i], localPaths[i],
-                        ((mimeTypes != null) ? mimeTypes[i] : null), storageManager);
+                        ((mimeTypes != null) ? mimeTypes[i] : null));
                 if (files[i] == null) {
                     // TODO @andomaex add failure Notification
                     return Service.START_NOT_STICKY;
@@ -389,24 +377,27 @@ public class FileUploader extends Service
         /**
          * Cancels a pending or current upload of a remote file.
          *
-         * @param account Owncloud account where the remote file will be stored.
-         * @param file A file in the queue of pending uploads
+         * @param account   ownCloud account where the remote file will be stored.
+         * @param file      A file in the queue of pending uploads
          */
         public void cancel(Account account, OCFile file) {
-            UploadFileOperation upload;
-            //synchronized (mPendingUploads) {
-                Pair<UploadFileOperation, String> removeResult = mPendingUploads.remove(account, file.getRemotePath());
-                upload = removeResult.first;
-            //}
+            Pair<UploadFileOperation, String> removeResult = mPendingUploads.remove(account, file.getRemotePath());
+            UploadFileOperation upload = removeResult.first;
             if (upload != null) {
                 upload.cancel();
+            } else {
+                if (mCurrentUpload != null && mCurrentAccount != null &&
+                        mCurrentUpload.getRemotePath().startsWith(file.getRemotePath()) &&
+                        account.name.equals(mCurrentAccount.name)) {
+                    mCurrentUpload.cancel();
+                }
             }
         }
 
         /**
-         * Cancels a pending or current upload for an account
+         * Cancels all the uploads for an account
          *
-         * @param account Owncloud accountName where the remote file will be stored.
+         * @param account   ownCloud account.
          */
         public void cancel(Account account) {
             Log_OC.d(TAG, "Account= " + account.name);
@@ -425,6 +416,7 @@ public class FileUploader extends Service
             mBoundListeners.clear();
         }
 
+
         /**
          * Returns True when the file described by 'file' is being uploaded to
          * the ownCloud account 'account' or waiting for it
@@ -436,23 +428,6 @@ public class FileUploader extends Service
          * @param file      A file that could be in the queue of pending uploads
          */
         public boolean isUploading(Account account, OCFile file) {
-            /*
-            if (account == null || file == null)
-                return false;
-            String targetKey = buildRemoteName(account, file);
-            synchronized (mPendingUploads) {
-                if (file.isFolder()) {
-                    // this can be slow if there are many uploads :(
-                    Iterator<String> it = mPendingUploads.keySet().iterator();
-                    boolean found = false;
-                    while (it.hasNext() && !found) {
-                        found = it.next().startsWith(targetKey);
-                    }
-                    return found;
-                } else {
-                    return (mPendingUploads.containsKey(targetKey));
-                }
-            }*/
             if (account == null || file == null) return false;
             return (mPendingUploads.contains(account, file.getRemotePath()));
         }
@@ -503,15 +478,19 @@ public class FileUploader extends Service
         }
 
         /**
-         * Review uploads and cancel it if its account doesn't exist
+         * Builds a key for the map of listeners.
+         *
+         * TODO remove and replace key with file.getFileId() after changing current policy (upload file, then
+         * add to local database) to better policy (add to local database, then upload)
+         *
+         * @param account       ownCloud account where the file to upload belongs.
+         * @param file          File to upload
+         * @return              Key
          */
-        public void checkAccountOfCurrentUpload() {
-            if (mCurrentUpload != null &&
-                    !AccountUtils.exists(mCurrentUpload.getAccount(), getApplicationContext())) {
-                mCurrentUpload.cancel();
-            }
-            // The rest of uploads are cancelled when they try to start
+        private String buildRemoteName(Account account, OCFile file) {
+            return account.name + file.getRemotePath();
         }
+
     }
 
     /**
@@ -570,16 +549,16 @@ public class FileUploader extends Service
 
                 try {
                     /// prepare client object to send the request to the ownCloud server
-                    if (mLastAccount == null || !mLastAccount.equals(mCurrentUpload.getAccount())) {
-                        mLastAccount = mCurrentUpload.getAccount();
+                    if (mCurrentAccount == null || !mCurrentAccount.equals(mCurrentUpload.getAccount())) {
+                        mCurrentAccount = mCurrentUpload.getAccount();
                         mStorageManager = new FileDataStorageManager(
-                                mLastAccount,
+                                mCurrentAccount,
                                 getContentResolver()
                         );
                     }   // else, reuse storage manager from previous operation
 
                     // always get client from client manager, to get fresh credentials in case of update
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mLastAccount, this);
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
                     mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, this);
 
@@ -606,19 +585,19 @@ public class FileUploader extends Service
 
                 } catch (AccountsException e) {
                     Log_OC.e(TAG, "Error while trying to get autorization for " +
-                            mLastAccount.name, e);
+                            mCurrentAccount.name, e);
                     uploadResult = new RemoteOperationResult(e);
 
                 } catch (IOException e) {
                     Log_OC.e(TAG, "Error while trying to get autorization for " +
-                            mLastAccount.name, e);
+                            mCurrentAccount.name, e);
                     uploadResult = new RemoteOperationResult(e);
 
                 } finally {
                     Log_OC.v("NOW " + TAG + ", thread " + Thread.currentThread().getName(),
                             "Removing payload " + mCurrentUpload.getRemotePath());
                     Pair<UploadFileOperation, String> removeResult =
-                            mPendingUploads.removePayload(mLastAccount, mCurrentUpload.getRemotePath());
+                            mPendingUploads.removePayload(mCurrentAccount, mCurrentUpload.getRemotePath());
 
                     /// notify result
                     notifyUploadResult(mCurrentUpload, uploadResult);
@@ -743,8 +722,7 @@ public class FileUploader extends Service
         file.setRemoteId(remoteFile.getRemoteId());
     }
 
-    private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType,
-                                           FileDataStorageManager storageManager) {
+    private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
 
         // MIME type
         if (mimeType == null || mimeType.length() <= 0) {
@@ -980,6 +958,8 @@ public class FileUploader extends Service
      * @param localPath         Full path to a file in the local file system.
      * @param mimeType          MIME type of the file.
      * @return true if is needed to add the pdf file extension to the file
+     *
+     * TODO - move to OCFile or Utils class
      */
     private boolean isPdfFileFromContentProviderWithoutExtension(String localPath,
                                                                  String mimeType) {

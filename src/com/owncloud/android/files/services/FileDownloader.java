@@ -153,7 +153,7 @@ public class FileDownloader extends Service
 
     /**
      * Entry point to add one or several files to the queue of downloads.
-     * <p/>
+     *
      * New downloads are added calling to startService(), resulting in a call to this method.
      * This ensures the service will keep on working although the caller activity goes away.
      */
@@ -169,12 +169,6 @@ public class FileDownloader extends Service
         } else {
             final Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
             final OCFile file = intent.getParcelableExtra(EXTRA_FILE);
-
-            /*Log_OC.v(
-                    "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                    "Received request to download file"
-            );*/
-
             AbstractList<String> requestedDownloads = new Vector<String>();
             try {
                 DownloadFileOperation newDownload = new DownloadFileOperation(account, file);
@@ -185,10 +179,6 @@ public class FileDownloader extends Service
                 );
                 String downloadKey = putResult.first;
                 requestedDownloads.add(downloadKey);
-                    /*Log_OC.v(
-                        "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Download on " + file.getRemotePath() + " added to queue"
-                    );*/
 
                 // Store file on db with state 'downloading'
                     /*
@@ -275,34 +265,23 @@ public class FileDownloader extends Service
          * @param file    A file in the queue of pending downloads
          */
         public void cancel(Account account, OCFile file) {
-            /*Log_OC.v(
-                    "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                    "Received request to cancel download of " + file.getRemotePath()
-            );
-            Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                    "Removing download of " + file.getRemotePath());*/
-            Pair<DownloadFileOperation, String> removeResult =
-                    mPendingDownloads.remove(account, file.getRemotePath());
+            Pair<DownloadFileOperation, String> removeResult = mPendingDownloads.remove(account, file.getRemotePath());
             DownloadFileOperation download = removeResult.first;
             if (download != null) {
-                /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Canceling returned download of " + file.getRemotePath());*/
                 download.cancel();
             } else {
                 if (mCurrentDownload != null && mCurrentAccount != null &&
                         mCurrentDownload.getRemotePath().startsWith(file.getRemotePath()) &&
                         account.name.equals(mCurrentAccount.name)) {
-                    /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                     "Canceling current sync as descendant: " + mCurrentDownload.getRemotePath());*/
                     mCurrentDownload.cancel();
                 }
             }
         }
 
         /**
-         * Cancels a pending or current upload for an account
+         * Cancels all the downloads for an account
          *
-         * @param account Owncloud accountName where the remote file will be stored.
+         * @param account   ownCloud account.
          */
         public void cancel(Account account) {
             Log_OC.d(TAG, "Account= " + account.name);
@@ -349,7 +328,6 @@ public class FileDownloader extends Service
                 OnDatatransferProgressListener listener, Account account, OCFile file
         ) {
             if (account == null || file == null || listener == null) return;
-            //String targetKey = buildKey(account, file.getRemotePath());
             mBoundListeners.put(file.getFileId(), listener);
         }
 
@@ -357,15 +335,14 @@ public class FileDownloader extends Service
         /**
          * Removes a listener interested in the progress of the download for a concrete file.
          *
-         * @param listener Object to notify about progress of transfer.
-         * @param account  ownCloud account holding the file of interest.
-         * @param file     {@link OCFile} of interest for listener.
+         * @param listener      Object to notify about progress of transfer.
+         * @param account       ownCloud account holding the file of interest.
+         * @param file          {@link OCFile} of interest for listener.
          */
         public void removeDatatransferProgressListener(
                 OnDatatransferProgressListener listener, Account account, OCFile file
         ) {
             if (account == null || file == null || listener == null) return;
-            //String targetKey = buildKey(account, file.getRemotePath());
             Long fileId = file.getFileId();
             if (mBoundListeners.get(fileId) == listener) {
                 mBoundListeners.remove(fileId);
@@ -375,8 +352,6 @@ public class FileDownloader extends Service
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar,
                                        long totalToTransfer, String fileName) {
-            //String key = buildKey(mCurrentDownload.getAccount(),
-            // mCurrentDownload.getFile().getRemotePath());
             OnDatatransferProgressListener boundListener =
                     mBoundListeners.get(mCurrentDownload.getFile().getFileId());
             if (boundListener != null) {
@@ -385,23 +360,12 @@ public class FileDownloader extends Service
             }
         }
 
-        /**
-         * Review downloads and cancel it if its account doesn't exist
-         */
-        public void checkAccountOfCurrentDownload() {
-            if (mCurrentDownload != null &&
-                    !AccountUtils.exists(mCurrentDownload.getAccount(), getApplicationContext())) {
-                mCurrentDownload.cancel();
-            }
-            // The rest of downloads are cancelled when they try to start
-        }
-
     }
 
 
     /**
      * Download worker. Performs the pending downloads in the order they were requested.
-     * <p/>
+
      * Created with the Looper of a new thread, started in {@link FileUploader#onCreate()}.
      */
     private static class ServiceHandler extends Handler {

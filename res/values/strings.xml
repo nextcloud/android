@@ -89,8 +89,7 @@
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
-    <string name="common_cancel_download">Cancel download</string>
-    <string name="common_cancel_upload">Cancel upload</string>
+    <string name="common_cancel_sync">Cancel synchronization</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_save_exit">Save &amp; Exit</string>
     <string name="common_error">Error</string>
