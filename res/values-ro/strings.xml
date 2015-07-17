@@ -21,12 +21,17 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Toate fișierele</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Setări</string>
+  <string name="drawer_item_logs">Înregistrări</string>
+  <string name="drawer_close">Închide</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Mai mult</string>
   <string name="prefs_accounts">Conturi</string>
   <string name="prefs_manage_accounts">Administrare conturi</string>
+  <string name="prefs_passcode">Parolă blocare</string>
   <string name="prefs_instant_upload">Încărcare instantă de imagini</string>
   <string name="prefs_instant_upload_summary">Încarcă instantant imagini luate cu camera</string>
   <string name="prefs_instant_video_upload">Încărcare instantă de videoclipuri.</string>
@@ -64,6 +69,7 @@
   <string name="uploader_info_uploading">Încărcare</string>
   <string name="file_list_seconds_ago">secunde în urmă</string>
   <string name="file_list_empty">Nimic aici. Încarcă ceva!</string>
+  <string name="file_list_loading">Se încarcă...</string>
   <string name="local_file_list_empty">In acest folder nu sunt fisiere.</string>
   <string name="filedetails_select_file">Selectati un fisier pentru a afisa informatia aditionala</string>
   <string name="filedetails_size">Mărime:</string>
@@ -73,6 +79,7 @@
   <string name="filedetails_download">Descarcă</string>
   <string name="filedetails_sync_file">Împrospătare fişier</string>
   <string name="filedetails_renamed_in_upload_msg">Fișierul a fost redenumit %1$s în timpul încărcării</string>
+  <string name="list_layout">Aspect listă</string>
   <string name="action_share_file">Share link</string>
   <string name="action_unshare_file">Unshare link</string>
   <string name="common_yes">Da</string>
@@ -126,6 +133,15 @@
   <string name="foreign_files_remote_text">La distanta: %1$s</string>
   <string name="upload_query_move_foreign_files">Nu este suficient spațiu pentru a copia fișierele selectate în dosarul %1$s . Dorești să le muți în loc?
 </string>
+  <string name="pass_code_enter_pass_code">Te rugăm să introduci parola</string>
+  <string name="pass_code_configure_your_pass_code">Introdu parola</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Parola va fi solicitată de fiecare dată când deschideți aplicația</string>
+  <string name="pass_code_reenter_your_pass_code">Te rugăm să reintroduci parola</string>
+  <string name="pass_code_remove_your_pass_code">Șterge parola</string>
+  <string name="pass_code_mismatch">Parolele nu se potrivesc</string>
+  <string name="pass_code_wrong">Parolă incorectă</string>
+  <string name="pass_code_removed">Parolă ștearsă</string>
+  <string name="pass_code_stored">Parolă stocată</string>
   <string name="media_notif_ticker">%1$s  player de muzică</string>
   <string name="media_state_playing">%1$s (cântă)</string>
   <string name="media_state_loading">%1$s (încarcă)</string>
@@ -195,11 +211,13 @@
   <string name="sync_file_nothing_to_do_msg">Continutul fisierului este deja sincronizat</string>
   <string name="create_dir_fail_msg">Nu a putut fi creat directorul</string>
   <string name="filename_forbidden_characters">Caractere interzise: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Numele fișierului conține măcar un caracter invalid</string>
   <string name="filename_empty">Numele fișierului nu poate fi gol.</string>
   <string name="wait_a_moment">Așteaptă un moment</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema neasteptata ; selectati fisierul dintr-o aplicatie diferita </string>
   <string name="filedisplay_no_file_selected">Nu a fost selectat nici un fișier</string>
   <string name="activity_chooser_title">Trimite link la ...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Copiere fișier din stocare privată</string>
   <string name="oauth_check_onoff">Întră în cont cu oAuth2</string>
   <string name="oauth_login_connection">Se conectează la serverul oAuth2...</string>
   <string name="ssl_validator_header">Nu s-a putut verifica identitatea site-ului</string>
@@ -290,6 +308,19 @@
   <string name="prefs_category_security">Securitate</string>
   <string name="prefs_instant_video_upload_path_title">Calea de încărcare Video</string>
   <string name="download_folder_failed_content">Descărcarea fișierului %1$s nu s-a finisat</string>
+  <string name="shared_subject_header">partajat</string>
+  <string name="with_you_subject_header">cu tine</string>
+  <string name="subject_token">%1$s a partajat fișierul \"%2$s\" cu tine</string>
   <string name="auth_refresh_button">Reîmprospătează conexiunea</string>
   <string name="auth_host_address">Adresa server-ului</string>
+  <string name="common_error_out_memory">Memorie insuficientă </string>
+  <string name="username">Utilizator</string>
+  <string name="file_list__footer__folder">1 folder</string>
+  <string name="file_list__footer__folders">%1$d foldere</string>
+  <string name="file_list__footer__file">1 fișier</string>
+  <string name="file_list__footer__file_and_folder">1 fișier, 1 folder</string>
+  <string name="file_list__footer__file_and_folders">1 fișier, %1$d foldere</string>
+  <string name="file_list__footer__files">%1$d fișiere</string>
+  <string name="file_list__footer__files_and_folder">%1$d fișiere, 1 folder</string>
+  <string name="file_list__footer__files_and_folders">%1$d fișiere, %2$d foldere</string>
 </resources>
