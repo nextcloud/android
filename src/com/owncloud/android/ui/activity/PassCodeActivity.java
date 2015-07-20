@@ -101,12 +101,11 @@ public class PassCodeActivity extends ActionBarActivity {
             if (savedInstanceState != null) {
                 mConfirmingPassCode = savedInstanceState.getBoolean(PassCodeActivity.KEY_CONFIRMING_PASSCODE);
                 mPassCodeDigits = savedInstanceState.getStringArray(PassCodeActivity.KEY_PASSCODE_DIGITS);
-                if(mConfirmingPassCode){
-                    //the app was in the passcodeconfirmation
-                    requestPassCodeConfirmation();
-                }
             }
-            if(savedInstanceState == null || (savedInstanceState != null && !mConfirmingPassCode)){
+            if(mConfirmingPassCode){
+                //the app was in the passcodeconfirmation
+                requestPassCodeConfirmation();
+            }else{
                 /// pass code preference has just been activated in Preferences;
                 // will receive and confirm pass code value
                 mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
