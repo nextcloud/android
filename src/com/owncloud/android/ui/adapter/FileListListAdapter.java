@@ -240,7 +240,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         sharedIconV.setVisibility(View.GONE);
                     }
 
-
                     // local state
                     ImageView localStateView = (ImageView) view.findViewById(R.id.localFileIndicator);
                     localStateView.bringToFront();
@@ -278,8 +277,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     } else {
                         sharedWithMeIconV.setVisibility(View.GONE);
                     }
-
-
 
                     break;
             }
