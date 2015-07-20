@@ -268,15 +268,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     }
 
                     // share with me icon
-                    if (!file.isFolder()) {
-                        ImageView sharedWithMeIconV = (ImageView)
-                                view.findViewById(R.id.sharedWithMeIcon);
-                        sharedWithMeIconV.bringToFront();
-                        if (checkIfFileIsSharedWithMe(file)) {
-                            sharedWithMeIconV.setVisibility(View.VISIBLE);
-                        } else {
-                            sharedWithMeIconV.setVisibility(View.GONE);
-                        }
+                    ImageView sharedWithMeIconV = (ImageView)
+                            view.findViewById(R.id.sharedWithMeIcon);
+                    sharedWithMeIconV.bringToFront();
+                    if (checkIfFileIsSharedWithMe(file) &&
+                            (!file.isFolder() || !mGridMode)) {
+                        sharedWithMeIconV.setVisibility(View.VISIBLE);
+                    } else {
+                        sharedWithMeIconV.setVisibility(View.GONE);
                     }
 
                     break;
