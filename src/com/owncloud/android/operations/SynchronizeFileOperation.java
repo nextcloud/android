@@ -221,6 +221,12 @@ public class SynchronizeFileOperation extends SyncOperation {
                     mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData()
                 );
 
+                Log_OC.d(TAG, "TOKENs checked to SYNC " + mRemotePath );
+                Log_OC.d(TAG, "  server#modificationTimestamp " + mServerFile.getModificationTimestamp());
+                Log_OC.d(TAG, "  local#modificationTimestampAtLastSyncForData " + mServerFile.getModificationTimestampAtLastSyncForData());
+                Log_OC.d(TAG, "  local#modificationTimestamp " + mLocalFile.getLocalModificationTimestamp());
+                Log_OC.d(TAG, "  local#lastSyncDateForData " + mLocalFile.getLastSyncDateForData());
+
                 /// decide action to perform depending upon changes
                 //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
                 if (localChanged && serverChanged) {

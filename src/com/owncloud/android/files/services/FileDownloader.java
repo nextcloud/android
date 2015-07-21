@@ -438,13 +438,8 @@ public class FileDownloader extends Service
                         saveDownloadedFile();
                     }
 
-                } catch (AccountsException e) {
-                    Log_OC.e(TAG, "Error while trying to get authorization for "
-                            + mCurrentAccount.name, e);
-                    downloadResult = new RemoteOperationResult(e);
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "Error while trying to get authorization for "
-                            + mCurrentAccount.name, e);
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Error downloading", e);
                     downloadResult = new RemoteOperationResult(e);
 
                 } finally {

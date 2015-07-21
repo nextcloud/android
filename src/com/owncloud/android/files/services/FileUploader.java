@@ -583,14 +583,8 @@ public class FileUploader extends Service
                         uploadResult = grantResult;
                     }
 
-                } catch (AccountsException e) {
-                    Log_OC.e(TAG, "Error while trying to get autorization for " +
-                            mCurrentAccount.name, e);
-                    uploadResult = new RemoteOperationResult(e);
-
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "Error while trying to get autorization for " +
-                            mCurrentAccount.name, e);
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Error uploading", e);
                     uploadResult = new RemoteOperationResult(e);
 
                 } finally {
