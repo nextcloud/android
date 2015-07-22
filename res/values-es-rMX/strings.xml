@@ -202,8 +202,8 @@
   <string name="conflict_title">Conflicto en la actualización</string>
   <string name="conflict_message">El archivo remoto %s no está sincronizado con el archivo local. Si continúa, se reemplazará el contenido del archivo en el servidor.</string>
   <string name="conflict_keep_both">Mantener ambas</string>
-  <string name="conflict_use_local_version">Sobrescribir</string>
-  <string name="conflict_use_server_version">No subir</string>
+  <string name="conflict_overwrite">Sobrescribir</string>
+  <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="clipboard_text_copied">Copiado al portapapeles</string>

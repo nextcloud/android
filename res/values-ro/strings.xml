@@ -256,8 +256,8 @@
   <string name="conflict_title">Actualizați conflictul</string>
   <string name="conflict_message">Fișierul de la distanță %s nu este sincronizat cu fișierul local. Continuand, se va înlocui conținutul fișierului de pe server.</string>
   <string name="conflict_keep_both">Pastreaza amandoua</string>
-  <string name="conflict_use_local_version">Scrie peste</string>
-  <string name="conflict_use_server_version">Nu încarcă</string>
+  <string name="conflict_overwrite">Scrie peste</string>
+  <string name="conflict_dont_upload">Nu încarcă</string>
   <string name="preview_image_description">Previzualizare imagine</string>
   <string name="preview_image_error_unknown_format">Aceasta imagine nu poate fi arătată</string>
   <string name="error__upload__local_file_not_copied">%1$s nu a putut fi copiat in dosarul local %2$s </string>

@@ -258,8 +258,8 @@ Descárgueo de aquí: %2$s</string>
   <string name="conflict_title">Conflito de actualización</string>
   <string name="conflict_message">O ficheiro remoto %s non está sincronizado co ficheiro local. Continuando substituirase o contido do ficheiro no servidor.</string>
   <string name="conflict_keep_both">Manter ambos</string>
-  <string name="conflict_use_local_version">Sobrescribir</string>
-  <string name="conflict_use_server_version">Non enviar</string>
+  <string name="conflict_overwrite">Sobrescribir</string>
+  <string name="conflict_dont_upload">Non enviar</string>
   <string name="preview_image_description">Vista previa da imaxe</string>
   <string name="preview_image_error_unknown_format">Esta imaxe non pode ser amosada</string>
   <string name="error__upload__local_file_not_copied">Non foi posíbel copiar %1$s no cartafol local %2$s</string>

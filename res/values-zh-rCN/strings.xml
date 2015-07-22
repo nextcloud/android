@@ -254,8 +254,8 @@
   <string name="conflict_title">上传冲突</string>
   <string name="conflict_message">远程文件 %s 未与本地文件同步。继续将替换服务器上的文件内容。</string>
   <string name="conflict_keep_both">保留两者</string>
-  <string name="conflict_use_local_version">覆盖</string>
-  <string name="conflict_use_server_version">不上传</string>
+  <string name="conflict_overwrite">覆盖</string>
+  <string name="conflict_dont_upload">不上传</string>
   <string name="preview_image_description">图片预览</string>
   <string name="preview_image_error_unknown_format">无法显示图片</string>
   <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>

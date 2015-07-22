@@ -207,8 +207,8 @@
   <string name="conflict_title">بارگذاری ناسازگار</string>
   <string name="conflict_message">فایل های دور از دسترس %s با فایل های محلی همگام نشده اند. ادامه کار، محتوا را بر روی فایل در سرور جایگزین خواهد کرد.</string>
   <string name="conflict_keep_both">نگهداشتن هر دو</string>
-  <string name="conflict_use_local_version">دوباره نویسی</string>
-  <string name="conflict_use_server_version">آپلود نکن</string>
+  <string name="conflict_overwrite">دوباره نویسی</string>
+  <string name="conflict_dont_upload">آپلود نکن</string>
   <string name="preview_image_description">پیش نمایش تصویر</string>
   <string name="preview_image_error_unknown_format">نمایش این عکس امکانپذیر نمی باشد</string>
   <string name="share_link_file_error">در حین اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>

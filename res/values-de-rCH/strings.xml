@@ -192,8 +192,8 @@
   <string name="conflict_title">Konflikt beim Update</string>
   <string name="conflict_message">Serverdatei %s ist nicht synchronisiert mit der lokalen Datei. Weitermachen bedeutet, dass der Inhalt der Datei auf dem Server ersetzt wird.</string>
   <string name="conflict_keep_both">Beide behalten</string>
-  <string name="conflict_use_local_version">Überschreiben</string>
-  <string name="conflict_use_server_version">Nicht hochladen</string>
+  <string name="conflict_overwrite">Überschreiben</string>
+  <string name="conflict_dont_upload">Nicht hochladen</string>
   <string name="preview_image_description">Bildvorschau</string>
   <string name="activity_chooser_send_file_title">Senden</string>
   <string name="clipboard_text_copied">In die Zwischenablage kopiert</string>

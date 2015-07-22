@@ -225,8 +225,8 @@
   <string name="conflict_title">Atnaujinimo konfliktas</string>
   <string name="conflict_message">Nutolęs failas %s nėra sinchronizuotas su vietiniu failu. Jei tęsite, failas serveryje bus pakeistas.</string>
   <string name="conflict_keep_both">Palikti abu</string>
-  <string name="conflict_use_local_version">Perrašyti</string>
-  <string name="conflict_use_server_version">Nebesiųsti</string>
+  <string name="conflict_overwrite">Perrašyti</string>
+  <string name="conflict_dont_upload">Nebesiųsti</string>
   <string name="preview_image_description">Paveikslėlio peržiūra</string>
   <string name="preview_image_error_unknown_format">Neįmanoma parodyti šio paveikslėlio</string>
   <string name="share_link_file_error">Įvyko klaida bandant dalinti šį failą ar aplanką</string>

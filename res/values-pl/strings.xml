@@ -251,8 +251,8 @@
   <string name="conflict_title">Konflikt aktualizacji</string>
   <string name="conflict_message">Zdalny plik %s nie jest zsynchronizowany z plikiem lokalnym. Kontynuując zastąpisz zawartość pliku na serwerze.</string>
   <string name="conflict_keep_both">Zatrzymaj oba</string>
-  <string name="conflict_use_local_version">Zastąp</string>
-  <string name="conflict_use_server_version">Nie wysyłaj</string>
+  <string name="conflict_overwrite">Zastąp</string>
+  <string name="conflict_dont_upload">Nie wysyłaj</string>
   <string name="preview_image_description">Podgląd</string>
   <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>

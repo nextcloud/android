@@ -242,8 +242,8 @@
   <string name="conflict_title">更新衝突</string>
   <string name="conflict_message">遠端檔案 %s 未同步到本地. 繼續將取代伺服器上的文件.</string>
   <string name="conflict_keep_both">都保留</string>
-  <string name="conflict_use_local_version">覆寫</string>
-  <string name="conflict_use_server_version">不要上載</string>
+  <string name="conflict_overwrite">覆寫</string>
+  <string name="conflict_dont_upload">不要上載</string>
   <string name="preview_image_description">圖片預覽</string>
   <string name="preview_image_error_unknown_format">無法顯示圖片</string>
   <string name="error__upload__local_file_not_copied">%1$s 無法被複製到本地目錄 %2$s</string>

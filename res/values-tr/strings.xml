@@ -257,8 +257,8 @@
   <string name="conflict_title">Çakışmayı güncelle</string>
   <string name="conflict_message">Uzaktaki %s dosyası, yerel dosya ile eşitlenemedi. İşleme devam etmek sunucudaki dosyanın içeriğini değiştirecektir.</string>
   <string name="conflict_keep_both">İkisini de koru</string>
-  <string name="conflict_use_local_version">Üzerine yaz</string>
-  <string name="conflict_use_server_version">Yükleme</string>
+  <string name="conflict_overwrite">Üzerine yaz</string>
+  <string name="conflict_dont_upload">Yükleme</string>
   <string name="preview_image_description">Resim önizleme</string>
   <string name="preview_image_error_unknown_format">Bu resim gösterilemiyor</string>
   <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel klasörüne kopyalanamadı</string>
