@@ -342,11 +342,11 @@ public class OCFileListFragment extends ExtendedListFragment {
                 return true;
             }
             case R.id.action_favorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleKeepInSync(mTargetFile, true);
+                mContainerActivity.getFileOperationsHelper().toggleFavorite(mTargetFile, true);
                 return true;
             }
             case R.id.action_unfavorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleKeepInSync(mTargetFile, false);
+                mContainerActivity.getFileOperationsHelper().toggleFavorite(mTargetFile, false);
                 return true;
             }
             default:

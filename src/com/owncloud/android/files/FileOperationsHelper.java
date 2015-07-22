@@ -225,8 +225,8 @@ public class FileOperationsHelper {
         }
     }
 
-    public void toggleKeepInSync(OCFile file, boolean isFavorite) {
-        file.setKeepInSync(isFavorite);
+    public void toggleFavorite(OCFile file, boolean isFavorite) {
+        file.setFavorite(isFavorite);
         mFileActivity.getStorageManager().saveFile(file);
 
         /// register the OCFile instance in the observer service to monitor local updates
@@ -238,7 +238,7 @@ public class FileOperationsHelper {
         mFileActivity.startService(observedFileIntent);
 
         /// immediate content synchronization
-        if (file.keepInSync()) {
+        if (file.isFavorite()) {
             syncFile(file);
         }
     }
@@ -301,8 +301,8 @@ public class FileOperationsHelper {
             downloaderBinder.cancel(account, file);
 
             // TODO - review why is this here, and solve in a better way
-            // Remove etag for parent, if file is a keep_in_sync
-            if (file.keepInSync()) {
+            // Remove etag for parent, if file is a favorite
+            if (file.isFavorite()) {
                 OCFile parent = mFileActivity.getStorageManager().getFileById(file.getParentId());
                 parent.setEtag("");
                 mFileActivity.getStorageManager().saveFile(parent);

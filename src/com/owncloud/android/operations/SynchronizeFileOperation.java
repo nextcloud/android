@@ -245,12 +245,12 @@ public class SynchronizeFileOperation extends SyncOperation {
                     
                     if (mSyncFileContents) {
                         requestForDownload(mLocalFile); // local, not server; we won't to keep
-                        // the value of keepInSync!
+                        // the value of favorite!
                         // the update of local data will be done later by the FileUploader
                         // service when the upload finishes
                     } else {
                         // TODO CHECK: is this really useful in some point in the code?
-                        mServerFile.setKeepInSync(mLocalFile.keepInSync());
+                        mServerFile.setFavorite(mLocalFile.isFavorite());
                         mServerFile.setLastSyncDateForData(mLocalFile.getLastSyncDateForData());
                         mServerFile.setStoragePath(mLocalFile.getStoragePath());
                         mServerFile.setParentId(mLocalFile.getParentId());
@@ -285,7 +285,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         i.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
         i.putExtra(FileUploader.KEY_FILE, file);
         /*i.putExtra(FileUploader.KEY_REMOTE_FILE, mRemotePath);
-        // doing this we would lose the value of keepInSync in the road, and maybe
+        // doing this we would lose the value of isFavorite in the road, and maybe
         // it's not updated in the database when the FileUploader service gets it!
         i.putExtra(FileUploader.KEY_LOCAL_FILE, localFile.getStoragePath());*/
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);

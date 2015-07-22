@@ -342,11 +342,11 @@ public class PreviewMediaFragment extends FileFragment implements
                 return true;
             }
             case R.id.action_favorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleKeepInSync(getFile(), true);
+                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), true);
                 return true;
             }
             case R.id.action_unfavorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleKeepInSync(getFile(), false);
+                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), false);
                 return true;
             }
             default:

@@ -96,49 +96,49 @@ public class FileActivity extends ActionBarActivity
             "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
     public static final String EXTRA_FROM_NOTIFICATION =
             "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
-    
+
     public static final String TAG = FileActivity.class.getSimpleName();
-    
+
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String DIALOG_SHARE_PASSWORD = "DIALOG_SHARE_PASSWORD";
     private static final String KEY_TRY_SHARE_AGAIN = "TRY_SHARE_AGAIN";
     private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
-    
+
     protected static final long DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS = 200;
-    
-    
+
+
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
     private Account mAccount;
-    
+
     /** Main {@link OCFile} handled by the activity.*/
     private OCFile mFile;
-    
+
     /** Flag to signal that the activity will is finishing to enforce the creation of an ownCloud
      * {@link Account} */
     private boolean mRedirectingToSetupAccount = false;
-    
-    /** Flag to signal when the value of mAccount was set */ 
+
+    /** Flag to signal when the value of mAccount was set */
     protected boolean mAccountWasSet;
-    
-    /** Flag to signal when the value of mAccount was restored from a saved state */ 
+
+    /** Flag to signal when the value of mAccount was restored from a saved state */
     protected boolean mAccountWasRestored;
-    
+
     /** Flag to signal if the activity is launched by a notification */
     private boolean mFromNotification;
-    
+
     /** Messages handler associated to the main thread and the life cycle of the activity */
     private Handler mHandler;
-    
+
     /** Access point to the cached database for the current ownCloud {@link Account} */
     private FileDataStorageManager mStorageManager = null;
-    
+
     private FileOperationsHelper mFileOperationsHelper;
-    
+
     private ServiceConnection mOperationsServiceConnection = null;
-    
+
     private OperationsServiceBinder mOperationsServiceBinder = null;
-    
+
     protected FileDownloaderBinder mDownloaderBinder = null;
     protected FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
@@ -161,12 +161,12 @@ public class FileActivity extends ActionBarActivity
 
     // TODO re-enable when "Accounts" is available in Navigation Drawer
 //    protected boolean mShowAccounts = false;
-    
+
     /**
-     * Loads the ownCloud {@link Account} and main {@link OCFile} to be handled by the instance of 
+     * Loads the ownCloud {@link Account} and main {@link OCFile} to be handled by the instance of
      * the {@link FileActivity}.
-     * 
-     * Grants that a valid ownCloud {@link Account} is associated to the instance, or that the user 
+     *
+     * Grants that a valid ownCloud {@link Account} is associated to the instance, or that the user
      * is requested to create a new one.
      */
     @Override
@@ -194,11 +194,11 @@ public class FileActivity extends ActionBarActivity
                                                  // or database
 
         setAccount(account, savedInstanceState != null);
-        
+
         mOperationsServiceConnection = new OperationsServiceConnection();
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
                 Context.BIND_AUTO_CREATE);
-        
+
         mDownloadServiceConnection = newTransferenceServiceConnection();
         if (mDownloadServiceConnection != null) {
             bindService(new Intent(this, FileDownloader.class), mDownloadServiceConnection,
@@ -223,8 +223,8 @@ public class FileActivity extends ActionBarActivity
     }
 
     /**
-     *  Since ownCloud {@link Account}s can be managed from the system setting menu, 
-     *  the existence of the {@link Account} associated to the instance must be checked 
+     *  Since ownCloud {@link Account}s can be managed from the system setting menu,
+     *  the existence of the {@link Account} associated to the instance must be checked
      *  every time it is restarted.
      */
     @Override
@@ -238,8 +238,8 @@ public class FileActivity extends ActionBarActivity
         Log_OC.v(TAG, "onRestart() end");
     }
 
-    
-    @Override 
+
+    @Override
     protected void onStart() {
         super.onStart();
 
@@ -247,26 +247,26 @@ public class FileActivity extends ActionBarActivity
             onAccountSet(mAccountWasRestored);
         }
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
-        
+
         if (mOperationsServiceBinder != null) {
             doOnResumeAndBound();
         }
     }
-    
+
     @Override
     protected void onPause()  {
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
-        
+
         super.onPause();
     }
-    
-    
+
+
     @Override
     protected void onDestroy() {
         if (mOperationsServiceConnection != null) {
@@ -438,12 +438,12 @@ public class FileActivity extends ActionBarActivity
 
 
     /**
-     *  Sets and validates the ownCloud {@link Account} associated to the Activity. 
-     * 
+     *  Sets and validates the ownCloud {@link Account} associated to the Activity.
+     *
      *  If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
-     *  
-     *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}. 
-     * 
+     *
+     *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
+     *
      *  @param account          New {@link Account} to set.
      *  @param savedAccount     When 'true', account was retrieved from a saved instance state.
      */
@@ -456,19 +456,19 @@ public class FileActivity extends ActionBarActivity
             mAccount = account;
             mAccountWasSet = true;
             mAccountWasRestored = (savedAccount || mAccount.equals(oldAccount));
-            
+
         } else {
             swapToDefaultAccount();
         }
     }
 
-    
+
     /**
-     *  Tries to swap the current ownCloud {@link Account} for other valid and existing. 
-     * 
-     *  If no valid ownCloud {@link Account} exists, the the user is requested 
+     *  Tries to swap the current ownCloud {@link Account} for other valid and existing.
+     *
+     *  If no valid ownCloud {@link Account} exists, the the user is requested
      *  to create a new ownCloud {@link Account}.
-     *  
+     *
      *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
      */
     private void swapToDefaultAccount() {
@@ -480,7 +480,7 @@ public class FileActivity extends ActionBarActivity
             mRedirectingToSetupAccount = true;
             mAccountWasSet = false;
             mAccountWasRestored = false;
-            
+
         } else {
             mAccountWasSet = true;
             mAccountWasRestored = (newAccount.equals(mAccount));
@@ -503,7 +503,7 @@ public class FileActivity extends ActionBarActivity
                 null);
     }
 
-    
+
     /**
      * {@inheritDoc}
      */
@@ -516,32 +516,32 @@ public class FileActivity extends ActionBarActivity
         outState.putBoolean(KEY_TRY_SHARE_AGAIN, mTryShareAgain);
         outState.putString(KEY_ACTION_BAR_TITLE, getSupportActionBar().getTitle().toString());
     }
-    
-    
+
+
     /**
      * Getter for the main {@link OCFile} handled by the activity.
-     * 
+     *
      * @return  Main {@link OCFile} handled by the activity.
      */
     public OCFile getFile() {
         return mFile;
     }
 
-    
+
     /**
      * Setter for the main {@link OCFile} handled by the activity.
-     * 
+     *
      * @param file  Main {@link OCFile} to be handled by the activity.
      */
     public void setFile(OCFile file) {
         mFile = file;
     }
 
-    
+
     /**
      * Getter for the ownCloud {@link Account} where the main {@link OCFile} handled by the activity
      * is located.
-     * 
+     *
      * @return  OwnCloud {@link Account} where the main {@link OCFile} handled by the activity
      *          is located.
      */
@@ -559,7 +559,7 @@ public class FileActivity extends ActionBarActivity
     public boolean fromNotification() {
         return mFromNotification;
     }
-    
+
     /**
      * @return  'True' when the Activity is finishing to enforce the setup of a new account.
      */
@@ -574,11 +574,11 @@ public class FileActivity extends ActionBarActivity
     public void setTryShareAgain(boolean tryShareAgain) {
        mTryShareAgain = tryShareAgain;
     }
-    
+
     public OperationsServiceBinder getOperationsServiceBinder() {
         return mOperationsServiceBinder;
     }
-    
+
     protected ServiceConnection newTransferenceServiceConnection() {
         return null;
     }
@@ -586,7 +586,7 @@ public class FileActivity extends ActionBarActivity
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
      * a new ownCloud {@link Account} finished, successfully or not.
-     * 
+     *
      * At this moment, only called after the creation of the first account.
      */
     public class AccountCreationCallback implements AccountManagerCallback<Bundle> {
@@ -607,11 +607,11 @@ public class FileActivity extends ActionBarActivity
                     }
                 } catch (OperationCanceledException e) {
                     Log_OC.d(TAG, "Account creation canceled");
-                    
+
                 } catch (Exception e) {
                     Log_OC.e(TAG, "Account creation finished in exception: ", e);
                 }
-                    
+
             } else {
                 Log_OC.e(TAG, "Account creation callback with null bundle");
             }
@@ -619,19 +619,19 @@ public class FileActivity extends ActionBarActivity
                 moveTaskToBack(true);
             }
         }
-        
+
     }
-    
-    
+
+
     /**
      *  Called when the ownCloud {@link Account} associated to the Activity was just updated.
-     * 
+     *
      *  Child classes must grant that state depending on the {@link Account} is updated.
      */
     protected void onAccountSet(boolean stateWasRecovered) {
         if (getAccount() != null) {
             mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-            
+
         } else {
             Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
         }
@@ -651,13 +651,13 @@ public class FileActivity extends ActionBarActivity
     public Handler getHandler() {
         return mHandler;
     }
-    
+
     public FileOperationsHelper getFileOperationsHelper() {
         return mFileOperationsHelper;
     }
-    
+
     /**
-     * 
+     *
      * @param operation     Removal operation performed.
      * @param result        Result of the removal.
      */
@@ -665,17 +665,17 @@ public class FileActivity extends ActionBarActivity
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the "
                 + "FileActivities ");
-        
+
         mFileOperationsHelper.setOpIdWaitingFor(Long.MAX_VALUE);
-        
+
         if (!result.isSuccess() && (
-                result.getCode() == ResultCode.UNAUTHORIZED || 
+                result.getCode() == ResultCode.UNAUTHORIZED ||
                 result.isIdPRedirection() ||
                 (result.isException() && result.getException() instanceof AuthenticatorException)
                 )) {
-            
+
             requestCredentialsUpdate();
-            
+
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
                 dismissLoadingDialog();
                 Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
@@ -687,10 +687,10 @@ public class FileActivity extends ActionBarActivity
 
         } else if (operation instanceof CreateShareOperation) {
             onCreateShareOperationFinish((CreateShareOperation) operation, result);
-            
+
         } else if (operation instanceof UnshareLinkOperation) {
             onUnshareLinkOperationFinish((UnshareLinkOperation)operation, result);
-        
+
         } else if (operation instanceof SynchronizeFolderOperation) {
             onSynchronizeFolderOperationFinish((SynchronizeFolderOperation)operation, result);
 
@@ -704,12 +704,12 @@ public class FileActivity extends ActionBarActivity
         Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
         updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
         updateAccountCredentials.putExtra(
-                AuthenticatorActivity.EXTRA_ACTION, 
+                AuthenticatorActivity.EXTRA_ACTION,
                 AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
         updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         startActivity(updateAccountCredentials);
     }
-    
+
 
     private void onCreateShareOperationFinish(CreateShareOperation operation,
                                               RemoteOperationResult result) {
@@ -717,7 +717,7 @@ public class FileActivity extends ActionBarActivity
         if (result.isSuccess()) {
             mTryShareAgain = false;
             updateFileFromDB();
-            
+
             Intent sendIntent = operation.getSendIntent();
             startActivity(sendIntent);
         } else {
@@ -741,22 +741,22 @@ public class FileActivity extends ActionBarActivity
                         Toast.LENGTH_LONG);
                 t.show();
             }
-        } 
+        }
     }
-    
-    
+
+
     private void onUnshareLinkOperationFinish(UnshareLinkOperation operation,
                                               RemoteOperationResult result) {
         dismissLoadingDialog();
-        
+
         if (result.isSuccess()){
             updateFileFromDB();
-            
+
         } else {
             Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
                             operation, getResources()), Toast.LENGTH_LONG);
             t.show();
-        } 
+        }
     }
 
     private void onSynchronizeFolderOperationFinish(
@@ -781,18 +781,15 @@ public class FileActivity extends ActionBarActivity
                 startActivity(i);
 
             }
-
         } else {
-            if (operation.transferWasRequested()) {
-
-            } else {
+            if (!operation.transferWasRequested()) {
                 Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
                         operation, getResources()), Toast.LENGTH_LONG);
                 msg.show();
             }
         }
     }
-    
+
     protected void updateFileFromDB(){
         OCFile file = getFile();
         if (file != null) {
@@ -801,9 +798,9 @@ public class FileActivity extends ActionBarActivity
         }
     }
 
-    
+
     /**
-     * Show loading dialog 
+     * Show loading dialog
      */
     public void showLoadingDialog() {
         // Construct dialog
@@ -811,10 +808,10 @@ public class FileActivity extends ActionBarActivity
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         loading.show(ft, DIALOG_WAIT_TAG);
-        
+
     }
 
-    
+
     /**
      * Dismiss loading dialog
      */
@@ -826,7 +823,7 @@ public class FileActivity extends ActionBarActivity
         }
     }
 
-    
+
     private void doOnResumeAndBound() {
         mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
         long waitingForOpId = mFileOperationsHelper.getOpIdWaitingFor();
@@ -840,8 +837,8 @@ public class FileActivity extends ActionBarActivity
     }
 
 
-    /** 
-     * Implements callback methods for service binding. Passed as a parameter to { 
+    /**
+     * Implements callback methods for service binding. Passed as a parameter to {
      */
     private class OperationsServiceConnection implements ServiceConnection {
 
@@ -859,7 +856,7 @@ public class FileActivity extends ActionBarActivity
                 return;
             }
         }
-        
+
 
         @Override
         public void onServiceDisconnected(ComponentName component) {
