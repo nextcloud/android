@@ -12,6 +12,10 @@
   <string name="actionbar_send_file">ਭੇਜੋ</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">ਆਮ</string>
   <string name="prefs_accounts">ਅਕਾਊਂਟ</string>
   <string name="prefs_log_title">ਲਾਗ ਰੱਖਣਾ ਚਾਲੂ</string>
@@ -67,7 +71,6 @@
   <string name="foreign_files_fail">ਕੁਝ ਫਾਇਲਾਂ ਨੂੰ ਭੇਜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ</string>
   <string name="foreign_files_local_text">ਲੋਕਲ: %1$s</string>
   <string name="foreign_files_remote_text">ਰਿਮੋਟ: %1$s</string>
-  <string name="pincode_enter_pin_code">ਆਪਣਾ ਐਪ ਪਿੰਨ ਦਿਉ ਜੀ</string>
   <string name="media_notif_ticker">%1$s ਸੰਗੀਤ ਪਲੇਅਰ</string>
   <string name="media_state_playing">%1$s (ਚੱਲਦਾ ਹੈ)</string>
   <string name="media_state_loading">%1$s (ਲੋਡ ਹੁੰਦਾ ਹੈ)</string>
@@ -77,7 +80,6 @@
   <string name="auth_no_net_conn_title">ਕੋਈ ਨੈੱਟਵਰਕ ਕੁਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ</string>
   <string name="auth_nossl_plain_ok_title">ਸੁਰੱਖਿਅਤ ਕੁਨੈਕਸ਼ਨ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।</string>
   <string name="auth_connection_established">ਕੁਨੈਕਸ਼ਨ ਬਣਾਇਆ ਗਿਆ ਹੈ</string>
-  <string name="auth_testing_connection">...ਕੁਨੈਕਸ਼ਨ ਟੈਸਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
   <string name="auth_unknown_error_title">ਅਣਜਾਣ ਗਲਤੀ ਆਈ ਹੈ!</string>
   <string name="auth_unknown_host_title">ਹੋਸਟ ਨਹੀਂ ਲੱਭਿਆ ਜਾ ਸਕਿਆ</string>
   <string name="auth_ssl_general_error_title">SSL ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਫੇਲ੍ਹ ਹੈ</string>
@@ -122,5 +124,6 @@
   <string name="activity_chooser_send_file_title">ਭੇਜੋ</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">ਅਕਾਊਂਟ</string>
-  <string name="move_choose_button_text">ਚੁਣੋ</string>
+  <string name="folder_picker_choose_button_text">ਚੁਣੋ</string>
+  <string name="auth_host_address">ਸਰਵਰ ਐਡਰੈਸ</string>
 </resources>

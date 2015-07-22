@@ -2,7 +2,7 @@
 <resources>
   <string name="about_android">%1$s Android приложение</string>
   <string name="about_version">версия %1$s</string>
-  <string name="actionbar_sync">Обновяване на профила</string>
+  <string name="actionbar_sync">Обновяви профила</string>
   <string name="actionbar_upload">Качване</string>
   <string name="actionbar_upload_from_apps">Съдържание от други приложения</string>
   <string name="actionbar_upload_files">Файлове</string>
@@ -19,12 +19,19 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Всички файлове</string>
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Настройки</string>
+  <string name="drawer_item_logs">Логове</string>
+  <string name="drawer_close">Затвори</string>
   <string name="prefs_category_general">Общи</string>
   <string name="prefs_category_more">Още</string>
   <string name="prefs_accounts">Профили</string>
   <string name="prefs_manage_accounts">Управление на профилите</string>
-  <string name="prefs_pincode">App PIN</string>
-  <string name="prefs_pincode_summary">Подсигури програмата</string>
+  <string name="prefs_passcode">Заключваща парола</string>
   <string name="prefs_instant_upload">Незабавно качване на снимки</string>
   <string name="prefs_instant_upload_summary">Незабвано качване на снимки направени с камерата</string>
   <string name="prefs_instant_video_upload">Незабавно качване на видео</string>
@@ -50,6 +57,7 @@
   <string name="sync_string_files">Файлове</string>
   <string name="setup_btn_connect">Свързване</string>
   <string name="uploader_btn_upload_text">Качване</string>
+  <string name="uploader_btn_new_folder_text">Нова папка</string>
   <string name="uploader_top_message">Избери папка за качване:</string>
   <string name="uploader_wrn_no_account_title">Няма открит профил</string>
   <string name="uploader_wrn_no_account_text">Няма %1$s профили на устройстото ти. Моля, първо настрой профил.</string>
@@ -61,7 +69,7 @@
   <string name="uploader_info_uploading">Качване</string>
   <string name="file_list_seconds_ago">преди секунди</string>
   <string name="file_list_empty">Тук няма нищо. Качете нещо!</string>
-  <string name="file_list_loading">Зареждане...</string>
+  <string name="file_list_loading">Зарежда…</string>
   <string name="local_file_list_empty">Няма файлове в тази папка.</string>
   <string name="filedetails_select_file">Натисни върху файл, за да видиш допълнителна информация.</string>
   <string name="filedetails_size">Размер:</string>
@@ -71,6 +79,7 @@
   <string name="filedetails_download">Изтегляне</string>
   <string name="filedetails_sync_file">Обновяване на файла</string>
   <string name="filedetails_renamed_in_upload_msg">Файлът беше преименуван на %1$s по време на качването.</string>
+  <string name="list_layout">Списък с изгледи</string>
   <string name="action_share_file">Връзка за споделяне</string>
   <string name="action_unshare_file">Премахване връзка за споделяне</string>
   <string name="common_yes">Да</string>
@@ -123,15 +132,15 @@
   <string name="foreign_files_local_text">Локален: %1$s</string>
   <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
   <string name="upload_query_move_foreign_files">Няма достатъчно място за копирането на избраните файлове до папка %1$s. Да се преместят ли вместо това?</string>
-  <string name="pincode_enter_pin_code">Въведете своя App ПИН</string>
-  <string name="pincode_configure_your_pin">Въведете своя App ПИН</string>
-  <string name="pincode_configure_your_pin_explanation">ПИН-ът ще бъде поискан всеки път, когато програмата стартира.</string>
-  <string name="pincode_reenter_your_pincode">Въведете своя App ПИН отново.</string>
-  <string name="pincode_remove_your_pincode">Премахнете своя App ПИН</string>
-  <string name="pincode_mismatch">App ПИН-овете не съвпадат</string>
-  <string name="pincode_wrong">Неправилен App ПИН</string>
-  <string name="pincode_removed">App ПИН премахнат</string>
-  <string name="pincode_stored">App ПИН запазен</string>
+  <string name="pass_code_enter_pass_code">Моля, въведи парола за достъп</string>
+  <string name="pass_code_configure_your_pass_code">Въведи парола за достъп</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Паролата ще се изисква при всяко стартиране на приложението</string>
+  <string name="pass_code_reenter_your_pass_code">Моля,  въведи парола за достъп отново</string>
+  <string name="pass_code_remove_your_pass_code">Премахни парола</string>
+  <string name="pass_code_mismatch">Паролите не съвпадат</string>
+  <string name="pass_code_wrong">Грешна парола</string>
+  <string name="pass_code_removed">Паролата премахната</string>
+  <string name="pass_code_stored">Паролата е запаметена</string>
   <string name="media_notif_ticker">%1$s музикален плеър</string>
   <string name="media_state_playing">%1$s (пусната)</string>
   <string name="media_state_loading">%1$s (се зарежда)</string>
@@ -156,7 +165,7 @@
   <string name="auth_no_net_conn_title">Няма интернет връзка</string>
   <string name="auth_nossl_plain_ok_title">Няма сигурна връзка</string>
   <string name="auth_connection_established">Осъществена връзка</string>
-  <string name="auth_testing_connection">Проверка на свързаност...</string>
+  <string name="auth_testing_connection">Проверка на свързаност</string>
   <string name="auth_not_configured_title">Неправилно зададена сървърна конфигурация.</string>
   <string name="auth_account_not_new">Профил за същия потребител на същия сървър е вече настроен на устройството.</string>
   <string name="auth_account_not_the_same">Въведният потребител не съвпада с потребителя на профила.</string>
@@ -183,6 +192,7 @@
   <string name="auth_fail_get_user_name">Вашият сървър не връща правилен потребителски индентификатор.
 Моля, свържете се с администратора.</string>
   <string name="auth_can_not_auth_against_server">Неуспешен опит за оторизиране с този сървър.</string>
+  <string name="auth_account_does_not_exist">Профила не съществува на устройството все още</string>
   <string name="fd_keep_in_sync">Поддържане на файла обновен.</string>
   <string name="common_rename">Преименуване</string>
   <string name="common_remove">Премахване</string>
@@ -201,11 +211,13 @@
   <string name="sync_file_nothing_to_do_msg">Съдържанието на файла е вече синхронизирано</string>
   <string name="create_dir_fail_msg">Папката не може да бъде създадена</string>
   <string name="filename_forbidden_characters">Забранени символи: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Името на файла съдържа поне един невалиден символ</string>
   <string name="filename_empty">Името на файла не може да бъде празно</string>
   <string name="wait_a_moment">Изчакайте малко</string>
   <string name="filedisplay_unexpected_bad_get_content">Неочакван проблем; моля, изберете файла от друга програма.</string>
   <string name="filedisplay_no_file_selected">Не е избран файл</string>
   <string name="activity_chooser_title">Изпращане на връзката до...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Копира файла от личното хранилище</string>
   <string name="oauth_check_onoff">Вписване с oAuth2</string>
   <string name="oauth_login_connection">Свързване с оАутх2 сървър...</string>
   <string name="ssl_validator_header">Самоличността на сайта не може да бъде проверена.</string>
@@ -256,6 +268,8 @@
   <string name="share_link_file_error">Настъпи грешка при опита за споделяне на този файл или папка.</string>
   <string name="unshare_link_file_no_exist">Неуспешен опит за прекратяване на споделянето. Моля, провери дали файла съществува.</string>
   <string name="unshare_link_file_error">Настъпи грешка при опита за премахване на споделянето на този файл или папка.</string>
+  <string name="share_link_password_title">Въведи Парола</string>
+  <string name="share_link_empty_password">Вие трябва да въведете парола</string>
   <string name="activity_chooser_send_file_title">Изпращане</string>
   <string name="copy_link">Копиране на връзката</string>
   <string name="clipboard_text_copied">Копирана</string>
@@ -278,13 +292,14 @@
   <string name="auth_redirect_non_secure_connection_title">Сигурна връзка е пренасочена по несигурен път.</string>
   <string name="actionbar_logger">Доклади</string>
   <string name="log_send_history_button">Изпрати История</string>
-  <string name="log_mail_subject">ownCloud Android доклади</string>
-  <string name="log_progress_dialog_text">Зареждане на информация...</string>
+  <string name="log_send_no_mail_app">Не са намерени журнали за изпращане от приложението. Инсталирайте приложението за електронна поща!</string>
+  <string name="log_send_mail_subject">%1$s Android журнали на приложенията</string>
+  <string name="log_progress_dialog_text">Зареждане на данни...</string>
   <string name="saml_authentication_required_text">Нужна е идентификация</string>
   <string name="saml_authentication_wrong_pass">Грешна парола</string>
   <string name="actionbar_move">Премести</string>
   <string name="file_list_empty_moving">Тук няма нищо. Можеш да добавиш папка!</string>
-  <string name="move_choose_button_text">Избери</string>
+  <string name="folder_picker_choose_button_text">Избери</string>
   <string name="move_file_not_found">Неуспешно преместване. Моля, провери дали файла съществува.</string>
   <string name="move_file_invalid_into_descendent">Не е възможно да преместиш папка в нейна под папка.</string>
   <string name="move_file_invalid_overwrite">Файлът вече съществува в отдалечената папка.</string>
@@ -292,4 +307,21 @@
   <string name="forbidden_permissions_move">за да преместиш този файл</string>
   <string name="prefs_category_instant_uploading">Незабавно качване</string>
   <string name="prefs_category_security">Сигурност</string>
+  <string name="prefs_instant_video_upload_path_title">Качване на видео път</string>
+  <string name="download_folder_failed_content">Свалянето на директорията %1$s не може да бъде завършено</string>
+  <string name="shared_subject_header">споделен</string>
+  <string name="with_you_subject_header">с теб</string>
+  <string name="subject_token">%1$s споделен \"%2$s\" с теб</string>
+  <string name="auth_refresh_button">Обнови връзката</string>
+  <string name="auth_host_address">Адрес на сървъра</string>
+  <string name="common_error_out_memory">Няма достатъчно памет</string>
+  <string name="username">Потребителско име</string>
+  <string name="file_list__footer__folder">1 папка</string>
+  <string name="file_list__footer__folders">%1$d папки</string>
+  <string name="file_list__footer__file">1 файл</string>
+  <string name="file_list__footer__file_and_folder">1 файл, 1 папка</string>
+  <string name="file_list__footer__file_and_folders">1 файл, %1$d папки</string>
+  <string name="file_list__footer__files">%1$d файла</string>
+  <string name="file_list__footer__files_and_folder">%1$d файла, 1 папка</string>
+  <string name="file_list__footer__files_and_folders">%1$d файла, %2$d папки</string>
 </resources>

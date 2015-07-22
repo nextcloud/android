@@ -8,12 +8,14 @@
   <string name="actionbar_send_file">გაგზავნა</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">ზოგადი</string>
   <string name="prefs_category_more">უფრო მეტი</string>
   <string name="prefs_accounts">ანგარიში</string>
   <string name="prefs_manage_accounts">ანგარიშების მენეჯმენტი</string>
-  <string name="prefs_pincode">აპლიკაციის PIN–ი</string>
-  <string name="prefs_pincode_summary">თქვენი კლიენტის დაცვა</string>
   <string name="prefs_help">დახმარება</string>
   <string name="prefs_feedback">უკუკავშირი</string>
   <string name="prefs_imprint">ბეჭედი</string>
@@ -22,6 +24,7 @@
   <string name="sync_string_files">ფაილები</string>
   <string name="setup_btn_connect">დაკავშირება</string>
   <string name="uploader_btn_upload_text">ატვირთვა</string>
+  <string name="uploader_btn_new_folder_text">ახალი ფოლდერი</string>
   <string name="uploader_wrn_no_account_title">ანგარიში ვერ მოიძებნა</string>
   <string name="uploader_wrn_no_account_text"> %1$s ანგარიში არ არის თქვენს მოწყობილობაში. გთხოვთ ჯერ დააყენოთ ის.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">დაყენება</string>
@@ -79,15 +82,6 @@
   <string name="foreign_files_fail">რამოდენიმე ფაილის გადატანა ვერ მოხერხდა</string>
   <string name="foreign_files_local_text">ლოკალური: %1$s</string>
   <string name="foreign_files_remote_text">დაშორებული: %1$s</string>
-  <string name="pincode_enter_pin_code">გთხოვთ, ჩასვათ თქვენი აპლიკაციის PIN–ი</string>
-  <string name="pincode_configure_your_pin">შეიყვანეთ თქვენი აპლიკაციის PIN–ი</string>
-  <string name="pincode_configure_your_pin_explanation">PIN–ი მოთხოვნილი იქნება აპლიკაციის ყოველ ჩართვაზე</string>
-  <string name="pincode_reenter_your_pincode">გთხოვთ შეიყვანოთ თქვენი აპლიკაციის PIN–ი ხელთავიდან</string>
-  <string name="pincode_remove_your_pincode">წაშალეთ თქვენი აპლიკაციის PIN–ი</string>
-  <string name="pincode_mismatch">აპლიკაციის PIN–ი არ არის იგივე</string>
-  <string name="pincode_wrong">არასწორი აპლიკაციის PIN–ი</string>
-  <string name="pincode_removed">აპლიკაციის PIN–ი წაიშალა</string>
-  <string name="pincode_stored">აპლიკაციის PIN–ი დამახსოვრებულ იქნა</string>
   <string name="auth_no_net_conn_title">ქსელური კავშირი არ არის</string>
   <string name="auth_nossl_plain_ok_title">დაცული კავშირი არ არსებობს.</string>
   <string name="auth_connection_established">კავშირი დამყარდა</string>
@@ -151,6 +145,7 @@
   <string name="clipboard_text_copied">კოპირებულია კლიპბორდში</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">ანგარიში</string>
-  <string name="move_choose_button_text">არჩევა</string>
+  <string name="folder_picker_choose_button_text">არჩევა</string>
   <string name="prefs_category_security">უსაფრთხოება</string>
+  <string name="auth_host_address">სერვერის მისამართი</string>
 </resources>

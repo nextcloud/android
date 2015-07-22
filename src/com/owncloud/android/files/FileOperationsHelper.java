@@ -1,5 +1,9 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author masensio
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,7 +24,6 @@ package com.owncloud.android.files;
 import org.apache.http.protocol.HTTP;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.DialogFragment;
@@ -28,11 +31,11 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 
-import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -41,9 +44,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 
 /**
- * 
- * @author masensio
- * @author David A. Velasco
+ *
  */
 public class FileOperationsHelper {
 
@@ -68,19 +69,25 @@ public class FileOperationsHelper {
             
             Intent intentForSavedMimeType = new Intent(Intent.ACTION_VIEW);
             intentForSavedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
-            intentForSavedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intentForSavedMimeType.setFlags(
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            );
             
             Intent intentForGuessedMimeType = null;
             if (storagePath.lastIndexOf('.') >= 0) {
-                String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
+                String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                        storagePath.substring(storagePath.lastIndexOf('.') + 1)
+                );
                 if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
                     intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
                     intentForGuessedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), guessedMimeType);
-                    intentForGuessedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    intentForGuessedMimeType.setFlags(
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    );
                 }
             }
             
-            Intent chooserIntent = null;
+            Intent chooserIntent;
             if (intentForGuessedMimeType != null) {
                 chooserIntent = Intent.createChooser(intentForGuessedMimeType, mFileActivity.getString(R.string.actionbar_open_with));
             } else {
@@ -111,13 +118,15 @@ public class FileOperationsHelper {
             
         } else {
             // Show a Message
-            Toast t = Toast.makeText(mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
+            Toast t = Toast.makeText(
+                    mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG
+            );
             t.show();
         }
     }
     
     
-    public void shareFileWithLinkToApp(OCFile file, Intent sendIntent) {
+    public void shareFileWithLinkToApp(OCFile file, String password, Intent sendIntent) {
         
         if (file != null) {
             mFileActivity.showLoadingDialog();
@@ -126,8 +135,9 @@ public class FileOperationsHelper {
             service.setAction(OperationsService.ACTION_CREATE_SHARE);
             service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_PASSWORD_SHARE, password);
             service.putExtra(OperationsService.EXTRA_SEND_INTENT, sendIntent);
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().newOperation(service);
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
             
         } else {
             Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
@@ -148,10 +158,8 @@ public class FileOperationsHelper {
      */
     public boolean isSharedSupported() {
         if (mFileActivity.getAccount() != null) {
-            AccountManager accountManager = AccountManager.get(mFileActivity);
-
-            String version = accountManager.getUserData(mFileActivity.getAccount(), Constants.KEY_OC_VERSION);
-            return (new OwnCloudVersion(version)).isSharedSupported();
+            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
+            return (serverVersion != null && serverVersion.isSharedSupported());
         }
         return false;
     }
@@ -165,7 +173,7 @@ public class FileOperationsHelper {
             service.setAction(OperationsService.ACTION_UNSHARE);
             service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().newOperation(service);
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
             
             mFileActivity.showLoadingDialog();
             
@@ -197,17 +205,24 @@ public class FileOperationsHelper {
     
     
     public void syncFile(OCFile file) {
-        // Sync file
-        Intent service = new Intent(mFileActivity, OperationsService.class);
-        service.setAction(OperationsService.ACTION_SYNC_FILE);
-        service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath()); 
-        service.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
-        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().newOperation(service);
         
-        mFileActivity.showLoadingDialog();
+        if (!file.isFolder()){
+            Intent intent = new Intent(mFileActivity, OperationsService.class);
+            intent.setAction(OperationsService.ACTION_SYNC_FILE);
+            intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(intent);
+            mFileActivity.showLoadingDialog();
+            
+        } else {
+            Intent intent = new Intent(mFileActivity, OperationsService.class);
+            intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
+            intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            mFileActivity.startService(intent);
+        }
     }
-    
     
     public void renameFile(OCFile file, String newFilename) {
         // RenameFile
@@ -216,7 +231,7 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         service.putExtra(OperationsService.EXTRA_NEWNAME, newFilename);
-        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().newOperation(service);
+        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
         
         mFileActivity.showLoadingDialog();
     }
@@ -229,7 +244,7 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
-        mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().newOperation(service);
+        mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
         
         mFileActivity.showLoadingDialog();
     }
@@ -242,26 +257,38 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
         service.putExtra(OperationsService.EXTRA_CREATE_FULL_PATH, createFullPath);
-        mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().newOperation(service);
+        mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
         
         mFileActivity.showLoadingDialog();
     }
 
-    
+    /**
+     * Cancel the transference in downloads (files/folders) and file uploads
+     * @param file OCFile
+     */
     public void cancelTransference(OCFile file) {
         Account account = mFileActivity.getAccount();
+        if (file.isFolder()) {
+            OperationsService.OperationsServiceBinder opsBinder = mFileActivity.getOperationsServiceBinder();
+            if (opsBinder != null) {
+                opsBinder.cancel(account, file);
+            }
+        }
+
+        // for both files and folders
         FileDownloaderBinder downloaderBinder = mFileActivity.getFileDownloaderBinder();
-        FileUploaderBinder uploaderBinder =  mFileActivity.getFileUploaderBinder();
+        FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
         if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
+            downloaderBinder.cancel(account, file);
+
+            // TODO - review why is this here, and solve in a better way
             // Remove etag for parent, if file is a keep_in_sync
             if (file.keepInSync()) {
-               OCFile parent = mFileActivity.getStorageManager().getFileById(file.getParentId());
-               parent.setEtag("");
-               mFileActivity.getStorageManager().saveFile(parent);
+                OCFile parent = mFileActivity.getStorageManager().getFileById(file.getParentId());
+                parent.setEtag("");
+                mFileActivity.getStorageManager().saveFile(parent);
             }
-            
-            downloaderBinder.cancel(account, file);
-            
+
         } else if (uploaderBinder != null && uploaderBinder.isUploading(account, file)) {
             uploaderBinder.cancel(account, file);
         }
@@ -279,7 +306,7 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, newfile.getRemotePath());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, currentFile.getRemotePath());
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-        mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().newOperation(service);
+        mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         mFileActivity.showLoadingDialog();
     }
@@ -294,5 +321,14 @@ public class FileOperationsHelper {
         mWaitingForOpId = waitingForOpId;
     }
     
-    
+    /**
+     *  @return 'True' if the server doesn't need to check forbidden characters
+     */
+    public boolean isVersionWithForbiddenCharacters() {
+        if (mFileActivity.getAccount() != null) {
+            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
+            return (serverVersion != null && serverVersion.isVersionWithForbiddenCharacters());
+        }
+        return false;
+    }
 }

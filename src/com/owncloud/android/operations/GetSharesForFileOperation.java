@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author masensio
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,6 +23,7 @@ package com.owncloud.android.operations;
 
 import java.util.ArrayList;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -28,10 +32,7 @@ import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation
 import com.owncloud.android.operations.common.SyncOperation;
 
 /**
- * Provide a list shares for a specific file.  
- * 
- * @author masensio
- *
+ * Provide a list shares for a specific file.
  */
 public class GetSharesForFileOperation extends SyncOperation {
     
@@ -45,10 +46,10 @@ public class GetSharesForFileOperation extends SyncOperation {
      * Constructor
      * 
      * @param path      Path to file or folder
-     * @param reshares  If set to ‘false’ (default), only shares from the current user are returned
-     *                  If set to ‘true’, all shares from the given file are returned
-     * @param subfiles  If set to ‘false’ (default), lists only the folder being shared
-     *                  If set to ‘true’, all shared files within the folder are returned.
+     * @param reshares  If set to false (default), only shares from the current user are returned
+     *                  If set to true, all shares from the given file are returned
+     * @param subfiles  If set to false (default), lists only the folder being shared
+     *                  If set to true, all shared files within the folder are returned.
      */
     public GetSharesForFileOperation(String path, boolean reshares, boolean subfiles) {
         mPath = path;
@@ -58,7 +59,8 @@ public class GetSharesForFileOperation extends SyncOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        GetRemoteSharesForFileOperation operation = new GetRemoteSharesForFileOperation(mPath, mReshares, mSubfiles);
+        GetRemoteSharesForFileOperation operation = new GetRemoteSharesForFileOperation(mPath,
+                mReshares, mSubfiles);
         RemoteOperationResult result = operation.execute(client);
 
         if (result.isSuccess()) {

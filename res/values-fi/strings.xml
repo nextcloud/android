@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="actionbar_upload">Lähetä</string>
+  <string name="actionbar_open_with">Avaa sovelluksessa</string>
+  <string name="actionbar_mkdir">Luo kansio</string>
+  <string name="actionbar_settings">Asetukset</string>
+  <!--TODO re-enable when server-side folder size calculation is available   
+    	<item>Biggest - Smallest</item>-->
+  <string name="prefs_category_more">Lisää</string>
+  <string name="prefs_manage_accounts">Hallitse tilejä</string>
+  <string name="prefs_pincode">Sovelluksen PIN</string>
+  <string name="prefs_help">Apua</string>
+  <string name="auth_host_url">http://esimerkki.fi/palvelu/</string>
+  <string name="auth_username">Käyttäjätunnus</string>
+  <string name="auth_password">Salasana</string>
+  <string name="uploader_btn_upload_text">Lähetä</string>
+  <string name="file_list_empty">Ei sisältöä. Siirrä tänne jotakin!</string>
+  <string name="file_list_loading">Ladataan...</string>
+  <string name="file_list_folder">kansio</string>
+  <string name="file_list_folders">kansiot</string>
+  <string name="file_list_file">tiedosto</string>
+  <string name="file_list_files">Tiedostot</string>
+  <string name="action_share_file">Jaa linkki</string>
+  <string name="action_unshare_file">Poista linkin jako</string>
+  <string name="common_yes">KYLLÄ</string>
+  <string name="common_no">EI</string>
+  <string name="common_ok">Ok</string>
+  <string name="common_cancel">Peruuta</string>
+  <string name="common_error">Virhe</string>
+  <string name="pincode_wrong">Virheellinen PIN</string>
+  <string name="pincode_removed">Sovelluksen PIN poistettu</string>
+  <string name="pincode_stored">Sovelluksen PIN tallennettu</string>
+  <string name="auth_account_not_the_same">Syötetty käyttäjä ei täsmää tämän tilin käyttäjän kanssa</string>
+  <string name="auth_unsupported_auth_method">Palvelin ei tue tätä autentikointitapaa</string>
+  <string name="common_rename">Nimeä uudelleen</string>
+  <string name="ssl_validator_label_L">Sijainti:</string>
+  <string name="conflict_overwrite">Ylikirjoita</string>
+  <string name="copy_link">Kopioi linkki</string>
+  <string name="empty"></string>
+  <string name="actionbar_move">Siirrä</string>
+  <string name="folder_picker_choose_button_text">Valitse</string>
+  <string name="move_file_invalid_overwrite">Tiedosto on jo kohdekansiossa.</string>
+</resources>

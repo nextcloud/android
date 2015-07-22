@@ -1,22 +1,13 @@
 language: android
 android:
   components:
-    - build-tools-20.0.0
+    - build-tools-22.0.1
     - android-19
-    - android-17
-    - android-14
-    - extra-android-support
-  licenses:
-    - 'android-sdk-license-5be876d5'
-    - 'android-sdk-license-598b93a6'
-  
-jdk: oraclejdk7
-
+    - android-16
 before_install:
   - rm pom.xml
-  - ./setup_env.sh
-
 script:
+  - ./setup_env.sh ant
   - ant clean
   - ant debug
-
+  

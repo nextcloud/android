@@ -51,15 +51,6 @@ The third party software included and used by this project is:
    Used as a helper tool, not included in the ownCloud client APK.
    Original license document included at third_party/transifex-client/LICENSE.
    See http://help.transifex.com/features/client/
-
- * ActionBarSherlock, master branch.
-   Copyright (C) 2012 Jake Wharton.
-   Licensed under Apache License, Version 2.0.
-   The official repository is linked as a submodule in the 
-   ownCloud/android repository.
-   A binary JAR file must be generated from this linked project
-   and included in the ownCloud client APK.
-   See http://http://actionbarsherlock.com/
    
  * TouchImageView, commit 6dbeac4f11936185ba374c73144ac431c23c9aab
    Copyright (c) 2012 Michael Ortiz

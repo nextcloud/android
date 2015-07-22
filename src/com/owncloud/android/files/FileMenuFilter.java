@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -31,13 +34,13 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile} 
  * according to the current state of the latest. 
- * 
- * @author David A. Velasco
  */
 public class FileMenuFilter {
 
@@ -51,8 +54,8 @@ public class FileMenuFilter {
      * 
      * @param targetFile        {@link OCFile} target of the action to filter in the {@link Menu}.
      * @param account           ownCloud {@link Account} holding targetFile.
-     * @param cg                Accessor to app components, needed to get access the 
-     *                          {@link FileUploader} and {@link FileDownloader} services.
+     * @param cg                Accessor to app components, needed to access the
+     *                          {@link FileUploader} and {@link FileDownloader} services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
     public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context) {
@@ -93,39 +96,6 @@ public class FileMenuFilter {
         }
     }
 
-    /**
-     * Filters out the file actions available in the passed {@link Menu} taken into account
-     * the state of the {@link OCFile} held by the filter.
-     * 
-     * Second method needed thanks to ActionBarSherlock.
-     * 
-     * TODO Get rid of it when ActionBarSherlock is replaced for newer Android Support Library.
-     *  
-     * @param menu              Options or context menu to filter.
-     */
-    public void filter(com.actionbarsherlock.view.Menu menu) {
-
-        List<Integer> toShow = new ArrayList<Integer>();
-        List<Integer> toHide = new ArrayList<Integer>();
-        
-        filter(toShow, toHide);
-
-        com.actionbarsherlock.view.MenuItem item = null;
-        for (int i : toShow) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(true);
-                item.setEnabled(true);
-            }
-        }
-        for (int i : toHide) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        }
-    }
 
     /**
      * Performs the real filtering, to be applied in the {@link Menu} by the caller methods.
@@ -140,15 +110,17 @@ public class FileMenuFilter {
         boolean uploading = false;
         if (mComponentsGetter != null && mFile != null && mAccount != null) {
             FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
-            downloading = downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile);
+            downloading = (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile));
+            OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
+            downloading |= (opsBinder != null && opsBinder.isSynchronizing(mAccount, mFile.getRemotePath()));
             FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
-            uploading = uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile);
+            uploading = (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile));
         }
         
         /// decision is taken for each possible action on a file in the menu
         
         // DOWNLOAD 
-        if (mFile == null || mFile.isFolder() || mFile.isDown() || downloading || uploading) {
+        if (mFile == null || mFile.isDown() || downloading || uploading) {
             toHide.add(R.id.action_download_file);
             
         } else {
@@ -189,7 +161,7 @@ public class FileMenuFilter {
         
         
         // CANCEL DOWNLOAD
-        if (mFile == null || !downloading || mFile.isFolder()) {
+        if (mFile == null || !downloading) {
             toHide.add(R.id.action_cancel_download);
         } else {
             toShow.add(R.id.action_cancel_download);
@@ -211,7 +183,9 @@ public class FileMenuFilter {
         
         // SHARE FILE 
         // TODO add check on SHARE available on server side?
-        if (mFile == null) {
+        boolean shareAllowed = (mContext != null  &&
+                mContext.getString(R.string.share_feature).equalsIgnoreCase("on"));
+        if (!shareAllowed || mFile == null) {
             toHide.add(R.id.action_share_file);
         } else {
             toShow.add(R.id.action_share_file);
@@ -219,13 +193,12 @@ public class FileMenuFilter {
         
         // UNSHARE FILE  
         // TODO add check on SHARE available on server side?
-        if (mFile == null || !mFile.isShareByLink()) { 
+        if ( !shareAllowed || (mFile == null || !mFile.isShareByLink())) {
             toHide.add(R.id.action_unshare_file);
         } else {
             toShow.add(R.id.action_unshare_file);
         }
-        
-        
+
         // SEE DETAILS
         if (mFile == null || mFile.isFolder()) {
             toHide.add(R.id.action_see_details);

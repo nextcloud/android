@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2012-2013 ownCloud Inc.
+  Copyright (C) 2015 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -16,43 +16,67 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- -->
+-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="0dp"
-	android:layout_height="match_parent"
-	android:layout_weight="1" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1" >
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_files"
+        android:id="@+id/swipe_containing_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
+        android:layout_height="match_parent" 
+        android:layout_weight="1"
+        android:footerDividersEnabled="false"
+        android:visibility="visible" >
+        
         <com.owncloud.android.ui.ExtendedListView
             android:id="@+id/list_root"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_files_emptyView"
+        android:id="@+id/swipe_containing_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:footerDividersEnabled="false"
+        android:visibility="gone" >
+
+        <third_parties.in.srain.cube.GridViewWithHeaderAndFooter
+            android:id="@+id/grid_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="100dp"
+            android:gravity="center"
+            android:horizontalSpacing="2dp"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="2dp"
+            android:visibility="visible" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_containing_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" >
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-	            <TextView
-			        android:id="@+id/empty_list_view"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:gravity="center_vertical|center_horizontal"
-			        android:text="@string/empty"
-					android:layout_gravity="center"
-			        android:visibility="visible" />
-
-        </ScrollView>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+                <TextView
+                    android:id="@+id/empty_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/empty"
+                    android:visibility="visible" />
+            </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
 </FrameLayout>

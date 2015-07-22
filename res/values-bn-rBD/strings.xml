@@ -13,12 +13,14 @@
   <string name="actionbar_send_file">পাঠাও</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">সাধারণ</string>
   <string name="prefs_category_more">বেশী</string>
   <string name="prefs_accounts">একাউন্ট</string>
   <string name="prefs_manage_accounts">একাউন্ট সামলাও</string>
-  <string name="prefs_pincode">অ্যাপ PIN</string>
-  <string name="prefs_pincode_summary">আপনার ক্লায়েন্ট সামলান</string>
   <string name="prefs_instant_upload">দ্রুত ছবি আপলোড</string>
   <string name="prefs_instant_upload_summary">ক্যামেরা থেকে তোলা ছবি তৎক্ষণাৎ আপলোড</string>
   <string name="prefs_instant_video_upload">দ্রুত ভিডিও আপলোড</string>
@@ -41,6 +43,7 @@
   <string name="sync_string_files">ফাইল</string>
   <string name="setup_btn_connect">সংযুক্ত হও</string>
   <string name="uploader_btn_upload_text">আপলোড</string>
+  <string name="uploader_btn_new_folder_text">নব ফােলডার</string>
   <string name="uploader_top_message">আপলোডের ফোলডার পছনদ করেন</string>
   <string name="uploader_wrn_no_account_title">কোন একাউন্ট খুঁজে পাওয়া গেল না</string>
   <string name="uploader_wrn_no_account_text">আপনার ডিভাইসে কোন %1$s একাউন্ট নেই। দয়া করে প্রথমে একাউন্ট খুলুন।</string>
@@ -52,7 +55,6 @@
   <string name="uploader_info_uploading">আপলোড করা হচ্ছে</string>
   <string name="file_list_seconds_ago">সেকেন্ড পূর্বে</string>
   <string name="file_list_empty">এখানে কিছুই নেই। কিছু আপলোড করুন !</string>
-  <string name="file_list_loading">লোড হচ্ছে....</string>
   <string name="local_file_list_empty">এই ফোলডারে কোন ফাইল নেই</string>
   <string name="filedetails_select_file">অতিরিক্ত তথ্য প্রদর্শন করতে চাইলে ফাইলে ট্যাপ দিন</string>
   <string name="filedetails_size">আয়তনঃ</string>
@@ -113,15 +115,6 @@
   <string name="foreign_files_local_text">স্থানীয়: %1$s</string>
   <string name="foreign_files_remote_text">দুরবর্তী: %1$s</string>
   <string name="upload_query_move_foreign_files">%1$s ফোল্ডারে ফাইল কপি করার মত যথেষ্ট জায়গা নেই। এগুলো অন্যত্র রাখবেন? </string>
-  <string name="pincode_enter_pin_code">দয়া করে আপনার App PIN দিন</string>
-  <string name="pincode_configure_your_pin">আপনার App PIN দিন</string>
-  <string name="pincode_configure_your_pin_explanation">প্রতিবার অ্যাপ চালু করার সময় PIN এর জন্য অনুরোধ করা হবে</string>
-  <string name="pincode_reenter_your_pincode">দয়া করে আবার App PIN দিন</string>
-  <string name="pincode_remove_your_pincode">আপনার অ্যাপ PIN সরিয়ে নিন</string>
-  <string name="pincode_mismatch">অ্যাপ PINগুলো একরকম নয়</string>
-  <string name="pincode_wrong">অশুদ্ধ অ্যাপ PIN</string>
-  <string name="pincode_removed">অ্যাপ PIN সরানো হয়েছে</string>
-  <string name="pincode_stored">অ্যাপ PIN সংরক্ষণ করা হয়েছে</string>
   <string name="media_notif_ticker">%1$s মিউজিক প্লেয়ার</string>
   <string name="media_state_playing">%1$s (বাজানো হচ্ছে)</string>
   <string name="media_state_loading">%1$s (লোড করা হচ্ছে)</string>
@@ -146,7 +139,6 @@
   <string name="auth_no_net_conn_title">নেটওয়ার্ক সংযোগ নেই</string>
   <string name="auth_nossl_plain_ok_title">নিরাপদ যোগাযোগ পাওয়া গেলনা</string>
   <string name="auth_connection_established">যোগাযোগ স্থাপিত হয়েছে</string>
-  <string name="auth_testing_connection">যোগাযোগ পরীক্ষা করা হচ্ছে...</string>
   <string name="auth_not_configured_title">সার্ভারের কনফিগারেশনে ভুল রয়েছে</string>
   <string name="auth_account_not_new">এই যন্ত্রে ইতোমধ্যে এই ব্যবহারকারী এবং সার্ভারের নামে একটি একাউন্ট রয়েছে</string>
   <string name="auth_account_not_the_same">এই একাউন্টের ব্যবহারকারীর সঙ্গে প্রদত্ত ব্যবহারকারী মেলেনা</string>
@@ -265,7 +257,8 @@
   <string name="saml_authentication_wrong_pass">ভুল কুটশব্দ</string>
   <string name="actionbar_move">সরাও</string>
   <string name="file_list_empty_moving">এখানে কিছু নেই। একটি ফোল্ডার যোগ করতে পারেন!</string>
-  <string name="move_choose_button_text">বেছে নিন</string>
+  <string name="folder_picker_choose_button_text">বেছে নিন</string>
   <string name="move_file_not_found">সরাতে ব্যার্থ হলো। ফাইলটি রয়েছে কিনা দেখুন।</string>
   <string name="prefs_category_security">নিরাপত্তা</string>
+  <string name="auth_host_address">সার্ভার ঠিকানা</string>
 </resources>

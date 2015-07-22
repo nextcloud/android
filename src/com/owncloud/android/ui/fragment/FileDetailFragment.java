@@ -1,6 +1,10 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -23,6 +27,9 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -31,9 +38,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -52,9 +56,6 @@ import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * This Fragment is used to display the details about a file.
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
  */
 public class FileDetailFragment extends FileFragment implements OnClickListener {
 
@@ -67,12 +68,34 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
     public static final String FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT";
-    
+
+    private static final String ARG_FILE = "FILE";
+    private static final String ARG_ACCOUNT = "ACCOUNT";
+
+
+    /**
+     * Public factory method to create new FileDetailFragment instances.
+     *
+     * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
+     *
+     * @param fileToDetail      An {@link OCFile} to show in the fragment
+     * @param account           An ownCloud account; needed to start downloads
+     * @return                  New fragment with arguments set
+     */
+    public static FileDetailFragment newInstance(OCFile fileToDetail, Account account) {
+        FileDetailFragment frag = new FileDetailFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_FILE, fileToDetail);
+        args.putParcelable(ARG_ACCOUNT, account);
+        frag.setArguments(args);
+        return frag;
+    }
 
     /**
      * Creates an empty details fragment.
      * 
-     * It's necessary to keep a public constructor without parameters; the system uses it when tries to reinstantiate a fragment automatically. 
+     * It's necessary to keep a public constructor without parameters; the system uses it when tries
+     * to reinstantiate a fragment automatically.
      */
     public FileDetailFragment() {
         super();
@@ -81,22 +104,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         mProgressListener = null;
     }
     
-    /**
-     * Creates a details fragment.
-     * 
-     * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
-     * 
-     * @param fileToDetail      An {@link OCFile} to show in the fragment
-     * @param ocAccount         An ownCloud account; needed to start downloads
-     */
-    public FileDetailFragment(OCFile fileToDetail, Account ocAccount) {
-        super(fileToDetail);
-        mAccount = ocAccount;
-        mLayout = R.layout.file_details_empty;
-        mProgressListener = null;
-    }
-    
-    
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +115,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        
+
+        setFile((OCFile) getArguments().getParcelable(ARG_FILE));
+        mAccount = getArguments().getParcelable(ARG_ACCOUNT);
+
         if (savedInstanceState != null) {
             setFile((OCFile)savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
             mAccount = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
@@ -117,9 +128,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             mLayout = R.layout.file_details_fragment;
         }
         
-        View view = null;
-        view = inflater.inflate(mLayout, null);
-        mView = view;
+        mView = inflater.inflate(mLayout, null);
         
         if (mLayout == R.layout.file_details_fragment) {
             mView.findViewById(R.id.fdKeepInSync).setOnClickListener(this);
@@ -127,9 +136,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             mProgressListener = new ProgressListener(progressBar);
             mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
         }
-        
+
         updateFileDetails(false, false);
-        return view;
+        return mView;
     }
 
     @Override
@@ -180,7 +189,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 getFile(),
                 mContainerActivity.getStorageManager().getAccount(),
                 mContainerActivity,
-                getSherlockActivity()
+                getActivity()
             );
             mf.filter(menu);
         }
@@ -336,10 +345,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             setFilename(file.getFileName());
             setFiletype(file.getMimetype(), file.getFileName());
             setFilesize(file.getFileLength());
-            if(ocVersionSupportsTimeCreated()){
-                setTimeCreated(file.getCreationTimestamp());
-            }
-           
+
             setTimeModified(file.getModificationTimestamp());
             
             CheckBox cb = (CheckBox)getView().findViewById(R.id.fdKeepInSync);
@@ -348,7 +354,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
-            if (transferring || (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) || (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file))) {
+            if (transferring ||
+                    (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) ||
+                    (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file))
+                    ) {
                 setButtonsForTransferring();
                 
             } else if (file.isDown()) {
@@ -356,7 +365,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 setButtonsForDown();
                 
             } else {
-                // TODO load default preview image; when the local file is removed, the preview remains there
+                // TODO load default preview image; when the local file is removed, the preview
+                // remains there
                 setButtonsForRemote();
             }
         }
@@ -385,18 +395,18 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     /**
      * Updates the MIME type in view
-     * @param mimetype to set
-     * @param filename
+     * @param mimetype      MIME type to set
+     * @param filename      Name of the file, to deduce the icon to use in case the MIME type is not precise enough
      */
     private void setFiletype(String mimetype, String filename) {
         TextView tv = (TextView) getView().findViewById(R.id.fdType);
         if (tv != null) {
-            String printableMimetype = DisplayUtils.convertMIMEtoPrettyPrint(mimetype);;        
+            String printableMimetype = DisplayUtils.convertMIMEtoPrettyPrint(mimetype);
             tv.setText(printableMimetype);
         }
         ImageView iv = (ImageView) getView().findViewById(R.id.fdIcon);
         if (iv != null) {
-            iv.setImageResource(DisplayUtils.getResourceId(mimetype, filename));
+            iv.setImageResource(DisplayUtils.getFileTypeIconId(mimetype, filename));
         }
     }
 
@@ -408,20 +418,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         TextView tv = (TextView) getView().findViewById(R.id.fdSize);
         if (tv != null)
             tv.setText(DisplayUtils.bytesToHumanReadable(filesize));
-    }
-    
-    /**
-     * Updates the time that the file was created in view
-     * @param milliseconds Unix time to set
-     */
-    private void setTimeCreated(long milliseconds){
-        TextView tv = (TextView) getView().findViewById(R.id.fdCreated);
-        TextView tvLabel = (TextView) getView().findViewById(R.id.fdCreatedLabel);
-        if(tv != null){
-            tv.setText(DisplayUtils.unixTimeToHumanReadable(milliseconds));
-            tv.setVisibility(View.VISIBLE);
-            tvLabel.setVisibility(View.VISIBLE);
-        }
     }
     
     /**
@@ -449,6 +445,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             progressText.setVisibility(View.VISIBLE);
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
+            //if (getFile().isDownloading()) {
             if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, getFile())) {
                 progressText.setText(R.string.downloader_download_in_progress_ticker);
             } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, getFile())) {
@@ -486,33 +483,15 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     }
     
 
-    /**
-     * In ownCloud 3.X.X and 4.X.X there is a bug that SabreDAV does not return
-     * the time that the file was created. There is a chance that this will
-     * be fixed in future versions. Use this method to check if this version of
-     * ownCloud has this fix.
-     * @return True, if ownCloud the ownCloud version is supporting creation time
-     */
-    private boolean ocVersionSupportsTimeCreated(){
-        /*if(mAccount != null){
-            AccountManager accManager = (AccountManager) getActivity().getSystemService(Context.ACCOUNT_SERVICE);
-            OwnCloudVersion ocVersion = new OwnCloudVersion(accManager
-                    .getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
-            if(ocVersion.compareTo(new OwnCloudVersion(0x030000)) < 0) {
-                return true;
-            }
-        }*/
-        return false;
-    }
-    
-
     public void listenForTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
-                mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                mContainerActivity.getFileDownloaderBinder().
+                        addDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
-                mContainerActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                mContainerActivity.getFileUploaderBinder().
+                        addDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
         }
     }
@@ -521,10 +500,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public void leaveTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
-                mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                mContainerActivity.getFileDownloaderBinder().
+                        removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
-                mContainerActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                mContainerActivity.getFileUploaderBinder().
+                        removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
         }
     }
@@ -532,9 +513,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     
     /**
-     * Helper class responsible for updating the progress bar shown for file uploading or downloading  
-     * 
-     * @author David A. Velasco
+     * Helper class responsible for updating the progress bar shown for file uploading or
+     * downloading
      */
     private class ProgressListener implements OnDatatransferProgressListener {
         int mLastPercent = 0;
@@ -545,7 +525,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
         
         @Override
-        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
+        public void onTransferProgress(long progressRate, long totalTransferredSoFar,
+                                       long totalToTransfer, String filename) {
             int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
             if (percent != mLastPercent) {
                 ProgressBar pb = mProgressBar.get();
@@ -557,6 +538,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             mLastPercent = percent;
         }
 
-    };
+    }
 
 }

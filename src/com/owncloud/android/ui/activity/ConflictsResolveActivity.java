@@ -1,6 +1,10 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,7 +22,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -27,15 +30,13 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener;
 import com.owncloud.android.utils.DisplayUtils;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external
- * application. 
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
+ * application.
  */
 public class ConflictsResolveActivity extends FileActivity implements OnConflictDecisionMadeListener {
 
@@ -44,7 +45,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
     }
 

@@ -1,6 +1,8 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,8 +20,8 @@
 
 package com.owncloud.android.ui.fragment;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import android.support.v4.app.Fragment;
 
-public class AuthenticatorAccountDetailsFragment extends SherlockFragment {
+public class AuthenticatorAccountDetailsFragment extends Fragment {
 
 }
