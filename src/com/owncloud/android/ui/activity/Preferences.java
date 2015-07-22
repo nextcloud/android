@@ -412,8 +412,8 @@ public class Preferences extends PreferenceActivity
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPathWiFi);
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPath);
         } else {
-            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPathWiFi);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPath);
+//            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPathWiFi);
+//            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPath);
         }
     }
     
@@ -422,8 +422,8 @@ public class Preferences extends PreferenceActivity
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPathWiFi);
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPath);
         } else {
-            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPathWiFi);
-            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPath);
+//            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPathWiFi);
+//            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPath);
         }
     }
 
@@ -721,7 +721,7 @@ public class Preferences extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mUploadVideoPath = appPrefs.getString("instant_video_upload_path", getString(R.string.instant_upload_path));
-        mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
+//        mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
     }
 
     /**
