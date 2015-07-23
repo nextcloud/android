@@ -40,6 +40,7 @@ import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 
@@ -223,6 +224,24 @@ public class FileOperationsHelper {
             mFileActivity.startService(intent);
         }
     }
+
+    public void toggleFavorite(OCFile file, boolean isFavorite) {
+        file.setFavorite(isFavorite);
+        mFileActivity.getStorageManager().saveFile(file);
+
+        /// register the OCFile instance in the observer service to monitor local updates
+        Intent observedFileIntent = FileObserverService.makeObservedFileIntent(
+                mFileActivity,
+                file,
+                mFileActivity.getAccount(),
+                isFavorite);
+        mFileActivity.startService(observedFileIntent);
+
+        /// immediate content synchronization
+        if (file.isFavorite()) {
+            syncFile(file);
+        }
+    }
     
     public void renameFile(OCFile file, String newFilename) {
         // RenameFile
@@ -282,8 +301,8 @@ public class FileOperationsHelper {
             downloaderBinder.cancel(account, file);
 
             // TODO - review why is this here, and solve in a better way
-            // Remove etag for parent, if file is a keep_in_sync
-            if (file.keepInSync()) {
+            // Remove etag for parent, if file is a favorite
+            if (file.isFavorite()) {
                 OCFile parent = mFileActivity.getStorageManager().getFileById(file.getParentId());
                 parent.setEtag("");
                 mFileActivity.getStorageManager().saveFile(parent);

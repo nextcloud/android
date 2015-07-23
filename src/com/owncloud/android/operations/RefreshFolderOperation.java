@@ -365,7 +365,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             if (localFile != null) {
                 // some properties of local state are kept unmodified
                 remoteFile.setFileId(localFile.getFileId());
-                remoteFile.setKeepInSync(localFile.keepInSync());
+                remoteFile.setFavorite(localFile.isFavorite());
                 remoteFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
                 remoteFile.setModificationTimestampAtLastSyncForData(
                         localFile.getModificationTimestampAtLastSyncForData()
@@ -397,7 +397,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             searchForLocalFileInDefaultPath(remoteFile);    // legacy   
 
             /// prepare content synchronization for kept-in-sync files
-            if (remoteFile.keepInSync()) {
+            if (remoteFile.isFavorite()) {
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(  localFile,        
                                                                                     remoteFile, 
                                                                                     mAccount, 

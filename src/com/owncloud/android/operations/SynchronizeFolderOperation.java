@@ -321,7 +321,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
             if (localFile != null) {
                 // some properties of local state are kept unmodified
                 remoteFile.setFileId(localFile.getFileId());
-                remoteFile.setKeepInSync(localFile.keepInSync());
+                remoteFile.setFavorite(localFile.isFavorite());
                 remoteFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
                 remoteFile.setModificationTimestampAtLastSyncForData(
                         localFile.getModificationTimestampAtLastSyncForData()
@@ -360,7 +360,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     startSyncFolderOperation(remoteFile.getRemotePath());
                 }
 
-            } else if (remoteFile.keepInSync()) {
+            } else if (remoteFile.isFavorite()) {
                 /// prepare content synchronization for kept-in-sync files
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(
                         localFile,

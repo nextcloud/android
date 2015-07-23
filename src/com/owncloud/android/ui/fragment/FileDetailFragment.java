@@ -131,7 +131,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         mView = inflater.inflate(mLayout, null);
         
         if (mLayout == R.layout.file_details_fragment) {
-            mView.findViewById(R.id.fdKeepInSync).setOnClickListener(this);
+            mView.findViewById(R.id.fdFavorite).setOnClickListener(this);
             ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.fdProgressBar);
             mProgressListener = new ProgressListener(progressBar);
             mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
@@ -259,6 +259,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 }
                 return true;
             }
+            case R.id.action_favorite_file:{
+                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), true);
+                return true;
+            }
+            case R.id.action_unfavorite_file:{
+                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), false);
+                return true;
+            }
             default:
                 return false;
         }
@@ -267,8 +275,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fdKeepInSync: {
-                toggleKeepInSync();
+            case R.id.fdFavorite: {
+                CheckBox cb = (CheckBox) getView().findViewById(R.id.fdFavorite);
+                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(),cb.isChecked());
                 break;
             }
             case R.id.fdCancelBtn: {
@@ -279,27 +288,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 Log_OC.e(TAG, "Incorrect view clicked!");
         }
     }
-    
-    
-    private void toggleKeepInSync() {
-        CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
-        OCFile file = getFile();
-        file.setKeepInSync(cb.isChecked());
-        mContainerActivity.getStorageManager().saveFile(file);
-        
-        /// register the OCFile instance in the observer service to monitor local updates
-        Intent observedFileIntent = FileObserverService.makeObservedFileIntent(
-                getActivity(),
-                file, 
-                mAccount,
-                cb.isChecked());
-        getActivity().startService(observedFileIntent);
-        
-        /// immediate content synchronization
-        if (file.keepInSync()) {
-            mContainerActivity.getFileOperationsHelper().syncFile(getFile());
-        }
-    }
+
 
     /**
      * Check if the fragment was created with an empty layout. An empty fragment can't show file details, must be replaced.
@@ -348,8 +337,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
             setTimeModified(file.getModificationTimestamp());
             
-            CheckBox cb = (CheckBox)getView().findViewById(R.id.fdKeepInSync);
-            cb.setChecked(file.keepInSync());
+            CheckBox cb = (CheckBox)getView().findViewById(R.id.fdFavorite);
+            cb.setChecked(file.isFavorite());
 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
@@ -437,7 +426,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private void setButtonsForTransferring() {
         if (!isEmpty()) {
             // let's protect the user from himself ;)
-            getView().findViewById(R.id.fdKeepInSync).setEnabled(false);
+            getView().findViewById(R.id.fdFavorite).setEnabled(false);
             
             // show the progress bar for the transfer
             getView().findViewById(R.id.fdProgressBlock).setVisibility(View.VISIBLE);
@@ -459,7 +448,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      */
     private void setButtonsForDown() {
         if (!isEmpty()) {
-            getView().findViewById(R.id.fdKeepInSync).setEnabled(true);
+            getView().findViewById(R.id.fdFavorite).setEnabled(true);
             
             // hides the progress bar
             getView().findViewById(R.id.fdProgressBlock).setVisibility(View.GONE);
@@ -473,7 +462,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      */
     private void setButtonsForRemote() {
         if (!isEmpty()) {
-            getView().findViewById(R.id.fdKeepInSync).setEnabled(true);
+            getView().findViewById(R.id.fdFavorite).setEnabled(true);
             
             // hides the progress bar
             getView().findViewById(R.id.fdProgressBlock).setVisibility(View.GONE);
