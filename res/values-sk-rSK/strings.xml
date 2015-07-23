@@ -133,6 +133,8 @@
   <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
   <string name="pass_code_reenter_your_pass_code">Prosím, vložte znovu svoje heslo:</string>
   <string name="pass_code_remove_your_pass_code">Zmazať svoje heslo</string>
+  <string name="pass_code_removed">Bezpečnostný kód odstránený</string>
+  <string name="pass_code_stored">Bezpečnostný kód uložený</string>
   <string name="media_notif_ticker">Prehrávač hudby %1$s</string>
   <string name="media_state_playing">%1$s (prehráva)</string>
   <string name="media_state_loading">%1$s (načítava)</string>
