@@ -194,7 +194,8 @@
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Невозможно авторизоваться на этом сервере</string>
   <string name="auth_account_does_not_exist">Аккаунт не существует на устройстве ещё</string>
-  <string name="fd_keep_in_sync">Обновлять файл</string>
+  <string name="favorite">Добавить в избранное</string>
+  <string name="unfavorite">Убрать из избранного</string>
   <string name="common_rename">Переименовать</string>
   <string name="common_remove">Удалить</string>
   <string name="confirmation_remove_alert">Вы действительно хотите удалить %1$s?</string>

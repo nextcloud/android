@@ -53,6 +53,7 @@
   <string name="uploader_upload_in_progress_ticker">Al avalcargar ...</string>
   <string name="uploader_upload_succeeded_ticker">Capitada d\'avalcargar</string>
   <string name="common_choose_account">Causís lo compte</string>
+  <string name="favorite">Apondre als favorits</string>
   <string name="common_rename">Torna nomenar</string>
   <string name="common_remove">Suprimir</string>
   <string name="ssl_validator_label_C">País :</string>

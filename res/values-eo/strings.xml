@@ -117,7 +117,8 @@
   <string name="auth_expired_basic_auth_toast">Bonvolu enigi la nunan pasvorton</string>
   <string name="auth_connecting_auth_server">Konektante al aŭtentiga servilo...</string>
   <string name="auth_unsupported_auth_method">La servilo ne kongruas kun ĉi tiu aŭtentiga metodo</string>
-  <string name="fd_keep_in_sync">Teni dosieron ĝisdatigita</string>
+  <string name="favorite">Favorato</string>
+  <string name="unfavorite">Nefavoratigi</string>
   <string name="common_rename">Alinomigi</string>
   <string name="common_remove">Forigi</string>
   <string name="confirmation_remove_alert">Ĉu vi vere volas forigi %1$s?</string>

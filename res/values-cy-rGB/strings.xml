@@ -88,7 +88,6 @@
   <string name="auth_bad_oc_version_title">Fersiwn gweinydd heb ei gydnabod</string>
   <string name="auth_wrong_connection_title">Methwyd creu cysylltiad</string>
   <string name="auth_secure_connection">Sefydlwyd cysylltiad diogel</string>
-  <string name="fd_keep_in_sync">Cadw\'r ffeil yn gyfredol</string>
   <string name="common_rename">Ailenwi</string>
   <string name="common_remove">Gwaredu</string>
   <string name="confirmation_remove_local">Lleol yn unig</string>

@@ -151,7 +151,6 @@
   <string name="auth_connecting_auth_server">اتصال به سرور احراز هویت...</string>
   <string name="auth_unsupported_auth_method">سرور این نوع احراز هویت را پشتیبانی نمی‌کند</string>
   <string name="auth_unsupported_multiaccount">%1$s چند اکانته بودن را پشتیبانی نمی‌کند</string>
-  <string name="fd_keep_in_sync">فایل را به روز نگه دار</string>
   <string name="common_rename">تغییرنام</string>
   <string name="common_remove">حذف</string>
   <string name="confirmation_remove_local">فقط محلی</string>

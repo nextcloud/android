@@ -192,7 +192,7 @@
 	</string>
   <string name="auth_can_not_auth_against_server">无法通过此服务器认证</string>
   <string name="auth_account_does_not_exist">设备中还未存在该帐号</string>
-  <string name="fd_keep_in_sync">保证文件更新</string>
+  <string name="favorite">收藏</string>
   <string name="common_rename">重命名</string>
   <string name="common_remove">删除</string>
   <string name="confirmation_remove_alert">你确定要删除 %1$s 吗？</string>

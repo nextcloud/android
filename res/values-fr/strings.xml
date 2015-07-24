@@ -198,7 +198,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
 </string>
   <string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
   <string name="auth_account_does_not_exist">Le compte n\'existe pas encore sur ce périphérique</string>
-  <string name="fd_keep_in_sync">Maintenir le fichier à jour</string>
+  <string name="favorite">Ajouter aux favoris</string>
+  <string name="unfavorite">Supprimer des favoris</string>
   <string name="common_rename">Renommer</string>
   <string name="common_remove">Supprimer</string>
   <string name="confirmation_remove_alert">Voulez-vous vraiment supprimer %1$s ?</string>

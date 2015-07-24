@@ -86,7 +86,6 @@
   <string name="auth_secure_connection">ਸੁਰੱਖਿਅਤ ਕੁਨੈਕਸ਼ਨ ਬਣਾਇਆ ਗਿਆ ਹੈ</string>
   <string name="auth_unauthorized">ਗਲਤ ਯੂਜ਼ਰ-ਨਾਂ ਜਾਂ ਪਾਸਵਰਡ</string>
   <string name="auth_expired_basic_auth_toast">ਆਪਣਾ ਮੌਜੂਦਾ ਪਾਸਵਰਡ ਦਿਉ ਜੀ</string>
-  <string name="fd_keep_in_sync">ਫਾਇਲ ਨੂੰ ਅੱਪ ਟੂ ਡੇਟ ਰੱਖੋ</string>
   <string name="common_rename">ਨਾਂ ਬਦਲੋ</string>
   <string name="common_remove">ਹਟਾਓ</string>
   <string name="confirmation_remove_local">ਕੇਵਲ ਲੋਕਲ</string>

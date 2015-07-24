@@ -140,7 +140,6 @@
   <string name="auth_expired_basic_auth_toast">Gëff w.e.g. däin aktuellt Passwuert an</string>
   <string name="auth_expired_saml_sso_token_toast">Deng Sessioun ass ofgelaf. Connectéier dech nei w.e.g.</string>
   <string name="auth_unsupported_auth_method">De Server ënnerstëtzt dës Authentifizéierungsmethod net</string>
-  <string name="fd_keep_in_sync">Fichier aktuell halen</string>
   <string name="common_rename">Ëmbenennen</string>
   <string name="common_remove">Läschen</string>
   <string name="confirmation_remove_alert">Wëlls du %1$s wierklech läschen?</string>

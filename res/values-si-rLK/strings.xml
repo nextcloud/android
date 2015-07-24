@@ -63,7 +63,6 @@
   <string name="auth_bad_oc_version_title">හඳුනාගත නොහැකි  අනුවාදයක්</string>
   <string name="auth_wrong_connection_title">සම්බන්ධයක් ඇතිකර ගැනීමට නොහැකි විය</string>
   <string name="auth_secure_connection">රක්‍ෂිත සම්බන්ධතාවක් සාදන ලදී</string>
-  <string name="fd_keep_in_sync">ගොනුව යාවත්කාලීනව තබාගන්න</string>
   <string name="common_rename">නැවත නම් කරන්න</string>
   <string name="common_remove">ඉවත් කරන්න </string>
   <string name="confirmation_remove_local">පෙදෙසි පමණක්</string>
