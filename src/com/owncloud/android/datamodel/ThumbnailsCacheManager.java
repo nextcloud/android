@@ -24,6 +24,8 @@ package com.owncloud.android.datamodel;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.FileNameMap;
+import java.net.URLConnection;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -33,6 +35,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
@@ -176,8 +180,20 @@ public class ThumbnailsCacheManager {
                 
                 if (mFile instanceof OCFile) {
                     thumbnail = doOCFileInBackground();
+
+                    if (((OCFile) mFile).isVideo()){
+                        thumbnail = addVideoOverlay(thumbnail);
+                    }
                 }  else if (mFile instanceof File) {
                     thumbnail = doFileInBackground();
+
+                    String url = ((File) mFile).getAbsolutePath();
+                    FileNameMap fileNameMap = URLConnection.getFileNameMap();
+                    String mMimeType = fileNameMap.getContentTypeFor("file://" + url);
+
+                    if (mMimeType != null && mMimeType.startsWith("video/")){
+                        thumbnail = addVideoOverlay(thumbnail);
+                    }
                 //} else {  do nothing
                 }
 
@@ -360,6 +376,31 @@ public class ThumbnailsCacheManager {
             }
         }
         return null;
+    }
+
+    public static Bitmap addVideoOverlay(Bitmap thumbnail){
+        Bitmap bitmap2 = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
+                                                          R.drawable.view_play);
+
+        Bitmap resized = Bitmap.createScaledBitmap(bitmap2,
+                (int) (thumbnail.getWidth() * 0.6),
+                (int) (thumbnail.getHeight() * 0.6), true);
+
+        Bitmap resultBitmap = Bitmap.createBitmap(thumbnail.getWidth(),
+                thumbnail.getHeight(),
+                Bitmap.Config.ARGB_8888);
+
+        Canvas c = new Canvas(resultBitmap);
+
+        c.drawBitmap(thumbnail, 0, 0, null);
+
+        Paint p = new Paint();
+        p.setAlpha(230);
+
+        c.drawBitmap(resized, (thumbnail.getWidth() - resized.getWidth()) / 2,
+                (thumbnail.getHeight() - resized.getHeight()) / 2, p);
+
+        return resultBitmap;
     }
 
     public static class AsyncDrawable extends BitmapDrawable {

@@ -31,6 +31,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
@@ -301,7 +303,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             String.valueOf(file.getRemoteId())
                             );
                     if (thumbnail != null && !file.needsUpdateThumbnail()){
-                        fileIcon.setImageBitmap(thumbnail);
+
+                        if (file.isVideo()) {
+                            Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
+                            fileIcon.setImageBitmap(withOverlay);
+                        } else {
+                            fileIcon.setImageBitmap(thumbnail);
+                        }
                     } else {
                         // generate new Thumbnail
                         if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
