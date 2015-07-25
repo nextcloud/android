@@ -35,18 +35,18 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.owncloud.android.BuildConfig;
@@ -76,8 +76,6 @@ import com.owncloud.android.ui.NavigationDrawerItem;
 import com.owncloud.android.ui.adapter.NavigationDrawerListAdapter;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
-import com.owncloud.android.ui.fragment.FileDetailFragment;
-import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import java.util.ArrayList;
@@ -87,7 +85,7 @@ import java.util.ArrayList;
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud
  * {@link Account}s .
  */
-public class FileActivity extends ActionBarActivity
+public class FileActivity extends AppCompatActivity
         implements OnRemoteOperationListener, ComponentsGetter {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
@@ -313,7 +311,7 @@ public class FileActivity extends ActionBarActivity
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Notification Drawer
-        LinearLayout navigationDrawerLayout = (LinearLayout) findViewById(R.id.left_drawer);
+        RelativeLayout navigationDrawerLayout = (RelativeLayout) findViewById(R.id.left_drawer);
         mDrawerList = (ListView) navigationDrawerLayout.findViewById(R.id.drawer_list);
 
         // TODO re-enable when "Accounts" is available in Navigation Drawer
@@ -346,7 +344,8 @@ public class FileActivity extends ActionBarActivity
         // mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0],
         // mDrawerContentDescriptions[0]));
         // All Files
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0]));
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0],
+                R.drawable.ic_folder_open));
 
         // TODO Enable when "On Device" is recovered
         // On Device
@@ -354,11 +353,12 @@ public class FileActivity extends ActionBarActivity
         //        mDrawerContentDescriptions[2]));
 
         // Settings
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1]));
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1],
+                R.drawable.ic_settings));
         // Logs
         if (BuildConfig.DEBUG) {
             mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2],
-                    mDrawerContentDescriptions[2]));
+                    mDrawerContentDescriptions[2],R.drawable.ic_log));
         }
 
         // setting the nav drawer list adapter
@@ -366,12 +366,15 @@ public class FileActivity extends ActionBarActivity
                 mDrawerItems);
         mDrawerList.setAdapter(mNavigationDrawerAdapter);
 
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,
-                mDrawerLayout,
-                R.drawable.ic_drawer,
-                R.string.app_name,
-                R.string.drawer_close) {
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.drawer_open,R.string.drawer_close) {
+
+            //new ActionBarDrawerToggle(
+            //this,
+            //  mDrawerLayout,
+            //  R.drawable.ic_drawer,
+            //  R.string.app_name,
+            //  R.string.drawer_close) {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
@@ -395,6 +398,7 @@ public class FileActivity extends ActionBarActivity
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
     }
 
     /**

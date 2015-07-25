@@ -59,7 +59,6 @@ import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity, 
@@ -116,7 +115,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     @Override
     protected void onStart() {
         super.onStart();
-        getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
     }
 
     /**

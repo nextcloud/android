@@ -117,7 +117,6 @@ public class UploadFilesActivity extends FileActivity implements
             
         // Action bar setup
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the
                                                 // official documentation
         actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && mCurrentDir.getName() != null);

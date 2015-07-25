@@ -24,6 +24,15 @@
     <color name="list_item_lastmod_and_filesize_text">#989898</color>
     <color name="black">#000000</color>
     <color name="textColor">#303030</color>
+    <color name="drawerMenuTextColor">#757575</color>
     <color name="list_divider_background">#fff0f0f0</color>
-    
+    <color name="owncloud_blue">#1D2D44</color>
+    <color name="login_text_color">#AAAAAA</color>
+
+    <!-- Colors -->
+    <color name="color_accent">@color/owncloud_blue_bright</color>
+
+    <!-- standard material color definitions -->
+    <color name="primary">@color/owncloud_blue</color>
+    <color name="primary_dark">#162233</color>
 </resources>

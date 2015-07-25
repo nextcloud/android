@@ -146,11 +146,6 @@ public class Uploader extends FileActivity
         if (mAccountSelected) {
             setAccount((Account) savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT));
         }
-
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-
     }
 
     @Override

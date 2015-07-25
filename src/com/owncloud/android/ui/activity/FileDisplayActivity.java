@@ -196,9 +196,15 @@ public class FileDisplayActivity extends HookActivity
                                                                 // according to the official
                                                                 // documentation
 
+        // enable ActionBar app icon to behave as action to toggle nav drawer
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         setSupportProgressBarIndeterminateVisibility(mSyncInProgress
         /*|| mRefreshSharesInProgress*/);
         // always AFTER setContentView(...) ; to work around bug in its implementation
+
+        initDrawer();
         
         setBackgroundText();
 
@@ -209,7 +215,6 @@ public class FileDisplayActivity extends HookActivity
     protected void onStart() {
         Log_OC.v(TAG, "onStart() start");
         super.onStart();
-        getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
         Log_OC.v(TAG, "onStart() end");
     }
 
@@ -1028,7 +1033,9 @@ public class FileDisplayActivity extends HookActivity
                         startImagePreview(getFile());
                     } // TODO what about other kind of previews?
                 }
-                
+
+                setSupportProgressBarIndeterminate(false);
+
             } finally {
                 if (intent != null) {
                     removeStickyBroadcast(intent);
@@ -1165,7 +1172,6 @@ public class FileDisplayActivity extends HookActivity
         }
 
     }
-
 
     @Override
     protected ServiceConnection newTransferenceServiceConnection() {

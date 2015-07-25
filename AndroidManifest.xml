@@ -37,7 +37,7 @@
     
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
     </uses-permission>

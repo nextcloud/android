@@ -128,9 +128,6 @@ public class PassCodeActivity extends ActionBarActivity {
         }
 
         setTextListeners();
-        
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
     }
 
 

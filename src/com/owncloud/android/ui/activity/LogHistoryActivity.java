@@ -72,9 +72,7 @@ public class LogHistoryActivity extends ActionBarActivity {
 
         setContentView(R.layout.log_send_file);
         setTitle(getText(R.string.actionbar_logger));
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
         Button sendHistoryButton = (Button) findViewById(R.id.sendLogHistoryButton);
         TextView logTV = (TextView) findViewById(R.id.logTV);

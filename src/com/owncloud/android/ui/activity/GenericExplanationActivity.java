@@ -81,9 +81,6 @@ public class GenericExplanationActivity  extends ActionBarActivity {
         } else {
             listView.setVisibility(View.GONE);
         }
-        
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
     }
     
     public class ExplanationListAdapterView extends ArrayAdapter<String> {
