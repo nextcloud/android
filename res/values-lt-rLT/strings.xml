@@ -166,6 +166,7 @@
   <string name="auth_unsupported_auth_method">Serveris nepalaiko šio autentikacijos metodo</string>
   <string name="auth_unsupported_multiaccount">%1$s nepalaiko kelių paskyrų iš karto</string>
   <string name="auth_can_not_auth_against_server">Jungiamasi prie autentikacijos serverio...</string>
+  <string name="favorite">Mėgiamas</string>
   <string name="common_rename">Pervadinti</string>
   <string name="common_remove">Pašalinti</string>
   <string name="confirmation_remove_alert">Ar tikrai norite pašalinti %1$s?</string>

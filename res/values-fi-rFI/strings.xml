@@ -69,6 +69,7 @@
   <string name="uploader_info_uploading">Lähetetään</string>
   <string name="file_list_seconds_ago">sekuntia sitten</string>
   <string name="file_list_empty">Täällä ei ole mitään. Lähetä tänne jotakin!</string>
+  <string name="file_list_loading">Ladataan…</string>
   <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
   <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
   <string name="filedetails_size">Koko:</string>
@@ -297,4 +298,12 @@
   <string name="auth_host_address">Palvelimen osoite</string>
   <string name="common_error_out_memory">Muistia ei ole riittävästi</string>
   <string name="username">Käyttäjätunnus</string>
+  <string name="file_list__footer__folder">1 kansio</string>
+  <string name="file_list__footer__folders">%1$d kansiota</string>
+  <string name="file_list__footer__file">1 tiedosto</string>
+  <string name="file_list__footer__file_and_folder">1 tiedosto, 1 kansio</string>
+  <string name="file_list__footer__file_and_folders">1 tiedosto, %1$d kansiota</string>
+  <string name="file_list__footer__files">%1$d tiedostoa</string>
+  <string name="file_list__footer__files_and_folder">%1$d tiedostoa, 1 kansio</string>
+  <string name="file_list__footer__files_and_folders">%1$d tiedostoa, %2$d kansiota</string>
 </resources>
