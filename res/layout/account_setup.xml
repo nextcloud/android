@@ -29,7 +29,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/login_background_color"
+        android:background="#1D2D44"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="8dp" >
@@ -38,7 +38,7 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="0dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/logo"
             android:contentDescription="@string/app_name"/>
@@ -70,7 +70,7 @@
 	        android:id="@+id/hostUrlFrame"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="0dp"
 	        >
 			<EditText
 				android:id="@+id/hostUrlInput"
