@@ -289,7 +289,7 @@ public class FileActivity extends AppCompatActivity
         // Sync the toggle state after onRestoreInstanceState has occurred.
         if (mDrawerToggle != null) {
             mDrawerToggle.syncState();
-            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            if (isDrawerOpen()) {
                 getSupportActionBar().setTitle(R.string.app_name);
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
             }
@@ -302,6 +302,23 @@ public class FileActivity extends AppCompatActivity
         if (mDrawerToggle != null) {
             mDrawerToggle.onConfigurationChanged(newConfig);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isDrawerOpen()) {
+            closeNavDrawer();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    public boolean isDrawerOpen() {
+        return mDrawerLayout.isDrawerOpen(GravityCompat.START);
+    }
+
+    public void closeNavDrawer() {
+        mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
     protected void initDrawer(){

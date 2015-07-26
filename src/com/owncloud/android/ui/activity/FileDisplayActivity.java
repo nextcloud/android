@@ -733,22 +733,25 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     public void onBackPressed() {
-        OCFileListFragment listOfFiles = getListOfFilesFragment(); 
-        if (mDualPane || getSecondFragment() == null) {
-            OCFile currentDir = getCurrentDir();
-            if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
-                finish();
-                return;
+        if (!isDrawerOpen()){
+            OCFileListFragment listOfFiles = getListOfFilesFragment();
+            if (mDualPane || getSecondFragment() == null) {
+                OCFile currentDir = getCurrentDir();
+                if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
+                    finish();
+                    return;
+                }
+                if (listOfFiles != null) {  // should never be null, indeed
+                    listOfFiles.onBrowseUp();
+                }
             }
             if (listOfFiles != null) {  // should never be null, indeed
-                listOfFiles.onBrowseUp();
+                setFile(listOfFiles.getCurrentFile());
             }
+            cleanSecondFragment();
+        } else {
+            super.onBackPressed();
         }
-        if (listOfFiles != null) {  // should never be null, indeed
-            setFile(listOfFiles.getCurrentFile());
-        }
-        cleanSecondFragment();
-
     }
 
     @Override
