@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:oneshot="false">
+    <item android:drawable="@drawable/owncloud_progressbar_indeterminate_1" android:duration="50" />
+    <item android:drawable="@drawable/owncloud_progressbar_indeterminate_2" android:duration="50" />
+    <item android:drawable="@drawable/owncloud_progressbar_indeterminate_3" android:duration="50" />
+    <item android:drawable="@drawable/owncloud_progressbar_indeterminate_4" android:duration="50" />
+    <item android:drawable="@drawable/owncloud_progressbar_indeterminate_5" android:duration="50" />
+    <item android:drawable="@drawable/owncloud_progressbar_indeterminate_6" android:duration="50" />
+    <item android:drawable="@drawable/owncloud_progressbar_indeterminate_7" android:duration="50" />
+    <item android:drawable="@drawable/owncloud_progressbar_indeterminate_8" android:duration="50" />
+</animation-list>
