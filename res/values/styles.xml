@@ -39,6 +39,12 @@
 		<item name="colorAccent">@color/color_accent</item>
     </style>
 
+	<!-- Progress bar -->
+	<style name="Widget.ownCloud.TopProgressBar" parent="android:Widget.Holo.ProgressBar.Horizontal">
+		<item name="android:progressDrawable">@drawable/actionbar_progress_horizontal</item>
+		<item name="android:indeterminateDrawable">@drawable/actionbar_progress_indeterminate_horizontal</item>
+	</style>
+
 	<style name="Theme.ownCloud.Fullscreen" parent="style/Theme.AppCompat">
         <item name="android:windowFullscreen">true</item>
     </style>

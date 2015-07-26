@@ -53,7 +53,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -120,6 +120,7 @@ public class FileDisplayActivity extends HookActivity
     private boolean mDualPane;
     private View mLeftFragmentContainer;
     private View mRightFragmentContainer;
+    private ProgressBar mProgressBar;
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
@@ -151,7 +152,7 @@ public class FileDisplayActivity extends HookActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        //requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account
                                             // is valid
@@ -184,6 +185,8 @@ public class FileDisplayActivity extends HookActivity
         // Navigation Drawer
         initDrawer();
 
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
@@ -200,8 +203,9 @@ public class FileDisplayActivity extends HookActivity
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        setSupportProgressBarIndeterminateVisibility(mSyncInProgress
-        /*|| mRefreshSharesInProgress*/);
+        mProgressBar.setVisibility((mSyncInProgress) ? View.VISIBLE : View.INVISIBLE);
+        //setSupportProgressBarIndeterminateVisibility(mSyncInProgress
+        /*|| mRefreshSharesInProgress*/ //);
         // always AFTER setContentView(...) ; to work around bug in its implementation
 
         initDrawer();
@@ -939,8 +943,9 @@ public class FileDisplayActivity extends HookActivity
                     }
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                    setSupportProgressBarIndeterminateVisibility(mSyncInProgress
-                    /*|| mRefreshSharesInProgress*/);
+                    mProgressBar.setVisibility((mSyncInProgress) ? View.VISIBLE : View.INVISIBLE);
+                    //setSupportProgressBarIndeterminateVisibility(mSyncInProgress
+                    /*|| mRefreshSharesInProgress*/ //);
 
                     setBackgroundText();
                         
@@ -1037,7 +1042,8 @@ public class FileDisplayActivity extends HookActivity
                     } // TODO what about other kind of previews?
                 }
 
-                setSupportProgressBarIndeterminate(false);
+                //setSupportProgressBarIndeterminate(false);
+                mProgressBar.setVisibility(View.INVISIBLE);
 
             } finally {
                 if (intent != null) {
@@ -1562,8 +1568,9 @@ public class FileDisplayActivity extends HookActivity
                 getApplicationContext()
         );
         synchFolderOp.execute(getAccount(), MainApp.getAppContext(), this, null, null);
-        
-        setSupportProgressBarIndeterminateVisibility(true);
+
+        mProgressBar.setVisibility(View.VISIBLE);
+        //setSupportProgressBarIndeterminateVisibility(true);
 
         setBackgroundText();
     }

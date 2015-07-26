@@ -29,6 +29,7 @@
     <color name="owncloud_blue">#1D2D44</color>
     <color name="login_text_color">#AAAAAA</color>
 
+
     <!-- Colors -->
     <color name="color_accent">@color/owncloud_blue_bright</color>
 
