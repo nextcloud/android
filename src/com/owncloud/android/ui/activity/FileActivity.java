@@ -527,7 +527,11 @@ public class FileActivity extends AppCompatActivity
         outState.putBoolean(FileActivity.EXTRA_FROM_NOTIFICATION, mFromNotification);
         outState.putLong(KEY_WAITING_FOR_OP_ID, mFileOperationsHelper.getOpIdWaitingFor());
         outState.putBoolean(KEY_TRY_SHARE_AGAIN, mTryShareAgain);
-        outState.putString(KEY_ACTION_BAR_TITLE, getSupportActionBar().getTitle().toString());
+        if(getSupportActionBar().getTitle() != null) {
+            // Null check in case the actionbar is used in ActionBar.NAVIGATION_MODE_LIST
+            // since it doesn't have a title then
+            outState.putString(KEY_ACTION_BAR_TITLE, getSupportActionBar().getTitle().toString());
+        }
     }
 
 
