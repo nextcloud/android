@@ -386,13 +386,6 @@ public class FileActivity extends AppCompatActivity
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.drawer_open,R.string.drawer_close) {
 
-            //new ActionBarDrawerToggle(
-            //this,
-            //  mDrawerLayout,
-            //  R.drawable.ic_drawer,
-            //  R.string.app_name,
-            //  R.string.drawer_close) {
-
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -408,8 +401,7 @@ public class FileActivity extends AppCompatActivity
                 invalidateOptionsMenu();
             }
         };
-
-        //mDrawerToggle.setDrawerIndicatorEnabled(true);
+        
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
