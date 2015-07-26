@@ -194,8 +194,8 @@
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
-						android:progressDrawable="@android:drawable/progress_horizontal"
-						android:indeterminate="false" 
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:indeterminate="false"
 						android:indeterminateOnly="false" 
 					/>
 				    								
@@ -204,7 +204,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginLeft="12dp"
-						android:src="@drawable/btn_cancel"
+						android:src="@drawable/ic_cancel"
 						android:background="@android:color/transparent"
 						/>
 						
