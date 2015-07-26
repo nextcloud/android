@@ -23,12 +23,14 @@
 	android:layout_gravity="center"
 	android:gravity="center_vertical"
 	android:padding="20dp"
+	android:background="#000000"
 	>
 	
 	<TextView 
 	    android:id="@+id/progressText" 
 	    android:layout_width="match_parent"
-		android:layout_height="wrap_content" 
+		android:layout_height="wrap_content"
+		android:textColor="#AAAAAA"
 		android:text="@string/downloader_not_downloaded_yet"
 		android:layout_marginBottom="15dp"
 	/>
@@ -79,6 +81,7 @@
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
 		android:layout_margin="40dp"
+		android:textColor="#AAAAAA"
 		android:text="@string/downloader_download_failed_ticker"
 	/>
 	
