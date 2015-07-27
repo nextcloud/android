@@ -54,6 +54,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -259,7 +261,16 @@ public class FileDisplayActivity extends HookActivity
                 file = getStorageManager().getFileByPath(OCFile.ROOT_PATH);  // never returns null
             }
             setFile(file);
-            
+
+            if (mAccountWasSet) {
+                RelativeLayout navigationDrawerLayout = (RelativeLayout) findViewById(R.id.left_drawer);
+                if (navigationDrawerLayout != null && getAccount() != null) {
+                    TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
+                    int lastAtPos = getAccount().name.lastIndexOf("@");
+                    username.setText(getAccount().name.substring(0, lastAtPos));
+                }
+            }
+
             if (!stateWasRecovered) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();

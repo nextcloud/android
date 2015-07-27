@@ -67,12 +67,12 @@
             android:paddingTop="100dp" />
 
         <TextView
-            android:id="@+id/tv_header"
+            android:id="@+id/drawer_username"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:background="@color/owncloud_blue"
+            android:background="@color/owncloud_blue_accent"
             android:gravity="bottom"
             android:orientation="vertical"
             android:text="@string/app_name"

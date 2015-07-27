@@ -47,6 +47,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.BuildConfig;
@@ -345,6 +346,14 @@ public class FileActivity extends AppCompatActivity
 //            int lastAtPos = account.name.lastIndexOf("@");
 //            username.setText(account.name.substring(0, lastAtPos));
 //        }
+
+        // Display username in drawer
+        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        if (account != null) {
+            TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
+            int lastAtPos = account.name.lastIndexOf("@");
+            username.setText(account.name.substring(0, lastAtPos));
+        }
 
         // load slide menu items
         mDrawerTitles = getResources().getStringArray(R.array.drawer_items);
