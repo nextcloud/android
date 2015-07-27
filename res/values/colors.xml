@@ -18,20 +18,21 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
-    
-    <color name="filelist_icon_backgorund">#DDDDDD</color>
+
+    <color name="owncloud_blue">#1D2D44</color>
+    <color name="owncloud_blue_accent">#35537A</color>
     <color name="owncloud_blue_bright">#00ddff</color>
+
     <color name="list_item_lastmod_and_filesize_text">#989898</color>
     <color name="black">#000000</color>
     <color name="textColor">#303030</color>
     <color name="drawerMenuTextColor">#757575</color>
     <color name="list_divider_background">#fff0f0f0</color>
-    <color name="owncloud_blue">#1D2D44</color>
+    <color name="filelist_icon_backgorund">#DDDDDD</color>
     <color name="login_text_color">#AAAAAA</color>
 
-
     <!-- Colors -->
-    <color name="color_accent">@color/owncloud_blue_bright</color>
+    <color name="color_accent">@color/owncloud_blue_accent</color>
 
     <!-- standard material color definitions -->
     <color name="primary">@color/owncloud_blue</color>
