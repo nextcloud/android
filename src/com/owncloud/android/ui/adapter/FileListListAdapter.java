@@ -276,7 +276,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         sharedWithMeIconV.setVisibility(View.VISIBLE);
                     } else {
                         sharedWithMeIconV.setVisibility(View.GONE);
-
                     }
 
                     break;
