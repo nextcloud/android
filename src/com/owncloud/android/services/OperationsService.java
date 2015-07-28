@@ -53,7 +53,6 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 import com.owncloud.android.operations.CopyFileOperation;
-import com.owncloud.android.operations.DownloadFolderOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.GetServerInfoOperation;
@@ -102,7 +101,6 @@ public class OperationsService extends Service {
     public static final String ACTION_CREATE_FOLDER = "CREATE_FOLDER";
     public static final String ACTION_SYNC_FILE = "SYNC_FILE";
     public static final String ACTION_SYNC_FOLDER = "SYNC_FOLDER";
-    public static final String ACTION_DOWNLOAD_FOLDER = "DOWNLOAD_FOLDER" ;
     public static final String ACTION_MOVE_FILE = "MOVE_FILE";
     public static final String ACTION_COPY_FILE = "COPY_FILE";
 
@@ -624,16 +622,6 @@ public class OperationsService extends Service {
                             remotePath,
                             account, 
                             System.currentTimeMillis()  // TODO remove this dependency from construction time
-                    );
-
-                } else if (action.equals(ACTION_DOWNLOAD_FOLDER)) { // TODO remove when sync of folders is good enough
-                    // Download folder (all its descendant files are downloaded)
-                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                    operation = new DownloadFolderOperation(
-                            this,
-                            remotePath,
-                            account,
-                            System.currentTimeMillis()
                     );
 
                 } else if (action.equals(ACTION_MOVE_FILE)) {

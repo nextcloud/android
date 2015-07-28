@@ -52,6 +52,7 @@ public class DownloadFileOperation extends RemoteOperation {
     private OCFile mFile;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private long mModificationTimestamp = 0;
+    private String mEtag = "";
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     
     private DownloadRemoteFileOperation mDownloadOperation;
@@ -127,6 +128,10 @@ public class DownloadFileOperation extends RemoteOperation {
                 mFile.getModificationTimestamp();
     }
 
+    public String getEtag() {
+        return mEtag;
+    }
+
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
@@ -154,6 +159,7 @@ public class DownloadFileOperation extends RemoteOperation {
         
         if (result.isSuccess()) {
             mModificationTimestamp = mDownloadOperation.getModificationTimestamp();
+            mEtag = mDownloadOperation.getEtag();
             newFile = new File(getSavePath());
             newFile.getParentFile().mkdirs();
             moved = tmpFile.renameTo(newFile);

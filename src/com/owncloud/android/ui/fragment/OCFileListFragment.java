@@ -363,10 +363,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
             }
-            case R.id.action_download_file: {
-                mContainerActivity.getFileOperationsHelper().downloadFile(mTargetFile);
-                return true;
-            }
+            case R.id.action_download_file:
             case R.id.action_sync_file: {
                 mContainerActivity.getFileOperationsHelper().syncFile(mTargetFile);
                 return true;

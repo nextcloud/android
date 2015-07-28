@@ -403,7 +403,7 @@ public class UploadFileOperation extends RemoteOperation {
         newFile.setModificationTimestamp(mFile.getModificationTimestamp());
         newFile.setModificationTimestampAtLastSyncForData(
                 mFile.getModificationTimestampAtLastSyncForData());
-        // newFile.setEtag(mFile.getEtag())
+        newFile.setEtag(mFile.getEtag());
         newFile.setFavorite(mFile.isFavorite());
         newFile.setLastSyncDateForProperties(mFile.getLastSyncDateForProperties());
         newFile.setLastSyncDateForData(mFile.getLastSyncDateForData());

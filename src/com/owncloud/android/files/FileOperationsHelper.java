@@ -230,30 +230,6 @@ public class FileOperationsHelper {
         }
     }
 
-
-    /**
-     * Request the synchronization of a file or the DOWNLOAD OF A FOLDER, including its contents.
-     *
-     * For files, it's the same as syncFile(OCFile file); for folders, this method does not trigger uploads for
-     * file locally modified.
-     *
-     * Kept 'til synchronization of full folders is considered good enough.
-     *
-     * @param file          The file or folder to synchronize
-     */
-    public void downloadFile(OCFile file) {
-        if (!file.isFolder()){
-            syncFile(file);
-
-        } else {
-            Intent intent = new Intent(mFileActivity, OperationsService.class);
-            intent.setAction(OperationsService.ACTION_DOWNLOAD_FOLDER);
-            intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-            intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            mFileActivity.startService(intent);
-        }
-    }
-
     public void toggleFavorite(OCFile file, boolean isFavorite) {
         file.setFavorite(isFavorite);
         mFileActivity.getStorageManager().saveFile(file);
@@ -327,15 +303,6 @@ public class FileOperationsHelper {
         FileDownloaderBinder downloaderBinder = mFileActivity.getFileDownloaderBinder();
         if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
             downloaderBinder.cancel(account, file);
-
-            // TODO - review why is this here, and solve in a better way
-            // Remove etag for parent, if file is a favorite
-            if (file.isFavorite()) {
-                OCFile parent = mFileActivity.getStorageManager().getFileById(file.getParentId());
-                parent.setEtag("");
-                mFileActivity.getStorageManager().saveFile(parent);
-            }
-
         }
         FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
         if (uploaderBinder != null && uploaderBinder.isUploading(account, file)) {

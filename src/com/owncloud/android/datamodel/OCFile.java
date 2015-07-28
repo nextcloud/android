@@ -498,9 +498,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     public void setEtag(String etag) {
-        this.mEtag = etag;
+        this.mEtag = (etag != null ? etag : "");
     }
-
 
     public boolean isShareByLink() {
         return mShareByLink;
@@ -602,4 +601,5 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         // TODO real implementation
         return false;
     }
+
 }

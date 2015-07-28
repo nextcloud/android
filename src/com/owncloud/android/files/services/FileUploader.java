@@ -688,6 +688,8 @@ public class FileUploader extends Service
         if (result.isSuccess()) {
             updateOCFile(file, (RemoteFile) result.getData().get(0));
             file.setLastSyncDateForProperties(syncDate);
+        } else {
+            Log_OC.e(TAG, "Error reading properties of file after successful upload; this is gonna hurt...");
         }
 
         // / maybe this would be better as part of UploadFileOperation... or
@@ -712,7 +714,7 @@ public class FileUploader extends Service
         file.setMimetype(remoteFile.getMimeType());
         file.setModificationTimestamp(remoteFile.getModifiedTimestamp());
         file.setModificationTimestampAtLastSyncForData(remoteFile.getModifiedTimestamp());
-        // file.setEtag(remoteFile.getEtag());    // TODO Etag, where available
+        file.setEtag(remoteFile.getEtag());
         file.setRemoteId(remoteFile.getRemoteId());
     }
 

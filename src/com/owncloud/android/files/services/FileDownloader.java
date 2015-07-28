@@ -475,7 +475,7 @@ public class FileDownloader extends Service
         file.setNeedsUpdateThumbnail(true);
         file.setModificationTimestamp(mCurrentDownload.getModificationTimestamp());
         file.setModificationTimestampAtLastSyncForData(mCurrentDownload.getModificationTimestamp());
-        // file.setEtag(mCurrentDownload.getEtag());    // TODO Etag, where available
+        file.setEtag(mCurrentDownload.getEtag());
         file.setMimetype(mCurrentDownload.getMimeType());
         file.setStoragePath(mCurrentDownload.getSavePath());
         file.setFileLength((new File(mCurrentDownload.getSavePath()).length()));

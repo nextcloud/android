@@ -540,7 +540,7 @@ public class DownloadFolderOperation extends SyncOperation {
 
     private void startSyncFolderOperation(String path){
         Intent intent = new Intent(mContext, OperationsService.class);
-        intent.setAction(OperationsService.ACTION_DOWNLOAD_FOLDER);
+        intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, mAccount);
         intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
         mContext.startService(intent);

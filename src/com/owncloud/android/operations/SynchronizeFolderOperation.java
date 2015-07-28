@@ -278,7 +278,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         FileDataStorageManager storageManager = getStorageManager();
         
         // parse data from remote folder
-        OCFile remoteFolder = fillOCFile((RemoteFile)folderAndFiles.get(0));
+        OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
         remoteFolder.setFileId(mLocalFolder.getFileId());
 
@@ -305,7 +305,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         OCFile remoteFile = null, localFile = null;
         for (int i=1; i<folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server
-            remoteFile = fillOCFile((RemoteFile)folderAndFiles.get(i));
+            remoteFile = FileStorageUtils.fillOCFile((RemoteFile)folderAndFiles.get(i));
             remoteFile.setParentId(mLocalFolder.getFileId());
 
             /// retrieve local data for the read file
@@ -324,7 +324,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 );
                 remoteFile.setStoragePath(localFile.getStoragePath());
                 // eTag will not be updated unless contents are synchronized
-                //  (Synchronize[File|Folder]Operation with remoteFile as parameter)
                 remoteFile.setEtag(localFile.getEtag());
                 if (remoteFile.isFolder()) {
                     remoteFile.setFileLength(localFile.getFileLength());
@@ -339,7 +338,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 remoteFile.setShareByLink(localFile.isShareByLink());
             } else {
                 // remote eTag will not be updated unless contents are synchronized
-                //  (Synchronize[File|Folder]Operation with remoteFile as parameter)
                 remoteFile.setEtag("");
             }
 
@@ -356,9 +354,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     startSyncFolderOperation(remoteFile.getRemotePath());
                 }
 
-            //} else if (remoteFile.isFavorite()) {
             } else {
-                /// prepare content synchronization for kept-in-sync files
+                /// prepare content synchronization for files (any file, not just favorites)
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(
                         localFile,
                         remoteFile,
@@ -368,17 +365,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     );
                 mFilesToSyncContents.add(operation);
                 
-            /*} else {
-                /// prepare limited synchronization for regular files
-                SynchronizeFileOperation operation = new SynchronizeFileOperation(
-                        localFile,
-                        remoteFile,
-                        mAccount,
-                        true,
-                        false,
-                        mContext
-                    );
-                mFilesToSyncContentsWithoutUpload.add(operation);*/
             }
 
             updatedFiles.add(remoteFile);
@@ -405,7 +391,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 }
 
             } else {
-                /// prepare limited synchronization for regular files
+                /// synchronization for regular files
                 if (!child.isDown()) {
                     mFilesForDirectDownload.add(child);
 
@@ -487,26 +473,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
     
-    /**
-     * Creates and populates a new {@link com.owncloud.android.datamodel.OCFile}
-     * object with the data read from the server.
-     *
-     * @param remote    remote file read from the server (remote file or folder).
-     * @return          New OCFile instance representing the remote resource described by we.
-     */
-    private OCFile fillOCFile(RemoteFile remote) {
-        OCFile file = new OCFile(remote.getRemotePath());
-        file.setCreationTimestamp(remote.getCreationTimestamp());
-        file.setFileLength(remote.getLength());
-        file.setMimetype(remote.getMimeType());
-        file.setModificationTimestamp(remote.getModifiedTimestamp());
-        file.setEtag(remote.getEtag());
-        file.setPermissions(remote.getPermissions());
-        file.setRemoteId(remote.getRemoteId());
-        return file;
-    }
-
-
     /**
      * Scans the default location for saving local copies of files searching for
      * a 'lost' file with the same full name as the {@link com.owncloud.android.datamodel.OCFile}
