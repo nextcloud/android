@@ -192,7 +192,8 @@
   <string name="auth_fail_get_user_name">เซิร์ฟเวอร์ของคุณไม่ได้ส่งคืนรหัสผู้ใช้ที่ถูกต้อง กรุณาติดต่อผู้ดูแลระบบ!</string>
   <string name="auth_can_not_auth_against_server">ไม่สามารถยืนยันตัวตนกับเซิร์ฟเวอร์นี้</string>
   <string name="auth_account_does_not_exist">ยังไม่มีบัญชีในอุปกรณ์นี้</string>
-  <string name="fd_keep_in_sync">ปรับปรุงไฟล์ให้ทันสมัยอยู่เสมอ</string>
+  <string name="favorite">รายการโปรด</string>
+  <string name="unfavorite">ออกจากรายการโปรด</string>
   <string name="common_rename">เปลี่ยนชื่อ</string>
   <string name="common_remove">ลบออก</string>
   <string name="confirmation_remove_alert">คุณต้องการที่จะลบ %1$s?</string>

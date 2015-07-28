@@ -111,7 +111,6 @@
   <string name="auth_wrong_connection_title">No se pudo establecer la conexión</string>
   <string name="auth_secure_connection">Conexión segura establecida</string>
   <string name="auth_unauthorized">usuario o clave incorrecta</string>
-  <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Remover</string>
   <string name="confirmation_remove_alert">¿Realmente desea eliminar %1$s?</string>

@@ -133,6 +133,8 @@
   <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
   <string name="pass_code_reenter_your_pass_code">Prosím, vložte znovu svoje heslo:</string>
   <string name="pass_code_remove_your_pass_code">Zmazať svoje heslo</string>
+  <string name="pass_code_removed">Bezpečnostný kód odstránený</string>
+  <string name="pass_code_stored">Bezpečnostný kód uložený</string>
   <string name="media_notif_ticker">Prehrávač hudby %1$s</string>
   <string name="media_state_playing">%1$s (prehráva)</string>
   <string name="media_state_loading">%1$s (načítava)</string>
@@ -185,7 +187,8 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Nie je možné vykonať autentifikáciu na server</string>
   <string name="auth_account_does_not_exist">Účet zatiaľ v zariadení neexistuje</string>
-  <string name="fd_keep_in_sync">Udržiavať súbor aktuálny.</string>
+  <string name="favorite">Obľúbené</string>
+  <string name="unfavorite">Odobrať z obľúbených</string>
   <string name="common_rename">Premenuj</string>
   <string name="common_remove">Odober</string>
   <string name="confirmation_remove_alert">Naozaj chcete odstrániť %1$s?</string>

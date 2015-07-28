@@ -69,6 +69,7 @@
   <string name="uploader_info_uploading">Lähetetään</string>
   <string name="file_list_seconds_ago">sekuntia sitten</string>
   <string name="file_list_empty">Täällä ei ole mitään. Lähetä tänne jotakin!</string>
+  <string name="file_list_loading">Ladataan…</string>
   <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
   <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
   <string name="filedetails_size">Koko:</string>
@@ -183,7 +184,8 @@
   <string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
   <string name="auth_can_not_auth_against_server">Tunnistautuminen palvelinta vastaan ei onnistu</string>
   <string name="auth_account_does_not_exist">Tiliä ei ole olemassa vielä laitteella</string>
-  <string name="fd_keep_in_sync">Pidä tiedosto ajan tasalla</string>
+  <string name="favorite">Suosikit</string>
+  <string name="unfavorite">Poista suosikeista</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
   <string name="confirmation_remove_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
@@ -296,4 +298,12 @@
   <string name="auth_host_address">Palvelimen osoite</string>
   <string name="common_error_out_memory">Muistia ei ole riittävästi</string>
   <string name="username">Käyttäjätunnus</string>
+  <string name="file_list__footer__folder">1 kansio</string>
+  <string name="file_list__footer__folders">%1$d kansiota</string>
+  <string name="file_list__footer__file">1 tiedosto</string>
+  <string name="file_list__footer__file_and_folder">1 tiedosto, 1 kansio</string>
+  <string name="file_list__footer__file_and_folders">1 tiedosto, %1$d kansiota</string>
+  <string name="file_list__footer__files">%1$d tiedostoa</string>
+  <string name="file_list__footer__files_and_folder">%1$d tiedostoa, 1 kansio</string>
+  <string name="file_list__footer__files_and_folders">%1$d tiedostoa, %2$d kansiota</string>
 </resources>

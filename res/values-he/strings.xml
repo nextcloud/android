@@ -166,7 +166,7 @@
   <string name="auth_fail_get_user_name">השרת אינו מחזיר מספר משתמש נכון, יש ליצור קשר עם מנהל
 ⇥</string>
   <string name="auth_can_not_auth_against_server">לא מצליח לאמת מול השרת</string>
-  <string name="fd_keep_in_sync">לשמור על קובץ עדכני</string>
+  <string name="favorite">מועדף</string>
   <string name="common_rename">שינוי שם</string>
   <string name="common_remove">הסרה</string>
   <string name="confirmation_remove_alert">האם באמת להסיר %1$s?</string>

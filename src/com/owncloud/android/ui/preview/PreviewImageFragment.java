@@ -306,7 +306,14 @@ public class PreviewImageFragment extends FileFragment {
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
             }
-            
+            case R.id.action_favorite_file:{
+                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), true);
+                return true;
+            }
+            case R.id.action_unfavorite_file:{
+                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), false);
+                return true;
+            }
             default:
                 return false;
         }

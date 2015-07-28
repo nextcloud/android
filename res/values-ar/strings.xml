@@ -163,7 +163,7 @@
   <string name="auth_fail_get_user_name">الخادم الخاص بك لم يعد الإتصال بهويتك الصحيحة, الرجاء الإتصال بالمسؤول
 	</string>
   <string name="auth_can_not_auth_against_server">لا يمكن المصادقة من الخادم</string>
-  <string name="fd_keep_in_sync"> جعل الملف محدثا</string>
+  <string name="favorite">المفضلة</string>
   <string name="common_rename">إعادة التسمية</string>
   <string name="common_remove">حذف</string>
   <string name="confirmation_remove_alert">هل تريد حقاً حذف %1$s ؟</string>

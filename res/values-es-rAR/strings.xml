@@ -173,7 +173,7 @@
   <string name="auth_unsupported_multiaccount">%1$s no soporta múltiples cuentas</string>
   <string name="auth_fail_get_user_name">Tú servidor no esta regresando una identificación de usuario correcta, por favor contacta a un administrador</string>
   <string name="auth_can_not_auth_against_server">No se puede autenticar contra este servidor</string>
-  <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
+  <string name="favorite">Favorito</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
   <string name="confirmation_remove_alert">¿Realmente quieres eliminar %1$s?</string>

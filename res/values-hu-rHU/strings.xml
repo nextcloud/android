@@ -161,7 +161,8 @@
   <string name="auth_unsupported_auth_method">A kiszolgáló nem támogatja ezt a felhasználóazonosítási módszert</string>
   <string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
   <string name="auth_can_not_auth_against_server">Nem tudod hitelesíteni magadat ezen a szerveren</string>
-  <string name="fd_keep_in_sync">Automatikusan frissítse a fájlokat</string>
+  <string name="favorite">Kedvenc</string>
+  <string name="unfavorite">Nem kedvenc</string>
   <string name="common_rename">Átnevezés</string>
   <string name="common_remove">Eltávolítás</string>
   <string name="confirmation_remove_alert">Tényleg el akarod távolítani %1$s?</string>

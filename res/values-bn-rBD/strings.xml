@@ -165,7 +165,7 @@
   <string name="auth_fail_get_user_name">আপনার সার্ভার একটি সঠিক ব্যবহারকারী আইডি দেয়না। দয়া করে প্রশাসকের সংগে যোগাযোগ করুন
 ⇥</string>
   <string name="auth_can_not_auth_against_server">এই সার্ভারের বিপরীতে অনুমোদন প্রদান করা গেলনা</string>
-  <string name="fd_keep_in_sync">ফাইল নবায়ন করে রাখুন</string>
+  <string name="favorite">প্রিয়জন</string>
   <string name="common_rename">পূনঃনামকরণ</string>
   <string name="common_remove">অপসারণ</string>
   <string name="confirmation_remove_alert">আপনি কি সত্যিই %1$s অপসারণ করতে চান?</string>

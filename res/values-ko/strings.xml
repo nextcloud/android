@@ -21,8 +21,12 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">모든 파일</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">설정</string>
+  <string name="drawer_item_logs">로그</string>
+  <string name="drawer_close">닫기</string>
   <string name="prefs_category_general">일반</string>
   <string name="prefs_category_more">더 보기</string>
   <string name="prefs_accounts">계정</string>
@@ -65,6 +69,7 @@
   <string name="uploader_info_uploading">업로드 중</string>
   <string name="file_list_seconds_ago">초 지남</string>
   <string name="file_list_empty">내용이 없습니다. 업로드할 수 있습니다!</string>
+  <string name="file_list_loading">불러오는 중...</string>
   <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
   <string name="filedetails_select_file">파일을 누르면 추가 정보가 표시됩니다.</string>
   <string name="filedetails_size">크기:</string>
@@ -74,6 +79,7 @@
   <string name="filedetails_download">다운로드</string>
   <string name="filedetails_sync_file">파일 새로 고침</string>
   <string name="filedetails_renamed_in_upload_msg">업로드 중 파일 이름을 %1$s(으)로 변경하였습니다</string>
+  <string name="list_layout">목록 레이아웃</string>
   <string name="action_share_file">링크 공유</string>
   <string name="action_unshare_file">링크 공유 해제</string>
   <string name="common_yes">예</string>
@@ -187,7 +193,8 @@
 	</string>
   <string name="auth_can_not_auth_against_server">이 서버에 인증할 수 없음</string>
   <string name="auth_account_does_not_exist">장치에 아직 계정이 없음</string>
-  <string name="fd_keep_in_sync">파일을 최신 정보로 유지</string>
+  <string name="favorite">책갈피</string>
+  <string name="unfavorite">책갈피 해제</string>
   <string name="common_rename">이름 바꾸기</string>
   <string name="common_remove">삭제</string>
   <string name="confirmation_remove_alert">%1$s을(를) 삭제하시겠습니까?</string>
@@ -205,6 +212,7 @@
   <string name="sync_file_nothing_to_do_msg">파일 내용이 이미 동기화됨</string>
   <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
   <string name="filename_forbidden_characters">사용할 수 없는 문자: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">파일 이름에 하나 이상의 사용할 수 없는 문자가 포함되어 있음</string>
   <string name="filename_empty">파일 이름이 비어 있을 수 없음</string>
   <string name="wait_a_moment">잠시 기다려 주십시오</string>
   <string name="filedisplay_unexpected_bad_get_content">예상하지 못한 오류입니다. 다른 앱에서 파일을 선택하십시오</string>
@@ -301,6 +309,19 @@
   <string name="prefs_category_security">보안</string>
   <string name="prefs_instant_video_upload_path_title">동영상 업로드 경로</string>
   <string name="download_folder_failed_content">폴더 %1$s을(를) 다운로드할 수 없음</string>
+  <string name="shared_subject_header">공유됨</string>
+  <string name="with_you_subject_header">여러분과</string>
+  <string name="subject_token">%1$s 님이 \"%2$s\" 항목을 여러분과 공유하였습니다</string>
   <string name="auth_refresh_button">연결 새로 고침</string>
   <string name="auth_host_address">서버 주소</string>
+  <string name="common_error_out_memory">메모리 부족</string>
+  <string name="username">사용자 이름</string>
+  <string name="file_list__footer__folder">폴더 1개</string>
+  <string name="file_list__footer__folders">폴더 %1$d개</string>
+  <string name="file_list__footer__file">파일 1개</string>
+  <string name="file_list__footer__file_and_folder">파일 1개, 폴더 1개</string>
+  <string name="file_list__footer__file_and_folders">파일 1개, 폴더 %1$d개</string>
+  <string name="file_list__footer__files">파일 %1$d개</string>
+  <string name="file_list__footer__files_and_folder">파일 %1$d개, 폴더 1개</string>
+  <string name="file_list__footer__files_and_folders">파일 %1$d개, 폴더 %2$d개</string>
 </resources>

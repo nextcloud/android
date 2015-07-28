@@ -150,7 +150,7 @@
   <string name="auth_connecting_auth_server">Đang kết nối đến máy chủ xác thực...</string>
   <string name="auth_unsupported_auth_method">Máy chủ không hổ trợ phương thức xác thực này</string>
   <string name="auth_unsupported_multiaccount">%1$s  không hỗ trợ nhiều tài khoản</string>
-  <string name="fd_keep_in_sync">Giữ tập tin cập nhật</string>
+  <string name="favorite">Ưu thích</string>
   <string name="common_rename">Sửa tên</string>
   <string name="common_remove">Xóa</string>
   <string name="confirmation_remove_local">Chỉ cục bộ</string>

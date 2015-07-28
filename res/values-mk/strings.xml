@@ -187,7 +187,6 @@
  </string>
   <string name="auth_can_not_auth_against_server">Не можам да се авторизирам на овој сервер </string>
   <string name="auth_account_does_not_exist">Сметката сеуште не постои на овој уред</string>
-  <string name="fd_keep_in_sync">Чувај ги датотеките ажурно</string>
   <string name="common_rename">Преименувај</string>
   <string name="common_remove">Отстрани</string>
   <string name="confirmation_remove_alert">Дали навистина сакаш да ја отстраниш %1$s?</string>
