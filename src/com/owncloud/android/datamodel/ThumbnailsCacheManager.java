@@ -413,8 +413,8 @@ public class ThumbnailsCacheManager {
         Paint p = new Paint();
         p.setAlpha(230);
 
-        c.drawBitmap(resizedPlayButton, (float) ((thumbnail.getWidth() / 2) - ox),
-                                        (float) ((thumbnail.getHeight() / 2) + ym), p);
+        c.drawBitmap(resizedPlayButton, (float) ((thumbnail.getWidth() / 2) + ox),
+                                        (float) ((thumbnail.getHeight() / 2) - ym), p);
 
         return resultBitmap;
     }

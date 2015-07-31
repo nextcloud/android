@@ -421,7 +421,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                     foldersCount++;
                 } else {
                     filesCount++;
-                    if (file.isImage()){
+                    if (file.isImage() || file.isVideo()){
                         imagesCount++;
                     }
                 }
@@ -437,6 +437,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                 switchToGridView();
             } else {
                 switchToListView();
+//                switchToGridView();
             }
         }
     }
