@@ -383,8 +383,8 @@ public class ThumbnailsCacheManager {
                 R.drawable.view_play);
 
         Bitmap resizedPlayButton = Bitmap.createScaledBitmap(playButton,
-                (int) (thumbnail.getWidth() * 0.6),
-                (int) (thumbnail.getHeight() * 0.6), true);
+                (int) (thumbnail.getWidth() * 0.3),
+                (int) (thumbnail.getHeight() * 0.3), true);
 
         Bitmap resultBitmap = Bitmap.createBitmap(thumbnail.getWidth(),
                 thumbnail.getHeight(),
