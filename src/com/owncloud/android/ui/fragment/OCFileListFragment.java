@@ -428,9 +428,12 @@ public class OCFileListFragment extends ExtendedListFragment {
                 if (file.isFolder()) {
                     foldersCount++;
                 } else {
-                    filesCount++;
-                    if (file.isImage()){
-                        imagesCount++;
+                    if (!file.isHidden()) {
+                        filesCount++;
+
+                        if (file.isImage()) {
+                            imagesCount++;
+                        }
                     }
                 }
             }
