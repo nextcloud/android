@@ -69,6 +69,7 @@
   <string name="uploader_info_uploading">Üleslaadimine</string>
   <string name="file_list_seconds_ago">sekundit tagasi</string>
   <string name="file_list_empty">Siin pole midagi. Lae midagi üles!</string>
+  <string name="file_list_loading">Laadimine...</string>
   <string name="local_file_list_empty">Kaustas pole faile.</string>
   <string name="filedetails_select_file">Lisainfo vaatamiseks vajuta failile.</string>
   <string name="filedetails_size">Suurus:</string>
@@ -320,4 +321,12 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="auth_host_address">Serveri aadress</string>
   <string name="common_error_out_memory">Mälu pole piisavalt</string>
   <string name="username">Kasutajanimi</string>
+  <string name="file_list__footer__folder">1 kaust</string>
+  <string name="file_list__footer__folders">%1$d kaustad</string>
+  <string name="file_list__footer__file">1 fail</string>
+  <string name="file_list__footer__file_and_folder">1 fail, 1 kaust</string>
+  <string name="file_list__footer__file_and_folders">1 fail, %1$d kaustad</string>
+  <string name="file_list__footer__files">%1$d faili</string>
+  <string name="file_list__footer__files_and_folder">%1$d faili, 1 kaust</string>
+  <string name="file_list__footer__files_and_folders">%1$d faili, %2$d kausta</string>
 </resources>

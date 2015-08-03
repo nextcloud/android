@@ -69,6 +69,7 @@
   <string name="uploader_info_uploading">Отпремање</string>
   <string name="file_list_seconds_ago">пре пар секунди</string>
   <string name="file_list_empty">Овде нема ничег. Отпремите нешто!</string>
+  <string name="file_list_loading">Учитавам…</string>
   <string name="local_file_list_empty">Нема фајлова у овој фасцикли.</string>
   <string name="filedetails_select_file">Тапните на фајл ради приказа додатних информација.</string>
   <string name="filedetails_size">Величина:</string>
@@ -316,4 +317,12 @@
   <string name="auth_host_address">Адреса сервера</string>
   <string name="common_error_out_memory">Нема довољно меморије</string>
   <string name="username">Корисничко име</string>
+  <string name="file_list__footer__folder">1 фасцикла</string>
+  <string name="file_list__footer__folders">%1$d фасцикли</string>
+  <string name="file_list__footer__file">1 фајл</string>
+  <string name="file_list__footer__file_and_folder">1 фајл, 1 фасцикла</string>
+  <string name="file_list__footer__file_and_folders">1 фајл, %1$d фасцикли</string>
+  <string name="file_list__footer__files">%1$d фајлова</string>
+  <string name="file_list__footer__files_and_folder">%1$d фајлова, 1 фасцикла</string>
+  <string name="file_list__footer__files_and_folders">%1$d фајлова, %2$d фасцикли</string>
 </resources>

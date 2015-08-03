@@ -72,7 +72,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="file_list_empty">Il n\'y a rien ici ! Envoyez donc quelque chose :)</string>
   <string name="file_list_loading">Chargement...</string>
   <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
-  <string name="filedetails_select_file">Touchez un fichier pour afficher les informations complémentaires.</string>
+  <string name="filedetails_select_file">Appuyez sur un fichier pour afficher les informations supplémentaires</string>
   <string name="filedetails_size">Taille :</string>
   <string name="filedetails_type">Type :</string>
   <string name="filedetails_created">Créé le :</string>
