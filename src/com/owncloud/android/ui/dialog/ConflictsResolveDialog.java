@@ -42,7 +42,8 @@ public class ConflictsResolveDialog extends DialogFragment {
     public static enum Decision { 
         CANCEL,
         KEEP_BOTH,
-        OVERWRITE
+        OVERWRITE,
+        SERVER
     }
     
     OnConflictDecisionMadeListener mListener;
@@ -85,7 +86,7 @@ public class ConflictsResolveDialog extends DialogFragment {
                            @Override
                            public void onClick(DialogInterface dialog, int which) {
                                if (mListener != null)
-                                   mListener.conflictDecisionMade(Decision.CANCEL);
+                                   mListener.conflictDecisionMade(Decision.SERVER);
                            }
                    })
                    .create();
