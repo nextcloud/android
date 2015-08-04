@@ -66,19 +66,35 @@
             android:dividerHeight="1dp"
             android:paddingTop="100dp" />
 
-        <TextView
-            android:id="@+id/drawer_username"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="100dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:background="@color/owncloud_blue_accent"
-            android:gravity="bottom"
-            android:orientation="vertical"
-            android:text="@string/app_name"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:padding="10dp"
-            android:textSize="24sp" />
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:background="@color/owncloud_blue_accent">
+
+            <ImageView
+                android:id="@+id/itemIcon"
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginLeft="16sp"
+                android:layout_marginBottom="3dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/ic_account_circle"
+                />
+
+            <TextView
+                android:id="@+id/drawer_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:text="@string/app_name"
+                android:textColor="#FFF"
+                android:textStyle="bold"
+                android:paddingLeft="10dp"
+                android:textSize="24sp" />
+        </LinearLayout>
     </RelativeLayout>
 </merge>
