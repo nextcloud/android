@@ -4,15 +4,15 @@
 
     <item
         android:id="@android:id/background"
-        android:drawable="@drawable/owncloud_progress_bg_light" />
+        android:drawable="@color/owncloud_blue" />
     <item android:id="@android:id/secondaryProgress">
         <scale
-            android:drawable="@drawable/owncloud_progress_secondary_light"
+            android:drawable="@color/owncloud_blue"
             android:scaleWidth="100%" />
     </item>
     <item android:id="@android:id/progress">
         <scale
-            android:drawable="@drawable/owncloud_progress_primary_light"
+            android:drawable="@color/owncloud_blue"
             android:scaleWidth="100%" />
     </item>
 

@@ -154,7 +154,6 @@ public class FileDisplayActivity extends HookActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
-        //requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account
                                             // is valid
@@ -188,6 +187,9 @@ public class FileDisplayActivity extends HookActivity
         initDrawer();
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar.setIndeterminateDrawable(
+                getResources().getDrawable(
+                    R.drawable.actionbar_progress_indeterminate_horizontal));
 
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
@@ -205,9 +207,7 @@ public class FileDisplayActivity extends HookActivity
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        mProgressBar.setVisibility((mSyncInProgress) ? View.VISIBLE : View.INVISIBLE);
-        //setSupportProgressBarIndeterminateVisibility(mSyncInProgress
-        /*|| mRefreshSharesInProgress*/ //);
+        mProgressBar.setIndeterminate(mSyncInProgress);
         // always AFTER setContentView(...) ; to work around bug in its implementation
 
         initDrawer();
@@ -954,7 +954,8 @@ public class FileDisplayActivity extends HookActivity
                     }
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                    mProgressBar.setVisibility((mSyncInProgress) ? View.VISIBLE : View.INVISIBLE);
+                    mProgressBar.setIndeterminate(mSyncInProgress);
+                    //mProgressBar.setVisibility((mSyncInProgress) ? View.VISIBLE : View.INVISIBLE);
                     //setSupportProgressBarIndeterminateVisibility(mSyncInProgress
                     /*|| mRefreshSharesInProgress*/ //);
 
@@ -1053,9 +1054,7 @@ public class FileDisplayActivity extends HookActivity
                     } // TODO what about other kind of previews?
                 }
 
-                //setSupportProgressBarIndeterminate(false);
-                mProgressBar.setVisibility(View.INVISIBLE);
-
+                mProgressBar.setIndeterminate(false);
             } finally {
                 if (intent != null) {
                     removeStickyBroadcast(intent);
@@ -1579,9 +1578,7 @@ public class FileDisplayActivity extends HookActivity
                 getApplicationContext()
         );
         synchFolderOp.execute(getAccount(), MainApp.getAppContext(), this, null, null);
-
-        mProgressBar.setVisibility(View.VISIBLE);
-        //setSupportProgressBarIndeterminateVisibility(true);
+        mProgressBar.setIndeterminate(true);
 
         setBackgroundText();
     }

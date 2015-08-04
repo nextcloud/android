@@ -40,7 +40,7 @@
     </style>
 
 	<!-- Progress bar -->
-	<style name="Widget.ownCloud.TopProgressBar" parent="android:Widget.Holo.ProgressBar.Horizontal">
+	<style name="Widget.ownCloud.TopProgressBar" parent="style/Widget.AppCompat.ProgressBar.Horizontal">
 		<item name="android:progressDrawable">@drawable/actionbar_progress_horizontal</item>
 		<item name="android:indeterminateDrawable">@drawable/actionbar_progress_indeterminate_horizontal</item>
 	</style>
