@@ -11,16 +11,27 @@
   <string name="actionbar_settings">إعدادات</string>
   <string name="actionbar_see_details">تفاصيل</string>
   <string name="actionbar_send_file">أرسل</string>
+  <string name="actionbar_sort">ترتيب</string>
+  <string name="actionbar_sort_title">ترتيب بـ</string>
+  <string-array name="actionbar_sortby">
+    <item>الف باء</item>
+    <item>الأحدث إلى الاقدم</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">كل الملفات</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">الإعدادات</string>
+  <string name="drawer_item_logs">سجلّ</string>
+  <string name="drawer_close">إغلاق</string>
   <string name="prefs_category_general">عام</string>
   <string name="prefs_category_more">المزيد</string>
   <string name="prefs_accounts">حسابات</string>
   <string name="prefs_manage_accounts">إدارة الحسابات</string>
+  <string name="prefs_passcode">الرقم السري</string>
   <string name="prefs_instant_upload">رفع الصورة مباشرة</string>
   <string name="prefs_instant_upload_summary">رفع صورة المؤخذة عبر الكاميرا</string>
   <string name="prefs_instant_video_upload">رفع فيديو مباشرة</string>
@@ -34,6 +45,8 @@
   <string name="prefs_recommend">توصية الى صديق</string>
   <string name="prefs_feedback">ملاحظات</string>
   <string name="prefs_imprint">الدمغة.</string>
+  <string name="prefs_remember_last_share_location">تذكر مشاركة الموقع</string>
+  <string name="prefs_remember_last_upload_location_summary">تذكر آخر موقع رُفِعَ</string>
   <string name="recommend_subject">جرب %1$s على جهازك الذكي</string>
   <string name="auth_check_server">تحقق من الخادم</string>
   <string name="auth_host_url">عنوان الخادم https://…</string>
@@ -55,6 +68,8 @@
   <string name="uploader_info_uploading">يتم الرفع</string>
   <string name="file_list_seconds_ago">منذ ثواني</string>
   <string name="file_list_empty">لا يوجد شيء هنا. إرفع بعض الملفات!</string>
+  <string name="file_list_loading">تحميل ...</string>
+  <string name="local_file_list_empty">لا توجد ملفات في هذا المجلد</string>
   <string name="filedetails_select_file">اضغظ على الملف ليتم عرض خيارات أكثر</string>
   <string name="filedetails_size">الحجم :</string>
   <string name="filedetails_type">النوع :</string>
@@ -243,6 +258,7 @@
   <string name="network_host_not_available">تعذر إكمال العملية، الخادم غير متوفر</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">حسابات</string>
+  <string name="actionbar_logger">سجل</string>
   <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
   <string name="folder_picker_choose_button_text">اختيار</string>
   <string name="prefs_category_security">الأمان</string>
