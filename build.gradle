@@ -28,7 +28,7 @@ dependencies {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "20.0.0"
+    buildToolsVersion "22.0.1"
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
