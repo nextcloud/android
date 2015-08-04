@@ -29,7 +29,8 @@
     <color name="drawerMenuTextColor">#757575</color>
     <color name="list_divider_background">#fff0f0f0</color>
     <color name="filelist_icon_backgorund">#DDDDDD</color>
-    <color name="login_text_color">#AAAAAA</color>
+    <color name="login_text_color">#EEEEEE</color>
+    <color name="login_text_hint_color">#AAAAAA</color>
 
     <!-- Colors -->
     <color name="color_accent">@color/owncloud_blue_accent</color>
