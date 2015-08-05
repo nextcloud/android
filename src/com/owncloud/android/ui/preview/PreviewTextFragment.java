@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -108,8 +111,8 @@ public class PreviewTextFragment extends FileFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(PreviewImageFragment.EXTRA_FILE, getFile());
-        outState.putParcelable(PreviewImageFragment.EXTRA_ACCOUNT, mAccount);
+        outState.putParcelable(PreviewTextFragment.EXTRA_FILE, getFile());
+        outState.putParcelable(PreviewTextFragment.EXTRA_ACCOUNT, mAccount);
     }
 
     @Override
@@ -239,7 +242,7 @@ public class PreviewTextFragment extends FileFragment {
                     getFile(),
                     mContainerActivity.getStorageManager().getAccount(),
                     mContainerActivity,
-                    getSherlockActivity()
+                    getActivity()
             );
             mf.filter(menu);
         }
@@ -260,18 +263,6 @@ public class PreviewTextFragment extends FileFragment {
 
         // this one doesn't make sense since the file has to be down in order to be previewed
         item = menu.findItem(R.id.action_download_file);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        item = menu.findItem(R.id.action_settings);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-
-        item = menu.findItem(R.id.action_logger);
         if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);
@@ -399,7 +390,7 @@ public class PreviewTextFragment extends FileFragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                getSherlockActivity().onBackPressed();
+                getActivity().onBackPressed();
             }
         });
     }
