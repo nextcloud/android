@@ -31,7 +31,7 @@
     <color name="filelist_icon_backgorund">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
     <color name="login_text_color">@color/dark_background_text_color</color>
-    <color name="login_text_hint_color">#AAAAAA</color>
+    <color name="login_text_hint_color">#777777</color>
 
     <!-- Colors -->
     <color name="color_accent">@color/owncloud_blue_accent</color>
