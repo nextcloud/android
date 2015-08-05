@@ -48,6 +48,7 @@ import android.provider.OpenableColumns;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -188,8 +189,8 @@ public class FileDisplayActivity extends HookActivity
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mProgressBar.setIndeterminateDrawable(
-                getResources().getDrawable(
-                    R.drawable.actionbar_progress_indeterminate_horizontal));
+                ContextCompat.getDrawable(this,
+                        R.drawable.actionbar_progress_indeterminate_horizontal));
 
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
