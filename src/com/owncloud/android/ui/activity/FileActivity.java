@@ -411,13 +411,6 @@ public class FileActivity extends AppCompatActivity
                 invalidateOptionsMenu();
             }
         };
-
-        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("IT WORKS :)","");
-            }
-        });
         
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
