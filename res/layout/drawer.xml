@@ -92,8 +92,7 @@
                 android:orientation="vertical"
                 android:text="@string/app_name"
                 android:textColor="#FFF"
-                android:textStyle="bold"
-                android:paddingLeft="10dp"
+                android:paddingLeft="16dp"
                 android:textSize="24sp" />
         </LinearLayout>
     </RelativeLayout>
