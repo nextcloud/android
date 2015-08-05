@@ -209,8 +209,6 @@ public class FileDisplayActivity extends HookActivity
 
         mProgressBar.setIndeterminate(mSyncInProgress);
         // always AFTER setContentView(...) ; to work around bug in its implementation
-
-        initDrawer();
         
         setBackgroundText();
 
