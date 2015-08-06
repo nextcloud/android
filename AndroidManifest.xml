@@ -86,7 +86,8 @@
             android:theme="@style/Theme.ownCloud" >
         </activity>
         <activity	
-            android:name=".ui.preview.PreviewImageActivity" 
+            android:name=".ui.preview.PreviewImageActivity"
+            android:theme="@style/Theme.ownCloud.Overlay"
             />
 		        
         <activity	
