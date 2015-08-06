@@ -223,11 +223,7 @@
   <string name="instant_upload_on_wifi">শুধুমাত্র ওয়াইফাই দিয়ে ছবি আপলোড করুন</string>
   <string name="instant_video_upload_on_wifi">শুধুমাত্র ওয়াইফাই দিয়ে ভিডিও আপলোড করুন</string>
   <string name="instant_upload_path">/তাৎক্ষণিক আপলোড</string>
-  <string name="conflict_title">নবায়নকরণে দ্বন্দ</string>
-  <string name="conflict_message">স্থানীয় ফাইল আর দুরবর্তী ফাইল %s এক নয়। এগোতে চাইলে সার্ভারের ফাইলের কনটেন্ট প্রদিস্থাপিত হবে।</string>
   <string name="conflict_keep_both">উভয়কে রাখ</string>
-  <string name="conflict_overwrite">উপরে লেখ</string>
-  <string name="conflict_dont_upload">আপলোড কোরোনা</string>
   <string name="preview_image_description">ছবি প্রাকদর্শন</string>
   <string name="preview_image_error_unknown_format">ছবিটি প্রদর্শন করা যাবেনা</string>
   <string name="error__upload__local_file_not_copied">%1$s কে %2$s স্থানীয় ফোল্ডারে কপি করা গেলনা </string>

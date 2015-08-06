@@ -242,11 +242,7 @@
   <string name="instant_upload_on_wifi">Lähetä kuvat vain WiFi-verkossa</string>
   <string name="instant_video_upload_on_wifi">Lähetä videot vain wifi-yhteydellä</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Päivitysristiriita</string>
-  <string name="conflict_message">Etätiedostoa %s ei ole synkronoitu paikallisen tiedoston kanssa. Jatkaminen korvaa palvelimella olevan tiedoston sisällön.</string>
   <string name="conflict_keep_both">Säilytä molemmat</string>
-  <string name="conflict_overwrite">Korvaa</string>
-  <string name="conflict_dont_upload">Älä lähetä</string>
   <string name="preview_image_description">Kuvan esikatselu</string>
   <string name="preview_image_error_unknown_format">Tätä kuvaa ei voi näyttää</string>
   <string name="prefs_instant_upload_path_title">Lähetyspolku</string>

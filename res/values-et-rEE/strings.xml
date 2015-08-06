@@ -258,11 +258,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="instant_upload_on_wifi">Lae pilte üles ainult läbi WiFi</string>
   <string name="instant_video_upload_on_wifi">Laadi videod üles ainult WiFi-t kasutades</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Uuenduse konflikt</string>
-  <string name="conflict_message">Serveris asuvat faili ei sünkroniseeritud kohaliku failiga. Jätkates kirjutatakse serveris asuva faili sisu üle.</string>
   <string name="conflict_keep_both">Säilita mõlemad</string>
-  <string name="conflict_overwrite">Kirjuta üle</string>
-  <string name="conflict_dont_upload">Ära uuenda</string>
   <string name="preview_image_description">Pildi eelvaade</string>
   <string name="preview_image_error_unknown_format">Seda pilti ei saa näidata</string>
   <string name="error__upload__local_file_not_copied">%1$s ei suudetud kopeerida kohalikku kataloogi %2$s</string>

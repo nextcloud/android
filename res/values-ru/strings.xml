@@ -255,11 +255,7 @@
   <string name="instant_upload_on_wifi">Загрузка изображений только через Wi-Fi</string>
   <string name="instant_video_upload_on_wifi">Загрузка видео только через WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Конфликт обновления</string>
-  <string name="conflict_message">Удаленный файл %s не синхронизирован с локальным. Продолжение приведет к замене содержимого файла на сервере.</string>
   <string name="conflict_keep_both">Сохранить оба</string>
-  <string name="conflict_overwrite">Перезаписать</string>
-  <string name="conflict_dont_upload">Не загружать</string>
   <string name="preview_image_description">Предпросмотр</string>
   <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
   <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>

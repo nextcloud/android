@@ -238,11 +238,7 @@
   <string name="instant_upload_on_wifi">Só enviar as fotografias via wi-fi</string>
   <string name="instant_video_upload_on_wifi">Só enviar os vídeos por wi-fi</string>
   <string name="instant_upload_path">/Envio Instantâneo </string>
-  <string name="conflict_title">Conflito na atualização</string>
-  <string name="conflict_message">O ficheiro remoto %s não está sincronizado com o ficheiro local. Se continuar ira substituir o ficheiro no servidor.</string>
   <string name="conflict_keep_both">Manter ambos</string>
-  <string name="conflict_overwrite">Substituir</string>
-  <string name="conflict_dont_upload">Não enviar.</string>
   <string name="preview_image_description">Pré-Visualizar imagem</string>
   <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
   <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
