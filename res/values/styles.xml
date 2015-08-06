@@ -62,7 +62,9 @@
 	</style>
 
 	<!-- Dialogs -->
-	<style name="Theme.ownCloud.Dialog" parent="@android:style/Theme.Dialog">
+	<style name="Theme.ownCloud.Dialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+		<item name="windowNoTitle">false</item>
+		<item name="colorAccent">@color/owncloud_blue_accent</item>
 	</style>
 	
 	<!-- PopDownMenu -->
@@ -125,8 +127,9 @@
   		    
     </style>
 	
-	<style name="OAuthDialog" parent="@android:style/Theme.Dialog">
-		<item name="android:windowNoTitle">false</item>	
+	<style name="OAuthDialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+		<item name="windowNoTitle">false</item>
+		<item name="colorAccent">@color/owncloud_blue_accent</item>
 	</style>    
 		
 	<color name="setup_text_hint">#777777</color>
