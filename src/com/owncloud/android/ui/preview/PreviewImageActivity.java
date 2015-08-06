@@ -132,6 +132,10 @@ public class PreviewImageActivity extends FileActivity implements
                     }
                 }
             });
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(getResources().getColor(R.color.owncloud_blue_dark_transparent));
+            }
         }
             
         if (savedInstanceState != null) {
