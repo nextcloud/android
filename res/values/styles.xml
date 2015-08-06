@@ -28,6 +28,7 @@
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorPrimaryDark">@color/primary_dark</item>
 		<item name="colorAccent">@color/color_accent</item>
+		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
 	</style>
 	
 	<style name="Theme.ownCloud.noActionBar" parent="style/Theme.AppCompat.Light.DarkActionBar">
@@ -37,6 +38,7 @@
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorPrimaryDark">@color/primary_dark</item>
 		<item name="colorAccent">@color/color_accent</item>
+		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
     </style>
 
 	<!-- Progress bar -->
@@ -65,6 +67,30 @@
 	<style name="Theme.ownCloud.Dialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
 		<item name="windowNoTitle">false</item>
 		<item name="colorAccent">@color/owncloud_blue_accent</item>
+		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
+		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
+	</style>
+
+	<!-- Button Bar hack due to Lollipop bug:
+		https://code.google.com/p/android/issues/detail?id=78302
+	fix see:
+		http://stackoverflow.com/questions/27187353/dialog-buttons-with-long-text-not-wrapping-squeezed-out-material-theme-on-an
+	 -->
+	<style name="Theme.ownCloud.Dialog.ButtonBar" parent="style/Widget.AppCompat.Button.ButtonBar.AlertDialog">
+		<!-- Making sure, the button bar uses parent width and is not restricted in height -->
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:height">@null</item>
+		<item name="android:minHeight">@null</item>
+	</style>
+
+	<style name="Theme.ownCloud.Dialog.ButtonBar.Button" parent="style/Widget.AppCompat.Button.Borderless.Colored">
+		<!-- Setting the weight as follows should result in equally wide buttons filling the alert dialog width,
+            but instead they span further out of the dialog, breaking in multiple lines though -->
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_weight">1</item>
+		<!-- setting a fixed width as follows results in narrow buttons with line breaks, but of course this is not a solution -->
+		<!-- <item name="android:width">100dp</item> -->
 	</style>
 	
 	<!-- PopDownMenu -->

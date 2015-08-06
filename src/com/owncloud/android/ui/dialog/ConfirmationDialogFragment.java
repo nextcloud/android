@@ -83,7 +83,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
-            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setIcon(R.drawable.ic_warning)
             .setMessage(String.format(getString(resourceId), confirmationTarget))
             .setTitle(android.R.string.dialog_alert_title);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
