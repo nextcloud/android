@@ -187,8 +187,6 @@
   <string name="placeholder_timestamp">18.05.2012 12:23</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="conflict_keep_both">Béid halen</string>
-  <string name="conflict_overwrite">Iwwerschreiwen</string>
-  <string name="conflict_dont_upload">Net eroplueden</string>
   <string name="preview_image_description">Biller-Virschau</string>
   <string name="preview_image_error_unknown_format">Dëst Bild kann net ugewise ginn</string>
   <string name="error__upload__local_file_not_copied">%1$s konnt net an de lokalen Dossier %2$s kopéiert ginn</string>

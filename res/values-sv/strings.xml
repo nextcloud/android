@@ -234,11 +234,7 @@
   <string name="instant_upload_on_wifi">Ladda upp bilder endast via WiFi</string>
   <string name="instant_video_upload_on_wifi">Ladda upp videos endast via WIFI</string>
   <string name="instant_upload_path">/DirektUppladdning</string>
-  <string name="conflict_title">Uppdateringskonflikt</string>
-  <string name="conflict_message">Serverns fil %s är inte synkroniserad med den lokala filen. Fortsätt för att skriva över filen på servern.</string>
   <string name="conflict_keep_both">Behåll båda</string>
-  <string name="conflict_overwrite">Skriv över</string>
-  <string name="conflict_dont_upload">Ladda inte upp</string>
   <string name="preview_image_description">Förhandsvisa bild</string>
   <string name="preview_image_error_unknown_format">Denna bild kan inte visas</string>
   <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>

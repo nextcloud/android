@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
@@ -54,11 +55,20 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 finish();
                 return;
             case OVERWRITE:
+                // use local version -> overwrite on server
                 i.putExtra(FileUploader.KEY_FORCE_OVERWRITE, true);
                 break;
             case KEEP_BOTH:
                 i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
                 break;
+            case SERVER:
+                // use server version -> delete local, request download
+                Intent intent = new Intent(this, FileDownloader.class);
+                intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
+                intent.putExtra(FileDownloader.EXTRA_FILE, getFile());
+                startService(intent);
+                finish();
+                return;
             default:
                 Log_OC.wtf(TAG, "Unhandled conflict decision " + decision);
                 return;
