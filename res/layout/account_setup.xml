@@ -43,8 +43,9 @@
             android:src="@drawable/logo"
             android:contentDescription="@string/app_name"/>
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/centeredRefreshButton"
+            style="@style/ownCloud.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -194,8 +195,9 @@
             android:textColorHint="@color/login_text_hint_color"
             android:contentDescription="@string/auth_unauthorized"/>
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/buttonOK"
+            style="@style/ownCloud.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

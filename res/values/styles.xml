@@ -29,6 +29,9 @@
 		<item name="colorPrimaryDark">@color/primary_dark</item>
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
+		<item name="colorButtonNormal">@color/background_color</item>
+		<item name="colorControlActivated">@color/primary_dark</item>
+		<item name="colorControlHighlight">@color/color_accent</item>
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
@@ -40,7 +43,16 @@
 		<item name="colorPrimaryDark">@color/primary_dark</item>
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
+		<item name="colorButtonNormal">@color/background_color</item>
+		<item name="colorControlActivated">@color/primary_dark</item>
+		<item name="colorControlHighlight">@color/color_accent</item>
     </style>
+
+	<style name="ownCloud.Button" parent="Widget.AppCompat.Button">
+		<item name="colorButtonNormal">@color/primary</item>
+		<item name="colorControlActivated">@color/primary_dark</item>
+		<item name="colorControlHighlight">@color/color_accent</item>
+	</style>
 
 	<!-- separat translucent action bar style -->
 	<style name="Theme.ownCloud.Overlay" parent="style/Theme.ownCloud">

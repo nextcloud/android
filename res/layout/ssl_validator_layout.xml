@@ -408,22 +408,25 @@
         android:layout_height="wrap_content"
         android:gravity="center" >
 
-        <Button
+		<android.support.v7.widget.AppCompatButton
             android:id="@+id/cancel"
+			style="@style/ownCloud.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/common_cancel" />
 
-        <Button
+		<android.support.v7.widget.AppCompatButton
             android:id="@+id/details_btn"
+			style="@style/ownCloud.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/ssl_validator_btn_details_see" />
 
-        <Button
+		<android.support.v7.widget.AppCompatButton
             android:id="@+id/ok"
+			style="@style/ownCloud.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -21,6 +21,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
+	android:layout_margin="16dp"
     android:orientation="vertical" >
 
 	<TextView
@@ -28,8 +29,8 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
+		android:paddingBottom="16dp"
 		android:text="@string/ssl_validator_header"
-		android:padding="5dp"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		 />
     
@@ -422,7 +423,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 		android:layout_weight="0"
-		android:padding="5dp"
+		android:paddingTop="16dp"
         android:text="@string/ssl_validator_question"
         android:textAppearance="?android:attr/textAppearanceMedium"
         >
@@ -431,25 +432,27 @@
 	<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-		android:layout_weight="0"
         android:gravity="center" >
 
-        <Button
+		<android.support.v7.widget.AppCompatButton
             android:id="@+id/cancel"
+			style="@style/ownCloud.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/common_cancel" />
 
-        <Button
+		<android.support.v7.widget.AppCompatButton
             android:id="@+id/details_btn"
+			style="@style/ownCloud.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/ssl_validator_btn_details_see" />
 
-        <Button
+		<android.support.v7.widget.AppCompatButton
             android:id="@+id/ok"
+			style="@style/ownCloud.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
