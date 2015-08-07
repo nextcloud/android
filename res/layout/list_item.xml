@@ -148,7 +148,7 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:gravity=""
-            android:src="@android:drawable/checkbox_off_background" />
+            android:src="@drawable/ic_checkbox_blank_outline" />
     </LinearLayout>
 
     <View
