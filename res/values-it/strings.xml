@@ -255,6 +255,8 @@
   <string name="instant_video_upload_on_wifi">Carica i video solo tramite WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_keep_both">Mantieni entrambi</string>
+  <string name="conflict_use_local_version">Usa la versione locale</string>
+  <string name="conflict_use_server_version">Usa la versione del server</string>
   <string name="preview_image_description">Anteprima dell\'immagine</string>
   <string name="preview_image_error_unknown_format">Questa immagine non può essere mostrata</string>
   <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
