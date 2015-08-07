@@ -124,9 +124,9 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                     checkBoxV.setVisibility(View.GONE);
                 } else {
                     if (parentList.isItemChecked(position)) {
-                        checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
+                        checkBoxV.setImageResource(R.drawable.ic_checkbox_marked);
                     } else {
-                        checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
+                        checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
                     }
                     checkBoxV.setVisibility(View.VISIBLE);
                 }

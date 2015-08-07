@@ -211,10 +211,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             } else {
                                 if (parentList.isItemChecked(position)) {
                                     checkBoxV.setImageResource(
-                                            android.R.drawable.checkbox_on_background);
+                                            R.drawable.ic_checkbox_marked);
                                 } else {
                                     checkBoxV.setImageResource(
-                                            android.R.drawable.checkbox_off_background);
+                                            R.drawable.ic_checkbox_blank_outline);
                                 }
                                 checkBoxV.setVisibility(View.VISIBLE);
                             }
