@@ -268,15 +268,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     }
 
                     // share with me icon
-                    if (!file.isFolder()) {
-                        ImageView sharedWithMeIconV = (ImageView)
-                                view.findViewById(R.id.sharedWithMeIcon);
-                        sharedWithMeIconV.bringToFront();
-                        if (checkIfFileIsSharedWithMe(file)) {
-                            sharedWithMeIconV.setVisibility(View.VISIBLE);
-                        } else {
-                            sharedWithMeIconV.setVisibility(View.GONE);
-                        }
+                    ImageView sharedWithMeIconV = (ImageView)
+                            view.findViewById(R.id.sharedWithMeIcon);
+                    sharedWithMeIconV.bringToFront();
+                    if (checkIfFileIsSharedWithMe(file) &&
+                            (!file.isFolder() || !mGridMode)) {
+                        sharedWithMeIconV.setVisibility(View.VISIBLE);
+                    } else {
+                        sharedWithMeIconV.setVisibility(View.GONE);
                     }
 
                     break;
@@ -286,7 +285,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             
             // this if-else is needed even though favorite icon is visible by default
             // because android reuses views in listview
-            if (!file.keepInSync()) {
+            if (!file.isFavorite()) {
                 view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
             } else {
                 view.findViewById(R.id.favoriteIcon).setVisibility(View.VISIBLE);

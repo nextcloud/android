@@ -55,7 +55,6 @@
   <string name="uploader_info_uploading">আপলোড করা হচ্ছে</string>
   <string name="file_list_seconds_ago">সেকেন্ড পূর্বে</string>
   <string name="file_list_empty">এখানে কিছুই নেই। কিছু আপলোড করুন !</string>
-  <string name="file_list_loading">লোড হচ্ছে....</string>
   <string name="local_file_list_empty">এই ফোলডারে কোন ফাইল নেই</string>
   <string name="filedetails_select_file">অতিরিক্ত তথ্য প্রদর্শন করতে চাইলে ফাইলে ট্যাপ দিন</string>
   <string name="filedetails_size">আয়তনঃ</string>
@@ -166,7 +165,7 @@
   <string name="auth_fail_get_user_name">আপনার সার্ভার একটি সঠিক ব্যবহারকারী আইডি দেয়না। দয়া করে প্রশাসকের সংগে যোগাযোগ করুন
 ⇥</string>
   <string name="auth_can_not_auth_against_server">এই সার্ভারের বিপরীতে অনুমোদন প্রদান করা গেলনা</string>
-  <string name="fd_keep_in_sync">ফাইল নবায়ন করে রাখুন</string>
+  <string name="favorite">প্রিয়জন</string>
   <string name="common_rename">পূনঃনামকরণ</string>
   <string name="common_remove">অপসারণ</string>
   <string name="confirmation_remove_alert">আপনি কি সত্যিই %1$s অপসারণ করতে চান?</string>
@@ -224,11 +223,7 @@
   <string name="instant_upload_on_wifi">শুধুমাত্র ওয়াইফাই দিয়ে ছবি আপলোড করুন</string>
   <string name="instant_video_upload_on_wifi">শুধুমাত্র ওয়াইফাই দিয়ে ভিডিও আপলোড করুন</string>
   <string name="instant_upload_path">/তাৎক্ষণিক আপলোড</string>
-  <string name="conflict_title">নবায়নকরণে দ্বন্দ</string>
-  <string name="conflict_message">স্থানীয় ফাইল আর দুরবর্তী ফাইল %s এক নয়। এগোতে চাইলে সার্ভারের ফাইলের কনটেন্ট প্রদিস্থাপিত হবে।</string>
   <string name="conflict_keep_both">উভয়কে রাখ</string>
-  <string name="conflict_overwrite">উপরে লেখ</string>
-  <string name="conflict_dont_upload">আপলোড কোরোনা</string>
   <string name="preview_image_description">ছবি প্রাকদর্শন</string>
   <string name="preview_image_error_unknown_format">ছবিটি প্রদর্শন করা যাবেনা</string>
   <string name="error__upload__local_file_not_copied">%1$s কে %2$s স্থানীয় ফোল্ডারে কপি করা গেলনা </string>

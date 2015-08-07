@@ -42,7 +42,8 @@ public class ConflictsResolveDialog extends DialogFragment {
     public static enum Decision { 
         CANCEL,
         KEEP_BOTH,
-        OVERWRITE
+        OVERWRITE,
+        SERVER
     }
     
     OnConflictDecisionMadeListener mListener;
@@ -63,7 +64,7 @@ public class ConflictsResolveDialog extends DialogFragment {
                    .setIcon(DisplayUtils.getSeasonalIconId())
                    .setTitle(R.string.conflict_title)
                    .setMessage(String.format(getString(R.string.conflict_message), remotepath))
-                   .setPositiveButton(R.string.conflict_overwrite,
+                   .setPositiveButton(R.string.conflict_use_local_version,
                        new DialogInterface.OnClickListener() {
 
                            @Override
@@ -80,12 +81,12 @@ public class ConflictsResolveDialog extends DialogFragment {
                                     mListener.conflictDecisionMade(Decision.KEEP_BOTH);
                             }
                         })
-                   .setNegativeButton(R.string.conflict_dont_upload,
+                   .setNegativeButton(R.string.conflict_use_server_version,
                        new DialogInterface.OnClickListener() {
                            @Override
                            public void onClick(DialogInterface dialog, int which) {
                                if (mListener != null)
-                                   mListener.conflictDecisionMade(Decision.CANCEL);
+                                   mListener.conflictDecisionMade(Decision.SERVER);
                            }
                    })
                    .create();

@@ -200,7 +200,8 @@
 	<string name="auth_can_not_auth_against_server">Cannot authenticate against this server</string>
     <string name="auth_account_does_not_exist">Account does not exist in the device yet</string>
     
-    <string name="fd_keep_in_sync">Keep file up to date</string>
+    <string name="favorite">Favorite</string>
+    <string name="unfavorite">Unfavorite</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
     <string name="confirmation_remove_alert">"Do you really want to remove %1$s?"</string>
@@ -264,11 +265,11 @@
     <string name="instant_upload_on_wifi">Upload pictures via WiFi only</string>
     <string name="instant_video_upload_on_wifi">Upload videos via WiFi only</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="conflict_title">Update conflict</string>
-    <string name="conflict_message">Remote file %s is not synchronized with local file. Continuing will replace content of file on server.</string>
+    <string name="conflict_title">File conflict</string>
+    <string name="conflict_message">Which files do you want to keep? If you select both versions, the local file will have a number added to its name.</string>
     <string name="conflict_keep_both">Keep both</string>
-    <string name="conflict_overwrite">Overwrite</string>
-    <string name="conflict_dont_upload">Don\'t upload</string>
+    <string name="conflict_use_local_version">Use local version</string>
+    <string name="conflict_use_server_version">Use server version</string>
     
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_unknown_format">This image cannot be shown</string>
@@ -340,6 +341,7 @@
 	<string name="with_you_subject_header">with you</string>
     
 	<string name="subject_token">%1$s shared \"%2$s\" with you</string>
+    <string name="saml_subject_token">\"%1$s\" has been shared with you</string>
 
     <string name="auth_refresh_button">Refresh connection</string>
     <string name="auth_host_address">Server address</string>

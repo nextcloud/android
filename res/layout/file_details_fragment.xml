@@ -160,16 +160,16 @@
 			>
 			
 			<CheckBox
-				android:id="@+id/fdKeepInSync"
+				android:id="@+id/fdFavorite"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_centerHorizontal="true"
-				android:text="@string/fd_keep_in_sync" />
+				android:text="@string/favorite" />
 
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_below="@id/fdKeepInSync"
+				android:layout_below="@id/fdFavorite"
 				android:orientation="vertical" >
 				
     			<TextView 

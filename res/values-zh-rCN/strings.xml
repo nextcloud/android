@@ -69,12 +69,7 @@
   <string name="uploader_info_uploading">上传</string>
   <string name="file_list_seconds_ago">几秒前</string>
   <string name="file_list_empty">这里还什么都没有。上传些东西吧！</string>
-  <string name="file_list_loading">载入中....</string>
   <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
-  <string name="file_list_folder">文件夹</string>
-  <string name="file_list_folders">文件夹</string>
-  <string name="file_list_file">文件</string>
-  <string name="file_list_files">文件</string>
   <string name="filedetails_select_file">点击一个文件可以显示额外的信息。</string>
   <string name="filedetails_size">大小：</string>
   <string name="filedetails_type">类型：</string>
@@ -197,7 +192,7 @@
 	</string>
   <string name="auth_can_not_auth_against_server">无法通过此服务器认证</string>
   <string name="auth_account_does_not_exist">设备中还未存在该帐号</string>
-  <string name="fd_keep_in_sync">保证文件更新</string>
+  <string name="favorite">收藏</string>
   <string name="common_rename">重命名</string>
   <string name="common_remove">删除</string>
   <string name="confirmation_remove_alert">你确定要删除 %1$s 吗？</string>
@@ -256,11 +251,7 @@
   <string name="instant_upload_on_wifi">仅通过 WIFI 上传图片。</string>
   <string name="instant_video_upload_on_wifi">仅通过 WIFI 上传视频</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">上传冲突</string>
-  <string name="conflict_message">远程文件 %s 未与本地文件同步。继续将替换服务器上的文件内容。</string>
   <string name="conflict_keep_both">保留两者</string>
-  <string name="conflict_overwrite">覆盖</string>
-  <string name="conflict_dont_upload">不上传</string>
   <string name="preview_image_description">图片预览</string>
   <string name="preview_image_error_unknown_format">无法显示图片</string>
   <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
