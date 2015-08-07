@@ -294,6 +294,7 @@
   <string name="shared_subject_header">jaettu</string>
   <string name="with_you_subject_header">kanssasi</string>
   <string name="subject_token">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
+  <string name="saml_subject_token">\"%1$s\" on jaettu kanssasi</string>
   <string name="auth_refresh_button">Päivitä yhteys</string>
   <string name="auth_host_address">Palvelimen osoite</string>
   <string name="common_error_out_memory">Muistia ei ole riittävästi</string>
