@@ -25,11 +25,13 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Definições</string>
+  <string name="drawer_item_logs">Registos de Alterações</string>
   <string name="drawer_close">Fechar</string>
   <string name="prefs_category_general">Geral</string>
   <string name="prefs_category_more">Mais</string>
   <string name="prefs_accounts">Contas</string>
   <string name="prefs_manage_accounts">Gerir Contas</string>
+  <string name="prefs_passcode">Bloquear código</string>
   <string name="prefs_instant_upload">Envios instantâneos de imagens</string>
   <string name="prefs_instant_upload_summary">Envio instantâneo de imagens tiradas com a câmara</string>
   <string name="prefs_instant_video_upload">Envios instantâneos dos vídeos</string>
@@ -128,6 +130,15 @@
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
   <string name="upload_query_move_foreign_files">Não existe espaço disponível para copiar o ficheiro seleccionado para a pasta %1$s . Em vez disso deseja mover o ficheiro?</string>
+  <string name="pass_code_enter_pass_code">Por favor, insira o seu código</string>
+  <string name="pass_code_configure_your_pass_code">Insira o seu código</string>
+  <string name="pass_code_configure_your_pass_code_explanation">O código será solicitado sempre que a aplicação for iniciada</string>
+  <string name="pass_code_reenter_your_pass_code">Por favor, reinsira o seu código</string>
+  <string name="pass_code_remove_your_pass_code">Remova o seu código</string>
+  <string name="pass_code_mismatch">Os códigos não coincidem</string>
+  <string name="pass_code_wrong">Código Incorreto</string>
+  <string name="pass_code_removed">Código removido</string>
+  <string name="pass_code_stored">Código guardado</string>
   <string name="media_notif_ticker">%1$s reprodutor de música</string>
   <string name="media_state_playing">%1$s (a reproduzir)</string>
   <string name="media_state_loading">%1$s (a carregar)</string>
