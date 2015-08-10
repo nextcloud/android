@@ -30,7 +30,7 @@
   <string name="prefs_log_summary">Ez használható a problémák naplózásához</string>
   <string name="prefs_log_title_history">Naplózás előzménye</string>
   <string name="prefs_log_summary_history">Ez megjeleníti a rögzitett eseményeket</string>
-  <string name="prefs_log_delete_history_button">Elözmények törlése</string>
+  <string name="prefs_log_delete_history_button">Előzmények törlése</string>
   <string name="prefs_help">Súgó</string>
   <string name="prefs_recommend">Ajánlja egy barátjának</string>
   <string name="prefs_feedback">Visszajelzés</string>

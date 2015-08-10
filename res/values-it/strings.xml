@@ -254,7 +254,11 @@
   <string name="instant_upload_on_wifi">Carica le immagini solo via WiFi</string>
   <string name="instant_video_upload_on_wifi">Carica i video solo tramite WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
+  <string name="conflict_title">File in conflitto</string>
+  <string name="conflict_message">Quali file vuoi tenere? Se selezioni entrambi le versioni, il file locale avrà un numero aggiunto al suo nome.</string>
   <string name="conflict_keep_both">Mantieni entrambi</string>
+  <string name="conflict_use_local_version">Usa la versione locale</string>
+  <string name="conflict_use_server_version">Usa la versione del server</string>
   <string name="preview_image_description">Anteprima dell\'immagine</string>
   <string name="preview_image_error_unknown_format">Questa immagine non può essere mostrata</string>
   <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
@@ -309,6 +313,7 @@
   <string name="shared_subject_header">condiviso</string>
   <string name="with_you_subject_header">con te</string>
   <string name="subject_token">%1$s ha condiviso \"%2$s\" con te</string>
+  <string name="saml_subject_token">\"%1$s\" è stato condiviso con te</string>
   <string name="auth_refresh_button">Aggiorna la connessione</string>
   <string name="auth_host_address">Indirizzo del server</string>
   <string name="common_error_out_memory">Memoria insufficiente</string>
