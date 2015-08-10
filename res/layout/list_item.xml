@@ -22,7 +22,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/list_selector"
     android:orientation="vertical"
-    android:layout_height="56dp">
+    android:layout_height="72dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,8 +30,9 @@
         android:orientation="horizontal">
 
         <FrameLayout
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="90dp"
+            android:layout_height="72dp"
+            android:padding="@dimen/standard_padding"
             android:focusable="false"
             android:focusableInTouchMode="false">
 
@@ -39,16 +40,15 @@
                 android:id="@+id/localFileIndicator"
                 android:layout_width="@dimen/file_icon_size"
                 android:layout_height="@dimen/file_icon_size"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="22dp"
+                android:layout_gravity="top|right"
+                android:layout_marginLeft="21dp"
                 android:src="@drawable/local_file_indicator" />
 
             <ImageView
                 android:id="@+id/thumbnail"
                 android:layout_width="@dimen/file_icon_size"
                 android:layout_height="@dimen/file_icon_size"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="9dp"
+                android:layout_gravity="left|center_vertical"
                 android:src="@drawable/ic_menu_archive" />
 
             <ImageView
@@ -56,7 +56,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
-                android:layout_marginBottom="10dp"
                 android:layout_marginRight="2dp"
                 android:src="@drawable/ic_favorite" />
         </FrameLayout>
@@ -66,6 +65,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
+            android:paddingTop="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_padding"
             android:orientation="vertical" >
 
             <TextView
@@ -73,18 +74,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="0dp"
                 android:layout_marginRight="4dp"
                 android:ellipsize="middle"
                 android:singleLine="true"
                 android:text="TextView"
                 android:textColor="#303030"
-                android:textSize="16dip" />
+                android:textSize="@dimen/two_line_primary_text_size" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="0dp"
                 android:layout_marginRight="4dp"
                 android:weightSum="1">
 
@@ -95,7 +96,7 @@
                     android:text="TextView"
                     android:layout_weight=".5"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
-                    android:textSize="12dip"/>
+                    android:textSize="@dimen/two_line_secondary_text_size"/>
 
                 <TextView
                     android:id="@+id/file_size"
@@ -105,7 +106,7 @@
                     android:text="TextView"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:layout_weight=".5"
-                    android:textSize="12dip"/>
+                    android:textSize="@dimen/two_line_secondary_text_size"/>
 
             </LinearLayout>
 
@@ -146,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_marginRight="16dp"
             android:gravity=""
             android:src="@drawable/ic_checkbox_blank_outline" />
     </LinearLayout>

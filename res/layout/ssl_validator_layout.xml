@@ -21,16 +21,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+	android:padding="@dimen/standard_padding">
 
 	<TextView
 		android:id="@+id/header"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/standard_padding"
 		android:text="@string/ssl_validator_header"
-		android:padding="5dp"
 		android:textAppearance="?android:attr/textAppearanceMedium"
-		 />
+        />
     
 	<TextView
 		android:id="@+id/reason_cert_not_trusted"
@@ -93,7 +94,7 @@
 					android:paddingBottom="5dp"
         			android:text="@string/ssl_validator_label_subject"
         			android:textAppearance="?android:attr/textAppearanceMedium"
-        		/>
+					/>
 				
 				<TextView
 				    android:id="@+id/label_subject_CN"
@@ -101,7 +102,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_CN"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
 				    android:id="@+id/value_subject_CN"
@@ -110,7 +111,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 				
 				<TextView
 				    android:id="@+id/label_subject_O"
@@ -118,7 +119,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_O"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
 				    android:id="@+id/value_subject_O"
@@ -127,7 +128,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 				
 				<TextView
 				    android:id="@+id/label_subject_OU"
@@ -135,7 +136,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_OU"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
 				    android:id="@+id/value_subject_OU"
@@ -144,7 +145,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 				
 				<TextView
 				    android:id="@+id/label_subject_ST"
@@ -152,7 +153,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_ST"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
 				    android:id="@+id/value_subject_ST"
@@ -161,7 +162,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 
 				<TextView
 				    android:id="@+id/label_subject_C"
@@ -169,7 +170,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_C"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 				
 				<TextView
 				    android:id="@+id/value_subject_C"
@@ -178,7 +179,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 				
 				<TextView
 				    android:id="@+id/label_subject_L"
@@ -186,7 +187,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_L"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
 				    android:id="@+id/value_subject_L"
@@ -196,7 +197,6 @@
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
-			    
 
 				<TextView
         			android:id="@+id/label_issuer"
@@ -205,7 +205,7 @@
 					android:paddingBottom="5dp"
         			android:text="@string/ssl_validator_label_issuer"
         			android:textAppearance="?android:attr/textAppearanceMedium"
-        		/>
+        			/>
 				
 				<TextView
 				    android:id="@+id/label_issuer_CN"
@@ -213,7 +213,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_CN"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
 				    android:id="@+id/value_issuer_CN"
@@ -222,7 +222,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 				
 				<TextView
 				    android:id="@+id/label_issuer_O"
@@ -230,7 +230,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_O"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
 				    android:id="@+id/value_issuer_O"
@@ -239,7 +239,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 				
 				<TextView
 				    android:id="@+id/label_issuer_OU"
@@ -247,7 +247,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_OU"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
 				    android:id="@+id/value_issuer_OU"
@@ -256,7 +256,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 				
 				<TextView
 				    android:id="@+id/label_issuer_ST"
@@ -264,7 +264,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_ST"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
 				    android:id="@+id/value_issuer_ST"
@@ -273,7 +273,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 
 				<TextView
 				    android:id="@+id/label_issuer_C"
@@ -281,7 +281,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_C"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 				
 				<TextView
 				    android:id="@+id/value_issuer_C"
@@ -290,7 +290,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 				
 				<TextView
 				    android:id="@+id/label_issuer_L"
@@ -298,7 +298,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_L"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
 				    android:id="@+id/value_issuer_L"
@@ -307,7 +307,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
         			android:id="@+id/label_validity"
@@ -316,7 +316,7 @@
 					android:paddingBottom="5dp"
         			android:text="@string/ssl_validator_label_validity"
         			android:textAppearance="?android:attr/textAppearanceMedium"
-        		/>
+        			/>
 				
 				<TextView
 				    android:id="@+id/label_validity_from"
@@ -324,7 +324,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_validity_from"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
 				    android:id="@+id/value_validity_from"
@@ -333,7 +333,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 				
 				<TextView
 				    android:id="@+id/label_validity_to"
@@ -341,7 +341,7 @@
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_validity_to"
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
+					/>
 			    
 				<TextView
 				    android:id="@+id/value_validity_to"
@@ -350,8 +350,7 @@
 				    android:paddingBottom="5dp"
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
-				
+					/>
 
 				<TextView
         			android:id="@+id/label_signature"
@@ -360,7 +359,7 @@
 					android:paddingBottom="5dp"
         			android:text="@string/ssl_validator_label_signature"
         			android:textAppearance="?android:attr/textAppearanceMedium"
-        		/>
+        			/>
 				
 				<TextView
         			android:id="@+id/label_signature_algorithm"
@@ -368,18 +367,17 @@
         			android:layout_height="wrap_content"
         			android:text="@string/ssl_validator_label_signature_algorithm"
         			android:textAppearance="?android:attr/textAppearanceSmall"
-        		/>
+        			/>
 				
-								<TextView
+				<TextView
         			android:id="@+id/value_signature_algorithm"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
 					android:paddingBottom="5dp"
         			android:text=""
         			android:textAppearance="?android:attr/textAppearanceSmall"
-        		/>
-																								
-								
+        			/>
+
 				<TextView
         			android:id="@+id/value_signature"
         			android:layout_width="wrap_content"
@@ -387,7 +385,7 @@
 					android:paddingBottom="5dp"
         			android:text=""
         			android:textAppearance="?android:attr/textAppearanceSmall"
-        		/>
+        			/>
 				
 		</LinearLayout>
 		
@@ -397,7 +395,7 @@
         android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-		android:padding="5dp"
+        android:paddingTop="@dimen/standard_padding"
         android:text="@string/ssl_validator_question"
         android:textAppearance="?android:attr/textAppearanceMedium"
         >

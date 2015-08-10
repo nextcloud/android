@@ -32,7 +32,7 @@
         android:background="@color/login_background_color"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="8dp" >
+        android:padding="@dimen/standard_padding" >
 
         <ImageView
             android:id="@+id/thumbnail"

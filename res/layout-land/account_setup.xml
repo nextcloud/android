@@ -21,7 +21,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/login_background_color"
-	android:padding="8dip"
+	android:padding="@dimen/standard_padding"
     >
 
     <LinearLayout
@@ -56,7 +56,7 @@
 			    android:layout_height="wrap_content"
 			    android:gravity="center"
 			    android:orientation="vertical"
-			    android:padding="8dp" >
+			    android:padding="0dp" >
 			    
 				<Button
 				    android:id="@+id/centeredRefreshButton"
