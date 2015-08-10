@@ -72,12 +72,8 @@
     <string name="uploader_info_uploading">Uploading</string>
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_empty">Nothing in here. Upload something!</string>
-    <string name="file_list_loading">Loading...</string>
+    <string name="file_list_loading">Loading&#8230;</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
-    <string name="file_list_folder">folder</string>
-    <string name="file_list_folders">folders</string>
-    <string name="file_list_file">file</string>
-    <string name="file_list_files">files</string>
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
     <string name="filedetails_size">Size:</string>
     <string name="filedetails_type">Type:</string>
@@ -204,7 +200,8 @@
 	<string name="auth_can_not_auth_against_server">Cannot authenticate against this server</string>
     <string name="auth_account_does_not_exist">Account does not exist in the device yet</string>
     
-    <string name="fd_keep_in_sync">Keep file up to date</string>
+    <string name="favorite">Favorite</string>
+    <string name="unfavorite">Unfavorite</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
     <string name="confirmation_remove_alert">"Do you really want to remove %1$s?"</string>
@@ -268,11 +265,11 @@
     <string name="instant_upload_on_wifi">Upload pictures via WiFi only</string>
     <string name="instant_video_upload_on_wifi">Upload videos via WiFi only</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="conflict_title">Update conflict</string>
-    <string name="conflict_message">Remote file %s is not synchronized with local file. Continuing will replace content of file on server.</string>
+    <string name="conflict_title">File conflict</string>
+    <string name="conflict_message">Which files do you want to keep? If you select both versions, the local file will have a number added to its name.</string>
     <string name="conflict_keep_both">Keep both</string>
-    <string name="conflict_overwrite">Overwrite</string>
-    <string name="conflict_dont_upload">Don\'t upload</string>
+    <string name="conflict_use_local_version">Use local version</string>
+    <string name="conflict_use_server_version">Use server version</string>
     
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_unknown_format">This image cannot be shown</string>
@@ -301,7 +298,7 @@
 	<string name="network_error_connect_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
 	<string name="network_host_not_available">The operation couldn\'t be completed, server is unavailable</string>
 
-	<string name="empty"></string>
+	<string name="empty" />
 	
 	<string name="forbidden_permissions">You do not have permission %s</string>
 	<string name="forbidden_permissions_rename">to rename this file</string>
@@ -344,10 +341,21 @@
 	<string name="with_you_subject_header">with you</string>
     
 	<string name="subject_token">%1$s shared \"%2$s\" with you</string>
+    <string name="saml_subject_token">\"%1$s\" has been shared with you</string>
 
     <string name="auth_refresh_button">Refresh connection</string>
     <string name="auth_host_address">Server address</string>
     <string name="common_error_out_memory">Not enough memory</string>
 
     <string name="username">Username</string>
+
+    <string name="file_list__footer__folder">1 folder</string>
+    <string name="file_list__footer__folders">%1$d folders</string>
+    <string name="file_list__footer__file">1 file</string>
+    <string name="file_list__footer__file_and_folder">1 file, 1 folder</string>
+    <string name="file_list__footer__file_and_folders">1 file, %1$d folders</string>
+    <string name="file_list__footer__files">%1$d files</string>
+    <string name="file_list__footer__files_and_folder">%1$d files, 1 folder</string>
+    <string name="file_list__footer__files_and_folders">%1$d files, %2$d folders</string>
+
 </resources>

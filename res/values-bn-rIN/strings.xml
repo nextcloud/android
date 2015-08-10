@@ -15,7 +15,6 @@
   <string name="auth_username">ইউজারনেম</string>
   <string name="sync_string_files">ফাইলস</string>
   <string name="uploader_btn_new_folder_text">নতুন ফোল্ডার</string>
-  <string name="file_list_loading">লোড করা হচ্ছে...</string>
   <string name="filedetails_download">ডাউনলোড করুন</string>
   <string name="common_cancel">বাতিল করা</string>
   <string name="common_error">ভুল</string>

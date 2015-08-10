@@ -68,14 +68,10 @@
   <string name="uploader_wrn_no_content_text">Содержимое не получено. Нечего загружать.</string>
   <string name="uploader_error_forbidden_content">Доступ к общему ресурсу для %1$s запрещен</string>
   <string name="uploader_info_uploading">Загрузка</string>
-  <string name="file_list_seconds_ago">пару секунд назад</string>
+  <string name="file_list_seconds_ago">несколько секунд назад</string>
   <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
   <string name="file_list_loading">Загрузка...</string>
   <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
-  <string name="file_list_folder">каталог</string>
-  <string name="file_list_folders">каталоги</string>
-  <string name="file_list_file">файл</string>
-  <string name="file_list_files">файлы</string>
   <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
   <string name="filedetails_size">Размер:</string>
   <string name="filedetails_type">Тип:</string>
@@ -128,7 +124,7 @@
   <string name="sync_fail_in_favourites_ticker">Не удалось синхронизировать файлы</string>
   <string name="sync_fail_in_favourites_content">Содержимое %1$d файлов не может быть синхронизировано (конфликтов: %2$d)</string>
   <string name="sync_foreign_files_forgotten_ticker">Некоторые загруженные файлы не были перенесены в локальную папку </string>
-  <string name="sync_foreign_files_forgotten_content"> Невозможно скопировать %1$d файлов из папки %2$s</string>
+  <string name="sync_foreign_files_forgotten_content">Не удалось скопировать %1$d файлов из каталога %2$s в</string>
   <string name="sync_foreign_files_forgotten_explanation">Начиная с версии 1.3.16, файлы, загружаемые с этого устройства, копируются в локальный каталог %1$s, чтобы предотвратить потерю данных при синхронизации файла с несколькими учётными записями.\n\nПоэтому все файлы, загруженные предыдущими версиями данного приложения, были скопированы в каталог %2$s. Однако, во время синхронизации что-то помешало завершить эту операцию. Можете оставить файлы как есть и удалить ссылку на %3$s, либо переместить их в %1$s и сохранить ссылку на %4$s.\n\nНиже перечислены локальные файлы, и соответствующие им удалённые файлы в %5$s, к которым они привязаны.</string>
   <string name="sync_current_folder_was_removed">Каталог %1$s больше не существует</string>
   <string name="foreign_files_move">Переместить всё</string>
@@ -136,7 +132,7 @@
   <string name="foreign_files_fail">Некоторые файлы не могут быть перемещены</string>
   <string name="foreign_files_local_text">Локальные: %1$s</string>
   <string name="foreign_files_remote_text">Удаленные: %1$s</string>
-  <string name="upload_query_move_foreign_files">Для копирования выбранных файлов в каталог %1$s недостаточно свободного места. Скопировать в другое место?</string>
+  <string name="upload_query_move_foreign_files">Для копирования выбранных файлов в каталог %1$s недостаточно свободного места. Переместить их вместо этого?</string>
   <string name="pass_code_enter_pass_code">Пожалуйста, укажите код</string>
   <string name="pass_code_configure_your_pass_code">Укажите ваш код</string>
   <string name="pass_code_configure_your_pass_code_explanation">Код будет запрашиваться каждый раз при запуске приложения</string>
@@ -198,7 +194,8 @@
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Невозможно авторизоваться на этом сервере</string>
   <string name="auth_account_does_not_exist">Аккаунт не существует на устройстве ещё</string>
-  <string name="fd_keep_in_sync">Обновлять файл</string>
+  <string name="favorite">Добавить в избранное</string>
+  <string name="unfavorite">Убрать из избранного</string>
   <string name="common_rename">Переименовать</string>
   <string name="common_remove">Удалить</string>
   <string name="confirmation_remove_alert">Вы действительно хотите удалить %1$s?</string>
@@ -214,7 +211,7 @@
   <string name="rename_server_fail_msg">Переименование не может быть завершено</string>
   <string name="sync_file_fail_msg">Удаленный файл не может быть проверен</string>
   <string name="sync_file_nothing_to_do_msg">Содержимое файла уже синхронизировано</string>
-  <string name="create_dir_fail_msg">Невозможно создать каталог</string>
+  <string name="create_dir_fail_msg">Не удалось создать каталог</string>
   <string name="filename_forbidden_characters">Недопустимые символы: / \\ &lt; &gt; : \" | ? *</string>
   <string name="filename_forbidden_charaters_from_server">Имя файла содержит по крайней мере один некорректный символ</string>
   <string name="filename_empty">Имя файла не может быть пустым</string>
@@ -258,11 +255,7 @@
   <string name="instant_upload_on_wifi">Загрузка изображений только через Wi-Fi</string>
   <string name="instant_video_upload_on_wifi">Загрузка видео только через WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Конфликт обновления</string>
-  <string name="conflict_message">Удаленный файл %s не синхронизирован с локальным. Продолжение приведет к замене содержимого файла на сервере.</string>
   <string name="conflict_keep_both">Сохранить оба</string>
-  <string name="conflict_overwrite">Перезаписать</string>
-  <string name="conflict_dont_upload">Не загружать</string>
   <string name="preview_image_description">Предпросмотр</string>
   <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
   <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
@@ -303,7 +296,7 @@
   <string name="saml_authentication_required_text">Требуется аутентификация </string>
   <string name="saml_authentication_wrong_pass">Неправильный пароль</string>
   <string name="actionbar_move">Переместить</string>
-  <string name="file_list_empty_moving">Здесь ничего нет. Вы можете добавить каталог!</string>
+  <string name="file_list_empty_moving">Здесь ничего нет. Вы можете создать каталог!</string>
   <string name="folder_picker_choose_button_text">Выбрать</string>
   <string name="move_file_not_found">Невозможно переместить. Убедитесь, что файл существует</string>
   <string name="move_file_invalid_into_descendent">Невозможно переместить каталог в его подкаталог</string>
@@ -313,7 +306,7 @@
   <string name="prefs_category_instant_uploading">Мгновенные загрузки</string>
   <string name="prefs_category_security">Безопасность</string>
   <string name="prefs_instant_video_upload_path_title">Путь для загрузки Видео</string>
-  <string name="download_folder_failed_content">Загрузка папки %1$s не может быть завершена</string>
+  <string name="download_folder_failed_content">Не удалось завершить скачивание каталога %1$s</string>
   <string name="shared_subject_header">поделился</string>
   <string name="with_you_subject_header">с вами</string>
   <string name="subject_token">%1$s предоставил вам доступ к \"%2$s\"</string>
@@ -321,4 +314,12 @@
   <string name="auth_host_address">Адрес сервера</string>
   <string name="common_error_out_memory">Недостаточно памяти</string>
   <string name="username">Имя пользователя</string>
+  <string name="file_list__footer__folder">1 каталог</string>
+  <string name="file_list__footer__folders">%1$d каталогов</string>
+  <string name="file_list__footer__file">1 файл</string>
+  <string name="file_list__footer__file_and_folder">1 файл, 1 папка</string>
+  <string name="file_list__footer__file_and_folders">1 файл, %1$d каталогов</string>
+  <string name="file_list__footer__files">%1$d файлов</string>
+  <string name="file_list__footer__files_and_folder">%1$d файлов, 1 каталог</string>
+  <string name="file_list__footer__files_and_folders">%1$d файлов, %2$d каталогов</string>
 </resources>

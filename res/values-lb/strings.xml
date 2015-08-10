@@ -56,10 +56,6 @@
   <string name="uploader_info_uploading">Eroplueden</string>
   <string name="file_list_seconds_ago">Sekonnen hier</string>
   <string name="file_list_empty">Hei ass näischt. Lued eppes erop!</string>
-  <string name="file_list_folder">Dossier</string>
-  <string name="file_list_folders">Dossieren</string>
-  <string name="file_list_file">Fichier</string>
-  <string name="file_list_files">Fichieren</string>
   <string name="filedetails_size">Gréisst:</string>
   <string name="filedetails_type">Typ:</string>
   <string name="filedetails_created">Erstallt:</string>
@@ -144,7 +140,6 @@
   <string name="auth_expired_basic_auth_toast">Gëff w.e.g. däin aktuellt Passwuert an</string>
   <string name="auth_expired_saml_sso_token_toast">Deng Sessioun ass ofgelaf. Connectéier dech nei w.e.g.</string>
   <string name="auth_unsupported_auth_method">De Server ënnerstëtzt dës Authentifizéierungsmethod net</string>
-  <string name="fd_keep_in_sync">Fichier aktuell halen</string>
   <string name="common_rename">Ëmbenennen</string>
   <string name="common_remove">Läschen</string>
   <string name="confirmation_remove_alert">Wëlls du %1$s wierklech läschen?</string>
@@ -192,8 +187,6 @@
   <string name="placeholder_timestamp">18.05.2012 12:23</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="conflict_keep_both">Béid halen</string>
-  <string name="conflict_overwrite">Iwwerschreiwen</string>
-  <string name="conflict_dont_upload">Net eroplueden</string>
   <string name="preview_image_description">Biller-Virschau</string>
   <string name="preview_image_error_unknown_format">Dëst Bild kann net ugewise ginn</string>
   <string name="error__upload__local_file_not_copied">%1$s konnt net an de lokalen Dossier %2$s kopéiert ginn</string>

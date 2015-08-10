@@ -1,3 +1,14 @@
+## 1.7.2 (July 2015)
+- New navigation drawer
+- Improved Passcode
+- Automatic grid view just for folders full of images
+- More characters allowed in file names
+- Support for servers in same domain, different path
+- Bugs fixed:
+  + Frequent crashes in folder with several images
+  + Sync error in servers with huge quota and external storage enable
+  + Share by link error 
+  + Some other crashes and minor bugs
 
 ## 1.7.1 (April 2015)
 

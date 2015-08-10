@@ -41,11 +41,6 @@
   <string name="uploader_info_uploading">Alŝutante</string>
   <string name="file_list_seconds_ago">sekundoj antaŭe</string>
   <string name="file_list_empty">Nenio estas ĉi tie. Alŝutu ion!</string>
-  <string name="file_list_loading">Ŝargante...</string>
-  <string name="file_list_folder">dosierujo</string>
-  <string name="file_list_folders">dosierujoj</string>
-  <string name="file_list_file">dosiero</string>
-  <string name="file_list_files">dosieroj</string>
   <string name="filedetails_size">Grando:</string>
   <string name="filedetails_type">Tipo:</string>
   <string name="filedetails_created">Kreita je:</string>
@@ -122,7 +117,8 @@
   <string name="auth_expired_basic_auth_toast">Bonvolu enigi la nunan pasvorton</string>
   <string name="auth_connecting_auth_server">Konektante al aŭtentiga servilo...</string>
   <string name="auth_unsupported_auth_method">La servilo ne kongruas kun ĉi tiu aŭtentiga metodo</string>
-  <string name="fd_keep_in_sync">Teni dosieron ĝisdatigita</string>
+  <string name="favorite">Favorato</string>
+  <string name="unfavorite">Nefavoratigi</string>
   <string name="common_rename">Alinomigi</string>
   <string name="common_remove">Forigi</string>
   <string name="confirmation_remove_alert">Ĉu vi vere volas forigi %1$s?</string>
@@ -171,11 +167,7 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Alŝuti bildojn nur per WiFi</string>
-  <string name="conflict_title">Alŝuta konflikto</string>
-  <string name="conflict_message">La malloka dosiero %s estas ne sinkronigita kun loka dosiero. Se la ago daŭrus, enhavo de la dosiero en la servilo anstataŭiĝus.</string>
   <string name="conflict_keep_both">Konservi ambaŭ</string>
-  <string name="conflict_overwrite">Anstataŭigi</string>
-  <string name="conflict_dont_upload">Ne alŝuti</string>
   <string name="preview_image_description">Antaŭvido de bildo</string>
   <string name="preview_image_error_unknown_format">Ĉi tiu bildo ne povas montriĝi</string>
   <string name="error__upload__local_file_not_copied">%1$s ne povis kopiiĝi al la loka dosierujo %2$s</string>

@@ -68,12 +68,7 @@
   <string name="uploader_info_uploading">Nahrávanie</string>
   <string name="file_list_seconds_ago">pred sekundami</string>
   <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
-  <string name="file_list_loading">Nahráva sa...</string>
   <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
-  <string name="file_list_folder">priečinok</string>
-  <string name="file_list_folders">priečinky</string>
-  <string name="file_list_file">súbor</string>
-  <string name="file_list_files">súbory</string>
   <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
   <string name="filedetails_size">Veľkosť:</string>
   <string name="filedetails_type">Typ:</string>
@@ -138,6 +133,8 @@
   <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
   <string name="pass_code_reenter_your_pass_code">Prosím, vložte znovu svoje heslo:</string>
   <string name="pass_code_remove_your_pass_code">Zmazať svoje heslo</string>
+  <string name="pass_code_removed">Bezpečnostný kód odstránený</string>
+  <string name="pass_code_stored">Bezpečnostný kód uložený</string>
   <string name="media_notif_ticker">Prehrávač hudby %1$s</string>
   <string name="media_state_playing">%1$s (prehráva)</string>
   <string name="media_state_loading">%1$s (načítava)</string>
@@ -190,7 +187,8 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Nie je možné vykonať autentifikáciu na server</string>
   <string name="auth_account_does_not_exist">Účet zatiaľ v zariadení neexistuje</string>
-  <string name="fd_keep_in_sync">Udržiavať súbor aktuálny.</string>
+  <string name="favorite">Obľúbené</string>
+  <string name="unfavorite">Odobrať z obľúbených</string>
   <string name="common_rename">Premenuj</string>
   <string name="common_remove">Odober</string>
   <string name="confirmation_remove_alert">Naozaj chcete odstrániť %1$s?</string>
@@ -248,11 +246,7 @@
   <string name="instant_upload_on_wifi">Odoslať fotografie iba cez WiFi</string>
   <string name="instant_video_upload_on_wifi">Nahrávať videá len cez WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Konflikt pri aktualizácii</string>
-  <string name="conflict_message">Vzdialený súbor %s nie je zosynchronizovaný s lokálnym. Pokračovanie prepíše obsah súboru na serveri.</string>
   <string name="conflict_keep_both">Ponechať oba</string>
-  <string name="conflict_overwrite">Prepísať</string>
-  <string name="conflict_dont_upload">Nenahrávajte</string>
   <string name="preview_image_description">Ukážka obrazu</string>
   <string name="preview_image_error_unknown_format">Obrázok nemožno zobraziť</string>
   <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>

@@ -18,8 +18,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <manifest package="com.owncloud.android"
-    android:versionCode="10700100"
-    android:versionName="1.7.1" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionCode="10700200"
+    android:versionName="1.7.2" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -36,7 +36,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="14"
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
