@@ -18,8 +18,8 @@ Open a terminal and type 'android' to start the Android SDK Manager. To build th
 
 * Android SDK Tools and Android SDK Platform-tools (already installed); upgrade to their last versions is usually a good idea.
 * Android SDK Build-Tools; any version from 20 or later should work fine; avoid preview versions, if any available.
-* Android 4.4.2 (API 19), SDK Platform; needed to build the ownCloud app.
-* Android 4.1.2 (API 16), SDK Platform; needed to build the Android Support Library (not neeeded if working with Android Studio or gradle).
+* Android 4.4.2 (API 19), SDK Platform; needed for build/test ownCloud app.
+* Android 5.1.1 (API 22), SDK Platform; needed to build the Android Support Library (not neeeded if working with Android Studio or gradle) and build the owncloud app.
 
 Install any other package you consider interesting, such as emulators.
 
@@ -105,8 +105,8 @@ The generated APK file is saved in android/build/outputs/apk as android-debug.ap
 ** owncloud-android
 * If any error on those projects persists, check the project properties. In the 'Android' section, API Level should be
 ** ownCloud Android Library	-> API level 19
-** android-support-appcompat-v7-exploded-aa -> API level 16
-** owncloud-android	-> API level 19 ; in this project, two library projects should appear referred in the bottom of the dialog: libs\android-support-appcompat-v7-exploded-aar and owncloud-android-library. Add them if needed.
+** android-support-appcompat-v7-exploded-aa -> API level 22
+** owncloud-android	-> API level 22 ; in this project, two library projects should appear referred in the bottom of the dialog: libs\android-support-appcompat-v7-exploded-aar and owncloud-android-library. Add them if needed.
 * After those actions you should be good to go. HAVE FUN!
 
 
@@ -139,7 +139,7 @@ Download/install Android plugin for Maven, then build ownCloud with mvn:
 * cd ..
 * git clone https://github.com/mosabua/maven-android-sdk-deployer.git
 * cd maven-android-sdk-deployer
-* mvn -pl com.simpligility.android.sdk-deployer:android-19 -am install
+* mvn -pl com.simpligility.android.sdk-deployer:android-22 -am install
 * cd ../android/owncloud-android-library
 * mvn install
 * cd ..
