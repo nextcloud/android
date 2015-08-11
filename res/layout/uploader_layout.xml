@@ -53,12 +53,12 @@
 	    android:orientation="horizontal" >
 
 		<Button
-		    android:id="@+id/uploader_new_folder"
+		    android:id="@+id/uploader_cancel"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_gravity="bottom"
 		    android:layout_weight="1"
-		    android:text="@string/uploader_btn_new_folder_text" />
+		    android:text="@string/common_cancel" />
 		
 		<Button
 		    android:id="@+id/uploader_choose_folder"
