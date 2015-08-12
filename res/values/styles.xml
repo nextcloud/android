@@ -40,6 +40,10 @@
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
     </style>
 
+	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar">
+		<item name="colorAccent">@color/white</item>
+	</style>
+
 	<style name="ownCloud.Button" parent="Widget.AppCompat.Button">
 		<item name="colorButtonNormal">@color/primary</item>
 	</style>
