@@ -54,7 +54,7 @@
 
 		<android.support.v7.widget.AppCompatButton
 		    android:id="@+id/uploader_new_folder"
-			style="@style/ownCloud.Button"
+			android:theme="@style/Button"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_gravity="bottom"
@@ -63,7 +63,7 @@
 
 		<android.support.v7.widget.AppCompatButton
 		    android:id="@+id/uploader_choose_folder"
-			style="@style/ownCloud.Button"
+			android:theme="@style/Button.Primary"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_gravity="bottom"

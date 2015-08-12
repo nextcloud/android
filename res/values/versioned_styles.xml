@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	
-    <!-- Buttons -->
-	<style name="Theme.ownCloud.ButtonStyle" parent="@android:style/Widget.Button">
-		<item name="android:background">@android:drawable/btn_default</item>
-		<item name="android:textColor">@color/button_text_color</item>
-	</style>
-	
+
 	<!-- DropDown -->
 	<style name="Theme.ownCloud.DropDownStyle"
 		parent="style/Widget.AppCompat.Spinner.DropDown.ActionBar">

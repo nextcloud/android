@@ -436,7 +436,7 @@
 
 		<android.support.v7.widget.AppCompatButton
             android:id="@+id/cancel"
-			style="@style/ownCloud.Button"
+			android:theme="@style/Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -444,7 +444,7 @@
 
 		<android.support.v7.widget.AppCompatButton
             android:id="@+id/details_btn"
-			style="@style/ownCloud.Button"
+			android:theme="@style/Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -452,7 +452,7 @@
 
 		<android.support.v7.widget.AppCompatButton
             android:id="@+id/ok"
-			style="@style/ownCloud.Button"
+			android:theme="@style/Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -58,13 +58,13 @@
 			    android:orientation="vertical"
 			    android:padding="0dp" >
 			    
-				<Button
+				<android.support.v7.widget.AppCompatButton
 				    android:id="@+id/centeredRefreshButton"
+					android:theme="@style/Button"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:layout_gravity="center_horizontal"
 					android:layout_marginBottom="10dp"
-            		android:onClick="onRefreshClick"
 				    android:text="@string/auth_check_server"
 				    android:visibility="gone"
                     android:contentDescription="@string/auth_check_server"/>
@@ -224,12 +224,11 @@
 
 		<android.support.v7.widget.AppCompatButton
 		    android:id="@+id/buttonOK"
-			style="@style/ownCloud.Button"
+			android:theme="@style/Button"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_gravity="center_horizontal"
 		    android:enabled="false"
-		    android:onClick="onOkClick"
 		    android:text="@string/setup_btn_connect"
             android:contentDescription="@string/setup_btn_connect"/>
 		
