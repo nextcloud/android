@@ -147,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="4dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginRight="@dimen/standard_margin"
             android:gravity=""
             android:src="@drawable/ic_checkbox_blank_outline" />
     </LinearLayout>
