@@ -35,8 +35,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,7 +50,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 
-public class LogHistoryActivity extends ActionBarActivity {
+public class LogHistoryActivity extends AppCompatActivity {
 
     private static final String MAIL_ATTACHMENT_TYPE = "text/plain";
 
