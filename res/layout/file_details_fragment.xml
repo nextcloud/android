@@ -34,7 +34,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="@dimen/standard_margin"
 			android:layout_marginRight="@dimen/standard_margin"
-			android:layout_marginTop="@dimen/standard_margin" >
+			android:layout_marginTop="@dimen/standard_margin">
 	
 			<ImageView
 				android:id="@+id/fdIcon"
@@ -59,6 +59,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="@dimen/standard_margin"
 			android:layout_marginRight="@dimen/standard_margin"
+			android:layout_marginTop="@dimen/standard_margin"
 			android:layout_below="@id/fdFileHeaderContainer" >
 		
 			<RelativeLayout
@@ -72,7 +73,6 @@
 					android:id="@+id/fdTypeLabel"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="24dp"
 					android:text="@string/filedetails_type"
 					android:textAppearance="?android:attr/textAppearanceMedium" />
 					
@@ -110,14 +110,13 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_alignParentTop="true"
-				android:layout_marginLeft="12dp"
+				android:layout_marginLeft="@dimen/standard_margin"
 				android:layout_toRightOf="@+id/fdLabelContainer" >
 				
 				<TextView
 					android:id="@+id/fdType"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="24dp"
 					android:text="@string/placeholder_filetype"
 					android:textAppearance="?android:attr/textAppearanceMedium" />
 					
@@ -162,7 +161,7 @@
 			android:layout_margin="@dimen/standard_margin"
 			>
 			
-			<CheckBox
+			<android.support.v7.widget.AppCompatCheckBox
 				android:id="@+id/fdFavorite"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
