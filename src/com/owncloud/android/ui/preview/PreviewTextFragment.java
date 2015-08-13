@@ -202,11 +202,20 @@ public class PreviewTextFragment extends FileFragment {
          * Show loading dialog
          */
         public void showLoadingDialog() {
-            // Construct dialog
-            LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
-            FragmentManager fm = getActivity().getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            loading.show(ft, DIALOG_WAIT_TAG);
+            // only once
+            Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+            LoadingDialog loading = null;
+            if (frag == null) {
+                // Construct dialog
+                loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                loading.show(ft, DIALOG_WAIT_TAG);
+            } else {
+                loading = (LoadingDialog) frag;
+                loading.setShowsDialog(true);
+            }
+
         }
 
         /**
