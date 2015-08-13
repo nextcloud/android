@@ -133,7 +133,7 @@
         <activity
             android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
-            android:theme="@style/Theme.ownCloud.noActionBar"
+            android:theme="@style/Theme.ownCloud.noActionBar.Login"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

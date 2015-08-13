@@ -48,10 +48,18 @@
 		<item name="colorControlHighlight">@color/color_accent</item>
     </style>
 
+	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar">
+		<item name="colorAccent">@color/white</item>
+	</style>
+
 	<style name="ownCloud.Button" parent="Widget.AppCompat.Button">
 		<item name="colorButtonNormal">@color/primary</item>
 		<item name="colorControlActivated">@color/primary_dark</item>
 		<item name="colorControlHighlight">@color/color_accent</item>
+	</style>
+
+	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
+		<item name="android:textColor">@color/color_accent</item>
 	</style>
 
 	<!-- separat translucent action bar style -->
