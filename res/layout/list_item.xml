@@ -30,9 +30,12 @@
         android:orientation="horizontal">
 
         <FrameLayout
-            android:layout_width="90dp"
+            android:layout_width="64dp"
             android:layout_height="72dp"
-            android:padding="@dimen/standard_padding"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_padding"
+            android:paddingRight="8dp"
             android:focusable="false"
             android:focusableInTouchMode="false">
 
@@ -64,9 +67,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:gravity="top"
             android:paddingTop="@dimen/standard_padding"
-            android:paddingBottom="@dimen/standard_padding"
             android:orientation="vertical" >
 
             <TextView

@@ -22,7 +22,7 @@
     <dimen name="activity_vertical_margin">@dimen/standard_padding</dimen>
     <dimen name="nav_drawer_width">260dp</dimen>
 
-    <dimen name="file_icon_size">40dp</dimen>
+    <dimen name="file_icon_size">32dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
