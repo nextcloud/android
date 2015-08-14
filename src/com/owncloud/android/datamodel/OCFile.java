@@ -27,6 +27,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
+import java.util.Enumeration;
 
 import third_parties.daveKoeller.AlphanumComparator;
 public class OCFile implements Parcelable, Comparable<OCFile> {
@@ -73,6 +74,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private boolean mNeedsUpdateThumbnail;
 
     private boolean mIsDownloading;
+
+    private boolean mShowGridView;
 
 
     /**
