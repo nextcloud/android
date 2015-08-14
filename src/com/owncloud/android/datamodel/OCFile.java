@@ -31,6 +31,7 @@ import android.webkit.MimeTypeMap;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.File;
+import java.util.Enumeration;
 
 import third_parties.daveKoeller.AlphanumComparator;
 public class OCFile implements Parcelable, Comparable<OCFile> {
@@ -89,6 +90,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * to {@link #getStorageUri()}
      */
     private Uri mLocalUri;
+
+    private boolean mShowGridView;
 
 
     /**

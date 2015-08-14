@@ -495,6 +495,9 @@ public class FileDisplayActivity extends HookActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+
+        // TODO Tobi change according to pref
+        menu.getItem(2).setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
         return true;
     }
     
@@ -1211,6 +1214,9 @@ public class FileDisplayActivity extends HookActivity
         cleanSecondFragment();
         // Sync Folder
         startSyncFolderOperation(directory, false);
+
+        // switch list vs. grid view
+
     }
 
     /**

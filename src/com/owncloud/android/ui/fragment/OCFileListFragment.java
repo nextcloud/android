@@ -333,6 +333,9 @@ public class OCFileListFragment extends ExtendedListFragment
                     item.setEnabled(false);
                 }
             }
+
+//            String.format(mContext.getString(R.string.subject_token),
+//                    getClient().getCredentials().getUsername(), file.getFileName()));
         }
     }
 
