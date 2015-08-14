@@ -341,6 +341,14 @@ public class OCFileListFragment extends ExtendedListFragment {
                 getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_MOVE_FILES);
                 return true;
             }
+            case R.id.action_favorite_file:{
+                mContainerActivity.getFileOperationsHelper().toggleFavorite(mTargetFile, true);
+                return true;
+            }
+            case R.id.action_unfavorite_file:{
+                mContainerActivity.getFileOperationsHelper().toggleFavorite(mTargetFile, false);
+                return true;
+            }
             default:
                 return super.onContextItemSelected(item); 
         }
@@ -421,7 +429,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                     foldersCount++;
                 } else {
                     filesCount++;
-                    if (file.isImage()){
+                    if (file.isImage() || file.isVideo()){
                         imagesCount++;
                     }
                 }
@@ -437,28 +445,48 @@ public class OCFileListFragment extends ExtendedListFragment {
                 switchToGridView();
             } else {
                 switchToListView();
+//                switchToGridView();
             }
         }
     }
 
     private String generateFooterText(int filesCount, int foldersCount) {
-        String output = "";
-        if (filesCount > 0){
-            if (filesCount == 1) {
-                output = output + filesCount + " " + getResources().getString(R.string.file_list_file);
-            } else {
-                output = output + filesCount + " " + getResources().getString(R.string.file_list_files);
+        String output;
+        if (filesCount <= 0) {
+            if (foldersCount <= 0) {
+                output = "";
+
+            } else if (foldersCount == 1) {
+                output = getResources().getString(R.string.file_list__footer__folder);
+
+            } else { // foldersCount > 1
+                output = getResources().getString(R.string.file_list__footer__folders, foldersCount);
+            }
+
+        } else if (filesCount == 1) {
+            if (foldersCount <= 0) {
+                output = getResources().getString(R.string.file_list__footer__file);
+
+            } else if (foldersCount == 1) {
+                output = getResources().getString(R.string.file_list__footer__file_and_folder);
+
+            } else { // foldersCount > 1
+                output = getResources().getString(R.string.file_list__footer__file_and_folders, foldersCount);
+            }
+        } else {    // filesCount > 1
+            if (foldersCount <= 0) {
+                output = getResources().getString(R.string.file_list__footer__files, filesCount);
+
+            } else if (foldersCount == 1) {
+                output = getResources().getString(R.string.file_list__footer__files_and_folder, filesCount);
+
+            } else { // foldersCount > 1
+                output = getResources().getString(
+                        R.string.file_list__footer__files_and_folders, filesCount, foldersCount
+                );
+
             }
         }
-        if (foldersCount > 0 && filesCount > 0){
-            output = output + ", ";
-        }
-        if (foldersCount == 1) {
-            output = output + foldersCount + " " + getResources().getString(R.string.file_list_folder);
-        } else if (foldersCount > 1) {
-            output = output + foldersCount + " " + getResources().getString(R.string.file_list_folders);
-        }
-
         return output;
     }
 
@@ -473,8 +501,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     public void sortBySize(boolean descending) {
         mAdapter.setSortOrder(FileStorageUtils.SORT_SIZE, descending);
-    }  
-    
-   
+    }
+
     
 }

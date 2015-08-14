@@ -30,6 +30,9 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
@@ -268,15 +271,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     }
 
                     // share with me icon
-                    if (!file.isFolder()) {
-                        ImageView sharedWithMeIconV = (ImageView)
-                                view.findViewById(R.id.sharedWithMeIcon);
-                        sharedWithMeIconV.bringToFront();
-                        if (checkIfFileIsSharedWithMe(file)) {
-                            sharedWithMeIconV.setVisibility(View.VISIBLE);
-                        } else {
-                            sharedWithMeIconV.setVisibility(View.GONE);
-                        }
+                    ImageView sharedWithMeIconV = (ImageView)
+                            view.findViewById(R.id.sharedWithMeIcon);
+                    sharedWithMeIconV.bringToFront();
+                    if (checkIfFileIsSharedWithMe(file) &&
+                            (!file.isFolder() || !mGridMode)) {
+                        sharedWithMeIconV.setVisibility(View.VISIBLE);
+                    } else {
+                        sharedWithMeIconV.setVisibility(View.GONE);
                     }
 
                     break;
@@ -286,7 +288,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             
             // this if-else is needed even though favorite icon is visible by default
             // because android reuses views in listview
-            if (!file.keepInSync()) {
+            if (!file.isFavorite()) {
                 view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
             } else {
                 view.findViewById(R.id.favoriteIcon).setVisibility(View.VISIBLE);
@@ -300,7 +302,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             String.valueOf(file.getRemoteId())
                             );
                     if (thumbnail != null && !file.needsUpdateThumbnail()){
-                        fileIcon.setImageBitmap(thumbnail);
+
+                        if (file.isVideo()) {
+                            Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
+                            fileIcon.setImageBitmap(withOverlay);
+                        } else {
+                            fileIcon.setImageBitmap(thumbnail);
+                        }
                     } else {
                         // generate new Thumbnail
                         if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
@@ -308,19 +316,17 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                             fileIcon, mStorageManager, mAccount
                                             );
-                            if (thumbnail != null) {
-                                final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                                        new ThumbnailsCacheManager.AsyncDrawable(
-                                                mContext.getResources(),
-                                                thumbnail,
-                                                task
-                                        );
-                                fileIcon.setImageDrawable(asyncDrawable);
-                                task.execute(file);
-                            } else {
-                                fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(
-                                        file.getMimetype(), file.getFileName()));
+                            if (thumbnail == null) {
+                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
+                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                    new ThumbnailsCacheManager.AsyncDrawable(
+                                    mContext.getResources(), 
+                                    thumbnail, 
+                                    task
+                                    );
+                            fileIcon.setImageDrawable(asyncDrawable);
+                            task.execute(file);
                         }
                     }
                 } else {

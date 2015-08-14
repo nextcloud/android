@@ -60,7 +60,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private boolean mNeedsUpdating;
     private long mLastSyncDateForProperties;
     private long mLastSyncDateForData;
-    private boolean mKeepInSync;
+    private boolean mFavorite;
 
     private String mEtag;
 
@@ -107,7 +107,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLocalPath = source.readString();
         mMimeType = source.readString();
         mNeedsUpdating = source.readInt() == 0;
-        mKeepInSync = source.readInt() == 1;
+        mFavorite = source.readInt() == 1;
         mLastSyncDateForProperties = source.readLong();
         mLastSyncDateForData = source.readLong();
         mEtag = source.readString();
@@ -132,7 +132,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mLocalPath);
         dest.writeString(mMimeType);
         dest.writeInt(mNeedsUpdating ? 1 : 0);
-        dest.writeInt(mKeepInSync ? 1 : 0);
+        dest.writeInt(mFavorite ? 1 : 0);
         dest.writeLong(mLastSyncDateForProperties);
         dest.writeLong(mLastSyncDateForData);
         dest.writeString(mEtag);
@@ -346,7 +346,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mModifiedTimestampAtLastSyncForData = 0;
         mLastSyncDateForProperties = 0;
         mLastSyncDateForData = 0;
-        mKeepInSync = false;
+        mFavorite = false;
         mNeedsUpdating = false;
         mEtag = null;
         mShareByLink = false;
@@ -444,12 +444,12 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLastSyncDateForData = lastSyncDate;
     }
 
-    public void setKeepInSync(boolean keepInSync) {
-        mKeepInSync = keepInSync;
+    public void setFavorite(boolean favorite) {
+        mFavorite = favorite;
     }
 
-    public boolean keepInSync() {
-        return mKeepInSync;
+    public boolean isFavorite() {
+        return mFavorite;
     }
 
     @Override
@@ -483,8 +483,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public String toString() {
-        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, keepInSync=%s etag=%s]";
-        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mKeepInSync), mEtag);
+        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, favorite=%s etag=%s]";
+        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mFavorite), mEtag);
         return asString;
     }
 

@@ -457,7 +457,8 @@ public class OperationsService extends Service {
                                 // TODO refactor to run GetUserName as AsyncTask in the context of
                                 // AuthenticatorActivity
                                 credentials = OwnCloudCredentialsFactory.newSamlSsoCredentials(
-                                        mLastTarget.mCookie); // SAML SSO
+                                        null,                   // unknown
+                                        mLastTarget.mCookie);   // SAML SSO
                             }
                             OwnCloudAccount ocAccount = new OwnCloudAccount(
                                     mLastTarget.mServerUrl, credentials);

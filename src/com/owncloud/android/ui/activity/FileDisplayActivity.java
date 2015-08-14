@@ -58,6 +58,7 @@ import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -729,7 +730,8 @@ public class FileDisplayActivity extends HookActivity
     public void onBackPressed() {
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (mDualPane || getSecondFragment() == null) {
-            if (getFile() != null && getFile().getParentId() == 0) {
+            OCFile currentDir = getCurrentDir();
+            if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
                 finish();
                 return;
             }
@@ -1257,7 +1259,7 @@ public class FileDisplayActivity extends HookActivity
         super.onRemoteOperationFinish(operation, result);
         
         if (operation instanceof RemoveFileOperation) {
-            onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
+            onRemoveFileOperationFinish((RemoveFileOperation) operation, result);
 
         } else if (operation instanceof RenameFileOperation) {
             onRenameFileOperationFinish((RenameFileOperation)operation, result);
@@ -1435,25 +1437,11 @@ public class FileDisplayActivity extends HookActivity
 
     private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation,
                                                   RemoteOperationResult result) {
-        dismissLoadingDialog();
-        OCFile syncedFile = operation.getLocalFile();
-        if (!result.isSuccess()) {
-            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
-                Intent i = new Intent(this, ConflictsResolveActivity.class);
-                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, syncedFile);
-                i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, getAccount());
-                startActivity(i);
-
-            } 
-            
-        } else {
+        if (result.isSuccess()) {
             if (operation.transferWasRequested()) {
+                OCFile syncedFile = operation.getLocalFile();
                 onTransferStateChanged(syncedFile, true, true);
-                
-            } else {
-                Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
-                                operation, getResources()), Toast.LENGTH_LONG);
-                msg.show();
+                invalidateOptionsMenu();
             }
         }
     }

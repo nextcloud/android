@@ -64,12 +64,7 @@
   <string name="uploader_info_uploading">Laddar upp</string>
   <string name="file_list_seconds_ago">sekunder sedan</string>
   <string name="file_list_empty">Ingenting här. Ladda upp något!</string>
-  <string name="file_list_loading">Laddar...</string>
   <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
-  <string name="file_list_folder">mapp</string>
-  <string name="file_list_folders">mappar</string>
-  <string name="file_list_file">fil</string>
-  <string name="file_list_files">filer</string>
   <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
   <string name="filedetails_size">Storlek:</string>
   <string name="filedetails_type">Typ:</string>
@@ -180,7 +175,8 @@
   <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användare id, vänligen kontakta en administratör
 	</string>
   <string name="auth_can_not_auth_against_server">Kan inte autentisera mot servern</string>
-  <string name="fd_keep_in_sync">Håll filen uppdaterad</string>
+  <string name="favorite">Favorit</string>
+  <string name="unfavorite">Avfavoritisera</string>
   <string name="common_rename">Byt namn</string>
   <string name="common_remove">Radera</string>
   <string name="confirmation_remove_alert">Vill du verkligen ta bort %1$s?</string>
@@ -238,11 +234,7 @@
   <string name="instant_upload_on_wifi">Ladda upp bilder endast via WiFi</string>
   <string name="instant_video_upload_on_wifi">Ladda upp videos endast via WIFI</string>
   <string name="instant_upload_path">/DirektUppladdning</string>
-  <string name="conflict_title">Uppdateringskonflikt</string>
-  <string name="conflict_message">Serverns fil %s är inte synkroniserad med den lokala filen. Fortsätt för att skriva över filen på servern.</string>
   <string name="conflict_keep_both">Behåll båda</string>
-  <string name="conflict_overwrite">Skriv över</string>
-  <string name="conflict_dont_upload">Ladda inte upp</string>
   <string name="preview_image_description">Förhandsvisa bild</string>
   <string name="preview_image_error_unknown_format">Denna bild kan inte visas</string>
   <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>

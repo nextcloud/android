@@ -65,12 +65,7 @@
   <string name="uploader_info_uploading">Wysyłanie</string>
   <string name="file_list_seconds_ago">sekund temu</string>
   <string name="file_list_empty">Pusto. Wyślij coś!</string>
-  <string name="file_list_loading">Ładowanie...</string>
   <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
-  <string name="file_list_folder">folder</string>
-  <string name="file_list_folders">foldery</string>
-  <string name="file_list_file">plik</string>
-  <string name="file_list_files">pliki</string>
   <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
   <string name="filedetails_size">Rozmiar:</string>
   <string name="filedetails_type">Typ:</string>
@@ -193,7 +188,8 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Nie można autoryzować przy użyciu tego serwera</string>
   <string name="auth_account_does_not_exist">Konto nie istnieje jeszcze na tym urządzeniu</string>
-  <string name="fd_keep_in_sync">Automatyczne aktualizuj plik</string>
+  <string name="favorite">Ulubione</string>
+  <string name="unfavorite">Usuń z ulubionych</string>
   <string name="common_rename">Zmień nazwę</string>
   <string name="common_remove">Usuń</string>
   <string name="confirmation_remove_alert">Czy naprawdę chcesz usunąć %1$s?</string>
@@ -252,11 +248,7 @@
   <string name="instant_upload_on_wifi">Wysyłaj zdjęcia tylko przez WiFi</string>
   <string name="instant_video_upload_on_wifi">Aktualizuj filmy tylko przez WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Konflikt aktualizacji</string>
-  <string name="conflict_message">Zdalny plik %s nie jest zsynchronizowany z plikiem lokalnym. Kontynuując zastąpisz zawartość pliku na serwerze.</string>
   <string name="conflict_keep_both">Zatrzymaj oba</string>
-  <string name="conflict_overwrite">Zastąp</string>
-  <string name="conflict_dont_upload">Nie wysyłaj</string>
   <string name="preview_image_description">Podgląd</string>
   <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>

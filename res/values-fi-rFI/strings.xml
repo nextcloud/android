@@ -69,12 +69,8 @@
   <string name="uploader_info_uploading">Lähetetään</string>
   <string name="file_list_seconds_ago">sekuntia sitten</string>
   <string name="file_list_empty">Täällä ei ole mitään. Lähetä tänne jotakin!</string>
-  <string name="file_list_loading">Ladataan...</string>
+  <string name="file_list_loading">Ladataan…</string>
   <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
-  <string name="file_list_folder">kansio</string>
-  <string name="file_list_folders">kansiota</string>
-  <string name="file_list_file">tiedosto</string>
-  <string name="file_list_files">tiedostoa</string>
   <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
   <string name="filedetails_size">Koko:</string>
   <string name="filedetails_type">Tyyppi:</string>
@@ -188,7 +184,8 @@
   <string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
   <string name="auth_can_not_auth_against_server">Tunnistautuminen palvelinta vastaan ei onnistu</string>
   <string name="auth_account_does_not_exist">Tiliä ei ole olemassa vielä laitteella</string>
-  <string name="fd_keep_in_sync">Pidä tiedosto ajan tasalla</string>
+  <string name="favorite">Suosikit</string>
+  <string name="unfavorite">Poista suosikeista</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
   <string name="confirmation_remove_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
@@ -245,11 +242,11 @@
   <string name="instant_upload_on_wifi">Lähetä kuvat vain WiFi-verkossa</string>
   <string name="instant_video_upload_on_wifi">Lähetä videot vain wifi-yhteydellä</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Päivitysristiriita</string>
-  <string name="conflict_message">Etätiedostoa %s ei ole synkronoitu paikallisen tiedoston kanssa. Jatkaminen korvaa palvelimella olevan tiedoston sisällön.</string>
+  <string name="conflict_title">Tiedoston ristiriita</string>
+  <string name="conflict_message">Mitkä tiedostot haluat säilyttää? Jos valitset kummatkin versiot, paikallisen version tiedoston nimeen lisätään numero.</string>
   <string name="conflict_keep_both">Säilytä molemmat</string>
-  <string name="conflict_overwrite">Korvaa</string>
-  <string name="conflict_dont_upload">Älä lähetä</string>
+  <string name="conflict_use_local_version">Käytä paikallista versiota</string>
+  <string name="conflict_use_server_version">Käytä palvelimen versiota</string>
   <string name="preview_image_description">Kuvan esikatselu</string>
   <string name="preview_image_error_unknown_format">Tätä kuvaa ei voi näyttää</string>
   <string name="prefs_instant_upload_path_title">Lähetyspolku</string>
@@ -297,8 +294,17 @@
   <string name="shared_subject_header">jaettu</string>
   <string name="with_you_subject_header">kanssasi</string>
   <string name="subject_token">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
+  <string name="saml_subject_token">\"%1$s\" on jaettu kanssasi</string>
   <string name="auth_refresh_button">Päivitä yhteys</string>
   <string name="auth_host_address">Palvelimen osoite</string>
   <string name="common_error_out_memory">Muistia ei ole riittävästi</string>
   <string name="username">Käyttäjätunnus</string>
+  <string name="file_list__footer__folder">1 kansio</string>
+  <string name="file_list__footer__folders">%1$d kansiota</string>
+  <string name="file_list__footer__file">1 tiedosto</string>
+  <string name="file_list__footer__file_and_folder">1 tiedosto, 1 kansio</string>
+  <string name="file_list__footer__file_and_folders">1 tiedosto, %1$d kansiota</string>
+  <string name="file_list__footer__files">%1$d tiedostoa</string>
+  <string name="file_list__footer__files_and_folder">%1$d tiedostoa, 1 kansio</string>
+  <string name="file_list__footer__files_and_folders">%1$d tiedostoa, %2$d kansiota</string>
 </resources>

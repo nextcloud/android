@@ -426,7 +426,7 @@ public class Uploader extends FileActivity
                                                 data,
                                                 R.layout.uploader_list_item_layout,
                                                 new String[] {"dirname"},
-                                                new int[] {R.id.textView1});
+                                                new int[] {R.id.filename});
             
             mListView.setAdapter(sa);
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
@@ -638,6 +638,7 @@ public class Uploader extends FileActivity
             mParents.add("");
         } else{
             String[] dir_names = last_path.split("/");
+            mParents.clear();
             for (String dir : dir_names)
                 mParents.add(dir);
         }
