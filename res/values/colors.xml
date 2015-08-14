@@ -27,12 +27,14 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="textColor">#303030</color>
-    <color name="drawerMenuTextColor">#757575</color>
+    <color name="drawerMenuTextColor">#000000</color>
     <color name="list_divider_background">#fff0f0f0</color>
     <color name="filelist_icon_backgorund">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
     <color name="login_text_color">@color/dark_background_text_color</color>
     <color name="login_text_hint_color">#777777</color>
+    <color name="primary_button_color">@color/owncloud_blue_accent</color>
+    <color name="secondary_button_color">#D6D7D7</color>
 
     <!-- Colors -->
     <color name="color_accent">@color/owncloud_blue_accent</color>

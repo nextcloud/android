@@ -40,12 +40,13 @@
         android:id="@+id/itemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
+        android:paddingLeft="22dp"
         android:paddingRight="16dp"
         android:textColor="@color/drawerMenuTextColor"
         android:text="@string/app_name"
+        android:textStyle="bold"
         android:layout_gravity="center_vertical"
-        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textSize="14sp"
         />
 </LinearLayout>
 
