@@ -111,9 +111,11 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             fileIcon.setTag(file.hashCode());
 
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
+            TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             if (!file.isDirectory()) {
+                fileSizeSeparatorV.setVisibility(View.VISIBLE);
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
 
@@ -163,6 +165,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 }  
 
             } else {
+                fileSizeSeparatorV.setVisibility(View.GONE);
                 fileSizeV.setVisibility(View.GONE);
                 lastModV.setVisibility(View.GONE);
                 checkBoxV.setVisibility(View.GONE);
