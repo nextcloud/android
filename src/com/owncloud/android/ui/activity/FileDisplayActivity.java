@@ -146,8 +146,9 @@ public class FileDisplayActivity extends HookActivity
     private static String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
 
     private OCFile mWaitingToSend;
+    private Menu mOptionsMenu;
 
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -295,6 +296,12 @@ public class FileDisplayActivity extends HookActivity
                 
             } else {
                 cleanSecondFragment();
+            }
+
+            if (DisplayUtils.isGridView(getFile(), getStorageManager())){
+                switchToGridView();
+            } else {
+                switchToListView();
             }
 
         } else {
@@ -468,9 +475,16 @@ public class FileDisplayActivity extends HookActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        mOptionsMenu = menu;
 
-        // TODO Tobi change according to pref
-        menu.getItem(2).setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
+        MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
+
+        if (DisplayUtils.isGridView(getFile(), getStorageManager())){
+            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+        } else {
+            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
+        }
+
         return true;
     }
     
@@ -537,6 +551,18 @@ public class FileDisplayActivity extends HookActivity
                         });
                 builder.create().show();
                 break;
+            }
+            case R.id.action_switch_view:{
+                if (isGridView()){
+                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+                    DisplayUtils.setViewMode(getFile(), false);
+                    switchToListView();
+                } else {
+                    item.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
+                    DisplayUtils.setViewMode(getFile(), true);
+                    switchToGridView();
+                }
+                return true;
             }
         default:
             retval = super.onOptionsItemSelected(item);
@@ -747,6 +773,12 @@ public class FileDisplayActivity extends HookActivity
         }
         cleanSecondFragment();
 
+        MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
+        if (DisplayUtils.isGridView(getFile(), getStorageManager())){
+            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+        } else {
+            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
+        }
     }
 
     @Override
@@ -1141,8 +1173,15 @@ public class FileDisplayActivity extends HookActivity
         // Sync Folder
         startSyncFolderOperation(directory, false);
 
-        // switch list vs. grid view
+        MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
 
+        if (DisplayUtils.isGridView(directory, getStorageManager())){
+            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+            switchToGridView();
+        } else {
+            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
+            switchToListView();
+        }
     }
 
     /**
@@ -1686,6 +1725,13 @@ public class FileDisplayActivity extends HookActivity
 
     private void sortByName(boolean ascending){
         getListOfFilesFragment().sortByName(ascending);
+    }
+    private boolean isGridView(){ return getListOfFilesFragment().isGridView(); }
+    private void switchToGridView() {
+        getListOfFilesFragment().switchToGridView();
+    }
+    private void switchToListView() {
+        getListOfFilesFragment().switchToListView();
     }
 
    public void allFilesOption() {

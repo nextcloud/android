@@ -52,6 +52,7 @@ import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 /**
@@ -401,7 +402,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                     if (directory == null) return; // no files, wait for sync
                 }
             }
-        
+
         
             // If that's not a directory -> List its parent
             if(!directory.isFolder()){
@@ -444,7 +445,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             OwnCloudVersion version = AccountUtils.getServerVersion(
                     ((FileActivity)mContainerActivity).getAccount());
             if (version != null && version.supportsRemoteThumbnails() &&
-                imagesCount > 0 && imagesCount == filesCount) {
+                    DisplayUtils.isGridView(mFile, mContainerActivity.getStorageManager())) {
                 switchToGridView();
             } else {
                 switchToListView();
