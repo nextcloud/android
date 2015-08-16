@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ShareActionProvider;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -78,9 +79,10 @@ public class OCFileListFragment extends ExtendedListFragment {
     private boolean mJustFolders;
     
     private OCFile mTargetFile;
-    
-   
-    
+
+    private ShareActionProvider mShareActionProvider;
+
+
     /**
      * {@inheritDoc}
      */
@@ -274,9 +276,38 @@ public class OCFileListFragment extends ExtendedListFragment {
                     item.setEnabled(false);
                 }
             }
+
+            // Locate MenuItem with ShareActionProvider
+            MenuItem shareItem = menu.findItem(R.id.action_send_file);
+
+            // Fetch and store ShareActionProvider
+//            mShareActionProvider = (ShareActionProvider) shareItem.getActionProvider();
+
+            /** Getting the actionprovider associated with the menu item whose id is share */
+            mShareActionProvider = (ShareActionProvider) menu.findItem(R.id.action_send_file).getActionProvider();
+
+            /** Setting a share intent */
+            mShareActionProvider.setShareIntent(getDefaultShareIntent());
+
+
         }
     }
-    
+
+    // Call to update the share intent
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
+    }
+
+    /** Returns a share intent */
+    private Intent getDefaultShareIntent(){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
+        intent.putExtra(Intent.EXTRA_TEXT,"Extra Text");
+        return intent;
+    }
     
     /**
      * {@inhericDoc}

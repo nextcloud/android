@@ -24,6 +24,7 @@ import java.lang.ref.WeakReference;
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.AsyncTask;
@@ -38,8 +39,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -81,6 +84,8 @@ public class PreviewImageFragment extends FileFragment {
     
     private LoadBitmapTask mLoadBitmapTask = null;
 
+    private ShareActionProvider mShareActionProvider;
+    private Intent intent;
 
     /**
      * Public factory method to create a new fragment that previews an image.
@@ -214,14 +219,34 @@ public class PreviewImageFragment extends FileFragment {
         }
         super.onStop();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.file_actions_menu, menu);
+
+        /** Getting the actionprovider associated with the menu item whose id is share */
+        mShareActionProvider = new ShareActionProvider(MainApp.getAppContext());
+
+        /** Setting a share intent */
+        mShareActionProvider.setShareIntent(getDefaultShareIntent());
+
+        menu.findItem(R.id.action_send_file).setActionProvider(mShareActionProvider);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    // TODO Tobi
+    /** Returns a share intent */
+    private Intent getDefaultShareIntent(){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
+        intent.putExtra(Intent.EXTRA_TEXT, "Extra Text");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return intent;
     }
 
     /**
@@ -299,7 +324,7 @@ public class PreviewImageFragment extends FileFragment {
                 return true;
             }
             case R.id.action_send_file: {
-                mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
+//                mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
                 return true;
             }
             case R.id.action_sync_file: {
