@@ -44,7 +44,7 @@
         android:paddingRight="@dimen/standard_margin"
         android:textColor="@color/drawerMenuTextColor"
         android:text="@string/app_name"
-        android:textStyle="bold"
+        android:textStyle="normal"
         android:layout_gravity="center_vertical"
         android:textSize="14sp"
         />
