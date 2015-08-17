@@ -71,7 +71,7 @@ public class CopyFileOperation extends SyncOperation {
 
         /// 1. check copy validity
         if (mTargetParentPath.startsWith(mSrcPath)) {
-            return new RemoteOperationResult(ResultCode.INVALID_MOVE_INTO_DESCENDANT);
+            return new RemoteOperationResult(ResultCode.INVALID_COPY_INTO_DESCENDANT);
         }
         mFile = getStorageManager().getFileByPath(mSrcPath);
         if (mFile == null) {
