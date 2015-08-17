@@ -334,6 +334,9 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onFileActionChosen(int menuId, int filePosition) {
         mTargetFile = (OCFile) mAdapter.getItem(filePosition);
