@@ -26,6 +26,10 @@
     <color name="list_item_lastmod_and_filesize_text">#989898</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="fab_white">#fafafa</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="half_black">#808080</color>
+    <color name="black_semi_transparent">#B2000000</color>
     <color name="textColor">#303030</color>
     <color name="drawerMenuTextColor">#000000</color>
     <color name="list_divider_background">#eee</color>
