@@ -23,6 +23,7 @@ call git submodule init
 call git submodule update
 
 call android.bat update project -p libs/android-support-appcompat-v7-exploded-aar --target android-22
+call android.bat update project -p libs/com-getbase-floatingactionbutton-1-10-0-exploded-aar --target android-22
 call android.bat update lib-project -p owncloud-android-library
 call android.bat update project -p .
 call android.bat update project -p oc_jb_workaround

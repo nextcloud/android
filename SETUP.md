@@ -90,6 +90,7 @@ The generated APK file is saved in android/build/outputs/apk as android-debug.ap
 * Choose the projects with the next names under the 'New Project Name' column:
 ** owncloud-android 
 ** android-support-appcompat-v7-exploded-aar
+** com-getbase-floatingactionbutton-1-10-0-exploded-aar
 ** owncloud-android-workaround-accounts	(optional)
 ** ownCloud Android Library
 ** ownCloud Sample Client (optional)
@@ -102,11 +103,12 @@ The generated APK file is saved in android/build/outputs/apk as android-debug.ap
 * If any error persists, clean and build manually the next projects in order:
 ** ownCloud Android Library
 ** android-support-appcompat-v7-exploded-aar
+** com-getbase-floatingactionbutton-1-10-0-exploded-aar
 ** owncloud-android
 * If any error on those projects persists, check the project properties. In the 'Android' section, API Level should be
 ** ownCloud Android Library	-> API level 19
 ** android-support-appcompat-v7-exploded-aa -> API level 22
-** owncloud-android	-> API level 22 ; in this project, two library projects should appear referred in the bottom of the dialog: libs\android-support-appcompat-v7-exploded-aar and owncloud-android-library. Add them if needed.
+** owncloud-android	-> API level 22 ; in this project, three library projects should appear referred in the bottom of the dialog: libs\android-support-appcompat-v7-exploded-aar, ** com-getbase-floatingactionbutton-1-10-0-exploded-aar and owncloud-android-library. Add them if needed.
 * After those actions you should be good to go. HAVE FUN!
 
 
