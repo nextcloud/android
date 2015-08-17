@@ -59,4 +59,8 @@ The third party software included and used by this project is:
    modifications com.ortiz.touch.ExtendedViewPager and com.ortiz.touch.TouchImageView classes. 
    See https://github.com/MikeOrtiz/TouchImageView
  
- 
+ * floatingactionbutton 1.10.0.
+   Copyright (c) 2014 Jerzy Chalupski
+   Licensed under Apache License, Version 2.0.
+   placed at libs/com-getbase-floatingactionbutton-1-10-0-exploded-aar has been exploded by ownCloud Inc.
+   See https://github.com/futuresimple/android-floating-action-button 
