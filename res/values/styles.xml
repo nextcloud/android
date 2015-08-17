@@ -51,9 +51,7 @@
 		<item name="android:textColorPrimary">@color/primary</item>
 	</style>
 
-	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog">
-		
-	</style>
+	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog" />
 
 	<style name="ownCloud.Button" parent="Widget.AppCompat.Button">
 		<item name="colorButtonNormal">@color/primary</item>
