@@ -29,14 +29,19 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -118,7 +123,44 @@ public class OCFileListFragment extends ExtendedListFragment
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log_OC.i(TAG, "onCreateView() start");
+        View v = super.onCreateView(inflater, container, savedInstanceState);
 
+        // Setup FAB listeners
+        getFabUpload().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FileDisplayActivity)getActivity()).uploadLocalFilesSelected();
+                getFabMain().collapse();
+            }
+        });
+
+        getFabMkdir().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FileDisplayActivity) getActivity()).createFolder();
+                getFabMain().collapse();
+            }
+        });
+
+        getFabUploadFromApp().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FileDisplayActivity) getActivity()).uploadFromOtherAppsSelected();
+                getFabMain().collapse();
+            }
+        });
+
+        Log_OC.i(TAG, "onCreateView() end");
+        return v;
+    }
+
+    
     @Override
     public void onDetach() {
         setOnRefreshListener(null);

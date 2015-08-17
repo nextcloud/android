@@ -127,6 +127,11 @@
 		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
 	</style>
 
+	<style name="menu_labels_style">
+		<item name="android:background">@drawable/fab_label_background</item>
+		<item name="android:textColor">@color/fab_white</item>
+	</style>
+
 	<!-- Button Bar hack due to Lollipop bug:
 		https://code.google.com/p/android/issues/detail?id=78302
 	fix see:

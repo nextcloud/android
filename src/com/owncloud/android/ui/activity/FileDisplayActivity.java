@@ -552,9 +552,7 @@ public class FileDisplayActivity extends HookActivity
         boolean retval = true;
         switch (item.getItemId()) {
             case R.id.action_create_dir: {
-                CreateFolderDialogFragment dialog =
-                        CreateFolderDialogFragment.newInstance(getCurrentDir());
-                dialog.show(getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
+                createFolder();
                 break;
             }
 
@@ -628,6 +626,34 @@ public class FileDisplayActivity extends HookActivity
             retval = super.onOptionsItemSelected(item);
         }
         return retval;
+    }
+
+    public void createFolder() {
+        CreateFolderDialogFragment dialog =
+                CreateFolderDialogFragment.newInstance(getCurrentDir());
+        dialog.show(getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
+    }
+
+    public void uploadLocalFilesSelected() {
+        Intent action = new Intent(this, UploadFilesActivity.class);
+        action.putExtra(
+                UploadFilesActivity.EXTRA_ACCOUNT,
+                getAccount()
+        );
+        startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
+    }
+
+    public void uploadFromOtherAppsSelected() {
+        Intent action = new Intent(Intent.ACTION_GET_CONTENT);
+        action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
+        //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        }
+        startActivityForResult(
+                Intent.createChooser(action, getString(R.string.upload_chooser_title)),
+                ACTION_SELECT_CONTENT_FROM_APPS
+        );
     }
 
     private void startSynchronization() {
