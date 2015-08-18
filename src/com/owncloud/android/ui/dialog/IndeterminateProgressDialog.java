@@ -59,7 +59,7 @@ public class IndeterminateProgressDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         /// create indeterminate progress dialog
-        final ProgressDialog dialog = new ProgressDialog(getActivity());
+        final ProgressDialog dialog = new ProgressDialog(getActivity(), R.style.ProgressDialogTheme);
         dialog.setIndeterminate(true);
         
         /// set message
