@@ -47,6 +47,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
@@ -58,6 +59,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -151,7 +153,49 @@ public class Preferences extends PreferenceActivity
                     mShowContextMenu = true;
                     mAccountName = ((RadioButtonPreference) obj).getKey();
 
-                    Preferences.this.openContextMenu(listView);
+                    String[] items = {
+                            getResources().getString(R.string.change_password),
+                            getResources().getString(R.string.delete_account)
+                    };
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Preferences.this);
+                    View convertView = getLayoutInflater().inflate(R.layout.alert_dialog_list_view, null);
+                    alertDialogBuilder.setView(convertView);
+                    ListView lv = (ListView) convertView.findViewById(R.id.list);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                            Preferences.this,R.layout.simple_dialog_list_item,items);
+                    lv.setAdapter(adapter);
+
+                    //Setup proper inline listener
+                    final AlertDialog alertDialog = alertDialogBuilder.create();
+                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+                            Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
+                            for (Account a : accounts) {
+                                if (a.name.equals(mAccountName)) {
+                                    if (position==0) {
+
+                                        // Change account password
+                                        Intent updateAccountCredentials = new Intent(Preferences.this, AuthenticatorActivity.class);
+                                        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, a);
+                                        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
+                                                AuthenticatorActivity.ACTION_UPDATE_TOKEN);
+                                        startActivity(updateAccountCredentials);
+                                        alertDialog.cancel();
+                                        
+                                    } else if (position==1) {
+
+                                        // Remove account
+                                        am.removeAccount(a, Preferences.this, mHandler);
+                                        Log_OC.d(TAG, "Remove an account " + a.name);
+                                        alertDialog.cancel();
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    alertDialog.show();
 
                     View.OnLongClickListener longListener = (View.OnLongClickListener) obj;
                     return longListener.onLongClick(view);
@@ -438,40 +482,6 @@ public class Preferences extends PreferenceActivity
             mShowContextMenu = false;
         }
         super.onCreateContextMenu(menu, v, menuInfo);
-    }
-
-    /**
-     * Called when the user clicked on an item into the context menu created at
-     * {@link #onCreateContextMenu(ContextMenu, View, ContextMenuInfo)} for
-     * every ownCloud {@link Account} , containing 'secondary actions' for them.
-     * 
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean onContextItemSelected(android.view.MenuItem item) {
-        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
-        for (Account a : accounts) {
-            if (a.name.equals(mAccountName)) {
-                if (item.getItemId() == R.id.change_password) {
-
-                    // Change account password
-                    Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-                    updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, a);
-                    updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
-                            AuthenticatorActivity.ACTION_UPDATE_TOKEN);
-                    startActivity(updateAccountCredentials);
-
-                } else if (item.getItemId() == R.id.delete_account) {
-
-                    // Remove account
-                    am.removeAccount(a, this, mHandler);
-                    Log_OC.d(TAG, "Remove an account " + a.name);
-                }
-            }
-        }
-
-        return true;
     }
 
     @Override

@@ -193,7 +193,6 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 }
             }
 
-            MenuItem menuItem = new DialogMenuItem(item.getItemId());
             FileActionsDialogFragment dialog = FileActionsDialogFragment.newInstance(menu, fileIndex);
             dialog.setTargetFragment(this, 0);
             dialog.show(getFragmentManager(), FileActionsDialogFragment.FTAG_FILE_ACTIONS);
