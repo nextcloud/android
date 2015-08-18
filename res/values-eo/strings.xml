@@ -12,12 +12,14 @@
   <string name="actionbar_send_file">Sendi</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">Ĝeneralo</string>
   <string name="prefs_category_more">Pli</string>
   <string name="prefs_accounts">Kontoj</string>
   <string name="prefs_manage_accounts">Administri kontojn</string>
-  <string name="prefs_pincode">PIN de App-aplikaĵo</string>
-  <string name="prefs_pincode_summary">Protekti vian klienton</string>
   <string name="prefs_help">Helpo</string>
   <string name="prefs_recommend">Rekomendi al amiko</string>
   <string name="auth_check_server">Kontroli servilon</string>
@@ -27,6 +29,7 @@
   <string name="sync_string_files">Dosieroj</string>
   <string name="setup_btn_connect">Konekti</string>
   <string name="uploader_btn_upload_text">Alŝuti</string>
+  <string name="uploader_btn_new_folder_text">Nova dosierujo</string>
   <string name="uploader_top_message">Elektu alŝutan dosierujon:</string>
   <string name="uploader_wrn_no_account_title">Neniu konto troviĝis</string>
   <string name="uploader_wrn_no_account_text">Estas neniu $1%s-konto en via aparato. Bonvolu agordi konton unue.</string>
@@ -38,10 +41,6 @@
   <string name="uploader_info_uploading">Alŝutante</string>
   <string name="file_list_seconds_ago">sekundoj antaŭe</string>
   <string name="file_list_empty">Nenio estas ĉi tie. Alŝutu ion!</string>
-  <string name="file_list_folder">dosierujo</string>
-  <string name="file_list_folders">dosierujoj</string>
-  <string name="file_list_file">dosiero</string>
-  <string name="file_list_files">dosieroj</string>
   <string name="filedetails_size">Grando:</string>
   <string name="filedetails_type">Tipo:</string>
   <string name="filedetails_created">Kreita je:</string>
@@ -96,14 +95,6 @@
   <string name="foreign_files_fail">Iuj dosieroj ne povis moviĝi</string>
   <string name="foreign_files_local_text">Loka: %1$s</string>
   <string name="foreign_files_remote_text">Malloka: %1$s</string>
-  <string name="pincode_enter_pin_code">Bonvolu enigi vian PIN-on de aplikaĵo</string>
-  <string name="pincode_configure_your_pin">Enigu PIN-on de aplikaĵo</string>
-  <string name="pincode_reenter_your_pincode">Bonvolu reenigi PIN-on de aplikaĵo</string>
-  <string name="pincode_remove_your_pincode">Forigu vian PIN-on de aplikaĵo</string>
-  <string name="pincode_mismatch">La du PIN-oj de aplikaĵo malsamas</string>
-  <string name="pincode_wrong">Malĝusta PIN de aplikaĵo</string>
-  <string name="pincode_removed">PIN de aplikaĵo foriĝis</string>
-  <string name="pincode_stored">PIN de aplikaĵo konserviĝis</string>
   <string name="media_state_playing">%1$s (ludanta)</string>
   <string name="media_state_loading">%1$s (ŝarganta)</string>
   <string name="auth_getting_authorization">Ekhavante rajtigon...</string>
@@ -111,7 +102,6 @@
   <string name="auth_no_net_conn_title">Neniu reta konekto</string>
   <string name="auth_nossl_plain_ok_title">Sekura konekto ne haveblas.</string>
   <string name="auth_connection_established">Konekto stariĝis</string>
-  <string name="auth_testing_connection">Testante konekton...</string>
   <string name="auth_not_configured_title">Malĝuste formita servilo-agordo</string>
   <string name="auth_unknown_error_title">Nekonata eraro okazis</string>
   <string name="auth_unknown_host_title">Ne eblis trovi gastigon</string>
@@ -127,7 +117,8 @@
   <string name="auth_expired_basic_auth_toast">Bonvolu enigi la nunan pasvorton</string>
   <string name="auth_connecting_auth_server">Konektante al aŭtentiga servilo...</string>
   <string name="auth_unsupported_auth_method">La servilo ne kongruas kun ĉi tiu aŭtentiga metodo</string>
-  <string name="fd_keep_in_sync">Teni dosieron ĝisdatigita</string>
+  <string name="favorite">Favorato</string>
+  <string name="unfavorite">Nefavoratigi</string>
   <string name="common_rename">Alinomigi</string>
   <string name="common_remove">Forigi</string>
   <string name="confirmation_remove_alert">Ĉu vi vere volas forigi %1$s?</string>
@@ -176,14 +167,12 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Alŝuti bildojn nur per WiFi</string>
-  <string name="conflict_title">Alŝuta konflikto</string>
-  <string name="conflict_message">La malloka dosiero %s estas ne sinkronigita kun loka dosiero. Se la ago daŭrus, enhavo de la dosiero en la servilo anstataŭiĝus.</string>
   <string name="conflict_keep_both">Konservi ambaŭ</string>
-  <string name="conflict_overwrite">Anstataŭigi</string>
-  <string name="conflict_dont_upload">Ne alŝuti</string>
   <string name="preview_image_description">Antaŭvido de bildo</string>
   <string name="preview_image_error_unknown_format">Ĉi tiu bildo ne povas montriĝi</string>
   <string name="error__upload__local_file_not_copied">%1$s ne povis kopiiĝi al la loka dosierujo %2$s</string>
+  <string name="share_link_password_title">Enigu pasvorton</string>
+  <string name="share_link_empty_password">Vi devas enigi pasvorton</string>
   <string name="activity_chooser_send_file_title">Sendi</string>
   <string name="copy_link">Kopii ligilon</string>
   <string name="clipboard_text_copied">Kopiita en la tondejon</string>
@@ -192,6 +181,9 @@
   <string name="prefs_category_accounts">Kontoj</string>
   <string name="saml_authentication_required_text">Aŭtentiĝo nepras</string>
   <string name="saml_authentication_wrong_pass">Malĝusta pasvorto</string>
+  <string name="actionbar_move">Movi</string>
   <string name="folder_picker_choose_button_text">Elekti</string>
+  <string name="move_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
   <string name="prefs_category_security">Sekuro</string>
+  <string name="auth_host_address">Servila adreso</string>
 </resources>

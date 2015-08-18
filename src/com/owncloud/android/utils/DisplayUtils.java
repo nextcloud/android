@@ -1,6 +1,10 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -19,17 +23,23 @@
 package com.owncloud.android.utils;
 
 import java.net.IDN;
+import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Vector;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Build;
 import android.text.format.DateUtils;
+import android.view.Display;
+import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -37,9 +47,6 @@ import com.owncloud.android.datamodel.OCFile;
 
 /**
  * A helper class for some string operations.
- * 
- * @author Bartek Przybylski
- * @author David A. Velasco
  */
 public class DisplayUtils {
     
@@ -73,21 +80,28 @@ public class DisplayUtils {
     private static final String TYPE_VIDEO = "video";
     
     private static final String SUBTYPE_PDF = "pdf";
-    private static final String[] SUBTYPES_DOCUMENT = { "msword",
-                                                        "vnd.openxmlformats-officedocument.wordprocessingml.document",
-                                                        "vnd.oasis.opendocument.text",
-                                                        "rtf"
-                                                        };
+    private static final String SUBTYPE_XML = "xml";
+    private static final String[] SUBTYPES_DOCUMENT = { 
+        "msword",
+        "vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "vnd.oasis.opendocument.text",
+        "rtf",
+        "javascript"
+    };
     private static Set<String> SUBTYPES_DOCUMENT_SET = new HashSet<String>(Arrays.asList(SUBTYPES_DOCUMENT));
-    private static final String[] SUBTYPES_SPREADSHEET = { "msexcel",
-                                                           "vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                                                           "vnd.oasis.opendocument.spreadsheet"
-                                                           };
+    private static final String[] SUBTYPES_SPREADSHEET = {
+        "msexcel",
+        "vnd.ms-excel",
+        "vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "vnd.oasis.opendocument.spreadsheet"
+    };
     private static Set<String> SUBTYPES_SPREADSHEET_SET = new HashSet<String>(Arrays.asList(SUBTYPES_SPREADSHEET));
-    private static final String[] SUBTYPES_PRESENTATION = { "mspowerpoint",
-                                                            "vnd.openxmlformats-officedocument.presentationml.presentation",
-                                                            "vnd.oasis.opendocument.presentation"
-                                                            };
+    private static final String[] SUBTYPES_PRESENTATION = { 
+        "mspowerpoint",
+        "vnd.ms-powerpoint",
+        "vnd.openxmlformats-officedocument.presentationml.presentation",
+        "vnd.oasis.opendocument.presentation"
+    };
     private static Set<String> SUBTYPES_PRESENTATION_SET = new HashSet<String>(Arrays.asList(SUBTYPES_PRESENTATION));
     private static final String[] SUBTYPES_COMPRESSED = {"x-tar", "x-gzip", "zip"};
     private static final Set<String> SUBTYPES_COMPRESSED_SET = new HashSet<String>(Arrays.asList(SUBTYPES_COMPRESSED));
@@ -95,6 +109,8 @@ public class DisplayUtils {
     private static final String EXTENSION_RAR = "rar";
     private static final String EXTENSION_RTF = "rtf";
     private static final String EXTENSION_3GP = "3gp";
+    private static final String EXTENSION_PY = "py";
+    private static final String EXTENSION_JS = "js";
     
     /**
      * Converts the file size in bytes to human readable output.
@@ -111,30 +127,6 @@ public class DisplayUtils {
         }
         result = ((int) (result * 100)) / 100.;
         return result + " " + sizeSuffixes[attachedsuff];
-    }
-
-    /**
-     * Removes special HTML entities from a string
-     * 
-     * @param s Input string
-     * @return A cleaned version of the string
-     */
-    public static String HtmlDecode(String s) {
-        /*
-         * TODO: Perhaps we should use something more proven like:
-         * http://commons.apache.org/lang/api-2.6/org/apache/commons/lang/StringEscapeUtils.html#unescapeHtml%28java.lang.String%29
-         */
-
-        String ret = "";
-        for (int i = 0; i < s.length(); ++i) {
-            if (s.charAt(i) == '%') {
-                ret += (char) Integer.parseInt(s.substring(i + 1, i + 3), 16);
-                i += 2;
-            } else {
-                ret += s.charAt(i);
-            }
-        }
-        return ret;
     }
 
     /**
@@ -155,18 +147,25 @@ public class DisplayUtils {
     
     
     /**
-     * Returns the resource identifier of an image resource to use as icon associated to a 
-     * known MIME type.
+     * Returns the resource identifier of an image to use as icon associated to a known MIME type.
      * 
-     * @param mimetype      MIME type string.
-     * @param filename      name, with extension
-     * @return              Resource identifier of an image resource.
+     * @param mimetype      MIME type string; if NULL, the method tries to guess it from the extension in filename
+     * @param filename      Name, with extension.
+     * @return              Identifier of an image resource.
      */
-    public static int getResourceId(String mimetype, String filename) {
+    public static int getFileTypeIconId(String mimetype, String filename) {
 
-        if (mimetype == null || "DIR".equals(mimetype)) {
-            return R.drawable.ic_menu_archive;
+        if (mimetype == null) {
+            String fileExtension = getExtension(filename);
+            mimetype = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+            if (mimetype == null) {
+                mimetype = TYPE_APPLICATION + "/" + SUBTYPE_OCTET_STREAM;
+            }
+        } 
             
+        if ("DIR".equals(mimetype)) {
+            return R.drawable.ic_menu_archive;
+
         } else {
             String [] parts = mimetype.split("/");
             String type = parts[0];
@@ -189,6 +188,9 @@ public class DisplayUtils {
                 if (SUBTYPE_PDF.equals(subtype)) {
                     return R.drawable.file_pdf;
                     
+                } else if (SUBTYPE_XML.equals(subtype)) {
+                    return R.drawable.file_doc;
+
                 } else if (SUBTYPES_DOCUMENT_SET.contains(subtype)) {
                     return R.drawable.file_doc;
 
@@ -200,7 +202,7 @@ public class DisplayUtils {
 
                 } else if (SUBTYPES_COMPRESSED_SET.contains(subtype)) {
                     return R.drawable.file_zip;
-                    
+
                 } else if (SUBTYPE_OCTET_STREAM.equals(subtype) ) {
                     if (getExtension(filename).equalsIgnoreCase(EXTENSION_RAR)) {
                         return R.drawable.file_zip;
@@ -210,7 +212,10 @@ public class DisplayUtils {
                         
                     } else if (getExtension(filename).equalsIgnoreCase(EXTENSION_3GP)) {
                         return R.drawable.file_movie;
-                        
+                     
+                    } else if ( getExtension(filename).equalsIgnoreCase(EXTENSION_PY) ||
+                                getExtension(filename).equalsIgnoreCase(EXTENSION_JS)) {
+                        return R.drawable.file_doc;
                     } 
                 } 
             }
@@ -222,19 +227,19 @@ public class DisplayUtils {
 
     
     private static String getExtension(String filename) {
-        String extension = filename.substring(filename.lastIndexOf(".") + 1);
-        
+        String extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
         return extension;
     }
     
     /**
      * Converts Unix time to human readable format
-     * @param miliseconds that have passed since 01/01/1970
+     * @param milliseconds that have passed since 01/01/1970
      * @return The human readable time for the users locale
      */
     public static String unixTimeToHumanReadable(long milliseconds) {
         Date date = new Date(milliseconds);
-        return date.toLocaleString();
+        DateFormat df = DateFormat.getDateTimeInstance();
+        return df.format(date);
     }
     
     
@@ -255,26 +260,33 @@ public class DisplayUtils {
      */
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public static String convertIdn(String url, boolean toASCII) {
-        
+
+        String urlNoDots = url;
+        String dots="";
+        while (urlNoDots.startsWith(".")) {
+            urlNoDots = url.substring(1);
+            dots = dots + ".";
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             // Find host name after '//' or '@'
             int hostStart = 0;
-            if  (url.indexOf("//") != -1) {
+            if  (urlNoDots.indexOf("//") != -1) {
                 hostStart = url.indexOf("//") + "//".length();
             } else if (url.indexOf("@") != -1) {
                 hostStart = url.indexOf("@") + "@".length();
             }
-            
+
             int hostEnd = url.substring(hostStart).indexOf("/");
             // Handle URL which doesn't have a path (path is implicitly '/')
-            hostEnd = (hostEnd == -1 ? url.length() : hostStart + hostEnd);
-            
-            String host = url.substring(hostStart, hostEnd);
+            hostEnd = (hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd);
+
+            String host = urlNoDots.substring(hostStart, hostEnd);
             host = (toASCII ? IDN.toASCII(host) : IDN.toUnicode(host));
-            
-            return url.substring(0, hostStart) + host + url.substring(hostEnd);
+
+            return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
         } else {
-            return url;
+            return dots + url;
         }
     }
 
@@ -295,7 +307,11 @@ public class DisplayUtils {
         return fileExtension;
     }
 
-    public static CharSequence getRelativeDateTimeString(Context c, long time, long minResolution, long transitionResolution, int flags){
+    @SuppressWarnings("deprecation")
+    public static CharSequence getRelativeDateTimeString (
+            Context c, long time, long minResolution, long transitionResolution, int flags
+            ){
+        
         CharSequence dateString = "";
         
         // in Future
@@ -307,12 +323,15 @@ public class DisplayUtils {
             return c.getString(R.string.file_list_seconds_ago);
         } else {
             // Workaround 2.x bug (see https://github.com/owncloud/android/issues/716)
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.HONEYCOMB && (System.currentTimeMillis() - time) > 24 * 60 * 60 * 1000){
+            if (    Build.VERSION.SDK_INT <= Build.VERSION_CODES.HONEYCOMB && 
+                    (System.currentTimeMillis() - time) > 24 * 60 * 60 * 1000   ) {
                 Date date = new Date(time);
                 date.setHours(0);
                 date.setMinutes(0);
                 date.setSeconds(0);
-                dateString = DateUtils.getRelativeDateTimeString(c, date.getTime(), minResolution, transitionResolution, flags);
+                dateString = DateUtils.getRelativeDateTimeString(
+                        c, date.getTime(), minResolution, transitionResolution, flags
+                );
             } else {
                 dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
             }
@@ -333,4 +352,25 @@ public class DisplayUtils {
         }
         return path;
     }
+
+
+    /**
+     * Gets the screen size in pixels in a backwards compatible way
+     *
+     * @param caller        Activity calling; needed to get access to the {@link android.view.WindowManager}
+     * @return              Size in pixels of the screen, or default {@link Point} if caller is null
+     */
+    public static Point getScreenSize(Activity caller) {
+        Point size = new Point();
+        if (caller != null) {
+            Display display = caller.getWindowManager().getDefaultDisplay();
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+                display.getSize(size);
+            } else {
+                size.set(display.getWidth(), display.getHeight());
+            }
+        }
+        return size;
+    }
+
 }

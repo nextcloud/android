@@ -64,16 +64,16 @@ public class ExpandableListFragment extends ExtendedListFragment implements OnCh
         mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         mList.setDividerHeight(1);
 
-        if (savedInstanceState != null) {
-            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
-            setReferencePosition(referencePosition);
-        }
+//        if (savedInstanceState != null) {
+//            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
+//            setReferencePosition(referencePosition);
+//        }
         
         // Pull down refresh
-        mRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files);
+        mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files);
         mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files_emptyView);
         
-        onCreateSwipeToRefresh(mRefreshLayout);
+        onCreateSwipeToRefresh(mRefreshListLayout);
         onCreateSwipeToRefresh(mRefreshEmptyLayout);
         
         mList.setEmptyView(mRefreshEmptyLayout);

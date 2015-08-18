@@ -717,7 +717,25 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 mDb.updateUploadStatus(upload);
             }
         }
-        
+
+        /**
+         * Cancels a pending or current upload for an account
+         *
+         * @param account Owncloud accountName where the remote file will be stored.
+         */
+        public void cancel(Account account) {
+            Log_OC.d(TAG, "Account= " + account.name);
+
+            if (mCurrentUpload != null) {
+                Log_OC.d(TAG, "Current Upload Account= " + mCurrentUpload.getAccount().name);
+                if (mCurrentUpload.getAccount().name.equals(account.name)) {
+                    mCurrentUpload.cancel();
+                }
+            }
+            // Cancel pending uploads
+            cancelUploadForAccount(account.name);
+        }
+
         public void remove(Account account, OCFile file) {
             UploadDbObject upload = mPendingUploads.remove(buildRemoteName(account, file));
             if(upload == null) {
@@ -1336,6 +1354,25 @@ public class FileUploadService extends Service implements OnDatatransferProgress
     }
 
     /**
+     * Remove uploads of an account
+     * @param accountName       Name of an OC account
+     */
+    private void cancelUploadForAccount(String accountName){
+        // this can be slow if there are many uploads :(
+        Iterator<String> it = mPendingUploads.keySet().iterator();
+        Log_OC.d(TAG, "Number of pending updloads= "  + mPendingUploads.size());
+        while (it.hasNext()) {
+            String key = it.next();
+            Log_OC.d(TAG, "mPendingUploads CANCELLED " + key);
+            if (key.startsWith(accountName)) {
+                synchronized (mPendingUploads) {
+                    mPendingUploads.remove(key);
+                }
+            }
+        }
+    }
+
+    /**
      * Call if all pending uploads are to be retried.
      */
     public static void retry(Context context) {
@@ -1354,6 +1391,5 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         }
         context.startService(i);        
     }
-
 
 }

@@ -1,6 +1,9 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -24,14 +27,11 @@ import com.owncloud.android.MainApp;
 
 /**
  * Meta-Class that holds various static field information
- * 
- * @author Bartek Przybylski
- * 
  */
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 8;
+    public static final int DB_VERSION = 10;
 
     private ProviderMeta() {
     }
@@ -56,13 +56,15 @@ public class ProviderMeta {
         public static final String FILE_NAME = "filename";
         public static final String FILE_CREATION = "created";
         public static final String FILE_MODIFIED = "modified";
-        public static final String FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA = "modified_at_last_sync_for_data";
+        public static final String FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA =
+                "modified_at_last_sync_for_data";
         public static final String FILE_CONTENT_LENGTH = "content_length";
         public static final String FILE_CONTENT_TYPE = "content_type";
         public static final String FILE_STORAGE_PATH = "media_path";
         public static final String FILE_PATH = "path";
         public static final String FILE_ACCOUNT_OWNER = "file_owner";
-        public static final String FILE_LAST_SYNC_DATE = "last_sync_date";  // _for_properties, but let's keep it as it is
+        public static final String FILE_LAST_SYNC_DATE = "last_sync_date";  // _for_properties,
+                                                                    // but let's keep it as it is
         public static final String FILE_LAST_SYNC_DATE_FOR_DATA = "last_sync_date_for_data";
         public static final String FILE_KEEP_IN_SYNC = "keep_in_sync";
         public static final String FILE_ETAG = "etag";
@@ -71,6 +73,7 @@ public class ProviderMeta {
         public static final String FILE_PERMISSIONS = "permissions";
         public static final String FILE_REMOTE_ID = "remote_id";
         public static final String FILE_UPDATE_THUMBNAIL = "update_thumbnail";
+        public static final String FILE_IS_DOWNLOADING= "is_downloading";
 
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME
                 + " collate nocase asc";
@@ -97,3 +100,4 @@ public class ProviderMeta {
 
     }
 }
+

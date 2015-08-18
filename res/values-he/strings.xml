@@ -13,12 +13,14 @@
   <string name="actionbar_send_file">שליחה</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">כללי</string>
   <string name="prefs_category_more">יותר</string>
   <string name="prefs_accounts">חשבונות</string>
   <string name="prefs_manage_accounts">ניהול חשבונות</string>
-  <string name="prefs_pincode">קוד יישום</string>
-  <string name="prefs_pincode_summary">הגנה על הלקוח שלך</string>
   <string name="prefs_instant_upload">העלאת תמונות מהירה</string>
   <string name="prefs_instant_upload_summary">העלאה מהירה של תמונות שצולמו במצלמה</string>
   <string name="prefs_instant_video_upload">העלאת סרטים מהירה</string>
@@ -41,6 +43,7 @@
   <string name="sync_string_files">קבצים</string>
   <string name="setup_btn_connect">התחברות</string>
   <string name="uploader_btn_upload_text">העלאה</string>
+  <string name="uploader_btn_new_folder_text">תיקייה חדשה</string>
   <string name="uploader_top_message">בחירת תיקיית העלאה:</string>
   <string name="uploader_wrn_no_account_title">לא נמצא חשבון</string>
   <string name="uploader_wrn_no_account_text">אין חשבונות %1$s בהתקן שלך. נא להגדיר חשבון תחילה.</string>
@@ -52,12 +55,7 @@
   <string name="uploader_info_uploading">בהעלאה</string>
   <string name="file_list_seconds_ago">שניות</string>
   <string name="file_list_empty">אין כאן שום דבר. אולי ברצונך להעלות משהו?</string>
-  <string name="file_list_loading">בטעינה...</string>
   <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
-  <string name="file_list_folder">תקיה</string>
-  <string name="file_list_folders">תקיות</string>
-  <string name="file_list_file">קובץ</string>
-  <string name="file_list_files">קבצים</string>
   <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
   <string name="filedetails_size">גודל:</string>
   <string name="filedetails_type">סוג:</string>
@@ -118,15 +116,6 @@
   <string name="foreign_files_local_text">מקומי: %1$s</string>
   <string name="foreign_files_remote_text">מרוחק: %1$s</string>
   <string name="upload_query_move_foreign_files">אין מספיק מקום להעתקת הקבצים שנבחרו אל תיקיית %1$s . האם להעביר אותם במקום?</string>
-  <string name="pincode_enter_pin_code">נא להזין את קוד היישום שלך</string>
-  <string name="pincode_configure_your_pin">נא להזין את קוד היישום שלך</string>
-  <string name="pincode_configure_your_pin_explanation">תופיע בקשה לקוד בכל פעם שהיישום מופעל</string>
-  <string name="pincode_reenter_your_pincode">נא להזין את קוד היישום שלך מחדש</string>
-  <string name="pincode_remove_your_pincode">הסרת קוד היישום שלך</string>
-  <string name="pincode_mismatch">הקודים של היישום שונים</string>
-  <string name="pincode_wrong">קוד היישום שגוי</string>
-  <string name="pincode_removed">קוד היישום הוסר</string>
-  <string name="pincode_stored">קוד היישום אוחסן</string>
   <string name="media_notif_ticker">נגנן המוזיקה %1$s</string>
   <string name="media_state_playing">%1$s (מתנגן)</string>
   <string name="media_state_loading">%1$s (בטעינה)</string>
@@ -151,7 +140,6 @@
   <string name="auth_no_net_conn_title">אין חיבור לאינטרנט</string>
   <string name="auth_nossl_plain_ok_title">אין חיבור מוצפן זמין.</string>
   <string name="auth_connection_established">החיבור נוצר</string>
-  <string name="auth_testing_connection">החיבור נבדק…</string>
   <string name="auth_not_configured_title">תצורת השרת פגומה</string>
   <string name="auth_account_not_new">חשבון לאותו משתמש ושרת כבר קיים במכשיר זה</string>
   <string name="auth_account_not_the_same">שם המשתמש שהוכנס לא מתאים לשם המשתמש של חשבון זה</string>
@@ -178,7 +166,7 @@
   <string name="auth_fail_get_user_name">השרת אינו מחזיר מספר משתמש נכון, יש ליצור קשר עם מנהל
 ⇥</string>
   <string name="auth_can_not_auth_against_server">לא מצליח לאמת מול השרת</string>
-  <string name="fd_keep_in_sync">לשמור על קובץ עדכני</string>
+  <string name="favorite">מועדף</string>
   <string name="common_rename">שינוי שם</string>
   <string name="common_remove">הסרה</string>
   <string name="confirmation_remove_alert">האם באמת להסיר %1$s?</string>
@@ -236,11 +224,7 @@
   <string name="instant_upload_on_wifi">העלאת תמונות דרך WiFi בלבד</string>
   <string name="instant_video_upload_on_wifi">העלאות קבצי וידאו על בסיס WiFi בלבד</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">התנגשות עדכון</string>
-  <string name="conflict_message">הקובץ המרוחק %s אינו מסונכרן עם הקובץ המקומי. בחירה בהמשך התהליך תחליף את תוכן הקובץ בשרת.</string>
   <string name="conflict_keep_both">להשאיר את שניהם</string>
-  <string name="conflict_overwrite">לשכתב</string>
-  <string name="conflict_dont_upload">לא להעלות</string>
   <string name="preview_image_description">תצוגה מקדימה לתמונה</string>
   <string name="preview_image_error_unknown_format">תמונה זו לא ניתנת לצפייה</string>
   <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>
@@ -269,4 +253,5 @@
   <string name="prefs_add_account">הוספת חשבון</string>
   <string name="folder_picker_choose_button_text">בחירה</string>
   <string name="prefs_category_security">אבטחה</string>
+  <string name="auth_host_address">כתובת שרת</string>
 </resources>

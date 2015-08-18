@@ -13,12 +13,14 @@
   <string name="actionbar_send_file">Enviar</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
   <string name="prefs_manage_accounts">Gestionar cuentas</string>
-  <string name="prefs_pincode">PIN de aplicación </string>
-  <string name="prefs_pincode_summary">Proteja su cliente</string>
   <string name="prefs_log_title">Habilitar registro</string>
   <string name="prefs_log_summary">Esto es usado para registrar problemas</string>
   <string name="prefs_log_title_history">Historia del Registro</string>
@@ -37,6 +39,7 @@
   <string name="sync_string_files">Archivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
+  <string name="uploader_btn_new_folder_text">Nueva carpeta</string>
   <string name="uploader_wrn_no_account_title">No se encontraron cuentas</string>
   <string name="uploader_wrn_no_account_text">No hay cuentas de %1$s en tu dispositivo. Por favor configura una cuenta primero.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
@@ -100,15 +103,6 @@
   <string name="foreign_files_fail">Algunos archivos no han podido ser movidos</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
-  <string name="pincode_enter_pin_code">Por favor, inserta tu PIN de aplicación</string>
-  <string name="pincode_configure_your_pin">Introduzca un PIN para la aplicación</string>
-  <string name="pincode_configure_your_pin_explanation">Se solicitará el PIN cada vez que se inicie la aplicación</string>
-  <string name="pincode_reenter_your_pincode">Repita el PIN para la aplicación, por favor</string>
-  <string name="pincode_remove_your_pincode">Borre su PIN de aplicación</string>
-  <string name="pincode_mismatch">Los PIN introducidos no son iguales</string>
-  <string name="pincode_wrong">PIN de aplicación incorrecto</string>
-  <string name="pincode_removed">PIN de aplicación borrado</string>
-  <string name="pincode_stored">PIN de aplicación guardado</string>
   <string name="media_notif_ticker">Reproductor de música %1$s</string>
   <string name="media_state_playing">%1$s (reproduciendo)</string>
   <string name="media_state_loading">%1$s (cargando)</string>
@@ -132,7 +126,6 @@
   <string name="auth_no_net_conn_title">Sin conexión de red</string>
   <string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
   <string name="auth_connection_established">Conexión establecida</string>
-  <string name="auth_testing_connection">Probando conexión...</string>
   <string name="auth_not_configured_title">Configuración de servidor en formato incorrecto</string>
   <string name="auth_account_not_new">Una cuenta para el mismo usuario y servidor ya existen en el dispositivo</string>
   <string name="auth_account_not_the_same">El usuario introducido no concuerda con el usuario de esta cuenta</string>
@@ -156,7 +149,7 @@
   <string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
   <string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
-  <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
+  <string name="favorite">Favorito</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
   <string name="confirmation_remove_local">Sólo local</string>
@@ -206,11 +199,7 @@
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Subir imágenes sólo via WiFi</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
-  <string name="conflict_title">Conflicto en la actualización</string>
-  <string name="conflict_message">El archivo remoto %s no está sincronizado con el archivo local. Si continúa, se reemplazará el contenido del archivo en el servidor.</string>
   <string name="conflict_keep_both">Mantener ambas</string>
-  <string name="conflict_overwrite">Sobrescribir</string>
-  <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="clipboard_text_copied">Copiado al portapapeles</string>
@@ -219,4 +208,5 @@
   <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
   <string name="folder_picker_choose_button_text">Seleccionar</string>
   <string name="prefs_category_security">Seguridad</string>
+  <string name="auth_host_address">Dirección del servidor</string>
 </resources>

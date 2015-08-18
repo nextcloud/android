@@ -1,6 +1,8 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
  *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2012-2014 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -26,14 +28,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.utils.FileStorageUtils;
-
 import android.accounts.Account;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
@@ -46,6 +40,15 @@ import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
+import android.provider.MediaStore;
+
+import com.owncloud.android.MainApp;
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.utils.FileStorageUtils;
 
 public class FileDataStorageManager {
 
@@ -139,9 +142,10 @@ public class FileDataStorageManager {
     }
 
     
-    public Vector<OCFile> getFolderContent(OCFile f) {
+    public Vector<OCFile> getFolderContent(OCFile f/*, boolean onlyOnDevice*/) {
         if (f != null && f.isFolder() && f.getFileId() != -1) {
-            return getFolderContent(f.getFileId());
+            // TODO Enable when "On Device" is recovered ?
+            return getFolderContent(f.getFileId()/*, onlyOnDevice*/);
 
         } else {
             return new Vector<OCFile>();
@@ -149,11 +153,12 @@ public class FileDataStorageManager {
     }
     
     
-    public Vector<OCFile> getFolderImages(OCFile folder) {
+    public Vector<OCFile> getFolderImages(OCFile folder/*, boolean onlyOnDevice*/) {
         Vector<OCFile> ret = new Vector<OCFile>(); 
         if (folder != null) {
-            // TODO better implementation, filtering in the access to database instead of here 
-            Vector<OCFile> tmp = getFolderContent(folder);
+            // TODO better implementation, filtering in the access to database instead of here
+            // TODO Enable when "On Device" is recovered ?
+            Vector<OCFile> tmp = getFolderContent(folder/*, onlyOnDevice*/);
             OCFile current = null; 
             for (int i=0; i<tmp.size(); i++) {
                 current = tmp.get(i);
@@ -165,7 +170,6 @@ public class FileDataStorageManager {
         return ret;
     }
 
-    
     public boolean saveFile(OCFile file) {
         boolean overriden = false;
         ContentValues cv = new ContentValues();
@@ -186,13 +190,14 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
-        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.keepInSync() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isFavorite() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_ETAG, file.getEtag());
         cv.put(ProviderTableMeta.FILE_SHARE_BY_LINK, file.isShareByLink() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
         cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
         cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
+        cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
         
         boolean sameRemotePath = fileExists(file.getRemotePath());
         if (sameRemotePath ||
@@ -261,8 +266,8 @@ public class FileDataStorageManager {
      * HERE ONLY DATA CONSISTENCY SHOULD BE GRANTED
      *  
      * @param folder
-     * @param files
-     * @param removeNotUpdated
+     * @param updatedFiles
+     * @param filesToRemove
      */
     public void saveFolder(
             OCFile folder, Collection<OCFile> updatedFiles, Collection<OCFile> filesToRemove
@@ -295,13 +300,14 @@ public class FileDataStorageManager {
             cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
             cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
             cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
-            cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.keepInSync() ? 1 : 0);
+            cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isFavorite() ? 1 : 0);
             cv.put(ProviderTableMeta.FILE_ETAG, file.getEtag());
             cv.put(ProviderTableMeta.FILE_SHARE_BY_LINK, file.isShareByLink() ? 1 : 0);
             cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
             cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
             cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
             cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
+            cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
 
             boolean existsByPath = fileExists(file.getRemotePath());
             if (existsByPath || fileExists(file.getFileId())) {
@@ -371,7 +377,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, folder.getLastSyncDateForProperties());
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, folder.getLastSyncDateForData());
-        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, folder.keepInSync() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, folder.isFavorite() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_ETAG, folder.getEtag());
         cv.put(ProviderTableMeta.FILE_SHARE_BY_LINK, folder.isShareByLink() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, folder.getPublicLink());
@@ -491,7 +497,7 @@ public class FileDataStorageManager {
                 if (removeLocalCopy && file.isDown() && localPath != null && success) {
                     success = new File(localPath).delete();
                     if (success) {
-                        triggerMediaScan(localPath);
+                        deleteFileInMediaScan(localPath);
                     }
                     if (!removeDBData && success) {
                         // maybe unnecessary, but should be checked TODO remove if unnecessary
@@ -539,23 +545,25 @@ public class FileDataStorageManager {
 
     private boolean removeLocalFolder(OCFile folder) {
         boolean success = true;
-        File localFolder = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, folder));
+        String localFolderPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, folder);
+        File localFolder = new File(localFolderPath);
         if (localFolder.exists()) {
             // stage 1: remove the local files already registered in the files database
-            Vector<OCFile> files = getFolderContent(folder.getFileId());
+            // TODO Enable when "On Device" is recovered ?
+            Vector<OCFile> files = getFolderContent(folder.getFileId()/*, false*/);
             if (files != null) {
                 for (OCFile file : files) {
                     if (file.isFolder()) {
                         success &= removeLocalFolder(file);
                     } else {
                         if (file.isDown()) {
-                            String path = file.getStoragePath();
                             File localFile = new File(file.getStoragePath());
                             success &= localFile.delete();
                             if (success) {
+                                // notify MediaScanner about removed file
+                                deleteFileInMediaScan(file.getStoragePath());
                                 file.setStoragePath(null);
                                 saveFile(file);
-                                triggerMediaScan(path); // notify MediaScanner about removed file
                             }
                         }
                     }
@@ -579,7 +587,6 @@ public class FileDataStorageManager {
                 } else {
                     String path = localFile.getAbsolutePath();
                     success &= localFile.delete();
-                    triggerMediaScan(path); // notify MediaScanner about removed file
                 }
             }
         }
@@ -714,7 +721,7 @@ public class FileDataStorageManager {
                 Iterator<String> it = originalPathsToTriggerMediaScan.iterator();
                 while (it.hasNext()) {
                     // Notify MediaScanner about removed file
-                    triggerMediaScan(it.next());
+                    deleteFileInMediaScan(it.next());
                 }
                 it = newPathsToTriggerMediaScan.iterator();
                 while (it.hasNext()) {
@@ -727,7 +734,7 @@ public class FileDataStorageManager {
     }
     
     
-    private Vector<OCFile> getFolderContent(long parentId) {
+    private Vector<OCFile> getFolderContent(long parentId/*, boolean onlyOnDevice*/) {
 
         Vector<OCFile> ret = new Vector<OCFile>();
 
@@ -754,7 +761,10 @@ public class FileDataStorageManager {
         if (c.moveToFirst()) {
             do {
                 OCFile child = createFileInstance(c);
-                ret.add(child);
+                // TODO Enable when "On Device" is recovered ?
+                // if (child.isFolder() || !onlyOnDevice || onlyOnDevice && child.isDown()){
+                    ret.add(child);
+                // }
             } while (c.moveToNext());
         }
 
@@ -867,7 +877,7 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE)));
             file.setLastSyncDateForData(c.getLong(c.
                     getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)));
-            file.setKeepInSync(c.getInt(
+            file.setFavorite(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.FILE_KEEP_IN_SYNC)) == 1 ? true : false);
             file.setEtag(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG)));
             file.setShareByLink(c.getInt(
@@ -877,6 +887,8 @@ public class FileDataStorageManager {
             file.setRemoteId(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID)));
             file.setNeedsUpdateThumbnail(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1 ? true : false);
+            file.setDownloading(c.getInt(
+                    c.getColumnIndex(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1 ? true : false);
                     
         }
         return file;
@@ -1249,7 +1261,7 @@ public class FileDataStorageManager {
                     ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, 
                     file.getLastSyncDateForData()
                 );
-                cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.keepInSync() ? 1 : 0);
+                cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isFavorite() ? 1 : 0);
                 cv.put(ProviderTableMeta.FILE_ETAG, file.getEtag());
                 cv.put(ProviderTableMeta.FILE_SHARE_BY_LINK, file.isShareByLink() ? 1 : 0);
                 cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
@@ -1258,6 +1270,10 @@ public class FileDataStorageManager {
                 cv.put(
                     ProviderTableMeta.FILE_UPDATE_THUMBNAIL, 
                     file.needsUpdateThumbnail() ? 1 : 0
+                );
+                cv.put(
+                        ProviderTableMeta.FILE_IS_DOWNLOADING,
+                        file.isDownloading() ? 1 : 0
                 );
 
                 boolean existsByPath = fileExists(file.getRemotePath());
@@ -1425,14 +1441,14 @@ public class FileDataStorageManager {
     }
 
     private ArrayList<ContentProviderOperation> prepareRemoveSharesInFolder(
-            OCFile folder, ArrayList<ContentProviderOperation> preparedOperations
-            ) {
+            OCFile folder, ArrayList<ContentProviderOperation> preparedOperations) {
         if (folder != null) {
             String where = ProviderTableMeta.OCSHARES_PATH + "=?" + " AND " 
                     + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
             String [] whereArgs = new String[]{ "", mAccount.name };
-            
-            Vector<OCFile> files = getFolderContent(folder);
+
+            // TODO Enable when "On Device" is recovered ?
+            Vector<OCFile> files = getFolderContent(folder /*, false*/);
             
             for (OCFile file : files) {
                 whereArgs[0] = file.getRemotePath();
@@ -1488,6 +1504,48 @@ public class FileDataStorageManager {
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         intent.setData(Uri.fromFile(new File(path)));
         MainApp.getAppContext().sendBroadcast(intent);
+    }
+
+    public void deleteFileInMediaScan(String path) {
+
+        String mimetypeString = FileStorageUtils.getMimeTypeFromName(path);
+        ContentResolver contentResolver = getContentResolver();
+
+        if (contentResolver != null) {
+            if (mimetypeString.startsWith("image/")) {
+                // Images
+                contentResolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        MediaStore.Images.Media.DATA + "=?", new String[]{path});
+            } else if (mimetypeString.startsWith("audio/")) {
+                // Audio
+                contentResolver.delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        MediaStore.Audio.Media.DATA + "=?", new String[]{path});
+            } else if (mimetypeString.startsWith("video/")) {
+                // Video
+                contentResolver.delete(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                        MediaStore.Video.Media.DATA + "=?", new String[]{path});
+            }
+        } else {
+            ContentProviderClient contentProviderClient = getContentProviderClient();
+            try {
+                if (mimetypeString.startsWith("image/")) {
+                    // Images
+                    contentProviderClient.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            MediaStore.Images.Media.DATA + "=?", new String[]{path});
+                } else if (mimetypeString.startsWith("audio/")) {
+                    // Audio
+                    contentProviderClient.delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                            MediaStore.Audio.Media.DATA + "=?", new String[]{path});
+                } else if (mimetypeString.startsWith("video/")) {
+                    // Video
+                    contentProviderClient.delete(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                            MediaStore.Video.Media.DATA + "=?", new String[]{path});
+                }
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Exception deleting media file in MediaStore " + e.getMessage());
+            }
+        }
+
     }
 
 }

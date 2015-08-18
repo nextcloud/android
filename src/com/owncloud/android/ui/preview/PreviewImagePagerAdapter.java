@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013  ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015  ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -32,11 +35,10 @@ import android.view.ViewGroup;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.FileStorageUtils;
 
 /**
- * Adapter class that provides Fragment instances  
- * 
- * @author David A. Velasco
+ * Adapter class that provides Fragment instances
  */
 //public class PreviewImagePagerAdapter extends PagerAdapter {
 public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
@@ -53,11 +55,14 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     /**
      * Constructor.
      * 
-     * @param fragmentManager   {@link FragmentManager} instance that will handle the {@link Fragment}s provided by the adapter. 
+     * @param fragmentManager   {@link FragmentManager} instance that will handle
+     *                          the {@link Fragment}s provided by the adapter.
      * @param parentFolder      Folder where images will be searched for.
      * @param storageManager    Bridge to database.
      */
-    public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder, Account account, FileDataStorageManager storageManager) {
+    public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder,
+                                    Account account, FileDataStorageManager storageManager /*,
+                                    boolean onlyOnDevice*/) {
         super(fragmentManager);
         
         if (fragmentManager == null) {
@@ -72,14 +77,17 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
         mAccount = account;
         mStorageManager = storageManager;
-        mImageFiles = mStorageManager.getFolderImages(parentFolder); 
+        // TODO Enable when "On Device" is recovered ?
+        mImageFiles = mStorageManager.getFolderImages(parentFolder/*, false*/);
+        
+        mImageFiles = FileStorageUtils.sortFolder(mImageFiles);
+        
         mObsoleteFragments = new HashSet<Object>();
         mObsoletePositions = new HashSet<Integer>();
         mDownloadErrors = new HashSet<Integer>();
         //mFragmentManager = fragmentManager;
         mCachedFragments = new HashMap<Integer, FileFragment>();
     }
-
     
     /**
      * Returns the image files handled by the adapter.
@@ -95,15 +103,18 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         OCFile file = mImageFiles.get(i);
         Fragment fragment = null;
         if (file.isDown()) {
-            fragment = new PreviewImageFragment(file, mAccount, mObsoletePositions.contains(Integer.valueOf(i)));
+            fragment = PreviewImageFragment.newInstance(file,
+                    mObsoletePositions.contains(Integer.valueOf(i)));
             
         } else if (mDownloadErrors.contains(Integer.valueOf(i))) {
-            fragment = new FileDownloadFragment(file, mAccount, true);
+            fragment = FileDownloadFragment.newInstance(file, mAccount, true);
             ((FileDownloadFragment)fragment).setError(true);
             mDownloadErrors.remove(Integer.valueOf(i));
             
         } else {
-            fragment = new FileDownloadFragment(file, mAccount, mObsoletePositions.contains(Integer.valueOf(i)));
+            fragment = FileDownloadFragment.newInstance(
+                    file, mAccount, mObsoletePositions.contains(Integer.valueOf(i))
+            );
         }
         mObsoletePositions.remove(Integer.valueOf(i));
         return fragment;

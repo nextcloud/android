@@ -9,6 +9,10 @@
   <string name="actionbar_send_file">傳送</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">一般</string>
   <string name="prefs_category_more">更多</string>
   <string name="prefs_accounts">帳號</string>
@@ -21,6 +25,7 @@
   <string name="sync_string_files">文件</string>
   <string name="setup_btn_connect">連線</string>
   <string name="uploader_btn_upload_text">上戴</string>
+  <string name="uploader_btn_new_folder_text">新資料夾</string>
   <string name="uploader_wrn_no_account_title">找不到帳戶</string>
   <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
   <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
@@ -71,4 +76,6 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">帳號</string>
   <string name="saml_authentication_wrong_pass">密碼錯誤</string>
+  <string name="prefs_category_security">安全</string>
+  <string name="auth_host_address">伺服器地址</string>
 </resources>

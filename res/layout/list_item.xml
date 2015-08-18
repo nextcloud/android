@@ -3,7 +3,7 @@
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2012-2013 ownCloud Inc.
+  Copyright (C) 2015 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -19,129 +19,141 @@
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ListItemLayout"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:background="@drawable/list_selector"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_height="56dp">
 
-    <FrameLayout
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:focusable="false"
-        android:focusableInTouchMode="false">
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="@dimen/file_icon_size"
-            android:layout_height="@dimen/file_icon_size"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="22dp"
-            android:src="@drawable/local_file_indicator" />
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="@dimen/file_icon_size"
-            android:layout_height="@dimen/file_icon_size"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="9dp"
-            android:src="@drawable/ic_menu_archive" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="2dp"
-            android:src="@drawable/ic_favorite" />
-    </FrameLayout>
-
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:orientation="vertical" >
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/Filename"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:ellipsize="middle"
-            android:singleLine="true"
-            android:text="TextView"
-            android:textColor="#303030"
-            android:textSize="16dip" />
+        <FrameLayout
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
+
+            <ImageView
+                android:id="@+id/localFileIndicator"
+                android:layout_width="@dimen/file_icon_size"
+                android:layout_height="@dimen/file_icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="22dp"
+                android:src="@drawable/local_file_indicator" />
+
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="@dimen/file_icon_size"
+                android:layout_height="@dimen/file_icon_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="9dp"
+                android:src="@drawable/ic_menu_archive" />
+
+            <ImageView
+                android:id="@+id/favoriteIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="2dp"
+                android:src="@drawable/ic_favorite" />
+        </FrameLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:weightSum="1">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/last_mod"
+                android:id="@+id/Filename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:ellipsize="middle"
+                android:singleLine="true"
                 android:text="TextView"
-                android:layout_weight=".5"
-                android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:textSize="12dip"/>
+                android:textColor="#303030"
+                android:textSize="16dip" />
 
-            <TextView
-                android:id="@+id/file_size"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="TextView"
-                android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:layout_weight=".5"
-                android:textSize="12dip"/>
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/last_mod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:layout_weight=".5"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="12dip"/>
+
+                <TextView
+                    android:id="@+id/file_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="TextView"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:layout_weight=".5"
+                    android:textSize="12dip"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/sharedIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="4dp"
+                android:src="@drawable/sharedlink" />
+
+            <ImageView
+                android:id="@+id/sharedWithMeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/shared_with_me"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/custom_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:gravity=""
+            android:src="@android:drawable/checkbox_off_background" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="25dp"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/sharedIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginRight="4dp"
-        android:src="@drawable/sharedlink" />
-
-    <ImageView
-        android:id="@+id/sharedWithMeIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/shared_with_me" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/custom_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:gravity=""
-        android:src="@android:drawable/checkbox_off_background" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/list_divider_background"></View>
 
 </LinearLayout>

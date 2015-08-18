@@ -5,11 +5,14 @@
   <string name="actionbar_settings">සිටුවම්</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">සාමාන්‍යයෙන්</string>
   <string name="prefs_category_more">වැඩි</string>
   <string name="prefs_accounts">ගිණුම්</string>
   <string name="prefs_manage_accounts">ගිණුම් කළමනාකරනය</string>
-  <string name="prefs_pincode_summary">ඔබේ සේවාලාභියා සුරකින්න</string>
   <string name="prefs_help">උදව්</string>
   <string name="auth_username">පරිශීලක නම</string>
   <string name="auth_password">මුර පදය</string>
@@ -23,10 +26,6 @@
   <string name="uploader_info_uploading">උඩුගතවේ</string>
   <string name="file_list_seconds_ago">තත්පරයන්ට පෙර</string>
   <string name="file_list_empty">මෙහි කිසිවක් නොමැත. යමක් උඩුගත කරන්න</string>
-  <string name="file_list_folder">ෆෝල්ඩරය</string>
-  <string name="file_list_folders">ෆෝල්ඩර</string>
-  <string name="file_list_file">ගොනුව</string>
-  <string name="file_list_files">ගොනු</string>
   <string name="filedetails_select_file">වැඩි විස්තර සඳහා ගොනුවක් ස්පර්ෂ කරන්න</string>
   <string name="filedetails_size">විශාලත්වය:</string>
   <string name="filedetails_type">ගණය:</string>
@@ -55,7 +54,6 @@
   <string name="auth_no_net_conn_title">ජාල සම්බන්ධතාවක් නොමැත</string>
   <string name="auth_nossl_plain_ok_title">ආරක්ෂිත සම්බන්ධතාවක් නොලැබුණි</string>
   <string name="auth_connection_established">සම්බන්ධතාවක් සාදන ලදී</string>
-  <string name="auth_testing_connection">සම්බන්ධතාව පරීක්ෂා කෙරේ</string>
   <string name="auth_not_configured_title">විකෘතිවු හැඩගැසුමක්</string>
   <string name="auth_unknown_error_title">නොදන්නා දෝෂයක් ඇතිවිය</string>
   <string name="auth_unknown_host_title">සේවාදායකයා සොයාගත නොහැක</string>
@@ -65,7 +63,6 @@
   <string name="auth_bad_oc_version_title">හඳුනාගත නොහැකි  අනුවාදයක්</string>
   <string name="auth_wrong_connection_title">සම්බන්ධයක් ඇතිකර ගැනීමට නොහැකි විය</string>
   <string name="auth_secure_connection">රක්‍ෂිත සම්බන්ධතාවක් සාදන ලදී</string>
-  <string name="fd_keep_in_sync">ගොනුව යාවත්කාලීනව තබාගන්න</string>
   <string name="common_rename">නැවත නම් කරන්න</string>
   <string name="common_remove">ඉවත් කරන්න </string>
   <string name="confirmation_remove_local">පෙදෙසි පමණක්</string>
@@ -81,4 +78,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">ගිණුම්</string>
   <string name="folder_picker_choose_button_text">තෝරන්න</string>
+  <string name="auth_host_address">සේවාදායකයේ ලිපිනය</string>
 </resources>

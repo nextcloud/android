@@ -11,14 +11,22 @@
   <string name="actionbar_settings">Configuración</string>
   <string name="actionbar_see_details">Detalles</string>
   <string name="actionbar_send_file">Mandar</string>
+  <string name="actionbar_sort">Orden</string>
+  <string name="actionbar_sort_title">Ordenar por</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Nuevos - Viejos</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
   <string name="prefs_manage_accounts">Gestionar cuentas</string>
-  <string name="prefs_pincode">PIN de aplicación</string>
-  <string name="prefs_pincode_summary">Protejé tu cliente</string>
   <string name="prefs_instant_upload">Subir fotos instantáneamente. </string>
   <string name="prefs_instant_upload_summary">Subir instantáneamente fotos tomadas por la cámara.</string>
   <string name="prefs_instant_video_upload">Subir videos instantáneamente. </string>
@@ -32,7 +40,10 @@
   <string name="prefs_recommend">Recomendar a un amigo</string>
   <string name="prefs_feedback">Sugerencias</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Recordar compartir ubicación </string>
+  <string name="prefs_remember_last_upload_location_summary">Recordar la ultima ubicación compartida de subida</string>
   <string name="recommend_subject">¡Intento %1$s en tu teléfono inteligente!</string>
+  <string name="recommend_text">Quiero invitarte a usar %1$s en tu teléfono inteligente!\nDescárgalo aquí: %2$s</string>
   <string name="auth_check_server">Verificar Servidor</string>
   <string name="auth_host_url">Dirección del servidor https://...</string>
   <string name="auth_username">Nombre de usuario</string>
@@ -41,6 +52,7 @@
   <string name="sync_string_files">Archivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
+  <string name="uploader_btn_new_folder_text">Nueva Carpeta</string>
   <string name="uploader_top_message">Elija la carpeta de subida:</string>
   <string name="uploader_wrn_no_account_title">No se encontraron cuentas</string>
   <string name="uploader_wrn_no_account_text">No hay cuentas de %1$s en tu dispositivo. Creá una cuenta primero.</string>
@@ -52,12 +64,7 @@
   <string name="uploader_info_uploading">Subiendo</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">No hay nada. ¡Subí contenido!</string>
-  <string name="file_list_loading">Cargando...</string>
   <string name="local_file_list_empty">No existen archivos en esta carpeta.</string>
-  <string name="file_list_folder">carpeta</string>
-  <string name="file_list_folders">carpetas</string>
-  <string name="file_list_file">archivo</string>
-  <string name="file_list_files">archivos</string>
   <string name="filedetails_select_file">Pulsá sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -117,15 +124,6 @@
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remote: %1$s</string>
   <string name="upload_query_move_foreign_files">No hay espacio suficiente para copiar los archivos seleccionados dentro de la carpeta %1$s. ¿Te gustaría en su lugar moverlos?</string>
-  <string name="pincode_enter_pin_code">Por favor, escribí el PIN de la aplicación</string>
-  <string name="pincode_configure_your_pin">Ingresá el PIN de la aplicación</string>
-  <string name="pincode_configure_your_pin_explanation">Se te pedirá el PIN cada vez que esta app sea iniciada.</string>
-  <string name="pincode_reenter_your_pincode">Por favor, ingresá nuevamente el PIN de la aplicación</string>
-  <string name="pincode_remove_your_pincode">Borrar tu PIN de la aplicación</string>
-  <string name="pincode_mismatch">Los PIN no son iguales</string>
-  <string name="pincode_wrong">El PIN de la aplicación es incorrecto</string>
-  <string name="pincode_removed">El PIN de la aplicación fue borrado</string>
-  <string name="pincode_stored">El PIN de la aplicación fue almacenado</string>
   <string name="media_notif_ticker">Reproductor de música %1$s</string>
   <string name="media_state_playing">%1$s (reproduciendo)</string>
   <string name="media_state_loading">%1$s (cargando)</string>
@@ -150,7 +148,6 @@
   <string name="auth_no_net_conn_title">Sin conexión de red</string>
   <string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
   <string name="auth_connection_established">Conexión establecida</string>
-  <string name="auth_testing_connection">Probando conexión...</string>
   <string name="auth_not_configured_title">Configuración de servidor en formato incorrecto</string>
   <string name="auth_account_not_new">Una cuenta para el mismo usuario y servidor ya existe en el dispositivo</string>
   <string name="auth_account_not_the_same">El usuario ingresado no concuerda con el usuario de esta cuenta</string>
@@ -176,7 +173,7 @@
   <string name="auth_unsupported_multiaccount">%1$s no soporta múltiples cuentas</string>
   <string name="auth_fail_get_user_name">Tú servidor no esta regresando una identificación de usuario correcta, por favor contacta a un administrador</string>
   <string name="auth_can_not_auth_against_server">No se puede autenticar contra este servidor</string>
-  <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
+  <string name="favorite">Favorito</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
   <string name="confirmation_remove_alert">¿Realmente quieres eliminar %1$s?</string>
@@ -234,19 +231,54 @@
   <string name="instant_upload_on_wifi">Subir imágenes solamente a través de WiFi</string>
   <string name="instant_video_upload_on_wifi">Cargar videos mediante WiFi solamente</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
-  <string name="conflict_title">Conflicto en la actualización</string>
-  <string name="conflict_message">El archivo remoto %s no está sincronizado con el archivo local. Si seguís adelante, vas a reemplazar el contenido del archivo en el servidor.</string>
   <string name="conflict_keep_both">Mantener ambas</string>
-  <string name="conflict_overwrite">Sobrescribir</string>
-  <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
   <string name="preview_image_error_unknown_format">Esta imagen no puede ser mostrada</string>
+  <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s </string>
+  <string name="prefs_instant_upload_path_title">Dirección de subida</string>
+  <string name="share_link_no_support_share_api">Lo sentimos, compartir no esta activado en su servidor. Por favor contacte a su
+⇥⇥administrator.</string>
+  <string name="share_link_file_no_exist">Imposible compartir. Por favor revise si el archivo existe</string>
+  <string name="share_link_file_error">Un error ocurrió cuando se intentaba compartir el archivo o carpeta</string>
+  <string name="unshare_link_file_no_exist">Imposible dejar de compartir. Por favor revise si los archivos existen</string>
+  <string name="unshare_link_file_error">Un error ocurrió cuando se intentaba dejar de compartir el archivo o carpeta</string>
   <string name="activity_chooser_send_file_title">Mandar</string>
+  <string name="copy_link">Copiar dirección url</string>
   <string name="clipboard_text_copied">Copiado al portapapeles</string>
+  <string name="error_cant_bind_to_operations_service">Error critico: no se puede realizar operaciones</string>
+  <string name="network_error_socket_exception">Un error ocurrió mientras se conectaba con el Servidor.</string>
+  <string name="network_error_socket_timeout_exception">Un error ocurrió mientras se conectaba con el Servidor. La operación no se realizó </string>
+  <string name="network_error_connect_timeout_exception">Un error ocurrió esperando al Servidor, la operación no se realizó</string>
+  <string name="network_host_not_available">Operación no completada, Servidor no disponible.</string>
   <string name="empty"></string>
+  <string name="forbidden_permissions">Tu no tienes permiso %s</string>
+  <string name="forbidden_permissions_rename">para renombrar este archivo</string>
+  <string name="forbidden_permissions_delete">para borrar este archivo</string>
+  <string name="share_link_forbidden_permissions">para compartir este archivo</string>
+  <string name="unshare_link_forbidden_permissions">para dejar de compartir este archivo</string>
+  <string name="forbidden_permissions_create">para crear el archivo</string>
+  <string name="uploader_upload_forbidden_permissions">para subir en esta carpeta</string>
+  <string name="downloader_download_file_not_found">El archivo no esta mas disponible en este Servidor</string>
   <string name="prefs_category_accounts">Cuentas</string>
+  <string name="prefs_add_account">Añadir cuenta</string>
+  <string name="auth_redirect_non_secure_connection_title">Conexión segura redireccionada a una ruta insegura.</string>
+  <string name="actionbar_logger">Registro</string>
+  <string name="log_send_history_button">Enviar Historial</string>
+  <string name="log_send_no_mail_app">Aplicación para enviar registros no encontrada. Instale una aplicación de correo!</string>
+  <string name="log_send_mail_subject">%1$s Registros de la aplicación Android</string>
+  <string name="log_progress_dialog_text">Cargando datos...</string>
   <string name="saml_authentication_required_text">Autentificación requerida</string>
   <string name="saml_authentication_wrong_pass">Clave incorrecta</string>
+  <string name="actionbar_move">Mover</string>
+  <string name="file_list_empty_moving">Nada aquí. Puedes agregar una carpeta!</string>
   <string name="folder_picker_choose_button_text">Elegir</string>
+  <string name="move_file_not_found">Imposible mover. Por favor revisa si el archivo existe</string>
+  <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
+  <string name="move_file_error">Un error ocurrió intentando mover el archivo o carpeta</string>
+  <string name="forbidden_permissions_move">para mover este archivo</string>
+  <string name="prefs_category_instant_uploading">Subida Instantánea </string>
   <string name="prefs_category_security">Seguridad</string>
+  <string name="prefs_instant_video_upload_path_title">Dirección de subida del video</string>
+  <string name="download_folder_failed_content">La descarga de la carpeta %1$s no pudo ser completada</string>
+  <string name="auth_host_address">Dirección del servidor</string>
 </resources>

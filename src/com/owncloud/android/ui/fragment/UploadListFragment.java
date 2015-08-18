@@ -1,6 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author LukeOwncloud
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -45,11 +47,9 @@ import com.owncloud.android.utils.UploadUtils;
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.
  * 
- * @author LukeOwncloud
- * 
  */
 public class UploadListFragment extends ExpandableListFragment {
-    static private String TAG = "UploadListFragment";
+    static private String TAG = UploadListFragment.class.getSimpleName();
 
     /**
      * Reference to the Activity which this fragment is attached to. For
@@ -113,7 +113,7 @@ public class UploadListFragment extends ExpandableListFragment {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getSherlockActivity().getMenuInflater();
+        MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.upload_actions_menu, menu);
         
         ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) menuInfo;  
