@@ -45,6 +45,7 @@ public class IndeterminateProgressDialog extends DialogFragment {
      */
     public static IndeterminateProgressDialog newInstance(int messageId, boolean cancelable) {
         IndeterminateProgressDialog fragment = new IndeterminateProgressDialog();
+        fragment.setStyle(DialogFragment.STYLE_NO_FRAME, R.style.ownCloud_AlertDialog);
         Bundle args = new Bundle();
         args.putInt(ARG_MESSAGE_ID, messageId);
         args.putBoolean(ARG_CANCELABLE, cancelable);

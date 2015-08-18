@@ -201,7 +201,7 @@ public class Uploader extends FileActivity
         final AlertDialog.Builder builder = new Builder(this);
         switch (id) {
         case DIALOG_WAITING:
-            ProgressDialog pDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+            ProgressDialog pDialog = new ProgressDialog(this);
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.setMessage(getResources().getString(R.string.uploader_info_uploading));

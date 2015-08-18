@@ -176,6 +176,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private EditText mUsernameInput;
     private EditText mPasswordInput;
     private View mOkButton;
+    private View mCenteredRefreshButton;
     private TextView mAuthStatusView;
 
     private int mAuthStatusText = 0, mAuthStatusIcon = 0;
@@ -250,6 +251,24 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         /// initialize general UI elements
         initOverallUi();
+
+        mOkButton = findViewById(R.id.buttonOK);
+        mOkButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                onOkClick();
+            }
+        });
+
+        mCenteredRefreshButton = findViewById(R.id.centeredRefreshButton);
+        mCenteredRefreshButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                checkOcServer();
+            }
+        });
         
         mOkButton = findViewById(R.id.buttonOK);
 
@@ -870,10 +889,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * is postponed until it is available.
      * 
      * IMPORTANT ENTRY POINT 4
-     * 
-     * @param view      OK button
      */
-    public void onOkClick(View view) {
+    public void onOkClick() {
         // this check should be unnecessary
         if (mServerInfo.mVersion == null || 
                 !mServerInfo.mVersion.isVersionValid()  || 

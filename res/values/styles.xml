@@ -68,8 +68,16 @@
 
 	<style name="ownCloud.Button" parent="Widget.AppCompat.Button">
 		<item name="colorButtonNormal">@color/primary</item>
-		<item name="colorControlActivated">@color/primary_dark</item>
-		<item name="colorControlHighlight">@color/color_accent</item>
+	</style>
+
+	<style name="Button" parent="Base.Widget.AppCompat.Button">
+		<item name="colorButtonNormal">@color/secondary_button_color</item>
+		<item name="android:textColor">@color/color_accent</item>
+	</style>
+
+	<style name="Button.Primary" parent="Button">
+		<item name="colorButtonNormal">@color/primary_button_color</item>
+		<item name="android:textColor">@color/white</item>
 	</style>
 
 	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
