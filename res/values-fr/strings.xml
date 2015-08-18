@@ -259,7 +259,11 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="instant_upload_on_wifi">Téléverser les images via une connexion WiFi uniquement</string>
   <string name="instant_video_upload_on_wifi">Téléverser les vidéos via une connexion WiFi uniquement</string>
   <string name="instant_upload_path">/InstantUpload</string>
+  <string name="conflict_title">Conflit de fichiers</string>
+  <string name="conflict_message">Quel(s) fichier(s) voulez-vous garder ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
   <string name="conflict_keep_both">Garder les deux versions</string>
+  <string name="conflict_use_local_version">Utiliser la version locale</string>
+  <string name="conflict_use_server_version">Utiliser la version du serveur</string>
   <string name="preview_image_description">Prévisualisation de l\'image</string>
   <string name="preview_image_error_unknown_format">Cette image ne peut pas être affichée</string>
   <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
@@ -313,6 +317,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="shared_subject_header">a partagé</string>
   <string name="with_you_subject_header">avec vous</string>
   <string name="subject_token">%1$s a partagé \"%2$s\" avec vous</string>
+  <string name="saml_subject_token">\"%1$s\" a été partagé avec vous</string>
   <string name="auth_refresh_button">Actualiser la connexion</string>
   <string name="auth_host_address">Adresse du serveur</string>
   <string name="common_error_out_memory">Mémoire insuffisante</string>

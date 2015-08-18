@@ -313,6 +313,7 @@
   <string name="shared_subject_header">compartilhado</string>
   <string name="with_you_subject_header">com você</string>
   <string name="subject_token">%1$s compartilhado \"%2$s\" com você</string>
+  <string name="saml_subject_token">\"%1$s\" foi compartilhado com você</string>
   <string name="auth_refresh_button">Reinicializar conexão</string>
   <string name="auth_host_address">Endereço do servidor</string>
   <string name="common_error_out_memory">Não há memoria suficiente</string>
