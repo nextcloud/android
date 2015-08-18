@@ -269,8 +269,8 @@
     <string name="conflict_title">File conflict</string>
     <string name="conflict_message">Which files do you want to keep? If you select both versions, the local file will have a number added to its name.</string>
     <string name="conflict_keep_both">Keep both</string>
-    <string name="conflict_use_local_version">Use local version</string>
-    <string name="conflict_use_server_version">Use server version</string>
+    <string name="conflict_use_local_version">local version</string>
+    <string name="conflict_use_server_version">server version</string>
     
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_unknown_format">This image cannot be shown</string>
