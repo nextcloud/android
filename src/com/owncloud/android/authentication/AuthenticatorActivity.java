@@ -251,6 +251,24 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         /// initialize general UI elements
         initOverallUi();
+
+        mOkButton = findViewById(R.id.buttonOK);
+        mOkButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                onOkClick();
+            }
+        });
+
+        mCenteredRefreshButton = findViewById(R.id.centeredRefreshButton);
+        mCenteredRefreshButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                checkOcServer();
+            }
+        });
         
         mOkButton = findViewById(R.id.buttonOK);
         mOkButton.setOnClickListener(new View.OnClickListener() {
