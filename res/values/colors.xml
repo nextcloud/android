@@ -35,6 +35,7 @@
     <color name="login_text_hint_color">#757575</color>
     <color name="primary_button_color">@color/owncloud_blue_accent</color>
     <color name="secondary_button_color">#D6D7D7</color>
+    <color name="transparent">#00000000</color>
 
     <!-- Colors -->
     <color name="color_accent">@color/owncloud_blue_accent</color>

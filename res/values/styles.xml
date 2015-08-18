@@ -62,8 +62,11 @@
 	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog" />
 
 	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
-		<item name="android:windowFrame">@null</item>
-		<item name="android:windowBackground">@null</item>
+		<item name="colorAccent">@color/color_accent</item>
+		<item name="android:textColorPrimary">@color/primary</item>
+		<item name="android:windowFrame">@color/transparent</item>
+		<item name="android:windowBackground">@color/transparent</item>
+		<item name="android:windowTitleBackgroundStyle">@drawable/process_dialog_background</item>
 	</style>
 
 	<style name="ownCloud.Button" parent="Widget.AppCompat.Button">
