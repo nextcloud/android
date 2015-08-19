@@ -257,7 +257,11 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="instant_upload_on_wifi">Upload afbeeldingen alleen via WiFi</string>
   <string name="instant_video_upload_on_wifi">Upload video\'s alleen over wifi</string>
   <string name="instant_upload_path">/InstantUpload</string>
+  <string name="conflict_title">Bestandsconflict</string>
+  <string name="conflict_message">Welke bestanden wilt u bewaren? Als u beide versies selecteert zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
   <string name="conflict_keep_both">Beide bewaren</string>
+  <string name="conflict_use_local_version">Gebruik de lokale versie</string>
+  <string name="conflict_use_server_version">Gebruik de server-versie</string>
   <string name="preview_image_description">Afbeelding voorbeeld</string>
   <string name="preview_image_error_unknown_format">Deze afbeelding kan niet worden getoond</string>
   <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de %2$s lokale map</string>
@@ -312,6 +316,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="shared_subject_header">gedeeld</string>
   <string name="with_you_subject_header">met u</string>
   <string name="subject_token">%1$s deelde \"%2$s\" met u</string>
+  <string name="saml_subject_token">\"%1$s\" is gedeeld met u</string>
   <string name="auth_refresh_button">Verversen verbinding</string>
   <string name="auth_host_address">Serveradres</string>
   <string name="common_error_out_memory">Niet voldoende geheugen</string>

@@ -312,6 +312,7 @@ správce systému.</string>
   <string name="shared_subject_header">sdílené</string>
   <string name="with_you_subject_header">s vámi</string>
   <string name="subject_token">%1$s s vámi sdílí \"%2$s\"</string>
+  <string name="saml_subject_token">\"%1$s\" ti byl nasdílen</string>
   <string name="auth_refresh_button">Obnovit připojení</string>
   <string name="auth_host_address">Adresa serveru</string>
   <string name="common_error_out_memory">Nedostatek paměti</string>
