@@ -61,12 +61,12 @@ public class IndeterminateProgressDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         /// create indeterminate progress dialog
-        final ProgressDialog dialog = new ProgressDialog(getActivity(), R.style.ProgressDialogTheme);
-        dialog.setIndeterminate(true);
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.ProgressDialogTheme);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                ProgressBar v = (ProgressBar) getDialog().findViewById(android.R.id.progress);
+                ProgressBar v = (ProgressBar) progressDialog.findViewById(android.R.id.progress);
                 v.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.color_accent),
                         android.graphics.PorterDuff.Mode.MULTIPLY);
 
@@ -75,12 +75,12 @@ public class IndeterminateProgressDialog extends DialogFragment {
         
         /// set message
         int messageId = getArguments().getInt(ARG_MESSAGE_ID, R.string.placeholder_sentence);
-        dialog.setMessage(getString(messageId));
+        progressDialog.setMessage(getString(messageId));
 
         /// set cancellation behavior
         boolean cancelable = getArguments().getBoolean(ARG_CANCELABLE, false);
         if (!cancelable) {
-            dialog.setCancelable(false);
+            progressDialog.setCancelable(false);
             // disable the back button
             OnKeyListener keyListener = new OnKeyListener() {
                 @Override
@@ -94,10 +94,10 @@ public class IndeterminateProgressDialog extends DialogFragment {
                 }
 
             };
-            dialog.setOnKeyListener(keyListener);
+            progressDialog.setOnKeyListener(keyListener);
         }
         
-        return dialog;
+        return progressDialog;
     }    
     
 }
