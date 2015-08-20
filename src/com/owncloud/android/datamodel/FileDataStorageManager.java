@@ -204,7 +204,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
         cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
         cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
-        
+        cv.put(ProviderTableMeta.FILE_IN_CONFLICT, file.isInConflict());
+
         boolean sameRemotePath = fileExists(file.getRemotePath());
         if (sameRemotePath ||                fileExists(file.getFileId())) {           // for renamed files; no more delete and create
 
@@ -313,6 +314,7 @@ public class FileDataStorageManager {
             cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
             cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
             cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
+            cv.put(ProviderTableMeta.FILE_IN_CONFLICT, file.isInConflict());
 
             boolean existsByPath = fileExists(file.getRemotePath());
             if (existsByPath || fileExists(file.getFileId())) {
@@ -942,7 +944,9 @@ public class FileDataStorageManager {
                     c.getColumnIndex(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1 ? true : false);
             file.setDownloading(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1 ? true : false);
-                    
+            file.setInConflict(c.getInt(
+                    c.getColumnIndex(ProviderTableMeta.FILE_IN_CONFLICT)) == 1 ? true : false);
+
         }
         return file;
     }
@@ -1310,6 +1314,10 @@ public class FileDataStorageManager {
                         ProviderTableMeta.FILE_IS_DOWNLOADING,
                         file.isDownloading() ? 1 : 0
                 );
+                cv.put(
+                        ProviderTableMeta.FILE_IN_CONFLICT,
+                        file.isInConflict() ? 1 : 0
+                );
 
                 boolean existsByPath = fileExists(file.getRemotePath());
                 if (existsByPath || fileExists(file.getFileId())) {
@@ -1578,4 +1586,27 @@ public class FileDataStorageManager {
 
     }
 
+    public void saveConflict(long fileId, boolean inConflict) {
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.FILE_IN_CONFLICT, inConflict);
+        if (getContentResolver() != null) {
+            getContentResolver().update(
+                    ProviderTableMeta.CONTENT_URI_FILE,
+                    cv,
+                    ProviderTableMeta._ID + "=?",
+                    new String[] { String.valueOf(fileId)}
+            );
+        } else {
+            try {
+                getContentProviderClient().update(
+                        ProviderTableMeta.CONTENT_URI_FILE,
+                        cv,
+                        ProviderTableMeta._ID + "=?",
+                        new String[]{String.valueOf(fileId)}
+                );
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage());
+            }
+        }
+    }
 }

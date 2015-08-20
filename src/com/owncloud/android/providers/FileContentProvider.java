@@ -107,6 +107,8 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_UPDATE_THUMBNAIL);
         mFileProjectionMap.put(ProviderTableMeta.FILE_IS_DOWNLOADING,
                 ProviderTableMeta.FILE_IS_DOWNLOADING);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_IN_CONFLICT,
+                ProviderTableMeta.FILE_IN_CONFLICT);
     }
 
     private static final int SINGLE_FILE = 1;
@@ -634,7 +636,8 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_PERMISSIONS  + " TEXT null,"
                     + ProviderTableMeta.FILE_REMOTE_ID  + " TEXT null,"
                     + ProviderTableMeta.FILE_UPDATE_THUMBNAIL  + " INTEGER," //boolean
-                    + ProviderTableMeta.FILE_IS_DOWNLOADING  + " INTEGER);" //boolean
+                    + ProviderTableMeta.FILE_IS_DOWNLOADING  + " INTEGER," //boolean
+                    + ProviderTableMeta.FILE_IN_CONFLICT + " INTEGER);"    //boolean
                     );
 
             // Create table ocshares
@@ -834,6 +837,24 @@ public class FileContentProvider extends ContentProvider {
              if (!upgraded)
                 Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
                         ", newVersion == " + newVersion);
+
+            if (oldVersion < 11 && newVersion >= 11) {
+                Log_OC.i("SQL", "Entering in the #11 ADD in onUpgrade");
+                db.beginTransaction();
+                try {
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_IN_CONFLICT + " INTEGER " +
+                            " DEFAULT 0");
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+            if (!upgraded)
+                Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
+                        ", newVersion == " + newVersion);
+
         }
     }
 

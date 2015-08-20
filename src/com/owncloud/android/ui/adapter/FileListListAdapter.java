@@ -291,6 +291,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         localStateView.setImageResource(R.drawable.uploading_file_indicator);
                         localStateView.setVisibility(View.VISIBLE);
 
+                    } else if (file.isInConflict()) {   // conflict
+                        localStateView.setImageResource(R.drawable.conflict_file_indicator);
+                        localStateView.setVisibility(View.VISIBLE);
+
                     } else if (file.isDown()) {
                         localStateView.setImageResource(R.drawable.local_file_indicator);
                         localStateView.setVisibility(View.VISIBLE);

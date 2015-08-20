@@ -354,50 +354,55 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
         
         // loop to update every child
-        OCFile remoteFile = null, localFile = null;
+        OCFile remoteFile = null, localFile = null, updatedFile = null;
+        RemoteFile r;
         for (int i=1; i<folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server
-            remoteFile = FileStorageUtils.fillOCFile((RemoteFile) folderAndFiles.get(i));
-            remoteFile.setParentId(mLocalFolder.getFileId());
+            r = (RemoteFile) folderAndFiles.get(i);
+            remoteFile = FileStorageUtils.fillOCFile(r);
+
+            /// new OCFile instance to merge fresh data from server with local state
+            updatedFile = FileStorageUtils.fillOCFile(r);
+            updatedFile.setParentId(mLocalFolder.getFileId());
 
             /// retrieve local data for the read file 
             //  localFile = mStorageManager.getFileByPath(remoteFile.getRemotePath());
             localFile = localFilesMap.remove(remoteFile.getRemotePath());
             
-            /// add to the remoteFile (the new one) data about LOCAL STATE (not existing in server)
-            remoteFile.setLastSyncDateForProperties(mCurrentSyncTime);
+            /// add to updatedFile data about LOCAL STATE (not existing in server)
+            updatedFile.setLastSyncDateForProperties(mCurrentSyncTime);
             if (localFile != null) {
-                // some properties of local state are kept unmodified
-                remoteFile.setFileId(localFile.getFileId());
-                remoteFile.setFavorite(localFile.isFavorite());
-                remoteFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
-                remoteFile.setModificationTimestampAtLastSyncForData(
+                updatedFile.setFileId(localFile.getFileId());
+                updatedFile.setFavorite(localFile.isFavorite());
+                updatedFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
+                updatedFile.setModificationTimestampAtLastSyncForData(
                         localFile.getModificationTimestampAtLastSyncForData()
                 );
-                remoteFile.setStoragePath(localFile.getStoragePath());
+                updatedFile.setStoragePath(localFile.getStoragePath());
                 // eTag will not be updated unless file CONTENTS are synchronized
-                remoteFile.setEtag(localFile.getEtag());
-                if (remoteFile.isFolder()) {
-                    remoteFile.setFileLength(localFile.getFileLength()); 
+                updatedFile.setEtag(localFile.getEtag());
+                if (updatedFile.isFolder()) {
+                    updatedFile.setFileLength(localFile.getFileLength());
                         // TODO move operations about size of folders to FileContentProvider
                 } else if (mRemoteFolderChanged && remoteFile.isImage() &&
                         remoteFile.getModificationTimestamp() !=
                                 localFile.getModificationTimestamp()) {
-                    remoteFile.setNeedsUpdateThumbnail(true);
+                    updatedFile.setNeedsUpdateThumbnail(true);
                     Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
                 }
-                remoteFile.setPublicLink(localFile.getPublicLink());
-                remoteFile.setShareByLink(localFile.isShareByLink());
+                updatedFile.setPublicLink(localFile.getPublicLink());
+                updatedFile.setShareByLink(localFile.isShareByLink());
+                updatedFile.setInConflict(localFile.isInConflict());
             } else {
                 // remote eTag will not be updated unless file CONTENTS are synchronized
-                remoteFile.setEtag("");
+                updatedFile.setEtag("");
             }
 
             /// check and fix, if needed, local storage path
-            FileStorageUtils.searchForLocalFileInDefaultPath(remoteFile, mAccount);
+            FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, mAccount);
 
             /// prepare content synchronization for kept-in-sync files
-            if (remoteFile.isFavorite()) {
+            if (updatedFile.isFavorite()) {
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(  localFile,        
                                                                                     remoteFile, 
                                                                                     mAccount, 
@@ -408,7 +413,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 mFilesToSyncContents.add(operation);
             }
 
-            updatedFiles.add(remoteFile);
+            updatedFiles.add(updatedFile);
         }
 
         // save updated contents in local database
