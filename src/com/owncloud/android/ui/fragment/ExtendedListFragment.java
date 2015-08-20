@@ -336,9 +336,9 @@ public class ExtendedListFragment extends Fragment
     }
 
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
-        // Colors in animations: background
-        refreshLayout.setColorScheme(R.color.background_color, R.color.background_color,
-                R.color.background_color, R.color.background_color);
+        // Colors in animations
+        refreshLayout.setColorSchemeResources(R.color.color_accent, R.color.primary,
+                R.color.primary_dark);
 
         refreshLayout.setOnRefreshListener(this);
     }

@@ -20,8 +20,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import java.io.File;
-
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -43,8 +41,9 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+
+import java.io.File;
 
 
 /**
@@ -117,7 +116,6 @@ public class UploadFilesActivity extends FileActivity implements
             
         // Action bar setup
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the
                                                 // official documentation
         actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && mCurrentDir.getName() != null);

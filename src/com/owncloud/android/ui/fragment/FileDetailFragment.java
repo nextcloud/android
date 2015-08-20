@@ -133,6 +133,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         if (mLayout == R.layout.file_details_fragment) {
             mView.findViewById(R.id.fdFavorite).setOnClickListener(this);
             ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.fdProgressBar);
+            DisplayUtils.colorPreLollipopHorizontalProgressBar(progressBar);
             mProgressListener = new ProgressListener(progressBar);
             mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
         }

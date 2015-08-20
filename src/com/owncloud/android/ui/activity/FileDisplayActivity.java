@@ -26,7 +26,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -49,12 +49,15 @@ import android.provider.OpenableColumns;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -108,9 +111,6 @@ import java.io.File;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
- *
- * @author Bartek Przybylski
- * @author David A. Velasco
  */
 
 public class FileDisplayActivity extends HookActivity implements
@@ -125,6 +125,7 @@ public class FileDisplayActivity extends HookActivity implements
     private boolean mDualPane;
     private View mLeftFragmentContainer;
     private View mRightFragmentContainer;
+    private ProgressBar mProgressBar;
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
@@ -159,7 +160,6 @@ public class FileDisplayActivity extends HookActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account
                                             // is valid
@@ -192,6 +192,11 @@ public class FileDisplayActivity extends HookActivity implements
         // Navigation Drawer
         initDrawer();
 
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar.setIndeterminateDrawable(
+                ContextCompat.getDrawable(this,
+                        R.drawable.actionbar_progress_indeterminate_horizontal));
+
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
@@ -204,8 +209,11 @@ public class FileDisplayActivity extends HookActivity implements
                                                                 // according to the official
                                                                 // documentation
 
-        setSupportProgressBarIndeterminateVisibility(mSyncInProgress
-        /*|| mRefreshSharesInProgress*/);
+        // enable ActionBar app icon to behave as action to toggle nav drawer
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        mProgressBar.setIndeterminate(mSyncInProgress);
         // always AFTER setContentView(...) ; to work around bug in its implementation
 
         setBackgroundText();
@@ -217,7 +225,6 @@ public class FileDisplayActivity extends HookActivity implements
     protected void onStart() {
         Log_OC.v(TAG, "onStart() start");
         super.onStart();
-        getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
         Log_OC.v(TAG, "onStart() end");
     }
 
@@ -258,6 +265,16 @@ public class FileDisplayActivity extends HookActivity implements
                 file = getStorageManager().getFileByPath(OCFile.ROOT_PATH);  // never returns null
             }
             setFile(file);
+
+            if (mAccountWasSet) {
+                RelativeLayout navigationDrawerLayout = (RelativeLayout) findViewById(R.id.left_drawer);
+                if (navigationDrawerLayout != null && getAccount() != null) {
+                    TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
+                    int lastAtPos = getAccount().name.lastIndexOf("@");
+                    username.setText(getAccount().name.substring(0, lastAtPos));
+                }
+            }
+
             if (!stateWasRecovered) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
@@ -748,22 +765,25 @@ public class FileDisplayActivity extends HookActivity implements
 
     @Override
     public void onBackPressed() {
-        OCFileListFragment listOfFiles = getListOfFilesFragment();
-        if (mDualPane || getSecondFragment() == null) {
-            OCFile currentDir = getCurrentDir();
-            if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
-                finish();
-                return;
+        if (!isDrawerOpen()){
+            OCFileListFragment listOfFiles = getListOfFilesFragment();
+            if (mDualPane || getSecondFragment() == null) {
+                OCFile currentDir = getCurrentDir();
+                if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
+                    finish();
+                    return;
+                }
+                if (listOfFiles != null) {  // should never be null, indeed
+                    listOfFiles.onBrowseUp();
+                }
             }
             if (listOfFiles != null) {  // should never be null, indeed
-                listOfFiles.onBrowseUp();
+                setFile(listOfFiles.getCurrentFile());
             }
+            cleanSecondFragment();
+        } else {
+            super.onBackPressed();
         }
-        if (listOfFiles != null) {  // should never be null, indeed
-            setFile(listOfFiles.getCurrentFile());
-        }
-        cleanSecondFragment();
-
     }
 
     @Override
@@ -953,8 +973,10 @@ public class FileDisplayActivity extends HookActivity implements
                     }
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                    setSupportProgressBarIndeterminateVisibility(mSyncInProgress
-                    /*|| mRefreshSharesInProgress*/);
+                    mProgressBar.setIndeterminate(mSyncInProgress);
+                    //mProgressBar.setVisibility((mSyncInProgress) ? View.VISIBLE : View.INVISIBLE);
+                    //setSupportProgressBarIndeterminateVisibility(mSyncInProgress
+                    /*|| mRefreshSharesInProgress*/ //);
 
                     setBackgroundText();
 
@@ -1053,6 +1075,8 @@ public class FileDisplayActivity extends HookActivity implements
                         startImagePreview(getFile());
                     } // TODO what about other kind of previews?
                 }
+
+                mProgressBar.setIndeterminate(false);
 
             } finally {
                 if (intent != null) {
@@ -1189,7 +1213,6 @@ public class FileDisplayActivity extends HookActivity implements
         }
 
     }
-
 
     @Override
     protected ServiceConnection newTransferenceServiceConnection() {
@@ -1564,7 +1587,7 @@ public class FileDisplayActivity extends HookActivity implements
         );
         synchFolderOp.execute(getAccount(), MainApp.getAppContext(), this, null, null);
 
-        setSupportProgressBarIndeterminateVisibility(true);
+        mProgressBar.setIndeterminate(true);
 
         setBackgroundText();
     }
