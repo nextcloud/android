@@ -315,12 +315,26 @@ public class FileActivity extends AppCompatActivity
         super.onBackPressed();
     }
 
+    /**
+     * checks if the drawer exists and is opened.
+     *
+     * @return <code>true</code> if the drawer is open, else <code>false</code>
+     */
     public boolean isDrawerOpen() {
-        return mDrawerLayout.isDrawerOpen(GravityCompat.START);
+        if(mDrawerLayout != null) {
+            return mDrawerLayout.isDrawerOpen(GravityCompat.START);
+        } else {
+            return false;
+        }
     }
 
+    /**
+     * closes the navigation drawer.
+     */
     public void closeNavDrawer() {
-        mDrawerLayout.closeDrawer(GravityCompat.START);
+        if(mDrawerLayout != null) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        }
     }
 
     protected void initDrawer(){

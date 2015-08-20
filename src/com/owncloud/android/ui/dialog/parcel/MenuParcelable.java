@@ -8,22 +8,22 @@ import java.util.List;
 
 public class MenuParcelable implements Parcelable {
 
-    private List<MenuItemParcelable> menuItems = new ArrayList<MenuItemParcelable>();
+    private List<MenuItemParcelable> mMenuItems = new ArrayList<MenuItemParcelable>();
 
     public List<MenuItemParcelable> getMenuItems() {
-        return menuItems;
+        return mMenuItems;
     }
 
     public void setMenuItems(List<MenuItemParcelable> menuItems) {
-        this.menuItems = menuItems;
+        this.mMenuItems = menuItems;
     }
 
     public MenuParcelable() {
-        menuItems = new ArrayList<MenuItemParcelable>();
+        mMenuItems = new ArrayList<MenuItemParcelable>();
     }
 
     public MenuParcelable(Parcel in) {
-        in.readTypedList(menuItems, MenuItemParcelable.CREATOR);
+        in.readTypedList(mMenuItems, MenuItemParcelable.CREATOR);
     }
 
     public static final Parcelable.Creator<MenuParcelable> CREATOR = new Parcelable.Creator<MenuParcelable>() {
@@ -46,6 +46,6 @@ public class MenuParcelable implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel outParcel, int flags) {
-        outParcel.writeTypedList(menuItems);
+        outParcel.writeTypedList(mMenuItems);
     }
 }
