@@ -1,3 +1,23 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Andy Scherzinger
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.utils;
 
 import android.content.Intent;
@@ -12,16 +32,16 @@ import android.view.View;
  * Created by scherzia on 17.08.2015.
  */
 public class DialogMenuItem implements MenuItem {
-    int itemId;
-    CharSequence title;
+    int mItemId;
+    CharSequence mTitle;
 
     public DialogMenuItem(int itemId) {
-        this.itemId = itemId;
+        this.mItemId = itemId;
     }
 
     @Override
     public int getItemId() {
-        return itemId;
+        return mItemId;
     }
 
     @Override
@@ -36,7 +56,7 @@ public class DialogMenuItem implements MenuItem {
 
     @Override
     public MenuItem setTitle(CharSequence title) {
-        this.title = title;
+        this.mTitle = title;
         return this;
     }
 
@@ -47,7 +67,7 @@ public class DialogMenuItem implements MenuItem {
 
     @Override
     public CharSequence getTitle() {
-        return this.title;
+        return this.mTitle;
     }
 
     @Override

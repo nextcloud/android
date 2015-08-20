@@ -5,37 +5,35 @@ import android.os.Parcelable;
 import android.view.MenuItem;
 
 public class MenuItemParcelable implements Parcelable {
-    int menuItemId;
+    int mMenuItemId;
+    String mMenuText;
 
-    String menuText;
-
-    public MenuItemParcelable() {
-    }
+    public MenuItemParcelable() {}
 
     public MenuItemParcelable(MenuItem menuItem) {
-        menuItemId = menuItem.getItemId();
-        menuText = menuItem.getTitle().toString();
+        mMenuItemId = menuItem.getItemId();
+        mMenuText = menuItem.getTitle().toString();
         menuItem.getMenuInfo();
     }
 
     public MenuItemParcelable(Parcel read) {
-        menuItemId = read.readInt();
+        mMenuItemId = read.readInt();
     }
 
     public void setMenuItemId(int id) {
-        menuItemId = id;
+        mMenuItemId = id;
     }
 
     public int getMenuItemId() {
-        return menuItemId;
+        return mMenuItemId;
     }
 
     public String getMenuText() {
-        return menuText;
+        return mMenuText;
     }
 
-    public void setMenuText(String menuText) {
-        this.menuText = menuText;
+    public void setMenuText(String mMenuText) {
+        this.mMenuText = mMenuText;
     }
 
     public static final Parcelable.Creator<MenuItemParcelable> CREATOR =
@@ -59,6 +57,6 @@ public class MenuItemParcelable implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(menuItemId);
+        dest.writeInt(mMenuItemId);
     }
 }
