@@ -23,12 +23,14 @@
 	android:layout_gravity="center"
 	android:gravity="center_vertical"
 	android:padding="20dp"
+	android:background="@color/black"
 	>
 	
 	<TextView 
 	    android:id="@+id/progressText" 
 	    android:layout_width="match_parent"
-		android:layout_height="wrap_content" 
+		android:layout_height="wrap_content"
+		android:textColor="@color/dark_background_text_color"
 		android:text="@string/downloader_not_downloaded_yet"
 		android:layout_marginBottom="15dp"
 	/>
@@ -44,21 +46,21 @@
 		>
 	    				
 		<ProgressBar android:id="@+id/progressBar"
-			android:layout_width="0dp" 
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:progressDrawable="@android:drawable/progress_horizontal"
-			android:indeterminate="false" 
-			android:indeterminateOnly="false" 
-			
-		/>
+			style="?android:attr/progressBarStyleHorizontal"
+			android:indeterminate="false"
+			android:indeterminateOnly="false"
+
+			/>
 
 		<ImageButton
 			android:id="@+id/cancelBtn"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="12dp"
-			android:src="@drawable/btn_cancel"
+			android:src="@drawable/ic_cancel"
 			android:background="@android:color/transparent"
 		/>
 
@@ -79,6 +81,7 @@
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
 		android:layout_margin="40dp"
+		android:textColor="@color/dark_background_text_color"
 		android:text="@string/downloader_download_failed_ticker"
 	/>
 	
