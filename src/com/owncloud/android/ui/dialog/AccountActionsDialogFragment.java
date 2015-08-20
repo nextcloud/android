@@ -29,9 +29,9 @@ public class AccountActionsDialogFragment extends DialogFragment implements
     private static final String ARG_FILE_POSITION = "FILE_POSITION";
     public static final String FTAG_FILE_ACTIONS = "FILE_ACTIONS_FRAGMENT";
 
-    private List<MenuItemParcelable> menuItems;
+    private List<MenuItemParcelable> mMenuItems;
 
-    private int filePosition;
+    private int mFilePosition;
 
     private ListView mListView;
 
@@ -92,13 +92,13 @@ public class AccountActionsDialogFragment extends DialogFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        filePosition = getArguments().getInt(ARG_FILE_POSITION);
+        mFilePosition = getArguments().getInt(ARG_FILE_POSITION);
 
         MenuParcelable menu = getArguments().getParcelable(ARG_ITEM_LIST);
-        menuItems = menu.getMenuItems();
+        mMenuItems = menu.getMenuItems();
         List<String> stringList = new ArrayList<String>();
-        for (int i = 0; i < menuItems.size(); i++) {
-            stringList.add(menuItems.get(i).getMenuText());
+        for (int i = 0; i < mMenuItems.size(); i++) {
+            stringList.add(mMenuItems.get(i).getMenuText());
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
@@ -115,7 +115,7 @@ public class AccountActionsDialogFragment extends DialogFragment implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         dismiss();
-        ((FileActionsDialogFragmentListener) getTargetFragment()).onFileActionChosen(menuItems.get(position).getMenuItemId(), filePosition);
+        ((FileActionsDialogFragmentListener) getTargetFragment()).onFileActionChosen(mMenuItems.get(position).getMenuItemId(), mFilePosition);
     }
 
     /**

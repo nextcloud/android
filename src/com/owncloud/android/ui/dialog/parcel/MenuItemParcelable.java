@@ -13,7 +13,6 @@ public class MenuItemParcelable implements Parcelable {
     public MenuItemParcelable(MenuItem menuItem) {
         mMenuItemId = menuItem.getItemId();
         mMenuText = menuItem.getTitle().toString();
-        menuItem.getMenuInfo();
     }
 
     public MenuItemParcelable(Parcel read) {
