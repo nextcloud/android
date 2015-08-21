@@ -255,11 +255,11 @@ Descárgueo de aquí: %2$s</string>
   <string name="instant_upload_on_wifi">Enviar imaxes só medinte WiFi</string>
   <string name="instant_video_upload_on_wifi">Enviar os vídeos só a través de WiFi</string>
   <string name="instant_upload_path">/EnvíoInstantáneo</string>
-  <string name="conflict_title">Conflito de actualización</string>
-  <string name="conflict_message">O ficheiro remoto %s non está sincronizado co ficheiro local. Continuando substituirase o contido do ficheiro no servidor.</string>
+  <string name="conflict_title">Conflito de ficheiro</string>
+  <string name="conflict_message">Que ficheiros quere conservar? Se selecciona ambas versións, o ficheiro copiado terá un número engadido ao nome.</string>
   <string name="conflict_keep_both">Manter ambos</string>
-  <string name="conflict_overwrite">Sobrescribir</string>
-  <string name="conflict_dont_upload">Non enviar</string>
+  <string name="conflict_use_local_version">Usar a versión local</string>
+  <string name="conflict_use_server_version">Usar a versión do servidor</string>
   <string name="preview_image_description">Vista previa da imaxe</string>
   <string name="preview_image_error_unknown_format">Esta imaxe non pode ser amosada</string>
   <string name="error__upload__local_file_not_copied">Non foi posíbel copiar %1$s no cartafol local %2$s</string>
@@ -314,6 +314,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="shared_subject_header">compartido</string>
   <string name="with_you_subject_header">con vostede</string>
   <string name="subject_token">%1$s compartiu «%2$s» con vostede</string>
+  <string name="saml_subject_token">«%1$s» foi compartido con vostede</string>
   <string name="auth_refresh_button">Actualizar a conexión</string>
   <string name="auth_host_address">Enderezo do servidor</string>
   <string name="common_error_out_memory">Non hai memoria abondo</string>
