@@ -254,23 +254,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
                     localStateView.setVisibility(View.INVISIBLE);   // default first
 
-                    if (file.isFolder()) {
-                        if (    //synchronizing
-                                (opsBinder != null &&
-                                        opsBinder.isSynchronizing(mAccount, file.getRemotePath())) ||
-                                // downloading
-                                (downloaderBinder != null &&
-                                        downloaderBinder.isDownloading(mAccount, file)) ||
-                                // uploading
-                                (uploaderBinder != null &&
-                                        uploaderBinder.isUploading(mAccount, file))
-                                ) {
-
-                            localStateView.setImageResource(R.drawable.synchronizing_file_indicator);
-                            localStateView.setVisibility(View.VISIBLE);
-                        }
-
-                    } else if ( //synchronizing
+                    if ( //synchronizing
                                 opsBinder != null &&
                                 opsBinder.isSynchronizing(mAccount, file.getRemotePath())
                             ) {
@@ -281,14 +265,22 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                 downloaderBinder != null &&
                                 downloaderBinder.isDownloading(mAccount, file)
                             ) {
-                        localStateView.setImageResource(R.drawable.downloading_file_indicator);
+                        localStateView.setImageResource(
+                                file.isFolder() ?
+                                        R.drawable.synchronizing_file_indicator :
+                                        R.drawable.downloading_file_indicator
+                        );
                         localStateView.setVisibility(View.VISIBLE);
 
-                    } else if (//uploading
+                    } else if ( //uploading
                                 uploaderBinder != null &&
                                 uploaderBinder.isUploading(mAccount, file)
                             ) {
-                        localStateView.setImageResource(R.drawable.uploading_file_indicator);
+                        localStateView.setImageResource(
+                                file.isFolder() ?
+                                        R.drawable.synchronizing_file_indicator :
+                                        R.drawable.uploading_file_indicator
+                        );
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if (file.isInConflict()) {   // conflict

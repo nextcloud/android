@@ -222,7 +222,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                 //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
                 if (localChanged && serverChanged) {
                     result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
-                    getStorageManager().saveConflict(mLocalFile.getFileId(), true);
+                    getStorageManager().saveConflict(mLocalFile, true);
 
                 } else if (localChanged) {
                     if (mSyncFileContents && mAllowUploads) {

@@ -24,8 +24,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import android.accounts.Account;
@@ -1586,27 +1588,80 @@ public class FileDataStorageManager {
 
     }
 
-    public void saveConflict(long fileId, boolean inConflict) {
+    public void saveConflict(OCFile file, boolean inConflict) {
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.FILE_IN_CONFLICT, inConflict);
+        int updated = 0;
         if (getContentResolver() != null) {
-            getContentResolver().update(
+            updated = getContentResolver().update(
                     ProviderTableMeta.CONTENT_URI_FILE,
                     cv,
                     ProviderTableMeta._ID + "=?",
-                    new String[] { String.valueOf(fileId)}
+                    new String[] { String.valueOf(file.getFileId())}
             );
         } else {
             try {
-                getContentProviderClient().update(
+                updated = getContentProviderClient().update(
                         ProviderTableMeta.CONTENT_URI_FILE,
                         cv,
                         ProviderTableMeta._ID + "=?",
-                        new String[]{String.valueOf(fileId)}
+                        new String[]{String.valueOf(file.getFileId())}
                 );
             } catch (RemoteException e) {
                 Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage());
             }
         }
+
+        Log_OC.d(TAG, "Number of files updated with CONFLICT: " + updated);
+
+        if (updated > 0) {
+            if (inConflict) {
+                /// set conflict in all ancestor folders
+
+                long parentId = file.getParentId();
+                Set<String> ancestorIds = new HashSet<String>();
+                while (parentId != FileDataStorageManager.ROOT_PARENT_ID) {
+                    ancestorIds.add(Long.toString(parentId));
+                    parentId = getFileById(parentId).getParentId();
+                }
+
+                if (ancestorIds.size() > 0) {
+                    StringBuffer whereBuffer = new StringBuffer();
+                    whereBuffer.append(ProviderTableMeta._ID).append(" IN (");
+                    for (int i = 0; i < ancestorIds.size() - 1; i++) {
+                        whereBuffer.append("?,");
+                    }
+                    whereBuffer.append("?");
+                    whereBuffer.append(")");
+
+                    if (getContentResolver() != null) {
+                        updated = getContentResolver().update(
+                                ProviderTableMeta.CONTENT_URI_FILE,
+                                cv,
+                                whereBuffer.toString(),
+                                ancestorIds.toArray(new String[]{})
+                        );
+                    } else {
+                        try {
+                            updated = getContentProviderClient().update(
+                                    ProviderTableMeta.CONTENT_URI_FILE,
+                                    cv,
+                                    whereBuffer.toString(),
+                                    ancestorIds.toArray(new String[]{})
+                            );
+                        } catch (RemoteException e) {
+                            Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage());
+                        }
+                    }
+                } // else file is ROOT folder, no parent to set in conflict
+
+            } else {
+                /// TODO update conflict in ancestor folders
+                // (not directly unset; maybe there are more conflicts below them)
+            }
+        }
+
+        Log_OC.d(TAG, "Number of parents updated with CONFLICT: " + updated);
+
     }
 }
