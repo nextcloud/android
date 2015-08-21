@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -239,10 +240,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             }
             statusView.setText(status);
 
-            Button rightButton = (Button) view.findViewById(R.id.upload_right_button);
+            ImageButton rightButton = (ImageButton) view.findViewById(R.id.upload_right_button);
             if (UploadUtils.userCanRetryUpload(uploadObject)
                     && uploadObject.getUploadStatus() != UploadStatus.UPLOAD_SUCCEEDED) {
-                rightButton.setText("\u21BA"); //Anticlockwise Open Circle Arrow U+21BA
+                //Refresh
+                rightButton.setImageDrawable(mActivity.getDrawable(R.drawable.ic_action_refresh_grey));
                 rightButton.setOnClickListener(new OnClickListener() {                
                     @Override
                     public void onClick(View v) {
@@ -250,7 +252,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     }
                 });
             } else if (UploadUtils.userCanCancelUpload(uploadObject)) {
-                rightButton.setText("\u274C"); //Cross Mark U+274C
+                //Cancel
+                rightButton.setImageDrawable(mActivity.getDrawable(R.drawable.ic_cancel));
                 rightButton.setOnClickListener(new OnClickListener() {                
                     @Override
                     public void onClick(View v) {
@@ -258,7 +261,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     }
                 });
             } else {
-                rightButton.setText("\u267B"); //Black Universal Recycling Symbol U+267B
+                //Delete
+                rightButton.setImageDrawable(mActivity.getDrawable(R.drawable.ic_delete));
                 rightButton.setOnClickListener(new OnClickListener() {                
                     @Override
                     public void onClick(View v) {

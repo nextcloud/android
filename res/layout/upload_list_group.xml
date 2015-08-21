@@ -13,6 +13,7 @@
        android:dividerHeight="0dp"
        android:ellipsize="middle"
        android:showDividers="none"
+       android:textColor="@color/color_accent"
 	/>
    
     <!-- This would be just too many buttons. 
