@@ -24,6 +24,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Parinktys</string>
+  <string name="drawer_open">Atverti</string>
   <string name="prefs_category_general">Bendras</string>
   <string name="prefs_category_more">Daugiau</string>
   <string name="prefs_accounts">Paskyros</string>
@@ -173,9 +174,7 @@
   <string name="confirmation_remove_alert">Ar tikrai norite pašalinti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ar tikrai norite pašalinti %1$s ir ten esantį turinį?</string>
   <string name="confirmation_remove_local">Tik vietiniai</string>
-  <string name="confirmation_remove_folder_local">Tik vietinis turinys</string>
-  <string name="confirmation_remove_remote">Pašalinti iš serverio</string>
-  <string name="confirmation_remove_remote_and_local">Nutolę ir vietiniai</string>
+  <string name="confirmation_remove_folder_local">Tik vietiniai</string>
   <string name="remove_success_msg">Pašalinta sėkmingai</string>
   <string name="remove_fail_msg">Pašalinti nepavyko</string>
   <string name="rename_dialog_title">Įveskite naują pavadinimą</string>

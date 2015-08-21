@@ -117,9 +117,6 @@
   <string name="common_rename">Pārsaukt</string>
   <string name="common_remove">Izņemt</string>
   <string name="confirmation_remove_local">Tikai lokālos</string>
-  <string name="confirmation_remove_folder_local">Tikai lokālo saturu</string>
-  <string name="confirmation_remove_remote">Izņemt no servera</string>
-  <string name="confirmation_remove_remote_and_local">Attālinātās un lokālās</string>
   <string name="remove_success_msg">Veiksmīgi izņemts</string>
   <string name="remove_fail_msg">Neizdevās izņemt</string>
   <string name="rename_dialog_title">Ievadīt jaunu nosaukumu</string>

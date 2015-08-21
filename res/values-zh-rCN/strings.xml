@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">设置</string>
   <string name="drawer_item_logs">日志</string>
   <string name="drawer_close">关闭</string>
+  <string name="drawer_open">打开</string>
   <string name="prefs_category_general">常规</string>
   <string name="prefs_category_more">更多</string>
   <string name="prefs_accounts">账号</string>
@@ -200,9 +201,7 @@
   <string name="confirmation_remove_alert">你确定要删除 %1$s 吗？</string>
   <string name="confirmation_remove_folder_alert">您确定要删除 %1$s 及其内容吗？</string>
   <string name="confirmation_remove_local">仅本地</string>
-  <string name="confirmation_remove_folder_local">仅本地内容</string>
-  <string name="confirmation_remove_remote">从服务器删除</string>
-  <string name="confirmation_remove_remote_and_local">远程和本地都</string>
+  <string name="confirmation_remove_folder_local">仅本地</string>
   <string name="remove_success_msg">成功删除</string>
   <string name="remove_fail_msg">无法完成删除</string>
   <string name="rename_dialog_title">请输出新的名字</string>
@@ -257,8 +256,6 @@
   <string name="conflict_title">文件冲突</string>
   <string name="conflict_message">您想要保留哪个文件？如果您同时选中了两个版本，本地的文件的文件名将被加上一个数字</string>
   <string name="conflict_keep_both">保留两者</string>
-  <string name="conflict_use_local_version">使用本地版本</string>
-  <string name="conflict_use_server_version">使用服务器版本</string>
   <string name="preview_image_description">图片预览</string>
   <string name="preview_image_error_unknown_format">无法显示图片</string>
   <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
