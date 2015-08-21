@@ -17,35 +17,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:paddingRight="8dip"
-              android:background="?attr/actionBarItemBackground"
-              android:enabled="false">
-
-    <ImageView android:id="@+id/up"
-               android:src="?attr/homeAsUpIndicator"
-               android:layout_gravity="center_vertical|left"
-               android:visibility="gone"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"/>
-
-    <LinearLayout android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="center_vertical|left"
-                  android:orientation="vertical">
-        <TextView android:id="@+id/action_bar_title"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:singleLine="true"
-                  android:ellipsize="end"/>
-        <TextView android:id="@+id/action_bar_subtitle"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="@dimen/abc_action_bar_subtitle_top_margin"
-                  android:layout_marginBottom="@dimen/abc_action_bar_subtitle_bottom_margin"
-                  android:singleLine="true"
-                  android:ellipsize="end"
-                  android:visibility="gone"/>
-    </LinearLayout>
+              android:orientation="vertical"
+              style="@style/RtlOverlay.Widget.AppCompat.ActionBar.TitleItem">
+    <TextView android:id="@+id/action_bar_title"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:singleLine="true"
+              android:ellipsize="end" />
+    <TextView android:id="@+id/action_bar_subtitle"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/abc_action_bar_subtitle_top_margin_material"
+              android:singleLine="true"
+              android:ellipsize="end"
+              android:visibility="gone" />
 </LinearLayout>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_action_bar_title_item.xml -->

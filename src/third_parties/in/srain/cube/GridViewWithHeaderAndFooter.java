@@ -99,6 +99,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
         ListAdapter adapter = getAdapter();
         if (adapter != null && adapter instanceof HeaderViewGridAdapter) {
             ((HeaderViewGridAdapter) adapter).setNumColumns(getNumColumnsCompatible());
+            invalidateRowHeight();
             ((HeaderViewGridAdapter) adapter).setRowHeight(getRowHeight());
         }
     }

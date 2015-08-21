@@ -253,11 +253,11 @@
   <string name="instant_upload_on_wifi">Odesílat obrázky pouze přes WiFi</string>
   <string name="instant_video_upload_on_wifi">Nahrávat videa pouze přes WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Konflikt při aktualizaci</string>
-  <string name="conflict_message">Vzdálený soubor %s není synchronizován s místním souborem. Pokračování přepíše obsah souboru na serveru.</string>
+  <string name="conflict_title">Konflikt souboru</string>
+  <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
   <string name="conflict_keep_both">Ponechat oba</string>
-  <string name="conflict_overwrite">Přepsat</string>
-  <string name="conflict_dont_upload">Nenahrávat</string>
+  <string name="conflict_use_local_version">Použít lokální verzi</string>
+  <string name="conflict_use_server_version">Použít serverovou verzi</string>
   <string name="preview_image_description">Náhled obrázku</string>
   <string name="preview_image_error_unknown_format">Obrázek nelze zobrazit</string>
   <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
@@ -312,6 +312,7 @@ správce systému.</string>
   <string name="shared_subject_header">sdílené</string>
   <string name="with_you_subject_header">s vámi</string>
   <string name="subject_token">%1$s s vámi sdílí \"%2$s\"</string>
+  <string name="saml_subject_token">\"%1$s\" ti byl nasdílen</string>
   <string name="auth_refresh_button">Obnovit připojení</string>
   <string name="auth_host_address">Adresa serveru</string>
   <string name="common_error_out_memory">Nedostatek paměti</string>

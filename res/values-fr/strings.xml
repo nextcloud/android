@@ -72,7 +72,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="file_list_empty">Il n\'y a rien ici ! Envoyez donc quelque chose :)</string>
   <string name="file_list_loading">Chargement...</string>
   <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
-  <string name="filedetails_select_file">Touchez un fichier pour afficher les informations complémentaires.</string>
+  <string name="filedetails_select_file">Appuyez sur un fichier pour afficher les informations supplémentaires</string>
   <string name="filedetails_size">Taille :</string>
   <string name="filedetails_type">Type :</string>
   <string name="filedetails_created">Créé le :</string>
@@ -259,11 +259,11 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="instant_upload_on_wifi">Téléverser les images via une connexion WiFi uniquement</string>
   <string name="instant_video_upload_on_wifi">Téléverser les vidéos via une connexion WiFi uniquement</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Conflit de mise à jour</string>
-  <string name="conflict_message">Le fichier distant %s n\'est pas synchronisé avec le fichier local. En choisissant de continuer, vous remplacerez le contenu du fichier sur le serveur.</string>
+  <string name="conflict_title">Conflit de fichiers</string>
+  <string name="conflict_message">Quel(s) fichier(s) voulez-vous garder ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
   <string name="conflict_keep_both">Garder les deux versions</string>
-  <string name="conflict_overwrite">Écraser</string>
-  <string name="conflict_dont_upload">Ne pas téléverser</string>
+  <string name="conflict_use_local_version">Utiliser la version locale</string>
+  <string name="conflict_use_server_version">Utiliser la version du serveur</string>
   <string name="preview_image_description">Prévisualisation de l\'image</string>
   <string name="preview_image_error_unknown_format">Cette image ne peut pas être affichée</string>
   <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
@@ -317,6 +317,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="shared_subject_header">a partagé</string>
   <string name="with_you_subject_header">avec vous</string>
   <string name="subject_token">%1$s a partagé \"%2$s\" avec vous</string>
+  <string name="saml_subject_token">\"%1$s\" a été partagé avec vous</string>
   <string name="auth_refresh_button">Actualiser la connexion</string>
   <string name="auth_host_address">Adresse du serveur</string>
   <string name="common_error_out_memory">Mémoire insuffisante</string>

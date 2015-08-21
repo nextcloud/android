@@ -32,8 +32,8 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -44,15 +44,22 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
-//import android.support.v7.app.ActionBar;
-import android.app.ActionBar;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -75,6 +82,9 @@ import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * An Activity that allows the user to change the application's settings.
+ *
+ * It proxies the necessary calls via {@link android.support.v7.app.AppCompatDelegate} to be used
+ * with AppCompat.
  */
 public class Preferences extends PreferenceActivity
         implements AccountManagerCallback<Boolean>, ComponentsGetter {
@@ -87,6 +97,7 @@ public class Preferences extends PreferenceActivity
     private DbHandler mDbHandler;
     private CheckBoxPreference pCode;
     private Preference pAboutApp;
+    private AppCompatDelegate mDelegate;
 
     private PreferenceCategory mAccountsPrefCategory = null;
     private final Handler mHandler = new Handler();
@@ -109,23 +120,15 @@ public class Preferences extends PreferenceActivity
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        getDelegate().installViewFactory();
+        getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         mDbHandler = new DbHandler(getBaseContext());
         addPreferencesFromResource(R.xml.preferences);
 
-        // Set properties of Action Bar in an ugly workaround to build correctly without
-        // upgrading minSdk
-        // TODO : increase minSdk; scheduled for next realease, don't wont to mix with this US
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            ActionBar actionBar = getActionBar();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-            }
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(R.string.actionbar_settings);
-        } else {
-            setTitle(R.string.actionbar_settings);
-        }
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(R.string.actionbar_settings);
 
         // For adding content description tag to a title field in the action bar
         int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
@@ -150,7 +153,49 @@ public class Preferences extends PreferenceActivity
                     mShowContextMenu = true;
                     mAccountName = ((RadioButtonPreference) obj).getKey();
 
-                    Preferences.this.openContextMenu(listView);
+                    String[] items = {
+                            getResources().getString(R.string.change_password),
+                            getResources().getString(R.string.delete_account)
+                    };
+                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Preferences.this);
+                    View convertView = getLayoutInflater().inflate(R.layout.alert_dialog_list_view, null);
+                    alertDialogBuilder.setView(convertView);
+                    ListView lv = (ListView) convertView.findViewById(R.id.list);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                            Preferences.this,R.layout.simple_dialog_list_item,items);
+                    lv.setAdapter(adapter);
+
+                    //Setup proper inline listener
+                    final AlertDialog alertDialog = alertDialogBuilder.create();
+                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+                            Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
+                            for (Account a : accounts) {
+                                if (a.name.equals(mAccountName)) {
+                                    if (position==0) {
+
+                                        // Change account password
+                                        Intent updateAccountCredentials = new Intent(Preferences.this, AuthenticatorActivity.class);
+                                        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, a);
+                                        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
+                                                AuthenticatorActivity.ACTION_UPDATE_TOKEN);
+                                        startActivity(updateAccountCredentials);
+                                        alertDialog.cancel();
+                                        
+                                    } else if (position==1) {
+
+                                        // Remove account
+                                        am.removeAccount(a, Preferences.this, mHandler);
+                                        Log_OC.d(TAG, "Remove an account " + a.name);
+                                        alertDialog.cancel();
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    alertDialog.show();
 
                     View.OnLongClickListener longListener = (View.OnLongClickListener) obj;
                     return longListener.onLongClick(view);
@@ -439,40 +484,6 @@ public class Preferences extends PreferenceActivity
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
-    /**
-     * Called when the user clicked on an item into the context menu created at
-     * {@link #onCreateContextMenu(ContextMenu, View, ContextMenuInfo)} for
-     * every ownCloud {@link Account} , containing 'secondary actions' for them.
-     * 
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean onContextItemSelected(android.view.MenuItem item) {
-        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
-        for (Account a : accounts) {
-            if (a.name.equals(mAccountName)) {
-                if (item.getItemId() == R.id.change_password) {
-
-                    // Change account password
-                    Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-                    updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, a);
-                    updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
-                            AuthenticatorActivity.ACTION_UPDATE_TOKEN);
-                    startActivity(updateAccountCredentials);
-
-                } else if (item.getItemId() == R.id.delete_account) {
-
-                    // Remove account
-                    am.removeAccount(a, this, mHandler);
-                    Log_OC.d(TAG, "Remove an account " + a.name);
-                }
-            }
-        }
-
-        return true;
-    }
-
     @Override
     public void run(AccountManagerFuture<Boolean> future) {
         if (future.isDone()) {
@@ -571,6 +582,61 @@ public class Preferences extends PreferenceActivity
         }
     }
 
+    public ActionBar getSupportActionBar() {
+        return getDelegate().getSupportActionBar();
+    }
+
+    public void setSupportActionBar(@Nullable Toolbar toolbar) {
+        getDelegate().setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public MenuInflater getMenuInflater() {
+        return getDelegate().getMenuInflater();
+    }
+
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        getDelegate().setContentView(layoutResID);
+    }
+    @Override
+    public void setContentView(View view) {
+        getDelegate().setContentView(view);
+    }
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        getDelegate().setContentView(view, params);
+    }
+
+    @Override
+    public void addContentView(View view, ViewGroup.LayoutParams params) {
+        getDelegate().addContentView(view, params);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        getDelegate().onPostResume();
+    }
+
+    @Override
+    protected void onTitleChanged(CharSequence title, int color) {
+        super.onTitleChanged(title, color);
+        getDelegate().setTitle(title);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        getDelegate().onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        getDelegate().onPostCreate(savedInstanceState);
+    }
+
     @Override
     protected void onDestroy() {
         mDbHandler.close();
@@ -585,6 +651,24 @@ public class Preferences extends PreferenceActivity
         }
 
         super.onDestroy();
+        getDelegate().onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        getDelegate().onStop();
+    }
+
+    public void invalidateOptionsMenu() {
+        getDelegate().invalidateOptionsMenu();
+    }
+
+    private AppCompatDelegate getDelegate() {
+        if (mDelegate == null) {
+            mDelegate = AppCompatDelegate.create(this, null);
+        }
+        return mDelegate;
     }
 
     /**

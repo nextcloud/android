@@ -5,7 +5,7 @@
 
 		<attr name="optionOneString" format="string" />
 		<attr name="optionOneColor" format="color" />
-    <attr name="optionTwoString" format="string" />
+    	<attr name="optionTwoString" format="string" />
 		<attr name="optionTwoColor" format="color" />
 		<attr name="onBadgeClick" format="string" />
 

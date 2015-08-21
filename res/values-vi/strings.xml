@@ -201,11 +201,7 @@
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Tải hình ảnh lên thông qua WiFi</string>
   <string name="instant_upload_path">/Upload tức thì</string>
-  <string name="conflict_title">Cập nhật xung đột</string>
-  <string name="conflict_message">%s là tập tin từ xa nó không đồng bộ với tập tin máy bạn . Nếu bạn tiếp tục sẽ thay đổi nội dung của tập tin trên máy chủ.</string>
   <string name="conflict_keep_both">Giữ cho cả hai</string>
-  <string name="conflict_overwrite">Ghi đè lên</string>
-  <string name="conflict_dont_upload">Không tải lên</string>
   <string name="preview_image_description">Xem trước hình ảnh</string>
   <string name="share_link_file_error">Một lỗi đã xảy ra khi thử chia sẻ file hoặc thư mục này</string>
   <string name="unshare_link_file_error">Một lỗi đã xảy ra khi thử gỡ chia sẻ file hoặc thư mục này</string>
