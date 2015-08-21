@@ -590,8 +590,18 @@ public class FileUploader extends Service
                 } finally {
                     Log_OC.v("NOW " + TAG + ", thread " + Thread.currentThread().getName(),
                             "Removing payload " + mCurrentUpload.getRemotePath());
-                    Pair<UploadFileOperation, String> removeResult =
-                            mPendingUploads.removePayload(mCurrentAccount, mCurrentUpload.getRemotePath());
+                    Pair<UploadFileOperation, String> removeResult;
+                    if (mCurrentUpload.wasRenamed()) {
+                        removeResult = mPendingUploads.removePayload(
+                                mCurrentAccount,
+                                mCurrentUpload.getOldFile().getRemotePath()
+                        );
+                    } else {
+                        removeResult = mPendingUploads.removePayload(
+                                mCurrentAccount,
+                                mCurrentUpload.getRemotePath()
+                        );
+                    }
 
                     /// notify result
                     notifyUploadResult(mCurrentUpload, uploadResult);
