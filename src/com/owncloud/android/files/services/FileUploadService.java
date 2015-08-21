@@ -578,12 +578,13 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 //TODO store renamed upload path?
                 updateDatabaseUploadResult(uploadResult, mCurrentUpload);
                 notifyUploadResult(uploadResult, mCurrentUpload);
-                sendFinalBroadcast(uploadResult, mCurrentUpload);                
-                if (!shouldRetryFailedUpload(uploadResult)) {
-                    Log_OC.d(TAG, "Upload with result " + uploadResult.getCode() + ": " + uploadResult.getLogMessage()
-                            + " will be abandoned.");                    
-                    mPendingUploads.remove(buildRemoteName(uploadDbObject));
-                }
+                sendFinalBroadcast(uploadResult, mCurrentUpload);
+                // TODO: Disable for testing of menu actions in uploads view
+//                if (!shouldRetryFailedUpload(uploadResult)) {
+//                    Log_OC.d(TAG, "Upload with result " + uploadResult.getCode() + ": " + uploadResult.getLogMessage()
+//                            + " will be abandoned.");
+//                    mPendingUploads.remove(buildRemoteName(uploadDbObject));
+//                }
                 Log_OC.d(TAG, "mCurrentUpload = null");
                 mCurrentUpload = null;
                 break;
@@ -1288,35 +1289,38 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             if (uploadResult.isSuccess()) {
                 mDb.updateUploadStatus(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_SUCCEEDED, uploadResult);
             } else {
-                if (shouldRetryFailedUpload(uploadResult)) {
-                    mDb.updateUploadStatus(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED_RETRY, uploadResult);
-                } else {
-                    mDb.updateUploadStatus(upload.getOriginalStoragePath(),
-                            UploadDbHandler.UploadStatus.UPLOAD_FAILED_GIVE_UP, uploadResult);
-                }
+                // TODO: Disable for testing of menu actions in uploads view
+//                if (shouldRetryFailedUpload(uploadResult)) {
+//                    mDb.updateUploadStatus(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED_RETRY, uploadResult);
+//                } else {
+//                    mDb.updateUploadStatus(upload.getOriginalStoragePath(),
+//                            UploadDbHandler.UploadStatus.UPLOAD_FAILED_GIVE_UP, uploadResult);
+//                }
             }
         }
     }
-    
-    /**
-     * Determines whether with given uploadResult the upload should be retried later.
-     * @param uploadResult
-     * @return true if upload should be retried later, false if is should be abandoned.
-     */
-    private boolean shouldRetryFailedUpload(RemoteOperationResult uploadResult) {
-        if (uploadResult.isSuccess()) {
-            return false;
-        }
-        switch (uploadResult.getCode()) {
-        case HOST_NOT_AVAILABLE:
-        case NO_NETWORK_CONNECTION:
-        case TIMEOUT:
-        case WRONG_CONNECTION: // SocketException
-            return true;
-        default:
-            return false;
-        }
-    }
+
+    // TODO: Disable for testing of menu actions in uploads view
+//
+//    /**
+//     * Determines whether with given uploadResult the upload should be retried later.
+//     * @param uploadResult
+//     * @return true if upload should be retried later, false if is should be abandoned.
+//     */
+//    private boolean shouldRetryFailedUpload(RemoteOperationResult uploadResult) {
+//        if (uploadResult.isSuccess()) {
+//            return false;
+//        }
+//        switch (uploadResult.getCode()) {
+//        case HOST_NOT_AVAILABLE:
+//        case NO_NETWORK_CONNECTION:
+//        case TIMEOUT:
+//        case WRONG_CONNECTION: // SocketException
+//            return true;
+//        default:
+//            return false;
+//        }
+//    }
 
     /**
      * Sends a broadcast in order to the interested activities can update their
