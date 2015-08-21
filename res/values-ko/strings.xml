@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">설정</string>
   <string name="drawer_item_logs">로그</string>
   <string name="drawer_close">닫기</string>
+  <string name="drawer_open">열기</string>
   <string name="prefs_category_general">일반</string>
   <string name="prefs_category_more">더 보기</string>
   <string name="prefs_accounts">계정</string>
@@ -200,9 +201,7 @@
   <string name="confirmation_remove_alert">%1$s을(를) 삭제하시겠습니까?</string>
   <string name="confirmation_remove_folder_alert">%1$s 및 포함된 내용을 삭제하시겠습니까?</string>
   <string name="confirmation_remove_local">로컬만</string>
-  <string name="confirmation_remove_folder_local">로컬 콘텐츠만</string>
-  <string name="confirmation_remove_remote">서버에서 삭제</string>
-  <string name="confirmation_remove_remote_and_local">서버와 로컬 모두</string>
+  <string name="confirmation_remove_folder_local">로컬만</string>
   <string name="remove_success_msg">성공적으로 삭제함</string>
   <string name="remove_fail_msg">삭제할 수 없음</string>
   <string name="rename_dialog_title">새 이름 입력</string>

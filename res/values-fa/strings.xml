@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">باز کردن</string>
   <string name="prefs_category_general">عمومی</string>
   <string name="prefs_category_more">بیش‌تر</string>
   <string name="prefs_accounts">حساب‌ها</string>
@@ -154,9 +155,7 @@
   <string name="common_rename">تغییرنام</string>
   <string name="common_remove">حذف</string>
   <string name="confirmation_remove_local">فقط محلی</string>
-  <string name="confirmation_remove_folder_local">فقط محتوای محلی</string>
-  <string name="confirmation_remove_remote">پاک کردن از سرور</string>
-  <string name="confirmation_remove_remote_and_local">راه دور و محلی</string>
+  <string name="confirmation_remove_folder_local">فقط محلی</string>
   <string name="remove_success_msg">حذف با موفقیت انجام شد</string>
   <string name="remove_fail_msg">حذف نا موفق بود</string>
   <string name="rename_dialog_title">نام جدید وارد کنید</string>

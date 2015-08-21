@@ -12,6 +12,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Otvori</string>
   <string name="prefs_category_general">Opšte</string>
   <string name="prefs_accounts">Nalozi</string>
   <string name="prefs_manage_accounts">Upravljaj nalozima</string>
