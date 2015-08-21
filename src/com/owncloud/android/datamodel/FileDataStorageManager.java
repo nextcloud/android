@@ -45,6 +45,7 @@ import android.os.RemoteException;
 import android.provider.MediaStore;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
@@ -1594,7 +1595,7 @@ public class FileDataStorageManager {
             inConflict = false;
         }
         ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_IN_CONFLICT, inConflict);
+        cv.put(ProviderTableMeta.FILE_IN_CONFLICT, inConflict ? 1 : 0);
         int updated = 0;
         if (getContentResolver() != null) {
             updated = getContentResolver().update(
@@ -1660,12 +1661,65 @@ public class FileDataStorageManager {
                 } // else file is ROOT folder, no parent to set in conflict
 
             } else {
-                /// TODO update conflict in ancestor folders
+                /// update conflict in ancestor folders
                 // (not directly unset; maybe there are more conflicts below them)
+                String parentPath = file.getRemotePath();
+                if (parentPath.endsWith(OCFile.PATH_SEPARATOR)) {
+                    parentPath = parentPath.substring(0, parentPath.length() - 1);
+                }
+                parentPath = parentPath.substring(0, parentPath.lastIndexOf(OCFile.PATH_SEPARATOR) + 1);
+
+                Log_OC.d(TAG, "checking parents to remove conflict; STARTING with " + parentPath);
+                while (parentPath.length() > 0) {
+
+                    String where =
+                            ProviderTableMeta.FILE_IN_CONFLICT + " = 1 AND " +
+                                    ProviderTableMeta.FILE_CONTENT_TYPE + " != 'DIR' AND " +
+                                    ProviderTableMeta.FILE_ACCOUNT_OWNER + " = ? AND " +
+                                    ProviderTableMeta.FILE_PATH + " LIKE ?";
+                    Cursor descendentsInConflict = getContentResolver().query(
+                            ProviderTableMeta.CONTENT_URI_FILE,
+                            new String[]{ProviderTableMeta._ID},
+                            where,
+                            new String[]{mAccount.name, parentPath + "%"},
+                            null
+                    );
+                    if (descendentsInConflict == null || descendentsInConflict.getCount() == 0) {
+                        Log_OC.d(TAG, "NO MORE conflicts in " + parentPath);
+                        if (getContentResolver() != null) {
+                            updated = getContentResolver().update(
+                                    ProviderTableMeta.CONTENT_URI_FILE,
+                                    cv,
+                                    ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + "=?",
+                                    new String[]{mAccount.name, parentPath}
+                            );
+                        } else {
+                            try {
+                                updated = getContentProviderClient().update(
+                                        ProviderTableMeta.CONTENT_URI_FILE,
+                                        cv,
+                                        ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + "=?"
+                                        , new String[]{mAccount.name, parentPath}
+                                );
+                            } catch (RemoteException e) {
+                                Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage());
+                            }
+                        }
+
+                    } else {
+                        Log_OC.d(TAG, "STILL " + descendentsInConflict.getCount() + " in " + parentPath);
+                    }
+
+                    if (descendentsInConflict != null) {
+                        descendentsInConflict.close();
+                    }
+
+                    parentPath = parentPath.substring(0, parentPath.length() - 1);  // trim last /
+                    parentPath = parentPath.substring(0, parentPath.lastIndexOf(OCFile.PATH_SEPARATOR) + 1);
+                    Log_OC.d(TAG, "checking parents to remove conflict; NEXT " + parentPath);
+                }
             }
         }
-
-        Log_OC.d(TAG, "Number of parents updated with CONFLICT: " + updated);
 
     }
 }
