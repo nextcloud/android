@@ -84,8 +84,6 @@
   <string name="common_rename">ប្ដូរ​ឈ្មោះ</string>
   <string name="common_remove">ដកចេញ</string>
   <string name="confirmation_remove_local">ទីកន្លែងតែមួយ</string>
-  <string name="confirmation_remove_remote">ដកចេញពី​សឺវឺ</string>
-  <string name="confirmation_remove_remote_and_local">បញ្ជារ និងទីតាំង</string>
   <string name="remove_success_msg">ការដកយកចេញបានជោគជ័យ</string>
   <string name="remove_fail_msg">ការដកយកចេញបានបរាជ័យ</string>
   <string name="rename_dialog_title">បញ្ចូលឈ្មោះថ្មី</string>

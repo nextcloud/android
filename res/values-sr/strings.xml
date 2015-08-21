@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Поставке</string>
   <string name="drawer_item_logs">Записници</string>
   <string name="drawer_close">Затвори</string>
+  <string name="drawer_open">Отвори</string>
   <string name="prefs_category_general">Опште</string>
   <string name="prefs_category_more">Остало</string>
   <string name="prefs_accounts">Налози</string>
@@ -200,9 +201,7 @@
   <string name="confirmation_remove_alert">Желите да уклоните %1$s?</string>
   <string name="confirmation_remove_folder_alert">Желите да уклоните %1$s и њен садржај?</string>
   <string name="confirmation_remove_local">Само локално</string>
-  <string name="confirmation_remove_folder_local">Само локални садржај</string>
-  <string name="confirmation_remove_remote">Уклони са сервера</string>
-  <string name="confirmation_remove_remote_and_local">Удаљено и локално</string>
+  <string name="confirmation_remove_folder_local">Само локално</string>
   <string name="remove_success_msg">Уклањање успешно</string>
   <string name="remove_fail_msg">Уклањање неуспешно</string>
   <string name="rename_dialog_title">Унесите нов назив</string>

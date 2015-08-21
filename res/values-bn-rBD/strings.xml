@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">খোল</string>
   <string name="prefs_category_general">সাধারণ</string>
   <string name="prefs_category_more">বেশী</string>
   <string name="prefs_accounts">একাউন্ট</string>
@@ -171,9 +172,7 @@
   <string name="confirmation_remove_alert">আপনি কি সত্যিই %1$s অপসারণ করতে চান?</string>
   <string name="confirmation_remove_folder_alert">আপনি কি সত্যিই %1$s এবং এর কনটেন্ট অপসারণ করতে চান?</string>
   <string name="confirmation_remove_local">শুধুমাত্র লোকাল</string>
-  <string name="confirmation_remove_folder_local">শুধুমাত্র লোকাল কনটেন্ট</string>
-  <string name="confirmation_remove_remote">সার্ভসার থেকে অপসারণ কর</string>
-  <string name="confirmation_remove_remote_and_local">দুরবর্তী ও স্থানীয়</string>
+  <string name="confirmation_remove_folder_local">শুধুমাত্র লোকাল</string>
   <string name="remove_success_msg">অপসারণ সফল</string>
   <string name="remove_fail_msg">অপসারণ ব্যার্থ</string>
   <string name="rename_dialog_title">একটি নতুন নাম লিখুন</string>

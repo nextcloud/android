@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Seaded</string>
   <string name="drawer_item_logs">Logid</string>
   <string name="drawer_close">Sulge</string>
+  <string name="drawer_open">Ava</string>
   <string name="prefs_category_general">Üldine</string>
   <string name="prefs_category_more">Rohkem</string>
   <string name="prefs_accounts">Kontod</string>
@@ -204,9 +205,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="confirmation_remove_alert">Oled sa kindel, et soovid %1$s eemaldada?</string>
   <string name="confirmation_remove_folder_alert">Kas sa tõesti soovid eemaldada %1$s ja selle sisu?</string>
   <string name="confirmation_remove_local">Ainult kohalik</string>
-  <string name="confirmation_remove_folder_local">Ainult kohalik sisu</string>
-  <string name="confirmation_remove_remote">Eemalda serverist</string>
-  <string name="confirmation_remove_remote_and_local">Eemalolev ja kohalik</string>
+  <string name="confirmation_remove_folder_local">Ainult kohalik</string>
   <string name="remove_success_msg">Eemaldamine oli edukas</string>
   <string name="remove_fail_msg">Eemaldamine ebaõnnestus</string>
   <string name="rename_dialog_title">Sisesta uus nimi</string>
@@ -258,6 +257,8 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="instant_upload_on_wifi">Lae pilte üles ainult läbi WiFi</string>
   <string name="instant_video_upload_on_wifi">Laadi videod üles ainult WiFi-t kasutades</string>
   <string name="instant_upload_path">/InstantUpload</string>
+  <string name="conflict_title">Failikonflikt</string>
+  <string name="conflict_message">Millist faili sa soovid säilitada? Kui valid mõlemad versioonid, siis lisatakse kohaliku faili nimele number.</string>
   <string name="conflict_keep_both">Säilita mõlemad</string>
   <string name="preview_image_description">Pildi eelvaade</string>
   <string name="preview_image_error_unknown_format">Seda pilti ei saa näidata</string>
@@ -313,6 +314,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="shared_subject_header">jagatud</string>
   <string name="with_you_subject_header">sinuga</string>
   <string name="subject_token">%1$s jagas sinuga \"%2$s\"</string>
+  <string name="saml_subject_token">\"%1$s\" on sinuga jagatud</string>
   <string name="auth_refresh_button">Värskenda ühendust</string>
   <string name="auth_host_address">Serveri aadress</string>
   <string name="common_error_out_memory">Mälu pole piisavalt</string>
