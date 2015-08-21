@@ -670,7 +670,7 @@ public class FileUploader extends Service
      * synchronized with the server, specially the modification time and Etag
      * (where available)
      *
-     * TODO refactor this ugly thing
+     * TODO move into UploadFileOperation
      */
     private void saveUploadedFile() {
         OCFile file = mCurrentUpload.getFile();
@@ -699,6 +699,7 @@ public class FileUploader extends Service
             if (oldFile.fileExists()) {
                 oldFile.setStoragePath(null);
                 mStorageManager.saveFile(oldFile);
+                mStorageManager.saveConflict(oldFile, false);
 
             } // else: it was just an automatic renaming due to a name
             // coincidence; nothing else is needed, the storagePath is right
@@ -706,6 +707,7 @@ public class FileUploader extends Service
         }
         file.setNeedsUpdateThumbnail(true);
         mStorageManager.saveFile(file);
+        mStorageManager.saveConflict(file, false);
     }
 
     private void updateOCFile(OCFile file, RemoteFile remoteFile) {

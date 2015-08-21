@@ -509,6 +509,7 @@ public class FileDataStorageManager {
                         // maybe unnecessary, but should be checked TODO remove if unnecessary
                         file.setStoragePath(null);
                         saveFile(file);
+                        saveConflict(file, false);
                     }
                 }
             }
@@ -1589,6 +1590,9 @@ public class FileDataStorageManager {
     }
 
     public void saveConflict(OCFile file, boolean inConflict) {
+        if (!file.isDown()) {
+            inConflict = false;
+        }
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.FILE_IN_CONFLICT, inConflict);
         int updated = 0;

@@ -466,6 +466,8 @@ public class FileDownloader extends Service
 
     /**
      * Updates the OC File after a successful download.
+     *
+     * TODO move to DownloadFileOperation
      */
     private void saveDownloadedFile() {
         OCFile file = mStorageManager.getFileById(mCurrentDownload.getFile().getFileId());
@@ -482,6 +484,7 @@ public class FileDownloader extends Service
         file.setRemoteId(mCurrentDownload.getFile().getRemoteId());
         mStorageManager.saveFile(file);
         mStorageManager.triggerMediaScan(file.getStoragePath());
+        mStorageManager.saveConflict(file, false);
     }
 
     /**
