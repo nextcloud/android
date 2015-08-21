@@ -26,7 +26,7 @@ import com.owncloud.android.media.MediaService;
 import com.owncloud.android.ui.activity.FileActivity;
 
 import android.accounts.Account;
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;

@@ -83,7 +83,7 @@
   <string name="auth_bad_oc_version_title">அங்கீகரிக்கப்படாத சேவையகம் பதிப்பு</string>
   <string name="auth_wrong_connection_title">இணைப்பை நிறுவமுடியாது</string>
   <string name="auth_secure_connection">பாதுகாப்பான இணைப்பு உருவாக்கப்பட்டது.</string>
-  <string name="fd_keep_in_sync">நவீன கோப்பை வைத்திருக்கவும்</string>
+  <string name="favorite">விருப்பமான</string>
   <string name="common_rename">பெயர்மாற்றம்</string>
   <string name="common_remove">அகற்றுக</string>
   <string name="confirmation_remove_local">உள்ளூர் மட்டும்</string>
@@ -124,11 +124,7 @@
   <string name="ssl_validator_label_signature_algorithm">நெறிமுறை</string>
   <string name="placeholder_sentence">இது ஒரு placeholder</string>
   <string name="instant_upload_on_wifi">WiFi ஊடாக மட்டும் படங்களை பதிவேற்றுக</string>
-  <string name="conflict_title">இற்றைப்படுத்தலில் முரண்பாடு</string>
-  <string name="conflict_message">இடத்துரி கோப்புடன் தொலைவு கோப்பு %s ஒத்திசைவாக்கப்படவில்லை. தொடர்ந்து மேற்கொண்டால் சேவையகத்தில் உள்ள கோப்பின் உள்ளடக்கம் மாற்றப்படும்.</string>
   <string name="conflict_keep_both">இரண்டையும் வைக்க </string>
-  <string name="conflict_overwrite">மேலெழுதல்</string>
-  <string name="conflict_dont_upload">பதிவேற்ற வேண்டாம்</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">கணக்குகள்</string>
   <string name="folder_picker_choose_button_text">தெரிவுசெய்க </string>

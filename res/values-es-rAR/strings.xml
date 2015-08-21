@@ -64,12 +64,7 @@
   <string name="uploader_info_uploading">Subiendo</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">No hay nada. ¡Subí contenido!</string>
-  <string name="file_list_loading">Cargando...</string>
   <string name="local_file_list_empty">No existen archivos en esta carpeta.</string>
-  <string name="file_list_folder">carpeta</string>
-  <string name="file_list_folders">carpetas</string>
-  <string name="file_list_file">archivo</string>
-  <string name="file_list_files">archivos</string>
   <string name="filedetails_select_file">Pulsá sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -178,7 +173,7 @@
   <string name="auth_unsupported_multiaccount">%1$s no soporta múltiples cuentas</string>
   <string name="auth_fail_get_user_name">Tú servidor no esta regresando una identificación de usuario correcta, por favor contacta a un administrador</string>
   <string name="auth_can_not_auth_against_server">No se puede autenticar contra este servidor</string>
-  <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
+  <string name="favorite">Favorito</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
   <string name="confirmation_remove_alert">¿Realmente quieres eliminar %1$s?</string>
@@ -236,11 +231,7 @@
   <string name="instant_upload_on_wifi">Subir imágenes solamente a través de WiFi</string>
   <string name="instant_video_upload_on_wifi">Cargar videos mediante WiFi solamente</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
-  <string name="conflict_title">Conflicto en la actualización</string>
-  <string name="conflict_message">El archivo remoto %s no está sincronizado con el archivo local. Si seguís adelante, vas a reemplazar el contenido del archivo en el servidor.</string>
   <string name="conflict_keep_both">Mantener ambas</string>
-  <string name="conflict_overwrite">Sobrescribir</string>
-  <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
   <string name="preview_image_error_unknown_format">Esta imagen no puede ser mostrada</string>
   <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s </string>

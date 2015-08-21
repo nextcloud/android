@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Beállítások</string>
   <string name="prefs_category_general">Általános</string>
   <string name="prefs_category_more">Több</string>
   <string name="prefs_accounts">Fiókok</string>
@@ -29,7 +30,7 @@
   <string name="prefs_log_summary">Ez használható a problémák naplózásához</string>
   <string name="prefs_log_title_history">Naplózás előzménye</string>
   <string name="prefs_log_summary_history">Ez megjeleníti a rögzitett eseményeket</string>
-  <string name="prefs_log_delete_history_button">Elözmények törlése</string>
+  <string name="prefs_log_delete_history_button">Előzmények törlése</string>
   <string name="prefs_help">Súgó</string>
   <string name="prefs_recommend">Ajánlja egy barátjának</string>
   <string name="prefs_feedback">Visszajelzés</string>
@@ -55,12 +56,7 @@
   <string name="uploader_info_uploading">Feltöltés</string>
   <string name="file_list_seconds_ago">pár másodperce</string>
   <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
-  <string name="file_list_loading">Betöltés...</string>
   <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
-  <string name="file_list_folder">mappa</string>
-  <string name="file_list_folders">mappák</string>
-  <string name="file_list_file">fájl</string>
-  <string name="file_list_files">fájlok</string>
   <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
   <string name="filedetails_type">Tipus:</string>
@@ -166,7 +162,8 @@
   <string name="auth_unsupported_auth_method">A kiszolgáló nem támogatja ezt a felhasználóazonosítási módszert</string>
   <string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
   <string name="auth_can_not_auth_against_server">Nem tudod hitelesíteni magadat ezen a szerveren</string>
-  <string name="fd_keep_in_sync">Automatikusan frissítse a fájlokat</string>
+  <string name="favorite">Kedvenc</string>
+  <string name="unfavorite">Nem kedvenc</string>
   <string name="common_rename">Átnevezés</string>
   <string name="common_remove">Eltávolítás</string>
   <string name="confirmation_remove_alert">Tényleg el akarod távolítani %1$s?</string>
@@ -224,11 +221,7 @@
   <string name="instant_upload_on_wifi">Képeket csak WiFi kapcsolaton keresztül töltsünk föl</string>
   <string name="instant_video_upload_on_wifi">Videó feltöltés csak WIFI-vel</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Frissítési ütközés</string>
-  <string name="conflict_message">%s távoli állományt nem szinkronizáltuk a helyi példánnyal. Ha folytatja, akkor a távoli állományt felülírjuk.</string>
   <string name="conflict_keep_both">Mindkettő megtartása</string>
-  <string name="conflict_overwrite">Felülírás</string>
-  <string name="conflict_dont_upload">Ne töltsük föl</string>
   <string name="preview_image_description">Előnézeti kép</string>
   <string name="preview_image_error_unknown_format">Ez a kép nem jeleníthető meg</string>
   <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi könyvtárba</string>

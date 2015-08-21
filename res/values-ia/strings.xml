@@ -25,7 +25,6 @@
   <string name="uploader_wrn_no_account_title">Nulle contos trovate</string>
   <string name="file_list_seconds_ago">secundas passate</string>
   <string name="file_list_empty">Nihil hic. Incarga alcun cosa!</string>
-  <string name="file_list_folder">dossier</string>
   <string name="filedetails_size">Dimension:</string>
   <string name="filedetails_type">Typo:</string>
   <string name="filedetails_download">Discargar</string>

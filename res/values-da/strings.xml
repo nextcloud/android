@@ -71,10 +71,6 @@
   <string name="file_list_empty">Her er tomt. Upload noget!</string>
   <string name="file_list_loading">Indlæser...</string>
   <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
-  <string name="file_list_folder">mappe</string>
-  <string name="file_list_folders">mapper</string>
-  <string name="file_list_file">fil</string>
-  <string name="file_list_files">filer</string>
   <string name="filedetails_select_file">Tryk på en fil for at vise yderligere information.</string>
   <string name="filedetails_size">Størelse:</string>
   <string name="filedetails_type">Type:</string>
@@ -196,7 +192,8 @@
   <string name="auth_fail_get_user_name">Din server retunere ikke et korrekt bruger-id. Kontakt venligst din administrator</string>
   <string name="auth_can_not_auth_against_server">Kan ikke autentificere mod denne server</string>
   <string name="auth_account_does_not_exist">Kontoen findes endnu ikke på enheden</string>
-  <string name="fd_keep_in_sync">Hold filen opdateret</string>
+  <string name="favorite">Foretrukken</string>
+  <string name="unfavorite">Fjern markering som foretrukket</string>
   <string name="common_rename">Omdøb</string>
   <string name="common_remove">Fjern</string>
   <string name="confirmation_remove_alert">Er du sikker på at du vil fjerne %1$s ?</string>
@@ -214,6 +211,7 @@
   <string name="sync_file_nothing_to_do_msg">Filindholdet allerede synkroniseret</string>
   <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
   <string name="filename_forbidden_characters">Ugyldige tegn: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Filnavnet indeholder mindst ét ugyldigt tegn</string>
   <string name="filename_empty">Filnavnet kan ikke stå tomt.</string>
   <string name="wait_a_moment">Vent et øjeblik</string>
   <string name="filedisplay_unexpected_bad_get_content">Uventet problem; prøv venligst en anden applikation til at vælge filen</string>
@@ -255,11 +253,11 @@
   <string name="instant_upload_on_wifi">Upload kun billeder via WiFi </string>
   <string name="instant_video_upload_on_wifi">Upload kun videoer via WiFi</string>
   <string name="instant_upload_path">/Øjeblikkelig upload</string>
-  <string name="conflict_title">Opdaterings konflikt</string>
-  <string name="conflict_message">Ekstern fil %s er ikke synkroniseret med lokal fil. At fortsætte vil erstatte indholdet af filen på serveren.</string>
+  <string name="conflict_title">Filkonflikt</string>
+  <string name="conflict_message">Hvilke filer ønsker du at beholde? Hvis du vælger begge versioner, så vil den lokale fil få et tal tilføjet til sit navn.</string>
   <string name="conflict_keep_both">Behold begge</string>
-  <string name="conflict_overwrite">Overskriv</string>
-  <string name="conflict_dont_upload">Upload ikke</string>
+  <string name="conflict_use_local_version">Benyt lokal version</string>
+  <string name="conflict_use_server_version">Benyt serverversionen</string>
   <string name="preview_image_description">Forhåndsvisning af billede</string>
   <string name="preview_image_error_unknown_format">Dette billede kan ikke vises</string>
   <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mappe</string>
@@ -313,8 +311,18 @@
   <string name="download_folder_failed_content">Download af %1$s mappe kunne ikke fuldføres</string>
   <string name="shared_subject_header">delt</string>
   <string name="with_you_subject_header">med dig</string>
+  <string name="subject_token">%1$s delte \"%2$s\" med dig</string>
+  <string name="saml_subject_token">\"%1$s\" er blevet delt med dig</string>
   <string name="auth_refresh_button">Genopfrisk forbindelsen</string>
   <string name="auth_host_address">Serveradresse</string>
   <string name="common_error_out_memory">Ikke tilstrækkelig hukommelse</string>
   <string name="username">Brugernavn</string>
+  <string name="file_list__footer__folder">1 mappe</string>
+  <string name="file_list__footer__folders">%1$d mapper</string>
+  <string name="file_list__footer__file">1 fil</string>
+  <string name="file_list__footer__file_and_folder">1 fil, 1 mappe</string>
+  <string name="file_list__footer__file_and_folders">1 fil, %1$d mapper</string>
+  <string name="file_list__footer__files">%1$d filer</string>
+  <string name="file_list__footer__files_and_folder">%1$d filer, 1 mape</string>
+  <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
 </resources>

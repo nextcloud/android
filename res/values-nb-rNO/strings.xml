@@ -71,10 +71,6 @@
   <string name="file_list_empty">Ingenting her. Last opp noe!</string>
   <string name="file_list_loading">Laster...</string>
   <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
-  <string name="file_list_folder">mappe</string>
-  <string name="file_list_folders">mapper</string>
-  <string name="file_list_file">fil</string>
-  <string name="file_list_files">filer</string>
   <string name="filedetails_select_file">Trykk på en fil for å vise ekstra informasjon.</string>
   <string name="filedetails_size">Størrelse:</string>
   <string name="filedetails_type">Type:</string>
@@ -197,7 +193,8 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne serveren</string>
   <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
-  <string name="fd_keep_in_sync">Hold filen oppdatert</string>
+  <string name="favorite">Gjør til favoritt</string>
+  <string name="unfavorite">Fjern favoritt</string>
   <string name="common_rename">Endre navn</string>
   <string name="common_remove">Fjern</string>
   <string name="confirmation_remove_alert">Vil du virkelig fjerne %1$s?</string>
@@ -257,11 +254,7 @@
   <string name="instant_upload_on_wifi">Kun last opp bilder via WiFi</string>
   <string name="instant_video_upload_on_wifi">Last opp video kun via WiFi</string>
   <string name="instant_upload_path">/Direkteopplasting</string>
-  <string name="conflict_title">Oppdateringskonflikt</string>
-  <string name="conflict_message">Ekstern fil %s er ikke synkronisert med lokal fil. Hvis du fortsetter vil det erstatte innhold på serveren.</string>
   <string name="conflict_keep_both">Behold begge</string>
-  <string name="conflict_overwrite">Overskriv</string>
-  <string name="conflict_dont_upload">Ikke last opp</string>
   <string name="preview_image_description">Bildeforhåndsvisning</string>
   <string name="preview_image_error_unknown_format">Dette bildet kan ikke vises</string>
   <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til lokal mappe %2$s</string>
@@ -320,4 +313,12 @@
   <string name="auth_host_address">Server-adresse</string>
   <string name="common_error_out_memory">Ikke nok minne</string>
   <string name="username">Brukernavn</string>
+  <string name="file_list__footer__folder">1 mappe</string>
+  <string name="file_list__footer__folders">%1$d mapper</string>
+  <string name="file_list__footer__file">1 fil</string>
+  <string name="file_list__footer__file_and_folder">1 fil, 1 mappe</string>
+  <string name="file_list__footer__file_and_folders">1 fil, %1$d mapper</string>
+  <string name="file_list__footer__files">%1$d filer</string>
+  <string name="file_list__footer__files_and_folder">%1$d filer, 1 mappe</string>
+  <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
 </resources>

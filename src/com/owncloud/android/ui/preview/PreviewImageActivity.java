@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,6 +56,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -103,7 +105,6 @@ public class PreviewImageActivity extends FileActivity implements
 
         // ActionBar
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         updateActionBarTitleAndHomeButton(null);
         actionBar.hide();
 
@@ -132,6 +133,9 @@ public class PreviewImageActivity extends FileActivity implements
                 }
             });
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(getResources().getColor(R.color.owncloud_blue_dark_transparent));
+            }
         }
             
         if (savedInstanceState != null) {
@@ -234,6 +238,9 @@ public class PreviewImageActivity extends FileActivity implements
             
         } else if (operation instanceof RemoveFileOperation) {
             finish();
+        } else if (operation instanceof SynchronizeFileOperation) {
+            onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
+
         }
     }
     
@@ -261,6 +268,14 @@ public class PreviewImageActivity extends FileActivity implements
             }
             invalidateOptionsMenu();
         }
+    }
+
+    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation,
+                                                  RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            invalidateOptionsMenu();
+        }
+
     }
 
     @Override
@@ -598,7 +613,7 @@ public class PreviewImageActivity extends FileActivity implements
 
     /**
      * Checks if OS version is Honeycomb one or higher
-     * 
+     *
      * @return boolean
      */
     private boolean isHoneycombOrHigher() {

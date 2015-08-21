@@ -45,16 +45,30 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
+    <LinearLayout
+        android:id="@+id/historyButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/deleteLogHistoryButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        style="@style/ownCloud.Button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
         android:text="@string/prefs_log_delete_history_button" />
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/sendLogHistoryButton"
-        android:layout_width="match_parent"
-       android:layout_height="50dp"
+        style="@style/ownCloud.Button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
         android:text="@string/log_send_history_button" />
+
+    </LinearLayout>
 
 </LinearLayout>

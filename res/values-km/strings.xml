@@ -81,7 +81,6 @@
   <string name="auth_trying_to_login">កំពុង​​តែ​ព្យាយាម​ដើម្បី​ចូល...</string>
   <string name="auth_no_net_conn_title">គ្មានបណ្តាញ​តភ្ជាប់ទេ</string>
   <string name="auth_unknown_error_title">មិនស្គាល់កំហុសបានកើតឡើង!</string>
-  <string name="fd_keep_in_sync">រក្សាឯកសាររហូតដល់កាលបរិច្ឆេទ</string>
   <string name="common_rename">ប្ដូរ​ឈ្មោះ</string>
   <string name="common_remove">ដកចេញ</string>
   <string name="confirmation_remove_local">ទីកន្លែងតែមួយ</string>
