@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Axustes</string>
   <string name="drawer_item_logs">Rexistros</string>
   <string name="drawer_close">Pechar</string>
+  <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">Xeral</string>
   <string name="prefs_category_more">Máis</string>
   <string name="prefs_accounts">Contas</string>
@@ -201,6 +202,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="confirmation_remove_alert">Confirma que quere retirar %1$s?</string>
   <string name="confirmation_remove_folder_alert">Confirma que quere retirar %1$s e o seu contido?</string>
   <string name="confirmation_remove_local">Só local</string>
+  <string name="confirmation_remove_folder_local">Só local</string>
   <string name="remove_success_msg">Retirado correctamente</string>
   <string name="remove_fail_msg">Non foi posíbel retiralo</string>
   <string name="rename_dialog_title">Introducir un novo nome</string>
