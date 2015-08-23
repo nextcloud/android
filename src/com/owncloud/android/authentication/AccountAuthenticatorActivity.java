@@ -19,7 +19,7 @@ package com.owncloud.android.authentication;
 import android.accounts.AccountAuthenticatorResponse;
 import android.accounts.AccountManager;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 /*
  * Base class for implementing an Activity that is used to help implement an AbstractAccountAuthenticator. 
@@ -32,7 +32,7 @@ import android.support.v7.app.ActionBarActivity;
  * then error AccountManager.ERROR_CODE_CANCELED will be called on the response.
  */
 
-public class AccountAuthenticatorActivity extends ActionBarActivity {
+public class AccountAuthenticatorActivity extends AppCompatActivity {
 
     private AccountAuthenticatorResponse mAccountAuthenticatorResponse = null;
     private Bundle mResultBundle = null;

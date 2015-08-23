@@ -21,12 +21,14 @@ package com.owncloud.android.ui.dialog;
 import com.owncloud.android.R;
 
 import android.app.Dialog;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class LoadingDialog extends DialogFragment {
@@ -56,6 +58,11 @@ public class LoadingDialog extends DialogFragment {
         // set value
         TextView tv  = (TextView) v.findViewById(R.id.loadingText);
         tv.setText(mMessage);
+
+        // set progress wheel color
+        ProgressBar progressBar  = (ProgressBar) v.findViewById(R.id.loadingBar);
+        progressBar.getIndeterminateDrawable().setColorFilter(
+                getResources().getColor(R.color.color_accent), PorterDuff.Mode.SRC_IN);
         
         return v;
     }

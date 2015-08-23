@@ -21,6 +21,7 @@
 	android:id="@+id/fdScrollView"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:fillViewport="true"
 	>
 
 	<RelativeLayout
@@ -32,6 +33,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="16dp"
+			android:layout_marginRight="16dp"
 			android:layout_marginTop="4dp" >
 	
 			<ImageView
@@ -55,6 +57,8 @@
 			android:id="@+id/fdDetailsContainer"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginLeft="16dp"
+			android:layout_marginRight="16dp"
 			android:layout_below="@id/fdFileHeaderContainer" >
 		
 			<RelativeLayout
@@ -62,8 +66,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_alignParentLeft="true"
-				android:layout_alignParentTop="true"
-				android:layout_marginLeft="16dp" >
+				android:layout_alignParentTop="true" >
 				
 				<TextView
 					android:id="@+id/fdTypeLabel"
@@ -194,8 +197,8 @@
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
-						android:progressDrawable="@android:drawable/progress_horizontal"
-						android:indeterminate="false" 
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:indeterminate="false"
 						android:indeterminateOnly="false" 
 					/>
 				    								
@@ -204,7 +207,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginLeft="12dp"
-						android:src="@drawable/btn_cancel"
+						android:src="@drawable/ic_cancel"
 						android:background="@android:color/transparent"
 						/>
 						

@@ -30,7 +30,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +61,7 @@ import com.owncloud.android.utils.FileStorageUtils;
  * 
  * Shown when the error notification summarizing the list of errors is clicked by the user.
  */
-public class ErrorsWhileCopyingHandlerActivity  extends ActionBarActivity
+public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity
         implements OnClickListener {
 
     private static final String TAG = ErrorsWhileCopyingHandlerActivity.class.getSimpleName();

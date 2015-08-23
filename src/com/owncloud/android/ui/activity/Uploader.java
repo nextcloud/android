@@ -33,8 +33,8 @@ import java.util.Vector;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -64,6 +64,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -146,11 +147,6 @@ public class Uploader extends FileActivity
         if (mAccountSelected) {
             setAccount((Account) savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT));
         }
-
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-
     }
 
     @Override
@@ -206,10 +202,19 @@ public class Uploader extends FileActivity
         final AlertDialog.Builder builder = new Builder(this);
         switch (id) {
         case DIALOG_WAITING:
-            ProgressDialog pDialog = new ProgressDialog(this);
+            final ProgressDialog pDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.setMessage(getResources().getString(R.string.uploader_info_uploading));
+            pDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    ProgressBar v = (ProgressBar) pDialog.findViewById(android.R.id.progress);
+                    v.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.color_accent),
+                            android.graphics.PorterDuff.Mode.MULTIPLY);
+
+                }
+            });
             return pDialog;
         case DIALOG_NO_ACCOUNT:
             builder.setIcon(android.R.drawable.ic_dialog_alert);

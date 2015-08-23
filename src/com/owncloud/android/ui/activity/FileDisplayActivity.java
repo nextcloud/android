@@ -26,7 +26,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -48,12 +48,15 @@ import android.provider.OpenableColumns;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -120,6 +123,7 @@ public class FileDisplayActivity extends HookActivity
     private boolean mDualPane;
     private View mLeftFragmentContainer;
     private View mRightFragmentContainer;
+    private ProgressBar mProgressBar;
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
@@ -152,7 +156,6 @@ public class FileDisplayActivity extends HookActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account
                                             // is valid
@@ -185,6 +188,11 @@ public class FileDisplayActivity extends HookActivity
         // Navigation Drawer
         initDrawer();
 
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar.setIndeterminateDrawable(
+                ContextCompat.getDrawable(this,
+                        R.drawable.actionbar_progress_indeterminate_horizontal));
+
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
@@ -197,8 +205,11 @@ public class FileDisplayActivity extends HookActivity
                                                                 // according to the official
                                                                 // documentation
 
-        setSupportProgressBarIndeterminateVisibility(mSyncInProgress
-        /*|| mRefreshSharesInProgress*/);
+        // enable ActionBar app icon to behave as action to toggle nav drawer
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        mProgressBar.setIndeterminate(mSyncInProgress);
         // always AFTER setContentView(...) ; to work around bug in its implementation
         
         setBackgroundText();
@@ -210,7 +221,6 @@ public class FileDisplayActivity extends HookActivity
     protected void onStart() {
         Log_OC.v(TAG, "onStart() start");
         super.onStart();
-        getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
         Log_OC.v(TAG, "onStart() end");
     }
 
@@ -251,7 +261,16 @@ public class FileDisplayActivity extends HookActivity
                 file = getStorageManager().getFileByPath(OCFile.ROOT_PATH);  // never returns null
             }
             setFile(file);
-            
+
+            if (mAccountWasSet) {
+                RelativeLayout navigationDrawerLayout = (RelativeLayout) findViewById(R.id.left_drawer);
+                if (navigationDrawerLayout != null && getAccount() != null) {
+                    TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
+                    int lastAtPos = getAccount().name.lastIndexOf("@");
+                    username.setText(getAccount().name.substring(0, lastAtPos));
+                }
+            }
+
             if (!stateWasRecovered) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
@@ -467,6 +486,7 @@ public class FileDisplayActivity extends HookActivity
         menu.findItem(R.id.action_create_dir).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
+        menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
         
         return super.onPrepareOptionsMenu(menu);
     }
@@ -479,11 +499,7 @@ public class FileDisplayActivity extends HookActivity
 
         MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
 
-        if (DisplayUtils.isGridView(getFile(), getStorageManager())){
-            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-        } else {
-            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
-        }
+        changeGridIcon();
 
         return true;
     }
@@ -554,14 +570,19 @@ public class FileDisplayActivity extends HookActivity
             }
             case R.id.action_switch_view:{
                 if (isGridView()){
-                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+                    item.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
+                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
+                            R.drawable.ic_view_module));
                     DisplayUtils.setViewMode(getFile(), false);
                     switchToListView();
                 } else {
-                    item.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
+                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
+                            R.drawable.ic_view_list));
                     DisplayUtils.setViewMode(getFile(), true);
                     switchToGridView();
                 }
+
                 return true;
             }
         default:
@@ -757,27 +778,39 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     public void onBackPressed() {
-        OCFileListFragment listOfFiles = getListOfFilesFragment(); 
-        if (mDualPane || getSecondFragment() == null) {
-            OCFile currentDir = getCurrentDir();
-            if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
-                finish();
-                return;
+        if (!isDrawerOpen()){
+            OCFileListFragment listOfFiles = getListOfFilesFragment();
+            if (mDualPane || getSecondFragment() == null) {
+                OCFile currentDir = getCurrentDir();
+                if (currentDir == null || currentDir.getParentId() == FileDataStorageManager.ROOT_PARENT_ID) {
+                    finish();
+                    return;
+                }
+                if (listOfFiles != null) {  // should never be null, indeed
+                    listOfFiles.onBrowseUp();
+                }
             }
             if (listOfFiles != null) {  // should never be null, indeed
-                listOfFiles.onBrowseUp();
+                setFile(listOfFiles.getCurrentFile());
             }
-        }
-        if (listOfFiles != null) {  // should never be null, indeed
-            setFile(listOfFiles.getCurrentFile());
-        }
-        cleanSecondFragment();
+            cleanSecondFragment();
 
+            changeGridIcon();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private void changeGridIcon(){
         MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
         if (DisplayUtils.isGridView(getFile(), getStorageManager())){
             menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+            menuItem.setIcon(ContextCompat.getDrawable(getApplicationContext(),
+                    R.drawable.ic_view_list));
         } else {
             menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
+            menuItem.setIcon(ContextCompat.getDrawable(getApplicationContext(),
+                    R.drawable.ic_view_module));
         }
     }
 
@@ -966,8 +999,10 @@ public class FileDisplayActivity extends HookActivity
                     }
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                    setSupportProgressBarIndeterminateVisibility(mSyncInProgress
-                    /*|| mRefreshSharesInProgress*/);
+                    mProgressBar.setIndeterminate(mSyncInProgress);
+                    //mProgressBar.setVisibility((mSyncInProgress) ? View.VISIBLE : View.INVISIBLE);
+                    //setSupportProgressBarIndeterminateVisibility(mSyncInProgress
+                    /*|| mRefreshSharesInProgress*/ //);
 
                     setBackgroundText();
                         
@@ -1063,7 +1098,8 @@ public class FileDisplayActivity extends HookActivity
                         startImagePreview(getFile());
                     } // TODO what about other kind of previews?
                 }
-                
+
+                mProgressBar.setIndeterminate(false);
             } finally {
                 if (intent != null) {
                     removeStickyBroadcast(intent);
@@ -1175,11 +1211,10 @@ public class FileDisplayActivity extends HookActivity
 
         MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
 
+        changeGridIcon();
         if (DisplayUtils.isGridView(directory, getStorageManager())){
-            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
             switchToGridView();
         } else {
-            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
             switchToListView();
         }
     }
@@ -1210,7 +1245,6 @@ public class FileDisplayActivity extends HookActivity
         }
 
     }
-
 
     @Override
     protected ServiceConnection newTransferenceServiceConnection() {
@@ -1583,8 +1617,7 @@ public class FileDisplayActivity extends HookActivity
                 getApplicationContext()
         );
         synchFolderOp.execute(getAccount(), MainApp.getAppContext(), this, null, null);
-        
-        setSupportProgressBarIndeterminateVisibility(true);
+        mProgressBar.setIndeterminate(true);
 
         setBackgroundText();
     }
