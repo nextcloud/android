@@ -201,7 +201,9 @@
   <string name="confirmation_remove_alert">Vuoi davvero rimuovere %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vuoi davvero rimuovere %1$s e il suo contenuto?</string>
   <string name="confirmation_remove_local">Solo localmente</string>
-  <string name="confirmation_remove_folder_local">Solo localmente</string>
+  <string name="confirmation_remove_folder_local">Solo locale</string>
+  <string name="confirmation_remove_remote">Dal server</string>
+  <string name="confirmation_remove_remote_and_local">Remota e locale</string>
   <string name="remove_success_msg">Rimozione effettuata con successo</string>
   <string name="remove_fail_msg">La rimozione non può essere completata</string>
   <string name="rename_dialog_title">Digita un nuovo nome</string>
@@ -256,6 +258,8 @@
   <string name="conflict_title">File in conflitto</string>
   <string name="conflict_message">Quali file vuoi tenere? Se selezioni entrambi le versioni, il file locale avrà un numero aggiunto al suo nome.</string>
   <string name="conflict_keep_both">Mantieni entrambi</string>
+  <string name="conflict_use_local_version">Versione locale</string>
+  <string name="conflict_use_server_version">versione del server</string>
   <string name="preview_image_description">Anteprima dell\'immagine</string>
   <string name="preview_image_error_unknown_format">Questa immagine non può essere mostrata</string>
   <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
