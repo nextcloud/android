@@ -22,7 +22,8 @@
 	android:layout_width="fill_parent"
 	android:background="#fefefe"
 	android:orientation="horizontal"
-	android:layout_height="56dp"  >
+	android:layout_height="56dp"
+	android:filterTouchesWhenObscured="true">
   
     <ImageView 
         android:layout_width="20dp"

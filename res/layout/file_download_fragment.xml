@@ -24,7 +24,7 @@
 	android:gravity="center_vertical"
 	android:padding="20dp"
 	android:background="@color/black"
-	>
+	android:filterTouchesWhenObscured="true">
 	
 	<TextView 
 	    android:id="@+id/progressText" 

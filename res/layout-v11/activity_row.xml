@@ -27,7 +27,8 @@
 				android:paddingLeft="16dip"
 				android:minWidth="196dip"
 				android:background="?android:attr/activatedBackgroundIndicator"
-    			android:orientation="vertical" >
+				android:orientation="vertical"
+				android:filterTouchesWhenObscured="true">
 
 	<LinearLayout
 		android:layout_width="wrap_content"

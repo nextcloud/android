@@ -26,6 +26,7 @@
         android:orientation="vertical"
         android:fitsSystemWindows="true"
         android:background="@color/background_color"
+        android:filterTouchesWhenObscured="true"
         >
 
         <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->

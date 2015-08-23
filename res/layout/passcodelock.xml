@@ -23,7 +23,8 @@
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="20dp" >
+    android:padding="20dp"
+    android:filterTouchesWhenObscured="true">
 
 
     <TextView

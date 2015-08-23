@@ -9,4 +9,5 @@
     android:gravity="center_vertical"
     android:paddingLeft="@dimen/standard_padding"
     android:paddingRight="@dimen/standard_padding"
-    android:minHeight="48dp"/>
+    android:minHeight="48dp"
+    android:filterTouchesWhenObscured="true"/>

@@ -142,6 +142,7 @@ public class Preferences extends PreferenceActivity
         mAccountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
 
         ListView listView = getListView();
+        listView.setFilterTouchesWhenObscured(true);
         listView.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {

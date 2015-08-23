@@ -23,7 +23,8 @@
     android:padding="10dp"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
-    android:weightSum="1" >
+    android:weightSum="1"
+    android:filterTouchesWhenObscured="true">
 
     <ScrollView
         android:id="@+id/scrollView1"

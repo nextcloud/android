@@ -24,7 +24,9 @@
 	android:layout_height="wrap_content" 
 	android:clickable="true"
 	android:focusable="true"
-	android:background="@drawable/action_item_btn">
+	android:background="@drawable/action_item_btn"
+	android:filterTouchesWhenObscured="true"
+	>
         	
 	<ImageView
 		android:id="@+id/icon" 

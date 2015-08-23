@@ -22,7 +22,8 @@
     android:layout_width="match_parent"
     android:background="@drawable/list_selector"
     android:orientation="vertical"
-    android:layout_height="56dp">
+    android:layout_height="56dp"
+    android:filterTouchesWhenObscured="true">
 
     <LinearLayout
         android:layout_width="match_parent"

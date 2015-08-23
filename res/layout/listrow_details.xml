@@ -24,7 +24,8 @@
     android:orientation="vertical"
     android:background="#fff"
     android:paddingLeft="16dp"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:filterTouchesWhenObscured="true">
 
     <TextView
         android:id="@+id/textView1"

@@ -25,6 +25,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:gravity="center"
+    android:filterTouchesWhenObscured="true"
     tools:context=".ui.fragment.FilePreviewFragment" >
 
     <FrameLayout 

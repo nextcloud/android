@@ -21,7 +21,8 @@
     android:layout_height="match_parent"
     android:background="@color/background_color" 
     android:id="@+id/explanation"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:filterTouchesWhenObscured="true">
 
 	<TextView
 		android:id="@+id/message"

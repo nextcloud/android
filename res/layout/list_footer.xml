@@ -5,7 +5,8 @@
     android:layout_gravity="center_horizontal"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:showDividers="none" >
+    android:showDividers="none"
+    android:filterTouchesWhenObscured="true">
 
     <TextView
         android:id="@+id/footerText"

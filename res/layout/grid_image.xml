@@ -23,7 +23,8 @@
     android:layout_gravity="center_horizontal"
     android:background="@drawable/list_selector"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:filterTouchesWhenObscured="true">
 
     <FrameLayout
         android:layout_width="match_parent"

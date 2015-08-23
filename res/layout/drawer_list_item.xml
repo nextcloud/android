@@ -26,7 +26,8 @@
     android:background="@color/background_color"
     android:layout_marginTop="16dp"
     android:layout_marginBottom="16dp"
-    android:minHeight="?android:attr/listPreferredItemHeight">
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:filterTouchesWhenObscured="true">
 
     <ImageView
         android:id="@+id/itemIcon"

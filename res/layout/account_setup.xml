@@ -24,6 +24,7 @@
     android:fillViewport="true"
     android:orientation="vertical" 
     android:id="@+id/scroll"
+    android:filterTouchesWhenObscured="true"
     >
 
     <LinearLayout
