@@ -543,6 +543,13 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
                 FileStorageUtils.getMimeTypeFromName(mRemotePath).startsWith("image/"));
     }
 
+    /**
+     * @return 'True' if the file is hidden
+     */
+    public boolean isHidden() {
+        return getFileName().startsWith(".");
+    }
+
     public String getPermissions() {
         return mPermissions;
     }
