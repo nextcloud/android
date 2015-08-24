@@ -26,6 +26,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -200,7 +201,8 @@ public class PreviewImageFragment extends FileFragment {
         if (getFile() != null) {
             mLoadBitmapTask = new LoadBitmapTask(mImageView, mMessageView, mProgressWheel);
             //mLoadBitmapTask.execute(new String[]{getFile().getStoragePath()});
-            mLoadBitmapTask.execute(getFile().getStoragePath());
+//            mLoadBitmapTask.execute(getFile().getStoragePath());
+            mLoadBitmapTask.execute(getFile());
         }
     }
     
@@ -358,7 +360,7 @@ public class PreviewImageFragment extends FileFragment {
     }
     
     
-    private class LoadBitmapTask extends AsyncTask<String, Void, Bitmap> {
+    private class LoadBitmapTask extends AsyncTask<OCFile, Void, LoadImage> {
 
         /**
          * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
@@ -404,12 +406,12 @@ public class PreviewImageFragment extends FileFragment {
             mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
         }
         
-        
         @Override
-        protected Bitmap doInBackground(String... params) {
+        protected LoadImage doInBackground(OCFile... params) {
             Bitmap result = null;
             if (params.length != 1) return null;
-            String storagePath = params[0];
+            OCFile ocFile = params[0];
+            String storagePath = ocFile.getStoragePath();
             try {
 
                 int maxDownScale = 3;   // could be a parameter passed to doInBackground(...)
@@ -422,7 +424,7 @@ public class PreviewImageFragment extends FileFragment {
                         result = BitmapUtils.decodeSampledBitmapFromFile(storagePath, minWidth,
                                 minHeight);
 
-                        if (isCancelled()) return result;
+                        if (isCancelled()) return new LoadImage(result, ocFile);
 
                         if (result == null) {
                             mErrorMessageId = R.string.preview_image_error_unknown_format;
@@ -462,40 +464,46 @@ public class PreviewImageFragment extends FileFragment {
                 Log_OC.e(TAG, "Unexpected error loading " + getFile().getStoragePath(), t);
                 
             }
-            
-            return result;
+            return new LoadImage(result, ocFile);
         }
         
         @Override
-        protected void onCancelled(Bitmap result) {
-            if (result != null) {
-                result.recycle();
+        protected void onCancelled(LoadImage result) {
+            if (result.bitmap != null) {
+                result.bitmap.recycle();
             }
         }
 
         @Override
-        protected void onPostExecute(Bitmap result) {
+        protected void onPostExecute(LoadImage result) {
             hideProgressWheel();
-            if (result != null) {
+            if (result.bitmap != null) {
                 showLoadedImage(result);
             } else {
                 showErrorMessage();
             }
-            if (result != null && mBitmap != result)  {
+            if (result.bitmap != null && mBitmap != result.bitmap)  {
                 // unused bitmap, release it! (just in case)
-                result.recycle();
+                result.bitmap.recycle();
             }
         }
         
         @SuppressLint("InlinedApi")
-        private void showLoadedImage(Bitmap result) {
+        private void showLoadedImage(LoadImage result) {
             final ImageViewCustom imageView = mImageViewRef.get();
+            Bitmap bitmap = result.bitmap;
             if (imageView != null) {
-                Log_OC.d(TAG, "Showing image with resolution " + result.getWidth() + "x" +
-                        result.getHeight());
-                imageView.setImageBitmap(result);
+                Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
+                        bitmap.getHeight());
+
+                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")){
+                    Drawable backrepeat = getResources().getDrawable(R.drawable.backrepeat);
+                    imageView.setBackground(backrepeat);
+                }
+
+                imageView.setImageBitmap(bitmap);
                 imageView.setVisibility(View.VISIBLE);
-                mBitmap  = result;  // needs to be kept for recycling when not useful
+                mBitmap  = bitmap;  // needs to be kept for recycling when not useful
             }
 
             final TextView messageView = mMessageViewRef.get();
@@ -549,6 +557,17 @@ public class PreviewImageFragment extends FileFragment {
     
     public TouchImageViewCustom getImageView() {
         return mImageView;
+    }
+
+    private class LoadImage {
+        private Bitmap bitmap;
+        private OCFile ocFile;
+
+        public LoadImage(Bitmap bitmap, OCFile ocFile){
+            this.bitmap = bitmap;
+            this.ocFile = ocFile;
+        }
+
     }
 
 }

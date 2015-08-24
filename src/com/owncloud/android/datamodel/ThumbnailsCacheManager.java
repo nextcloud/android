@@ -33,6 +33,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
@@ -259,10 +261,16 @@ public class ThumbnailsCacheManager {
                 int px = getThumbnailDimension();
 
                 if (file.isDown()) {
-                    Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
+                    Bitmap temp = BitmapUtils.decodeSampledBitmapFromFile(
                             file.getStoragePath(), px, px);
+                    Bitmap bitmap = ThumbnailUtils.extractThumbnail(temp, px, px);
 
                     if (bitmap != null) {
+                        // Handle PNG
+                        if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                            bitmap = handlePNG(bitmap, px);
+                        }
+
                         thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), px);
 
                         file.setNeedsUpdateThumbnail(false);
@@ -289,6 +297,11 @@ public class ThumbnailsCacheManager {
                                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                     thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
 
+                                    // Handle PNG
+                                    if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                                        thumbnail = handlePNG(thumbnail, px);
+                                    }
+
                                     // Add thumbnail to cache
                                     if (thumbnail != null) {
                                         addBitmapToCache(imageKey, thumbnail);
@@ -306,6 +319,26 @@ public class ThumbnailsCacheManager {
 
             return thumbnail;
 
+        }
+
+        private Bitmap handlePNG(Bitmap bitmap, int px){
+            Bitmap resultBitmap = Bitmap.createBitmap(px,
+                    px,
+                    Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(resultBitmap);
+            Bitmap checker = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
+                                                          R.drawable.checker_16_16);
+
+            BitmapDrawable background;
+            background = new BitmapDrawable(MainApp.getAppContext().getResources(), checker);
+
+            background.setBounds(0, 0, px, px);
+            background.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+            background.draw(c);
+
+            c.drawBitmap(bitmap, 0, 0, null);
+
+            return resultBitmap;
         }
 
         private Bitmap doFileInBackground() {
