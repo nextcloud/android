@@ -120,23 +120,10 @@ public class FileMenuFilter {
             );
         }
 
-        /*
-        boolean downloading = false;
-        boolean uploading = false;
-        if (mComponentsGetter != null && mFile != null && mAccount != null) {
-            FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
-            downloading = (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile));
-            OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
-            downloading |= (opsBinder != null && opsBinder.isSynchronizing(mAccount, mFile.getRemotePath()));
-            FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
-            uploading = (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile));
-        }
-        */
-        
         /// decision is taken for each possible action on a file in the menu
 
         // DOWNLOAD 
-        if (mFile == null || mFile.isDown() || synchronizing) {
+        if (mFile == null || mFile.isDown() || mFile.isFolder() || synchronizing) {
             toHide.add(R.id.action_download_file);
 
         } else {
