@@ -532,8 +532,6 @@ public class FileUploader extends Service
      */
     public void uploadFile(String uploadKey) {
 
-        Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                "Getting upload of " + uploadKey);
         mCurrentUpload = mPendingUploads.get(uploadKey);
 
         if (mCurrentUpload != null) {
@@ -569,8 +567,6 @@ public class FileUploader extends Service
 
                     /// perform the upload
                     if (grantResult.isSuccess()) {
-                        Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                                "Executing upload of " + mCurrentUpload.getRemotePath());
                         OCFile parent = mStorageManager.getFileByPath(remoteParentPath);
                         mCurrentUpload.getFile().setParentId(parent.getFileId());
                         uploadResult = mCurrentUpload.execute(mUploadClient);
@@ -586,8 +582,6 @@ public class FileUploader extends Service
                     uploadResult = new RemoteOperationResult(e);
 
                 } finally {
-                    Log_OC.v("NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                            "Removing payload " + mCurrentUpload.getRemotePath());
                     Pair<UploadFileOperation, String> removeResult;
                     if (mCurrentUpload.wasRenamed()) {
                         removeResult = mPendingUploads.removePayload(
