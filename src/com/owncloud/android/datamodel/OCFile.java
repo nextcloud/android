@@ -320,24 +320,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
-     * Adds a file to this directory. If this file is not a directory, an
-     * exception gets thrown.
-     *
-     * @param file to add
-     * @throws IllegalStateException if you try to add a something and this is
-     *                               not a directory
-     */
-    public void addFile(OCFile file) throws IllegalStateException {
-        if (isFolder()) {
-            file.mParentId = mId;
-            mNeedsUpdating = true;
-            return;
-        }
-        throw new IllegalStateException(
-                "This is not a directory where you can add stuff to!");
-    }
-
-    /**
      * Used internally. Reset all file properties
      */
     private void resetData() {

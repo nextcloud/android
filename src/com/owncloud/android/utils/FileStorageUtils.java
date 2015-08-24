@@ -54,8 +54,6 @@ public class FileStorageUtils {
     public static final Integer SORT_SIZE = 2;
   
     
-    //private static final String LOG_TAG = "FileStorageUtils";
-
     public static final String getSavePath(String accountName) {
         File sdCard = Environment.getExternalStorageDirectory();
         return sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/" + Uri.encode(accountName, "@");

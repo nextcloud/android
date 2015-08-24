@@ -368,46 +368,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return view;
     }
 
-    /**
-     * Local Folder size in human readable format
-     * 
-     * @param path
-     *            String
-     * @return Size in human readable format
-     */
-    private String getFolderSizeHuman(String path) {
-
-        File dir = new File(path);
-
-        if (dir.exists()) {
-            long bytes = FileStorageUtils.getFolderSize(dir);
-            return DisplayUtils.bytesToHumanReadable(bytes);
-        }
-
-        return "0 B";
-    }
-
-    /**
-     * Local Folder size
-     * @param dir File
-     * @return Size in bytes
-     */
-    private long getFolderSize(File dir) {
-        if (dir.exists()) {
-            long result = 0;
-            File[] fileList = dir.listFiles();
-            for(int i = 0; i < fileList.length; i++) {
-                if(fileList[i].isDirectory()) {
-                    result += getFolderSize(fileList[i]);
-                } else {
-                    result += fileList[i].length();
-                }
-            }
-            return result;
-        }
-        return 0;
-    } 
-
     @Override
     public int getViewTypeCount() {
         return 1;

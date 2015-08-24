@@ -45,7 +45,6 @@ import android.os.RemoteException;
 import android.provider.MediaStore;
 
 import com.owncloud.android.MainApp;
-import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
@@ -91,16 +90,8 @@ public class FileDataStorageManager {
         return mAccount;
     }
 
-    public void setContentResolver(ContentResolver cr) {
-        mContentResolver = cr;
-    }
-
     public ContentResolver getContentResolver() {
         return mContentResolver;
-    }
-
-    public void setContentProviderClient(ContentProviderClient cp) {
-        mContentProviderClient = cp;
     }
 
     public ContentProviderClient getContentProviderClient() {
@@ -191,7 +182,6 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
         cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
         cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
-        //if (file.getParentId() != DataStorageManager.ROOT_PARENT_ID)
         cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
         cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
         if (!file.isFolder())
@@ -212,7 +202,7 @@ public class FileDataStorageManager {
         boolean sameRemotePath = fileExists(file.getRemotePath());
         if (sameRemotePath ||                fileExists(file.getFileId())) {           // for renamed files; no more delete and create
 
-            OCFile oldFile = null;
+            OCFile oldFile;
             if (sameRemotePath) {
                 oldFile = getFileByPath(file.getRemotePath());
                 file.setFileId(oldFile.getFileId());
@@ -257,12 +247,6 @@ public class FileDataStorageManager {
                 file.setFileId(new_id);
             }
         }
-
-//        if (file.isFolder()) {
-//            updateFolderSize(file.getFileId());
-//        } else {
-//            updateFolderSize(file.getParentId());
-//        }
 
         return overriden;
     }
@@ -342,7 +326,6 @@ public class FileDataStorageManager {
         for (OCFile file : filesToRemove) {
             if (file.getParentId() == folder.getFileId()) {
                 whereArgs = new String[]{mAccount.name, file.getRemotePath()};
-                //Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, "" + file.getFileId());
                 if (file.isFolder()) {
                     operations.add(ContentProviderOperation.newDelete(
                             ContentUris.withAppendedId(
@@ -439,41 +422,7 @@ public class FileDataStorageManager {
             }
         }
 
-        //updateFolderSize(folder.getFileId());
-
     }
-
-
-//    /**
-//     * 
-//     * @param id
-//     */
-//    private void updateFolderSize(long id) {
-//        if (id > FileDataStorageManager.ROOT_PARENT_ID) {
-//            Log_OC.d(TAG, "Updating size of " + id);
-//            if (getContentResolver() != null) {
-//                getContentResolver().update(ProviderTableMeta.CONTENT_URI_DIR, 
-//                        new ContentValues(),    
-                            // won't be used, but cannot be null; crashes in KLP
-//                        ProviderTableMeta._ID + "=?",
-//                        new String[] { String.valueOf(id) });
-//            } else {
-//                try {
-//                    getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_DIR, 
-//                            new ContentValues(),    
-                                // won't be used, but cannot be null; crashes in KLP
-//                            ProviderTableMeta._ID + "=?",
-//                            new String[] { String.valueOf(id) });
-//                    
-//                } catch (RemoteException e) {
-//                    Log_OC.e(
-//    TAG, "Exception in update of folder size through compatibility patch " + e.getMessage());
-//                }
-//            }
-//        } else {
-//            Log_OC.e(TAG,  "not updating size for folder " + id);
-//        }
-//    }
 
 
     public boolean removeFile(OCFile file, boolean removeDBData, boolean removeLocalCopy) {
@@ -954,39 +903,6 @@ public class FileDataStorageManager {
         }
         return file;
     }
-
-    /**
-     * Returns if the file/folder is shared by link or not
-     *
-     * @param path Path of the file/folder
-     * @return
-     */
-    public boolean isShareByLink(String path) {
-        Cursor c = getCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
-        OCFile file = null;
-        if (c.moveToFirst()) {
-            file = createFileInstance(c);
-        }
-        c.close();
-        return file.isShareByLink();
-    }
-
-    /**
-     * Returns the public link of the file/folder
-     *
-     * @param path Path of the file/folder
-     * @return
-     */
-    public String getPublicLink(String path) {
-        Cursor c = getCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
-        OCFile file = null;
-        if (c.moveToFirst()) {
-            file = createFileInstance(c);
-        }
-        c.close();
-        return file.getPublicLink();
-    }
-
 
     // Methods for Shares
     public boolean saveShare(OCShare share) {
@@ -1502,44 +1418,6 @@ public class FileDataStorageManager {
             }
         }
         return preparedOperations;
-        
-        /*
-        if (operations.size() > 0) {
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException e) {
-                Log_OC.e(TAG, "Exception in batch of operations " + e.getMessage());
-
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in batch of operations  " + e.getMessage());
-            }
-        }            
-        */
-            
-            /*
-            if (getContentResolver() != null) {
-                
-                getContentResolver().delete(ProviderTableMeta.CONTENT_URI_SHARE, 
-                                            where,
-                                            whereArgs);
-            } else {
-                try {
-                    getContentProviderClient().delete(  ProviderTableMeta.CONTENT_URI_SHARE, 
-                                                        where,
-                                                        whereArgs);
-
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, "Exception deleting shares in a folder " + e.getMessage());
-                }
-            }
-            */
-        //}
     }
 
     public void triggerMediaScan(String path) {

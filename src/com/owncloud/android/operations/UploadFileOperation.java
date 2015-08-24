@@ -31,7 +31,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 
 import android.accounts.Account;
@@ -75,7 +74,6 @@ public class UploadFileOperation extends RemoteOperation {
     private boolean mWasRenamed = false;
     private String mOriginalFileName = null;
     private String mOriginalStoragePath = null;
-    PutMethod mPutMethod = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     private Context mContext;

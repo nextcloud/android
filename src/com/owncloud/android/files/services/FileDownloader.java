@@ -21,14 +21,12 @@
 package com.owncloud.android.files.services;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -54,7 +52,6 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AccountsException;
 import android.accounts.OnAccountsUpdateListener;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -179,16 +176,6 @@ public class FileDownloader extends Service
                 );
                 String downloadKey = putResult.first;
                 requestedDownloads.add(downloadKey);
-
-                // Store file on db with state 'downloading'
-                    /*
-                    TODO - check if helps with UI responsiveness,
-                    letting only folders use FileDownloaderBinder to check
-                    FileDataStorageManager storageManager =
-                    new FileDataStorageManager(account, getContentResolver());
-                    file.setDownloading(true);
-                    storageManager.saveFile(file);
-                    */
 
                 sendBroadcastNewDownload(newDownload, putResult.second);
 
@@ -486,16 +473,6 @@ public class FileDownloader extends Service
         mStorageManager.triggerMediaScan(file.getStoragePath());
         mStorageManager.saveConflict(file, false);
     }
-
-    /**
-     * Update the OC File after a unsuccessful download
-     */
-    private void updateUnsuccessfulDownloadedFile() {
-        OCFile file = mStorageManager.getFileById(mCurrentDownload.getFile().getFileId());
-        file.setDownloading(false);
-        mStorageManager.saveFile(file);
-    }
-
 
     /**
      * Creates a status notification to show the download progress

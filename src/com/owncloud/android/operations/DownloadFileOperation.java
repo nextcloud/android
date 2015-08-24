@@ -27,7 +27,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -134,9 +133,9 @@ public class DownloadFileOperation extends RemoteOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result = null;
-        File newFile = null;
-        boolean moved = true;
+        RemoteOperationResult result;
+        File newFile;
+        boolean moved;
         
         /// download will be performed to a temporal file, then moved to the final location
         File tmpFile = new File(getTmpPath());
