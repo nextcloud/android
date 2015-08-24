@@ -496,9 +496,12 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 if (file.isFolder()) {
                     foldersCount++;
                 } else {
-                    filesCount++;
-                    if (file.isImage()){
-                        imagesCount++;
+                    if (!file.isHidden()) {
+                        filesCount++;
+
+                        if (file.isImage()) {
+                            imagesCount++;
+                        }
                     }
                 }
             }
