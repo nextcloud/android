@@ -335,6 +335,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
             } else {
                 // Folder
+                fileIcon.setBackground(null);
+
                 if (checkIfFileIsSharedWithMe(file)) {
                     fileIcon.setImageResource(R.drawable.shared_with_me_folder);
                 } else if (file.isShareByLink()) {
