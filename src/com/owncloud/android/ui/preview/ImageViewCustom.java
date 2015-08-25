@@ -4,12 +4,17 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Movie;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class ImageViewCustom extends ImageView {
 
@@ -23,7 +28,12 @@ public class ImageViewCustom extends ImageView {
     private int mBitmapHeight;
     private int mBitmapWidth;
 
-    
+    private Movie gifMovie;
+    private int movieWidth, movieHeight;
+    private long movieDuration;
+    private long movieRunDuration;
+    private long lastTick;
+
     public ImageViewCustom(Context context) {
         super(context);
     }
@@ -39,18 +49,54 @@ public class ImageViewCustom extends ImageView {
     @SuppressLint("NewApi")
 	@Override
     protected void onDraw(Canvas canvas) {
-
         if(IS_ICS_OR_HIGHER && checkIfMaximumBitmapExceed(canvas) || IS_VERSION_BUGGY_ON_RECYCLES ) {
             // Software type is set with two targets:
             // 1. prevent that bitmaps larger than maximum textures allowed are shown as black views in devices
             //  with LAYER_TYPE_HARDWARE enabled by default;
-            // 2. grant that bitmaps are correctly dellocated from memory in versions suffering the bug fixed in
+            // 2. grant that bitmaps are correctly de-allocated from memory in versions suffering the bug fixed in
             //  https://android.googlesource.com/platform/frameworks/base/+/034de6b1ec561797a2422314e6ef03e3cd3e08e0;
             //
             setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
 
-        super.onDraw(canvas);
+        if(gifMovie == null){
+            super.onDraw(canvas);
+        } else {
+            long nowTick = android.os.SystemClock.uptimeMillis();
+            if (lastTick == 0) {
+                movieRunDuration = 0;
+            } else {
+                movieRunDuration += nowTick -lastTick;
+                if(movieRunDuration > movieDuration){
+                        movieRunDuration = 0;
+                }
+            }
+
+            gifMovie.setTime((int) movieRunDuration);
+
+            float scale;
+            if(gifMovie.height() > getHeight() || gifMovie.width() > getWidth()) {
+                scale = (1f / Math.min(canvas.getHeight() / gifMovie.height(),
+                        canvas.getWidth() / gifMovie.width())) + 0.25f;
+            } else {
+                scale = Math.min(canvas.getHeight() / gifMovie.height(),
+                                 canvas.getWidth() / gifMovie.width());
+            }
+
+            canvas.scale(scale, scale);
+            canvas.translate(((float) getWidth() / scale - (float) gifMovie.width()) / 2f,
+                    ((float) getHeight() / scale - (float) gifMovie.height()) /2f);
+
+            gifMovie.draw(canvas, 0, 0);
+
+            lastTick = nowTick;
+            invalidate();
+        }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        setMeasuredDimension(movieWidth, movieHeight);
     }
 
     /**
@@ -60,13 +106,9 @@ public class ImageViewCustom extends ImageView {
      */
     @SuppressLint("NewApi")
 	private boolean checkIfMaximumBitmapExceed(Canvas canvas) {
-        Log_OC.v(TAG, "Canvas maximum: " + canvas.getMaximumBitmapWidth() + " - " + canvas.getMaximumBitmapHeight());
-        if (mBitmapWidth > canvas.getMaximumBitmapWidth()
-                || mBitmapHeight > canvas.getMaximumBitmapHeight()) {
-            return true;
-        }
-        
-        return false;
+        return mBitmapWidth > canvas.getMaximumBitmapWidth()
+                || mBitmapHeight > canvas.getMaximumBitmapHeight();
+
     }
     
     @Override
@@ -74,10 +116,25 @@ public class ImageViewCustom extends ImageView {
      * Keeps the size of the bitmap cached in member variables for faster access in {@link #onDraw(Canvas)} ,
      * but without keeping another reference to the {@link Bitmap}
      */
-    public void setImageBitmap (Bitmap bm) {
+    public void setImageBitmap(Bitmap bm) {
         mBitmapWidth = bm.getWidth();
         mBitmapHeight = bm.getHeight();
         super.setImageBitmap(bm);
+    }
+
+    public void setGifImage(OCFile file){
+      try {
+          InputStream gifInputStream = new FileInputStream(file.getStoragePath());
+          setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+          setFocusable(true);
+
+          gifMovie = Movie.decodeStream(gifInputStream);
+          movieWidth = gifMovie.width();
+          movieHeight = gifMovie.height();
+          movieDuration = gifMovie.duration();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
