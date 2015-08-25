@@ -254,7 +254,7 @@ public class FileStorageUtils {
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
-                    return val * o1.getRemotePath().toLowerCase().compareTo(o2.getRemotePath().toLowerCase());
+                    return val * new AlphanumComparator().compare(o1, o2);
                 } else if (o1.isFolder()) {
                     return -1;
                 } else if (o2.isFolder()) {
