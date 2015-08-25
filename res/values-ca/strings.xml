@@ -23,6 +23,8 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">configuració</string>
+  <string name="drawer_close">tanca</string>
   <string name="drawer_open">Obre</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Més</string>
