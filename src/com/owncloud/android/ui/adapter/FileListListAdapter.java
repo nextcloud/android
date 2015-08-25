@@ -326,6 +326,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         Drawable backrepeat = mContext.getResources().
                                               getDrawable(R.drawable.backrepeat);
                         fileIcon.setBackground(backrepeat);
+                    } else {
+                        fileIcon.setBackground(null);
                     }
 
                 } else {
