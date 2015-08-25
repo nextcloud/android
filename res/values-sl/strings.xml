@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Nastavitve</string>
   <string name="drawer_item_logs">Dnevnik</string>
   <string name="drawer_close">Zapri</string>
+  <string name="drawer_open">Odpri</string>
   <string name="prefs_category_general">Splošno</string>
   <string name="prefs_category_more">Več</string>
   <string name="prefs_accounts">Računi</string>
@@ -200,9 +201,7 @@
   <string name="confirmation_remove_alert">Ali res želite odstraniti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ali res želite odstraniti %1$s skupaj s celotno vsebino?</string>
   <string name="confirmation_remove_local">Le krajevno</string>
-  <string name="confirmation_remove_folder_local">Le krajevno vsebino</string>
-  <string name="confirmation_remove_remote">Odstrani s strežnika</string>
-  <string name="confirmation_remove_remote_and_local">Oddaljeno in krajevno</string>
+  <string name="confirmation_remove_folder_local">Le krajevno</string>
   <string name="remove_success_msg">Odstranitev je uspešno končana</string>
   <string name="remove_fail_msg">Odstranjevanje je spodletelo</string>
   <string name="rename_dialog_title">Vnesite novo ime</string>

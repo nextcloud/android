@@ -9,6 +9,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">විවෘත කරන්න</string>
   <string name="prefs_category_general">සාමාන්‍යයෙන්</string>
   <string name="prefs_category_more">වැඩි</string>
   <string name="prefs_accounts">ගිණුම්</string>
@@ -66,8 +67,7 @@
   <string name="common_rename">නැවත නම් කරන්න</string>
   <string name="common_remove">ඉවත් කරන්න </string>
   <string name="confirmation_remove_local">පෙදෙසි පමණක්</string>
-  <string name="confirmation_remove_remote">සේවාදායකයාගෙන් ඉවත් කරන්න</string>
-  <string name="confirmation_remove_remote_and_local">දුරස්ථ හා පෙදෙසි </string>
+  <string name="confirmation_remove_folder_local">පෙදෙසි පමණක්</string>
   <string name="remove_success_msg">සාර්ථක ඉවත්කිරීමක්</string>
   <string name="remove_fail_msg">ඉවත් කිරීම සම්පූර්ණ කළ නොහැක</string>
   <string name="rename_server_fail_msg">නැවත නම් කිරීම සම්පුර්ණ කළ නොහැකි විය</string>

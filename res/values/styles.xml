@@ -21,15 +21,95 @@
 	<style name="Animations" />
 
 	<!-- General ownCloud app style -->
-	<style name="Theme.ownCloud" parent="style/Theme.AppCompat.Light.DarkActionBar">
+	<style name="Theme.ownCloud" parent="Theme.AppCompat.Light.DarkActionBar">
     	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
     	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
     	<item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
+		<item name="colorPrimary">@color/primary</item>
+		<item name="colorPrimaryDark">@color/primary_dark</item>
+		<item name="colorAccent">@color/color_accent</item>
+		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
+		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
+		<item name="colorButtonNormal">@color/background_color</item>
+		<item name="colorControlActivated">@color/primary_dark</item>
+		<item name="colorControlHighlight">@color/color_accent</item>
 	</style>
-	
-	<style name="Theme.ownCloud.noActionBar" parent="style/Theme.AppCompat.Light">
-        <item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
+
+	<!-- seperate action bar style for activities without an action bar -->
+	<style name="Theme.ownCloud.noActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+		<item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
+		<item name="windowNoTitle">true</item>
+		<item name="windowActionBar">false</item>
+		<item name="colorPrimary">@color/primary</item>
+		<item name="colorPrimaryDark">@color/primary_dark</item>
+		<item name="colorAccent">@color/color_accent</item>
+		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
+		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
+		<item name="colorButtonNormal">@color/background_color</item>
+		<item name="colorControlActivated">@color/primary_dark</item>
+		<item name="colorControlHighlight">@color/color_accent</item>
     </style>
+
+	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar">
+		<item name="colorAccent">@color/white</item>
+	</style>
+
+	<style name="ownCloud.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+		<item name="colorAccent">@color/color_accent</item>
+		<item name="android:textColorPrimary">@color/primary</item>
+	</style>
+
+	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog" />
+
+	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
+		<item name="colorAccent">@color/color_accent</item>
+		<item name="android:textColorPrimary">@color/primary</item>
+		<item name="android:windowFrame">@color/transparent</item>
+		<item name="android:windowBackground">@color/transparent</item>
+		<item name="android:windowTitleBackgroundStyle">@drawable/process_dialog_background</item>
+	</style>
+
+	<style name="ownCloud.Button" parent="Widget.AppCompat.Button">
+		<item name="colorButtonNormal">@color/primary</item>
+	</style>
+
+	<style name="Button" parent="Base.Widget.AppCompat.Button">
+		<item name="colorButtonNormal">@color/secondary_button_color</item>
+		<item name="android:textColor">@color/color_accent</item>
+	</style>
+
+	<style name="Button.Primary" parent="Button">
+		<item name="colorButtonNormal">@color/primary_button_color</item>
+		<item name="android:textColor">@color/white</item>
+	</style>
+
+	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
+		<item name="android:textColor">@color/color_accent</item>
+	</style>
+
+	<!-- separat translucent action bar style -->
+	<style name="Theme.ownCloud.Overlay" parent="style/Theme.ownCloud">
+		<item name="android:actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
+		<item name="windowActionBarOverlay">true</item>
+		<!-- Support library compatibility -->
+		<item name="actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
+	</style>
+
+	<!-- ACTION BAR STYLES -->
+	<style name="Theme.ownCloud.Overlay.ActionBar" parent="@style/Widget.AppCompat.ActionBar">
+		<item name="android:background">@color/owncloud_blue_transparent</item>
+		<item name="android:windowActionBarOverlay">true</item>
+
+		<!-- Support library compatibility -->
+		<item name="background">@color/owncloud_blue_transparent</item>
+		<item name="windowActionBarOverlay">true</item>
+	</style>
+
+	<!-- Progress bar -->
+	<style name="Widget.ownCloud.TopProgressBar" parent="style/Widget.AppCompat.ProgressBar.Horizontal">
+		<item name="android:progressDrawable">@drawable/actionbar_progress_horizontal</item>
+		<item name="android:indeterminateDrawable">@drawable/actionbar_progress_indeterminate_horizontal</item>
+	</style>
 
 	<style name="Theme.ownCloud.Fullscreen" parent="style/Theme.AppCompat">
         <item name="android:windowFullscreen">true</item>
@@ -38,7 +118,7 @@
 	
 	<style name="Theme.ownCloud.Widget.ActionBar"
 		parent="style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-    	<item name="android:background">@drawable/main_header_bg</item>
+    	<item name="android:background">@color/owncloud_blue</item>
     	<item name="background">@drawable/main_header_bg</item>
     	<item name="android:textColor">#ffffff</item>
     	<item name="android:shadowColor">#222222</item>
@@ -48,7 +128,33 @@
 	</style>
 
 	<!-- Dialogs -->
-	<style name="Theme.ownCloud.Dialog" parent="@android:style/Theme.Dialog">
+	<style name="Theme.ownCloud.Dialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+		<item name="windowNoTitle">false</item>
+		<item name="colorAccent">@color/owncloud_blue_accent</item>
+		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
+		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
+	</style>
+
+	<!-- Button Bar hack due to Lollipop bug:
+		https://code.google.com/p/android/issues/detail?id=78302
+	fix see:
+		http://stackoverflow.com/questions/27187353/dialog-buttons-with-long-text-not-wrapping-squeezed-out-material-theme-on-an
+	 -->
+	<style name="Theme.ownCloud.Dialog.ButtonBar" parent="style/Widget.AppCompat.Button.ButtonBar.AlertDialog">
+		<!-- Making sure, the button bar uses parent width and is not restricted in height -->
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:height">@null</item>
+		<item name="android:minHeight">@null</item>
+	</style>
+
+	<style name="Theme.ownCloud.Dialog.ButtonBar.Button" parent="style/Widget.AppCompat.Button.Borderless.Colored">
+		<!-- Setting the weight as follows should result in equally wide buttons filling the alert dialog width,
+            but instead they span further out of the dialog, breaking in multiple lines though -->
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_weight">1</item>
+		<!-- setting a fixed width as follows results in narrow buttons with line breaks, but of course this is not a solution -->
+		<!-- <item name="android:width">100dp</item> -->
 	</style>
 	
 	<!-- PopDownMenu -->
@@ -111,8 +217,9 @@
   		    
     </style>
 	
-	<style name="OAuthDialog" parent="@android:style/Theme.Dialog">
-		<item name="android:windowNoTitle">false</item>	
+	<style name="OAuthDialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+		<item name="windowNoTitle">false</item>
+		<item name="colorAccent">@color/owncloud_blue_accent</item>
 	</style>    
 		
 	<color name="setup_text_hint">#777777</color>

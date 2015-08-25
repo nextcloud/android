@@ -11,6 +11,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">திறக்க</string>
   <string name="prefs_category_general">பொதுவான</string>
   <string name="prefs_category_more">மேலதிக</string>
   <string name="prefs_accounts">கணக்குகள்</string>
@@ -87,9 +88,7 @@
   <string name="common_rename">பெயர்மாற்றம்</string>
   <string name="common_remove">அகற்றுக</string>
   <string name="confirmation_remove_local">உள்ளூர் மட்டும்</string>
-  <string name="confirmation_remove_folder_local">இடத்துரி உள்ளடக்கங்கள் மட்டும்</string>
-  <string name="confirmation_remove_remote">சேவையகத்திலிருந்து அகற்றுக</string>
-  <string name="confirmation_remove_remote_and_local">தொலைவு மற்றும் உள்ளூர்</string>
+  <string name="confirmation_remove_folder_local">உள்ளூர் மட்டும்</string>
   <string name="remove_success_msg">வெற்றிகரமாக அகற்றப்பட்டது</string>
   <string name="remove_fail_msg">நீக்கலை நிறைவு செய்ய முடியவில்லை</string>
   <string name="rename_dialog_title">புதிய பெயரொன்றை நுழைக்க</string>

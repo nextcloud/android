@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Instellingen</string>
   <string name="drawer_item_logs">Logs</string>
   <string name="drawer_close">Sluiten</string>
+  <string name="drawer_open">Open</string>
   <string name="prefs_category_general">Algemeen</string>
   <string name="prefs_category_more">Meer</string>
   <string name="prefs_accounts">Accounts</string>
@@ -203,9 +204,9 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="confirmation_remove_alert">Wilt u %1$s werkelijk verwijderen?</string>
   <string name="confirmation_remove_folder_alert">Wilt u %1$s en de inhoud ervan werkelijk verwijderen?</string>
   <string name="confirmation_remove_local">Alleen lokaal</string>
-  <string name="confirmation_remove_folder_local">Alleen lokale inhoud </string>
-  <string name="confirmation_remove_remote">Verwijder van server</string>
-  <string name="confirmation_remove_remote_and_local">Lokaal en op de server</string>
+  <string name="confirmation_remove_folder_local">Alleen lokaal</string>
+  <string name="confirmation_remove_remote">Van server</string>
+  <string name="confirmation_remove_remote_and_local">Extern &amp; lokaal</string>
   <string name="remove_success_msg">Succesvol verwijderd</string>
   <string name="remove_fail_msg">Verwijdering kon niet voltooid worden</string>
   <string name="rename_dialog_title">Voer een nieuwe naam in</string>
@@ -260,8 +261,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="conflict_title">Bestandsconflict</string>
   <string name="conflict_message">Welke bestanden wilt u bewaren? Als u beide versies selecteert zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
   <string name="conflict_keep_both">Beide bewaren</string>
-  <string name="conflict_use_local_version">Gebruik de lokale versie</string>
-  <string name="conflict_use_server_version">Gebruik de server-versie</string>
+  <string name="conflict_use_local_version">lokale versie</string>
+  <string name="conflict_use_server_version">serverversie</string>
   <string name="preview_image_description">Afbeelding voorbeeld</string>
   <string name="preview_image_error_unknown_format">Deze afbeelding kan niet worden getoond</string>
   <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de %2$s lokale map</string>

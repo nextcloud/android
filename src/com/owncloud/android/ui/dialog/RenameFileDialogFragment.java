@@ -25,7 +25,7 @@ package com.owncloud.android.ui.dialog;
  * 
  *  Triggers the rename operation. 
  */
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
