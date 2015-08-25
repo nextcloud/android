@@ -37,6 +37,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.PopupMenu;
+import android.widget.ShareActionProvider;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -443,7 +444,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 return false;
         }
     }
-
+    
     /**
      * {@inhericDoc}
      */
@@ -457,7 +458,6 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
             return matched;
         }
     }
-
 
     /**
      * Use this to query the {@link OCFile} that is currently
