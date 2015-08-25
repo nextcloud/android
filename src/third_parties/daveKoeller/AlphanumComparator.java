@@ -111,7 +111,6 @@ public class AlphanumComparator implements Comparator<OCFile>
                 Collator collator = Collator.getInstance();
                 collator.setStrength(Collator.PRIMARY);
                 result = collator.compare(thisChunk, thatChunk);
-//                result = thisChunk.compareTo(thatChunk);
             }
 
             if (result != 0)
