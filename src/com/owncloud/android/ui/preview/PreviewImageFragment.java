@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -46,6 +47,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
+import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
@@ -238,13 +240,14 @@ public class PreviewImageFragment extends FileFragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    // TODO Tobi
     /** Returns a share intent */
     private Intent getDefaultShareIntent(){
+        String storagePath = getFile().getStoragePath();
+        String encodedStoragePath = WebdavUtils.encodePath(storagePath);
+
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
-        intent.putExtra(Intent.EXTRA_TEXT, "Extra Text");
+        intent.setType(getFile().getMimetype());
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + encodedStoragePath));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
     }
