@@ -256,7 +256,7 @@
   <string name="instant_video_upload_on_wifi">Subir vídeos sólo por WiFi</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
   <string name="conflict_title">Conflicto con archivo</string>
-  <string name="conflict_message">¿Qué archivos desea mantener? Si selecciona ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
+  <string name="conflict_message">¿Cuáles archivos desea mantener? Si selecciona ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
   <string name="conflict_keep_both">Mantener ambos</string>
   <string name="conflict_use_local_version">versión local</string>
   <string name="conflict_use_server_version">versión del servidor</string>
