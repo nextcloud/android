@@ -742,7 +742,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mOAuthTokenEndpointText.getText().toString().trim());
         
         getServerInfoIntent.putExtra(
-                OperationsService.EXTRA_OAUTH2_QUERY_PARAMETERS, 
+                OperationsService.EXTRA_OAUTH2_QUERY_PARAMETERS,
                 queryParameters);
         
         if (mOperationsServiceBinder != null) {
@@ -801,6 +801,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         showRefreshButton(false);
 
         if (uri.length() != 0) {
+            uri = stripIndexPhpOrAppsFiles(uri, mHostUrlInput);
+
             // Handle internationalized domain names
             uri = DisplayUtils.convertIdn(uri, true);
 
@@ -1143,6 +1145,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         return url;
     }
 
+    private String stripIndexPhpOrAppsFiles(String url, EditText mHostUrlInput) {
+        if (url.endsWith("/index.php")) {
+            url = url.substring(0, url.lastIndexOf("/index.php"));
+            mHostUrlInput.setText(url);
+        } else if (url.contains("/index.php/apps/")) {
+            url = url.substring(0, url.lastIndexOf("/index.php/apps/"));
+            mHostUrlInput.setText(url);
+        }
+
+        return url;
+    }
 
     // TODO remove, if possible
     private String trimUrlWebdav(String url){       
