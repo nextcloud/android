@@ -323,11 +323,9 @@ public class ThumbnailsCacheManager {
                     px,
                     Bitmap.Config.ARGB_8888);
             Canvas c = new Canvas(resultBitmap);
-            ColorDrawable backgroundColor =
-                    new ColorDrawable(MainApp.getAppContext().getResources().
-                            getColor(R.color.background_color));
-            backgroundColor.draw(c);
 
+            c.drawColor(MainApp.getAppContext().getResources().
+                    getColor(R.color.background_color));
             c.drawBitmap(bitmap, 0, 0, null);
 
             return resultBitmap;
