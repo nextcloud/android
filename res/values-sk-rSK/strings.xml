@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Nastavenia</string>
   <string name="drawer_item_logs">Logy</string>
   <string name="drawer_close">Zavrieť</string>
+  <string name="drawer_open">Otvoriť</string>
   <string name="prefs_category_general">Všeobecné</string>
   <string name="prefs_category_more">Viac</string>
   <string name="prefs_accounts">Účty</string>
@@ -194,9 +195,7 @@
   <string name="confirmation_remove_alert">Naozaj chcete odstrániť %1$s?</string>
   <string name="confirmation_remove_folder_alert">Naozaj chcete odstrániť %1$s a jeho obsah?</string>
   <string name="confirmation_remove_local">Iba lokálne</string>
-  <string name="confirmation_remove_folder_local">Len lokálny obsah</string>
-  <string name="confirmation_remove_remote">Zmazať zo servera</string>
-  <string name="confirmation_remove_remote_and_local">Vzdialené a lokálne</string>
+  <string name="confirmation_remove_folder_local">Iba lokálne</string>
   <string name="remove_success_msg">Úspešne odstránené</string>
   <string name="remove_fail_msg">Odstránenie zlyhalo</string>
   <string name="rename_dialog_title">Zadajte nové meno</string>

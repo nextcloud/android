@@ -28,6 +28,7 @@
     <string name="drawer_item_settings">Settings</string>
     <string name="drawer_item_logs">Logs</string>
 	<string name="drawer_close">Close</string>
+    <string name="drawer_open">Open</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_accounts">Accounts</string>
@@ -207,9 +208,9 @@
     <string name="confirmation_remove_alert">"Do you really want to remove %1$s?"</string>
     <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and its contents?"</string>
     <string name="confirmation_remove_local">Local only</string>
-    <string name="confirmation_remove_folder_local">Local contents only</string>
-    <string name="confirmation_remove_remote">Remove from server</string>
-    <string name="confirmation_remove_remote_and_local">Remote and local</string>
+    <string name="confirmation_remove_folder_local">Local only</string>
+    <string name="confirmation_remove_remote">From server</string>
+    <string name="confirmation_remove_remote_and_local">Remote &amp; local</string>
     <string name="remove_success_msg">"Removal succeeded"</string>
     <string name="remove_fail_msg">"Removal failed"</string>
     <string name="rename_dialog_title">Enter a new name</string>
@@ -268,8 +269,8 @@
     <string name="conflict_title">File conflict</string>
     <string name="conflict_message">Which files do you want to keep? If you select both versions, the local file will have a number added to its name.</string>
     <string name="conflict_keep_both">Keep both</string>
-    <string name="conflict_use_local_version">Use local version</string>
-    <string name="conflict_use_server_version">Use server version</string>
+    <string name="conflict_use_local_version">local version</string>
+    <string name="conflict_use_server_version">server version</string>
     
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_unknown_format">This image cannot be shown</string>

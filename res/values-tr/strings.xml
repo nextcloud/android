@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Ayarlar</string>
   <string name="drawer_item_logs">Günlükler</string>
   <string name="drawer_close">Kapat</string>
+  <string name="drawer_open">Aç</string>
   <string name="prefs_category_general">Genel</string>
   <string name="prefs_category_more">Daha fazla</string>
   <string name="prefs_accounts">Hesaplar</string>
@@ -200,9 +201,7 @@
   <string name="confirmation_remove_alert">Gerçekten %1$s dosyasını kaldırmak istiyor musunuz?</string>
   <string name="confirmation_remove_folder_alert">Gerçekten %1$s ve içeriğini kaldırmak istediğinizden emin misiniz?</string>
   <string name="confirmation_remove_local">Sadece yerel</string>
-  <string name="confirmation_remove_folder_local">Sadece yerel içerik</string>
-  <string name="confirmation_remove_remote">Sunucudan kaldır</string>
-  <string name="confirmation_remove_remote_and_local">Uzak ve yerel</string>
+  <string name="confirmation_remove_folder_local">Sadece yerel</string>
   <string name="remove_success_msg">Kaldırma başarılı</string>
   <string name="remove_fail_msg">Kaldırma başarısız</string>
   <string name="rename_dialog_title">Yeni bir isim girin</string>

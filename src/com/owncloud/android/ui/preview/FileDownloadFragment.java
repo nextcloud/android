@@ -36,13 +36,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.fragment.FileFragment;
-
-import java.lang.ref.WeakReference;
+import com.owncloud.android.utils.DisplayUtils;
 
 
 /**
@@ -140,11 +136,10 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
             }
         }
 
-        View view = null;
-        view = inflater.inflate(R.layout.file_download_fragment, container, false);
-        mView = view;
-
-        ProgressBar progressBar = (ProgressBar) mView.findViewById(R.id.progressBar);
+        mView = inflater.inflate(R.layout.file_download_fragment, container, false);
+        
+        ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.progressBar);
+        DisplayUtils.colorPreLollipopHorizontalProgressBar(progressBar);
         mProgressListener = new ProgressListener(progressBar);
 
         (mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
@@ -163,7 +158,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
             setButtonsForTransferring();
         }
 
-        return view;
+        return mView;
     }
 
 

@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">الإعدادات</string>
   <string name="drawer_item_logs">سجلّ</string>
   <string name="drawer_close">إغلاق</string>
+  <string name="drawer_open">افتح</string>
   <string name="prefs_category_general">عام</string>
   <string name="prefs_category_more">المزيد</string>
   <string name="prefs_accounts">حسابات</string>
@@ -184,9 +185,7 @@
   <string name="confirmation_remove_alert">هل تريد حقاً حذف %1$s ؟</string>
   <string name="confirmation_remove_folder_alert">هل ترغب في حذف %1$s و جهات الإتصال التابعة له؟ </string>
   <string name="confirmation_remove_local">محليا فقط</string>
-  <string name="confirmation_remove_folder_local">المحتويات المحلية فقط</string>
-  <string name="confirmation_remove_remote">الحذف من الخادم</string>
-  <string name="confirmation_remove_remote_and_local">محليا و عن بعد</string>
+  <string name="confirmation_remove_folder_local">محليا فقط</string>
   <string name="remove_success_msg">تم الحذف بنجاح</string>
   <string name="remove_fail_msg">فشل الحذف</string>
   <string name="rename_dialog_title">أدخل اسما جديدا</string>

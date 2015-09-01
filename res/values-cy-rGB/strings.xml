@@ -11,6 +11,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Agor</string>
   <string name="prefs_category_general">Cyffredinol</string>
   <string name="prefs_accounts">Cyfrifon</string>
   <string name="prefs_manage_accounts">Rheoli Cyfrifon</string>
@@ -91,9 +92,7 @@
   <string name="common_rename">Ailenwi</string>
   <string name="common_remove">Gwaredu</string>
   <string name="confirmation_remove_local">Lleol yn unig</string>
-  <string name="confirmation_remove_folder_local">Cynnwys lleol yn unig</string>
-  <string name="confirmation_remove_remote">Gwaredu o\'r gweinydd</string>
-  <string name="confirmation_remove_remote_and_local">Pell a lleol</string>
+  <string name="confirmation_remove_folder_local">Lleol yn unig</string>
   <string name="remove_success_msg">Gwaredwyd yn llwyddiannus</string>
   <string name="remove_fail_msg">Methwyd gwaredu</string>
   <string name="rename_dialog_title">Rhowch enw newydd</string>

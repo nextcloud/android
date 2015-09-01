@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Open</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">More</string>
   <string name="prefs_accounts">Accounts</string>
@@ -194,9 +195,7 @@
   <string name="confirmation_remove_alert">Do you really want to remove %1$s?</string>
   <string name="confirmation_remove_folder_alert">Do you really want to remove %1$s and its contents?</string>
   <string name="confirmation_remove_local">Local only</string>
-  <string name="confirmation_remove_folder_local">Local contents only</string>
-  <string name="confirmation_remove_remote">Remove from server</string>
-  <string name="confirmation_remove_remote_and_local">Remote and local</string>
+  <string name="confirmation_remove_folder_local">Local only</string>
   <string name="remove_success_msg">Removal succeeded</string>
   <string name="remove_fail_msg">Removal failed</string>
   <string name="rename_dialog_title">Enter a new name</string>

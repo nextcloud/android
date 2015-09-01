@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Ireki</string>
   <string name="prefs_category_general">Orokorra</string>
   <string name="prefs_category_more">Gehiago</string>
   <string name="prefs_accounts">Kontuak</string>
@@ -179,9 +180,7 @@ Mesedez, baimendu berriz</string>
   <string name="confirmation_remove_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
   <string name="confirmation_remove_folder_alert">Ziru zaude %1$s eta bere edukiak ezabatu nahi dituzula?</string>
   <string name="confirmation_remove_local">Bertakoa bakarrik</string>
-  <string name="confirmation_remove_folder_local">Eduki lokalak bakarrik</string>
-  <string name="confirmation_remove_remote">Zerbitzaritik ezabatu</string>
-  <string name="confirmation_remove_remote_and_local">Biak urrunekoa eta bertakoa</string>
+  <string name="confirmation_remove_folder_local">Bertakoa bakarrik</string>
   <string name="remove_success_msg">Ongi ezabatu da</string>
   <string name="remove_fail_msg">Ezin izan da ezabaketa burutu</string>
   <string name="rename_dialog_title">Idatzi izen berri bat</string>

@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">खोलें</string>
   <string name="prefs_category_general">सामान्य </string>
   <string name="prefs_category_more">और अधिक</string>
   <string name="prefs_accounts">खाते </string>
