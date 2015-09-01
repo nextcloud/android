@@ -284,7 +284,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="network_error_socket_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée</string>
   <string name="network_error_connect_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée</string>
   <string name="network_host_not_available">L\'opération n\'a pas pu être terminée, le serveur n\'est pas disponible</string>
->>>>>>> develop
   <string name="empty"></string>
   <string name="forbidden_permissions">Vous ne possédez pas les droits suffisants %s</string>
   <string name="forbidden_permissions_rename">afin de renommer ce fichier</string>
