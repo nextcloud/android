@@ -11,14 +11,26 @@
   <string name="actionbar_settings">Configuració</string>
   <string name="actionbar_see_details">Detalls</string>
   <string name="actionbar_send_file">Envia</string>
+  <string name="actionbar_sort">Ordena</string>
+  <string name="actionbar_sort_title">Ordena per</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Més nou - Més antic</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">configuració</string>
+  <string name="drawer_close">tanca</string>
+  <string name="drawer_open">Obre</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Més</string>
   <string name="prefs_accounts">Comptes</string>
   <string name="prefs_manage_accounts">Gestió de comptes</string>
-  <string name="prefs_pincode">PIN de l\'aplicació</string>
-  <string name="prefs_pincode_summary">Protegiu el client</string>
+  <string name="prefs_passcode">Contrasenya</string>
   <string name="prefs_instant_upload">Pujada instantànies de fotografies</string>
   <string name="prefs_instant_upload_summary">Puja instantàniament les fotografies preses amb la càmera</string>
   <string name="prefs_instant_video_upload">Pujades de vídeos instantanies</string>
@@ -41,6 +53,7 @@
   <string name="sync_string_files">Fitxers</string>
   <string name="setup_btn_connect">Connecta</string>
   <string name="uploader_btn_upload_text">Puja</string>
+  <string name="uploader_btn_new_folder_text">Carpeta nova</string>
   <string name="uploader_top_message">Seleccioneu la carpeta de pujada:</string>
   <string name="uploader_wrn_no_account_title">No s\'ha trobat el compte</string>
   <string name="uploader_wrn_no_account_text">No hi ha comptes %1$s en el dispositiu. Configureu un compte primer</string>
@@ -52,12 +65,7 @@
   <string name="uploader_info_uploading">S\'està pujant</string>
   <string name="file_list_seconds_ago">segons enrere</string>
   <string name="file_list_empty">Res per aquí. Pugeu alguna cosa!</string>
-  <string name="file_list_loading">Carregant...</string>
   <string name="local_file_list_empty">No hi ha arxius a aquesta carpeta</string>
-  <string name="file_list_folder">carpeta</string>
-  <string name="file_list_folders">carpetes</string>
-  <string name="file_list_file">fitxer</string>
-  <string name="file_list_files">fitxers</string>
   <string name="filedetails_select_file">Feu clic en un fitxer per mostrar informació addicional.</string>
   <string name="filedetails_size">Mida:</string>
   <string name="filedetails_type">Tipus:</string>
@@ -117,15 +125,6 @@
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remot: %1$s</string>
   <string name="upload_query_move_foreign_files">No hi ha prou espai per copiar els fitxers seleccionats a la carpeta %1$s. Els hi voleu moure?</string>
-  <string name="pincode_enter_pin_code">Escriviu el PIN de l\'aplicació</string>
-  <string name="pincode_configure_your_pin">Escriviu el PIN de l\'aplicació</string>
-  <string name="pincode_configure_your_pin_explanation">es requerirà el PIN cada vegada que s\'iniciï l\'aplicació</string>
-  <string name="pincode_reenter_your_pincode">Torneu a escriure el PIN de l\'aplicació </string>
-  <string name="pincode_remove_your_pincode">Elimina el PIN de l\'aplicació</string>
-  <string name="pincode_mismatch">Els PINs de l\'aplicació no coincideixen</string>
-  <string name="pincode_wrong">El PIN de l\'aplicació no és correcte</string>
-  <string name="pincode_removed">S\'ha eliminat el PIN de l\'aplicació </string>
-  <string name="pincode_stored">S\'ha desat el PIN de l\'aplicació </string>
   <string name="media_notif_ticker">reproductor de música %1$s</string>
   <string name="media_state_playing">%1$s (sonant)</string>
   <string name="media_state_loading">%1$s (carregant)</string>
@@ -150,7 +149,6 @@
   <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
   <string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
   <string name="auth_connection_established">S\'ha establert la connexió</string>
-  <string name="auth_testing_connection">S\'està comprovant la connexió...</string>
   <string name="auth_not_configured_title">La configuració del servidor està malformada</string>
   <string name="auth_account_not_new">Ja hi ha un compte al dispositiu pel mateix usuari i mateix servidor</string>
   <string name="auth_account_not_the_same">L\'usuari introduït no coincideix amb l\'usuari d\'aquest compte</string>
@@ -176,15 +174,13 @@
   <string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
   <string name="auth_fail_get_user_name">El servidor no retorna una id d\'usuari correcta, contacteu amb l\'administrador.</string>
   <string name="auth_can_not_auth_against_server">No es pot autenticar en aquest servidor</string>
-  <string name="fd_keep_in_sync">Mantén el fitxer actualitzat</string>
+  <string name="favorite">Preferits</string>
   <string name="common_rename">Reanomena</string>
   <string name="common_remove">Elimina</string>
   <string name="confirmation_remove_alert">Esteu segur que voleu eliminar %1$s?</string>
   <string name="confirmation_remove_folder_alert">Estàs segur que vols esborrar %1$s i els seus continguts?</string>
   <string name="confirmation_remove_local">Només local</string>
-  <string name="confirmation_remove_folder_local">Només contiguts locals</string>
-  <string name="confirmation_remove_remote">Elimina del servidor</string>
-  <string name="confirmation_remove_remote_and_local">Remot i local</string>
+  <string name="confirmation_remove_folder_local">Només local</string>
   <string name="remove_success_msg">L\'eliminació ha tingut èxit</string>
   <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
   <string name="rename_dialog_title">Introdueix un nom nou</string>
@@ -234,11 +230,7 @@
   <string name="instant_upload_on_wifi">Puja les fotos només via WiFi</string>
   <string name="instant_video_upload_on_wifi">Puja les fotos només via WiFi</string>
   <string name="instant_upload_path">/CarregaInstantània</string>
-  <string name="conflict_title">Conflicte d\'actualització</string>
-  <string name="conflict_message">El fitxer remot %s no està sincronitzat amb el fitxer local. Si continueu es substituirà el contingut del fitxer en el servidor.</string>
   <string name="conflict_keep_both">Mantén-los ambdós</string>
-  <string name="conflict_overwrite">Sobrescriu</string>
-  <string name="conflict_dont_upload">No el pugis</string>
   <string name="preview_image_description">Visualització prèvia d\'imatge</string>
   <string name="preview_image_error_unknown_format">Aquesta imatge no es pot mostrar</string>
   <string name="error__upload__local_file_not_copied">%1$s no s\'ha pogut copiar a la carpeta local %2$s</string>
@@ -264,8 +256,11 @@
   <string name="downloader_download_file_not_found">El fitxer ja no està disponible en el servidor</string>
   <string name="prefs_category_accounts">Comptes</string>
   <string name="prefs_add_account">Afegeix compte</string>
+  <string name="log_progress_dialog_text">Carregant dades...</string>
   <string name="saml_authentication_required_text">Es requereix autenticació</string>
   <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
+  <string name="actionbar_move">Moure</string>
   <string name="folder_picker_choose_button_text">Escull</string>
   <string name="prefs_category_security">Seguretat</string>
+  <string name="auth_host_address">Adreça del servidor</string>
 </resources>

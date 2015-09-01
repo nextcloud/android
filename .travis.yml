@@ -1,14 +1,12 @@
 language: android
 android:
   components:
-    - platform-tools
-    - tools
-    - build-tools-20.0.0
-    - android-19
+    - build-tools-22.0.1
+    - android-22
 before_install:
   - rm pom.xml
 script:
   - ./setup_env.sh ant
   - ant clean
   - ant debug
-
+  

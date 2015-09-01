@@ -1,5 +1,5 @@
 /* ownCloud Jelly Bean Workaround for lost credentials
- *   Copyright (C) 2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,

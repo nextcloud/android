@@ -2,7 +2,7 @@
 <!-- 
   ownCloud Android client application
 
-  Copyright (C) 2012-2013 ownCloud Inc.
+  Copyright (C) 2015 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -35,14 +35,18 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal" >
-        <Button
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/upload_files_btn_cancel"
+            style="@style/ownCloud.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/common_cancel" />
-		<Button
+
+        <android.support.v7.widget.AppCompatButton
 		    android:id="@+id/upload_files_btn_upload"
+            style="@style/ownCloud.Button"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="1"

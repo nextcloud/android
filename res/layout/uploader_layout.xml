@@ -3,7 +3,7 @@
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2012-2013 ownCloud Inc.
+  Copyright (C) 2015 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -21,20 +21,54 @@
 	android:layout_height="wrap_content" android:orientation="vertical"
 	android:layout_width="wrap_content" android:background="#fefefe"
 	android:gravity="center">
-	<TextView android:layout_width="fill_parent" android:text="@string/uploader_top_message"
-		android:layout_height="wrap_content" android:id="@+id/textView1" android:textColor="@android:color/black"
-		android:gravity="center_horizontal"></TextView>
+
+	<TextView android:layout_width="fill_parent"
+		android:text="@string/uploader_top_message"
+		android:layout_height="wrap_content"
+		android:id="@+id/drawer_username"
+		android:textColor="@android:color/black"
+		android:gravity="center_horizontal">
+	</TextView>
+
 	<FrameLayout android:layout_height="fill_parent"
-		android:layout_width="fill_parent" android:id="@+id/frameLayout1"
-		android:layout_below="@+id/textView1" android:layout_above="@+id/linearLayout1">
-		<ListView android:id="@android:id/list" android:layout_width="fill_parent"
-			android:layout_height="fill_parent" android:divider="@drawable/uploader_list_separator"
-			android:dividerHeight="1dip"></ListView>
+		android:layout_width="fill_parent"
+		android:id="@+id/frameLayout1"
+		android:layout_below="@+id/drawer_username"
+		android:layout_above="@+id/linearLayout1">
+
+		<ListView android:id="@android:id/list"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:divider="@drawable/uploader_list_separator"
+			android:dividerHeight="1dip">
+		</ListView>
+
 	</FrameLayout>
-	<LinearLayout android:id="@+id/linearLayout1"
-		android:layout_width="fill_parent" android:layout_alignParentBottom="true" android:layout_height="wrap_content" android:orientation="vertical">
-		<Button android:layout_gravity="bottom" android:layout_height="wrap_content"
-			android:layout_width="fill_parent" android:id="@+id/uploader_choose_folder"
-			android:text="@string/uploader_btn_upload_text"/>
+
+	<LinearLayout
+	    android:id="@+id/linearLayout1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:orientation="horizontal" >
+
+		<android.support.v7.widget.AppCompatButton
+		    android:id="@+id/uploader_cancel"
+			style="@style/ownCloud.Button"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="bottom"
+		    android:layout_weight="1"
+		    android:text="@string/common_cancel" />
+
+		<android.support.v7.widget.AppCompatButton
+		    android:id="@+id/uploader_choose_folder"
+			style="@style/ownCloud.Button"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="bottom"
+		    android:layout_weight="1"
+		    android:text="@string/uploader_btn_upload_text" />
+
 	</LinearLayout>
 </RelativeLayout>

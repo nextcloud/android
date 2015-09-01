@@ -1,5 +1,7 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,7 +20,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-
 import android.os.Bundle;
 import android.view.View.OnClickListener;
 
@@ -66,7 +67,8 @@ public class UploadPathActivity extends FolderPickerActivity implements FileFrag
 
             if (!stateWasRecovered) {
                 OCFileListFragment listOfFolders = getListOfFilesFragment();
-                listOfFolders.listDirectory(folder);
+                // TODO Enable when "On Device" is recovered ?
+                listOfFolders.listDirectory(folder/*, false*/);
 
                 startSyncFolderOperation(folder, false);
             }

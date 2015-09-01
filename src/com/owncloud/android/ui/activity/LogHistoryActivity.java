@@ -1,5 +1,7 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -25,6 +27,7 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -32,14 +35,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.LoadingDialog;
@@ -47,9 +50,11 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 
-public class LogHistoryActivity extends SherlockFragmentActivity  {
+public class LogHistoryActivity extends AppCompatActivity {
 
     private static final String MAIL_ATTACHMENT_TYPE = "text/plain";
+
+    private static final String KEY_LOG_TEXT = "LOG_TEXT";
 
     private static final String TAG = LogHistoryActivity.class.getSimpleName();
 
@@ -57,6 +62,7 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
 
     private String mLogPath = FileStorageUtils.getLogPath();
     private File logDIR = null;
+    private String mLogText;
 
 
     @Override
@@ -65,11 +71,10 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
 
         setContentView(R.layout.log_send_file);
         setTitle(getText(R.string.actionbar_logger));
-        ActionBar actionBar = getSherlock().getActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
         Button sendHistoryButton = (Button) findViewById(R.id.sendLogHistoryButton);
+        TextView logTV = (TextView) findViewById(R.id.logTV);
 
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
             
@@ -89,32 +94,34 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
             }
         });
 
-        if (mLogPath != null) {
-            logDIR = new File(mLogPath);
-        }
+        if (savedInstanceState == null) {
+            if (mLogPath != null) {
+                logDIR = new File(mLogPath);
+            }
 
-        if (logDIR != null && logDIR.isDirectory()) {
-            // Show a dialog while log data is being loaded
-            showLoadingDialog();
+            if (logDIR != null && logDIR.isDirectory()) {
+                // Show a dialog while log data is being loaded
+                showLoadingDialog();
 
-            TextView logTV = (TextView) findViewById(R.id.logTV);
-
-            // Start a new thread that will load all the log data
-            LoadingLogTask task = new LoadingLogTask(logTV);
-            task.execute();
-
+                // Start a new thread that will load all the log data
+                LoadingLogTask task = new LoadingLogTask(logTV);
+                task.execute();
+            }
+        } else {
+            mLogText = savedInstanceState.getString(KEY_LOG_TEXT);
+            logTV.setText(mLogText);
         }
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        super.onMenuItemSelected(featureId, item);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
-        case android.R.id.home:
-            finish();
-            break;
-        default:
-            return false;
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return false;
         }
         return true;
     }
@@ -125,41 +132,45 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
      */
     private void sendMail() {
 
+        // For the moment we need to consider the possibility that setup.xml
+        // does not include the "mail_logger" entry. This block prevents that
+        // compilation fails in this case.
         String emailAddress;
         try {
             Class<?> stringClass = R.string.class;
             Field mailLoggerField = stringClass.getField("mail_logger");
-            int emailAddressId = (Integer)mailLoggerField.get(null);
+            int emailAddressId = (Integer) mailLoggerField.get(null);
             emailAddress = getString(emailAddressId);
-            
         } catch (Exception e) {
             emailAddress = "";
         }
-
+        
         ArrayList<Uri> uris = new ArrayList<Uri>();
 
         // Convert from paths to Android friendly Parcelable Uri's
         for (String file : Log_OC.getLogFileNames())
         {
-            if (new File(mLogPath + File.separator, file).exists()) {
-                Uri u = Uri.parse("file://" + mLogPath + File.separator + file);
-                uris.add(u);
+            File logFile = new File(mLogPath, file);
+            if (logFile.exists()) {
+                uris.add(Uri.fromFile(logFile));
             }
         }
 
         Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
 
-        // Explicitly only use Gmail to send
-        intent.setClassName("com.google.android.gm","com.google.android.gm.ComposeActivityGmail");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{ emailAddress });
-        intent.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.log_mail_subject));
+        intent.putExtra(Intent.EXTRA_EMAIL, emailAddress);
+        String subject = String.format(getString(R.string.log_send_mail_subject), getString(R.string.app_name));
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setType(MAIL_ATTACHMENT_TYPE);
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
-
-        if (intent.resolveActivity(getPackageManager()) != null) {
+        try {
             startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, getString(R.string.log_send_no_mail_app), Toast.LENGTH_LONG).show();
+            Log_OC.i(TAG, "Could not find app for sending log history.");
         }
+
     }
 
     /**
@@ -183,7 +194,8 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
             if (textViewReference != null && result != null) {
                 final TextView logTV = textViewReference.get();
                 if (logTV != null) {
-                    logTV.setText(result);
+                    mLogText = result;
+                    logTV.setText(mLogText);
                     dismissLoadingDialog();
                 }
             }
@@ -257,5 +269,13 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
             LoadingDialog loading = (LoadingDialog) frag;
             loading.dismiss();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        /// global state
+        outState.putString(KEY_LOG_TEXT, mLogText);
     }
 }
