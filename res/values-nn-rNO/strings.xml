@@ -13,12 +13,15 @@
   <string name="actionbar_send_file">Send</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Opna</string>
   <string name="prefs_category_general">Generelt</string>
   <string name="prefs_category_more">Meir</string>
   <string name="prefs_accounts">Kontoar</string>
   <string name="prefs_manage_accounts">Behandle kontoar</string>
-  <string name="prefs_pincode">Programpinkode</string>
-  <string name="prefs_pincode_summary">Beskytt klienten din</string>
   <string name="prefs_instant_upload">Last opp bilete omgåande</string>
   <string name="prefs_instant_upload_summary">Last opp bilete når du tek dei med kameraet</string>
   <string name="prefs_instant_video_upload">Last opp film</string>
@@ -39,6 +42,7 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Kopla til</string>
   <string name="uploader_btn_upload_text">Last opp</string>
+  <string name="uploader_btn_new_folder_text">Ny mappe</string>
   <string name="uploader_wrn_no_account_title">Fann ingen konto</string>
   <string name="uploader_wrn_no_account_text">Det er ingen %1$s kontoar på eininga di. Gjer vel å konfigurer ein konto først.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>
@@ -85,19 +89,10 @@
   <string name="common_choose_account">Vel konto</string>
   <string name="sync_fail_ticker">Feil ved synkronisering</string>
   <string name="sync_fail_content">Klarte ikkje å synkronisera ferdig %1$s</string>
-  <string name="pincode_enter_pin_code">Ver venleg og skriv inn programpinkoden</string>
-  <string name="pincode_configure_your_pin">Skriv inn programpinkoden</string>
-  <string name="pincode_reenter_your_pincode">Ver venleg å skriv inn programpinkoden på nytt</string>
-  <string name="pincode_remove_your_pincode">Fjern programpinkoden</string>
-  <string name="pincode_mismatch">Programpinkodane er ikkje like</string>
-  <string name="pincode_wrong">Feil programpinkode</string>
-  <string name="pincode_removed">Programpinkode er fjerna</string>
-  <string name="pincode_stored">Programpinkode er lagra</string>
   <string name="auth_trying_to_login">Prøvar å logge på...</string>
   <string name="auth_no_net_conn_title">Inga nettilkopling</string>
   <string name="auth_nossl_plain_ok_title">Trygg tilkopling ikkje tilgjengeleg.</string>
   <string name="auth_connection_established">Tilkopling oppretta</string>
-  <string name="auth_testing_connection">Testar tilkopling...</string>
   <string name="auth_not_configured_title">Ugyldig tenarkonfigurasjon</string>
   <string name="auth_unknown_error_title">Ein ukjend feil oppstod!</string>
   <string name="auth_unknown_host_title">Klarte ikkje å finna tenaren</string>
@@ -107,12 +102,11 @@
   <string name="auth_ssl_general_error_title">Feil ved SSL-oppstart</string>
   <string name="auth_wrong_connection_title">Klarte ikkje å oppretta ei tilkopling</string>
   <string name="auth_secure_connection">Trygg tilkopling oppretta</string>
-  <string name="fd_keep_in_sync">Hald fila oppdatert</string>
+  <string name="favorite">Favoritt</string>
   <string name="common_rename">Endra namn</string>
   <string name="common_remove">Fjern</string>
   <string name="confirmation_remove_local">Berre lokalt</string>
-  <string name="confirmation_remove_remote">Fjern frå tenaren</string>
-  <string name="confirmation_remove_remote_and_local">Ekstern og lokal</string>
+  <string name="confirmation_remove_folder_local">Berre lokalt</string>
   <string name="remove_success_msg">Fjerning vellukka</string>
   <string name="remove_fail_msg">Fjerning mislukka</string>
   <string name="rename_server_fail_msg">Klarte ikkje å fullføra omdøyping</string>
@@ -131,6 +125,7 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Kontoar</string>
   <string name="saml_authentication_wrong_pass">Feil passord</string>
-  <string name="move_choose_button_text">Vel</string>
+  <string name="folder_picker_choose_button_text">Vel</string>
   <string name="prefs_category_security">Tryggleik</string>
+  <string name="auth_host_address">Tenaradresse</string>
 </resources>

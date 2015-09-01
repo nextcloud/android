@@ -1,5 +1,9 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   @author masensio
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -23,6 +27,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -38,9 +43,6 @@ import android.webkit.MimeTypeMap;
 
 /**
  * Remote mDownloadOperation performing the download of a file to an ownCloud server
- * 
- * @author David A. Velasco
- * @author masensio
  */
 public class DownloadFileOperation extends RemoteOperation {
     
@@ -57,9 +59,11 @@ public class DownloadFileOperation extends RemoteOperation {
     
     public DownloadFileOperation(Account account, OCFile file) {
         if (account == null)
-            throw new IllegalArgumentException("Illegal null account in DownloadFileOperation creation");
+            throw new IllegalArgumentException("Illegal null account in DownloadFileOperation " +
+                    "creation");
         if (file == null)
-            throw new IllegalArgumentException("Illegal null file in DownloadFileOperation creation");
+            throw new IllegalArgumentException("Illegal null file in DownloadFileOperation " +
+                    "creation");
         
         mAccount = account;
         mFile = file;
@@ -76,7 +80,7 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
     public String getSavePath() {
-        String path = mFile.getStoragePath();   // re-downloads should be done over the original file 
+        String path = mFile.getStoragePath();  // re-downloads should be done over the original file
         if (path != null && path.length() > 0) {
             return path;
         }
@@ -101,9 +105,11 @@ public class DownloadFileOperation extends RemoteOperation {
             try {
                 mimeType = MimeTypeMap.getSingleton()
                     .getMimeTypeFromExtension(
-                            mFile.getRemotePath().substring(mFile.getRemotePath().lastIndexOf('.') + 1));
+                            mFile.getRemotePath().substring(
+                                    mFile.getRemotePath().lastIndexOf('.') + 1));
             } catch (IndexOutOfBoundsException e) {
-                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + mFile.getRemotePath());
+                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " +
+                        mFile.getRemotePath());
             }
         }
         if (mimeType == null) {
@@ -117,7 +123,8 @@ public class DownloadFileOperation extends RemoteOperation {
     }
     
     public long getModificationTimestamp() {
-        return (mModificationTimestamp > 0) ? mModificationTimestamp : mFile.getModificationTimestamp();
+        return (mModificationTimestamp > 0) ? mModificationTimestamp :
+                mFile.getModificationTimestamp();
     }
 
     @Override
@@ -150,12 +157,12 @@ public class DownloadFileOperation extends RemoteOperation {
             newFile = new File(getSavePath());
             newFile.getParentFile().mkdirs();
             moved = tmpFile.renameTo(newFile);
-        
             if (!moved)
-                result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                result = new RemoteOperationResult(
+                        RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
         }
-        Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage());
-        
+        Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " +
+                result.getLogMessage());
         
         return result;
     }
@@ -179,5 +186,4 @@ public class DownloadFileOperation extends RemoteOperation {
             mDataTransferListeners.remove(listener);
         }
     }
-    
 }

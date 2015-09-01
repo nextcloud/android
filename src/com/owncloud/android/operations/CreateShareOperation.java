@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author masensio
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -19,13 +22,12 @@ package com.owncloud.android.operations;
 
 /**
  * Creates a new share from a given file
- * 
- * @author masensio
- *
  */
 
+import android.content.Context;
 import android.content.Intent;
 
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -42,10 +44,10 @@ import com.owncloud.android.operations.common.SyncOperation;
 public class CreateShareOperation extends SyncOperation {
 
     private static final String TAG = CreateShareOperation.class.getSimpleName();
-    
 
     protected FileDataStorageManager mStorageManager;
 
+    private Context mContext;
     private String mPath;
     private ShareType mShareType;
     private String mShareWith;
@@ -56,25 +58,31 @@ public class CreateShareOperation extends SyncOperation {
 
     /**
      * Constructor
+     * @param context       The context that the share is coming from.
      * @param path          Full path of the file/folder being shared. Mandatory argument
-     * @param shareType     ‘0’ = user, ‘1’ = group, ‘3’ = Public link. Mandatory argument
-     * @param shareWith     User/group ID with who the file should be shared.  This is mandatory for shareType of 0 or 1
-     * @param publicUpload  If ‘false’ (default) public cannot upload to a public shared folder. 
-     *                      If ‘true’ public can upload to a shared folder. Only available for public link shares
-     * @param password      Password to protect a public link share. Only available for public link shares
-     * @param permissions   1 - Read only – Default for “public” shares
+     * @param shareType     0 = user, 1 = group, 3 = Public link. Mandatory argument
+     * @param shareWith     User/group ID with who the file should be shared.
+     *                      This is mandatory for shareType of 0 or 1
+     * @param publicUpload  If false (default) public cannot upload to a public shared folder. 
+     *                      If true public can upload to a shared folder.
+     *                      Only available for public link shares
+     * @param password      Password to protect a public link share.
+     *                      Only available for public link shares
+     * @param permissions   1 - Read only - Default for public shares
      *                      2 - Update
      *                      4 - Create
      *                      8 - Delete
      *                      16- Re-share
-     *                      31- All above – Default for “private” shares
+     *                      31- All above - Default for private shares
      *                      For user or group shares.
      *                      To obtain combinations, add the desired values together.  
-     *                      For instance, for “Re-Share”, “delete”, “read”, “update”, add 16+8+2+1 = 27.
+     *                      For instance, for Re-Share, delete, read, update, add 16+8+2+1 = 27.
      */
-    public CreateShareOperation(String path, ShareType shareType, String shareWith, boolean publicUpload, 
-            String password, int permissions, Intent sendIntent) {
+    public CreateShareOperation(Context context, String path, ShareType shareType, String shareWith,
+                                boolean publicUpload, String password, int permissions,
+                                Intent sendIntent) {
 
+        mContext = context;
         mPath = path;
         mShareType = shareType;
         mShareWith = shareWith;
@@ -90,10 +98,12 @@ public class CreateShareOperation extends SyncOperation {
         
         // Check if the share link already exists
         operation = new GetRemoteSharesForFileOperation(mPath, false, false);
-        RemoteOperationResult result = ((GetRemoteSharesForFileOperation)operation).execute(client);
+        RemoteOperationResult result =
+                ((GetRemoteSharesForFileOperation)operation).execute(client);
 
         if (!result.isSuccess() || result.getData().size() <= 0) {
-            operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload, mPassword, mPermissions);
+            operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload,
+                    mPassword, mPermissions);
             result = ((CreateRemoteShareOperation)operation).execute(client);
         }
         
@@ -107,7 +117,30 @@ public class CreateShareOperation extends SyncOperation {
         return result;
     }
     
-    
+    public String getPath() {
+        return mPath;
+    }
+
+    public ShareType getShareType() {
+        return mShareType;
+    }
+
+    public String getShareWith() {
+        return mShareWith;
+    }
+
+    public boolean getPublicUpload() {
+        return mPublicUpload;
+    }
+
+    public String getPassword() {
+        return mPassword;
+    }
+
+    public int getPermissions() {
+        return mPermissions;
+    }
+
     public Intent getSendIntent() {
         return mSendIntent;
     }
@@ -128,6 +161,16 @@ public class CreateShareOperation extends SyncOperation {
         OCFile file = getStorageManager().getFileByPath(mPath);
         if (file!=null) {
             mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
+            if (getClient().getCredentials().getUsername() == null) {
+                //in saml is null
+                mSendIntent.putExtra(Intent.EXTRA_SUBJECT,
+                        String.format(mContext.getString(R.string.saml_subject_token),
+                                file.getFileName()));
+            } else {
+                mSendIntent.putExtra(Intent.EXTRA_SUBJECT,
+                        String.format(mContext.getString(R.string.subject_token),
+                                getClient().getCredentials().getUsername(), file.getFileName()));
+            }
             file.setPublicLink(share.getShareLink());
             file.setShareByLink(true);
             getStorageManager().saveFile(file);

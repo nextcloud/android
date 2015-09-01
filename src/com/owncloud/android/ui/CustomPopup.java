@@ -1,6 +1,9 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Lorensius. W. T
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -32,9 +35,6 @@ import android.widget.PopupWindow;
 
 /**
  * Represents a custom PopupWindows
- * 
- * @author Lorensius. W. T
- * 
  */
 public class CustomPopup {
     protected final View mAnchor;

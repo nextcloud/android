@@ -13,12 +13,15 @@
   <string name="actionbar_send_file">Gởi</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Mở</string>
   <string name="prefs_category_general">Tổng hợp</string>
   <string name="prefs_category_more">hơn</string>
   <string name="prefs_accounts">Tài khoản</string>
   <string name="prefs_manage_accounts">Quản lý tài khoản</string>
-  <string name="prefs_pincode">Mã PIN ứng dụng App</string>
-  <string name="prefs_pincode_summary">Bảo vệ App client của bạn</string>
   <string name="prefs_log_title">Bật chế độ nhật trình</string>
   <string name="prefs_log_summary">Được sử dụng cho các vấn đề liên quan đến nhật trình</string>
   <string name="prefs_log_title_history">Nhật trình dữ kiện</string>
@@ -37,6 +40,7 @@
   <string name="sync_string_files">Tập tin</string>
   <string name="setup_btn_connect">Kết nối</string>
   <string name="uploader_btn_upload_text">Tải lên</string>
+  <string name="uploader_btn_new_folder_text">Tạo thư mục</string>
   <string name="uploader_wrn_no_account_title">Không tìm thấy tài khoản</string>
   <string name="uploader_wrn_no_account_text">Trên thiết bị của bạn không có tài khoản %1$s. Bước đầu tiên hãy thiết lập một tài khoản.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Cài đặt</string>
@@ -101,15 +105,6 @@
   <string name="foreign_files_fail">Một vài tập tin không thể chuyển đi</string>
   <string name="foreign_files_local_text">Cục bộ: %1$s</string>
   <string name="foreign_files_remote_text">Từ xa: %1$s</string>
-  <string name="pincode_enter_pin_code">Vui lòng, nhập mã PIN ứng dụng của bạn</string>
-  <string name="pincode_configure_your_pin">Nhập mã PIN ứng dụng App</string>
-  <string name="pincode_configure_your_pin_explanation">Mã PIN sẽ được yêu cầu mỗi khi ứng dụng được bật </string>
-  <string name="pincode_reenter_your_pincode">Vui lòng nhập lại mã PIN ứng dụng App</string>
-  <string name="pincode_remove_your_pincode">Hủy mã PIN ứng dụng App của bạn</string>
-  <string name="pincode_mismatch">Mã PIN ứng dụng App không được trùng</string>
-  <string name="pincode_wrong">Mã PIN ứng dụng App không đúng</string>
-  <string name="pincode_removed">Mã PIN ứng dụng App đã bị xóa</string>
-  <string name="pincode_stored">Mã PIN ứng dụng App đã được lưu trữ</string>
   <string name="media_notif_ticker">%1$s trình phát nhạc</string>
   <string name="media_state_playing">%1$s (đang phát)</string>
   <string name="media_state_loading">%1$s (đang tải)</string>
@@ -133,7 +128,6 @@
   <string name="auth_no_net_conn_title">Không có kết nối mạng</string>
   <string name="auth_nossl_plain_ok_title">Bảo mật kết nối không có giá trị.</string>
   <string name="auth_connection_established">Kết nối đã thiết lập</string>
-  <string name="auth_testing_connection">Đang kiểm tra kết nối...</string>
   <string name="auth_not_configured_title">Thay đổi cấu hình máy chủ </string>
   <string name="auth_account_not_new">Một tài khoản với cùng tên người dùng và máy chủ đã tồn tại trong thiết bị</string>
   <string name="auth_account_not_the_same">Tên người dùng đã nhập không đúng với tên người dùng của tài khoản này</string>
@@ -157,13 +151,11 @@
   <string name="auth_connecting_auth_server">Đang kết nối đến máy chủ xác thực...</string>
   <string name="auth_unsupported_auth_method">Máy chủ không hổ trợ phương thức xác thực này</string>
   <string name="auth_unsupported_multiaccount">%1$s  không hỗ trợ nhiều tài khoản</string>
-  <string name="fd_keep_in_sync">Giữ tập tin cập nhật</string>
+  <string name="favorite">Ưu thích</string>
   <string name="common_rename">Sửa tên</string>
   <string name="common_remove">Xóa</string>
   <string name="confirmation_remove_local">Chỉ cục bộ</string>
-  <string name="confirmation_remove_folder_local">Chỉ nội dung trên máy</string>
-  <string name="confirmation_remove_remote">Xóa từ máy chủ</string>
-  <string name="confirmation_remove_remote_and_local">Remote và local</string>
+  <string name="confirmation_remove_folder_local">Chỉ cục bộ</string>
   <string name="remove_success_msg">Xóa thành công</string>
   <string name="remove_fail_msg">Xóa không thành công</string>
   <string name="rename_dialog_title">Nhập tên mới</string>
@@ -208,16 +200,13 @@
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Tải hình ảnh lên thông qua WiFi</string>
   <string name="instant_upload_path">/Upload tức thì</string>
-  <string name="conflict_title">Cập nhật xung đột</string>
-  <string name="conflict_message">%s là tập tin từ xa nó không đồng bộ với tập tin máy bạn . Nếu bạn tiếp tục sẽ thay đổi nội dung của tập tin trên máy chủ.</string>
   <string name="conflict_keep_both">Giữ cho cả hai</string>
-  <string name="conflict_overwrite">Ghi đè lên</string>
-  <string name="conflict_dont_upload">Không tải lên</string>
   <string name="preview_image_description">Xem trước hình ảnh</string>
   <string name="share_link_file_error">Một lỗi đã xảy ra khi thử chia sẻ file hoặc thư mục này</string>
   <string name="unshare_link_file_error">Một lỗi đã xảy ra khi thử gỡ chia sẻ file hoặc thư mục này</string>
   <string name="activity_chooser_send_file_title">Gởi</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Tài khoản</string>
-  <string name="move_choose_button_text">Chọn</string>
+  <string name="folder_picker_choose_button_text">Chọn</string>
+  <string name="auth_host_address">Địa chỉ máy chủ</string>
 </resources>

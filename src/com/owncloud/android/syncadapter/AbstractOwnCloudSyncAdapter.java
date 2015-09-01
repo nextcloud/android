@@ -1,6 +1,10 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author sassman
+ *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -24,6 +28,7 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
@@ -44,9 +49,6 @@ import android.content.Context;
  * resource types, like FileSync, ConcatsSync, CalendarSync, etc..
  * 
  * Implements the standard {@link AbstractThreadedSyncAdapter}.
- * 
- * @author sassman
- * @author David A. Velasco
  */
 public abstract class AbstractOwnCloudSyncAdapter extends
         AbstractThreadedSyncAdapter {
@@ -63,7 +65,8 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         this.setAccountManager(AccountManager.get(context));
     }
 
-    public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
+    public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize,
+                                       boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
         this.setAccountManager(AccountManager.get(context));
     }
@@ -100,7 +103,8 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         return mStoreManager;
     }
 
-    protected void initClientForCurrentAccount() throws OperationCanceledException, AuthenticatorException, IOException, AccountNotFoundException {
+    protected void initClientForCurrentAccount() throws OperationCanceledException,
+            AuthenticatorException, IOException, AccountNotFoundException {
         AccountUtils.constructFullURLForAccount(getContext(), account);
         OwnCloudAccount ocAccount = new OwnCloudAccount(account, getContext());
         mClient = OwnCloudClientManagerFactory.getDefaultSingleton().

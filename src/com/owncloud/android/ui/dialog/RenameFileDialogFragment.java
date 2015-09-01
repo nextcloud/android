@@ -1,4 +1,7 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
  *   Copyright (C) 2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -22,16 +25,11 @@ package com.owncloud.android.ui.dialog;
  * 
  *  Triggers the rename operation. 
  */
-import com.actionbarsherlock.app.SherlockDialogFragment;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.ui.activity.ComponentsGetter;
-
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
@@ -39,16 +37,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.ui.activity.ComponentsGetter;
+
 
 /**
  *  Dialog to input a new name for a file or folder to rename.  
  * 
- *  Triggers the rename operation when name is confirmed. 
- *  
- *  @author David A. Velasco
+ *  Triggers the rename operation when name is confirmed.
  */
 public class RenameFileDialogFragment
-extends SherlockDialogFragment implements DialogInterface.OnClickListener {
+        extends DialogFragment implements DialogInterface.OnClickListener {
 
     private static final String ARG_TARGET_FILE = "TARGET_FILE";
 
@@ -74,7 +75,7 @@ extends SherlockDialogFragment implements DialogInterface.OnClickListener {
         mTargetFile = getArguments().getParcelable(ARG_TARGET_FILE);
 
         // Inflate the layout for the dialog
-        LayoutInflater inflater = getSherlockActivity().getLayoutInflater();
+        LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.edit_box_dialog, null);
         
         // Setup layout 
@@ -92,7 +93,7 @@ extends SherlockDialogFragment implements DialogInterface.OnClickListener {
         inputText.requestFocus();
         
         // Build the dialog  
-        AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(v)
                .setPositiveButton(R.string.common_ok, this)
                .setNegativeButton(R.string.common_cancel, this)
@@ -112,25 +113,29 @@ extends SherlockDialogFragment implements DialogInterface.OnClickListener {
             
             if (newFileName.length() <= 0) {
                 Toast.makeText(
-                        getSherlockActivity(), 
+                        getActivity(),
                         R.string.filename_empty, 
                         Toast.LENGTH_LONG).show();
                 return;
             }
-            
-            if (!FileUtils.isValidName(newFileName)) {
-                Toast.makeText(
-                        getSherlockActivity(), 
-                        R.string.filename_forbidden_characters, 
-                        Toast.LENGTH_LONG).show();
+
+            boolean serverWithForbiddenChars = ((ComponentsGetter)getActivity()).
+                    getFileOperationsHelper().isVersionWithForbiddenCharacters();
+
+            if (!FileUtils.isValidName(newFileName, serverWithForbiddenChars)) {
+                int messageId = 0;
+                if (serverWithForbiddenChars) {
+                    messageId = R.string.filename_forbidden_charaters_from_server;
+                } else {
+                    messageId = R.string.filename_forbidden_characters;
+                }
+                Toast.makeText(getActivity(), messageId, Toast.LENGTH_LONG).show();
                 return;
             }
-            
-            ((ComponentsGetter)getSherlockActivity()).
-                getFileOperationsHelper().renameFile(mTargetFile, newFileName);
-            
-            
+
+            ((ComponentsGetter)getActivity()).getFileOperationsHelper().
+                    renameFile(mTargetFile, newFileName);
+
         }
     }
-    
 }

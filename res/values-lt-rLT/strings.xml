@@ -11,14 +11,24 @@
   <string name="actionbar_settings">Nustatymai</string>
   <string name="actionbar_see_details">Informacija</string>
   <string name="actionbar_send_file">Siųsti</string>
+  <string name="actionbar_sort">Rikiuoti</string>
+  <string name="actionbar_sort_title">Rikiuoti pagal</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Naujausi - Seniausi</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Parinktys</string>
+  <string name="drawer_open">Atverti</string>
   <string name="prefs_category_general">Bendras</string>
   <string name="prefs_category_more">Daugiau</string>
   <string name="prefs_accounts">Paskyros</string>
   <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
-  <string name="prefs_pincode">App programos PIN kodas</string>
-  <string name="prefs_pincode_summary">Apsaugokite savo klientą</string>
   <string name="prefs_instant_upload">Momentiniai nuotraukų įkėlimai</string>
   <string name="prefs_instant_upload_summary">Iš karto nusiųsti nufotografuotas nuotraukas</string>
   <string name="prefs_instant_video_upload">Momentiniai video įkėlimai</string>
@@ -32,6 +42,8 @@
   <string name="prefs_recommend">Rekomenduoti draugui</string>
   <string name="prefs_feedback">Atsiliepimai</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Prisiminti bendrinimo vietą</string>
+  <string name="prefs_remember_last_upload_location_summary">Prisiminti paskutinio bendrinimo įkėlimo vietą</string>
   <string name="recommend_subject">Išbandykite %1$s savo išmaniajame telefone!</string>
   <string name="auth_check_server">Patikrinti Serverį</string>
   <string name="auth_host_url">Serverio adresas </string>
@@ -41,6 +53,7 @@
   <string name="sync_string_files">Failai</string>
   <string name="setup_btn_connect">Prisijungti</string>
   <string name="uploader_btn_upload_text">Įkelti</string>
+  <string name="uploader_btn_new_folder_text">Naujas aplankas</string>
   <string name="uploader_top_message">Nustatyti įkėlimų aplanką:</string>
   <string name="uploader_wrn_no_account_title">Paskyrų nerasta</string>
   <string name="uploader_wrn_no_account_text">Jūsų įrenginyje nėra nė vienos %1$s paskyros. Prašome pirmiausia susikurti paskyrą.</string>
@@ -52,7 +65,6 @@
   <string name="uploader_info_uploading">Išsiunčiama</string>
   <string name="file_list_seconds_ago">prieš sekundę</string>
   <string name="file_list_empty">Čia tuščia. Įkelkite ką nors!</string>
-  <string name="file_list_loading">Įkeliama ...</string>
   <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
   <string name="filedetails_select_file">Palieskite failą, kad parodyti papildomą informaciją.</string>
   <string name="filedetails_size">Dydis:</string>
@@ -109,15 +121,6 @@
   <string name="foreign_files_fail">Kai kurių failų negalima perkelti</string>
   <string name="foreign_files_local_text">Vietinis: %1$s</string>
   <string name="foreign_files_remote_text">Nuotolinis: %1$s</string>
-  <string name="pincode_enter_pin_code">Prašome įvesti savo programos PIN kodą</string>
-  <string name="pincode_configure_your_pin">Įveskite taikymas programos PIN kodą</string>
-  <string name="pincode_configure_your_pin_explanation">PIN bus prašomas kiekvieną kartą paleidus programą</string>
-  <string name="pincode_reenter_your_pincode">Prašome pakartoti taikymas PIN kodą</string>
-  <string name="pincode_remove_your_pincode">Pašalinti taikymas programos PIN kodą</string>
-  <string name="pincode_mismatch">Abu taikymas programos PIN kodai nesutampa</string>
-  <string name="pincode_wrong">Neteisingas taikymas programos PIN kodas</string>
-  <string name="pincode_removed">Taikymas programos PIN kodas pašalintas</string>
-  <string name="pincode_stored">Taikymas programos PIN kodas išsaugotas</string>
   <string name="media_notif_ticker">%1$s muzikos grotuvas</string>
   <string name="media_state_playing">%1$s (grojama)</string>
   <string name="media_state_loading">%1$s (įkeliama)</string>
@@ -142,7 +145,6 @@
   <string name="auth_no_net_conn_title">Nėra tinklo ryšio</string>
   <string name="auth_nossl_plain_ok_title">Saugus prisijungimas negalimas.</string>
   <string name="auth_connection_established">Ryšys užmegztas</string>
-  <string name="auth_testing_connection">Išbandomas prisijungimas...</string>
   <string name="auth_not_configured_title">Sugadinta serverio konfigūracija</string>
   <string name="auth_account_not_new">To paties vartotojo ir serverio paskyra jau egzistuoja šiame įrenginyje</string>
   <string name="auth_unknown_error_title">Įvyko nežinoma klaida!</string>
@@ -166,15 +168,13 @@
   <string name="auth_unsupported_auth_method">Serveris nepalaiko šio autentikacijos metodo</string>
   <string name="auth_unsupported_multiaccount">%1$s nepalaiko kelių paskyrų iš karto</string>
   <string name="auth_can_not_auth_against_server">Jungiamasi prie autentikacijos serverio...</string>
-  <string name="fd_keep_in_sync">Laikyti failą naujinamą</string>
+  <string name="favorite">Mėgiamas</string>
   <string name="common_rename">Pervadinti</string>
   <string name="common_remove">Pašalinti</string>
   <string name="confirmation_remove_alert">Ar tikrai norite pašalinti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ar tikrai norite pašalinti %1$s ir ten esantį turinį?</string>
   <string name="confirmation_remove_local">Tik vietiniai</string>
-  <string name="confirmation_remove_folder_local">Tik vietinis turinys</string>
-  <string name="confirmation_remove_remote">Pašalinti iš serverio</string>
-  <string name="confirmation_remove_remote_and_local">Nutolę ir vietiniai</string>
+  <string name="confirmation_remove_folder_local">Tik vietiniai</string>
   <string name="remove_success_msg">Pašalinta sėkmingai</string>
   <string name="remove_fail_msg">Pašalinti nepavyko</string>
   <string name="rename_dialog_title">Įveskite naują pavadinimą</string>
@@ -221,11 +221,7 @@
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Įkelti nuotraukas tik kai prisijungiama per WiFi</string>
   <string name="instant_video_upload_on_wifi">Įkelti video tik per WiFi</string>
-  <string name="conflict_title">Atnaujinimo konfliktas</string>
-  <string name="conflict_message">Nutolęs failas %s nėra sinchronizuotas su vietiniu failu. Jei tęsite, failas serveryje bus pakeistas.</string>
   <string name="conflict_keep_both">Palikti abu</string>
-  <string name="conflict_overwrite">Perrašyti</string>
-  <string name="conflict_dont_upload">Nebesiųsti</string>
   <string name="preview_image_description">Paveikslėlio peržiūra</string>
   <string name="preview_image_error_unknown_format">Neįmanoma parodyti šio paveikslėlio</string>
   <string name="share_link_file_error">Įvyko klaida bandant dalinti šį failą ar aplanką</string>
@@ -236,6 +232,7 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Paskyros</string>
   <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
-  <string name="move_choose_button_text">Pasirinkite</string>
+  <string name="folder_picker_choose_button_text">Pasirinkite</string>
   <string name="prefs_category_security">Saugumas</string>
+  <string name="auth_host_address">Serverio adresas</string>
 </resources>

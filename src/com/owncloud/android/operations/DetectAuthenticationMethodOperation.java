@@ -1,24 +1,20 @@
-/* ownCloud Android Library is available under MIT license
- *   Copyright (C) 2014 ownCloud Inc.
- *   
- *   Permission is hereby granted, free of charge, to any person obtaining a copy
- *   of this software and associated documentation files (the "Software"), to deal
- *   in the Software without restriction, including without limitation the rights
- *   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- *   copies of the Software, and to permit persons to whom the Software is
- *   furnished to do so, subject to the following conditions:
- *   
- *   The above copyright notice and this permission notice shall be included in
- *   all copies or substantial portions of the Software.
- *   
- *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
- *   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- *   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
- *   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS 
- *   BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN 
- *   ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
- *   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- *   THE SOFTWARE.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -26,6 +22,7 @@ package com.owncloud.android.operations;
 
 import java.util.ArrayList;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -36,7 +33,6 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 
 /**
  * Operation to find out what authentication method requires
@@ -48,9 +44,7 @@ import android.util.Log;
  * When successful, the instance of {@link RemoteOperationResult} passed
  * through {@link OnRemoteOperationListener#onRemoteOperationFinish(RemoteOperation, 
  * RemoteOperationResult)} returns in {@link RemoteOperationResult#getData()}
- * a value of {@link AuthenticationMethod}. 
- * 
- * @author David A. Velasco
+ * a value of {@link AuthenticationMethod}.
  */
 public class DetectAuthenticationMethodOperation extends RemoteOperation {
     
@@ -70,7 +64,6 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
      * Constructor
      * 
      * @param context       Android context of the caller.
-     * @param webdavUrl
      */
     public DetectAuthenticationMethodOperation(Context context) {
         mContext = context;
@@ -131,7 +124,8 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         ArrayList<Object> data = new ArrayList<Object>();
         data.add(authMethod);
         result.setData(data);
-        return result;  // same result instance, so that other errors can be handled by the caller transparently
+        return result;  // same result instance, so that other errors
+                        // can be handled by the caller transparently
 	}
 	
 	

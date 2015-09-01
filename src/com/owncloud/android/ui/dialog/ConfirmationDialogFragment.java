@@ -1,6 +1,8 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,16 +20,17 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
+import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 
-public class ConfirmationDialogFragment extends SherlockDialogFragment {
+public class ConfirmationDialogFragment extends DialogFragment {
 
     public final static String ARG_CONF_RESOURCE_ID = "resource_id";
     public final static String ARG_CONF_ARGUMENTS = "string_array";
@@ -79,8 +82,8 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
             return null;
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-            .setIcon(android.R.drawable.ic_dialog_alert)
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
+            .setIcon(R.drawable.ic_warning)
             .setMessage(String.format(getString(resourceId), confirmationTarget))
             .setTitle(android.R.string.dialog_alert_title);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
@@ -91,7 +94,9 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
             builder.setPositiveButton(posBtn,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            mListener.onConfirmation(getTag()); 
+                            if (mListener != null) {
+                                mListener.onConfirmation(getTag());
+                            }
                             dialog.dismiss();
                         }
                     });
@@ -99,7 +104,9 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
             builder.setNeutralButton(neuBtn,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            mListener.onNeutral(getTag()); 
+                            if (mListener != null) {
+                                mListener.onNeutral(getTag());
+                            }
                             dialog.dismiss();
                         }
                     });
@@ -108,7 +115,9 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            mListener.onCancel(getTag());
+                            if (mListener != null) {
+                                mListener.onCancel(getTag());
+                            }
                             dialog.dismiss();
                         }
                     });

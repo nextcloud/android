@@ -7,12 +7,15 @@
   <string name="actionbar_see_details">விவரங்கள்</string>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">திறக்க</string>
   <string name="prefs_category_general">பொதுவான</string>
   <string name="prefs_category_more">மேலதிக</string>
   <string name="prefs_accounts">கணக்குகள்</string>
   <string name="prefs_manage_accounts">கணக்குகளை நிர்வகிக்க</string>
-  <string name="prefs_pincode">App PIN</string>
-  <string name="prefs_pincode_summary">உங்களுடைய சேவைப் பயனரை பாதுகாக்க</string>
   <string name="prefs_help">உதவி</string>
   <string name="auth_username">பயனாளர் பெயர்</string>
   <string name="auth_password">கடவுச்சொல்</string>
@@ -67,20 +70,10 @@
   <string name="sync_fail_content">ஒத்திசைவாக்கலின் %1$s ஆனதை முடிக்கமுடியவில்லை</string>
   <string name="sync_conflicts_in_favourites_ticker">முரன்பாடுகள் கண்டுப்பிடிக்கப்பட்டன</string>
   <string name="sync_fail_in_favourites_content">கோப்புகள் %1$d இலுள்ள உள்ளடக்கங்களை ஒத்திசைவாக்கமுடியாது (%2$d முரன்பாடுகள்) </string>
-  <string name="pincode_enter_pin_code">தயவுசெய்து உங்களுடைய App PIN ஐ உள்ளிடுக</string>
-  <string name="pincode_configure_your_pin">இன் App PIN ஐ உள்ளிடுக</string>
-  <string name="pincode_configure_your_pin_explanation">செயலி தொடங்கும் ஒவ்வொரு நேரமும் PIN கேட்கப்படுகின்றது.</string>
-  <string name="pincode_reenter_your_pincode">தயவுசெய்து மீண்டும் App PIN ஐ உள்ளிடுக</string>
-  <string name="pincode_remove_your_pincode">உங்களுடைய App PIN ஐ அகற்றுக</string>
-  <string name="pincode_mismatch">இரண்டு App PIN களும் ஒன்றே அல்ல</string>
-  <string name="pincode_wrong">தவறான App PIN </string>
-  <string name="pincode_removed">App PIN அகற்றப்பட்டது</string>
-  <string name="pincode_stored">App PIN சேமிக்கப்பட்டது</string>
   <string name="auth_trying_to_login">புகுபதிகைக்கு முயற்சிக்கின்றது...</string>
   <string name="auth_no_net_conn_title">வ​லைய​மைப்பு இணைப்பு இல்லை</string>
   <string name="auth_nossl_plain_ok_title">பாதுகாப்பான இணைப்பு காணப்படவில்லை.</string>
   <string name="auth_connection_established">இணைப்பு நிறுவப்பட்டது</string>
-  <string name="auth_testing_connection">இணைப்பு சோதிக்கப்படுகிறது.....</string>
   <string name="auth_not_configured_title">பிறழ்வான தகவமைப்பு</string>
   <string name="auth_unknown_error_title">அறியப்படாத வழு ஏற்பட்டுள்ளது!</string>
   <string name="auth_unknown_host_title">ஓம்புனரை கண்டுப்பிடிக்கமுடியவில்லை</string>
@@ -91,13 +84,11 @@
   <string name="auth_bad_oc_version_title">அங்கீகரிக்கப்படாத சேவையகம் பதிப்பு</string>
   <string name="auth_wrong_connection_title">இணைப்பை நிறுவமுடியாது</string>
   <string name="auth_secure_connection">பாதுகாப்பான இணைப்பு உருவாக்கப்பட்டது.</string>
-  <string name="fd_keep_in_sync">நவீன கோப்பை வைத்திருக்கவும்</string>
+  <string name="favorite">விருப்பமான</string>
   <string name="common_rename">பெயர்மாற்றம்</string>
   <string name="common_remove">அகற்றுக</string>
   <string name="confirmation_remove_local">உள்ளூர் மட்டும்</string>
-  <string name="confirmation_remove_folder_local">இடத்துரி உள்ளடக்கங்கள் மட்டும்</string>
-  <string name="confirmation_remove_remote">சேவையகத்திலிருந்து அகற்றுக</string>
-  <string name="confirmation_remove_remote_and_local">தொலைவு மற்றும் உள்ளூர்</string>
+  <string name="confirmation_remove_folder_local">உள்ளூர் மட்டும்</string>
   <string name="remove_success_msg">வெற்றிகரமாக அகற்றப்பட்டது</string>
   <string name="remove_fail_msg">நீக்கலை நிறைவு செய்ய முடியவில்லை</string>
   <string name="rename_dialog_title">புதிய பெயரொன்றை நுழைக்க</string>
@@ -132,12 +123,9 @@
   <string name="ssl_validator_label_signature_algorithm">நெறிமுறை</string>
   <string name="placeholder_sentence">இது ஒரு placeholder</string>
   <string name="instant_upload_on_wifi">WiFi ஊடாக மட்டும் படங்களை பதிவேற்றுக</string>
-  <string name="conflict_title">இற்றைப்படுத்தலில் முரண்பாடு</string>
-  <string name="conflict_message">இடத்துரி கோப்புடன் தொலைவு கோப்பு %s ஒத்திசைவாக்கப்படவில்லை. தொடர்ந்து மேற்கொண்டால் சேவையகத்தில் உள்ள கோப்பின் உள்ளடக்கம் மாற்றப்படும்.</string>
   <string name="conflict_keep_both">இரண்டையும் வைக்க </string>
-  <string name="conflict_overwrite">மேலெழுதல்</string>
-  <string name="conflict_dont_upload">பதிவேற்ற வேண்டாம்</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">கணக்குகள்</string>
-  <string name="move_choose_button_text">தெரிவுசெய்க </string>
+  <string name="folder_picker_choose_button_text">தெரிவுசெய்க </string>
+  <string name="auth_host_address">சேவையக முகவரி</string>
 </resources>

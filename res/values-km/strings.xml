@@ -1,23 +1,47 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s កម្មវិធីអានដ្រយ</string>
+  <string name="about_version">ជំនាន់ %1$s</string>
+  <string name="actionbar_sync">គណនីឱ្យថ្មីឡើងវិញ</string>
   <string name="actionbar_upload">ផ្ទុក​ឡើង</string>
+  <string name="actionbar_upload_from_apps">មាតិការ​ពីកម្មវិធីផ្សេងទៀត</string>
   <string name="actionbar_upload_files">ឯកសារ</string>
+  <string name="actionbar_open_with">បើកជាមួយ</string>
   <string name="actionbar_mkdir">ថត​ថ្មី</string>
   <string name="actionbar_settings">ការកំណត់</string>
   <string name="actionbar_see_details">ព័ត៌មាន​លម្អិត</string>
   <string name="actionbar_send_file">ផ្ញើ</string>
+  <string name="actionbar_sort">តម្រៀប</string>
+  <string name="actionbar_sort_title">តម្រៀបដោយ</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>ថ្មីបំផុត-ចាស់បំផុត</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">បើក</string>
   <string name="prefs_category_general">ទូទៅ</string>
   <string name="prefs_category_more">ច្រើន​ទៀត</string>
   <string name="prefs_accounts">គណនី</string>
   <string name="prefs_manage_accounts">គ្រប់គ្រង​គណនី</string>
+  <string name="prefs_log_title">ដំណើរការការចូលទៅកាន់</string>
+  <string name="prefs_log_summary">នេះជាបញ្ហា​សម្រាប់​អ្នក​ដែល​បាន​ចូលទៅកាន់</string>
+  <string name="prefs_log_title_history">ប្រវត្តិនៃការចូលទៅកាន់</string>
+  <string name="prefs_log_summary_history">នៅទីនេះ​គឺបង្ហាញការដែលបាន​ចូលទៅកាន់</string>
+  <string name="prefs_log_delete_history_button">លុប​ប្រវត្តិ</string>
   <string name="prefs_help">ជំនួយ</string>
+  <string name="prefs_recommend">ផ្ដល់អនុសាសន៍ទៅកាន់មិត្តភក្ដិ</string>
+  <string name="prefs_feedback">មតិត្រឡប់</string>
   <string name="auth_username">ឈ្មោះ​អ្នកប្រើ</string>
   <string name="auth_password">ពាក្យសម្ងាត់</string>
   <string name="sync_string_files">ឯកសារ</string>
   <string name="setup_btn_connect">ភ្ជាប់</string>
   <string name="uploader_btn_upload_text">ផ្ទុក​ឡើង</string>
+  <string name="uploader_btn_new_folder_text">ថត​ថ្មី</string>
   <string name="uploader_wrn_no_account_title">រកមិនឃើញ​គណនី</string>
   <string name="uploader_wrn_no_account_text">គ្មាន %1$s គណនី​លើម៉ាស៊ីន​របស់អ្នកទេ។ សូមរៀបចំគណនីមួយជាមុនសិន។</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ដំឡើង</string>
@@ -41,6 +65,7 @@
   <string name="common_error">កំហុស</string>
   <string name="common_loading">កំពុងដំណើរការ</string>
   <string name="common_error_unknown">មិន​ស្គាល់​កំហុស</string>
+  <string name="about_title">អំពី</string>
   <string name="change_password">ប្តូរ​ពាក្យសម្ងាត់</string>
   <string name="delete_account">លប់គណនី</string>
   <string name="create_account">បង្កើតគណនី</string>
@@ -54,21 +79,13 @@
   <string name="downloader_download_failed_ticker">ការទាញយក​បានបរាជ័យ</string>
   <string name="common_choose_account">ជ្រើស​គណនី</string>
   <string name="foreign_files_move">ផ្លាស់ទីទាំងអស់</string>
-  <string name="pincode_enter_pin_code">សូម ដាក់​បញ្ចូល App PIN របស់អ្នក</string>
-  <string name="pincode_configure_your_pin">បញ្ចូល App PIN របស់អ្នក</string>
-  <string name="pincode_reenter_your_pincode">សូម បញ្ចូល App PIN របស់អ្នក​ម្តង​ទៀត</string>
-  <string name="pincode_remove_your_pincode">លុប App PIN របស់​អ្នក</string>
-  <string name="pincode_mismatch">App PIN ទាំងនេះ​មិនដូចគ្នាទេ</string>
-  <string name="pincode_wrong">App PIN មិន​ត្រឹម​ត្រូវទេ</string>
-  <string name="pincode_removed">App PIN បាន​លុបចេញហើយ</string>
-  <string name="pincode_stored">App PIN បាន​យក​មកវិញ</string>
   <string name="auth_trying_to_login">កំពុង​​តែ​ព្យាយាម​ដើម្បី​ចូល...</string>
   <string name="auth_no_net_conn_title">គ្មានបណ្តាញ​តភ្ជាប់ទេ</string>
-  <string name="auth_testing_connection">ការតភ្ជាប់កំពុង​តែធ្វើតេស្ត...</string>
   <string name="auth_unknown_error_title">មិនស្គាល់កំហុសបានកើតឡើង!</string>
-  <string name="fd_keep_in_sync">រក្សាឯកសាររហូតដល់កាលបរិច្ឆេទ</string>
   <string name="common_rename">ប្ដូរ​ឈ្មោះ</string>
   <string name="common_remove">ដកចេញ</string>
+  <string name="confirmation_remove_local">ទីកន្លែងតែមួយ</string>
+  <string name="confirmation_remove_folder_local">ទីកន្លែងតែមួយ</string>
   <string name="remove_success_msg">ការដកយកចេញបានជោគជ័យ</string>
   <string name="remove_fail_msg">ការដកយកចេញបានបរាជ័យ</string>
   <string name="rename_dialog_title">បញ្ចូលឈ្មោះថ្មី</string>
@@ -85,6 +102,7 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">គណនី</string>
   <string name="saml_authentication_wrong_pass">ខុស​ពាក្យ​សម្ងាត់</string>
-  <string name="move_choose_button_text">ជ្រើស</string>
+  <string name="folder_picker_choose_button_text">ជ្រើស</string>
   <string name="prefs_category_security">សុវត្ថិភាព</string>
+  <string name="auth_host_address">អាសយដ្ឋាន​ម៉ាស៊ីន​បម្រើ</string>
 </resources>

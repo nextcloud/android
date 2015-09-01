@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,16 +45,30 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
+    <LinearLayout
+        android:id="@+id/historyButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/deleteLogHistoryButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        style="@style/ownCloud.Button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
         android:text="@string/prefs_log_delete_history_button" />
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/sendLogHistoryButton"
-        android:layout_width="match_parent"
-       android:layout_height="50dp"
+        style="@style/ownCloud.Button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
         android:text="@string/log_send_history_button" />
+
+    </LinearLayout>
 
 </LinearLayout>

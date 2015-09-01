@@ -12,18 +12,22 @@
   <string name="actionbar_see_details">Xehetasunak</string>
   <string name="actionbar_send_file">Bidali</string>
   <string name="actionbar_sort">Ordenatu</string>
+  <string name="actionbar_sort_title">Ordenatu honen arabera</string>
   <string-array name="actionbar_sortby">
     <item>A-Z</item>
     <item>Berrienak - Zaharrenak</item>
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Ireki</string>
   <string name="prefs_category_general">Orokorra</string>
   <string name="prefs_category_more">Gehiago</string>
   <string name="prefs_accounts">Kontuak</string>
   <string name="prefs_manage_accounts">Kontuak kudeatu</string>
-  <string name="prefs_pincode">App PIN</string>
-  <string name="prefs_pincode_summary">Babestu zure bezeroa</string>
   <string name="prefs_instant_upload">Uneko irudi igoerak</string>
   <string name="prefs_instant_upload_summary">Igo berehala kamerak ateratako argazkiak</string>
   <string name="prefs_instant_video_upload">Uneko bideo igoerak</string>
@@ -38,6 +42,7 @@
   <string name="prefs_feedback">Oharrak</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Probatu %1$s zure telefono adimentsuan!</string>
+  <string name="recommend_text">Nik %1$s zure telefono adimentsuan erabitzera gonbidatu nahi zaitut!\nDeskargatu hemen: %2$s</string>
   <string name="auth_check_server">Egiaztatu zerbitzaria</string>
   <string name="auth_host_url">Zerbitzariaren helbidea https://</string>
   <string name="auth_username">Erabiltzaile izena</string>
@@ -46,6 +51,7 @@
   <string name="sync_string_files">Fitxategiak</string>
   <string name="setup_btn_connect">Konektatu</string>
   <string name="uploader_btn_upload_text">Igo</string>
+  <string name="uploader_btn_new_folder_text">Karpeta berria</string>
   <string name="uploader_top_message">Hautatu igoera karpeta:</string>
   <string name="uploader_wrn_no_account_title">Ez da konturik aurkitu</string>
   <string name="uploader_wrn_no_account_text">Zure gailuan ez dago %1$s konturik. Mesedez konfiguratu kontu bat lehenengo.</string>
@@ -57,7 +63,6 @@
   <string name="uploader_info_uploading">Igotzen</string>
   <string name="file_list_seconds_ago">segundu</string>
   <string name="file_list_empty">Ez dago ezer. Igo zerbait!</string>
-  <string name="file_list_loading">Kargatzen...</string>
   <string name="local_file_list_empty">Ez dago fitxategirik karpeta honetan.</string>
   <string name="filedetails_select_file">Sakatu fitxategi baten gainean informazio gehiago lortzeko</string>
   <string name="filedetails_size">Tamaina:</string>
@@ -111,6 +116,7 @@
   <string name="sync_fail_in_favourites_content">%1$d fitxategien edukiak ezin dira sinkronizatu (%2$d gatazka)</string>
   <string name="sync_foreign_files_forgotten_ticker">Bertako fitxategi batzuk ahaztu dira</string>
   <string name="sync_foreign_files_forgotten_content">%2$s karpetako %1$d fitxategi ezin dira dira kopiatu</string>
+  <string name="sync_foreign_files_forgotten_explanation">1.3.16 bertsioan, gailu honetatik igotzen diren fitxategiak bertako %1$s karpetara mugitzen dira datu galera ekiditeko fitxategi bat kontu ezberdinekin sinkronizatzen denean.\n\n Aldaketa hau dela eta, programa honen aurreko bertsioetan igotako fitxategi guztiak %2$s karpetara kopiatu dira. Hala ere, errore batek hau burutzea ekidin du kontuaren sinkronizazioa egiten ari zen bitartean. Orain fitxategiak dauden bezala utz ditzakezu eta %3$s rako lotura ezabatu, edo fitxategiak %1$s karpetara mugi ditzakezu eta %4$srako lotura mantendu.\n\nBehean bertako fitxategien zerrenda eta %5$s era lotuta zeuden urruneko fitxategiena.</string>
   <string name="sync_current_folder_was_removed">%1$s karpeta dagoeneko ez da existitzen</string>
   <string name="foreign_files_move">Mugitu denak</string>
   <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
@@ -118,15 +124,6 @@
   <string name="foreign_files_local_text">Bertakoa: %1$s</string>
   <string name="foreign_files_remote_text">Urrunekoa: %1$s</string>
   <string name="upload_query_move_foreign_files">Ez dago leku nahikorik hautatutako fitxategiak %1$s karpetan kopiatzeko. Nahi al duzu kopiatu ordez bertara mugitzea?</string>
-  <string name="pincode_enter_pin_code">Mesedez, sartu zure aplikazioaren PINa</string>
-  <string name="pincode_configure_your_pin">Sartu aplikazioaren PINa</string>
-  <string name="pincode_configure_your_pin_explanation">PINa aplikazioa abiarazten den bakoitzean eskatuko da</string>
-  <string name="pincode_reenter_your_pincode">Sartu berriz aplikazioarenPINa, mesedez</string>
-  <string name="pincode_remove_your_pincode">Ezabatu zure aplikazioaren PINa</string>
-  <string name="pincode_mismatch">Aplikazioko bi PINak ez dira berdinak</string>
-  <string name="pincode_wrong">Aplikazioaren PINa ezda zuzena</string>
-  <string name="pincode_removed">Aplikazioaren PINa kendu da</string>
-  <string name="pincode_stored">Aplikazioaren PINa gorde da</string>
   <string name="media_notif_ticker">%1$s musika erreproduzigailua</string>
   <string name="media_state_playing">%1$s (jotzen)</string>
   <string name="media_state_loading">%1$s (kargatzen)</string>
@@ -151,7 +148,6 @@
   <string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
   <string name="auth_nossl_plain_ok_title">Konexio segurua ez dago eskuragarri</string>
   <string name="auth_connection_established">Konexioa ezarri da</string>
-  <string name="auth_testing_connection">Konexioa probatzen...</string>
   <string name="auth_not_configured_title">gaizki egindako server konfigurazioa</string>
   <string name="auth_account_not_new">Erabiltzaile eta zerbitzari hauendako dagoeneko kontu bat  existitzen da gailu honetan</string>
   <string name="auth_account_not_the_same">Sartutako erabiltzaileak ez du bat egiten kontu honetako erabiltzailearekin</string>
@@ -178,15 +174,13 @@ Mesedez, baimendu berriz</string>
   <string name="auth_unsupported_multiaccount">%1$s ez du kontu anitzak onartzen</string>
   <string name="auth_fail_get_user_name">Zure zerbitzariak ez du bueltatzen erabiltzailearen id egokia, mesedez jarri harremanetan administratzailearekin.</string>
   <string name="auth_can_not_auth_against_server">Ezin da autentikatu zerbitzarian.</string>
-  <string name="fd_keep_in_sync">Mantendu fitxategia eguneratuta</string>
+  <string name="favorite">Gogokoa</string>
   <string name="common_rename">Berrizendatu</string>
   <string name="common_remove">Ezabatu</string>
   <string name="confirmation_remove_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
   <string name="confirmation_remove_folder_alert">Ziru zaude %1$s eta bere edukiak ezabatu nahi dituzula?</string>
   <string name="confirmation_remove_local">Bertakoa bakarrik</string>
-  <string name="confirmation_remove_folder_local">Eduki lokalak bakarrik</string>
-  <string name="confirmation_remove_remote">Zerbitzaritik ezabatu</string>
-  <string name="confirmation_remove_remote_and_local">Biak urrunekoa eta bertakoa</string>
+  <string name="confirmation_remove_folder_local">Bertakoa bakarrik</string>
   <string name="remove_success_msg">Ongi ezabatu da</string>
   <string name="remove_fail_msg">Ezin izan da ezabaketa burutu</string>
   <string name="rename_dialog_title">Idatzi izen berri bat</string>
@@ -236,17 +230,15 @@ Mesedez, baimendu berriz</string>
   <string name="instant_upload_on_wifi">Igo irudiak bakarrik WIFIren bidez</string>
   <string name="instant_video_upload_on_wifi">Igo bideoak bakarrik WIFIren bidez</string>
   <string name="instant_upload_path">/BerehalakoIgoerak</string>
-  <string name="conflict_title">Igoera konfliktoa</string>
-  <string name="conflict_message">Urruneko %s fitxategia ez dago bertako fitxategiarekin sinkronizatuta. Jarraituz gero zerbitzariko fitxategiaren edukia ordeztuko da.</string>
   <string name="conflict_keep_both">Mantendu biak</string>
-  <string name="conflict_overwrite">Gainidatzi</string>
-  <string name="conflict_dont_upload">Ez igo</string>
   <string name="preview_image_description">Irudi aurreikuspena</string>
   <string name="preview_image_error_unknown_format">Ezin da irudi hau erakutsi</string>
   <string name="error__upload__local_file_not_copied">%1$s ezin da %2$s karpeta lokalera kopiatu</string>
   <string name="prefs_instant_upload_path_title">Igotzetarako Bidea</string>
   <string name="share_link_no_support_share_api">Sentitzen dut, partekatzea ez dago zure zerbitzarian gaituta. Mesedez jarri harremanetan zure administratzailearekin.</string>
+  <string name="share_link_file_no_exist">Ezin izan da partekatu. Mesedez egiaztatu fitxategia existitzen dela</string>
   <string name="share_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzerakoan</string>
+  <string name="unshare_link_file_no_exist">Ezin izan da partekatzea desegin. Mesedez egiaztatu fitxategia existitzen dela</string>
   <string name="unshare_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzeari uzterakoan</string>
   <string name="activity_chooser_send_file_title">Bidali</string>
   <string name="copy_link">Lotura kopiatu</string>
@@ -267,12 +259,24 @@ Mesedez, baimendu berriz</string>
   <string name="downloader_download_file_not_found">Fitxategia jadanik ez dago eskuragarri zerbitzarian</string>
   <string name="prefs_category_accounts">Kontuak</string>
   <string name="prefs_add_account">Gehitu kontua</string>
-  <string name="log_mail_subject">ownCloud Android programaren egunerokoak</string>
+  <string name="auth_redirect_non_secure_connection_title">Konexio segurua birbideratu da segurua ez den bide batera.</string>
+  <string name="actionbar_logger">Egunkariak</string>
+  <string name="log_send_history_button">Bidali Historia</string>
+  <string name="log_send_no_mail_app">Egunkariak bidaltzeko aplikaziorik ez da aurkitu. Instalatu posta aplikazioa!</string>
+  <string name="log_send_mail_subject">%1$s Android aplikazioaren egunerokoak</string>
   <string name="log_progress_dialog_text">Datuak kargatzen...</string>
   <string name="saml_authentication_required_text">Autentikazioa beharrezkoa</string>
   <string name="saml_authentication_wrong_pass">Pasahitz okerra</string>
   <string name="actionbar_move">Mugitu</string>
-  <string name="move_choose_button_text">Aukeratu</string>
+  <string name="file_list_empty_moving">Hemen ez dago ezer. Karpeta bat gehi dezakezu!</string>
+  <string name="folder_picker_choose_button_text">Aukeratu</string>
+  <string name="move_file_not_found">Ezin izan da mugitu. Mesedez egiaztatu fitxategia existitzen dela</string>
+  <string name="move_file_invalid_overwrite">Fitxategia dagoeneko existitzen da helburuko karpetan</string>
+  <string name="move_file_error">Errore bat gertatu da fitxategi edo karpeta hau mugitzen saiatzerakoan</string>
+  <string name="forbidden_permissions_move">fitxategi hau mugitzeko</string>
   <string name="prefs_category_instant_uploading">Berehalako Igoerak</string>
   <string name="prefs_category_security">Segurtasuna</string>
+  <string name="prefs_instant_video_upload_path_title">Bideo Igoera Bidea</string>
+  <string name="download_folder_failed_content">%1$s karpetaren deskarga ezin izan da burutu</string>
+  <string name="auth_host_address">Zerbitzariaren helbidea</string>
 </resources>

@@ -2,7 +2,7 @@
 <!--
   ownCloud Android client application
 
-  Copyright (C) 2012-2013  ownCloud Inc.
+  Copyright (C) 2015  ownCloud Inc.
   
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -29,8 +29,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/top"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#000000"
     tools:context=".ui.fragment.PreviewImageFragment" >
 
@@ -42,8 +42,8 @@
         android:indeterminateOnly="true"
         android:layout_centerInParent="true"
         />
-    
-    <com.owncloud.android.utils.TouchImageViewCustom
+
+    <third_parties.michaelOrtiz.TouchImageViewCustom
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -57,9 +57,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/image"
+        android:layout_alignParentBottom="true"
         android:layout_margin="40dp"
         android:text="@string/placeholder_sentence"
+        android:textColor="@color/owncloud_blue_bright"
         />
-    
+
 </RelativeLayout>

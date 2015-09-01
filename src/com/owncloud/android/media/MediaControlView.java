@@ -1,6 +1,8 @@
-/* ownCloud Android client application
- * 
- *   Copyright (C) 2012-2013  ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -41,6 +43,7 @@ import java.util.Formatter;
 import java.util.Locale;
 
 import com.owncloud.android.R;
+import com.owncloud.android.utils.DisplayUtils;
 
 
 /**
@@ -51,8 +54,6 @@ import com.owncloud.android.R;
  * 
  * It synchronizes itself with the state of the 
  * {@link MediaPlayer}.
- * 
- * @author David A. Velasco
  */
 
 public class MediaControlView extends FrameLayout /* implements OnLayoutChangeListener, OnTouchListener */ implements OnClickListener, OnSeekBarChangeListener {
@@ -220,7 +221,10 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
         if (mProgress != null) {
             if (mProgress instanceof SeekBar) {
                 SeekBar seeker = (SeekBar) mProgress;
+                DisplayUtils.colorPreLollipopHorizontalSeekBar(seeker);
                 seeker.setOnSeekBarChangeListener(this);
+            } else {
+                DisplayUtils.colorPreLollipopHorizontalProgressBar(mProgress);
             }
             mProgress.setMax(1000);
         }

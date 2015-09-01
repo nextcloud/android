@@ -11,14 +11,28 @@
   <string name="actionbar_settings">إعدادات</string>
   <string name="actionbar_see_details">تفاصيل</string>
   <string name="actionbar_send_file">أرسل</string>
+  <string name="actionbar_sort">ترتيب</string>
+  <string name="actionbar_sort_title">ترتيب بـ</string>
+  <string-array name="actionbar_sortby">
+    <item>الف باء</item>
+    <item>الأحدث إلى الاقدم</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">كل الملفات</string>
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">الإعدادات</string>
+  <string name="drawer_item_logs">سجلّ</string>
+  <string name="drawer_close">إغلاق</string>
+  <string name="drawer_open">افتح</string>
   <string name="prefs_category_general">عام</string>
   <string name="prefs_category_more">المزيد</string>
   <string name="prefs_accounts">حسابات</string>
   <string name="prefs_manage_accounts">إدارة الحسابات</string>
-  <string name="prefs_pincode">كلمة سر التطبيق</string>
-  <string name="prefs_pincode_summary">حماية العميل</string>
+  <string name="prefs_passcode">الرقم السري</string>
   <string name="prefs_instant_upload">رفع الصورة مباشرة</string>
   <string name="prefs_instant_upload_summary">رفع صورة المؤخذة عبر الكاميرا</string>
   <string name="prefs_instant_video_upload">رفع فيديو مباشرة</string>
@@ -32,6 +46,8 @@
   <string name="prefs_recommend">توصية الى صديق</string>
   <string name="prefs_feedback">ملاحظات</string>
   <string name="prefs_imprint">الدمغة.</string>
+  <string name="prefs_remember_last_share_location">تذكر مشاركة الموقع</string>
+  <string name="prefs_remember_last_upload_location_summary">تذكر آخر موقع رُفِعَ</string>
   <string name="recommend_subject">جرب %1$s على جهازك الذكي</string>
   <string name="auth_check_server">تحقق من الخادم</string>
   <string name="auth_host_url">عنوان الخادم https://…</string>
@@ -41,6 +57,7 @@
   <string name="sync_string_files">الملفات</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">رفع</string>
+  <string name="uploader_btn_new_folder_text">مجلد جديد</string>
   <string name="uploader_top_message">اختر مجلد الرفع</string>
   <string name="uploader_wrn_no_account_title">لم يتم العثور على أي حساب</string>
   <string name="uploader_wrn_no_account_text">لا توجد حسابات  %1$s على جهازك. يرجى تهيئة حساب أولاً.</string>
@@ -52,7 +69,8 @@
   <string name="uploader_info_uploading">يتم الرفع</string>
   <string name="file_list_seconds_ago">منذ ثواني</string>
   <string name="file_list_empty">لا يوجد شيء هنا. إرفع بعض الملفات!</string>
-  <string name="file_list_loading">جاري التحميل ...</string>
+  <string name="file_list_loading">تحميل ...</string>
+  <string name="local_file_list_empty">لا توجد ملفات في هذا المجلد</string>
   <string name="filedetails_select_file">اضغظ على الملف ليتم عرض خيارات أكثر</string>
   <string name="filedetails_size">الحجم :</string>
   <string name="filedetails_type">النوع :</string>
@@ -111,15 +129,6 @@
   <string name="foreign_files_local_text">محلي :%1$s</string>
   <string name="foreign_files_remote_text">خارجي : %1$s</string>
   <string name="upload_query_move_foreign_files">لا يوجد مساحة كافية لنسخ الملفات المحددة لمجلد  %1$s . هل ترغب بنقلهم بدلاً من ذلك؟</string>
-  <string name="pincode_enter_pin_code">يرجى إدخال كلمة السر</string>
-  <string name="pincode_configure_your_pin">أدخل كلمة السر</string>
-  <string name="pincode_configure_your_pin_explanation">سيتم طلب PIN في كل مرة يتم فيها تشغيل التطبيق</string>
-  <string name="pincode_reenter_your_pincode">يرجى إدخال كلمة السر مرة أخرى</string>
-  <string name="pincode_remove_your_pincode">إزالة كلمة السر</string>
-  <string name="pincode_mismatch">كلمتا السر غير متطابقتين</string>
-  <string name="pincode_wrong">كلمه السر غير صحيحة</string>
-  <string name="pincode_removed">تمت إزالة كلمه السر</string>
-  <string name="pincode_stored">تم تسجيل كلمت السر</string>
   <string name="media_notif_ticker">مشغل الموسيقى %1$s </string>
   <string name="media_state_playing">%1$s  (يتم التشغيل)</string>
   <string name="media_state_loading">%1$s (يتم التحميل)</string>
@@ -144,7 +153,6 @@
   <string name="auth_no_net_conn_title">لا يتوفر اتصال</string>
   <string name="auth_nossl_plain_ok_title">الاتصال الآمن غير متاح</string>
   <string name="auth_connection_established">تم الاتصال</string>
-  <string name="auth_testing_connection">اختبار الاتصال ...</string>
   <string name="auth_not_configured_title">إعداد الخادم غير صحيحة</string>
   <string name="auth_account_not_new">الحساب لنفس المستخدم والخادم موجود مسبقا على الجهاز </string>
   <string name="auth_account_not_the_same">المستخدم المدخل لا يتوافق مع المستخدم الموجود في الحساب </string>
@@ -171,15 +179,13 @@
   <string name="auth_fail_get_user_name">الخادم الخاص بك لم يعد الإتصال بهويتك الصحيحة, الرجاء الإتصال بالمسؤول
 	</string>
   <string name="auth_can_not_auth_against_server">لا يمكن المصادقة من الخادم</string>
-  <string name="fd_keep_in_sync"> جعل الملف محدثا</string>
+  <string name="favorite">المفضلة</string>
   <string name="common_rename">إعادة التسمية</string>
   <string name="common_remove">حذف</string>
   <string name="confirmation_remove_alert">هل تريد حقاً حذف %1$s ؟</string>
   <string name="confirmation_remove_folder_alert">هل ترغب في حذف %1$s و جهات الإتصال التابعة له؟ </string>
   <string name="confirmation_remove_local">محليا فقط</string>
-  <string name="confirmation_remove_folder_local">المحتويات المحلية فقط</string>
-  <string name="confirmation_remove_remote">الحذف من الخادم</string>
-  <string name="confirmation_remove_remote_and_local">محليا و عن بعد</string>
+  <string name="confirmation_remove_folder_local">محليا فقط</string>
   <string name="remove_success_msg">تم الحذف بنجاح</string>
   <string name="remove_fail_msg">فشل الحذف</string>
   <string name="rename_dialog_title">أدخل اسما جديدا</string>
@@ -229,11 +235,7 @@
   <string name="instant_upload_on_wifi">رفع الصور من خلال الـ WiFi فقط</string>
   <string name="instant_video_upload_on_wifi">رفع فيديو عبر الواي فاي حصراً</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">تعارض في التحديث </string>
-  <string name="conflict_message">الملف %s غير </string>
   <string name="conflict_keep_both">الاحتفاظ بالنسختين</string>
-  <string name="conflict_overwrite">استبدال</string>
-  <string name="conflict_dont_upload">عدم الرفع</string>
   <string name="preview_image_description">معاينة الصورة</string>
   <string name="preview_image_error_unknown_format">لا يمكن عرض هذه الصورة</string>
   <string name="error__upload__local_file_not_copied">%1$s تعذر نسخه %2$s للمجلد المحلي</string>
@@ -251,7 +253,9 @@
   <string name="network_host_not_available">تعذر إكمال العملية، الخادم غير متوفر</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">حسابات</string>
+  <string name="actionbar_logger">سجل</string>
   <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
-  <string name="move_choose_button_text">اختيار</string>
+  <string name="folder_picker_choose_button_text">اختيار</string>
   <string name="prefs_category_security">الأمان</string>
+  <string name="auth_host_address">عنوان الخادم</string>
 </resources>

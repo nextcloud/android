@@ -19,12 +19,20 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Tutti i file</string>
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Impostazioni</string>
+  <string name="drawer_item_logs">Registri</string>
+  <string name="drawer_close">Chiudi</string>
+  <string name="drawer_open">Apri</string>
   <string name="prefs_category_general">Generale</string>
   <string name="prefs_category_more">Altro</string>
   <string name="prefs_accounts">Account</string>
   <string name="prefs_manage_accounts">Gestisci account</string>
-  <string name="prefs_pincode">PIN App</string>
-  <string name="prefs_pincode_summary">Proteggi il tuo client l\'applicazione</string>
+  <string name="prefs_passcode">Blocco con codice di sicurezza</string>
   <string name="prefs_instant_upload">Caricamenti istantanei delle foto</string>
   <string name="prefs_instant_upload_summary">Carica immediatamente le foto dalla fotocamera</string>
   <string name="prefs_instant_video_upload">Caricamenti istantanei dei video</string>
@@ -35,7 +43,7 @@
   <string name="prefs_log_summary_history">Mostra i log registrati</string>
   <string name="prefs_log_delete_history_button">Elimina la cronologia</string>
   <string name="prefs_help">Aiuto</string>
-  <string name="prefs_recommend">Consiglia ad un amico</string>
+  <string name="prefs_recommend">Consiglia a un amico</string>
   <string name="prefs_feedback">Segnalazioni</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="prefs_remember_last_share_location">Ricorda la posizione della condivisione</string>
@@ -50,6 +58,7 @@
   <string name="sync_string_files">File</string>
   <string name="setup_btn_connect">Connetti</string>
   <string name="uploader_btn_upload_text">Carica</string>
+  <string name="uploader_btn_new_folder_text">Nuova cartella</string>
   <string name="uploader_top_message">Scegli la cartella da caricare:</string>
   <string name="uploader_wrn_no_account_title">Nessun account trovato</string>
   <string name="uploader_wrn_no_account_text">Non ci sono account %1$s sul tuo dispositivo. Configura prima un account.</string>
@@ -71,6 +80,7 @@
   <string name="filedetails_download">Scarica</string>
   <string name="filedetails_sync_file">Aggiorna file</string>
   <string name="filedetails_renamed_in_upload_msg">Il file è stato rinominato in %1$s durante il caricamento</string>
+  <string name="list_layout">Struttura elenco</string>
   <string name="action_share_file">Condividi collegamento</string>
   <string name="action_unshare_file">Rimuovi condivisione collegamento</string>
   <string name="common_yes">Sì</string>
@@ -123,15 +133,15 @@
   <string name="foreign_files_local_text">Locale: %1$s</string>
   <string name="foreign_files_remote_text">Remoto %1$s</string>
   <string name="upload_query_move_foreign_files">Non c\'è spazio sufficiente per copiare i file selezionati nella cartella %1$s. Vuoi invece spostarli?</string>
-  <string name="pincode_enter_pin_code">Inserisci il PIN dell\'applicazione</string>
-  <string name="pincode_configure_your_pin">Inserisci il PIN di l\'applicazione</string>
-  <string name="pincode_configure_your_pin_explanation">Il PIN sarà richiesto ad ogni avvio dell\'applicazione</string>
-  <string name="pincode_reenter_your_pincode">Inserisci nuovamente il PIN di l\'applicazione</string>
-  <string name="pincode_remove_your_pincode">Rimuovi il PIN di l\'applicazione</string>
-  <string name="pincode_mismatch">I PIN di l\'applicazione non corrispondono</string>
-  <string name="pincode_wrong">PIN di l\'applicazione non corretto</string>
-  <string name="pincode_removed">PIN di l\'applicazione rimosso</string>
-  <string name="pincode_stored">PIN di l\'applicazione memorizzato</string>
+  <string name="pass_code_enter_pass_code">Digita il tuo codice segreto</string>
+  <string name="pass_code_configure_your_pass_code">Digita il tuo codice segreto</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Il codice segreto sarà richiesto ogni volta che l\'applicazione è avviata</string>
+  <string name="pass_code_reenter_your_pass_code">Digita nuovamente il tuo codice segreto</string>
+  <string name="pass_code_remove_your_pass_code">Rimuovi il tuo codice segreto</string>
+  <string name="pass_code_mismatch">I codici segreti non corrispondono</string>
+  <string name="pass_code_wrong">Codice segreto non corretto</string>
+  <string name="pass_code_removed">Codice segreto rimosso</string>
+  <string name="pass_code_stored">Codice segreto memorizzato</string>
   <string name="media_notif_ticker">Lettore musicale %1$s</string>
   <string name="media_state_playing">%1$s (in riproduzione)</string>
   <string name="media_state_loading">%1$s (in caricamento)</string>
@@ -156,7 +166,7 @@
   <string name="auth_no_net_conn_title">Nessuna connessione di rete</string>
   <string name="auth_nossl_plain_ok_title">Connessione sicura disponibile.</string>
   <string name="auth_connection_established">Connessione stabilita</string>
-  <string name="auth_testing_connection">Prova di connessione in corso...</string>
+  <string name="auth_testing_connection">Prova di connessione</string>
   <string name="auth_not_configured_title">Configurazione non corretta di il server</string>
   <string name="auth_account_not_new">Esiste già un account su questo dispositivo per lo stesso utente e server</string>
   <string name="auth_account_not_the_same">L\'utente digitato non corrisponde all\'utente di questo account</string>
@@ -183,15 +193,17 @@
   <string name="auth_fail_get_user_name">Il tuo server non ha restituito un id utente corretto, contatta un amministratore
 	</string>
   <string name="auth_can_not_auth_against_server">Impossibile eseguire l\'autenticazione su questo server</string>
-  <string name="fd_keep_in_sync">Tieni aggiornato il file</string>
+  <string name="auth_account_does_not_exist">L\'account non esiste ancora sul dispositivo</string>
+  <string name="favorite">Preferito</string>
+  <string name="unfavorite">Rimuovi dai preferiti</string>
   <string name="common_rename">Rinomina</string>
   <string name="common_remove">Rimuovi</string>
   <string name="confirmation_remove_alert">Vuoi davvero rimuovere %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vuoi davvero rimuovere %1$s e il suo contenuto?</string>
   <string name="confirmation_remove_local">Solo localmente</string>
-  <string name="confirmation_remove_folder_local">Solo contenuti locali</string>
-  <string name="confirmation_remove_remote">Rimuovi dal server</string>
-  <string name="confirmation_remove_remote_and_local">Sia remoto che locale</string>
+  <string name="confirmation_remove_folder_local">Solo locale</string>
+  <string name="confirmation_remove_remote">Dal server</string>
+  <string name="confirmation_remove_remote_and_local">Remota e locale</string>
   <string name="remove_success_msg">Rimozione effettuata con successo</string>
   <string name="remove_fail_msg">La rimozione non può essere completata</string>
   <string name="rename_dialog_title">Digita un nuovo nome</string>
@@ -201,11 +213,13 @@
   <string name="sync_file_nothing_to_do_msg">Contenuti del file già sincronizzati</string>
   <string name="create_dir_fail_msg">La cartella non può essere creata</string>
   <string name="filename_forbidden_characters">Caratteri proibiti: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Il nome del file contiene almeno un carattere non valido</string>
   <string name="filename_empty">Il nome del file non può essere vuoto</string>
   <string name="wait_a_moment">Attendi</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inatteso; prova un\'altra applicazione per selezionare il file</string>
   <string name="filedisplay_no_file_selected">Non è stato selezionato alcun file</string>
   <string name="activity_chooser_title">Invia collegamento a...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
   <string name="oauth_check_onoff">Accesso con oAuth2.</string>
   <string name="oauth_login_connection">Connessione al server oAuth2 in corso...</string>
   <string name="ssl_validator_header">L\'identità del sito non può essere verificata</string>
@@ -241,11 +255,11 @@
   <string name="instant_upload_on_wifi">Carica le immagini solo via WiFi</string>
   <string name="instant_video_upload_on_wifi">Carica i video solo tramite WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Conflitto di aggiornamento</string>
-  <string name="conflict_message">Il file remoto %s non è sincronizzato con il file locale. Se continui, il contenuto del file sarà sostituito sul server.</string>
+  <string name="conflict_title">File in conflitto</string>
+  <string name="conflict_message">Quali file vuoi tenere? Se selezioni entrambi le versioni, il file locale avrà un numero aggiunto al suo nome.</string>
   <string name="conflict_keep_both">Mantieni entrambi</string>
-  <string name="conflict_overwrite">Sovrascrivi</string>
-  <string name="conflict_dont_upload">Non caricare</string>
+  <string name="conflict_use_local_version">Versione locale</string>
+  <string name="conflict_use_server_version">versione del server</string>
   <string name="preview_image_description">Anteprima dell\'immagine</string>
   <string name="preview_image_error_unknown_format">Questa immagine non può essere mostrata</string>
   <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
@@ -256,6 +270,8 @@
   <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
   <string name="unshare_link_file_no_exist">Impossibile rimuovere dalla condivisione. Assicurati che il file esista</string>
   <string name="unshare_link_file_error">Si è verificato un errore durante il tentativo di rimuovere la condivisione del file o della cartella</string>
+  <string name="share_link_password_title">Digita una password</string>
+  <string name="share_link_empty_password">Devi digitare una password</string>
   <string name="activity_chooser_send_file_title">Invia</string>
   <string name="copy_link">Copia collegamento</string>
   <string name="clipboard_text_copied">Copiato negli appunti</string>
@@ -278,13 +294,14 @@
   <string name="auth_redirect_non_secure_connection_title">La connessione sicura è rediretta su un percorso non sicuro.</string>
   <string name="actionbar_logger">Registri</string>
   <string name="log_send_history_button">Invia cronologia</string>
-  <string name="log_mail_subject">Registri applicazione ownCloud Android</string>
-  <string name="log_progress_dialog_text">Caricamento dati...</string>
+  <string name="log_send_no_mail_app">Non è stata trovata alcuna applicazione per l\'invio dei registri. Installa l\'applicazione mail!</string>
+  <string name="log_send_mail_subject">Registri applicazione %1$s Android</string>
+  <string name="log_progress_dialog_text">Caricamento dati in corso...</string>
   <string name="saml_authentication_required_text">Autenticazione richiesta</string>
   <string name="saml_authentication_wrong_pass">Password errata</string>
   <string name="actionbar_move">Sposta</string>
   <string name="file_list_empty_moving">Qui non c\'è niente. Puoi aggiungere una cartella.</string>
-  <string name="move_choose_button_text">Scegli</string>
+  <string name="folder_picker_choose_button_text">Scegli</string>
   <string name="move_file_not_found">Impossibile spostare. Assicurati che il file esista</string>
   <string name="move_file_invalid_into_descendent">Impossibile spostare una cartella in una cartella inferiore</string>
   <string name="move_file_invalid_overwrite">Il file esiste già nella cartella di destinazione</string>
@@ -292,4 +309,22 @@
   <string name="forbidden_permissions_move">per spostare questo file</string>
   <string name="prefs_category_instant_uploading">Caricamenti istantanei</string>
   <string name="prefs_category_security">Protezione</string>
+  <string name="prefs_instant_video_upload_path_title">Percorso di caricamento video</string>
+  <string name="download_folder_failed_content">Lo scaricamento della cartella %1$s non può essere completato</string>
+  <string name="shared_subject_header">condiviso</string>
+  <string name="with_you_subject_header">con te</string>
+  <string name="subject_token">%1$s ha condiviso \"%2$s\" con te</string>
+  <string name="saml_subject_token">\"%1$s\" è stato condiviso con te</string>
+  <string name="auth_refresh_button">Aggiorna la connessione</string>
+  <string name="auth_host_address">Indirizzo del server</string>
+  <string name="common_error_out_memory">Memoria insufficiente</string>
+  <string name="username">Nome utente</string>
+  <string name="file_list__footer__folder">1 cartella</string>
+  <string name="file_list__footer__folders">%1$d cartelle</string>
+  <string name="file_list__footer__file">1 file</string>
+  <string name="file_list__footer__file_and_folder">1 file, 1 cartella</string>
+  <string name="file_list__footer__file_and_folders">1 file, %1$d cartelle</string>
+  <string name="file_list__footer__files">%1$d file</string>
+  <string name="file_list__footer__files_and_folder">%1$d file, 1 cartella</string>
+  <string name="file_list__footer__files_and_folders">%1$d file, %2$d cartelle</string>
 </resources>
