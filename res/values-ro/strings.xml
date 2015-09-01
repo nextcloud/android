@@ -313,6 +313,7 @@
   <string name="shared_subject_header">partajat</string>
   <string name="with_you_subject_header">cu tine</string>
   <string name="subject_token">%1$s a partajat fișierul \"%2$s\" cu tine</string>
+  <string name="saml_subject_token">„%1$s” a fost partajat cu dumneavoastră</string>
   <string name="auth_refresh_button">Reîmprospătează conexiunea</string>
   <string name="auth_host_address">Adresa server-ului</string>
   <string name="common_error_out_memory">Memorie insuficientă </string>
