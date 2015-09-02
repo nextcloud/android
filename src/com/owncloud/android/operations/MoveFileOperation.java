@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,6 +20,7 @@
 
 package com.owncloud.android.operations;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -29,8 +33,6 @@ import android.accounts.Account;
 
 /**
  * Operation mmoving an {@link OCFile} to a different folder.
- * 
- * @author David A. Velasco
  */
 public class MoveFileOperation extends SyncOperation {
     
@@ -46,8 +48,8 @@ public class MoveFileOperation extends SyncOperation {
     /**
      * Constructor
      * 
-     * @param path              Remote path of the {@link OCFile} to move.
-     * @param newParentPath     Path to the folder where the file will be moved into. 
+     * @param srcPath           Remote path of the {@link OCFile} to move.
+     * @param targetParentPath  Path to the folder where the file will be moved into.
      * @param account           OwnCloud account containing both the file and the target folder 
      */
     public MoveFileOperation(String srcPath, String targetParentPath, Account account) {

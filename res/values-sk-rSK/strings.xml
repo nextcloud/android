@@ -19,12 +19,19 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Všetky súbory</string>
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Nastavenia</string>
+  <string name="drawer_item_logs">Logy</string>
+  <string name="drawer_close">Zavrieť</string>
+  <string name="drawer_open">Otvoriť</string>
   <string name="prefs_category_general">Všeobecné</string>
   <string name="prefs_category_more">Viac</string>
   <string name="prefs_accounts">Účty</string>
   <string name="prefs_manage_accounts">Správa účtov</string>
-  <string name="prefs_pincode">PIN aplikácie</string>
-  <string name="prefs_pincode_summary">Chrániť klienta aplikácie</string>
   <string name="prefs_instant_upload">Okamžité nahratie obrázka</string>
   <string name="prefs_instant_upload_summary">Okamžite nahrať obrázok zaznamenaný fotoaparátom</string>
   <string name="prefs_instant_video_upload">Okamžité nahranie videa</string>
@@ -50,6 +57,7 @@
   <string name="sync_string_files">Súbory</string>
   <string name="setup_btn_connect">Pripojiť</string>
   <string name="uploader_btn_upload_text">Nahrať</string>
+  <string name="uploader_btn_new_folder_text">Nový priečinok</string>
   <string name="uploader_top_message">Vyberte priečinok pre nahrávanie:</string>
   <string name="uploader_wrn_no_account_title">Účet sa nenašiel</string>
   <string name="uploader_wrn_no_account_text">Na tomto zariadení nie je zadaný žiadny %1$s účet. Zadajte ho prosím.</string>
@@ -61,12 +69,7 @@
   <string name="uploader_info_uploading">Nahrávanie</string>
   <string name="file_list_seconds_ago">pred sekundami</string>
   <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
-  <string name="file_list_loading">Nahráva sa...</string>
   <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
-  <string name="file_list_folder">priečinok</string>
-  <string name="file_list_folders">priečinky</string>
-  <string name="file_list_file">súbor</string>
-  <string name="file_list_files">súbory</string>
   <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
   <string name="filedetails_size">Veľkosť:</string>
   <string name="filedetails_type">Typ:</string>
@@ -127,15 +130,12 @@
   <string name="foreign_files_local_text">Lokálne: %1$s</string>
   <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
   <string name="upload_query_move_foreign_files">Nie je dostatok miesta na skopírovanie vybraných súborov do priečinka %1$s. Želáte si ich namiesto toho presunúť?</string>
-  <string name="pincode_enter_pin_code">Zadajte PIN aplikácie</string>
-  <string name="pincode_configure_your_pin">Zadajte PIN aplikácie</string>
-  <string name="pincode_configure_your_pin_explanation">Pri každom spustení aplikácie bude vyžadovaný PIN</string>
-  <string name="pincode_reenter_your_pincode">Zadajte znovu PIN aplikácie</string>
-  <string name="pincode_remove_your_pincode">Zrušiť PIN pre aplikáciu</string>
-  <string name="pincode_mismatch">PINy sa neshodujú</string>
-  <string name="pincode_wrong">Nesprávny PIN aplikácie</string>
-  <string name="pincode_removed">PIN aplikácie bol odstránený</string>
-  <string name="pincode_stored">PIN aplikácie bol uložený</string>
+  <string name="pass_code_enter_pass_code">Prosím, vložte svoje heslo:</string>
+  <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
+  <string name="pass_code_reenter_your_pass_code">Prosím, vložte znovu svoje heslo:</string>
+  <string name="pass_code_remove_your_pass_code">Zmazať svoje heslo</string>
+  <string name="pass_code_removed">Bezpečnostný kód odstránený</string>
+  <string name="pass_code_stored">Bezpečnostný kód uložený</string>
   <string name="media_notif_ticker">Prehrávač hudby %1$s</string>
   <string name="media_state_playing">%1$s (prehráva)</string>
   <string name="media_state_loading">%1$s (načítava)</string>
@@ -160,7 +160,7 @@
   <string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
   <string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
   <string name="auth_connection_established">Pripojenie vytvorené</string>
-  <string name="auth_testing_connection">Testovane pripojenia...</string>
+  <string name="auth_testing_connection">Testuje sa pripojenie</string>
   <string name="auth_not_configured_title">Nesprávna konfigurácia servera</string>
   <string name="auth_account_not_new">Účet pre tohoto používateľa a tento server už v tomto zariadení existuje</string>
   <string name="auth_account_not_the_same">Zadané prihlasovacie údaje používateľa sú nesprávne</string>
@@ -187,15 +187,15 @@
   <string name="auth_fail_get_user_name">Váš server nevracia správne používateľské id, kontaktujte prosím správcu systému
 	</string>
   <string name="auth_can_not_auth_against_server">Nie je možné vykonať autentifikáciu na server</string>
-  <string name="fd_keep_in_sync">Udržiavať súbor aktuálny.</string>
+  <string name="auth_account_does_not_exist">Účet zatiaľ v zariadení neexistuje</string>
+  <string name="favorite">Obľúbené</string>
+  <string name="unfavorite">Odobrať z obľúbených</string>
   <string name="common_rename">Premenuj</string>
   <string name="common_remove">Odober</string>
   <string name="confirmation_remove_alert">Naozaj chcete odstrániť %1$s?</string>
   <string name="confirmation_remove_folder_alert">Naozaj chcete odstrániť %1$s a jeho obsah?</string>
   <string name="confirmation_remove_local">Iba lokálne</string>
-  <string name="confirmation_remove_folder_local">Len lokálny obsah</string>
-  <string name="confirmation_remove_remote">Zmazať zo servera</string>
-  <string name="confirmation_remove_remote_and_local">Vzdialené a lokálne</string>
+  <string name="confirmation_remove_folder_local">Iba lokálne</string>
   <string name="remove_success_msg">Úspešne odstránené</string>
   <string name="remove_fail_msg">Odstránenie zlyhalo</string>
   <string name="rename_dialog_title">Zadajte nové meno</string>
@@ -245,11 +245,7 @@
   <string name="instant_upload_on_wifi">Odoslať fotografie iba cez WiFi</string>
   <string name="instant_video_upload_on_wifi">Nahrávať videá len cez WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Konflikt pri aktualizácii</string>
-  <string name="conflict_message">Vzdialený súbor %s nie je zosynchronizovaný s lokálnym. Pokračovanie prepíše obsah súboru na serveri.</string>
   <string name="conflict_keep_both">Ponechať oba</string>
-  <string name="conflict_overwrite">Prepísať</string>
-  <string name="conflict_dont_upload">Nenahrávajte</string>
   <string name="preview_image_description">Ukážka obrazu</string>
   <string name="preview_image_error_unknown_format">Obrázok nemožno zobraziť</string>
   <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
@@ -260,6 +256,8 @@
   <string name="share_link_file_error">Pri pokuse o zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
   <string name="unshare_link_file_no_exist">Nemožno ukončiť zdieľanie. Skontrolujte, či súbor existuje</string>
   <string name="unshare_link_file_error">Pri pokuse zrušiť zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
+  <string name="share_link_password_title">Vložte heslo</string>
+  <string name="share_link_empty_password">Musíte vložiť heslo</string>
   <string name="activity_chooser_send_file_title">Odoslať</string>
   <string name="copy_link">Kopíruj odkaz</string>
   <string name="clipboard_text_copied">Skopírované do schránky</string>
@@ -282,6 +280,9 @@
   <string name="auth_redirect_non_secure_connection_title">Zabezpečené pripojenie je presmerované na nezabezpečenú trasu.</string>
   <string name="actionbar_logger">Logy</string>
   <string name="log_send_history_button">Odoslať históriu</string>
+  <string name="log_send_no_mail_app">Nebola nájdená aplikácia pre odosielanie log protokolov. Nainštalujte si mailovú aplikáciu!</string>
+  <string name="log_send_mail_subject">%1$s Android app logs</string>
+  <string name="log_progress_dialog_text">Načítavam dáta...</string>
   <string name="saml_authentication_required_text">Vyžaduje sa overenie</string>
   <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
   <string name="actionbar_move">Presunúť</string>
@@ -294,4 +295,13 @@
   <string name="forbidden_permissions_move">pre presun tohoto súboru</string>
   <string name="prefs_category_instant_uploading">Okamžité nahratie</string>
   <string name="prefs_category_security">Zabezpečenie</string>
+  <string name="prefs_instant_video_upload_path_title">Cesta pre nahrávanie videí</string>
+  <string name="download_folder_failed_content">Sťahovanie %1$s priečinka nebolo dokončené</string>
+  <string name="shared_subject_header">zdieľané</string>
+  <string name="with_you_subject_header">s vami</string>
+  <string name="subject_token">%1$s vám zdieľal \"%2$s\"</string>
+  <string name="auth_refresh_button">Obnoviť pripojenie</string>
+  <string name="auth_host_address">Adresa servera</string>
+  <string name="common_error_out_memory">Nedostatok pamäte</string>
+  <string name="username">Používateľské meno</string>
 </resources>

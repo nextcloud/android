@@ -19,12 +19,20 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">すべてのファイル</string>
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">設定</string>
+  <string name="drawer_item_logs">ログ</string>
+  <string name="drawer_close">閉じる</string>
+  <string name="drawer_open">開く</string>
   <string name="prefs_category_general">一般</string>
   <string name="prefs_category_more">もっと見る</string>
   <string name="prefs_accounts">アカウント</string>
   <string name="prefs_manage_accounts">アカウント管理</string>
-  <string name="prefs_pincode">アプリのパスワード</string>
-  <string name="prefs_pincode_summary">クライアントを保護する</string>
+  <string name="prefs_passcode">パスコードロック</string>
   <string name="prefs_instant_upload">自動画像アップロード</string>
   <string name="prefs_instant_upload_summary">カメラで撮影した画像を自動アップロード</string>
   <string name="prefs_instant_video_upload">自動動画アップロード</string>
@@ -51,6 +59,7 @@
   <string name="sync_string_files">ファイル</string>
   <string name="setup_btn_connect">接続</string>
   <string name="uploader_btn_upload_text">アップロード</string>
+  <string name="uploader_btn_new_folder_text">新しいフォルダー</string>
   <string name="uploader_top_message">アップロードするフォルダーを選択:</string>
   <string name="uploader_wrn_no_account_title">アカウントが見つかりません</string>
   <string name="uploader_wrn_no_account_text">デバイスに%1$sのアカウントがありません。まず最初にアカウントを登録してください。</string>
@@ -62,12 +71,8 @@
   <string name="uploader_info_uploading">アップロード中</string>
   <string name="file_list_seconds_ago">数秒前</string>
   <string name="file_list_empty">ここには何もありません。何かアップロードしてください。</string>
-  <string name="file_list_loading">読込中 ...</string>
+  <string name="file_list_loading">読込中...</string>
   <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
-  <string name="file_list_folder">フォルダ</string>
-  <string name="file_list_folders">フォルダ</string>
-  <string name="file_list_file">ファイル</string>
-  <string name="file_list_files">ファイル</string>
   <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
   <string name="filedetails_size">サイズ:</string>
   <string name="filedetails_type">タイプ:</string>
@@ -76,6 +81,7 @@
   <string name="filedetails_download">ダウンロード</string>
   <string name="filedetails_sync_file">ファイルを同期</string>
   <string name="filedetails_renamed_in_upload_msg">アップロード中にファイル名を %1$s に変更しました</string>
+  <string name="list_layout">リストレイアウト</string>
   <string name="action_share_file">URLで共有</string>
   <string name="action_unshare_file">未共有のリンク</string>
   <string name="common_yes">はい</string>
@@ -128,15 +134,15 @@
   <string name="foreign_files_local_text">ローカル: %1$s</string>
   <string name="foreign_files_remote_text">リモート: %1$s</string>
   <string name="upload_query_move_foreign_files">十分なスペースがないため、選択されたファイルを %1$s フォルダーにコピーすることができません。コピーする代わりに、それらを移動させますか？</string>
-  <string name="pincode_enter_pin_code">アプリのパスワードを入力してください</string>
-  <string name="pincode_configure_your_pin">アプリのパスワードを入力してください</string>
-  <string name="pincode_configure_your_pin_explanation">アプリ開始時に毎回PINが要求されます。</string>
-  <string name="pincode_reenter_your_pincode">アプリのパスワードを再入力してください</string>
-  <string name="pincode_remove_your_pincode">アプリのパスワードを削除</string>
-  <string name="pincode_mismatch">アプリのパスワードが一致しません</string>
-  <string name="pincode_wrong">無効なアプリのパスワードです</string>
-  <string name="pincode_removed">アプリのパスワードを削除しました</string>
-  <string name="pincode_stored">アプリのパスワードを保存しました</string>
+  <string name="pass_code_enter_pass_code">パスコードを入力してください</string>
+  <string name="pass_code_configure_your_pass_code">パスコードを入力</string>
+  <string name="pass_code_configure_your_pass_code_explanation">アプリ開始時には毎回パスコードが要求されます</string>
+  <string name="pass_code_reenter_your_pass_code">パスコードを再入力してください</string>
+  <string name="pass_code_remove_your_pass_code">パスコードを削除</string>
+  <string name="pass_code_mismatch">パスコードが一致しません</string>
+  <string name="pass_code_wrong">パスコードが正しくありません</string>
+  <string name="pass_code_removed">パスコードを削除しました</string>
+  <string name="pass_code_stored">パスコードを保存しました</string>
   <string name="media_notif_ticker">%1$s ミュージックプレーヤー</string>
   <string name="media_state_playing">%1$s (プレイ中)</string>
   <string name="media_state_loading">%1$s (読込中)</string>
@@ -161,7 +167,7 @@
   <string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
   <string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
   <string name="auth_connection_established">接続が確立しました</string>
-  <string name="auth_testing_connection">接続をテスト中...</string>
+  <string name="auth_testing_connection">接続のテスト中</string>
   <string name="auth_not_configured_title">サーバー設定が間違っています</string>
   <string name="auth_account_not_new">同じユーザーとサーバーのアカウントがデバイス上にすでに存在します</string>
   <string name="auth_account_not_the_same">入力されたユーザーはこのアカウントのユーザーと一致しません</string>
@@ -185,18 +191,18 @@
   <string name="auth_connecting_auth_server">認証サーバーに接続中 ...</string>
   <string name="auth_unsupported_auth_method">サーバーはこの認証方式をサポートしていません</string>
   <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
-  <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返しませんでした。管理者にご連絡ください。
+  <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返しませんでした。管理者に問い合わせてください。
 	</string>
   <string name="auth_can_not_auth_against_server">このサーバーに対して認証できません</string>
-  <string name="fd_keep_in_sync">ファイルを最新に保つ</string>
+  <string name="auth_account_does_not_exist">デバイス上にまだアカウントが存在しません</string>
+  <string name="favorite">お気に入り</string>
+  <string name="unfavorite">お気に入りを解除</string>
   <string name="common_rename">名前を変更</string>
   <string name="common_remove">削除</string>
   <string name="confirmation_remove_alert">本当に %1$s を削除しますか？</string>
   <string name="confirmation_remove_folder_alert">本当に %1$s およびそのコンテンツを削除してもよろしいですか？</string>
   <string name="confirmation_remove_local">ローカルのみ</string>
-  <string name="confirmation_remove_folder_local">ローカルコンテンツのみ</string>
-  <string name="confirmation_remove_remote">サーバーから削除</string>
-  <string name="confirmation_remove_remote_and_local">リモートとローカルの両方</string>
+  <string name="confirmation_remove_folder_local">ローカルのみ</string>
   <string name="remove_success_msg">削除に成功しました</string>
   <string name="remove_fail_msg">削除を完了できませんでした</string>
   <string name="rename_dialog_title">新しい名前を入力</string>
@@ -206,11 +212,13 @@
   <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
   <string name="create_dir_fail_msg">フォルダーを作成できませんでした</string>
   <string name="filename_forbidden_characters">使用できない文字: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">ファイル名に1文字以上の無効な文字が含まれています</string>
   <string name="filename_empty">ファイル名を空にすることはできません。</string>
   <string name="wait_a_moment">しばらくお待ちください</string>
   <string name="filedisplay_unexpected_bad_get_content">予期せぬ問題；他のアプリでファイルを選択してみてください。</string>
   <string name="filedisplay_no_file_selected">ファイルは選択されていません</string>
   <string name="activity_chooser_title">リンクを送信…</string>
+  <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
   <string name="oauth_check_onoff">oAuth2でログイン</string>
   <string name="oauth_login_connection">oAuth2サーバーに接続中...</string>
   <string name="ssl_validator_header">サイトの識別子を確認できませんでした</string>
@@ -243,24 +251,24 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">WiFi経由でのみ写真をアップロード</string>
+  <string name="instant_upload_on_wifi">WiFi経由でのみ画像をアップロード</string>
   <string name="instant_video_upload_on_wifi">WiFi経由でのみ動画をアップロード</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">更新が競合</string>
-  <string name="conflict_message">リモートファイル %s はローカルファイルと同期していません。続行すると、サーバー上のファイルを置き換えます。</string>
+  <string name="conflict_title">ファイルが競合</string>
+  <string name="conflict_message">どちらのファイルを保存したいですか？両方のバージョンを選択した場合は、ファイル名の後ろに数字を追加したファイルのコピーを作成します。</string>
   <string name="conflict_keep_both">両方を保持</string>
-  <string name="conflict_overwrite">上書き</string>
-  <string name="conflict_dont_upload">アップロードしない</string>
   <string name="preview_image_description">イメージプレビュー</string>
   <string name="preview_image_error_unknown_format">この画像は表示できません</string>
   <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
   <string name="prefs_instant_upload_path_title">アップロードパス</string>
-  <string name="share_link_no_support_share_api">申し訳ございません。共有がサーバー上で有効になっていません。 管理者に
-		ご連絡ください。</string>
+  <string name="share_link_no_support_share_api">すみませんが、サーバーで共有が有効になっていません。
+		管理者に問い合わせてください。</string>
   <string name="share_link_file_no_exist">共有できません。ファイルがあるか確認してください。</string>
   <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
   <string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
   <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
+  <string name="share_link_password_title">パスワードを入力</string>
+  <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
   <string name="activity_chooser_send_file_title">送信</string>
   <string name="copy_link">リンクをコピー</string>
   <string name="clipboard_text_copied">クリップボードにコピー</string>
@@ -283,17 +291,37 @@
   <string name="auth_redirect_non_secure_connection_title">暗号化接続は非暗号化接続にリダイレクトされました。</string>
   <string name="actionbar_logger">ログ</string>
   <string name="log_send_history_button">ログを送信</string>
+  <string name="log_send_no_mail_app">ログを送信するアプリが見つかりませんでした。メールアプリをインストールしてください。</string>
+  <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
+  <string name="log_progress_dialog_text">読込中 ...</string>
   <string name="saml_authentication_required_text">認証を必要とする</string>
   <string name="saml_authentication_wrong_pass">無効なパスワード</string>
   <string name="actionbar_move">移動</string>
-  <string name="file_list_empty_moving">ファイルが有りません。フォルダを追加してください。</string>
+  <string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
   <string name="folder_picker_choose_button_text">選択</string>
   <string name="move_file_not_found">移動できません。ファイルがあるか確認してください。</string>
-  <string name="move_file_invalid_into_descendent">フォルダを子フォルダへ移動することはできません。</string>
-  <string name="move_file_invalid_overwrite">そのファイルは、宛先フォルダに既に存在しています。</string>
+  <string name="move_file_invalid_into_descendent">フォルダーを子フォルダーへ移動することはできません。</string>
+  <string name="move_file_invalid_overwrite">そのファイルは宛先フォルダーにすでに存在します。</string>
   <string name="move_file_error">このファイルまたはフォルダーを移動する際にエラーが発生しました</string>
   <string name="forbidden_permissions_move">このファイルを移動</string>
   <string name="prefs_category_instant_uploading">自動アップロード</string>
   <string name="prefs_category_security">セキュリティ</string>
   <string name="prefs_instant_video_upload_path_title">動画のアップロードパス</string>
+  <string name="download_folder_failed_content">%1$s フォルダーのダウンロードが完了しませんでした</string>
+  <string name="shared_subject_header">共有中</string>
+  <string name="with_you_subject_header">あなたと</string>
+  <string name="subject_token">%1$s は \"%2$s\" をあなたと共有しました</string>
+  <string name="saml_subject_token">\"%1$s\" があなたと共有しました</string>
+  <string name="auth_refresh_button">再接続中</string>
+  <string name="auth_host_address">サーバーアドレス</string>
+  <string name="common_error_out_memory">十分なメモリがありません</string>
+  <string name="username">ユーザー名</string>
+  <string name="file_list__footer__folder">1 フォルダー</string>
+  <string name="file_list__footer__folders">%1$d フォルダー</string>
+  <string name="file_list__footer__file">1 ファイル</string>
+  <string name="file_list__footer__file_and_folder">1 ファイル、1 フォルダー</string>
+  <string name="file_list__footer__file_and_folders">1 ファイル、%1$d フォルダー</string>
+  <string name="file_list__footer__files">%1$d ファイル</string>
+  <string name="file_list__footer__files_and_folder">%1$d ファイル、1 フォルダー</string>
+  <string name="file_list__footer__files_and_folders">%1$d ファイル、%2$d フォルダー</string>
 </resources>

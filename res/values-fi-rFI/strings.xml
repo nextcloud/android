@@ -19,12 +19,20 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Kaikki tiedostot</string>
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Asetukset</string>
+  <string name="drawer_item_logs">Lokit</string>
+  <string name="drawer_close">Sulje</string>
+  <string name="drawer_open">Avaa</string>
   <string name="prefs_category_general">Yleiset</string>
   <string name="prefs_category_more">Enemmän</string>
   <string name="prefs_accounts">Tilit</string>
   <string name="prefs_manage_accounts">Tilien hallinta</string>
-  <string name="prefs_pincode">Sovelluksen PIN-koodi</string>
-  <string name="prefs_pincode_summary">Suojaa asiakasohjelmasi</string>
+  <string name="prefs_passcode">Suojakoodilukitus</string>
   <string name="prefs_instant_upload">Kuvien välitön lähetys</string>
   <string name="prefs_instant_upload_summary">Lähetä kameralla otetut kuvat välittömästi</string>
   <string name="prefs_instant_video_upload">Välittömät videolähetykset</string>
@@ -37,6 +45,7 @@
   <string name="prefs_help">Ohje</string>
   <string name="prefs_recommend">Suosittele kaverille</string>
   <string name="prefs_feedback">Palaute</string>
+  <string name="prefs_imprint">Tiedot</string>
   <string name="prefs_remember_last_share_location">Muista jaon sijainti</string>
   <string name="prefs_remember_last_upload_location_summary">Muista viimeisin jaon lähetyssijainti</string>
   <string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
@@ -49,6 +58,7 @@
   <string name="sync_string_files">Tiedostot</string>
   <string name="setup_btn_connect">Yhdistä</string>
   <string name="uploader_btn_upload_text">Lähetä</string>
+  <string name="uploader_btn_new_folder_text">Luo kansio</string>
   <string name="uploader_top_message">Valitse lähetyskansio:</string>
   <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
   <string name="uploader_wrn_no_account_text">Laitteelle ei ole asetettu %1$s-tiliä. Luo tili ensin.</string>
@@ -60,12 +70,8 @@
   <string name="uploader_info_uploading">Lähetetään</string>
   <string name="file_list_seconds_ago">sekuntia sitten</string>
   <string name="file_list_empty">Täällä ei ole mitään. Lähetä tänne jotakin!</string>
-  <string name="file_list_loading">Ladataan...</string>
+  <string name="file_list_loading">Ladataan…</string>
   <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
-  <string name="file_list_folder">kansio</string>
-  <string name="file_list_folders">kansiota</string>
-  <string name="file_list_file">tiedosto</string>
-  <string name="file_list_files">tiedostoa</string>
   <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
   <string name="filedetails_size">Koko:</string>
   <string name="filedetails_type">Tyyppi:</string>
@@ -74,6 +80,7 @@
   <string name="filedetails_download">Lataa</string>
   <string name="filedetails_sync_file">Päivitä tiedosto</string>
   <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s siirron yhteydessä</string>
+  <string name="list_layout">Luettelon asettelu</string>
   <string name="action_share_file">Jaa linkki</string>
   <string name="action_unshare_file">Poista linkin jako</string>
   <string name="common_yes">Kyllä</string>
@@ -122,21 +129,24 @@
   <string name="foreign_files_fail">Joidenkin tiedostojen siirtäminen epäonnistui</string>
   <string name="foreign_files_local_text">Paikallinen: %1$s</string>
   <string name="foreign_files_remote_text">Etä: %1$s</string>
-  <string name="pincode_enter_pin_code">Aseta sovelluksesi PIN</string>
-  <string name="pincode_configure_your_pin">Anna sovelluksen PIN</string>
-  <string name="pincode_configure_your_pin_explanation">PIN kysytään joka kerta, kun sovellus käynnistetään</string>
-  <string name="pincode_reenter_your_pincode">Anna sovelluksen PIN uudestaan</string>
-  <string name="pincode_remove_your_pincode">Poista sovelluksen PIN</string>
-  <string name="pincode_mismatch">Sovelluksen PIN-koodit eivät täsmää</string>
-  <string name="pincode_wrong">Väärä sovelluksen PIN</string>
-  <string name="pincode_removed">Sovelluksen PIN poistettu</string>
-  <string name="pincode_stored">Sovelluksen PIN-koodi tallennettu</string>
+  <string name="pass_code_enter_pass_code">Anna suojakoodisi</string>
+  <string name="pass_code_configure_your_pass_code">Anna suojakoodisi</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Suojakoodi kysytään joka kerta, kun sovellus käynnistetään</string>
+  <string name="pass_code_reenter_your_pass_code">Anna suojakoodi uudelleen</string>
+  <string name="pass_code_remove_your_pass_code">Poista suojakoodi käytöstä</string>
+  <string name="pass_code_mismatch">Suojakoodit eivät täsmää</string>
+  <string name="pass_code_wrong">Virheellinen suojakoodi</string>
+  <string name="pass_code_removed">Suojakoodi poistettu</string>
+  <string name="pass_code_stored">Suojakoodi tallennettu</string>
+  <string name="media_notif_ticker">%1$s-musiikkisoitin</string>
   <string name="media_state_playing">%1$s (toistetaan)</string>
   <string name="media_state_loading">%1$s (ladataan)</string>
   <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
   <string name="media_err_no_account">Tiliä ei määritetty</string>
   <string name="media_err_not_in_owncloud">Tiedosto ei ole kelvollisella tilillä</string>
+  <string name="media_err_unsupported">Mediakoodekki ei ole tuettu</string>
   <string name="media_err_io">Mediatiedoston luku ei onnistunut</string>
+  <string name="media_err_malformed">Mediatiedostoa ei ole koodattu kelvollisesti</string>
   <string name="media_err_timeout">Aikakatkaisu toistoa yrittäessä</string>
   <string name="media_err_invalid_progressive_playback">Mediatiedostoa ei voi suoratoistaa</string>
   <string name="media_err_security_ex">Turvallisuusvirhe yrittäessä toistaa kohdetta %1$s</string>
@@ -149,7 +159,7 @@
   <string name="auth_no_net_conn_title">Ei verkkoyhteyttä</string>
   <string name="auth_nossl_plain_ok_title">Salattu yhteys ei ole käytettävissä.</string>
   <string name="auth_connection_established">Yhteys muodostettu</string>
-  <string name="auth_testing_connection">Testataan yhteyttä...</string>
+  <string name="auth_testing_connection">Testataan yhteyttä</string>
   <string name="auth_not_configured_title">Väärin tehdyt palvelin-asetukset</string>
   <string name="auth_account_not_new">Laitteella on jo tili samalle käyttäjälle ja palvelimelle</string>
   <string name="auth_account_not_the_same">Syötetty käyttäjä ei täsmää tämän tilin käyttäjän kanssa</string>
@@ -174,15 +184,17 @@
   <string name="auth_unsupported_auth_method">Palvelin ei tue tätä tunnistautumistapaa</string>
   <string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
   <string name="auth_can_not_auth_against_server">Tunnistautuminen palvelinta vastaan ei onnistu</string>
-  <string name="fd_keep_in_sync">Pidä tiedosto ajan tasalla</string>
+  <string name="auth_account_does_not_exist">Tiliä ei ole olemassa vielä laitteella</string>
+  <string name="favorite">Suosikit</string>
+  <string name="unfavorite">Poista suosikeista</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
   <string name="confirmation_remove_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
   <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
   <string name="confirmation_remove_local">Vain paikallinen</string>
-  <string name="confirmation_remove_folder_local">Vain paikallinen sisältö</string>
-  <string name="confirmation_remove_remote">Poista palvelimelta</string>
-  <string name="confirmation_remove_remote_and_local">Sekä etä- että paikallinen</string>
+  <string name="confirmation_remove_folder_local">Vain paikallinen</string>
+  <string name="confirmation_remove_remote">Palvelimelta</string>
+  <string name="confirmation_remove_remote_and_local">Etä ja paikallinen</string>
   <string name="remove_success_msg">Poistettu onnistuneesti</string>
   <string name="remove_fail_msg">Poistamista ei voitu suorittaa loppuun asti</string>
   <string name="rename_dialog_title">Anna uusi nimi</string>
@@ -192,11 +204,13 @@
   <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
   <string name="create_dir_fail_msg">Kansion luominen epäonnistui</string>
   <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Tiedoston nimi sisältää ainakin yhden virheellisen merkin</string>
   <string name="filename_empty">Tiedoston nimi ei voi olla tyhjä</string>
   <string name="wait_a_moment">Odota hetki</string>
   <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>
   <string name="filedisplay_no_file_selected">Tiedostoa ei valittu</string>
   <string name="activity_chooser_title">Lähetä linkki…</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Kopioidaan tiedostoa yksityisestä tallennustilasta</string>
   <string name="oauth_check_onoff">Kirjaudu oAuth2:lla</string>
   <string name="oauth_login_connection">Yhdistetään oAuth2-palvelimeen…</string>
   <string name="ssl_validator_header">Sivuston identiteetin vahvistaminen ei onnistunut</string>
@@ -225,20 +239,24 @@
   <string name="ssl_validator_no_info_about_error">- Ei lisätietoja virheestä</string>
   <string name="placeholder_filetype">PNG-kuva</string>
   <string name="placeholder_filesize">389 kt</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Lähetä kuvat vain WiFi-verkossa</string>
   <string name="instant_video_upload_on_wifi">Lähetä videot vain wifi-yhteydellä</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Päivitysristiriita</string>
-  <string name="conflict_message">Etätiedostoa %s ei ole synkronoitu paikallisen tiedoston kanssa. Jatkaminen korvaa palvelimella olevan tiedoston sisällön.</string>
+  <string name="conflict_title">Tiedoston ristiriita</string>
+  <string name="conflict_message">Mitkä tiedostot haluat säilyttää? Jos valitset kummatkin versiot, paikallisen version tiedoston nimeen lisätään numero.</string>
   <string name="conflict_keep_both">Säilytä molemmat</string>
-  <string name="conflict_overwrite">Korvaa</string>
-  <string name="conflict_dont_upload">Älä lähetä</string>
+  <string name="conflict_use_local_version">paikallinen versio</string>
+  <string name="conflict_use_server_version">palvelimen versio</string>
   <string name="preview_image_description">Kuvan esikatselu</string>
   <string name="preview_image_error_unknown_format">Tätä kuvaa ei voi näyttää</string>
   <string name="prefs_instant_upload_path_title">Lähetyspolku</string>
   <string name="share_link_no_support_share_api">Jakaminen ei ole käytössä palvelimellasi. Ota yhteys
 		ylläpitäjään.</string>
+  <string name="share_link_file_no_exist">Jakaminen epäonnistui. Varmista, että tiedosto on olemassa</string>
   <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
+  <string name="share_link_password_title">Anna salasana</string>
+  <string name="share_link_empty_password">Salasana on pakko antaa</string>
   <string name="activity_chooser_send_file_title">Lähetä</string>
   <string name="copy_link">Kopioi linkki</string>
   <string name="clipboard_text_copied">Kopioitu leikepöydälle</string>
@@ -262,6 +280,7 @@
   <string name="actionbar_logger">Lokit</string>
   <string name="log_send_history_button">Lähetä historia</string>
   <string name="log_send_no_mail_app">Lokien lähettämistä varten ei löytynyt sovellusta. Asenna sähköpostisovellus!</string>
+  <string name="log_send_mail_subject">%1$sin Android-sovelluksen lokit</string>
   <string name="log_progress_dialog_text">Ladataan tietoja…</string>
   <string name="saml_authentication_required_text">Tunnistautuminen vaaditaan</string>
   <string name="saml_authentication_wrong_pass">Väärä salasana</string>
@@ -273,4 +292,20 @@
   <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
   <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
   <string name="prefs_category_security">Tietoturva</string>
+  <string name="shared_subject_header">jaettu</string>
+  <string name="with_you_subject_header">kanssasi</string>
+  <string name="subject_token">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
+  <string name="saml_subject_token">\"%1$s\" on jaettu kanssasi</string>
+  <string name="auth_refresh_button">Päivitä yhteys</string>
+  <string name="auth_host_address">Palvelimen osoite</string>
+  <string name="common_error_out_memory">Muistia ei ole riittävästi</string>
+  <string name="username">Käyttäjätunnus</string>
+  <string name="file_list__footer__folder">1 kansio</string>
+  <string name="file_list__footer__folders">%1$d kansiota</string>
+  <string name="file_list__footer__file">1 tiedosto</string>
+  <string name="file_list__footer__file_and_folder">1 tiedosto, 1 kansio</string>
+  <string name="file_list__footer__file_and_folders">1 tiedosto, %1$d kansiota</string>
+  <string name="file_list__footer__files">%1$d tiedostoa</string>
+  <string name="file_list__footer__files_and_folder">%1$d tiedostoa, 1 kansio</string>
+  <string name="file_list__footer__files_and_folders">%1$d tiedostoa, %2$d kansiota</string>
 </resources>

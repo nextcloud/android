@@ -1,6 +1,9 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Bartek Przybylski
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,31 +21,29 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.DisplayUtils;
 
 
 /**
  * Dialog which will be displayed to user upon keep-in-sync file conflict.
- * 
- * @author Bartek Przybylski
- *
  */
-public class ConflictsResolveDialog extends SherlockDialogFragment {
+public class ConflictsResolveDialog extends DialogFragment {
 
     public static enum Decision { 
         CANCEL,
         KEEP_BOTH,
-        OVERWRITE
+        OVERWRITE,
+        SERVER
     }
     
     OnConflictDecisionMadeListener mListener;
@@ -59,11 +60,11 @@ public class ConflictsResolveDialog extends SherlockDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         String remotepath = getArguments().getString("remotepath");
-        return new AlertDialog.Builder(getSherlockActivity())
-                   .setIcon(DisplayUtils.getSeasonalIconId())
+        return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
+                   .setIcon(R.drawable.ic_warning)
                    .setTitle(R.string.conflict_title)
                    .setMessage(String.format(getString(R.string.conflict_message), remotepath))
-                   .setPositiveButton(R.string.conflict_overwrite,
+                   .setPositiveButton(R.string.conflict_use_local_version,
                        new DialogInterface.OnClickListener() {
 
                            @Override
@@ -80,18 +81,18 @@ public class ConflictsResolveDialog extends SherlockDialogFragment {
                                     mListener.conflictDecisionMade(Decision.KEEP_BOTH);
                             }
                         })
-                   .setNegativeButton(R.string.conflict_dont_upload,
+                   .setNegativeButton(R.string.conflict_use_server_version,
                        new DialogInterface.OnClickListener() {
                            @Override
                            public void onClick(DialogInterface dialog, int which) {
                                if (mListener != null)
-                                   mListener.conflictDecisionMade(Decision.CANCEL);
+                                   mListener.conflictDecisionMade(Decision.SERVER);
                            }
                    })
                    .create();
     }
     
-    public void showDialog(SherlockFragmentActivity activity) {
+    public void showDialog(AppCompatActivity activity) {
         Fragment prev = activity.getSupportFragmentManager().findFragmentByTag("dialog");
         FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
         if (prev != null) {
@@ -102,7 +103,7 @@ public class ConflictsResolveDialog extends SherlockDialogFragment {
         this.show(ft, "dialog");
     }
 
-    public void dismissDialog(SherlockFragmentActivity activity) {
+    public void dismissDialog(AppCompatActivity activity) {
         Fragment prev = activity.getSupportFragmentManager().findFragmentByTag(getTag());
         if (prev != null) {
             FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();

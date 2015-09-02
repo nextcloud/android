@@ -1,5 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -22,7 +25,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -32,6 +35,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +43,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -50,21 +53,23 @@ import com.owncloud.android.ui.activity.FileActivity;
 /**
  * Dialog showing a list activities able to resolve a given Intent, 
  * filtering out the activities matching give package names.
- * 
- * @author David A. Velasco
  */
-public class ShareLinkToDialog  extends SherlockDialogFragment {
+public class ShareLinkToDialog  extends DialogFragment {
     
     private final static String TAG =  ShareLinkToDialog.class.getSimpleName();
-    private final static String ARG_INTENT =  ShareLinkToDialog.class.getSimpleName() + ".ARG_INTENT";
-    private final static String ARG_PACKAGES_TO_EXCLUDE =  ShareLinkToDialog.class.getSimpleName() + ".ARG_PACKAGES_TO_EXCLUDE";
-    private final static String ARG_FILE_TO_SHARE = ShareLinkToDialog.class.getSimpleName() + ".FILE_TO_SHARE";
+    private final static String ARG_INTENT =  ShareLinkToDialog.class.getSimpleName() +
+            ".ARG_INTENT";
+    private final static String ARG_PACKAGES_TO_EXCLUDE =  ShareLinkToDialog.class.getSimpleName() +
+            ".ARG_PACKAGES_TO_EXCLUDE";
+    private final static String ARG_FILE_TO_SHARE = ShareLinkToDialog.class.getSimpleName() +
+            ".FILE_TO_SHARE";
     
     private ActivityAdapter mAdapter;
     private OCFile mFile;
     private Intent mIntent;
     
-    public static ShareLinkToDialog newInstance(Intent intent, String[] packagesToExclude, OCFile fileToShare) {
+    public static ShareLinkToDialog newInstance(Intent intent, String[] packagesToExclude,
+                                                OCFile fileToShare) {
         ShareLinkToDialog f = new ShareLinkToDialog();
         Bundle args = new Bundle();
         args.putParcelable(ARG_INTENT, intent);
@@ -83,16 +88,18 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mIntent = getArguments().getParcelable(ARG_INTENT);
         String[] packagesToExclude = getArguments().getStringArray(ARG_PACKAGES_TO_EXCLUDE);
-        List<String> packagesToExcludeList = Arrays.asList(packagesToExclude != null ? packagesToExclude : new String[0]);
+        List<String> packagesToExcludeList = Arrays.asList(packagesToExclude != null ?
+                packagesToExclude : new String[0]);
         mFile = getArguments().getParcelable(ARG_FILE_TO_SHARE);
         
-        PackageManager pm= getSherlockActivity().getPackageManager();
-        List<ResolveInfo> activities = pm.queryIntentActivities(mIntent, PackageManager.MATCH_DEFAULT_ONLY);
+        PackageManager pm= getActivity().getPackageManager();
+        List<ResolveInfo> activities = pm.queryIntentActivities(mIntent,
+                PackageManager.MATCH_DEFAULT_ONLY);
         Iterator<ResolveInfo> it = activities.iterator();
         ResolveInfo resolveInfo;
         while (it.hasNext()) {
             resolveInfo = it.next();
-            if (packagesToExcludeList.contains(resolveInfo.activityInfo.packageName.toLowerCase())) {
+            if (packagesToExcludeList.contains(resolveInfo.activityInfo.packageName.toLowerCase())){
                 it.remove();
             }
         }
@@ -101,7 +108,7 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
         
         if (!sendAction) {
             // add activity for copy to clipboard
-            Intent copyToClipboardIntent = new Intent(getSherlockActivity(), CopyToClipboardActivity.class);
+            Intent copyToClipboardIntent = new Intent(getActivity(), CopyToClipboardActivity.class);
             List<ResolveInfo> copyToClipboard = pm.queryIntentActivities(copyToClipboardIntent, 0);
             if (!copyToClipboard.isEmpty()) {
                 activities.add(copyToClipboard.get(0));
@@ -109,7 +116,7 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
         }
         
         Collections.sort(activities, new ResolveInfo.DisplayNameComparator(pm)); 
-        mAdapter = new ActivityAdapter(getSherlockActivity(), pm, activities);
+        mAdapter = new ActivityAdapter(getActivity(), pm, activities);
         
         return createSelector(sendAction);
         
@@ -124,7 +131,7 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
             titleId = R.string.activity_chooser_title;
         }
         
-        return new AlertDialog.Builder(getSherlockActivity())
+        return new AlertDialog.Builder(getActivity())
                     .setTitle(titleId)
                     .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
                         @Override
@@ -141,12 +148,12 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
                                 dialog.dismiss();    // explicitly added for Android 2.x devices
 
                                 // Send the file
-                                ((FileActivity)getSherlockActivity()).startActivity(mIntent);
+                                ((FileActivity)getActivity()).startActivity(mIntent);
 
                             } else {
                                 // Create a new share resource
-                                ((ComponentsGetter)getSherlockActivity()).getFileOperationsHelper()
-                                    .shareFileWithLinkToApp(mFile, mIntent);
+                                ((ComponentsGetter)getActivity()).getFileOperationsHelper()
+                                    .shareFileWithLinkToApp(mFile, "", mIntent);
                             }
                         }
         })
@@ -172,7 +179,8 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
         }
         
         private View newView(ViewGroup parent) {
-            return(((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.activity_row, parent, false));
+            return(((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
+                    inflate(R.layout.activity_row, parent, false));
         }
         
         private void bindView(int position, View row) {

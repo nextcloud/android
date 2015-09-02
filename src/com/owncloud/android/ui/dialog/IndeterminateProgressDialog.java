@@ -1,5 +1,7 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -22,13 +24,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.KeyEvent;
+import android.widget.ProgressBar;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 
 
-public class IndeterminateProgressDialog extends SherlockDialogFragment {
+public class IndeterminateProgressDialog extends DialogFragment {
 
     private static final String ARG_MESSAGE_ID = IndeterminateProgressDialog.class.getCanonicalName() + ".ARG_MESSAGE_ID";
     private static final String ARG_CANCELABLE = IndeterminateProgressDialog.class.getCanonicalName() + ".ARG_CANCELABLE";
@@ -43,6 +46,7 @@ public class IndeterminateProgressDialog extends SherlockDialogFragment {
      */
     public static IndeterminateProgressDialog newInstance(int messageId, boolean cancelable) {
         IndeterminateProgressDialog fragment = new IndeterminateProgressDialog();
+        fragment.setStyle(DialogFragment.STYLE_NO_FRAME, R.style.ownCloud_AlertDialog);
         Bundle args = new Bundle();
         args.putInt(ARG_MESSAGE_ID, messageId);
         args.putBoolean(ARG_CANCELABLE, cancelable);
@@ -57,34 +61,43 @@ public class IndeterminateProgressDialog extends SherlockDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         /// create indeterminate progress dialog
-        final ProgressDialog dialog = new ProgressDialog(getActivity());
-        dialog.setIndeterminate(true);
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity(), R.style.ProgressDialogTheme);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                ProgressBar v = (ProgressBar) progressDialog.findViewById(android.R.id.progress);
+                v.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.color_accent),
+                        android.graphics.PorterDuff.Mode.MULTIPLY);
+
+            }
+        });
         
         /// set message
         int messageId = getArguments().getInt(ARG_MESSAGE_ID, R.string.placeholder_sentence);
-        dialog.setMessage(getString(messageId));
-        
+        progressDialog.setMessage(getString(messageId));
+
         /// set cancellation behavior
         boolean cancelable = getArguments().getBoolean(ARG_CANCELABLE, false);
         if (!cancelable) {
-            dialog.setCancelable(false);
+            progressDialog.setCancelable(false);
             // disable the back button
             OnKeyListener keyListener = new OnKeyListener() {
                 @Override
                 public boolean onKey(DialogInterface dialog, int keyCode,
                         KeyEvent event) {
 
-                    if( keyCode == KeyEvent.KEYCODE_BACK){                  
+                    if( keyCode == KeyEvent.KEYCODE_BACK) {
                         return true;
                     }
                     return false;
                 }
 
             };
-            dialog.setOnKeyListener(keyListener);
+            progressDialog.setOnKeyListener(keyListener);
         }
         
-        return dialog;
+        return progressDialog;
     }    
     
 }

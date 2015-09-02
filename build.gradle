@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.14.0'
+        classpath 'com.android.tools.build:gradle:1.2.3'
     }
 }
 
@@ -18,19 +18,17 @@ repositories {
     }
 }
 
-artifacts.add("default", file('libs/actionbarsherlock.aar'))
-
 dependencies {
     compile name: 'touch-image-view'
-    compile 'com.android.support:support-v4:19.1.0'
-    compile project('libs/actionbarsherlock_lib')
+    compile 'com.android.support:support-v4:22.2.1'
     compile project(':owncloud-android-library')
     compile 'com.jakewharton:disklrucache:2.0.2'
+    compile 'com.android.support:appcompat-v7:22.2.1'
 }
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'

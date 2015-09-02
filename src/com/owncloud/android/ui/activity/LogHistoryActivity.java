@@ -1,5 +1,7 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -33,15 +35,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.LoadingDialog;
@@ -49,7 +50,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 
-public class LogHistoryActivity extends SherlockFragmentActivity  {
+public class LogHistoryActivity extends AppCompatActivity {
 
     private static final String MAIL_ATTACHMENT_TYPE = "text/plain";
 
@@ -70,9 +71,7 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
 
         setContentView(R.layout.log_send_file);
         setTitle(getText(R.string.actionbar_logger));
-        ActionBar actionBar = getSherlock().getActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
         Button sendHistoryButton = (Button) findViewById(R.id.sendLogHistoryButton);
         TextView logTV = (TextView) findViewById(R.id.logTV);
@@ -115,14 +114,14 @@ public class LogHistoryActivity extends SherlockFragmentActivity  {
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        super.onMenuItemSelected(featureId, item);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
-        case android.R.id.home:
-            finish();
-            break;
-        default:
-            return false;
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return false;
         }
         return true;
     }

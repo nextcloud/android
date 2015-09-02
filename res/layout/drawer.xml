@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:background="@color/background_color"
+        >
+
+        <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="5dp">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/drawer_userIcon"-->
+                <!--android:layout_width="40dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:src="@drawable/abc_ab_bottom_solid_dark_holo" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/drawer_username"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginStart="5dp"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge" />-->
+
+        <!--</LinearLayout>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="2dip"-->
+            <!--android:background="@color/list_item_lastmod_and_filesize_text" />-->
+
+        <ListView
+            android:id="@+id/drawer_list"
+            android:choiceMode="singleChoice"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_color"
+            android:divider="#eee"
+            android:dividerHeight="1dp"
+            android:paddingTop="100dp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:background="@color/owncloud_blue_accent">
+
+            <ImageView
+                android:id="@+id/itemIcon"
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginLeft="16sp"
+                android:layout_marginBottom="3dp"
+                android:layout_gravity="bottom"
+                android:src="@drawable/ic_account_circle"
+                />
+
+            <TextView
+                android:id="@+id/drawer_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:text="@string/app_name"
+                android:textColor="#FFF"
+                android:paddingLeft="22dp"
+                android:paddingRight="16dp"
+                android:textSize="24sp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</merge>

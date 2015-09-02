@@ -19,12 +19,16 @@
   </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
+  <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
+  <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <!--TODO re-enable when "On Device" is available
+    <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Otwórz</string>
   <string name="prefs_category_general">Ogólne</string>
   <string name="prefs_category_more">Więcej</string>
   <string name="prefs_accounts">Konta</string>
   <string name="prefs_manage_accounts">Zarządzaj kontami</string>
-  <string name="prefs_pincode">PIN aplikacji</string>
-  <string name="prefs_pincode_summary">Chroń swojego klienta</string>
+  <string name="prefs_passcode">Blokowanie hasła</string>
   <string name="prefs_instant_upload">natychmiastowa wysyłka obrazków</string>
   <string name="prefs_instant_upload_summary">Wysyłaj od razu zdjęcia zrobione aparatem</string>
   <string name="prefs_instant_video_upload">Natychmiastowa wysyłka wideo</string>
@@ -39,6 +43,7 @@
   <string name="prefs_feedback">Wsparcie</string>
   <string name="prefs_imprint">Stopka</string>
   <string name="prefs_remember_last_share_location">Zapamiętaj położenie udostępnienia</string>
+  <string name="prefs_remember_last_upload_location_summary">Zapamiętaj ostatnią lokalizację wgrywania</string>
   <string name="recommend_subject">Wypróbuj %1$s na swoim smartphonie!</string>
   <string name="recommend_text">Chciałbym zaprosić Cię do używania %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>
   <string name="auth_check_server">Sprawdź serwer</string>
@@ -49,6 +54,7 @@
   <string name="sync_string_files">Pliki</string>
   <string name="setup_btn_connect">Połącz</string>
   <string name="uploader_btn_upload_text">Wyślij</string>
+  <string name="uploader_btn_new_folder_text">Nowy folder</string>
   <string name="uploader_top_message">Wybierz folder do wysłania:</string>
   <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
   <string name="uploader_wrn_no_account_text">Nie wykryto kont %1$s na twoim urządzeniu. Załóż konto.</string>
@@ -60,12 +66,7 @@
   <string name="uploader_info_uploading">Wysyłanie</string>
   <string name="file_list_seconds_ago">sekund temu</string>
   <string name="file_list_empty">Pusto. Wyślij coś!</string>
-  <string name="file_list_loading">Ładowanie...</string>
   <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
-  <string name="file_list_folder">folder</string>
-  <string name="file_list_folders">foldery</string>
-  <string name="file_list_file">plik</string>
-  <string name="file_list_files">pliki</string>
   <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
   <string name="filedetails_size">Rozmiar:</string>
   <string name="filedetails_type">Typ:</string>
@@ -74,6 +75,7 @@
   <string name="filedetails_download">Pobierz</string>
   <string name="filedetails_sync_file">Odśwież plik</string>
   <string name="filedetails_renamed_in_upload_msg">Podczas wysyłania nazwa pliku została zmieniona na %1$s</string>
+  <string name="list_layout">Lista szablonów wyglądu</string>
   <string name="action_share_file">Udostępnij link</string>
   <string name="action_unshare_file">Anuluj udostępnianie</string>
   <string name="common_yes">Tak</string>
@@ -126,15 +128,15 @@
   <string name="foreign_files_local_text">Lokalnie: %1$s</string>
   <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
   <string name="upload_query_move_foreign_files">Nie ma wystarczająco miejśca, aby skopiować zaznaczone pliki do folderu %1$s. Chciałbyś je przenieść?</string>
-  <string name="pincode_enter_pin_code">Podaj PIN aplikacji</string>
-  <string name="pincode_configure_your_pin">Wpisz PIN aplikacji</string>
-  <string name="pincode_configure_your_pin_explanation">Kod PIN będzie wymagany za każdym razem, gdy aplikacja będzie uruchamiana.</string>
-  <string name="pincode_reenter_your_pincode">Ponownie wpisz PIN aplikacji</string>
-  <string name="pincode_remove_your_pincode">Usuń PIN aplikacji</string>
-  <string name="pincode_mismatch">Podane numery PIN są różne</string>
-  <string name="pincode_wrong">Niepoprawny PIN aplikacji</string>
-  <string name="pincode_removed">Usunięto PIN aplikacji</string>
-  <string name="pincode_stored">Zapisano PIN aplikacji</string>
+  <string name="pass_code_enter_pass_code">Proszę podać swoje hasło</string>
+  <string name="pass_code_configure_your_pass_code">Wpisz swoje hasło</string>
+  <string name="pass_code_configure_your_pass_code_explanation">Hasło będzie wymagane przy każdym uruchomieniu aplikacji</string>
+  <string name="pass_code_reenter_your_pass_code">Proszę powtórzyć hasło</string>
+  <string name="pass_code_remove_your_pass_code">Usuń swoje hasło</string>
+  <string name="pass_code_mismatch">Podane hasła nie są takie same</string>
+  <string name="pass_code_wrong">Nieprawidłowe hasło</string>
+  <string name="pass_code_removed">Hasło zostało usunięte</string>
+  <string name="pass_code_stored">Hasło zostało zapisane</string>
   <string name="media_notif_ticker">%1$s odtwarzacz muzyki</string>
   <string name="media_state_playing">%1$s (odtwarzany)</string>
   <string name="media_state_loading">%1$s (wczytywany)</string>
@@ -159,7 +161,7 @@
   <string name="auth_no_net_conn_title">Brak połączenia sieciowego</string>
   <string name="auth_nossl_plain_ok_title">Nie można nawiązać bezpiecznego połączenia.</string>
   <string name="auth_connection_established">Połączenie nawiązane</string>
-  <string name="auth_testing_connection">Testowanie połączenia…</string>
+  <string name="auth_testing_connection">Sprawdzanie połączenia</string>
   <string name="auth_not_configured_title">Uszkodzona konfiguracja serwera</string>
   <string name="auth_account_not_new">Konto tego samego użytkownika i serwera już istnieje na tym urządzeniu</string>
   <string name="auth_account_not_the_same">Podany login nie pasuje do użytkowników </string>
@@ -186,15 +188,15 @@
   <string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego id użytkownika, proszę skontaktuj się z administratorem
 	</string>
   <string name="auth_can_not_auth_against_server">Nie można autoryzować przy użyciu tego serwera</string>
-  <string name="fd_keep_in_sync">Automatyczne aktualizuj plik</string>
+  <string name="auth_account_does_not_exist">Konto nie istnieje jeszcze na tym urządzeniu</string>
+  <string name="favorite">Ulubione</string>
+  <string name="unfavorite">Usuń z ulubionych</string>
   <string name="common_rename">Zmień nazwę</string>
   <string name="common_remove">Usuń</string>
   <string name="confirmation_remove_alert">Czy naprawdę chcesz usunąć %1$s?</string>
   <string name="confirmation_remove_folder_alert">Czy naprawdę chcesz usunąć %1$s i jego zawartość?</string>
   <string name="confirmation_remove_local">Tylko lokalnie</string>
-  <string name="confirmation_remove_folder_local">Tylko zasoby lokalne</string>
-  <string name="confirmation_remove_remote">Usuń z serwera</string>
-  <string name="confirmation_remove_remote_and_local">Z serwera i telefonu</string>
+  <string name="confirmation_remove_folder_local">Tylko lokalnie</string>
   <string name="remove_success_msg">Usunięto</string>
   <string name="remove_fail_msg">Nie można usunąć</string>
   <string name="rename_dialog_title">Wprowadź nową nazwę</string>
@@ -209,6 +211,7 @@
   <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany problem; spróbuj wybrać plik z innej aplikacji</string>
   <string name="filedisplay_no_file_selected">Nie wybrano żadnych plików</string>
   <string name="activity_chooser_title">Wyślij link do ...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
   <string name="oauth_check_onoff">Loguj przez oAuth2</string>
   <string name="oauth_login_connection">Łączenie z serwerem oAuth2...</string>
   <string name="ssl_validator_header">Nie można zweryfikować tożsamości strony</string>
@@ -244,11 +247,7 @@
   <string name="instant_upload_on_wifi">Wysyłaj zdjęcia tylko przez WiFi</string>
   <string name="instant_video_upload_on_wifi">Aktualizuj filmy tylko przez WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Konflikt aktualizacji</string>
-  <string name="conflict_message">Zdalny plik %s nie jest zsynchronizowany z plikiem lokalnym. Kontynuując zastąpisz zawartość pliku na serwerze.</string>
   <string name="conflict_keep_both">Zatrzymaj oba</string>
-  <string name="conflict_overwrite">Zastąp</string>
-  <string name="conflict_dont_upload">Nie wysyłaj</string>
   <string name="preview_image_description">Podgląd</string>
   <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
@@ -259,6 +258,8 @@
   <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>
   <string name="unshare_link_file_no_exist">Nie można wyłączyć udostępniania. Proszę sprawdzić, czy plik istnieje</string>
   <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub folderu.</string>
+  <string name="share_link_password_title">Wprowadź hasło</string>
+  <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
   <string name="activity_chooser_send_file_title">Wyślij</string>
   <string name="copy_link">Skopiuj link</string>
   <string name="clipboard_text_copied">Skopiuj do schowka</string>
@@ -281,6 +282,7 @@
   <string name="auth_redirect_non_secure_connection_title">Bezpieczne połączenie jest przekierowywane przez niezabezpieczone trasy.</string>
   <string name="actionbar_logger">Logi</string>
   <string name="log_send_history_button">Wyślij historię</string>
+  <string name="log_send_no_mail_app">Brak aplikacji do wysyłania logów. Zainstaluj klienta poczty!</string>
   <string name="log_send_mail_subject">%1$s Logi aplikacji Android</string>
   <string name="log_progress_dialog_text">Ładuję dane...</string>
   <string name="saml_authentication_required_text">Wymagana autoryzacja</string>
@@ -296,4 +298,8 @@
   <string name="prefs_category_instant_uploading">Automatyczne wysyłanie</string>
   <string name="prefs_category_security">Bezpieczeństwo</string>
   <string name="prefs_instant_video_upload_path_title">Katalog wysyłania dla wideo</string>
+  <string name="download_folder_failed_content">Pobieranie %1$s katalogu nie może zostać ukończone</string>
+  <string name="auth_refresh_button">Odśwież połączenie</string>
+  <string name="auth_host_address">Adres Serwera</string>
+  <string name="common_error_out_memory">Brak wystarczającej pamięci</string>
 </resources>

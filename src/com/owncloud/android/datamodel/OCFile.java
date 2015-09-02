@@ -1,6 +1,8 @@
-/* ownCloud Android client application
+/**
+ *   ownCloud Android client application
+ *
  *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,9 +22,9 @@ package com.owncloud.android.datamodel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 
@@ -58,7 +60,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private boolean mNeedsUpdating;
     private long mLastSyncDateForProperties;
     private long mLastSyncDateForData;
-    private boolean mKeepInSync;
+    private boolean mFavorite;
 
     private String mEtag;
 
@@ -69,6 +71,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private String mRemoteId;
 
     private boolean mNeedsUpdateThumbnail;
+
+    private boolean mIsDownloading;
 
 
     /**
@@ -103,7 +107,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLocalPath = source.readString();
         mMimeType = source.readString();
         mNeedsUpdating = source.readInt() == 0;
-        mKeepInSync = source.readInt() == 1;
+        mFavorite = source.readInt() == 1;
         mLastSyncDateForProperties = source.readLong();
         mLastSyncDateForData = source.readLong();
         mEtag = source.readString();
@@ -112,6 +116,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mPermissions = source.readString();
         mRemoteId = source.readString();
         mNeedsUpdateThumbnail = source.readInt() == 0;
+        mIsDownloading = source.readInt() == 0;
 
     }
 
@@ -127,7 +132,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mLocalPath);
         dest.writeString(mMimeType);
         dest.writeInt(mNeedsUpdating ? 1 : 0);
-        dest.writeInt(mKeepInSync ? 1 : 0);
+        dest.writeInt(mFavorite ? 1 : 0);
         dest.writeLong(mLastSyncDateForProperties);
         dest.writeLong(mLastSyncDateForData);
         dest.writeString(mEtag);
@@ -136,6 +141,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mPermissions);
         dest.writeString(mRemoteId);
         dest.writeInt(mNeedsUpdateThumbnail ? 1 : 0);
+        dest.writeInt(mIsDownloading ? 1 : 0);
     }
 
     /**
@@ -340,7 +346,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mModifiedTimestampAtLastSyncForData = 0;
         mLastSyncDateForProperties = 0;
         mLastSyncDateForData = 0;
-        mKeepInSync = false;
+        mFavorite = false;
         mNeedsUpdating = false;
         mEtag = null;
         mShareByLink = false;
@@ -348,6 +354,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mPermissions = null;
         mRemoteId = null;
         mNeedsUpdateThumbnail = false;
+        mIsDownloading = false;
     }
 
     /**
@@ -437,12 +444,12 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLastSyncDateForData = lastSyncDate;
     }
 
-    public void setKeepInSync(boolean keepInSync) {
-        mKeepInSync = keepInSync;
+    public void setFavorite(boolean favorite) {
+        mFavorite = favorite;
     }
 
-    public boolean keepInSync() {
-        return mKeepInSync;
+    public boolean isFavorite() {
+        return mFavorite;
     }
 
     @Override
@@ -476,8 +483,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public String toString() {
-        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, keepInSync=%s etag=%s]";
-        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mKeepInSync), mEtag);
+        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, favorite=%s etag=%s]";
+        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mFavorite), mEtag);
         return asString;
     }
 
@@ -533,17 +540,14 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      */
     public boolean isImage() {
         return ((mMimeType != null && mMimeType.startsWith("image/")) ||
-                getMimeTypeFromName().startsWith("image/"));
+                FileStorageUtils.getMimeTypeFromName(mRemotePath).startsWith("image/"));
     }
 
-    public String getMimeTypeFromName() {
-        String extension = "";
-        int pos = mRemotePath.lastIndexOf('.');
-        if (pos >= 0) {
-            extension = mRemotePath.substring(pos + 1);
-        }
-        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
-        return (result != null) ? result : "";
+    /**
+     * @return 'True' if the file is hidden
+     */
+    public boolean isHidden() {
+        return getFileName().startsWith(".");
     }
 
     public String getPermissions() {
@@ -562,4 +566,16 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         this.mRemoteId = remoteId;
     }
 
+    public boolean isDownloading() {
+        return mIsDownloading;
+    }
+
+    public void setDownloading(boolean isDownloading) {
+        this.mIsDownloading = isDownloading;
+    }
+
+    public boolean isSynchronizing() {
+        // TODO real implementation
+        return false;
+    }
 }

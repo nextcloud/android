@@ -3,7 +3,7 @@
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2012-2014 ownCloud Inc.
+  Copyright (C) 2012-2015 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -18,8 +18,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <manifest package="com.owncloud.android"
-    android:versionCode="10600200"
-    android:versionName="1.6.2" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionCode="10700200"
+    android:versionName="1.7.2" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -32,13 +32,12 @@
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="19" />
+        android:minSdkVersion="14"
+        android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
     </uses-permission>
@@ -86,11 +85,9 @@
             android:name=".ui.activity.Preferences"
             android:theme="@style/Theme.ownCloud" >
         </activity>
-        <activity android:name=".ui.activity.PreferencesNewSessionewSession" >
-        </activity>
-        
         <activity	
-            android:name=".ui.preview.PreviewImageActivity" 
+            android:name=".ui.preview.PreviewImageActivity"
+            android:theme="@style/Theme.ownCloud.Overlay"
             />
 		        
         <activity	
@@ -136,7 +133,7 @@
         <activity
             android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
-            android:theme="@style/Theme.ownCloud.noActionBar" 
+            android:theme="@style/Theme.ownCloud.noActionBar"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -155,7 +152,7 @@
         <service android:name=".files.services.FileUploader" />
         <service android:name=".media.MediaService" />
         
-        <activity android:name=".ui.activity.PinCodeActivity" />
+        <activity android:name=".ui.activity.PassCodeActivity" />
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>

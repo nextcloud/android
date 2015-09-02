@@ -51,7 +51,7 @@ public class ImageSimpleAdapter extends SimpleAdapter {
         HashMap<String, OCFile> data = (HashMap<String, OCFile>) getItem(position);
         OCFile file = data.get("dirname");
 
-        TextView filename = (TextView) vi.findViewById(R.id.textView1);
+        TextView filename = (TextView) vi.findViewById(R.id.filename);
         filename.setText((CharSequence) file.getFileName());
         
         ImageView fileIcon = (ImageView) vi.findViewById(R.id.imageView1);
@@ -85,7 +85,7 @@ public class ImageSimpleAdapter extends SimpleAdapter {
             }
         } else {
             fileIcon.setImageResource(
-                    DisplayUtils.getResourceId(file.getMimetype(), file.getFileName())
+                    DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName())
             );
         }
         return vi;

@@ -1,5 +1,9 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author masensio
+ *   @author David A. Velasco
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -24,10 +28,6 @@ import android.widget.TextView;
 
 /**
  * Dialog to show an Untrusted Certificate
- * 
- * @author masensio
- * @author David A. Velasco
- *
  */
 public class SslErrorViewAdapter implements SslUntrustedCertDialog.ErrorViewAdapter {
     
