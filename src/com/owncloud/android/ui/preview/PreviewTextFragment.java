@@ -29,6 +29,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.ref.WeakReference;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PreviewTextFragment extends FileFragment {
@@ -202,11 +204,20 @@ public class PreviewTextFragment extends FileFragment {
          * Show loading dialog
          */
         public void showLoadingDialog() {
-            // Construct dialog
-            LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
-            FragmentManager fm = getActivity().getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            loading.show(ft, DIALOG_WAIT_TAG);
+            // only once
+            Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+            LoadingDialog loading = null;
+            if (frag == null) {
+                // Construct dialog
+                loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                loading.show(ft, DIALOG_WAIT_TAG);
+            } else {
+                loading = (LoadingDialog) frag;
+                loading.setShowsDialog(true);
+            }
+
         }
 
         /**
@@ -380,7 +391,13 @@ public class PreviewTextFragment extends FileFragment {
      * @return 'True' if the file can be handled by the fragment.
      */
     public static boolean canBePreviewed(OCFile file) {
-        return (file != null && file.isDown() && file.isText());
+        final List<String> supportedTypes = new LinkedList<String>();
+        supportedTypes.add("text/plain");
+        supportedTypes.add("text/html");
+        supportedTypes.add("text/css");
+        supportedTypes.add("text/csv");
+
+        return (file != null && file.isDown() && supportedTypes.contains(file.getMimetype()));
     }
 
     /**
