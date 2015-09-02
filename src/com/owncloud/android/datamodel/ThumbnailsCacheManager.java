@@ -34,8 +34,8 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -290,9 +290,6 @@ public class ThumbnailsCacheManager {
                                 GetMethod get = new GetMethod(uri);
                                 int status = mClient.executeMethod(get);
                                 if (status == HttpStatus.SC_OK) {
-//                                    byte[] bytes = get.getResponseBody();
-//                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
-//                                            bytes.length);
                                     InputStream inputStream = get.getResponseBodyAsStream();
                                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                     thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
@@ -326,16 +323,9 @@ public class ThumbnailsCacheManager {
                     px,
                     Bitmap.Config.ARGB_8888);
             Canvas c = new Canvas(resultBitmap);
-            Bitmap checker = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
-                                                          R.drawable.checker_16_16);
 
-            BitmapDrawable background;
-            background = new BitmapDrawable(MainApp.getAppContext().getResources(), checker);
-
-            background.setBounds(0, 0, px, px);
-            background.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
-            background.draw(c);
-
+            c.drawColor(MainApp.getAppContext().getResources().
+                    getColor(R.color.background_color));
             c.drawBitmap(bitmap, 0, 0, null);
 
             return resultBitmap;
