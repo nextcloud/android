@@ -24,6 +24,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Parinktys</string>
+  <string name="drawer_open">Atverti</string>
   <string name="prefs_category_general">Bendras</string>
   <string name="prefs_category_more">Daugiau</string>
   <string name="prefs_accounts">Paskyros</string>
@@ -173,9 +174,7 @@
   <string name="confirmation_remove_alert">Ar tikrai norite pašalinti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ar tikrai norite pašalinti %1$s ir ten esantį turinį?</string>
   <string name="confirmation_remove_local">Tik vietiniai</string>
-  <string name="confirmation_remove_folder_local">Tik vietinis turinys</string>
-  <string name="confirmation_remove_remote">Pašalinti iš serverio</string>
-  <string name="confirmation_remove_remote_and_local">Nutolę ir vietiniai</string>
+  <string name="confirmation_remove_folder_local">Tik vietiniai</string>
   <string name="remove_success_msg">Pašalinta sėkmingai</string>
   <string name="remove_fail_msg">Pašalinti nepavyko</string>
   <string name="rename_dialog_title">Įveskite naują pavadinimą</string>
@@ -222,11 +221,7 @@
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Įkelti nuotraukas tik kai prisijungiama per WiFi</string>
   <string name="instant_video_upload_on_wifi">Įkelti video tik per WiFi</string>
-  <string name="conflict_title">Atnaujinimo konfliktas</string>
-  <string name="conflict_message">Nutolęs failas %s nėra sinchronizuotas su vietiniu failu. Jei tęsite, failas serveryje bus pakeistas.</string>
   <string name="conflict_keep_both">Palikti abu</string>
-  <string name="conflict_overwrite">Perrašyti</string>
-  <string name="conflict_dont_upload">Nebesiųsti</string>
   <string name="preview_image_description">Paveikslėlio peržiūra</string>
   <string name="preview_image_error_unknown_format">Neįmanoma parodyti šio paveikslėlio</string>
   <string name="share_link_file_error">Įvyko klaida bandant dalinti šį failą ar aplanką</string>

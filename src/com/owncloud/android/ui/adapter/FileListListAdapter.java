@@ -4,6 +4,7 @@
  *   @author Bartek Przybylski
  *   @author Tobias Kaminsky
  *   @author David A. Velasco
+ *   @author masensio
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2015 ownCloud Inc.
  *
@@ -320,6 +321,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             task.execute(file);
                         }
                     }
+
+                    if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                        fileIcon.setBackgroundColor(mContext.getResources()
+                                .getColor(R.color.background_color));
+                    }
+
+
                 } else {
                     fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(file.getMimetype(),
                             file.getFileName()));
@@ -327,6 +335,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
             } else {
                 // Folder
+
                 if (checkIfFileIsSharedWithMe(file)) {
                     fileIcon.setImageResource(R.drawable.shared_with_me_folder);
                 } else if (file.isShareByLink()) {

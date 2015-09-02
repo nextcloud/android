@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Aç</string>
   <string name="prefs_category_general">Ümumi</string>
   <string name="prefs_category_more">Daha da</string>
   <string name="prefs_accounts">Hesablar</string>
@@ -186,9 +187,7 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="confirmation_remove_alert">Siz həqiqətən %1$s silmək istəyirsiniz?</string>
   <string name="confirmation_remove_folder_alert">Siz həqiqətəndə %1$s və onun kontentini silmək istəyirsiniz?</string>
   <string name="confirmation_remove_local">Yalnız daxili</string>
-  <string name="confirmation_remove_folder_local">Yalnız daxili kontent</string>
-  <string name="confirmation_remove_remote">Serverdən sil</string>
-  <string name="confirmation_remove_remote_and_local">Uzaq və lokal</string>
+  <string name="confirmation_remove_folder_local">Yalnız daxili</string>
   <string name="remove_success_msg">Silmə uğurlu oldu</string>
   <string name="remove_fail_msg">Silmək mümkün olmadı</string>
   <string name="rename_dialog_title">Yeni adı daxil edin</string>
@@ -238,11 +237,7 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="instant_upload_on_wifi">Şəkilləri yalnız WiFi üzərindən yüklə</string>
   <string name="instant_video_upload_on_wifi">Videoları yalnız WiFi üzərindən yüklə</string>
   <string name="instant_upload_path">/CəldYükləmə</string>
-  <string name="conflict_title">Yüklənmə konflikti</string>
-  <string name="conflict_message">Uzaq fayl %s local faylla sinxronizasiya edilmədi. Faylın kontentinin serverdə dəyişdirilməsinə davam edirik.</string>
   <string name="conflict_keep_both">Birlikdə saxla</string>
-  <string name="conflict_overwrite">Sil yenidən yaz</string>
-  <string name="conflict_dont_upload">Yükləmə</string>
   <string name="preview_image_description">Şəkili göstər</string>
   <string name="preview_image_error_unknown_format">Bu şəkil göstərilə bilməz</string>
   <string name="error__upload__local_file_not_copied">%1$s nüsxələnə bilməz %2$s local qovluğa</string>

@@ -21,7 +21,10 @@ package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
+import android.support.v7.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -46,6 +49,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -203,11 +207,35 @@ public class PreviewMediaFragment extends FileFragment implements
             } else {
                 mVideoPreview.setVisibility(View.GONE);
                 mImagePreview.setVisibility(View.VISIBLE);
+                extractAndSetCoverArt(file);
             }
         }
         
     }
-        
+
+    /**
+     * tries to read the cover art from the audio file and sets it as cover art.
+     *
+     * @param file audio file with potential cover art
+     */
+    private void extractAndSetCoverArt(OCFile file) {
+        if (file.isAudio()) {
+            try {
+                MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+                mmr.setDataSource(file.getStoragePath());
+                byte[] data = mmr.getEmbeddedPicture();
+                if (data != null) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    mImagePreview.setImageBitmap(bitmap); //associated cover art in bitmap
+                } else {
+                    mImagePreview.setImageResource(R.drawable.logo);
+                }
+            } catch (Throwable t) {
+                mImagePreview.setImageResource(R.drawable.logo);
+            }
+        }
+    }
+
 
     /**
      * {@inheritDoc}

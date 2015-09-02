@@ -567,6 +567,13 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return (result != null) ? result : "";
     }
 
+    /**
+     * @return 'True' if the file is hidden
+     */
+    public boolean isHidden() {
+        return getFileName().startsWith(".");
+    }
+
     public String getPermissions() {
         return mPermissions;
     }

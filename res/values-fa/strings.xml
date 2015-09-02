@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">باز کردن</string>
   <string name="prefs_category_general">عمومی</string>
   <string name="prefs_category_more">بیش‌تر</string>
   <string name="prefs_accounts">حساب‌ها</string>
@@ -154,9 +155,7 @@
   <string name="common_rename">تغییرنام</string>
   <string name="common_remove">حذف</string>
   <string name="confirmation_remove_local">فقط محلی</string>
-  <string name="confirmation_remove_folder_local">فقط محتوای محلی</string>
-  <string name="confirmation_remove_remote">پاک کردن از سرور</string>
-  <string name="confirmation_remove_remote_and_local">راه دور و محلی</string>
+  <string name="confirmation_remove_folder_local">فقط محلی</string>
   <string name="remove_success_msg">حذف با موفقیت انجام شد</string>
   <string name="remove_fail_msg">حذف نا موفق بود</string>
   <string name="rename_dialog_title">نام جدید وارد کنید</string>
@@ -204,11 +203,7 @@
   <string name="instant_upload_on_wifi">تصاویر را فقط از طریق wifi بارگذاری کن</string>
   <string name="instant_video_upload_on_wifi">آپلود ویدیو فقط از طریق WiFi</string>
   <string name="instant_upload_path">آپلود فوری</string>
-  <string name="conflict_title">بارگذاری ناسازگار</string>
-  <string name="conflict_message">فایل های دور از دسترس %s با فایل های محلی همگام نشده اند. ادامه کار، محتوا را بر روی فایل در سرور جایگزین خواهد کرد.</string>
   <string name="conflict_keep_both">نگهداشتن هر دو</string>
-  <string name="conflict_overwrite">دوباره نویسی</string>
-  <string name="conflict_dont_upload">آپلود نکن</string>
   <string name="preview_image_description">پیش نمایش تصویر</string>
   <string name="preview_image_error_unknown_format">نمایش این عکس امکانپذیر نمی باشد</string>
   <string name="share_link_file_error">در حین اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>

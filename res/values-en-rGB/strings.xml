@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Open</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">More</string>
   <string name="prefs_accounts">Accounts</string>
@@ -194,9 +195,7 @@
   <string name="confirmation_remove_alert">Do you really want to remove %1$s?</string>
   <string name="confirmation_remove_folder_alert">Do you really want to remove %1$s and its contents?</string>
   <string name="confirmation_remove_local">Local only</string>
-  <string name="confirmation_remove_folder_local">Local contents only</string>
-  <string name="confirmation_remove_remote">Remove from server</string>
-  <string name="confirmation_remove_remote_and_local">Remote and local</string>
+  <string name="confirmation_remove_folder_local">Local only</string>
   <string name="remove_success_msg">Removal succeeded</string>
   <string name="remove_fail_msg">Removal failed</string>
   <string name="rename_dialog_title">Enter a new name</string>
@@ -247,11 +246,7 @@
   <string name="instant_upload_on_wifi">Upload pictures via WiFi only</string>
   <string name="instant_video_upload_on_wifi">Upload videos via WiFi only</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Update conflict</string>
-  <string name="conflict_message">Remote file %s is not synchronised with local file. Continuing will replace content of file on server.</string>
   <string name="conflict_keep_both">Keep both</string>
-  <string name="conflict_overwrite">Overwrite</string>
-  <string name="conflict_dont_upload">Don\'t upload</string>
   <string name="preview_image_description">Image preview</string>
   <string name="preview_image_error_unknown_format">This image cannot be shown</string>
   <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local folder</string>

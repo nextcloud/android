@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Atvērt</string>
   <string name="prefs_category_general">Vispārīgi</string>
   <string name="prefs_category_more">Vairāk</string>
   <string name="prefs_accounts">Konti</string>
@@ -117,9 +118,7 @@
   <string name="common_rename">Pārsaukt</string>
   <string name="common_remove">Izņemt</string>
   <string name="confirmation_remove_local">Tikai lokālos</string>
-  <string name="confirmation_remove_folder_local">Tikai lokālo saturu</string>
-  <string name="confirmation_remove_remote">Izņemt no servera</string>
-  <string name="confirmation_remove_remote_and_local">Attālinātās un lokālās</string>
+  <string name="confirmation_remove_folder_local">Tikai lokālos</string>
   <string name="remove_success_msg">Veiksmīgi izņemts</string>
   <string name="remove_fail_msg">Neizdevās izņemt</string>
   <string name="rename_dialog_title">Ievadīt jaunu nosaukumu</string>
@@ -154,11 +153,7 @@
   <string name="ssl_validator_label_signature_algorithm">Algoritms:</string>
   <string name="instant_upload_on_wifi">Attēlus augšupielādēt tikai caur WiFi</string>
   <string name="instant_upload_path">/TūlītējaAugšupielāde</string>
-  <string name="conflict_title">Atjaunināšanas konflikts</string>
-  <string name="conflict_message">Attālinātā datne %s nav sinhronizēta ar lokālo datni. Turpināšana aizstās datņu servera saturu.</string>
   <string name="conflict_keep_both">Paturēt abas</string>
-  <string name="conflict_overwrite">Pārrakstīt</string>
-  <string name="conflict_dont_upload">Neaugšupielādēt</string>
   <string name="activity_chooser_send_file_title">Sūtīt</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Konti</string>

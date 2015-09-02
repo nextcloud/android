@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">الإعدادات</string>
   <string name="drawer_item_logs">سجلّ</string>
   <string name="drawer_close">إغلاق</string>
+  <string name="drawer_open">افتح</string>
   <string name="prefs_category_general">عام</string>
   <string name="prefs_category_more">المزيد</string>
   <string name="prefs_accounts">حسابات</string>
@@ -184,9 +185,7 @@
   <string name="confirmation_remove_alert">هل تريد حقاً حذف %1$s ؟</string>
   <string name="confirmation_remove_folder_alert">هل ترغب في حذف %1$s و جهات الإتصال التابعة له؟ </string>
   <string name="confirmation_remove_local">محليا فقط</string>
-  <string name="confirmation_remove_folder_local">المحتويات المحلية فقط</string>
-  <string name="confirmation_remove_remote">الحذف من الخادم</string>
-  <string name="confirmation_remove_remote_and_local">محليا و عن بعد</string>
+  <string name="confirmation_remove_folder_local">محليا فقط</string>
   <string name="remove_success_msg">تم الحذف بنجاح</string>
   <string name="remove_fail_msg">فشل الحذف</string>
   <string name="rename_dialog_title">أدخل اسما جديدا</string>
@@ -236,11 +235,7 @@
   <string name="instant_upload_on_wifi">رفع الصور من خلال الـ WiFi فقط</string>
   <string name="instant_video_upload_on_wifi">رفع فيديو عبر الواي فاي حصراً</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">تعارض في التحديث </string>
-  <string name="conflict_message">الملف %s غير </string>
   <string name="conflict_keep_both">الاحتفاظ بالنسختين</string>
-  <string name="conflict_overwrite">استبدال</string>
-  <string name="conflict_dont_upload">عدم الرفع</string>
   <string name="preview_image_description">معاينة الصورة</string>
   <string name="preview_image_error_unknown_format">لا يمكن عرض هذه الصورة</string>
   <string name="error__upload__local_file_not_copied">%1$s تعذر نسخه %2$s للمجلد المحلي</string>
