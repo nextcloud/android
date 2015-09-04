@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Paramètres</string>
   <string name="drawer_item_logs">Logs</string>
   <string name="drawer_close">Fermer</string>
+  <string name="drawer_open">Ouvrir</string>
   <string name="prefs_category_general">Général</string>
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_accounts">Comptes</string>
@@ -205,9 +206,9 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="confirmation_remove_alert">Voulez-vous vraiment supprimer %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et son contenu ?</string>
   <string name="confirmation_remove_local">Local seulement</string>
-  <string name="confirmation_remove_folder_local">Contenu local uniquement</string>
-  <string name="confirmation_remove_remote">Effacer du serveur</string>
-  <string name="confirmation_remove_remote_and_local">Distant et local</string>
+  <string name="confirmation_remove_folder_local">Local seulement</string>
+  <string name="confirmation_remove_remote">Depuis le serveur</string>
+  <string name="confirmation_remove_remote_and_local">Distant &amp; local</string>
   <string name="remove_success_msg">Suppression effectuée avec succès</string>
   <string name="remove_fail_msg">Suppression impossible</string>
   <string name="rename_dialog_title">Entrez un nouveau nom</string>
@@ -262,8 +263,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="conflict_title">Conflit de fichiers</string>
   <string name="conflict_message">Quel(s) fichier(s) voulez-vous garder ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
   <string name="conflict_keep_both">Garder les deux versions</string>
-  <string name="conflict_use_local_version">Utiliser la version locale</string>
-  <string name="conflict_use_server_version">Utiliser la version du serveur</string>
+  <string name="conflict_use_local_version">version locale</string>
+  <string name="conflict_use_server_version">version serveur</string>
   <string name="preview_image_description">Prévisualisation de l\'image</string>
   <string name="preview_image_error_unknown_format">Cette image ne peut pas être affichée</string>
   <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>

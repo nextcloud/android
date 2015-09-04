@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Налаштування</string>
   <string name="drawer_item_logs">Журнали</string>
   <string name="drawer_close">Закрити</string>
+  <string name="drawer_open">Відкрити</string>
   <string name="prefs_category_general">Основне</string>
   <string name="prefs_category_more">Більше</string>
   <string name="prefs_accounts">Облікові записи</string>
@@ -188,9 +189,7 @@
   <string name="confirmation_remove_alert">Ви дійсно бажаєте видалити %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ви дійсно бажаєте видалити %1$s та весь вміст?</string>
   <string name="confirmation_remove_local">Лише локально</string>
-  <string name="confirmation_remove_folder_local">Лише локальний зміст</string>
-  <string name="confirmation_remove_remote">Видалити із серверу</string>
-  <string name="confirmation_remove_remote_and_local">Віддалено і локально</string>
+  <string name="confirmation_remove_folder_local">Лише локально</string>
   <string name="remove_success_msg">Успішно видалено</string>
   <string name="remove_fail_msg">Видалення не вдалось</string>
   <string name="rename_dialog_title">Введіть нове ім\'я</string>

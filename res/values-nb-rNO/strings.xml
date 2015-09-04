@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Innstillinger</string>
   <string name="drawer_item_logs">Logger</string>
   <string name="drawer_close">Lukk</string>
+  <string name="drawer_open">Åpne</string>
   <string name="prefs_category_general">Generelt</string>
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Kontoer</string>
@@ -200,9 +201,7 @@
   <string name="confirmation_remove_alert">Vil du virkelig fjerne %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vil du virkelig fjerne %1$s inkludert innholdet?</string>
   <string name="confirmation_remove_local">Kun lokalt</string>
-  <string name="confirmation_remove_folder_local">Kun lokalt innhold</string>
-  <string name="confirmation_remove_remote">Fjern fra server</string>
-  <string name="confirmation_remove_remote_and_local">Ekstern og lokal</string>
+  <string name="confirmation_remove_folder_local">Kun lokalt</string>
   <string name="remove_success_msg">Fjerning var vellykket</string>
   <string name="remove_fail_msg">Fjerning mislyktes</string>
   <string name="rename_dialog_title">Skriv inn et nytt navn</string>

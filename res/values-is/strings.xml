@@ -10,6 +10,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Opna</string>
   <string name="prefs_category_more">Meira</string>
   <string name="prefs_help">Hjálp</string>
   <string name="auth_username">Notendanafn</string>
@@ -19,6 +20,7 @@
   <string name="file_list_seconds_ago">sek.</string>
   <string name="file_list_empty">Ekkert hér. Settu eitthvað inn!</string>
   <string name="filedetails_download">Niðurhal</string>
+  <string name="action_share_file">Deila hlekk</string>
   <string name="common_yes">Já</string>
   <string name="common_no">Nei</string>
   <string name="common_ok">Í lagi</string>
@@ -31,6 +33,7 @@
   <string name="common_remove">Fjarlægja</string>
   <string name="activity_chooser_send_file_title">Senda</string>
   <string name="empty"></string>
+  <string name="actionbar_move">Færa</string>
   <string name="folder_picker_choose_button_text">Veldu</string>
   <string name="auth_host_address">Host nafn netþjóns</string>
 </resources>

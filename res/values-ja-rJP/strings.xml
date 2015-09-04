@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">設定</string>
   <string name="drawer_item_logs">ログ</string>
   <string name="drawer_close">閉じる</string>
+  <string name="drawer_open">開く</string>
   <string name="prefs_category_general">一般</string>
   <string name="prefs_category_more">もっと見る</string>
   <string name="prefs_accounts">アカウント</string>
@@ -201,9 +202,7 @@
   <string name="confirmation_remove_alert">本当に %1$s を削除しますか？</string>
   <string name="confirmation_remove_folder_alert">本当に %1$s およびそのコンテンツを削除してもよろしいですか？</string>
   <string name="confirmation_remove_local">ローカルのみ</string>
-  <string name="confirmation_remove_folder_local">ローカルコンテンツのみ</string>
-  <string name="confirmation_remove_remote">サーバーから削除</string>
-  <string name="confirmation_remove_remote_and_local">リモートとローカルの両方</string>
+  <string name="confirmation_remove_folder_local">ローカルのみ</string>
   <string name="remove_success_msg">削除に成功しました</string>
   <string name="remove_fail_msg">削除を完了できませんでした</string>
   <string name="rename_dialog_title">新しい名前を入力</string>
@@ -258,8 +257,6 @@
   <string name="conflict_title">ファイルが競合</string>
   <string name="conflict_message">どちらのファイルを保存したいですか？両方のバージョンを選択した場合は、ファイル名の後ろに数字を追加したファイルのコピーを作成します。</string>
   <string name="conflict_keep_both">両方を保持</string>
-  <string name="conflict_use_local_version">手元のファイルで上書き</string>
-  <string name="conflict_use_server_version">サーバーのファイルで上書き</string>
   <string name="preview_image_description">イメージプレビュー</string>
   <string name="preview_image_error_unknown_format">この画像は表示できません</string>
   <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>

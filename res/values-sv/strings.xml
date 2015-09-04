@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Öppna</string>
   <string name="prefs_category_general">Allmänt</string>
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Konton</string>
@@ -182,9 +183,7 @@
   <string name="confirmation_remove_alert">Vill du verkligen ta bort %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
   <string name="confirmation_remove_local">Endast lokalt</string>
-  <string name="confirmation_remove_folder_local">Endast lokalt innehåll</string>
-  <string name="confirmation_remove_remote">Radera från server</string>
-  <string name="confirmation_remove_remote_and_local">Både server och lokalt</string>
+  <string name="confirmation_remove_folder_local">Endast lokalt</string>
   <string name="remove_success_msg">Lyckad radering</string>
   <string name="remove_fail_msg">Radering kunde inte slutföras</string>
   <string name="rename_dialog_title">Ange ett nytt namn</string>

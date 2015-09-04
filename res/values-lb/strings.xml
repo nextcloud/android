@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Opmaachen</string>
   <string name="prefs_category_general">Allgemeng</string>
   <string name="prefs_category_more">Méi</string>
   <string name="prefs_accounts">Konten</string>
@@ -145,9 +146,7 @@
   <string name="confirmation_remove_alert">Wëlls du %1$s wierklech läschen?</string>
   <string name="confirmation_remove_folder_alert">Wëlls du %1$s an de ganzen Inhalt wierklech läschen?</string>
   <string name="confirmation_remove_local">Nemme lokal</string>
-  <string name="confirmation_remove_folder_local">Nëmme lokal Inhalter</string>
-  <string name="confirmation_remove_remote">Vum Server läschen</string>
-  <string name="confirmation_remove_remote_and_local">Um Server a lokal</string>
+  <string name="confirmation_remove_folder_local">Nemme lokal</string>
   <string name="remove_success_msg">Erfollegräich geläscht</string>
   <string name="remove_fail_msg">Läsche feelgeschloen</string>
   <string name="rename_dialog_title">Gëff en neien Numm an</string>
