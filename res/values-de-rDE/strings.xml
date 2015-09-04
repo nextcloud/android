@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Einstellungen</string>
   <string name="drawer_item_logs">Protokolle</string>
   <string name="drawer_close">Schließen</string>
+  <string name="drawer_open">Öffnen</string>
   <string name="prefs_category_general">Allgemein</string>
   <string name="prefs_category_more">Mehr</string>
   <string name="prefs_accounts">Konten</string>
@@ -201,8 +202,6 @@
   <string name="confirmation_remove_folder_alert">Möchten Sie wirklich %1$s und dessen Inhalte entfernen?</string>
   <string name="confirmation_remove_local">Nur lokal</string>
   <string name="confirmation_remove_folder_local">Nur lokal</string>
-  <string name="confirmation_remove_remote">Vom Server</string>
-  <string name="confirmation_remove_remote_and_local">Lokal &amp; Server</string>
   <string name="remove_success_msg">Erfolgreich gelöscht</string>
   <string name="remove_fail_msg">Der Löschvorgang konnte nicht beendet werden</string>
   <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>
@@ -229,7 +228,7 @@
   <string name="ssl_validator_question">Möchten Sie diesem Zertifikat trotzdem vertrauen?</string>
   <string name="ssl_validator_not_saved">Das Zertifikat konnte nicht gespeichert werden</string>
   <string name="ssl_validator_btn_details_see">Details</string>
-  <string name="ssl_validator_btn_details_hide">Überblick</string>
+  <string name="ssl_validator_btn_details_hide">Ausblenden</string>
   <string name="ssl_validator_label_subject">Ausgestellt für:</string>
   <string name="ssl_validator_label_issuer">Ausgestellt von:</string>
   <string name="ssl_validator_label_CN">Üblicher Name:</string>
@@ -256,9 +255,7 @@
   <string name="instant_upload_path">/SofortUpload</string>
   <string name="conflict_title">Dateikonflikt</string>
   <string name="conflict_message">Welche Datei möchtest du behalten? Wenn du beide Versionen auswählst, wird der lokalen Datei eine Zahl am Ende Ihres Dateiname angehangen.</string>
-  <string name="conflict_keep_both">Beide</string>
-  <string name="conflict_use_local_version">lokale Version</string>
-  <string name="conflict_use_server_version">Server Version</string>
+  <string name="conflict_keep_both">Beide behalten</string>
   <string name="preview_image_description">Bildvorschau</string>
   <string name="preview_image_error_unknown_format">Dieses Bild kann nicht angezeigt werden</string>
   <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>

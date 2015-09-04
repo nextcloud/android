@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">ตั้งค่า</string>
   <string name="drawer_item_logs">บันทึก</string>
   <string name="drawer_close">ปิด</string>
+  <string name="drawer_open">เปิด</string>
   <string name="prefs_category_general">ทั่วไป</string>
   <string name="prefs_category_more">เพิ่มเติม</string>
   <string name="prefs_accounts">บัญชี</string>
@@ -199,9 +200,9 @@
   <string name="confirmation_remove_alert">คุณต้องการที่จะลบ %1$s?</string>
   <string name="confirmation_remove_folder_alert">คุณต้องการที่จะลบ %1$s และเนื้อหาของมัน?</string>
   <string name="confirmation_remove_local">เฉพาะต้นทางเท่านั้น</string>
-  <string name="confirmation_remove_folder_local">เนื้อหาต้นทางเท่านั้น</string>
-  <string name="confirmation_remove_remote">ลบออกจากเซิร์ฟเวอร์</string>
-  <string name="confirmation_remove_remote_and_local">ต้นทางและปลายทาง</string>
+  <string name="confirmation_remove_folder_local">เฉพาะต้นทางเท่านั้น</string>
+  <string name="confirmation_remove_remote">จากเซิฟเวอร์</string>
+  <string name="confirmation_remove_remote_and_local">รีโมท &amp; ต้นทาง</string>
   <string name="remove_success_msg">ลบเรียบร้อยแล้ว</string>
   <string name="remove_fail_msg">ไม่สามารถลบได้</string>
   <string name="rename_dialog_title">กรอกชื่อใหม่</string>
@@ -256,8 +257,8 @@
   <string name="conflict_title">ไฟล์ที่ขัดแย้ง</string>
   <string name="conflict_message">ไฟล์ใดที่คุณต้องการที่จะเก็บ? หากคุณเลือกทั้งสองรุ่น ไฟล์ต้นทางจะมีจำนวนชื่อเพิ่ม</string>
   <string name="conflict_keep_both">เก็บไว้ทั้งสองอย่าง</string>
-  <string name="conflict_use_local_version">ใช้รุ่นทั่วไป</string>
-  <string name="conflict_use_server_version">ใช้รุ่นของเซิร์ฟเวอร์</string>
+  <string name="conflict_use_local_version">เวอร์ชันต้นทาง</string>
+  <string name="conflict_use_server_version">เวอร์ชันเซิฟเวอร์</string>
   <string name="preview_image_description">แสดงรูปภาพตัวอย่าง</string>
   <string name="preview_image_error_unknown_format">ไม่สามารถแสดงรูปภาพนี้ได้</string>
   <string name="error__upload__local_file_not_copied">%1$s ไม่สามารถคัดลอกไปยังโฟลเดอร์ %2$s ในเครื่อง</string>

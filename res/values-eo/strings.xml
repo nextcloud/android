@@ -16,6 +16,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Malfermi</string>
   <string name="prefs_category_general">Ĝeneralo</string>
   <string name="prefs_category_more">Pli</string>
   <string name="prefs_accounts">Kontoj</string>
@@ -124,9 +125,7 @@
   <string name="confirmation_remove_alert">Ĉu vi vere volas forigi %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ĉu vi vere volas forigi %1$s kaj ĝia enhavo?</string>
   <string name="confirmation_remove_local">Nur loka</string>
-  <string name="confirmation_remove_folder_local">Nur lokaj enhavoj</string>
-  <string name="confirmation_remove_remote">Forigi el la servilo</string>
-  <string name="confirmation_remove_remote_and_local">Kaj malloka kaj loka</string>
+  <string name="confirmation_remove_folder_local">Nur loka</string>
   <string name="remove_success_msg">Forigo sukcesis</string>
   <string name="remove_fail_msg">Forigo ne eblis plenumiĝi</string>
   <string name="rename_dialog_title">Enigu novan nomon</string>

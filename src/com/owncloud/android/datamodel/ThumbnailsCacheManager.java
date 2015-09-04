@@ -33,7 +33,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -259,10 +261,16 @@ public class ThumbnailsCacheManager {
                 int px = getThumbnailDimension();
 
                 if (file.isDown()) {
-                    Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
+                    Bitmap temp = BitmapUtils.decodeSampledBitmapFromFile(
                             file.getStoragePath(), px, px);
+                    Bitmap bitmap = ThumbnailUtils.extractThumbnail(temp, px, px);
 
                     if (bitmap != null) {
+                        // Handle PNG
+                        if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                            bitmap = handlePNG(bitmap, px);
+                        }
+
                         thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), px);
 
                         file.setNeedsUpdateThumbnail(false);
@@ -282,12 +290,14 @@ public class ThumbnailsCacheManager {
                                 GetMethod get = new GetMethod(uri);
                                 int status = mClient.executeMethod(get);
                                 if (status == HttpStatus.SC_OK) {
-//                                    byte[] bytes = get.getResponseBody();
-//                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
-//                                            bytes.length);
                                     InputStream inputStream = get.getResponseBodyAsStream();
                                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                     thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+
+                                    // Handle PNG
+                                    if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                                        thumbnail = handlePNG(thumbnail, px);
+                                    }
 
                                     // Add thumbnail to cache
                                     if (thumbnail != null) {
@@ -306,6 +316,19 @@ public class ThumbnailsCacheManager {
 
             return thumbnail;
 
+        }
+
+        private Bitmap handlePNG(Bitmap bitmap, int px){
+            Bitmap resultBitmap = Bitmap.createBitmap(px,
+                    px,
+                    Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(resultBitmap);
+
+            c.drawColor(MainApp.getAppContext().getResources().
+                    getColor(R.color.background_color));
+            c.drawBitmap(bitmap, 0, 0, null);
+
+            return resultBitmap;
         }
 
         private Bitmap doFileInBackground() {

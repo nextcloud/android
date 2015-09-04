@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Pengaturan</string>
   <string name="drawer_item_logs">Log</string>
   <string name="drawer_close">Tutup</string>
+  <string name="drawer_open">Buka</string>
   <string name="prefs_category_general">Umum</string>
   <string name="prefs_category_more">Lainnya</string>
   <string name="prefs_accounts">Akun</string>
@@ -200,9 +201,9 @@
   <string name="confirmation_remove_alert">Apakah Anda yakin ingin menghapus %1$s?</string>
   <string name="confirmation_remove_folder_alert">Apakah Anda yakin ingin menghapus %1$s dan isinya?</string>
   <string name="confirmation_remove_local">Lokal saja</string>
-  <string name="confirmation_remove_folder_local">Konten lokal saja</string>
-  <string name="confirmation_remove_remote">Hapus dari server</string>
-  <string name="confirmation_remove_remote_and_local">Jarak jauh dan lokal</string>
+  <string name="confirmation_remove_folder_local">Lokal saja</string>
+  <string name="confirmation_remove_remote">Dari server</string>
+  <string name="confirmation_remove_remote_and_local">Remot &amp; lokal</string>
   <string name="remove_success_msg">Penghapusan berhasil</string>
   <string name="remove_fail_msg">Penghapusan gagal</string>
   <string name="rename_dialog_title">Masukkan nama baru</string>
@@ -257,8 +258,8 @@
   <string name="conflict_title">Berkas konflik</string>
   <string name="conflict_message">Berkas mana yang ingin Anda simpan? Jika Anda memilih kedua versi, berkas lokal akan memiliki angka yang ditambahkan pada namanya.</string>
   <string name="conflict_keep_both">Biarkan keduannya</string>
-  <string name="conflict_use_local_version">Gunakan versi lokal</string>
-  <string name="conflict_use_server_version">Gunakan versi server</string>
+  <string name="conflict_use_local_version">versi lokal</string>
+  <string name="conflict_use_server_version">versi server</string>
   <string name="preview_image_description">Pratilik gambar</string>
   <string name="preview_image_error_unknown_format">Gambar ini tidak dapat ditampilkan</string>
   <string name="error__upload__local_file_not_copied">%1$s tidak dapat disalin ke folder lokal %2$s</string>

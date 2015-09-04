@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Отвори</string>
   <string name="prefs_category_general">Општо</string>
   <string name="prefs_category_more">Повеќе</string>
   <string name="prefs_accounts">Сметки</string>
@@ -192,9 +193,7 @@
   <string name="confirmation_remove_alert">Дали навистина сакаш да ја отстраниш %1$s?</string>
   <string name="confirmation_remove_folder_alert">Дали навистина сакаш да го отстранам %1$s и неговата содржина?</string>
   <string name="confirmation_remove_local">Само локално</string>
-  <string name="confirmation_remove_folder_local">Само локална содржина</string>
-  <string name="confirmation_remove_remote">Отстрани од серверот</string>
-  <string name="confirmation_remove_remote_and_local">Далечинско и локално</string>
+  <string name="confirmation_remove_folder_local">Само локално</string>
   <string name="remove_success_msg">Одстранувањето е успешно</string>
   <string name="remove_fail_msg">Одстранувањето е неуспешно</string>
   <string name="rename_dialog_title">Внеси ново име</string>

@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Mở</string>
   <string name="prefs_category_general">Tổng hợp</string>
   <string name="prefs_category_more">hơn</string>
   <string name="prefs_accounts">Tài khoản</string>
@@ -154,9 +155,7 @@
   <string name="common_rename">Sửa tên</string>
   <string name="common_remove">Xóa</string>
   <string name="confirmation_remove_local">Chỉ cục bộ</string>
-  <string name="confirmation_remove_folder_local">Chỉ nội dung trên máy</string>
-  <string name="confirmation_remove_remote">Xóa từ máy chủ</string>
-  <string name="confirmation_remove_remote_and_local">Remote và local</string>
+  <string name="confirmation_remove_folder_local">Chỉ cục bộ</string>
   <string name="remove_success_msg">Xóa thành công</string>
   <string name="remove_fail_msg">Xóa không thành công</string>
   <string name="rename_dialog_title">Nhập tên mới</string>

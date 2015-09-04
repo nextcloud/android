@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Definições</string>
   <string name="drawer_item_logs">Registos de Alterações</string>
   <string name="drawer_close">Fechar</string>
+  <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">Geral</string>
   <string name="prefs_category_more">Mais</string>
   <string name="prefs_accounts">Contas</string>
@@ -199,9 +200,7 @@
   <string name="confirmation_remove_alert">Tem a certeza que deseja remover %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Deseja realmente remover %1$s e o seu conteúdo?</string>
   <string name="confirmation_remove_local">Apenas localmente</string>
-  <string name="confirmation_remove_folder_local">So conteúdos locais</string>
-  <string name="confirmation_remove_remote">Apagar do servidor</string>
-  <string name="confirmation_remove_remote_and_local">ambos os remoto e local</string>
+  <string name="confirmation_remove_folder_local">Apenas localmente</string>
   <string name="remove_success_msg">Removido com sucesso</string>
   <string name="remove_fail_msg">Não foi possível remover</string>
   <string name="rename_dialog_title">Introduza um novo nome</string>
@@ -256,8 +255,6 @@
   <string name="conflict_title">Conflito de ficheiro</string>
   <string name="conflict_message">Quais os ficheiros que pretende manter? Se selecionar ambas as versões, o ficheiro local irá ter um número adicionado ao seu nome.</string>
   <string name="conflict_keep_both">Manter ambos</string>
-  <string name="conflict_use_local_version">Usar versão local</string>
-  <string name="conflict_use_server_version">Usar versão do servidor</string>
   <string name="preview_image_description">Pré-Visualizar imagem</string>
   <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
   <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>

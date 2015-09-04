@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Configurações</string>
   <string name="drawer_item_logs">Logs</string>
   <string name="drawer_close">Fechar</string>
+  <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">Geral</string>
   <string name="prefs_category_more">Mais</string>
   <string name="prefs_accounts">Contas</string>
@@ -200,9 +201,9 @@
   <string name="confirmation_remove_alert">Você realmente deseja remover %1$s?</string>
   <string name="confirmation_remove_folder_alert">Você realmente deseja remover %1$s e seus conteúdos?</string>
   <string name="confirmation_remove_local">Somente local</string>
-  <string name="confirmation_remove_folder_local">Somente conteúdo local</string>
-  <string name="confirmation_remove_remote">Remover do servidor</string>
-  <string name="confirmation_remove_remote_and_local">Ambos remoto e local</string>
+  <string name="confirmation_remove_folder_local">Somente local</string>
+  <string name="confirmation_remove_remote">Do servidor</string>
+  <string name="confirmation_remove_remote_and_local">Remoto &amp; local</string>
   <string name="remove_success_msg">Removido com sucesso</string>
   <string name="remove_fail_msg">Erro ao remover</string>
   <string name="rename_dialog_title">Digite um novo nome</string>
@@ -257,8 +258,8 @@
   <string name="conflict_title">Conflito de arquivo</string>
   <string name="conflict_message">Quais arquivos você deseja manter? Se você selecionar ambas as versões, o arquivo local terá um número adicionado ao seu nome.</string>
   <string name="conflict_keep_both">Manter ambos</string>
-  <string name="conflict_use_local_version">Usar a versão local</string>
-  <string name="conflict_use_server_version">Usar a versão servidor</string>
+  <string name="conflict_use_local_version">versão local</string>
+  <string name="conflict_use_server_version">versão do servidor</string>
   <string name="preview_image_description">Pré-visualização da imagem</string>
   <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
   <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>

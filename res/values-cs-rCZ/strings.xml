@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Nastavení</string>
   <string name="drawer_item_logs">Logy</string>
   <string name="drawer_close">Zavřít</string>
+  <string name="drawer_open">Otevřít</string>
   <string name="prefs_category_general">Obecné</string>
   <string name="prefs_category_more">Více</string>
   <string name="prefs_accounts">Účty</string>
@@ -199,9 +200,9 @@
   <string name="confirmation_remove_alert">Opravdu chcete odstranit %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Opravdu chcete odstranit %1$s a jeho obsah?</string>
   <string name="confirmation_remove_local">Pouze místní</string>
-  <string name="confirmation_remove_folder_local">Pouze místní obsah</string>
-  <string name="confirmation_remove_remote">Odstranit ze serveru</string>
-  <string name="confirmation_remove_remote_and_local">Oboje, místní i vzdálené</string>
+  <string name="confirmation_remove_folder_local">Pouze místní</string>
+  <string name="confirmation_remove_remote">Ze serveru</string>
+  <string name="confirmation_remove_remote_and_local">Vzdálený &amp; místní</string>
   <string name="remove_success_msg">Úspěšně odstraněno</string>
   <string name="remove_fail_msg">Odstranění nelze dokončit</string>
   <string name="rename_dialog_title">Zadejte nový název</string>
@@ -256,8 +257,8 @@
   <string name="conflict_title">Konflikt souboru</string>
   <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
   <string name="conflict_keep_both">Ponechat oba</string>
-  <string name="conflict_use_local_version">Použít lokální verzi</string>
-  <string name="conflict_use_server_version">Použít serverovou verzi</string>
+  <string name="conflict_use_local_version">místní verze</string>
+  <string name="conflict_use_server_version">serverová verze</string>
   <string name="preview_image_description">Náhled obrázku</string>
   <string name="preview_image_error_unknown_format">Obrázek nelze zobrazit</string>
   <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>

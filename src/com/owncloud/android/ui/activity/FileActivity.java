@@ -520,7 +520,7 @@ public class FileActivity extends AppCompatActivity
      */
     private void swapToDefaultAccount() {
         // default to the most recently used account
-        Account newAccount  = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        Account newAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
         if (newAccount == null) {
             /// no account available: force account creation
             createFirstAccount();
@@ -612,7 +612,7 @@ public class FileActivity extends AppCompatActivity
     }
 
     /**
-     * @return  'True' when the Activity is finishing to enforce the setup of a new account.
+     * @return 'True' when the Activity is finishing to enforce the setup of a new account.
      */
     protected boolean isRedirectingToSetupAccount() {
         return mRedirectingToSetupAccount;
@@ -762,6 +762,7 @@ public class FileActivity extends AppCompatActivity
     }
 
 
+
     private void onCreateShareOperationFinish(CreateShareOperation operation,
                                               RemoteOperationResult result) {
         dismissLoadingDialog();
@@ -867,7 +868,7 @@ public class FileActivity extends AppCompatActivity
     /**
      * Dismiss loading dialog
      */
-    public void dismissLoadingDialog(){
+    public void dismissLoadingDialog() {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
         if (frag != null) {
             LoadingDialog loading = (LoadingDialog) frag;

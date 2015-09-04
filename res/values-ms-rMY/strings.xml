@@ -18,6 +18,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Buka</string>
   <string name="prefs_category_general">Umum</string>
   <string name="prefs_category_more">Lanjutan</string>
   <string name="prefs_accounts">Akaun</string>
@@ -55,6 +56,7 @@
   <string name="common_rename">Namakan</string>
   <string name="common_remove">Buang</string>
   <string name="confirmation_remove_local">Lokal sahaja</string>
+  <string name="confirmation_remove_folder_local">Lokal sahaja</string>
   <string name="activity_chooser_send_file_title">Hantar</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Akaun</string>
