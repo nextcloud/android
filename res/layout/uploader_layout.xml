@@ -53,13 +53,10 @@
 	    android:orientation="horizontal" >
 
 		<android.support.v7.widget.AppCompatButton
-<<<<<<< HEAD
 		    android:id="@+id/uploader_new_folder"
 			android:theme="@style/Button"
-=======
 		    android:id="@+id/uploader_cancel"
 			style="@style/ownCloud.Button"
->>>>>>> f787213cd1cae854c169d263d3636e1de4dffa94
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_gravity="bottom"
