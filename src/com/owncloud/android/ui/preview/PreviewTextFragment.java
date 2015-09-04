@@ -391,13 +391,14 @@ public class PreviewTextFragment extends FileFragment {
      * @return 'True' if the file can be handled by the fragment.
      */
     public static boolean canBePreviewed(OCFile file) {
-        final List<String> supportedTypes = new LinkedList<String>();
-        supportedTypes.add("text/plain");
-        supportedTypes.add("text/html");
-        supportedTypes.add("text/css");
-        supportedTypes.add("text/csv");
-
-        return (file != null && file.isDown() && supportedTypes.contains(file.getMimetype()));
+        final List<String> unsupportedTypes = new LinkedList<String>();
+        unsupportedTypes.add("text/richtext");
+        unsupportedTypes.add("text/vnd.abc");
+        unsupportedTypes.add("text/vnd.fmi.flexstor");
+        unsupportedTypes.add("text/vnd.rn-realtext");
+        unsupportedTypes.add("text/vnd.wap.wml");
+        unsupportedTypes.add("text/vnd.wap.wmlscript");
+        return (file != null && file.isDown() && file.isText() && !unsupportedTypes.contains(file.getMimetype()));
     }
 
     /**

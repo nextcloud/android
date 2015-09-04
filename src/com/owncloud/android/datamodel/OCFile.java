@@ -548,6 +548,14 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
                 getMimeTypeFromName().startsWith("image/"));
     }
 
+    /**
+     * @return 'True' if the file is simple text (e.g. not application-dependent, like .doc or .docx)
+     */
+    public boolean isText() {
+        return ((mMimeType != null && mMimeType.startsWith("text/")) ||
+                getMimeTypeFromName().startsWith("text/"));
+    }
+
     public String getMimeTypeFromName() {
         String extension = "";
         int pos = mRemotePath.lastIndexOf('.');
