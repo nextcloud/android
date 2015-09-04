@@ -75,11 +75,11 @@ public class PreviewImageFragment extends FileFragment {
     private ProgressBar mProgressWheel;
 
     public Bitmap mBitmap = null;
-    
+
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
 
     private boolean mIgnoreFirstSavedState;
-    
+
     private LoadBitmapTask mLoadBitmapTask = null;
 
 
@@ -106,7 +106,7 @@ public class PreviewImageFragment extends FileFragment {
         return frag;
     }
 
-    
+
     
     /**
      *  Creates an empty fragment for image previews.
@@ -120,8 +120,8 @@ public class PreviewImageFragment extends FileFragment {
     public PreviewImageFragment() {
         mIgnoreFirstSavedState = false;
     }
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
@@ -136,14 +136,14 @@ public class PreviewImageFragment extends FileFragment {
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         setHasOptionsMenu(true);
     }
-    
+
 
     /**
      * {@inheritDoc}
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (TouchImageViewCustom) view.findViewById(R.id.image);
@@ -183,7 +183,7 @@ public class PreviewImageFragment extends FileFragment {
             throw new IllegalStateException("There is no local file to preview");
         }
     }
-        
+
 
     /**
      * {@inheritDoc}
@@ -193,7 +193,7 @@ public class PreviewImageFragment extends FileFragment {
         super.onSaveInstanceState(outState);
         outState.putParcelable(PreviewImageFragment.EXTRA_FILE, getFile());
     }
-    
+
 
     @Override
     public void onStart() {
@@ -205,8 +205,8 @@ public class PreviewImageFragment extends FileFragment {
             mLoadBitmapTask.execute(getFile());
         }
     }
-    
-    
+
+
     @Override
     public void onStop() {
         Log_OC.d(TAG, "onStop starts");
@@ -216,7 +216,7 @@ public class PreviewImageFragment extends FileFragment {
         }
         super.onStop();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -232,11 +232,11 @@ public class PreviewImageFragment extends FileFragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        
+
         if (mContainerActivity.getStorageManager() != null) {
             // Update the file
             setFile(mContainerActivity.getStorageManager().getFileById(getFile().getFileId()));
-            
+
             FileMenuFilter mf = new FileMenuFilter(
                 getFile(),
                 mContainerActivity.getStorageManager().getAccount(),
@@ -245,7 +245,7 @@ public class PreviewImageFragment extends FileFragment {
             );
             mf.filter(menu);
         }
-        
+
         // additional restriction for this fragment 
         // TODO allow renaming in PreviewImageFragment
         MenuItem item = menu.findItem(R.id.action_rename_file);
@@ -253,7 +253,7 @@ public class PreviewImageFragment extends FileFragment {
             item.setVisible(false);
             item.setEnabled(false);
         }
-        
+
         // additional restriction for this fragment 
         // TODO allow refresh file in PreviewImageFragment
         item = menu.findItem(R.id.action_sync_file);
@@ -268,11 +268,17 @@ public class PreviewImageFragment extends FileFragment {
             item.setVisible(false);
             item.setEnabled(false);
         }
-        
+
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_copy);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
     }
 
-    
-    
+
     /**
      * {@inheritDoc}
      */
@@ -320,10 +326,10 @@ public class PreviewImageFragment extends FileFragment {
                 return false;
         }
     }
-    
+
 
     private void seeDetails() {
-        mContainerActivity.showDetails(getFile());        
+        mContainerActivity.showDetails(getFile());
     }
 
 
@@ -350,7 +356,7 @@ public class PreviewImageFragment extends FileFragment {
         super.onDestroy();
     }
 
-    
+
     /**
      * Opens the previewed image with an external application.
      */
@@ -358,7 +364,7 @@ public class PreviewImageFragment extends FileFragment {
         mContainerActivity.getFileOperationsHelper().openFile(getFile());
         finish();
     }
-    
+
     
     private class LoadBitmapTask extends AsyncTask<OCFile, Void, LoadImage> {
 
@@ -378,7 +384,7 @@ public class PreviewImageFragment extends FileFragment {
          */
         private final WeakReference<TextView> mMessageViewRef;
 
-        
+
         /**
          * Weak reference to the target {@link ProgressBar} shown while the load is in progress.
          * 
@@ -387,17 +393,17 @@ public class PreviewImageFragment extends FileFragment {
          */
         private final WeakReference<ProgressBar> mProgressWheelRef;
 
-        
+
         /**
-         * Error message to show when a load fails 
+         * Error message to show when a load fails
          */
         private int mErrorMessageId;
-        
-        
+
+
         /**
          * Constructor.
-         * 
-         * @param imageView     Target {@link ImageView} where the bitmap will be loaded into.
+         *
+         * @param imageView Target {@link ImageView} where the bitmap will be loaded into.
          */
         public LoadBitmapTask(ImageViewCustom imageView, TextView messageView,
                               ProgressBar progressWheel) {
@@ -405,7 +411,7 @@ public class PreviewImageFragment extends FileFragment {
             mMessageViewRef = new WeakReference<TextView>(messageView);
             mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
         }
-        
+
         @Override
         protected LoadImage doInBackground(OCFile... params) {
             Bitmap result = null;
@@ -456,17 +462,18 @@ public class PreviewImageFragment extends FileFragment {
 
             } catch (NoSuchFieldError e) {
                 mErrorMessageId = R.string.common_error_unknown;
-                Log_OC.e(TAG, "Error from access to unexisting field despite protection; file " 
-                                + storagePath, e);
-                    
+                Log_OC.e(TAG, "Error from access to unexisting field despite protection; file "
+                        + storagePath, e);
+
             } catch (Throwable t) {
                 mErrorMessageId = R.string.common_error_unknown;
                 Log_OC.e(TAG, "Unexpected error loading " + getFile().getStoragePath(), t);
-                
+
             }
+
             return new LoadImage(result, ocFile);
         }
-        
+
         @Override
         protected void onCancelled(LoadImage result) {
             if (result.bitmap != null) {
@@ -479,7 +486,8 @@ public class PreviewImageFragment extends FileFragment {
             hideProgressWheel();
             if (result.bitmap != null) {
                 showLoadedImage(result);
-            } else {
+            }
+            else {
                 showErrorMessage();
             }
             if (result.bitmap != null && mBitmap != result.bitmap)  {
@@ -487,7 +495,7 @@ public class PreviewImageFragment extends FileFragment {
                 result.bitmap.recycle();
             }
         }
-        
+
         @SuppressLint("InlinedApi")
         private void showLoadedImage(LoadImage result) {
             final ImageViewCustom imageView = mImageViewRef.get();
@@ -511,7 +519,7 @@ public class PreviewImageFragment extends FileFragment {
                 messageView.setVisibility(View.GONE);
             } // else , silently finish, the fragment was destroyed
         }
-        
+
         private void showErrorMessage() {
             final ImageView imageView = mImageViewRef.get();
             if (imageView != null) {
@@ -525,14 +533,14 @@ public class PreviewImageFragment extends FileFragment {
                 messageView.setVisibility(View.VISIBLE);
             } // else , silently finish, the fragment was destroyed
         }
-        
+
         private void hideProgressWheel() {
             final ProgressBar progressWheel = mProgressWheelRef.get();
             if (progressWheel != null) {
                 progressWheel.setVisibility(View.GONE);
             }
         }
-        
+
     }
 
     /**
@@ -546,7 +554,7 @@ public class PreviewImageFragment extends FileFragment {
         return (file != null && file.isImage());
     }
 
-    
+
     /**
      * Finishes the preview
      */
@@ -554,7 +562,7 @@ public class PreviewImageFragment extends FileFragment {
         Activity container = getActivity();
         container.finish();
     }
-    
+
     public TouchImageViewCustom getImageView() {
         return mImageView;
     }

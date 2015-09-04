@@ -77,6 +77,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.MoveFileOperation;
@@ -136,6 +137,7 @@ public class FileDisplayActivity extends HookActivity
     public static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
     public static final int ACTION_SELECT_MULTIPLE_FILES = 2;
     public static final int ACTION_MOVE_FILES = 3;
+    public static final int ACTION_COPY_FILES = 4;
 
     private static final String TAG = FileDisplayActivity.class.getSimpleName();
 
@@ -184,7 +186,7 @@ public class FileDisplayActivity extends HookActivity
 
         // Inflate and set the layout view
         setContentView(R.layout.files);
-        
+
         // Navigation Drawer
         initDrawer();
 
@@ -624,8 +626,7 @@ public class FileDisplayActivity extends HookActivity
                 resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestMultipleUpload(data, resultCode);
 
-        } else if (requestCode == ACTION_MOVE_FILES && resultCode == RESULT_OK) {
-
+        } else if (requestCode == ACTION_MOVE_FILES && resultCode == RESULT_OK){
             final Intent fData = data;
             final int fResultCode = resultCode;
             getHandler().postDelayed(
@@ -633,6 +634,20 @@ public class FileDisplayActivity extends HookActivity
                         @Override
                         public void run() {
                             requestMoveOperation(fData, fResultCode);
+                        }
+                    },
+                    DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
+            );
+
+        } else if (requestCode == ACTION_COPY_FILES && resultCode == RESULT_OK) {
+
+            final Intent fData = data;
+            final int fResultCode = resultCode;
+            getHandler().postDelayed(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            requestCopyOperation(fData, fResultCode);
                         }
                     },
                     DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
@@ -753,6 +768,18 @@ public class FileDisplayActivity extends HookActivity
         getFileOperationsHelper().moveFile(folderToMoveAt, targetFile);
     }
 
+    /**
+     * Request the operation for copying the file/folder from one path to another
+     *
+     * @param data       Intent received
+     * @param resultCode Result code received
+     */
+    private void requestCopyOperation(Intent data, int resultCode) {
+        OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+        OCFile targetFile = data.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
+        getFileOperationsHelper().copyFile(folderToMoveAt, targetFile);
+    }
+
     @Override
     public void onBackPressed() {
         if (!isDrawerOpen()){
@@ -824,6 +851,7 @@ public class FileDisplayActivity extends HookActivity
         downloadIntentFilter.addAction(FileDownloader.getDownloadFinishMessage());
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
+
         Log_OC.v(TAG, "onResume() end");
 
     }
@@ -920,6 +948,7 @@ public class FileDisplayActivity extends HookActivity
                                 
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
                                     equals(event) &&/// TODO refactor and make common
+
                                 synchResult != null && !synchResult.isSuccess() &&
                                 (synchResult.getCode() == ResultCode.UNAUTHORIZED ||
                                         synchResult.isIdPRedirection() ||
@@ -1021,6 +1050,7 @@ public class FileDisplayActivity extends HookActivity
                 if (sameAccount && isDescendant) {
                     refreshListOfFilesFragment();
                 }
+
                 boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT,
                         false);
                 boolean renamedInUpload = getFile().getRemotePath().
@@ -1312,10 +1342,12 @@ public class FileDisplayActivity extends HookActivity
 
         } else if (operation instanceof MoveFileOperation) {
             onMoveFileOperationFinish((MoveFileOperation) operation, result);
+
+        } else if (operation instanceof CopyFileOperation) {
+            onCopyFileOperationFinish((CopyFileOperation) operation, result);
         }
 
     }
-    
     private void onCreateShareOperationFinish(CreateShareOperation operation,
                                               RemoteOperationResult result) {
         if (result.isSuccess()) {
@@ -1348,8 +1380,9 @@ public class FileDisplayActivity extends HookActivity
                 } else if (details instanceof PreviewTextFragment) {
                     // Refresh  OCFile of the fragment
                     ((PreviewTextFragment) details).updateFile(file);
-                } else
+                } else {
                     showDetails(file);
+                }
             }
             invalidateOptionsMenu();
         }
@@ -1365,6 +1398,7 @@ public class FileDisplayActivity extends HookActivity
     private void onRemoveFileOperationFinish(RemoveFileOperation operation,
                                              RemoteOperationResult result) {
         dismissLoadingDialog();
+
         Toast msg = Toast.makeText(this,
                 ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                 Toast.LENGTH_LONG);
@@ -1419,6 +1453,30 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying to copy a
+     * file.
+     *
+     * @param operation Copy operation performed.
+     * @param result    Result of the copy operation.
+     */
+    private void onCopyFileOperationFinish(CopyFileOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            dismissLoadingDialog();
+            refreshListOfFilesFragment();
+        } else {
+            dismissLoadingDialog();
+            try {
+                Toast msg = Toast.makeText(FileDisplayActivity.this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
+                msg.show();
+
+            } catch (NotFoundException e) {
+                Log_OC.e(TAG, "Error while trying to show fail message ", e);
+            }
+        }
+    }
 
     /**
      * Updates the view associated to the activity after the finish of an operation trying to rename
@@ -1458,7 +1516,7 @@ public class FileDisplayActivity extends HookActivity
                     }
                 }
             }
-            
+
             if (getStorageManager().getFileById(renamedFile.getParentId()).equals(getCurrentDir())){
                 refreshListOfFilesFragment();
             }
@@ -1641,7 +1699,7 @@ public class FileDisplayActivity extends HookActivity
 
     /**
      * Stars the preview of an already down media {@link OCFile}.
-     * 
+     *
      * @param file                      Media {@link OCFile} to preview.
      * @param startPlaybackPosition     Media position where the playback will be started,
      *                                  in milliseconds.
