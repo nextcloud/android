@@ -271,10 +271,6 @@
   <string name="unshare_link_file_error">Der opstod en fejl ved stopning af deling af denne mappe.</string>
   <string name="share_link_password_title">Angiv et kodeord</string>
   <string name="share_link_empty_password">Du skal angive et kodeord</string>
-  <string name="activity_chooser_send_file_title">Send</string>
-  <string name="copy_link">Kopiér link</string>
-  <string name="clipboard_text_copied">Kopieret til udklipsholder</string>
-  <string name="error_cant_bind_to_operations_service">Kritisk fejl: kan ikke udføre handlingerne</string>
   <string name="network_error_socket_exception">Der opstod en fejl under tilslutningen til serveren.</string>
   <string name="network_error_socket_timeout_exception">Der opstod en fejl mens vi ventede på serveren, handlingen kunne ikke gennemføres</string>
   <string name="network_error_connect_timeout_exception">Der opstod en fejl mens vi ventede på serveren, handlingen kunne ikke gennemføres</string>
@@ -290,7 +286,7 @@
   <string name="downloader_download_file_not_found">Filen er ikke længere tilgængelig på serveren</string>
   <string name="prefs_category_accounts">Konti</string>
   <string name="prefs_add_account">Tilføj konto</string>
-  <string name="auth_redirect_non_secure_connection_title">Sikker forbindelse videredirigeres til en usikker rute.</string>
+  <string name="auth_redirect_non_secure_connection_title">Sikker forbindelse videredirigeres gennem en usikker rute.</string>
   <string name="actionbar_logger">Logge</string>
   <string name="log_send_history_button">Send historik</string>
   <string name="log_send_no_mail_app">Der blev ikke fundet apps, der kan sende logge. Installér mail-app\'en!</string>
@@ -306,6 +302,7 @@
   <string name="move_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
   <string name="move_file_error">Der opstod en fejl under forsøg på at flytte denne mappe eller fil</string>
   <string name="forbidden_permissions_move">til at flytte denne fil</string>
+  <string name="copy_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
   <string name="prefs_category_instant_uploading">Øjeblikkelige uploads</string>
   <string name="prefs_category_security">Sikkerhed</string>
   <string name="prefs_instant_video_upload_path_title">Sti til videoupload</string>

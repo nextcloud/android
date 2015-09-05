@@ -240,10 +240,6 @@ Mesedez, baimendu berriz</string>
   <string name="share_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzerakoan</string>
   <string name="unshare_link_file_no_exist">Ezin izan da partekatzea desegin. Mesedez egiaztatu fitxategia existitzen dela</string>
   <string name="unshare_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzeari uzterakoan</string>
-  <string name="activity_chooser_send_file_title">Bidali</string>
-  <string name="copy_link">Lotura kopiatu</string>
-  <string name="clipboard_text_copied">Arbelera kopiatua</string>
-  <string name="error_cant_bind_to_operations_service">Errore larria: ezin dira egin eragiketak</string>
   <string name="network_error_socket_exception">Errore bat gertatu da zerbitzariarekin konektatzean.</string>
   <string name="network_error_socket_timeout_exception">Errore bat gertatu da zerbitzariaren zain egon bitartean, ezin izan da eragiketa burutu</string>
   <string name="network_error_connect_timeout_exception">Errore bat gertatu da zerbitzariaren zain egon bitartean, ezin izan da eragiketa burutu</string>
@@ -259,7 +255,7 @@ Mesedez, baimendu berriz</string>
   <string name="downloader_download_file_not_found">Fitxategia jadanik ez dago eskuragarri zerbitzarian</string>
   <string name="prefs_category_accounts">Kontuak</string>
   <string name="prefs_add_account">Gehitu kontua</string>
-  <string name="auth_redirect_non_secure_connection_title">Konexio segurua birbideratu da segurua ez den bide batera.</string>
+  <string name="auth_redirect_non_secure_connection_title">Konexio segurua birbideratu da segurua ez den bide batetik.</string>
   <string name="actionbar_logger">Egunkariak</string>
   <string name="log_send_history_button">Bidali Historia</string>
   <string name="log_send_no_mail_app">Egunkariak bidaltzeko aplikaziorik ez da aurkitu. Instalatu posta aplikazioa!</string>
@@ -274,6 +270,7 @@ Mesedez, baimendu berriz</string>
   <string name="move_file_invalid_overwrite">Fitxategia dagoeneko existitzen da helburuko karpetan</string>
   <string name="move_file_error">Errore bat gertatu da fitxategi edo karpeta hau mugitzen saiatzerakoan</string>
   <string name="forbidden_permissions_move">fitxategi hau mugitzeko</string>
+  <string name="copy_file_invalid_overwrite">Fitxategia dagoeneko existitzen da helburuko karpetan</string>
   <string name="prefs_category_instant_uploading">Berehalako Igoerak</string>
   <string name="prefs_category_security">Segurtasuna</string>
   <string name="prefs_instant_video_upload_path_title">Bideo Igoera Bidea</string>

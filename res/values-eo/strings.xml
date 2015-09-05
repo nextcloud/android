@@ -172,9 +172,6 @@
   <string name="error__upload__local_file_not_copied">%1$s ne povis kopiiĝi al la loka dosierujo %2$s</string>
   <string name="share_link_password_title">Enigu pasvorton</string>
   <string name="share_link_empty_password">Vi devas enigi pasvorton</string>
-  <string name="activity_chooser_send_file_title">Sendi</string>
-  <string name="copy_link">Kopii ligilon</string>
-  <string name="clipboard_text_copied">Kopiita en la tondejon</string>
   <string name="network_error_socket_exception">Eraro okazis dum konekto al la servilo.</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Kontoj</string>
@@ -183,6 +180,7 @@
   <string name="actionbar_move">Movi</string>
   <string name="folder_picker_choose_button_text">Elekti</string>
   <string name="move_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
+  <string name="copy_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
   <string name="prefs_category_security">Sekuro</string>
   <string name="auth_host_address">Servila adreso</string>
 </resources>
