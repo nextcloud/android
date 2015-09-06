@@ -257,10 +257,6 @@
   <string name="unshare_link_file_error">Се случи грешка кога пробав да го тргнам споделувањето на оваа датотека или папка</string>
   <string name="share_link_password_title">Внесете лозинка</string>
   <string name="share_link_empty_password">Морате да внесете лозинка</string>
-  <string name="activity_chooser_send_file_title">Прати</string>
-  <string name="copy_link">Копирај врска</string>
-  <string name="clipboard_text_copied">Копирано во клипборд</string>
-  <string name="error_cant_bind_to_operations_service">Критична грешка: не можам да ја извршам операцијата</string>
   <string name="network_error_socket_exception">Се случи грешка при конектирање со серверот.</string>
   <string name="network_error_socket_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши</string>
   <string name="network_error_connect_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши</string>
@@ -276,7 +272,6 @@
   <string name="downloader_download_file_not_found">Датотеката веќе не е достапна на серверот</string>
   <string name="prefs_category_accounts">Сметки</string>
   <string name="prefs_add_account">Додади сметка</string>
-  <string name="auth_redirect_non_secure_connection_title">Сигурната конекција е преусмерена на несигурна рута.</string>
   <string name="actionbar_logger">Логови</string>
   <string name="log_send_history_button">Прати историја</string>
   <string name="log_send_no_mail_app">Нема апликација за праќање на логови. Инсталирајте апликација за пошта!</string>
@@ -292,6 +287,7 @@
   <string name="move_file_invalid_overwrite">Датотеката веќе постои во целната папка</string>
   <string name="move_file_error">Се случи грешка кога пробував да ја преместам оваа датотека или папка</string>
   <string name="forbidden_permissions_move">да ја преместам оваа датотека</string>
+  <string name="copy_file_invalid_overwrite">Датотеката веќе постои во целната папка</string>
   <string name="prefs_category_instant_uploading">Инстант прикачувања</string>
   <string name="prefs_category_security">Безбедност</string>
   <string name="prefs_instant_video_upload_path_title">Прикачи патека на видео</string>
