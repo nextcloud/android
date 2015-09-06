@@ -81,7 +81,7 @@
                 android:ellipsize="middle"
                 android:singleLine="true"
                 android:text="TextView"
-                android:textColor="#303030"
+                android:textColor="@color/textColor"
                 android:textSize="@dimen/two_line_primary_text_size" />
 
             <LinearLayout

@@ -14,7 +14,7 @@
         android:padding="@dimen/standard_padding"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="@color/setup_text_hint"
+        android:textColor="@color/secondaryTextColor"
         />
 
 </LinearLayout> 
