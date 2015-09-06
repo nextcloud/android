@@ -307,7 +307,11 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
   <string name="move_file_error">Une erreur est survenue lors de la tentative de déplacement de ce fichier ou dossier</string>
   <string name="forbidden_permissions_move">de déplacer ce fichier</string>
+  <string name="copy_file_not_found">Impossible de copier. Vérifiez que le fichier existe</string>
+  <string name="copy_file_invalid_into_descendent">Il n\'est pas possible de copier un dossier vers un de ses descendants</string>
   <string name="copy_file_invalid_overwrite">Fichier déjà existant dans le dossier de destination</string>
+  <string name="copy_file_error">Une erreur est survenue lors de la tentative de copie de ce fichier ou dossier</string>
+  <string name="forbidden_permissions_copy">de copier ce fichier</string>
   <string name="prefs_category_instant_uploading">Téléversement immédiat</string>
   <string name="prefs_category_security">Sécurité</string>
   <string name="prefs_instant_video_upload_path_title">Répertoire de téléversement des vidéos</string>

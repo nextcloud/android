@@ -286,7 +286,9 @@
   <string name="move_file_not_found">Siirto ei onnistu. Tarkista, ettei tiedostoa ole jo olemassa</string>
   <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
   <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
+  <string name="copy_file_not_found">Kopiointi epäonnistui. Tarkista onko tiedostoa olemassa</string>
   <string name="copy_file_invalid_overwrite">Tiedosto on jo kohdekansiossa.</string>
+  <string name="copy_file_error">Tätä tiedostoa tai kansiota kopioitaessa tapahtui virhe</string>
   <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
   <string name="prefs_category_security">Tietoturva</string>
   <string name="shared_subject_header">jaettu</string>
