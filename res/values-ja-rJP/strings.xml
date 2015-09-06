@@ -269,10 +269,6 @@
   <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
   <string name="share_link_password_title">パスワードを入力</string>
   <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
-  <string name="activity_chooser_send_file_title">送信</string>
-  <string name="copy_link">リンクをコピー</string>
-  <string name="clipboard_text_copied">クリップボードにコピー</string>
-  <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
   <string name="network_error_socket_exception">サーバーへの接続中にエラーが発生しました。</string>
   <string name="network_error_socket_timeout_exception">サーバーからの応答を待っている間にエラーが発生しました。操作を完了することができません。</string>
   <string name="network_error_connect_timeout_exception">サーバーからの応答を待っている間にエラーが発生しました。操作を完了することができません。</string>
@@ -288,7 +284,7 @@
   <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
   <string name="prefs_category_accounts">アカウント</string>
   <string name="prefs_add_account">アカウントを追加</string>
-  <string name="auth_redirect_non_secure_connection_title">暗号化接続は非暗号化接続にリダイレクトされました。</string>
+  <string name="auth_redirect_non_secure_connection_title">暗号化されていない接続を経て、暗号化接続へリダイレクトされました。</string>
   <string name="actionbar_logger">ログ</string>
   <string name="log_send_history_button">ログを送信</string>
   <string name="log_send_no_mail_app">ログを送信するアプリが見つかりませんでした。メールアプリをインストールしてください。</string>
@@ -304,6 +300,7 @@
   <string name="move_file_invalid_overwrite">そのファイルは宛先フォルダーにすでに存在します。</string>
   <string name="move_file_error">このファイルまたはフォルダーを移動する際にエラーが発生しました</string>
   <string name="forbidden_permissions_move">このファイルを移動</string>
+  <string name="copy_file_invalid_overwrite">そのファイルは宛先フォルダーにすでに存在します。</string>
   <string name="prefs_category_instant_uploading">自動アップロード</string>
   <string name="prefs_category_security">セキュリティ</string>
   <string name="prefs_instant_video_upload_path_title">動画のアップロードパス</string>

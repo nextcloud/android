@@ -271,10 +271,6 @@
   <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
   <string name="share_link_password_title">输入密码</string>
   <string name="share_link_empty_password">您必须输入密码</string>
-  <string name="activity_chooser_send_file_title">发送</string>
-  <string name="copy_link">复制链接</string>
-  <string name="clipboard_text_copied">复制到剪贴板</string>
-  <string name="error_cant_bind_to_operations_service">严重错误：无法执行操作</string>
   <string name="network_error_socket_exception">连接到服务器时发生了一个错误。</string>
   <string name="network_error_socket_timeout_exception">等待服务器响应时发生了一个错误，此操作无法完成</string>
   <string name="network_error_connect_timeout_exception">等待服务器响应时发生了一个错误，此操作无法完成</string>
@@ -290,7 +286,7 @@
   <string name="downloader_download_file_not_found">该文件在服务器上不可用</string>
   <string name="prefs_category_accounts">账号</string>
   <string name="prefs_add_account">添加账号</string>
-  <string name="auth_redirect_non_secure_connection_title">安全连接被重定向到非安全路径.</string>
+  <string name="auth_redirect_non_secure_connection_title">安全连接是通过一个非安全路由定向的。</string>
   <string name="actionbar_logger">日志</string>
   <string name="log_send_history_button">发送历史</string>
   <string name="log_send_no_mail_app">未找到可以发送日志的程序。请安装 mail!</string>
@@ -306,6 +302,7 @@
   <string name="move_file_invalid_overwrite">该文件已经存在在目标文件夹</string>
   <string name="move_file_error">尝试移动该文件或文件夹时发生错误</string>
   <string name="forbidden_permissions_move">移动该文件</string>
+  <string name="copy_file_invalid_overwrite">该文件已经存在在目标文件夹</string>
   <string name="prefs_category_instant_uploading">即时上传</string>
   <string name="prefs_category_security">安全</string>
   <string name="prefs_instant_video_upload_path_title">视频上传路径</string>
