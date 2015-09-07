@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.ui.dialog.parcel.MenuItemParcelable;
@@ -27,6 +28,7 @@ public class FileActionsDialogFragment extends DialogFragment implements
         OnItemClickListener {
     private static final String ARG_ITEM_LIST = "ITEM_LIST";
     private static final String ARG_FILE_POSITION = "FILE_POSITION";
+    private static final String ARG_FILE_NAME = "FILE_NAME";
     public static final String FTAG_FILE_ACTIONS = "FILE_ACTIONS_FRAGMENT";
 
     private List<MenuItemParcelable> mMenuItems;
@@ -48,7 +50,7 @@ public class FileActionsDialogFragment extends DialogFragment implements
      * @param menu menu to be display.
      * @return Dialog ready to show.
      */
-    public static FileActionsDialogFragment newInstance(Menu menu, int filePosition) {
+    public static FileActionsDialogFragment newInstance(Menu menu, int filePosition, String fileName) {
         FileActionsDialogFragment fragment = new FileActionsDialogFragment();
         Bundle args = new Bundle();
 
@@ -57,6 +59,7 @@ public class FileActionsDialogFragment extends DialogFragment implements
 
         args.putParcelable(ARG_ITEM_LIST, menuParcelable);
         args.putInt(ARG_FILE_POSITION, filePosition);
+        args.putCharSequence(ARG_FILE_NAME, fileName);
 
         fragment.setArguments(args);
         return fragment;
@@ -80,7 +83,16 @@ public class FileActionsDialogFragment extends DialogFragment implements
         View view = inflater.inflate(R.layout.file_actions, null, false);
         mListView = (ListView) view.findViewById(R.id.file_actions_list);
 
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        CharSequence title =  getArguments().getCharSequence(ARG_FILE_NAME);
+        if(title != null && title.length() > 0) {
+            TextView header = (TextView)view.findViewById(R.id.file_actions_header);
+            header.setText(title);
+            header.setVisibility(View.VISIBLE);
+            view.findViewById(R.id.file_actions_header_divider).setVisibility(View.VISIBLE);
+        } else {
+            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        }
+
         return view;
     }
 
