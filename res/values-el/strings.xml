@@ -304,6 +304,7 @@
   <string name="move_file_error">Ένα σφάλμα προέκυψε κατά την προσπάθεια μετακίνησης αυτού του αρχείου ή φακέλου</string>
   <string name="forbidden_permissions_move">για μετακίνηση αυτού του αρχείου</string>
   <string name="copy_file_not_found">Αδύνατη η αντιγραφή. Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
+  <string name="copy_file_invalid_into_descendent">Δεν είναι δυνατό να αντιγραφεί ο φάκελος σε παράγωγό του φάκελο</string>
   <string name="copy_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
   <string name="copy_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια αντιγραφής αυτού του αρχείου ή φακέλου</string>
   <string name="forbidden_permissions_copy">για αντιγραφή αυτού του αρχείου</string>
