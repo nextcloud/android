@@ -271,10 +271,6 @@ správce systému.</string>
   <string name="unshare_link_file_error">Při pokusu o zrušení sdílení tohoto souboru či složky nastala chyba</string>
   <string name="share_link_password_title">Zadejte heslo</string>
   <string name="share_link_empty_password">Musíte zadat heslo</string>
-  <string name="activity_chooser_send_file_title">Odeslat</string>
-  <string name="copy_link">Zkopírovat odkaz</string>
-  <string name="clipboard_text_copied">Zkopírováno do schránky</string>
-  <string name="error_cant_bind_to_operations_service">Kritická chyba: operace nelze provést</string>
   <string name="network_error_socket_exception">Při pokusu o připojení k serveru došlo k chybě.</string>
   <string name="network_error_socket_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
   <string name="network_error_connect_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
@@ -290,7 +286,7 @@ správce systému.</string>
   <string name="downloader_download_file_not_found">Tento soubor již není dostupný na serveru</string>
   <string name="prefs_category_accounts">Účty</string>
   <string name="prefs_add_account">Přidat účet</string>
-  <string name="auth_redirect_non_secure_connection_title">Bezpečné spojení je přesměrováno na nezabezpečenou trasu.</string>
+  <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojení je přesměrováváno nezabezpečenou trasou.</string>
   <string name="actionbar_logger">Logy</string>
   <string name="log_send_history_button">Odeslat historii</string>
   <string name="log_send_no_mail_app">Nebyla nalezena žádná aplikace pro odesílání logů. Nainstalujte poštovní aplikaci!</string>
@@ -306,6 +302,7 @@ správce systému.</string>
   <string name="move_file_invalid_overwrite">Soubor již v cílovém adresáři existuje</string>
   <string name="move_file_error">Při pokusu o přesun tohoto souboru či složky nastala chyba</string>
   <string name="forbidden_permissions_move">pro přesun tohoto souboru</string>
+  <string name="copy_file_invalid_overwrite">Soubor již v cílové složce existuje</string>
   <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
   <string name="prefs_category_security">Zabezpečení</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pro nahrávání videí</string>
