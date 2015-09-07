@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_cant_bind_to_operations_service">Dummy Text</string>
+
     <string name="about_android">%1$s Android App</string>
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Refresh account</string>
