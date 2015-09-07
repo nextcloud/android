@@ -393,12 +393,16 @@ public class PreviewTextFragment extends FileFragment {
     public static boolean canBePreviewed(OCFile file) {
         final List<String> unsupportedTypes = new LinkedList<String>();
         unsupportedTypes.add("text/richtext");
+        unsupportedTypes.add("text/rtf");
         unsupportedTypes.add("text/vnd.abc");
         unsupportedTypes.add("text/vnd.fmi.flexstor");
         unsupportedTypes.add("text/vnd.rn-realtext");
         unsupportedTypes.add("text/vnd.wap.wml");
         unsupportedTypes.add("text/vnd.wap.wmlscript");
-        return (file != null && file.isDown() && file.isText() && !unsupportedTypes.contains(file.getMimetype()));
+        return (file != null && file.isDown() && file.isText() &&
+                !unsupportedTypes.contains(file.getMimetype()) &&
+                !unsupportedTypes.contains(file.getMimeTypeFromName())
+        );
     }
 
     /**
