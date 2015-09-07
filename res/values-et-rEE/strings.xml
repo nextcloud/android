@@ -206,6 +206,8 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="confirmation_remove_folder_alert">Kas sa tõesti soovid eemaldada %1$s ja selle sisu?</string>
   <string name="confirmation_remove_local">Ainult kohalik</string>
   <string name="confirmation_remove_folder_local">Ainult kohalik</string>
+  <string name="confirmation_remove_remote">Serverist</string>
+  <string name="confirmation_remove_remote_and_local">Kaugfail &amp; kohalik</string>
   <string name="remove_success_msg">Eemaldamine oli edukas</string>
   <string name="remove_fail_msg">Eemaldamine ebaõnnestus</string>
   <string name="rename_dialog_title">Sisesta uus nimi</string>
@@ -260,6 +262,8 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="conflict_title">Failikonflikt</string>
   <string name="conflict_message">Millist faili sa soovid säilitada? Kui valid mõlemad versioonid, siis lisatakse kohaliku faili nimele number.</string>
   <string name="conflict_keep_both">Säilita mõlemad</string>
+  <string name="conflict_use_local_version">kohalik versioon</string>
+  <string name="conflict_use_server_version">serveri versioon</string>
   <string name="preview_image_description">Pildi eelvaade</string>
   <string name="preview_image_error_unknown_format">Seda pilti ei saa näidata</string>
   <string name="error__upload__local_file_not_copied">%1$s ei suudetud kopeerida kohalikku kataloogi %2$s</string>
@@ -272,10 +276,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="unshare_link_file_error">Faili või kausta jagamise tühistamisel esines viga</string>
   <string name="share_link_password_title">Sisesta parool</string>
   <string name="share_link_empty_password">Sa pead parooli sisestama</string>
-  <string name="activity_chooser_send_file_title">Saada</string>
-  <string name="copy_link">Kopeeri link</string>
-  <string name="clipboard_text_copied">Kopeeritud lõikepuhvrisse</string>
-  <string name="error_cant_bind_to_operations_service">Viga: ei suutnud operatsiooni lõpetada</string>
   <string name="network_error_socket_exception">Serveriga ühendumisel tekkis tõrge.</string>
   <string name="network_error_socket_timeout_exception">Serverilt vastuse ootamisel tekkis tõrge, toimingu sooritamine ebaõnnestus</string>
   <string name="network_error_connect_timeout_exception">Serverilt vastuse ootamisel tekkis tõrge, toimingu sooritamine ebaõnnestus</string>
@@ -291,7 +291,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="downloader_download_file_not_found">Fail ei ole serveris enam kättesaadav</string>
   <string name="prefs_category_accounts">Kontod</string>
   <string name="prefs_add_account">Lisa konto</string>
-  <string name="auth_redirect_non_secure_connection_title">Turvaline ühendus suunatakse läbi turvamata ühenduse.</string>
+  <string name="auth_redirect_non_secure_connection_title">Turvalist ühendust suunatakse läbi turvamata ühenduse.</string>
   <string name="actionbar_logger">Logid</string>
   <string name="log_send_history_button">Saada ajalugu</string>
   <string name="log_send_no_mail_app">Logide saatmise rakendust ei leitud. Paigalda postirakendus!</string>
@@ -307,6 +307,11 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="move_file_invalid_overwrite">See fail on juba sihtkaustas olemas</string>
   <string name="move_file_error">Selle faili või kausta liigutamisel tekkis tõrge</string>
   <string name="forbidden_permissions_move">selle faili liigutamiseks</string>
+  <string name="copy_file_not_found">Kopeerimine ebaõnnestus. Palun kontrolli, kas fail on olemas</string>
+  <string name="copy_file_invalid_into_descendent">Kausta ei saa kopeerida tema enda alamkausta</string>
+  <string name="copy_file_invalid_overwrite">See fail on juba sihtkaustas olemas</string>
+  <string name="copy_file_error">Selle faili või kausta kopeerimisel tekkis tõrge</string>
+  <string name="forbidden_permissions_copy">et kopeerida seda faili</string>
   <string name="prefs_category_instant_uploading">Kohesed üleslaadimised</string>
   <string name="prefs_category_security">Turvalisus</string>
   <string name="prefs_instant_video_upload_path_title">Video üleslaadimise asukoht</string>

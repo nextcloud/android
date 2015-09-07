@@ -22,9 +22,9 @@ package com.owncloud.android.datamodel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 
@@ -289,11 +289,13 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     /**
      * Sets the name of the file
      * <p/>
-     * Does nothing if the new name is null, empty or includes "/" ; or if the file is the root directory
+     * Does nothing if the new name is null, empty or includes "/" ; or if the file is the root
+     * directory
      */
     public void setFileName(String name) {
         Log_OC.d(TAG, "OCFile name changin from " + mRemotePath);
-        if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) && !mRemotePath.equals(ROOT_PATH)) {
+        if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) &&
+                !mRemotePath.equals(ROOT_PATH)) {
             String parent = (new File(getRemotePath())).getParent();
             parent = (parent.endsWith(PATH_SEPARATOR)) ? parent : parent + PATH_SEPARATOR;
             mRemotePath = parent + name;
@@ -454,7 +456,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public int describeContents() {
-        return ((Object) this).hashCode();
+        return super.hashCode();
     }
 
     @Override
@@ -483,8 +485,11 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public String toString() {
-        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, favorite=%s etag=%s]";
-        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mFavorite), mEtag);
+        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
+                "parentId=%s, favorite=%s etag=%s]";
+        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(),
+                mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mFavorite),
+                mEtag);
         return asString;
     }
 
@@ -540,7 +545,33 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      */
     public boolean isImage() {
         return ((mMimeType != null && mMimeType.startsWith("image/")) ||
-                FileStorageUtils.getMimeTypeFromName(mRemotePath).startsWith("image/"));
+                getMimeTypeFromName().startsWith("image/"));
+    }
+
+    /**
+     * @return 'True' if the file is simple text (e.g. not application-dependent, like .doc or .docx)
+     */
+    public boolean isText() {
+        return ((mMimeType != null && mMimeType.startsWith("text/")) ||
+                getMimeTypeFromName().startsWith("text/"));
+    }
+
+    public String getMimeTypeFromName() {
+        String extension = "";
+        int pos = mRemotePath.lastIndexOf('.');
+        if (pos >= 0) {
+            extension = mRemotePath.substring(pos + 1);
+        }
+        String result = MimeTypeMap.getSingleton().
+                getMimeTypeFromExtension(extension.toLowerCase());
+        return (result != null) ? result : "";
+    }
+
+    /**
+     * @return 'True' if the file is hidden
+     */
+    public boolean isHidden() {
+        return getFileName().startsWith(".");
     }
 
     public String getPermissions() {

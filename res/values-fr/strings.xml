@@ -207,6 +207,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et son contenu ?</string>
   <string name="confirmation_remove_local">Local seulement</string>
   <string name="confirmation_remove_folder_local">Local seulement</string>
+  <string name="confirmation_remove_remote">Depuis le serveur</string>
   <string name="confirmation_remove_remote_and_local">Distant &amp; local</string>
   <string name="remove_success_msg">Suppression effectuée avec succès</string>
   <string name="remove_fail_msg">Suppression impossible</string>
@@ -262,6 +263,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="conflict_title">Conflit de fichiers</string>
   <string name="conflict_message">Quel(s) fichier(s) voulez-vous garder ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
   <string name="conflict_keep_both">Garder les deux versions</string>
+  <string name="conflict_use_local_version">version locale</string>
+  <string name="conflict_use_server_version">version serveur</string>
   <string name="preview_image_description">Prévisualisation de l\'image</string>
   <string name="preview_image_error_unknown_format">Cette image ne peut pas être affichée</string>
   <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
@@ -273,10 +276,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
   <string name="share_link_password_title">Saisissez un mot de passe</string>
   <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
-  <string name="activity_chooser_send_file_title">Envoyer</string>
-  <string name="copy_link">Copier le lien</string>
-  <string name="clipboard_text_copied">Copié dans le presse-papiers</string>
-  <string name="error_cant_bind_to_operations_service">Erreur critique : impossible de réaliser des opérations</string>
   <string name="network_error_socket_exception">Une erreur est survenue pendant la connexion au serveur.</string>
   <string name="network_error_socket_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée</string>
   <string name="network_error_connect_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée</string>
@@ -308,6 +307,11 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
   <string name="move_file_error">Une erreur est survenue lors de la tentative de déplacement de ce fichier ou dossier</string>
   <string name="forbidden_permissions_move">de déplacer ce fichier</string>
+  <string name="copy_file_not_found">Impossible de copier. Vérifiez que le fichier existe</string>
+  <string name="copy_file_invalid_into_descendent">Il n\'est pas possible de copier un dossier vers un de ses descendants</string>
+  <string name="copy_file_invalid_overwrite">Fichier déjà existant dans le dossier de destination</string>
+  <string name="copy_file_error">Une erreur est survenue lors de la tentative de copie de ce fichier ou dossier</string>
+  <string name="forbidden_permissions_copy">de copier ce fichier</string>
   <string name="prefs_category_instant_uploading">Téléversement immédiat</string>
   <string name="prefs_category_security">Sécurité</string>
   <string name="prefs_instant_video_upload_path_title">Répertoire de téléversement des vidéos</string>
