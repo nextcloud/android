@@ -271,6 +271,10 @@
   <string name="unshare_link_file_error">A apărut o eroare în timp ce încerca să departajeze sau unshare acest fișier sau folder</string>
   <string name="share_link_password_title">Introduceţi parola</string>
   <string name="share_link_empty_password">Trebuie să introduci o parolă</string>
+  <string name="activity_chooser_send_file_title">Trimite</string>
+  <string name="copy_link">Link copiat</string>
+  <string name="clipboard_text_copied">Copiat în clipboard</string>
+  <string name="error_cant_bind_to_operations_service">Eroare critică: nu se pot executa operațiunile</string>
   <string name="network_error_socket_exception">A apărut o eroare în timp ce se conecta la server</string>
   <string name="network_error_socket_timeout_exception">A apărut o eroare în timp ce se aștepta pentru server, operațiunea nu s-a executat</string>
   <string name="network_error_connect_timeout_exception">A apărut o eroare în timp ce se aștepta pentru server, operațiunea nu s-a executat</string>

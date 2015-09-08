@@ -117,6 +117,7 @@
   <string name="instant_upload_on_wifi">ਤਸਵੀਰਾਂ ਨੂੰ ਵਾਈ-ਫਾਈ ਰਾਹੀਂ ਹੀ ਅੱਪਲੋਡ ਕਰੋ</string>
   <string name="conflict_keep_both">ਦੋਵੇਂ ਰੱਖੋ</string>
   <string name="preview_image_description">ਚਿੱਤਰ ਝਲਕ</string>
+  <string name="activity_chooser_send_file_title">ਭੇਜੋ</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">ਅਕਾਊਂਟ</string>
   <string name="folder_picker_choose_button_text">ਚੁਣੋ</string>

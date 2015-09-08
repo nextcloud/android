@@ -269,6 +269,10 @@
   <string name="unshare_link_file_error">При попытке закрыть доступ к этому файлу или каталогу произошла ошибка</string>
   <string name="share_link_password_title">Введите пароль</string>
   <string name="share_link_empty_password">Вы должны ввести пароль</string>
+  <string name="activity_chooser_send_file_title">Отправить</string>
+  <string name="copy_link">Копировать ссылку</string>
+  <string name="clipboard_text_copied">Скопировано в буфер обмена</string>
+  <string name="error_cant_bind_to_operations_service">Критическая ошибка: невозможно выполнить действия</string>
   <string name="network_error_socket_exception">При подключении к серверу возникла ошибка</string>
   <string name="network_error_socket_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть выполнено</string>
   <string name="network_error_connect_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть выполнено</string>

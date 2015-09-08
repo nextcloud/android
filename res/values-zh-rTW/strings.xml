@@ -272,6 +272,10 @@
   <string name="unshare_link_file_error">在取消分享檔案或目錄時發生了錯誤</string>
   <string name="share_link_password_title">輸入密碼</string>
   <string name="share_link_empty_password">您必須輸入密碼</string>
+  <string name="activity_chooser_send_file_title">寄出</string>
+  <string name="copy_link">複製連結</string>
+  <string name="clipboard_text_copied">複製至剪貼簿中</string>
+  <string name="error_cant_bind_to_operations_service">嚴重錯誤: 無法執行運算</string>
   <string name="network_error_socket_exception">在與伺服器連線時發生了錯誤.</string>
   <string name="network_error_socket_timeout_exception">在等待伺服器回應時發生了錯誤, 這個操作將無法被完成</string>
   <string name="network_error_connect_timeout_exception">在等待伺服器回應時發生了錯誤, 這個操作將無法被完成</string>

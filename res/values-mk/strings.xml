@@ -257,6 +257,10 @@
   <string name="unshare_link_file_error">Се случи грешка кога пробав да го тргнам споделувањето на оваа датотека или папка</string>
   <string name="share_link_password_title">Внесете лозинка</string>
   <string name="share_link_empty_password">Морате да внесете лозинка</string>
+  <string name="activity_chooser_send_file_title">Прати</string>
+  <string name="copy_link">Копирај врска</string>
+  <string name="clipboard_text_copied">Копирано во клипборд</string>
+  <string name="error_cant_bind_to_operations_service">Критична грешка: не можам да ја извршам операцијата</string>
   <string name="network_error_socket_exception">Се случи грешка при конектирање со серверот.</string>
   <string name="network_error_socket_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши</string>
   <string name="network_error_connect_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши</string>

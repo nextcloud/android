@@ -208,6 +208,8 @@
   <string name="preview_image_error_unknown_format">نمایش این عکس امکانپذیر نمی باشد</string>
   <string name="share_link_file_error">در حین اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
   <string name="unshare_link_file_error">در حین حذف اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
+  <string name="activity_chooser_send_file_title">ارسال</string>
+  <string name="clipboard_text_copied">کپی به کلیپ بورد</string>
   <string name="network_host_not_available">تکمیل عملیات امکانپذیر نمی باشد، سرور در دسترس نمی باشد</string>
   <string name="empty"></string>
   <string name="forbidden_permissions_rename">برای تغییر نام این فایل</string>

@@ -226,6 +226,9 @@
   <string name="preview_image_error_unknown_format">Neįmanoma parodyti šio paveikslėlio</string>
   <string name="share_link_file_error">Įvyko klaida bandant dalinti šį failą ar aplanką</string>
   <string name="unshare_link_file_error">Įvyko klaida bandant nebedalinti šio failu ar aplanku</string>
+  <string name="activity_chooser_send_file_title">Siųsti</string>
+  <string name="copy_link">Kopijuoti nuorodą</string>
+  <string name="clipboard_text_copied">Nukopijuota į talpyklę</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Paskyros</string>
   <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
