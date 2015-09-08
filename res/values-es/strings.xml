@@ -272,6 +272,10 @@
   <string name="unshare_link_file_error">Ocurrió un error al tratar de ya no compartir este archivo o carpeta</string>
   <string name="share_link_password_title">Introduzca una contraseña</string>
   <string name="share_link_empty_password">Debe introducir una contraseña</string>
+  <string name="activity_chooser_send_file_title">Enviar</string>
+  <string name="copy_link">Copiar enlace</string>
+  <string name="clipboard_text_copied">Copiado al portapapeles</string>
+  <string name="error_cant_bind_to_operations_service">Error crítico: no es posible realizar operaciones</string>
   <string name="network_error_socket_exception">Ocurrió un error al conectarse con el servidor.</string>
   <string name="network_error_socket_timeout_exception">Ocurrió un error al esperar la respuesta del servidor, la operación no se pudo realizar</string>
   <string name="network_error_connect_timeout_exception">Ocurrió un error al esperar la respuesta del servidor, la operación no se pudo realizar</string>
@@ -303,7 +307,11 @@
   <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
   <string name="move_file_error">Hubo un error al tratar de mover este archivo o carpeta</string>
   <string name="forbidden_permissions_move">para mover este archivo</string>
+  <string name="copy_file_not_found">No se puede copiar. Revise si el archivo existe</string>
+  <string name="copy_file_invalid_into_descendent">No se puede copiar una carpeta dentro de una de sus subcarpetas.</string>
   <string name="copy_file_invalid_overwrite">El fichero ya existe en el directorio de destino</string>
+  <string name="copy_file_error">Hubo un error al tratar de copiar este archivo o carpeta</string>
+  <string name="forbidden_permissions_copy">para copiar este archivo</string>
   <string name="prefs_category_instant_uploading">Subidas instantáneas</string>
   <string name="prefs_category_security">Seguridad</string>
   <string name="prefs_instant_video_upload_path_title">Guardar videos subidos en la carpeta:</string>

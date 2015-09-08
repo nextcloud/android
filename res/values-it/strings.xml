@@ -272,6 +272,10 @@
   <string name="unshare_link_file_error">Si è verificato un errore durante il tentativo di rimuovere la condivisione del file o della cartella</string>
   <string name="share_link_password_title">Digita una password</string>
   <string name="share_link_empty_password">Devi digitare una password</string>
+  <string name="activity_chooser_send_file_title">Invia</string>
+  <string name="copy_link">Copia collegamento</string>
+  <string name="clipboard_text_copied">Copiato negli appunti</string>
+  <string name="error_cant_bind_to_operations_service">Errore grave: impossibile eseguire le operazioni</string>
   <string name="network_error_socket_exception">Si è verificato un errore durante la connessione al server.</string>
   <string name="network_error_socket_timeout_exception">Si è verificato un errore in attesa della risposta del server, l\'operazione non è stata completata</string>
   <string name="network_error_connect_timeout_exception">Si è verificato un errore in attesa della risposta del server, l\'operazione non è stata completata</string>

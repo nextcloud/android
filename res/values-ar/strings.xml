@@ -243,6 +243,10 @@
   بالمسؤول.</string>
   <string name="share_link_file_error">حدث خطأ ما أثناء محاولة مشاركة هذا الملف أو المجلد</string>
   <string name="unshare_link_file_error">حدث خطأ ما أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد</string>
+  <string name="activity_chooser_send_file_title">أرسل</string>
+  <string name="copy_link">نسخ الرابط</string>
+  <string name="clipboard_text_copied">تم النسخ للحافظة</string>
+  <string name="error_cant_bind_to_operations_service">خطأ حرج: لا يمكن تنفيذ العمليات</string>
   <string name="network_error_socket_exception">حدث خطأ أثناء الإتصال مع الخادم.</string>
   <string name="network_error_socket_timeout_exception">حدث خطأ أثناء إنتظار الخادم، لم يكن من الممكن القيام بالعملية</string>
   <string name="network_error_connect_timeout_exception">حدث خطأ أثناء إنتظار الخادم، لم يكن من الممكن القيام بالعملية</string>

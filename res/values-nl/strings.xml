@@ -275,6 +275,10 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="unshare_link_file_error">Er trad een fout op bij uw poging het delen van dit bestand of deze map te beëindigen</string>
   <string name="share_link_password_title">Vul het wachtwoord in</string>
   <string name="share_link_empty_password">U moet een wachtwoord opgeven</string>
+  <string name="activity_chooser_send_file_title">Versturen</string>
+  <string name="copy_link">Link kopiëren</string>
+  <string name="clipboard_text_copied">Gekopieerd naar het klembord</string>
+  <string name="error_cant_bind_to_operations_service">Kritieke fout: kan de acties niet uitvoeren</string>
   <string name="network_error_socket_exception">Er trad een fout op bij het verbinden met de server.</string>
   <string name="network_error_socket_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
   <string name="network_error_connect_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
@@ -306,7 +310,11 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="move_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
   <string name="move_file_error">Er trad een fout op bij uw poging dit bestand of deze map te verplaatsen</string>
   <string name="forbidden_permissions_move">om dit bestand te verplaatsen</string>
+  <string name="copy_file_not_found">Kan niet kopiëren. Ga na of het bestand wel bestaat</string>
+  <string name="copy_file_invalid_into_descendent">De map kan niet naar een onderliggende map worden gekopieerd</string>
   <string name="copy_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
+  <string name="copy_file_error">Er trad een fout op bij uw poging dit bestand of deze map te kopiëren</string>
+  <string name="forbidden_permissions_copy">om dit bestand te kopiëren</string>
   <string name="prefs_category_instant_uploading">Directe uploads</string>
   <string name="prefs_category_security">Beveiliging</string>
   <string name="prefs_instant_video_upload_path_title">Upload Video Pad</string>

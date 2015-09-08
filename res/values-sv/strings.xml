@@ -246,6 +246,10 @@
   <string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp</string>
   <string name="share_link_password_title">Ange ett lösenord</string>
   <string name="share_link_empty_password">Du måste ange ett lösenord</string>
+  <string name="activity_chooser_send_file_title">Skicka</string>
+  <string name="copy_link">Kopiera länk</string>
+  <string name="clipboard_text_copied">Kopierat till urklipp</string>
+  <string name="error_cant_bind_to_operations_service">Kritiskt fel: kan inte utföra åtgärden</string>
   <string name="network_error_socket_exception">Ett fel uppstod vid anslutning till servern.</string>
   <string name="network_error_socket_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
   <string name="network_error_connect_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>

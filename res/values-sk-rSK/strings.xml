@@ -258,6 +258,10 @@
   <string name="unshare_link_file_error">Pri pokuse zrušiť zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
   <string name="share_link_password_title">Vložte heslo</string>
   <string name="share_link_empty_password">Musíte vložiť heslo</string>
+  <string name="activity_chooser_send_file_title">Odoslať</string>
+  <string name="copy_link">Kopíruj odkaz</string>
+  <string name="clipboard_text_copied">Skopírované do schránky</string>
+  <string name="error_cant_bind_to_operations_service">Kritická chyba: operáciu nemožno vykonať</string>
   <string name="network_error_socket_exception">Pri pokuse o pripojenie na server nastala chyba.</string>
   <string name="network_error_socket_timeout_exception">Pri čakaní na odpoveď servera nastala chyba, operácia nemohla byť dokončená</string>
   <string name="network_error_connect_timeout_exception">Pri čakaní na odpoveď servera nastala chyba, operácia nemohla byť dokončená</string>

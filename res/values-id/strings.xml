@@ -272,6 +272,10 @@
   <string name="unshare_link_file_error">Terjadi kesalahan saat mencoba menghapus berbagi berkas dan folder ini</string>
   <string name="share_link_password_title">Masukkan sandi</string>
   <string name="share_link_empty_password">Anda harus memasukkan sandi</string>
+  <string name="activity_chooser_send_file_title">Kirim</string>
+  <string name="copy_link">Salin tautan</string>
+  <string name="clipboard_text_copied">Disalin ke papan klip</string>
+  <string name="error_cant_bind_to_operations_service">Kesalahan fatal: tidak dapat melakukan operasi</string>
   <string name="network_error_socket_exception">Terjadi kesalahan saat menghubungkan dengan server.</string>
   <string name="network_error_socket_timeout_exception">Terjadi kesalahan saat menunggu balasan server, operasi tidak dapat diselesaikan</string>
   <string name="network_error_connect_timeout_exception">Terjadi kesalahan saat menunggu balasan server, operasi tidak dapat diselesaikan</string>

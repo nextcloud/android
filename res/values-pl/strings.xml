@@ -269,6 +269,10 @@
   <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub folderu.</string>
   <string name="share_link_password_title">Wprowadź hasło</string>
   <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
+  <string name="activity_chooser_send_file_title">Wyślij</string>
+  <string name="copy_link">Skopiuj link</string>
+  <string name="clipboard_text_copied">Skopiuj do schowka</string>
+  <string name="error_cant_bind_to_operations_service">Błąd krytyczny: nie można wykonać operacji</string>
   <string name="network_error_socket_exception">Pojawił się błąd podczas łączenia z serwerem.</string>
   <string name="network_error_socket_timeout_exception">Pojawił się błąd podczas oczekiwania na serwer, operacja nie mogła zostać wykonana</string>
   <string name="network_error_connect_timeout_exception">Pojawił się błąd podczas oczekiwania na serwer, operacja nie mogła zostać wykonana</string>

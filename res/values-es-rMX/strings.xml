@@ -200,6 +200,8 @@
   <string name="instant_upload_path">/SubidasInstantáneas</string>
   <string name="conflict_keep_both">Mantener ambas</string>
   <string name="preview_image_description">Previsualización de imagen</string>
+  <string name="activity_chooser_send_file_title">Enviar</string>
+  <string name="clipboard_text_copied">Copiado al portapapeles</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Cuentas</string>
   <string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>

@@ -271,6 +271,10 @@
   <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
   <string name="share_link_password_title">输入密码</string>
   <string name="share_link_empty_password">您必须输入密码</string>
+  <string name="activity_chooser_send_file_title">发送</string>
+  <string name="copy_link">复制链接</string>
+  <string name="clipboard_text_copied">复制到剪贴板</string>
+  <string name="error_cant_bind_to_operations_service">严重错误：无法执行操作</string>
   <string name="network_error_socket_exception">连接到服务器时发生了一个错误。</string>
   <string name="network_error_socket_timeout_exception">等待服务器响应时发生了一个错误，此操作无法完成</string>
   <string name="network_error_connect_timeout_exception">等待服务器响应时发生了一个错误，此操作无法完成</string>

@@ -259,6 +259,10 @@
   <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder</string>
   <string name="share_link_password_title">Enter a password</string>
   <string name="share_link_empty_password">You must enter a password</string>
+  <string name="activity_chooser_send_file_title">Send</string>
+  <string name="copy_link">Copy link</string>
+  <string name="clipboard_text_copied">Copied to clipboard</string>
+  <string name="error_cant_bind_to_operations_service">Critical error: cannot perform operations</string>
   <string name="network_error_socket_exception">An error occurred whilst connecting to the server.</string>
   <string name="network_error_socket_timeout_exception">An error occurred whilst waiting for the server, the operation couldn\'t be done</string>
   <string name="network_error_connect_timeout_exception">An error occurred whilst waiting for the server, the operation couldn\'t been done</string>

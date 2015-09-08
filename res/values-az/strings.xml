@@ -250,6 +250,10 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="unshare_link_file_error">Bu fayl və ya qovluğun yayımlanmasının dayandırılmasında səhv baş verdi</string>
   <string name="share_link_password_title">Şifrəni daxil et</string>
   <string name="share_link_empty_password">Siz şifrəni daxil etməlisiniz</string>
+  <string name="activity_chooser_send_file_title">Göndər</string>
+  <string name="copy_link">linki nüsxələ</string>
+  <string name="clipboard_text_copied">Mübadilə buferinə nüsxələndi</string>
+  <string name="error_cant_bind_to_operations_service">Kritik səhv: əməliyyat yerinə yetirilə bilinmir</string>
   <string name="network_error_socket_exception">Serverlə əlaqəyə girdikdə səhv baş verdi.</string>
   <string name="network_error_socket_timeout_exception">Serveri gözlədiyimiz müddətdə səhv baş verdi, əməliyyat bitə bilməz</string>
   <string name="network_error_connect_timeout_exception">Serveri gözlədiyimiz müddətdə səhv baş verdi, əməliyyat bitə bilməz</string>

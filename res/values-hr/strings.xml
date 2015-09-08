@@ -58,6 +58,7 @@
   <string name="common_rename">Promjeni ime</string>
   <string name="common_remove">Makni</string>
   <string name="ssl_validator_btn_details_see">Detalji</string>
+  <string name="activity_chooser_send_file_title">Pošaljite</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Korisnićki računi</string>
   <string name="saml_authentication_required_text">Potrebna autentikacija</string>

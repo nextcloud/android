@@ -266,6 +266,10 @@
   <string name="unshare_link_file_error">Дошло је до грешке приликом покушаја укидања дељења овог фајла или фасцикле</string>
   <string name="share_link_password_title">Унесите лозинку</string>
   <string name="share_link_empty_password">Морате унети лозинку</string>
+  <string name="activity_chooser_send_file_title">Пошаљи</string>
+  <string name="copy_link">Копирај везу</string>
+  <string name="clipboard_text_copied">Копирано у клипборд</string>
+  <string name="error_cant_bind_to_operations_service">Критична грешка: не могу да радим</string>
   <string name="network_error_socket_exception">Дошло је до грешке при повезивању са сервером.</string>
   <string name="network_error_socket_timeout_exception">Дошло је до грешке при чекању на сервер. Радња није могла бити урађена</string>
   <string name="network_error_connect_timeout_exception">Дошло је до грешке при чекању на сервер. Радња није могла бити урађена</string>

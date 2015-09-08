@@ -241,6 +241,10 @@
   <string name="share_link_file_error">Un error ocurrió cuando se intentaba compartir el archivo o carpeta</string>
   <string name="unshare_link_file_no_exist">Imposible dejar de compartir. Por favor revise si los archivos existen</string>
   <string name="unshare_link_file_error">Un error ocurrió cuando se intentaba dejar de compartir el archivo o carpeta</string>
+  <string name="activity_chooser_send_file_title">Mandar</string>
+  <string name="copy_link">Copiar dirección url</string>
+  <string name="clipboard_text_copied">Copiado al portapapeles</string>
+  <string name="error_cant_bind_to_operations_service">Error critico: no se puede realizar operaciones</string>
   <string name="network_error_socket_exception">Un error ocurrió mientras se conectaba con el Servidor.</string>
   <string name="network_error_socket_timeout_exception">Un error ocurrió mientras se conectaba con el Servidor. La operación no se realizó </string>
   <string name="network_error_connect_timeout_exception">Un error ocurrió esperando al Servidor, la operación no se realizó</string>

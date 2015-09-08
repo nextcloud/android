@@ -268,6 +268,10 @@
   <string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
   <string name="share_link_password_title">Passwort eingeben</string>
   <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
+  <string name="activity_chooser_send_file_title">Senden</string>
+  <string name="copy_link">Link kopieren</string>
+  <string name="clipboard_text_copied">In die Zwischenablage kopiert</string>
+  <string name="error_cant_bind_to_operations_service">Kritischer Fehler: Operationen können nicht ausgeführt werden</string>
   <string name="network_error_socket_exception">Es ist ein Fehler bei der Verbindung mit dem Server aufgetreten.</string>
   <string name="network_error_socket_timeout_exception">Es ist ein Fehler während des Wartens auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>
   <string name="network_error_connect_timeout_exception">Es ist ein Fehler während des Wartens auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>

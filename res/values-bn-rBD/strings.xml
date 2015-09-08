@@ -230,6 +230,10 @@
 ⇥⇥প্রশাসকের সঙ্গে যোগাযোগ করুন।</string>
   <string name="share_link_file_error">এই ফাইল অথবা ফোল্ডার ভাগাভাগির চেষ্টা করতে যেয়ে একটি জটিলতা হয়েছে</string>
   <string name="unshare_link_file_error">এই ফাইল অথবা ফোল্ডার ভাগাভাগি রদ করার চেষ্টা করতে যেয়ে একটি জটিলতা হয়েছে</string>
+  <string name="activity_chooser_send_file_title">পাঠাও</string>
+  <string name="copy_link">লিঙ্ক কপি করো</string>
+  <string name="clipboard_text_copied">ক্লিপবোর্ডে কপি করা হলো</string>
+  <string name="error_cant_bind_to_operations_service">জটিল ভ্রান্তি: কাজটি করা যাবেনা</string>
   <string name="network_error_socket_exception">সার্ভারে সংযোগ স্থাপনের সময় একটি ভ্রান্তি ঘটলো।</string>
   <string name="network_error_socket_timeout_exception">সার্ভারের জন্য অপেক্ষা করার সময় একটি ভ্রান্তি ঘটলো, কাজটি করা যেতনা</string>
   <string name="network_error_connect_timeout_exception">সার্ভারের জন্য অপেক্ষা করার সময় একটি ভ্রান্তি ঘটলো, কাজটি করা যেতনা</string>

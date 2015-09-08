@@ -269,6 +269,10 @@
   <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
   <string name="share_link_password_title">パスワードを入力</string>
   <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
+  <string name="activity_chooser_send_file_title">送信</string>
+  <string name="copy_link">リンクをコピー</string>
+  <string name="clipboard_text_copied">クリップボードにコピー</string>
+  <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
   <string name="network_error_socket_exception">サーバーへの接続中にエラーが発生しました。</string>
   <string name="network_error_socket_timeout_exception">サーバーからの応答を待っている間にエラーが発生しました。操作を完了することができません。</string>
   <string name="network_error_connect_timeout_exception">サーバーからの応答を待っている間にエラーが発生しました。操作を完了することができません。</string>

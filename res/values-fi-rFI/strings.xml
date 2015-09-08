@@ -257,6 +257,10 @@
   <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
   <string name="share_link_password_title">Anna salasana</string>
   <string name="share_link_empty_password">Salasana on pakko antaa</string>
+  <string name="activity_chooser_send_file_title">Lähetä</string>
+  <string name="copy_link">Kopioi linkki</string>
+  <string name="clipboard_text_copied">Kopioitu leikepöydälle</string>
+  <string name="error_cant_bind_to_operations_service">Kriittinen virhe: toimintoja ei voi suorittaa</string>
   <string name="network_error_socket_exception">Virhe palvelimeen yhdistäessä</string>
   <string name="network_error_socket_timeout_exception">Virhe palvelimen vastausta odottaessa, toimintoa ei voitu suorittaa</string>
   <string name="network_error_connect_timeout_exception">Virhe palvelimen vastausta odottaessa, toimintoa ei voitu suorittaa</string>
