@@ -121,6 +121,7 @@
   <string name="ssl_validator_not_saved">Klarte ikkje å lagra sertifikatet</string>
   <string name="ssl_validator_btn_details_see">Detaljar</string>
   <string name="instant_upload_on_wifi">Berre last opp bilete over WiFi</string>
+  <string name="activity_chooser_send_file_title">Send</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Kontoar</string>
   <string name="saml_authentication_wrong_pass">Feil passord</string>

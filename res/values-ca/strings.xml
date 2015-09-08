@@ -237,6 +237,10 @@
   <string name="share_link_no_support_share_api">La compartició no es troba disponible al vostre servidor. Contacteu amb l\'administrador.</string>
   <string name="share_link_file_error">S\'ha produït un error en intentar compartir aquest fitxer o carpeta</string>
   <string name="unshare_link_file_error">S\'ha produït un error en intentar deixar de compartir aquest fitxer o carpeta</string>
+  <string name="activity_chooser_send_file_title">Envia</string>
+  <string name="copy_link">Copia l\'enllaç</string>
+  <string name="clipboard_text_copied">S\'ha copiat al porta-retalls</string>
+  <string name="error_cant_bind_to_operations_service">Error crític: no es poden realitzar operacions</string>
   <string name="network_error_socket_exception">Hi ha hagut un error mentre es connectava al servidor.</string>
   <string name="network_error_socket_timeout_exception">Hi ha hagut un error esperant al servidor, l\'operació no s\'ha pogut realitzar</string>
   <string name="network_error_connect_timeout_exception">Hi ha hagut un error esperant el servidor, l\'operació no s\'ha pogut realitzar</string>

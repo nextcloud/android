@@ -58,6 +58,8 @@
   <string name="common_rename">Torna nomenar</string>
   <string name="common_remove">Suprimir</string>
   <string name="ssl_validator_label_C">País :</string>
+  <string name="activity_chooser_send_file_title">Mandar</string>
+  <string name="clipboard_text_copied">Copiat dins lo quichapapièrs</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Comptes</string>
   <string name="saml_authentication_required_text">Autentificacion requesida</string>

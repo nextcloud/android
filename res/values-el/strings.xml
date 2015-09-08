@@ -272,6 +272,10 @@
   <string name="unshare_link_file_error">Ένα σφάλμα προέκυψε κατά τη διάρκεια ακύρωσης διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
   <string name="share_link_password_title">Εισάγετε ένα κωδικό πρόσβασης.</string>
   <string name="share_link_empty_password">Πρέπει να εισάγετε ένα κωδικό πρόσβασης.</string>
+  <string name="activity_chooser_send_file_title">Αποστολή</string>
+  <string name="copy_link">Αντιγραφή συνδέσμου</string>
+  <string name="clipboard_text_copied">Αντιγράφηκε στο πρόχειρο</string>
+  <string name="error_cant_bind_to_operations_service">Κρίσιμο σφάλμα: αδύνατη η εκτέλεση λειτουργειών</string>
   <string name="network_error_socket_exception">Ένα σφάλμα προέκυψε κατά τη σύνδεση με το διακομιστή.</string>
   <string name="network_error_socket_timeout_exception">Ένα σφάλμα προέκυψε κατά την αναμονή για το διακομιστή, η λειτουργία δεν ήταν επιτυχής</string>
   <string name="network_error_connect_timeout_exception">Ένα σφάλμα προέκυψε κατά την αναμονή για το διακομιστή, η λειτουργία δεν ήταν επιτυχής</string>

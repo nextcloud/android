@@ -265,6 +265,10 @@
   <string name="unshare_link_file_error">Настъпи грешка при опита за премахване на споделянето на този файл или папка.</string>
   <string name="share_link_password_title">Въведи Парола</string>
   <string name="share_link_empty_password">Вие трябва да въведете парола</string>
+  <string name="activity_chooser_send_file_title">Изпращане</string>
+  <string name="copy_link">Копиране на връзката</string>
+  <string name="clipboard_text_copied">Копирана</string>
+  <string name="error_cant_bind_to_operations_service">Критична грешка: не може да изпълни операциите</string>
   <string name="network_error_socket_exception">Настъпи грешка при свързването със сървъра.</string>
   <string name="network_error_socket_timeout_exception">Настъпи грешка при свързването със сървъра, операцията не е изпълнена.</string>
   <string name="network_error_connect_timeout_exception">Настъпи грешка при свързването със сървъра, операцията не е изпълнена.</string>

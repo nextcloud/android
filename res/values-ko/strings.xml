@@ -265,6 +265,10 @@
   <string name="unshare_link_file_error">이 파일이나 폴더의 공유를 해제하는 중 오류 발생</string>
   <string name="share_link_password_title">암호 입력</string>
   <string name="share_link_empty_password">암호를 입력해야 합니다</string>
+  <string name="activity_chooser_send_file_title">보내기</string>
+  <string name="copy_link">링크 주소 복사</string>
+  <string name="clipboard_text_copied">클립보드로 복사됨</string>
+  <string name="error_cant_bind_to_operations_service">치명적 오류: 작업을 진행할 수 없음</string>
   <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생하였습니다.</string>
   <string name="network_error_socket_timeout_exception">서버를 기다리는 중 오류가 발생하였습니다. 작업이 진행되지 않았을 수도 있습니다</string>
   <string name="network_error_connect_timeout_exception">서버를 기다리는 중 오류가 발생하였습니다. 작업이 진행되지 않았을 수도 있습니다</string>

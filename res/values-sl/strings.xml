@@ -272,6 +272,10 @@
   <string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
   <string name="share_link_password_title">Vpis gesla</string>
   <string name="share_link_empty_password">Vpisati je treba geslo.</string>
+  <string name="activity_chooser_send_file_title">Pošlji</string>
+  <string name="copy_link">Kopiraj povezavo</string>
+  <string name="clipboard_text_copied">Kopirano v odložišče</string>
+  <string name="error_cant_bind_to_operations_service">Kritična napaka: dejanj ni možno izvesti</string>
   <string name="network_error_socket_exception">Med povezovanjem s strežnikom je prišlo do napake.</string>
   <string name="network_error_socket_timeout_exception">Med čakanjem na vzpostavitev povezave s strežnikom je prišlo do napake. Zahtevanega dejanja ni mogoče izvesti.</string>
   <string name="network_error_connect_timeout_exception">Med čakanjem na vzpostavitev povezave s strežnikom je prišlo do napake. Zahtevanega dejanja ni bilo mogoče končati.</string>

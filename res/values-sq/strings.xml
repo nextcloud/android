@@ -67,6 +67,7 @@
   <string name="auth_secure_connection">Lidhja e Sigurt vendos</string>
   <string name="common_rename">Riemërto</string>
   <string name="common_remove">Hiq</string>
+  <string name="activity_chooser_send_file_title">Dërgo</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Llogarit</string>
   <string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>

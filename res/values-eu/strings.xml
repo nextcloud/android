@@ -240,6 +240,10 @@ Mesedez, baimendu berriz</string>
   <string name="share_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzerakoan</string>
   <string name="unshare_link_file_no_exist">Ezin izan da partekatzea desegin. Mesedez egiaztatu fitxategia existitzen dela</string>
   <string name="unshare_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzeari uzterakoan</string>
+  <string name="activity_chooser_send_file_title">Bidali</string>
+  <string name="copy_link">Lotura kopiatu</string>
+  <string name="clipboard_text_copied">Arbelera kopiatua</string>
+  <string name="error_cant_bind_to_operations_service">Errore larria: ezin dira egin eragiketak</string>
   <string name="network_error_socket_exception">Errore bat gertatu da zerbitzariarekin konektatzean.</string>
   <string name="network_error_socket_timeout_exception">Errore bat gertatu da zerbitzariaren zain egon bitartean, ezin izan da eragiketa burutu</string>
   <string name="network_error_connect_timeout_exception">Errore bat gertatu da zerbitzariaren zain egon bitartean, ezin izan da eragiketa burutu</string>

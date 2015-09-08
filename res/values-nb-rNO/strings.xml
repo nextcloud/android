@@ -266,6 +266,10 @@
   <string name="unshare_link_file_error">En feil oppstod ved avslutting av delingen av denne filen eller mappen</string>
   <string name="share_link_password_title">Skriv inn ett passord</string>
   <string name="share_link_empty_password">Du må skrive inn ett passord</string>
+  <string name="activity_chooser_send_file_title">Send</string>
+  <string name="copy_link">Kopier lenke</string>
+  <string name="clipboard_text_copied">Kopiert til utklippstavlen</string>
+  <string name="error_cant_bind_to_operations_service">Kritisk feil: kan ikke utføre operasjonene</string>
   <string name="network_error_socket_exception">En feil oppstod ved oppretting av forbindelse til serveren.</string>
   <string name="network_error_socket_timeout_exception">En feil oppstod ved venting på svar fra serveren. Operasjonen kunne ikke utføres</string>
   <string name="network_error_connect_timeout_exception">En feil oppstod ved venting på svar fra serveren. Operasjonen kunne ikke utføres</string>

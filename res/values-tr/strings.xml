@@ -272,6 +272,10 @@
   <string name="unshare_link_file_error">Bu dosya veya klasör paylaşımı kaldırılmaya çalışılırken bir hata oluştu</string>
   <string name="share_link_password_title">Bir parola girin</string>
   <string name="share_link_empty_password">Bir parola girmelisiniz</string>
+  <string name="activity_chooser_send_file_title">Gönder</string>
+  <string name="copy_link">Bağlantıyı kopyala</string>
+  <string name="clipboard_text_copied">Panoya kopyalandı</string>
+  <string name="error_cant_bind_to_operations_service">Ciddi hata: işlem gerçekleştirilemiyor</string>
   <string name="network_error_socket_exception">Sunucuya bağlanılırken bir hata oluştu.</string>
   <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir hata oluştu, işlem yapılamadı</string>
   <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir hata oluştu, işlem yapılamadı</string>

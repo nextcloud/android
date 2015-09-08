@@ -204,6 +204,7 @@
   <string name="preview_image_description">Xem trước hình ảnh</string>
   <string name="share_link_file_error">Một lỗi đã xảy ra khi thử chia sẻ file hoặc thư mục này</string>
   <string name="unshare_link_file_error">Một lỗi đã xảy ra khi thử gỡ chia sẻ file hoặc thư mục này</string>
+  <string name="activity_chooser_send_file_title">Gởi</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Tài khoản</string>
   <string name="folder_picker_choose_button_text">Chọn</string>

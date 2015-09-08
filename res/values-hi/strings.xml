@@ -31,6 +31,7 @@
   <string name="common_cancel">रद्द करें </string>
   <string name="common_error">त्रुटि</string>
   <string name="ssl_validator_btn_details_see">विवरण </string>
+  <string name="activity_chooser_send_file_title">भेजें</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">खाते </string>
 </resources>
