@@ -272,6 +272,10 @@ Descárgueo de aquí: %2$s</string>
   <string name="unshare_link_file_error">Produciuse un erro ao tentar deixar de compartir este ficheiro ou cartafol</string>
   <string name="share_link_password_title">Escriba un contrasinal</string>
   <string name="share_link_empty_password">Ten que escribir un contrasinal</string>
+  <string name="activity_chooser_send_file_title">Enviar</string>
+  <string name="copy_link">Copiar a ligazón</string>
+  <string name="clipboard_text_copied">Copiado no portapapeis.</string>
+  <string name="error_cant_bind_to_operations_service">Produciuse un erro crítico: non é posíbel realizar as operacións</string>
   <string name="network_error_socket_exception">Produciuse un erro mentres conectaba co servidor.</string>
   <string name="network_error_socket_timeout_exception">Produciuse un erro mentres agardaba polo servidor, a operación non se puido levar a fin</string>
   <string name="network_error_connect_timeout_exception">Produciuse un erro mentres agardaba polo servidor, a operación non se puido levar a fin</string>

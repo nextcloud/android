@@ -128,6 +128,7 @@
   <string name="instant_upload_on_wifi">Llwytho lluniau i fyny drwy WiFi\'n unig</string>
   <string name="instant_upload_path">/LlwythoSyth</string>
   <string name="conflict_keep_both">Cadw\'r ddau</string>
+  <string name="activity_chooser_send_file_title">Anfon</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Cyfrifon</string>
   <string name="folder_picker_choose_button_text">Dewisiwch</string>

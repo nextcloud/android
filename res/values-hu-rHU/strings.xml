@@ -226,6 +226,9 @@
   <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi könyvtárba</string>
   <string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
   <string name="unshare_link_file_error">Hiba lépett fel a mappa megosztásának visszavonásakor</string>
+  <string name="activity_chooser_send_file_title">Küldjük el</string>
+  <string name="copy_link">Link másolása</string>
+  <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Fiókok</string>
   <string name="prefs_add_account">Fiók hozzáadása</string>
