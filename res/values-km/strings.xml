@@ -98,6 +98,7 @@
   <string name="ssl_validator_label_validity_from">ចាប់ពីៈ</string>
   <string name="ssl_validator_label_validity_to">រហូតដល់ៈ</string>
   <string name="ssl_validator_label_signature">ហត្ថលេខា:</string>
+  <string name="activity_chooser_send_file_title">ផ្ញើ</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">គណនី</string>
   <string name="saml_authentication_wrong_pass">ខុស​ពាក្យ​សម្ងាត់</string>

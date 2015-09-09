@@ -231,6 +231,10 @@
 ⇥⇥מנהל.</string>
   <string name="share_link_file_error">שגיאה אירעה בזמן ניסיון לשתף קובץ זה או תיקייה זו</string>
   <string name="unshare_link_file_error">שגיאה אירעה בזמן ניסיון לבטל שיתוף לקובץ זה או לתיקייה זו</string>
+  <string name="activity_chooser_send_file_title">שליחה</string>
+  <string name="copy_link">העתקת קישור</string>
+  <string name="clipboard_text_copied">הועתק ללוח הגזירים - clipboard</string>
+  <string name="error_cant_bind_to_operations_service">שגיאה קריטית: לא ניתן לבצע את הפעולות</string>
   <string name="network_error_socket_exception">שגיאה אירעה בזמן חיבור לשרת.</string>
   <string name="network_error_socket_timeout_exception">שגיאה אירעה בזמן המתנה לשרת, הפעולה לא הייתה ניתנת להשלמה</string>
   <string name="network_error_connect_timeout_exception">שגיאה אירעה בזמן המתנה לשרת, הפעולה לא הייתה ניתנת להשלמה</string>
