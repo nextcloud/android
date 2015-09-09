@@ -270,6 +270,10 @@
   <string name="unshare_link_file_error">Ocorreu um erro enquanto retirava a partilha deste ficheiro ou pasta</string>
   <string name="share_link_password_title">Introduza uma palavra-passe</string>
   <string name="share_link_empty_password">Você deve introduzir uma palavra-passe</string>
+  <string name="activity_chooser_send_file_title">Enviar</string>
+  <string name="copy_link">Copiar hiperligação</string>
+  <string name="clipboard_text_copied">Copiado para a área de transferência</string>
+  <string name="error_cant_bind_to_operations_service">Erro crítico: não é possível executar as operações</string>
   <string name="network_error_socket_exception">Ocorreu um erro durante a ligação ao servidos.</string>
   <string name="network_error_socket_timeout_exception">Ocorreu um erro durante a ligação ao servidor, não foi possível realizar a operação.</string>
   <string name="network_error_connect_timeout_exception">Ocorreu um erro durante a ligação ao servidor, não foi possível realizar a operação.</string>

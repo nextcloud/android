@@ -270,6 +270,10 @@
   <string name="unshare_link_file_error">เกิดข้อผิดพลาดในขณะที่จะยกเลิกการอชร์ไฟล์หรือโฟลเดอร์นี้</string>
   <string name="share_link_password_title">ป้อนรหัสผ่าน</string>
   <string name="share_link_empty_password">คุณจะต้องใส่รหัสผ่าน</string>
+  <string name="activity_chooser_send_file_title">ส่ง</string>
+  <string name="copy_link">คัดลอกลิงค์</string>
+  <string name="clipboard_text_copied">คัดลอกไปยังคลิปบอร์ด</string>
+  <string name="error_cant_bind_to_operations_service">ข้อผิดพลาด: ไม่สามารถดำเนินการได้</string>
   <string name="network_error_socket_exception">เกิดข้อผิดพลาดขณะกำลังเชื่อมต่อกับเซิร์ฟเวอร์</string>
   <string name="network_error_socket_timeout_exception">เกิดข้อผิดพลาดขณะที่รอการดำเนินการจากเซิร์ฟเวอร์</string>
   <string name="network_error_connect_timeout_exception">เกิดข้อผิดพลาดขณะที่รอการดำเนินการจากเซิร์ฟเวอร์</string>
