@@ -381,32 +381,4 @@ public class MimetypeIconUtil {
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("yml", Arrays.asList("application/yaml", "text/plain"));
         FILE_EXTENSION_TO_MIMETYPE_MAPPING.put("zip", Collections.singletonList("application/zip"));
     }
-
-    /**
-     public static void main(String[] args) {
-     Iterator<String> fileExtensions = FILE_EXTENSION_TO_MIMETYPE_MAPPING.keySet().iterator();
-     String extension;
-     List<String> mimeTypes;
-     Map<Integer, String> iconTextMap = new HashMap<Integer, String>();
-     iconTextMap.put(R.drawable.file, "file");
-     iconTextMap.put(R.drawable.file_application, "app");
-     iconTextMap.put(R.drawable.file_calendar, "calendar");
-     iconTextMap.put(R.drawable.file_code, "code");
-     iconTextMap.put(R.drawable.file_doc, "document");
-     iconTextMap.put(R.drawable.file_image, "image");
-     iconTextMap.put(R.drawable.file_movie, "movie");
-     iconTextMap.put(R.drawable.file_pdf, "pdf");
-     iconTextMap.put(R.drawable.file_ppt, "presentation");
-     iconTextMap.put(R.drawable.file_sound, "sound");
-     iconTextMap.put(R.drawable.file_vcard, "vcard");
-     iconTextMap.put(R.drawable.file_xls, "spreadsheet");
-     iconTextMap.put(R.drawable.file_zip, "archive");
-     while (fileExtensions.hasNext()) {
-     extension = fileExtensions.next();
-     System.out.println(extension + " / " + iconTextMap.get(getFileTypeIconId(null, "test." + extension)));
-     }
-
-     System.out.println("notExistingExtension" + " / " + iconTextMap.get(getFileTypeIconId(null, "test." + "notExistingExtension")));
-     }
-     */
 }
