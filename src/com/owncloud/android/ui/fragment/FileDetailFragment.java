@@ -48,6 +48,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 
 import java.lang.ref.WeakReference;
 
@@ -403,7 +404,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
         ImageView iv = (ImageView) getView().findViewById(R.id.fdIcon);
         if (iv != null) {
-            iv.setImageResource(DisplayUtils.getFileTypeIconId(mimetype, filename));
+            iv.setImageResource(MimetypeIconUtil.getFileTypeIconId(mimetype, filename));
         }
     }
 

@@ -55,6 +55,7 @@ import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 
 
 /**
@@ -329,7 +330,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
 
                 } else {
-                    fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(file.getMimetype(),
+                    fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(file.getMimetype(),
                             file.getFileName()));
                 }
 
@@ -344,7 +345,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     fileIcon.setImageResource(R.drawable.folder_public);
                 } else {
                     fileIcon.setImageResource(
-                            DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName())
+                            MimetypeIconUtil.getFileTypeIconId(file.getMimetype(), file.getFileName())
                     );
                 }
             }
