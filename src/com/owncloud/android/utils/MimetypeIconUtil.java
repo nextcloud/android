@@ -160,6 +160,7 @@ public class MimetypeIconUtil {
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.openxmlformats-officedocument.wordprocessingml.document", R.drawable.file_doc);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.openxmlformats-officedocument.wordprocessingml.template", R.drawable.file_doc);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-7z-compressed", R.drawable.file_zip);
+        MIMETYPE_TO_ICON_MAPPING.put("application/x-bin", R.drawable.file_application);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-cbr", R.drawable.file_doc);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-compressed", R.drawable.file_zip);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-dcraw", R.drawable.file_image);
