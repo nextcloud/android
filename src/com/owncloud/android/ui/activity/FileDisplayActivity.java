@@ -861,7 +861,26 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     public void onBackPressed() {
-        if (!isDrawerOpen()){
+        boolean isFabOpen = isFabOpen();
+        boolean isDrawerOpen = isDrawerOpen();
+
+        /*
+         * BackPressed priority/hierarchy:
+         *    1. close drawer if opened
+         *    2. close FAB if open (only if drawer isn't open)
+         *    3. navigate up (only if drawer and FAB aren't open)
+         */
+        if(isDrawerOpen && isFabOpen) {
+            // close drawer first
+            super.onBackPressed();
+        } else if(isDrawerOpen && !isFabOpen) {
+            // close drawer
+            super.onBackPressed();
+        } else if (!isDrawerOpen && isFabOpen) {
+            // close fab
+            getListOfFilesFragment().getFabMain().collapse();
+        } else {
+            // all closed
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (mDualPane || getSecondFragment() == null) {
                 OCFile currentDir = getCurrentDir();
@@ -877,8 +896,6 @@ public class FileDisplayActivity extends HookActivity
                 setFile(listOfFiles.getCurrentFile());
             }
             cleanSecondFragment();
-        } else {
-            super.onBackPressed();
         }
     }
 
@@ -955,6 +972,14 @@ public class FileDisplayActivity extends HookActivity
 
         super.onPause();
         Log_OC.v(TAG, "onPause() end");
+    }
+
+    public boolean isFabOpen() {
+        if(getListOfFilesFragment() != null && getListOfFilesFragment().getFabMain() != null && getListOfFilesFragment().getFabMain().isExpanded()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
