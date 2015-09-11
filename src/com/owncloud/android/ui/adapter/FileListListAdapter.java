@@ -55,6 +55,7 @@ import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 
 
 /**
@@ -332,24 +333,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
 
                 } else {
-                    fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(file.getMimetype(),
+                    fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(file.getMimetype(),
                             file.getFileName()));
                 }
 
             } else {
                 // Folder
-
-                if (checkIfFileIsSharedWithMe(file)) {
-                    fileIcon.setImageResource(R.drawable.shared_with_me_folder);
-                } else if (file.isShareByLink()) {
-                    // If folder is sharedByLink, icon folder must be changed to
-                    // folder-public one
-                    fileIcon.setImageResource(R.drawable.folder_public);
-                } else {
-                    fileIcon.setImageResource(
-                            DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName())
-                    );
-                }
+                fileIcon.setImageResource(
+                        MimetypeIconUtil.getFolderTypeIconId(
+                                checkIfFileIsSharedWithMe(file), file.isShareByLink()));
             }
         }
 
