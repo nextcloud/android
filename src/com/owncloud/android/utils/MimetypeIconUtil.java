@@ -12,12 +12,33 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Helper class for detecting the right icon for a file, based on its mimen type and/or file extension.
+ * <p>Helper class for detecting the right icon for a file or directory,
+ * based on its mime type and/or file extension.</p>
+ *
+ * This class maintains all the necessary mappings fot these detections.<br/>
+ * In order to add further mappings, there are up to three look up maps that need further values:
+ * <ol>
+ *     <li>
+ *         {@link MimetypeIconUtil#FILE_EXTENSION_TO_MIMETYPE_MAPPING}<br/>
+ *         to add a new file extension to mime type mapping
+ *     </li>
+ *     <li>
+ *         {@link MimetypeIconUtil#MIMETYPE_TO_ICON_MAPPING}<br/>
+ *         to add a new mapping of a mime type to an icon mapping
+ *     </li>
+ *     <li>
+ *         {@link MimetypeIconUtil#MAINMIMETYPE_TO_ICON_MAPPING}<br/>
+ *         to add a new mapping for the main part of a mime type.
+ *         This is a list of fallback mappings in case there is no mapping for the complete mime type
+ *     </li>
+ * </ol>
  */
 public class MimetypeIconUtil {
-
+    /** Mapping: icon for mime type */
     private static final Map<String, Integer> MIMETYPE_TO_ICON_MAPPING = new HashMap<String, Integer>();
+    /** Mapping: icon for main mime type (first part of a mime type declaration). */
     private static final Map<String, Integer> MAINMIMETYPE_TO_ICON_MAPPING = new HashMap<String, Integer>();
+    /** Mapping: mime type for file extension. */
     private static final Map<String, List<String>> FILE_EXTENSION_TO_MIMETYPE_MAPPING =
             new HashMap<String, List<String>>();
 
@@ -105,6 +126,12 @@ public class MimetypeIconUtil {
         }
     }
 
+    /**
+     * provides the file extension of a given filename.
+     *
+     * @param filename the filename
+     * @return the file extension
+     */
     private static String getExtension(String filename) {
         String extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
         return extension;
