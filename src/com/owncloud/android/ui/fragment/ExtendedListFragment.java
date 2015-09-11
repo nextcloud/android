@@ -22,6 +22,7 @@ package com.owncloud.android.ui.fragment;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,6 +46,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 

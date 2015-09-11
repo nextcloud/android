@@ -108,7 +108,6 @@
             fab:fab_size="mini"
             fab:fab_icon="@drawable/ic_action_upload"
             fab:fab_colorNormal="@color/owncloud_blue_accent"
-            fab:fab_title="@string/actionbar_upload"
             fab:fab_colorPressed="@color/owncloud_blue"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -118,7 +117,6 @@
             fab:fab_size="mini"
             fab:fab_icon="@drawable/ic_action_create_dir"
             fab:fab_colorNormal="@color/owncloud_blue_accent"
-            fab:fab_title="@string/actionbar_mkdir"
             fab:fab_colorPressed="@color/owncloud_blue"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -126,10 +124,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_size="mini"
-            fab:fab_icon="@drawable/ic_action_upload"
+            fab:fab_icon="@drawable/ic_import"
             fab:fab_colorNormal="@color/owncloud_blue_accent"
-            fab:fab_title="Upload from app"
-            fab:fab_colorPressed="@color/owncloud_blue_bright"/>
+            fab:fab_colorPressed="@color/owncloud_blue"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </RelativeLayout>
