@@ -24,6 +24,7 @@ package com.owncloud.android.ui.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
@@ -34,6 +35,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -46,11 +48,14 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.FileActionsDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.ui.dialog.UploadSourceDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -74,6 +79,8 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
     public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
 
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
+
+    private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
 
     private FileFragment.ContainerActivity mContainerActivity;
 
@@ -144,7 +151,88 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
         setListAdapter(mAdapter);
 
         registerLongClickListener();
+        registerFabListeners();
   }
+
+    private void registerFabListeners() {
+        registerFabUploadListeners();
+        registerFabMkDirListeners();
+        registerFabUploadFromAppListeners();
+    }
+
+    private void registerFabUploadListeners() {
+        getFabUpload().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent action = new Intent(getActivity(), UploadFilesActivity.class);
+                action.putExtra(
+                        UploadFilesActivity.EXTRA_ACCOUNT,
+                        ((FileActivity) getActivity()).getAccount()
+                );
+                getActivity().startActivityForResult(action, UploadSourceDialogFragment.ACTION_SELECT_MULTIPLE_FILES);
+                getFabMain().collapse();
+            }
+        });
+
+        getFabUpload().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getActivity(), R.string.actionbar_upload, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+    }
+
+    private void registerFabMkDirListeners() {
+        getFabMkdir().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreateFolderDialogFragment dialog =
+                        CreateFolderDialogFragment.newInstance(mFile);
+                dialog.show(getActivity().getSupportFragmentManager(), FileDisplayActivity.DIALOG_CREATE_FOLDER);
+                getFabMain().collapse();
+            }
+        });
+
+        getFabMkdir().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getActivity(), R.string.actionbar_mkdir, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+    }
+
+    private void registerFabUploadFromAppListeners() {
+        getFabUploadFromApp().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent action = new Intent(Intent.ACTION_GET_CONTENT);
+                action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
+
+                //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                }
+
+                getActivity().startActivityForResult(
+                    Intent.createChooser(action, getString(R.string.upload_chooser_title)),
+                    UploadSourceDialogFragment.ACTION_SELECT_CONTENT_FROM_APPS
+                );
+                getFabMain().collapse();
+            }
+        });
+
+        getFabUploadFromApp().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getActivity(),
+                        R.string.actionbar_upload_from_apps,
+                        Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+    }
 
     private void registerLongClickListener() {
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
