@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>Helper class for detecting the right icon for a file or directory,
- * based on its mime type and/or file extension.</p>
+ * <p>Helper class for detecting the right icon for a file or folder,
+ * based on its mime type and file extension.</p>
  *
  * This class maintains all the necessary mappings fot these detections.<br/>
  * In order to add further mappings, there are up to three look up maps that need further values:
@@ -64,6 +64,23 @@ public class MimetypeIconUtil {
         }
 
         return determineIconIdByMimeTypeList(possibleMimeTypes);
+    }
+
+    /**
+     * Returns the resource identifier of an image to use as icon associated to a type of folder.
+     *
+     * @param isSharedWithUser flag if the folder is shared with the user
+     * @param isShareByLink flag if the folder is shared by link
+     * @return Identifier of an image resource.
+     */
+    public static int getFolderTypeIconId(boolean isSharedWithUser, boolean isShareByLink) {
+        if (isSharedWithUser) {
+            return R.drawable.shared_with_me_folder;
+        } else if (isShareByLink) {
+            return R.drawable.folder_public;
+        }
+
+        return R.drawable.ic_menu_archive;
     }
 
     /**
