@@ -21,16 +21,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_upload"
-        android:icon="@drawable/ic_action_upload"
-        android:orderInCategory="2"
-        app:showAsAction="always"
-        android:title="@string/actionbar_upload"
-        android:contentDescription="@string/actionbar_upload"/>
-    <item
         android:id="@+id/action_create_dir"
         android:icon="@drawable/ic_action_create_dir"
-        android:orderInCategory="2"
+        android:orderInCategory="1"
         app:showAsAction="always"
         android:title="@string/actionbar_mkdir"
         android:contentDescription="@string/actionbar_mkdir"/>
@@ -43,15 +36,15 @@
     <item
         android:id="@+id/action_sync_account"
         android:icon="@drawable/ic_action_refresh"
-        android:orderInCategory="2"
-        app:showAsAction="never"
+        android:orderInCategory="1"
+        app:showAsAction="always"
         android:title="@string/actionbar_sync"
         android:contentDescription="@string/actionbar_sync"/>
 	<item
         android:id="@+id/action_sort"
-        android:icon="@android:drawable/ic_menu_sort_by_size"
-        android:orderInCategory="2"
-        app:showAsAction="never"
+        android:icon="@drawable/ic_sort_variant"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
         android:title="@string/actionbar_sort"
         android:contentDescription="@string/actionbar_sort"/>
 

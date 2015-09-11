@@ -530,8 +530,6 @@ public class FileDisplayActivity extends HookActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(GravityCompat.START);
-        menu.findItem(R.id.action_upload).setVisible(!drawerOpen);
-        menu.findItem(R.id.action_create_dir).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
         menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
@@ -543,6 +541,7 @@ public class FileDisplayActivity extends HookActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        menu.findItem(R.id.action_create_dir).setVisible(false);
         return true;
     }
     
@@ -551,19 +550,8 @@ public class FileDisplayActivity extends HookActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
-            case R.id.action_create_dir: {
-                createFolder();
-                break;
-            }
-
             case R.id.action_sync_account: {
                 startSynchronization();
-                break;
-            }
-            case R.id.action_upload: {
-                UploadSourceDialogFragment dialog =
-                        UploadSourceDialogFragment.newInstance(getAccount());
-                dialog.show(getSupportFragmentManager(), DIALOG_UPLOAD_SOURCE);
                 break;
             }
             case android.R.id.home: {
