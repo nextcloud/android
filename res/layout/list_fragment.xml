@@ -108,7 +108,8 @@
             fab:fab_size="mini"
             fab:fab_icon="@drawable/ic_action_upload"
             fab:fab_colorNormal="@color/owncloud_blue_accent"
-            fab:fab_colorPressed="@color/owncloud_blue"/>
+            fab:fab_colorPressed="@color/owncloud_blue"
+            fab:fab_title=""/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_mkdir"
@@ -117,7 +118,8 @@
             fab:fab_size="mini"
             fab:fab_icon="@drawable/ic_action_create_dir"
             fab:fab_colorNormal="@color/owncloud_blue_accent"
-            fab:fab_colorPressed="@color/owncloud_blue"/>
+            fab:fab_colorPressed="@color/owncloud_blue"
+            fab:fab_title=""/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_upload_from_app"
@@ -126,7 +128,8 @@
             fab:fab_size="mini"
             fab:fab_icon="@drawable/ic_import"
             fab:fab_colorNormal="@color/owncloud_blue_accent"
-            fab:fab_colorPressed="@color/owncloud_blue"/>
+            fab:fab_colorPressed="@color/owncloud_blue"
+            fab:fab_title=""/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </RelativeLayout>
