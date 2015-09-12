@@ -24,8 +24,10 @@ package com.owncloud.android.ui.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -35,6 +37,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
@@ -79,6 +82,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
     public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
 
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
+    private static final String KEY_FAB_EVER_CLICKED = "FAB_EVER_CLICKED";
 
     private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
 
@@ -89,8 +93,8 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
     private boolean mJustFolders;
     
     private OCFile mTargetFile;
-    
-   
+
+    private boolean miniFabClicked = false;
     
     /**
      * {@inheritDoc}
@@ -152,14 +156,43 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
 
         registerLongClickListener();
         registerFabListeners();
+
+        // detect if a mini FAB has ever been clicked
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        if(prefs.getLong(KEY_FAB_EVER_CLICKED, 0) > 0) {
+            miniFabClicked = true;
+        }
+
+        // add labels to the min FABs when none of them has ever been clicked on
+        if(!miniFabClicked) {
+            setFabLabels();
+        } else {
+            removeFabLabels();
+        }
   }
 
+    /**
+     * adds labels to all mini FABs.
+     */
+    private void setFabLabels() {
+        getFabUpload().setTitle(getResources().getString(R.string.actionbar_upload));
+        getFabMkdir().setTitle(getResources().getString(R.string.actionbar_mkdir));
+        getFabUploadFromApp().setTitle(getResources().getString(R.string.actionbar_upload_from_apps));
+    }
+
+    /**
+     * registers all listeners on all mini FABs.
+     */
     private void registerFabListeners() {
         registerFabUploadListeners();
         registerFabMkDirListeners();
         registerFabUploadFromAppListeners();
     }
 
+    /**
+     * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
+     * on the Upload mini FAB for the linked action and {@link Toast} showing the underlying action.
+     */
     private void registerFabUploadListeners() {
         getFabUpload().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +204,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 );
                 getActivity().startActivityForResult(action, UploadSourceDialogFragment.ACTION_SELECT_MULTIPLE_FILES);
                 getFabMain().collapse();
+                recordMiniFabClick();
             }
         });
 
@@ -183,6 +217,10 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
         });
     }
 
+    /**
+     * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
+     * on the 'Create Dir' mini FAB for the linked action and {@link Toast} showing the underlying action.
+     */
     private void registerFabMkDirListeners() {
         getFabMkdir().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,6 +229,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                         CreateFolderDialogFragment.newInstance(mFile);
                 dialog.show(getActivity().getSupportFragmentManager(), FileDisplayActivity.DIALOG_CREATE_FOLDER);
                 getFabMain().collapse();
+                recordMiniFabClick();
             }
         });
 
@@ -203,6 +242,10 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
         });
     }
 
+    /**
+     * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
+     * on the Upload from App mini FAB for the linked action and {@link Toast} showing the underlying action.
+     */
     private void registerFabUploadFromAppListeners() {
         getFabUploadFromApp().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,10 +259,11 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 }
 
                 getActivity().startActivityForResult(
-                    Intent.createChooser(action, getString(R.string.upload_chooser_title)),
-                    UploadSourceDialogFragment.ACTION_SELECT_CONTENT_FROM_APPS
+                        Intent.createChooser(action, getString(R.string.upload_chooser_title)),
+                        UploadSourceDialogFragment.ACTION_SELECT_CONTENT_FROM_APPS
                 );
                 getFabMain().collapse();
+                recordMiniFabClick();
             }
         });
 
@@ -234,6 +278,34 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
         });
     }
 
+    /**
+     * records a click on a mini FAB and thus:
+     * <ol>
+     *     <li>persists the click fact</li>
+     *     <li>removes the mini FAB labels</li>
+     * </ol>
+     */
+    private void recordMiniFabClick() {
+        // only record if it hasn't been done already at some other time
+        if(!miniFabClicked) {
+            final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            sp.edit().putLong(KEY_FAB_EVER_CLICKED, 1).commit();
+            miniFabClicked = true;
+        }
+    }
+
+    /**
+     * removes the labels on all known min FABs.
+     */
+    private void removeFabLabels() {
+        getFabUpload().setTitle(null);
+        getFabMkdir().setTitle(null);
+        getFabUploadFromApp().setTitle(null);
+        ((TextView) getFabUpload().getTag(com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
+        ((TextView) getFabMkdir().getTag(com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
+        ((TextView) getFabUploadFromApp().getTag(com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
+    }
+
     private void registerLongClickListener() {
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> arg0, View v,
@@ -243,7 +315,6 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
             }
         });
     }
-
 
     private void showFileAction(int fileIndex) {
         Bundle args = getArguments();
@@ -298,11 +369,11 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
 
     /**
      * Call this, when the user presses the up button.
-     *
-     * Tries to move up the current folder one level. If the parent folder was removed from the
-     * database, it continues browsing up until finding an existing folders.
-     * <p/>
-     * return       Count of folder levels browsed up.
+     * <p>
+     *     Tries to move up the current folder one level. If the parent folder was removed from the
+     *     database, it continues browsing up until finding an existing folders.
+     * </p>
+     * @return Count of folder levels browsed up.
      */
     public int onBrowseUp() {
         OCFile parentDir = null;
