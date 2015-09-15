@@ -306,7 +306,11 @@ správce systému.</string>
   <string name="move_file_invalid_overwrite">Soubor již v cílovém adresáři existuje</string>
   <string name="move_file_error">Při pokusu o přesun tohoto souboru či složky nastala chyba</string>
   <string name="forbidden_permissions_move">pro přesun tohoto souboru</string>
+  <string name="copy_file_not_found">Nelze zkopírpovat. Zkontrolujte prosím že soubor existuje</string>
+  <string name="copy_file_invalid_into_descendent">Není možné adresář zkopírovat do jeho vlastního podadresáře</string>
   <string name="copy_file_invalid_overwrite">Soubor již v cílové složce existuje</string>
+  <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či složky došlo k chybě</string>
+  <string name="forbidden_permissions_copy">pro zkopírování tohoto souboru</string>
   <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
   <string name="prefs_category_security">Zabezpečení</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pro nahrávání videí</string>
