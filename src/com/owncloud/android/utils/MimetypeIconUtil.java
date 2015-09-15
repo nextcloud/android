@@ -159,7 +159,7 @@ public class MimetypeIconUtil {
      */
     private static void populateMimeTypeIconMapping() {
         MIMETYPE_TO_ICON_MAPPING.put("application/coreldraw", R.drawable.file_image);
-        MIMETYPE_TO_ICON_MAPPING.put("application/epub+zip", R.drawable.file_doc);
+        MIMETYPE_TO_ICON_MAPPING.put("application/epub+zip", R.drawable.file_text);
         MIMETYPE_TO_ICON_MAPPING.put("application/font-sfnt", R.drawable.file_image);
         MIMETYPE_TO_ICON_MAPPING.put("application/font-woff", R.drawable.file_image);
         MIMETYPE_TO_ICON_MAPPING.put("application/illustrator", R.drawable.file_image);
@@ -173,7 +173,7 @@ public class MimetypeIconUtil {
         MIMETYPE_TO_ICON_MAPPING.put("application/postscript", R.drawable.file_image);
         MIMETYPE_TO_ICON_MAPPING.put("application/pdf", R.drawable.file_pdf);
         MIMETYPE_TO_ICON_MAPPING.put("application/rss+xml", R.drawable.file_code);
-        MIMETYPE_TO_ICON_MAPPING.put("application/rtf", R.drawable.file_doc);
+        MIMETYPE_TO_ICON_MAPPING.put("application/rtf", R.drawable.file);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.android.package-archive", R.drawable.file_zip);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.ms-excel", R.drawable.file_xls);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.ms-excel.addin.macroEnabled.12", R.drawable.file_xls);
@@ -205,7 +205,7 @@ public class MimetypeIconUtil {
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.openxmlformats-officedocument.wordprocessingml.template", R.drawable.file_doc);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-7z-compressed", R.drawable.file_zip);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-bin", R.drawable.file_application);
-        MIMETYPE_TO_ICON_MAPPING.put("application/x-cbr", R.drawable.file_doc);
+        MIMETYPE_TO_ICON_MAPPING.put("application/x-cbr", R.drawable.file_text);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-compressed", R.drawable.file_zip);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-dcraw", R.drawable.file_image);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-deb", R.drawable.file_zip);
@@ -223,8 +223,8 @@ public class MimetypeIconUtil {
         MIMETYPE_TO_ICON_MAPPING.put("application/x-rar-compressed", R.drawable.file_zip);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-shockwave-flash", R.drawable.file_application);
         MIMETYPE_TO_ICON_MAPPING.put("application/x-tar", R.drawable.file_zip);
-        MIMETYPE_TO_ICON_MAPPING.put("application/x-tex", R.drawable.file_doc);
-        MIMETYPE_TO_ICON_MAPPING.put("application/xml", R.drawable.file_code);
+        MIMETYPE_TO_ICON_MAPPING.put("application/x-tex", R.drawable.file_text);
+        MIMETYPE_TO_ICON_MAPPING.put("application/xml", R.drawable.file_text);
         MIMETYPE_TO_ICON_MAPPING.put("application/yaml", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("application/zip", R.drawable.file_zip);
         MIMETYPE_TO_ICON_MAPPING.put("database", R.drawable.file);
@@ -253,7 +253,7 @@ public class MimetypeIconUtil {
         MAINMIMETYPE_TO_ICON_MAPPING.put("database", R.drawable.file);
         MAINMIMETYPE_TO_ICON_MAPPING.put("httpd", R.drawable.file_zip);
         MAINMIMETYPE_TO_ICON_MAPPING.put("image", R.drawable.file_image);
-        MAINMIMETYPE_TO_ICON_MAPPING.put("text", R.drawable.file_doc);
+        MAINMIMETYPE_TO_ICON_MAPPING.put("text", R.drawable.file_text);
         MAINMIMETYPE_TO_ICON_MAPPING.put("video", R.drawable.file_movie);
         MAINMIMETYPE_TO_ICON_MAPPING.put("web", R.drawable.file_code);
     }
