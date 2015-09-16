@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -28,11 +27,11 @@ public class ImageViewCustom extends ImageView {
     private int mBitmapHeight;
     private int mBitmapWidth;
 
-    private Movie gifMovie;
-    private int movieWidth, movieHeight;
-    private long movieDuration;
-    private long movieRunDuration;
-    private long lastTick;
+    private Movie mGifMovie;
+    private int mMovieWidth, mMovieHeight;
+    private long mMovieDuration;
+    private long mMovieRunDuration;
+    private long mLastTick;
 
     public ImageViewCustom(Context context) {
         super(context);
@@ -59,44 +58,48 @@ public class ImageViewCustom extends ImageView {
             setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
 
-        if(gifMovie == null){
+        if(mGifMovie == null){
             super.onDraw(canvas);
         } else {
             long nowTick = android.os.SystemClock.uptimeMillis();
-            if (lastTick == 0) {
-                movieRunDuration = 0;
+            if (mLastTick == 0) {
+                mMovieRunDuration = 0;
             } else {
-                movieRunDuration += nowTick -lastTick;
-                if(movieRunDuration > movieDuration){
-                        movieRunDuration = 0;
+                mMovieRunDuration += nowTick - mLastTick;
+                if(mMovieRunDuration > mMovieDuration){
+                        mMovieRunDuration = 0;
                 }
             }
 
-            gifMovie.setTime((int) movieRunDuration);
+            mGifMovie.setTime((int) mMovieRunDuration);
 
             float scale;
-            if(gifMovie.height() > getHeight() || gifMovie.width() > getWidth()) {
-                scale = (1f / Math.min(canvas.getHeight() / gifMovie.height(),
-                        canvas.getWidth() / gifMovie.width())) + 0.25f;
+            if(mGifMovie.height() > getHeight() || mGifMovie.width() > getWidth()) {
+                scale = (1f / Math.min(canvas.getHeight() / mGifMovie.height(),
+                        canvas.getWidth() / mGifMovie.width())) + 0.25f;
             } else {
-                scale = Math.min(canvas.getHeight() / gifMovie.height(),
-                                 canvas.getWidth() / gifMovie.width());
+                scale = Math.min(canvas.getHeight() / mGifMovie.height(),
+                                 canvas.getWidth() / mGifMovie.width());
             }
 
             canvas.scale(scale, scale);
-            canvas.translate(((float) getWidth() / scale - (float) gifMovie.width()) / 2f,
-                    ((float) getHeight() / scale - (float) gifMovie.height()) /2f);
+            canvas.translate(((float) getWidth() / scale - (float) mGifMovie.width()) / 2f,
+                    ((float) getHeight() / scale - (float) mGifMovie.height()) /2f);
 
-            gifMovie.draw(canvas, 0, 0);
+            mGifMovie.draw(canvas, 0, 0);
 
-            lastTick = nowTick;
+            mLastTick = nowTick;
             invalidate();
         }
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(movieWidth, movieHeight);
+        if (mGifMovie == null){
+            setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
+        } else {
+            setMeasuredDimension(mMovieWidth, mMovieHeight);
+        }
     }
 
     /**
@@ -128,10 +131,10 @@ public class ImageViewCustom extends ImageView {
           setLayerType(View.LAYER_TYPE_SOFTWARE, null);
           setFocusable(true);
 
-          gifMovie = Movie.decodeStream(gifInputStream);
-          movieWidth = gifMovie.width();
-          movieHeight = gifMovie.height();
-          movieDuration = gifMovie.duration();
+          mGifMovie = Movie.decodeStream(gifInputStream);
+          mMovieWidth = mGifMovie.width();
+          mMovieHeight = mGifMovie.height();
+          mMovieDuration = mGifMovie.duration();
         } catch (Exception e) {
             e.printStackTrace();
         }
