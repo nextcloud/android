@@ -39,6 +39,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 
 /**
  * This Adapter populates a ListView with all files and directories contained
@@ -159,7 +160,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                         }
                     }
                 } else {
-                    fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(null, file.getName()));
+                    fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(null, file.getName()));
                 }  
 
             } else {
