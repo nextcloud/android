@@ -260,7 +260,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
         });
 
-        findViewById(R.id.embeddedRefreshButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.centeredRefreshButton).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -268,7 +268,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
         });
 
-        findViewById(R.id.centeredRefreshButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.embeddedRefreshButton).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
