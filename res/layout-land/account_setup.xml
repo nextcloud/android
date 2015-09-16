@@ -107,8 +107,7 @@
 					    android:layout_marginRight="5dp"
 					    android:padding="0dp"
 					    android:scaleType="fitCenter"
-					    android:src="@drawable/ic_action_refresh_black"
-            			android:onClick="onRefreshClick"
+					    android:src="@drawable/ic_action_refresh_grey"
 					    android:visibility="gone"
 						android:background="@android:color/transparent"
                         android:contentDescription="@string/auth_refresh_button"
@@ -126,6 +125,7 @@
 					android:textColor="@color/login_text_color"
 					android:textColorHint="@color/login_text_hint_color"
 					android:text="@string/auth_testing_connection"
+					android:minHeight="32dp"
                     android:contentDescription="@string/auth_testing_connection"/>
 		             
 				<CheckBox
