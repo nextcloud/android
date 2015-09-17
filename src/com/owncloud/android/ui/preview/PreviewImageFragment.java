@@ -32,6 +32,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,7 +42,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.ShareActionProvider;
+import android.support.v7.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
@@ -237,7 +238,9 @@ public class PreviewImageFragment extends FileFragment {
         /** Setting a share intent */
         mShareActionProvider.setShareIntent(getDefaultShareIntent());
 
-        menu.findItem(R.id.action_send_file).setActionProvider(mShareActionProvider);
+        MenuItemCompat.setActionProvider(menu.findItem(R.id.action_send_file), mShareActionProvider);
+
+        // menu.findItem(R.id.action_send_file).setActionProvider(mShareActionProvider);
 
         super.onCreateOptionsMenu(menu, inflater);
     }

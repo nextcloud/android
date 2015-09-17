@@ -18,7 +18,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:owncloud="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<item 	android:id="@+id/action_share_file"				android:title="@string/action_share_file"			android:icon="@android:drawable/ic_menu_share"					android:orderInCategory="1" />
    	<item 	android:id="@+id/action_unshare_file"		    android:title="@string/action_unshare_file"			android:icon="@android:drawable/ic_menu_share"					android:orderInCategory="1" />
@@ -30,13 +30,21 @@
 	<item 	android:id="@+id/action_rename_file"			android:title="@string/common_rename"				android:icon="@android:drawable/ic_menu_edit"					android:orderInCategory="1" />
     <item 	android:id="@+id/action_move"					android:title="@string/actionbar_move"				android:icon="@android:drawable/ic_menu_set_as"					android:orderInCategory="1" />
     <item 	android:id="@+id/action_remove_file"			android:title="@string/common_remove"				android:icon="@android:drawable/ic_menu_delete"					android:orderInCategory="1" />
+
     <item
         android:id="@+id/action_send_file"
         android:title="@string/actionbar_send_file"
         android:icon="@android:drawable/ic_menu_set_as"
-        android:actionProviderClass="android.widget.ShareActionProvider"
-        owncloud:showAsAction="always"
+        app:showAsAction="always"
     />
+
+    <!--<item-->
+        <!--android:id="@+id/action_send_file"-->
+        <!--android:title="@string/actionbar_send_file"-->
+        <!--android:icon="@android:drawable/ic_menu_set_as"-->
+        <!--android:actionProviderClass="android.widget.ShareActionProvider"-->
+        <!--owncloud:showAsAction="always"-->
+    <!--/>-->
     <item 	android:id="@+id/action_favorite_file"			android:title="@string/favorite"		    	android:icon="@android:drawable/ic_menu_set_as"					android:orderInCategory="1" />
     <item 	android:id="@+id/action_unfavorite_file"		android:title="@string/unfavorite"		    	    android:icon="@android:drawable/ic_menu_set_as"					android:orderInCategory="1" />
     <item 	android:id="@+id/action_see_details"			android:title="@string/actionbar_see_details"		android:icon="@android:drawable/ic_menu_info_details"			android:orderInCategory="1" />
