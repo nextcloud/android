@@ -114,6 +114,7 @@
             android:textColor="@color/login_text_color"
             android:textColorHint="@color/login_text_hint_color"
             android:text="@string/auth_testing_connection"
+            android:minHeight="32dp"
             android:contentDescription="@string/auth_testing_connection"/>
 
         <CheckBox
