@@ -82,7 +82,7 @@
 	        		android:id="@+id/hostUrlFrame"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_marginBottom="10dp"
+					android:layout_marginBottom="0dp"
 			        >
 					<EditText
 						android:id="@+id/hostUrlInput"
@@ -108,6 +108,7 @@
 					    android:padding="0dp"
 					    android:scaleType="fitCenter"
 					    android:src="@drawable/ic_action_refresh_grey"
+            			android:onClick="onRefreshClick"
 					    android:visibility="gone"
 						android:background="@android:color/transparent"
                         android:contentDescription="@string/auth_refresh_button"
