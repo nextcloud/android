@@ -305,7 +305,11 @@
   <string name="move_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
   <string name="move_file_error">Ocorreu um ocorreu quando tentava mover este ficheiro ou pasta</string>
   <string name="forbidden_permissions_move">para mover este ficheiro</string>
+  <string name="copy_file_not_found">Não é possível copiar. Por favor, verifique se o ficheiro existe</string>
+  <string name="copy_file_invalid_into_descendent">Não é possível copiar esta pasta para a descendente</string>
   <string name="copy_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
+  <string name="copy_file_error">Ocorreu um ocorreu quando tentava copiar este ficheiro ou pasta</string>
+  <string name="forbidden_permissions_copy">para copiar este ficheiro</string>
   <string name="prefs_category_instant_uploading">Envios Instantâneos</string>
   <string name="prefs_category_security">Segurança</string>
   <string name="prefs_instant_video_upload_path_title">Envio do Caminho do Vídeo</string>
