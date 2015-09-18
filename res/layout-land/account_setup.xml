@@ -82,7 +82,7 @@
 	        		android:id="@+id/hostUrlFrame"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_marginBottom="10dp"
+					android:layout_marginBottom="0dp"
 			        >
 					<EditText
 						android:id="@+id/hostUrlInput"
@@ -101,13 +101,13 @@
 					</EditText>
 					<ImageButton
 					    android:id="@+id/embeddedRefreshButton"
-					    android:layout_width="48dp"
-					    android:layout_height="48dp"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
 					    android:layout_gravity="center_vertical|right"
 					    android:layout_marginRight="5dp"
 					    android:padding="0dp"
 					    android:scaleType="fitCenter"
-					    android:src="@drawable/ic_action_refresh_black"
+					    android:src="@drawable/ic_action_refresh_grey"
             			android:onClick="onRefreshClick"
 					    android:visibility="gone"
 						android:background="@android:color/transparent"
@@ -126,6 +126,7 @@
 					android:textColor="@color/login_text_color"
 					android:textColorHint="@color/login_text_hint_color"
 					android:text="@string/auth_testing_connection"
+					android:minHeight="32dp"
                     android:contentDescription="@string/auth_testing_connection"/>
 		             
 				<CheckBox
