@@ -34,6 +34,7 @@ import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
@@ -122,6 +123,30 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+
+        // instant upload behaviour
+        SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String behaviour = appPreferences.getString("prefs_instant_behaviour", "NOTHING");
+
+        switch (behaviour){
+            case "NOTHING":
+                Log_OC.d(TAG, "upload file and do nothing");
+                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
+                break;
+            case "COPY":
+                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_COPY);
+                Log_OC.d(TAG, "upload file and copy file to oc folder");
+                break;
+            case "MOVE":
+                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                Log_OC.d(TAG, "upload file and move file to oc folder");
+                break;
+            case "DELETE":
+                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_REMOVE);
+                Log_OC.d(TAG, "upload file and delete file in original place");
+                break;
+        }
+
         context.startService(i);
     }
 
