@@ -25,12 +25,16 @@ package com.owncloud.android.ui.adapter;
 
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
@@ -79,6 +83,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM };
 
     private SharedPreferences mAppPreferences;
+
+    private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
     
     public FileListListAdapter(
             boolean justFolders, 
@@ -195,32 +201,32 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 case LIST_ITEM:
                     TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
                     TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
-                    ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
+
 
                     lastModV.setVisibility(View.VISIBLE);
                     lastModV.setText(showRelativeTimestamp(file));
 
-                    checkBoxV.setVisibility(View.GONE);
+
 
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
                     if (!file.isFolder()) {
-                        AbsListView parentList = (AbsListView)parent;
-                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                            if (parentList.getChoiceMode() == AbsListView.CHOICE_MODE_NONE) {
-                                checkBoxV.setVisibility(View.GONE);
-                            } else {
-                                if (parentList.isItemChecked(position)) {
-                                    checkBoxV.setImageResource(
-                                            android.R.drawable.checkbox_on_background);
-                                } else {
-                                    checkBoxV.setImageResource(
-                                            android.R.drawable.checkbox_off_background);
-                                }
-                                checkBoxV.setVisibility(View.VISIBLE);
-                            }
-                        }
+//                        AbsListView parentList = (AbsListView)parent;
+//                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//                            if (parentList.getChoiceMode() == AbsListView.CHOICE_MODE_NONE) {
+//                                checkBoxV.setVisibility(View.GONE);
+//                            } else {
+//                                if (parentList.isItemChecked(position)) {
+//                                    checkBoxV.setImageResource(
+//                                            android.R.drawable.checkbox_on_background);
+//                                } else {
+//                                    checkBoxV.setImageResource(
+//                                            android.R.drawable.checkbox_off_background);
+//                                }
+//                                checkBoxV.setVisibility(View.VISIBLE);
+//                            }
+//                        }
 
                     } else { //Folder
                         fileSizeV.setVisibility(View.INVISIBLE);
@@ -282,6 +288,25 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
                     break;
             }
+
+            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
+            checkBoxV.setVisibility(View.GONE);
+
+            AbsListView parentList = (AbsListView)parent;
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                if (parentList.getChoiceMode() == AbsListView.CHOICE_MODE_NONE) {
+                    checkBoxV.setVisibility(View.GONE);
+                } else if (parentList.getCheckedItemCount() > 0){
+                    if (parentList.isItemChecked(position)) {
+                        checkBoxV.setImageResource(
+                                android.R.drawable.checkbox_on_background);
+                    } else {
+                        checkBoxV.setImageResource(
+                                android.R.drawable.checkbox_off_background);
+                    }
+                    checkBoxV.setVisibility(View.VISIBLE);
+                }
+            }
             
             // For all Views
             
@@ -340,6 +365,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         MimetypeIconUtil.getFolderTypeIconId(
                                 checkIfFileIsSharedWithMe(file), file.isShareByLink()));
             }
+        }
+
+        if (mSelection.get(position) != null) {
+            view.setBackgroundColor(R.color.owncloud_blue);
+        } else {
+            view.setBackgroundColor(Color.WHITE);
         }
 
         return view;
@@ -486,5 +517,31 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     public void setGridMode(boolean gridMode) {
         mGridMode = gridMode;
+    }
+
+    public void setNewSelection(int position, boolean checked) {
+        mSelection.put(position, checked);
+        notifyDataSetChanged();
+    }
+
+    public void removeSelection(int position) {
+        mSelection.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public void removeSelection(){
+         mSelection.clear();
+        notifyDataSetChanged();
+    }
+
+    public ArrayList<Integer> getCheckedItemPositions() {
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+
+        for (Map.Entry<Integer, Boolean> entry : mSelection.entrySet()){
+            if (entry.getValue()){
+                ids.add(entry.getKey());
+            }
+        }
+        return ids;
     }
 }
