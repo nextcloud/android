@@ -30,6 +30,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,6 +38,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.PopupMenu;
@@ -335,16 +337,83 @@ public class OCFileListFragment extends ExtendedListFragment
     }
 
     private void registerLongClickListener() {
-        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            public boolean onItemLongClick(AdapterView<?> arg0, View v,
-                                           int index, long arg3) {
-                showFileAction(index);
+        getListView().setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+                // Capture total checked items
+                final int checkedCount = getListView().getCheckedItemCount();
+                // Set the CAB title according to total checked items
+                mode.setTitle(checkedCount + " Selected");
+
+                if (checked){
+                    mAdapter.setNewSelection(position,checked);
+                } else {
+                    mAdapter.removeSelection(position);
+                }
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+
+                Bundle args = getArguments();
+                boolean allowContextualActions =
+                        (args == null) ? true : args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+                if (allowContextualActions) {
+                    MenuInflater inflater = getActivity().getMenuInflater();
+                    inflater.inflate(R.menu.file_actions_menu, menu);
+                    AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+                    OCFile targetFile = (OCFile) mAdapter.getItem(info.position);
+
+                    if (mContainerActivity.getStorageManager() != null) {
+                        FileMenuFilter mf = new FileMenuFilter(
+                                targetFile,
+                                mContainerActivity.getStorageManager().getAccount(),
+                                mContainerActivity,
+                                getActivity()
+                        );
+                        mf.filter(menu);
+                    }
+
+                    /// TODO break this direct dependency on FileDisplayActivity... if possible
+                    MenuItem item = menu.findItem(R.id.action_open_file_with);
+                    FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
+                    if (frag != null && frag instanceof FileDetailFragment &&
+                            frag.getFile().getFileId() == targetFile.getFileId()) {
+                        item = menu.findItem(R.id.action_see_details);
+                        if (item != null) {
+                            item.setVisible(false);
+                            item.setEnabled(false);
+                        }
+                    }
+                }
+
+                mode.getMenuInflater().inflate(R.menu.file_actions_menu, menu);
                 return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                if (mAdapter.getCheckedItemPositions().size() == 1) {
+                    return onFileActionChosen(item.getItemId(), mAdapter.getCheckedItemPositions().get(0));
+                } else if (mAdapter.getCheckedItemPositions().size() > 1){
+                    return false;
+                }
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                mAdapter.removeSelection();
             }
         });
     }
 
-
+    // TODO Tobi needed?
     private void showFileAction(int fileIndex) {
         Bundle args = getArguments();
         PopupMenu pm = new PopupMenu(getActivity(),null);
@@ -492,6 +561,7 @@ public class OCFileListFragment extends ExtendedListFragment
     /**
      * {@inheritDoc}
      */
+    // TODO Tobi needed?
     @Override
     public void onCreateContextMenu(
             ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {

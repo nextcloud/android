@@ -24,7 +24,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -161,15 +164,61 @@ public class ExtendedListFragment extends Fragment
                              Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView");
 
+        // TODO Tobi remove
+//         AbsListView.MultiChoiceModeListener listener = new AbsListView.MultiChoiceModeListener() {
+//            @Override
+//            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+//                // Capture total checked items
+//                final int checkedCount = mListView.getCheckedItemCount();
+//                // Set the CAB title according to total checked items
+//                mode.setTitle(checkedCount + " Selected");
+//                // Calls toggleSelection method from ListViewAdapter Class
+//                 // mAdapter.toggleSelection(position);
+//
+//                if (checked){
+//                    mAdapter.setNewSelection(position,checked);
+//                } else {
+//                    mAdapter.removeSelection(position);
+//                }
+//            }
+//
+//            @Override
+//            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+//                mode.getMenuInflater().inflate(R.menu.context, menu);
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onDestroyActionMode(ActionMode mode) {
+//                // mAdapter.removeSelection();
+//            }
+//        };
+
         View v = inflater.inflate(R.layout.list_fragment, null);
 
         mListView = (ExtendedListView)(v.findViewById(R.id.list_root));
         mListView.setOnItemClickListener(this);
+        mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        // mListView.setMultiChoiceModeListener(listener);
         mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
         mGridView = (GridViewWithHeaderAndFooter) (v.findViewById(R.id.grid_root));
         mGridView.setNumColumns(GridView.AUTO_FIT);
-        mGridView.setOnItemClickListener(this);
+        // mGridView.setOnItemClickListener(this);
+        mGridView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+        // mGridView.setMultiChoiceModeListener(listener);
+
         mGridFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
         if (savedInstanceState != null) {
