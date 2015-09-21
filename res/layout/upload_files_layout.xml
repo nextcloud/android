@@ -35,21 +35,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RadioButton
-            android:layout_width="wrap_content"
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/drawer_radio_group"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="copy"
-            android:id="@+id/mBtnCopy"
-            android:layout_weight="1"
-            android:checked="true" />
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="move"
-            android:id="@+id/mBtnMove"
-            android:layout_weight="1"
-            android:checked="false" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="copy"
+                android:id="@+id/mBtnCopy"
+                android:layout_weight="1"
+                android:checked="true" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="move"
+                android:id="@+id/mBtnMove"
+                android:layout_weight="1"
+                android:checked="false" />
+        </RadioGroup>
     </LinearLayout>
 
     <LinearLayout
