@@ -128,23 +128,18 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String behaviour = appPreferences.getString("prefs_instant_behaviour", "NOTHING");
 
-        switch (behaviour){
-            case "NOTHING":
-                Log_OC.d(TAG, "upload file and do nothing");
-                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
-                break;
-            case "COPY":
-                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_COPY);
-                Log_OC.d(TAG, "upload file and copy file to oc folder");
-                break;
-            case "MOVE":
-                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
-                Log_OC.d(TAG, "upload file and move file to oc folder");
-                break;
-            case "DELETE":
-                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_REMOVE);
-                Log_OC.d(TAG, "upload file and delete file in original place");
-                break;
+        if (behaviour.equalsIgnoreCase("NOTHING")) {
+            Log_OC.d(TAG, "upload file and do nothing");
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
+        } else if (behaviour.equalsIgnoreCase("COPY")) {
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_COPY);
+            Log_OC.d(TAG, "upload file and copy file to oc folder");
+        } else if (behaviour.equalsIgnoreCase("MOVE")) {
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+            Log_OC.d(TAG, "upload file and move file to oc folder");
+        } else if (behaviour.equalsIgnoreCase("DELETE")){
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_REMOVE);
+            Log_OC.d(TAG, "upload file and delete file in original place");
         }
 
         context.startService(i);
