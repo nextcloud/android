@@ -366,5 +366,7 @@
     <string name="file_list__footer__files_and_folders">%1$d files, %2$d folders</string>
     <string name="prefs_instant_behaviour_dialogTitle">Upload file to server and ...</string>
     <string name="prefs_instant_behaviour_title">Behaviour</string>
+    <string name="upload_copy_files">Copy file</string>
+    <string name="upload_move_files">Move file</string>
 
 </resources>

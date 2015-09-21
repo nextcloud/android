@@ -568,7 +568,6 @@ public class Uploader extends FileActivity
                 intent.putExtra(FileUploader.KEY_REMOTE_FILE,
                         remote.toArray(new String[remote.size()]));
                 intent.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
-                intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
                 startService(intent);
 
                 //Save the path to shared preferences

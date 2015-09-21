@@ -45,16 +45,16 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="copy"
-                android:id="@+id/mBtnCopy"
+                android:text="@string/upload_copy_files"
+                android:id="@+id/upload_radio_copy"
                 android:layout_weight="1"
-                android:checked="true" />
+                android:checked="false" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="move"
-                android:id="@+id/mBtnMove"
+                android:text="@string/upload_move_files"
+                android:id="@+id/upload_radio_move"
                 android:layout_weight="1"
                 android:checked="false" />
         </RadioGroup>
