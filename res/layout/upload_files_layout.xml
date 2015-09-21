@@ -31,6 +31,28 @@
         class="com.owncloud.android.ui.fragment.LocalFileListFragment" />
 
     <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="copy"
+            android:id="@+id/mBtnCopy"
+            android:layout_weight="1"
+            android:checked="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="move"
+            android:id="@+id/mBtnMove"
+            android:layout_weight="1"
+            android:checked="false" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
