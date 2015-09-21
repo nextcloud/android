@@ -285,12 +285,12 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="network_error_connect_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée</string>
   <string name="network_host_not_available">L\'opération n\'a pas pu être terminée, le serveur n\'est pas disponible</string>
   <string name="empty"></string>
-  <string name="forbidden_permissions">Vous ne possédez pas les droits suffisants %s</string>
-  <string name="forbidden_permissions_rename">afin de renommer ce fichier</string>
-  <string name="forbidden_permissions_delete">afin d’effacer ce fichier</string>
+  <string name="forbidden_permissions">Vous n\'avez pas la permission %s</string>
+  <string name="forbidden_permissions_rename">de renommer ce fichier</string>
+  <string name="forbidden_permissions_delete">d’effacer ce fichier</string>
   <string name="share_link_forbidden_permissions">afin de partager ce fichier</string>
   <string name="unshare_link_forbidden_permissions">afin de ne plus partager ce fichier</string>
-  <string name="forbidden_permissions_create">afin de créer ce fichier</string>
+  <string name="forbidden_permissions_create">de créer ce fichier</string>
   <string name="uploader_upload_forbidden_permissions">afin d’importer dans ce répertoire</string>
   <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
   <string name="prefs_category_accounts">Comptes</string>
@@ -314,7 +314,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="copy_file_not_found">Impossible de copier. Vérifiez que le fichier existe</string>
   <string name="copy_file_invalid_into_descendent">Il n\'est pas possible de copier un dossier vers un de ses descendants</string>
   <string name="copy_file_invalid_overwrite">Fichier déjà existant dans le dossier de destination</string>
-  <string name="copy_file_error">Une erreur est survenue lors de la tentative de copie de ce fichier ou dossier</string>
+  <string name="copy_file_error">Une erreur est survenue lors de la copie de ce fichier ou dossier</string>
   <string name="forbidden_permissions_copy">de copier ce fichier</string>
   <string name="prefs_category_instant_uploading">Téléversement immédiat</string>
   <string name="prefs_category_security">Sécurité</string>
