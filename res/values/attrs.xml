@@ -12,10 +12,10 @@
 	</declare-styleable>
 
 	<string-array name="pref_behaviour_entries">
-		<item>do nothing</item>
-		<item>copy file to OC folder</item>
-		<item>move file to OC folder</item>
-		<item>delete origin file</item>
+		<item>@string/pref_behaviour_entries_do_nothing</item>
+		<item>@string/pref_behaviour_entries_copy</item>
+		<item>@string/pref_behaviour_entries_move</item>
+		<item>@string/pref_behaviour_entries_delete</item>
 	</string-array>
 
 	<string-array name="pref_behaviour_entryValues">
@@ -24,5 +24,4 @@
 		<item>MOVE</item>
 		<item>DELETE</item>
 	</string-array>
-
 </resources>
