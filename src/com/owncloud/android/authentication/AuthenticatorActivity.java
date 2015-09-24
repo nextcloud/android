@@ -1373,6 +1373,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onAuthenticatorTaskCallback(RemoteOperationResult result) {
         mWaitingForOpId = Long.MAX_VALUE;
         dismissDialog(WAIT_DIALOG_TAG);
+        mAsyncTask = null;
 
         if (result.isSuccess()) {
             Log_OC.d(TAG, "Successful access - time to save the account");
