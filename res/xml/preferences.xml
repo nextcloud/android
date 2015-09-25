@@ -31,6 +31,8 @@
 			 android:title="@string/prefs_instant_behaviour_title"
 			 android:entries="@array/pref_behaviour_entries"
 			 android:entryValues="@array/pref_behaviour_entryValues"
+			 android:defaultValue="NOTHING"
+			 android:summary="%s"
 			 />
 
 		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:key="instant_uploading"
