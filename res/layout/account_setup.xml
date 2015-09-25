@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"
+            android:background="@color/login_logo_background_color"
             android:src="@drawable/logo"
             android:contentDescription="@string/app_name"/>
 
