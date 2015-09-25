@@ -476,7 +476,7 @@ public class PreviewImageFragment extends FileFragment {
 
         @Override
         protected void onCancelled(LoadImage result) {
-            if (result.bitmap != null) {
+            if (result != null && result.bitmap != null) {
                 result.bitmap.recycle();
             }
         }
