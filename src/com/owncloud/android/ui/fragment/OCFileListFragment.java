@@ -355,37 +355,37 @@ public class OCFileListFragment extends ExtendedListFragment
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
 
-                Bundle args = getArguments();
-                boolean allowContextualActions =
-                        (args == null) ? true : args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
-                if (allowContextualActions) {
-                    MenuInflater inflater = getActivity().getMenuInflater();
-                    inflater.inflate(R.menu.file_actions_menu, menu);
-                    AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-                    OCFile targetFile = (OCFile) mAdapter.getItem(info.position);
-
-                    if (mContainerActivity.getStorageManager() != null) {
-                        FileMenuFilter mf = new FileMenuFilter(
-                                targetFile,
-                                mContainerActivity.getStorageManager().getAccount(),
-                                mContainerActivity,
-                                getActivity()
-                        );
-                        mf.filter(menu);
-                    }
-
-                    /// TODO break this direct dependency on FileDisplayActivity... if possible
-                    MenuItem item = menu.findItem(R.id.action_open_file_with);
-                    FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
-                    if (frag != null && frag instanceof FileDetailFragment &&
-                            frag.getFile().getFileId() == targetFile.getFileId()) {
-                        item = menu.findItem(R.id.action_see_details);
-                        if (item != null) {
-                            item.setVisible(false);
-                            item.setEnabled(false);
-                        }
-                    }
-                }
+//                Bundle args = getArguments();
+//                boolean allowContextualActions =
+//                        (args == null) ? true : args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+//                if (allowContextualActions) {
+//                    MenuInflater inflater = getActivity().getMenuInflater();
+//                    inflater.inflate(R.menu.file_actions_menu, menu);
+//                    AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+//                    OCFile targetFile = (OCFile) mAdapter.getItem(info.position);
+//
+//                    if (mContainerActivity.getStorageManager() != null) {
+//                        FileMenuFilter mf = new FileMenuFilter(
+//                                targetFile,
+//                                mContainerActivity.getStorageManager().getAccount(),
+//                                mContainerActivity,
+//                                getActivity()
+//                        );
+//                        mf.filter(menu);
+//                    }
+//
+//                    /// TODO break this direct dependency on FileDisplayActivity... if possible
+//                    MenuItem item = menu.findItem(R.id.action_open_file_with);
+//                    FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
+//                    if (frag != null && frag instanceof FileDetailFragment &&
+//                            frag.getFile().getFileId() == targetFile.getFileId()) {
+//                        item = menu.findItem(R.id.action_see_details);
+//                        if (item != null) {
+//                            item.setVisible(false);
+//                            item.setEnabled(false);
+//                        }
+//                    }
+//                }
 
                 mode.getMenuInflater().inflate(R.menu.file_actions_menu, menu);
                 return true;
