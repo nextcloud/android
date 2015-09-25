@@ -57,16 +57,18 @@
 			    android:gravity="center"
 			    android:orientation="vertical"
 			    android:padding="8dp" >
-			    
-				<Button
-				    android:id="@+id/centeredRefreshButton"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:layout_gravity="center_horizontal"
+
+				<android.support.v7.widget.AppCompatButton
+					android:id="@+id/centeredRefreshButton"
+					style="@style/ownCloud.Button"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
 					android:layout_marginBottom="10dp"
-				    android:text="@string/auth_check_server"
-				    android:visibility="gone"
-                    android:contentDescription="@string/auth_check_server"/>
+					android:text="@string/auth_check_server"
+					android:visibility="gone"
+					android:contentDescription="@string/auth_check_server"/>
+
 				<TextView
 				    android:id="@+id/instructions_message"
 				    android:layout_width="wrap_content"
@@ -224,6 +226,7 @@
 		<android.support.v7.widget.AppCompatButton
 		    android:id="@+id/buttonOK"
 			android:theme="@style/Button.Primary"
+			style="@style/Button.Primary"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_gravity="center_horizontal"
