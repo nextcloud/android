@@ -31,9 +31,22 @@
         class="com.owncloud.android.ui.fragment.LocalFileListFragment" />
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:src="@drawable/uploader_list_separator"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="8dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
@@ -66,7 +79,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/upload_files_btn_cancel"
