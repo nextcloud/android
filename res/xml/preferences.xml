@@ -26,7 +26,7 @@
 	</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefs_category_instant_uploading" android:key="instant_uploading_category">
-         <ListPreference android:key="prefs_instant_behaviour"
+         <com.owncloud.android.ui.dialog.OwnCloudListPreference android:key="prefs_instant_behaviour"
 			 android:dialogTitle="@string/prefs_instant_behaviour_dialogTitle"
 			 android:title="@string/prefs_instant_behaviour_title"
 			 android:entries="@array/pref_behaviour_entries"
