@@ -572,6 +572,9 @@ public class FileUploader extends Service
                         uploadResult = mCurrentUpload.execute(mUploadClient);
                         if (uploadResult.isSuccess()) {
                             saveUploadedFile();
+
+                        } else if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) {
+                            mStorageManager.saveConflict(mCurrentUpload.getFile(), true);
                         }
                     } else {
                         uploadResult = grantResult;

@@ -31,6 +31,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.RequestEntity;
 
 import android.accounts.Account;
@@ -310,10 +311,10 @@ public class UploadFileOperation extends RemoteOperation {
                     (new File(mFile.getStoragePath())).length() >
                             ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype());
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtag());
             } else {
                 mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype());
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtag());
             }
             Iterator <OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
             while (listener.hasNext()) {
@@ -358,6 +359,9 @@ public class UploadFileOperation extends RemoteOperation {
                         }
                     }
                 }
+
+            } else if (result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
+                result = new RemoteOperationResult(ResultCode.CONFLICT);
             }
 
         } catch (Exception e) {
