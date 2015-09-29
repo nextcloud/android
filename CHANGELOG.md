@@ -1,3 +1,16 @@
+## 1.8.0 (September 2015)
+- New MATERIAL DESIGN theme
+- Updated FILE TYPE ICONS
+- Preview TXT files within the app
+- COPY files & folders
+- Preview the full file/folder name from the long press menu
+- Set a file as FAVORITE (kept-in-sync) from the CONTEXT MENU
+- Updated CONFLICT RESOLUTION dialog (wording)
+- Images with TRANSPARENT background are previewed correctly
+- Hidden files are not taken into account for enforcing or not the list VIEW
+- Several bugs fixed
+
+
 ## 1.7.2 (July 2015)
 - New navigation drawer
 - Improved Passcode
