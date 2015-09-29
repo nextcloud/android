@@ -27,17 +27,16 @@ import android.webkit.MimeTypeMap;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.File;
+import java.io.Serializable;
 
 import third_parties.daveKoeller.AlphanumComparator;
 public class OCFile implements Parcelable, Comparable<OCFile> {
 
-    public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
-        @Override
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public OCFile createFromParcel(Parcel source) {
             return new OCFile(source);
         }
 
-        @Override
         public OCFile[] newArray(int size) {
             return new OCFile[size];
         }

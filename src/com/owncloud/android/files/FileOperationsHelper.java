@@ -43,6 +43,8 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 
 import org.apache.http.protocol.HTTP;
 
+import java.util.ArrayList;
+
 /**
  *
  */
@@ -205,10 +207,14 @@ public class FileOperationsHelper {
         }
     }
 
+    public void syncFiles(ArrayList<OCFile> files) {
+        for (OCFile file: files) {
+            syncFile(file);
+        }
+    }
 
     public void syncFile(OCFile file) {
-
-        if (!file.isFolder()){
+        if (!file.isFolder()) {
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FILE);
             intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
@@ -216,13 +222,19 @@ public class FileOperationsHelper {
             intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(intent);
             mFileActivity.showLoadingDialog();
-            
+
         } else {
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
             intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             mFileActivity.startService(intent);
+        }
+    }
+
+    public void toggleFavorites(ArrayList<OCFile> files, boolean isFavorite){
+        for (OCFile file: files) {
+            toggleFavorite(file, isFavorite);
         }
     }
 
@@ -329,7 +341,8 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
-        mFileActivity.showLoadingDialog();
+        // TODO Tobi loading dialog?
+        // mFileActivity.showLoadingDialog();
     }
 
     /**
