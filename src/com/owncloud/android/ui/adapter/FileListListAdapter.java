@@ -499,4 +499,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
         return ids;
     }
+
+    public ArrayList<OCFile> getCheckedItems() {
+        ArrayList<OCFile> files = new ArrayList<OCFile>();
+
+        for (Map.Entry<Integer, Boolean> entry : mSelection.entrySet()){
+            if (entry.getValue()){
+                files.add((OCFile) getItem(entry.getKey()));
+            }
+        }
+        return files;
+    }
 }

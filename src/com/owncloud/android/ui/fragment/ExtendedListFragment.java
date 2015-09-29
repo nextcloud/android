@@ -214,7 +214,7 @@ public class ExtendedListFragment extends Fragment
 
         mGridView = (GridViewWithHeaderAndFooter) (v.findViewById(R.id.grid_root));
         mGridView.setNumColumns(GridView.AUTO_FIT);
-        // mGridView.setOnItemClickListener(this);
+        mGridView.setOnItemClickListener(this);
         mGridView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
         // mGridView.setMultiChoiceModeListener(listener);

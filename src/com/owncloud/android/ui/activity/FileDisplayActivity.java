@@ -25,6 +25,8 @@ import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
+import android.os.Parcelable;
+import android.support.v7.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -93,6 +95,7 @@ import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static com.owncloud.android.db.PreferenceManager.*;
 
@@ -766,8 +769,12 @@ public class FileDisplayActivity extends HookActivity
      */
     private void requestMoveOperation(Intent data, int resultCode) {
         OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-        OCFile targetFile = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
-        getFileOperationsHelper().moveFile(folderToMoveAt, targetFile);
+
+        ArrayList<OCFile> files = data.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
+
+        for (Parcelable file : files) {
+            getFileOperationsHelper().moveFile(folderToMoveAt, (OCFile) file);
+        }
     }
 
     /**
@@ -778,8 +785,12 @@ public class FileDisplayActivity extends HookActivity
      */
     private void requestCopyOperation(Intent data, int resultCode) {
         OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-        OCFile targetFile = data.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
-        getFileOperationsHelper().copyFile(folderToMoveAt, targetFile);
+
+        ArrayList<OCFile> files = data.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
+
+        for (Parcelable file : files) {
+            getFileOperationsHelper().copyFile(folderToMoveAt, (OCFile) file);
+        }
     }
 
     @Override

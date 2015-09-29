@@ -55,6 +55,8 @@ import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 
 import java.util.List;
 
+import java.util.ArrayList;
+
 /**
  *
  */
@@ -426,6 +428,12 @@ public class FileOperationsHelper {
         }
     }
 
+    public void syncFiles(ArrayList<OCFile> files) {
+        for (OCFile file: files) {
+            syncFile(file);
+        }
+    }
+
     /**
      * Request the synchronization of a file or folder with the OC server, including its contents.
      *
@@ -449,6 +457,12 @@ public class FileOperationsHelper {
             intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             mFileActivity.startService(intent);
 
+        }
+    }
+
+    public void toggleFavorites(ArrayList<OCFile> files, boolean isFavorite){
+        for (OCFile file: files) {
+            toggleFavorite(file, isFavorite);
         }
     }
 
@@ -551,8 +565,9 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
-        mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                getString(R.string.wait_a_moment));
+        // TODO Tobi loading dialog?
+        // mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
+        // getString(R.string.wait_a_moment));
     }
 
     /**
