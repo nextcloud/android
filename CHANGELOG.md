@@ -6,10 +6,15 @@
 - Preview the full file/folder name from the long press menu
 - Set a file as FAVORITE (kept-in-sync) from the CONTEXT MENU
 - Updated CONFLICT RESOLUTION dialog (wording)
-- Images with TRANSPARENT background are previewed correctly
-- Hidden files are not taken into account for enforcing or not the list VIEW
-- Several bugs fixed
-
+- Updated background for images with TRANSPARENCY in GALLERY
+- Hidden files will not enforce list view instead of GRID VIEW (folders from Picasa & others)
+- Security:
+  + Updated network stack with security fixes (Jackrabbit 2.10.1)
+- Bugs fixed:
+  + Fixed crash when ETag is lost
+  + Passcode creation not restarted on device rotation
+  + Recovered share icon shown on folders 'shared with me'
+  + User name added to subject when sending a share link through e-mail (fixed on SAMLed apps)
 
 ## 1.7.2 (July 2015)
 - New navigation drawer
