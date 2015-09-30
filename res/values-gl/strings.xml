@@ -178,7 +178,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="auth_account_does_not_exist">Aínda non existe a conta no dispositivo</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Retirar</string>
-  <string name="confirmation_remove_alert">Confirma que quere retirar %1$s?</string>
+  <string name="confirmation_remove_file_alert">Confirma que quere retirar %1$s?</string>
   <string name="confirmation_remove_folder_alert">Confirma que quere retirar %1$s e o seu contido?</string>
   <string name="confirmation_remove_local">Só local</string>
   <string name="remove_success_msg">Retirado correctamente</string>

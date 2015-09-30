@@ -228,7 +228,7 @@
   <string name="unfavorite">Убрать доступность автономно</string>
   <string name="common_rename">Переименовать</string>
   <string name="common_remove">Удалить</string>
-  <string name="confirmation_remove_alert">Вы действительно хотите удалить %1$s?</string>
+  <string name="confirmation_remove_file_alert">Вы действительно хотите удалить %1$s?</string>
   <string name="confirmation_remove_folder_alert">Вы действительно хотите удалить %1$s и его содержимое?</string>
   <string name="confirmation_remove_local">Только локально</string>
   <string name="remove_success_msg">Удаление завершено</string>

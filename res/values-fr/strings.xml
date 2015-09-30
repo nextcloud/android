@@ -229,7 +229,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_account_does_not_exist">Le compte n\'existe pas encore sur ce périphérique</string>
   <string name="common_rename">Renommer</string>
   <string name="common_remove">Supprimer</string>
-  <string name="confirmation_remove_alert">Voulez-vous vraiment supprimer %1$s ?</string>
+  <string name="confirmation_remove_file_alert">Voulez-vous vraiment supprimer %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et son contenu ?</string>
   <string name="confirmation_remove_local">Local seulement</string>
   <string name="remove_success_msg">Suppression effectuée avec succès</string>

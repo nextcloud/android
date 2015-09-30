@@ -197,7 +197,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="auth_account_does_not_exist">Kontot pole veel seadmes</string>
   <string name="common_rename">Nimeta ümber</string>
   <string name="common_remove">Eemalda</string>
-  <string name="confirmation_remove_alert">Oled sa kindel, et soovid %1$s eemaldada?</string>
+  <string name="confirmation_remove_file_alert">Oled sa kindel, et soovid %1$s eemaldada?</string>
   <string name="confirmation_remove_folder_alert">Kas sa tõesti soovid eemaldada %1$s ja selle sisu?</string>
   <string name="confirmation_remove_local">Ainult kohalik</string>
   <string name="remove_success_msg">Eemaldamine oli edukas</string>

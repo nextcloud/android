@@ -227,7 +227,7 @@
   <string name="unfavorite">Definir como não disponível offline</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Remover</string>
-  <string name="confirmation_remove_alert">Você realmente deseja remover %1$s?</string>
+  <string name="confirmation_remove_file_alert">Você realmente deseja remover %1$s?</string>
   <string name="confirmation_remove_folder_alert">Você realmente deseja remover %1$s e seus conteúdos?</string>
   <string name="confirmation_remove_local">Somente local</string>
   <string name="remove_success_msg">Removido com sucesso</string>

@@ -205,7 +205,7 @@
   <string name="auth_account_does_not_exist">Ο λογαριασμός δεν υπάρχει στη συσκευή ακόμα.</string>
   <string name="common_rename">Μετονομασία</string>
   <string name="common_remove">Αφαίρεση</string>
-  <string name="confirmation_remove_alert">Θέλετε στ\' αλήθεια να αφαιρέσετε το  %1$s;</string>
+  <string name="confirmation_remove_file_alert">Θέλετε στ\' αλήθεια να αφαιρέσετε το  %1$s;</string>
   <string name="confirmation_remove_folder_alert">Θέλετε στ\' αλήθεια να διαγράψετε το %1$s και τα περιεχόμενά του;</string>
   <string name="confirmation_remove_local">Μόνο τοπικά</string>
   <string name="remove_success_msg">Αφαίρεση επιτυχής</string>

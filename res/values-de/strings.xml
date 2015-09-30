@@ -227,7 +227,7 @@
   <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
   <string name="common_rename">Umbenennen</string>
   <string name="common_remove">Löschen</string>
-  <string name="confirmation_remove_alert">Möchtest Du %1$s wirklich löschen?</string>
+  <string name="confirmation_remove_file_alert">Möchtest Du %1$s wirklich löschen?</string>
   <string name="confirmation_remove_folder_alert">Möchtest Du wirklich %1$s und dessen Inhalte entfernen?</string>
   <string name="confirmation_remove_local">Nur lokal</string>
   <string name="remove_success_msg">Erfolgreich gelöscht</string>

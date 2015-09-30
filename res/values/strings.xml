@@ -234,7 +234,7 @@
     <string name="unfavorite">Unset as available offline</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
-    <string name="confirmation_remove_alert">"Do you really want to remove %1$s?"</string>
+    <string name="confirmation_remove_file_alert">"Do you really want to remove %1$s?"</string>
     <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and its contents?"</string>
     <string name="confirmation_remove_local">Local only</string>
     <string name="remove_success_msg">"Removal succeeded"</string>
@@ -454,5 +454,8 @@
 
     <string name="permission_storage_access">Additional permissions required to upload &amp; download files.</string>
     <string name="local_file_not_found_toast">The file was not found in the local file system</string>
+    <string name="confirmation_remove_files_alert">Do you really want to remove selected items?</string>
+    <string name="confirmation_remove_folders_alert">Do you really want to remove a folder and its content?</string>
+    <string name="confirmation_remove_files">selected items</string>
 
 </resources>

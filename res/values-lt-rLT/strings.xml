@@ -168,7 +168,7 @@
   <string name="auth_account_does_not_exist">Paskyra neegzistuoja įrenginyje</string>
   <string name="common_rename">Pervadinti</string>
   <string name="common_remove">Pašalinti</string>
-  <string name="confirmation_remove_alert">Ar tikrai norite pašalinti %1$s?</string>
+  <string name="confirmation_remove_file_alert">Ar tikrai norite pašalinti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ar tikrai norite pašalinti %1$s ir ten esantį turinį?</string>
   <string name="confirmation_remove_local">Tik vietiniai</string>
   <string name="remove_success_msg">Pašalinta sėkmingai</string>

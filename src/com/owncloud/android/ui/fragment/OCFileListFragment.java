@@ -61,6 +61,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.FileActionsDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
@@ -622,8 +623,6 @@ public class OCFileListFragment extends ExtendedListFragment {
                 }
                 case R.id.action_move: {
                     Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-
-                    // Pass mTargetFile that contains info of selected file/folder
                     ArrayList files = new ArrayList();
                     files.add(mTargetFile);
                     action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, files);
@@ -652,11 +651,11 @@ public class OCFileListFragment extends ExtendedListFragment {
             ArrayList<OCFile> mTargetFiles = mAdapter.getCheckedItems();
 
             switch (menuId) {
-//                case R.id.action_remove_file: {
-//                    RemoveFileDialogFragment dialog = RemoveFileDialogFragment.newInstance(mTargetFile);
-//                    dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-//                    return true;
-//                }
+                case R.id.action_remove_file: {
+                    RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(mTargetFiles);
+                    dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+                    return true;
+                }
                 case R.id.action_download_file:
                 case R.id.action_sync_file: {
                     mContainerActivity.getFileOperationsHelper().syncFiles(mTargetFiles);

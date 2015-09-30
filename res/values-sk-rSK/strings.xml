@@ -177,7 +177,7 @@
   <string name="auth_account_does_not_exist">Účet zatiaľ v zariadení neexistuje</string>
   <string name="common_rename">Premenuj</string>
   <string name="common_remove">Odober</string>
-  <string name="confirmation_remove_alert">Naozaj chcete odstrániť %1$s?</string>
+  <string name="confirmation_remove_file_alert">Naozaj chcete odstrániť %1$s?</string>
   <string name="confirmation_remove_folder_alert">Naozaj chcete odstrániť %1$s a jeho obsah?</string>
   <string name="confirmation_remove_local">Iba lokálne</string>
   <string name="remove_success_msg">Úspešne odstránené</string>

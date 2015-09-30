@@ -223,7 +223,7 @@
   <string name="auth_account_does_not_exist">A conta ainda não existe no dispositivo</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Remover</string>
-  <string name="confirmation_remove_alert">Tem a certeza que deseja remover %1$s ?</string>
+  <string name="confirmation_remove_file_alert">Tem a certeza que deseja remover %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Deseja realmente remover %1$s e o seu conteúdo?</string>
   <string name="confirmation_remove_local">Apenas localmente</string>
   <string name="remove_success_msg">Removido com sucesso</string>

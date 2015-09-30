@@ -230,7 +230,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="unfavorite">Instellen als niet beschikbaar offline</string>
   <string name="common_rename">Hernoemen</string>
   <string name="common_remove">Verwijderen</string>
-  <string name="confirmation_remove_alert">Wilt u %1$s werkelijk verwijderen?</string>
+  <string name="confirmation_remove_file_alert">Wilt u %1$s werkelijk verwijderen?</string>
   <string name="confirmation_remove_folder_alert">Wilt u %1$s en de inhoud ervan werkelijk verwijderen?</string>
   <string name="confirmation_remove_local">Alleen lokaal</string>
   <string name="remove_success_msg">Succesvol verwijderd</string>
