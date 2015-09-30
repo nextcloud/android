@@ -361,7 +361,7 @@ public class UploadFileOperation extends RemoteOperation {
                 }
 
             } else if (result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
-                result = new RemoteOperationResult(ResultCode.CONFLICT);
+                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
             }
 
         } catch (Exception e) {
