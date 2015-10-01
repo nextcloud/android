@@ -49,16 +49,6 @@
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
         android:orderInCategory="1" />
     <item
-        android:id="@+id/action_cancel_download"
-        android:title="@string/common_cancel_download"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
-        android:orderInCategory="1" />
-    <item
-        android:id="@+id/action_cancel_upload"
-        android:title="@string/common_cancel_upload"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
-        android:orderInCategory="1" />
-    <item
         android:id="@+id/action_rename_file"
         android:title="@string/common_rename"
         android:icon="@android:drawable/ic_menu_edit"
