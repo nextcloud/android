@@ -377,7 +377,6 @@
 				    android:text=""
 				    android:textAppearance="?android:attr/textAppearanceSmall"
 				/>
-				
 
 				<TextView
         			android:id="@+id/label_signature"
@@ -404,16 +403,24 @@
         			android:text=""
         			android:textAppearance="?android:attr/textAppearanceSmall"
         		/>
-																								
-								
+
 				<TextView
-        			android:id="@+id/value_signature"
-        			android:layout_width="wrap_content"
-        			android:layout_height="wrap_content"
+					android:id="@+id/label_certificate_fingerprint"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
 					android:paddingBottom="5dp"
-        			android:text=""
-        			android:textAppearance="?android:attr/textAppearanceSmall"
-        		/>
+					android:text="@string/ssl_validator_label_certificate_fingerprint"
+					android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
+
+				<TextView
+					android:id="@+id/value_certificate_fingerprint"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:paddingBottom="5dp"
+					android:text=""
+					android:textAppearance="?android:attr/textAppearanceSmall"
+				/>
 				
 		</LinearLayout>
 		
