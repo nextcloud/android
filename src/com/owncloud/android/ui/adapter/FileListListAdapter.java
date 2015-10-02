@@ -4,6 +4,7 @@
  *   @author Bartek Przybylski
  *   @author Tobias Kaminsky
  *   @author David A. Velasco
+ *   @author masensio
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2015 ownCloud Inc.
  *
@@ -30,7 +31,6 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
@@ -55,6 +55,7 @@ import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 
 
 /**
@@ -322,34 +323,22 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         }
                     }
 
-                    if (file.getMimetype().equalsIgnoreCase("image/png")){
-                        Drawable backrepeat = mContext.getResources().
-                                              getDrawable(R.drawable.backrepeat);
-                        fileIcon.setBackground(backrepeat);
-                    } else {
-                        fileIcon.setBackground(null);
+                    if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                        fileIcon.setBackgroundColor(mContext.getResources()
+                                .getColor(R.color.background_color));
                     }
 
+
                 } else {
-                    fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(file.getMimetype(),
+                    fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(file.getMimetype(),
                             file.getFileName()));
                 }
 
             } else {
                 // Folder
-                fileIcon.setBackground(null);
-
-                if (checkIfFileIsSharedWithMe(file)) {
-                    fileIcon.setImageResource(R.drawable.shared_with_me_folder);
-                } else if (file.isShareByLink()) {
-                    // If folder is sharedByLink, icon folder must be changed to
-                    // folder-public one
-                    fileIcon.setImageResource(R.drawable.folder_public);
-                } else {
-                    fileIcon.setImageResource(
-                            DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName())
-                    );
-                }
+                fileIcon.setImageResource(
+                        MimetypeIconUtil.getFolderTypeIconId(
+                                checkIfFileIsSharedWithMe(file), file.isShareByLink()));
             }
         }
 

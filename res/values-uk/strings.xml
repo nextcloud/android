@@ -288,6 +288,7 @@
   <string name="move_file_invalid_overwrite">Файл вже існує в теці призначення</string>
   <string name="move_file_error">Виникла помилка при спробі перемістити файл або теку</string>
   <string name="forbidden_permissions_move">перемістити цей файл</string>
+  <string name="copy_file_invalid_overwrite">Файл вже існує в теці призначення</string>
   <string name="prefs_category_instant_uploading">Миттєво завантаження</string>
   <string name="prefs_category_security">Безпека</string>
   <string name="prefs_instant_video_upload_path_title">Шлях завантаження відео</string>

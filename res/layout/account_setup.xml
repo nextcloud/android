@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"
+            android:background="@color/login_logo_background_color"
             android:src="@drawable/logo"
             android:contentDescription="@string/app_name"/>
 
@@ -114,6 +115,7 @@
             android:textColor="@color/login_text_color"
             android:textColorHint="@color/login_text_hint_color"
             android:text="@string/auth_testing_connection"
+            android:minHeight="32dp"
             android:contentDescription="@string/auth_testing_connection"/>
 
         <CheckBox

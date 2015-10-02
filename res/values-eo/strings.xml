@@ -183,6 +183,7 @@
   <string name="actionbar_move">Movi</string>
   <string name="folder_picker_choose_button_text">Elekti</string>
   <string name="move_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
+  <string name="copy_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
   <string name="prefs_category_security">Sekuro</string>
   <string name="auth_host_address">Servila adreso</string>
 </resources>

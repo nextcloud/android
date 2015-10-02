@@ -300,6 +300,7 @@
   <string name="move_file_invalid_overwrite">Файлът вече съществува в отдалечената папка.</string>
   <string name="move_file_error">Настъпи грешка при опита за преместване на този файл или папка.</string>
   <string name="forbidden_permissions_move">за да преместиш този файл</string>
+  <string name="copy_file_invalid_overwrite">Файлът вече съществува в отдалечената папка.</string>
   <string name="prefs_category_instant_uploading">Незабавно качване</string>
   <string name="prefs_category_security">Сигурност</string>
   <string name="prefs_instant_video_upload_path_title">Качване на видео път</string>
