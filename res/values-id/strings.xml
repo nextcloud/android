@@ -291,7 +291,7 @@
   <string name="downloader_download_file_not_found">Berkas tidak lagi tersedia pada server</string>
   <string name="prefs_category_accounts">Akun</string>
   <string name="prefs_add_account">Tambah akun</string>
-  <string name="auth_redirect_non_secure_connection_title">Sambungan aman dialihkan ke rute yang tidak aman.</string>
+  <string name="auth_redirect_non_secure_connection_title">Sambungan aman dialihkan melalui rute yang tidak aman.</string>
   <string name="actionbar_logger">Log</string>
   <string name="log_send_history_button">Kirim Riwayat</string>
   <string name="log_send_no_mail_app">Tidak ada apl untuk mengirim log. Instal apl mail!</string>
@@ -307,6 +307,11 @@
   <string name="move_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
   <string name="move_file_error">Terjadi kesalahan saat mencoba memindahkan berkas atau folder ini</string>
   <string name="forbidden_permissions_move">untuk memindahkan berkas ini</string>
+  <string name="copy_file_not_found">Tidak dapat menyalin. Silakan periksa apakah berkas ada</string>
+  <string name="copy_file_invalid_into_descendent">Tidak mungkin menyalin folder kedalam turunannya</string>
+  <string name="copy_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
+  <string name="copy_file_error">Terjadi kesalahan ketika mencoba menyalin berkas atau folder ini</string>
+  <string name="forbidden_permissions_copy">untuk menyalin berkas ini</string>
   <string name="prefs_category_instant_uploading">Unggah Cepat</string>
   <string name="prefs_category_security">Keamanan</string>
   <string name="prefs_instant_video_upload_path_title">Unggah Lokasi Video</string>

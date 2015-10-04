@@ -48,7 +48,7 @@
                 android:layout_width="@dimen/file_icon_size"
                 android:layout_height="@dimen/file_icon_size"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="9dp"
+                android:layout_marginLeft="12dp"
                 android:src="@drawable/ic_menu_archive" />
 
             <ImageView

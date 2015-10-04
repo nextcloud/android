@@ -25,9 +25,9 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:gravity="center"
-    tools:context=".ui.fragment.FilePreviewFragment" >
+    tools:context=".ui.fragment.FilePreviewFragment">
 
-    <FrameLayout 
+    <FrameLayout
         android:id="@+id/visual_area"
    	    android:layout_width="match_parent"
    	    android:layout_height="0dp"
