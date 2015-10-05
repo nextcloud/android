@@ -154,7 +154,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         ViewType viewType;
         if (!mGridMode){
             viewType = ViewType.LIST_ITEM;
-        } else if (file.isImage()){
+        } else if (file.isImage() || file.isVideo()){
             viewType = ViewType.GRID_IMAGE;
         } else {
             viewType = ViewType.GRID_ITEM;
