@@ -179,7 +179,7 @@ public class FileMenuFilter {
             toShow.add(R.id.action_sync_file);
         }
 
-        // SHARE FILE 
+        // SHARE FILE
         // TODO add check on SHARE available on server side?
         boolean shareAllowed = (mContext != null  &&
                 mContext.getString(R.string.share_feature).equalsIgnoreCase("on"));
@@ -189,12 +189,27 @@ public class FileMenuFilter {
             toShow.add(R.id.action_share_file);
         }
 
-        // UNSHARE FILE  
+        // UNSHARE FILE
         // TODO add check on SHARE available on server side?
         if ( !shareAllowed || (mFile == null || !mFile.isShareByLink())) {
             toHide.add(R.id.action_unshare_file);
         } else {
             toShow.add(R.id.action_unshare_file);
+        }
+
+        // SHARE FILE, with Users
+        if (!shareAllowed || mFile == null) {
+            toHide.add(R.id.action_share_with_users);
+        } else {
+            toShow.add(R.id.action_share_with_users);
+        }
+
+        // UNSHARE FILE, with Users
+        // TODO add check on SHARE available on server side?
+        if ( !shareAllowed || (mFile == null || !mFile.isShareByLink())) {
+            toHide.add(R.id.action_unshare_with_users);
+        } else {
+            toShow.add(R.id.action_unshare_with_users);
         }
 
         // SEE DETAILS

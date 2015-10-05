@@ -87,6 +87,8 @@
     <string name="list_layout">List Layout</string>
     <string name="action_share_file">Share link</string>
     <string name="action_unshare_file">Unshare link</string>
+    <string name="action_share_with_users">Share with users</string>
+    <string name="action_unshare_with_users">Unshare with users</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
