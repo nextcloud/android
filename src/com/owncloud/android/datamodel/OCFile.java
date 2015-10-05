@@ -75,6 +75,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private boolean mIsDownloading;
 
     private String mEtagInConflict;    // Save file etag in the server, when there is a conflict. No conflict =  null
+    private boolean mShareWithUser;
 
 
     /**
@@ -120,6 +121,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mNeedsUpdateThumbnail = source.readInt() == 1;
         mIsDownloading = source.readInt() == 1;
         mEtagInConflict = source.readString();
+        mShareWithUser = source.readInt() == 1;
 
     }
 
@@ -146,6 +148,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeInt(mNeedsUpdateThumbnail ? 1 : 0);
         dest.writeInt(mIsDownloading ? 1 : 0);
         dest.writeString(mEtagInConflict);
+        dest.writeInt(mShareWithUser ? 1 : 0);
     }
 
     /**
@@ -344,6 +347,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mNeedsUpdateThumbnail = false;
         mIsDownloading = false;
         mEtagInConflict = null;
+        mShareWithUser = false;
     }
 
     /**
@@ -590,5 +594,13 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     public void setEtagInConflict(String etagInConflict) {
         mEtagInConflict = etagInConflict;
+    }
+
+    public boolean isShareWithUser() {
+        return mShareWithUser;
+    }
+
+    public void setShareWithUser(boolean shareWithUser) {
+        this.mShareWithUser = shareWithUser;
     }
 }

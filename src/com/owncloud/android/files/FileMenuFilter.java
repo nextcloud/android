@@ -209,7 +209,7 @@ public class FileMenuFilter {
         }
 
         // UNSHARE FILE, with Users
-        if ( !shareAllowed || !shareWithUsersEnable || (mFile == null || !mFile.isShareByLink())) {
+        if ( !shareAllowed || !shareWithUsersEnable || (mFile == null || !mFile.isShareWithUser())) {
             toHide.add(R.id.action_unshare_with_users);
         } else {
             toShow.add(R.id.action_unshare_with_users);
