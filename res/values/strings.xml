@@ -367,4 +367,8 @@
     <string name="file_list__footer__files_and_folder">%1$d files, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d files, %2$d folders</string>
 
+    <string name="share_with_user_section_title">Share with Users and Groups</string>
+    <string name="share_no_users">No data shared with users yet</string>
+    <string name="share_add_user_or_group">Add User or Group</string>
+
 </resources>
