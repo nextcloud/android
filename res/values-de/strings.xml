@@ -202,6 +202,8 @@
   <string name="confirmation_remove_folder_alert">Möchtest Du wirklich %1$s und dessen Inhalte entfernen?</string>
   <string name="confirmation_remove_local">Nur lokal</string>
   <string name="confirmation_remove_folder_local">Nur lokal</string>
+  <string name="confirmation_remove_remote">Vom Server</string>
+  <string name="confirmation_remove_remote_and_local">Remote &amp; lokal</string>
   <string name="remove_success_msg">Erfolgreich gelöscht</string>
   <string name="remove_fail_msg">Der Löschvorgang konnte nicht beendet werden</string>
   <string name="rename_dialog_title">Gib einen neuen Namen ein</string>
@@ -256,6 +258,8 @@
   <string name="conflict_title">Dateikonfilikt</string>
   <string name="conflict_message">Welche Datei möchtest du behalten? Wenn du beide Versionen auswählst, wird der lokalen Datei eine Zahl am Ende Ihres Dateiname angehangen.</string>
   <string name="conflict_keep_both">Beide behalten</string>
+  <string name="conflict_use_local_version">Lokale Version</string>
+  <string name="conflict_use_server_version">Serverversion</string>
   <string name="preview_image_description">Bildvorschau</string>
   <string name="preview_image_error_unknown_format">Dieses Bild kann nicht angezeigt werden</string>
   <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>
@@ -303,7 +307,11 @@
   <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
   <string name="move_file_error">Es ist ein Fehler beim Verschieben der Datei oder des Ordners aufgetreten.</string>
   <string name="forbidden_permissions_move">um diese Datei zu verschieben</string>
+  <string name="copy_file_not_found">Kopieren nicht möglich. Prüfe, dass die Datei existiert</string>
+  <string name="copy_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu kopieren</string>
   <string name="copy_file_invalid_overwrite">Die Datei existiert bereits im Zielverzeichnis</string>
+  <string name="copy_file_error">Es ist ein Fehler beim Kopieren der Datei oder des Ordners aufgetreten.</string>
+  <string name="forbidden_permissions_copy">diese Datei zu kopieren</string>
   <string name="prefs_category_instant_uploading">Sofortiges Hochladen</string>
   <string name="prefs_category_security">Sicherheit</string>
   <string name="prefs_instant_video_upload_path_title">Verzeichnis zum Hochladen der Videos</string>
