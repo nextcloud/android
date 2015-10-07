@@ -213,6 +213,16 @@ public class FileUploader extends Service
 
         if (intent.hasExtra(KEY_CANCEL_ALL) && intent.hasExtra(KEY_ACCOUNT)){
             Account account = intent.getParcelableExtra(KEY_ACCOUNT);
+
+            Log_OC.d(TAG, "Account= " + account.name);
+
+            if (mCurrentUpload != null) {
+                Log_OC.d(TAG, "Current Upload Account= " + mCurrentUpload.getAccount().name);
+                if (mCurrentUpload.getAccount().name.equals(account.name)) {
+                    mCurrentUpload.cancel();
+                }
+            }
+            // Cancel pending uploads
             cancelUploadForAccount(account.name);
         }
 

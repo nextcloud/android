@@ -195,10 +195,13 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                 && (!instantPictureUploadViaWiFiOnly(context) || (instantPictureUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))) {
             DbHandler db = new DbHandler(context);
             Cursor c = db.getAwaitingFiles();
-            if (c.moveToFirst() && isOnline(context)
-                && (!instantPictureUploadViaWiFiOnly(context) ||
-                (instantPictureUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))) {
+            if (c.moveToFirst()) {
                 do {
+                    if (instantPictureUploadViaWiFiOnly(context) &&
+                            !isConnectedViaWiFi(context)){
+                        break;
+                    }
+
                     String account_name = c.getString(c.getColumnIndex("account"));
                     String file_path = c.getString(c.getColumnIndex("path"));
                     File f = new File(file_path);
