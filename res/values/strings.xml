@@ -371,6 +371,7 @@
     <string name="share_with_user_section_title">Share with Users and Groups</string>
     <string name="share_no_users">No data shared with users yet</string>
     <string name="share_add_user_or_group">Add User or Group</string>
+    <string name="share_search">Search</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
