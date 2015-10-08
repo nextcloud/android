@@ -90,6 +90,8 @@ import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
+import com.owncloud.android.ui.dialog.ShareFileDialogFragment;
+import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.ui.dialog.UploadSourceDialogFragment;
@@ -115,8 +117,6 @@ import java.io.File;
 public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
         OnSslUntrustedCertListener, OnEnforceableRefreshListener {
-
-
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -1227,6 +1227,19 @@ public class FileDisplayActivity extends HookActivity
         updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
         setFile(file);
+    }
+
+    /**
+     * Shows the share view for sharing  {@link OCFile} received as a
+     * parameter in the second fragment.
+     *
+     * @param file {@link OCFile}  File to share with
+     */
+    @Override
+    public void showShareFile(OCFile file) {
+        ShareFileDialogFragment dialog =
+                ShareFileDialogFragment.newInstance(file, getAccount());
+        dialog.show(getSupportFragmentManager(), DIALOG_SHARE_FILE);
     }
 
     @Override

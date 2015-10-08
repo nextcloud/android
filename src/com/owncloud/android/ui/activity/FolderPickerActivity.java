@@ -350,9 +350,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         actionBar.setDisplayHomeAsUpEnabled(!atRoot);
         actionBar.setHomeButtonEnabled(!atRoot);
         actionBar.setTitle(
-            atRoot 
-                ? getString(R.string.default_display_name_for_root_folder) 
-                : currentDir.getFileName()
+                atRoot
+                        ? getString(R.string.default_display_name_for_root_folder)
+                        : currentDir.getFileName()
         );
     }
 
@@ -390,7 +390,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         super.onRemoteOperationFinish(operation, result);
         
         if (operation instanceof CreateFolderOperation) {
-            onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
+            onCreateFolderOperationFinish((CreateFolderOperation) operation, result);
             
         }
     }
@@ -542,9 +542,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     
 
     /**
-     * Shows the information of the {@link OCFile} received as a 
+     * Shows the information of the {@link OCFile} received as a
      * parameter in the second fragment.
-     * 
+     *
      * @param file          {@link OCFile} whose details will be shown
      */
     @Override
@@ -558,6 +558,17 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     @Override
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
             
+    }
+
+    /**
+     * Shows the share view for sharing  {@link OCFile} received as a
+     * parameter in the second fragment.
+     *
+     * @param file {@link OCFile}  File to share with
+     */
+    @Override
+    public void showShareFile(OCFile file) {
+
     }
 
     @Override

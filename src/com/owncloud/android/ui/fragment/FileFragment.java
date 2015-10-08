@@ -141,9 +141,14 @@ public class FileFragment extends Fragment {
          * @param downloading   Flag signaling if the file is now downloading.
          * @param uploading     Flag signaling if the file is now uploading.
          */
-        public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading); 
+        public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading);
 
-        
+        /**
+         * Request the parent activity to show the view for sharing an {@link OCFile}.
+         *
+         * @param file      File to share
+         */
+        public void showShareFile(OCFile file);
     }
 
 }

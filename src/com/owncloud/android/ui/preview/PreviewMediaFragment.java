@@ -355,6 +355,10 @@ public class PreviewMediaFragment extends FileFragment implements
                 mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
                 return true;
             }
+            case R.id.action_share_with_users: {
+                seeShareFile();
+                return true;
+            }
             case R.id.action_unshare_file: {
                 stopPreview(false);
                 mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
@@ -415,6 +419,10 @@ public class PreviewMediaFragment extends FileFragment implements
         mContainerActivity.showDetails(getFile());
     }
 
+    private void seeShareFile() {
+        stopPreview(false);
+        mContainerActivity.showShareFile(getFile());
+    }
 
     private void prepareVideo() {
         // create helper to get more control on the playback

@@ -26,7 +26,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -60,8 +59,8 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.dialog.ShareFileDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.DisplayUtils;
 
 
 /**
@@ -400,7 +399,18 @@ public class PreviewImageActivity extends FileActivity implements
         
     }
 
-    
+    /**
+     * Shows the share view for sharing  {@link OCFile} received as a
+     * parameter in the second fragment.
+     *
+     * @param file {@link OCFile}  File to share with
+     */
+    @Override
+    public void showShareFile(OCFile file) {
+        ShareFileDialogFragment dialog =
+                ShareFileDialogFragment.newInstance(file, getAccount());
+        dialog.show(getSupportFragmentManager(), DIALOG_SHARE_FILE);
+    }
     private void requestForDownload(OCFile file) {
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");

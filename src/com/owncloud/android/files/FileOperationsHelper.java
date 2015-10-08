@@ -43,6 +43,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.dialog.ShareFileDialogFragment;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 
 import org.apache.http.protocol.HTTP;
@@ -74,7 +75,8 @@ public class FileOperationsHelper {
             String encodedStoragePath = WebdavUtils.encodePath(storagePath);
 
             Intent intentForSavedMimeType = new Intent(Intent.ACTION_VIEW);
-            intentForSavedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
+            intentForSavedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath),
+                    file.getMimetype());
             intentForSavedMimeType.setFlags(
                     Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             );
@@ -86,9 +88,12 @@ public class FileOperationsHelper {
                 );
                 if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
                     intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
-                    intentForGuessedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), guessedMimeType);
+                    intentForGuessedMimeType.
+                            setDataAndType(Uri.parse("file://"+ encodedStoragePath),
+                                    guessedMimeType);
                     intentForGuessedMimeType.setFlags(
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION
                     );
                 }
             }
@@ -140,7 +145,8 @@ public class FileOperationsHelper {
                 String link = "https://fake.url";
                 Intent intent = createShareWithLinkIntent(link);
                 String[] packagesToExclude = new String[]{mFileActivity.getPackageName()};
-                DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intent, packagesToExclude, file);
+                DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intent,
+                        packagesToExclude, file);
                 chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
             } else {
@@ -150,7 +156,8 @@ public class FileOperationsHelper {
         } else {
             // Show a Message
             Toast t = Toast.makeText(
-                    mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG
+                    mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api),
+                    Toast.LENGTH_LONG
             );
             t.show();
         }
@@ -210,10 +217,19 @@ public class FileOperationsHelper {
 
         } else {
             // Show a Message
-            Toast t = Toast.makeText(mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
+            Toast t = Toast.makeText(mFileActivity,
+                    mFileActivity.getString(R.string.share_link_no_support_share_api),
+                    Toast.LENGTH_LONG);
             t.show();
 
         }
+    }
+
+    public void showShareFile(OCFile file){
+        ShareFileDialogFragment dialog =
+                ShareFileDialogFragment.newInstance(file, mFileActivity.getAccount());
+        dialog.show(mFileActivity.getSupportFragmentManager(), mFileActivity.DIALOG_SHARE_FILE);
+
     }
 
     public void sendDownloadedFile(OCFile file) {
@@ -228,7 +244,8 @@ public class FileOperationsHelper {
 
             // Show dialog, without the own app
             String[] packagesToExclude = new String[]{mFileActivity.getPackageName()};
-            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude, file);
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent,
+                    packagesToExclude, file);
             chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
         } else {
@@ -324,7 +341,8 @@ public class FileOperationsHelper {
     public void cancelTransference(OCFile file) {
         Account account = mFileActivity.getAccount();
         if (file.isFolder()) {
-            OperationsService.OperationsServiceBinder opsBinder = mFileActivity.getOperationsServiceBinder();
+            OperationsService.OperationsServiceBinder opsBinder =
+                    mFileActivity.getOperationsServiceBinder();
             if (opsBinder != null) {
                 opsBinder.cancel(account, file);
             }
@@ -391,7 +409,8 @@ public class FileOperationsHelper {
      */
     public boolean isVersionWithForbiddenCharacters() {
         if (mFileActivity.getAccount() != null) {
-            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
+            OwnCloudVersion serverVersion =
+                    AccountUtils.getServerVersion(mFileActivity.getAccount());
             return (serverVersion != null && serverVersion.isVersionWithForbiddenCharacters());
         }
         return false;

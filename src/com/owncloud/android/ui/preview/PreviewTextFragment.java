@@ -302,6 +302,10 @@ public class PreviewTextFragment extends FileFragment {
                 mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
                 return true;
             }
+            case R.id.action_share_with_users: {
+                seeShareFile();
+                return true;
+            }
             case R.id.action_unshare_file: {
                 mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
                 return true;
@@ -348,6 +352,10 @@ public class PreviewTextFragment extends FileFragment {
 
     private void seeDetails() {
         mContainerActivity.showDetails(getFile());
+    }
+
+    private void seeShareFile(){
+        mContainerActivity.showShareFile(getFile());
     }
 
     @Override
