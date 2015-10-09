@@ -79,8 +79,7 @@ public class FileStorageUtils {
      * Get local owncloud storage path for accountName.
      */
     public static final String getSavePath(String accountName) {
-        File sdCard = Environment.getExternalStorageDirectory();
-        return sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/" + Uri.encode(accountName, "@");
+        return MainApp.getStoragePath() + "/" + MainApp.getDataFolder() + "/" + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
         // that can be in the accountName since 0.1.190B
     }
