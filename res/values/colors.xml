@@ -19,7 +19,7 @@
 -->
 <resources>
 
-    <color name="owncloud_blue">#1D2D44</color>
+    <color name="owncloud_blue">@color/actionbar_start_color</color>
     <color name="owncloud_blue_accent">#35537A</color>
     <color name="owncloud_blue_bright">#00ddff</color>
 
