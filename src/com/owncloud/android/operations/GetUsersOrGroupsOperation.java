@@ -21,19 +21,20 @@ package com.owncloud.android.operations;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.resources.users.GetRemoteUsersOperation;
+import com.owncloud.android.lib.resources.users.GetRemoteUsersOrGroupsOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 /**
  * Get the users from the server
  */
-public class GetUsersOperation  extends SyncOperation{
+public class GetUsersOrGroupsOperation extends SyncOperation{
 
-    private static final String TAG = GetUsersOperation.class.getSimpleName();
+    private static final String TAG = GetUsersOrGroupsOperation.class.getSimpleName();
 
     private String mSearchString;
     private int mLimit;
     private int mOffset;
+    private boolean mGetGroups;
 
     /**
      * Constructor
@@ -41,17 +42,21 @@ public class GetUsersOperation  extends SyncOperation{
      * @param searchString  	string for searching users, optional
      * @param limit 			limit, optional
      * @param offset			offset, optional
+     * @param getGroups         true: for searching groups, false: for searching users
      */
-    public GetUsersOperation(String searchString, int limit, int offset) {
+    public GetUsersOrGroupsOperation(String searchString, int limit, int offset,
+                                     boolean getGroups) {
         mSearchString = searchString;
         mLimit = limit;
         mOffset = offset;
+        mGetGroups = getGroups;
     }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        GetRemoteUsersOperation operation = new GetRemoteUsersOperation(mSearchString,
-                mLimit, mOffset);
+        GetRemoteUsersOrGroupsOperation operation =
+                new GetRemoteUsersOrGroupsOperation(mSearchString,
+                mLimit, mOffset, mGetGroups);
         RemoteOperationResult result = operation.execute(client);
 
         return result;
