@@ -203,6 +203,8 @@
   <string name="confirmation_remove_folder_alert">Вы действительно хотите удалить %1$s и его содержимое?</string>
   <string name="confirmation_remove_local">Только локально</string>
   <string name="confirmation_remove_folder_local">Только локально</string>
+  <string name="confirmation_remove_remote">От сервера</string>
+  <string name="confirmation_remove_remote_and_local">Удаленно и локально</string>
   <string name="remove_success_msg">Удаление завершено</string>
   <string name="remove_fail_msg">Ошибка удаления</string>
   <string name="rename_dialog_title">Введите новое имя</string>
@@ -257,6 +259,8 @@
   <string name="conflict_title">Конфликт файлов</string>
   <string name="conflict_message">Какие файлы Вы хотите сохранить? При выборе обеих версий, к названию локального файла будет добавлена цифра</string>
   <string name="conflict_keep_both">Сохранить оба</string>
+  <string name="conflict_use_local_version">локальная версия</string>
+  <string name="conflict_use_server_version">удаленная версия</string>
   <string name="preview_image_description">Предпросмотр</string>
   <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
   <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
@@ -304,7 +308,11 @@
   <string name="move_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
   <string name="move_file_error">Произошла ошибка при попытке перемещения этого файла или каталога</string>
   <string name="forbidden_permissions_move">для перемещения этого файла</string>
+  <string name="copy_file_not_found">Не удалось произвести копирование. Пожалуйста проверьте существование файла</string>
+  <string name="copy_file_invalid_into_descendent">Нельзя произвести копирование папки в унаследованную папку</string>
   <string name="copy_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
+  <string name="copy_file_error">Произошла ошибка во время копирования этого файла или папки</string>
+  <string name="forbidden_permissions_copy">для копирования этого файла</string>
   <string name="prefs_category_instant_uploading">Мгновенные загрузки</string>
   <string name="prefs_category_security">Безопасность</string>
   <string name="prefs_instant_video_upload_path_title">Путь для загрузки Видео</string>

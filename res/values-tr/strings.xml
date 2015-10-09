@@ -194,7 +194,7 @@
         </string>
   <string name="auth_can_not_auth_against_server">Bu sunucuya karşı kimlik doğrulama yapılamaz</string>
   <string name="auth_account_does_not_exist">Hesap henüz cihazda mevcut değil</string>
-  <string name="favorite">Sık kullanılan</string>
+  <string name="favorite">Favorilere ekle</string>
   <string name="unfavorite">Favoriden kaldır</string>
   <string name="common_rename">Yeniden adlandır</string>
   <string name="common_remove">Kaldır</string>
@@ -307,7 +307,11 @@
   <string name="move_file_invalid_overwrite">Dosya zaten hedef klasörde mevcut</string>
   <string name="move_file_error">Bu dosya veya klasörü taşımaya çalışılırken bir hata oluştu</string>
   <string name="forbidden_permissions_move">bu dosyayı taşımak için</string>
+  <string name="copy_file_not_found">Kopyalama başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
+  <string name="copy_file_invalid_into_descendent">Klasörü, kendi alt klasörüne kopyalamak mümkün değil</string>
   <string name="copy_file_invalid_overwrite">Dosya zaten hedef klasörde mevcut</string>
+  <string name="copy_file_error">Bu dosya veya klasörü kopyalamaya çalışılırken bir hata oluştu</string>
+  <string name="forbidden_permissions_copy">bu dosyayı kopyalamak için</string>
   <string name="prefs_category_instant_uploading">Anında Yüklemeler</string>
   <string name="prefs_category_security">Güvenlik</string>
   <string name="prefs_instant_video_upload_path_title">Video Yükleme Yolu</string>
