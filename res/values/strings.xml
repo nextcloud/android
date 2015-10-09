@@ -408,6 +408,8 @@
 
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
+    <string name="prefs_storage_path">Storage path</string>
+    <string name="prefs_common">Common</string>
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_file">Share %1$s</string>
