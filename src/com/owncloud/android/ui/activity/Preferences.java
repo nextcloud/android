@@ -31,6 +31,9 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.IBinder;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -58,6 +61,9 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.ui.PreferenceWithLongSummary;
+import com.owncloud.android.ui.RadioButtonPreference;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.IOException;
@@ -105,6 +111,9 @@ public class Preferences extends PreferenceActivity {
     private Preference mPrefInstantVideoUploadPathWiFi;
     private Preference mPrefInstantVideoUploadOnlyOnCharging;
     private String mUploadVideoPath;
+
+    private PreferenceWithLongSummary mPrefStoragePath;
+    private String mStoragePath;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -327,6 +336,32 @@ public class Preferences extends PreferenceActivity {
             }
         }
 
+        mPrefStoragePath =  (PreferenceWithLongSummary)findPreference("storage_path");
+        if (mPrefStoragePath != null){
+
+                mPrefStoragePath.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        MainApp.setStoragePath((String) newValue);
+                        return true;
+                    }
+                });
+
+//            mPrefStoragePath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+//                @Override
+//                public boolean onPreferenceClick(Preference preference) {
+//
+////                    if (!mUploadPath.endsWith(OCFile.PATH_SEPARATOR)) {
+////                        mUploadPath += OCFile.PATH_SEPARATOR;
+////                    }
+////                    Intent intent = new Intent(Preferences.this, UploadPathActivity.class);
+////                    intent.putExtra(UploadPathActivity.KEY_INSTANT_UPLOAD_PATH, mUploadPath);
+////                    startActivityForResult(intent, ACTION_SELECT_UPLOAD_PATH);
+////                    return true;
+//                }
+//            });
+        }
+
         mPrefInstantUploadPath =  findPreference("instant_upload_path");
         if (mPrefInstantUploadPath != null){
 
@@ -416,6 +451,7 @@ public class Preferences extends PreferenceActivity {
        }
 
        loadInstantUploadPath();
+       loadStoragePath();
        loadInstantUploadVideoPath();
     }
 
@@ -692,6 +728,17 @@ public class Preferences extends PreferenceActivity {
     }
 
     /**
+     * Load storage path set on preferences
+     */
+    private void loadStoragePath() {
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mStoragePath = appPrefs.getString("storage_path", Environment.getExternalStorageDirectory()
+                                                         .getAbsolutePath());
+        mPrefStoragePath.setSummary(mStoragePath);
+    }
+
+    /**
      * Save the "Instant Upload Path" on preferences
      */
     private void saveInstantUploadPathOnPreferences() {
@@ -706,10 +753,7 @@ public class Preferences extends PreferenceActivity {
      * Load upload video path set on preferences
      */
     private void loadInstantUploadVideoPath() {
-        SharedPreferences appPrefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mUploadVideoPath = appPrefs.getString("instant_video_upload_path", getString(R.string.instant_upload_path));
-        mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
+        mPrefInstantVideoUploadPath.setSummary(MainApp.getStoragePath());
     }
 
     /**
