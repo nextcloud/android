@@ -368,6 +368,8 @@
     <string name="file_list__footer__files">%1$d files</string>
     <string name="file_list__footer__files_and_folder">%1$d files, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d files, %2$d folders</string>
+    <string name="prefs_storage_path">Storage path</string>
+    <string name="prefs_common">Common</string>
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_with_user_section_title">Share with Users and Groups</string>
