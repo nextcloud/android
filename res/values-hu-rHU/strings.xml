@@ -11,13 +11,22 @@
   <string name="actionbar_settings">Beállítások</string>
   <string name="actionbar_see_details">Részletek</string>
   <string name="actionbar_send_file">Küldjük el</string>
+  <string name="actionbar_sort">Rendezés</string>
+  <string name="actionbar_sort_title">Rendezés elve</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Újabb - régebbi</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Összes fájl</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Beállítások</string>
+  <string name="drawer_item_logs">Naplófájlok</string>
+  <string name="drawer_close">Bezárás</string>
   <string name="drawer_open">Megnyitás</string>
   <string name="prefs_category_general">Általános</string>
   <string name="prefs_category_more">Több</string>
@@ -57,6 +66,7 @@
   <string name="uploader_info_uploading">Feltöltés</string>
   <string name="file_list_seconds_ago">pár másodperce</string>
   <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
+  <string name="file_list_loading">Betöltés...</string>
   <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
   <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
@@ -221,11 +231,14 @@
   <string name="instant_video_upload_on_wifi">Videó feltöltés csak WIFI-vel</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_keep_both">Mindkettő megtartása</string>
+  <string name="conflict_use_local_version">helyi verzió</string>
+  <string name="conflict_use_server_version">szerver verzió</string>
   <string name="preview_image_description">Előnézeti kép</string>
   <string name="preview_image_error_unknown_format">Ez a kép nem jeleníthető meg</string>
   <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi könyvtárba</string>
   <string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
   <string name="unshare_link_file_error">Hiba lépett fel a mappa megosztásának visszavonásakor</string>
+  <string name="share_link_password_title">Jelszó beírása</string>
   <string name="activity_chooser_send_file_title">Küldjük el</string>
   <string name="copy_link">Link másolása</string>
   <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
@@ -238,5 +251,17 @@
   <string name="actionbar_move">Mozgatás</string>
   <string name="folder_picker_choose_button_text">Válasszon</string>
   <string name="prefs_category_security">Biztonság</string>
+  <string name="shared_subject_header">megosztva</string>
+  <string name="with_you_subject_header">veled</string>
   <string name="auth_host_address">A kiszolgáló címe</string>
+  <string name="common_error_out_memory">Nincs elég memória</string>
+  <string name="username">Felhasználónév</string>
+  <string name="file_list__footer__folder">1 könyvtár</string>
+  <string name="file_list__footer__folders">%1$d könyvtár</string>
+  <string name="file_list__footer__file">1 fájl</string>
+  <string name="file_list__footer__file_and_folder">1 fájl, 1 könyvtár</string>
+  <string name="file_list__footer__file_and_folders">1 fájl, %1$d könyvtár</string>
+  <string name="file_list__footer__files">%1$d fájl</string>
+  <string name="file_list__footer__files_and_folder">%1$d fájl, 1 könyvtár</string>
+  <string name="file_list__footer__files_and_folders">%1$d fájl, %2$d könyvtár</string>
 </resources>
