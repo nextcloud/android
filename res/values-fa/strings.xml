@@ -115,6 +115,7 @@
   <string name="sync_fail_in_favourites_ticker">همگام سازی پرونده ها ناموفق بود.</string>
   <string name="sync_fail_in_favourites_content">محتوای %1$d فایل ها نمی توانند همگام باشند(%2$d ناسازگاری)</string>
   <string name="sync_foreign_files_forgotten_ticker">بعضی از فایلهای محلی فراموش شده اند</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d fفایل از %2$s پوشه نتوانستند کپی شوند در</string>
   <string name="sync_current_folder_was_removed">پوشه %1$s دیگر وجود ندارد</string>
   <string name="foreign_files_move">انتقال همه</string>
   <string name="foreign_files_success">همه ی فایل ها جا به جا شدند</string>
@@ -297,4 +298,5 @@
   <string name="file_list__footer__file_and_folders">1 فایل، %1$d پوشه</string>
   <string name="file_list__footer__files">%1$d  فایل</string>
   <string name="file_list__footer__files_and_folder">%1$d فایل، 1 پوشه</string>
+  <string name="file_list__footer__files_and_folders">%1$d فایل, %2$d پوشه</string>
 </resources>
