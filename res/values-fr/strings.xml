@@ -72,7 +72,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="file_list_seconds_ago">il y a quelques secondes</string>
   <string name="file_list_empty">Il n\'y a rien ici ! Envoyez donc quelque chose :)</string>
   <string name="file_list_loading">Chargement...</string>
-  <string name="file_list_no_app_for_file_type">Aucune App trouvée pour ce type de fichier !</string>
+  <string name="file_list_no_app_for_file_type">Aucune app trouvée pour ce type de fichier !</string>
   <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
   <string name="filedetails_select_file">Appuyez sur un fichier pour afficher les informations supplémentaires</string>
   <string name="filedetails_size">Taille :</string>
