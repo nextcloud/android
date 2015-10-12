@@ -193,4 +193,8 @@ public class DiskLruImageCache {
             e.printStackTrace();
         }
     }
+
+    public void setMaxSize(long maxSize){
+        mDiskCache.setMaxSize(maxSize);
+    }
 }
