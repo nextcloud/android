@@ -198,4 +198,8 @@ public class DiskLruImageCache {
     public void setMaxSize(long maxSize){
         mDiskCache.setMaxSize(maxSize);
     }
+
+    public long getMaxSize(){
+        return mDiskCache.getMaxSize();
+    }
 }
