@@ -159,6 +159,20 @@ public class ThumbnailsCacheManager {
         return null;
     }
 
+    /**
+     * Sets max size of cache
+     * @param maxSize in MB
+     * @return
+     */
+    public static boolean setMaxSize(long maxSize){
+        if (mThumbnailCache != null){
+            mThumbnailCache.setMaxSize(maxSize * 1024 * 1024);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static class ThumbnailGenerationTask extends AsyncTask<Object, Void, Bitmap> {
         private final WeakReference<ImageView> mImageViewReference;
         private static Account mAccount;

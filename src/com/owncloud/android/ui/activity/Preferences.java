@@ -52,6 +52,11 @@ import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.files.FileOperationsHelper;
+import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -141,6 +146,28 @@ public class Preferences extends PreferenceActivity {
 
                     // Don't update just yet, we will decide on it in onActivityResult
                     return false;
+                }
+            });
+        }
+
+        final Preference pCacheSize = findPreference("pref_cache_size");
+        if (pCacheSize != null){
+            final SharedPreferences appPrefs =
+                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            String savedSize = appPrefs.getString("pref_cache_size", "10");
+            pCacheSize.setSummary(savedSize + " Mb");
+            pCacheSize.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String temp = (String) newValue;
+                    Long size = Long.decode(temp);
+                    if (ThumbnailsCacheManager.setMaxSize(size)){
+                        appPrefs.edit().putString("pref_cache_size", size.toString());
+                        pCacheSize.setSummary(size + " Mb");
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             });
         }
