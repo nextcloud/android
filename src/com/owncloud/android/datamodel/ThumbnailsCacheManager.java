@@ -173,6 +173,14 @@ public class ThumbnailsCacheManager {
         }
     }
 
+    public static long getMaxSize(){
+        if (mThumbnailCache != null) {
+            return mThumbnailCache.getMaxSize();
+        } else {
+            return -1l;
+        }
+    }
+
     public static class ThumbnailGenerationTask extends AsyncTask<Object, Void, Bitmap> {
         private final WeakReference<ImageView> mImageViewReference;
         private static Account mAccount;

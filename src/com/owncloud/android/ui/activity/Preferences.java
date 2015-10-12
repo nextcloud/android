@@ -154,8 +154,8 @@ public class Preferences extends PreferenceActivity {
         if (pCacheSize != null){
             final SharedPreferences appPrefs =
                     PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            String savedSize = appPrefs.getString("pref_cache_size", "10");
-            pCacheSize.setSummary(savedSize + " Mb");
+            Long cacheSize = ThumbnailsCacheManager.getMaxSize();
+            pCacheSize.setSummary(cacheSize + " Mb");
             pCacheSize.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
