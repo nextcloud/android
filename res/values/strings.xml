@@ -441,6 +441,7 @@
     <string name="file_list__footer__files_and_folder">%1$d files, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d files, %2$d folders</string>
     <string name="common_category">Common</string>
+    <string name="pref_cache_size">Cache size</string>
     <string name="prefs_instant_behaviour_dialogTitle">Original file will be&#8230;</string>
     <string name="prefs_instant_behaviour_title">Original file will be&#8230;</string>
     <string name="upload_copy_files">Copy file</string>
