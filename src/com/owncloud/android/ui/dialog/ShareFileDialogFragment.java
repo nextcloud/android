@@ -129,7 +129,7 @@ public class ShareFileDialogFragment extends DialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view)
                 .setPositiveButton(R.string.common_ok, this)
-                .setTitle(R.string.share_link_title);
+                .setTitle(R.string.share_dialog_title);
 
         Dialog d = builder.create();
         return d;
