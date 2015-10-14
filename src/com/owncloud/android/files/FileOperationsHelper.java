@@ -23,6 +23,7 @@ package com.owncloud.android.files;
 
 import android.accounts.Account;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -91,29 +92,29 @@ public class FileOperationsHelper {
                     );
                 }
             }
-            
-            Intent chooserIntent;
-            List<ResolveInfo> launchables;
+
+            Intent openFileWithIntent;
             if (intentForGuessedMimeType != null) {
-                chooserIntent = Intent.createChooser(intentForGuessedMimeType, mFileActivity.getString(R.string.actionbar_open_with));
-                launchables = mFileActivity.getPackageManager().queryIntentActivities(intentForGuessedMimeType, PackageManager.GET_INTENT_FILTERS);
+                openFileWithIntent = intentForGuessedMimeType;
             } else {
-                chooserIntent = Intent.createChooser(intentForSavedMimeType, mFileActivity.getString(R.string.actionbar_open_with));
-                launchables = mFileActivity.getPackageManager().queryIntentActivities(intentForSavedMimeType, PackageManager.GET_INTENT_FILTERS);
+                openFileWithIntent = intentForSavedMimeType;
             }
+
+            List<ResolveInfo> launchables = mFileActivity.getPackageManager().
+                    queryIntentActivities(openFileWithIntent, PackageManager.GET_INTENT_FILTERS);
 
             if(launchables != null && launchables.size() > 0) {
                 try {
-                    mFileActivity.startActivity(chooserIntent);
+                    mFileActivity.startActivity(
+                            Intent.createChooser(
+                                    openFileWithIntent, mFileActivity.getString(R.string.actionbar_open_with)
+                            )
+                    );
                 } catch (ActivityNotFoundException anfe) {
-                    Toast.makeText(mFileActivity.getApplicationContext(),
-                            R.string.file_list_no_app_for_file_type, Toast.LENGTH_SHORT)
-                            .show();
+                    showNoAppForFileTypeToast(mFileActivity.getApplicationContext());
                 }
             } else {
-                Toast.makeText(mFileActivity.getApplicationContext(),
-                        R.string.file_list_no_app_for_file_type, Toast.LENGTH_SHORT)
-                        .show();
+                showNoAppForFileTypeToast(mFileActivity.getApplicationContext());
             }
 
         } else {
@@ -121,6 +122,16 @@ public class FileOperationsHelper {
         }
     }
 
+    /**
+     * Displays a toast stating that no application could be found to open the file.
+     *
+     * @param context the context to be able to show a toast.
+     */
+    private void showNoAppForFileTypeToast(Context context) {
+        Toast.makeText(context,
+                R.string.file_list_no_app_for_file_type, Toast.LENGTH_SHORT)
+                .show();
+    }
 
     public void shareFileWithLink(OCFile file) {
 

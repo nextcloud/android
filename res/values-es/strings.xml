@@ -138,9 +138,9 @@
   <string name="pass_code_configure_your_pass_code_explanation">La contraseña será requerida cada vez que la aplicación sea iniciada</string>
   <string name="pass_code_reenter_your_pass_code">Reintroduzca la contraseña, por favor.</string>
   <string name="pass_code_remove_your_pass_code">Borre su contraseña</string>
-  <string name="pass_code_mismatch">Las contraseñas no son identicas</string>
-  <string name="pass_code_wrong">Contraseña incorrecta</string>
-  <string name="pass_code_removed">Contraseña borrada</string>
+  <string name="pass_code_mismatch">Los códigos de acceso no son idénticos</string>
+  <string name="pass_code_wrong">Código de acceso incorrecto</string>
+  <string name="pass_code_removed">Código de acceso borrado</string>
   <string name="pass_code_stored">Contraseña almacenada</string>
   <string name="media_notif_ticker">Reproductor de música %1$s</string>
   <string name="media_state_playing">%1$s (reproduciendo)</string>
