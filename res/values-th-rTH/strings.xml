@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">วินาที ก่อนหน้านี้</string>
   <string name="file_list_empty">ยังไม่มีไฟล์ใดๆเลย ลองอัพโหลดดูสิ!</string>
   <string name="file_list_loading">กำลังโหลด...</string>
+  <string name="file_list_no_app_for_file_type">ไม่พบแอพฯ ที่จะใช้เปิดไฟล์ประเภทนี้!</string>
   <string name="local_file_list_empty">ยังไม่มีไฟล์ในโฟลเดอร์นี้</string>
   <string name="filedetails_select_file">แตะที่ไฟล์ เพื่อแสดงข้อมูลเพิ่มเติม</string>
   <string name="filedetails_size">ขนาด:</string>
