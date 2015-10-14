@@ -18,19 +18,18 @@
  *
  */
 
-package com.owncloud.android.ui.dialog;
+package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
-import android.app.Dialog;
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,20 +40,17 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
 /**
+ * Fragment for Sharing a file with users
+ *
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ShareFileDialogFragment.OnFragmentInteractionListener} interface
+ * {@link ShareFileFragment.OnShareFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ShareFileDialogFragment#newInstance} factory method to
+ * Use the {@link ShareFileFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
- * Dialog Fragment to show the share options of a file/folder
- *
- * Search the users and share with them
  */
-public class ShareFileDialogFragment extends DialogFragment
-        implements DialogInterface.OnClickListener{
-    private static final String TAG = ShareFileDialogFragment.class.getSimpleName();
+public class ShareFileFragment extends Fragment {
+    private static final String TAG = ShareFileFragment.class.getSimpleName();
 
     // the fragment initialization parameters
     private static final String ARG_FILE = "FILE";
@@ -64,17 +60,17 @@ public class ShareFileDialogFragment extends DialogFragment
     private OCFile mFile;
     private Account mAccount;
 
-    private OnFragmentInteractionListener mListener;
+    private OnShareFragmentInteractionListener mListener;
 
     /**
-     * Public factory method to create new ShareFileDialogFragment instances.
+     * Public factory method to create new ShareFileFragment instances.
      *
      * @param fileToShare   An {@link OCFile} to show in the fragment
      * @param account       An ownCloud account
-     * @return A new instance of fragment ShareFragment.
+     * @return A new instance of fragment ShareFileFragment.
      */
-    public static ShareFileDialogFragment newInstance(OCFile fileToShare, Account account) {
-        ShareFileDialogFragment fragment = new ShareFileDialogFragment();
+    public static ShareFileFragment  newInstance(OCFile fileToShare, Account account) {
+        ShareFileFragment fragment = new ShareFileFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, fileToShare);
         args.putParcelable(ARG_ACCOUNT, account);
@@ -82,7 +78,7 @@ public class ShareFileDialogFragment extends DialogFragment
         return fragment;
     }
 
-    public ShareFileDialogFragment() {
+    public ShareFileFragment() {
         // Required empty public constructor
     }
 
@@ -96,11 +92,10 @@ public class ShareFileDialogFragment extends DialogFragment
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        // Inflate the layout for the dialog
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.share_file_dialog, null);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.share_file_layout, container, false);
 
         // Setup layout
         // Image
@@ -125,21 +120,45 @@ public class ShareFileDialogFragment extends DialogFragment
             size.setText(DisplayUtils.bytesToHumanReadable(mFile.getFileLength()));
         }
 
-        // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view)
-                .setPositiveButton(R.string.common_ok, this)
-                .setTitle(R.string.share_dialog_title);
+        //  Add User Button
+        FloatingActionButton addUserGroupButton = (FloatingActionButton)
+                view.findViewById(R.id.addUserButton);
+        addUserGroupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Show Search Fragment
+                mListener.showSearchUsersAndGroups();
+            }
+        });
 
-        Dialog d = builder.create();
-        return d;
+        return view;
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onShareFragmentInteraction(uri);
+        }
     }
 
     @Override
-    public void onClick(DialogInterface dialog, int which) {
-
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnShareFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnShareFragmentInteractionListener");
+        }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    // TODO: review if it is necessary
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -150,9 +169,10 @@ public class ShareFileDialogFragment extends DialogFragment
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+    public interface OnShareFragmentInteractionListener {
+        public void showSearchUsersAndGroups();
+
+        public void onShareFragmentInteraction(Uri uri);
     }
 
 }

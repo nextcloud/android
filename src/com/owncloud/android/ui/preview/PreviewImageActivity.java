@@ -59,7 +59,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.dialog.ShareFileDialogFragment;
+import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 
@@ -407,9 +407,10 @@ public class PreviewImageActivity extends FileActivity implements
      */
     @Override
     public void showShareFile(OCFile file) {
-        ShareFileDialogFragment dialog =
-                ShareFileDialogFragment.newInstance(file, getAccount());
-        dialog.show(getSupportFragmentManager(), DIALOG_SHARE_FILE);
+        Intent intent = new Intent(this, ShareActivity.class);
+        intent.putExtra(EXTRA_FILE, file);
+        intent.putExtra(EXTRA_ACCOUNT, getAccount());
+        startActivity(intent);
     }
     private void requestForDownload(OCFile file) {
         if (mDownloaderBinder == null) {

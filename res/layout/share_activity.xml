@@ -16,23 +16,29 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/search_layout"
-    android:minWidth="200dp">
+    tools:context="com.owncloud.android.ui.activity.ShareActivity">
 
-    <SearchView
-        android:layout_width="match_parent"
+    <android.support.design.widget.AppBarLayout
         android:layout_height="wrap_content"
-        android:id="@+id/searchView"
-        android:hint="@string/share_search"/>
+        android:layout_width="match_parent" android:theme="@style/Theme.ownCloud.AppBarOverlay">
 
-    <ListView
+        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.ownCloud.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/searchUsersListView"
-        android:scrollbars="vertical"/>
+        android:id="@+id/share_fragment_container">
+    </FrameLayout>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

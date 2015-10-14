@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.owncloud.android.ui.fragment.ShareFileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_material_light"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/shareHeaderContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/background_color">
+
+            <ImageView
+                android:id="@+id/shareFileIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="96dp"
+                android:layout_margin="12dp"
+                android:src="@drawable/file" />
+
+            <TextView
+                android:id="@+id/shareFileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_filename"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginTop="39dp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/shareFileIcon"
+                android:layout_toEndOf="@+id/shareFileIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/placeholder_filesize"
+                android:id="@+id/shareFileSize"
+                android:layout_below="@+id/shareFileName"
+                android:layout_toRightOf="@+id/shareFileIcon"
+                android:layout_toEndOf="@+id/shareFileIcon"
+                android:layout_marginTop="12dp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/share_with_user_section_title"
+            android:id="@+id/shareWithUsersSectionTitle"
+            android:layout_gravity="left"
+            android:padding="8dp"
+            android:background="@color/actionbar_start_color"
+            android:textColor="@color/white"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/shareUsersList"
+            android:visibility="gone"
+            android:scrollbars="vertical"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/shareNoUsers"
+            android:text="@string/share_no_users"
+            android:padding="12dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addUserButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_input_add"
+            android:contentDescription="shareAddUserButton"
+            app:backgroundTint="@color/actionbar_start_color"
+            app:rippleColor="@color/background_color" />
+
+    </LinearLayout>
+</FrameLayout>

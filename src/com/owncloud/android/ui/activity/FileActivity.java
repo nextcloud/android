@@ -100,7 +100,6 @@ public class FileActivity extends AppCompatActivity
     public static final String TAG = FileActivity.class.getSimpleName();
 
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
-    public static final String DIALOG_SHARE_FILE = "DIALOG_SHARE_FILE";
 
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String DIALOG_SHARE_PASSWORD = "DIALOG_SHARE_PASSWORD";

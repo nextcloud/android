@@ -43,7 +43,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.dialog.ShareFileDialogFragment;
+import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 
 import org.apache.http.protocol.HTTP;
@@ -226,9 +226,10 @@ public class FileOperationsHelper {
     }
 
     public void showShareFile(OCFile file){
-        ShareFileDialogFragment dialog =
-                ShareFileDialogFragment.newInstance(file, mFileActivity.getAccount());
-        dialog.show(mFileActivity.getSupportFragmentManager(), mFileActivity.DIALOG_SHARE_FILE);
+        Intent intent = new Intent(mFileActivity, ShareActivity.class);
+        intent.putExtra(mFileActivity.EXTRA_FILE, file);
+        intent.putExtra(mFileActivity.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        mFileActivity.startActivity(intent);
 
     }
 
