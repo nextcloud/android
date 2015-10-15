@@ -18,7 +18,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
-	</style>>
+	</style>
     <style name="Theme.ownCloud.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
