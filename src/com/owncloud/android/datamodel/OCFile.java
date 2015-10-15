@@ -43,6 +43,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         }
     };
 
+    private final static String PERMISSION_SHARED_WITH_ME = "S";    // TODO move to better location
+
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
 
@@ -493,11 +495,12 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         this.mEtag = (etag != null ? etag : "");
     }
 
-    public boolean isShareByLink() {
+
+    public boolean isSharedViaLink() {
         return mShareByLink;
     }
 
-    public void setShareByLink(boolean shareByLink) {
+    public void setShareViaLink(boolean shareByLink) {
         this.mShareByLink = shareByLink;
     }
 
@@ -597,12 +600,16 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mEtagInConflict = etagInConflict;
     }
 
-    public boolean isShareWithUser() {
+    public boolean isSharedViaUsers() {
         return mShareWithUser;
     }
 
-    public void setShareWithUser(boolean shareWithUser) {
+    public void setShareViaUsers(boolean shareWithUser) {
         this.mShareWithUser = shareWithUser;
     }
 
+    public boolean isSharedWithMe() {
+        String permissions = getPermissions();
+        return (permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME));
+    }
 }

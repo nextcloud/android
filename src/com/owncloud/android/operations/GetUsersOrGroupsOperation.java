@@ -21,7 +21,7 @@ package com.owncloud.android.operations;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.resources.users.GetRemoteUsersOrGroupsOperation;
+import com.owncloud.android.lib.resources.shares.GetRemoteShareesOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 /**
@@ -54,9 +54,9 @@ public class GetUsersOrGroupsOperation extends SyncOperation{
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        GetRemoteUsersOrGroupsOperation operation =
-                new GetRemoteUsersOrGroupsOperation(mSearchString,
-                mLimit, mOffset, mGetGroups);
+        GetRemoteShareesOperation operation =
+                new GetRemoteShareesOperation(mSearchString,
+                mLimit, mOffset);
         RemoteOperationResult result = operation.execute(client);
 
         return result;

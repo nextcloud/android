@@ -22,7 +22,6 @@ package com.owncloud.android.operations;
 
 import android.content.Context;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -70,7 +69,7 @@ public class UnshareLinkOperation extends SyncOperation {
                 Log_OC.d(TAG, "Share id = " + share.getIdRemoteShared() + " deleted");
 
                 OCFile file = getStorageManager().getFileByPath(mRemotePath);
-                file.setShareByLink(false);
+                file.setShareViaLink(false);
                 file.setPublicLink("");
                 getStorageManager().saveFile(file);
                 getStorageManager().removeShare(share);

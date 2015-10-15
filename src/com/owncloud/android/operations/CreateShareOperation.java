@@ -172,7 +172,7 @@ public class CreateShareOperation extends SyncOperation {
                                 getClient().getCredentials().getUsername(), file.getFileName()));
             }
             file.setPublicLink(share.getShareLink());
-            file.setShareByLink(true);
+            file.setShareViaLink(true);
             getStorageManager().saveFile(file);
             Log_OC.d(TAG, "Public Link = " + file.getPublicLink());
 

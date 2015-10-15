@@ -185,7 +185,6 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
             
             view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
-            view.findViewById(R.id.sharedWithMeIcon).setVisibility(View.GONE);
         }
 
         return view;
