@@ -189,7 +189,13 @@
         <activity
             android:name=".ui.activity.ShareActivity"
             android:label="@string/share_dialog_title"
-            android:theme="@style/Theme.ownCloud.Dialog" >
+            android:theme="@style/Theme.ownCloud.Dialog"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                       android:resource="@xml/searchable"/>
         </activity>
     </application>
 

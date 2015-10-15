@@ -2,6 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author masensio
+ *   @author David A. Velasco
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -21,13 +22,15 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.app.SearchManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -94,6 +97,28 @@ public class ShareActivity extends AppCompatActivity
             mSearchFragment = null;
         }
 
+        handleIntent(getIntent());
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        setIntent(intent);
+        handleIntent(intent);
+    }
+
+
+    private void handleIntent(Intent intent) {
+        // Verify the action and get the query
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            doMySearch(query);
+        }
+    }
+
+    private void doMySearch(String query) {
+        // TODO implement
+        Toast.makeText(this, "You want to search for [" + query + "]", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -373,7 +373,6 @@
     <string name="share_add_user_or_group">Add User or Group</string>
     <string name="share_search">Search</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_users_and_groups_hint">Search users and groups</string>
 
 </resources>
