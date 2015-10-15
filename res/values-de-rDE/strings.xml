@@ -303,6 +303,7 @@
   <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
   <string name="move_file_error">Es ist ein Fehler beim Verschieben dieser Datei oder dieses Ordners aufgetreten.</string>
   <string name="forbidden_permissions_move">um diese Datei zu verschieben</string>
+  <string name="copy_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
   <string name="prefs_category_instant_uploading">Sofortiges Hochladen</string>
   <string name="prefs_category_security">Sicherheit</string>
   <string name="prefs_instant_video_upload_path_title">Verzeichnis zum Hochladen der Videos</string>

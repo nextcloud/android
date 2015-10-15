@@ -138,9 +138,9 @@
   <string name="pass_code_configure_your_pass_code_explanation">La contraseña será requerida cada vez que la aplicación sea iniciada</string>
   <string name="pass_code_reenter_your_pass_code">Reintroduzca la contraseña, por favor.</string>
   <string name="pass_code_remove_your_pass_code">Borre su contraseña</string>
-  <string name="pass_code_mismatch">Las contraseñas no son identicas</string>
-  <string name="pass_code_wrong">Contraseña incorrecta</string>
-  <string name="pass_code_removed">Contraseña borrada</string>
+  <string name="pass_code_mismatch">Los códigos de acceso no son idénticos</string>
+  <string name="pass_code_wrong">Código de acceso incorrecto</string>
+  <string name="pass_code_removed">Código de acceso borrado</string>
   <string name="pass_code_stored">Contraseña almacenada</string>
   <string name="media_notif_ticker">Reproductor de música %1$s</string>
   <string name="media_state_playing">%1$s (reproduciendo)</string>
@@ -291,7 +291,7 @@
   <string name="downloader_download_file_not_found">Este archivo ya no se encuentra en el servidor</string>
   <string name="prefs_category_accounts">Cuentas</string>
   <string name="prefs_add_account">Agregar cuenta</string>
-  <string name="auth_redirect_non_secure_connection_title">La conexión segura está siendo desviada por una ruta insegura.</string>
+  <string name="auth_redirect_non_secure_connection_title">La conexión segura está siendo redirigida por una ruta insegura.</string>
   <string name="actionbar_logger">Registros</string>
   <string name="log_send_history_button">Enviar historial</string>
   <string name="log_send_no_mail_app">No se ha encontrado una app para enviar logs. Instale la app mail!</string>
@@ -307,6 +307,11 @@
   <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
   <string name="move_file_error">Hubo un error al tratar de mover este archivo o carpeta</string>
   <string name="forbidden_permissions_move">para mover este archivo</string>
+  <string name="copy_file_not_found">No se puede copiar. Revise si existe el archivo</string>
+  <string name="copy_file_invalid_into_descendent">No se puede copiar una carpeta dentro de una de sus subcarpetas.</string>
+  <string name="copy_file_invalid_overwrite">El fichero ya existe en el directorio de destino</string>
+  <string name="copy_file_error">Hubo un error al tratar de copiar este archivo o carpeta</string>
+  <string name="forbidden_permissions_copy">para copiar este archivo</string>
   <string name="prefs_category_instant_uploading">Subidas instantáneas</string>
   <string name="prefs_category_security">Seguridad</string>
   <string name="prefs_instant_video_upload_path_title">Guardar videos subidos en la carpeta:</string>
