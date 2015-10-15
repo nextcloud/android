@@ -93,16 +93,14 @@
             android:text="@string/share_no_users"
             android:padding="12dp" />
 
-        <android.support.design.widget.FloatingActionButton
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/addUserButton"
-            android:layout_width="wrap_content"
+            style="@style/ownCloud.Button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_input_add"
-            android:contentDescription="shareAddUserButton"
-            app:backgroundTint="@color/actionbar_start_color"
-            app:rippleColor="@color/background_color" />
+            android:layout_gravity="center_horizontal"
+            android:text="@string/share_add_user_or_group"
+            android:contentDescription="shareAddUserButton"/>
 
     </LinearLayout>
 </FrameLayout>
