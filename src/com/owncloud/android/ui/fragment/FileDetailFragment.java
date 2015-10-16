@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,9 +36,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -339,7 +342,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
             // set file details
             setFilename(file.getFileName());
-            setFiletype(file.getMimetype(), file.getFileName());
+            setFiletype(file);
             setFilesize(file.getFileLength());
 
             setTimeModified(file.getModificationTimestamp());
@@ -393,18 +396,54 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     /**
      * Updates the MIME type in view
-     * @param mimetype      MIME type to set
-     * @param filename      Name of the file, to deduce the icon to use in case the MIME type is not precise enough
+     * @param file : An {@link OCFile}
      */
-    private void setFiletype(String mimetype, String filename) {
+    private void setFiletype(OCFile file) {
+        String mimetype = file.getMimetype();
         TextView tv = (TextView) getView().findViewById(R.id.fdType);
         if (tv != null) {
+			// mimetype      MIME type to set
             String printableMimetype = DisplayUtils.convertMIMEtoPrettyPrint(mimetype);
             tv.setText(printableMimetype);
         }
+
         ImageView iv = (ImageView) getView().findViewById(R.id.fdIcon);
+
         if (iv != null) {
-            iv.setImageResource(MimetypeIconUtil.getFileTypeIconId(mimetype, filename));
+            Bitmap thumbnail;
+            iv.setTag(file.getFileId());
+
+            if (file.isImage()) {
+                String tagId = String.valueOf(file.getRemoteId());
+                thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
+
+                if (thumbnail != null && !file.needsUpdateThumbnail()) {
+                    iv.setImageBitmap(thumbnail);
+                } else {
+                    // generate new Thumbnail
+                    if (ThumbnailsCacheManager.cancelPotentialWork(file, iv)) {
+                        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                                        iv, mContainerActivity.getStorageManager(), mAccount
+                                );
+                        if (thumbnail == null) {
+                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                        }
+                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncDrawable(
+                                        MainApp.getAppContext().getResources(),
+                                        thumbnail,
+                                        task
+                                );
+                        iv.setImageDrawable(asyncDrawable);
+                        task.execute(file);
+                    }
+                }
+            } else {
+				// Name of the file, to deduce the icon to use in case the MIME type is not precise enough
+				String filename = file.getFileName();
+                iv.setImageResource(MimetypeIconUtil.getFileTypeIconId(mimetype, filename));
+			}
         }
     }
 
