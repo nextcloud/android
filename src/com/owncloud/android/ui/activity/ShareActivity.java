@@ -23,12 +23,15 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.fragment.SearchFragment;
 import com.owncloud.android.ui.fragment.ShareFileFragment;
 
@@ -42,6 +45,8 @@ public class ShareActivity extends AppCompatActivity
 
     private static final String TAG_SHARE_FRAGMENT = "SHARE_FRAGMENT";
     private static final String TAG_SEARCH_FRAGMENT = "SEARCH_USER_AND_GROUPS_FRAGMENT";
+
+    private static final String DIALOG_WAIT_LOAD_DATA = "DIALOG_WAIT_LOAD_DATA";
 
     private Account mAccount;
     private OCFile mFile;
@@ -132,5 +137,30 @@ public class ShareActivity extends AppCompatActivity
     @Override
     public void onSearchFragmentInteraction(Uri uri) {
 
+    }
+
+    /**
+     * Show waiting for loading data
+     */
+    public void showWaitingLoadDialog() {
+        // Construct dialog
+        LoadingDialog loading = new LoadingDialog(
+                getResources().getString(R.string.common_loading));
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        loading.show(ft, DIALOG_WAIT_LOAD_DATA);
+
+    }
+
+
+    /**
+     * Dismiss waiting for loading data
+     */
+    public void dismissWaitingLoadDialog(){
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_LOAD_DATA);
+        if (frag != null) {
+            LoadingDialog loading = (LoadingDialog) frag;
+            loading.dismiss();
+        }
     }
 }

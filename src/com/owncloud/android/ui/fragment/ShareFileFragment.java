@@ -21,6 +21,8 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -31,13 +33,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.operations.GetSharesForFileOperation;
+import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.ShareActivity;
+import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.ui.adapter.ShareUserListAdapter;
+import com.owncloud.android.utils.CopyTmpFileAsyncTask;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.GetShareWithUserAsyncTask;
 import com.owncloud.android.utils.MimetypeIconUtil;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Fragment for Sharing a file with users
@@ -49,7 +73,8 @@ import com.owncloud.android.utils.MimetypeIconUtil;
  * Use the {@link ShareFileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShareFileFragment extends Fragment {
+public class ShareFileFragment extends Fragment
+        implements GetShareWithUserAsyncTask.OnGetSharesWithUserTaskListener{
     private static final String TAG = ShareFileFragment.class.getSimpleName();
 
     // the fragment initialization parameters
@@ -59,6 +84,9 @@ public class ShareFileFragment extends Fragment {
     // Parameters
     private OCFile mFile;
     private Account mAccount;
+
+    private ArrayList<OCShare> mShares;
+    private ShareUserListAdapter mUserGroupsAdapter = null;
 
     private OnShareFragmentInteractionListener mListener;
 
@@ -120,6 +148,12 @@ public class ShareFileFragment extends Fragment {
             size.setText(DisplayUtils.bytesToHumanReadable(mFile.getFileLength()));
         }
 
+        // List of share with users
+        TextView noShares = (TextView) view.findViewById(R.id.shareNoUsers);
+
+        // TODO: Get shares from DB and show
+
+
         //  Add User Button
         Button addUserGroupButton = (Button)
                 view.findViewById(R.id.addUserButton);
@@ -132,6 +166,13 @@ public class ShareFileFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        getShares(mFile);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -158,6 +199,59 @@ public class ShareFileFragment extends Fragment {
         mListener = null;
     }
 
+    // Get users and groups to fill the "share with" list
+    private void getShares(OCFile file){
+        mShares = new ArrayList<>();
+
+        RemoteOperationResult result = null;
+
+        // Show loading
+        ( (ShareActivity) getActivity()).showWaitingLoadDialog();
+        // Get Users and Groups
+        GetShareWithUserAsyncTask getTask = new GetShareWithUserAsyncTask(this);
+        FileDataStorageManager fileDataStorageManager =
+                new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+        Object[] params = { mFile, mAccount, fileDataStorageManager};
+        getTask.execute(params);
+    }
+
+    @Override
+    public void onGetDataShareWithFinish(RemoteOperationResult result) {
+        // Remove loading
+        ((ShareActivity) getActivity()).dismissWaitingLoadDialog();
+        if (result != null && result.isSuccess()) {
+            // update local database
+            for(Object obj: result.getData()) {
+                if ( ((OCShare) obj).getShareType() == ShareType.USER ||
+                        ((OCShare) obj).getShareType() == ShareType.GROUP ){
+                    mShares.add((OCShare) obj);
+                }
+            }
+
+            // Update list of users/groups
+            mUserGroupsAdapter = new ShareUserListAdapter(getActivity().getApplicationContext(),
+                    R.layout.share_user_item, mShares);
+
+            // Show data
+            TextView noShares = (TextView) getView().findViewById(R.id.shareNoUsers);
+            ListView usersList = (ListView) getView().findViewById(R.id.shareUsersList);
+
+            if (mShares.size() > 0) {
+                noShares.setVisibility(View.GONE);
+                usersList.setVisibility(View.VISIBLE);
+                usersList.setAdapter(mUserGroupsAdapter);
+
+            } else {
+                noShares.setVisibility(View.VISIBLE);
+                usersList.setVisibility(View.GONE);
+            }
+
+        } else {
+            Toast.makeText(getActivity(), result.getLogMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
     // TODO: review if it is necessary
     /**
      * This interface must be implemented by activities that contain this
@@ -170,9 +264,9 @@ public class ShareFileFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnShareFragmentInteractionListener {
-        public void showSearchUsersAndGroups();
+        void showSearchUsersAndGroups();
 
-        public void onShareFragmentInteraction(Uri uri);
+        void onShareFragmentInteraction(Uri uri);
     }
 
 }
