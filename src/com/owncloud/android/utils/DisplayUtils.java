@@ -214,8 +214,17 @@ public class DisplayUtils {
                 dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
             }
         }
-        
-        return dateString.toString().split(",")[0];
+
+        String[] parts = dateString.toString().split(",");
+        if (parts.length == 2) {
+            if (parts[1].contains(":") && !parts[0].contains(":")) {
+                return parts[0];
+            } else if (parts[0].contains(":") && !parts[1].contains(":")) {
+                return parts[1];
+            }
+        }
+        //dateString contains unexpected format. use localized, absolute date.
+        return DisplayUtils.unixTimeToHumanReadable(time);
     }
 
     /**
