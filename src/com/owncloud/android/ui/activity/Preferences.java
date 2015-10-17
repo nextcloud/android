@@ -159,11 +159,10 @@ public class Preferences extends PreferenceActivity {
             pCacheSize.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    String temp = (String) newValue;
-                    Long size = Long.decode(temp);
+                    Long size = Long.decode((String) newValue);
                     if (ThumbnailsCacheManager.setMaxSize(size)){
                         appPrefs.edit().putString("pref_cache_size", size.toString());
-                        pCacheSize.setSummary(size + " Mb");
+                        pCacheSize.setSummary(size + " MB");
                         return true;
                     } else {
                         return false;
