@@ -166,7 +166,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         if (!isOnline(context) 
                 || (instantVideoUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))
-                || (instantUploadWhenChargingOnly(context) && !isCharging(context))
+                || (instantVideoUploadWhenChargingOnly(context) && !isCharging(context))
            ) {
             return;
         }
@@ -190,9 +190,10 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         if (!intent.hasExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY)
                 && isOnline(context)
-                && (!instantUploadWhenChargingOnly(context) || (instantUploadWhenChargingOnly(context) == isCharging(context) == true))
-                && (!instantPictureUploadViaWiFiOnly(context) || (instantPictureUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))
-                && (!instantVideoUploadViaWiFiOnly(context) || (instantVideoUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))
+                && (!instantUploadWhenChargingOnly(context) || (instantUploadWhenChargingOnly(context) && isCharging(context)))
+                && (!instantVideoUploadWhenChargingOnly(context) || (instantVideoUploadWhenChargingOnly(context) && isCharging(context)))
+                && (!instantPictureUploadViaWiFiOnly(context) || (instantPictureUploadViaWiFiOnly(context) && isConnectedViaWiFi(context)))
+                && (!instantVideoUploadViaWiFiOnly(context) || (instantVideoUploadViaWiFiOnly(context) && isConnectedViaWiFi(context)))
             ) {
             DbHandler db = new DbHandler(context);
             Cursor c = db.getAwaitingFiles();
@@ -248,8 +249,11 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     public static boolean isCharging(Context context){
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent batteryStatus = context.registerReceiver(null, ifilter);
-        
-        int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+
+        int status = 0;
+        if (batteryStatus != null) {
+            status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        }
         return status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 status == BatteryManager.BATTERY_STATUS_FULL;
     }
@@ -271,5 +275,8 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     }
     public static boolean instantUploadWhenChargingOnly(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_upload_on_charging", false);
+    }
+    public static boolean instantVideoUploadWhenChargingOnly(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_charging", false);
     }
 }
