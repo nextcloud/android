@@ -37,15 +37,19 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 
 /**
  * This Adapter populates a ListView with all files and directories contained
  * in a local directory
  */
 public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
-    
+
+    private static final String TAG = LocalFileListAdapter.class.getSimpleName();
+
     private Context mContext;
     private File mDirectory;
     private File[] mFiles = null;
@@ -103,6 +107,12 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             fileName.setText(name);
             
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
+
+            /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
+             * {@link ThumbnailsCacheManager#cancelPotentialWork} will NEVER cancel any task.
+             **/
+            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon));
+
             if (!file.isDirectory()) {
                 fileIcon.setImageResource(R.drawable.file);
             } else {
@@ -142,7 +152,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                     } else {
 
                         // generate new Thumbnail
-                        if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
+                        if (allowedToCreateNewThumbnail) {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
                             if (thumbnail == null) {
@@ -156,10 +166,12 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 		        );
                             fileIcon.setImageDrawable(asyncDrawable);
                             task.execute(file);
-                        }
+                            Log_OC.v(TAG, "Executing task to generate a new thumbnail");
+
+                        } // else, already being generated, don't restart it
                     }
                 } else {
-                    fileIcon.setImageResource(DisplayUtils.getFileTypeIconId(null, file.getName()));
+                    fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(null, file.getName()));
                 }  
 
             } else {
