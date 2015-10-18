@@ -74,20 +74,20 @@
         android:title="@string/common_remove"
         android:icon="@android:drawable/ic_menu_delete"
         android:orderInCategory="1" />
-    <!--<item-->
-        <!--android:id="@+id/action_send_file"-->
-        <!--android:title="@string/actionbar_send_file"-->
-        <!--android:icon="@android:drawable/ic_menu_set_as"-->
-        <!--app:showAsAction="always"-->
-        <!--/>-->
-
     <item
-    android:id="@+id/action_send_file"
-    android:title="@string/actionbar_send_file"
-    android:icon="@android:drawable/ic_menu_set_as"
-    android:actionProviderClass="android.widget.ShareActionProvider"
-    app:showAsAction="always"
-    />
+        android:id="@+id/action_send_file"
+        android:title="@string/actionbar_send_file"
+        android:icon="@android:drawable/ic_menu_set_as"
+        app:showAsAction="always"
+        />
+
+    <!--<item-->
+    <!--android:id="@+id/action_send_file"-->
+    <!--android:title="@string/actionbar_send_file"-->
+    <!--android:icon="@android:drawable/ic_menu_set_as"-->
+    <!--android:actionProviderClass="android.widget.ShareActionProvider"-->
+    <!--app:showAsAction="always"-->
+    <!--/>-->
     <item
         android:id="@+id/action_favorite_file"
         android:title="@string/favorite"
