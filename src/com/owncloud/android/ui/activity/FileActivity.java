@@ -929,6 +929,12 @@ public class FileActivity extends AppCompatActivity
         startActivity(i);
     }
 
+    public void refresh(){
+        Intent i = new Intent(this, FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
 //    TODO re-enable when "Accounts" is available in Navigation Drawer
 //    public void closeDrawer() {
 //        mDrawerLayout.closeDrawers();
@@ -954,14 +960,16 @@ public class FileActivity extends AppCompatActivity
 //                    break;
 
                 case 0: // All Files
-                    // allFilesOption();
                     MainApp.showOnlyFilesOnDevice(false);
+                    allFilesOption();
                     mDrawerLayout.closeDrawers();
                     break;
 
                 case 1: // On Device
                     // TODO Tobi: refresh
                     MainApp.showOnlyFilesOnDevice(true);
+                    allFilesOption();
+
                     mDrawerLayout.closeDrawers();
                     break;
 
