@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
@@ -149,13 +150,11 @@
   <string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
   <string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
-  <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
+  <string name="favorite">Favorito</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
   <string name="confirmation_remove_local">Sólo local</string>
-  <string name="confirmation_remove_folder_local">Sólo archivos locales</string>
-  <string name="confirmation_remove_remote">Eliminar del servidor</string>
-  <string name="confirmation_remove_remote_and_local">Tanto remoto como local</string>
+  <string name="confirmation_remove_folder_local">Sólo local</string>
   <string name="remove_success_msg">Borrado correctamente</string>
   <string name="remove_fail_msg">El borrado no pudo ser completado</string>
   <string name="rename_dialog_title">Introduzca un nombre nuevo</string>
@@ -199,11 +198,7 @@
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Subir imágenes sólo via WiFi</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
-  <string name="conflict_title">Conflicto en la actualización</string>
-  <string name="conflict_message">El archivo remoto %s no está sincronizado con el archivo local. Si continúa, se reemplazará el contenido del archivo en el servidor.</string>
   <string name="conflict_keep_both">Mantener ambas</string>
-  <string name="conflict_overwrite">Sobrescribir</string>
-  <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="clipboard_text_copied">Copiado al portapapeles</string>

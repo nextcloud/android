@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Öppna</string>
   <string name="prefs_category_general">Allmänt</string>
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Konton</string>
@@ -175,15 +176,14 @@
   <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användare id, vänligen kontakta en administratör
 	</string>
   <string name="auth_can_not_auth_against_server">Kan inte autentisera mot servern</string>
-  <string name="fd_keep_in_sync">Håll filen uppdaterad</string>
+  <string name="favorite">Favorit</string>
+  <string name="unfavorite">Avfavoritisera</string>
   <string name="common_rename">Byt namn</string>
   <string name="common_remove">Radera</string>
   <string name="confirmation_remove_alert">Vill du verkligen ta bort %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
   <string name="confirmation_remove_local">Endast lokalt</string>
-  <string name="confirmation_remove_folder_local">Endast lokalt innehåll</string>
-  <string name="confirmation_remove_remote">Radera från server</string>
-  <string name="confirmation_remove_remote_and_local">Både server och lokalt</string>
+  <string name="confirmation_remove_folder_local">Endast lokalt</string>
   <string name="remove_success_msg">Lyckad radering</string>
   <string name="remove_fail_msg">Radering kunde inte slutföras</string>
   <string name="rename_dialog_title">Ange ett nytt namn</string>
@@ -233,11 +233,7 @@
   <string name="instant_upload_on_wifi">Ladda upp bilder endast via WiFi</string>
   <string name="instant_video_upload_on_wifi">Ladda upp videos endast via WIFI</string>
   <string name="instant_upload_path">/DirektUppladdning</string>
-  <string name="conflict_title">Uppdateringskonflikt</string>
-  <string name="conflict_message">Serverns fil %s är inte synkroniserad med den lokala filen. Fortsätt för att skriva över filen på servern.</string>
   <string name="conflict_keep_both">Behåll båda</string>
-  <string name="conflict_overwrite">Skriv över</string>
-  <string name="conflict_dont_upload">Ladda inte upp</string>
   <string name="preview_image_description">Förhandsvisa bild</string>
   <string name="preview_image_error_unknown_format">Denna bild kan inte visas</string>
   <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>

@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Настройки</string>
   <string name="drawer_item_logs">Журналы</string>
   <string name="drawer_close">Закрыть</string>
+  <string name="drawer_open">Открыть</string>
   <string name="prefs_category_general">Основные</string>
   <string name="prefs_category_more">Больше</string>
   <string name="prefs_accounts">Учётные записи</string>
@@ -194,15 +195,14 @@
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Невозможно авторизоваться на этом сервере</string>
   <string name="auth_account_does_not_exist">Аккаунт не существует на устройстве ещё</string>
-  <string name="fd_keep_in_sync">Обновлять файл</string>
+  <string name="favorite">Добавить в избранное</string>
+  <string name="unfavorite">Убрать из избранного</string>
   <string name="common_rename">Переименовать</string>
   <string name="common_remove">Удалить</string>
   <string name="confirmation_remove_alert">Вы действительно хотите удалить %1$s?</string>
   <string name="confirmation_remove_folder_alert">Вы действительно хотите удалить %1$s и его содержимое?</string>
   <string name="confirmation_remove_local">Только локально</string>
-  <string name="confirmation_remove_folder_local">Только локальные данные</string>
-  <string name="confirmation_remove_remote">Удалить с сервера</string>
-  <string name="confirmation_remove_remote_and_local">Удалённо и локально</string>
+  <string name="confirmation_remove_folder_local">Только локально</string>
   <string name="remove_success_msg">Удаление завершено</string>
   <string name="remove_fail_msg">Ошибка удаления</string>
   <string name="rename_dialog_title">Введите новое имя</string>
@@ -254,11 +254,9 @@
   <string name="instant_upload_on_wifi">Загрузка изображений только через Wi-Fi</string>
   <string name="instant_video_upload_on_wifi">Загрузка видео только через WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Конфликт обновления</string>
-  <string name="conflict_message">Удаленный файл %s не синхронизирован с локальным. Продолжение приведет к замене содержимого файла на сервере.</string>
+  <string name="conflict_title">Конфликт файлов</string>
+  <string name="conflict_message">Какие файлы Вы хотите сохранить? При выборе обеих версий, к названию локального файла будет добавлена цифра</string>
   <string name="conflict_keep_both">Сохранить оба</string>
-  <string name="conflict_overwrite">Перезаписать</string>
-  <string name="conflict_dont_upload">Не загружать</string>
   <string name="preview_image_description">Предпросмотр</string>
   <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
   <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
@@ -313,6 +311,7 @@
   <string name="shared_subject_header">поделился</string>
   <string name="with_you_subject_header">с вами</string>
   <string name="subject_token">%1$s предоставил вам доступ к \"%2$s\"</string>
+  <string name="saml_subject_token">Вам предоставлен доступ к \"%1$s\"</string>
   <string name="auth_refresh_button">Обновить соединение</string>
   <string name="auth_host_address">Адрес сервера</string>
   <string name="common_error_out_memory">Недостаточно памяти</string>

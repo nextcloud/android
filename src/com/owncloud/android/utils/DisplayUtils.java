@@ -35,11 +35,15 @@ import java.util.Vector;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.text.format.DateUtils;
 import android.view.Display;
 import android.webkit.MimeTypeMap;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -373,4 +377,33 @@ public class DisplayUtils {
         return size;
     }
 
+    /**
+     * sets the coloring of the given progress bar to color_accent.
+     *
+     * @param progressBar the progress bar to be colored
+     */
+    public static void colorPreLollipopHorizontalProgressBar(ProgressBar progressBar) {
+        if (progressBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            int color = progressBar.getResources().getColor(R.color.color_accent);
+            progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            progressBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        }
+    }
+
+    /**
+     * sets the coloring of the given seek bar to color_accent.
+     *
+     * @param seekBar the seek bar to be colored
+     */
+    public static void colorPreLollipopHorizontalSeekBar(SeekBar seekBar) {
+        if (seekBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            colorPreLollipopHorizontalProgressBar(seekBar);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                int color = seekBar.getResources().getColor(R.color.color_accent);
+                seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            }
+        }
+    }
 }

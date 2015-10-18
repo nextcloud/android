@@ -21,14 +21,14 @@
 
 package com.owncloud.android.ui.dialog;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.owncloud.android.R;
 import com.owncloud.android.utils.DisplayUtils;
@@ -42,7 +42,8 @@ public class ConflictsResolveDialog extends DialogFragment {
     public static enum Decision { 
         CANCEL,
         KEEP_BOTH,
-        OVERWRITE
+        OVERWRITE,
+        SERVER
     }
     
     OnConflictDecisionMadeListener mListener;
@@ -59,11 +60,11 @@ public class ConflictsResolveDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         String remotepath = getArguments().getString("remotepath");
-        return new AlertDialog.Builder(getActivity())
-                   .setIcon(DisplayUtils.getSeasonalIconId())
+        return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
+                   .setIcon(R.drawable.ic_warning)
                    .setTitle(R.string.conflict_title)
                    .setMessage(String.format(getString(R.string.conflict_message), remotepath))
-                   .setPositiveButton(R.string.conflict_overwrite,
+                   .setPositiveButton(R.string.conflict_use_local_version,
                        new DialogInterface.OnClickListener() {
 
                            @Override
@@ -80,18 +81,18 @@ public class ConflictsResolveDialog extends DialogFragment {
                                     mListener.conflictDecisionMade(Decision.KEEP_BOTH);
                             }
                         })
-                   .setNegativeButton(R.string.conflict_dont_upload,
+                   .setNegativeButton(R.string.conflict_use_server_version,
                        new DialogInterface.OnClickListener() {
                            @Override
                            public void onClick(DialogInterface dialog, int which) {
                                if (mListener != null)
-                                   mListener.conflictDecisionMade(Decision.CANCEL);
+                                   mListener.conflictDecisionMade(Decision.SERVER);
                            }
                    })
                    .create();
     }
     
-    public void showDialog(ActionBarActivity activity) {
+    public void showDialog(AppCompatActivity activity) {
         Fragment prev = activity.getSupportFragmentManager().findFragmentByTag("dialog");
         FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
         if (prev != null) {
@@ -102,7 +103,7 @@ public class ConflictsResolveDialog extends DialogFragment {
         this.show(ft, "dialog");
     }
 
-    public void dismissDialog(ActionBarActivity activity) {
+    public void dismissDialog(AppCompatActivity activity) {
         Fragment prev = activity.getSupportFragmentManager().findFragmentByTag(getTag());
         if (prev != null) {
             FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();

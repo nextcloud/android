@@ -13,6 +13,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Paramètres</string>
+  <string name="drawer_open">Dubrís</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Mai d\'aquò</string>
   <string name="prefs_accounts">Comptes</string>
@@ -53,6 +54,7 @@
   <string name="uploader_upload_in_progress_ticker">Al avalcargar ...</string>
   <string name="uploader_upload_succeeded_ticker">Capitada d\'avalcargar</string>
   <string name="common_choose_account">Causís lo compte</string>
+  <string name="favorite">Apondre als favorits</string>
   <string name="common_rename">Torna nomenar</string>
   <string name="common_remove">Suprimir</string>
   <string name="ssl_validator_label_C">País :</string>

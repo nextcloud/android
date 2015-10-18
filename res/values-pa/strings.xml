@@ -86,12 +86,10 @@
   <string name="auth_secure_connection">ਸੁਰੱਖਿਅਤ ਕੁਨੈਕਸ਼ਨ ਬਣਾਇਆ ਗਿਆ ਹੈ</string>
   <string name="auth_unauthorized">ਗਲਤ ਯੂਜ਼ਰ-ਨਾਂ ਜਾਂ ਪਾਸਵਰਡ</string>
   <string name="auth_expired_basic_auth_toast">ਆਪਣਾ ਮੌਜੂਦਾ ਪਾਸਵਰਡ ਦਿਉ ਜੀ</string>
-  <string name="fd_keep_in_sync">ਫਾਇਲ ਨੂੰ ਅੱਪ ਟੂ ਡੇਟ ਰੱਖੋ</string>
   <string name="common_rename">ਨਾਂ ਬਦਲੋ</string>
   <string name="common_remove">ਹਟਾਓ</string>
   <string name="confirmation_remove_local">ਕੇਵਲ ਲੋਕਲ</string>
-  <string name="confirmation_remove_remote">ਸਰਵਰ ਤੋਂ ਹਟਾਓ</string>
-  <string name="confirmation_remove_remote_and_local">ਰਿਮੋਟ ਤੇ ਲੋਕਲ</string>
+  <string name="confirmation_remove_folder_local">ਕੇਵਲ ਲੋਕਲ</string>
   <string name="wait_a_moment">ਪਲ਼ ਭਰ ਲਈ ਉਡੀਕੋ</string>
   <string name="filedisplay_no_file_selected">ਕੋਈ ਫਾਇਲ ਨਹੀਂ ਚੁਣੀ ਗਈ</string>
   <string name="ssl_validator_header">ਇਹ ਸਾਈਟ ਦੀ ਪਛਾਣ ਦੀ ਜਾਂਚ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ ਹੈ</string>
@@ -118,8 +116,6 @@
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">ਤਸਵੀਰਾਂ ਨੂੰ ਵਾਈ-ਫਾਈ ਰਾਹੀਂ ਹੀ ਅੱਪਲੋਡ ਕਰੋ</string>
   <string name="conflict_keep_both">ਦੋਵੇਂ ਰੱਖੋ</string>
-  <string name="conflict_overwrite">ਉੱਤੇ ਲਿਖੋ</string>
-  <string name="conflict_dont_upload">ਅੱਪਲੋਡ ਨਾ ਕਰੋ</string>
   <string name="preview_image_description">ਚਿੱਤਰ ਝਲਕ</string>
   <string name="activity_chooser_send_file_title">ਭੇਜੋ</string>
   <string name="empty"></string>

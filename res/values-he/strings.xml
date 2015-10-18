@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">פתיחה</string>
   <string name="prefs_category_general">כללי</string>
   <string name="prefs_category_more">יותר</string>
   <string name="prefs_accounts">חשבונות</string>
@@ -166,15 +167,13 @@
   <string name="auth_fail_get_user_name">השרת אינו מחזיר מספר משתמש נכון, יש ליצור קשר עם מנהל
 ⇥</string>
   <string name="auth_can_not_auth_against_server">לא מצליח לאמת מול השרת</string>
-  <string name="fd_keep_in_sync">לשמור על קובץ עדכני</string>
+  <string name="favorite">מועדף</string>
   <string name="common_rename">שינוי שם</string>
   <string name="common_remove">הסרה</string>
   <string name="confirmation_remove_alert">האם באמת להסיר %1$s?</string>
   <string name="confirmation_remove_folder_alert">האם באמת להסיר %1$s ואת כל התכולה?</string>
   <string name="confirmation_remove_local">מקומי בלבד</string>
-  <string name="confirmation_remove_folder_local">תכנים מקומיים בלבד</string>
-  <string name="confirmation_remove_remote">הסרה מהשרת</string>
-  <string name="confirmation_remove_remote_and_local">מרוחק ומקומי</string>
+  <string name="confirmation_remove_folder_local">מקומי בלבד</string>
   <string name="remove_success_msg">ההסרה הצליחה</string>
   <string name="remove_fail_msg">ההסרה נכשלה</string>
   <string name="rename_dialog_title">נא להזין שם חדש</string>
@@ -224,11 +223,7 @@
   <string name="instant_upload_on_wifi">העלאת תמונות דרך WiFi בלבד</string>
   <string name="instant_video_upload_on_wifi">העלאות קבצי וידאו על בסיס WiFi בלבד</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">התנגשות עדכון</string>
-  <string name="conflict_message">הקובץ המרוחק %s אינו מסונכרן עם הקובץ המקומי. בחירה בהמשך התהליך תחליף את תוכן הקובץ בשרת.</string>
   <string name="conflict_keep_both">להשאיר את שניהם</string>
-  <string name="conflict_overwrite">לשכתב</string>
-  <string name="conflict_dont_upload">לא להעלות</string>
   <string name="preview_image_description">תצוגה מקדימה לתמונה</string>
   <string name="preview_image_error_unknown_format">תמונה זו לא ניתנת לצפייה</string>
   <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>

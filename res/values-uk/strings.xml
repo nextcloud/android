@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Налаштування</string>
   <string name="drawer_item_logs">Журнали</string>
   <string name="drawer_close">Закрити</string>
+  <string name="drawer_open">Відкрити</string>
   <string name="prefs_category_general">Основне</string>
   <string name="prefs_category_more">Більше</string>
   <string name="prefs_accounts">Облікові записи</string>
@@ -182,15 +183,13 @@
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Аутентифікація на цьому сервері неможлива</string>
   <string name="auth_account_does_not_exist">Користвача в пристрої не існуе</string>
-  <string name="fd_keep_in_sync">Оновлювати файл</string>
+  <string name="favorite">Улюблений</string>
   <string name="common_rename">Перейменувати</string>
   <string name="common_remove">Видалити</string>
   <string name="confirmation_remove_alert">Ви дійсно бажаєте видалити %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ви дійсно бажаєте видалити %1$s та весь вміст?</string>
   <string name="confirmation_remove_local">Лише локально</string>
-  <string name="confirmation_remove_folder_local">Лише локальний зміст</string>
-  <string name="confirmation_remove_remote">Видалити із серверу</string>
-  <string name="confirmation_remove_remote_and_local">Віддалено і локально</string>
+  <string name="confirmation_remove_folder_local">Лише локально</string>
   <string name="remove_success_msg">Успішно видалено</string>
   <string name="remove_fail_msg">Видалення не вдалось</string>
   <string name="rename_dialog_title">Введіть нове ім\'я</string>
@@ -242,11 +241,7 @@
   <string name="instant_upload_on_wifi">Завантажувати зображення тільки через WiFi</string>
   <string name="instant_video_upload_on_wifi">Завантажувати відео тільки через WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Конфлікт оновлення</string>
-  <string name="conflict_message">Віддалений файл %s не синхронізовано з локальним. Продовження процедури замінить вміст файлу на сервері.</string>
   <string name="conflict_keep_both">Залишити обидва</string>
-  <string name="conflict_overwrite">Замінити</string>
-  <string name="conflict_dont_upload">Не завантажувати</string>
   <string name="preview_image_description">Попередній перегляд зображення</string>
   <string name="preview_image_error_unknown_format">Не вдалося показати зображення</string>
   <string name="error__upload__local_file_not_copied">%1$s неможливо скопіювати до %2$s</string>

@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
@@ -173,15 +174,13 @@
   <string name="auth_unsupported_multiaccount">%1$s no soporta múltiples cuentas</string>
   <string name="auth_fail_get_user_name">Tú servidor no esta regresando una identificación de usuario correcta, por favor contacta a un administrador</string>
   <string name="auth_can_not_auth_against_server">No se puede autenticar contra este servidor</string>
-  <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
+  <string name="favorite">Favorito</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
   <string name="confirmation_remove_alert">¿Realmente quieres eliminar %1$s?</string>
   <string name="confirmation_remove_folder_alert">¿Realmente deseas eliminar %1$s y todo su contenido?</string>
   <string name="confirmation_remove_local">Sólo local</string>
-  <string name="confirmation_remove_folder_local">Solo archivos locales</string>
-  <string name="confirmation_remove_remote">Borrar del servidor</string>
-  <string name="confirmation_remove_remote_and_local">Ambos: remoto y local</string>
+  <string name="confirmation_remove_folder_local">Sólo local</string>
   <string name="remove_success_msg">Borrado correctamente</string>
   <string name="remove_fail_msg">El borrado no pudo ser completado</string>
   <string name="rename_dialog_title">Ingrese un nombre</string>
@@ -231,11 +230,7 @@
   <string name="instant_upload_on_wifi">Subir imágenes solamente a través de WiFi</string>
   <string name="instant_video_upload_on_wifi">Cargar videos mediante WiFi solamente</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
-  <string name="conflict_title">Conflicto en la actualización</string>
-  <string name="conflict_message">El archivo remoto %s no está sincronizado con el archivo local. Si seguís adelante, vas a reemplazar el contenido del archivo en el servidor.</string>
   <string name="conflict_keep_both">Mantener ambas</string>
-  <string name="conflict_overwrite">Sobrescribir</string>
-  <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
   <string name="preview_image_error_unknown_format">Esta imagen no puede ser mostrada</string>
   <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s </string>

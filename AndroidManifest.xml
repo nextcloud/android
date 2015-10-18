@@ -37,7 +37,7 @@
     
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
     </uses-permission>
@@ -86,7 +86,8 @@
             android:theme="@style/Theme.ownCloud" >
         </activity>
         <activity	
-            android:name=".ui.preview.PreviewImageActivity" 
+            android:name=".ui.preview.PreviewImageActivity"
+            android:theme="@style/Theme.ownCloud.Overlay"
             />
 		        
         <activity	
@@ -132,7 +133,7 @@
         <activity
             android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
-            android:theme="@style/Theme.ownCloud.noActionBar" 
+            android:theme="@style/Theme.ownCloud.noActionBar"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
