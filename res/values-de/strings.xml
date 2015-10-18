@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">Gerade eben</string>
   <string name="file_list_empty">Alles leer. Lade etwas hoch!</string>
   <string name="file_list_loading">Lade…</string>
+  <string name="file_list_no_app_for_file_type">Es wurden keine Apps für den Dateityp gefunden!</string>
   <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
   <string name="filedetails_select_file">Klicken Sie auf eine Datei für weitere Informationen.</string>
   <string name="filedetails_size">Größe:</string>
