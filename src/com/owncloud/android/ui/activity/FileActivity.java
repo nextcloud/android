@@ -944,6 +944,10 @@ public class FileActivity extends AppCompatActivity
         restart();
     }
 
+    public void refreshDirectory(){
+        // overridden by FileDisplayActivity
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -961,15 +965,13 @@ public class FileActivity extends AppCompatActivity
 
                 case 0: // All Files
                     MainApp.showOnlyFilesOnDevice(false);
-                    allFilesOption();
+                    refreshDirectory();
                     mDrawerLayout.closeDrawers();
                     break;
 
                 case 1: // On Device
-                    // TODO Tobi: refresh
                     MainApp.showOnlyFilesOnDevice(true);
-                    allFilesOption();
-
+                    refreshDirectory();
                     mDrawerLayout.closeDrawers();
                     break;
 
