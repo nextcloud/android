@@ -197,7 +197,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 result = fetchAndSyncRemoteFolder(client);
             } else {
                 fetchFavoritesToSyncFromLocalData();
-                mChildren = mStorageManager.getFolderContent(mLocalFolder/*, false*/);
+                mChildren = mStorageManager.getFolderContent(mLocalFolder, false);
             }
 
             if (result.isSuccess()) {
@@ -361,8 +361,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         mFilesToSyncContents.clear();
 
         // get current data about local contents of the folder to synchronize
-        // TODO Enable when "On Device" is recovered ?
-        List<OCFile> localFiles = mStorageManager.getFolderContent(mLocalFolder/*, false*/);
+        List<OCFile> localFiles = mStorageManager.getFolderContent(mLocalFolder, false);
         Map<String, OCFile> localFilesMap = new HashMap<String, OCFile>(localFiles.size());
         for (OCFile file : localFiles) {
             localFilesMap.put(file.getRemotePath(), file);
