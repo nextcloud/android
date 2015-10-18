@@ -35,6 +35,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.PopupMenu;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -242,8 +243,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
             }   // exit is granted because storageManager.getFileByPath("/") never returns null
             mFile = parentDir;
 
-            // TODO Enable when "On Device" is recovered ?
-            listDirectory(mFile /*, MainApp.getOnlyOnDevice()*/);
+            listDirectory(mFile, MainApp.getOnlyOnDevice());
 
             onRefresh(false);
 
@@ -261,8 +261,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
         if (file != null) {
             if (file.isFolder()) {
                 // update state and view of this fragment
-                // TODO Enable when "On Device" is recovered ?
-                listDirectory(file/*, MainApp.getOnlyOnDevice()*/);
+                listDirectory(file, MainApp.getOnlyOnDevice());
                 // then, notify parent activity to let it update its state and view
                 mContainerActivity.onBrowsedDownTo(file);
                 // save index and top position
@@ -442,17 +441,14 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
     }
 
     /**
-     * Calls {@link OCFileListFragment#listDirectory(OCFile)} with a null parameter
+     * Calls {@link OCFileListFragment#listDirectory(OCFile, boolean)} with a null parameter
      */
-    public void listDirectory(/*boolean onlyOnDevice*/){
-        listDirectory(null);
-        // TODO Enable when "On Device" is recovered ?
-        // listDirectory(null, onlyOnDevice);
+    public void listDirectory(boolean onlyOnDevice){
+        listDirectory(null, onlyOnDevice);
     }
     
     public void refreshDirectory(){
-        // TODO Enable when "On Device" is recovered ?
-        listDirectory(getCurrentFile()/*, MainApp.getOnlyOnDevice()*/);
+        listDirectory(getCurrentFile(), MainApp.getOnlyOnDevice());
     }
 
     /**
@@ -462,7 +458,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
      *
      * @param directory File to be listed
      */
-    public void listDirectory(OCFile directory/*, boolean onlyOnDevice*/) {
+    public void listDirectory(OCFile directory, boolean onlyOnDevice) {
         FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
         if (storageManager != null) {
 
@@ -483,8 +479,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 directory = storageManager.getFileById(directory.getParentId());
             }
 
-            // TODO Enable when "On Device" is recovered ?
-            mAdapter.swapDirectory(directory, storageManager/*, onlyOnDevice*/);
+            mAdapter.swapDirectory(directory, storageManager, onlyOnDevice);
             if (mFile == null || !mFile.equals(directory)) {
                 mCurrentListView.setSelection(0);
             }

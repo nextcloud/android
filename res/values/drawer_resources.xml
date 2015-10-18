@@ -23,7 +23,7 @@
         <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
         <!--<item>@string/prefs_accounts</item>-->
         <item>@string/drawer_item_all_files</item>
-        <!--<item>@string/drawer_item_on_device</item>-->
+        <item>@string/drawer_item_on_device</item>
         <item>@string/actionbar_settings</item>
         <item>@string/actionbar_logger</item>
     </string-array>
@@ -33,7 +33,7 @@
         <!-- TODO re-enable when "Accounts" is available in Navigation Drawer-->
         <!--<item>@string/drawer_item_accounts</item>-->
         <item>@string/drawer_item_all_files</item>
-        <!--<item>@string/drawer_item_on_device</item>-->
+        <item>@string/drawer_item_on_device</item>
         <item>@string/drawer_item_settings</item>
         <item>@string/drawer_item_logs</item>
     </string-array>
