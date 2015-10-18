@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Nastavitve</string>
   <string name="drawer_item_logs">Dnevnik</string>
   <string name="drawer_close">Zapri</string>
+  <string name="drawer_open">Odpri</string>
   <string name="prefs_category_general">Splošno</string>
   <string name="prefs_category_more">Več</string>
   <string name="prefs_accounts">Računi</string>
@@ -200,9 +201,9 @@
   <string name="confirmation_remove_alert">Ali res želite odstraniti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ali res želite odstraniti %1$s skupaj s celotno vsebino?</string>
   <string name="confirmation_remove_local">Le krajevno</string>
-  <string name="confirmation_remove_folder_local">Le krajevno vsebino</string>
-  <string name="confirmation_remove_remote">Odstrani s strežnika</string>
-  <string name="confirmation_remove_remote_and_local">Oddaljeno in krajevno</string>
+  <string name="confirmation_remove_folder_local">Le krajevno</string>
+  <string name="confirmation_remove_remote">S strežnika</string>
+  <string name="confirmation_remove_remote_and_local">Oddaljeno &amp; krajevno</string>
   <string name="remove_success_msg">Odstranitev je uspešno končana</string>
   <string name="remove_fail_msg">Odstranjevanje je spodletelo</string>
   <string name="rename_dialog_title">Vnesite novo ime</string>
@@ -254,7 +255,11 @@
   <string name="instant_upload_on_wifi">Pošiljaj slike le preko povezav Wi-Fi</string>
   <string name="instant_video_upload_on_wifi">Pošlji posnetke le preko povezave Wi-Fi</string>
   <string name="instant_upload_path">/Poslano</string>
+  <string name="conflict_title">Neskladje datotek</string>
+  <string name="conflict_message">Katere datoteke želite ohraniti? Če izberete obe različici, bo krajevni datoteki dodatna k imenu še številka.</string>
   <string name="conflict_keep_both">Ohrani obe</string>
+  <string name="conflict_use_local_version">krajevna različica</string>
+  <string name="conflict_use_server_version">različica strežnika</string>
   <string name="preview_image_description">Predogled slike</string>
   <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
   <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
@@ -302,6 +307,7 @@
   <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja.</string>
   <string name="move_file_error">Prišlo je do napake med premikanjem datoteke v mapo</string>
   <string name="forbidden_permissions_move">med premikanjem datoteke</string>
+  <string name="copy_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja.</string>
   <string name="prefs_category_instant_uploading">Takojšnje pošiljanje v oblak</string>
   <string name="prefs_category_security">Varnost</string>
   <string name="prefs_instant_video_upload_path_title">Pot videa za pošiljanje</string>
@@ -309,6 +315,7 @@
   <string name="shared_subject_header">v souporabi</string>
   <string name="with_you_subject_header">z vami</string>
   <string name="subject_token">Uporabnik %1$s je omogočil souporabo \"%2$s\" z vami</string>
+  <string name="saml_subject_token">\"%1$s\" je oddan v souporabo z vami</string>
   <string name="auth_refresh_button">Osveži povezavo</string>
   <string name="auth_host_address">Naslov strežnika</string>
   <string name="common_error_out_memory">Ni dovolj pomnilnika</string>

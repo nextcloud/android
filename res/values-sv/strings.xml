@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Öppna</string>
   <string name="prefs_category_general">Allmänt</string>
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Konton</string>
@@ -182,9 +183,7 @@
   <string name="confirmation_remove_alert">Vill du verkligen ta bort %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
   <string name="confirmation_remove_local">Endast lokalt</string>
-  <string name="confirmation_remove_folder_local">Endast lokalt innehåll</string>
-  <string name="confirmation_remove_remote">Radera från server</string>
-  <string name="confirmation_remove_remote_and_local">Både server och lokalt</string>
+  <string name="confirmation_remove_folder_local">Endast lokalt</string>
   <string name="remove_success_msg">Lyckad radering</string>
   <string name="remove_fail_msg">Radering kunde inte slutföras</string>
   <string name="rename_dialog_title">Ange ett nytt namn</string>
@@ -266,7 +265,6 @@
   <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>
   <string name="prefs_category_accounts">Konton</string>
   <string name="prefs_add_account">Lägg till konto</string>
-  <string name="auth_redirect_non_secure_connection_title">Säker anslutning är omdirigerad till en osäker väg.</string>
   <string name="actionbar_logger">Loggar</string>
   <string name="log_send_history_button">Skickat historik</string>
   <string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Installera mail appen!</string>
@@ -282,6 +280,7 @@
   <string name="move_file_invalid_overwrite">Filen existerar redan i destinationsmappen</string>
   <string name="move_file_error">Ett fel uppstod vid försök att flytta denna fil eller mapp</string>
   <string name="forbidden_permissions_move">att flytta den här filen</string>
+  <string name="copy_file_invalid_overwrite">Filen existerar redan i destinationsmappen</string>
   <string name="prefs_category_instant_uploading">Direktuppladning</string>
   <string name="prefs_category_security">Säkerhet</string>
   <string name="prefs_instant_video_upload_path_title">Uppladdnings-sökväg för video</string>

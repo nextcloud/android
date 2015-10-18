@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Ireki</string>
   <string name="prefs_category_general">Orokorra</string>
   <string name="prefs_category_more">Gehiago</string>
   <string name="prefs_accounts">Kontuak</string>
@@ -179,9 +180,7 @@ Mesedez, baimendu berriz</string>
   <string name="confirmation_remove_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
   <string name="confirmation_remove_folder_alert">Ziru zaude %1$s eta bere edukiak ezabatu nahi dituzula?</string>
   <string name="confirmation_remove_local">Bertakoa bakarrik</string>
-  <string name="confirmation_remove_folder_local">Eduki lokalak bakarrik</string>
-  <string name="confirmation_remove_remote">Zerbitzaritik ezabatu</string>
-  <string name="confirmation_remove_remote_and_local">Biak urrunekoa eta bertakoa</string>
+  <string name="confirmation_remove_folder_local">Bertakoa bakarrik</string>
   <string name="remove_success_msg">Ongi ezabatu da</string>
   <string name="remove_fail_msg">Ezin izan da ezabaketa burutu</string>
   <string name="rename_dialog_title">Idatzi izen berri bat</string>
@@ -260,7 +259,7 @@ Mesedez, baimendu berriz</string>
   <string name="downloader_download_file_not_found">Fitxategia jadanik ez dago eskuragarri zerbitzarian</string>
   <string name="prefs_category_accounts">Kontuak</string>
   <string name="prefs_add_account">Gehitu kontua</string>
-  <string name="auth_redirect_non_secure_connection_title">Konexio segurua birbideratu da segurua ez den bide batera.</string>
+  <string name="auth_redirect_non_secure_connection_title">Konexio segurua birbideratu da segurua ez den bide batetik.</string>
   <string name="actionbar_logger">Egunkariak</string>
   <string name="log_send_history_button">Bidali Historia</string>
   <string name="log_send_no_mail_app">Egunkariak bidaltzeko aplikaziorik ez da aurkitu. Instalatu posta aplikazioa!</string>
@@ -275,6 +274,7 @@ Mesedez, baimendu berriz</string>
   <string name="move_file_invalid_overwrite">Fitxategia dagoeneko existitzen da helburuko karpetan</string>
   <string name="move_file_error">Errore bat gertatu da fitxategi edo karpeta hau mugitzen saiatzerakoan</string>
   <string name="forbidden_permissions_move">fitxategi hau mugitzeko</string>
+  <string name="copy_file_invalid_overwrite">Fitxategia dagoeneko existitzen da helburuko karpetan</string>
   <string name="prefs_category_instant_uploading">Berehalako Igoerak</string>
   <string name="prefs_category_security">Segurtasuna</string>
   <string name="prefs_instant_video_upload_path_title">Bideo Igoera Bidea</string>

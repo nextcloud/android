@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Axustes</string>
   <string name="drawer_item_logs">Rexistros</string>
   <string name="drawer_close">Pechar</string>
+  <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">Xeral</string>
   <string name="prefs_category_more">Máis</string>
   <string name="prefs_accounts">Contas</string>
@@ -201,8 +202,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="confirmation_remove_alert">Confirma que quere retirar %1$s?</string>
   <string name="confirmation_remove_folder_alert">Confirma que quere retirar %1$s e o seu contido?</string>
   <string name="confirmation_remove_local">Só local</string>
-  <string name="confirmation_remove_folder_local">Só contidos locais</string>
-  <string name="confirmation_remove_remote">Retirar do servidor</string>
+  <string name="confirmation_remove_folder_local">Só local</string>
   <string name="confirmation_remove_remote_and_local">Remoto e local</string>
   <string name="remove_success_msg">Retirado correctamente</string>
   <string name="remove_fail_msg">Non foi posíbel retiralo</string>
@@ -258,8 +258,8 @@ Descárgueo de aquí: %2$s</string>
   <string name="conflict_title">Conflito de ficheiro</string>
   <string name="conflict_message">Que ficheiros quere conservar? Se selecciona ambas versións, o ficheiro copiado terá un número engadido ao nome.</string>
   <string name="conflict_keep_both">Manter ambos</string>
-  <string name="conflict_use_local_version">Usar a versión local</string>
-  <string name="conflict_use_server_version">Usar a versión do servidor</string>
+  <string name="conflict_use_local_version">versión local</string>
+  <string name="conflict_use_server_version">versión no servidor</string>
   <string name="preview_image_description">Vista previa da imaxe</string>
   <string name="preview_image_error_unknown_format">Esta imaxe non pode ser amosada</string>
   <string name="error__upload__local_file_not_copied">Non foi posíbel copiar %1$s no cartafol local %2$s</string>
@@ -291,7 +291,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="downloader_download_file_not_found">O ficheiro xa non está dispoñíbel no servidor</string>
   <string name="prefs_category_accounts">Contas</string>
   <string name="prefs_add_account">Engadir unha conta</string>
-  <string name="auth_redirect_non_secure_connection_title">A conexión segura está a ser redirixida a unha ruta non segura.</string>
+  <string name="auth_redirect_non_secure_connection_title">A conexión segura está a ser redirixida a través dunha ruta non segura.</string>
   <string name="actionbar_logger">Rexistros</string>
   <string name="log_send_history_button">Enviar o historial</string>
   <string name="log_send_no_mail_app">Non se atopou unha aplicación para enviar os rexistros. Instale unha aplicación de correo!</string>
@@ -307,6 +307,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="move_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
   <string name="move_file_error">Produciuse un erro ao tentar mover este ficheiro ou cartafol.</string>
   <string name="forbidden_permissions_move">para mover este ficheiro</string>
+  <string name="copy_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
   <string name="prefs_category_instant_uploading">Envío instantáneo</string>
   <string name="prefs_category_security">Seguridade</string>
   <string name="prefs_instant_video_upload_path_title">Enviar a ruta do vídeo</string>
