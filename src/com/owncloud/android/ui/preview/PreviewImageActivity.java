@@ -40,6 +40,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.ortiz.touch.ExtendedViewPager;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -151,9 +152,8 @@ public class PreviewImageActivity extends FileActivity implements
             parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         }
 
-        // TODO Enable when "On Device" is recovered ?
         mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
-                parentFolder, getAccount(), getStorageManager()/*, MainApp.getOnlyOnDevice()*/);
+                parentFolder, getAccount(), getStorageManager(), MainApp.getOnlyOnDevice());
 
         mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
         int position = mHasSavedPosition ? mSavedPosition :
