@@ -263,9 +263,9 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
     
-    <string name="instant_upload_on_wifi">Upload pictures via WiFi only</string>
+    <string name="instant_upload_on_wifi">Upload pictures via wifi only</string>
     <string name="instant_upload_on_charging">Upload when charging only</string>
-    <string name="instant_video_upload_on_wifi">Upload videos via WiFi only</string>
+    <string name="instant_video_upload_on_wifi">Upload videos via wifi only</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">File conflict</string>
     <string name="conflict_message">Which files do you want to keep? If you select both versions, the local file will have a number added to its name.</string>
@@ -277,7 +277,7 @@
     <string name="preview_image_error_unknown_format">This image cannot be shown</string>
     
     <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local folder</string>
-    <string name="prefs_instant_upload_path_title">Upload Path</string>
+    <string name="prefs_instant_upload_path_title">Upload path</string>
 
 	<string name="share_link_no_support_share_api">Sorry, sharing is not enabled on your server. Please contact your
 		administrator.</string>
@@ -336,7 +336,7 @@
 	<string name="prefs_category_instant_uploading">Instant Uploads</string>
 	<string name="prefs_category_security">Security</string>
 
-	<string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
+	<string name="prefs_instant_video_upload_path_title">Upload video path</string>
     <string name="download_folder_failed_content">Download of %1$s folder could not be completed</string>
 
 	<string name="shared_subject_header">shared</string>
