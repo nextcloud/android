@@ -41,13 +41,13 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.GetShareWithUserAsyncTask;
 import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.UnshareWithUserAsyncTask;
 
 import java.util.ArrayList;
 
@@ -61,7 +61,8 @@ import java.util.ArrayList;
  * Use the {@link ShareFileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShareFileFragment extends Fragment {
+public class ShareFileFragment extends Fragment
+        implements UnshareWithUserAsyncTask.OnUnshareWithUserTaskListener{
 
     private static final String TAG = ShareFileFragment.class.getSimpleName();
 
@@ -226,12 +227,22 @@ public class ShareFileFragment extends Fragment {
     private void registerLongClickListener(final ListView listView) {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position,
                                            long id) {
                 // Show unshare button
                 ImageView unshareButton = (ImageView) view.findViewById(R.id.unshareButton);
                 if (unshareButton.getVisibility() == View.GONE) {
                     unshareButton.setVisibility(View.VISIBLE);
+                    unshareButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Unshare
+                            unshareWith((int)(mShares.get(position).getIdRemoteShared()));
+                            Log_OC.d(TAG, "Unshare - " +
+                                    mShares.get(position).getSharedWithDisplayName());
+                        }
+                    });
+
                 } else {
                     unshareButton.setVisibility(View.GONE);
                 }
@@ -240,6 +251,31 @@ public class ShareFileFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    private void unshareWith(int shareId){
+        ( (ShareActivity) getActivity()).showWaitingLoadDialog();
+        // Remove Share with id
+        UnshareWithUserAsyncTask unshareTask = new UnshareWithUserAsyncTask(this);
+        FileDataStorageManager fileDataStorageManager =
+                new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+        Object[] params = { shareId, mAccount, fileDataStorageManager};
+        unshareTask.execute(params);
+    }
+
+    @Override
+    public void onUnshareWithFinish(RemoteOperationResult result) {
+        // Remove loading
+        ((ShareActivity) getActivity()).dismissWaitingLoadDialog();
+
+        if (result != null && result.isSuccess()) {
+            // Refresh data
+            //TODO: Refresh file or delete the user from the list
+            updateListOfUserGroups();
+
+        } else {
+            Toast.makeText(getActivity(), result.getLogMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     // TODO: review if it is necessary

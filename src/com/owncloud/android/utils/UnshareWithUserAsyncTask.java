@@ -32,26 +32,22 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.RemoveRemoteShareOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
- * Async Task to get the users and groups which a file is shared with
+ * Async Task to delete a share
  */
 public class UnshareWithUserAsyncTask extends AsyncTask<Object, Void, RemoteOperationResult> {
 
     private final String TAG = UnshareWithUserAsyncTask.class.getSimpleName();
-    private final WeakReference<OnGetSharesWithUserTaskListener> mListener;
-    private ArrayList<OCShare> mShares;
+    private final WeakReference<OnUnshareWithUserTaskListener> mListener;
 
-    public ArrayList<OCShare> getShares(){
-        return mShares;
-    }
-
-    public UnshareWithUserAsyncTask(OnGetSharesWithUserTaskListener listener) {
-        mListener = new WeakReference<OnGetSharesWithUserTaskListener>(listener);
+    public UnshareWithUserAsyncTask(OnUnshareWithUserTaskListener listener) {
+        mListener = new WeakReference<OnUnshareWithUserTaskListener>(listener);
     }
 
     @Override
@@ -60,23 +56,23 @@ public class UnshareWithUserAsyncTask extends AsyncTask<Object, Void, RemoteOper
         RemoteOperationResult result = null;
 
         if (params != null && params.length == 3) {
-            OCFile file = (OCFile) params[0];
+            int shareId = (int) params[0];
             Account account = (Account) params[1];
             FileDataStorageManager fileDataStorageManager = (FileDataStorageManager) params[2];
 
             try {
                 // Get shares request
-                GetSharesForFileOperation operation =
-                        new GetSharesForFileOperation(file.getRemotePath(), false, false);
+                RemoveRemoteShareOperation operation =
+                        new RemoveRemoteShareOperation(shareId);
                 OwnCloudAccount ocAccount = new OwnCloudAccount(account,
                         MainApp.getAppContext());
                 OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, MainApp.getAppContext());
-                result = operation.execute(client, fileDataStorageManager);
+                result = operation.execute(client);
 
             } catch (Exception e) {
                 result = new RemoteOperationResult(e);
-                Log_OC.e(TAG, "Exception while getting shares", e);
+                Log_OC.e(TAG, "Exception while unshare", e);
             }
         } else {
             result = new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
@@ -90,19 +86,19 @@ public class UnshareWithUserAsyncTask extends AsyncTask<Object, Void, RemoteOper
 
         if (result!= null)
         {
-            OnGetSharesWithUserTaskListener listener = mListener.get();
+            OnUnshareWithUserTaskListener listener = mListener.get();
             if (listener!= null)
             {
-                listener.onGetDataShareWithFinish(result);
+                listener.onUnshareWithFinish(result);
             }
         }
     }
 
     /*
-     * Interface to retrieve data from get shares task
+     * Interface to retrieve the result
      */
-    public interface OnGetSharesWithUserTaskListener{
+    public interface OnUnshareWithUserTaskListener {
 
-        void onGetDataShareWithFinish(RemoteOperationResult result);
+        void onUnshareWithFinish(RemoteOperationResult result);
     }
 }

@@ -29,7 +29,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 
@@ -42,8 +41,6 @@ public class ShareUserListAdapter extends ArrayAdapter {
 
     private Context mContext;
     private ArrayList<OCShare> mShares;
-
-    private ImageView mUnshareButton;
 
     public ShareUserListAdapter(Context context, int resource, ArrayList<OCShare>shares) {
         super(context, resource);
@@ -82,18 +79,8 @@ public class ShareUserListAdapter extends ArrayAdapter {
             }
             userName.setText(name);
 
-            mUnshareButton = (ImageView) view.findViewById(R.id.unshareButton);
-            mUnshareButton.setVisibility(View.GONE);
-            mUnshareButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // TODO: Unshare
-
-                    Log_OC.d("TAG - ShareUserListAdapter", "TODO Unshare - " +
-                            mShares.get(position).getSharedWithDisplayName());
-                }
-            });
-
+            ImageView unshareButton = (ImageView) view.findViewById(R.id.unshareButton);
+            unshareButton.setVisibility(View.GONE);
 
         }
         return view;
