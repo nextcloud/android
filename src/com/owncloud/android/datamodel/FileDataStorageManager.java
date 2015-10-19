@@ -1336,7 +1336,6 @@ public class FileDataStorageManager {
         operations = prepareRemoveSharesInFolder(folder, operations);
 
         if (shares != null) {
-            Log_OC.d(TAG, "SHARES..............................................");
             // prepare operations to insert or update files to save in the given folder
             for (OCShare share : shares) {
                 ContentValues cv = new ContentValues();
@@ -1361,26 +1360,9 @@ public class FileDataStorageManager {
                 // adding a new share resource
                 operations.add(
                         ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI_SHARE).
-                  /*              withValue(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource()).
-                                withValue(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource()).
-                                withValue(ProviderTableMeta.OCSHARES_SHARE_TYPE, share.getShareType().getValue()).
-                                withValue(ProviderTableMeta.OCSHARES_SHARE_WITH, share.getShareWith()).
-                                withValue(ProviderTableMeta.OCSHARES_PATH, share.getPath()).
-                                withValue(ProviderTableMeta.OCSHARES_PERMISSIONS, share.getPermissions()).
-                                withValue(ProviderTableMeta.OCSHARES_SHARED_DATE, share.getSharedDate()).
-                                withValue(ProviderTableMeta.OCSHARES_EXPIRATION_DATE, share.getExpirationDate()).
-                                withValue(ProviderTableMeta.OCSHARES_TOKEN, share.getToken()).
-                                withValue(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME,
-                                share.getSharedWithDisplayName()).
-                                withValue(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0).
-                                withValue(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId()).
-                                withValue(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getIdRemoteShared()).
-                                withValue(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name).*/
-                          withValues(cv).
+                                withValues(cv).
                                 build()
                 );
-                Log_OC.d(TAG, "The VALUES are cv " + cv.toString());
-                //}
             }
         }
 

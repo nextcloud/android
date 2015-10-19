@@ -326,41 +326,14 @@ public class FileContentProvider extends ContentProvider {
             }
 
         case SHARES:
-            String path = values.getAsString(ProviderTableMeta.OCSHARES_PATH);
-            String accountNameShare= values.getAsString(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER);
-            String[] projectionShare = new String[] {
-                    ProviderTableMeta._ID, ProviderTableMeta.OCSHARES_PATH,
-                    ProviderTableMeta.OCSHARES_ACCOUNT_OWNER
-            };
-            String whereShare = ProviderTableMeta.OCSHARES_PATH + "=? AND " +
-                    ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
-            String[] whereArgsShare = new String[] {path, accountNameShare};
             Uri insertedShareUri = null;
-            Cursor doubleCheckShare =
-                    query(db, uri, projectionShare, whereShare, whereArgsShare, null);
-            // ugly patch; serious refactorization is needed to reduce work in
-            // FileDataStorageManager and bring it to FileContentProvider
-            if (doubleCheckShare == null || !doubleCheckShare.moveToFirst()) {
-                if (doubleCheckShare != null) {
-                    doubleCheckShare.close();
-                }
-                long rowId = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
-                if (rowId >0) {
-                    insertedShareUri =
-                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, rowId);
-                } else {
-                    throw new SQLException("ERROR " + uri);
-
-                }
+            long rowId = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
+            if (rowId >0) {
+                insertedShareUri =
+                        ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, rowId);
             } else {
-                // file is already inserted; race condition, let's avoid a duplicated entry
-                insertedShareUri = ContentUris.withAppendedId(
-                        ProviderTableMeta.CONTENT_URI_SHARE,
-                        doubleCheckShare.getLong(
-                                doubleCheckShare.getColumnIndex(ProviderTableMeta._ID)
-                        )
-                );
-                doubleCheckShare.close();
+                throw new SQLException("ERROR " + uri);
+
             }
             updateFilesTableAccordingToShareInsertion(db, values);
             return insertedShareUri;
