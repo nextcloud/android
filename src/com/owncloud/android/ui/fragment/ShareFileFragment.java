@@ -189,8 +189,8 @@ public class ShareFileFragment extends Fragment
     }
 
     // Get users and groups to fill the "share with" list
-    private void getShares() {
-        mShares = new ArrayList<>();
+    private void getShares(){
+        mShares = new ArrayList<OCShare>();
 
         // Get Users and Groups
         FileDataStorageManager fileDataStorageManager =
