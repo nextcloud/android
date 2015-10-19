@@ -27,7 +27,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -63,7 +62,8 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ShareFileFragment extends Fragment
-        implements GetShareWithUserAsyncTask.OnGetSharesWithUserTaskListener, View.OnTouchListener {
+        implements GetShareWithUserAsyncTask.OnGetSharesWithUserTaskListener {
+
     private static final String TAG = ShareFileFragment.class.getSimpleName();
 
     // the fragment initialization parameters
@@ -82,11 +82,11 @@ public class ShareFileFragment extends Fragment
     /**
      * Public factory method to create new ShareFileFragment instances.
      *
-     * @param fileToShare   An {@link OCFile} to show in the fragment
-     * @param account       An ownCloud account
+     * @param fileToShare An {@link OCFile} to show in the fragment
+     * @param account     An ownCloud account
      * @return A new instance of fragment ShareFileFragment.
      */
-    public static ShareFileFragment  newInstance(OCFile fileToShare, Account account) {
+    public static ShareFileFragment newInstance(OCFile fileToShare, Account account) {
         ShareFileFragment fragment = new ShareFileFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, fileToShare);
@@ -122,7 +122,7 @@ public class ShareFileFragment extends Fragment
         if (mFile.isImage()) {
             String remoteId = String.valueOf(mFile.getRemoteId());
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(remoteId);
-            if (thumbnail != null){
+            if (thumbnail != null) {
                 icon.setImageBitmap(thumbnail);
             }
         }
@@ -131,7 +131,7 @@ public class ShareFileFragment extends Fragment
         filename.setText(mFile.getFileName());
         // Size
         TextView size = (TextView) view.findViewById(R.id.shareFileSize);
-        if (mFile.isFolder()){
+        if (mFile.isFolder()) {
             size.setVisibility(View.GONE);
         } else {
             size.setText(DisplayUtils.bytesToHumanReadable(mFile.getFileLength()));
@@ -189,7 +189,7 @@ public class ShareFileFragment extends Fragment
     }
 
     // Get users and groups to fill the "share with" list
-    private void getShares(){
+    private void getShares() {
         mShares = new ArrayList<>();
 
         // Get Users and Groups
@@ -207,15 +207,15 @@ public class ShareFileFragment extends Fragment
         ((ShareActivity) getActivity()).dismissWaitingLoadDialog();
         if (result != null && result.isSuccess()) {
             // update local database
-            for(Object obj: result.getData()) {
-                if ( ((OCShare) obj).getShareType() == ShareType.USER ||
-                        ((OCShare) obj).getShareType() == ShareType.GROUP ){
+            for (Object obj : result.getData()) {
+                if (((OCShare) obj).getShareType() == ShareType.USER ||
+                        ((OCShare) obj).getShareType() == ShareType.GROUP) {
                     mShares.add((OCShare) obj);
                 }
             }
 
             // Update list of users/groups
-           updateListOfUserGroups();
+            updateListOfUserGroups();
 
         } else {
             Toast.makeText(getActivity(), result.getLogMessage(), Toast.LENGTH_SHORT).show();
@@ -223,7 +223,7 @@ public class ShareFileFragment extends Fragment
 
     }
 
-    private void updateListOfUserGroups(){
+    private void updateListOfUserGroups() {
         // Update list of users/groups
         mUserGroupsAdapter = new ShareUserListAdapter(getActivity().getApplicationContext(),
                 R.layout.share_user_item, mShares);
@@ -258,16 +258,12 @@ public class ShareFileFragment extends Fragment
                 } else {
                     unshareButton.setVisibility(View.GONE);
                 }
+                view.setAlpha(0);
+                view.animate().alpha(1).setDuration(500).start();
                 return false;
             }
         });
     }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        return false;
-    }
-
 
     // TODO: review if it is necessary
     /**
