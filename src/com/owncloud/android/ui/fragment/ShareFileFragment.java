@@ -206,13 +206,22 @@ public class ShareFileFragment extends Fragment
         RemoteOperationResult result = null;
 
         // Show loading
-        ( (ShareActivity) getActivity()).showWaitingLoadDialog();
+        // TODO: Activate loading
+//        ( (ShareActivity) getActivity()).showWaitingLoadDialog();
         // Get Users and Groups
         GetShareWithUserAsyncTask getTask = new GetShareWithUserAsyncTask(this);
         FileDataStorageManager fileDataStorageManager =
                 new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-        Object[] params = { mFile, mAccount, fileDataStorageManager};
-        getTask.execute(params);
+        mShares = fileDataStorageManager.getSharesWithForAFile(mFile.getRemotePath(), mAccount.name);
+
+//        Object[] params = { mFile, mAccount, fileDataStorageManager};
+//        getTask.execute(params);
+
+//        // Remove loading
+//        ((ShareActivity) getActivity()).dismissWaitingLoadDialog();
+
+        // Update list of users/groups
+        updateListOfUserGroups();
     }
 
     @Override
@@ -229,27 +238,32 @@ public class ShareFileFragment extends Fragment
             }
 
             // Update list of users/groups
-            mUserGroupsAdapter = new ShareUserListAdapter(getActivity().getApplicationContext(),
-                    R.layout.share_user_item, mShares);
-
-            // Show data
-            TextView noShares = (TextView) getView().findViewById(R.id.shareNoUsers);
-            ListView usersList = (ListView) getView().findViewById(R.id.shareUsersList);
-
-            if (mShares.size() > 0) {
-                noShares.setVisibility(View.GONE);
-                usersList.setVisibility(View.VISIBLE);
-                usersList.setAdapter(mUserGroupsAdapter);
-
-            } else {
-                noShares.setVisibility(View.VISIBLE);
-                usersList.setVisibility(View.GONE);
-            }
+           updateListOfUserGroups();
 
         } else {
             Toast.makeText(getActivity(), result.getLogMessage(), Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void updateListOfUserGroups(){
+        // Update list of users/groups
+        mUserGroupsAdapter = new ShareUserListAdapter(getActivity().getApplicationContext(),
+                R.layout.share_user_item, mShares);
+
+        // Show data
+        TextView noShares = (TextView) getView().findViewById(R.id.shareNoUsers);
+        ListView usersList = (ListView) getView().findViewById(R.id.shareUsersList);
+
+        if (mShares.size() > 0) {
+            noShares.setVisibility(View.GONE);
+            usersList.setVisibility(View.VISIBLE);
+            usersList.setAdapter(mUserGroupsAdapter);
+
+        } else {
+            noShares.setVisibility(View.VISIBLE);
+            usersList.setVisibility(View.GONE);
+        }
     }
 
     // TODO: review if it is necessary

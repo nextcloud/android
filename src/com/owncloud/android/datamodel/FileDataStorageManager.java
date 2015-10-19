@@ -31,6 +31,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import android.accounts.Account;
+import android.content.ContentProvider;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
@@ -1335,6 +1336,7 @@ public class FileDataStorageManager {
         operations = prepareRemoveSharesInFolder(folder, operations);
 
         if (shares != null) {
+            Log_OC.d(TAG, "SHARES..............................................");
             // prepare operations to insert or update files to save in the given folder
             for (OCShare share : shares) {
                 ContentValues cv = new ContentValues();
@@ -1359,9 +1361,25 @@ public class FileDataStorageManager {
                 // adding a new share resource
                 operations.add(
                         ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI_SHARE).
-                        withValues(cv).
-                        build()
+                  /*              withValue(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource()).
+                                withValue(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource()).
+                                withValue(ProviderTableMeta.OCSHARES_SHARE_TYPE, share.getShareType().getValue()).
+                                withValue(ProviderTableMeta.OCSHARES_SHARE_WITH, share.getShareWith()).
+                                withValue(ProviderTableMeta.OCSHARES_PATH, share.getPath()).
+                                withValue(ProviderTableMeta.OCSHARES_PERMISSIONS, share.getPermissions()).
+                                withValue(ProviderTableMeta.OCSHARES_SHARED_DATE, share.getSharedDate()).
+                                withValue(ProviderTableMeta.OCSHARES_EXPIRATION_DATE, share.getExpirationDate()).
+                                withValue(ProviderTableMeta.OCSHARES_TOKEN, share.getToken()).
+                                withValue(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME,
+                                share.getSharedWithDisplayName()).
+                                withValue(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0).
+                                withValue(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId()).
+                                withValue(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getIdRemoteShared()).
+                                withValue(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name).*/
+                          withValues(cv).
+                                build()
                 );
+                Log_OC.d(TAG, "The VALUES are cv " + cv.toString());
                 //}
             }
         }
@@ -1407,6 +1425,46 @@ public class FileDataStorageManager {
             }
         }
         return preparedOperations;
+    }
+
+    public ArrayList<OCShare> getSharesWithForAFile(String filePath, String accountName){
+        // Condition
+        String where = ProviderTableMeta.OCSHARES_PATH + "=?" + " AND "
+                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?"+ "AND"
+                + " (" + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
+                + ProviderTableMeta.OCSHARES_SHARE_TYPE +  "=? ) ";
+        String [] whereArgs = new String[]{ filePath, accountName ,
+                Integer.toString(ShareType.USER.getValue()),
+                Integer.toString(ShareType.GROUP.getValue()) };
+
+        Cursor c = null;
+        if (getContentResolver() != null) {
+            c = getContentResolver().query(
+                    ProviderTableMeta.CONTENT_URI_SHARE,
+                    null, where, whereArgs, null);
+        } else {
+            try {
+                c = getContentProviderClient().query(
+                        ProviderTableMeta.CONTENT_URI_SHARE,
+                        null, where, whereArgs, null);
+
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Could not get list of shares with: " + e.getMessage());
+                c = null;
+            }
+        }
+        ArrayList<OCShare> shares = new ArrayList<>();
+        OCShare share = null;
+        if (c.moveToFirst()) {
+            do {
+                share = createShareInstance(c);
+                shares.add(share);
+                // }
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return shares;
     }
 
     public void triggerMediaScan(String path) {
