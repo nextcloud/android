@@ -25,14 +25,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -42,6 +42,8 @@ public class ShareUserListAdapter extends ArrayAdapter {
 
     private Context mContext;
     private ArrayList<OCShare> mShares;
+
+    private ImageView mUnshareButton;
 
     public ShareUserListAdapter(Context context, int resource, ArrayList<OCShare>shares) {
         super(context, resource);
@@ -65,10 +67,9 @@ public class ShareUserListAdapter extends ArrayAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflator = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View rowView = inflater.inflate(R.layout.row_estacion, parent, false);
         View view = inflator.inflate(R.layout.share_user_item, parent, false);
 
         if (mShares != null && mShares.size() > position) {
@@ -76,12 +77,28 @@ public class ShareUserListAdapter extends ArrayAdapter {
 
             TextView userName = (TextView) view.findViewById(R.id.userOrGroupName);
             String name = share.getSharedWithDisplayName();
-            if (share.getShareType() == ShareType.GROUP){
+            if (share.getShareType() == ShareType.GROUP) {
                 name = name + "(group)";
             }
             userName.setText(name);
-        }
 
+            mUnshareButton = (ImageView) view.findViewById(R.id.unshareButton);
+            mUnshareButton.setVisibility(View.GONE);
+            mUnshareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO: Unshare
+
+                    Log_OC.d("TAG - ShareUserListAdapter", "TODO Unshare - " +
+                            mShares.get(position).getSharedWithDisplayName());
+                }
+            });
+
+
+        }
         return view;
     }
+
+
+
 }

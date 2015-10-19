@@ -20,14 +20,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/username"
-        android:id="@+id/userOrGroupName"
-        android:layout_margin="12dp"
-        android:textColor="@color/textColor"/>
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:longClickable="true">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/username"
+            android:id="@+id/userOrGroupName"
+            android:layout_margin="12dp"
+            android:textColor="@color/textColor"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:id="@+id/unshareButton"
+            android:src="@drawable/ic_cancel"
+            android:layout_marginRight="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"/>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
