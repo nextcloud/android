@@ -33,6 +33,8 @@
 		<item name="colorButtonNormal">@color/background_color</item>
 		<item name="colorControlActivated">@color/primary_dark</item>
 		<item name="colorControlHighlight">@color/color_accent</item>
+		<item name="actionBarWidgetTheme">@style/Menu.CustomShareIcon</item>
+		<item name="android:actionBarWidgetTheme">@style/Menu.CustomShareIcon</item>
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
@@ -81,6 +83,10 @@
 	<style name="Button.Primary" parent="Button">
 		<item name="colorButtonNormal">@color/primary_button_color</item>
 		<item name="android:textColor">@color/white</item>
+	</style>
+
+	<style name="Menu.CustomShareIcon" parent="@style/Theme.AppCompat">
+		<item name="actionModeShareDrawable">@drawable/ic_action_share</item>
 	</style>
 
 	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
