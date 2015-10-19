@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">před pár sekundami</string>
   <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
   <string name="file_list_loading">Načítání...</string>
+  <string name="file_list_no_app_for_file_type">Nebyla nalezena aplikace pro tento typ souboru!</string>
   <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
   <string name="filedetails_select_file">Více informací získáte klepnutím na soubor.</string>
   <string name="filedetails_size">Velikost:</string>
