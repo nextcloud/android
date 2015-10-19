@@ -77,7 +77,8 @@
     <item
         android:id="@+id/action_send_file"
         android:title="@string/actionbar_send_file"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_action_share"
+        app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
         app:showAsAction="always"
         />
 

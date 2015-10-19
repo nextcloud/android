@@ -233,14 +233,11 @@ public class PreviewImageFragment extends FileFragment {
         inflater.inflate(R.menu.file_actions_menu, menu);
 
         /** Getting the actionprovider associated with the menu item whose id is share */
-        mShareActionProvider = new ShareActionProvider(MainApp.getAppContext());
+        mShareActionProvider = (ShareActionProvider)
+                MenuItemCompat.getActionProvider(menu.findItem(R.id.action_send_file));
 
         /** Setting a share intent */
         mShareActionProvider.setShareIntent(getDefaultShareIntent());
-
-        MenuItemCompat.setActionProvider(menu.findItem(R.id.action_send_file), mShareActionProvider);
-
-        // menu.findItem(R.id.action_send_file).setActionProvider(mShareActionProvider);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
