@@ -118,6 +118,13 @@
             android:label="@string/sync_string_files"
             android:syncable="true" />
 
+        <provider
+            android:name=".providers.UsersAndGroupsSearchProvider"
+            android:authorities="com.owncloud.android.providers.UsersAndGroupsSearchProvider"
+            android:enabled="true"
+            android:exported="false"
+            android:label="@string/search_users_and_groups_hint" />
+
         <activity
             android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
@@ -195,7 +202,7 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
             <meta-data android:name="android.app.searchable"
-                       android:resource="@xml/searchable"/>
+                       android:resource="@xml/users_and_groups_searchable"/>
         </activity>
     </application>
 

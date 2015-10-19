@@ -34,6 +34,8 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.fragment.SearchFragment;
 import com.owncloud.android.ui.fragment.ShareFileFragment;
@@ -45,6 +47,8 @@ import com.owncloud.android.ui.fragment.ShareFileFragment;
 public class ShareActivity extends AppCompatActivity
         implements ShareFileFragment.OnShareFragmentInteractionListener,
         SearchFragment.OnSearchFragmentInteractionListener {
+
+    private static final String TAG = ShareActivity.class.getSimpleName();
 
     private static final String TAG_SHARE_FRAGMENT = "SHARE_FRAGMENT";
     private static final String TAG_SEARCH_FRAGMENT = "SEARCH_USER_AND_GROUPS_FRAGMENT";
@@ -113,12 +117,32 @@ public class ShareActivity extends AppCompatActivity
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             doMySearch(query);
+
+        } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
+            Uri data = intent.getData();
+            doShareWith(
+                    data.getLastPathSegment(),
+                    UsersAndGroupsSearchProvider.DATA_GROUP.equals(data.getAuthority())
+            );
+
+        } else {
+            Log_OC.wtf(TAG, "Unexpected intent " + intent.toString());
         }
     }
 
     private void doMySearch(String query) {
-        // TODO implement
+        // TODO implement , or prevent that search may be sent without choosing from the suggestions list
         Toast.makeText(this, "You want to search for [" + query + "]", Toast.LENGTH_SHORT).show();
+    }
+
+    private void doShareWith(String username, boolean isGroup) {
+        // TODO implement
+        if (isGroup) {
+            Toast.makeText(this, "You want to SHARE with GROUP [" + username + "]", Toast.LENGTH_SHORT).show();
+
+        } else {
+            Toast.makeText(this, "You want to SHARE with USER [" + username + "]", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
