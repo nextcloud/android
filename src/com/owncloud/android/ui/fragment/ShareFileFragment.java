@@ -61,8 +61,7 @@ import java.util.ArrayList;
  * Use the {@link ShareFileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShareFileFragment extends Fragment
-        implements GetShareWithUserAsyncTask.OnGetSharesWithUserTaskListener {
+public class ShareFileFragment extends Fragment {
 
     private static final String TAG = ShareFileFragment.class.getSimpleName();
 
@@ -199,28 +198,6 @@ public class ShareFileFragment extends Fragment
 
         // Update list of users/groups
         updateListOfUserGroups();
-    }
-
-    @Override
-    public void onGetDataShareWithFinish(RemoteOperationResult result) {
-        // Remove loading
-        ((ShareActivity) getActivity()).dismissWaitingLoadDialog();
-        if (result != null && result.isSuccess()) {
-            // update local database
-            for (Object obj : result.getData()) {
-                if (((OCShare) obj).getShareType() == ShareType.USER ||
-                        ((OCShare) obj).getShareType() == ShareType.GROUP) {
-                    mShares.add((OCShare) obj);
-                }
-            }
-
-            // Update list of users/groups
-            updateListOfUserGroups();
-
-        } else {
-            Toast.makeText(getActivity(), result.getLogMessage(), Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     private void updateListOfUserGroups() {
