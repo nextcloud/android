@@ -37,6 +37,7 @@
   <string name="common_cancel">Cancellar</string>
   <string name="common_error">Error</string>
   <string name="common_error_unknown">Error Incognite</string>
+  <string name="about_title">A proposito</string>
   <string name="change_password">Cambiar contrasigno</string>
   <string name="delete_account">Deler conto</string>
   <string name="uploader_info_dirname">Nomine de dossier</string>
