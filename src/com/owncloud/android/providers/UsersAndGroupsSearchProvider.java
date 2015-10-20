@@ -54,7 +54,6 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final String[] COLUMNS = {
         BaseColumns._ID,
         SearchManager.SUGGEST_COLUMN_TEXT_1,
-        SearchManager.SUGGEST_COLUMN_FLAGS,
         SearchManager.SUGGEST_COLUMN_INTENT_DATA
     };
 
@@ -159,7 +158,6 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                 response.newRow()
                     .add(count++)             // BaseColumns._ID
                     .add(displayName)        // SearchManager.SUGGEST_COLUMN_TEXT_1
-                    .add(SearchManager.FLAG_QUERY_REFINEMENT)
                     .add(dataUri);
             }
         }
