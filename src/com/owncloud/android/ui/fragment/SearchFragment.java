@@ -34,6 +34,7 @@ import android.widget.SearchView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  * Fragment for Searching users and groups
@@ -102,6 +103,22 @@ public class SearchFragment extends Fragment {
                 getActivity().getComponentName())   // assumes parent activity is the searchable activity
         );
         searchView.setIconifiedByDefault(false);    // do not iconify the widget; expand it by default
+
+        //searchView.setImeOptions(EditorInfo.IME_ACTION_NEXT | EditorInfo.IME_FLAG_NO_FULLSCREEN);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log_OC.v(TAG, "onQueryTextSubmit intercepted, query: " + query);
+                return true;    // return true to prevent the query is processed to be queried;
+                                // a user / group will be picked only if selected in the list of suggestions
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;   // let it for the parent listener in the hierarchy / default behaviour
+            }
+        });
 
         return view;
     }
