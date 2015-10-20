@@ -32,10 +32,7 @@
         android:id="@+id/action_share_with_users"
         android:title="@string/action_share_with_users"
         android:orderInCategory="1" />
-    <item
-        android:id="@+id/action_unshare_with_users"
-        android:title="@string/action_unshare_with_users"
-        android:orderInCategory="1" />
+
     <item
         android:id="@+id/action_open_file_with"
         android:title="@string/actionbar_open_with"

@@ -208,12 +208,6 @@ public class FileMenuFilter {
             toShow.add(R.id.action_share_with_users);
         }
 
-        // UNSHARE FILE, with Users
-        if ( !shareAllowed || !shareWithUsersEnable || (mFile == null || !mFile.isSharedViaUsers())) {
-            toHide.add(R.id.action_unshare_with_users);
-        } else {
-            toShow.add(R.id.action_unshare_with_users);
-        }
 
         // SEE DETAILS
         if (mFile == null || mFile.isFolder()) {
