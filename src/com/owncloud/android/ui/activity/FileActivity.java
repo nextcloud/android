@@ -394,7 +394,7 @@ public class FileActivity extends AppCompatActivity
 
         // Settings
         mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2], mDrawerContentDescriptions[2],
-                R.drawable.ic_settings));
+                R.drawable.ic_action_settings));
         // Logs
         if (BuildConfig.DEBUG) {
             mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[3],
