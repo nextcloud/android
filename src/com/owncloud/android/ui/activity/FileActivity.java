@@ -71,7 +71,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
-import com.owncloud.android.operations.UnshareLinkOperation;
+import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.NavigationDrawerItem;
@@ -732,8 +732,8 @@ public class FileActivity extends AppCompatActivity
         } else if (operation instanceof CreateShareOperation) {
             onCreateShareOperationFinish((CreateShareOperation) operation, result);
 
-        } else if (operation instanceof UnshareLinkOperation) {
-            onUnshareLinkOperationFinish((UnshareLinkOperation)operation, result);
+        } else if (operation instanceof UnshareOperation) {
+            onUnshareLinkOperationFinish((UnshareOperation)operation, result);
 
         } else if (operation instanceof SynchronizeFolderOperation) {
             onSynchronizeFolderOperationFinish((SynchronizeFolderOperation)operation, result);
@@ -790,7 +790,7 @@ public class FileActivity extends AppCompatActivity
     }
 
 
-    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation,
+    private void onUnshareLinkOperationFinish(UnshareOperation operation,
                                               RemoteOperationResult result) {
         dismissLoadingDialog();
 

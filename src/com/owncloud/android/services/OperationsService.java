@@ -62,7 +62,7 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
-import com.owncloud.android.operations.UnshareLinkOperation;
+import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 import java.io.IOException;
@@ -88,6 +88,8 @@ public class OperationsService extends Service {
     public static final String EXTRA_NEW_PARENT_PATH = "NEW_PARENT_PATH";
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_PASSWORD_SHARE = "PASSWORD_SHARE";
+    public static final String EXTRA_SHARE_TYPE = "SHARE_TYPE";
+    public static final String EXTRA_SHARE_WITH = "SHARE_WITH";
 
     public static final String EXTRA_COOKIE = "COOKIE";
 
@@ -560,9 +562,14 @@ public class OperationsService extends Service {
 
                 } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    ShareType shareType = (ShareType) operationIntent.
+                            getSerializableExtra(EXTRA_SHARE_TYPE);
+                    String shareWith = operationIntent.getStringExtra(EXTRA_SHARE_WITH);
                     if (remotePath.length() > 0) {
-                        operation = new UnshareLinkOperation(
-                                remotePath, 
+                        operation = new UnshareOperation(
+                                remotePath,
+                                shareType,
+                                shareWith,
                                 OperationsService.this);
                     }
                     

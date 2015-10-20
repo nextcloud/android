@@ -85,7 +85,7 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.operations.UnshareLinkOperation;
+import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -1361,8 +1361,8 @@ public class FileDisplayActivity extends HookActivity
         } else if (operation instanceof CreateShareOperation) {
             onCreateShareOperationFinish((CreateShareOperation) operation, result);
 
-        } else if (operation instanceof UnshareLinkOperation) {
-            onUnshareLinkOperationFinish((UnshareLinkOperation) operation, result);
+        } else if (operation instanceof UnshareOperation) {
+            onUnshareLinkOperationFinish((UnshareOperation) operation, result);
 
         } else if (operation instanceof MoveFileOperation) {
             onMoveFileOperationFinish((MoveFileOperation) operation, result);
@@ -1380,7 +1380,7 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation,
+    private void onUnshareLinkOperationFinish(UnshareOperation operation,
                                               RemoteOperationResult result) {
         if (result.isSuccess()) {
             refreshShowDetails();

@@ -36,7 +36,7 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
-import com.owncloud.android.operations.UnshareLinkOperation;
+import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 
 import org.apache.commons.httpclient.ConnectTimeoutException;
@@ -187,7 +187,7 @@ public class ErrorMessageAdapter {
                 message = res.getString(R.string.share_link_file_error);
             }
 
-        } else if (operation instanceof UnshareLinkOperation) {
+        } else if (operation instanceof UnshareOperation) {
 
             if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {      // Error --> SHARE_NOT_FOUND
                 message = res.getString(R.string.unshare_link_file_no_exist);

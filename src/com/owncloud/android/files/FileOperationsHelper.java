@@ -39,6 +39,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
@@ -212,6 +213,8 @@ public class FileOperationsHelper {
             service.setAction(OperationsService.ACTION_UNSHARE);
             service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_SHARE_TYPE, ShareType.PUBLIC_LINK);
+            service.putExtra(OperationsService.EXTRA_SHARE_WITH, "");
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
             
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().

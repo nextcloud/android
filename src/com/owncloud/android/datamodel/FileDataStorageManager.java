@@ -974,26 +974,29 @@ public class FileDataStorageManager {
     }
 
 
-    public OCShare getFirstShareByPathAndType(String path, ShareType type) {
+    public OCShare getFirstShareByPathAndType(String path, ShareType type, String shareWith) {
         Cursor c = null;
+
+        String selection = ProviderTableMeta.OCSHARES_PATH + "=? AND "
+                + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? AND "
+                + ProviderTableMeta.OCSHARES_SHARE_WITH + "=? AND "
+                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?" ;
+
+        String [] selectionArgs =  new String[]{path, Integer.toString(type.getValue()),
+                shareWith, mAccount.name};
+
         if (getContentResolver() != null) {
             c = getContentResolver().query(
                     ProviderTableMeta.CONTENT_URI_SHARE,
                     null,
-                    ProviderTableMeta.OCSHARES_PATH + "=? AND "
-                            + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? AND "
-                            + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?",
-                    new String[]{path, Integer.toString(type.getValue()), mAccount.name},
+                    selection, selectionArgs,
                     null);
         } else {
             try {
                 c = getContentProviderClient().query(
                         ProviderTableMeta.CONTENT_URI_SHARE,
                         null,
-                        ProviderTableMeta.OCSHARES_PATH + "=? AND "
-                                + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? AND "
-                                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?",
-                        new String[]{path, Integer.toString(type.getValue()), mAccount.name},
+                        selection, selectionArgs,
                         null);
 
             } catch (RemoteException e) {

@@ -35,20 +35,26 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 
 import com.owncloud.android.operations.common.SyncOperation;
 
+import java.util.ArrayList;
+
 /**
  * Unshare file/folder
  * Save the data in Database
  */
-public class UnshareLinkOperation extends SyncOperation {
+public class UnshareOperation extends SyncOperation {
 
-    private static final String TAG = UnshareLinkOperation.class.getSimpleName();
+    private static final String TAG = UnshareOperation.class.getSimpleName();
     
     private String mRemotePath;
+    private ShareType mShareType;
+    private String mShareWith;
     private Context mContext;
     
-    
-    public UnshareLinkOperation(String remotePath, Context context) {
+    public UnshareOperation(String remotePath, ShareType shareType, String shareWith,
+                                Context context) {
         mRemotePath = remotePath;
+        mShareType = shareType;
+        mShareWith = shareWith;
         mContext = context;
     }
 
@@ -58,7 +64,7 @@ public class UnshareLinkOperation extends SyncOperation {
         
         // Get Share for a file
         OCShare share = getStorageManager().getFirstShareByPathAndType(mRemotePath,
-                ShareType.PUBLIC_LINK);
+                mShareType, mShareWith);
         
         if (share != null) {
             RemoveRemoteShareOperation operation =
@@ -69,8 +75,19 @@ public class UnshareLinkOperation extends SyncOperation {
                 Log_OC.d(TAG, "Share id = " + share.getIdRemoteShared() + " deleted");
 
                 OCFile file = getStorageManager().getFileByPath(mRemotePath);
-                file.setShareViaLink(false);
-                file.setPublicLink("");
+                if (mShareType == ShareType.PUBLIC_LINK) {
+                    file.setShareViaLink(false);
+                    file.setPublicLink("");
+                } else if (mShareType == ShareType.USER || mShareType == ShareType.GROUP){
+                    // Check if it is the last share
+                    ArrayList <OCShare> sharesWith = getStorageManager().
+                            getSharesWithForAFile(mRemotePath,
+                            getStorageManager().getAccount().name);
+                    if (sharesWith.size() == 1) {
+                        file.setShareViaUsers(false);
+                    }
+                }
+
                 getStorageManager().saveFile(file);
                 getStorageManager().removeShare(share);
                 
