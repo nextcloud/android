@@ -207,16 +207,37 @@ public class FileOperationsHelper {
 
     public void unshareFileWithLink(OCFile file) {
 
+        // Unshare the file: Create the intent
+        Intent unshareService = new Intent(mFileActivity, OperationsService.class);
+        unshareService.setAction(OperationsService.ACTION_UNSHARE);
+        unshareService.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        unshareService.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        unshareService.putExtra(OperationsService.EXTRA_SHARE_TYPE, ShareType.PUBLIC_LINK);
+        unshareService.putExtra(OperationsService.EXTRA_SHARE_WITH, "");
+
+        unshareFile(unshareService);
+    }
+
+    public void unshareFileWithUserOrGroup(OCFile file, ShareType shareType, String userOrGroup){
+
+        // Unshare the file: Create the intent
+        Intent unshareService = new Intent(mFileActivity, OperationsService.class);
+        unshareService.setAction(OperationsService.ACTION_UNSHARE);
+        unshareService.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        unshareService.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        unshareService.putExtra(OperationsService.EXTRA_SHARE_TYPE, shareType);
+        unshareService.putExtra(OperationsService.EXTRA_SHARE_WITH, userOrGroup);
+
+        unshareFile(unshareService);
+    }
+
+
+    private void unshareFile(Intent unshareService){
         if (isSharedSupported()) {
             // Unshare the file
-            Intent service = new Intent(mFileActivity, OperationsService.class);
-            service.setAction(OperationsService.ACTION_UNSHARE);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            service.putExtra(OperationsService.EXTRA_SHARE_TYPE, ShareType.PUBLIC_LINK);
-            service.putExtra(OperationsService.EXTRA_SHARE_WITH, "");
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
-            
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().
+                    queueNewOperation(unshareService);
+
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
                     getString(R.string.wait_a_moment));
 

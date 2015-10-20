@@ -34,20 +34,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.ui.activity.ShareActivity;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
-import com.owncloud.android.utils.UnshareWithUserAsyncTask;
 
 import java.util.ArrayList;
 
@@ -61,8 +58,7 @@ import java.util.ArrayList;
  * Use the {@link ShareFileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShareFileFragment extends Fragment
-        implements UnshareWithUserAsyncTask.OnUnshareWithUserTaskListener{
+public class ShareFileFragment extends Fragment {
 
     private static final String TAG = ShareFileFragment.class.getSimpleName();
 
@@ -137,12 +133,6 @@ public class ShareFileFragment extends Fragment
             size.setText(DisplayUtils.bytesToHumanReadable(mFile.getFileLength()));
         }
 
-        // List of share with users
-        TextView noShares = (TextView) view.findViewById(R.id.shareNoUsers);
-
-        // TODO: Get shares from DB and show
-
-
         //  Add User Button
         Button addUserGroupButton = (Button)
                 view.findViewById(R.id.addUserButton);
@@ -161,7 +151,7 @@ public class ShareFileFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        getShares();
+        refreshUsersOrGroupsList();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -189,11 +179,14 @@ public class ShareFileFragment extends Fragment
     }
 
     // Get users and groups to fill the "share with" list
-    private void getShares(){
+    public void refreshUsersOrGroupsList(){
+        mShares = new ArrayList<>();
+
         // Get Users and Groups
         FileDataStorageManager fileDataStorageManager =
                 new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-        mShares = fileDataStorageManager.getSharesWithForAFile(mFile.getRemotePath(), mAccount.name);
+        mShares = fileDataStorageManager.getSharesWithForAFile(mFile.getRemotePath(),
+                mAccount.name);
 
         // Update list of users/groups
         updateListOfUserGroups();
@@ -235,7 +228,7 @@ public class ShareFileFragment extends Fragment
                         @Override
                         public void onClick(View v) {
                             // Unshare
-                            unshareWith((int)(mShares.get(position).getIdRemoteShared()));
+                            unshareWith(mShares.get(position));
                             Log_OC.d(TAG, "Unshare - " +
                                     mShares.get(position).getSharedWithDisplayName());
                         }
@@ -251,31 +244,15 @@ public class ShareFileFragment extends Fragment
         });
     }
 
-    private void unshareWith(int shareId){
-        ( (ShareActivity) getActivity()).showLoadingDialog(getActivity().getApplicationContext().
-                getString(R.string.common_loading));
-        // Remove Share with id
-        UnshareWithUserAsyncTask unshareTask = new UnshareWithUserAsyncTask(this);
-        FileDataStorageManager fileDataStorageManager =
-                new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-        Object[] params = { shareId, mAccount, fileDataStorageManager};
-        unshareTask.execute(params);
+    private void unshareWith(OCShare share){
+        OCFile file = ((FileActivity) getActivity()).getFile();
+
+        ((FileActivity) getActivity()).getFileOperationsHelper().
+                unshareFileWithUserOrGroup(
+                        file, share.getShareType(), share.getShareWith()
+                );
     }
 
-    @Override
-    public void onUnshareWithFinish(RemoteOperationResult result) {
-        // Remove loading
-        ((ShareActivity) getActivity()).dismissLoadingDialog();
-
-        if (result != null && result.isSuccess()) {
-            // Refresh data
-            //TODO: Refresh file or delete the user from the list
-            updateListOfUserGroups();
-
-        } else {
-            Toast.makeText(getActivity(), result.getLogMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
 
     // TODO: review if it is necessary
     /**

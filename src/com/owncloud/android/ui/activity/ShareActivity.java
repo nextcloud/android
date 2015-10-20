@@ -21,22 +21,20 @@
 
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
-import com.owncloud.android.ui.dialog.LoadingDialog;
+
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.ui.fragment.SearchFragment;
 import com.owncloud.android.ui.fragment.ShareFileFragment;
 
@@ -164,6 +162,24 @@ public class ShareActivity extends FileActivity
             getSupportFragmentManager().popBackStackImmediate();
             mSearchFragment = null;
         }
+    }
+
+    /**
+     * Updates the view associated to the activity after the finish of some operation over files
+     * in the current account.
+     *
+     * @param operation Removal operation performed.
+     * @param result    Result of the removal.
+     */
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        super.onRemoteOperationFinish(operation, result);
+        if (operation instanceof UnshareOperation) {
+            if (mShareFileFragment != null){
+                mShareFileFragment.refreshUsersOrGroupsList();
+            }
+        }
+
     }
 
     @Override
