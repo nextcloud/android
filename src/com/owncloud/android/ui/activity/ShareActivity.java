@@ -44,7 +44,7 @@ import com.owncloud.android.ui.fragment.ShareFileFragment;
  * Activity for sharing files
  */
 
-public class ShareActivity extends AppCompatActivity
+public class ShareActivity extends FileActivity
         implements ShareFileFragment.OnShareFragmentInteractionListener,
         SearchFragment.OnSearchFragmentInteractionListener {
 
@@ -54,9 +54,6 @@ public class ShareActivity extends AppCompatActivity
     private static final String TAG_SEARCH_FRAGMENT = "SEARCH_USER_AND_GROUPS_FRAGMENT";
 
     private static final String DIALOG_WAIT_LOAD_DATA = "DIALOG_WAIT_LOAD_DATA";
-
-    private Account mAccount;
-    private OCFile mFile;
 
     private ShareFileFragment mShareFileFragment;
     private SearchFragment mSearchFragment;
@@ -69,8 +66,6 @@ public class ShareActivity extends AppCompatActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         if (savedInstanceState != null) {
-            mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
-            mAccount = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
 
             mShareFileFragment = (ShareFileFragment) getSupportFragmentManager().
                     getFragment(savedInstanceState, TAG_SHARE_FRAGMENT);
@@ -89,12 +84,8 @@ public class ShareActivity extends AppCompatActivity
             }
 
         } else {
-            // Read Extras
-            mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
-            mAccount = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
-
             // Add Share fragment
-            mShareFileFragment = ShareFileFragment.newInstance(mFile, mAccount);
+            mShareFileFragment = ShareFileFragment.newInstance(getFile(), getAccount());
             ft.replace(R.id.share_fragment_container, mShareFileFragment, TAG_SHARE_FRAGMENT);
             ft.commit();
 
@@ -148,9 +139,6 @@ public class ShareActivity extends AppCompatActivity
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(FileActivity.EXTRA_FILE, mFile);
-        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, mAccount);
-
         //Save the fragment's instance
         getSupportFragmentManager().putFragment(outState, TAG_SHARE_FRAGMENT, mShareFileFragment);
         if (mSearchFragment != null) {
@@ -162,7 +150,7 @@ public class ShareActivity extends AppCompatActivity
     @Override
     public void showSearchUsersAndGroups() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        mSearchFragment = SearchFragment.newInstance(mFile, mAccount);
+        mSearchFragment = SearchFragment.newInstance(getFile(), getAccount());
         ft.hide(mShareFileFragment);
         ft.add(R.id.share_fragment_container, mSearchFragment, TAG_SEARCH_FRAGMENT);
         ft.addToBackStack(TAG_SEARCH_FRAGMENT);
@@ -186,30 +174,5 @@ public class ShareActivity extends AppCompatActivity
     @Override
     public void onSearchFragmentInteraction(Uri uri) {
 
-    }
-
-    /**
-     * Show waiting for loading data
-     */
-    public void showWaitingLoadDialog() {
-        // Construct dialog
-        LoadingDialog loading = new LoadingDialog(
-                getResources().getString(R.string.common_loading));
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        loading.show(ft, DIALOG_WAIT_LOAD_DATA);
-
-    }
-
-
-    /**
-     * Dismiss waiting for loading data
-     */
-    public void dismissWaitingLoadDialog(){
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_LOAD_DATA);
-        if (frag != null) {
-            LoadingDialog loading = (LoadingDialog) frag;
-            loading.dismiss();
-        }
     }
 }
