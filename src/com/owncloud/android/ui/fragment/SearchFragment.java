@@ -2,6 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author masensio
+ *   @author David A. Velasco
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify

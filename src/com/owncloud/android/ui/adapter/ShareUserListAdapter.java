@@ -75,7 +75,7 @@ public class ShareUserListAdapter extends ArrayAdapter {
             TextView userName = (TextView) view.findViewById(R.id.userOrGroupName);
             String name = share.getSharedWithDisplayName();
             if (share.getShareType() == ShareType.GROUP) {
-                name = name +  mContext.getResources().getString(R.string.share_group_indicator);
+                name = getContext().getString(R.string.share_group_clarification, name);
             }
             userName.setText(name);
 

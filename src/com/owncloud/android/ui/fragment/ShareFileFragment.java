@@ -244,6 +244,7 @@ public class ShareFileFragment extends Fragment {
         });
     }
 
+    // Call to Unshare operation
     private void unshareWith(OCShare share){
         OCFile file = ((FileActivity) getActivity()).getFile();
 
