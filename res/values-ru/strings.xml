@@ -72,6 +72,7 @@
   <string name="file_list_seconds_ago">несколько секунд назад</string>
   <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
   <string name="file_list_loading">Загрузка...</string>
+  <string name="file_list_no_app_for_file_type">Не найдено приложений для этого типа файла.</string>
   <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
   <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
   <string name="filedetails_size">Размер:</string>
