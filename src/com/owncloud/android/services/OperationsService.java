@@ -555,9 +555,14 @@ public class OperationsService extends Service {
                     String password = operationIntent.getStringExtra(EXTRA_PASSWORD_SHARE);
                     Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
                     if (remotePath.length() > 0) {
-                        operation = new CreateShareOperation(OperationsService.this, remotePath,
+                        operation = new CreateShareOperation(
+                                remotePath,
                                 ShareType.PUBLIC_LINK,
-                                "", false, password, 1, sendIntent);
+                                null,
+                                false,
+                                password,
+                                1,
+                                sendIntent);
                     }
 
                 } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file

@@ -762,7 +762,7 @@ public class FileActivity extends AppCompatActivity
             mTryShareAgain = false;
             updateFileFromDB();
 
-            Intent sendIntent = operation.getSendIntent();
+            Intent sendIntent = operation.getSendIntentWithSubject(this);
             startActivity(sendIntent);
         } else {
             // Detect Failure (403) --> needs Password
