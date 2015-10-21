@@ -194,6 +194,33 @@ public class FileOperationsHelper {
 
 
     /**
+     * Helper method to share a file with a know sharee. Starts a request to do it in {@link OperationsService}
+     *
+     * @param file          The file to share.
+     * @param shareeName    Name (user name or group name) of the target sharee.
+     * @param shareType     The share type determines the sharee type.
+     */
+    public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType) {
+        if (file != null) {
+            // TODO check capability?
+            mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
+                    getString(R.string.wait_a_moment));
+
+            Intent service = new Intent(mFileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_CREATE_SHARE_WITH_SHAREE);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_SHARE_WITH, shareeName);
+            service.putExtra(OperationsService.EXTRA_SHARE_TYPE, shareType);
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        } else {
+            Log_OC.wtf(TAG, "Trying to share a NULL OCFile");
+        }
+    }
+
+
+    /**
      * @return 'True' if the server supports the Share API
      */
     public boolean isSharedSupported() {

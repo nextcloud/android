@@ -29,7 +29,6 @@ package com.owncloud.android.operations;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.CreateRemoteShareOperation;
@@ -44,22 +43,24 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     protected FileDataStorageManager mStorageManager;
 
     private String mPath;
-    private String mTargetName;
-    private boolean mWithGroup;
+    private String mShareeName;
+    private ShareType mShareType;
 
     /**
-     * Constructor
-     * @param path          Full path of the file/folder being shared. Mandatory argument
+     * Constructor.
+     *
+     * @param path          Full path of the file/folder being shared.
+     * @param shareeName    User or group name of the target sharee.
+     * @param shareType     Type of share determines type of sharee; {@link ShareType#USER} and {@link ShareType#GROUP}
+     *                      are the only valid values for the moment.
      */
-    public CreateShareWithShareeOperation(
-            String path,
-            String targetName,
-            boolean withGroup
-    ) {
-
+    public CreateShareWithShareeOperation(String path, String shareeName, ShareType shareType) {
+        if (!ShareType.USER.equals(shareType) && !ShareType.GROUP.equals(shareType)) {
+            throw new IllegalArgumentException("Illegal share type " + shareType);
+        }
         mPath = path;
-        mTargetName = targetName;
-        mWithGroup = withGroup;
+        mShareeName = shareeName;
+        mShareType = shareType;
     }
 
     @Override
@@ -72,14 +73,15 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         if (!result.isSuccess() || result.getData().size() <= 0) {
         */
 
-        RemoteOperation operation = new CreateRemoteShareOperation(
+        CreateRemoteShareOperation operation = new CreateRemoteShareOperation(
                 mPath,
-                (mWithGroup ? ShareType.GROUP : ShareType.USER),
-                mTargetName,
+                mShareType,
+                mShareeName,
                 false,
                 "",
                 READ_ONLY
         );
+        operation.setGetShareDetails(true);
         RemoteOperationResult result = operation.execute(client);
 
         

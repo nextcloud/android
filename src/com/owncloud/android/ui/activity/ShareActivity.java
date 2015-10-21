@@ -35,6 +35,7 @@ import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.GetSharesForFileOperation;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.ui.fragment.SearchFragment;
 import com.owncloud.android.ui.fragment.ShareFileFragment;
@@ -107,7 +108,7 @@ public class ShareActivity extends FileActivity
         // Verify the action and get the query
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            doMySearch(query);
+            Log_OC.w(TAG, "Ignored Intent requesting to query for " + query);
 
         } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
             Uri data = intent.getData();
@@ -121,19 +122,17 @@ public class ShareActivity extends FileActivity
         }
     }
 
-    private void doMySearch(String query) {
-        // TODO implement , or prevent that search may be sent without choosing from the suggestions list
-        Toast.makeText(this, "You want to search for [" + query + "]", Toast.LENGTH_SHORT).show();
-    }
-
-    private void doShareWith(String username, boolean isGroup) {
-        // TODO implement
+    private void doShareWith(String shareeName, boolean isGroup) {
         if (isGroup) {
-            Toast.makeText(this, "You want to SHARE with GROUP [" + username + "]", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(this, "You want to SHARE with GROUP [" + shareeName + "]", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "You want to SHARE with USER [" + username + "]", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You want to SHARE with USER [" + shareeName + "]", Toast.LENGTH_SHORT).show();
         }
+        getFileOperationsHelper().shareFileWithSharee(
+                getFile(),
+                shareeName,
+                (isGroup ? ShareType.GROUP : ShareType.USER )
+        );
     }
 
     @Override
@@ -164,6 +163,7 @@ public class ShareActivity extends FileActivity
         if (mSearchFragment != null){
             getSupportFragmentManager().popBackStackImmediate();
             mSearchFragment = null;
+            mShareFileFragment.refreshUsersOrGroupsList();
         }
     }
 

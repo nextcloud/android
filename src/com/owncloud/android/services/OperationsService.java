@@ -95,7 +95,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_COOKIE = "COOKIE";
 
     public static final String ACTION_CREATE_SHARE_VIA_LINK = "CREATE_SHARE_VIA_LINK";
-    private static final String ACTION_CREATE_SHARE_WITH_SHAREE = "CREATE_SHARE_WITH_SHAREE";
+    public static final String ACTION_CREATE_SHARE_WITH_SHAREE = "CREATE_SHARE_WITH_SHAREE";
     public static final String ACTION_UNSHARE = "UNSHARE";
     public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
     public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
@@ -571,7 +571,7 @@ public class OperationsService extends Service {
                             operation = new CreateShareWithShareeOperation(
                                     remotePath,
                                     shareeName,
-                                    ShareType.GROUP.equals(shareType)
+                                    shareType
                             );
                         }
 
