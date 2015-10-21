@@ -2,6 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author masensio
+ *   @author David A. Velasco
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -21,7 +22,7 @@
 package com.owncloud.android.operations;
 
 /**
- * Creates a new share from a given file
+ * Creates a new public share for a given file
  */
 
 
@@ -34,7 +35,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.CreateRemoteShareOperation;
 import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
@@ -42,53 +42,33 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 
-public class CreateShareOperation extends SyncOperation {
+public class CreateShareViaLinkOperation extends SyncOperation {
 
-    private static final String TAG = CreateShareOperation.class.getSimpleName();
+    private static final int READ_ONLY = 1;
 
     protected FileDataStorageManager mStorageManager;
 
     private String mPath;
-    private ShareType mShareType;
-    private String mShareWith;
-    private boolean mPublicUpload;
     private String mPassword;
-    private int mPermissions;
     private Intent mSendIntent;
     private String mFileName;
 
     /**
      * Constructor
      * @param path          Full path of the file/folder being shared. Mandatory argument
-     * @param shareType     0 = user, 1 = group, 3 = Public link. Mandatory argument
-     * @param shareWith     User/group ID with who the file should be shared.
-     *                      This is mandatory for shareType of 0 or 1
-     * @param publicUpload  If false (default) public cannot upload to a public shared folder. 
-     *                      If true public can upload to a shared folder.
-     *                      Only available for public link shares
      * @param password      Password to protect a public link share.
      *                      Only available for public link shares
-     * @param permissions   1 - Read only - Default for public shares
-     *                      2 - Update
-     *                      4 - Create
-     *                      8 - Delete
-     *                      16- Re-share
-     *                      31- All above - Default for private shares
-     *                      For user or group shares.
-     *                      To obtain combinations, add the desired values together.  
-     *                      For instance, for Re-Share, delete, read, update, add 16+8+2+1 = 27.
      *  @param sendIntent   Optional Intent with the information of an app where the link to the new share (if public)
      *                      should be posted later.
      */
-    public CreateShareOperation(String path, ShareType shareType, String shareWith,
-                                boolean publicUpload, String password, int permissions, Intent sendIntent) {
+    public CreateShareViaLinkOperation(
+            String path,
+            String password,
+            Intent sendIntent
+    ) {
 
         mPath = path;
-        mShareType = shareType;
-        mShareWith = shareWith != null ? shareWith : "";
-        mPublicUpload = publicUpload;
         mPassword = password;
-        mPermissions = permissions;
         mSendIntent = sendIntent;
         mFileName = null;
     }
@@ -98,11 +78,16 @@ public class CreateShareOperation extends SyncOperation {
         // Check if the share link already exists
         RemoteOperation operation = new GetRemoteSharesForFileOperation(mPath, false, false);
         RemoteOperationResult result = operation.execute(client);
+        // TODO - fix this check; if the user already shared the file with users or group, a share via link will not be created
 
         if (!result.isSuccess() || result.getData().size() <= 0) {
             operation = new CreateRemoteShareOperation(
-                    mPath, mShareType, mShareWith,
-                    mPublicUpload, mPassword, mPermissions
+                    mPath,
+                    ShareType.PUBLIC_LINK,
+                    "",
+                    false,
+                    mPassword,
+                    READ_ONLY
             );
             result = operation.execute(client);
         }
@@ -121,24 +106,8 @@ public class CreateShareOperation extends SyncOperation {
         return mPath;
     }
 
-    public ShareType getShareType() {
-        return mShareType;
-    }
-
-    public String getShareWith() {
-        return mShareWith;
-    }
-
-    public boolean getPublicUpload() {
-        return mPublicUpload;
-    }
-
     public String getPassword() {
         return mPassword;
-    }
-
-    public int getPermissions() {
-        return mPermissions;
     }
 
     public Intent getSendIntent() {
@@ -174,7 +143,7 @@ public class CreateShareOperation extends SyncOperation {
         } else {
             share.setIsFolder(false);
         }
-        share.setPermissions(mPermissions);
+        share.setPermissions(READ_ONLY);
         
         getStorageManager().saveShare(share);
         

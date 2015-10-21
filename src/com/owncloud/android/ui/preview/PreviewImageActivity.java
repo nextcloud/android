@@ -53,7 +53,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.CreateShareViaLinkOperation;
+import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UnshareOperation;
@@ -229,9 +230,10 @@ public class PreviewImageActivity extends FileActivity implements
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
         
-        if (operation instanceof CreateShareOperation) {
-            onCreateShareOperationFinish((CreateShareOperation) operation, result);
-            
+        if (operation instanceof CreateShareViaLinkOperation ||
+                operation instanceof CreateShareWithShareeOperation) {
+            onCreateShareOperationFinish(result);
+
         } else if (operation instanceof UnshareOperation) {
             onUnshareLinkOperationFinish((UnshareOperation) operation, result);
             
@@ -258,8 +260,7 @@ public class PreviewImageActivity extends FileActivity implements
             
     }
     
-    private void onCreateShareOperationFinish(CreateShareOperation operation,
-                                              RemoteOperationResult result) {
+    private void onCreateShareOperationFinish(RemoteOperationResult result) {
         if (result.isSuccess()) {
             OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
             if (file != null) {

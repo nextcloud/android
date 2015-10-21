@@ -54,7 +54,8 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
-import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.CreateShareViaLinkOperation;
+import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
@@ -93,7 +94,8 @@ public class OperationsService extends Service {
 
     public static final String EXTRA_COOKIE = "COOKIE";
 
-    public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
+    public static final String ACTION_CREATE_SHARE_VIA_LINK = "CREATE_SHARE_VIA_LINK";
+    private static final String ACTION_CREATE_SHARE_WITH_SHAREE = "CREATE_SHARE_WITH_SHAREE";
     public static final String ACTION_UNSHARE = "UNSHARE";
     public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
     public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
@@ -110,7 +112,6 @@ public class OperationsService extends Service {
             ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() +
             ".OPERATION_FINISHED";
-
 
 
     private ConcurrentMap<Integer, Pair<RemoteOperation, RemoteOperationResult>>
@@ -550,20 +551,29 @@ public class OperationsService extends Service {
                 );
                 
                 String action = operationIntent.getAction();
-                if (action.equals(ACTION_CREATE_SHARE)) {  // Create Share
+                if (action.equals(ACTION_CREATE_SHARE_VIA_LINK)) {  // Create public share via link
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String password = operationIntent.getStringExtra(EXTRA_PASSWORD_SHARE);
                     Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
                     if (remotePath.length() > 0) {
-                        operation = new CreateShareOperation(
+                        operation = new CreateShareViaLinkOperation(
                                 remotePath,
-                                ShareType.PUBLIC_LINK,
-                                null,
-                                false,
                                 password,
-                                1,
-                                sendIntent);
+                                sendIntent
+                        );
                     }
+
+                } else if (action.equals(ACTION_CREATE_SHARE_WITH_SHAREE)) {  // Create private share with user or group
+                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        String shareeName = operationIntent.getStringExtra(EXTRA_SHARE_WITH);
+                        ShareType shareType = (ShareType) operationIntent.getSerializableExtra(EXTRA_SHARE_TYPE);
+                        if (remotePath.length() > 0) {
+                            operation = new CreateShareWithShareeOperation(
+                                    remotePath,
+                                    shareeName,
+                                    ShareType.GROUP.equals(shareType)
+                            );
+                        }
 
                 } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
@@ -575,7 +585,8 @@ public class OperationsService extends Service {
                                 remotePath,
                                 shareType,
                                 shareWith,
-                                OperationsService.this);
+                                OperationsService.this
+                        );
                     }
                     
                 } else if (action.equals(ACTION_GET_SERVER_INFO)) { 

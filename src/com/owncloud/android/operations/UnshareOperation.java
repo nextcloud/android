@@ -84,7 +84,7 @@ public class UnshareOperation extends SyncOperation {
                             getSharesWithForAFile(mRemotePath,
                             getStorageManager().getAccount().name);
                     if (sharesWith.size() == 1) {
-                        file.setShareViaUsers(false);
+                        file.setShareWithSharee(false);
                     }
                 }
 

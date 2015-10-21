@@ -29,7 +29,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
-import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.CreateShareViaLinkOperation;
+import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
@@ -170,7 +171,8 @@ public class ErrorMessageAdapter {
             } else {
                 message = res.getString(R.string.create_dir_fail_msg);
             }
-        } else if (operation instanceof CreateShareOperation) {        
+        } else if (operation instanceof CreateShareViaLinkOperation ||
+                    operation instanceof CreateShareWithShareeOperation) {
             if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {      // Error --> SHARE_NOT_FOUND
                 message = res.getString(R.string.share_link_file_no_exist);
 

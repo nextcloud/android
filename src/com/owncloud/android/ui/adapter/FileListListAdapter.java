@@ -238,7 +238,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         sharedIconV.setImageResource(R.drawable.shared_via_link);
                         sharedIconV.setVisibility(View.VISIBLE);
                         sharedIconV.bringToFront();
-                    } else if (file.isSharedViaUsers() || file.isSharedWithMe() ) {
+                    } else if (file.isSharedWithSharee() || file.isSharedWithMe() ) {
                         sharedIconV.setImageResource(R.drawable.shared_via_users);
                         sharedIconV.setVisibility(View.VISIBLE);
                         sharedIconV.bringToFront();
@@ -357,7 +357,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 // Folder
                 fileIcon.setImageResource(
                         MimetypeIconUtil.getFolderTypeIconId(
-                                file.isSharedWithMe() || file.isSharedViaUsers(),
+                                file.isSharedWithMe() || file.isSharedWithSharee(),
                                 file.isSharedViaLink()
                         )
                 );

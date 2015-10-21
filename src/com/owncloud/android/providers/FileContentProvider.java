@@ -96,8 +96,8 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_ETAG);
         mFileProjectionMap.put(ProviderTableMeta.FILE_SHARED_VIA_LINK,
                 ProviderTableMeta.FILE_SHARED_VIA_LINK);
-        mFileProjectionMap.put(ProviderTableMeta.FILE_SHARED_VIA_USERS,
-                ProviderTableMeta.FILE_SHARED_VIA_USERS);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE,
+                ProviderTableMeta.FILE_SHARED_WITH_SHAREE);
         mFileProjectionMap.put(ProviderTableMeta.FILE_PUBLIC_LINK,
                 ProviderTableMeta.FILE_PUBLIC_LINK);
         mFileProjectionMap.put(ProviderTableMeta.FILE_PERMISSIONS,
@@ -353,7 +353,7 @@ public class FileContentProvider extends ContentProvider {
         if (newShareType == ShareType.PUBLIC_LINK.getValue()) {
             fileValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, 1);
         } else if (newShareType == ShareType.USER.getValue() || newShareType == ShareType.GROUP.getValue()) {
-            fileValues.put(ProviderTableMeta.FILE_SHARED_VIA_USERS, 1);
+            fileValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, 1);
         }
 
         String where = ProviderTableMeta.FILE_PATH + "=? AND " +
@@ -561,7 +561,7 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_UPDATE_THUMBNAIL  + " INTEGER," //boolean
                     + ProviderTableMeta.FILE_IS_DOWNLOADING  + " INTEGER," //boolean
                     + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + " TEXT,"
-                    + ProviderTableMeta.FILE_SHARED_VIA_USERS + " INTEGER);"
+                    + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + " INTEGER);"
                     );
 
             // Create table ocshares
@@ -785,7 +785,7 @@ public class FileContentProvider extends ContentProvider {
                 db.beginTransaction();
                 try {
                     db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
-                            " ADD COLUMN " + ProviderTableMeta.FILE_SHARED_VIA_USERS + " INTEGER " +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + " INTEGER " +
                             " DEFAULT 0");
                     upgraded = true;
                     db.setTransactionSuccessful();

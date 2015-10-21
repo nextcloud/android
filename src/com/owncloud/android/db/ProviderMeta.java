@@ -67,7 +67,7 @@ public class ProviderMeta {
         public static final String FILE_KEEP_IN_SYNC = "keep_in_sync";
         public static final String FILE_ETAG = "etag";
         public static final String FILE_SHARED_VIA_LINK = "share_by_link";
-        public static final String FILE_SHARED_VIA_USERS = "shared_via_users";
+        public static final String FILE_SHARED_WITH_SHAREE = "shared_via_users";
         public static final String FILE_PUBLIC_LINK = "public_link";
         public static final String FILE_PERMISSIONS = "permissions";
         public static final String FILE_REMOTE_ID = "remote_id";

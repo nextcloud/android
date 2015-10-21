@@ -78,7 +78,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     private String mEtagInConflict;    // Save file etag in the server, when there is a conflict. No conflict =  null
 
-    private boolean mShareWithUser;
+    private boolean mShareWithSharee;
 
 
     /**
@@ -124,7 +124,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mNeedsUpdateThumbnail = source.readInt() == 1;
         mIsDownloading = source.readInt() == 1;
         mEtagInConflict = source.readString();
-        mShareWithUser = source.readInt() == 1;
+        mShareWithSharee = source.readInt() == 1;
 
     }
 
@@ -151,7 +151,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeInt(mNeedsUpdateThumbnail ? 1 : 0);
         dest.writeInt(mIsDownloading ? 1 : 0);
         dest.writeString(mEtagInConflict);
-        dest.writeInt(mShareWithUser ? 1 : 0);
+        dest.writeInt(mShareWithSharee ? 1 : 0);
     }
 
     /**
@@ -350,7 +350,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mNeedsUpdateThumbnail = false;
         mIsDownloading = false;
         mEtagInConflict = null;
-        mShareWithUser = false;
+        mShareWithSharee = false;
     }
 
     /**
@@ -600,12 +600,12 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mEtagInConflict = etagInConflict;
     }
 
-    public boolean isSharedViaUsers() {
-        return mShareWithUser;
+    public boolean isSharedWithSharee() {
+        return mShareWithSharee;
     }
 
-    public void setShareViaUsers(boolean shareWithUser) {
-        this.mShareWithUser = shareWithUser;
+    public void setShareWithSharee(boolean shareWithSharee) {
+        this.mShareWithSharee = shareWithSharee;
     }
 
     public boolean isSharedWithMe() {

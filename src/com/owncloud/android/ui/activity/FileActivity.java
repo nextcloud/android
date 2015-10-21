@@ -67,7 +67,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.CreateShareViaLinkOperation;
+import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
@@ -728,14 +729,17 @@ public class FileActivity extends AppCompatActivity
             }
             mTryShareAgain = false;
 
-        } else if (operation instanceof CreateShareOperation) {
-            onCreateShareOperationFinish((CreateShareOperation) operation, result);
+        } else if (operation instanceof CreateShareViaLinkOperation) {
+            onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
+
+        } else if (operation instanceof CreateShareWithShareeOperation) {
+            onCreateShareWithShareeOperationFinish((CreateShareWithShareeOperation) operation, result);
 
         } else if (operation instanceof UnshareOperation) {
-            onUnshareLinkOperationFinish((UnshareOperation)operation, result);
+            onUnshareLinkOperationFinish((UnshareOperation) operation, result);
 
         } else if (operation instanceof SynchronizeFolderOperation) {
-            onSynchronizeFolderOperationFinish((SynchronizeFolderOperation)operation, result);
+            onSynchronizeFolderOperationFinish((SynchronizeFolderOperation) operation, result);
 
         }else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
@@ -755,8 +759,8 @@ public class FileActivity extends AppCompatActivity
 
 
 
-    private void onCreateShareOperationFinish(CreateShareOperation operation,
-                                              RemoteOperationResult result) {
+    private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
+                                                     RemoteOperationResult result) {
         dismissLoadingDialog();
         if (result.isSuccess()) {
             mTryShareAgain = false;
@@ -788,6 +792,19 @@ public class FileActivity extends AppCompatActivity
         }
     }
 
+    private void onCreateShareWithShareeOperationFinish(CreateShareWithShareeOperation operation,
+                                                        RemoteOperationResult result) {
+        dismissLoadingDialog();
+        if (result.isSuccess()) {
+            updateFileFromDB();
+
+        } else {
+            Toast t = Toast.makeText(this,
+                    ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                    Toast.LENGTH_LONG);
+            t.show();
+        }
+    }
 
     private void onUnshareLinkOperationFinish(UnshareOperation operation,
                                               RemoteOperationResult result) {
