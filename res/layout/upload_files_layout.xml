@@ -54,7 +54,7 @@
             android:id="@+id/drawer_radio_group"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <RadioButton
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/upload_copy_files"
                 android:id="@+id/upload_radio_copy"
-                android:layout_weight="1"
+                android:paddingRight="8dp"
                 android:checked="false" />
 
             <RadioButton
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/upload_move_files"
                 android:id="@+id/upload_radio_move"
-                android:layout_weight="1"
+                android:paddingRight="8dp"
                 android:checked="false" />
         </RadioGroup>
     </LinearLayout>
