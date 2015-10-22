@@ -259,6 +259,18 @@ public class FileOperationsHelper {
 
     }
 
+
+    /**
+     * @return 'True' if the server supports the Search Users API
+     */
+    public boolean isSearchUsersSupportedSupported() {
+        if (mFileActivity.getAccount() != null) {
+            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
+            return (serverVersion != null && serverVersion.isSearchUsersSupported());
+        }
+        return false;
+    }
+
     public void sendDownloadedFile(OCFile file) {
         if (file != null) {
             String storagePath = file.getStoragePath();
