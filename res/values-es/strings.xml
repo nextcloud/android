@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">hace segundos</string>
   <string name="file_list_empty">No hay nada aquí. ¡Suba algo!</string>
   <string name="file_list_loading">Cargando...</string>
+  <string name="file_list_no_app_for_file_type">¡No se encontró una aplicación para el tipo de archivo!</string>
   <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
   <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
