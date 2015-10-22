@@ -42,7 +42,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
@@ -80,6 +79,8 @@ public class ShareFileFragment extends Fragment
 
     private OnShareFragmentInteractionListener mListener;
 
+    private FileDataStorageManager mFileDataStorageManager;
+
     /**
      * Public factory method to create new ShareFileFragment instances.
      *
@@ -106,6 +107,7 @@ public class ShareFileFragment extends Fragment
         if (getArguments() != null) {
             mFile = getArguments().getParcelable(ARG_FILE);
             mAccount = getArguments().getParcelable(ARG_ACCOUNT);
+            mFileDataStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
         }
     }
 
@@ -158,7 +160,6 @@ public class ShareFileFragment extends Fragment
 
         // Load data to the list (start process with an Async Task)
         refreshUsersOrGroupsListFromServer();
-
     }
 
     @Override
@@ -183,9 +184,7 @@ public class ShareFileFragment extends Fragment
      */
     public void refreshUsersOrGroupsListFromDB (){
         // Get Users and Groups
-        FileDataStorageManager fileDataStorageManager =
-                new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-        mShares = fileDataStorageManager.getSharesWithForAFile(mFile.getRemotePath(),
+        mShares = mFileDataStorageManager.getSharesWithForAFile(mFile.getRemotePath(),
                 mAccount.name);
 
         // Update list of users/groups
@@ -225,8 +224,7 @@ public class ShareFileFragment extends Fragment
         ((ShareActivity) getActivity()).showLoadingDialog(getString(R.string.common_loading));
         // Get Users and Groups
         GetShareWithUsersAsyncTask getTask = new GetShareWithUsersAsyncTask(this);
-        FileDataStorageManager fileDataStorageManager = ((ShareActivity) getActivity()).getStorageManager();
-        Object[] params = { mFile, mAccount, fileDataStorageManager};
+        Object[] params = { mFile, mAccount, mFileDataStorageManager};
         getTask.execute(params);
     }
 
@@ -274,34 +272,14 @@ public class ShareFileFragment extends Fragment
         // Remove loading
         ((ShareActivity) getActivity()).dismissLoadingDialog();
         if (result != null && result.isSuccess()) {
-            // update local database
-            for(Object obj: result.getData()) {
-                if ( ((OCShare) obj).getShareType() == ShareType.USER ||
-                        ((OCShare) obj).getShareType() == ShareType.GROUP ){
-                    mShares.add((OCShare) obj);
-                }
-            }
+            Log_OC.d(TAG, "Get Data Share With finishes sucessfully");
 
-            // Update list of users/groups
-            mUserGroupsAdapter = new ShareUserListAdapter(getActivity().getApplicationContext(),
-                    R.layout.share_user_item, mShares);
-
-            // Show data
-            TextView noShares = (TextView) getView().findViewById(R.id.shareNoUsers);
-            ListView usersList = (ListView) getView().findViewById(R.id.shareUsersList);
-
-            if (mShares.size() > 0) {
-                noShares.setVisibility(View.GONE);
-                usersList.setVisibility(View.VISIBLE);
-                usersList.setAdapter(mUserGroupsAdapter);
-
-            } else {
-                noShares.setVisibility(View.VISIBLE);
-                usersList.setVisibility(View.GONE);
-            }
         } else {
             Toast.makeText(getActivity(), result.getLogMessage(), Toast.LENGTH_SHORT).show();
         }
+
+        // Data is on Database
+        refreshUsersOrGroupsListFromDB();
     }
 
 
