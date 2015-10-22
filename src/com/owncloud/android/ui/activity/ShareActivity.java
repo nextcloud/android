@@ -163,7 +163,7 @@ public class ShareActivity extends FileActivity
         if (mSearchFragment != null){
             getSupportFragmentManager().popBackStackImmediate();
             mSearchFragment = null;
-            mShareFileFragment.refreshUsersOrGroupsList();
+            mShareFileFragment.refreshUsersOrGroupsListFromDB();
         }
     }
 

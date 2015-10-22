@@ -218,8 +218,6 @@ public class ShareFileFragment extends Fragment
      * Get users and groups from the server to fill in the "share with" list
      */
     public void refreshUsersOrGroupsListFromServer(){
-        mShares = new ArrayList<>();
-
         // Show loading
         ((ShareActivity) getActivity()).showLoadingDialog(getString(R.string.common_loading));
         // Get Users and Groups
