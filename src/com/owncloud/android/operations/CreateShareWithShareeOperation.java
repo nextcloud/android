@@ -102,11 +102,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     private void updateData(OCShare share) {
         // Update DB with the response
         share.setPath(mPath);
-        if (mPath.endsWith(FileUtils.PATH_SEPARATOR)) {
-            share.setIsFolder(true);
-        } else {
-            share.setIsFolder(false);
-        }
+        share.setIsFolder(mPath.endsWith(FileUtils.PATH_SEPARATOR));
         share.setPermissions(READ_ONLY);
         
         getStorageManager().saveShare(share);

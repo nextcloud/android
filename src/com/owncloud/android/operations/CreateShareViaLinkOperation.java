@@ -116,7 +116,8 @@ public class CreateShareViaLinkOperation extends SyncOperation {
 
     public Intent getSendIntentWithSubject(Context context) {
         if (context != null && mSendIntent != null && mSendIntent.getStringExtra(Intent.EXTRA_SUBJECT) != null) {
-            if (getClient() == null || getClient().getCredentials().getUsername() == null) {
+            if (getClient() == null || getClient().getCredentials() == null ||
+                    getClient().getCredentials().getUsername() == null) {
                 mSendIntent.putExtra(
                         Intent.EXTRA_SUBJECT,
                         context.getString(R.string.subject_shared_with_you, mFileName)
