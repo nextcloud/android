@@ -30,6 +30,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -123,7 +124,7 @@ public class SearchFragment extends Fragment implements ShareUserListAdapter.Sha
             public boolean onQueryTextSubmit(String query) {
                 Log_OC.v(TAG, "onQueryTextSubmit intercepted, query: " + query);
                 return true;    // return true to prevent the query is processed to be queried;
-                                // a user / group will be picked only if selected in the list of suggestions
+                // a user / group will be picked only if selected in the list of suggestions
             }
 
             @Override
@@ -181,6 +182,20 @@ public class SearchFragment extends Fragment implements ShareUserListAdapter.Sha
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // focus the search view and request the software keyboard be shown
+        View searchView = getView().findViewById(R.id.searchView);
+        if (searchView.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.showSoftInput(searchView.findFocus(), InputMethodManager.SHOW_IMPLICIT);
+            }
         }
     }
 
