@@ -41,6 +41,7 @@ import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.ui.fragment.SearchFragment;
 import com.owncloud.android.ui.fragment.ShareFileFragment;
+import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
 
 import java.util.ArrayList;
@@ -131,11 +132,6 @@ public class ShareActivity extends FileActivity
     }
 
     private void doShareWith(String shareeName, boolean isGroup) {
-        if (isGroup) {
-           Log_OC.d(TAG, "You want to SHARE with GROUP [" + shareeName + "]");
-        } else {
-           Log_OC.d(TAG, "You want to SHARE with USER [" + shareeName + "]");
-        }
         getFileOperationsHelper().shareFileWithSharee(
                 getFile(),
                 shareeName,
@@ -204,12 +200,25 @@ public class ShareActivity extends FileActivity
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
-        if (operation instanceof UnshareOperation) {
-            refreshUsersInLists();
-        } else if(operation instanceof CreateShareWithShareeOperation){
-            refreshUsersInLists();
-            // Clean action
-            getIntent().setAction(null);
+        if (operation instanceof UnshareOperation ||
+                operation instanceof CreateShareWithShareeOperation) {
+
+            if (result.isSuccess()) {
+                refreshUsersInLists();
+                if (operation instanceof  CreateShareWithShareeOperation) {
+                    // Clean action
+                    getIntent().setAction(null);
+                }
+            } else {
+                Toast.makeText(
+                        this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+
+        /*} else if (operation instanceof GetSharesForFileOperation) {
+            onGetSharesForFileOperationFinish((GetSharesForFileOperation) operation, result);*/
         }
     }
 

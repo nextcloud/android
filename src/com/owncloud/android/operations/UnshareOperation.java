@@ -67,14 +67,14 @@ public class UnshareOperation extends SyncOperation {
                 mShareType, mShareWith);
         
         if (share != null) {
+            OCFile file = getStorageManager().getFileByPath(mRemotePath);
             RemoveRemoteShareOperation operation =
                     new RemoveRemoteShareOperation((int) share.getIdRemoteShared());
             result = operation.execute(client);
 
-            if (result.isSuccess() || result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+            if (result.isSuccess()) {
                 Log_OC.d(TAG, "Share id = " + share.getIdRemoteShared() + " deleted");
 
-                OCFile file = getStorageManager().getFileByPath(mRemotePath);
                 if (mShareType == ShareType.PUBLIC_LINK) {
                     file.setShareViaLink(false);
                     file.setPublicLink("");
@@ -91,15 +91,11 @@ public class UnshareOperation extends SyncOperation {
                 getStorageManager().saveFile(file);
                 getStorageManager().removeShare(share);
                 
-                if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
-                    if (existsFile(client, file.getRemotePath())) {
-                        result = new RemoteOperationResult(ResultCode.OK);
-                    } else {
-                        getStorageManager().removeFile(file, true, true);
-                    }
-                }
-            } 
-                
+            } else if (!existsFile(client, file.getRemotePath())) {
+                // unshare failed because file was deleted before
+                getStorageManager().removeFile(file, true, true);
+            }
+
         } else {
             result = new RemoteOperationResult(ResultCode.SHARE_NOT_FOUND);
         }

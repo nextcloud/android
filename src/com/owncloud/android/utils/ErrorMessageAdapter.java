@@ -173,7 +173,11 @@ public class ErrorMessageAdapter {
             }
         } else if (operation instanceof CreateShareViaLinkOperation ||
                     operation instanceof CreateShareWithShareeOperation) {
-            if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {      // Error --> SHARE_NOT_FOUND
+
+            if (result.getData() != null && result.getData().size() > 0) {
+                message = (String) result.getData().get(0);     // share API sends its own error messages
+
+            } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {
                 message = res.getString(R.string.share_link_file_no_exist);
 
             } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
@@ -191,7 +195,10 @@ public class ErrorMessageAdapter {
 
         } else if (operation instanceof UnshareOperation) {
 
-            if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {      // Error --> SHARE_NOT_FOUND
+            if (result.getData() != null && result.getData().size() > 0) {
+                message = (String) result.getData().get(0);     // share API sends its own error messages
+
+            } else  if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {
                 message = res.getString(R.string.unshare_link_file_no_exist);
 
             } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
