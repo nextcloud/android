@@ -1409,33 +1409,7 @@ public class FileDataStorageManager {
 
         if (shares != null) {
             // prepare operations to insert or update files to save in the given folder
-            for (OCShare share : shares) {
-                ContentValues cv = new ContentValues();
-                cv.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
-                cv.put(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource());
-                cv.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, share.getShareType().getValue());
-                cv.put(ProviderTableMeta.OCSHARES_SHARE_WITH, share.getShareWith());
-                cv.put(ProviderTableMeta.OCSHARES_PATH, share.getPath());
-                cv.put(ProviderTableMeta.OCSHARES_PERMISSIONS, share.getPermissions());
-                cv.put(ProviderTableMeta.OCSHARES_SHARED_DATE, share.getSharedDate());
-                cv.put(ProviderTableMeta.OCSHARES_EXPIRATION_DATE, share.getExpirationDate());
-                cv.put(ProviderTableMeta.OCSHARES_TOKEN, share.getToken());
-                cv.put(
-                        ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME,
-                        share.getSharedWithDisplayName()
-                );
-                cv.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
-                cv.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
-                cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getIdRemoteShared());
-                cv.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name);
-
-                // adding a new share resource
-                operations.add(
-                        ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI_SHARE).
-                                withValues(cv).
-                                build()
-                );
-            }
+            operations = prepareInsertShares(shares, operations);
         }
 
         // apply operations in batch
