@@ -1348,9 +1348,9 @@ public class FileDataStorageManager {
         String filePath = "";
         for (OCShare share: shares) {
             if (filePath != share.getPath()){
+                filePath = share.getPath();
                 resetShareFlagInAFile(filePath);
                 operations = prepareRemoveSharesInFile(filePath, operations);
-                filePath = share.getPath();
             }
         }
 
@@ -1453,7 +1453,7 @@ public class FileDataStorageManager {
                 Log_OC.e(TAG, "Exception in batch of operations " + e.getMessage());
 
             } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in batch of operations  " + e.getMessage());
+
             }
         }
 
