@@ -25,17 +25,22 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.ui.activity.ShareActivity;
+import com.owncloud.android.ui.adapter.ShareUserListAdapter;
+
+import java.util.ArrayList;
 
 /**
  * Fragment for Searching users and groups
@@ -47,16 +52,19 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements ShareUserListAdapter.ShareUserAdapterListener {
     private static final String TAG = SearchFragment.class.getSimpleName();
 
     // the fragment initialization parameters
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
+    private static final String ARG_SHARES = "SHARES";
 
     // Parameters
     private OCFile mFile;
     private Account mAccount;
+    private ArrayList<OCShare> mShares;
+    private ShareUserListAdapter mUserGroupsAdapter = null;
 
     private OnSearchFragmentInteractionListener mListener;
 
@@ -65,14 +73,16 @@ public class SearchFragment extends Fragment {
      *
      * @param fileToShare   An {@link OCFile} to show in the fragment
      * @param account       An ownCloud account
+     * @param
      * @return A new instance of fragment SearchFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SearchFragment newInstance(OCFile fileToShare, Account account) {
+    public static SearchFragment newInstance(OCFile fileToShare, Account account, ArrayList<OCShare> shares) {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, fileToShare);
         args.putParcelable(ARG_ACCOUNT, account);
+        args.putParcelableArrayList(ARG_SHARES, shares);
         fragment.setArguments(args);
         return fragment;
     }
@@ -87,6 +97,7 @@ public class SearchFragment extends Fragment {
         if (getArguments() != null) {
             mFile = getArguments().getParcelable(ARG_FILE);
             mAccount = getArguments().getParcelable(ARG_ACCOUNT);
+            mShares = getArguments().getParcelableArrayList(ARG_SHARES);
         }
 
     }
@@ -121,13 +132,44 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        // Show data: Fill in list of users and groups
+        ListView usersList = (ListView) view.findViewById(R.id.searchUsersListView);
+        mUserGroupsAdapter = new ShareUserListAdapter(getActivity().getApplicationContext(),
+                R.layout.share_user_item, mShares, this);
+        if (mShares.size() > 0) {
+            usersList.setVisibility(View.VISIBLE);
+            usersList.setAdapter(mUserGroupsAdapter);
+        }
+
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onSearchFragmentInteraction(uri);
+    /**
+     * Get users and groups fromn the DB to fill in the "share with" list
+     */
+    public void refreshUsersOrGroupsListFromDB (){
+        // Get Users and Groups
+        mShares = ((ShareActivity) mListener).getStorageManager().getSharesWithForAFile(mFile.getRemotePath(),
+                mAccount.name);
+
+        // Update list of users/groups
+        updateListOfUserGroups();
+    }
+
+    private void updateListOfUserGroups() {
+        // Update list of users/groups
+        mUserGroupsAdapter = new ShareUserListAdapter(getActivity().getApplicationContext(),
+                R.layout.share_user_item, mShares, this);
+
+        // Show data
+        ListView usersList = (ListView) getView().findViewById(R.id.searchUsersListView);
+
+        if (mShares.size() > 0) {
+            usersList.setVisibility(View.VISIBLE);
+            usersList.setAdapter(mUserGroupsAdapter);
+
+        } else {
+            usersList.setVisibility(View.GONE);
         }
     }
 
@@ -148,7 +190,13 @@ public class SearchFragment extends Fragment {
         mListener = null;
     }
 
-    // TODO: review if it is necessary
+    @Override
+    public void unshareButtonPressed(OCShare share) {
+        // Unshare
+        mListener.unshareWith(share);
+        Log_OC.d(TAG, "Unshare - " + share.getSharedWithDisplayName());
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -160,8 +208,7 @@ public class SearchFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnSearchFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onSearchFragmentInteraction(Uri uri);
+        void unshareWith(OCShare share);
     }
 
 }

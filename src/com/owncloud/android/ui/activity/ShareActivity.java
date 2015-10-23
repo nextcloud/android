@@ -34,18 +34,24 @@ import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.operations.GetSharesForFileOperation;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.ui.fragment.SearchFragment;
 import com.owncloud.android.ui.fragment.ShareFileFragment;
+import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
+
+import java.util.ArrayList;
 
 /**
  * Activity for sharing files
  */
 
 public class ShareActivity extends FileActivity
-        implements ShareFileFragment.OnShareFragmentInteractionListener,
+        implements GetShareWithUsersAsyncTask.OnGetSharesWithUsersTaskListener,
+        ShareFileFragment.OnShareFragmentInteractionListener,
         SearchFragment.OnSearchFragmentInteractionListener {
 
     private static final String TAG = ShareActivity.class.getSimpleName();
@@ -94,6 +100,8 @@ public class ShareActivity extends FileActivity
         }
 
         handleIntent(getIntent());
+
+        onAccountSet(false);
     }
 
 
@@ -131,7 +139,7 @@ public class ShareActivity extends FileActivity
         getFileOperationsHelper().shareFileWithSharee(
                 getFile(),
                 shareeName,
-                (isGroup ? ShareType.GROUP : ShareType.USER )
+                (isGroup ? ShareType.GROUP : ShareType.USER)
         );
     }
 
@@ -146,15 +154,34 @@ public class ShareActivity extends FileActivity
 
     }
 
-
     @Override
-    public void showSearchUsersAndGroups() {
+    public void showSearchUsersAndGroups(ArrayList<OCShare> shares) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        mSearchFragment = SearchFragment.newInstance(getFile(), getAccount());
+        mSearchFragment = SearchFragment.newInstance(getFile(), getAccount(), shares);
         ft.hide(mShareFileFragment);
         ft.add(R.id.share_fragment_container, mSearchFragment, TAG_SEARCH_FRAGMENT);
         ft.addToBackStack(TAG_SEARCH_FRAGMENT);
         ft.commit();
+    }
+
+    @Override
+    // Call to Unshare operation
+    public void unshareWith(OCShare share){
+        OCFile file = getFile();
+        getFileOperationsHelper().unshareFileWithUserOrGroup(file, share.getShareType(), share.getShareWith());
+    }
+
+    /**
+     * Get users and groups from the server to fill in the "share with" list
+     */
+    @Override
+    public void refreshUsersOrGroupsListFromServer(){
+        // Show loading
+        showLoadingDialog(getString(R.string.common_loading));
+        // Get Users and Groups
+        GetShareWithUsersAsyncTask getTask = new GetShareWithUsersAsyncTask(this);
+        Object[] params = { getFile(), getAccount(), getStorageManager()};
+        getTask.execute(params);
     }
 
     @Override
@@ -178,30 +205,34 @@ public class ShareActivity extends FileActivity
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
         if (operation instanceof UnshareOperation) {
-            if (mShareFileFragment != null){
-                mShareFileFragment.refreshUsersOrGroupsListFromDB();
-            }
-        } else if (operation instanceof GetSharesForFileOperation) {
-            onGetSharesForFileOperationFinish((GetSharesForFileOperation) operation, result);
-        }
-
-    }
-
-    private  void onGetSharesForFileOperationFinish(GetSharesForFileOperation operation, RemoteOperationResult result){
-        dismissLoadingDialog();
-
-        if (!result.isSuccess()) {
-            Toast.makeText(getApplicationContext(), result.getLogMessage(), Toast.LENGTH_LONG).show();
-        }
-
-        // Show Shares
-        if (mShareFileFragment != null){
-            mShareFileFragment.refreshUsersOrGroupsListFromDB();
+            refreshUsersInLists();
+        } else if(operation instanceof CreateShareWithShareeOperation){
+            refreshUsersInLists();
         }
     }
 
     @Override
-    public void onSearchFragmentInteraction(Uri uri) {
+    public void onGetDataShareWithFinish(RemoteOperationResult result) {
+        // Remove loading
+        dismissLoadingDialog();
+        if (result != null && result.isSuccess()) {
+            Log_OC.d(TAG, "Get Data Share With finishes sucessfully");
 
+        } else {
+            Toast.makeText(this, result.getLogMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        // Data is on Database
+        refreshUsersInLists();
     }
+
+    private void refreshUsersInLists(){
+        if (mShareFileFragment != null){
+            mShareFileFragment.refreshUsersOrGroupsListFromDB();
+        }
+        if (mSearchFragment != null) {
+            mSearchFragment.refreshUsersOrGroupsListFromDB();
+        }
+    }
+
 }

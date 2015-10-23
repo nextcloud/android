@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
+            android:layout_weight="0.9"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/username"
             android:id="@+id/userOrGroupName"
@@ -39,13 +39,12 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.3"
+            android:layout_weight="0.1"
             android:id="@+id/unshareButton"
             android:src="@drawable/ic_cancel"
-            android:layout_marginRight="4dp"
+            android:layout_marginRight="8dp"
             android:layout_marginLeft="4dp"
-            android:layout_gravity="center_horizontal"
-            android:visibility="gone"/>
+            android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 
     <View

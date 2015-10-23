@@ -41,11 +41,14 @@ public class ShareUserListAdapter extends ArrayAdapter {
 
     private Context mContext;
     private ArrayList<OCShare> mShares;
+    private ShareUserAdapterListener mListener;
 
-    public ShareUserListAdapter(Context context, int resource, ArrayList<OCShare>shares) {
+    public ShareUserListAdapter(Context context, int resource, ArrayList<OCShare>shares,
+                                ShareUserAdapterListener listener) {
         super(context, resource);
         mContext= context;
         mShares = shares;
+        mListener = listener;
     }
 
     @Override
@@ -79,11 +82,20 @@ public class ShareUserListAdapter extends ArrayAdapter {
             }
             userName.setText(name);
 
-            ImageView unshareButton = (ImageView) view.findViewById(R.id.unshareButton);
-            unshareButton.setVisibility(View.GONE);
+            final ImageView unshareButton = (ImageView) view.findViewById(R.id.unshareButton);
+            unshareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.unshareButtonPressed(mShares.get(position));
+                }
+            });
 
         }
         return view;
+    }
+
+    public interface ShareUserAdapterListener {
+        void unshareButtonPressed(OCShare share);
     }
 
 
