@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">секунди тому</string>
   <string name="file_list_empty">Тут нічого немає. Відвантажте що-небудь!</string>
   <string name="file_list_loading">Завантаження…</string>
+  <string name="file_list_no_app_for_file_type">Застосунку для цього типу файла не знайдено!</string>
   <string name="local_file_list_empty">В цій теці немає файлів.</string>
   <string name="filedetails_select_file">Натисніть на файлі для відображення додаткової інформації</string>
   <string name="filedetails_size">Розмір:</string>
@@ -80,6 +81,7 @@
   <string name="filedetails_download">Завантажити</string>
   <string name="filedetails_sync_file">Оновити файл</string>
   <string name="filedetails_renamed_in_upload_msg">Файл був переіменований в %1$s протягом вивантаження</string>
+  <string name="list_layout">Вигляд списку</string>
   <string name="action_share_file">Опублікувати посилання</string>
   <string name="action_unshare_file">Видалити посилання</string>
   <string name="common_yes">Так</string>
@@ -194,6 +196,7 @@
   <string name="auth_can_not_auth_against_server">Аутентифікація на цьому сервері неможлива</string>
   <string name="auth_account_does_not_exist">Користвача в пристрої не існуе</string>
   <string name="favorite">Улюблений</string>
+  <string name="unfavorite">Прибрати з вибраного</string>
   <string name="common_rename">Перейменувати</string>
   <string name="common_remove">Видалити</string>
   <string name="confirmation_remove_alert">Ви дійсно бажаєте видалити %1$s?</string>
@@ -305,6 +308,7 @@
   <string name="move_file_error">Виникла помилка при спробі перемістити файл або теку</string>
   <string name="forbidden_permissions_move">перемістити цей файл</string>
   <string name="copy_file_not_found">Неможливо скопіювати. Будь ласка, перевірте, чи існує файл</string>
+  <string name="copy_file_invalid_into_descendent">Неможливо копіювати теку до підтеки</string>
   <string name="copy_file_invalid_overwrite">Файл вже існує в теці призначення</string>
   <string name="copy_file_error">Виникла помилка під час спроби скопіювати даний файл чи папку</string>
   <string name="forbidden_permissions_copy">скопіювати даний файл</string>
@@ -312,8 +316,10 @@
   <string name="prefs_category_security">Безпека</string>
   <string name="prefs_instant_video_upload_path_title">Шлях завантаження відео</string>
   <string name="download_folder_failed_content">Скачування теки %1$s не може бути завершено</string>
+  <string name="shared_subject_header">поширений</string>
   <string name="with_you_subject_header">з Вами</string>
   <string name="subject_token">%1$s поділився \"%2$s\" з вами</string>
+  <string name="saml_subject_token">З Вами поділилися \"%1$s\"</string>
   <string name="auth_refresh_button">Оновити з\'єднання</string>
   <string name="auth_host_address">Ареса серверу</string>
   <string name="common_error_out_memory">Недостатньо пам\'яті</string>
