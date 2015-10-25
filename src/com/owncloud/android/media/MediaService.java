@@ -222,15 +222,16 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
     public static AlertDialog.Builder streamWithExternalApp(final String uri, final Activity activity){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setMessage("May expose password?")
-                .setPositiveButton("Stream", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent i = new Intent(android.content.Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(uri));
-                        activity.startActivity(i);
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setMessage(activity.getString(R.string.stream_expose_password))
+                .setPositiveButton(activity.getString(R.string.common_yes),
+                                   new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            Intent i = new Intent(Intent.ACTION_VIEW);
+                                            i.setData(Uri.parse(uri));
+                                            activity.startActivity(i);
+                                        }
+                                    })
+                .setNegativeButton(activity.getString(R.string.common_no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                     }
