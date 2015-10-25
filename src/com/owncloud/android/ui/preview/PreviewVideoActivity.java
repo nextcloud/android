@@ -208,12 +208,13 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
                 } else {
                     // not working yet
                     String url;
-                    try {
-                        url = AccountUtils.constructFullURLForAccount(this, getAccount()) + file.getRemotePath();
+//                    try {
+//                        url = AccountUtils.constructFullURLForAccount(this, getAccount()) + file.getRemotePath();
+                        url = PreviewMediaFragment.generateUrlWithCredentials(getAccount(), getApplicationContext(), getFile());
                         mVideoPlayer.setVideoURI(Uri.parse(url));
-                    } catch (AccountNotFoundException e) {
-                        onError(null, MediaService.OC_MEDIA_ERROR, R.string.media_err_no_account);
-                    }
+//                    } catch (AccountNotFoundException e) {
+//                        onError(null, MediaService.OC_MEDIA_ERROR, R.string.media_err_no_account);
+//                    }
                 }
 
                 // create and prepare control panel for the user
