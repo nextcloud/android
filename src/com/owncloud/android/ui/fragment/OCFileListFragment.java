@@ -22,10 +22,20 @@
  */
 package com.owncloud.android.ui.fragment;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,8 +45,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.PopupMenu;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.lib.common.OwnCloudBasicCredentials;
+import com.owncloud.android.lib.common.OwnCloudCredentials;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -57,6 +70,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -274,15 +288,13 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                     ((FileDisplayActivity)mContainerActivity).startImagePreview(file);
                 } else if (PreviewTextFragment.canBePreviewed(file)){
                     ((FileDisplayActivity)mContainerActivity).startTextPreview(file);
-                } else if (file.isDown()) {
-                    if (PreviewMediaFragment.canBePreviewed(file)) {
+                } else if (PreviewMediaFragment.canBePreviewed(file)) {
                         // media preview
                         ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true);
-                    } else {
+                    } else if (file.isDown()) {
                         mContainerActivity.getFileOperationsHelper().openFile(file);
                     }
-
-                } else {
+                else {
                     // automatic download, preview on finish
                     ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
                 }
@@ -379,13 +391,98 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
             }
             case R.id.action_send_file: {
                 // Obtain the file
-                if (!mTargetFile.isDown()) {  // Download the file
-                    Log_OC.d(TAG, mTargetFile.getRemotePath() + " : File must be downloaded");
-                    ((FileDisplayActivity) mContainerActivity).startDownloadForSending(mTargetFile);
+//                if (!mTargetFile.isDown()) {  // Download the file
+//                    Log_OC.d(TAG, mTargetFile.getRemotePath() + " : File must be downloaded");
+//                    ((FileDisplayActivity) mContainerActivity).startDownloadForSending(mTargetFile);
+//
+//                } else {
+                    // mContainerActivity.getFileOperationsHelper().sendDownloadedFile(mTargetFile);
 
-                } else {
-                    mContainerActivity.getFileOperationsHelper().sendDownloadedFile(mTargetFile);
+//                String url = "https://test:teddy03@192.168.0.100/owncloud/remote.php/webdav/2/1.ogg";
+//                String url = "https://test:test@demo.owncloud.org/remote.php/webdav/Demo%20Movie%20OGG%20-%20Big%20Buck%20Bunny%20Trailer.ogg";
+
+
+//                try{
+//                    Intent i = new Intent(Intent.ACTION_VIEW);
+//                    i.setComponent(new ComponentName("org.videolan.vlc.betav7neon", "org.videolan.vlc.betav7neon.gui.video.VideoPlayerActivity"));
+//                    i.setData(Uri.parse(url));
+//                    startActivity(i);
+//                }
+//                catch (ActivityNotFoundException e){
+//                    Uri uri = Uri.parse("http://play.google.com/store/apps/details?id=org.videolan.vlc.betav7neon");
+//                    Intent intent = new Intent (Intent.ACTION_VIEW, uri);
+//                    startActivity(intent);
+//                }
+//
+
+                // TODO TOBI neuer Menüpunkt: Stream
+
+                try {
+                    Context context = MainApp.getAppContext();
+                    Account account = mContainerActivity.getStorageManager().getAccount();
+                    String url = AccountUtils.constructFullURLForAccount(context, account) + mTargetFile.getRemotePath();
+
+                    OwnCloudCredentials credentials = AccountUtils.getCredentialsForAccount(context, account);
+
+                    url = url.replace("//", "//" + credentials.getUsername() + ":" + credentials.getAuthToken() + "@");
+
+                    Log_OC.d(TAG, "Streaming url: " + url);
+                    // VLC
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setComponent(new ComponentName("org.videolan.vlc.betav7neon", "org.videolan.vlc.betav7neon.gui.video.VideoPlayerActivity"));
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+
+                    // MX
+//                    Intent i = new Intent(android.content.Intent.ACTION_VIEW);
+//                    i.setData(Uri.parse(url));
+//                    startActivity(i);
+                } catch (AccountUtils.AccountNotFoundException e) {
+                    e.printStackTrace();
                 }
+                catch (ActivityNotFoundException e) {
+                    // VLC
+                    Uri uri = Uri.parse("http://play.google.com/store/apps/details?id=org.videolan.vlc.betav7neon");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                } catch (AuthenticatorException e) {
+                    e.printStackTrace();
+                } catch (OperationCanceledException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+//                }
+                return true;
+            }
+            case R.id.action_stream_file: {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("May expose password?")
+                        .setPositiveButton("Stream", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Account account = ((FileActivity)mContainerActivity).getAccount();
+                                Context context = MainApp.getAppContext();
+                                String uri = PreviewMediaFragment.generateUrlWithCredentials(account, context, mTargetFile);
+
+                                Intent i = new Intent(android.content.Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(uri));
+                                startActivity(i);
+
+//                    Intent i = new Intent(Intent.ACTION_VIEW);
+//                    i.setComponent(new ComponentName("org.videolan.vlc", "org.videolan.vlc.gui.video.VideoPlayerActivity"));
+//                    i.setData(Uri.parse(uri));
+//                    startActivity(i);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                builder.show();
+
                 return true;
             }
             case R.id.action_move: {
@@ -518,7 +615,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
             setFooterText(generateFooterText(filesCount, foldersCount));
 
             // decide grid vs list view
-            OwnCloudVersion version = AccountUtils.getServerVersion(
+            OwnCloudVersion version = com.owncloud.android.authentication.AccountUtils.getServerVersion(
                     ((FileActivity)mContainerActivity).getAccount());
             if (version != null && version.supportsRemoteThumbnails() &&
                 imagesCount > 0 && imagesCount == filesCount) {
