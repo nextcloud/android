@@ -1,11 +1,13 @@
-#This is the Android client for [ownCloud][0]
+#This is the BETA Android client for [ownCloud][0]
+
+The BETA app is only intended to be used by experienced users that want to use and test the latest features.
+All pull requests labeled "3 - to review" or higher will be included into the branch.
+If you find a bug please create a new issue with the label "Beta".
 
 The app performs file synchronization with an ownCloud server. Other ownCloud features may be added in the future, but they are not a priority right now.
 
 ## Build Status on
-Git master: ![Build Status](https://api.travis-ci.org/owncloud/android.svg?branch=master)
-
-Git stable:  ![Build Status](https://api.travis-ci.org/owncloud/android.svg?branch=stable)
+Git beta: ![Build Status](https://api.travis-ci.org/owncloud/android.svg?branch=beta)
 
 ## Development
 
