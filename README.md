@@ -4,6 +4,9 @@ The BETA app is only intended to be used by experienced users that want to use a
 All pull requests labeled "3 - to review" or higher will be included into the branch.
 If you find a bug please create a new issue with the label "Beta".
 
+The compiled APKs can be found [here][2]
+The changelog is found here
+
 The app performs file synchronization with an ownCloud server. Other ownCloud features may be added in the future, but they are not a priority right now.
 
 ## Build Status on
@@ -16,6 +19,8 @@ Make sure you read [SETUP.md][1] when you start working on this project.
 
 [0]: https://github.com/owncloud/core
 [1]: https://github.com/owncloud/android/blob/master/SETUP.md
+[2]: https://github.com/owncloud/android/tree/beta/apks/
+[3]: https://github.com/owncloud/android/blob/beta/CHANGELOG.md
 
 ### Contributing
 Please see [Contribution Guidelines](https://owncloud.org/contribute/). Fork this repository and contribute back using
