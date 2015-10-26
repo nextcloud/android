@@ -29,14 +29,15 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
 
-
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
+import android.os.BatteryManager;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
@@ -58,7 +59,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log_OC.d(TAG, "Received: " + intent.getAction());
-        if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
+        if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION) || intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
             handleConnectivityAction(context, intent);
         }else if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
             handleNewPictureAction(context, intent); 
@@ -103,7 +104,6 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         file_name = c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME));
         mime_type = c.getString(c.getColumnIndex(Images.Media.MIME_TYPE));
         c.close();
-        
         Log_OC.d(TAG, file_path + "");
 
         // save always temporally the picture to upload
@@ -111,7 +111,10 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         db.putFileForLater(file_path, account.name, null);
         db.close();
 
-        if (!isOnline(context) || (instantPictureUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
+        if (!isOnline(context) 
+                || (instantPictureUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))
+                || (instantUploadWhenChargingOnly(context) && !isCharging(context))
+           ) {
             return;
         }
 
@@ -155,8 +158,16 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         mime_type = c.getString(c.getColumnIndex(Video.Media.MIME_TYPE));
         c.close();
         Log_OC.d(TAG, file_path + "");
+        
+        // save always temporally the picture to upload
+        DbHandler db = new DbHandler(context);
+        db.putFileForLater(file_path, account.name, null);
+        db.close();
 
-        if (!isOnline(context) || (instantVideoUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
+        if (!isOnline(context) 
+                || (instantVideoUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))
+                || (instantVideoUploadWhenChargingOnly(context) && !isCharging(context))
+           ) {
             return;
         }
 
@@ -172,14 +183,18 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void handleConnectivityAction(Context context, Intent intent) {
-        if (!instantPictureUploadEnabled(context)) {
+        if (!instantPictureUploadEnabled(context) && !instantVideoUploadEnabled(context)) {
             Log_OC.d(TAG, "Instant upload disabled, don't upload anything");
             return;
         }
 
         if (!intent.hasExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY)
                 && isOnline(context)
-                && (!instantPictureUploadViaWiFiOnly(context) || (instantPictureUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))) {
+                && (!instantUploadWhenChargingOnly(context) || (instantUploadWhenChargingOnly(context) && isCharging(context)))
+                && (!instantVideoUploadWhenChargingOnly(context) || (instantVideoUploadWhenChargingOnly(context) && isCharging(context)))
+                && (!instantPictureUploadViaWiFiOnly(context) || (instantPictureUploadViaWiFiOnly(context) && isConnectedViaWiFi(context)))
+                && (!instantVideoUploadViaWiFiOnly(context) || (instantVideoUploadViaWiFiOnly(context) && isConnectedViaWiFi(context)))
+            ) {
             DbHandler db = new DbHandler(context);
             Cursor c = db.getAwaitingFiles();
             if (c.moveToFirst()) {
@@ -217,7 +232,6 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             c.close();
             db.close();
         }
-
     }
 
     public static boolean isOnline(Context context) {
@@ -230,6 +244,18 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         return cm != null && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI
                 && cm.getActiveNetworkInfo().getState() == State.CONNECTED;
+    }
+    
+    public static boolean isCharging(Context context){
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = context.registerReceiver(null, ifilter);
+
+        int status = 0;
+        if (batteryStatus != null) {
+            status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        }
+        return status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                status == BatteryManager.BATTERY_STATUS_FULL;
     }
 
     public static boolean instantPictureUploadEnabled(Context context) {
@@ -246,5 +272,11 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     
     public static boolean instantVideoUploadViaWiFiOnly(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_wifi", false);
+    }
+    public static boolean instantUploadWhenChargingOnly(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_upload_on_charging", false);
+    }
+    public static boolean instantVideoUploadWhenChargingOnly(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_charging", false);
     }
 }
