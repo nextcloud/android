@@ -32,8 +32,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -137,8 +139,14 @@ public class ShareFileFragment extends Fragment
         addUserGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Show Search Fragment
-                mListener.showSearchUsersAndGroups(mShares);
+                 boolean shareWithUsersEnable = AccountUtils.hasSearchUsersSupport(mAccount);
+                if (shareWithUsersEnable) {
+                    // Show Search Fragment
+                    mListener.showSearchUsersAndGroups(mShares);
+                } else {
+                    String message = getString(R.string.share_sharee_unavailable);
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                }
             }
         });
 

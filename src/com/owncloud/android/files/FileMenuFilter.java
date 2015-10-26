@@ -107,7 +107,6 @@ public class FileMenuFilter {
      * @param toHide            List to save the options that must be shown in the menu.
      */
     private void filter(List<Integer> toShow, List <Integer> toHide) {
-        boolean shareWithUsersEnable = false;
         boolean synchronizing = false;
         if (mComponentsGetter != null && mFile != null && mAccount != null) {
             OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
@@ -121,7 +120,6 @@ public class FileMenuFilter {
                 // uploading
                 (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile))
             );
-            shareWithUsersEnable = AccountUtils.hasSearchUsersSupport(mAccount);
         }
 
         /// decision is taken for each possible action on a file in the menu
@@ -202,7 +200,7 @@ public class FileMenuFilter {
         }
 
         // SHARE FILE, with Users
-        if (!shareAllowed || !shareWithUsersEnable || mFile == null) {
+        if (!shareAllowed ||  mFile == null) {
             toHide.add(R.id.action_share_with_users);
         } else {
             toShow.add(R.id.action_share_with_users);
