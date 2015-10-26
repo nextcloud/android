@@ -228,10 +228,7 @@ public class ShareActivity extends FileActivity
         dismissLoadingDialog();
         if (result != null && result.isSuccess()) {
             Log_OC.d(TAG, "Get Data Share With finishes sucessfully");
-
-        } else {
-            Toast.makeText(this, result.getLogMessage(), Toast.LENGTH_SHORT).show();
-        }
+        } // else, ignore and use pre-cached shares in database
 
         // Data is on Database
         refreshUsersInLists();
