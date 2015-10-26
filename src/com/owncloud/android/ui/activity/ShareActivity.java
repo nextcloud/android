@@ -132,9 +132,9 @@ public class ShareActivity extends FileActivity
 
     private void doShareWith(String shareeName, boolean isGroup) {
         if (isGroup) {
-            Toast.makeText(this, "You want to SHARE with GROUP [" + shareeName + "]", Toast.LENGTH_SHORT).show();
+           Log_OC.d(TAG, "You want to SHARE with GROUP [" + shareeName + "]");
         } else {
-            Toast.makeText(this, "You want to SHARE with USER [" + shareeName + "]", Toast.LENGTH_SHORT).show();
+           Log_OC.d(TAG, "You want to SHARE with USER [" + shareeName + "]");
         }
         getFileOperationsHelper().shareFileWithSharee(
                 getFile(),
