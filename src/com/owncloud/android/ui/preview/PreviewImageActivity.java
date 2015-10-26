@@ -430,12 +430,7 @@ public class PreviewImageActivity extends FileActivity implements
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
             getSupportActionBar().setTitle(currentFile.getFileName());
             mDrawerToggle.setDrawerIndicatorEnabled(false);
-            if (!currentFile.isDown()) {
-                if (!mPreviewImagePagerAdapter.pendingErrorAt(position)) {
-                    requestForDownload(currentFile);
-                }
-            }
-
+            
             // Call to reset image zoom to initial state
             ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
         }

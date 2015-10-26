@@ -319,7 +319,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                     task
                                     );
                             fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
+                            task.execute(file, true);
                         }
                     }
 

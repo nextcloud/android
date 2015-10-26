@@ -120,10 +120,10 @@ public class DiskLruImageCache {
             }
             final InputStream in = snapshot.getInputStream( 0 );
             if ( in != null ) {
-                final BufferedInputStream buffIn = 
+                final BufferedInputStream buffIn =
                 new BufferedInputStream( in, IO_BUFFER_SIZE );
-                bitmap = BitmapFactory.decodeStream( buffIn );              
-            }   
+                bitmap = BitmapFactory.decodeStream( buffIn );
+            }
         } catch ( IOException e ) {
             e.printStackTrace();
         } finally {

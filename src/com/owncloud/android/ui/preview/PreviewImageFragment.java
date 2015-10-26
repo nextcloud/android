@@ -41,8 +41,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -74,6 +76,8 @@ public class PreviewImageFragment extends FileFragment {
     private TextView mMessageView;
     private ProgressBar mProgressWheel;
 
+    private Boolean mShowResizedImage = false;
+
     public Bitmap mBitmap = null;
 
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
@@ -97,8 +101,10 @@ public class PreviewImageFragment extends FileFragment {
      *                                  {@link FragmentStatePagerAdapter}
      *                                  ; TODO better solution
      */
-    public static PreviewImageFragment newInstance(OCFile imageFile, boolean ignoreFirstSavedState){
+    public static PreviewImageFragment newInstance(OCFile imageFile, boolean ignoreFirstSavedState,
+            boolean showResizedImage){
         PreviewImageFragment frag = new PreviewImageFragment();
+        frag.mShowResizedImage = showResizedImage;
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, imageFile);
         args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
@@ -179,9 +185,6 @@ public class PreviewImageFragment extends FileFragment {
         if (getFile() == null) {
             throw new IllegalStateException("Instanced with a NULL OCFile");
         }
-        if (!getFile().isDown()) {
-            throw new IllegalStateException("There is no local file to preview");
-        }
     }
 
 
@@ -199,10 +202,43 @@ public class PreviewImageFragment extends FileFragment {
     public void onStart() {
         super.onStart();
         if (getFile() != null) {
-            mLoadBitmapTask = new LoadBitmapTask(mImageView, mMessageView, mProgressWheel);
-            //mLoadBitmapTask.execute(new String[]{getFile().getStoragePath()});
-//            mLoadBitmapTask.execute(getFile().getStoragePath());
-            mLoadBitmapTask.execute(getFile());
+            mImageView.setTag(getFile().getFileId());
+
+            if (mShowResizedImage){
+                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        String.valueOf("r" + getFile().getRemoteId())
+                );
+
+                if (thumbnail != null && !getFile().needsUpdateThumbnail()){
+                    mProgressWheel.setVisibility(View.GONE);
+                    mImageView.setImageBitmap(thumbnail);
+                    mImageView.setVisibility(View.VISIBLE);
+                    mBitmap  = thumbnail;
+                } else {
+                // generate new Thumbnail
+                    if (ThumbnailsCacheManager.cancelPotentialWork(getFile(), mImageView)) {
+                        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                                        mImageView, mContainerActivity.getStorageManager(),
+                                        mContainerActivity.getStorageManager().getAccount(),
+                                        mProgressWheel);
+                        if (thumbnail == null) {
+                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                        }
+                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncDrawable(
+                                        MainApp.getAppContext().getResources(),
+                                        thumbnail,
+                                        task
+                                );
+                        mImageView.setImageDrawable(asyncDrawable);
+                        task.execute(getFile(), false);
+                    }
+            }
+            } else {
+                mLoadBitmapTask = new LoadBitmapTask(mImageView, mMessageView, mProgressWheel);
+                mLoadBitmapTask.execute(getFile());
+            }
         }
     }
 
@@ -307,8 +343,13 @@ public class PreviewImageFragment extends FileFragment {
                 return true;
             }
             case R.id.action_send_file: {
-                mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
-                return true;
+                if (getFile().isImage() && !getFile().isDown()){
+                    mContainerActivity.getFileOperationsHelper().sendCachedImage(getFile());
+                    return true;
+                } else {
+                    mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
+                    return true;
+                }
             }
             case R.id.action_sync_file: {
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
