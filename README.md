@@ -5,7 +5,8 @@ All pull requests labeled "3 - to review" or higher will be included into the br
 If you find a bug please create a new issue with the label "Beta".
 
 The compiled APKs can be found [here][2]
-The changelog is found here
+
+The changelog is found [here][3]
 
 The app performs file synchronization with an ownCloud server. Other ownCloud features may be added in the future, but they are not a priority right now.
 
