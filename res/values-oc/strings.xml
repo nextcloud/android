@@ -72,6 +72,7 @@ Telecargatz-lo aicí : %2$s</string>
   <string name="file_list_seconds_ago">i a qualques segondas</string>
   <string name="file_list_empty">I a pas res aicí ! Mandatz doncas quicòm :)</string>
   <string name="file_list_loading">Cargament...</string>
+  <string name="file_list_no_app_for_file_type">Cap d\'aplicacion pas trobada per aqueste tipe de fichièr !</string>
   <string name="local_file_list_empty">Cap de fichièr es pas present dins aqueste dorsièr.</string>
   <string name="filedetails_select_file">Quichatz sus un fichièr per afichar las informacions suplementàrias</string>
   <string name="filedetails_size">Talha :</string>
