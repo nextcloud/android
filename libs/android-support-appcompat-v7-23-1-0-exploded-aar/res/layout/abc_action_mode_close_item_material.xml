@@ -23,4 +23,4 @@
         android:src="?attr/actionModeCloseDrawable"
         style="?attr/actionModeCloseButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"/><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v7/appcompat/res/layout/abc_action_mode_close_item_material.xml -->
+        android:layout_height="match_parent"/>
