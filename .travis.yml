@@ -3,8 +3,8 @@ android:
   components:
     - build-tools-23.0.1
     - android-23
-	- android-22
-	- android-19
+    - android-22
+    - android-19
 before_install:
   - rm pom.xml
 script:
