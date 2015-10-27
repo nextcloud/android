@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">for få sekunder siden</string>
   <string name="file_list_empty">Ingenting her. Last opp noe!</string>
   <string name="file_list_loading">Laster...</string>
+  <string name="file_list_no_app_for_file_type">Ingen app funnet for filtypen!</string>
   <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
   <string name="filedetails_select_file">Trykk på en fil for å vise ekstra informasjon.</string>
   <string name="filedetails_size">Størrelse:</string>
