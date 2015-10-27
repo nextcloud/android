@@ -72,6 +72,7 @@ Download hier: %2$s</string>
   <string name="file_list_seconds_ago">seconden geleden</string>
   <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
   <string name="file_list_loading">Laden...</string>
+  <string name="file_list_no_app_for_file_type">Geen app gevonden voor het bestandstype!</string>
   <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
   <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
   <string name="filedetails_size">Grootte:</string>
