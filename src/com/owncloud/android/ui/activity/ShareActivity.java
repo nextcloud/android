@@ -226,7 +226,7 @@ public class ShareActivity extends FileActivity
     public void onGetDataShareWithFinish(RemoteOperationResult result) {
         // Remove loading
         dismissLoadingDialog();
-        if (result != null && result.isSuccess()) {
+        if (result.isSuccess()) {
             Log_OC.d(TAG, "Get Data Share With finishes sucessfully");
         } // else, ignore and use pre-cached shares in database
 
