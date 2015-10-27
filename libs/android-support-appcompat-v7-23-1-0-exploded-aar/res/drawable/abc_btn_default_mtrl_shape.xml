@@ -30,4 +30,3 @@
                  android:bottom="@dimen/abc_button_padding_vertical_material" />
     </shape>
 </inset>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v7/appcompat/res/drawable/abc_btn_default_mtrl_shape.xml -->

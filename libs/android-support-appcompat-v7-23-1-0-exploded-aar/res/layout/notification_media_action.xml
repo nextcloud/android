@@ -22,4 +22,4 @@
     android:layout_marginLeft="2dp"
     android:layout_marginRight="2dp"
     android:layout_weight="1"
-    android:gravity="center"/><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v7/appcompat/res/layout/notification_media_action.xml -->
+    android:gravity="center"/>

@@ -31,4 +31,3 @@
                  android:drawableStart="?android:attr/listChoiceIndicatorMultiple"
                  android:drawablePadding="20dp"
                  android:ellipsize="marquee" />
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v7/appcompat/res/layout/select_dialog_multichoice_material.xml -->

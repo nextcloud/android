@@ -15,4 +15,4 @@
 -->
 
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-        android:color="?android:attr/colorControlHighlight"/><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-supportlib-release/frameworks/support/v7/appcompat/res/drawable-v21/abc_action_bar_item_background_material.xml -->
+        android:color="?android:attr/colorControlHighlight"/>
