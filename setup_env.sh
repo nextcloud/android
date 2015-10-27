@@ -17,7 +17,7 @@ function initForAnt {
 	git submodule update
 
 	#Prepare project android-support-appcompat-v7 ; JAR file is not enough, includes resources
-	android update lib-project -p libs/android-support-appcompat-v7-exploded-aar --target android-22
+	android update lib-project -p libs/android-support-appcompat-v7-23-1-0-exploded-aar --target android-23
 	android update lib-project -p libs/com-getbase-floatingactionbutton-1-10-1-exploded-aar --target android-22
 	
 	#As default it updates the ant scripts
