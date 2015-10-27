@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
   <string name="file_list_empty">Δεν υπάρχει τίποτα εδώ. Μεταφορτώστε κάτι!</string>
   <string name="file_list_loading">Φόρτωση...</string>
+  <string name="file_list_no_app_for_file_type">Δεν βρέθηκε εφαρμογή για αυτόν τον τύπο αρχείου</string>
   <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
   <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
   <string name="filedetails_size">Μέγεθος:</string>
@@ -274,7 +275,7 @@
   <string name="share_link_empty_password">Πρέπει να εισάγετε ένα κωδικό πρόσβασης.</string>
   <string name="activity_chooser_send_file_title">Αποστολή</string>
   <string name="copy_link">Αντιγραφή συνδέσμου</string>
-  <string name="clipboard_text_copied">Αντιγραφθηκε στο πρόχειρο</string>
+  <string name="clipboard_text_copied">Αντιγράφηκε στο πρόχειρο</string>
   <string name="error_cant_bind_to_operations_service">Κρίσιμο σφάλμα: αδύνατη η εκτέλεση λειτουργειών</string>
   <string name="network_error_socket_exception">Ένα σφάλμα προέκυψε κατά τη σύνδεση με το διακομιστή.</string>
   <string name="network_error_socket_timeout_exception">Ένα σφάλμα προέκυψε κατά την αναμονή για το διακομιστή, η λειτουργία δεν ήταν επιτυχής</string>
@@ -291,7 +292,7 @@
   <string name="downloader_download_file_not_found">Αυτό το αρχείο δεν είναι πια διαθέσιμο στο διακομιστή</string>
   <string name="prefs_category_accounts">Λογαριασμοί</string>
   <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
-  <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται σε μια μη ασφαλή διαδρομή.</string>
+  <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται μέσω μιας μη ασφαλούς διαδρομής.</string>
   <string name="actionbar_logger">Αρχεία καταγραφών</string>
   <string name="log_send_history_button">Αποστολή Ιστορικού</string>
   <string name="log_send_no_mail_app">Δεν εντοπίστηκε εφαρμογή αποστολής αναφορών συστήματος. Εγκαταστήστε την εφαρμογή Ηλ. Ταχυδρομείου!!</string>
@@ -307,6 +308,11 @@
   <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
   <string name="move_file_error">Ένα σφάλμα προέκυψε κατά την προσπάθεια μετακίνησης αυτού του αρχείου ή φακέλου</string>
   <string name="forbidden_permissions_move">για μετακίνηση αυτού του αρχείου</string>
+  <string name="copy_file_not_found">Αδύνατη η αντιγραφή. Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
+  <string name="copy_file_invalid_into_descendent">Δεν είναι δυνατό να αντιγραφεί ο φάκελος σε παράγωγό του φάκελο</string>
+  <string name="copy_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
+  <string name="copy_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια αντιγραφής αυτού του αρχείου ή φακέλου</string>
+  <string name="forbidden_permissions_copy">για αντιγραφή αυτού του αρχείου</string>
   <string name="prefs_category_instant_uploading">Στιγμιαίες Μεταφορτώσεις</string>
   <string name="prefs_category_security">Ασφάλεια</string>
   <string name="prefs_instant_video_upload_path_title">Διαδρομή Μεταφόρτωσης Βίντεο</string>
