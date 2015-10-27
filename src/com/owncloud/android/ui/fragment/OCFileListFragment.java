@@ -85,6 +85,7 @@ public class OCFileListFragment extends ExtendedListFragment
 
     public final static String ARG_JUST_FOLDERS = MY_PACKAGE + ".JUST_FOLDERS";
     public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
+    public final static String ARG_HIDE_FAB = MY_PACKAGE + ".HIDE_FAB";
 
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
     private static final String KEY_FAB_EVER_CLICKED = "FAB_EVER_CLICKED";
@@ -197,19 +198,26 @@ public class OCFileListFragment extends ExtendedListFragment
         setListAdapter(mAdapter);
 
         registerLongClickListener();
-        registerFabListeners();
 
-        // detect if a mini FAB has ever been clicked
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        if(prefs.getLong(KEY_FAB_EVER_CLICKED, 0) > 0) {
-            miniFabClicked = true;
-        }
-
-        // add labels to the min FABs when none of them has ever been clicked on
-        if(!miniFabClicked) {
-            setFabLabels();
+        boolean hideFab = (args != null) && args.getBoolean(ARG_HIDE_FAB, false);
+        if (hideFab) {
+            setFabEnabled(false);
         } else {
-            removeFabLabels();
+            setFabEnabled(true);
+            registerFabListeners();
+
+            // detect if a mini FAB has ever been clicked
+            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            if(prefs.getLong(KEY_FAB_EVER_CLICKED, 0) > 0) {
+                miniFabClicked = true;
+            }
+
+            // add labels to the min FABs when none of them has ever been clicked on
+            if(!miniFabClicked) {
+                setFabLabels();
+            } else {
+                removeFabLabels();
+            }
         }
   }
 
