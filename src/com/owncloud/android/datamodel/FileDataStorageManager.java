@@ -197,7 +197,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
         cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
         cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
-        cv.put(ProviderTableMeta.FILE_IN_CONFLICT, file.isInConflict());
+        cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
 
         boolean sameRemotePath = fileExists(file.getRemotePath());
         if (sameRemotePath ||                fileExists(file.getFileId())) {           // for renamed files; no more delete and create
@@ -301,7 +301,7 @@ public class FileDataStorageManager {
             cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
             cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
             cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
-            cv.put(ProviderTableMeta.FILE_IN_CONFLICT, file.isInConflict());
+            cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
 
             boolean existsByPath = fileExists(file.getRemotePath());
             if (existsByPath || fileExists(file.getFileId())) {
@@ -459,7 +459,7 @@ public class FileDataStorageManager {
                         // maybe unnecessary, but should be checked TODO remove if unnecessary
                         file.setStoragePath(null);
                         saveFile(file);
-                        saveConflict(file, false);
+                        saveConflict(file, null);
                     }
                 }
             }
@@ -897,8 +897,7 @@ public class FileDataStorageManager {
                     c.getColumnIndex(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1 ? true : false);
             file.setDownloading(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1 ? true : false);
-            file.setInConflict(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_IN_CONFLICT)) == 1 ? true : false);
+            file.setEtagInConflict(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG_IN_CONFLICT)));
 
         }
         return file;
@@ -1234,10 +1233,7 @@ public class FileDataStorageManager {
                         ProviderTableMeta.FILE_IS_DOWNLOADING,
                         file.isDownloading() ? 1 : 0
                 );
-                cv.put(
-                        ProviderTableMeta.FILE_IN_CONFLICT,
-                        file.isInConflict() ? 1 : 0
-                );
+                cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
 
                 boolean existsByPath = fileExists(file.getRemotePath());
                 if (existsByPath || fileExists(file.getFileId())) {
@@ -1468,12 +1464,12 @@ public class FileDataStorageManager {
 
     }
 
-    public void saveConflict(OCFile file, boolean inConflict) {
+    public void saveConflict(OCFile file, String etagInConflict) {
         if (!file.isDown()) {
-            inConflict = false;
+            etagInConflict = null;
         }
         ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_IN_CONFLICT, inConflict ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, etagInConflict);
         int updated = 0;
         if (getContentResolver() != null) {
             updated = getContentResolver().update(
@@ -1498,7 +1494,7 @@ public class FileDataStorageManager {
         Log_OC.d(TAG, "Number of files updated with CONFLICT: " + updated);
 
         if (updated > 0) {
-            if (inConflict) {
+            if (etagInConflict != null) {
                 /// set conflict in all ancestor folders
 
                 long parentId = file.getParentId();
@@ -1551,7 +1547,7 @@ public class FileDataStorageManager {
                 while (parentPath.length() > 0) {
 
                     String where =
-                            ProviderTableMeta.FILE_IN_CONFLICT + " = 1 AND " +
+                            ProviderTableMeta.FILE_ETAG_IN_CONFLICT + " IS NOT NULL AND " +
                                     ProviderTableMeta.FILE_CONTENT_TYPE + " != 'DIR' AND " +
                                     ProviderTableMeta.FILE_ACCOUNT_OWNER + " = ? AND " +
                                     ProviderTableMeta.FILE_PATH + " LIKE ?";
@@ -1568,7 +1564,8 @@ public class FileDataStorageManager {
                             updated = getContentResolver().update(
                                     ProviderTableMeta.CONTENT_URI_FILE,
                                     cv,
-                                    ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + "=?",
+                                    ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " +
+                                            ProviderTableMeta.FILE_PATH + "=?",
                                     new String[]{mAccount.name, parentPath}
                             );
                         } else {
@@ -1576,7 +1573,8 @@ public class FileDataStorageManager {
                                 updated = getContentProviderClient().update(
                                         ProviderTableMeta.CONTENT_URI_FILE,
                                         cv,
-                                        ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + "=?"
+                                        ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " +
+                                                ProviderTableMeta.FILE_PATH + "=?"
                                         , new String[]{mAccount.name, parentPath}
                                 );
                             } catch (RemoteException e) {

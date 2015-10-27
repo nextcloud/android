@@ -283,7 +283,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         );
                         localStateView.setVisibility(View.VISIBLE);
 
-                    } else if (file.isInConflict()) {   // conflict
+                    } else if (file.getEtagInConflict() != null) {   // conflict
                         localStateView.setImageResource(R.drawable.conflict_file_indicator);
                         localStateView.setVisibility(View.VISIBLE);
 

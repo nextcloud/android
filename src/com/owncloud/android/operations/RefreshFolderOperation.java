@@ -392,7 +392,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 }
                 updatedFile.setPublicLink(localFile.getPublicLink());
                 updatedFile.setShareByLink(localFile.isShareByLink());
-                updatedFile.setInConflict(localFile.isInConflict());
+                updatedFile.setEtagInConflict(localFile.getEtagInConflict());
             } else {
                 // remote eTag will not be updated unless file CONTENTS are synchronized
                 updatedFile.setEtag("");

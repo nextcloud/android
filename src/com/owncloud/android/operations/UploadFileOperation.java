@@ -311,10 +311,10 @@ public class UploadFileOperation extends RemoteOperation {
                     (new File(mFile.getStoragePath())).length() >
                             ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtag());
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
             } else {
                 mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtag());
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
             }
             Iterator <OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
             while (listener.hasNext()) {
