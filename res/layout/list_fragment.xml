@@ -99,7 +99,8 @@
         fab:fab_labelStyle="@style/menu_labels_style"
         android:layout_marginBottom="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
-        android:layout_marginEnd="@dimen/standard_margin">
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:visibility="gone">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_upload"
