@@ -31,46 +31,56 @@
             android:id="@+id/shareHeaderContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
             android:background="@color/background_color">
 
             <ImageView
                 android:id="@+id/shareFileIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="96dp"
-                android:layout_margin="12dp"
-                android:src="@drawable/file" />
+                android:layout_width="@dimen/file_icon_size"
+                android:layout_height="@dimen/file_icon_size"
+                android:src="@drawable/file"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"/>
 
             <TextView
                 android:id="@+id/shareFileName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/placeholder_filename"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_marginTop="39dp"
-                android:layout_alignParentTop="true"
+                android:textSize="16dip"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="8dp"
                 android:layout_toRightOf="@+id/shareFileIcon"
-                android:layout_toEndOf="@+id/shareFileIcon" />
+                android:layout_toEndOf="@+id/shareFileIcon"
+                android:singleLine="true"
+                android:ellipsize="middle"
+                android:layout_marginTop="12dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="12dip"
                 android:text="@string/placeholder_filesize"
                 android:id="@+id/shareFileSize"
                 android:layout_below="@+id/shareFileName"
                 android:layout_toRightOf="@+id/shareFileIcon"
                 android:layout_toEndOf="@+id/shareFileIcon"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="12dp"
+                android:layout_gravity="center_vertical"/>
 
         </RelativeLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="16dip"
             android:text="@string/share_with_user_section_title"
             android:id="@+id/shareWithUsersSectionTitle"
             android:layout_gravity="left"
@@ -91,6 +101,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/shareNoUsers"
             android:text="@string/share_no_users"
+            android:textSize="12dip"
             android:padding="12dp" />
 
         <android.support.v7.widget.AppCompatButton
