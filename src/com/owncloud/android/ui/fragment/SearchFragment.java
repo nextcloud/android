@@ -30,6 +30,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -117,7 +118,7 @@ public class SearchFragment extends Fragment implements ShareUserListAdapter.Sha
         );
         searchView.setIconifiedByDefault(false);    // do not iconify the widget; expand it by default
 
-        //searchView.setImeOptions(EditorInfo.IME_ACTION_NEXT | EditorInfo.IME_FLAG_NO_FULLSCREEN);
+        searchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI); // avoid fullscreen with softkeyboard
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
