@@ -22,6 +22,7 @@ package com.owncloud.android.utils;
 
 import android.accounts.Account;
 import android.os.AsyncTask;
+import android.util.Pair;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -29,34 +30,30 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 
 /**
  * Async Task to get the users and groups which a file is shared with
  */
-public class GetShareWithUsersAsyncTask extends AsyncTask<Object, Void, RemoteOperationResult> {
+public class GetShareWithUsersAsyncTask extends AsyncTask<Object, Void, Pair<RemoteOperation, RemoteOperationResult>> {
 
     private final String TAG = GetShareWithUsersAsyncTask.class.getSimpleName();
-    private final WeakReference<OnGetSharesWithUsersTaskListener> mListener;
-    private ArrayList<OCShare> mShares;
+    private final WeakReference<OnRemoteOperationListener> mListener;
 
-    public ArrayList<OCShare> getShares(){
-        return mShares;
-    }
-
-    public GetShareWithUsersAsyncTask(OnGetSharesWithUsersTaskListener listener) {
-        mListener = new WeakReference<OnGetSharesWithUsersTaskListener>(listener);
+    public GetShareWithUsersAsyncTask(OnRemoteOperationListener listener) {
+        mListener = new WeakReference<OnRemoteOperationListener>(listener);
     }
 
     @Override
-    protected RemoteOperationResult doInBackground(Object... params) {
+    protected Pair<RemoteOperation, RemoteOperationResult> doInBackground(Object... params) {
 
+        GetSharesForFileOperation operation = null;
         RemoteOperationResult result = null;
 
         if (params != null && params.length == 3) {
@@ -66,8 +63,7 @@ public class GetShareWithUsersAsyncTask extends AsyncTask<Object, Void, RemoteOp
 
             try {
                 // Get shares request
-                GetSharesForFileOperation operation =
-                        new GetSharesForFileOperation(file.getRemotePath(), false, false);
+                operation = new GetSharesForFileOperation(file.getRemotePath(), false, false);
                 OwnCloudAccount ocAccount = new OwnCloudAccount(account,
                         MainApp.getAppContext());
                 OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().
@@ -82,27 +78,20 @@ public class GetShareWithUsersAsyncTask extends AsyncTask<Object, Void, RemoteOp
             result = new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
         }
 
-        return result;
+        return new Pair(operation, result);
     }
 
     @Override
-    protected void onPostExecute(RemoteOperationResult result) {
+    protected void onPostExecute(Pair<RemoteOperation, RemoteOperationResult> result) {
 
         if (result!= null)
         {
-            OnGetSharesWithUsersTaskListener listener = mListener.get();
+            OnRemoteOperationListener listener = mListener.get();
             if (listener!= null)
             {
-                listener.onGetDataShareWithFinish(result);
+                listener.onRemoteOperationFinish(result.first, result.second);
             }
         }
     }
 
-    /*
-     * Interface to retrieve data from get shares task
-     */
-    public interface OnGetSharesWithUsersTaskListener{
-
-        void onGetDataShareWithFinish(RemoteOperationResult result);
-    }
 }

@@ -61,7 +61,10 @@ public class ErrorMessageAdapter {
         
         String message = null;
 
-        if (operation instanceof UploadFileOperation) {
+        if (!result.isSuccess() && isNetworkError(result.getCode())) {
+            message = getErrorMessage(result, res);
+
+        } else if (operation instanceof UploadFileOperation) {
 
             if (result.isSuccess()) {
                 message = String.format(
@@ -120,9 +123,6 @@ public class ErrorMessageAdapter {
                     // Error --> No permissions
                     message = String.format(res.getString(R.string.forbidden_permissions),
                             res.getString(R.string.forbidden_permissions_delete));
-                } else if (isNetworkError(result.getCode())) {
-                    message = getErrorMessage(result, res);
-
                 } else {
                     message = res.getString(R.string.remove_fail_msg);
                 }
@@ -139,9 +139,6 @@ public class ErrorMessageAdapter {
 
             } else if (result.getCode().equals(ResultCode.INVALID_CHARACTER_IN_NAME)) {
                 message = res.getString(R.string.filename_forbidden_characters);
-
-            } else if (isNetworkError(result.getCode())) {
-                message = getErrorMessage(result, res);
 
             } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
                 message = res.getString(R.string.filename_forbidden_charaters_from_server);
@@ -163,9 +160,6 @@ public class ErrorMessageAdapter {
                 message = String.format(res.getString(R.string.forbidden_permissions),
                         res.getString(R.string.forbidden_permissions_create));
 
-            } else if (isNetworkError(result.getCode())) {
-                message = getErrorMessage(result, res);
-
             } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
                 message = res.getString(R.string.filename_forbidden_charaters_from_server);
             } else {
@@ -185,9 +179,6 @@ public class ErrorMessageAdapter {
                 message = String.format(res.getString(R.string.forbidden_permissions),
                         res.getString(R.string.share_link_forbidden_permissions));
 
-            } else if (isNetworkError(result.getCode())) {
-                message = getErrorMessage(result, res);
-
             } else {    // Generic error
                 // Show a Message, operation finished without success
                 message = res.getString(R.string.share_link_file_error);
@@ -206,18 +197,13 @@ public class ErrorMessageAdapter {
                 message = String.format(res.getString(R.string.forbidden_permissions),
                         res.getString(R.string.unshare_link_forbidden_permissions));
 
-            } else if (isNetworkError(result.getCode())) {
-                message = getErrorMessage(result, res);
-
             } else {    // Generic error
                 // Show a Message, operation finished without success
                 message = res.getString(R.string.unshare_link_file_error);
             }
         } else if (operation instanceof MoveFileOperation) {
 
-            if(isNetworkError(result.getCode())){
-                message = getErrorMessage(result, res);
-            } else if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
+            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 message = res.getString(R.string.move_file_not_found);
             } else if (result.getCode() == ResultCode.INVALID_MOVE_INTO_DESCENDANT) {
                 message = res.getString(R.string.move_file_invalid_into_descendent);
@@ -252,9 +238,7 @@ public class ErrorMessageAdapter {
                 }
             }
         } else if (operation instanceof CopyFileOperation) {
-            if(isNetworkError(result.getCode())){
-                message = getErrorMessage(result, res);
-            } else if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
+            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 message = res.getString(R.string.copy_file_not_found);
             } else if (result.getCode() == ResultCode.INVALID_COPY_INTO_DESCENDANT) {
                 message = res.getString(R.string.copy_file_invalid_into_descendent);

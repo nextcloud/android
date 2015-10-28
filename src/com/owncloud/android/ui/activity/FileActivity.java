@@ -69,6 +69,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
+import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
@@ -712,6 +713,8 @@ public class FileActivity extends AppCompatActivity
 
         mFileOperationsHelper.setOpIdWaitingFor(Long.MAX_VALUE);
 
+        dismissLoadingDialog();
+
         if (!result.isSuccess() && (
                 result.getCode() == ResultCode.UNAUTHORIZED ||
                 result.isIdPRedirection() ||
@@ -729,21 +732,37 @@ public class FileActivity extends AppCompatActivity
             }
             mTryShareAgain = false;
 
+        } else if (operation == null ||
+                operation instanceof CreateShareWithShareeOperation ||
+                operation instanceof UnshareOperation ||
+                operation instanceof SynchronizeFolderOperation
+                ) {
+            if (result.isSuccess()) {
+                updateFileFromDB();
+
+            } else if (result.getCode() != ResultCode.CANCELLED) {
+                Toast t = Toast.makeText(this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
+                t.show();
+            }
+
         } else if (operation instanceof CreateShareViaLinkOperation) {
             onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
 
-        } else if (operation instanceof CreateShareWithShareeOperation) {
-            onCreateShareWithShareeOperationFinish((CreateShareWithShareeOperation) operation, result);
+        } else if (operation instanceof SynchronizeFileOperation) {
+            onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
 
-        } else if (operation instanceof UnshareOperation) {
-            onUnshareLinkOperationFinish((UnshareOperation) operation, result);
+        } else if (operation instanceof GetSharesForFileOperation) {
+            if (result.isSuccess()) {
+                updateFileFromDB();
 
-        } else if (operation instanceof SynchronizeFolderOperation) {
-            onSynchronizeFolderOperationFinish((SynchronizeFolderOperation) operation, result);
-
-        }else if (operation instanceof SynchronizeFileOperation) {
-            onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
-
+            } else if (result.getCode() != ResultCode.SHARE_NOT_FOUND) {
+                Toast t = Toast.makeText(this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
+                t.show();
+            }
         }
     }
 
@@ -761,7 +780,6 @@ public class FileActivity extends AppCompatActivity
 
     private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
                                                      RemoteOperationResult result) {
-        dismissLoadingDialog();
         if (result.isSuccess()) {
             mTryShareAgain = false;
             updateFileFromDB();
@@ -792,47 +810,8 @@ public class FileActivity extends AppCompatActivity
         }
     }
 
-    private void onCreateShareWithShareeOperationFinish(CreateShareWithShareeOperation operation,
-                                                        RemoteOperationResult result) {
-        dismissLoadingDialog();
-        if (result.isSuccess()) {
-            updateFileFromDB();
-
-        } else {
-            Toast t = Toast.makeText(this,
-                    ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-                    Toast.LENGTH_LONG);
-            t.show();
-        }
-    }
-
-    private void onUnshareLinkOperationFinish(UnshareOperation operation,
-                                              RemoteOperationResult result) {
-        dismissLoadingDialog();
-
-        if (result.isSuccess()){
-            updateFileFromDB();
-
-        } else {
-            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
-                            operation, getResources()), Toast.LENGTH_LONG);
-            t.show();
-        }
-    }
-
-    private void onSynchronizeFolderOperationFinish(
-            SynchronizeFolderOperation operation, RemoteOperationResult result
-    ) {
-        if (!result.isSuccess() && result.getCode() != ResultCode.CANCELLED){
-            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
-                            operation, getResources()), Toast.LENGTH_LONG);
-            t.show();
-        }
-    }
-
     private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation,
                                                   RemoteOperationResult result) {
-        dismissLoadingDialog();
         OCFile syncedFile = operation.getLocalFile();
         if (!result.isSuccess()) {
             if (result.getCode() == ResultCode.SYNC_CONFLICT) {

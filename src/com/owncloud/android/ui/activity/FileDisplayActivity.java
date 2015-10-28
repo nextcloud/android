@@ -1418,8 +1418,6 @@ public class FileDisplayActivity extends HookActivity
      */
     private void onRemoveFileOperationFinish(RemoveFileOperation operation,
                                              RemoteOperationResult result) {
-        dismissLoadingDialog();
-
         Toast msg = Toast.makeText(this,
                 ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                 Toast.LENGTH_LONG);
@@ -1458,10 +1456,8 @@ public class FileDisplayActivity extends HookActivity
     private void onMoveFileOperationFinish(MoveFileOperation operation,
                                            RemoteOperationResult result) {
         if (result.isSuccess()) {
-            dismissLoadingDialog();
             refreshListOfFilesFragment();
         } else {
-            dismissLoadingDialog();
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this,
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
@@ -1483,10 +1479,8 @@ public class FileDisplayActivity extends HookActivity
      */
     private void onCopyFileOperationFinish(CopyFileOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
-            dismissLoadingDialog();
             refreshListOfFilesFragment();
         } else {
-            dismissLoadingDialog();
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this,
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
@@ -1508,7 +1502,6 @@ public class FileDisplayActivity extends HookActivity
      */
     private void onRenameFileOperationFinish(RenameFileOperation operation,
                                              RemoteOperationResult result) {
-        dismissLoadingDialog();
         OCFile renamedFile = operation.getFile();
         if (result.isSuccess()) {
             FileFragment details = getSecondFragment();
@@ -1577,10 +1570,8 @@ public class FileDisplayActivity extends HookActivity
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
         if (result.isSuccess()) {
-            dismissLoadingDialog();
             refreshListOfFilesFragment();
         } else {
-            dismissLoadingDialog();
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this,
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),

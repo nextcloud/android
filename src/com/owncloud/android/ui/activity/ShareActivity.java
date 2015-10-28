@@ -51,8 +51,7 @@ import java.util.ArrayList;
  */
 
 public class ShareActivity extends FileActivity
-        implements GetShareWithUsersAsyncTask.OnGetSharesWithUsersTaskListener,
-        ShareFileFragment.OnShareFragmentInteractionListener,
+        implements ShareFileFragment.OnShareFragmentInteractionListener,
         SearchFragment.OnSearchFragmentInteractionListener {
 
     private static final String TAG = ShareActivity.class.getSimpleName();
@@ -200,38 +199,15 @@ public class ShareActivity extends FileActivity
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
-        if (operation instanceof UnshareOperation ||
-                operation instanceof CreateShareWithShareeOperation) {
 
-            if (result.isSuccess()) {
-                refreshUsersInLists();
-                if (operation instanceof  CreateShareWithShareeOperation) {
-                    // Clean action
-                    getIntent().setAction(null);
-                }
-            } else {
-                Toast.makeText(
-                        this,
-                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-                        Toast.LENGTH_LONG
-                ).show();
-            }
-
-        /*} else if (operation instanceof GetSharesForFileOperation) {
-            onGetSharesForFileOperationFinish((GetSharesForFileOperation) operation, result);*/
-        }
-    }
-
-    @Override
-    public void onGetDataShareWithFinish(RemoteOperationResult result) {
-        // Remove loading
-        dismissLoadingDialog();
         if (result.isSuccess()) {
-            Log_OC.d(TAG, "Get Data Share With finishes sucessfully");
-        } // else, ignore and use pre-cached shares in database
+            refreshUsersInLists();
+            if (operation instanceof  CreateShareWithShareeOperation) {
+                // Clean action
+                getIntent().setAction(null);
+            }
+        }
 
-        // Data is on Database
-        refreshUsersInLists();
     }
 
     private void refreshUsersInLists(){

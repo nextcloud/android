@@ -408,10 +408,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             ) {
         
         if (result.isSuccess()) {
-            dismissLoadingDialog();
             refreshListOfFilesFragment();
         } else {
-            dismissLoadingDialog();
             try {
                 Toast msg = Toast.makeText(FolderPickerActivity.this, 
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
