@@ -2,6 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author masensio
+ *   @author David A. Velasco
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -142,7 +143,7 @@ public class ShareFileFragment extends Fragment
                  boolean shareWithUsersEnable = AccountUtils.hasSearchUsersSupport(mAccount);
                 if (shareWithUsersEnable) {
                     // Show Search Fragment
-                    mListener.showSearchUsersAndGroups(mShares);
+                    mListener.showSearchUsersAndGroups();
                 } else {
                     String message = getString(R.string.share_sharee_unavailable);
                     Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
@@ -157,8 +158,13 @@ public class ShareFileFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // Load data to the list (start process with an Async Task)
-        mListener.refreshUsersOrGroupsListFromServer();
+        // Load data into the list
+        refreshUsersOrGroupsListFromDB();
+
+        // Request for a refresh of the data through the server (starts an Async Task)
+        if (mListener != null) {
+            mListener.refreshUsersOrGroupsListFromServer();
+        }
     }
 
     @Override
@@ -192,8 +198,12 @@ public class ShareFileFragment extends Fragment
 
     private void updateListOfUserGroups() {
         // Update list of users/groups
-        mUserGroupsAdapter = new ShareUserListAdapter(getActivity().getApplicationContext(),
-                R.layout.share_user_item, mShares, this);
+        mUserGroupsAdapter = new ShareUserListAdapter(
+                getActivity(),
+                R.layout.share_user_item,
+                mShares,
+                this
+        );
 
         // Show data
         TextView noShares = (TextView) getView().findViewById(R.id.shareNoUsers);
@@ -229,7 +239,7 @@ public class ShareFileFragment extends Fragment
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnShareFragmentInteractionListener {
-        void showSearchUsersAndGroups(ArrayList<OCShare> shares);
+        void showSearchUsersAndGroups();
         void refreshUsersOrGroupsListFromServer();
         void unshareWith(OCShare share);
     }

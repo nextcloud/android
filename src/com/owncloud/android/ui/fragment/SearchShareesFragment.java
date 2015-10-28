@@ -60,11 +60,11 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     // the fragment initialization parameters
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
-    private static final String ARG_SHARES = "SHARES";
 
     // Parameters
     private OCFile mFile;
     private Account mAccount;
+
     private ArrayList<OCShare> mShares;
     private ShareUserListAdapter mUserGroupsAdapter = null;
 
@@ -73,18 +73,15 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     /**
      * Public factory method to create new SearchShareesFragment instances.
      *
-     * @param fileToShare   An {@link OCFile} to show in the fragment
+     * @param fileToShare   An {@link OCFile} to be shared
      * @param account       An ownCloud account
-     * @param
      * @return A new instance of fragment SearchShareesFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static SearchShareesFragment newInstance(OCFile fileToShare, Account account, ArrayList<OCShare> shares) {
+    public static SearchShareesFragment newInstance(OCFile fileToShare, Account account) {
         SearchShareesFragment fragment = new SearchShareesFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, fileToShare);
         args.putParcelable(ARG_ACCOUNT, account);
-        args.putParcelableArrayList(ARG_SHARES, shares);
         fragment.setArguments(args);
         return fragment;
     }
@@ -99,7 +96,6 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
         if (getArguments() != null) {
             mFile = getArguments().getParcelable(ARG_FILE);
             mAccount = getArguments().getParcelable(ARG_ACCOUNT);
-            mShares = getArguments().getParcelableArrayList(ARG_SHARES);
         }
 
     }
@@ -134,17 +130,18 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
             }
         });
 
-        // Show data: Fill in list of users and groups
-        ListView usersList = (ListView) view.findViewById(R.id.searchUsersListView);
-        mUserGroupsAdapter = new ShareUserListAdapter(getActivity().getApplicationContext(),
-                R.layout.share_user_item, mShares, this);
-        if (mShares.size() > 0) {
-            usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(mUserGroupsAdapter);
-        }
-
         return view;
     }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        // Load data into the list
+        refreshUsersOrGroupsListFromDB();
+    }
+
 
     /**
      * Get users and groups fromn the DB to fill in the "share with" list

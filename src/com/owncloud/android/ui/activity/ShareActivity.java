@@ -147,9 +147,9 @@ public class ShareActivity extends FileActivity
     }
 
     @Override
-    public void showSearchUsersAndGroups(ArrayList<OCShare> shares) {
+    public void showSearchUsersAndGroups() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        mSearchFragment = SearchShareesFragment.newInstance(getFile(), getAccount(), shares);
+        mSearchFragment = SearchShareesFragment.newInstance(getFile(), getAccount());
         ft.hide(mShareFileFragment);
         ft.add(R.id.share_fragment_container, mSearchFragment, TAG_SEARCH_FRAGMENT);
         ft.addToBackStack(TAG_SEARCH_FRAGMENT);
