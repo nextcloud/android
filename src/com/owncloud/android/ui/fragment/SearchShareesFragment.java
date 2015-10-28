@@ -49,13 +49,13 @@ import java.util.ArrayList;
  *
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SearchFragment.OnSearchFragmentInteractionListener} interface
+ * {@link SearchShareesFragment.OnSearchFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SearchFragment#newInstance} factory method to
+ * Use the {@link SearchShareesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SearchFragment extends Fragment implements ShareUserListAdapter.ShareUserAdapterListener {
-    private static final String TAG = SearchFragment.class.getSimpleName();
+public class SearchShareesFragment extends Fragment implements ShareUserListAdapter.ShareUserAdapterListener {
+    private static final String TAG = SearchShareesFragment.class.getSimpleName();
 
     // the fragment initialization parameters
     private static final String ARG_FILE = "FILE";
@@ -71,16 +71,16 @@ public class SearchFragment extends Fragment implements ShareUserListAdapter.Sha
     private OnSearchFragmentInteractionListener mListener;
 
     /**
-     * Public factory method to create new SearchFragment instances.
+     * Public factory method to create new SearchShareesFragment instances.
      *
      * @param fileToShare   An {@link OCFile} to show in the fragment
      * @param account       An ownCloud account
      * @param
-     * @return A new instance of fragment SearchFragment.
+     * @return A new instance of fragment SearchShareesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SearchFragment newInstance(OCFile fileToShare, Account account, ArrayList<OCShare> shares) {
-        SearchFragment fragment = new SearchFragment();
+    public static SearchShareesFragment newInstance(OCFile fileToShare, Account account, ArrayList<OCShare> shares) {
+        SearchShareesFragment fragment = new SearchShareesFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, fileToShare);
         args.putParcelable(ARG_ACCOUNT, account);
@@ -89,7 +89,7 @@ public class SearchFragment extends Fragment implements ShareUserListAdapter.Sha
         return fragment;
     }
 
-    public SearchFragment() {
+    public SearchShareesFragment() {
         // Required empty public constructor
     }
 

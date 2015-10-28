@@ -26,7 +26,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -38,10 +37,8 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
-import com.owncloud.android.operations.UnshareOperation;
-import com.owncloud.android.ui.fragment.SearchFragment;
+import com.owncloud.android.ui.fragment.SearchShareesFragment;
 import com.owncloud.android.ui.fragment.ShareFileFragment;
-import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
 
 import java.util.ArrayList;
@@ -52,7 +49,7 @@ import java.util.ArrayList;
 
 public class ShareActivity extends FileActivity
         implements ShareFileFragment.OnShareFragmentInteractionListener,
-        SearchFragment.OnSearchFragmentInteractionListener {
+        SearchShareesFragment.OnSearchFragmentInteractionListener {
 
     private static final String TAG = ShareActivity.class.getSimpleName();
 
@@ -62,7 +59,7 @@ public class ShareActivity extends FileActivity
     private static final String DIALOG_WAIT_LOAD_DATA = "DIALOG_WAIT_LOAD_DATA";
 
     private ShareFileFragment mShareFileFragment;
-    private SearchFragment mSearchFragment;
+    private SearchShareesFragment mSearchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +74,7 @@ public class ShareActivity extends FileActivity
 
             mShareFileFragment = (ShareFileFragment) getSupportFragmentManager().
                     getFragment(savedInstanceState, TAG_SHARE_FRAGMENT);
-            mSearchFragment = (SearchFragment) getSupportFragmentManager().
+            mSearchFragment = (SearchShareesFragment) getSupportFragmentManager().
                     getFragment(savedInstanceState, TAG_SEARCH_FRAGMENT);
 
             if (mShareFileFragment != null){
@@ -152,7 +149,7 @@ public class ShareActivity extends FileActivity
     @Override
     public void showSearchUsersAndGroups(ArrayList<OCShare> shares) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        mSearchFragment = SearchFragment.newInstance(getFile(), getAccount(), shares);
+        mSearchFragment = SearchShareesFragment.newInstance(getFile(), getAccount(), shares);
         ft.hide(mShareFileFragment);
         ft.add(R.id.share_fragment_container, mSearchFragment, TAG_SEARCH_FRAGMENT);
         ft.addToBackStack(TAG_SEARCH_FRAGMENT);
