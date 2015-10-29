@@ -7,6 +7,7 @@
 - PR [#1187](https://github.com/owncloud/android/pull/1187) "Video: Big thumbnails" merged
 - PR [#1058](https://github.com/owncloud/android/pull/1058) "add sort to UploadFileActiviy" merged
 - PR [#1168](https://github.com/owncloud/android/pull/1168) "Avoid duplicate files" merged
+- PR [#1176](https://github.com/owncloud/android/pull/1176) "Multi select" merged
 
 
 # 2015-10-26
