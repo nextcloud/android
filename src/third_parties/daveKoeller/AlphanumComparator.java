@@ -24,6 +24,7 @@
 
 package third_parties.daveKoeller;
 import java.text.Collator;
+import java.io.File;
 import java.util.Comparator;
 
 import com.owncloud.android.datamodel.OCFile;
@@ -77,9 +78,20 @@ public class AlphanumComparator implements Comparator<OCFile>
     }
 
     public int compare(OCFile o1, OCFile o2){
-        String s1 = (String)o1.getRemotePath().toLowerCase();
-        String s2 = (String)o2.getRemotePath().toLowerCase();
+        String s1 = o1.getRemotePath().toLowerCase();
+        String s2 = o2.getRemotePath().toLowerCase();
 
+        return compare(s1, s2);
+    }
+
+    public int compare(File f1, File f2){
+        String s1 = f1.getPath().toLowerCase();
+        String s2 = f2.getPath().toLowerCase();
+
+        return compare(s1, s2);
+    }
+
+    public int compare(String s1, String s2) {
         int thisMarker = 0;
         int thatMarker = 0;
         int s1Length = s1.length();

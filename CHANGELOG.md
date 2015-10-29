@@ -5,6 +5,7 @@
 - PR [#1205](https://github.com/owncloud/android/pull/1205) "Switch between online and offline files" merged
 - PR [#1195](https://github.com/owncloud/android/pull/1195) "Resize Cache" merged
 - PR [#1187](https://github.com/owncloud/android/pull/1187) "Video: Big thumbnails" merged
+- PR [#1058](https://github.com/owncloud/android/pull/1058) "add sort to UploadFileActiviy" merged
 
 
 # 2015-10-26
