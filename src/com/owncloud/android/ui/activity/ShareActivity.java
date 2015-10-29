@@ -25,6 +25,7 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.owncloud.android.R;
@@ -36,12 +37,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.ui.fragment.SearchShareesFragment;
 import com.owncloud.android.ui.fragment.ShareFileFragment;
 import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
 
-import java.util.ArrayList;
 
 /**
  * Activity for sharing files
@@ -56,60 +55,38 @@ public class ShareActivity extends FileActivity
     private static final String TAG_SHARE_FRAGMENT = "SHARE_FRAGMENT";
     private static final String TAG_SEARCH_FRAGMENT = "SEARCH_USER_AND_GROUPS_FRAGMENT";
 
-    private static final String DIALOG_WAIT_LOAD_DATA = "DIALOG_WAIT_LOAD_DATA";
-
-    private ShareFileFragment mShareFileFragment;
-    private SearchShareesFragment mSearchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        onAccountSet(false);
 
         setContentView(R.layout.share_activity);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-        if (savedInstanceState != null) {
-
-            mShareFileFragment = (ShareFileFragment) getSupportFragmentManager().
-                    getFragment(savedInstanceState, TAG_SHARE_FRAGMENT);
-            mSearchFragment = (SearchShareesFragment) getSupportFragmentManager().
-                    getFragment(savedInstanceState, TAG_SEARCH_FRAGMENT);
-
-            if (mShareFileFragment != null){
-                ft.replace(R.id.share_fragment_container, mShareFileFragment, TAG_SHARE_FRAGMENT);
-
-                if (mSearchFragment != null){
-                    ft.hide(mShareFileFragment);
-                    ft.add(R.id.share_fragment_container, mSearchFragment, TAG_SEARCH_FRAGMENT);
-                }
-                ft.commit();
-            }
-
-        } else {
-            // Add Share fragment
-            mShareFileFragment = ShareFileFragment.newInstance(getFile(), getAccount());
-            ft.replace(R.id.share_fragment_container, mShareFileFragment, TAG_SHARE_FRAGMENT);
+        if (savedInstanceState == null) {
+            // Add Share fragment on first creation
+            Fragment fragment = ShareFileFragment.newInstance(getFile(), getAccount());
+            ft.replace(R.id.share_fragment_container, fragment, TAG_SHARE_FRAGMENT);
             ft.commit();
-
-            mSearchFragment = null;
         }
 
-        handleIntent(getIntent());
+    }
 
+    protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
 
+        // Load data into the list
+        Log_OC.d(TAG, "Refreshing lists on account set");
+        refreshUsersInLists();
+
+        // Request for a refresh of the data through the server (starts an Async Task)
+        refreshUsersOrGroupsListFromServer();
     }
 
 
     @Override
     protected void onNewIntent(Intent intent) {
-        setIntent(intent);
-        handleIntent(intent);
-    }
-
-
-    private void handleIntent(Intent intent) {
         // Verify the action and get the query
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
@@ -136,29 +113,18 @@ public class ShareActivity extends FileActivity
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        //Save the fragment's instance
-        getSupportFragmentManager().putFragment(outState, TAG_SHARE_FRAGMENT, mShareFileFragment);
-        if (mSearchFragment != null) {
-            getSupportFragmentManager().putFragment(outState, TAG_SEARCH_FRAGMENT, mSearchFragment);
-        }
-
-    }
-
-    @Override
     public void showSearchUsersAndGroups() {
+        // replace ShareFragment with SearchFragment on demand
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        mSearchFragment = SearchShareesFragment.newInstance(getFile(), getAccount());
-        ft.hide(mShareFileFragment);
-        ft.add(R.id.share_fragment_container, mSearchFragment, TAG_SEARCH_FRAGMENT);
-        ft.addToBackStack(TAG_SEARCH_FRAGMENT);
+        Fragment searchFragment = SearchShareesFragment.newInstance(getFile(), getAccount());
+        ft.replace(R.id.share_fragment_container, searchFragment, TAG_SEARCH_FRAGMENT);
+        ft.addToBackStack(null);    // BACK button will recover the ShareFragment
         ft.commit();
     }
 
     @Override
     // Call to Unshare operation
-    public void unshareWith(OCShare share){
+    public void unshareWith(OCShare share) {
         OCFile file = getFile();
         getFileOperationsHelper().unshareFileWithUserOrGroup(file, share.getShareType(), share.getShareWith());
     }
@@ -167,23 +133,13 @@ public class ShareActivity extends FileActivity
      * Get users and groups from the server to fill in the "share with" list
      */
     @Override
-    public void refreshUsersOrGroupsListFromServer(){
+    public void refreshUsersOrGroupsListFromServer() {
         // Show loading
         showLoadingDialog(getString(R.string.common_loading));
         // Get Users and Groups
         GetShareWithUsersAsyncTask getTask = new GetShareWithUsersAsyncTask(this);
-        Object[] params = { getFile(), getAccount(), getStorageManager()};
+        Object[] params = {getFile(), getAccount(), getStorageManager()};
         getTask.execute(params);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (mSearchFragment != null){
-            mSearchFragment = null;
-            getSupportFragmentManager().popBackStackImmediate();
-            mShareFileFragment.refreshUsersOrGroupsListFromDB();
-        }
     }
 
     /**
@@ -198,22 +154,44 @@ public class ShareActivity extends FileActivity
         super.onRemoteOperationFinish(operation, result);
 
         if (result.isSuccess()) {
+            Log_OC.d(TAG, "Refreshing lists on successful sync");
             refreshUsersInLists();
-            if (operation instanceof  CreateShareWithShareeOperation) {
-                // Clean action
-                getIntent().setAction(null);
-            }
         }
 
     }
 
-    private void refreshUsersInLists(){
-        if (mShareFileFragment != null){
-            mShareFileFragment.refreshUsersOrGroupsListFromDB();
+    private void refreshUsersInLists() {
+        ShareFileFragment shareFileFragment = getShareFileFragment();
+        if (shareFileFragment != null) {          // only if added to the view hierarchy!!
+            if (shareFileFragment.isAdded()) {
+                shareFileFragment.refreshUsersOrGroupsListFromDB();
+            }
         }
-        if (mSearchFragment != null) {
-            mSearchFragment.refreshUsersOrGroupsListFromDB();
+
+        SearchShareesFragment searchShareesFragment = getSearchFragment();
+        if (searchShareesFragment != null) {
+            if (searchShareesFragment.isAdded()) {  // only if added to the view hierarchy!!
+                searchShareesFragment.refreshUsersOrGroupsListFromDB();
+            }
         }
+    }
+
+    /**
+     * Shortcut to get access to the {@link ShareFileFragment} instance, if any
+     *
+     * @return  A {@link ShareFileFragment} instance, or null
+     */
+    private ShareFileFragment getShareFileFragment() {
+        return (ShareFileFragment) getSupportFragmentManager().findFragmentByTag(TAG_SHARE_FRAGMENT);
+    }
+
+    /**
+     * Shortcut to get access to the {@link SearchShareesFragment} instance, if any
+     *
+     * @return  A {@link SearchShareesFragment} instance, or null
+     */
+    private SearchShareesFragment getSearchFragment() {
+        return (SearchShareesFragment) getSupportFragmentManager().findFragmentByTag(TAG_SEARCH_FRAGMENT);
     }
 
 }

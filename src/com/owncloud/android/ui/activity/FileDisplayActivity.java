@@ -226,6 +226,13 @@ public class FileDisplayActivity extends HookActivity
     }
 
     @Override
+    protected void onStop() {
+        Log_OC.v(TAG, "onStop() start");
+        super.onStop();
+        Log_OC.v(TAG, "onStop() end");
+    }
+
+    @Override
     protected void onDestroy() {
         Log_OC.v(TAG, "onDestroy() start");
         super.onDestroy();
@@ -635,7 +642,7 @@ public class FileDisplayActivity extends HookActivity
                             requestMoveOperation(fData, fResultCode);
                         }
                     },
-                    DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
+                    DELAY_TO_REQUEST_OPERATIONS_LATER
             );
 
         } else if (requestCode == ACTION_COPY_FILES && resultCode == RESULT_OK) {
@@ -649,7 +656,7 @@ public class FileDisplayActivity extends HookActivity
                             requestCopyOperation(fData, fResultCode);
                         }
                     },
-                    DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
+                    DELAY_TO_REQUEST_OPERATIONS_LATER
             );
 
         } else {
@@ -982,6 +989,7 @@ public class FileDisplayActivity extends HookActivity
                             }
 
                         }
+
                     }
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
@@ -1634,26 +1642,60 @@ public class FileDisplayActivity extends HookActivity
         return null;
     }
 
-    public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
-        long currentSyncTime = System.currentTimeMillis();
+    /**
+     * Starts an operation to refresh the requested folder.
+     *
+     * The operation is run in a new background thread created on the fly.
+     *
+     * The refresh updates is a "light sync": properties of regular files in folder are updated (including
+     * associated shares), but not their contents. Only the contents of files marked to be kept-in-sync are
+     * synchronized too.
+     *
+     * @param folder        Folder to refresh.
+     * @param ignoreETag    If 'true', the data from the server will be fetched and sync'ed even if the eTag
+     *                      didn't change.
+     */
+    public void startSyncFolderOperation(final OCFile folder, final boolean ignoreETag) {
 
-        mSyncInProgress = true;
+        // the execution is slightly delayed to allow the activity get the window focus if it's being started
+        // or if the method is called from a dialog that is being dismissed
+        getHandler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        if (hasWindowFocus()) {
+                            long currentSyncTime = System.currentTimeMillis();
+                            mSyncInProgress = true;
 
-        // perform folder synchronization
-        RemoteOperation synchFolderOp = new RefreshFolderOperation( folder,
-                currentSyncTime,
-                false,
-                getFileOperationsHelper().isSharedSupported(),
-                ignoreETag,
-                getStorageManager(),
-                getAccount(),
-                getApplicationContext()
+                            // perform folder synchronization
+                            RemoteOperation synchFolderOp = new RefreshFolderOperation(folder,
+                                    currentSyncTime,
+                                    false,
+                                    getFileOperationsHelper().isSharedSupported(),
+                                    ignoreETag,
+                                    getStorageManager(),
+                                    getAccount(),
+                                    getApplicationContext()
+                            );
+                            synchFolderOp.execute(
+                                    getAccount(),
+                                    MainApp.getAppContext(),
+                                    FileDisplayActivity.this,
+                                    null,
+                                    null
+                            );
+
+                            mProgressBar.setIndeterminate(true);
+
+                            setBackgroundText();
+
+                        }   // else: NOTHING ; lets' not refresh when the user rotates the device but there is
+                        // another window floating over
+                    }
+                },
+                DELAY_TO_REQUEST_OPERATIONS_LATER
         );
-        synchFolderOp.execute(getAccount(), MainApp.getAppContext(), this, null, null);
 
-        mProgressBar.setIndeterminate(true);
-
-        setBackgroundText();
     }
 
     /**

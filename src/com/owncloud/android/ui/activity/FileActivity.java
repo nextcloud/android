@@ -107,7 +107,7 @@ public class FileActivity extends AppCompatActivity
     private static final String KEY_TRY_SHARE_AGAIN = "TRY_SHARE_AGAIN";
     private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
 
-    protected static final long DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS = 200;
+    protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
 
 
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
