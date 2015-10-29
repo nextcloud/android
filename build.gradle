@@ -29,6 +29,11 @@ dependencies {
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "com.owncloud.android.beta"
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
