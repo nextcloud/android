@@ -44,8 +44,6 @@ import com.owncloud.android.operations.common.SyncOperation;
 
 public class CreateShareViaLinkOperation extends SyncOperation {
 
-    private static final int READ_ONLY = 1;
-
     protected FileDataStorageManager mStorageManager;
 
     private String mPath;
@@ -87,7 +85,7 @@ public class CreateShareViaLinkOperation extends SyncOperation {
                     "",
                     false,
                     mPassword,
-                    READ_ONLY
+                    OCShare.DEFAULT_PERMISSION
             );
             result = operation.execute(client);
         }
@@ -144,8 +142,7 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         } else {
             share.setIsFolder(false);
         }
-        share.setPermissions(READ_ONLY);
-        
+
         getStorageManager().saveShare(share);
         
         // Update OCFile with data from share: ShareByLink  and publicLink

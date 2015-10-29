@@ -38,9 +38,6 @@ import com.owncloud.android.operations.common.SyncOperation;
 
 public class CreateShareWithShareeOperation extends SyncOperation {
 
-    private static final int READ_ONLY = 1;
-    private static final int ALL_PRIVILEGES = 31;
-
     protected FileDataStorageManager mStorageManager;
 
     private String mPath;
@@ -80,7 +77,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
                 mShareeName,
                 false,
                 "",
-                ALL_PRIVILEGES
+                OCShare.DEFAULT_PERMISSION
         );
         operation.setGetShareDetails(true);
         RemoteOperationResult result = operation.execute(client);
@@ -104,8 +101,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         // Update DB with the response
         share.setPath(mPath);
         share.setIsFolder(mPath.endsWith(FileUtils.PATH_SEPARATOR));
-        share.setPermissions(READ_ONLY);
-        
+
         getStorageManager().saveShare(share);
         
         // Update OCFile with data from share: ShareByLink  and publicLink
