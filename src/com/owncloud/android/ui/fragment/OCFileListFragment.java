@@ -348,7 +348,7 @@ public class OCFileListFragment extends ExtendedListFragment
                 return true;
             }
             case R.id.action_share_with_users: {
-                mContainerActivity.showShareFile(mTargetFile);
+                mContainerActivity.getFileOperationsHelper().showShareFile(mTargetFile);
                 return true;
             }
             case R.id.action_open_file_with: {

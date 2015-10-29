@@ -1236,20 +1236,6 @@ public class FileDisplayActivity extends HookActivity
         setFile(file);
     }
 
-    /**
-     * Shows the share view for sharing  {@link OCFile} received as a
-     * parameter in the second fragment.
-     *
-     * @param file {@link OCFile}  File to share with
-     */
-    @Override
-    public void showShareFile(OCFile file) {
-        Intent intent = new Intent(this, ShareActivity.class);
-        intent.putExtra(EXTRA_FILE, file);
-        intent.putExtra(EXTRA_ACCOUNT, getAccount());
-        startActivity(intent);
-    }
-
     @Override
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
         if (mDualPane) {

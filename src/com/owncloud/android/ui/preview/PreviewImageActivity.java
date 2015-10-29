@@ -400,19 +400,6 @@ public class PreviewImageActivity extends FileActivity implements
         
     }
 
-    /**
-     * Shows the share view for sharing  {@link OCFile} received as a
-     * parameter in the second fragment.
-     *
-     * @param file {@link OCFile}  File to share with
-     */
-    @Override
-    public void showShareFile(OCFile file) {
-        Intent intent = new Intent(this, ShareActivity.class);
-        intent.putExtra(EXTRA_FILE, file);
-        intent.putExtra(EXTRA_ACCOUNT, getAccount());
-        startActivity(intent);
-    }
     private void requestForDownload(OCFile file) {
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");

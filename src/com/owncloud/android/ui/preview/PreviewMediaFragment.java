@@ -421,7 +421,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
     private void seeShareFile() {
         stopPreview(false);
-        mContainerActivity.showShareFile(getFile());
+        mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
     }
 
     private void prepareVideo() {

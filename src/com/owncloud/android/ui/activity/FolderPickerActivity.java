@@ -38,7 +38,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -556,17 +555,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     @Override
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
             
-    }
-
-    /**
-     * Shows the share view for sharing  {@link OCFile} received as a
-     * parameter in the second fragment.
-     *
-     * @param file {@link OCFile}  File to share with
-     */
-    @Override
-    public void showShareFile(OCFile file) {
-
     }
 
     @Override

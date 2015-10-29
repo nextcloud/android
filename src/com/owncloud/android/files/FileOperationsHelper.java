@@ -278,6 +278,11 @@ public class FileOperationsHelper {
         }
     }
 
+    /**
+     * Show an instance of {@link ShareType} for sharing or unsharing the {@OCFile} received as parameter.
+     *
+     * @param file  File to share or unshare.
+     */
     public void showShareFile(OCFile file){
         Intent intent = new Intent(mFileActivity, ShareActivity.class);
         intent.putExtra(mFileActivity.EXTRA_FILE, file);
