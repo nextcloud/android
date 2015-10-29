@@ -127,8 +127,7 @@ implements ConfirmationDialogFragmentListener {
 
             boolean containsFavorite = false;
             if (targetFile.isFolder()) {
-                // TODO Enable when "On Device" is recovered ?
-                Vector<OCFile> files = storageManager.getFolderContent(targetFile/*, false*/);
+                Vector<OCFile> files = storageManager.getFolderContent(targetFile, false);
                 for (OCFile file : files) {
                     containsFavorite = file.isFavorite() || containsFavorite;
 
