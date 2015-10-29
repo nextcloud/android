@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Opmaachen</string>
   <string name="prefs_category_general">Allgemeng</string>
   <string name="prefs_category_more">Méi</string>
   <string name="prefs_accounts">Konten</string>
@@ -145,9 +146,7 @@
   <string name="confirmation_remove_alert">Wëlls du %1$s wierklech läschen?</string>
   <string name="confirmation_remove_folder_alert">Wëlls du %1$s an de ganzen Inhalt wierklech läschen?</string>
   <string name="confirmation_remove_local">Nemme lokal</string>
-  <string name="confirmation_remove_folder_local">Nëmme lokal Inhalter</string>
-  <string name="confirmation_remove_remote">Vum Server läschen</string>
-  <string name="confirmation_remove_remote_and_local">Um Server a lokal</string>
+  <string name="confirmation_remove_folder_local">Nemme lokal</string>
   <string name="remove_success_msg">Erfollegräich geläscht</string>
   <string name="remove_fail_msg">Läsche feelgeschloen</string>
   <string name="rename_dialog_title">Gëff en neien Numm an</string>
@@ -212,7 +211,6 @@
   <string name="downloader_download_file_not_found">De Fichier ass net méi um Server disponibel</string>
   <string name="prefs_category_accounts">Konten</string>
   <string name="prefs_add_account">Kont dobäisetzen</string>
-  <string name="auth_redirect_non_secure_connection_title">Sécher Connectioun gëtt op eng onsécher Route ëmgeleet.</string>
   <string name="actionbar_logger">Protokoller</string>
   <string name="log_send_history_button">Historique schécken</string>
   <string name="log_send_no_mail_app">Keng App fonnt fir d\'Protokoller ze schécken. Installéier eng Mail-App!</string>
@@ -228,6 +226,7 @@
   <string name="move_file_invalid_overwrite">De Fichier existéiert schonn am Zildossier</string>
   <string name="move_file_error">Beim Réckele vun dësem Fichier oder Dossier ass e Feeler opgetrueden</string>
   <string name="forbidden_permissions_move">fir dëse Fichier ze réckelen</string>
+  <string name="copy_file_invalid_overwrite">De Fichier existéiert schonn am Zildossier</string>
   <string name="prefs_category_instant_uploading">Direkt eropgeluede Fichieren</string>
   <string name="prefs_category_security">Sécherheet</string>
   <string name="prefs_instant_video_upload_path_title">Pad fir d\'Eropluede vun de Videoen</string>

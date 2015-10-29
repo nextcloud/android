@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Opna</string>
   <string name="prefs_category_general">Generelt</string>
   <string name="prefs_category_more">Meir</string>
   <string name="prefs_accounts">Kontoar</string>
@@ -105,8 +106,7 @@
   <string name="common_rename">Endra namn</string>
   <string name="common_remove">Fjern</string>
   <string name="confirmation_remove_local">Berre lokalt</string>
-  <string name="confirmation_remove_remote">Fjern frå tenaren</string>
-  <string name="confirmation_remove_remote_and_local">Ekstern og lokal</string>
+  <string name="confirmation_remove_folder_local">Berre lokalt</string>
   <string name="remove_success_msg">Fjerning vellukka</string>
   <string name="remove_fail_msg">Fjerning mislukka</string>
   <string name="rename_server_fail_msg">Klarte ikkje å fullføra omdøyping</string>

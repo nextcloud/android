@@ -178,6 +178,7 @@ public class FileContentProvider extends ContentProvider {
             if (c != null && c.moveToFirst()) {
                 remoteId = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID));
                 //ThumbnailsCacheManager.removeFileFromCache(remoteId);
+                c.close();
             }
             Log_OC.d(TAG, "Removing FILE " + remoteId);
 
@@ -187,11 +188,6 @@ public class FileContentProvider extends ContentProvider {
                             + uri.getPathSegments().get(1)
                             + (!TextUtils.isEmpty(where) ? " AND (" + where
                                     + ")" : ""), whereArgs);
-            /* just for log
-            if (c!=null) {
-                c.close();
-            }
-            */
             break;
         case DIRECTORY:
             // deletion of folder is recursive
@@ -306,6 +302,9 @@ public class FileContentProvider extends ContentProvider {
             // ugly patch; serious refactorization is needed to reduce work in
             // FileDataStorageManager and bring it to FileContentProvider
             if (doubleCheck == null || !doubleCheck.moveToFirst()) {
+                if (doubleCheck != null) {
+                    doubleCheck.close();
+                }
                 long rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, null, values);
                 if (rowId > 0) {
                     Uri insertedFileUri =
@@ -341,6 +340,9 @@ public class FileContentProvider extends ContentProvider {
             // ugly patch; serious refactorization is needed to reduce work in
             // FileDataStorageManager and bring it to FileContentProvider
             if (doubleCheckShare == null || !doubleCheckShare.moveToFirst()) {
+                if (doubleCheckShare != null) {
+                    doubleCheckShare.close();
+                }
                 long rowId = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
                 if (rowId >0) {
                     insertedShareUri =

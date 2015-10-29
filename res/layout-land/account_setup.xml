@@ -57,16 +57,18 @@
 			    android:gravity="center"
 			    android:orientation="vertical"
 			    android:padding="8dp" >
-			    
-				<Button
-				    android:id="@+id/centeredRefreshButton"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:layout_gravity="center_horizontal"
+
+				<android.support.v7.widget.AppCompatButton
+					android:id="@+id/centeredRefreshButton"
+					style="@style/ownCloud.Button"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
 					android:layout_marginBottom="10dp"
-				    android:text="@string/auth_check_server"
-				    android:visibility="gone"
-                    android:contentDescription="@string/auth_check_server"/>
+					android:text="@string/auth_check_server"
+					android:visibility="gone"
+					android:contentDescription="@string/auth_check_server"/>
+
 				<TextView
 				    android:id="@+id/instructions_message"
 				    android:layout_width="wrap_content"
@@ -82,7 +84,7 @@
 	        		android:id="@+id/hostUrlFrame"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_marginBottom="10dp"
+					android:layout_marginBottom="0dp"
 			        >
 					<EditText
 						android:id="@+id/hostUrlInput"
@@ -93,7 +95,6 @@
 						android:inputType="textUri"
 						android:drawablePadding="5dp"
 						android:paddingRight="55dp"
-						android:textColor="@color/primary"
 						android:textColorHint="@color/login_text_hint_color"
 						android:contentDescription="@string/auth_host_address"
 						>
@@ -101,13 +102,13 @@
 					</EditText>
 					<ImageButton
 					    android:id="@+id/embeddedRefreshButton"
-					    android:layout_width="48dp"
-					    android:layout_height="48dp"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
 					    android:layout_gravity="center_vertical|right"
 					    android:layout_marginRight="5dp"
 					    android:padding="0dp"
 					    android:scaleType="fitCenter"
-					    android:src="@drawable/ic_action_refresh_black"
+					    android:src="@drawable/ic_action_refresh_grey"
             			android:onClick="onRefreshClick"
 					    android:visibility="gone"
 						android:background="@android:color/transparent"
@@ -126,6 +127,7 @@
 					android:textColor="@color/login_text_color"
 					android:textColorHint="@color/login_text_hint_color"
 					android:text="@string/auth_testing_connection"
+					android:minHeight="32dp"
                     android:contentDescription="@string/auth_testing_connection"/>
 		             
 				<CheckBox
@@ -150,7 +152,6 @@
 					android:text="@string/oauth2_url_endpoint_auth"
 					android:singleLine="true"
 					android:inputType="textUri"
-					android:textColor="@color/primary"
 					android:textColorHint="@color/login_text_hint_color"
 					android:visibility="gone">
 				</EditText>            
@@ -164,7 +165,6 @@
 					android:text="@string/oauth2_url_endpoint_access"
 					android:singleLine="true"
 					android:inputType="textUri"
-					android:textColor="@color/primary"
 					android:textColorHint="@color/login_text_hint_color"
 					android:visibility="gone">
 					<requestFocus />
@@ -177,7 +177,6 @@
 					android:ems="10"
 					android:hint="@string/auth_username"
 					android:inputType="textNoSuggestions"
-					android:textColor="@color/primary"
 					android:textColorHint="@color/login_text_hint_color"
 					android:contentDescription="@string/auth_username"
 					/>
@@ -190,7 +189,6 @@
 					android:hint="@string/auth_password"
 					android:inputType="textPassword"
 					android:drawablePadding="5dp"
-					android:textColor="@color/primary"
 					android:textColorHint="@color/login_text_hint_color"
 					/>
 		        
@@ -223,6 +221,7 @@
 		<android.support.v7.widget.AppCompatButton
 		    android:id="@+id/buttonOK"
 			android:theme="@style/Button.Primary"
+			style="@style/Button.Primary"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_gravity="center_horizontal"

@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Отвори</string>
   <string name="prefs_category_general">Општо</string>
   <string name="prefs_category_more">Повеќе</string>
   <string name="prefs_accounts">Сметки</string>
@@ -192,9 +193,7 @@
   <string name="confirmation_remove_alert">Дали навистина сакаш да ја отстраниш %1$s?</string>
   <string name="confirmation_remove_folder_alert">Дали навистина сакаш да го отстранам %1$s и неговата содржина?</string>
   <string name="confirmation_remove_local">Само локално</string>
-  <string name="confirmation_remove_folder_local">Само локална содржина</string>
-  <string name="confirmation_remove_remote">Отстрани од серверот</string>
-  <string name="confirmation_remove_remote_and_local">Далечинско и локално</string>
+  <string name="confirmation_remove_folder_local">Само локално</string>
   <string name="remove_success_msg">Одстранувањето е успешно</string>
   <string name="remove_fail_msg">Одстранувањето е неуспешно</string>
   <string name="rename_dialog_title">Внеси ново име</string>
@@ -277,7 +276,6 @@
   <string name="downloader_download_file_not_found">Датотеката веќе не е достапна на серверот</string>
   <string name="prefs_category_accounts">Сметки</string>
   <string name="prefs_add_account">Додади сметка</string>
-  <string name="auth_redirect_non_secure_connection_title">Сигурната конекција е преусмерена на несигурна рута.</string>
   <string name="actionbar_logger">Логови</string>
   <string name="log_send_history_button">Прати историја</string>
   <string name="log_send_no_mail_app">Нема апликација за праќање на логови. Инсталирајте апликација за пошта!</string>
@@ -293,6 +291,7 @@
   <string name="move_file_invalid_overwrite">Датотеката веќе постои во целната папка</string>
   <string name="move_file_error">Се случи грешка кога пробував да ја преместам оваа датотека или папка</string>
   <string name="forbidden_permissions_move">да ја преместам оваа датотека</string>
+  <string name="copy_file_invalid_overwrite">Датотеката веќе постои во целната папка</string>
   <string name="prefs_category_instant_uploading">Инстант прикачувања</string>
   <string name="prefs_category_security">Безбедност</string>
   <string name="prefs_instant_video_upload_path_title">Прикачи патека на видео</string>
