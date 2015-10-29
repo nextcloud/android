@@ -39,6 +39,7 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -329,7 +330,9 @@ public class UploadFileOperation extends RemoteOperation {
                 if (result.isSuccess()) {
                     if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
                         mFile.setStoragePath(null);
-
+                    } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_REMOVE){
+                        mFile.setStoragePath(null);
+                        originalFile.delete();
                     } else {
                         mFile.setStoragePath(expectedPath);
                         File fileToMove = null;
@@ -357,6 +360,8 @@ public class UploadFileOperation extends RemoteOperation {
                             }
                         }
                     }
+                    FileDataStorageManager.triggerMediaScan(originalFile.getAbsolutePath());
+                    FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
                 }
             }
 

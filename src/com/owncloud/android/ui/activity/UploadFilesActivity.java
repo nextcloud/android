@@ -39,9 +39,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
@@ -79,8 +81,10 @@ public class UploadFilesActivity extends FileActivity implements
     private static final String TAG = "UploadFilesActivity";
     private static final String WAIT_DIALOG_TAG = "WAIT";
     private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
-    
-    
+    private RadioButton mRadioBtnCopyFiles;
+    private RadioButton mRadioBtnMoveFiles;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
@@ -118,6 +122,21 @@ public class UploadFilesActivity extends FileActivity implements
         mCancelBtn.setOnClickListener(this);
         mUploadBtn = (Button) findViewById(R.id.upload_files_btn_upload);
         mUploadBtn.setOnClickListener(this);
+
+        SharedPreferences appPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+        Integer localBehaviour = appPreferences.getInt("prefs_uploader_behaviour", FileUploader.LOCAL_BEHAVIOUR_COPY);
+
+        mRadioBtnMoveFiles = (RadioButton) findViewById(R.id.upload_radio_move);
+        if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE){
+            mRadioBtnMoveFiles.setChecked(true);
+        }
+
+        mRadioBtnCopyFiles = (RadioButton) findViewById(R.id.upload_radio_copy);
+        if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY){
+            mRadioBtnCopyFiles.setChecked(true);
+        }
         
             
         // Action bar setup
@@ -383,9 +402,22 @@ public class UploadFilesActivity extends FileActivity implements
                 // return the list of selected files (success)
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
-                setResult(RESULT_OK, data);
+
+                SharedPreferences.Editor appPreferencesEditor = PreferenceManager
+                        .getDefaultSharedPreferences(getApplicationContext()).edit();
+
+
+                if (mRadioBtnMoveFiles.isChecked()){
+                    setResult(RESULT_OK_AND_MOVE, data);
+                    appPreferencesEditor.putInt("prefs_uploader_behaviour",
+                            FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                } else {
+                    setResult(RESULT_OK, data);
+                    appPreferencesEditor.putInt("prefs_uploader_behaviour",
+                            FileUploader.LOCAL_BEHAVIOUR_COPY);
+                }
+                appPreferencesEditor.apply();
                 finish();
-                
             } else {
                 // show a dialog to query the user if wants to move the selected files
                 // to the ownCloud folder instead of copying
