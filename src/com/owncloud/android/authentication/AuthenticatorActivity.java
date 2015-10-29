@@ -176,7 +176,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private EditText mUsernameInput;
     private EditText mPasswordInput;
     private View mOkButton;
-    private View mCenteredRefreshButton;
     private TextView mAuthStatusView;
 
     private int mAuthStatusText = 0, mAuthStatusIcon = 0;
@@ -261,16 +260,22 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
         });
 
-        mCenteredRefreshButton = findViewById(R.id.centeredRefreshButton);
-        mCenteredRefreshButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.centeredRefreshButton).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 checkOcServer();
             }
         });
-        
-        mOkButton = findViewById(R.id.buttonOK);
+
+        findViewById(R.id.embeddedRefreshButton).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                checkOcServer();
+            }
+        });
+
 
         /// initialize block to be moved to single Fragment to check server and get info about it 
         initServerPreFragment(savedInstanceState);
@@ -702,7 +707,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         mHostUrlInput.removeTextChangedListener(mHostUrlInputWatcher);
         mHostUrlInput.setOnFocusChangeListener(null);
-        
+
         super.onPause();
     }
     
@@ -811,8 +816,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Intent getServerInfoIntent = new Intent();
             getServerInfoIntent.setAction(OperationsService.ACTION_GET_SERVER_INFO);
             getServerInfoIntent.putExtra(
-                OperationsService.EXTRA_SERVER_URL,
-                normalizeUrlSuffix(uri)
+                    OperationsService.EXTRA_SERVER_URL,
+                    normalizeUrlSuffix(uri)
             );
             if (mOperationsServiceBinder != null) {
                 mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(getServerInfoIntent);
@@ -1623,18 +1628,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mRefreshButton.setVisibility(View.GONE);
         }
     }
-
-    /**
-     * Called when the refresh button in the input field for ownCloud host is clicked.
-     * 
-     * Performs a new check on the URL in the input field.
-     * 
-     * @param view      Refresh 'button'
-     */
-    public void onRefreshClick(View view) {
-        checkOcServer();
-    }
-
 
     /**
      * Called when the eye icon in the password field is clicked.

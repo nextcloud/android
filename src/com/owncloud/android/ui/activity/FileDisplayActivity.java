@@ -149,7 +149,7 @@ public class FileDisplayActivity extends HookActivity
     private boolean mSyncInProgress = false;
 
     private static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
-    private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
+    public static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
     private static String DIALOG_UPLOAD_SOURCE = "DIALOG_UPLOAD_SOURCE";
     private static String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
 
@@ -266,12 +266,7 @@ public class FileDisplayActivity extends HookActivity
             setFile(file);
 
             if (mAccountWasSet) {
-                RelativeLayout navigationDrawerLayout = (RelativeLayout) findViewById(R.id.left_drawer);
-                if (navigationDrawerLayout != null && getAccount() != null) {
-                    TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
-                    int lastAtPos = getAccount().name.lastIndexOf("@");
-                    username.setText(getAccount().name.substring(0, lastAtPos));
-                }
+                setUsernameInDrawer((RelativeLayout) findViewById(R.id.left_drawer), getAccount());
             }
 
             if (!stateWasRecovered) {
@@ -492,8 +487,6 @@ public class FileDisplayActivity extends HookActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(GravityCompat.START);
-        menu.findItem(R.id.action_upload).setVisible(!drawerOpen);
-        menu.findItem(R.id.action_create_dir).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
         menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
@@ -505,6 +498,7 @@ public class FileDisplayActivity extends HookActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        menu.findItem(R.id.action_create_dir).setVisible(false);
         mOptionsMenu = menu;
 
         MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
@@ -519,21 +513,8 @@ public class FileDisplayActivity extends HookActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
-            case R.id.action_create_dir: {
-                CreateFolderDialogFragment dialog =
-                        CreateFolderDialogFragment.newInstance(getCurrentDir());
-                dialog.show(getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
-                break;
-            }
-
             case R.id.action_sync_account: {
                 startSynchronization();
-                break;
-            }
-            case R.id.action_upload: {
-                UploadSourceDialogFragment dialog =
-                        UploadSourceDialogFragment.newInstance(getAccount());
-                dialog.show(getSupportFragmentManager(), DIALOG_UPLOAD_SOURCE);
                 break;
             }
             case android.R.id.home: {
@@ -599,6 +580,34 @@ public class FileDisplayActivity extends HookActivity
             retval = super.onOptionsItemSelected(item);
         }
         return retval;
+    }
+
+    public void createFolder() {
+        CreateFolderDialogFragment dialog =
+                CreateFolderDialogFragment.newInstance(getCurrentDir());
+        dialog.show(getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
+    }
+
+    public void uploadLocalFilesSelected() {
+        Intent action = new Intent(this, UploadFilesActivity.class);
+        action.putExtra(
+                UploadFilesActivity.EXTRA_ACCOUNT,
+                getAccount()
+        );
+        startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
+    }
+
+    public void uploadFromOtherAppsSelected() {
+        Intent action = new Intent(Intent.ACTION_GET_CONTENT);
+        action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
+        //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        }
+        startActivityForResult(
+                Intent.createChooser(action, getString(R.string.upload_chooser_title)),
+                ACTION_SELECT_CONTENT_FROM_APPS
+        );
     }
 
     private void startSynchronization() {
@@ -813,7 +822,26 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     public void onBackPressed() {
-        if (!isDrawerOpen()){
+        boolean isFabOpen = isFabOpen();
+        boolean isDrawerOpen = isDrawerOpen();
+
+        /*
+         * BackPressed priority/hierarchy:
+         *    1. close drawer if opened
+         *    2. close FAB if open (only if drawer isn't open)
+         *    3. navigate up (only if drawer and FAB aren't open)
+         */
+        if(isDrawerOpen && isFabOpen) {
+            // close drawer first
+            super.onBackPressed();
+        } else if(isDrawerOpen && !isFabOpen) {
+            // close drawer
+            super.onBackPressed();
+        } else if (!isDrawerOpen && isFabOpen) {
+            // close fab
+            getListOfFilesFragment().getFabMain().collapse();
+        } else {
+            // all closed
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (mDualPane || getSecondFragment() == null) {
                 OCFile currentDir = getCurrentDir();
@@ -829,10 +857,7 @@ public class FileDisplayActivity extends HookActivity
                 setFile(listOfFiles.getCurrentFile());
             }
             cleanSecondFragment();
-
             changeGridIcon();
-        } else {
-            super.onBackPressed();
         }
     }
 
@@ -922,6 +947,14 @@ public class FileDisplayActivity extends HookActivity
 
         super.onPause();
         Log_OC.v(TAG, "onPause() end");
+    }
+
+    public boolean isFabOpen() {
+        if(getListOfFilesFragment() != null && getListOfFilesFragment().getFabMain() != null && getListOfFilesFragment().getFabMain().isExpanded()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

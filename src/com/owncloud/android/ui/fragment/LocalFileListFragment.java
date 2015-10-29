@@ -54,7 +54,6 @@ public class LocalFileListFragment extends ExtendedListFragment {
     /** Adapter to connect the data from the directory with the View object */
     private LocalFileListAdapter mAdapter = null;
 
-    
     /**
      * {@inheritDoc}
      */
@@ -79,6 +78,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         View v = super.onCreateView(inflater, container, savedInstanceState);
         setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         setSwipeEnabled(false); // Disable pull-to-refresh
+        setFabEnabled(false); // Disable FAB
         setMessageForEmptyList(getString(R.string.local_file_list_empty));
         Log_OC.i(TAG, "onCreateView() end");
         return v;
@@ -120,9 +120,9 @@ public class LocalFileListFragment extends ExtendedListFragment {
                 ImageView checkBoxV = (ImageView) v.findViewById(R.id.custom_checkbox);
                 if (checkBoxV != null) {
                     if (((ListView)getListView()).isItemChecked(position)) {
-                        checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
+                        checkBoxV.setImageResource(R.drawable.ic_checkbox_marked);
                     } else {
-                        checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
+                        checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
                     }
                 }
                 // notify the change to the container Activity

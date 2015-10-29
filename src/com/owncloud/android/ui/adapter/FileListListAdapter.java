@@ -194,6 +194,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             switch (viewType){
                 case LIST_ITEM:
                     TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
+                    TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
                     TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
                     ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
 
@@ -202,6 +203,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
                     checkBoxV.setVisibility(View.GONE);
 
+                    fileSizeSeparatorV.setVisibility(View.VISIBLE);
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
@@ -213,16 +215,17 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             } else {
                                 if (parentList.isItemChecked(position)) {
                                     checkBoxV.setImageResource(
-                                            android.R.drawable.checkbox_on_background);
+                                            R.drawable.ic_checkbox_marked);
                                 } else {
                                     checkBoxV.setImageResource(
-                                            android.R.drawable.checkbox_off_background);
+                                            R.drawable.ic_checkbox_blank_outline);
                                 }
                                 checkBoxV.setVisibility(View.VISIBLE);
                             }
                         }
 
                     } else { //Folder
+                        fileSizeSeparatorV.setVisibility(View.INVISIBLE);
                         fileSizeV.setVisibility(View.INVISIBLE);
                     }
 

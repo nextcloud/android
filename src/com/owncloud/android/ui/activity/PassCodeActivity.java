@@ -534,5 +534,4 @@ public class PassCodeActivity extends AppCompatActivity {
 
     }
 
-
 }

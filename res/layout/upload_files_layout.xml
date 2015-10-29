@@ -38,7 +38,7 @@
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/upload_files_btn_cancel"
-            style="@style/ownCloud.Button"
+            android:theme="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -46,7 +46,7 @@
 
         <android.support.v7.widget.AppCompatButton
 		    android:id="@+id/upload_files_btn_upload"
-            style="@style/ownCloud.Button"
+            android:theme="@style/Button.Primary"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="1"

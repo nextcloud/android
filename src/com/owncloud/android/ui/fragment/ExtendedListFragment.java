@@ -22,6 +22,7 @@ package com.owncloud.android.ui.fragment;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -36,12 +37,16 @@ import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
@@ -64,6 +69,11 @@ public class ExtendedListFragment extends Fragment
     private SwipeRefreshLayout mRefreshGridLayout;
     private SwipeRefreshLayout mRefreshEmptyLayout;
     private TextView mEmptyListMessage;
+
+    private FloatingActionsMenu fabMain;
+    private FloatingActionButton fabUpload;
+    private FloatingActionButton fabMkdir;
+    private FloatingActionButton fabUploadFromApp;
     
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
@@ -96,6 +106,21 @@ public class ExtendedListFragment extends Fragment
         return mCurrentListView;
     }
 
+    public FloatingActionButton getFabUpload() {
+        return fabUpload;
+    }
+
+    public FloatingActionButton getFabUploadFromApp() {
+        return fabUploadFromApp;
+    }
+
+    public FloatingActionButton getFabMkdir() {
+        return fabMkdir;
+    }
+
+    public FloatingActionsMenu getFabMain() {
+        return fabMain;
+    }
 
     public void switchToGridView() {
         if ((mCurrentListView == mListView)) {
@@ -177,6 +202,11 @@ public class ExtendedListFragment extends Fragment
         mGridView.setEmptyView(mRefreshEmptyLayout);
 
         mCurrentListView = mListView;   // list as default
+
+        fabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
+        fabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
+        fabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
+        fabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
 
         return v;
     }
@@ -324,6 +354,23 @@ public class ExtendedListFragment extends Fragment
         mRefreshListLayout.setEnabled(enabled);
         mRefreshGridLayout.setEnabled(enabled);
         mRefreshEmptyLayout.setEnabled(enabled);
+    }
+
+    /**
+     * Disables FAB.
+     *
+     * Sets the 'visibility' state of the FAB contained in the fragment.
+     *
+     * When 'false' is set, FAB visibility is set to View.GONE programatically,
+     *
+     * @param   enabled     Desired visibility for the FAB.
+     */
+    public void setFabEnabled(boolean enabled) {
+        if(enabled) {
+            fabMain.setVisibility(View.VISIBLE);
+        } else {
+            fabMain.setVisibility(View.GONE);
+        }
     }
 
     /**
