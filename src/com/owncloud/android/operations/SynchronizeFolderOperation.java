@@ -404,7 +404,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     /// this should result in direct upload of files that were locally modified
                     SynchronizeFileOperation operation = new SynchronizeFileOperation(
                             child,
-                            (child.getEtagInConflict() != null ? null : child),
+                            (child.getEtagInConflict() != null ? child : null),
                             mAccount,
                             true,
                             mContext
