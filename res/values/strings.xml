@@ -368,4 +368,7 @@
     <string name="file_list__footer__files_and_folders">%1$d files, %2$d folders</string>
     <string name="action_switch_grid_view">Switch to grid view</string>
     <string name="action_switch_list_view">Switch to list view</string>
+    <string name="common_category">Common</string>
+    <string name="pref_cache_size">Cache size</string>
+
 </resources>
