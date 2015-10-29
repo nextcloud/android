@@ -2,6 +2,7 @@
 - PR [#1099](https://github.com/owncloud/android/pull/1099) "Switch list vs grid" merged
 - PR [#1100](https://github.com/owncloud/android/pull/1100) "Material FAB with speed dial implementation" merged
 - PR [#1209](https://github.com/owncloud/android/pull/1209) "Material buttons - before in #1090" merged
+- PR [#1205](https://github.com/owncloud/android/pull/1205) "Switch between online and offline files" merged
 
 
 # 2015-10-26
