@@ -193,19 +193,7 @@ public class DisplayUtils {
         else if ((System.currentTimeMillis() - time) < 60 * 1000) {
             return c.getString(R.string.file_list_seconds_ago);
         } else {
-            // Workaround 2.x bug (see https://github.com/owncloud/android/issues/716)
-            if (    Build.VERSION.SDK_INT <= Build.VERSION_CODES.HONEYCOMB && 
-                    (System.currentTimeMillis() - time) > 24 * 60 * 60 * 1000   ) {
-                Date date = new Date(time);
-                date.setHours(0);
-                date.setMinutes(0);
-                date.setSeconds(0);
-                dateString = DateUtils.getRelativeDateTimeString(
-                        c, date.getTime(), minResolution, transitionResolution, flags
-                );
-            } else {
-                dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
-            }
+            dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
         }
 
         String[] parts = dateString.toString().split(",");
@@ -217,7 +205,7 @@ public class DisplayUtils {
             }
         }
         //dateString contains unexpected format. use localized, absolute date.
-        return DisplayUtils.unixTimeToHumanReadable(time);
+        return dateString.toString();
     }
 
     /**
