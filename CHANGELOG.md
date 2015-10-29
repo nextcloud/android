@@ -1,3 +1,7 @@
+# 2015-10-29
+- PR [#1099](https://github.com/owncloud/android/pull/1099) "Switch list vs grid" merged
+
+
 # 2015-10-26
 - start of branch
 - PR [#745](https://github.com/owncloud/android/pull/745) merged
