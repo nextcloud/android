@@ -38,6 +38,10 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetRemoteShareesOperation;
+import com.owncloud.android.lib.resources.shares.ShareType;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -128,37 +132,45 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                 userQuery, REQUESTED_PAGE, RESULTS_PER_PAGE
         );
         RemoteOperationResult result = searchRequest.execute(account, getContext());
-        List<Pair<String, Byte>> names = new ArrayList<Pair<String, Byte>>();
+        List<JSONObject> names = new ArrayList<JSONObject>();
         if (result.isSuccess()) {
             for (Object o : result.getData()) {
-                names.add((Pair<String, Byte>) o);
+                // Get JSonObjects from response
+                names.add((JSONObject) o);
             }
         }
 
         /// convert the responses from the OC server to the expected format
         if (names.size() > 0) {
             response = new MatrixCursor(COLUMNS);
-            Iterator<Pair<String, Byte>> namesIt = names.iterator();
+            Iterator<JSONObject> namesIt = names.iterator();
             int count = 0;
-            Pair<String, Byte> item;
+            JSONObject item;
             String displayName;
             Uri dataUri;
             Uri userBaseUri = new Uri.Builder().scheme("content").authority(DATA_USER).build();
             Uri groupBaseUri = new Uri.Builder().scheme("content").authority(DATA_GROUP).build();
-
-            while (namesIt.hasNext()) {
-                item = namesIt.next();
-                if (GetRemoteShareesOperation.GROUP_TYPE.equals(item.second)) {
-                    displayName = getContext().getString(R.string.share_group_clarification, item.first);
-                    dataUri = Uri.withAppendedPath(groupBaseUri, item.first);
-                } else {
-                    displayName = item.first;
-                    dataUri = Uri.withAppendedPath(userBaseUri, item.first);
+            try {
+                while (namesIt.hasNext()) {
+                    item = namesIt.next();
+                    String userName = item.getString(GetRemoteShareesOperation.PROPERTY_LABEL);
+                    JSONObject value = item.getJSONObject(GetRemoteShareesOperation.NODE_VALUE);
+                    byte type = (byte) value.getInt(GetRemoteShareesOperation.PROPERTY_SHARE_TYPE);
+                    String shareWith = value.getString(GetRemoteShareesOperation.PROPERTY_SHARE_WITH);
+                    if (GetRemoteShareesOperation.GROUP_TYPE.equals(type)) {
+                        displayName = getContext().getString(R.string.share_group_clarification, userName);
+                        dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
+                    } else {
+                        displayName = userName;
+                        dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
+                    }
+                    response.newRow()
+                            .add(count++)             // BaseColumns._ID
+                            .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
+                            .add(dataUri);
                 }
-                response.newRow()
-                    .add(count++)             // BaseColumns._ID
-                    .add(displayName)        // SearchManager.SUGGEST_COLUMN_TEXT_1
-                    .add(dataUri);
+            } catch (JSONException e) {
+                Log_OC.e(TAG, "Exception while parsing data of users/groups", e);
             }
         }
 
