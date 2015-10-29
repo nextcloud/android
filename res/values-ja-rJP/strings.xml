@@ -199,7 +199,7 @@
   <string name="unfavorite">お気に入りを解除</string>
   <string name="common_rename">名前を変更</string>
   <string name="common_remove">削除</string>
-  <string name="confirmation_remove_alert">本当に %1$s を削除しますか？</string>
+  <string name="confirmation_remove_file_alert">本当に %1$s を削除しますか？</string>
   <string name="confirmation_remove_folder_alert">本当に %1$s およびそのコンテンツを削除してもよろしいですか？</string>
   <string name="confirmation_remove_local">ローカルのみ</string>
   <string name="confirmation_remove_folder_local">ローカルのみ</string>

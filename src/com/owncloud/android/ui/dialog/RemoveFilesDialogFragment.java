@@ -25,53 +25,65 @@ package com.owncloud.android.ui.dialog;
  * 
  *  Triggers the removal according to the user response.
  */
-import java.util.Vector;
 
 import android.app.Dialog;
+import android.content.res.Resources;
 import android.os.Bundle;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 
-public class RemoveFileDialogFragment extends ConfirmationDialogFragment 
+import java.util.ArrayList;
+import java.util.Vector;
+
+public class RemoveFilesDialogFragment extends ConfirmationDialogFragment
 implements ConfirmationDialogFragmentListener {
 
-    private OCFile mTargetFile;
+    private ArrayList<OCFile> mTargetFiles;
 
-    private static final String ARG_TARGET_FILE = "TARGET_FILE";
+    private static final String ARG_TARGET_FILES = "TARGET_FILES";
 
     /**
      * Public factory method to create new RemoveFileDialogFragment instances.
      * 
-     * @param file            File to remove.
+     * @param files            Files to remove.
      * @return                Dialog ready to show.
      */
-    public static RemoveFileDialogFragment newInstance(OCFile file) {
-        RemoveFileDialogFragment frag = new RemoveFileDialogFragment();
+    public static RemoveFilesDialogFragment newInstance(ArrayList<OCFile> files) {
+        RemoveFilesDialogFragment frag = new RemoveFilesDialogFragment();
         Bundle args = new Bundle();
         
-        int messageStringId = R.string.confirmation_remove_file_alert;
+        int messageStringId = R.string.confirmation_remove_files_alert;
         
         int posBtn = R.string.confirmation_remove_file_remote;
         int negBtn = -1;
-        if (file.isFolder()) {
-            messageStringId = R.string.confirmation_remove_folder_alert;
+
+        boolean containsFolder = false;
+        boolean containsDown = false;
+        for (OCFile file: files) {
+            if (file.isFolder()) containsFolder = true;
+            if (file.isDown()) containsDown = true;
+        }
+
+        if (containsFolder) {
+            messageStringId = R.string.confirmation_remove_folders_alert;
             posBtn = R.string.confirmation_remove_remote_and_local;
             negBtn = R.string.confirmation_remove_local;
-        } else if (file.isDown()) {
+        } else if (containsDown) {
             posBtn = R.string.confirmation_remove_remote_and_local;
             negBtn = R.string.confirmation_remove_local;
         }
         
         args.putInt(ARG_CONF_RESOURCE_ID, messageStringId);
-        args.putStringArray(ARG_CONF_ARGUMENTS, new String[]{file.getFileName()});
+        args.putStringArray(ARG_CONF_ARGUMENTS, new String[]{MainApp.getAppContext().getString(R.string.confirmation_remove_files)});
         args.putInt(ARG_POSITIVE_BTN_RES, posBtn);
         args.putInt(ARG_NEUTRAL_BTN_RES, R.string.common_no);
         args.putInt(ARG_NEGATIVE_BTN_RES, negBtn);
-        args.putParcelable(ARG_TARGET_FILE, file);
+        args.putParcelableArrayList(ARG_TARGET_FILES, files);
         frag.setArguments(args);
         
         return frag;
@@ -80,7 +92,7 @@ implements ConfirmationDialogFragmentListener {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        mTargetFile = getArguments().getParcelable(ARG_TARGET_FILE);
+        mTargetFiles = getArguments().getParcelableArrayList(ARG_TARGET_FILES);
         
         setOnConfirmationListener(this);
         
@@ -92,10 +104,12 @@ implements ConfirmationDialogFragmentListener {
      */
     @Override
     public void onConfirmation(String callerTag) {
-        ComponentsGetter cg = (ComponentsGetter)getActivity();
+        ComponentsGetter cg = (ComponentsGetter) getActivity();
         FileDataStorageManager storageManager = cg.getStorageManager();
-        if (storageManager.getFileById(mTargetFile.getFileId()) != null) {
-            cg.getFileOperationsHelper().removeFile(mTargetFile, false);
+        for (OCFile targetFile : mTargetFiles) {
+            if (storageManager.getFileById(targetFile.getFileId()) != null) {
+                cg.getFileOperationsHelper().removeFile(targetFile, false);
+            }
         }
     }
     
@@ -104,34 +118,38 @@ implements ConfirmationDialogFragmentListener {
      */
     @Override
     public void onCancel(String callerTag) {
-        ComponentsGetter cg = (ComponentsGetter)getActivity();
-        cg.getFileOperationsHelper().removeFile(mTargetFile, true);
-        
-        FileDataStorageManager storageManager = cg.getStorageManager();
-        
-        boolean containsFavorite = false;
-        if (mTargetFile.isFolder()) {
-            Vector<OCFile> files = storageManager.getFolderContent(mTargetFile, false);
-            for(OCFile file: files) {
-                containsFavorite = file.isFavorite() || containsFavorite;
+        ComponentsGetter cg = (ComponentsGetter) getActivity();
 
-                if (containsFavorite)
-                    break;
-            }
-        }
+        for (OCFile targetFile : mTargetFiles) {
+            cg.getFileOperationsHelper().removeFile(targetFile, true);
 
-        // Remove etag for parent, if file is a favorite
-        // or is a folder and contains favorite
-        if (mTargetFile.isFavorite() || containsFavorite) {
-            OCFile folder = null;
-            if (mTargetFile.isFolder()) {
-                folder = mTargetFile;
-            } else {
-                folder = storageManager.getFileById(mTargetFile.getParentId());
+            FileDataStorageManager storageManager = cg.getStorageManager();
+
+            boolean containsFavorite = false;
+            if (targetFile.isFolder()) {
+                // TODO Enable when "On Device" is recovered ?
+                Vector<OCFile> files = storageManager.getFolderContent(targetFile/*, false*/);
+                for (OCFile file : files) {
+                    containsFavorite = file.isFavorite() || containsFavorite;
+
+                    if (containsFavorite)
+                        break;
+                }
             }
-            
-           folder.setEtag("");
-           storageManager.saveFile(folder);
+
+            // Remove etag for parent, if file is a favorite
+            // or is a folder and contains favorite
+            if (targetFile.isFavorite() || containsFavorite) {
+                OCFile folder = null;
+                if (targetFile.isFolder()) {
+                    folder = targetFile;
+                } else {
+                    folder = storageManager.getFileById(targetFile.getParentId());
+                }
+
+                folder.setEtag("");
+                storageManager.saveFile(folder);
+            }
         }
     }
 

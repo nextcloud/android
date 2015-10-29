@@ -177,7 +177,7 @@
   <string name="favorite">Favorito</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
-  <string name="confirmation_remove_alert">¿Realmente quieres eliminar %1$s?</string>
+  <string name="confirmation_remove_file_alert">¿Realmente quieres eliminar %1$s?</string>
   <string name="confirmation_remove_folder_alert">¿Realmente deseas eliminar %1$s y todo su contenido?</string>
   <string name="confirmation_remove_local">Sólo local</string>
   <string name="confirmation_remove_folder_local">Sólo local</string>
