@@ -204,7 +204,7 @@ public class DisplayUtils {
                 return parts[1];
             }
         }
-        //dateString contains unexpected format. use localized, absolute date.
+        //dateString contains unexpected format. fallback: use relative date time string from android api as is.
         return dateString.toString();
     }
 
