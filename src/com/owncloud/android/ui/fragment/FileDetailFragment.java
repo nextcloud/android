@@ -22,7 +22,6 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
-
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,6 +36,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -406,17 +406,40 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             String printableMimetype = DisplayUtils.convertMIMEtoPrettyPrint(mimetype);
             tv.setText(printableMimetype);
         }
+
         ImageView iv = (ImageView) getView().findViewById(R.id.fdIcon);
+
         if (iv != null) {
-			Bitmap thumbnail = null;
+            Bitmap thumbnail;
+            iv.setTag(file.getFileId());
+
             if (file.isImage()) {
                 String tagId = String.valueOf(file.getRemoteId());
                 thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
-			}
-			if (thumbnail != null) {
-				// Display thumbnail
-				iv.setImageBitmap(thumbnail);
-			} else {
+
+                if (thumbnail != null && !file.needsUpdateThumbnail()) {
+                    iv.setImageBitmap(thumbnail);
+                } else {
+                    // generate new Thumbnail
+                    if (ThumbnailsCacheManager.cancelPotentialWork(file, iv)) {
+                        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                                        iv, mContainerActivity.getStorageManager(), mAccount
+                                );
+                        if (thumbnail == null) {
+                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                        }
+                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncDrawable(
+                                        MainApp.getAppContext().getResources(),
+                                        thumbnail,
+                                        task
+                                );
+                        iv.setImageDrawable(asyncDrawable);
+                        task.execute(file);
+                    }
+                }
+            } else {
 				// Name of the file, to deduce the icon to use in case the MIME type is not precise enough
 				String filename = file.getFileName();
                 iv.setImageResource(MimetypeIconUtil.getFileTypeIconId(mimetype, filename));

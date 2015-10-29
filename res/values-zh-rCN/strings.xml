@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">几秒前</string>
   <string name="file_list_empty">这里还什么都没有。上传些东西吧！</string>
   <string name="file_list_loading">加载中...</string>
+  <string name="file_list_no_app_for_file_type">找不到用于打开此类型文件的应用</string>
   <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
   <string name="filedetails_select_file">点击一个文件可以显示额外的信息。</string>
   <string name="filedetails_size">大小：</string>
@@ -306,7 +307,11 @@
   <string name="move_file_invalid_overwrite">该文件已经存在在目标文件夹</string>
   <string name="move_file_error">尝试移动该文件或文件夹时发生错误</string>
   <string name="forbidden_permissions_move">移动该文件</string>
+  <string name="copy_file_not_found">无法复制文件。请检查文件是否存在</string>
+  <string name="copy_file_invalid_into_descendent">将一个目录移动到它的子目录是不可能的</string>
   <string name="copy_file_invalid_overwrite">该文件已经存在在目标文件夹</string>
+  <string name="copy_file_error">尝试复制这个文件或文件夹时发生了错误</string>
+  <string name="forbidden_permissions_copy">复制这个文件</string>
   <string name="prefs_category_instant_uploading">即时上传</string>
   <string name="prefs_category_security">安全</string>
   <string name="prefs_instant_video_upload_path_title">视频上传路径</string>
