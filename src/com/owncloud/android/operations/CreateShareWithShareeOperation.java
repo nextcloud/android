@@ -39,6 +39,7 @@ import com.owncloud.android.operations.common.SyncOperation;
 public class CreateShareWithShareeOperation extends SyncOperation {
 
     private static final int READ_ONLY = 1;
+    private static final int ALL_PRIVILEGES = 31;
 
     protected FileDataStorageManager mStorageManager;
 
@@ -79,7 +80,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
                 mShareeName,
                 false,
                 "",
-                READ_ONLY
+                ALL_PRIVILEGES
         );
         operation.setGetShareDetails(true);
         RemoteOperationResult result = operation.execute(client);
