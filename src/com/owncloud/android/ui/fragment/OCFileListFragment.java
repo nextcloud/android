@@ -53,6 +53,7 @@ import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 
@@ -327,6 +328,9 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                     item.setEnabled(false);
                 }
             }
+
+//            String.format(mContext.getString(R.string.subject_token),
+//                    getClient().getCredentials().getUsername(), file.getFileName()));
         }
     }
 
@@ -517,7 +521,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
             OwnCloudVersion version = AccountUtils.getServerVersion(
                     ((FileActivity)mContainerActivity).getAccount());
             if (version != null && version.supportsRemoteThumbnails() &&
-                imagesCount > 0 && imagesCount == filesCount) {
+                    DisplayUtils.isGridView(mFile, mContainerActivity.getStorageManager())) {
                 switchToGridView();
                 registerLongClickListener();
             } else {

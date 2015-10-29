@@ -22,9 +22,21 @@
 
 package com.owncloud.android.utils;
 
+import java.io.File;
+import java.net.IDN;
+import java.text.DateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Vector;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -35,6 +47,7 @@ import android.widget.SeekBar;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 
 import java.net.IDN;
@@ -242,6 +255,67 @@ public class DisplayUtils {
             }
         }
         return size;
+    }
+
+    /**
+     * Determines if user set folder to grid or list view. If folder is not set itself,
+     * it finds a parent that is set (at least root is set).
+     * @param file
+     * @param storageManager
+     * @return
+     */
+    public static boolean isGridView(OCFile file, FileDataStorageManager storageManager){
+        if (file != null) {
+            OCFile fileToTest = file;
+            OCFile parentDir = null;
+            String parentPath = null;
+
+            SharedPreferences setting = MainApp.getAppContext().getSharedPreferences(
+                    "viewMode", Context.MODE_PRIVATE);
+
+            if (setting.contains(fileToTest.getRemoteId())) {
+                return setting.getBoolean(fileToTest.getRemoteId(), false);
+            } else {
+                do {
+                    if (fileToTest.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
+                        parentPath = new File(fileToTest.getRemotePath()).getParent();
+                        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
+                                parentPath + OCFile.PATH_SEPARATOR;
+                        parentDir = storageManager.getFileByPath(parentPath);
+                    } else {
+                        parentDir = storageManager.getFileByPath(OCFile.ROOT_PATH);
+                    }
+
+                    while (parentDir == null) {
+                        parentPath = new File(parentPath).getParent();
+                        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
+                                parentPath + OCFile.PATH_SEPARATOR;
+                        parentDir = storageManager.getFileByPath(parentPath);
+                    }
+                    fileToTest = parentDir;
+                } while (endWhile(parentDir, setting));
+                return setting.getBoolean(fileToTest.getRemoteId(), false);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private static boolean endWhile(OCFile parentDir, SharedPreferences setting) {
+        if (parentDir.getRemotePath().compareToIgnoreCase(OCFile.ROOT_PATH) == 0) {
+            return false;
+        } else {
+            return !setting.contains(parentDir.getRemoteId());
+        }
+    }
+
+    public static void setViewMode(OCFile file, boolean setGrid){
+        SharedPreferences setting = MainApp.getAppContext().getSharedPreferences(
+                "viewMode", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putBoolean(file.getRemoteId(), setGrid);
+        editor.commit();
     }
 
     /**

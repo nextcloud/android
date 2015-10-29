@@ -487,4 +487,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     public void setGridMode(boolean gridMode) {
         mGridMode = gridMode;
     }
+
+    public boolean isGridMode() {
+        return mGridMode;
+    }
 }
