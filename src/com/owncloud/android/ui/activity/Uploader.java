@@ -333,8 +333,7 @@ public class Uploader extends FileActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
         Log_OC.d(TAG, "on item click");
-        // TODO Enable when "On Device" is recovered ?
-        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile /*, false*/);
+        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile, false);
         if (tmpfiles.size() <= 0) return;
         // filter on dirtype
         Vector<OCFile> files = new Vector<OCFile>();
@@ -418,8 +417,7 @@ public class Uploader extends FileActivity
 
         mFile = getStorageManager().getFileByPath(full_path);
         if (mFile != null) {
-            // TODO Enable when "On Device" is recovered ?
-            Vector<OCFile> files = getStorageManager().getFolderContent(mFile/*, false*/);
+            Vector<OCFile> files = getStorageManager().getFolderContent(mFile, false);
             List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
             for (OCFile f : files) {
                 HashMap<String, Object> h = new HashMap<String, Object>();

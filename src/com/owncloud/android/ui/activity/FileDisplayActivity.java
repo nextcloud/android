@@ -295,10 +295,7 @@ public class FileDisplayActivity extends HookActivity
             /// First fragment
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (listOfFiles != null) {
-                listOfFiles.listDirectory(getCurrentDir());
-                // TODO Enable when "On Device" is recovered
-                // listOfFiles.listDirectory(getCurrentDir(), MainApp.getOnlyOnDevice());
-
+                listOfFiles.listDirectory(getCurrentDir(), MainApp.getOnlyOnDevice());
             } else {
                 Log_OC.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
             }
@@ -433,9 +430,7 @@ public class FileDisplayActivity extends HookActivity
     protected void refreshListOfFilesFragment() {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
-            fileListFragment.listDirectory();
-            // TODO Enable when "On Device" is recovered ?
-            // fileListFragment.listDirectory(MainApp.getOnlyOnDevice());
+            fileListFragment.listDirectory(MainApp.getOnlyOnDevice());
         }
     }
 
@@ -1012,10 +1007,8 @@ public class FileDisplayActivity extends HookActivity
                                     currentDir.getRemotePath().equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
-                                    fileListFragment.listDirectory();
-                                    // TODO Enable when "On Device" is recovered ?
-                                    // fileListFragment.listDirectory(currentDir,
-                                    // MainApp.getOnlyOnDevice());
+                                    fileListFragment.listDirectory(currentDir,
+                                    MainApp.getOnlyOnDevice());
                                 }
                             }
                             setFile(currentFile);
@@ -1258,9 +1251,7 @@ public class FileDisplayActivity extends HookActivity
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {  // should never be null, indeed
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
-            listOfFiles.listDirectory(root);
-            // TODO Enable when "On Device" is recovered ?
-            // listOfFiles.listDirectory(root, MainApp.getOnlyOnDevice());
+            listOfFiles.listDirectory(root, MainApp.getOnlyOnDevice());
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root, false);
         }
@@ -1354,9 +1345,7 @@ public class FileDisplayActivity extends HookActivity
             // getFileDownloadBinder() - THIS IS A MESS
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (listOfFiles != null) {
-                listOfFiles.listDirectory();
-                // TODO Enable when "On Device" is recovered ?
-                // listOfFiles.listDirectory(MainApp.getOnlyOnDevice());
+                listOfFiles.listDirectory(MainApp.getOnlyOnDevice());
             }
             FileFragment secondFragment = getSecondFragment();
             if (secondFragment != null && secondFragment instanceof FileDetailFragment) {
@@ -1896,4 +1885,8 @@ public class FileDisplayActivity extends HookActivity
    public void allFilesOption() {
        browseToRoot();
    }
+
+    public void refreshDirectory(){
+        getListOfFilesFragment().refreshDirectory();
+    }
 }

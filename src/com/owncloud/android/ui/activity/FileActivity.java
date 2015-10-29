@@ -383,18 +383,17 @@ public class FileActivity extends AppCompatActivity
         mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0],
                 R.drawable.ic_folder_open));
 
-        // TODO Enable when "On Device" is recovered
         // On Device
-        //mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2],
-        //        mDrawerContentDescriptions[2]));
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1],
+                R.drawable.ic_action_download_grey));
 
         // Settings
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1],
-                R.drawable.ic_settings));
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2], mDrawerContentDescriptions[2],
+                R.drawable.ic_action_settings));
         // Logs
         if (BuildConfig.DEBUG) {
-            mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2],
-                    mDrawerContentDescriptions[2],R.drawable.ic_log));
+            mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[3],
+                    mDrawerContentDescriptions[3],R.drawable.ic_log));
         }
 
         // setting the nav drawer list adapter
@@ -940,6 +939,12 @@ public class FileActivity extends AppCompatActivity
         startActivity(i);
     }
 
+    public void refresh(){
+        Intent i = new Intent(this, FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
 //    TODO re-enable when "Accounts" is available in Navigation Drawer
 //    public void closeDrawer() {
 //        mDrawerLayout.closeDrawers();
@@ -947,6 +952,10 @@ public class FileActivity extends AppCompatActivity
 
     public void allFilesOption(){
         restart();
+    }
+
+    public void refreshDirectory(){
+        // overridden by FileDisplayActivity
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -965,24 +974,25 @@ public class FileActivity extends AppCompatActivity
 //                    break;
 
                 case 0: // All Files
-                    allFilesOption();
+                    MainApp.showOnlyFilesOnDevice(false);
+                    refreshDirectory();
                     mDrawerLayout.closeDrawers();
                     break;
 
-                // TODO Enable when "On Device" is recovered ?
-//                case 2:
-//                    MainApp.showOnlyFilesOnDevice(true);
-//                    mDrawerLayout.closeDrawers();
-//                    break;
+                case 1: // On Device
+                    MainApp.showOnlyFilesOnDevice(true);
+                    refreshDirectory();
+                    mDrawerLayout.closeDrawers();
+                    break;
 
-                case 1: // Settings
+                case 2: // Settings
                     Intent settingsIntent = new Intent(getApplicationContext(),
                             Preferences.class);
                     startActivity(settingsIntent);
                     mDrawerLayout.closeDrawers();
                     break;
 
-                case 2: // Logs
+                case 3: // Logs
                     Intent loggerIntent = new Intent(getApplicationContext(),
                             LogHistoryActivity.class);
                     startActivity(loggerIntent);
