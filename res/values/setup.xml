@@ -8,7 +8,7 @@
     <string name ="db_name">ownCloud</string>
     <string name ="data_folder">owncloud-beta</string>
     <string name ="log_name">Owncloud_</string>
-    <string name ="default_display_name_for_root_folder">ownCloud Beta</string>
+    <string name ="default_display_name_for_root_folder">ownCloud beta</string>
     <string name ="user_agent">Mozilla/5.0 (Android) ownCloud-android/%1$s</string>
     
     <!-- URLs and flags related -->
