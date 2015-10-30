@@ -1082,7 +1082,11 @@ public class FileDisplayActivity extends HookActivity
                         (uploadedRemotePath.startsWith(currentDir.getRemotePath()));
 
                 if (sameAccount && isDescendant) {
-                    refreshListOfFilesFragment();
+                    String linkedToRemotePath =
+                            intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
+                    if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
+                        refreshListOfFilesFragment();
+                    }
                 }
 
                 boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT,
@@ -1135,6 +1139,16 @@ public class FileDisplayActivity extends HookActivity
 
         }
 
+        // TODO refactor this receiver, and maybe DownloadFinishReceiver; this method is duplicated :S
+        private boolean isAscendant(String linkedToRemotePath) {
+            OCFile currentDir = getCurrentDir();
+            return (
+                    currentDir != null &&
+                            currentDir.getRemotePath().startsWith(linkedToRemotePath)
+            );
+        }
+
+
     }
 
 
@@ -1146,11 +1160,10 @@ public class FileDisplayActivity extends HookActivity
      */
     private class DownloadFinishReceiver extends BroadcastReceiver {
 
-        //int refreshCounter = 0;
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                boolean sameAccount = isSameAccount(context, intent);
+                boolean sameAccount = isSameAccount(intent);
                 String downloadedRemotePath =
                         intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
                 boolean isDescendant = isDescendant(downloadedRemotePath);
@@ -1159,7 +1172,6 @@ public class FileDisplayActivity extends HookActivity
                     String linkedToRemotePath =
                             intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
                     if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
-                        //Log_OC.v(TAG, "refresh #" + ++refreshCounter);
                         refreshListOfFilesFragment();
                     }
                     refreshSecondFragment(
@@ -1201,7 +1213,7 @@ public class FileDisplayActivity extends HookActivity
             );
         }
 
-        private boolean isSameAccount(Context context, Intent intent) {
+        private boolean isSameAccount(Intent intent) {
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
             return (accountName != null && getAccount() != null &&
                     accountName.equals(getAccount().name));
