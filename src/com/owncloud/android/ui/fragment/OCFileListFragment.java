@@ -492,10 +492,11 @@ public class OCFileListFragment extends ExtendedListFragment {
                     } else {
                         mContainerActivity.getFileOperationsHelper().openFile(file);
                     }
-                    
+                } else {
+                    // automatic download, preview on finish
+                    ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
                 }
             }
-
         } else {
             Log_OC.d(TAG, "Null object in ListAdapter!!");
         }
