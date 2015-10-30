@@ -24,8 +24,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import android.accounts.Account;
@@ -88,16 +90,8 @@ public class FileDataStorageManager {
         return mAccount;
     }
 
-    public void setContentResolver(ContentResolver cr) {
-        mContentResolver = cr;
-    }
-
     public ContentResolver getContentResolver() {
         return mContentResolver;
-    }
-
-    public void setContentProviderClient(ContentProviderClient cp) {
-        mContentProviderClient = cp;
     }
 
     public ContentProviderClient getContentProviderClient() {
@@ -188,7 +182,6 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
         cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
         cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
-        //if (file.getParentId() != DataStorageManager.ROOT_PARENT_ID)
         cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
         cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
         if (!file.isFolder())
@@ -204,11 +197,12 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
         cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
         cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
-        
+        cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
+
         boolean sameRemotePath = fileExists(file.getRemotePath());
         if (sameRemotePath ||                fileExists(file.getFileId())) {           // for renamed files; no more delete and create
 
-            OCFile oldFile = null;
+            OCFile oldFile;
             if (sameRemotePath) {
                 oldFile = getFileByPath(file.getRemotePath());
                 file.setFileId(oldFile.getFileId());
@@ -253,12 +247,6 @@ public class FileDataStorageManager {
                 file.setFileId(new_id);
             }
         }
-
-//        if (file.isFolder()) {
-//            updateFolderSize(file.getFileId());
-//        } else {
-//            updateFolderSize(file.getParentId());
-//        }
 
         return overriden;
     }
@@ -313,6 +301,7 @@ public class FileDataStorageManager {
             cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
             cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
             cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
+            cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
 
             boolean existsByPath = fileExists(file.getRemotePath());
             if (existsByPath || fileExists(file.getFileId())) {
@@ -337,7 +326,6 @@ public class FileDataStorageManager {
         for (OCFile file : filesToRemove) {
             if (file.getParentId() == folder.getFileId()) {
                 whereArgs = new String[]{mAccount.name, file.getRemotePath()};
-                //Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, "" + file.getFileId());
                 if (file.isFolder()) {
                     operations.add(ContentProviderOperation.newDelete(
                             ContentUris.withAppendedId(
@@ -434,41 +422,7 @@ public class FileDataStorageManager {
             }
         }
 
-        //updateFolderSize(folder.getFileId());
-
     }
-
-
-//    /**
-//     * 
-//     * @param id
-//     */
-//    private void updateFolderSize(long id) {
-//        if (id > FileDataStorageManager.ROOT_PARENT_ID) {
-//            Log_OC.d(TAG, "Updating size of " + id);
-//            if (getContentResolver() != null) {
-//                getContentResolver().update(ProviderTableMeta.CONTENT_URI_DIR, 
-//                        new ContentValues(),    
-                            // won't be used, but cannot be null; crashes in KLP
-//                        ProviderTableMeta._ID + "=?",
-//                        new String[] { String.valueOf(id) });
-//            } else {
-//                try {
-//                    getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_DIR, 
-//                            new ContentValues(),    
-                                // won't be used, but cannot be null; crashes in KLP
-//                            ProviderTableMeta._ID + "=?",
-//                            new String[] { String.valueOf(id) });
-//                    
-//                } catch (RemoteException e) {
-//                    Log_OC.e(
-//    TAG, "Exception in update of folder size through compatibility patch " + e.getMessage());
-//                }
-//            }
-//        } else {
-//            Log_OC.e(TAG,  "not updating size for folder " + id);
-//        }
-//    }
 
 
     public boolean removeFile(OCFile file, boolean removeDBData, boolean removeLocalCopy) {
@@ -505,6 +459,7 @@ public class FileDataStorageManager {
                         // maybe unnecessary, but should be checked TODO remove if unnecessary
                         file.setStoragePath(null);
                         saveFile(file);
+                        saveConflict(file, null);
                     }
                 }
             }
@@ -942,43 +897,11 @@ public class FileDataStorageManager {
                     c.getColumnIndex(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1 ? true : false);
             file.setDownloading(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1 ? true : false);
-                    
+            file.setEtagInConflict(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG_IN_CONFLICT)));
+
         }
         return file;
     }
-
-    /**
-     * Returns if the file/folder is shared by link or not
-     *
-     * @param path Path of the file/folder
-     * @return
-     */
-    public boolean isShareByLink(String path) {
-        Cursor c = getCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
-        OCFile file = null;
-        if (c.moveToFirst()) {
-            file = createFileInstance(c);
-        }
-        c.close();
-        return file.isShareByLink();
-    }
-
-    /**
-     * Returns the public link of the file/folder
-     *
-     * @param path Path of the file/folder
-     * @return
-     */
-    public String getPublicLink(String path) {
-        Cursor c = getCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
-        OCFile file = null;
-        if (c.moveToFirst()) {
-            file = createFileInstance(c);
-        }
-        c.close();
-        return file.getPublicLink();
-    }
-
 
     // Methods for Shares
     public boolean saveShare(OCShare share) {
@@ -1310,6 +1233,7 @@ public class FileDataStorageManager {
                         ProviderTableMeta.FILE_IS_DOWNLOADING,
                         file.isDownloading() ? 1 : 0
                 );
+                cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
 
                 boolean existsByPath = fileExists(file.getRemotePath());
                 if (existsByPath || fileExists(file.getFileId())) {
@@ -1490,44 +1414,6 @@ public class FileDataStorageManager {
             }
         }
         return preparedOperations;
-        
-        /*
-        if (operations.size() > 0) {
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException e) {
-                Log_OC.e(TAG, "Exception in batch of operations " + e.getMessage());
-
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in batch of operations  " + e.getMessage());
-            }
-        }            
-        */
-            
-            /*
-            if (getContentResolver() != null) {
-                
-                getContentResolver().delete(ProviderTableMeta.CONTENT_URI_SHARE, 
-                                            where,
-                                            whereArgs);
-            } else {
-                try {
-                    getContentProviderClient().delete(  ProviderTableMeta.CONTENT_URI_SHARE, 
-                                                        where,
-                                                        whereArgs);
-
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, "Exception deleting shares in a folder " + e.getMessage());
-                }
-            }
-            */
-        //}
     }
 
     public void triggerMediaScan(String path) {
@@ -1578,4 +1464,138 @@ public class FileDataStorageManager {
 
     }
 
+    public void saveConflict(OCFile file, String etagInConflict) {
+        if (!file.isDown()) {
+            etagInConflict = null;
+        }
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, etagInConflict);
+        int updated = 0;
+        if (getContentResolver() != null) {
+            updated = getContentResolver().update(
+                    ProviderTableMeta.CONTENT_URI_FILE,
+                    cv,
+                    ProviderTableMeta._ID + "=?",
+                    new String[] { String.valueOf(file.getFileId())}
+            );
+        } else {
+            try {
+                updated = getContentProviderClient().update(
+                        ProviderTableMeta.CONTENT_URI_FILE,
+                        cv,
+                        ProviderTableMeta._ID + "=?",
+                        new String[]{String.valueOf(file.getFileId())}
+                );
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage());
+            }
+        }
+
+        Log_OC.d(TAG, "Number of files updated with CONFLICT: " + updated);
+
+        if (updated > 0) {
+            if (etagInConflict != null) {
+                /// set conflict in all ancestor folders
+
+                long parentId = file.getParentId();
+                Set<String> ancestorIds = new HashSet<String>();
+                while (parentId != FileDataStorageManager.ROOT_PARENT_ID) {
+                    ancestorIds.add(Long.toString(parentId));
+                    parentId = getFileById(parentId).getParentId();
+                }
+
+                if (ancestorIds.size() > 0) {
+                    StringBuffer whereBuffer = new StringBuffer();
+                    whereBuffer.append(ProviderTableMeta._ID).append(" IN (");
+                    for (int i = 0; i < ancestorIds.size() - 1; i++) {
+                        whereBuffer.append("?,");
+                    }
+                    whereBuffer.append("?");
+                    whereBuffer.append(")");
+
+                    if (getContentResolver() != null) {
+                        updated = getContentResolver().update(
+                                ProviderTableMeta.CONTENT_URI_FILE,
+                                cv,
+                                whereBuffer.toString(),
+                                ancestorIds.toArray(new String[]{})
+                        );
+                    } else {
+                        try {
+                            updated = getContentProviderClient().update(
+                                    ProviderTableMeta.CONTENT_URI_FILE,
+                                    cv,
+                                    whereBuffer.toString(),
+                                    ancestorIds.toArray(new String[]{})
+                            );
+                        } catch (RemoteException e) {
+                            Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage());
+                        }
+                    }
+                } // else file is ROOT folder, no parent to set in conflict
+
+            } else {
+                /// update conflict in ancestor folders
+                // (not directly unset; maybe there are more conflicts below them)
+                String parentPath = file.getRemotePath();
+                if (parentPath.endsWith(OCFile.PATH_SEPARATOR)) {
+                    parentPath = parentPath.substring(0, parentPath.length() - 1);
+                }
+                parentPath = parentPath.substring(0, parentPath.lastIndexOf(OCFile.PATH_SEPARATOR) + 1);
+
+                Log_OC.d(TAG, "checking parents to remove conflict; STARTING with " + parentPath);
+                while (parentPath.length() > 0) {
+
+                    String where =
+                            ProviderTableMeta.FILE_ETAG_IN_CONFLICT + " IS NOT NULL AND " +
+                                    ProviderTableMeta.FILE_CONTENT_TYPE + " != 'DIR' AND " +
+                                    ProviderTableMeta.FILE_ACCOUNT_OWNER + " = ? AND " +
+                                    ProviderTableMeta.FILE_PATH + " LIKE ?";
+                    Cursor descendentsInConflict = getContentResolver().query(
+                            ProviderTableMeta.CONTENT_URI_FILE,
+                            new String[]{ProviderTableMeta._ID},
+                            where,
+                            new String[]{mAccount.name, parentPath + "%"},
+                            null
+                    );
+                    if (descendentsInConflict == null || descendentsInConflict.getCount() == 0) {
+                        Log_OC.d(TAG, "NO MORE conflicts in " + parentPath);
+                        if (getContentResolver() != null) {
+                            updated = getContentResolver().update(
+                                    ProviderTableMeta.CONTENT_URI_FILE,
+                                    cv,
+                                    ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " +
+                                            ProviderTableMeta.FILE_PATH + "=?",
+                                    new String[]{mAccount.name, parentPath}
+                            );
+                        } else {
+                            try {
+                                updated = getContentProviderClient().update(
+                                        ProviderTableMeta.CONTENT_URI_FILE,
+                                        cv,
+                                        ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " +
+                                                ProviderTableMeta.FILE_PATH + "=?"
+                                        , new String[]{mAccount.name, parentPath}
+                                );
+                            } catch (RemoteException e) {
+                                Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage());
+                            }
+                        }
+
+                    } else {
+                        Log_OC.d(TAG, "STILL " + descendentsInConflict.getCount() + " in " + parentPath);
+                    }
+
+                    if (descendentsInConflict != null) {
+                        descendentsInConflict.close();
+                    }
+
+                    parentPath = parentPath.substring(0, parentPath.length() - 1);  // trim last /
+                    parentPath = parentPath.substring(0, parentPath.lastIndexOf(OCFile.PATH_SEPARATOR) + 1);
+                    Log_OC.d(TAG, "checking parents to remove conflict; NEXT " + parentPath);
+                }
+            }
+        }
+
+    }
 }

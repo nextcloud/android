@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Aqui não existe nada. Envie alguma coisa!</string>
   <string name="file_list_loading">A carregar...</string>
+  <string name="file_list_no_app_for_file_type">Nenhuma App encontrada por tipo de ficheiro!</string>
   <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
   <string name="filedetails_select_file">Toque num ficheiro para visualizar a informação adicional.</string>
   <string name="filedetails_size">Tamanho:</string>
