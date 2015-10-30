@@ -2,9 +2,9 @@
 <resources>
     <!-- App name  and other strings-->
     <string name="app_name">Owncloud Beta</string>
-    <string name="account_type">owncloud</string>	<!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
-    <string name="authority">org.owncloud</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
-    <string name ="db_file">owncloud-beta.db</string>
+    <string name="account_type">owncloud.beta</string>	<!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
+    <string name="authority">org.owncloud.beta.provider</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name ="db_file">owncloud.db</string>
     <string name ="db_name">ownCloud</string>
     <string name ="data_folder">owncloud-beta</string>
     <string name ="log_name">Owncloud_</string>
