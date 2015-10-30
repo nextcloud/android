@@ -471,7 +471,7 @@ public class FileDownloader extends Service
         file.setRemoteId(mCurrentDownload.getFile().getRemoteId());
         mStorageManager.saveFile(file);
         mStorageManager.triggerMediaScan(file.getStoragePath());
-        mStorageManager.saveConflict(file, false);
+        mStorageManager.saveConflict(file, null);
     }
 
     /**

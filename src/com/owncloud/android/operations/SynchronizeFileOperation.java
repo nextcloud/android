@@ -222,7 +222,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                 //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
                 if (localChanged && serverChanged) {
                     result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
-                    getStorageManager().saveConflict(mLocalFile, true);
+                    getStorageManager().saveConflict(mLocalFile, mServerFile.getEtag());
 
                 } else if (localChanged) {
                     if (mSyncFileContents && mAllowUploads) {
@@ -265,7 +265,7 @@ public class SynchronizeFileOperation extends SyncOperation {
 
                 // safe blanket: sync'ing a not in-conflict file will clean wrong conflict markers in ancestors
                 if (result.getCode() != ResultCode.SYNC_CONFLICT) {
-                    getStorageManager().saveConflict(mLocalFile, false);
+                    getStorageManager().saveConflict(mLocalFile, null);
                 }
             }
 

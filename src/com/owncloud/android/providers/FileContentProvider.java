@@ -106,8 +106,8 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_UPDATE_THUMBNAIL);
         mFileProjectionMap.put(ProviderTableMeta.FILE_IS_DOWNLOADING,
                 ProviderTableMeta.FILE_IS_DOWNLOADING);
-        mFileProjectionMap.put(ProviderTableMeta.FILE_IN_CONFLICT,
-                ProviderTableMeta.FILE_IN_CONFLICT);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT,
+                ProviderTableMeta.FILE_ETAG_IN_CONFLICT);
     }
 
     private static final int SINGLE_FILE = 1;
@@ -585,7 +585,7 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_REMOTE_ID  + " TEXT null,"
                     + ProviderTableMeta.FILE_UPDATE_THUMBNAIL  + " INTEGER," //boolean
                     + ProviderTableMeta.FILE_IS_DOWNLOADING  + " INTEGER," //boolean
-                    + ProviderTableMeta.FILE_IN_CONFLICT + " INTEGER);"    //boolean
+                    + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + " TEXT);"
                     );
 
             // Create table ocshares
@@ -791,8 +791,8 @@ public class FileContentProvider extends ContentProvider {
                 db.beginTransaction();
                 try {
                     db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
-                            " ADD COLUMN " + ProviderTableMeta.FILE_IN_CONFLICT + " INTEGER " +
-                            " DEFAULT 0");
+                            " ADD COLUMN " + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + " TEXT " +
+                            " DEFAULT NULL");
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {

@@ -340,7 +340,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 }
                 updatedFile.setPublicLink(localFile.getPublicLink());
                 updatedFile.setShareByLink(localFile.isShareByLink());
-                updatedFile.setInConflict(localFile.isInConflict());
+                updatedFile.setEtagInConflict(localFile.getEtagInConflict());
             } else {
                 // remote eTag will not be updated unless file CONTENTS are synchronized
                 updatedFile.setEtag("");
@@ -404,7 +404,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     /// this should result in direct upload of files that were locally modified
                     SynchronizeFileOperation operation = new SynchronizeFileOperation(
                             child,
-                            (child.isInConflict() ? null : child),
+                            (child.getEtagInConflict() != null ? child : null),
                             mAccount,
                             true,
                             mContext

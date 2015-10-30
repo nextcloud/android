@@ -574,7 +574,8 @@ public class FileUploader extends Service
                             saveUploadedFile();
 
                         } else if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) {
-                            mStorageManager.saveConflict(mCurrentUpload.getFile(), true);
+                            mStorageManager.saveConflict(mCurrentUpload.getFile(),
+                                    mCurrentUpload.getFile().getEtagInConflict());
                         }
                     } else {
                         uploadResult = grantResult;
@@ -704,7 +705,7 @@ public class FileUploader extends Service
             if (oldFile.fileExists()) {
                 oldFile.setStoragePath(null);
                 mStorageManager.saveFile(oldFile);
-                mStorageManager.saveConflict(oldFile, false);
+                mStorageManager.saveConflict(oldFile, null);
 
             } // else: it was just an automatic renaming due to a name
             // coincidence; nothing else is needed, the storagePath is right
@@ -712,7 +713,7 @@ public class FileUploader extends Service
         }
         file.setNeedsUpdateThumbnail(true);
         mStorageManager.saveFile(file);
-        mStorageManager.saveConflict(file, false);
+        mStorageManager.saveConflict(file, null);
         
         mStorageManager.triggerMediaScan(file.getStoragePath());
 
