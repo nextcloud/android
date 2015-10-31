@@ -1,6 +1,8 @@
 # 2015-10-31
 - updated all PR
 - bugfix: #1234, #1230
+- implement Crash Handler
+- implement direct download of latest apk in settings -> last item on bottom
 
 # 2015-10-30
 - fixed problem with Authority
