@@ -325,8 +325,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 if (file.isImage() && file.getRemoteId() != null){
                     // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            String.valueOf(file.getRemoteId())
-                            );
+                            "t" + String.valueOf(file.getRemoteId()));
                     if (thumbnail != null && !file.needsUpdateThumbnail()){
                         fileIcon.setImageBitmap(thumbnail);
                     } else {

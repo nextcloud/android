@@ -424,13 +424,20 @@ public class ThumbnailsCacheManager {
         }
 
         private Bitmap doFileInBackground(Boolean mIsThumbnail) {
-            Bitmap thumbnail = null;
             File file = (File)mFile;
 
-            final String imageKey = String.valueOf(file.hashCode());
+            // distinguish between thumbnail and resized image
+            String temp = String.valueOf(file.hashCode());
+            if (mIsThumbnail){
+                temp = "t" + temp;
+            } else {
+                temp = "r" + temp;
+            }
+
+            final String imageKey = temp;
 
             // Check disk cache in background thread
-            thumbnail = getBitmapFromDiskCache(imageKey);
+            Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
 
             // Not found in disk cache
             if (thumbnail == null) {
