@@ -80,7 +80,6 @@ Telecargatz-lo aicí : %2$s</string>
   <string name="filedetails_created">Creat lo :</string>
   <string name="filedetails_modified">Modificat lo :</string>
   <string name="filedetails_download">Telecargar</string>
-  <string name="filedetails_sync_file">Actualizar lo fichièr</string>
   <string name="filedetails_renamed_in_upload_msg">Lo fichièr es estat renomenat en %s pendent lo mandadís</string>
   <string name="list_layout">Afichatge en lista</string>
   <string name="action_share_file">Partejar lo ligam</string>
@@ -88,8 +87,6 @@ Telecargatz-lo aicí : %2$s</string>
   <string name="common_yes">Òc</string>
   <string name="common_no">Non</string>
   <string name="common_ok">D\'acòrdi</string>
-  <string name="common_cancel_download">Anullar lo telecargament</string>
-  <string name="common_cancel_upload">Anullar lo mandadís</string>
   <string name="common_cancel">Anullar</string>
   <string name="common_save_exit">Salvar &amp; Quitar</string>
   <string name="common_error">Error</string>
@@ -320,7 +317,6 @@ En rason d\'aquesta modificacion, totes los fichièrs mandats amb de versions an
   <string name="prefs_category_instant_uploading">Mandadís immediat</string>
   <string name="prefs_category_security">Seguretat</string>
   <string name="prefs_instant_video_upload_path_title">Repertòri de mandadís de las vidèos</string>
-  <string name="download_folder_failed_content">Lo telecargament del dorsièr %1$s a pas pogut èsser acabat</string>
   <string name="shared_subject_header">a partejat</string>
   <string name="with_you_subject_header">amb vos</string>
   <string name="subject_token">%1$s a partejat \"%2$s\" amb vos</string>

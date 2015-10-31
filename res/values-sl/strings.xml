@@ -78,7 +78,6 @@
   <string name="filedetails_created">Ustvarjeno:</string>
   <string name="filedetails_modified">Spremenjeno:</string>
   <string name="filedetails_download">Prejmi</string>
-  <string name="filedetails_sync_file">Osveži datoteko</string>
   <string name="filedetails_renamed_in_upload_msg">Datoteka je bila med nalaganjem preimenovana v %1$s</string>
   <string name="list_layout">Postavitev seznama</string>
   <string name="action_share_file">Povezava za souporabo</string>
@@ -86,8 +85,6 @@
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">V redu</string>
-  <string name="common_cancel_download">Prekliči prejem</string>
-  <string name="common_cancel_upload">Prekliči pošiljanje</string>
   <string name="common_cancel">Prekliči</string>
   <string name="common_save_exit">Shrani in končaj</string>
   <string name="common_error">Napaka</string>
@@ -311,7 +308,6 @@
   <string name="prefs_category_instant_uploading">Takojšnje pošiljanje v oblak</string>
   <string name="prefs_category_security">Varnost</string>
   <string name="prefs_instant_video_upload_path_title">Pot videa za pošiljanje</string>
-  <string name="download_folder_failed_content">Imenika %1$s  ni mogoče prejeti v celoti</string>
   <string name="shared_subject_header">v souporabi</string>
   <string name="with_you_subject_header">z vami</string>
   <string name="subject_token">Uporabnik %1$s je omogočil souporabo \"%2$s\" z vami</string>

@@ -79,7 +79,6 @@
   <string name="filedetails_created">Sukurta:</string>
   <string name="filedetails_modified">Modifikuota:</string>
   <string name="filedetails_download">Atsisiųsti</string>
-  <string name="filedetails_sync_file">Atnaujinti failą</string>
   <string name="filedetails_renamed_in_upload_msg">Įkėlimo metu failas buvo pervadintas į %1$s</string>
   <string name="list_layout">Sąrašo išdėstymas</string>
   <string name="action_share_file">Dalintis nuoroda</string>
@@ -87,8 +86,6 @@
   <string name="common_yes">Taip</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Gerai</string>
-  <string name="common_cancel_download">Atšaukti parsiuntimą</string>
-  <string name="common_cancel_upload">Atšaukti siuntimą</string>
   <string name="common_cancel">Atšaukti</string>
   <string name="common_save_exit">Išsaugoti ir Išeiti</string>
   <string name="common_error">Klaida</string>
@@ -313,7 +310,6 @@
   <string name="prefs_category_instant_uploading">Momentinis įkėlimas</string>
   <string name="prefs_category_security">Saugumas</string>
   <string name="prefs_instant_video_upload_path_title">Vaizdo įrašų įkėlimo kelias</string>
-  <string name="download_folder_failed_content">Nepavyko baigti %1$s atsiuntimo</string>
   <string name="shared_subject_header">Dalinamasi</string>
   <string name="with_you_subject_header">su jumis</string>
   <string name="subject_token">%1$s dalinamasi \"%2$s\" su jumis</string>

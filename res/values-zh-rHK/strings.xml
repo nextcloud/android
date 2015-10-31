@@ -43,8 +43,6 @@
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">確定</string>
-  <string name="common_cancel_download">取消下戴</string>
-  <string name="common_cancel_upload">取消上戴</string>
   <string name="common_cancel">取消</string>
   <string name="common_save_exit">儲存並離開</string>
   <string name="common_error">錯誤</string>

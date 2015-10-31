@@ -79,7 +79,6 @@
   <string name="filedetails_created">Creado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
-  <string name="filedetails_sync_file">Actualizar archivo</string>
   <string name="filedetails_renamed_in_upload_msg">El fichero fue renombrado como %1$s durante la subida</string>
   <string name="list_layout">Diseño de lista</string>
   <string name="action_share_file">Compartir con enlace</string>
@@ -87,8 +86,6 @@
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>
-  <string name="common_cancel_download">Cancelar descarga</string>
-  <string name="common_cancel_upload">Cancelar subida</string>
   <string name="common_cancel">Cancelar</string>
   <string name="common_save_exit">Guardar &amp; Salir</string>
   <string name="common_error">Error</string>
@@ -316,7 +313,6 @@
   <string name="prefs_category_instant_uploading">Subidas instantáneas</string>
   <string name="prefs_category_security">Seguridad</string>
   <string name="prefs_instant_video_upload_path_title">Guardar videos subidos en la carpeta:</string>
-  <string name="download_folder_failed_content">La descarga de la carpeta %1$s no ha podido ser completada</string>
   <string name="shared_subject_header">compartido</string>
   <string name="with_you_subject_header">con usted</string>
   <string name="subject_token">%1$s compartió \"%2$s\" conmigo</string>

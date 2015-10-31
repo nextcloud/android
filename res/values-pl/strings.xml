@@ -78,7 +78,6 @@
   <string name="filedetails_created">Utworzono:</string>
   <string name="filedetails_modified">Zmodyfikowano:</string>
   <string name="filedetails_download">Pobierz</string>
-  <string name="filedetails_sync_file">Odśwież plik</string>
   <string name="filedetails_renamed_in_upload_msg">Podczas wysyłania nazwa pliku została zmieniona na %1$s</string>
   <string name="list_layout">Lista szablonów wyglądu</string>
   <string name="action_share_file">Udostępnij link</string>
@@ -86,8 +85,6 @@
   <string name="common_yes">Tak</string>
   <string name="common_no">Nie</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Anuluj pobieranie</string>
-  <string name="common_cancel_upload">Anuluj wysyłanie</string>
   <string name="common_cancel">Anuluj</string>
   <string name="common_save_exit">Zapisz i wyjdź</string>
   <string name="common_error">Błąd</string>
@@ -308,7 +305,6 @@
   <string name="prefs_category_instant_uploading">Automatyczne wysyłanie</string>
   <string name="prefs_category_security">Bezpieczeństwo</string>
   <string name="prefs_instant_video_upload_path_title">Katalog wysyłania dla wideo</string>
-  <string name="download_folder_failed_content">Pobieranie %1$s katalogu nie może zostać ukończone</string>
   <string name="shared_subject_header">udostępniony</string>
   <string name="with_you_subject_header">z tobą</string>
   <string name="auth_refresh_button">Odśwież połączenie</string>

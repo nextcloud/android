@@ -578,8 +578,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                     mContainerActivity.getFileOperationsHelper().syncFile(mTargetFile);
                     return true;
                 }
-                case R.id.action_cancel_download:
-                case R.id.action_cancel_upload: {
+                case R.id.action_cancel_sync: {
                     ((FileDisplayActivity) mContainerActivity).cancelTransference(mTargetFile);
                     return true;
                 }

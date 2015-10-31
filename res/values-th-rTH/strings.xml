@@ -79,7 +79,6 @@
   <string name="filedetails_created">สร้างเมื่อ:</string>
   <string name="filedetails_modified">แก้ไขเมื่อ:</string>
   <string name="filedetails_download">ดาวน์โหลด</string>
-  <string name="filedetails_sync_file">ฟื้นฟูไฟล์</string>
   <string name="filedetails_renamed_in_upload_msg">ไฟล์ได้ถูกเปลี่ยนชื่อเป็น %1$s ในระหว่างการอัพโหลด</string>
   <string name="list_layout">เค้าโครงรายการ</string>
   <string name="action_share_file">แชร์ลิงค์</string>
@@ -87,8 +86,6 @@
   <string name="common_yes">ตกลง</string>
   <string name="common_no">ไม่ตกลง</string>
   <string name="common_ok">ตกลง</string>
-  <string name="common_cancel_download">ยกเลิกการดาวน์โหลด</string>
-  <string name="common_cancel_upload">ยกเลิกการอัพโหลด</string>
   <string name="common_cancel">ยกเลิก</string>
   <string name="common_save_exit">บันทึก &amp; ออก</string>
   <string name="common_error">ข้อผิดพลาด</string>
@@ -314,7 +311,6 @@
   <string name="prefs_category_instant_uploading">อัพโหลดทันที</string>
   <string name="prefs_category_security">ความปลอดภัย</string>
   <string name="prefs_instant_video_upload_path_title">อัพโหลดเส้นทางวิดีโอ</string>
-  <string name="download_folder_failed_content">การดาวน์โหลดโฟลเดอร์ %1$s อาจไม่สำเร็จ</string>
   <string name="shared_subject_header">ถูกแชร์</string>
   <string name="with_you_subject_header">กับคุณ</string>
   <string name="subject_token">%1$s ได้แชร์ \"%2$s\" กับคุณ</string>

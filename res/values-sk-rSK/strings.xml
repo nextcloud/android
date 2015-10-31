@@ -78,7 +78,6 @@
   <string name="filedetails_created">Vytvorený:</string>
   <string name="filedetails_modified">Zmenený:</string>
   <string name="filedetails_download">Stiahnuť</string>
-  <string name="filedetails_sync_file">Obnoviť súbor</string>
   <string name="filedetails_renamed_in_upload_msg">Súbor bol premenovaný na %1$s počas nahrávania</string>
   <string name="list_layout">Rozvrhnutie zoznamu</string>
   <string name="action_share_file">Zdieľať linku</string>
@@ -86,8 +85,6 @@
   <string name="common_yes">Áno</string>
   <string name="common_no">Nie</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Zrušiť sťahovanie</string>
-  <string name="common_cancel_upload">Zrušiť odosielanie</string>
   <string name="common_cancel">Zrušiť</string>
   <string name="common_save_exit">Uložiť a ukončiť</string>
   <string name="common_error">Chyba</string>
@@ -315,7 +312,6 @@
   <string name="prefs_category_instant_uploading">Okamžité nahratie</string>
   <string name="prefs_category_security">Zabezpečenie</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pre nahrávanie videí</string>
-  <string name="download_folder_failed_content">Sťahovanie %1$s priečinka nebolo dokončené</string>
   <string name="shared_subject_header">zdieľané</string>
   <string name="with_you_subject_header">s vami</string>
   <string name="subject_token">%1$s vám zdieľal \"%2$s\"</string>

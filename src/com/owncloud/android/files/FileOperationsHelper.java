@@ -272,8 +272,13 @@ public class FileOperationsHelper {
         }
     }
 
+    /**
+     * Request the synchronization of a file or folder with the OC server, including its contents.
+     *
+     * @param file          The file or folder to synchronize
+     */
     public void syncFile(OCFile file) {
-        if (!file.isFolder()) {
+        if (!file.isFolder()){
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FILE);
             intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
@@ -288,6 +293,7 @@ public class FileOperationsHelper {
             intent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             mFileActivity.startService(intent);
+
         }
     }
 
@@ -368,19 +374,11 @@ public class FileOperationsHelper {
 
         // for both files and folders
         FileDownloaderBinder downloaderBinder = mFileActivity.getFileDownloaderBinder();
-        FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
         if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
             downloaderBinder.cancel(account, file);
-
-            // TODO - review why is this here, and solve in a better way
-            // Remove etag for parent, if file is a favorite
-            if (file.isFavorite()) {
-                OCFile parent = mFileActivity.getStorageManager().getFileById(file.getParentId());
-                parent.setEtag("");
-                mFileActivity.getStorageManager().saveFile(parent);
-            }
-
-        } else if (uploaderBinder != null && uploaderBinder.isUploading(account, file)) {
+        }
+        FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
+        if (uploaderBinder != null && uploaderBinder.isUploading(account, file)) {
             uploaderBinder.cancel(account, file);
         }
     }

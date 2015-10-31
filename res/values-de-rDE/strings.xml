@@ -78,7 +78,6 @@
   <string name="filedetails_created">Erstellt:</string>
   <string name="filedetails_modified">Geändert:</string>
   <string name="filedetails_download">Herunterladen</string>
-  <string name="filedetails_sync_file">Datei aktualisieren</string>
   <string name="filedetails_renamed_in_upload_msg">Datei wurde wärend des Uploads zu %1$s umbenannt</string>
   <string name="list_layout">Listen-Layout</string>
   <string name="action_share_file">Link teilen</string>
@@ -86,8 +85,6 @@
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Download abbrechen</string>
-  <string name="common_cancel_upload">Upload abbrechen</string>
   <string name="common_cancel">Abbrechen</string>
   <string name="common_save_exit">Speichern &amp; Schließen</string>
   <string name="common_error">Fehler</string>
@@ -307,7 +304,6 @@
   <string name="prefs_category_instant_uploading">Sofortiges Hochladen</string>
   <string name="prefs_category_security">Sicherheit</string>
   <string name="prefs_instant_video_upload_path_title">Verzeichnis zum Hochladen der Videos</string>
-  <string name="download_folder_failed_content">Herunterladen des %1$s - Ordners konnte nicht abgeschlossen werden</string>
   <string name="shared_subject_header">geteilt</string>
   <string name="with_you_subject_header">Mit Ihnen</string>
   <string name="subject_token">%1$s hat \"%2$s\" mit Ihnen geteilt</string>

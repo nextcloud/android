@@ -53,8 +53,6 @@
   <string name="common_yes">Jes</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Akcepti</string>
-  <string name="common_cancel_download">Nuligi elŝuton</string>
-  <string name="common_cancel_upload">Nuligi alŝuton</string>
   <string name="common_cancel">Nuligi</string>
   <string name="common_save_exit">Konservi kaj forlasi</string>
   <string name="common_error">Eraro</string>
