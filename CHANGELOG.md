@@ -1,3 +1,7 @@
+# 2015-10-31
+- updated all PR
+- bugfix: #1234, #1230
+
 # 2015-10-30
 - fixed problem with Authority
 
