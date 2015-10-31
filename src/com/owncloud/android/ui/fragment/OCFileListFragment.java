@@ -470,10 +470,6 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        // NPE
-        String string = null;
-        Log_OC.d(TAG, string.toString());
-
         OCFile file = (OCFile) mAdapter.getItem(position);
         if (file != null) {
             if (file.isFolder()) {
