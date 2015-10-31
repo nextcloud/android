@@ -62,8 +62,6 @@
   <string name="common_yes">Ja</string>
   <string name="common_no">Nei</string>
   <string name="common_ok">Greitt</string>
-  <string name="common_cancel_download">Avbryt nedlasting</string>
-  <string name="common_cancel_upload">Avbryt opplasting</string>
   <string name="common_cancel">Avbryt</string>
   <string name="common_save_exit">Lagra &amp; avslutt</string>
   <string name="common_error">Feil</string>

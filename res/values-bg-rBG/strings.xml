@@ -78,7 +78,6 @@
   <string name="filedetails_created">Създаден на:</string>
   <string name="filedetails_modified">Променен на:</string>
   <string name="filedetails_download">Изтегляне</string>
-  <string name="filedetails_sync_file">Обновяване на файла</string>
   <string name="filedetails_renamed_in_upload_msg">Файлът беше преименуван на %1$s по време на качването.</string>
   <string name="list_layout">Списък с изгледи</string>
   <string name="action_share_file">Връзка за споделяне</string>
@@ -86,8 +85,6 @@
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">ОК</string>
-  <string name="common_cancel_download">Отказване на тегленето</string>
-  <string name="common_cancel_upload">Отказване на качването</string>
   <string name="common_cancel">Отказ</string>
   <string name="common_save_exit">Запазване и изход</string>
   <string name="common_error">Грешка</string>
@@ -304,7 +301,6 @@
   <string name="prefs_category_instant_uploading">Незабавно качване</string>
   <string name="prefs_category_security">Сигурност</string>
   <string name="prefs_instant_video_upload_path_title">Качване на видео път</string>
-  <string name="download_folder_failed_content">Свалянето на директорията %1$s не може да бъде завършено</string>
   <string name="shared_subject_header">споделен</string>
   <string name="with_you_subject_header">с теб</string>
   <string name="subject_token">%1$s споделен \"%2$s\" с теб</string>

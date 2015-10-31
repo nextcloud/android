@@ -40,12 +40,9 @@
   <string name="filedetails_created">ਬਣਾਈ:</string>
   <string name="filedetails_modified">ਸੋਧ ਕੀਤੀ:</string>
   <string name="filedetails_download">ਡਾਊਨਲੋਡ</string>
-  <string name="filedetails_sync_file">ਫਾਇਲ ਤਾਜ਼ਾ ਕਰੋ</string>
   <string name="common_yes">ਹਾਂ</string>
   <string name="common_no">ਨਹੀਂ</string>
   <string name="common_ok">ਠੀਕ ਹੈ</string>
-  <string name="common_cancel_download">ਡਾਊਨਲੋਡ ਕਰਨਾ ਰੱਦ ਕਰੋ</string>
-  <string name="common_cancel_upload">ਅੱਪਲੋਡ ਰੱਦ ਕਰੋ</string>
   <string name="common_cancel">ਰੱਦ ਕਰੋ</string>
   <string name="common_save_exit">ਸੰਭਾਲੋ ਅਤੇ ਬੰਦ ਕਰੋ</string>
   <string name="common_error">ਗਲਤੀ</string>

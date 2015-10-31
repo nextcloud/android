@@ -70,15 +70,12 @@
   <string name="filedetails_created">ایجاد شده توسط:</string>
   <string name="filedetails_modified">تغییر یافته توسط:</string>
   <string name="filedetails_download">بارگیری</string>
-  <string name="filedetails_sync_file">بازنمایی فایل</string>
   <string name="filedetails_renamed_in_upload_msg">فایل در هنگام بارگزاری به %1$s تغییر نام یافت</string>
   <string name="action_share_file">اشتراک گذاشتن لینک</string>
   <string name="action_unshare_file">لغو اشتراک گذاشتن لینک</string>
   <string name="common_yes">بله</string>
   <string name="common_no">نه</string>
   <string name="common_ok">باشه</string>
-  <string name="common_cancel_download">قطع دانلود</string>
-  <string name="common_cancel_upload">متوقف کردن بار گذاری</string>
   <string name="common_cancel">منصرف شدن</string>
   <string name="common_save_exit">ذخیره سازی و خروج</string>
   <string name="common_error">خطا</string>
@@ -282,7 +279,6 @@
   <string name="prefs_category_instant_uploading">آپلودهای فوری</string>
   <string name="prefs_category_security">امنیت</string>
   <string name="prefs_instant_video_upload_path_title">مسیر آپلود ویدئو</string>
-  <string name="download_folder_failed_content">امکان تکمیل دانلود پوشه  %1$s وجود ندارد</string>
   <string name="shared_subject_header">به اشتراک گذاشته شد</string>
   <string name="with_you_subject_header">با تو</string>
   <string name="subject_token">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>

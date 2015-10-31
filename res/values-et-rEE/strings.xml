@@ -78,7 +78,6 @@
   <string name="filedetails_created">Loodud:</string>
   <string name="filedetails_modified">Muudetud:</string>
   <string name="filedetails_download">Lae alla</string>
-  <string name="filedetails_sync_file">Värskenda faili</string>
   <string name="filedetails_renamed_in_upload_msg">Fail nimetati üleslaadimise käigus ümber %1$ </string>
   <string name="list_layout">Nimekirja paigutus</string>
   <string name="action_share_file">Jaga linki</string>
@@ -86,8 +85,6 @@
   <string name="common_yes">Jah</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Tühista allalaadimine</string>
-  <string name="common_cancel_upload">Tühista üleslaadimine</string>
   <string name="common_cancel">Loobu</string>
   <string name="common_save_exit">Salvesta &amp; Välju</string>
   <string name="common_error">Viga</string>
@@ -319,7 +316,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="prefs_category_instant_uploading">Kohesed üleslaadimised</string>
   <string name="prefs_category_security">Turvalisus</string>
   <string name="prefs_instant_video_upload_path_title">Video üleslaadimise asukoht</string>
-  <string name="download_folder_failed_content">Kausta %1$s  allalaadimine ei õnnestunud</string>
   <string name="shared_subject_header">jagatud</string>
   <string name="with_you_subject_header">sinuga</string>
   <string name="subject_token">%1$s jagas sinuga \"%2$s\"</string>

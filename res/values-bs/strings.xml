@@ -24,7 +24,6 @@
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Ok</string>
-  <string name="common_cancel_upload">Prekini učitavanje</string>
   <string name="common_cancel">Odustani</string>
   <string name="common_error">Greška</string>
   <string name="common_error_unknown">Nepoznata greška</string>

@@ -79,7 +79,6 @@ Descárgueo de aquí: %2$s</string>
   <string name="filedetails_created">Creado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
-  <string name="filedetails_sync_file">Actualizar o ficheiro</string>
   <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado a %1$s durante o envío</string>
   <string name="list_layout">Deseño da lista</string>
   <string name="action_share_file">Ligazón para compartir</string>
@@ -87,8 +86,6 @@ Descárgueo de aquí: %2$s</string>
   <string name="common_yes">Si</string>
   <string name="common_no">Non</string>
   <string name="common_ok">Aceptar</string>
-  <string name="common_cancel_download">Cancelar a descarga</string>
-  <string name="common_cancel_upload">Cancelar o envío</string>
   <string name="common_cancel">Cancelar</string>
   <string name="common_save_exit">Gardar e saír</string>
   <string name="common_error">Erro</string>
@@ -311,7 +308,6 @@ Descárgueo de aquí: %2$s</string>
   <string name="prefs_category_instant_uploading">Envío instantáneo</string>
   <string name="prefs_category_security">Seguridade</string>
   <string name="prefs_instant_video_upload_path_title">Enviar a ruta do vídeo</string>
-  <string name="download_folder_failed_content">Non foi posíbel completar a descarga do cartafol %1$s</string>
   <string name="shared_subject_header">compartido</string>
   <string name="with_you_subject_header">con vostede</string>
   <string name="subject_token">%1$s compartiu «%2$s» con vostede</string>
