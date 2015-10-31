@@ -73,7 +73,6 @@ public class ErrorReportActivity extends AppCompatActivity {
 
         logTV.setText(mLogText);
 
-        // TODO add Cancel Button
         cancelErrorLogButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
