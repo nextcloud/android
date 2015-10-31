@@ -472,6 +472,22 @@ public class Preferences extends PreferenceActivity
                     Context.BIND_AUTO_CREATE);
         }
 
+        /* Link to Beta apks */
+        Preference pBetaLink =  findPreference("beta_link");
+        if (pBetaLink != null ){
+            pBetaLink.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    String betaLinkWeb = (String) getText(R.string.beta_link);
+                    if (betaLinkWeb != null && betaLinkWeb.length() > 0) {
+                        Uri uriUrl = Uri.parse(betaLinkWeb);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                        startActivity(intent);
+                    }
+                    return true;
+                }
+            });
+        }
     }
     
     private void toggleInstantPictureOptions(Boolean value){

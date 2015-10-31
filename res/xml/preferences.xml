@@ -110,6 +110,10 @@
 	<Preference 		android:id="@+id/about_app" 
         				android:title="@string/about_title" 
         				android:key="about_app" />
+
+	<Preference android:id="@+id/beta_link"
+				android:title="Download latest beta"
+				android:key="beta_link" />
 	</PreferenceCategory>
 
 
