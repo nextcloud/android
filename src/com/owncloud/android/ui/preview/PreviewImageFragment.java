@@ -71,6 +71,7 @@ public class PreviewImageFragment extends FileFragment {
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
+    private static final String ARG_SHOW_RESIZED_IMAGE = "SHOW_RESIZED_IMAGE";
 
     private TouchImageViewCustom mImageView;
     private TextView mMessageView;
@@ -108,6 +109,7 @@ public class PreviewImageFragment extends FileFragment {
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, imageFile);
         args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
+        args.putBoolean(ARG_SHOW_RESIZED_IMAGE, showResizedImage);
         frag.setArguments(args);
         return frag;
     }
@@ -140,6 +142,7 @@ public class PreviewImageFragment extends FileFragment {
             // not right now
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
+        mShowResizedImage = args.getBoolean(ARG_SHOW_RESIZED_IMAGE);
         setHasOptionsMenu(true);
     }
 
@@ -215,8 +218,9 @@ public class PreviewImageFragment extends FileFragment {
                     mImageView.setVisibility(View.VISIBLE);
                     mBitmap  = thumbnail;
                 } else {
-                // generate new Thumbnail
-                    if (ThumbnailsCacheManager.cancelPotentialWork(getFile(), mImageView)) {
+                    // generate new Thumbnail
+                    if (ThumbnailsCacheManager.cancelPotentialWork(getFile(), mImageView) &&
+                        mContainerActivity.getStorageManager() != null) {
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                         mImageView, mContainerActivity.getStorageManager(),
