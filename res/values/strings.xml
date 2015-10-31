@@ -382,5 +382,8 @@
     <string name="confirmation_remove_files_alert">Do you really want to remove selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to remove a folder and its content?</string>
     <string name="confirmation_remove_files">selected items</string>
+    <string name="error_log_exit">Exit</string>
+    <string name="error_log_send">Send Log</string>
+    <string name="error_log_title">Error Log</string>
 
 </resources>

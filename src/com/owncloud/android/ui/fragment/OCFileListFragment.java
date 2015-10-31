@@ -65,6 +65,7 @@ import com.owncloud.android.ui.dialog.UploadSourceDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ExceptionHandler;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 
@@ -469,6 +470,10 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+        // NPE
+        String string = null;
+        Log_OC.d(TAG, string.toString());
+
         OCFile file = (OCFile) mAdapter.getItem(position);
         if (file != null) {
             if (file.isFolder()) {

@@ -151,7 +151,8 @@
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
         
         <activity android:name=".ui.activity.LogHistoryActivity"/>
-        
+        <activity android:name=".ui.activity.ErrorReportActivity"/>
+
         <receiver android:name=".files.InstantUploadBroadcastReceiver">
             <intent-filter>
                 <!-- unofficially supported by many Android phones but not by HTC devices: -->
