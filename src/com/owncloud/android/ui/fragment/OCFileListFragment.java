@@ -763,7 +763,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                     if (!file.isHidden()) {
                         filesCount++;
 
-                        if (file.isImage()) {
+                        if (file.isImage() || file.isVideo()) {
                             imagesCount++;
                         }
                     }
@@ -781,6 +781,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                 registerLongClickListener();
             } else {
                 switchToListView();
+//                switchToGridView();
             }
         }
     }

@@ -1,3 +1,7 @@
+# 2015-11-01
+- PR [#1236](https://github.com/owncloud/android/pull/1236) "Streaming video/audio" merged
+- PR [#1035](https://github.com/owncloud/android/pull/1035) "Enable video thumbnail" merged
+
 # 2015-10-31
 - updated all PR
 - bugfix: #1234, #1230
