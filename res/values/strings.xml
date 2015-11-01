@@ -385,5 +385,7 @@
     <string name="error_log_exit">Exit</string>
     <string name="error_log_send">Send Log</string>
     <string name="error_log_title">Error Log</string>
+    <string name="action_stream_file">Stream file with external player</string>
+    <string name="stream_expose_password">Do you want to stream this file with an external app?\n\nCAUTION: This may expose your password!</string>
 
 </resources>
