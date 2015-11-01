@@ -58,6 +58,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.media.MediaService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -739,30 +740,10 @@ public class OCFileListFragment extends ExtendedListFragment {
                 return true;
             }
             case R.id.action_stream_file: {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("May expose password?")
-                        .setPositiveButton("Stream", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Account account = ((FileActivity)mContainerActivity).getAccount();
-                                Context context = MainApp.getAppContext();
-                                String uri = PreviewMediaFragment.generateUrlWithCredentials(account, context, mTargetFile);
-
-                                Intent i = new Intent(android.content.Intent.ACTION_VIEW);
-                                i.setData(Uri.parse(uri));
-                                startActivity(i);
-
-//                    Intent i = new Intent(Intent.ACTION_VIEW);
-//                    i.setComponent(new ComponentName("org.videolan.vlc", "org.videolan.vlc.gui.video.VideoPlayerActivity"));
-//                    i.setData(Uri.parse(uri));
-//                    startActivity(i);
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // User cancelled the dialog
-                            }
-                        });
-                builder.show();
+                Account account = ((FileActivity)mContainerActivity).getAccount();
+                Context context = MainApp.getAppContext();
+                String uri = PreviewMediaFragment.generateUrlWithCredentials(account, context, mTargetFile);
+                MediaService.streamWithExternalApp(uri, getActivity()).show();
 
                 return true;
             }
@@ -866,7 +847,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
             // decide grid vs list view
             OwnCloudVersion version = AccountUtils.getServerVersion(
-                    ((FileActivity) mContainerActivity).getAccount());
+                    ((FileActivity)mContainerActivity).getAccount());
             if (version != null && version.supportsRemoteThumbnails() &&
                     isGridViewPreferred(mFile)) {
                 switchToGridView();

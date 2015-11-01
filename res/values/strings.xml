@@ -447,7 +447,7 @@
     <string name="select_all">Select all</string>
 
     <string name="action_stream_file">Stream file with external player</string>
-    <string name="stream_expose_password">May expose password?</string>
+    <string name="stream_expose_password">Do you want to stream this file with an external app?\n\nCAUTION: This may expose your password!</string>
 
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>

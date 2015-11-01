@@ -201,10 +201,6 @@ public class PreviewMediaFragment extends FileFragment implements
             if (mAccount == null) {
                 throw new IllegalStateException("Instanced with a NULL ownCloud Account");
             }
-//            if (!file.isDown()) {
-//                throw new IllegalStateException("There is no local file to preview");
-//            }
-
         }
         else {
             file = (OCFile) savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
@@ -519,7 +515,7 @@ public class PreviewMediaFragment extends FileFragment implements
          * <p/>
          * Just starts the playback.
          *
-         * @param vp {@link MediaPlayer} instance performing the playback.
+         * @param   vp    {@link MediaPlayer} instance performing the playback.
          */
         @Override
         public void onPrepared(MediaPlayer vp) {
@@ -550,7 +546,8 @@ public class PreviewMediaFragment extends FileFragment implements
                 if (Build.VERSION.SDK_INT == Build.VERSION_CODES.GINGERBREAD) {
                     mVideoPreview.pause();
 
-                } else {
+                }
+                else {
                     if (Build.VERSION.SDK_INT == Build.VERSION_CODES.GINGERBREAD_MR1) {
                         // mVideePreview.pause() is not enough
 
@@ -575,37 +572,8 @@ public class PreviewMediaFragment extends FileFragment implements
          */
         @Override
         public boolean onError(MediaPlayer mp, int what, int extra) {
-//            if (mVideoPreview.getWindowToken() != null) {
-                // try to open with another app
-//                try{
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//                    builder.setMessage("May expose password?")
-//                            .setPositiveButton("Stream", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    Intent i = new Intent(android.content.Intent.ACTION_VIEW);
-//                                    i.setData(Uri.parse(mUri));
-//                                    startActivity(i);
-//                                }
-//                            })
-//                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    // User cancelled the dialog
-//                                }
-//                            });
-//                    builder.show();
-
-                MediaService.streamWithExternalApp(mUri, getActivity()).show();
-
-//                }
-//                catch (ActivityNotFoundException e){
-//                    Intent i = new Intent(android.content.Intent.ACTION_VIEW);
-//                    i.setData(Uri.parse(mUri));
-//                    startActivity(i);
-//                }
-//            }
-//            }
+            MediaService.streamWithExternalApp(mUri, getActivity()).show();
             return true;
-
         }
     }
 
