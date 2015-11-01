@@ -244,7 +244,7 @@ public class FileMenuFilter {
         }
 
         // STREAM
-        if (mFile != null && (mFile.isAudio() || mFile.isVideo())){
+        if (mFile != null && !mFile.isDown() && (mFile.isAudio() || mFile.isVideo())){
             toShow.add(R.id.action_stream_file);
         } else {
             toHide.add(R.id.action_stream_file);
