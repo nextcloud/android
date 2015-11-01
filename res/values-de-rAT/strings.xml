@@ -59,14 +59,11 @@
   <string name="filedetails_created">Erstellt am:</string>
   <string name="filedetails_modified">Verändert am:</string>
   <string name="filedetails_download">Herunterladen</string>
-  <string name="filedetails_sync_file">Datei neu laden</string>
   <string name="action_share_file">Link teilen</string>
   <string name="action_unshare_file">Link nicht mehr teilen</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Herunterladen abbrechen</string>
-  <string name="common_cancel_upload">Hochladen abbrechen</string>
   <string name="common_cancel">Abbrechen</string>
   <string name="common_save_exit">Speichern &amp; Schließen</string>
   <string name="common_error">Fehler</string>

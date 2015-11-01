@@ -46,8 +46,6 @@
   <string name="common_yes">კი</string>
   <string name="common_no">არა</string>
   <string name="common_ok">დიახ</string>
-  <string name="common_cancel_download">ჩამოტვირთვის შეჩერება</string>
-  <string name="common_cancel_upload">ატვირთვის გაუქმება</string>
   <string name="common_cancel">გაუქმება</string>
   <string name="common_save_exit">შენახვა &amp;გამოსვლა</string>
   <string name="common_error">შეცდომა</string>

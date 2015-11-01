@@ -58,8 +58,6 @@
   <string name="common_yes">ព្រម</string>
   <string name="common_no">ទេ</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">បោះបង់ការទាញយក</string>
-  <string name="common_cancel_upload">បោះបង់​ការ​ផ្ទុកឡើង</string>
   <string name="common_cancel">លើកលែង</string>
   <string name="common_save_exit">រក្សាទុក &amp; ចាកចេញ</string>
   <string name="common_error">កំហុស</string>

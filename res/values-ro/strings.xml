@@ -78,7 +78,6 @@
   <string name="filedetails_created">Creat:</string>
   <string name="filedetails_modified">Modificat:</string>
   <string name="filedetails_download">Descarcă</string>
-  <string name="filedetails_sync_file">Împrospătare fișier</string>
   <string name="filedetails_renamed_in_upload_msg">Fișierul a fost redenumit %1$s în timpul încărcării</string>
   <string name="list_layout">Aspect listă</string>
   <string name="action_share_file">Partajază legătură</string>
@@ -86,8 +85,6 @@
   <string name="common_yes">Da</string>
   <string name="common_no">Nu</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Anulează descărcarea</string>
-  <string name="common_cancel_upload">Anulează încărcarea</string>
   <string name="common_cancel">Anulează</string>
   <string name="common_save_exit">Salvare și ieșire</string>
   <string name="common_error">Eroare</string>
@@ -309,7 +306,6 @@
   <string name="prefs_category_instant_uploading">Încărcări instante</string>
   <string name="prefs_category_security">Securitate</string>
   <string name="prefs_instant_video_upload_path_title">Calea de încărcare Video</string>
-  <string name="download_folder_failed_content">Descărcarea fișierului %1$s nu s-a finisat</string>
   <string name="shared_subject_header">partajat</string>
   <string name="with_you_subject_header">cu tine</string>
   <string name="subject_token">%1$s a partajat fișierul \"%2$s\" cu tine</string>

@@ -79,7 +79,6 @@
   <string name="filedetails_created">Dibuat:</string>
   <string name="filedetails_modified">Diubah:</string>
   <string name="filedetails_download">Unduh</string>
-  <string name="filedetails_sync_file">Segarkan berkas</string>
   <string name="filedetails_renamed_in_upload_msg">Berkas diubah namanya menjadi %1$s saat pengunggahan</string>
   <string name="list_layout">Daftar Tata Letak</string>
   <string name="action_share_file">Bagikan tautan</string>
@@ -87,8 +86,6 @@
   <string name="common_yes">Ya</string>
   <string name="common_no">Tidak</string>
   <string name="common_ok">Oke</string>
-  <string name="common_cancel_download">Batal mengunduh</string>
-  <string name="common_cancel_upload">Batal mengunggah</string>
   <string name="common_cancel">Batal</string>
   <string name="common_save_exit">Simpan &amp; Keluar</string>
   <string name="common_error">Kesalahan</string>
@@ -316,7 +313,6 @@
   <string name="prefs_category_instant_uploading">Unggah Cepat</string>
   <string name="prefs_category_security">Keamanan</string>
   <string name="prefs_instant_video_upload_path_title">Unggah Lokasi Video</string>
-  <string name="download_folder_failed_content">Mengunduh folder %1$s  tidak selesai</string>
   <string name="shared_subject_header">dibagikan</string>
   <string name="with_you_subject_header">kepada Anda</string>
   <string name="subject_token">%1$s dibagikan \"%2$s\" kepada Anda</string>

@@ -80,7 +80,6 @@ Téléchargez-le ici : %2$s</string>
   <string name="filedetails_created">Créé le :</string>
   <string name="filedetails_modified">Modifié le :</string>
   <string name="filedetails_download">Télécharger</string>
-  <string name="filedetails_sync_file">Actualiser le fichier</string>
   <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %s pendant le téléversement</string>
   <string name="list_layout">Affichage en liste</string>
   <string name="action_share_file">Partager le lien</string>
@@ -88,8 +87,6 @@ Téléchargez-le ici : %2$s</string>
   <string name="common_yes">Oui</string>
   <string name="common_no">Non</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Annuler le téléchargement</string>
-  <string name="common_cancel_upload">Annuler le téléversement</string>
   <string name="common_cancel">Annuler</string>
   <string name="common_save_exit">Sauvegarder &amp; Quitter</string>
   <string name="common_error">Erreur</string>
@@ -320,7 +317,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="prefs_category_instant_uploading">Téléversement immédiat</string>
   <string name="prefs_category_security">Sécurité</string>
   <string name="prefs_instant_video_upload_path_title">Répertoire de téléversement des vidéos</string>
-  <string name="download_folder_failed_content">Le téléchargement du dossier %1$s n\'a pas pu être achevé</string>
   <string name="shared_subject_header">a partagé</string>
   <string name="with_you_subject_header">avec vous</string>
   <string name="subject_token">%1$s a partagé \"%2$s\" avec vous</string>

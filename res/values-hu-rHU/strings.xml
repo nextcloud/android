@@ -74,15 +74,12 @@
   <string name="filedetails_created">Készült:</string>
   <string name="filedetails_modified">Módosítva:</string>
   <string name="filedetails_download">Letöltés</string>
-  <string name="filedetails_sync_file">File frissítése</string>
   <string name="filedetails_renamed_in_upload_msg">A feltöltés során az állmányt erre neveztük át: %1$s</string>
   <string name="action_share_file">Megosztás hivatkozással</string>
   <string name="action_unshare_file">Megosztás visszavonása</string>
   <string name="common_yes">Igen</string>
   <string name="common_no">Nem</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">A letöltés megszakítása</string>
-  <string name="common_cancel_upload">A feltöltés megszakítása</string>
   <string name="common_cancel">Mégsem</string>
   <string name="common_save_exit">Mentés &amp; Kilépés</string>
   <string name="common_error">Hiba</string>

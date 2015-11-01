@@ -78,7 +78,6 @@
   <string name="filedetails_created">Oprettet:</string>
   <string name="filedetails_modified">Ændret:</string>
   <string name="filedetails_download">Hent</string>
-  <string name="filedetails_sync_file">Genopfrisk fil</string>
   <string name="filedetails_renamed_in_upload_msg">Filen blev omdøbt til %1$s under upload</string>
   <string name="list_layout">Listevisning</string>
   <string name="action_share_file">Del link</string>
@@ -86,8 +85,6 @@
   <string name="common_yes">Ja</string>
   <string name="common_no">Nej</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Afbryd download</string>
-  <string name="common_cancel_upload">Fortryd upload</string>
   <string name="common_cancel">Annuller</string>
   <string name="common_save_exit">Gem &amp; Afslut</string>
   <string name="common_error">Fejl</string>
@@ -314,7 +311,6 @@
   <string name="prefs_category_instant_uploading">Øjeblikkelige uploads</string>
   <string name="prefs_category_security">Sikkerhed</string>
   <string name="prefs_instant_video_upload_path_title">Sti til videoupload</string>
-  <string name="download_folder_failed_content">Download af %1$s mappe kunne ikke fuldføres</string>
   <string name="shared_subject_header">delt</string>
   <string name="with_you_subject_header">med dig</string>
   <string name="subject_token">%1$s delte \"%2$s\" med dig</string>

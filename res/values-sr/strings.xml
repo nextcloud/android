@@ -78,7 +78,6 @@
   <string name="filedetails_created">Направљен:</string>
   <string name="filedetails_modified">Измењен:</string>
   <string name="filedetails_download">Преузми</string>
-  <string name="filedetails_sync_file">Освежи фајл</string>
   <string name="filedetails_renamed_in_upload_msg">Фајл је преименован у %1$s током отпремања</string>
   <string name="list_layout">Распоред листе</string>
   <string name="action_share_file">Веза дељења</string>
@@ -86,8 +85,6 @@
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">У реду</string>
-  <string name="common_cancel_download">Откажи преузимање</string>
-  <string name="common_cancel_upload">Откажи отпремање</string>
   <string name="common_cancel">Откажи</string>
   <string name="common_save_exit">Сачувај и изађи</string>
   <string name="common_error">Грешка</string>
@@ -305,7 +302,6 @@
   <string name="prefs_category_instant_uploading">Тренутна отпремања</string>
   <string name="prefs_category_security">Безбедност</string>
   <string name="prefs_instant_video_upload_path_title">Путања отпремања видеа</string>
-  <string name="download_folder_failed_content">Преузимање фасцикле %1$s не може бити довршено</string>
   <string name="shared_subject_header">дељено</string>
   <string name="with_you_subject_header">са вама</string>
   <string name="subject_token">%1$s подели „%2$s“ са вама</string>

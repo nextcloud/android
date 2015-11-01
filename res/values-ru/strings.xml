@@ -80,7 +80,6 @@
   <string name="filedetails_created">Создан:</string>
   <string name="filedetails_modified">Изменён:</string>
   <string name="filedetails_download">Скачать</string>
-  <string name="filedetails_sync_file">Обновить файл</string>
   <string name="filedetails_renamed_in_upload_msg">Файл был переименован в %1$s во время загрузки</string>
   <string name="list_layout">Макет списка</string>
   <string name="action_share_file">Поделиться ссылкой</string>
@@ -88,8 +87,6 @@
   <string name="common_yes">Да</string>
   <string name="common_no">Нет</string>
   <string name="common_ok">ОК</string>
-  <string name="common_cancel_download">Отменить скачивание</string>
-  <string name="common_cancel_upload">Отменить загрузку</string>
   <string name="common_cancel">Отмена</string>
   <string name="common_save_exit">Сохранить и выйти</string>
   <string name="common_error">Ошибка</string>
@@ -317,7 +314,6 @@
   <string name="prefs_category_instant_uploading">Мгновенные загрузки</string>
   <string name="prefs_category_security">Безопасность</string>
   <string name="prefs_instant_video_upload_path_title">Путь для загрузки Видео</string>
-  <string name="download_folder_failed_content">Не удалось завершить скачивание каталога %1$s</string>
   <string name="shared_subject_header">поделился</string>
   <string name="with_you_subject_header">с вами</string>
   <string name="subject_token">%1$s предоставил вам доступ к \"%2$s\"</string>

@@ -72,15 +72,12 @@
   <string name="filedetails_created">Creat:</string>
   <string name="filedetails_modified">Modificat:</string>
   <string name="filedetails_download">Baixa</string>
-  <string name="filedetails_sync_file">Actualitza el fitxer</string>
   <string name="filedetails_renamed_in_upload_msg">L\'arxiu s\'ha canviat de nom a %1$s durant la càrrega</string>
   <string name="action_share_file">Enllaç de compartició</string>
   <string name="action_unshare_file">Deixa de compartir l\'enllaç</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">D\'acord</string>
-  <string name="common_cancel_download">Cancelar la descàrrega</string>
-  <string name="common_cancel_upload">Cancel·la la pujada</string>
   <string name="common_cancel">Cancel·la</string>
   <string name="common_save_exit">Desa &amp; Surt</string>
   <string name="common_error">Error</string>
