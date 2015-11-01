@@ -460,11 +460,6 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         releaseResources(false); // release everything except MediaPlayer
 
         try {
-//            if (mFile == null) {
-//                Toast.makeText(this, R.string.media_err_nothing_to_play, Toast.LENGTH_LONG).show();
-//                processStopRequest(true);
-//                return;
-                
             if (mAccount == null) {
                 Toast.makeText(this, R.string.media_err_not_in_owncloud, Toast.LENGTH_LONG).show();
                 processStopRequest(true);
@@ -474,7 +469,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             createMediaPlayerIfNeeded();
             mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             String url = mFile.getStoragePath();
-            // Streaming is not possible right now
+
             if (url == null || url.length() <= 0) {
                 url = AccountUtils.constructFullURLForAccount(this, mAccount) + mFile.getRemotePath();
             }
