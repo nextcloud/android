@@ -42,8 +42,6 @@
   <string name="common_yes">ஆம்</string>
   <string name="common_no">இல்லை</string>
   <string name="common_ok">சரி </string>
-  <string name="common_cancel_download">பதிவிறக்கலை இரத்துசெய்க</string>
-  <string name="common_cancel_upload">பதிவேற்றலை இரத்து செய்க</string>
   <string name="common_cancel">இரத்து செய்க</string>
   <string name="common_save_exit">சேமிக்க மற்றும் amp; வெளியேறு</string>
   <string name="common_error">வழு</string>

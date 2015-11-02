@@ -69,15 +69,12 @@
   <string name="filedetails_created">Izveidota:</string>
   <string name="filedetails_modified">Modificēta:</string>
   <string name="filedetails_download">Lejupielādēt</string>
-  <string name="filedetails_sync_file">Atsvaidzināt failu</string>
   <string name="filedetails_renamed_in_upload_msg">Datne tika pārsaukta uz %1$s augšupielādes laikā</string>
   <string name="action_share_file">Dalīt saiti</string>
   <string name="action_unshare_file">Pārtraukt dalīt saiti</string>
   <string name="common_yes">Jā</string>
   <string name="common_no">Nē</string>
   <string name="common_ok">Labi</string>
-  <string name="common_cancel_download">Atcelt lejupielādi</string>
-  <string name="common_cancel_upload">Atcelt augšupielādi</string>
   <string name="common_cancel">Atcelt</string>
   <string name="common_save_exit">Saglabāt un iziet</string>
   <string name="common_error">Kļūda</string>

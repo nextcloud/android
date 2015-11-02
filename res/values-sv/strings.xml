@@ -72,15 +72,12 @@
   <string name="filedetails_created">Skapad:</string>
   <string name="filedetails_modified">Ändrad:</string>
   <string name="filedetails_download">Ladda ner</string>
-  <string name="filedetails_sync_file">Ladda om fil</string>
   <string name="filedetails_renamed_in_upload_msg">Filen bytte namn till %1$s under uppladdningen</string>
   <string name="action_share_file">Dela länk</string>
   <string name="action_unshare_file">Sluta dela länk</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nej</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Avbryt nedladdning</string>
-  <string name="common_cancel_upload">Avbryt uppladdning</string>
   <string name="common_cancel">Avbryt</string>
   <string name="common_save_exit">Spara &amp; Avsluta</string>
   <string name="common_error">Fel</string>
@@ -284,6 +281,5 @@
   <string name="prefs_category_instant_uploading">Direktuppladning</string>
   <string name="prefs_category_security">Säkerhet</string>
   <string name="prefs_instant_video_upload_path_title">Uppladdnings-sökväg för video</string>
-  <string name="download_folder_failed_content">Neddladning utav %1$s mappen kunde inte slutföras</string>
   <string name="auth_host_address">Serveradress</string>
 </resources>

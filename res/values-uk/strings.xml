@@ -79,7 +79,6 @@
   <string name="filedetails_created">Створено:</string>
   <string name="filedetails_modified">Змінено:</string>
   <string name="filedetails_download">Завантажити</string>
-  <string name="filedetails_sync_file">Оновити файл</string>
   <string name="filedetails_renamed_in_upload_msg">Файл був переіменований в %1$s протягом вивантаження</string>
   <string name="list_layout">Вигляд списку</string>
   <string name="action_share_file">Опублікувати посилання</string>
@@ -87,8 +86,6 @@
   <string name="common_yes">Так</string>
   <string name="common_no">Ні</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Скасувати завантаження</string>
-  <string name="common_cancel_upload">Перервати завантаження</string>
   <string name="common_cancel">Відмінити</string>
   <string name="common_save_exit">Зберегти &amp; Вихід</string>
   <string name="common_error">Помилка</string>
@@ -315,7 +312,6 @@
   <string name="prefs_category_instant_uploading">Миттєво завантаження</string>
   <string name="prefs_category_security">Безпека</string>
   <string name="prefs_instant_video_upload_path_title">Шлях завантаження відео</string>
-  <string name="download_folder_failed_content">Скачування теки %1$s не може бути завершено</string>
   <string name="shared_subject_header">поширений</string>
   <string name="with_you_subject_header">з Вами</string>
   <string name="subject_token">%1$s поділився \"%2$s\" з вами</string>

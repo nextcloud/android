@@ -63,15 +63,12 @@
   <string name="filedetails_created">מועד היצירה:</string>
   <string name="filedetails_modified">מועד השינוי:</string>
   <string name="filedetails_download">הורדה</string>
-  <string name="filedetails_sync_file">רענון קובץ</string>
   <string name="filedetails_renamed_in_upload_msg">שם הקובץ השתנה ל־ %1$s במהלך ההעלאה</string>
   <string name="action_share_file">קישור לשיתוף</string>
   <string name="action_unshare_file">ביטול קישור לשיתוף</string>
   <string name="common_yes">כן</string>
   <string name="common_no">לא</string>
   <string name="common_ok">אישור</string>
-  <string name="common_cancel_download">ביטול ההורדה</string>
-  <string name="common_cancel_upload">ביטול ההעלאה</string>
   <string name="common_cancel">ביטול</string>
   <string name="common_save_exit">לשמור ולצאת</string>
   <string name="common_error">שגיאה</string>

@@ -79,7 +79,7 @@
   <string name="filedetails_created">Criado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Transferir</string>
-  <string name="filedetails_sync_file">Atualizar ficheiro</string>
+  <string name="filedetails_sync_file">Sincronizar</string>
   <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado para %1$s durante o envio.</string>
   <string name="list_layout">Apresentação da Lista</string>
   <string name="action_share_file">Partilhar a hiperligação</string>
@@ -87,8 +87,7 @@
   <string name="common_yes">Sim</string>
   <string name="common_no">Não</string>
   <string name="common_ok">ACEITAR</string>
-  <string name="common_cancel_download">Cancelar a transferência</string>
-  <string name="common_cancel_upload">Cancelar o envio</string>
+  <string name="common_cancel_sync">Cancelar sincronização</string>
   <string name="common_cancel">Cancelar</string>
   <string name="common_save_exit">Guardar &amp; Sair</string>
   <string name="common_error">Erro</string>
@@ -314,7 +313,7 @@
   <string name="prefs_category_instant_uploading">Envios Instantâneos</string>
   <string name="prefs_category_security">Segurança</string>
   <string name="prefs_instant_video_upload_path_title">Envio do Caminho do Vídeo</string>
-  <string name="download_folder_failed_content">Não foi possível completar o download da pasta %1$s</string>
+  <string name="sync_folder_failed_content">Não foi possível completar a sincronização da pasta %1$s</string>
   <string name="shared_subject_header">partilhado</string>
   <string name="with_you_subject_header">consigo</string>
   <string name="subject_token">%1$s partilhou \"%2$s\" consigo</string>

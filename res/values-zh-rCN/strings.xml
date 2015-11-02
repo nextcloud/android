@@ -79,7 +79,6 @@
   <string name="filedetails_created">创建于：</string>
   <string name="filedetails_modified">修改于：</string>
   <string name="filedetails_download">下载</string>
-  <string name="filedetails_sync_file">刷新文件</string>
   <string name="filedetails_renamed_in_upload_msg">上传过程中文件被更名为了 %1$s</string>
   <string name="list_layout">列表布局</string>
   <string name="action_share_file">分享链接</string>
@@ -87,8 +86,6 @@
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">确定</string>
-  <string name="common_cancel_download">取消下载</string>
-  <string name="common_cancel_upload">取消上传</string>
   <string name="common_cancel">取消</string>
   <string name="common_save_exit">保存并退出</string>
   <string name="common_error">错误</string>
@@ -315,7 +312,6 @@
   <string name="prefs_category_instant_uploading">即时上传</string>
   <string name="prefs_category_security">安全</string>
   <string name="prefs_instant_video_upload_path_title">视频上传路径</string>
-  <string name="download_folder_failed_content">%1$s 文件夹的下载无法完成</string>
   <string name="shared_subject_header">已共享</string>
   <string name="with_you_subject_header">与你</string>
   <string name="subject_token">%1$s和你分享了“%2$s”</string>

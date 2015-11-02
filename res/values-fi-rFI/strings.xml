@@ -79,7 +79,7 @@
   <string name="filedetails_created">Luotu:</string>
   <string name="filedetails_modified">Muokattu:</string>
   <string name="filedetails_download">Lataa</string>
-  <string name="filedetails_sync_file">Päivitä tiedosto</string>
+  <string name="filedetails_sync_file">Synkronoi</string>
   <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s siirron yhteydessä</string>
   <string name="list_layout">Luettelon asettelu</string>
   <string name="action_share_file">Jaa linkki</string>
@@ -87,8 +87,7 @@
   <string name="common_yes">Kyllä</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Peru lataus</string>
-  <string name="common_cancel_upload">Peru lähetys</string>
+  <string name="common_cancel_sync">Peru synkronointi</string>
   <string name="common_cancel">Peru</string>
   <string name="common_save_exit">Tallenna ja poistu</string>
   <string name="common_error">Virhe</string>
@@ -296,6 +295,7 @@
   <string name="copy_file_error">Tätä tiedostoa tai kansiota kopioitaessa tapahtui virhe</string>
   <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
   <string name="prefs_category_security">Tietoturva</string>
+  <string name="sync_folder_failed_content">Kansion %1$s synkronointia ei voitu suorittaa kokonaan</string>
   <string name="shared_subject_header">jaettu</string>
   <string name="with_you_subject_header">kanssasi</string>
   <string name="subject_token">%1$s jakoi kohteen \"%2$s\" kanssasi</string>

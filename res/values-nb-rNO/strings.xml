@@ -79,7 +79,6 @@
   <string name="filedetails_created">Opprettet:</string>
   <string name="filedetails_modified">Endret:</string>
   <string name="filedetails_download">Last ned</string>
-  <string name="filedetails_sync_file">Oppdater fil</string>
   <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
   <string name="list_layout">Listeoppsett</string>
   <string name="action_share_file">Del lenke</string>
@@ -87,8 +86,6 @@
   <string name="common_yes">Ja</string>
   <string name="common_no">Nei</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Avbryt nedlasting</string>
-  <string name="common_cancel_upload">Avbryt opplasting</string>
   <string name="common_cancel">Avbryt</string>
   <string name="common_save_exit">Lagre og avslutt</string>
   <string name="common_error">Feil</string>
@@ -316,7 +313,6 @@
   <string name="prefs_category_instant_uploading">Umiddelbare opplastinger</string>
   <string name="prefs_category_security">Sikkerhet</string>
   <string name="prefs_instant_video_upload_path_title">Sti til video-opplasting</string>
-  <string name="download_folder_failed_content">Nedlasting av %1$s mappen kunne ikke fullføres</string>
   <string name="shared_subject_header">delte</string>
   <string name="with_you_subject_header">med deg</string>
   <string name="subject_token">%1$s delte \"%2$s\" med deg</string>

@@ -79,7 +79,6 @@
   <string name="filedetails_created">作成:</string>
   <string name="filedetails_modified">更新:</string>
   <string name="filedetails_download">ダウンロード</string>
-  <string name="filedetails_sync_file">ファイルを同期</string>
   <string name="filedetails_renamed_in_upload_msg">アップロード中にファイル名を %1$s に変更しました</string>
   <string name="list_layout">リストレイアウト</string>
   <string name="action_share_file">URLで共有</string>
@@ -87,8 +86,6 @@
   <string name="common_yes">はい</string>
   <string name="common_no">いいえ</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">ダウンロードをキャンセル</string>
-  <string name="common_cancel_upload">アップロードをキャンセル</string>
   <string name="common_cancel">キャンセル</string>
   <string name="common_save_exit">保存して終了</string>
   <string name="common_error">エラー</string>
@@ -308,7 +305,6 @@
   <string name="prefs_category_instant_uploading">自動アップロード</string>
   <string name="prefs_category_security">セキュリティ</string>
   <string name="prefs_instant_video_upload_path_title">動画のアップロードパス</string>
-  <string name="download_folder_failed_content">%1$s フォルダーのダウンロードが完了しませんでした</string>
   <string name="shared_subject_header">共有中</string>
   <string name="with_you_subject_header">あなたと</string>
   <string name="subject_token">%1$s は \"%2$s\" をあなたと共有しました</string>
