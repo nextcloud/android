@@ -47,10 +47,11 @@ import java.io.IOException;
 public class DiskLruImageCacheFileProvider extends ContentProvider {
     private static String TAG = FileDataStorageManager.class.getSimpleName();
 
-    public static final String AUTHORITY = "org.owncloud.beta.imageCache.provider";
+    public static final String AUTHORITY = "com.owncloud.beta.imageCache.provider";
 
     @Override
     public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
+        Log_OC.d(TAG, "try to send: " + uri);
         Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
         FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account,
                 MainApp.getAppContext().getContentResolver());
