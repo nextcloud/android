@@ -44,6 +44,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.providers.FileContentProvider;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -526,11 +527,12 @@ public class FileOperationsHelper {
                 String encodedStoragePath = WebdavUtils.encodePath(storagePath);
                 Intent sendIntent = new Intent(Intent.ACTION_ATTACH_DATA);
                 // set MimeType
-//                sendIntent.setType(file.getMimetype());
+                sendIntent.setType(file.getMimetype());
+                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + FileContentProvider.AUTHORITY + file.getRemotePath()));
 //                sendIntent.setData(Uri.parse(encodedStoragePath));
 //                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(encodedStoragePath));
-                sendIntent.setDataAndType(Uri.parse(encodedStoragePath), "image/*");
-                sendIntent.putExtra("jpg", "image/*");
+//                sendIntent.setDataAndType(Uri.parse(encodedStoragePath), "image/*");
+//                sendIntent.putExtra("jpg", "image/*");
                 //            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + encodedStoragePath));
                 //            sendIntent.putExtra("jpg", "image/*");
 

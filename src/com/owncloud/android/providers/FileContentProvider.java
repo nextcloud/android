@@ -64,6 +64,7 @@ import java.util.Locale;
 public class FileContentProvider extends ContentProvider {
 
     private DataBaseHelper mDbHelper;
+    public static final String AUTHORITY = "org.owncloud";
 
     private static final int SINGLE_FILE = 1;
     private static final int DIRECTORY = 2;
