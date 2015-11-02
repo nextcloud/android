@@ -39,7 +39,7 @@
 		<ListView android:id="@android:id/list"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			android:divider="@drawable/uploader_list_separator"
+			android:divider="@color/list_divider_background"
 			android:dividerHeight="1dip">
 		</ListView>
 
