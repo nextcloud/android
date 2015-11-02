@@ -252,24 +252,47 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             mTransferServiceGetter.getFileDownloaderBinder();
                     FileUploaderBinder uploaderBinder =
                             mTransferServiceGetter.getFileUploaderBinder();
-                    boolean downloading = (downloaderBinder != null &&
-                            downloaderBinder.isDownloading(mAccount, file));
                     OperationsServiceBinder opsBinder =
                             mTransferServiceGetter.getOperationsServiceBinder();
-                    downloading |= (opsBinder != null &&
-                            opsBinder.isSynchronizing(mAccount, file.getRemotePath()));
-                    if (downloading) {
-                        localStateView.setImageResource(R.drawable.downloading_file_indicator);
+
+                    localStateView.setVisibility(View.INVISIBLE);   // default first
+
+                    if ( //synchronizing
+                                opsBinder != null &&
+                                opsBinder.isSynchronizing(mAccount, file.getRemotePath())
+                            ) {
+                        localStateView.setImageResource(R.drawable.synchronizing_file_indicator);
                         localStateView.setVisibility(View.VISIBLE);
-                    } else if (uploaderBinder != null &&
-                            uploaderBinder.isUploading(mAccount, file)) {
-                        localStateView.setImageResource(R.drawable.uploading_file_indicator);
+
+                    } else if ( // downloading
+                                downloaderBinder != null &&
+                                downloaderBinder.isDownloading(mAccount, file)
+                            ) {
+                        localStateView.setImageResource(
+                                file.isFolder() ?
+                                        R.drawable.synchronizing_file_indicator :
+                                        R.drawable.downloading_file_indicator
+                        );
                         localStateView.setVisibility(View.VISIBLE);
+
+                    } else if ( //uploading
+                                uploaderBinder != null &&
+                                uploaderBinder.isUploading(mAccount, file)
+                            ) {
+                        localStateView.setImageResource(
+                                file.isFolder() ?
+                                        R.drawable.synchronizing_file_indicator :
+                                        R.drawable.uploading_file_indicator
+                        );
+                        localStateView.setVisibility(View.VISIBLE);
+
+                    } else if (file.getEtagInConflict() != null) {   // conflict
+                        localStateView.setImageResource(R.drawable.conflict_file_indicator);
+                        localStateView.setVisibility(View.VISIBLE);
+
                     } else if (file.isDown()) {
                         localStateView.setImageResource(R.drawable.local_file_indicator);
                         localStateView.setVisibility(View.VISIBLE);
-                    } else {
-                        localStateView.setVisibility(View.INVISIBLE);
                     }
 
                     // share with me icon
@@ -347,46 +370,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
         return view;
     }
-
-    /**
-     * Local Folder size in human readable format
-     * 
-     * @param path
-     *            String
-     * @return Size in human readable format
-     */
-    private String getFolderSizeHuman(String path) {
-
-        File dir = new File(path);
-
-        if (dir.exists()) {
-            long bytes = FileStorageUtils.getFolderSize(dir);
-            return DisplayUtils.bytesToHumanReadable(bytes);
-        }
-
-        return "0 B";
-    }
-
-    /**
-     * Local Folder size
-     * @param dir File
-     * @return Size in bytes
-     */
-    private long getFolderSize(File dir) {
-        if (dir.exists()) {
-            long result = 0;
-            File[] fileList = dir.listFiles();
-            for(int i = 0; i < fileList.length; i++) {
-                if(fileList[i].isDirectory()) {
-                    result += getFolderSize(fileList[i]);
-                } else {
-                    result += fileList[i].length();
-                }
-            }
-            return result;
-        }
-        return 0;
-    } 
 
     @Override
     public int getViewTypeCount() {

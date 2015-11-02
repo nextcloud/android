@@ -79,7 +79,7 @@
   <string name="filedetails_created">Krijuar më:</string>
   <string name="filedetails_modified">Ndryshuar më:</string>
   <string name="filedetails_download">Shkarkoje</string>
-  <string name="filedetails_sync_file">Rifreskoje kartelën</string>
+  <string name="filedetails_sync_file">Njëkohëso</string>
   <string name="filedetails_renamed_in_upload_msg">Kartela u riemërtua si %1$s gjatë ngarkimit</string>
   <string name="list_layout">Skemë Liste</string>
   <string name="action_share_file">Ndajeni lidhjen me të tjerët</string>
@@ -87,8 +87,7 @@
   <string name="common_yes">Po</string>
   <string name="common_no">Jo</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Anulojeni shkarkimin</string>
-  <string name="common_cancel_upload">Anulojeni ngarkimin</string>
+  <string name="common_cancel_sync">Anuloje njëkohësimin</string>
   <string name="common_cancel">Anuloje</string>
   <string name="common_save_exit">Ruaje &amp; Dil</string>
   <string name="common_error">Gabim</string>
@@ -312,7 +311,7 @@
   <string name="prefs_category_instant_uploading">Ngarkime të Menjëhershme</string>
   <string name="prefs_category_security">Siguri</string>
   <string name="prefs_instant_video_upload_path_title">Shteg Ngarkimi Videosh</string>
-  <string name="download_folder_failed_content">S\’u plotësua dot shkarkimi i dosjes %1$s</string>
+  <string name="sync_folder_failed_content">Njëkohësimi i dosjes %1$s s’u plotësua dot</string>
   <string name="shared_subject_header">ndarë</string>
   <string name="with_you_subject_header">me ju</string>
   <string name="subject_token">%1$s ndau me ju \"%2$s\"</string>

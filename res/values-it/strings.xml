@@ -79,7 +79,7 @@
   <string name="filedetails_created">Creato:</string>
   <string name="filedetails_modified">Modificato:</string>
   <string name="filedetails_download">Scarica</string>
-  <string name="filedetails_sync_file">Aggiorna file</string>
+  <string name="filedetails_sync_file">Sincronizza</string>
   <string name="filedetails_renamed_in_upload_msg">Il file è stato rinominato in %1$s durante il caricamento</string>
   <string name="list_layout">Struttura elenco</string>
   <string name="action_share_file">Condividi collegamento</string>
@@ -87,8 +87,7 @@
   <string name="common_yes">Sì</string>
   <string name="common_no">No</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Annulla lo scaricamento</string>
-  <string name="common_cancel_upload">Annulla caricamento</string>
+  <string name="common_cancel_sync">Annulla sincronizzazione</string>
   <string name="common_cancel">Annulla</string>
   <string name="common_save_exit">Salva ed esci</string>
   <string name="common_error">Errore</string>
@@ -316,7 +315,7 @@
   <string name="prefs_category_instant_uploading">Caricamenti istantanei</string>
   <string name="prefs_category_security">Protezione</string>
   <string name="prefs_instant_video_upload_path_title">Percorso di caricamento video</string>
-  <string name="download_folder_failed_content">Lo scaricamento della cartella %1$s non può essere completato</string>
+  <string name="sync_folder_failed_content">La sincronizzazione della cartella %1$s non può essere completata</string>
   <string name="shared_subject_header">condiviso</string>
   <string name="with_you_subject_header">con te</string>
   <string name="subject_token">%1$s ha condiviso \"%2$s\" con te</string>

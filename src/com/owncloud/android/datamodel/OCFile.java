@@ -74,6 +74,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     private boolean mIsDownloading;
 
+    private String mEtagInConflict;    // Save file etag in the server, when there is a conflict. No conflict =  null
+
 
     /**
      * Create new {@link OCFile} with given path.
@@ -115,8 +117,9 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mPublicLink = source.readString();
         mPermissions = source.readString();
         mRemoteId = source.readString();
-        mNeedsUpdateThumbnail = source.readInt() == 0;
-        mIsDownloading = source.readInt() == 0;
+        mNeedsUpdateThumbnail = source.readInt() == 1;
+        mIsDownloading = source.readInt() == 1;
+        mEtagInConflict = source.readString();
 
     }
 
@@ -142,6 +145,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mRemoteId);
         dest.writeInt(mNeedsUpdateThumbnail ? 1 : 0);
         dest.writeInt(mIsDownloading ? 1 : 0);
+        dest.writeString(mEtagInConflict);
     }
 
     /**
@@ -316,24 +320,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
-     * Adds a file to this directory. If this file is not a directory, an
-     * exception gets thrown.
-     *
-     * @param file to add
-     * @throws IllegalStateException if you try to add a something and this is
-     *                               not a directory
-     */
-    public void addFile(OCFile file) throws IllegalStateException {
-        if (isFolder()) {
-            file.mParentId = mId;
-            mNeedsUpdating = true;
-            return;
-        }
-        throw new IllegalStateException(
-                "This is not a directory where you can add stuff to!");
-    }
-
-    /**
      * Used internally. Reset all file properties
      */
     private void resetData() {
@@ -357,6 +343,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mRemoteId = null;
         mNeedsUpdateThumbnail = false;
         mIsDownloading = false;
+        mEtagInConflict = null;
     }
 
     /**
@@ -498,9 +485,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     public void setEtag(String etag) {
-        this.mEtag = etag;
+        this.mEtag = (etag != null ? etag : "");
     }
-
 
     public boolean isShareByLink() {
         return mShareByLink;
@@ -598,8 +584,11 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         this.mIsDownloading = isDownloading;
     }
 
-    public boolean isSynchronizing() {
-        // TODO real implementation
-        return false;
+    public String getEtagInConflict() {
+        return mEtagInConflict;
+    }
+
+    public void setEtagInConflict(String etagInConflict) {
+        mEtagInConflict = etagInConflict;
     }
 }

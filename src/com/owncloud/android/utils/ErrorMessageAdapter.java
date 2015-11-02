@@ -238,7 +238,7 @@ public class ErrorMessageAdapter {
 
                 } else {    // Generic error
                     // Show a Message, operation finished without success
-                    message = String.format(res.getString(R.string.download_folder_failed_content),
+                    message = String.format(res.getString(R.string.sync_folder_failed_content),
                             folderPathName);
                 }
             }

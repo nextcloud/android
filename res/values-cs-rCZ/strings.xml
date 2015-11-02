@@ -79,7 +79,7 @@
   <string name="filedetails_created">Vytvořen:</string>
   <string name="filedetails_modified">Upraven:</string>
   <string name="filedetails_download">Stáhnout</string>
-  <string name="filedetails_sync_file">Obnovit soubor</string>
+  <string name="filedetails_sync_file">Synchronizovat</string>
   <string name="filedetails_renamed_in_upload_msg">Soubor byl v průběhu odesílání přejmenován na %1$s</string>
   <string name="list_layout">Náhled seznamu</string>
   <string name="action_share_file">Sdílet odkaz</string>
@@ -87,8 +87,7 @@
   <string name="common_yes">Ano</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Zrušit stahování</string>
-  <string name="common_cancel_upload">Zrušit odesílání</string>
+  <string name="common_cancel_sync">Zrušit synchronizaci</string>
   <string name="common_cancel">Zrušit</string>
   <string name="common_save_exit">Uložit a ukončit</string>
   <string name="common_error">Chyba</string>
@@ -315,7 +314,7 @@ správce systému.</string>
   <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
   <string name="prefs_category_security">Zabezpečení</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pro nahrávání videí</string>
-  <string name="download_folder_failed_content">Stažení adresáře %1$s nemohlo být dokončeno</string>
+  <string name="sync_folder_failed_content">Synchronizaci adresáře %1$s nelze dokončit</string>
   <string name="shared_subject_header">sdílené</string>
   <string name="with_you_subject_header">s vámi</string>
   <string name="subject_token">%1$s s vámi sdílí \"%2$s\"</string>

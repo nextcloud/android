@@ -248,9 +248,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
                 return true;
             }
-            case R.id.action_cancel_download:
-            case R.id.action_cancel_upload: {
-                ((FileDisplayActivity) mContainerActivity).cancelTransference(getFile());
+            case R.id.action_cancel_sync: {
+                ((FileDisplayActivity)mContainerActivity).cancelTransference(getFile());
                 return true;
             }
             case R.id.action_download_file:
@@ -299,7 +298,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 Log_OC.e(TAG, "Incorrect view clicked!");
         }
     }
-
 
     /**
      * Check if the fragment was created with an empty layout. An empty fragment can't show file details, must be replaced.

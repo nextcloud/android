@@ -22,7 +22,6 @@
 
 package com.owncloud.android.operations;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
@@ -208,15 +207,13 @@ public class SynchronizeFileOperation extends SyncOperation {
 
                 /// check changes in server and local file
                 boolean serverChanged = false;
-                /* time for eTag is coming, but not yet
-                    if (mServerFile.getEtag() != null) {
-                        serverChanged = (!mServerFile.getEtag().equals(mLocalFile.getEtag()));
-                    } else { */
-                serverChanged = (
-                    mServerFile.getModificationTimestamp() !=
-                            mLocalFile.getModificationTimestampAtLastSyncForData()
-                );
-                //}
+                if (mLocalFile.getEtag() == null || mLocalFile.getEtag().length() == 0) {
+                    // file uploaded (null) or downloaded ("") before upgrade to version 1.8.0; check the old condition
+                    serverChanged = mServerFile.getModificationTimestamp() !=
+                            mLocalFile.getModificationTimestampAtLastSyncForData();
+                } else {
+                    serverChanged = (!mServerFile.getEtag().equals(mLocalFile.getEtag()));
+                }
                 boolean localChanged = (
                     mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData()
                 );
@@ -225,6 +222,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                 //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
                 if (localChanged && serverChanged) {
                     result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+                    getStorageManager().saveConflict(mLocalFile, mServerFile.getEtag());
 
                 } else if (localChanged) {
                     if (mSyncFileContents && mAllowUploads) {
@@ -254,6 +252,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                         mServerFile.setLastSyncDateForData(mLocalFile.getLastSyncDateForData());
                         mServerFile.setStoragePath(mLocalFile.getStoragePath());
                         mServerFile.setParentId(mLocalFile.getParentId());
+                        mServerFile.setEtag(mLocalFile.getEtag());
                         getStorageManager().saveFile(mServerFile);
 
                     }
@@ -264,7 +263,11 @@ public class SynchronizeFileOperation extends SyncOperation {
                     result = new RemoteOperationResult(ResultCode.OK);
                 }
 
-            } 
+                // safe blanket: sync'ing a not in-conflict file will clean wrong conflict markers in ancestors
+                if (result.getCode() != ResultCode.SYNC_CONFLICT) {
+                    getStorageManager().saveConflict(mLocalFile, null);
+                }
+            }
 
         }
 
