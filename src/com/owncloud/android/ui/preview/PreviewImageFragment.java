@@ -322,6 +322,10 @@ public class PreviewImageFragment extends FileFragment {
                 mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), false);
                 return true;
             }
+            case R.id.action_set_as_wallpaper:{
+                mContainerActivity.getFileOperationsHelper().setPictureAs(getFile());
+                return true;
+            }
             default:
                 return false;
         }
