@@ -51,6 +51,7 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 
 import org.apache.http.protocol.HTTP;
 
+import java.io.File;
 import java.util.List;
 
 import java.io.ByteArrayOutputStream;
@@ -243,6 +244,19 @@ public class FileOperationsHelper {
             DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude, file);
             chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
+        } else {
+            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+        }
+    }
+
+    public void setPictureAs(OCFile file) {
+        if (file != null || file.isDown()) {
+            File externalFile=new File(file.getStoragePath());
+            Uri sendUri = Uri.fromFile(externalFile);
+            Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
+            intent.setDataAndType(sendUri, file.getMimetype());
+            intent.putExtra("mimeType", file.getMimetype());
+            mFileActivity.startActivityForResult(Intent.createChooser(intent, "Set As"), 200);
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
         }
