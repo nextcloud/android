@@ -80,6 +80,7 @@ Download hier: %2$s</string>
   <string name="filedetails_created">Aangemaakt:</string>
   <string name="filedetails_modified">Aangepast:</string>
   <string name="filedetails_download">Download</string>
+  <string name="filedetails_sync_file">Synchroniseren</string>
   <string name="filedetails_renamed_in_upload_msg">Bestand is tijdens het uploaden hernoemd naar %1$s</string>
   <string name="list_layout">Lijst layout</string>
   <string name="action_share_file">Deel link</string>
@@ -87,6 +88,7 @@ Download hier: %2$s</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_sync">Annuleren synchronisatie</string>
   <string name="common_cancel">Annuleren</string>
   <string name="common_save_exit">Opslaan &amp; Afsluiten</string>
   <string name="common_error">Fout</string>
@@ -316,6 +318,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="prefs_category_instant_uploading">Directe uploads</string>
   <string name="prefs_category_security">Beveiliging</string>
   <string name="prefs_instant_video_upload_path_title">Upload Video Pad</string>
+  <string name="sync_folder_failed_content">Synchronisatie van map %1$s kon niet worden voltooid</string>
   <string name="shared_subject_header">gedeeld</string>
   <string name="with_you_subject_header">met u</string>
   <string name="subject_token">%1$s deelde \"%2$s\" met u</string>
