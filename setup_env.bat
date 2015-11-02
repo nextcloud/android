@@ -22,7 +22,7 @@ echo "Executing Ant setup..."
 call git submodule init
 call git submodule update
 
-call android.bat update project -p libs/android-support-appcompat-v7-23-1-0-exploded-aar --target android-23
+call android.bat update project -p libs/android-support-appcompat-v7-exploded-aar --target android-22
 call android.bat update project -p libs/com-getbase-floatingactionbutton-1-10-1-exploded-aar --target android-22
 call android.bat update lib-project -p owncloud-android-library
 call android.bat update project -p .
