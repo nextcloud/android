@@ -60,6 +60,7 @@ import android.text.TextUtils;
 public class FileContentProvider extends ContentProvider {
 
     private DataBaseHelper mDbHelper;
+    public static final String AUTHORITY = "org.owncloud";
 
     // Projection for filelist table
     private static HashMap<String, String> mFileProjectionMap;
