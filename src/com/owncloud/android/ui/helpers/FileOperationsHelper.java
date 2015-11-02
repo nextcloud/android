@@ -56,6 +56,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collection;
+import java.io.File;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -523,22 +524,14 @@ public class FileOperationsHelper {
     public void setPictureAs(OCFile file) {
         if (file != null) {
             if (file.isDown()) {
-                String storagePath = file.getStoragePath();
-                String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-                Intent sendIntent = new Intent(Intent.ACTION_ATTACH_DATA);
-                // set MimeType
-                sendIntent.setType(file.getMimetype());
-                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + FileContentProvider.AUTHORITY + file.getRemotePath()));
-//                sendIntent.setData(Uri.parse(encodedStoragePath));
-//                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(encodedStoragePath));
-//                sendIntent.setDataAndType(Uri.parse(encodedStoragePath), "image/*");
-//                sendIntent.putExtra("jpg", "image/*");
-                //            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + encodedStoragePath));
-                //            sendIntent.putExtra("jpg", "image/*");
-
-                mFileActivity.startActivity(Intent.createChooser(sendIntent,
-                        mFileActivity.getString(R.string.set_picture_as)));
+                File externalFile=new File(file.getStoragePath());
+                Uri sendUri = Uri.fromFile(externalFile);
+                Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
+                intent.setDataAndType(sendUri, file.getMimetype());
+                intent.putExtra("mimeType", file.getMimetype());
+                mFileActivity.startActivityForResult(Intent.createChooser(intent, "Set As"), 200);
             } else {
+                // TODO re-enable after resized images is available
 //                Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
 //                // set MimeType
 //                sendIntent.setType(file.getMimetype());
