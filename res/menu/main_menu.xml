@@ -24,7 +24,7 @@
         android:id="@+id/action_create_dir"
         android:icon="@drawable/ic_action_create_dir"
         android:orderInCategory="1"
-        app:showAsAction="always"
+        app:showAsAction="never"
         android:title="@string/actionbar_mkdir"
         android:contentDescription="@string/actionbar_mkdir"/>
     <item
@@ -37,14 +37,14 @@
         android:id="@+id/action_sync_account"
         android:icon="@drawable/ic_action_refresh"
         android:orderInCategory="1"
-        app:showAsAction="always"
+        app:showAsAction="never"
         android:title="@string/actionbar_sync"
         android:contentDescription="@string/actionbar_sync"/>
 	<item
         android:id="@+id/action_sort"
         android:icon="@drawable/ic_sort_variant"
         android:orderInCategory="1"
-        app:showAsAction="ifRoom"
+        app:showAsAction="never"
         android:title="@string/actionbar_sort"
         android:contentDescription="@string/actionbar_sort"/>
 
