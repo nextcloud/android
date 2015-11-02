@@ -202,9 +202,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
             switch (viewType){
                 case LIST_ITEM:
-                    TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
+                    TextView fileSizeV = (TextView) view.findViewById(R.id.last_size);
                     TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
-                    TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
+                    TextView lastModV = (TextView) view.findViewById(R.id.file_mod);
 
 
                     lastModV.setVisibility(View.VISIBLE);

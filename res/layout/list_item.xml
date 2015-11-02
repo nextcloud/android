@@ -92,10 +92,10 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/last_mod"
+                    android:id="@+id/last_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="Size MB"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:textSize="@dimen/two_line_secondary_text_size"/>
 
@@ -109,11 +109,11 @@
                     android:textSize="@dimen/two_line_secondary_text_size"/>
 
                 <TextView
-                    android:id="@+id/file_size"
+                    android:id="@+id/file_mod"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="TextView"
+                    android:text="Mod Date"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:textSize="@dimen/two_line_secondary_text_size"/>
 
