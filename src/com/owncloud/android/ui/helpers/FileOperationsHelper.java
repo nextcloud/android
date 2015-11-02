@@ -526,9 +526,11 @@ public class FileOperationsHelper {
                 String encodedStoragePath = WebdavUtils.encodePath(storagePath);
                 Intent sendIntent = new Intent(Intent.ACTION_ATTACH_DATA);
                 // set MimeType
-                sendIntent.setType(file.getMimetype());
+//                sendIntent.setType(file.getMimetype());
 //                sendIntent.setData(Uri.parse(encodedStoragePath));
-                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(encodedStoragePath));
+//                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(encodedStoragePath));
+                sendIntent.setDataAndType(Uri.parse(encodedStoragePath), "image/*");
+                sendIntent.putExtra("jpg", "image/*");
                 //            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + encodedStoragePath));
                 //            sendIntent.putExtra("jpg", "image/*");
 
