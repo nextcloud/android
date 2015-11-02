@@ -519,6 +519,24 @@ public class FileOperationsHelper {
         }
     }
 
+    public void setPictureAs(OCFile file) {
+        if (file != null) {
+            String storagePath = file.getStoragePath();
+            String encodedStoragePath = WebdavUtils.encodePath(storagePath);
+            Intent sendIntent = new Intent(Intent.ACTION_ATTACH_DATA);
+            // set MimeType
+            sendIntent.setData(Uri.parse(encodedStoragePath));
+//            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + encodedStoragePath));
+//            sendIntent.putExtra("jpg", "image/*");
+
+            mFileActivity.startActivity(Intent.createChooser(sendIntent,
+                    mFileActivity.getString(R.string.set_picture_as)));
+
+        } else {
+            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+        }
+    }
+
     /**
      * Request the synchronization of a file or folder with the OC server, including its contents.
      *
