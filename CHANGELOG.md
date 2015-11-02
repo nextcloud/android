@@ -1,3 +1,7 @@
+# 2015-11-02
+- PR [#1240](https://github.com/owncloud/android/pull/1240) "Set as wallpaper" merged
+- updated other PRs
+
 # 2015-11-01
 - PR [#1236](https://github.com/owncloud/android/pull/1236) "Streaming video/audio" merged
 - PR [#1035](https://github.com/owncloud/android/pull/1035) "Enable video thumbnail" merged

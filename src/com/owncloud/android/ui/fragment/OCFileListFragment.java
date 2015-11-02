@@ -499,7 +499,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                         ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true);
                     } else if (file.isDown()) {
                         mContainerActivity.getFileOperationsHelper().openFile(file);
-                } else {
+                    } else {
                     // automatic download, preview on finish
                     ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
                 }

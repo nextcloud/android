@@ -68,8 +68,6 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
 
     @Override
     public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
-        Log_OC.d(TAG, "try to send: " + uri);
-
         OCFile ocFile = getFile(uri);
 
         Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
