@@ -521,17 +521,32 @@ public class FileOperationsHelper {
 
     public void setPictureAs(OCFile file) {
         if (file != null) {
-            String storagePath = file.getStoragePath();
-            String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-            Intent sendIntent = new Intent(Intent.ACTION_ATTACH_DATA);
-            // set MimeType
-            sendIntent.setData(Uri.parse(encodedStoragePath));
-//            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + encodedStoragePath));
-//            sendIntent.putExtra("jpg", "image/*");
+            if (file.isDown()) {
+                String storagePath = file.getStoragePath();
+                String encodedStoragePath = WebdavUtils.encodePath(storagePath);
+                Intent sendIntent = new Intent(Intent.ACTION_ATTACH_DATA);
+                // set MimeType
+                sendIntent.setType(file.getMimetype());
+//                sendIntent.setData(Uri.parse(encodedStoragePath));
+                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(encodedStoragePath));
+                //            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + encodedStoragePath));
+                //            sendIntent.putExtra("jpg", "image/*");
 
-            mFileActivity.startActivity(Intent.createChooser(sendIntent,
-                    mFileActivity.getString(R.string.set_picture_as)));
-
+                mFileActivity.startActivity(Intent.createChooser(sendIntent,
+                        mFileActivity.getString(R.string.set_picture_as)));
+            } else {
+//                Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
+//                // set MimeType
+//                sendIntent.setType(file.getMimetype());
+////            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + "/#" + file.getRemoteId() + "#" + file.getFileName()));
+//                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + file.getRemotePath()));
+//                sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+//
+//                // Show dialog, without the own app
+//                String[] packagesToExclude = new String[] { mFileActivity.getPackageName() };
+//                DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude, file);
+//                chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+            }
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
         }
