@@ -118,7 +118,8 @@
 
         <provider
             android:name=".ui.adapter.DiskLruImageCacheFileProvider"
-            android:authorities="org.owncloud.beta.imageCache.provider">
+            android:authorities="org.owncloud.beta.imageCache.provider"
+            android:exported="true">
         </provider>
 
         <activity

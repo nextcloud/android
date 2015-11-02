@@ -47,7 +47,7 @@ import java.io.IOException;
 public class DiskLruImageCacheFileProvider extends ContentProvider {
     private static String TAG = FileDataStorageManager.class.getSimpleName();
 
-    public static final String AUTHORITY = "com.owncloud.imageCache.provider";
+    public static final String AUTHORITY = "org.owncloud.beta.imageCache.provider";
 
     @Override
     public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
