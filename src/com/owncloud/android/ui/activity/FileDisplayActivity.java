@@ -320,11 +320,7 @@ public class FileDisplayActivity extends HookActivity
                     startTextPreview(file);
             }
 
-            if (DisplayUtils.isGridView(getFile(), getStorageManager())){
-                switchToGridView();
-            } else {
-                switchToListView();
-            }
+            switchLayout(getFile());
 
         } else {
             Log_OC.wtf(TAG, "initFragments() called with invalid NULLs!");
@@ -334,6 +330,14 @@ public class FileDisplayActivity extends HookActivity
             if (getFile() == null) {
                 Log_OC.wtf(TAG, "\t file is NULL");
             }
+        }
+    }
+
+    private void switchLayout(OCFile file){
+        if (DisplayUtils.isGridView(file, getStorageManager())){
+            switchToGridView();
+        } else {
+            switchToListView();
         }
     }
 
@@ -506,11 +510,7 @@ public class FileDisplayActivity extends HookActivity
 
         MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
 
-        if (DisplayUtils.isGridView(getFile(), getStorageManager())){
-            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-        } else {
-            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
-        }
+        changeGridIcon();
 
         return true;
     }
@@ -829,11 +829,19 @@ public class FileDisplayActivity extends HookActivity
             super.onBackPressed();
         }
 
+        changeGridIcon();
+    }
+
+    private void changeGridIcon(){
         MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
-        if (DisplayUtils.isGridView(getFile(), getStorageManager())){
+        if (DisplayUtils.isGridView(getFile(), getStorageManager())) {
             menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+            menuItem.setIcon(ContextCompat.getDrawable(getApplicationContext(),
+                    R.drawable.ic_view_list));
         } else {
             menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
+            menuItem.setIcon(ContextCompat.getDrawable(getApplicationContext(),
+                    R.drawable.ic_view_module));
         }
     }
 
@@ -1250,13 +1258,8 @@ public class FileDisplayActivity extends HookActivity
 
         MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
 
-        if (DisplayUtils.isGridView(directory, getStorageManager())){
-            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-            switchToGridView();
-        } else {
-            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
-            switchToListView();
-        }
+        changeGridIcon();
+        switchLayout(directory);
     }
 
     /**
