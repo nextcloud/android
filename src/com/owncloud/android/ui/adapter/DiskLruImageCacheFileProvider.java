@@ -27,9 +27,11 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
+import android.provider.OpenableColumns;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
@@ -46,16 +48,27 @@ import java.io.IOException;
 
 public class DiskLruImageCacheFileProvider extends ContentProvider {
     private static String TAG = FileDataStorageManager.class.getSimpleName();
+    private FileDataStorageManager mFileDataStorageManager;
 
     public static final String AUTHORITY = "com.owncloud.imageCache.provider";
 
     @Override
-    public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
+    public boolean onCreate() {
+        return true;
+    }
+
+    private OCFile getFile(Uri uri){
         Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
-        FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(account,
+        mFileDataStorageManager = new FileDataStorageManager(account,
                 MainApp.getAppContext().getContentResolver());
 
-        OCFile ocFile = fileDataStorageManager.getFileByPath(uri.getPath());
+        OCFile ocFile = mFileDataStorageManager.getFileByPath(uri.getPath());
+        return ocFile;
+    }
+
+    @Override
+    public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
+        OCFile ocFile = getFile(uri);
 
         Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                 String.valueOf("r" + ocFile.getRemoteId()));
@@ -88,20 +101,26 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
         return ParcelFileDescriptor.open(f, ParcelFileDescriptor.MODE_READ_ONLY);
     }
 
-
-    @Override
-    public boolean onCreate() {
-        return true;
-    }
-
-    @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        return null;
-    }
-
     @Override
     public String getType(Uri uri) {
-        return null;
+        OCFile ocFile = getFile(uri);
+        return ocFile.getMimetype();
+    }
+
+    @Override
+    public Cursor query(Uri uri, String[] arg1, String arg2, String[] arg3, String arg4) {
+        MatrixCursor cursor = null;
+
+        OCFile ocFile = getFile(uri);
+        File file = new File(MainApp.getAppContext().getCacheDir(), ocFile.getFileName());
+        if (file.exists()) {
+            cursor = new MatrixCursor(new String[] {
+                    OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE });
+            cursor.addRow(new Object[] { uri.getLastPathSegment(),
+                    file.length() });
+        }
+
+        return cursor;
     }
 
     @Override
