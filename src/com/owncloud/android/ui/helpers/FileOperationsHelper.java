@@ -521,27 +521,21 @@ public class FileOperationsHelper {
     }
 
     public void setPictureAs(OCFile file) {
-        if (file != null) {
+        if (file != null){
             if (file.isDown()) {
-                File externalFile=new File(file.getStoragePath());
+                File externalFile = new File(file.getStoragePath());
                 Uri sendUri = Uri.fromFile(externalFile);
                 Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
                 intent.setDataAndType(sendUri, file.getMimetype());
                 intent.putExtra("mimeType", file.getMimetype());
                 mFileActivity.startActivityForResult(Intent.createChooser(intent, "Set As"), 200);
             } else {
-                // TODO re-enable after resized images is available
-//                Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
-//                // set MimeType
-//                sendIntent.setType(file.getMimetype());
-////            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + "/#" + file.getRemoteId() + "#" + file.getFileName()));
-//                sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + file.getRemotePath()));
-//                sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
-//
-//                // Show dialog, without the own app
-//                String[] packagesToExclude = new String[] { mFileActivity.getPackageName() };
-//                DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude, file);
-//                chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+//                 TODO re-enable after resized images is available
+//                Uri sendUri = Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + file.getRemotePath());
+//                Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
+//                intent.setDataAndType(sendUri, file.getMimetype());
+//                intent.putExtra("mimeType", file.getMimetype());
+//                mFileActivity.startActivityForResult(Intent.createChooser(intent, "Set As"), 200);
             }
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
