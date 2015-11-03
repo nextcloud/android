@@ -227,7 +227,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
+                mContainerActivity.getFileOperationsHelper().shareFileWithLinkOLD(getFile());
                 return true;
             }
             case R.id.action_share_with_users: {

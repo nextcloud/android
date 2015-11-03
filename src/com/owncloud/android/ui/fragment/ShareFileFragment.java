@@ -92,6 +92,9 @@ public class ShareFileFragment extends Fragment
     /** Public share bound to the file */
     private OCShare mPublicShare;
 
+    /** Listener for changes on switch to share / unshare publicly */
+    private CompoundButton.OnCheckedChangeListener mOnShareViaLinkSwitchCheckedChangeListener;
+
 
     /**
      * Public factory method to create new ShareFileFragment instances.
@@ -175,26 +178,26 @@ public class ShareFileFragment extends Fragment
         });
 
         // Switch to create public share
-        Switch shareViaLinkSwitch = (Switch) view.findViewById(R.id.shareViaLinkSectionSwitch);
-        shareViaLinkSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mOnShareViaLinkSwitchCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // TODO real implementation: create public share
-                    // expand section
-                    getExpirationDateSection().setVisibility(View.VISIBLE);
-                    getPasswordSection().setVisibility(View.VISIBLE);
-                    getGetLinkButton().setVisibility(View.VISIBLE);
+                if (isResumed()) {
+                    if (isChecked) {
+                        ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(mFile);
 
-                } else {
-                    // TODO real implementation: unshare
-                    // collapse section
-                    getExpirationDateSection().setVisibility(View.GONE);
-                    getPasswordSection().setVisibility(View.GONE);
-                    getGetLinkButton().setVisibility(View.GONE);
-                }
+                    } else {
+                        // TODO real implementation: unshare
+                        // collapse section
+                        getExpirationDateSection().setVisibility(View.GONE);
+                        getPasswordSection().setVisibility(View.GONE);
+                        getGetLinkButton().setVisibility(View.GONE);
+                    }
+                } // else, nothing; very important, setCheched(...) is called automatically during Fragment
+                  // recreation on device rotations
             }
-        });
+        };
+        Switch shareViaLinkSwitch = (Switch) view.findViewById(R.id.shareViaLinkSectionSwitch);
+        shareViaLinkSwitch.setOnCheckedChangeListener(mOnShareViaLinkSwitchCheckedChangeListener);
 
         // Switch for expiration date
         Switch shareViaLinkExpirationSwitch = (Switch) view.findViewById(R.id.shareViaLinkExpirationSwitch);
@@ -344,14 +347,29 @@ public class ShareFileFragment extends Fragment
     private void updatePublicShareSection() {
         if (mPublicShare != null && ShareType.PUBLIC_LINK.equals(mPublicShare.getShareType())) {
             // public share bound -> expand section
-            getShareViaLinkSwitch().setChecked(true);
+            Switch shareViaLinkSwitch = getShareViaLinkSwitch();
+            if (!shareViaLinkSwitch.isChecked()) {
+                // set null listener before setChecked() to prevent infinite loop of calls
+                shareViaLinkSwitch.setOnCheckedChangeListener(null);
+                getShareViaLinkSwitch().setChecked(true);
+                shareViaLinkSwitch.setOnCheckedChangeListener(
+                        mOnShareViaLinkSwitchCheckedChangeListener
+                );
+            }
             getExpirationDateSection().setVisibility(View.VISIBLE);
             getPasswordSection().setVisibility(View.VISIBLE);
             getGetLinkButton().setVisibility(View.VISIBLE);
 
         } else {
             // no public share -> collapse section
-            getShareViaLinkSwitch().setChecked(false);
+            Switch shareViaLinkSwitch = getShareViaLinkSwitch();
+            if (shareViaLinkSwitch.isChecked()) {
+                shareViaLinkSwitch.setOnCheckedChangeListener(null);
+                getShareViaLinkSwitch().setChecked(false);
+                shareViaLinkSwitch.setOnCheckedChangeListener(
+                        mOnShareViaLinkSwitchCheckedChangeListener
+                );
+            }
             getExpirationDateSection().setVisibility(View.GONE);
             getPasswordSection().setVisibility(View.GONE);
             getGetLinkButton().setVisibility(View.GONE);

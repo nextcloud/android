@@ -344,7 +344,7 @@ public class OCFileListFragment extends ExtendedListFragment
         mTargetFile = (OCFile) mAdapter.getItem(filePosition);
         switch (menuId) {
             case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(mTargetFile);
+                mContainerActivity.getFileOperationsHelper().shareFileWithLinkOLD(mTargetFile);
                 return true;
             }
             case R.id.action_share_with_users: {

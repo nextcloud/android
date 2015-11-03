@@ -148,10 +148,12 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         // Update OCFile with data from share: ShareByLink  and publicLink
         OCFile file = getStorageManager().getFileByPath(mPath);
         if (file!=null) {
-            mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
             file.setPublicLink(share.getShareLink());
             file.setShareViaLink(true);
             getStorageManager().saveFile(file);
+            if (mSendIntent != null) {
+                mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
+            }
         }
     }
 

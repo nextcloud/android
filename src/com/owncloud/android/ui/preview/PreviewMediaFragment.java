@@ -350,7 +350,7 @@ public class PreviewMediaFragment extends FileFragment implements
         switch (item.getItemId()) {
             case R.id.action_share_file: {
                 stopPreview(false);
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
+                mContainerActivity.getFileOperationsHelper().shareFileWithLinkOLD(getFile());
                 return true;
             }
             case R.id.action_share_with_users: {

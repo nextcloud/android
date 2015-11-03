@@ -139,7 +139,43 @@ public class FileOperationsHelper {
                 .show();
     }
 
-    public void shareFileWithLink(OCFile file) {
+
+    /**
+     /**
+     * Helper method to share a file via a public link. Starts a request to do it in {@link OperationsService}
+     *
+     * @param file      The file to share.
+     */
+    public void shareFileViaLink(OCFile file) {
+        if (isSharedSupported()) {
+            if (file != null) {
+                mFileActivity.showLoadingDialog(
+                        mFileActivity.getApplicationContext().
+                        getString(R.string.wait_a_moment)
+                );
+                Intent service = new Intent(mFileActivity, OperationsService.class);
+                service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
+                service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+                service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+                mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+            } else {
+                Log_OC.wtf(TAG, "Trying to share a NULL OCFile");
+                // TODO user-level error?
+            }
+
+        } else {
+            // Show a Message
+            Toast t = Toast.makeText(
+                    mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api),
+                    Toast.LENGTH_LONG
+            );
+            t.show();
+        }
+    }
+
+
+    public void shareFileWithLinkOLD(OCFile file) {
 
         if (isSharedSupported()) {
             if (file != null) {
@@ -194,7 +230,7 @@ public class FileOperationsHelper {
 
 
     /**
-     * Helper method to share a file with a know sharee. Starts a request to do it in {@link OperationsService}
+     * Helper method to share a file with a known sharee. Starts a request to do it in {@link OperationsService}
      *
      * @param file          The file to share.
      * @param shareeName    Name (user name or group name) of the target sharee.
@@ -492,4 +528,5 @@ public class FileOperationsHelper {
         }
         return false;
     }
+
 }

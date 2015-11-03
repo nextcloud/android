@@ -785,7 +785,10 @@ public class FileActivity extends AppCompatActivity
             updateFileFromDB();
 
             Intent sendIntent = operation.getSendIntentWithSubject(this);
-            startActivity(sendIntent);
+            if (sendIntent != null) {
+                startActivity(sendIntent);
+            }
+
         } else {
             // Detect Failure (403) --> needs Password
             if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
