@@ -26,12 +26,15 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,8 +44,8 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
@@ -50,7 +53,8 @@ import com.owncloud.android.utils.MimetypeIconUtil;
 import java.util.ArrayList;
 
 /**
- * Fragment for Sharing a file with sharees (users or groups)
+ * Fragment for Sharing a file with sharees (users or groups) or creating
+ * a public link.
  *
  * A simple {@link Fragment} subclass.
  *
@@ -70,14 +74,24 @@ public class ShareFileFragment extends Fragment
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
 
-    // Parameters
+    /** File to share, received as a parameter in construction time */
     private OCFile mFile;
+
+    /** OC account holding the file to share, received as a parameter in construction time */
     private Account mAccount;
 
-    // other members
-    private ArrayList<OCShare> mShares;
-    private ShareUserListAdapter mUserGroupsAdapter = null;
+    /** Reference to parent listener */
     private OnShareFragmentInteractionListener mListener;
+
+    /** List of private shares bound to the file */
+    private ArrayList<OCShare> mPrivateShares;
+
+    /** Adapter to show private shares */
+    private ShareUserListAdapter mUserGroupsAdapter = null;
+
+    /** Public share bound to the file */
+    private OCShare mPublicShare;
+
 
     /**
      * Public factory method to create new ShareFileFragment instances.
@@ -149,7 +163,7 @@ public class ShareFileFragment extends Fragment
         addUserGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 boolean shareWithUsersEnable = AccountUtils.hasSearchUsersSupport(mAccount);
+                boolean shareWithUsersEnable = AccountUtils.hasSearchUsersSupport(mAccount);
                 if (shareWithUsersEnable) {
                     // Show Search Fragment
                     mListener.showSearchUsersAndGroups();
@@ -160,6 +174,65 @@ public class ShareFileFragment extends Fragment
             }
         });
 
+        // Switch to create public share
+        Switch shareViaLinkSwitch = (Switch) view.findViewById(R.id.shareViaLinkSectionSwitch);
+        shareViaLinkSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // TODO real implementation: create public share
+                    // expand section
+                    getExpirationDateSection().setVisibility(View.VISIBLE);
+                    getPasswordSection().setVisibility(View.VISIBLE);
+                    getGetLinkButton().setVisibility(View.VISIBLE);
+
+                } else {
+                    // TODO real implementation: unshare
+                    // collapse section
+                    getExpirationDateSection().setVisibility(View.GONE);
+                    getPasswordSection().setVisibility(View.GONE);
+                    getGetLinkButton().setVisibility(View.GONE);
+                }
+            }
+        });
+
+        // Switch for expiration date
+        Switch shareViaLinkExpirationSwitch = (Switch) view.findViewById(R.id.shareViaLinkExpirationSwitch);
+        shareViaLinkExpirationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // TODO real implementation: update share with expiration date
+                    // show value of expiration date
+                    getExpirationDateValue().setText(R.string.placeholder_timestamp);
+
+                } else {
+                    // TODO real implementation: update share without expiration date
+                    // empty value
+                    getExpirationDateValue().setText(R.string.empty);
+                }
+            }
+        });
+
+        // Switch for password
+        Switch shareViaLinkPasswordSwitch = (Switch) view.findViewById(R.id.shareViaLinkPasswordSwitch);
+        shareViaLinkPasswordSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // TODO real implementation: update share with password
+                    // show
+                    getExpirationPasswordValue().setVisibility(View.VISIBLE);
+
+                } else {
+                    // TODO real implementation: update share without password
+                    // empty value
+                    getExpirationPasswordValue().setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+
         return view;
     }
 
@@ -167,8 +240,11 @@ public class ShareFileFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // Load data into the list
+        // Load data into the list of private shares
         refreshUsersOrGroupsListFromDB();
+
+        // Load data of public share, if exists
+        refreshPublicShareFromDB();
     }
 
     @Override
@@ -197,7 +273,7 @@ public class ShareFileFragment extends Fragment
     public void refreshUsersOrGroupsListFromDB (){
         if (((FileActivity) mListener).getStorageManager() != null) {
             // Get Users and Groups
-            mShares = ((FileActivity) mListener).getStorageManager().getSharesWithForAFile(
+            mPrivateShares = ((FileActivity) mListener).getStorageManager().getSharesWithForAFile(
                     mFile.getRemotePath(),
                     mAccount.name
             );
@@ -213,7 +289,7 @@ public class ShareFileFragment extends Fragment
         mUserGroupsAdapter = new ShareUserListAdapter(
                 getActivity(),
                 R.layout.share_user_item,
-                mShares,
+                mPrivateShares,
                 this
         );
 
@@ -221,7 +297,7 @@ public class ShareFileFragment extends Fragment
         TextView noShares = (TextView) getView().findViewById(R.id.shareNoUsers);
         ListView usersList = (ListView) getView().findViewById(R.id.shareUsersList);
 
-        if (mShares.size() > 0) {
+        if (mPrivateShares.size() > 0) {
             noShares.setVisibility(View.GONE);
             usersList.setVisibility(View.VISIBLE);
             usersList.setAdapter(mUserGroupsAdapter);
@@ -237,6 +313,73 @@ public class ShareFileFragment extends Fragment
         // Unshare
         mListener.unshareWith(share);
         Log_OC.d(TAG, "Unshare - " + share.getSharedWithDisplayName());
+    }
+
+
+
+    /**
+     * Get public link from the DB to fill in the "Share link" section
+     *
+     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * instance ready to use. If not ready, does nothing.
+     */
+    public void refreshPublicShareFromDB() {
+        if (((FileActivity) mListener).getStorageManager() != null) {
+            // Get public share
+            mPublicShare = ((FileActivity) mListener).getStorageManager().getFirstShareByPathAndType(
+                    mFile.getRemotePath(),
+                    ShareType.PUBLIC_LINK,
+                    ""
+            );
+
+            // Update list of users/groups
+            updatePublicShareSection();
+        }
+    }
+
+    /**
+     * Updates in the UI the section about public share with the information in the current
+     * public share bound to mFile, if any
+     */
+    private void updatePublicShareSection() {
+        if (mPublicShare != null && ShareType.PUBLIC_LINK.equals(mPublicShare.getShareType())) {
+            // public share bound -> expand section
+            getShareViaLinkSwitch().setChecked(true);
+            getExpirationDateSection().setVisibility(View.VISIBLE);
+            getPasswordSection().setVisibility(View.VISIBLE);
+            getGetLinkButton().setVisibility(View.VISIBLE);
+
+        } else {
+            // no public share -> collapse section
+            getShareViaLinkSwitch().setChecked(false);
+            getExpirationDateSection().setVisibility(View.GONE);
+            getPasswordSection().setVisibility(View.GONE);
+            getGetLinkButton().setVisibility(View.GONE);
+        }
+    }
+
+    private Switch getShareViaLinkSwitch() {
+        return (Switch) getView().findViewById(R.id.shareViaLinkSectionSwitch);
+    }
+
+    private View getExpirationDateSection() {
+        return getView().findViewById(R.id.shareViaLinkExpirationSection);
+    }
+
+    private TextView getExpirationDateValue() {
+        return (TextView) getView().findViewById(R.id.shareViaLinkExpirationValue);
+    }
+
+    private View getPasswordSection() {
+        return getView().findViewById(R.id.shareViaLinkPasswordSection);
+    }
+
+    private TextView getExpirationPasswordValue() {
+        return (TextView) getView().findViewById(R.id.shareViaLinkPasswordValue);
+    }
+
+    private AppCompatButton getGetLinkButton() {
+        return (AppCompatButton) getView().findViewById(R.id.shareViewLinkGetLinkButton);
     }
 
 

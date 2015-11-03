@@ -78,7 +78,7 @@ public class ShareActivity extends FileActivity
 
         // Load data into the list
         Log_OC.d(TAG, "Refreshing lists on account set");
-        refreshUsersInLists();
+        refreshSharesFromStorageManager();
 
         // Request for a refresh of the data through the server (starts an Async Task)
         refreshUsersOrGroupsListFromServer();
@@ -155,16 +155,17 @@ public class ShareActivity extends FileActivity
 
         if (result.isSuccess()) {
             Log_OC.d(TAG, "Refreshing lists on successful sync");
-            refreshUsersInLists();
+            refreshSharesFromStorageManager();
         }
 
     }
 
-    private void refreshUsersInLists() {
+    private void refreshSharesFromStorageManager() {
         ShareFileFragment shareFileFragment = getShareFileFragment();
         if (shareFileFragment != null) {          // only if added to the view hierarchy!!
             if (shareFileFragment.isAdded()) {
                 shareFileFragment.refreshUsersOrGroupsListFromDB();
+                shareFileFragment.refreshPublicShareFromDB();
             }
         }
 
