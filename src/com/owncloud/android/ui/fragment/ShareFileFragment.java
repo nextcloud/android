@@ -186,11 +186,7 @@ public class ShareFileFragment extends Fragment
                         ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(mFile);
 
                     } else {
-                        // TODO real implementation: unshare
-                        // collapse section
-                        getExpirationDateSection().setVisibility(View.GONE);
-                        getPasswordSection().setVisibility(View.GONE);
-                        getGetLinkButton().setVisibility(View.GONE);
+                        ((FileActivity) getActivity()).getFileOperationsHelper().unshareFileViaLink(mFile);
                     }
                 } // else, nothing; very important, setCheched(...) is called automatically during Fragment
                   // recreation on device rotations

@@ -235,7 +235,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 return true;
             }
             case R.id.action_unshare_file: {
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
+                mContainerActivity.getFileOperationsHelper().unshareFileViaLink(getFile());
                 return true;
             }
 

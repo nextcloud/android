@@ -356,7 +356,7 @@ public class OCFileListFragment extends ExtendedListFragment
                 return true;
             }
             case R.id.action_unshare_file: {
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(mTargetFile);
+                mContainerActivity.getFileOperationsHelper().unshareFileViaLink(mTargetFile);
                 return true;
             }
             case R.id.action_rename_file: {

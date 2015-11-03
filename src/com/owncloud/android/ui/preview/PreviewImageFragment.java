@@ -294,7 +294,7 @@ public class PreviewImageFragment extends FileFragment {
                 return true;
             }
             case R.id.action_unshare_file: {
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
+                mContainerActivity.getFileOperationsHelper().unshareFileViaLink(getFile());
                 return true;
             }
             case R.id.action_open_file_with: {

@@ -141,7 +141,6 @@ public class FileOperationsHelper {
 
 
     /**
-     /**
      * Helper method to share a file via a public link. Starts a request to do it in {@link OperationsService}
      *
      * @param file      The file to share.
@@ -268,7 +267,13 @@ public class FileOperationsHelper {
     }
 
 
-    public void unshareFileWithLink(OCFile file) {
+    /**
+     * Helper method to unshare a file publicly shared via link.
+     * Starts a request to do it in {@link OperationsService}
+     *
+     * @param file      The file to unshare.
+     */
+    public void unshareFileViaLink(OCFile file) {
 
         // Unshare the file: Create the intent
         Intent unshareService = new Intent(mFileActivity, OperationsService.class);

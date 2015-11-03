@@ -359,7 +359,7 @@ public class PreviewMediaFragment extends FileFragment implements
             }
             case R.id.action_unshare_file: {
                 stopPreview(false);
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
+                mContainerActivity.getFileOperationsHelper().unshareFileViaLink(getFile());
                 return true;
             }
             case R.id.action_open_file_with: {
