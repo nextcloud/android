@@ -193,9 +193,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
             switch (viewType){
                 case LIST_ITEM:
-                    TextView fileSizeV = (TextView) view.findViewById(R.id.last_size);
+                    TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
                     TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
-                    TextView lastModV = (TextView) view.findViewById(R.id.file_mod);
+                    TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
                     ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
 
                     lastModV.setVisibility(View.VISIBLE);
@@ -225,8 +225,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         }
 
                     } else { //Folder
-                        fileSizeSeparatorV.setVisibility(View.INVISIBLE);
-                        fileSizeV.setVisibility(View.INVISIBLE);
+                        fileSizeSeparatorV.setVisibility(View.GONE);
+                        fileSizeV.setVisibility(View.GONE);
                     }
 
                 case GRID_ITEM:

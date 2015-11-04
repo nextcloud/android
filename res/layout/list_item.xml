@@ -92,7 +92,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/last_size"
+                    android:id="@+id/file_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Size MB"
@@ -109,7 +109,7 @@
                     android:textSize="@dimen/two_line_secondary_text_size"/>
 
                 <TextView
-                    android:id="@+id/file_mod"
+                    android:id="@+id/last_mod"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
