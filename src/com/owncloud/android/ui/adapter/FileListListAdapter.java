@@ -225,8 +225,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         }
 
                     } else { //Folder
-                        fileSizeSeparatorV.setVisibility(View.INVISIBLE);
-                        fileSizeV.setVisibility(View.INVISIBLE);
+                        fileSizeSeparatorV.setVisibility(View.GONE);
+                        fileSizeV.setVisibility(View.GONE);
                     }
 
                 case GRID_ITEM:
