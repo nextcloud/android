@@ -110,7 +110,7 @@
 
         <provider
             android:name=".providers.FileContentProvider"
-            android:authorities="org.owncloud.beta.provider"
+            android:authorities="@string/authority"
             android:enabled="true"
             android:exported="true"
             android:label="@string/sync_string_files"
@@ -118,7 +118,8 @@
 
         <provider
             android:name=".ui.adapter.DiskLruImageCacheFileProvider"
-            android:authorities="org.owncloud.beta.imageCache.provider">
+            android:authorities="@string/authorityCache"
+            android:exported="true">
         </provider>
 
         <activity
