@@ -79,6 +79,7 @@
   <string name="filedetails_created">Δημιουργήθηκε:</string>
   <string name="filedetails_modified">Τροποποιήθηκε:</string>
   <string name="filedetails_download">Λήψη</string>
+  <string name="filedetails_sync_file">Συγχρονισμός</string>
   <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά τη μεταφόρτωση</string>
   <string name="list_layout">Διάταξη Λίστας</string>
   <string name="action_share_file">Διαμοιρασμός συνδέσμου</string>
@@ -86,6 +87,7 @@
   <string name="common_yes">Ναι</string>
   <string name="common_no">Όχι</string>
   <string name="common_ok">ΟΚ</string>
+  <string name="common_cancel_sync">Ακύρωση συγχρονισμού</string>
   <string name="common_cancel">Άκυρο</string>
   <string name="common_save_exit">Αποθήκευση &amp; Έξοδος</string>
   <string name="common_error">Σφάλμα</string>
@@ -313,6 +315,7 @@
   <string name="prefs_category_instant_uploading">Στιγμιαίες Μεταφορτώσεις</string>
   <string name="prefs_category_security">Ασφάλεια</string>
   <string name="prefs_instant_video_upload_path_title">Διαδρομή Μεταφόρτωσης Βίντεο</string>
+  <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
   <string name="shared_subject_header">διαμοιρασμένα</string>
   <string name="with_you_subject_header">με εσάς</string>
   <string name="subject_token">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
