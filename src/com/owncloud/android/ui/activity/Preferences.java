@@ -954,7 +954,7 @@ public class Preferences extends PreferenceActivity
     private class LoadingVersionNumberTask extends AsyncTask<Void, Void, Integer> {
         protected Integer doInBackground(Void... args) {
             try {
-                URL url = new URL("https://www.tobiaskaminsky.de/ocVersion");
+                URL url = new URL("https://github.com/owncloud/android/blob/beta/apks/latest");
                 BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 
                 Integer latestVersion = Integer.parseInt(in.readLine());
