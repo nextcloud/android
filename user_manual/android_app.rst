@@ -86,8 +86,8 @@ your music player, or from your Android filesystem.
    :alt: File upload dialogue.
 
 All files (that you have permission to access) on your ownCloud server are 
-displayed in your Android app, but are not downloaded until you download them. 
-Downloaded files are marked with a green arrow.
+displayed in your Android app, but are not downloaded until you click on them to 
+download them. Downloaded files are marked with a green arrow.
 
 .. figure:: images/android-8.png
    :scale: 75%
@@ -101,6 +101,18 @@ options for managing your file.
    :scale: 75%
    :alt: File management options. Betsy Ross says "Don't believe everything you 
    read on the Internet."
+   
+When you are on your mail Files page, a long press on any folder displays a 
+list of options: Share Link, Download, Rename, Move, Copy, and Remove.
+
+.. figure:: images/android-11.png
+   :scale: 75%
+   :alt: Folder and file management options.
+   
+When you enter a folder, a long press on any file or folder has these 
+additional options: Open With, Refresh File, Send, Favorite, and Details. The 
+Download option appears on files that have not been downloaded to your Android 
+device.  
 
 Settings
 --------
@@ -116,11 +128,11 @@ In the Accounts section you can set up and manage multiple accounts.
 The Security section sets up strong two-factor authentication by allowing you 
 to add a PIN (personal identification number) to access your account.  
 
-The Instant Uploads section creates a directory, :file:`/InstantUpload`, and 
-any photos or videos created with your Android device's camera are instantly 
+The Instant Uploads section creates a directory, :file:`/InstantUpload`, and any 
+photos or videos created with your Android device's camera are instantly 
 uploaded to this directory. You also have the option to choose any other 
-existing directory. Another nice option is Upload Pictures/Video via WiFi Only, 
-to conserve your Internet data usage.
+existing directory, or to create a new one. Another nice option is Upload 
+Pictures/Video via WiFi Only, to conserve your mobile data usage.
 
 The bottom section of the Settings screen has links to help and the 
 app's version number.
