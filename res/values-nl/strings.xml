@@ -302,7 +302,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="log_progress_dialog_text">Laden data...</string>
   <string name="saml_authentication_required_text">Authenticatie vereist</string>
   <string name="saml_authentication_wrong_pass">Onjuist wachtwoord</string>
-  <string name="actionbar_move">verplaatsen</string>
+  <string name="actionbar_move">Verplaatsen</string>
   <string name="file_list_empty_moving">Niets hier. U kunt een map toevoegen!</string>
   <string name="folder_picker_choose_button_text">Kies</string>
   <string name="move_file_not_found">Kan niet verplaatsen. Ga na of het bestand wel bestaat</string>
