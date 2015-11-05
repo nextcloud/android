@@ -34,6 +34,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -62,6 +63,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
@@ -79,6 +81,13 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.RadioButtonPreference;
 import com.owncloud.android.utils.DisplayUtils;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -478,12 +487,30 @@ public class Preferences extends PreferenceActivity
             pBetaLink.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    String betaLinkWeb = (String) getText(R.string.beta_link);
-                    if (betaLinkWeb != null && betaLinkWeb.length() > 0) {
-                        Uri uriUrl = Uri.parse(betaLinkWeb);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        startActivity(intent);
+                    Integer currentVersion = BuildConfig.VERSION_CODE;
+                    LoadingVersionNumberTask loadTask = new LoadingVersionNumberTask();
+                    loadTask.execute();
+                    Integer latestVersion = -1;
+                    try {
+                        latestVersion = loadTask.get();
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
                     }
+                    if (latestVersion == -1){
+                        Toast.makeText(getApplicationContext(), "No information available!", Toast.LENGTH_SHORT).show();
+                    }
+                    if (latestVersion > currentVersion){
+                            String betaLinkWeb = (String) getText(R.string.beta_link) + latestVersion + ".apk";
+                            if (betaLinkWeb != null && betaLinkWeb.length() > 0) {
+                                Uri uriUrl = Uri.parse(betaLinkWeb);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                                startActivity(intent);
+                                return true;
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "No new version available!", Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
                     return true;
                 }
             });
@@ -641,6 +668,7 @@ public class Preferences extends PreferenceActivity
     public void setContentView(View view) {
         getDelegate().setContentView(view);
     }
+
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         getDelegate().setContentView(view, params);
@@ -917,4 +945,29 @@ public class Preferences extends PreferenceActivity
             }
         }
     };
+
+    /**
+     *
+     * Class for loading the version number
+     *
+     */
+    private class LoadingVersionNumberTask extends AsyncTask<Void, Void, Integer> {
+        protected Integer doInBackground(Void... args) {
+            try {
+                URL url = new URL("https://www.tobiaskaminsky.de/ocVersion");
+                BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+
+                Integer latestVersion = Integer.parseInt(in.readLine());
+                in.close();
+
+                return latestVersion;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return -1;
+        }
+    }
 }

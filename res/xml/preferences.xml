@@ -112,7 +112,7 @@
         				android:key="about_app" />
 
 	<Preference android:id="@+id/beta_link"
-				android:title="Download latest beta"
+				android:title="Download latest beta version"
 				android:key="beta_link" />
 	</PreferenceCategory>
 
