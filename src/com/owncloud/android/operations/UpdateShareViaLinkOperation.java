@@ -1,7 +1,6 @@
 /**
  *   ownCloud Android client application
  *
- *   @author masensio
  *   @author David A. Velasco
  *   Copyright (C) 2015 ownCloud Inc.
  *
@@ -21,60 +20,63 @@
 
 package com.owncloud.android.operations;
 
-/**
- * Creates a new public share for a given file
- */
-
-
-import android.content.Context;
-import android.content.Intent;
-
-import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.lib.resources.shares.CreateRemoteShareOperation;
-import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
+import com.owncloud.android.lib.resources.shares.GetRemoteShareOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.shares.UpdateRemoteShareOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
-public class CreateShareViaLinkOperation extends SyncOperation {
+
+/**
+ * Updates an existing public share for a given file
+ */
+
+public class UpdateShareViaLinkOperation extends SyncOperation {
 
     private String mPath;
     private String mPassword;
-    private Intent mSendIntent;
-    private String mFileName;
 
     /**
      * Constructor
      * @param path          Full path of the file/folder being shared. Mandatory argument
      * @param password      Password to protect a public link share.
-     *                      Only available for public link shares
-     *  @param sendIntent   Optional Intent with the information of an app where the link to the new share (if public)
-     *                      should be posted later.
      */
-    public CreateShareViaLinkOperation(
+    public UpdateShareViaLinkOperation(
             String path,
-            String password,
-            Intent sendIntent
+            String password
     ) {
 
         mPath = path;
         mPassword = password;
-        mSendIntent = sendIntent;
-        mFileName = null;
     }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        // Check if the share link already exists
-        RemoteOperation operation = new GetRemoteSharesForFileOperation(mPath, false, false);
-        RemoteOperationResult result = operation.execute(client);
-        // TODO - fix this check; if the user already shared the file with users or group, a share via link will not be created
 
+        OCShare publicShare = getStorageManager().getFirstShareByPathAndType(
+                mPath,
+                ShareType.PUBLIC_LINK,
+                ""
+        );
+
+        if (publicShare == null) {
+            // TODO try to get remote?
+
+        }
+
+        // Update remote share with password
+        RemoteOperation operation = new UpdateRemoteShareOperation(
+            publicShare.getRemoteId()
+        );
+        ((UpdateRemoteShareOperation)operation).setPassword(mPassword);
+        RemoteOperationResult result = operation.execute(client);
+
+        /*
         if (!result.isSuccess() || result.getData().size() <= 0) {
             operation = new CreateRemoteShareOperation(
                     mPath,
@@ -86,49 +88,27 @@ public class CreateShareViaLinkOperation extends SyncOperation {
             );
             result = operation.execute(client);
         }
-        
+        */
+
         if (result.isSuccess()) {
-            if (result.getData().size() > 0) {
+            // Retrieve updated share / save directly with password? -> no; the password is not be saved
+            operation = new GetRemoteShareOperation(publicShare.getRemoteId());
+            result = operation.execute(client);
+            if (result.isSuccess()) {
                 OCShare share = (OCShare) result.getData().get(0);
                 updateData(share);
-            } 
+            }
         }
-        
+
         return result;
     }
-    
+
     public String getPath() {
         return mPath;
     }
 
     public String getPassword() {
         return mPassword;
-    }
-
-    public Intent getSendIntent() {
-        return mSendIntent;
-    }
-
-    public Intent getSendIntentWithSubject(Context context) {
-        if (context != null && mSendIntent != null && mSendIntent.getStringExtra(Intent.EXTRA_SUBJECT) != null) {
-            if (getClient() == null || getClient().getCredentials() == null ||
-                    getClient().getCredentials().getUsername() == null) {
-                mSendIntent.putExtra(
-                        Intent.EXTRA_SUBJECT,
-                        context.getString(R.string.subject_shared_with_you, mFileName)
-                );
-            } else {
-                mSendIntent.putExtra(
-                        Intent.EXTRA_SUBJECT,
-                        context.getString(
-                                R.string.subject_user_shared_with_you,
-                                getClient().getCredentials().getUsername(),
-                                mFileName
-                        )
-                );
-            }
-        }
-        return mSendIntent;
     }
 
     private void updateData(OCShare share) {
@@ -140,18 +120,17 @@ public class CreateShareViaLinkOperation extends SyncOperation {
             share.setIsFolder(false);
         }
 
-        getStorageManager().saveShare(share);
-        
+        getStorageManager().saveShare(share);   // TODO info about having a password? ask to Gonzalo
+
         // Update OCFile with data from share: ShareByLink  and publicLink
+        // TODO check & remove if not needed
         OCFile file = getStorageManager().getFileByPath(mPath);
-        if (file!=null) {
+        if (file != null) {
             file.setPublicLink(share.getShareLink());
             file.setShareViaLink(true);
             getStorageManager().saveFile(file);
-            if (mSendIntent != null) {
-                mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
-            }
         }
     }
 
 }
+

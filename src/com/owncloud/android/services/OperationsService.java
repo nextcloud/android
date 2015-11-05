@@ -64,6 +64,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
+import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 import java.io.IOException;
@@ -97,6 +98,7 @@ public class OperationsService extends Service {
     public static final String ACTION_CREATE_SHARE_VIA_LINK = "CREATE_SHARE_VIA_LINK";
     public static final String ACTION_CREATE_SHARE_WITH_SHAREE = "CREATE_SHARE_WITH_SHAREE";
     public static final String ACTION_UNSHARE = "UNSHARE";
+    public static final String ACTION_UPDATE_SHARE = "UPDATE_SHARE";
     public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
     public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
     public static final String ACTION_GET_USER_NAME = "GET_USER_NAME";
@@ -561,6 +563,13 @@ public class OperationsService extends Service {
                                 password,
                                 sendIntent
                         );
+                    }
+
+                } else if (ACTION_UPDATE_SHARE.equals(action)) {
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    String password = operationIntent.getStringExtra(EXTRA_PASSWORD_SHARE);
+                    if (remotePath.length() > 0) {
+                        operation = new UpdateShareViaLinkOperation(remotePath, password);
                     }
 
                 } else if (action.equals(ACTION_CREATE_SHARE_WITH_SHAREE)) {  // Create private share with user or group

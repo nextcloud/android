@@ -47,7 +47,6 @@ import android.provider.MediaStore;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
@@ -935,20 +934,20 @@ public class FileDataStorageManager {
         );
         cv.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
         cv.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
-        cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getIdRemoteShared());
+        cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
         cv.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name);
 
-        if (shareExists(share.getIdRemoteShared())) {// for renamed files; no more delete and create
+        if (shareExists(share.getRemoteId())) {// for renamed files; no more delete and create
             overriden = true;
             if (getContentResolver() != null) {
                 getContentResolver().update(ProviderTableMeta.CONTENT_URI_SHARE, cv,
                         ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
-                        new String[]{String.valueOf(share.getIdRemoteShared())});
+                        new String[]{String.valueOf(share.getRemoteId())});
             } else {
                 try {
                     getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_SHARE,
                             cv, ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
-                            new String[]{String.valueOf(share.getIdRemoteShared())});
+                            new String[]{String.valueOf(share.getRemoteId())});
                 } catch (RemoteException e) {
                     Log_OC.e(TAG,
                             "Fail to insert insert file to database "
@@ -981,16 +980,42 @@ public class FileDataStorageManager {
     }
 
 
+    /**
+     * Get first share bound to a file with a known path and given {@link ShareType}.
+     *
+     * @param path          Path of the file.
+     * @param type          Type of the share to get
+     * @param shareWith     Target of the share. Ignored in type is {@link ShareType#PUBLIC_LINK}
+     * @return              First {@OCShare} instance found in DB bound to the file in 'path'
+     */
     public OCShare getFirstShareByPathAndType(String path, ShareType type, String shareWith) {
         Cursor c = null;
+        if (shareWith == null) {
+            shareWith = "";
+        }
 
         String selection = ProviderTableMeta.OCSHARES_PATH + "=? AND "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? AND "
-                + ProviderTableMeta.OCSHARES_SHARE_WITH + "=? AND "
                 + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?" ;
+        if (!ShareType.PUBLIC_LINK.equals(type)) {
+            selection += ProviderTableMeta.OCSHARES_SHARE_WITH + "=? AND ";
+        }
 
-        String [] selectionArgs =  new String[]{path, Integer.toString(type.getValue()),
-                shareWith, mAccount.name};
+        String [] selectionArgs;
+        if (ShareType.PUBLIC_LINK.equals(type)) {
+            selectionArgs = new String[]{
+                    path,
+                    Integer.toString(type.getValue()),
+                    mAccount.name
+            };
+        } else {
+            selectionArgs = new String[]{
+                    path,
+                    Integer.toString(type.getValue()),
+                    mAccount.name,
+                    shareWith
+            };
+        }
 
         if (getContentResolver() != null) {
             c = getContentResolver().query(
@@ -1190,16 +1215,16 @@ public class FileDataStorageManager {
                 );
                 cv.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
                 cv.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
-                cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getIdRemoteShared());
+                cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
                 cv.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name);
 
-                if (shareExists(share.getIdRemoteShared())) {
+                if (shareExists(share.getRemoteId())) {
                     // updating an existing file
                     operations.add(
                             ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI_SHARE).
                                     withValues(cv).
                                     withSelection(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
-                                            new String[]{String.valueOf(share.getIdRemoteShared())})
+                                            new String[]{String.valueOf(share.getRemoteId())})
                                     .build());
                 } else {
                     // adding a new file
@@ -1463,7 +1488,7 @@ public class FileDataStorageManager {
                 );
                 cv.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
                 cv.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
-                cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getIdRemoteShared());
+                cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
                 cv.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name);
 
                 // adding a new share resource

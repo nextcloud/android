@@ -113,8 +113,14 @@ public class SharePasswordDialogFragment extends DialogFragment
             }
 
             // Share the file
-            ((FileActivity)getActivity()).getFileOperationsHelper()
-                                    .shareFileWithLinkToApp(mFile, password, mSendIntent);
+            if (mSendIntent == null) {
+                ((FileActivity) getActivity()).getFileOperationsHelper().
+                        setPasswordToShareViaLink(mFile, password);
+
+            } else {    // TODO remove old flow
+                ((FileActivity) getActivity()).getFileOperationsHelper()
+                        .shareFileWithLinkToApp(mFile, password, mSendIntent);
+            }
 
         } else {
             // Disable the flag "Share again"

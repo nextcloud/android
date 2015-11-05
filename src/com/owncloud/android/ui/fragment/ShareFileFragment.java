@@ -95,6 +95,9 @@ public class ShareFileFragment extends Fragment
     /** Listener for changes on switch to share / unshare publicly */
     private CompoundButton.OnCheckedChangeListener mOnShareViaLinkSwitchCheckedChangeListener;
 
+    /** Listener for changes on switch to set / clear password on public link */
+    private CompoundButton.OnCheckedChangeListener mOnPasswordSwitchCheckedChangeListener;
+
 
     /**
      * Public factory method to create new ShareFileFragment instances.
@@ -181,15 +184,19 @@ public class ShareFileFragment extends Fragment
         mOnShareViaLinkSwitchCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isResumed()) {
-                    if (isChecked) {
-                        ((FileActivity) getActivity()).getFileOperationsHelper().shareFileViaLink(mFile);
+                if (!isResumed()) {
+                    // very important, setCheched(...) is called automatically during
+                    // Fragment recreation on device rotations
+                    return;
+                 }
+                if (isChecked) {
+                    ((FileActivity) getActivity()).getFileOperationsHelper().
+                            shareFileViaLink(mFile);
 
-                    } else {
-                        ((FileActivity) getActivity()).getFileOperationsHelper().unshareFileViaLink(mFile);
-                    }
-                } // else, nothing; very important, setCheched(...) is called automatically during Fragment
-                  // recreation on device rotations
+                } else {
+                    ((FileActivity) getActivity()).getFileOperationsHelper().
+                            unshareFileViaLink(mFile);
+                }
             }
         };
         Switch shareViaLinkSwitch = (Switch) view.findViewById(R.id.shareViaLinkSectionSwitch);
@@ -200,6 +207,11 @@ public class ShareFileFragment extends Fragment
         shareViaLinkExpirationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!isResumed()) {
+                    // very important, setCheched(...) is called automatically during
+                    // Fragment recreation on device rotations
+                    return;
+                }
                 if (isChecked) {
                     // TODO real implementation: update share with expiration date
                     // show value of expiration date
@@ -214,23 +226,25 @@ public class ShareFileFragment extends Fragment
         });
 
         // Switch for password
-        Switch shareViaLinkPasswordSwitch = (Switch) view.findViewById(R.id.shareViaLinkPasswordSwitch);
-        shareViaLinkPasswordSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mOnPasswordSwitchCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!isResumed()) {
+                    // very important, setCheched(...) is called automatically during
+                    // Fragment recreation on device rotations
+                    return;
+                }
                 if (isChecked) {
-                    // TODO real implementation: update share with password
-                    // show
-                    getExpirationPasswordValue().setVisibility(View.VISIBLE);
-
+                    ((FileActivity) getActivity()).getFileOperationsHelper().
+                            requestPasswordForShareViaLink(mFile);
                 } else {
-                    // TODO real implementation: update share without password
-                    // empty value
-                    getExpirationPasswordValue().setVisibility(View.INVISIBLE);
+                    ((FileActivity) getActivity()).getFileOperationsHelper().
+                            setPasswordToShareViaLink(mFile, "");   // "" clears
                 }
             }
-        });
-
+        };
+        Switch shareViaLinkPasswordSwitch = (Switch) view.findViewById(R.id.shareViaLinkPasswordSwitch);
+        shareViaLinkPasswordSwitch.setOnCheckedChangeListener(mOnShareViaLinkSwitchCheckedChangeListener);
 
         return view;
     }
@@ -342,12 +356,12 @@ public class ShareFileFragment extends Fragment
      */
     private void updatePublicShareSection() {
         if (mPublicShare != null && ShareType.PUBLIC_LINK.equals(mPublicShare.getShareType())) {
-            // public share bound -> expand section
+            /// public share bound -> expand section
             Switch shareViaLinkSwitch = getShareViaLinkSwitch();
             if (!shareViaLinkSwitch.isChecked()) {
                 // set null listener before setChecked() to prevent infinite loop of calls
                 shareViaLinkSwitch.setOnCheckedChangeListener(null);
-                getShareViaLinkSwitch().setChecked(true);
+                shareViaLinkSwitch.setChecked(true);
                 shareViaLinkSwitch.setOnCheckedChangeListener(
                         mOnShareViaLinkSwitchCheckedChangeListener
                 );
@@ -356,8 +370,29 @@ public class ShareFileFragment extends Fragment
             getPasswordSection().setVisibility(View.VISIBLE);
             getGetLinkButton().setVisibility(View.VISIBLE);
 
+            /// update state of password switch and message depending on password protection
+            Switch passwordSwitch = getPasswordSwitch();
+            // set null listener before setChecked() to prevent infinite loop of calls
+            passwordSwitch.setOnCheckedChangeListener(null);
+            if (mPublicShare.isPasswordProtected()) {
+                if (!passwordSwitch.isChecked()) {
+                    passwordSwitch.toggle();
+                }
+                getPasswordValue().setVisibility(View.VISIBLE);
+            } else {
+                if (passwordSwitch.isChecked()) {
+                    passwordSwitch.toggle();
+                }
+                getPasswordValue().setVisibility(View.INVISIBLE);
+            }
+            // recover listener
+            passwordSwitch.setOnCheckedChangeListener(
+                    mOnPasswordSwitchCheckedChangeListener
+            );
+
+
         } else {
-            // no public share -> collapse section
+            /// no public share -> collapse section
             Switch shareViaLinkSwitch = getShareViaLinkSwitch();
             if (shareViaLinkSwitch.isChecked()) {
                 shareViaLinkSwitch.setOnCheckedChangeListener(null);
@@ -371,6 +406,8 @@ public class ShareFileFragment extends Fragment
             getGetLinkButton().setVisibility(View.GONE);
         }
     }
+
+    /// BEWARE: next methods will failed with NullPointerException if called before onCreateView() finishes
 
     private Switch getShareViaLinkSwitch() {
         return (Switch) getView().findViewById(R.id.shareViaLinkSectionSwitch);
@@ -388,7 +425,11 @@ public class ShareFileFragment extends Fragment
         return getView().findViewById(R.id.shareViaLinkPasswordSection);
     }
 
-    private TextView getExpirationPasswordValue() {
+    private Switch getPasswordSwitch() {
+        return (Switch) getView().findViewById(R.id.shareViaLinkPasswordSwitch);
+    }
+
+    private TextView getPasswordValue() {
         return (TextView) getView().findViewById(R.id.shareViaLinkPasswordValue);
     }
 

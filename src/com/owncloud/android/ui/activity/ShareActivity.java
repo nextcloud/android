@@ -154,7 +154,7 @@ public class ShareActivity extends FileActivity
         super.onRemoteOperationFinish(operation, result);
 
         if (result.isSuccess()) {
-            Log_OC.d(TAG, "Refreshing lists on successful sync");
+            Log_OC.d(TAG, "Refreshing lists on successful operation");
             refreshSharesFromStorageManager();
         }
 

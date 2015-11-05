@@ -46,6 +46,7 @@ import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
+import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 
 import org.apache.http.protocol.HTTP;
 
@@ -283,7 +284,7 @@ public class FileOperationsHelper {
         unshareService.putExtra(OperationsService.EXTRA_SHARE_TYPE, ShareType.PUBLIC_LINK);
         unshareService.putExtra(OperationsService.EXTRA_SHARE_WITH, "");
 
-        unshareFile(unshareService);
+        queueShareIntent(unshareService);
     }
 
     public void unshareFileWithUserOrGroup(OCFile file, ShareType shareType, String userOrGroup){
@@ -296,15 +297,15 @@ public class FileOperationsHelper {
         unshareService.putExtra(OperationsService.EXTRA_SHARE_TYPE, shareType);
         unshareService.putExtra(OperationsService.EXTRA_SHARE_WITH, userOrGroup);
 
-        unshareFile(unshareService);
+        queueShareIntent(unshareService);
     }
 
 
-    private void unshareFile(Intent unshareService){
+    private void queueShareIntent(Intent shareIntent){
         if (isSharedSupported()) {
             // Unshare the file
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().
-                    queueNewOperation(unshareService);
+                    queueNewOperation(shareIntent);
 
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
                     getString(R.string.wait_a_moment));
@@ -330,6 +331,46 @@ public class FileOperationsHelper {
         intent.putExtra(mFileActivity.EXTRA_ACCOUNT, mFileActivity.getAccount());
         mFileActivity.startActivity(intent);
 
+    }
+
+
+    /**
+     * Starts a dialog that requests a password to the user to protect a share link.
+     *
+     * @param   file        File which public share will be protected by the requested password
+     */
+    public void requestPasswordForShareViaLink(OCFile file) {
+        SharePasswordDialogFragment dialog =
+                SharePasswordDialogFragment.newInstance(
+                        file,
+                        null
+                );
+        dialog.show(
+                mFileActivity.getSupportFragmentManager(),
+                SharePasswordDialogFragment.PASSWORD_FRAGMENT
+        );
+    }
+
+    /**
+     * Updates a public share on a file to set its password.
+     * Starts a request to do it in {@link OperationsService}
+     *
+     * @param file          File which public share will be protected with a password.
+     * @param password      Password to set for the public link; null or empty string to clear
+     *                      the current password
+     */
+    public void setPasswordToShareViaLink(OCFile file, String password) {
+        // Set password updating share
+        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        updateShareIntent.putExtra(
+                OperationsService.EXTRA_PASSWORD_SHARE,
+                (password == null) ? "" : password
+        );
+
+        queueShareIntent(updateShareIntent);
     }
 
 

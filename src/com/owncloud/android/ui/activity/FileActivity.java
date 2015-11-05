@@ -73,6 +73,7 @@ import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
+import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.NavigationDrawerItem;
@@ -735,7 +736,8 @@ public class FileActivity extends AppCompatActivity
         } else if (operation == null ||
                 operation instanceof CreateShareWithShareeOperation ||
                 operation instanceof UnshareOperation ||
-                operation instanceof SynchronizeFolderOperation
+                operation instanceof SynchronizeFolderOperation ||
+                operation instanceof UpdateShareViaLinkOperation
                 ) {
             if (result.isSuccess()) {
                 updateFileFromDB();
