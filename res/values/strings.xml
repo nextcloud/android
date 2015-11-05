@@ -401,5 +401,6 @@
 
     <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients.
         \nPlease contact your administrator</string>
+    <string name="changelog">https://raw.githubusercontent.com/owncloud/android/beta/CHANGELOG.md</string>
 
 </resources>

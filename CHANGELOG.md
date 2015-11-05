@@ -1,3 +1,9 @@
+# 2015-11-05
+- update master
+- fix #1244
+- add changelog
+- add check for update of beta version
+
 # 2015-11-02
 - PR [#1240](https://github.com/owncloud/android/pull/1240) "Set as wallpaper" merged
 - updated other PRs

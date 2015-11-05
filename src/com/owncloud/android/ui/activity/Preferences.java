@@ -496,21 +496,39 @@ public class Preferences extends PreferenceActivity
                     } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
                     }
-                    if (latestVersion == -1){
+                    if (latestVersion == -1) {
                         Toast.makeText(getApplicationContext(), "No information available!", Toast.LENGTH_SHORT).show();
                     }
-                    if (latestVersion > currentVersion){
-                            String betaLinkWeb = (String) getText(R.string.beta_link) + latestVersion + ".apk";
-                            if (betaLinkWeb != null && betaLinkWeb.length() > 0) {
-                                Uri uriUrl = Uri.parse(betaLinkWeb);
-                                Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                                startActivity(intent);
-                                return true;
-                            }
-                        } else {
-                            Toast.makeText(getApplicationContext(), "No new version available!", Toast.LENGTH_SHORT).show();
+                    if (latestVersion > currentVersion) {
+                        String betaLinkWeb = (String) getText(R.string.beta_link) + latestVersion + ".apk";
+                        if (betaLinkWeb != null && betaLinkWeb.length() > 0) {
+                            Uri uriUrl = Uri.parse(betaLinkWeb);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                            startActivity(intent);
                             return true;
                         }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "No new version available!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                    return true;
+                }
+            });
+        }
+
+        /* Link to Beta apks */
+        Preference pChangelogLink =  findPreference("changelog_link");
+        if (pChangelogLink != null){
+            pChangelogLink.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    String betaLinkWeb = getString(R.string.changelog);
+                    if (betaLinkWeb != null && betaLinkWeb.length() > 0) {
+                        Uri uriUrl = Uri.parse(betaLinkWeb);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                        startActivity(intent);
+                        return true;
+                    }
                     return true;
                 }
             });
