@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">פתיחה</string>
   <string name="prefs_category_general">כללי</string>
   <string name="prefs_category_more">יותר</string>
   <string name="prefs_accounts">חשבונות</string>
@@ -55,27 +56,19 @@
   <string name="uploader_info_uploading">בהעלאה</string>
   <string name="file_list_seconds_ago">שניות</string>
   <string name="file_list_empty">אין כאן שום דבר. אולי ברצונך להעלות משהו?</string>
-  <string name="file_list_loading">בטעינה...</string>
   <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
-  <string name="file_list_folder">תקיה</string>
-  <string name="file_list_folders">תקיות</string>
-  <string name="file_list_file">קובץ</string>
-  <string name="file_list_files">קבצים</string>
   <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
   <string name="filedetails_size">גודל:</string>
   <string name="filedetails_type">סוג:</string>
   <string name="filedetails_created">מועד היצירה:</string>
   <string name="filedetails_modified">מועד השינוי:</string>
   <string name="filedetails_download">הורדה</string>
-  <string name="filedetails_sync_file">רענון קובץ</string>
   <string name="filedetails_renamed_in_upload_msg">שם הקובץ השתנה ל־ %1$s במהלך ההעלאה</string>
   <string name="action_share_file">קישור לשיתוף</string>
   <string name="action_unshare_file">ביטול קישור לשיתוף</string>
   <string name="common_yes">כן</string>
   <string name="common_no">לא</string>
   <string name="common_ok">אישור</string>
-  <string name="common_cancel_download">ביטול ההורדה</string>
-  <string name="common_cancel_upload">ביטול ההעלאה</string>
   <string name="common_cancel">ביטול</string>
   <string name="common_save_exit">לשמור ולצאת</string>
   <string name="common_error">שגיאה</string>
@@ -171,15 +164,13 @@
   <string name="auth_fail_get_user_name">השרת אינו מחזיר מספר משתמש נכון, יש ליצור קשר עם מנהל
 ⇥</string>
   <string name="auth_can_not_auth_against_server">לא מצליח לאמת מול השרת</string>
-  <string name="fd_keep_in_sync">לשמור על קובץ עדכני</string>
+  <string name="favorite">מועדף</string>
   <string name="common_rename">שינוי שם</string>
   <string name="common_remove">הסרה</string>
   <string name="confirmation_remove_alert">האם באמת להסיר %1$s?</string>
   <string name="confirmation_remove_folder_alert">האם באמת להסיר %1$s ואת כל התכולה?</string>
   <string name="confirmation_remove_local">מקומי בלבד</string>
-  <string name="confirmation_remove_folder_local">תכנים מקומיים בלבד</string>
-  <string name="confirmation_remove_remote">הסרה מהשרת</string>
-  <string name="confirmation_remove_remote_and_local">מרוחק ומקומי</string>
+  <string name="confirmation_remove_folder_local">מקומי בלבד</string>
   <string name="remove_success_msg">ההסרה הצליחה</string>
   <string name="remove_fail_msg">ההסרה נכשלה</string>
   <string name="rename_dialog_title">נא להזין שם חדש</string>
@@ -229,11 +220,7 @@
   <string name="instant_upload_on_wifi">העלאת תמונות דרך WiFi בלבד</string>
   <string name="instant_video_upload_on_wifi">העלאות קבצי וידאו על בסיס WiFi בלבד</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">התנגשות עדכון</string>
-  <string name="conflict_message">הקובץ המרוחק %s אינו מסונכרן עם הקובץ המקומי. בחירה בהמשך התהליך תחליף את תוכן הקובץ בשרת.</string>
   <string name="conflict_keep_both">להשאיר את שניהם</string>
-  <string name="conflict_overwrite">לשכתב</string>
-  <string name="conflict_dont_upload">לא להעלות</string>
   <string name="preview_image_description">תצוגה מקדימה לתמונה</string>
   <string name="preview_image_error_unknown_format">תמונה זו לא ניתנת לצפייה</string>
   <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>
@@ -260,6 +247,7 @@
   <string name="downloader_download_file_not_found">הקובץ אינו זמין יותר על השרת</string>
   <string name="prefs_category_accounts">חשבונות</string>
   <string name="prefs_add_account">הוספת חשבון</string>
+  <string name="auth_redirect_non_secure_connection_title">חיבור מאובטח מנותב דרך נתיב לא מאובטח</string>
   <string name="folder_picker_choose_button_text">בחירה</string>
   <string name="prefs_category_security">אבטחה</string>
   <string name="auth_host_address">כתובת שרת</string>

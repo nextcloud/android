@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Ireki</string>
   <string name="prefs_category_general">Orokorra</string>
   <string name="prefs_category_more">Gehiago</string>
   <string name="prefs_accounts">Kontuak</string>
@@ -62,27 +63,19 @@
   <string name="uploader_info_uploading">Igotzen</string>
   <string name="file_list_seconds_ago">segundu</string>
   <string name="file_list_empty">Ez dago ezer. Igo zerbait!</string>
-  <string name="file_list_loading">Kargatzen...</string>
   <string name="local_file_list_empty">Ez dago fitxategirik karpeta honetan.</string>
-  <string name="file_list_folder">karpeta</string>
-  <string name="file_list_folders">Karpetak</string>
-  <string name="file_list_file">fitxategia</string>
-  <string name="file_list_files">fitxategiak</string>
   <string name="filedetails_select_file">Sakatu fitxategi baten gainean informazio gehiago lortzeko</string>
   <string name="filedetails_size">Tamaina:</string>
   <string name="filedetails_type">Mota:</string>
   <string name="filedetails_created">Sortuta:</string>
   <string name="filedetails_modified">Aldatuta:</string>
   <string name="filedetails_download">Deskargatu</string>
-  <string name="filedetails_sync_file">Freskatu fitxaegia</string>
   <string name="filedetails_renamed_in_upload_msg">Fitxategiaren izena %1$sra aldatu da igotzean</string>
   <string name="action_share_file">Elkarbanatu lotura</string>
   <string name="action_unshare_file">Lotura partekatzeari utzi</string>
   <string name="common_yes">Bai</string>
   <string name="common_no">Ez</string>
   <string name="common_ok">Ados</string>
-  <string name="common_cancel_download">Utzi deskarga bertan behera </string>
-  <string name="common_cancel_upload">Ezeztatu igoera</string>
   <string name="common_cancel">Ezeztatu</string>
   <string name="common_save_exit">Gorde eta Irten</string>
   <string name="common_error">Errorea</string>
@@ -178,15 +171,13 @@ Mesedez, baimendu berriz</string>
   <string name="auth_unsupported_multiaccount">%1$s ez du kontu anitzak onartzen</string>
   <string name="auth_fail_get_user_name">Zure zerbitzariak ez du bueltatzen erabiltzailearen id egokia, mesedez jarri harremanetan administratzailearekin.</string>
   <string name="auth_can_not_auth_against_server">Ezin da autentikatu zerbitzarian.</string>
-  <string name="fd_keep_in_sync">Mantendu fitxategia eguneratuta</string>
+  <string name="favorite">Gogokoa</string>
   <string name="common_rename">Berrizendatu</string>
   <string name="common_remove">Ezabatu</string>
   <string name="confirmation_remove_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
   <string name="confirmation_remove_folder_alert">Ziru zaude %1$s eta bere edukiak ezabatu nahi dituzula?</string>
   <string name="confirmation_remove_local">Bertakoa bakarrik</string>
-  <string name="confirmation_remove_folder_local">Eduki lokalak bakarrik</string>
-  <string name="confirmation_remove_remote">Zerbitzaritik ezabatu</string>
-  <string name="confirmation_remove_remote_and_local">Biak urrunekoa eta bertakoa</string>
+  <string name="confirmation_remove_folder_local">Bertakoa bakarrik</string>
   <string name="remove_success_msg">Ongi ezabatu da</string>
   <string name="remove_fail_msg">Ezin izan da ezabaketa burutu</string>
   <string name="rename_dialog_title">Idatzi izen berri bat</string>
@@ -236,11 +227,7 @@ Mesedez, baimendu berriz</string>
   <string name="instant_upload_on_wifi">Igo irudiak bakarrik WIFIren bidez</string>
   <string name="instant_video_upload_on_wifi">Igo bideoak bakarrik WIFIren bidez</string>
   <string name="instant_upload_path">/BerehalakoIgoerak</string>
-  <string name="conflict_title">Igoera konfliktoa</string>
-  <string name="conflict_message">Urruneko %s fitxategia ez dago bertako fitxategiarekin sinkronizatuta. Jarraituz gero zerbitzariko fitxategiaren edukia ordeztuko da.</string>
   <string name="conflict_keep_both">Mantendu biak</string>
-  <string name="conflict_overwrite">Gainidatzi</string>
-  <string name="conflict_dont_upload">Ez igo</string>
   <string name="preview_image_description">Irudi aurreikuspena</string>
   <string name="preview_image_error_unknown_format">Ezin da irudi hau erakutsi</string>
   <string name="error__upload__local_file_not_copied">%1$s ezin da %2$s karpeta lokalera kopiatu</string>
@@ -269,7 +256,7 @@ Mesedez, baimendu berriz</string>
   <string name="downloader_download_file_not_found">Fitxategia jadanik ez dago eskuragarri zerbitzarian</string>
   <string name="prefs_category_accounts">Kontuak</string>
   <string name="prefs_add_account">Gehitu kontua</string>
-  <string name="auth_redirect_non_secure_connection_title">Konexio segurua birbideratu da segurua ez den bide batera.</string>
+  <string name="auth_redirect_non_secure_connection_title">Konexio segurua birbideratu da segurua ez den bide batetik.</string>
   <string name="actionbar_logger">Egunkariak</string>
   <string name="log_send_history_button">Bidali Historia</string>
   <string name="log_send_no_mail_app">Egunkariak bidaltzeko aplikaziorik ez da aurkitu. Instalatu posta aplikazioa!</string>
@@ -284,9 +271,9 @@ Mesedez, baimendu berriz</string>
   <string name="move_file_invalid_overwrite">Fitxategia dagoeneko existitzen da helburuko karpetan</string>
   <string name="move_file_error">Errore bat gertatu da fitxategi edo karpeta hau mugitzen saiatzerakoan</string>
   <string name="forbidden_permissions_move">fitxategi hau mugitzeko</string>
+  <string name="copy_file_invalid_overwrite">Fitxategia dagoeneko existitzen da helburuko karpetan</string>
   <string name="prefs_category_instant_uploading">Berehalako Igoerak</string>
   <string name="prefs_category_security">Segurtasuna</string>
   <string name="prefs_instant_video_upload_path_title">Bideo Igoera Bidea</string>
-  <string name="download_folder_failed_content">%1$s karpetaren deskarga ezin izan da burutu</string>
   <string name="auth_host_address">Zerbitzariaren helbidea</string>
 </resources>

@@ -53,13 +53,15 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.CreateShareViaLinkOperation;
+import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
-import com.owncloud.android.operations.UnshareLinkOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.DisplayUtils;
 
 
 /**
@@ -103,7 +105,6 @@ public class PreviewImageActivity extends FileActivity implements
 
         // ActionBar
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         updateActionBarTitleAndHomeButton(null);
         actionBar.hide();
 
@@ -132,6 +133,9 @@ public class PreviewImageActivity extends FileActivity implements
                 }
             });
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(getResources().getColor(R.color.owncloud_blue_dark_transparent));
+            }
         }
             
         if (savedInstanceState != null) {
@@ -226,19 +230,23 @@ public class PreviewImageActivity extends FileActivity implements
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
         
-        if (operation instanceof CreateShareOperation) {
-            onCreateShareOperationFinish((CreateShareOperation) operation, result);
-            
-        } else if (operation instanceof UnshareLinkOperation) {
-            onUnshareLinkOperationFinish((UnshareLinkOperation) operation, result);
+        if (operation instanceof CreateShareViaLinkOperation ||
+                operation instanceof CreateShareWithShareeOperation) {
+            onCreateShareOperationFinish(result);
+
+        } else if (operation instanceof UnshareOperation) {
+            onUnshareLinkOperationFinish((UnshareOperation) operation, result);
             
         } else if (operation instanceof RemoveFileOperation) {
             finish();
+        } else if (operation instanceof SynchronizeFileOperation) {
+            onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
+
         }
     }
     
     
-    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation,
+    private void onUnshareLinkOperationFinish(UnshareOperation operation,
                                               RemoteOperationResult result) {
         if (result.isSuccess()) {
             OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
@@ -252,8 +260,7 @@ public class PreviewImageActivity extends FileActivity implements
             
     }
     
-    private void onCreateShareOperationFinish(CreateShareOperation operation,
-                                              RemoteOperationResult result) {
+    private void onCreateShareOperationFinish(RemoteOperationResult result) {
         if (result.isSuccess()) {
             OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
             if (file != null) {
@@ -261,6 +268,14 @@ public class PreviewImageActivity extends FileActivity implements
             }
             invalidateOptionsMenu();
         }
+    }
+
+    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation,
+                                                  RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            invalidateOptionsMenu();
+        }
+
     }
 
     @Override
@@ -385,7 +400,6 @@ public class PreviewImageActivity extends FileActivity implements
         
     }
 
-    
     private void requestForDownload(OCFile file) {
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");
@@ -593,7 +607,7 @@ public class PreviewImageActivity extends FileActivity implements
 
     /**
      * Checks if OS version is Honeycomb one or higher
-     * 
+     *
      * @return boolean
      */
     private boolean isHoneycombOrHigher() {

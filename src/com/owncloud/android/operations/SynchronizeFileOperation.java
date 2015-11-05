@@ -22,7 +22,6 @@
 
 package com.owncloud.android.operations;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
@@ -208,15 +207,13 @@ public class SynchronizeFileOperation extends SyncOperation {
 
                 /// check changes in server and local file
                 boolean serverChanged = false;
-                /* time for eTag is coming, but not yet
-                    if (mServerFile.getEtag() != null) {
-                        serverChanged = (!mServerFile.getEtag().equals(mLocalFile.getEtag()));
-                    } else { */
-                serverChanged = (
-                    mServerFile.getModificationTimestamp() !=
-                            mLocalFile.getModificationTimestampAtLastSyncForData()
-                );
-                //}
+                if (mLocalFile.getEtag() == null || mLocalFile.getEtag().length() == 0) {
+                    // file uploaded (null) or downloaded ("") before upgrade to version 1.8.0; check the old condition
+                    serverChanged = mServerFile.getModificationTimestamp() !=
+                            mLocalFile.getModificationTimestampAtLastSyncForData();
+                } else {
+                    serverChanged = (!mServerFile.getEtag().equals(mLocalFile.getEtag()));
+                }
                 boolean localChanged = (
                     mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData()
                 );
@@ -225,6 +222,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                 //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
                 if (localChanged && serverChanged) {
                     result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+                    getStorageManager().saveConflict(mLocalFile, mServerFile.getEtag());
 
                 } else if (localChanged) {
                     if (mSyncFileContents && mAllowUploads) {
@@ -245,15 +243,16 @@ public class SynchronizeFileOperation extends SyncOperation {
                     
                     if (mSyncFileContents) {
                         requestForDownload(mLocalFile); // local, not server; we won't to keep
-                        // the value of keepInSync!
+                        // the value of favorite!
                         // the update of local data will be done later by the FileUploader
                         // service when the upload finishes
                     } else {
                         // TODO CHECK: is this really useful in some point in the code?
-                        mServerFile.setKeepInSync(mLocalFile.keepInSync());
+                        mServerFile.setFavorite(mLocalFile.isFavorite());
                         mServerFile.setLastSyncDateForData(mLocalFile.getLastSyncDateForData());
                         mServerFile.setStoragePath(mLocalFile.getStoragePath());
                         mServerFile.setParentId(mLocalFile.getParentId());
+                        mServerFile.setEtag(mLocalFile.getEtag());
                         getStorageManager().saveFile(mServerFile);
 
                     }
@@ -264,7 +263,11 @@ public class SynchronizeFileOperation extends SyncOperation {
                     result = new RemoteOperationResult(ResultCode.OK);
                 }
 
-            } 
+                // safe blanket: sync'ing a not in-conflict file will clean wrong conflict markers in ancestors
+                if (result.getCode() != ResultCode.SYNC_CONFLICT) {
+                    getStorageManager().saveConflict(mLocalFile, null);
+                }
+            }
 
         }
 
@@ -285,7 +288,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         i.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
         i.putExtra(FileUploader.KEY_FILE, file);
         /*i.putExtra(FileUploader.KEY_REMOTE_FILE, mRemotePath);
-        // doing this we would lose the value of keepInSync in the road, and maybe
+        // doing this we would lose the value of isFavorite in the road, and maybe
         // it's not updated in the database when the FileUploader service gets it!
         i.putExtra(FileUploader.KEY_LOCAL_FILE, localFile.getStoragePath());*/
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);

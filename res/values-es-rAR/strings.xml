@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
@@ -64,27 +65,19 @@
   <string name="uploader_info_uploading">Subiendo</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">No hay nada. ¡Subí contenido!</string>
-  <string name="file_list_loading">Cargando...</string>
   <string name="local_file_list_empty">No existen archivos en esta carpeta.</string>
-  <string name="file_list_folder">carpeta</string>
-  <string name="file_list_folders">carpetas</string>
-  <string name="file_list_file">archivo</string>
-  <string name="file_list_files">archivos</string>
   <string name="filedetails_select_file">Pulsá sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
   <string name="filedetails_type">Tipo:</string>
   <string name="filedetails_created">Creado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
-  <string name="filedetails_sync_file">Actualizar archivo</string>
   <string name="filedetails_renamed_in_upload_msg">El archivo fue renombrado como %1$s durante la subida</string>
   <string name="action_share_file">Compartir vínculo</string>
   <string name="action_unshare_file">Dejar de compartir vínculo</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>
-  <string name="common_cancel_download">Cancelar descarga</string>
-  <string name="common_cancel_upload">Cancelar subida</string>
   <string name="common_cancel">Cancelar</string>
   <string name="common_save_exit">Guardar y salir</string>
   <string name="common_error">Error</string>
@@ -178,15 +171,13 @@
   <string name="auth_unsupported_multiaccount">%1$s no soporta múltiples cuentas</string>
   <string name="auth_fail_get_user_name">Tú servidor no esta regresando una identificación de usuario correcta, por favor contacta a un administrador</string>
   <string name="auth_can_not_auth_against_server">No se puede autenticar contra este servidor</string>
-  <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
+  <string name="favorite">Favorito</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
   <string name="confirmation_remove_alert">¿Realmente quieres eliminar %1$s?</string>
   <string name="confirmation_remove_folder_alert">¿Realmente deseas eliminar %1$s y todo su contenido?</string>
   <string name="confirmation_remove_local">Sólo local</string>
-  <string name="confirmation_remove_folder_local">Solo archivos locales</string>
-  <string name="confirmation_remove_remote">Borrar del servidor</string>
-  <string name="confirmation_remove_remote_and_local">Ambos: remoto y local</string>
+  <string name="confirmation_remove_folder_local">Sólo local</string>
   <string name="remove_success_msg">Borrado correctamente</string>
   <string name="remove_fail_msg">El borrado no pudo ser completado</string>
   <string name="rename_dialog_title">Ingrese un nombre</string>
@@ -236,11 +227,7 @@
   <string name="instant_upload_on_wifi">Subir imágenes solamente a través de WiFi</string>
   <string name="instant_video_upload_on_wifi">Cargar videos mediante WiFi solamente</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
-  <string name="conflict_title">Conflicto en la actualización</string>
-  <string name="conflict_message">El archivo remoto %s no está sincronizado con el archivo local. Si seguís adelante, vas a reemplazar el contenido del archivo en el servidor.</string>
   <string name="conflict_keep_both">Mantener ambas</string>
-  <string name="conflict_overwrite">Sobrescribir</string>
-  <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
   <string name="preview_image_error_unknown_format">Esta imagen no puede ser mostrada</string>
   <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s </string>
@@ -270,7 +257,6 @@
   <string name="downloader_download_file_not_found">El archivo no esta mas disponible en este Servidor</string>
   <string name="prefs_category_accounts">Cuentas</string>
   <string name="prefs_add_account">Añadir cuenta</string>
-  <string name="auth_redirect_non_secure_connection_title">Conexión segura redireccionada a una ruta insegura.</string>
   <string name="actionbar_logger">Registro</string>
   <string name="log_send_history_button">Enviar Historial</string>
   <string name="log_send_no_mail_app">Aplicación para enviar registros no encontrada. Instale una aplicación de correo!</string>
@@ -285,9 +271,9 @@
   <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
   <string name="move_file_error">Un error ocurrió intentando mover el archivo o carpeta</string>
   <string name="forbidden_permissions_move">para mover este archivo</string>
+  <string name="copy_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
   <string name="prefs_category_instant_uploading">Subida Instantánea </string>
   <string name="prefs_category_security">Seguridad</string>
   <string name="prefs_instant_video_upload_path_title">Dirección de subida del video</string>
-  <string name="download_folder_failed_content">La descarga de la carpeta %1$s no pudo ser completada</string>
   <string name="auth_host_address">Dirección del servidor</string>
 </resources>

@@ -23,7 +23,6 @@
 package com.owncloud.android.providers;
 
 import java.io.File;
-import java.security.Provider;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -95,8 +94,10 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_ACCOUNT_OWNER);
         mFileProjectionMap.put(ProviderTableMeta.FILE_ETAG,
                 ProviderTableMeta.FILE_ETAG);
-        mFileProjectionMap.put(ProviderTableMeta.FILE_SHARE_BY_LINK,
-                ProviderTableMeta.FILE_SHARE_BY_LINK);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_SHARED_VIA_LINK,
+                ProviderTableMeta.FILE_SHARED_VIA_LINK);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE,
+                ProviderTableMeta.FILE_SHARED_WITH_SHAREE);
         mFileProjectionMap.put(ProviderTableMeta.FILE_PUBLIC_LINK,
                 ProviderTableMeta.FILE_PUBLIC_LINK);
         mFileProjectionMap.put(ProviderTableMeta.FILE_PERMISSIONS,
@@ -107,6 +108,8 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_UPDATE_THUMBNAIL);
         mFileProjectionMap.put(ProviderTableMeta.FILE_IS_DOWNLOADING,
                 ProviderTableMeta.FILE_IS_DOWNLOADING);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT,
+                ProviderTableMeta.FILE_ETAG_IN_CONFLICT);
     }
 
     private static final int SINGLE_FILE = 1;
@@ -178,6 +181,7 @@ public class FileContentProvider extends ContentProvider {
             if (c != null && c.moveToFirst()) {
                 remoteId = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID));
                 //ThumbnailsCacheManager.removeFileFromCache(remoteId);
+                c.close();
             }
             Log_OC.d(TAG, "Removing FILE " + remoteId);
 
@@ -187,11 +191,6 @@ public class FileContentProvider extends ContentProvider {
                             + uri.getPathSegments().get(1)
                             + (!TextUtils.isEmpty(where) ? " AND (" + where
                                     + ")" : ""), whereArgs);
-            /* just for log
-            if (c!=null) {
-                c.close();
-            }
-            */
             break;
         case DIRECTORY:
             // deletion of folder is recursive
@@ -306,11 +305,12 @@ public class FileContentProvider extends ContentProvider {
             // ugly patch; serious refactorization is needed to reduce work in
             // FileDataStorageManager and bring it to FileContentProvider
             if (doubleCheck == null || !doubleCheck.moveToFirst()) {
+                if (doubleCheck != null) {
+                    doubleCheck.close();
+                }
                 long rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, null, values);
                 if (rowId > 0) {
-                    Uri insertedFileUri =
-                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
-                    return insertedFileUri;
+                    return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
                 } else {
                     throw new SQLException("ERROR " + uri);
                 }
@@ -326,40 +326,16 @@ public class FileContentProvider extends ContentProvider {
             }
 
         case SHARES:
-            String path = values.getAsString(ProviderTableMeta.OCSHARES_PATH);
-            String accountNameShare= values.getAsString(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER);
-            String[] projectionShare = new String[] {
-                    ProviderTableMeta._ID, ProviderTableMeta.OCSHARES_PATH,
-                    ProviderTableMeta.OCSHARES_ACCOUNT_OWNER
-            };
-            String whereShare = ProviderTableMeta.OCSHARES_PATH + "=? AND " +
-                    ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
-            String[] whereArgsShare = new String[] {path, accountNameShare};
             Uri insertedShareUri = null;
-            Cursor doubleCheckShare =
-                    query(db, uri, projectionShare, whereShare, whereArgsShare, null);
-            // ugly patch; serious refactorization is needed to reduce work in
-            // FileDataStorageManager and bring it to FileContentProvider
-            if (doubleCheckShare == null || !doubleCheckShare.moveToFirst()) {
-                long rowId = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
-                if (rowId >0) {
-                    insertedShareUri =
-                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, rowId);
-                } else {
-                    throw new SQLException("ERROR " + uri);
-
-                }
+            long rowId = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
+            if (rowId >0) {
+                insertedShareUri =
+                        ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, rowId);
             } else {
-                // file is already inserted; race condition, let's avoid a duplicated entry
-                insertedShareUri = ContentUris.withAppendedId(
-                        ProviderTableMeta.CONTENT_URI_SHARE,
-                        doubleCheckShare.getLong(
-                                doubleCheckShare.getColumnIndex(ProviderTableMeta._ID)
-                        )
-                );
-                doubleCheckShare.close();
+                throw new SQLException("ERROR " + uri);
+
             }
-            updateFilesTableAccordingToShareInsertion(db, uri, values);
+            updateFilesTableAccordingToShareInsertion(db, values);
             return insertedShareUri;
 
 
@@ -370,21 +346,23 @@ public class FileContentProvider extends ContentProvider {
     }
 
     private void updateFilesTableAccordingToShareInsertion(
-            SQLiteDatabase db, Uri uri, ContentValues shareValues
+            SQLiteDatabase db, ContentValues newShare
             ) {
         ContentValues fileValues = new ContentValues();
-        fileValues.put(
-                ProviderTableMeta.FILE_SHARE_BY_LINK,
-                ShareType.PUBLIC_LINK.getValue() ==
-                        shareValues.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE) ? 1 : 0
-        );
-        String whereShare = ProviderTableMeta.FILE_PATH + "=? AND " +
+        int newShareType = newShare.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE);
+        if (newShareType == ShareType.PUBLIC_LINK.getValue()) {
+            fileValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, 1);
+        } else if (newShareType == ShareType.USER.getValue() || newShareType == ShareType.GROUP.getValue()) {
+            fileValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, 1);
+        }
+
+        String where = ProviderTableMeta.FILE_PATH + "=? AND " +
                 ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
-        String[] whereArgsShare = new String[] {
-                shareValues.getAsString(ProviderTableMeta.OCSHARES_PATH),
-                shareValues.getAsString(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER)
+        String[] whereArgs = new String[] {
+                newShare.getAsString(ProviderTableMeta.OCSHARES_PATH),
+                newShare.getAsString(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER)
         };
-        db.update(ProviderTableMeta.FILE_TABLE_NAME, fileValues, whereShare, whereArgsShare);
+        db.update(ProviderTableMeta.FILE_TABLE_NAME, fileValues, where, whereArgs);
     }
 
 
@@ -525,59 +503,6 @@ public class FileContentProvider extends ContentProvider {
         }
     }
 
- /*
-    private int updateFolderSize(SQLiteDatabase db, String folderId) {
-        int count = 0;
-        String [] whereArgs = new String[] { folderId };
-
-        // read current size saved for the folder
-        long folderSize = 0;
-        long folderParentId = -1;
-        Uri selectFolderUri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, folderId);
-        String[] folderProjection = new String[] { ProviderTableMeta.FILE_CONTENT_LENGTH,  ProviderTableMeta.FILE_PARENT};
-        String folderWhere = ProviderTableMeta._ID + "=?";
-        Cursor folderCursor = query(db, selectFolderUri, folderProjection, folderWhere, whereArgs, null);
-        if (folderCursor != null && folderCursor.moveToFirst()) {
-            folderSize = folderCursor.getLong(folderCursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH));;
-            folderParentId = folderCursor.getLong(folderCursor.getColumnIndex(ProviderTableMeta.FILE_PARENT));;
-        }
-        folderCursor.close();
-
-        // read and sum sizes of children
-        long childrenSize = 0;
-        Uri selectChildrenUri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, folderId);
-        String[] childrenProjection = new String[] { ProviderTableMeta.FILE_CONTENT_LENGTH,  ProviderTableMeta.FILE_PARENT};
-        String childrenWhere = ProviderTableMeta.FILE_PARENT + "=?";
-        Cursor childrenCursor = query(db, selectChildrenUri, childrenProjection, childrenWhere, whereArgs, null);
-        if (childrenCursor != null && childrenCursor.moveToFirst()) {
-            while (!childrenCursor.isAfterLast()) {
-                childrenSize += childrenCursor.getLong(childrenCursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH));
-                childrenCursor.moveToNext();
-            }
-        }
-        childrenCursor.close();
-
-        // update if needed
-        if (folderSize != childrenSize) {
-            Log_OC.d("FileContentProvider", "Updating " + folderSize + " to " + childrenSize);
-            ContentValues cv = new ContentValues();
-            cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, childrenSize);
-            count = db.update(ProviderTableMeta.FILE_TABLE_NAME, cv, folderWhere, whereArgs);
-
-            // propagate update until root
-            if (folderParentId > FileDataStorageManager.ROOT_PARENT_ID) {
-                Log_OC.d("FileContentProvider", "Propagating update to " + folderParentId);
-                updateFolderSize(db, String.valueOf(folderParentId));
-            } else {
-                Log_OC.d("FileContentProvider", "NOT propagating to " + folderParentId);
-            }
-        } else {
-            Log_OC.d("FileContentProvider", "NOT updating, sizes are " + folderSize + " and " + childrenSize);
-        }
-        return count;
-    }
-*/
-
     @Override
     public ContentProviderResult[] applyBatch (ArrayList<ContentProviderOperation> operations)
             throws OperationApplicationException {
@@ -629,12 +554,14 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA + " INTEGER, "
                     + ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA + " INTEGER, "
                     + ProviderTableMeta.FILE_ETAG + " TEXT, "
-                    + ProviderTableMeta.FILE_SHARE_BY_LINK + " INTEGER, "
+                    + ProviderTableMeta.FILE_SHARED_VIA_LINK + " INTEGER, "
                     + ProviderTableMeta.FILE_PUBLIC_LINK  + " TEXT, "
                     + ProviderTableMeta.FILE_PERMISSIONS  + " TEXT null,"
                     + ProviderTableMeta.FILE_REMOTE_ID  + " TEXT null,"
                     + ProviderTableMeta.FILE_UPDATE_THUMBNAIL  + " INTEGER," //boolean
-                    + ProviderTableMeta.FILE_IS_DOWNLOADING  + " INTEGER);" //boolean
+                    + ProviderTableMeta.FILE_IS_DOWNLOADING  + " INTEGER," //boolean
+                    + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + " TEXT,"
+                    + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + " INTEGER);"
                     );
 
             // Create table ocshares
@@ -733,7 +660,7 @@ public class FileContentProvider extends ContentProvider {
                 db.beginTransaction();
                 try {
                     db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
-                            " ADD COLUMN " + ProviderTableMeta.FILE_SHARE_BY_LINK + " INTEGER " +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_SHARED_VIA_LINK + " INTEGER " +
                             " DEFAULT 0");
 
                     db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
@@ -834,6 +761,42 @@ public class FileContentProvider extends ContentProvider {
              if (!upgraded)
                 Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
                         ", newVersion == " + newVersion);
+
+            if (oldVersion < 11 && newVersion >= 11) {
+                Log_OC.i("SQL", "Entering in the #11 ADD in onUpgrade");
+                db.beginTransaction();
+                try {
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + " TEXT " +
+                            " DEFAULT NULL");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+            if (!upgraded)
+                Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
+                        ", newVersion == " + newVersion);
+
+            if (oldVersion < 12 && newVersion >= 12) {
+                Log_OC.i("SQL", "Entering in the #12 ADD in onUpgrade");
+                db.beginTransaction();
+                try {
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + " INTEGER " +
+                            " DEFAULT 0");
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+            if (!upgraded)
+                Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
+                        ", newVersion == " + newVersion);
+
         }
     }
 

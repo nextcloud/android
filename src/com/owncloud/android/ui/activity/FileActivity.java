@@ -35,18 +35,19 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.BuildConfig;
@@ -66,9 +67,12 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.CreateShareViaLinkOperation;
+import com.owncloud.android.operations.CreateShareWithShareeOperation;
+import com.owncloud.android.operations.GetSharesForFileOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
-import com.owncloud.android.operations.UnshareLinkOperation;
+import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.NavigationDrawerItem;
@@ -84,7 +88,7 @@ import java.util.ArrayList;
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud
  * {@link Account}s .
  */
-public class FileActivity extends ActionBarActivity
+public class FileActivity extends AppCompatActivity
         implements OnRemoteOperationListener, ComponentsGetter {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
@@ -93,49 +97,50 @@ public class FileActivity extends ActionBarActivity
             "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
     public static final String EXTRA_FROM_NOTIFICATION =
             "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
-    
+
     public static final String TAG = FileActivity.class.getSimpleName();
-    
+
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
+
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String DIALOG_SHARE_PASSWORD = "DIALOG_SHARE_PASSWORD";
     private static final String KEY_TRY_SHARE_AGAIN = "TRY_SHARE_AGAIN";
     private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
-    
-    protected static final long DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS = 200;
-    
-    
+
+    protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
+
+
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
     private Account mAccount;
-    
+
     /** Main {@link OCFile} handled by the activity.*/
     private OCFile mFile;
-    
+
     /** Flag to signal that the activity will is finishing to enforce the creation of an ownCloud
      * {@link Account} */
     private boolean mRedirectingToSetupAccount = false;
-    
-    /** Flag to signal when the value of mAccount was set */ 
+
+    /** Flag to signal when the value of mAccount was set */
     protected boolean mAccountWasSet;
-    
-    /** Flag to signal when the value of mAccount was restored from a saved state */ 
+
+    /** Flag to signal when the value of mAccount was restored from a saved state */
     protected boolean mAccountWasRestored;
-    
+
     /** Flag to signal if the activity is launched by a notification */
     private boolean mFromNotification;
-    
+
     /** Messages handler associated to the main thread and the life cycle of the activity */
     private Handler mHandler;
-    
+
     /** Access point to the cached database for the current ownCloud {@link Account} */
     private FileDataStorageManager mStorageManager = null;
-    
+
     private FileOperationsHelper mFileOperationsHelper;
-    
+
     private ServiceConnection mOperationsServiceConnection = null;
-    
+
     private OperationsServiceBinder mOperationsServiceBinder = null;
-    
+
     protected FileDownloaderBinder mDownloaderBinder = null;
     protected FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
@@ -158,12 +163,12 @@ public class FileActivity extends ActionBarActivity
 
     // TODO re-enable when "Accounts" is available in Navigation Drawer
 //    protected boolean mShowAccounts = false;
-    
+
     /**
-     * Loads the ownCloud {@link Account} and main {@link OCFile} to be handled by the instance of 
+     * Loads the ownCloud {@link Account} and main {@link OCFile} to be handled by the instance of
      * the {@link FileActivity}.
-     * 
-     * Grants that a valid ownCloud {@link Account} is associated to the instance, or that the user 
+     *
+     * Grants that a valid ownCloud {@link Account} is associated to the instance, or that the user
      * is requested to create a new one.
      */
     @Override
@@ -179,7 +184,9 @@ public class FileActivity extends ActionBarActivity
                     savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
                     );
             mTryShareAgain = savedInstanceState.getBoolean(KEY_TRY_SHARE_AGAIN);
-            getSupportActionBar().setTitle(savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
+            }
         } else {
             account = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
@@ -191,11 +198,11 @@ public class FileActivity extends ActionBarActivity
                                                  // or database
 
         setAccount(account, savedInstanceState != null);
-        
+
         mOperationsServiceConnection = new OperationsServiceConnection();
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
                 Context.BIND_AUTO_CREATE);
-        
+
         mDownloadServiceConnection = newTransferenceServiceConnection();
         if (mDownloadServiceConnection != null) {
             bindService(new Intent(this, FileDownloader.class), mDownloadServiceConnection,
@@ -220,8 +227,8 @@ public class FileActivity extends ActionBarActivity
     }
 
     /**
-     *  Since ownCloud {@link Account}s can be managed from the system setting menu, 
-     *  the existence of the {@link Account} associated to the instance must be checked 
+     *  Since ownCloud {@link Account}s can be managed from the system setting menu,
+     *  the existence of the {@link Account} associated to the instance must be checked
      *  every time it is restarted.
      */
     @Override
@@ -235,8 +242,8 @@ public class FileActivity extends ActionBarActivity
         Log_OC.v(TAG, "onRestart() end");
     }
 
-    
-    @Override 
+
+    @Override
     protected void onStart() {
         super.onStart();
 
@@ -244,26 +251,26 @@ public class FileActivity extends ActionBarActivity
             onAccountSet(mAccountWasRestored);
         }
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
-        
+
         if (mOperationsServiceBinder != null) {
             doOnResumeAndBound();
         }
     }
-    
+
     @Override
     protected void onPause()  {
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
-        
+
         super.onPause();
     }
-    
-    
+
+
     @Override
     protected void onDestroy() {
         if (mOperationsServiceConnection != null) {
@@ -288,7 +295,7 @@ public class FileActivity extends ActionBarActivity
         // Sync the toggle state after onRestoreInstanceState has occurred.
         if (mDrawerToggle != null) {
             mDrawerToggle.syncState();
-            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            if (isDrawerOpen()) {
                 getSupportActionBar().setTitle(R.string.app_name);
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
             }
@@ -303,6 +310,37 @@ public class FileActivity extends ActionBarActivity
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (isDrawerOpen()) {
+            closeNavDrawer();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    /**
+     * checks if the drawer exists and is opened.
+     *
+     * @return <code>true</code> if the drawer is open, else <code>false</code>
+     */
+    public boolean isDrawerOpen() {
+        if(mDrawerLayout != null) {
+            return mDrawerLayout.isDrawerOpen(GravityCompat.START);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * closes the navigation drawer.
+     */
+    public void closeNavDrawer() {
+        if(mDrawerLayout != null) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
     protected void initDrawer(){
         // constant settings for action bar when navigation drawer is inited
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -310,7 +348,7 @@ public class FileActivity extends ActionBarActivity
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Notification Drawer
-        LinearLayout navigationDrawerLayout = (LinearLayout) findViewById(R.id.left_drawer);
+        RelativeLayout navigationDrawerLayout = (RelativeLayout) findViewById(R.id.left_drawer);
         mDrawerList = (ListView) navigationDrawerLayout.findViewById(R.id.drawer_list);
 
         // TODO re-enable when "Accounts" is available in Navigation Drawer
@@ -328,6 +366,14 @@ public class FileActivity extends ActionBarActivity
 //            username.setText(account.name.substring(0, lastAtPos));
 //        }
 
+        // Display username in drawer
+        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        if (account != null) {
+            TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
+            int lastAtPos = account.name.lastIndexOf("@");
+            username.setText(account.name.substring(0, lastAtPos));
+        }
+
         // load slide menu items
         mDrawerTitles = getResources().getStringArray(R.array.drawer_items);
 
@@ -343,7 +389,8 @@ public class FileActivity extends ActionBarActivity
         // mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0],
         // mDrawerContentDescriptions[0]));
         // All Files
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0]));
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0],
+                R.drawable.ic_folder_open));
 
         // TODO Enable when "On Device" is recovered
         // On Device
@@ -351,11 +398,12 @@ public class FileActivity extends ActionBarActivity
         //        mDrawerContentDescriptions[2]));
 
         // Settings
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1]));
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1],
+                R.drawable.ic_settings));
         // Logs
         if (BuildConfig.DEBUG) {
             mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2],
-                    mDrawerContentDescriptions[2]));
+                    mDrawerContentDescriptions[2],R.drawable.ic_log));
         }
 
         // setting the nav drawer list adapter
@@ -363,12 +411,8 @@ public class FileActivity extends ActionBarActivity
                 mDrawerItems);
         mDrawerList.setAdapter(mNavigationDrawerAdapter);
 
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,
-                mDrawerLayout,
-                R.drawable.ic_drawer,
-                R.string.app_name,
-                R.string.drawer_close) {
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.drawer_open,R.string.drawer_close) {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
@@ -385,13 +429,13 @@ public class FileActivity extends ActionBarActivity
                 invalidateOptionsMenu();
             }
         };
-
-        //mDrawerToggle.setDrawerIndicatorEnabled(true);
+        
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
     }
 
     /**
@@ -405,19 +449,14 @@ public class FileActivity extends ActionBarActivity
 
         /// choose the appropiate title
         if (chosenFile == null) {
-            // mFile determines the title
-            inRoot = (mFile == null || mFile.getParentId() == 0);
-            if (!inRoot) {
-                title = mFile.getFileName();
-            }
-
-        } else if (chosenFile.getParentId() != 0){
-            // chosenFile determines the title, instead of mFile
+            chosenFile = mFile;     // if no file is passed, current file decides
+        }
+        inRoot = (
+                chosenFile == null ||
+                (chosenFile.isFolder() && chosenFile.getParentId() == FileDataStorageManager.ROOT_PARENT_ID)
+        );
+        if (!inRoot) {
             title = chosenFile.getFileName();
-            inRoot = false;
-
-        } else{
-            inRoot = true;
         }
 
         /// set the chosen title
@@ -440,12 +479,12 @@ public class FileActivity extends ActionBarActivity
 
 
     /**
-     *  Sets and validates the ownCloud {@link Account} associated to the Activity. 
-     * 
+     *  Sets and validates the ownCloud {@link Account} associated to the Activity.
+     *
      *  If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
-     *  
-     *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}. 
-     * 
+     *
+     *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
+     *
      *  @param account          New {@link Account} to set.
      *  @param savedAccount     When 'true', account was retrieved from a saved instance state.
      */
@@ -458,31 +497,31 @@ public class FileActivity extends ActionBarActivity
             mAccount = account;
             mAccountWasSet = true;
             mAccountWasRestored = (savedAccount || mAccount.equals(oldAccount));
-            
+
         } else {
             swapToDefaultAccount();
         }
     }
 
-    
+
     /**
-     *  Tries to swap the current ownCloud {@link Account} for other valid and existing. 
-     * 
-     *  If no valid ownCloud {@link Account} exists, the the user is requested 
+     *  Tries to swap the current ownCloud {@link Account} for other valid and existing.
+     *
+     *  If no valid ownCloud {@link Account} exists, the the user is requested
      *  to create a new ownCloud {@link Account}.
-     *  
+     *
      *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
      */
     private void swapToDefaultAccount() {
         // default to the most recently used account
-        Account newAccount  = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        Account newAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
         if (newAccount == null) {
             /// no account available: force account creation
             createFirstAccount();
             mRedirectingToSetupAccount = true;
             mAccountWasSet = false;
             mAccountWasRestored = false;
-            
+
         } else {
             mAccountWasSet = true;
             mAccountWasRestored = (newAccount.equals(mAccount));
@@ -505,7 +544,7 @@ public class FileActivity extends ActionBarActivity
                 null);
     }
 
-    
+
     /**
      * {@inheritDoc}
      */
@@ -516,34 +555,38 @@ public class FileActivity extends ActionBarActivity
         outState.putBoolean(FileActivity.EXTRA_FROM_NOTIFICATION, mFromNotification);
         outState.putLong(KEY_WAITING_FOR_OP_ID, mFileOperationsHelper.getOpIdWaitingFor());
         outState.putBoolean(KEY_TRY_SHARE_AGAIN, mTryShareAgain);
-        outState.putString(KEY_ACTION_BAR_TITLE, getSupportActionBar().getTitle().toString());
+        if(getSupportActionBar() != null && getSupportActionBar().getTitle() != null) {
+            // Null check in case the actionbar is used in ActionBar.NAVIGATION_MODE_LIST
+            // since it doesn't have a title then
+            outState.putString(KEY_ACTION_BAR_TITLE, getSupportActionBar().getTitle().toString());
+        }
     }
-    
-    
+
+
     /**
      * Getter for the main {@link OCFile} handled by the activity.
-     * 
+     *
      * @return  Main {@link OCFile} handled by the activity.
      */
     public OCFile getFile() {
         return mFile;
     }
 
-    
+
     /**
      * Setter for the main {@link OCFile} handled by the activity.
-     * 
+     *
      * @param file  Main {@link OCFile} to be handled by the activity.
      */
     public void setFile(OCFile file) {
         mFile = file;
     }
 
-    
+
     /**
      * Getter for the ownCloud {@link Account} where the main {@link OCFile} handled by the activity
      * is located.
-     * 
+     *
      * @return  OwnCloud {@link Account} where the main {@link OCFile} handled by the activity
      *          is located.
      */
@@ -561,9 +604,9 @@ public class FileActivity extends ActionBarActivity
     public boolean fromNotification() {
         return mFromNotification;
     }
-    
+
     /**
-     * @return  'True' when the Activity is finishing to enforce the setup of a new account.
+     * @return 'True' when the Activity is finishing to enforce the setup of a new account.
      */
     protected boolean isRedirectingToSetupAccount() {
         return mRedirectingToSetupAccount;
@@ -576,11 +619,11 @@ public class FileActivity extends ActionBarActivity
     public void setTryShareAgain(boolean tryShareAgain) {
        mTryShareAgain = tryShareAgain;
     }
-    
+
     public OperationsServiceBinder getOperationsServiceBinder() {
         return mOperationsServiceBinder;
     }
-    
+
     protected ServiceConnection newTransferenceServiceConnection() {
         return null;
     }
@@ -588,7 +631,7 @@ public class FileActivity extends ActionBarActivity
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
      * a new ownCloud {@link Account} finished, successfully or not.
-     * 
+     *
      * At this moment, only called after the creation of the first account.
      */
     public class AccountCreationCallback implements AccountManagerCallback<Bundle> {
@@ -609,11 +652,11 @@ public class FileActivity extends ActionBarActivity
                     }
                 } catch (OperationCanceledException e) {
                     Log_OC.d(TAG, "Account creation canceled");
-                    
+
                 } catch (Exception e) {
                     Log_OC.e(TAG, "Account creation finished in exception: ", e);
                 }
-                    
+
             } else {
                 Log_OC.e(TAG, "Account creation callback with null bundle");
             }
@@ -621,19 +664,19 @@ public class FileActivity extends ActionBarActivity
                 moveTaskToBack(true);
             }
         }
-        
+
     }
-    
-    
+
+
     /**
      *  Called when the ownCloud {@link Account} associated to the Activity was just updated.
-     * 
+     *
      *  Child classes must grant that state depending on the {@link Account} is updated.
      */
     protected void onAccountSet(boolean stateWasRecovered) {
         if (getAccount() != null) {
             mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-            
+
         } else {
             Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
         }
@@ -653,13 +696,13 @@ public class FileActivity extends ActionBarActivity
     public Handler getHandler() {
         return mHandler;
     }
-    
+
     public FileOperationsHelper getFileOperationsHelper() {
         return mFileOperationsHelper;
     }
-    
+
     /**
-     * 
+     *
      * @param operation     Removal operation performed.
      * @param result        Result of the removal.
      */
@@ -667,17 +710,19 @@ public class FileActivity extends ActionBarActivity
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the "
                 + "FileActivities ");
-        
+
         mFileOperationsHelper.setOpIdWaitingFor(Long.MAX_VALUE);
-        
+
+        dismissLoadingDialog();
+
         if (!result.isSuccess() && (
-                result.getCode() == ResultCode.UNAUTHORIZED || 
+                result.getCode() == ResultCode.UNAUTHORIZED ||
                 result.isIdPRedirection() ||
                 (result.isException() && result.getException() instanceof AuthenticatorException)
                 )) {
-            
+
             requestCredentialsUpdate();
-            
+
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
                 dismissLoadingDialog();
                 Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
@@ -687,15 +732,37 @@ public class FileActivity extends ActionBarActivity
             }
             mTryShareAgain = false;
 
-        } else if (operation instanceof CreateShareOperation) {
-            onCreateShareOperationFinish((CreateShareOperation) operation, result);
-            
-        } else if (operation instanceof UnshareLinkOperation) {
-            onUnshareLinkOperationFinish((UnshareLinkOperation)operation, result);
-        
-        } else if (operation instanceof SynchronizeFolderOperation) {
-            onSynchronizeFolderOperationFinish((SynchronizeFolderOperation)operation, result);
+        } else if (operation == null ||
+                operation instanceof CreateShareWithShareeOperation ||
+                operation instanceof UnshareOperation ||
+                operation instanceof SynchronizeFolderOperation
+                ) {
+            if (result.isSuccess()) {
+                updateFileFromDB();
 
+            } else if (result.getCode() != ResultCode.CANCELLED) {
+                Toast t = Toast.makeText(this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
+                t.show();
+            }
+
+        } else if (operation instanceof CreateShareViaLinkOperation) {
+            onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
+
+        } else if (operation instanceof SynchronizeFileOperation) {
+            onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
+
+        } else if (operation instanceof GetSharesForFileOperation) {
+            if (result.isSuccess()) {
+                updateFileFromDB();
+
+            } else if (result.getCode() != ResultCode.SHARE_NOT_FOUND) {
+                Toast t = Toast.makeText(this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
+                t.show();
+            }
         }
     }
 
@@ -703,21 +770,21 @@ public class FileActivity extends ActionBarActivity
         Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
         updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
         updateAccountCredentials.putExtra(
-                AuthenticatorActivity.EXTRA_ACTION, 
+                AuthenticatorActivity.EXTRA_ACTION,
                 AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
         updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         startActivity(updateAccountCredentials);
     }
-    
 
-    private void onCreateShareOperationFinish(CreateShareOperation operation,
-                                              RemoteOperationResult result) {
-        dismissLoadingDialog();
+
+
+    private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
+                                                     RemoteOperationResult result) {
         if (result.isSuccess()) {
             mTryShareAgain = false;
             updateFileFromDB();
-            
-            Intent sendIntent = operation.getSendIntent();
+
+            Intent sendIntent = operation.getSendIntentWithSubject(this);
             startActivity(sendIntent);
         } else {
             // Detect Failure (403) --> needs Password
@@ -740,34 +807,30 @@ public class FileActivity extends ActionBarActivity
                         Toast.LENGTH_LONG);
                 t.show();
             }
-        } 
-    }
-    
-    
-    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation,
-                                              RemoteOperationResult result) {
-        dismissLoadingDialog();
-        
-        if (result.isSuccess()){
-            updateFileFromDB();
-            
-        } else {
-            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
-                            operation, getResources()), Toast.LENGTH_LONG);
-            t.show();
-        } 
-    }
-
-    private void onSynchronizeFolderOperationFinish(
-            SynchronizeFolderOperation operation, RemoteOperationResult result
-    ) {
-        if (!result.isSuccess() && result.getCode() != ResultCode.CANCELLED){
-            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
-                            operation, getResources()), Toast.LENGTH_LONG);
-            t.show();
         }
     }
-    
+
+    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation,
+                                                  RemoteOperationResult result) {
+        OCFile syncedFile = operation.getLocalFile();
+        if (!result.isSuccess()) {
+            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+                Intent i = new Intent(this, ConflictsResolveActivity.class);
+                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, syncedFile);
+                i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, getAccount());
+                startActivity(i);
+            }
+
+        } else {
+            if (!operation.transferWasRequested()) {
+                Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
+                        operation, getResources()), Toast.LENGTH_LONG);
+                msg.show();
+            }
+            invalidateOptionsMenu();
+        }
+    }
+
     protected void updateFileFromDB(){
         OCFile file = getFile();
         if (file != null) {
@@ -775,24 +838,25 @@ public class FileActivity extends ActionBarActivity
             setFile(file);
         }
     }
-    
+
+
     /**
-     * Show loading dialog 
+     * Show loading dialog
      */
-    public void showLoadingDialog() {
+    public void showLoadingDialog(String message) {
         // Construct dialog
-        LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
+        LoadingDialog loading = new LoadingDialog(message);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         loading.show(ft, DIALOG_WAIT_TAG);
-        
+
     }
 
-    
+
     /**
      * Dismiss loading dialog
      */
-    public void dismissLoadingDialog(){
+    public void dismissLoadingDialog() {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
         if (frag != null) {
             LoadingDialog loading = (LoadingDialog) frag;
@@ -800,7 +864,7 @@ public class FileActivity extends ActionBarActivity
         }
     }
 
-    
+
     private void doOnResumeAndBound() {
         mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
         long waitingForOpId = mFileOperationsHelper.getOpIdWaitingFor();
@@ -814,8 +878,8 @@ public class FileActivity extends ActionBarActivity
     }
 
 
-    /** 
-     * Implements callback methods for service binding. Passed as a parameter to { 
+    /**
+     * Implements callback methods for service binding. Passed as a parameter to {
      */
     private class OperationsServiceConnection implements ServiceConnection {
 
@@ -833,7 +897,7 @@ public class FileActivity extends ActionBarActivity
                 return;
             }
         }
-        
+
 
         @Override
         public void onServiceDisconnected(ComponentName component) {

@@ -11,12 +11,23 @@
   <string name="actionbar_settings">Beállítások</string>
   <string name="actionbar_see_details">Részletek</string>
   <string name="actionbar_send_file">Küldjük el</string>
+  <string name="actionbar_sort">Rendezés</string>
+  <string name="actionbar_sort_title">Rendezés elve</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Újabb - régebbi</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Összes fájl</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Beállítások</string>
+  <string name="drawer_item_logs">Naplófájlok</string>
+  <string name="drawer_close">Bezárás</string>
+  <string name="drawer_open">Megnyitás</string>
   <string name="prefs_category_general">Általános</string>
   <string name="prefs_category_more">Több</string>
   <string name="prefs_accounts">Fiókok</string>
@@ -29,11 +40,12 @@
   <string name="prefs_log_summary">Ez használható a problémák naplózásához</string>
   <string name="prefs_log_title_history">Naplózás előzménye</string>
   <string name="prefs_log_summary_history">Ez megjeleníti a rögzitett eseményeket</string>
-  <string name="prefs_log_delete_history_button">Elözmények törlése</string>
+  <string name="prefs_log_delete_history_button">Előzmények törlése</string>
   <string name="prefs_help">Súgó</string>
   <string name="prefs_recommend">Ajánlja egy barátjának</string>
   <string name="prefs_feedback">Visszajelzés</string>
   <string name="prefs_imprint">Impresszum</string>
+  <string name="prefs_remember_last_share_location">Emlékezzen a megosztás helyére</string>
   <string name="recommend_subject">Próbálja ki %1$s-t az okostelefonján!</string>
   <string name="auth_check_server">Szerver állapot ellenörzés</string>
   <string name="auth_host_url">Kiszolgáló címe https://...</string>
@@ -57,25 +69,21 @@
   <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
   <string name="file_list_loading">Betöltés...</string>
   <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
-  <string name="file_list_folder">mappa</string>
-  <string name="file_list_folders">mappák</string>
-  <string name="file_list_file">fájl</string>
-  <string name="file_list_files">fájlok</string>
   <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
   <string name="filedetails_type">Tipus:</string>
   <string name="filedetails_created">Készült:</string>
   <string name="filedetails_modified">Módosítva:</string>
   <string name="filedetails_download">Letöltés</string>
-  <string name="filedetails_sync_file">File frissítése</string>
+  <string name="filedetails_sync_file">Szinkronizálás</string>
   <string name="filedetails_renamed_in_upload_msg">A feltöltés során az állmányt erre neveztük át: %1$s</string>
+  <string name="list_layout">Lista Elrendezés</string>
   <string name="action_share_file">Megosztás hivatkozással</string>
   <string name="action_unshare_file">Megosztás visszavonása</string>
   <string name="common_yes">Igen</string>
   <string name="common_no">Nem</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">A letöltés megszakítása</string>
-  <string name="common_cancel_upload">A feltöltés megszakítása</string>
+  <string name="common_cancel_sync">Szinkronizálás megállítása</string>
   <string name="common_cancel">Mégsem</string>
   <string name="common_save_exit">Mentés &amp; Kilépés</string>
   <string name="common_error">Hiba</string>
@@ -142,6 +150,7 @@
   <string name="auth_no_net_conn_title">Nincs hálózati kapcsolat</string>
   <string name="auth_nossl_plain_ok_title">Nem érhető el biztonságos kapcsolat.</string>
   <string name="auth_connection_established">A kapcsolat létrejött</string>
+  <string name="auth_testing_connection">Kapcsolat ellenőrzése</string>
   <string name="auth_not_configured_title">Hibás a kiszolgáló beállítása</string>
   <string name="auth_account_not_new">Egy bejelentkezési beállítás már létezik ugyanehhez a kiszolgálóhoz és felhasználóhoz</string>
   <string name="auth_account_not_the_same">A megadott felhasználó nem azonos ezzel a belépési jogosultsággal</string>
@@ -166,15 +175,14 @@
   <string name="auth_unsupported_auth_method">A kiszolgáló nem támogatja ezt a felhasználóazonosítási módszert</string>
   <string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
   <string name="auth_can_not_auth_against_server">Nem tudod hitelesíteni magadat ezen a szerveren</string>
-  <string name="fd_keep_in_sync">Automatikusan frissítse a fájlokat</string>
+  <string name="favorite">Kedvenc</string>
+  <string name="unfavorite">Nem kedvenc</string>
   <string name="common_rename">Átnevezés</string>
   <string name="common_remove">Eltávolítás</string>
   <string name="confirmation_remove_alert">Tényleg el akarod távolítani %1$s?</string>
   <string name="confirmation_remove_folder_alert">Tényleg el akarod távolítani a %1$s és tartalmát?</string>
   <string name="confirmation_remove_local">Csak a helyi példány</string>
-  <string name="confirmation_remove_folder_local">Csak a helyi tartalmat</string>
-  <string name="confirmation_remove_remote">Törlés a szerverről</string>
-  <string name="confirmation_remove_remote_and_local">A szerveren levő és a helyi példány törlése</string>
+  <string name="confirmation_remove_folder_local">Csak a helyi példány</string>
   <string name="remove_success_msg">Az eltávolítás sikerült</string>
   <string name="remove_fail_msg">Az eltávolítás nem sikerült</string>
   <string name="rename_dialog_title">Adj meg egy új nevet</string>
@@ -224,16 +232,16 @@
   <string name="instant_upload_on_wifi">Képeket csak WiFi kapcsolaton keresztül töltsünk föl</string>
   <string name="instant_video_upload_on_wifi">Videó feltöltés csak WIFI-vel</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Frissítési ütközés</string>
-  <string name="conflict_message">%s távoli állományt nem szinkronizáltuk a helyi példánnyal. Ha folytatja, akkor a távoli állományt felülírjuk.</string>
   <string name="conflict_keep_both">Mindkettő megtartása</string>
-  <string name="conflict_overwrite">Felülírás</string>
-  <string name="conflict_dont_upload">Ne töltsük föl</string>
+  <string name="conflict_use_local_version">helyi verzió</string>
+  <string name="conflict_use_server_version">szerver verzió</string>
   <string name="preview_image_description">Előnézeti kép</string>
   <string name="preview_image_error_unknown_format">Ez a kép nem jeleníthető meg</string>
   <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi könyvtárba</string>
+  <string name="prefs_instant_upload_path_title">Feltöltési Elérési Út</string>
   <string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
   <string name="unshare_link_file_error">Hiba lépett fel a mappa megosztásának visszavonásakor</string>
+  <string name="share_link_password_title">Jelszó beírása</string>
   <string name="activity_chooser_send_file_title">Küldjük el</string>
   <string name="copy_link">Link másolása</string>
   <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
@@ -246,5 +254,17 @@
   <string name="actionbar_move">Mozgatás</string>
   <string name="folder_picker_choose_button_text">Válasszon</string>
   <string name="prefs_category_security">Biztonság</string>
+  <string name="shared_subject_header">megosztva</string>
+  <string name="with_you_subject_header">veled</string>
   <string name="auth_host_address">A kiszolgáló címe</string>
+  <string name="common_error_out_memory">Nincs elég memória</string>
+  <string name="username">Felhasználónév</string>
+  <string name="file_list__footer__folder">1 könyvtár</string>
+  <string name="file_list__footer__folders">%1$d könyvtár</string>
+  <string name="file_list__footer__file">1 fájl</string>
+  <string name="file_list__footer__file_and_folder">1 fájl, 1 könyvtár</string>
+  <string name="file_list__footer__file_and_folders">1 fájl, %1$d könyvtár</string>
+  <string name="file_list__footer__files">%1$d fájl</string>
+  <string name="file_list__footer__files_and_folder">%1$d fájl, 1 könyvtár</string>
+  <string name="file_list__footer__files_and_folders">%1$d fájl, %2$d könyvtár</string>
 </resources>

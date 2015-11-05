@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Öppna</string>
   <string name="prefs_category_general">Allmänt</string>
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Konton</string>
@@ -64,27 +65,19 @@
   <string name="uploader_info_uploading">Laddar upp</string>
   <string name="file_list_seconds_ago">sekunder sedan</string>
   <string name="file_list_empty">Ingenting här. Ladda upp något!</string>
-  <string name="file_list_loading">Laddar...</string>
   <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
-  <string name="file_list_folder">mapp</string>
-  <string name="file_list_folders">mappar</string>
-  <string name="file_list_file">fil</string>
-  <string name="file_list_files">filer</string>
   <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
   <string name="filedetails_size">Storlek:</string>
   <string name="filedetails_type">Typ:</string>
   <string name="filedetails_created">Skapad:</string>
   <string name="filedetails_modified">Ändrad:</string>
   <string name="filedetails_download">Ladda ner</string>
-  <string name="filedetails_sync_file">Ladda om fil</string>
   <string name="filedetails_renamed_in_upload_msg">Filen bytte namn till %1$s under uppladdningen</string>
   <string name="action_share_file">Dela länk</string>
   <string name="action_unshare_file">Sluta dela länk</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nej</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Avbryt nedladdning</string>
-  <string name="common_cancel_upload">Avbryt uppladdning</string>
   <string name="common_cancel">Avbryt</string>
   <string name="common_save_exit">Spara &amp; Avsluta</string>
   <string name="common_error">Fel</string>
@@ -180,15 +173,14 @@
   <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användare id, vänligen kontakta en administratör
 	</string>
   <string name="auth_can_not_auth_against_server">Kan inte autentisera mot servern</string>
-  <string name="fd_keep_in_sync">Håll filen uppdaterad</string>
+  <string name="favorite">Favorit</string>
+  <string name="unfavorite">Avfavoritisera</string>
   <string name="common_rename">Byt namn</string>
   <string name="common_remove">Radera</string>
   <string name="confirmation_remove_alert">Vill du verkligen ta bort %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
   <string name="confirmation_remove_local">Endast lokalt</string>
-  <string name="confirmation_remove_folder_local">Endast lokalt innehåll</string>
-  <string name="confirmation_remove_remote">Radera från server</string>
-  <string name="confirmation_remove_remote_and_local">Både server och lokalt</string>
+  <string name="confirmation_remove_folder_local">Endast lokalt</string>
   <string name="remove_success_msg">Lyckad radering</string>
   <string name="remove_fail_msg">Radering kunde inte slutföras</string>
   <string name="rename_dialog_title">Ange ett nytt namn</string>
@@ -238,11 +230,7 @@
   <string name="instant_upload_on_wifi">Ladda upp bilder endast via WiFi</string>
   <string name="instant_video_upload_on_wifi">Ladda upp videos endast via WIFI</string>
   <string name="instant_upload_path">/DirektUppladdning</string>
-  <string name="conflict_title">Uppdateringskonflikt</string>
-  <string name="conflict_message">Serverns fil %s är inte synkroniserad med den lokala filen. Fortsätt för att skriva över filen på servern.</string>
   <string name="conflict_keep_both">Behåll båda</string>
-  <string name="conflict_overwrite">Skriv över</string>
-  <string name="conflict_dont_upload">Ladda inte upp</string>
   <string name="preview_image_description">Förhandsvisa bild</string>
   <string name="preview_image_error_unknown_format">Denna bild kan inte visas</string>
   <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>
@@ -274,7 +262,6 @@
   <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>
   <string name="prefs_category_accounts">Konton</string>
   <string name="prefs_add_account">Lägg till konto</string>
-  <string name="auth_redirect_non_secure_connection_title">Säker anslutning är omdirigerad till en osäker väg.</string>
   <string name="actionbar_logger">Loggar</string>
   <string name="log_send_history_button">Skickat historik</string>
   <string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Installera mail appen!</string>
@@ -290,9 +277,9 @@
   <string name="move_file_invalid_overwrite">Filen existerar redan i destinationsmappen</string>
   <string name="move_file_error">Ett fel uppstod vid försök att flytta denna fil eller mapp</string>
   <string name="forbidden_permissions_move">att flytta den här filen</string>
+  <string name="copy_file_invalid_overwrite">Filen existerar redan i destinationsmappen</string>
   <string name="prefs_category_instant_uploading">Direktuppladning</string>
   <string name="prefs_category_security">Säkerhet</string>
   <string name="prefs_instant_video_upload_path_title">Uppladdnings-sökväg för video</string>
-  <string name="download_folder_failed_content">Neddladning utav %1$s mappen kunde inte slutföras</string>
   <string name="auth_host_address">Serveradress</string>
 </resources>

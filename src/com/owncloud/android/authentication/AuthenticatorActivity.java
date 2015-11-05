@@ -23,9 +23,6 @@
 
 package com.owncloud.android.authentication;
 
-import java.security.cert.X509Certificate;
-import java.util.Map;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Dialog;
@@ -92,6 +89,9 @@ import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.DisplayUtils;
+
+import java.security.cert.X509Certificate;
+import java.util.Map;
 
 /**
  * This Activity is used to add an ownCloud account to the App
@@ -176,6 +176,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private EditText mUsernameInput;
     private EditText mPasswordInput;
     private View mOkButton;
+    private View mCenteredRefreshButton;
     private TextView mAuthStatusView;
 
     private int mAuthStatusText = 0, mAuthStatusIcon = 0;
@@ -250,6 +251,24 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         /// initialize general UI elements
         initOverallUi();
+
+        mOkButton = findViewById(R.id.buttonOK);
+        mOkButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                onOkClick();
+            }
+        });
+
+        mCenteredRefreshButton = findViewById(R.id.centeredRefreshButton);
+        mCenteredRefreshButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                checkOcServer();
+            }
+        });
         
         mOkButton = findViewById(R.id.buttonOK);
 
@@ -870,10 +889,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * is postponed until it is available.
      * 
      * IMPORTANT ENTRY POINT 4
-     * 
-     * @param view      OK button
      */
-    public void onOkClick(View view) {
+    public void onOkClick() {
         // this check should be unnecessary
         if (mServerInfo.mVersion == null || 
                 !mServerInfo.mVersion.isVersionValid()  || 
@@ -1146,7 +1163,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         switch (result.getCode()) {
         case OK_SSL:
-            mServerStatusIcon = android.R.drawable.ic_secure;
+            mServerStatusIcon = R.drawable.ic_lock;
             mServerStatusText = R.string.auth_secure_connection;
             break;
 
@@ -1157,7 +1174,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mServerStatusIcon = R.drawable.ic_ok;
             } else {
                 mServerStatusText = R.string.auth_nossl_plain_ok_title;
-                mServerStatusIcon = android.R.drawable.ic_partial_secure;
+                mServerStatusIcon = R.drawable.ic_lock_open;
             }
             break;
 
@@ -1207,7 +1224,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mServerStatusText = R.string.auth_unknown_error_title;
             break;
         case OK_REDIRECT_TO_NON_SECURE_CONNECTION:
-            mServerStatusIcon = android.R.drawable.ic_partial_secure;
+            mServerStatusIcon = R.drawable.ic_lock_open;
             mServerStatusText = R.string.auth_redirect_non_secure_connection_title;
             break;
         default:
@@ -1227,7 +1244,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         switch (result.getCode()) {
         case OK_SSL:
-            mAuthStatusIcon = android.R.drawable.ic_secure;
+            mAuthStatusIcon = R.drawable.ic_lock;
             mAuthStatusText = R.string.auth_secure_connection;
             break;
 
@@ -1238,7 +1255,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mAuthStatusIcon = R.drawable.ic_ok;
             } else {
                 mAuthStatusText = R.string.auth_nossl_plain_ok_title;
-                mAuthStatusIcon = android.R.drawable.ic_partial_secure;
+                mAuthStatusIcon = R.drawable.ic_lock_open;
             }
             break;
 
@@ -1356,6 +1373,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onAuthenticatorTaskCallback(RemoteOperationResult result) {
         mWaitingForOpId = Long.MAX_VALUE;
         dismissDialog(WAIT_DIALOG_TAG);
+        mAsyncTask = null;
 
         if (result.isSuccess()) {
             Log_OC.d(TAG, "Successful access - time to save the account");

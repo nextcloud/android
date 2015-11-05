@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Otvorite</string>
   <string name="prefs_category_general">Općenito</string>
   <string name="prefs_category_more">više</string>
   <string name="prefs_accounts">Korisnićki računi</string>
@@ -41,22 +42,18 @@
   <string name="uploader_wrn_no_account_quit_btn_text">Izlaz</string>
   <string name="file_list_seconds_ago">prije par sekundi</string>
   <string name="file_list_empty">Nema ničega u ovoj mapi. Pošalji nešto!</string>
-  <string name="file_list_folder">mapa</string>
-  <string name="file_list_folders">mape</string>
-  <string name="file_list_file">datoteka</string>
-  <string name="file_list_files">datoteke</string>
   <string name="filedetails_download">Preuzimanje</string>
   <string name="action_share_file">Podijelite vezu</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">U redu</string>
-  <string name="common_cancel_upload">Prekini upload</string>
   <string name="common_cancel">Odustani</string>
   <string name="common_error">Greška</string>
   <string name="common_error_unknown">Nepoznata pogreška</string>
   <string name="change_password">Izmjena lozinke</string>
   <string name="uploader_info_dirname">Naziv mape</string>
   <string name="auth_trying_to_login">Trying to login…</string>
+  <string name="favorite">Favorit</string>
   <string name="common_rename">Promjeni ime</string>
   <string name="common_remove">Makni</string>
   <string name="ssl_validator_btn_details_see">Detalji</string>

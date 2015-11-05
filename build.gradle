@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'com.android.tools.build:gradle:1.2.3'
     }
 }
 
@@ -20,15 +20,15 @@ repositories {
 
 dependencies {
     compile name: 'touch-image-view'
-    compile 'com.android.support:support-v4:19.1.0'
     compile project(':owncloud-android-library')
+    compile 'com.android.support:support-v4:22.2.1'
     compile 'com.jakewharton:disklrucache:2.0.2'
-    compile 'com.android.support:appcompat-v7:19.1.0'
+    compile 'com.android.support:appcompat-v7:22.2.1'
 }
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -59,12 +59,6 @@ android {
         }
     }
 
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-    
     productFlavors {
     }
 
@@ -72,5 +66,9 @@ android {
         exclude 'META-INF/LICENSE.txt'
     }
 }
+
+
+
+
 
 

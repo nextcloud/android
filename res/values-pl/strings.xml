@@ -21,8 +21,13 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Wszystkie pliki</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Ustawienia</string>
+  <string name="drawer_item_logs">Logi</string>
+  <string name="drawer_close">Zamknij</string>
+  <string name="drawer_open">Otwórz</string>
   <string name="prefs_category_general">Ogólne</string>
   <string name="prefs_category_more">Więcej</string>
   <string name="prefs_accounts">Konta</string>
@@ -65,19 +70,14 @@
   <string name="uploader_info_uploading">Wysyłanie</string>
   <string name="file_list_seconds_ago">sekund temu</string>
   <string name="file_list_empty">Pusto. Wyślij coś!</string>
-  <string name="file_list_loading">Ładowanie...</string>
+  <string name="file_list_loading">Wczytywanie...</string>
   <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
-  <string name="file_list_folder">folder</string>
-  <string name="file_list_folders">foldery</string>
-  <string name="file_list_file">plik</string>
-  <string name="file_list_files">pliki</string>
   <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
   <string name="filedetails_size">Rozmiar:</string>
   <string name="filedetails_type">Typ:</string>
   <string name="filedetails_created">Utworzono:</string>
   <string name="filedetails_modified">Zmodyfikowano:</string>
   <string name="filedetails_download">Pobierz</string>
-  <string name="filedetails_sync_file">Odśwież plik</string>
   <string name="filedetails_renamed_in_upload_msg">Podczas wysyłania nazwa pliku została zmieniona na %1$s</string>
   <string name="list_layout">Lista szablonów wyglądu</string>
   <string name="action_share_file">Udostępnij link</string>
@@ -85,8 +85,6 @@
   <string name="common_yes">Tak</string>
   <string name="common_no">Nie</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Anuluj pobieranie</string>
-  <string name="common_cancel_upload">Anuluj wysyłanie</string>
   <string name="common_cancel">Anuluj</string>
   <string name="common_save_exit">Zapisz i wyjdź</string>
   <string name="common_error">Błąd</string>
@@ -193,15 +191,15 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Nie można autoryzować przy użyciu tego serwera</string>
   <string name="auth_account_does_not_exist">Konto nie istnieje jeszcze na tym urządzeniu</string>
-  <string name="fd_keep_in_sync">Automatyczne aktualizuj plik</string>
+  <string name="favorite">Ulubione</string>
+  <string name="unfavorite">Usuń z ulubionych</string>
   <string name="common_rename">Zmień nazwę</string>
   <string name="common_remove">Usuń</string>
   <string name="confirmation_remove_alert">Czy naprawdę chcesz usunąć %1$s?</string>
   <string name="confirmation_remove_folder_alert">Czy naprawdę chcesz usunąć %1$s i jego zawartość?</string>
   <string name="confirmation_remove_local">Tylko lokalnie</string>
-  <string name="confirmation_remove_folder_local">Tylko zasoby lokalne</string>
-  <string name="confirmation_remove_remote">Usuń z serwera</string>
-  <string name="confirmation_remove_remote_and_local">Z serwera i telefonu</string>
+  <string name="confirmation_remove_folder_local">Tylko lokalnie</string>
+  <string name="confirmation_remove_remote">Z serwera</string>
   <string name="remove_success_msg">Usunięto</string>
   <string name="remove_fail_msg">Nie można usunąć</string>
   <string name="rename_dialog_title">Wprowadź nową nazwę</string>
@@ -252,11 +250,10 @@
   <string name="instant_upload_on_wifi">Wysyłaj zdjęcia tylko przez WiFi</string>
   <string name="instant_video_upload_on_wifi">Aktualizuj filmy tylko przez WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
-  <string name="conflict_title">Konflikt aktualizacji</string>
-  <string name="conflict_message">Zdalny plik %s nie jest zsynchronizowany z plikiem lokalnym. Kontynuując zastąpisz zawartość pliku na serwerze.</string>
+  <string name="conflict_title">Konflikt pliku</string>
   <string name="conflict_keep_both">Zatrzymaj oba</string>
-  <string name="conflict_overwrite">Zastąp</string>
-  <string name="conflict_dont_upload">Nie wysyłaj</string>
+  <string name="conflict_use_local_version">lokalna wersja</string>
+  <string name="conflict_use_server_version">wersja zdalna</string>
   <string name="preview_image_description">Podgląd</string>
   <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
@@ -304,11 +301,18 @@
   <string name="move_file_invalid_overwrite">Plik istnieje już w folderze docelowym</string>
   <string name="move_file_error">Pojawił się błąd podczas próby przeniesienia tego pliku lub folderu</string>
   <string name="forbidden_permissions_move">aby przenieść ten plik</string>
+  <string name="copy_file_invalid_overwrite">Plik istnieje już w folderze docelowym</string>
   <string name="prefs_category_instant_uploading">Automatyczne wysyłanie</string>
   <string name="prefs_category_security">Bezpieczeństwo</string>
   <string name="prefs_instant_video_upload_path_title">Katalog wysyłania dla wideo</string>
-  <string name="download_folder_failed_content">Pobieranie %1$s katalogu nie może zostać ukończone</string>
+  <string name="shared_subject_header">udostępniony</string>
+  <string name="with_you_subject_header">z tobą</string>
   <string name="auth_refresh_button">Odśwież połączenie</string>
   <string name="auth_host_address">Adres Serwera</string>
   <string name="common_error_out_memory">Brak wystarczającej pamięci</string>
+  <string name="username">Użytkownik</string>
+  <string name="file_list__footer__folder">1 folder</string>
+  <string name="file_list__footer__folders">%1$d folderów</string>
+  <string name="file_list__footer__file">1 plik</string>
+  <string name="file_list__footer__file_and_folder">1 plik , 1 folder</string>
 </resources>

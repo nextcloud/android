@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">খোল</string>
   <string name="prefs_category_general">সাধারণ</string>
   <string name="prefs_category_more">বেশী</string>
   <string name="prefs_accounts">একাউন্ট</string>
@@ -55,7 +56,6 @@
   <string name="uploader_info_uploading">আপলোড করা হচ্ছে</string>
   <string name="file_list_seconds_ago">সেকেন্ড পূর্বে</string>
   <string name="file_list_empty">এখানে কিছুই নেই। কিছু আপলোড করুন !</string>
-  <string name="file_list_loading">লোড হচ্ছে....</string>
   <string name="local_file_list_empty">এই ফোলডারে কোন ফাইল নেই</string>
   <string name="filedetails_select_file">অতিরিক্ত তথ্য প্রদর্শন করতে চাইলে ফাইলে ট্যাপ দিন</string>
   <string name="filedetails_size">আয়তনঃ</string>
@@ -63,15 +63,12 @@
   <string name="filedetails_created">তৈরীর নির্ঘন্টঃ</string>
   <string name="filedetails_modified">পরিবর্তিতঃ</string>
   <string name="filedetails_download">ডাউনলোড</string>
-  <string name="filedetails_sync_file">ফাইল নবোদ্যম করুন</string>
   <string name="filedetails_renamed_in_upload_msg">আপলোডের সময় ফাইলের পূণঃনামকরণ করা হয়েছে %1$s</string>
   <string name="action_share_file">লিংক ভাগাভাগি করেন</string>
   <string name="action_unshare_file">লিংক ছিনন করেন</string>
   <string name="common_yes">হ্যাঁ</string>
   <string name="common_no">না</string>
   <string name="common_ok">তথাস্তু</string>
-  <string name="common_cancel_download">ডাউনলোড বাতিল করেন</string>
-  <string name="common_cancel_upload">আপলোড বাতিল কর</string>
   <string name="common_cancel">বাতিল</string>
   <string name="common_save_exit">সংরক্ষণ কর এবং &amp;প্রস্থান</string>
   <string name="common_error">সমস্যা</string>
@@ -166,15 +163,13 @@
   <string name="auth_fail_get_user_name">আপনার সার্ভার একটি সঠিক ব্যবহারকারী আইডি দেয়না। দয়া করে প্রশাসকের সংগে যোগাযোগ করুন
 ⇥</string>
   <string name="auth_can_not_auth_against_server">এই সার্ভারের বিপরীতে অনুমোদন প্রদান করা গেলনা</string>
-  <string name="fd_keep_in_sync">ফাইল নবায়ন করে রাখুন</string>
+  <string name="favorite">প্রিয়জন</string>
   <string name="common_rename">পূনঃনামকরণ</string>
   <string name="common_remove">অপসারণ</string>
   <string name="confirmation_remove_alert">আপনি কি সত্যিই %1$s অপসারণ করতে চান?</string>
   <string name="confirmation_remove_folder_alert">আপনি কি সত্যিই %1$s এবং এর কনটেন্ট অপসারণ করতে চান?</string>
   <string name="confirmation_remove_local">শুধুমাত্র লোকাল</string>
-  <string name="confirmation_remove_folder_local">শুধুমাত্র লোকাল কনটেন্ট</string>
-  <string name="confirmation_remove_remote">সার্ভসার থেকে অপসারণ কর</string>
-  <string name="confirmation_remove_remote_and_local">দুরবর্তী ও স্থানীয়</string>
+  <string name="confirmation_remove_folder_local">শুধুমাত্র লোকাল</string>
   <string name="remove_success_msg">অপসারণ সফল</string>
   <string name="remove_fail_msg">অপসারণ ব্যার্থ</string>
   <string name="rename_dialog_title">একটি নতুন নাম লিখুন</string>
@@ -224,11 +219,7 @@
   <string name="instant_upload_on_wifi">শুধুমাত্র ওয়াইফাই দিয়ে ছবি আপলোড করুন</string>
   <string name="instant_video_upload_on_wifi">শুধুমাত্র ওয়াইফাই দিয়ে ভিডিও আপলোড করুন</string>
   <string name="instant_upload_path">/তাৎক্ষণিক আপলোড</string>
-  <string name="conflict_title">নবায়নকরণে দ্বন্দ</string>
-  <string name="conflict_message">স্থানীয় ফাইল আর দুরবর্তী ফাইল %s এক নয়। এগোতে চাইলে সার্ভারের ফাইলের কনটেন্ট প্রদিস্থাপিত হবে।</string>
   <string name="conflict_keep_both">উভয়কে রাখ</string>
-  <string name="conflict_overwrite">উপরে লেখ</string>
-  <string name="conflict_dont_upload">আপলোড কোরোনা</string>
   <string name="preview_image_description">ছবি প্রাকদর্শন</string>
   <string name="preview_image_error_unknown_format">ছবিটি প্রদর্শন করা যাবেনা</string>
   <string name="error__upload__local_file_not_copied">%1$s কে %2$s স্থানীয় ফোল্ডারে কপি করা গেলনা </string>
@@ -255,6 +246,7 @@
   <string name="downloader_download_file_not_found">সার্ভারে এই ফাইলটি আর প্রাপ্তব্য নয়</string>
   <string name="prefs_category_accounts">একাউন্ট</string>
   <string name="prefs_add_account">একাউন্ট যোগ কর</string>
+  <string name="auth_redirect_non_secure_connection_title">নিরাপদ সংযোগকে একটি অনিরাপদ পথে দিকবদল করা হয়েছে</string>
   <string name="saml_authentication_wrong_pass">ভুল কুটশব্দ</string>
   <string name="actionbar_move">সরাও</string>
   <string name="file_list_empty_moving">এখানে কিছু নেই। একটি ফোল্ডার যোগ করতে পারেন!</string>

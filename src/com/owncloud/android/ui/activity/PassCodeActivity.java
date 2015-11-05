@@ -27,8 +27,7 @@ import java.util.Arrays;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -41,10 +40,8 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.DisplayUtils;
 
-public class PassCodeActivity extends ActionBarActivity {
-
+public class PassCodeActivity extends AppCompatActivity {
 
     private static final String TAG = PassCodeActivity.class.getSimpleName();
 
@@ -61,7 +58,9 @@ public class PassCodeActivity extends ActionBarActivity {
     private EditText[] mPassCodeEditTexts = new EditText[4];
     
     private String [] mPassCodeDigits = {"","","",""};
+    private static String KEY_PASSCODE_DIGITS = "PASSCODE_DIGITS";
     private boolean mConfirmingPassCode = false;
+    private static String KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE";
 
     private boolean mBChange = true; // to control that only one blocks jump
 
@@ -96,13 +95,22 @@ public class PassCodeActivity extends ActionBarActivity {
             setCancelButtonEnabled(false);      // no option to cancel
 
         } else if (ACTION_ENABLE.equals(getIntent().getAction())) {
-            /// pass code preference has just been activated in Preferences;
-            // will receive and confirm pass code value
-            mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
-            //mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
-            // TODO choose a header, check iOS
-            mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
-            setCancelButtonEnabled(true);
+            if (savedInstanceState != null) {
+                mConfirmingPassCode = savedInstanceState.getBoolean(PassCodeActivity.KEY_CONFIRMING_PASSCODE);
+                mPassCodeDigits = savedInstanceState.getStringArray(PassCodeActivity.KEY_PASSCODE_DIGITS);
+            }
+            if(mConfirmingPassCode){
+                //the app was in the passcodeconfirmation
+                requestPassCodeConfirmation();
+            }else{
+                /// pass code preference has just been activated in Preferences;
+                // will receive and confirm pass code value
+                mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
+                //mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
+                // TODO choose a header, check iOS
+                mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
+                setCancelButtonEnabled(true);
+            }
 
         } else if (ACTION_DISABLE.equals(getIntent().getAction())) {
             /// pass code preference has just been disabled in Preferences;
@@ -117,9 +125,6 @@ public class PassCodeActivity extends ActionBarActivity {
         }
 
         setTextListeners();
-        
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
     }
 
 
@@ -453,6 +458,13 @@ public class PassCodeActivity extends ActionBarActivity {
         // TODO         in this activity; was the PreferenceCheckBox in the caller who did it
         appPrefsE.commit();
         finish();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(PassCodeActivity.KEY_CONFIRMING_PASSCODE, mConfirmingPassCode);
+        outState.putStringArray(PassCodeActivity.KEY_PASSCODE_DIGITS, mPassCodeDigits);
     }
 
 

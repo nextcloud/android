@@ -16,6 +16,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Malfermi</string>
   <string name="prefs_category_general">Ĝeneralo</string>
   <string name="prefs_category_more">Pli</string>
   <string name="prefs_accounts">Kontoj</string>
@@ -41,11 +42,6 @@
   <string name="uploader_info_uploading">Alŝutante</string>
   <string name="file_list_seconds_ago">sekundoj antaŭe</string>
   <string name="file_list_empty">Nenio estas ĉi tie. Alŝutu ion!</string>
-  <string name="file_list_loading">Ŝargante...</string>
-  <string name="file_list_folder">dosierujo</string>
-  <string name="file_list_folders">dosierujoj</string>
-  <string name="file_list_file">dosiero</string>
-  <string name="file_list_files">dosieroj</string>
   <string name="filedetails_size">Grando:</string>
   <string name="filedetails_type">Tipo:</string>
   <string name="filedetails_created">Kreita je:</string>
@@ -57,8 +53,6 @@
   <string name="common_yes">Jes</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Akcepti</string>
-  <string name="common_cancel_download">Nuligi elŝuton</string>
-  <string name="common_cancel_upload">Nuligi alŝuton</string>
   <string name="common_cancel">Nuligi</string>
   <string name="common_save_exit">Konservi kaj forlasi</string>
   <string name="common_error">Eraro</string>
@@ -122,15 +116,14 @@
   <string name="auth_expired_basic_auth_toast">Bonvolu enigi la nunan pasvorton</string>
   <string name="auth_connecting_auth_server">Konektante al aŭtentiga servilo...</string>
   <string name="auth_unsupported_auth_method">La servilo ne kongruas kun ĉi tiu aŭtentiga metodo</string>
-  <string name="fd_keep_in_sync">Teni dosieron ĝisdatigita</string>
+  <string name="favorite">Favorato</string>
+  <string name="unfavorite">Nefavoratigi</string>
   <string name="common_rename">Alinomigi</string>
   <string name="common_remove">Forigi</string>
   <string name="confirmation_remove_alert">Ĉu vi vere volas forigi %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ĉu vi vere volas forigi %1$s kaj ĝia enhavo?</string>
   <string name="confirmation_remove_local">Nur loka</string>
-  <string name="confirmation_remove_folder_local">Nur lokaj enhavoj</string>
-  <string name="confirmation_remove_remote">Forigi el la servilo</string>
-  <string name="confirmation_remove_remote_and_local">Kaj malloka kaj loka</string>
+  <string name="confirmation_remove_folder_local">Nur loka</string>
   <string name="remove_success_msg">Forigo sukcesis</string>
   <string name="remove_fail_msg">Forigo ne eblis plenumiĝi</string>
   <string name="rename_dialog_title">Enigu novan nomon</string>
@@ -171,11 +164,7 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Alŝuti bildojn nur per WiFi</string>
-  <string name="conflict_title">Alŝuta konflikto</string>
-  <string name="conflict_message">La malloka dosiero %s estas ne sinkronigita kun loka dosiero. Se la ago daŭrus, enhavo de la dosiero en la servilo anstataŭiĝus.</string>
   <string name="conflict_keep_both">Konservi ambaŭ</string>
-  <string name="conflict_overwrite">Anstataŭigi</string>
-  <string name="conflict_dont_upload">Ne alŝuti</string>
   <string name="preview_image_description">Antaŭvido de bildo</string>
   <string name="preview_image_error_unknown_format">Ĉi tiu bildo ne povas montriĝi</string>
   <string name="error__upload__local_file_not_copied">%1$s ne povis kopiiĝi al la loka dosierujo %2$s</string>
@@ -192,6 +181,9 @@
   <string name="actionbar_move">Movi</string>
   <string name="folder_picker_choose_button_text">Elekti</string>
   <string name="move_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
+  <string name="copy_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
   <string name="prefs_category_security">Sekuro</string>
   <string name="auth_host_address">Servila adreso</string>
+  <string name="file_list__footer__file">1 dosiero</string>
+  <string name="file_list__footer__files">%1$d dosieroj</string>
 </resources>

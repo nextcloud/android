@@ -22,9 +22,9 @@ package com.owncloud.android.datamodel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 
@@ -43,6 +43,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         }
     };
 
+    private final static String PERMISSION_SHARED_WITH_ME = "S";    // TODO move to better location
+
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
 
@@ -60,7 +62,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private boolean mNeedsUpdating;
     private long mLastSyncDateForProperties;
     private long mLastSyncDateForData;
-    private boolean mKeepInSync;
+    private boolean mFavorite;
 
     private String mEtag;
 
@@ -73,6 +75,10 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private boolean mNeedsUpdateThumbnail;
 
     private boolean mIsDownloading;
+
+    private String mEtagInConflict;    // Save file etag in the server, when there is a conflict. No conflict =  null
+
+    private boolean mShareWithSharee;
 
 
     /**
@@ -107,7 +113,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLocalPath = source.readString();
         mMimeType = source.readString();
         mNeedsUpdating = source.readInt() == 0;
-        mKeepInSync = source.readInt() == 1;
+        mFavorite = source.readInt() == 1;
         mLastSyncDateForProperties = source.readLong();
         mLastSyncDateForData = source.readLong();
         mEtag = source.readString();
@@ -115,8 +121,10 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mPublicLink = source.readString();
         mPermissions = source.readString();
         mRemoteId = source.readString();
-        mNeedsUpdateThumbnail = source.readInt() == 0;
-        mIsDownloading = source.readInt() == 0;
+        mNeedsUpdateThumbnail = source.readInt() == 1;
+        mIsDownloading = source.readInt() == 1;
+        mEtagInConflict = source.readString();
+        mShareWithSharee = source.readInt() == 1;
 
     }
 
@@ -132,7 +140,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mLocalPath);
         dest.writeString(mMimeType);
         dest.writeInt(mNeedsUpdating ? 1 : 0);
-        dest.writeInt(mKeepInSync ? 1 : 0);
+        dest.writeInt(mFavorite ? 1 : 0);
         dest.writeLong(mLastSyncDateForProperties);
         dest.writeLong(mLastSyncDateForData);
         dest.writeString(mEtag);
@@ -142,6 +150,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mRemoteId);
         dest.writeInt(mNeedsUpdateThumbnail ? 1 : 0);
         dest.writeInt(mIsDownloading ? 1 : 0);
+        dest.writeString(mEtagInConflict);
+        dest.writeInt(mShareWithSharee ? 1 : 0);
     }
 
     /**
@@ -289,11 +299,13 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     /**
      * Sets the name of the file
      * <p/>
-     * Does nothing if the new name is null, empty or includes "/" ; or if the file is the root directory
+     * Does nothing if the new name is null, empty or includes "/" ; or if the file is the root
+     * directory
      */
     public void setFileName(String name) {
         Log_OC.d(TAG, "OCFile name changin from " + mRemotePath);
-        if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) && !mRemotePath.equals(ROOT_PATH)) {
+        if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) &&
+                !mRemotePath.equals(ROOT_PATH)) {
             String parent = (new File(getRemotePath())).getParent();
             parent = (parent.endsWith(PATH_SEPARATOR)) ? parent : parent + PATH_SEPARATOR;
             mRemotePath = parent + name;
@@ -314,24 +326,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
-     * Adds a file to this directory. If this file is not a directory, an
-     * exception gets thrown.
-     *
-     * @param file to add
-     * @throws IllegalStateException if you try to add a something and this is
-     *                               not a directory
-     */
-    public void addFile(OCFile file) throws IllegalStateException {
-        if (isFolder()) {
-            file.mParentId = mId;
-            mNeedsUpdating = true;
-            return;
-        }
-        throw new IllegalStateException(
-                "This is not a directory where you can add stuff to!");
-    }
-
-    /**
      * Used internally. Reset all file properties
      */
     private void resetData() {
@@ -346,7 +340,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mModifiedTimestampAtLastSyncForData = 0;
         mLastSyncDateForProperties = 0;
         mLastSyncDateForData = 0;
-        mKeepInSync = false;
+        mFavorite = false;
         mNeedsUpdating = false;
         mEtag = null;
         mShareByLink = false;
@@ -355,6 +349,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mRemoteId = null;
         mNeedsUpdateThumbnail = false;
         mIsDownloading = false;
+        mEtagInConflict = null;
+        mShareWithSharee = false;
     }
 
     /**
@@ -444,17 +440,17 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLastSyncDateForData = lastSyncDate;
     }
 
-    public void setKeepInSync(boolean keepInSync) {
-        mKeepInSync = keepInSync;
+    public void setFavorite(boolean favorite) {
+        mFavorite = favorite;
     }
 
-    public boolean keepInSync() {
-        return mKeepInSync;
+    public boolean isFavorite() {
+        return mFavorite;
     }
 
     @Override
     public int describeContents() {
-        return ((Object) this).hashCode();
+        return super.hashCode();
     }
 
     @Override
@@ -483,8 +479,11 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public String toString() {
-        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, keepInSync=%s etag=%s]";
-        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mKeepInSync), mEtag);
+        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
+                "parentId=%s, favorite=%s etag=%s]";
+        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(),
+                mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mFavorite),
+                mEtag);
         return asString;
     }
 
@@ -493,15 +492,15 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     public void setEtag(String etag) {
-        this.mEtag = etag;
+        this.mEtag = (etag != null ? etag : "");
     }
 
 
-    public boolean isShareByLink() {
+    public boolean isSharedViaLink() {
         return mShareByLink;
     }
 
-    public void setShareByLink(boolean shareByLink) {
+    public void setShareViaLink(boolean shareByLink) {
         this.mShareByLink = shareByLink;
     }
 
@@ -540,7 +539,33 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      */
     public boolean isImage() {
         return ((mMimeType != null && mMimeType.startsWith("image/")) ||
-                FileStorageUtils.getMimeTypeFromName(mRemotePath).startsWith("image/"));
+                getMimeTypeFromName().startsWith("image/"));
+    }
+
+    /**
+     * @return 'True' if the file is simple text (e.g. not application-dependent, like .doc or .docx)
+     */
+    public boolean isText() {
+        return ((mMimeType != null && mMimeType.startsWith("text/")) ||
+                getMimeTypeFromName().startsWith("text/"));
+    }
+
+    public String getMimeTypeFromName() {
+        String extension = "";
+        int pos = mRemotePath.lastIndexOf('.');
+        if (pos >= 0) {
+            extension = mRemotePath.substring(pos + 1);
+        }
+        String result = MimeTypeMap.getSingleton().
+                getMimeTypeFromExtension(extension.toLowerCase());
+        return (result != null) ? result : "";
+    }
+
+    /**
+     * @return 'True' if the file is hidden
+     */
+    public boolean isHidden() {
+        return getFileName().startsWith(".");
     }
 
     public String getPermissions() {
@@ -567,8 +592,24 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         this.mIsDownloading = isDownloading;
     }
 
-    public boolean isSynchronizing() {
-        // TODO real implementation
-        return false;
+    public String getEtagInConflict() {
+        return mEtagInConflict;
+    }
+
+    public void setEtagInConflict(String etagInConflict) {
+        mEtagInConflict = etagInConflict;
+    }
+
+    public boolean isSharedWithSharee() {
+        return mShareWithSharee;
+    }
+
+    public void setShareWithSharee(boolean shareWithSharee) {
+        this.mShareWithSharee = shareWithSharee;
+    }
+
+    public boolean isSharedWithMe() {
+        String permissions = getPermissions();
+        return (permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME));
     }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="@dimen/standard_margin"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/file_actions_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_padding"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        />
+
+    <View
+        android:id="@+id/file_actions_header_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/owncloud_blue"
+        android:visibility="gone"
+        />
+
+    <ListView
+        android:id="@+id/file_actions_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+</LinearLayout >

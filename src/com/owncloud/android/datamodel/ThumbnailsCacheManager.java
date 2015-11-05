@@ -36,7 +36,9 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -79,8 +81,8 @@ public class ThumbnailsCacheManager {
 
     public static Bitmap mDefaultImg = 
             BitmapFactory.decodeResource(
-                    MainApp.getAppContext().getResources(), 
-                    DisplayUtils.getFileTypeIconId("image/png", "default.png")
+                    MainApp.getAppContext().getResources(),
+                    R.drawable.file_image
             );
 
     
@@ -210,10 +212,6 @@ public class ThumbnailsCacheManager {
         }
 
         protected void onPostExecute(Bitmap bitmap){
-            if (isCancelled()) {
-                bitmap = null;
-            }
-
             if (bitmap != null) {
                 final ImageView imageView = mImageViewReference.get();
                 final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
@@ -312,6 +310,11 @@ public class ThumbnailsCacheManager {
                             file.getStoragePath(), pxW, pxH);
 
                     if (bitmap != null) {
+                        // Handle PNG
+                        if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                            bitmap = handlePNG(bitmap, pxW);
+                        }
+
                         thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
 
                         file.setNeedsUpdateThumbnail(false);
@@ -331,9 +334,6 @@ public class ThumbnailsCacheManager {
                                 GetMethod get = new GetMethod(uri);
                                 int status = mClient.executeMethod(get);
                                 if (status == HttpStatus.SC_OK) {
-//                                    byte[] bytes = get.getResponseBody();
-//                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0,
-//                                            bytes.length);
                                     InputStream inputStream = get.getResponseBodyAsStream();
                                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                     thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
@@ -343,6 +343,11 @@ public class ThumbnailsCacheManager {
                                         thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
                                     } else {
                                         thumbnail = bitmap;
+                                    }
+
+                                    // Handle PNG
+                                    if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                                        thumbnail = handlePNG(thumbnail, pxW);
                                     }
 
                                     // Add thumbnail to cache
@@ -362,6 +367,19 @@ public class ThumbnailsCacheManager {
 
             return thumbnail;
 
+        }
+
+        private Bitmap handlePNG(Bitmap bitmap, int px){
+            Bitmap resultBitmap = Bitmap.createBitmap(px,
+                    px,
+                    Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(resultBitmap);
+
+            c.drawColor(MainApp.getAppContext().getResources().
+                    getColor(R.color.background_color));
+            c.drawBitmap(bitmap, 0, 0, null);
+
+            return resultBitmap;
         }
 
         private Bitmap doFileInBackground(Boolean mIsThumbnail) {
@@ -413,6 +431,7 @@ public class ThumbnailsCacheManager {
             if (bitmapData == null || bitmapData != file) {
                 // Cancel previous task
                 bitmapWorkerTask.cancel(true);
+                Log_OC.v(TAG, "Cancelled generation of thumbnail for a reused imageView");
             } else {
                 // The same work is already in progress
                 return false;
