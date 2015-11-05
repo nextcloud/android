@@ -415,7 +415,8 @@ public class OCFileListFragment extends ExtendedListFragment {
                 }
             }
 
-            FileActionsDialogFragment dialog = FileActionsDialogFragment.newInstance(menu, fileIndex, targetFile.getFileName());
+            FileActionsDialogFragment dialog = FileActionsDialogFragment.newInstance(menu,
+                    fileIndex, targetFile.getFileName());
             dialog.setTargetFragment(this, 0);
             dialog.show(getFragmentManager(), FileActionsDialogFragment.FTAG_FILE_ACTIONS);
         }
@@ -499,7 +500,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                         ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true);
                     } else if (file.isDown()) {
                         mContainerActivity.getFileOperationsHelper().openFile(file);
-                    } else {
+                } else {
                     // automatic download, preview on finish
                     ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
                 }
@@ -672,7 +673,6 @@ public class OCFileListFragment extends ExtendedListFragment {
                     return false;
             }
         }
-
     }
     
     /**
@@ -681,7 +681,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     @Override
     public boolean onContextItemSelected (MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        boolean matched = onFileActionChosen(item.getItemId());
+        boolean matched = onFileActionChosen(item.getItemId())  ;
         if(!matched) {
             return super.onContextItemSelected(item);
         } else {

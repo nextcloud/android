@@ -19,8 +19,8 @@ repositories {
 
 dependencies {
     compile name: 'touch-image-view'
-    compile 'com.android.support:support-v4:22.2.1'
     compile project(':owncloud-android-library')
+    compile 'com.android.support:support-v4:22.2.1'
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.getbase:floatingactionbutton:1.10.1'
@@ -64,7 +64,7 @@ android {
             abortOnError false
         }
     }
-    
+
     productFlavors {
     }
 
@@ -72,6 +72,10 @@ android {
         exclude 'META-INF/LICENSE.txt'
     }
 }
+
+
+
+
 
 def computeVersionCode() {
     def date = new Date()

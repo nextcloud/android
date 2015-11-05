@@ -230,10 +230,15 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
                 return true;
             }
+            case R.id.action_share_with_users: {
+                mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
+                return true;
+            }
             case R.id.action_unshare_file: {
                 mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
                 return true;
             }
+
             case R.id.action_open_file_with: {
                 mContainerActivity.getFileOperationsHelper().openFile(getFile());
                 return true;
@@ -262,7 +267,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 if (!getFile().isDown()) {  // Download the file                    
                     Log_OC.d(TAG, getFile().getRemotePath() + " : File must be downloaded");
                     ((FileDisplayActivity) mContainerActivity).startDownloadForSending(getFile());
-
                 }
                 else {
                     mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());

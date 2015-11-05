@@ -38,30 +38,13 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_menu_archive"/>
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/sharedIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|right"
-            android:orientation="vertical"
-            android:layout_margin="4dp">
-
-            <ImageView
-                android:id="@+id/sharedIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="4dp"
-                android:src="@drawable/sharedlink" />
-
-            <ImageView
-                android:id="@+id/sharedWithMeIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="4dp"
-                android:src="@drawable/shared_with_me"
-                android:visibility="invisible" />
-        </LinearLayout>
+            android:layout_margin="4dp"
+            android:src="@drawable/shared_via_link" />
 
         <ImageView
             android:id="@+id/localFileIndicator"

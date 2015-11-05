@@ -332,6 +332,10 @@ public class PreviewImageFragment extends FileFragment {
                 mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
                 return true;
             }
+            case R.id.action_share_with_users: {
+                mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
+                return true;
+            }
             case R.id.action_unshare_file: {
                 mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
                 return true;
@@ -358,6 +362,7 @@ public class PreviewImageFragment extends FileFragment {
                     return true;
                 }
             }
+            case R.id.action_download_file:
             case R.id.action_sync_file: {
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
@@ -383,7 +388,6 @@ public class PreviewImageFragment extends FileFragment {
     private void seeDetails() {
         mContainerActivity.showDetails(getFile());
     }
-
 
     @Override
     public void onResume() {

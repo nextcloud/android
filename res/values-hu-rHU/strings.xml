@@ -45,6 +45,7 @@
   <string name="prefs_recommend">Ajánlja egy barátjának</string>
   <string name="prefs_feedback">Visszajelzés</string>
   <string name="prefs_imprint">Impresszum</string>
+  <string name="prefs_remember_last_share_location">Emlékezzen a megosztás helyére</string>
   <string name="recommend_subject">Próbálja ki %1$s-t az okostelefonján!</string>
   <string name="auth_check_server">Szerver állapot ellenörzés</string>
   <string name="auth_host_url">Kiszolgáló címe https://...</string>
@@ -74,12 +75,15 @@
   <string name="filedetails_created">Készült:</string>
   <string name="filedetails_modified">Módosítva:</string>
   <string name="filedetails_download">Letöltés</string>
+  <string name="filedetails_sync_file">Szinkronizálás</string>
   <string name="filedetails_renamed_in_upload_msg">A feltöltés során az állmányt erre neveztük át: %1$s</string>
+  <string name="list_layout">Lista Elrendezés</string>
   <string name="action_share_file">Megosztás hivatkozással</string>
   <string name="action_unshare_file">Megosztás visszavonása</string>
   <string name="common_yes">Igen</string>
   <string name="common_no">Nem</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_sync">Szinkronizálás megállítása</string>
   <string name="common_cancel">Mégsem</string>
   <string name="common_save_exit">Mentés &amp; Kilépés</string>
   <string name="common_error">Hiba</string>
@@ -146,6 +150,7 @@
   <string name="auth_no_net_conn_title">Nincs hálózati kapcsolat</string>
   <string name="auth_nossl_plain_ok_title">Nem érhető el biztonságos kapcsolat.</string>
   <string name="auth_connection_established">A kapcsolat létrejött</string>
+  <string name="auth_testing_connection">Kapcsolat ellenőrzése</string>
   <string name="auth_not_configured_title">Hibás a kiszolgáló beállítása</string>
   <string name="auth_account_not_new">Egy bejelentkezési beállítás már létezik ugyanehhez a kiszolgálóhoz és felhasználóhoz</string>
   <string name="auth_account_not_the_same">A megadott felhasználó nem azonos ezzel a belépési jogosultsággal</string>
@@ -233,6 +238,7 @@
   <string name="preview_image_description">Előnézeti kép</string>
   <string name="preview_image_error_unknown_format">Ez a kép nem jeleníthető meg</string>
   <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi könyvtárba</string>
+  <string name="prefs_instant_upload_path_title">Feltöltési Elérési Út</string>
   <string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
   <string name="unshare_link_file_error">Hiba lépett fel a mappa megosztásának visszavonásakor</string>
   <string name="share_link_password_title">Jelszó beírása</string>
