@@ -29,6 +29,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -57,7 +58,8 @@ public class FileMenuFilter {
      *                          {@link FileUploader} and {@link FileDownloader} services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
-    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context) {
+    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg,
+                          Context context) {
         mFile = targetFile;
         mAccount = account;
         mComponentsGetter = cg;
@@ -179,7 +181,7 @@ public class FileMenuFilter {
             toShow.add(R.id.action_sync_file);
         }
 
-        // SHARE FILE 
+        // SHARE FILE
         // TODO add check on SHARE available on server side?
         boolean shareAllowed = (mContext != null  &&
                 mContext.getString(R.string.share_feature).equalsIgnoreCase("on"));
@@ -189,13 +191,21 @@ public class FileMenuFilter {
             toShow.add(R.id.action_share_file);
         }
 
-        // UNSHARE FILE  
+        // UNSHARE FILE
         // TODO add check on SHARE available on server side?
-        if ( !shareAllowed || (mFile == null || !mFile.isShareByLink())) {
+        if ( !shareAllowed || (mFile == null || !mFile.isSharedViaLink())) {
             toHide.add(R.id.action_unshare_file);
         } else {
             toShow.add(R.id.action_unshare_file);
         }
+
+        // SHARE FILE, with Users
+        if (!shareAllowed ||  mFile == null) {
+            toHide.add(R.id.action_share_with_users);
+        } else {
+            toShow.add(R.id.action_share_with_users);
+        }
+
 
         // SEE DETAILS
         if (mFile == null || mFile.isFolder()) {

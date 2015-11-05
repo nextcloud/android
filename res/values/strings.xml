@@ -87,6 +87,7 @@
     <string name="list_layout">List Layout</string>
     <string name="action_share_file">Share link</string>
     <string name="action_unshare_file">Unshare link</string>
+    <string name="action_share_with_users">Share with users</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
@@ -347,8 +348,8 @@
 	<string name="shared_subject_header">shared</string>
 	<string name="with_you_subject_header">with you</string>
     
-	<string name="subject_token">%1$s shared \"%2$s\" with you</string>
-    <string name="saml_subject_token">\"%1$s\" has been shared with you</string>
+	<string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
+    <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
 
     <string name="auth_refresh_button">Refresh connection</string>
     <string name="auth_host_address">Server address</string>
@@ -364,5 +365,17 @@
     <string name="file_list__footer__files">%1$d files</string>
     <string name="file_list__footer__files_and_folder">%1$d files, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d files, %2$d folders</string>
+
+    <string name="share_dialog_title">Sharing</string>
+    <string name="share_with_user_section_title">Share with Users and Groups</string>
+    <string name="share_no_users">No data shared with users yet</string>
+    <string name="share_add_user_or_group">Add User or Group</string>
+    <string name="share_search">Search</string>
+
+    <string name="search_users_and_groups_hint">Search users and groups</string>
+    <string name="share_group_clarification">%1$s (group)</string>
+
+    <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients.
+        \nPlease contact your administrator</string>
 
 </resources>
