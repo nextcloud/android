@@ -568,7 +568,21 @@ public class PreviewMediaFragment extends FileFragment implements
          */
         @Override
         public boolean onError(MediaPlayer mp, int what, int extra) {
-            MediaService.streamWithExternalApp(mUri, getActivity()).show();
+            if (mVideoPreview.getWindowToken() != null) {
+                String message = MediaService.getMessageForMediaError(
+                        getActivity(), what, extra);
+                new AlertDialog.Builder(getActivity())
+                        .setMessage(message)
+                        .setPositiveButton(android.R.string.VideoView_error_button,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        dialog.dismiss();
+                                        VideoHelper.this.onCompletion(null);
+                                    }
+                                })
+                        .setCancelable(false)
+                        .show();
+            }
             return true;
         }
     }
