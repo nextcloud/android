@@ -94,8 +94,10 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_ACCOUNT_OWNER);
         mFileProjectionMap.put(ProviderTableMeta.FILE_ETAG,
                 ProviderTableMeta.FILE_ETAG);
-        mFileProjectionMap.put(ProviderTableMeta.FILE_SHARE_BY_LINK,
-                ProviderTableMeta.FILE_SHARE_BY_LINK);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_SHARED_VIA_LINK,
+                ProviderTableMeta.FILE_SHARED_VIA_LINK);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE,
+                ProviderTableMeta.FILE_SHARED_WITH_SHAREE);
         mFileProjectionMap.put(ProviderTableMeta.FILE_PUBLIC_LINK,
                 ProviderTableMeta.FILE_PUBLIC_LINK);
         mFileProjectionMap.put(ProviderTableMeta.FILE_PERMISSIONS,
@@ -308,9 +310,7 @@ public class FileContentProvider extends ContentProvider {
                 }
                 long rowId = db.insert(ProviderTableMeta.FILE_TABLE_NAME, null, values);
                 if (rowId > 0) {
-                    Uri insertedFileUri =
-                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
-                    return insertedFileUri;
+                    return ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
                 } else {
                     throw new SQLException("ERROR " + uri);
                 }
@@ -326,43 +326,16 @@ public class FileContentProvider extends ContentProvider {
             }
 
         case SHARES:
-            String path = values.getAsString(ProviderTableMeta.OCSHARES_PATH);
-            String accountNameShare= values.getAsString(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER);
-            String[] projectionShare = new String[] {
-                    ProviderTableMeta._ID, ProviderTableMeta.OCSHARES_PATH,
-                    ProviderTableMeta.OCSHARES_ACCOUNT_OWNER
-            };
-            String whereShare = ProviderTableMeta.OCSHARES_PATH + "=? AND " +
-                    ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
-            String[] whereArgsShare = new String[] {path, accountNameShare};
             Uri insertedShareUri = null;
-            Cursor doubleCheckShare =
-                    query(db, uri, projectionShare, whereShare, whereArgsShare, null);
-            // ugly patch; serious refactorization is needed to reduce work in
-            // FileDataStorageManager and bring it to FileContentProvider
-            if (doubleCheckShare == null || !doubleCheckShare.moveToFirst()) {
-                if (doubleCheckShare != null) {
-                    doubleCheckShare.close();
-                }
-                long rowId = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
-                if (rowId >0) {
-                    insertedShareUri =
-                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, rowId);
-                } else {
-                    throw new SQLException("ERROR " + uri);
-
-                }
+            long rowId = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
+            if (rowId >0) {
+                insertedShareUri =
+                        ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, rowId);
             } else {
-                // file is already inserted; race condition, let's avoid a duplicated entry
-                insertedShareUri = ContentUris.withAppendedId(
-                        ProviderTableMeta.CONTENT_URI_SHARE,
-                        doubleCheckShare.getLong(
-                                doubleCheckShare.getColumnIndex(ProviderTableMeta._ID)
-                        )
-                );
-                doubleCheckShare.close();
+                throw new SQLException("ERROR " + uri);
+
             }
-            updateFilesTableAccordingToShareInsertion(db, uri, values);
+            updateFilesTableAccordingToShareInsertion(db, values);
             return insertedShareUri;
 
 
@@ -373,21 +346,23 @@ public class FileContentProvider extends ContentProvider {
     }
 
     private void updateFilesTableAccordingToShareInsertion(
-            SQLiteDatabase db, Uri uri, ContentValues shareValues
+            SQLiteDatabase db, ContentValues newShare
             ) {
         ContentValues fileValues = new ContentValues();
-        fileValues.put(
-                ProviderTableMeta.FILE_SHARE_BY_LINK,
-                ShareType.PUBLIC_LINK.getValue() ==
-                        shareValues.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE) ? 1 : 0
-        );
-        String whereShare = ProviderTableMeta.FILE_PATH + "=? AND " +
+        int newShareType = newShare.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE);
+        if (newShareType == ShareType.PUBLIC_LINK.getValue()) {
+            fileValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, 1);
+        } else if (newShareType == ShareType.USER.getValue() || newShareType == ShareType.GROUP.getValue()) {
+            fileValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, 1);
+        }
+
+        String where = ProviderTableMeta.FILE_PATH + "=? AND " +
                 ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
-        String[] whereArgsShare = new String[] {
-                shareValues.getAsString(ProviderTableMeta.OCSHARES_PATH),
-                shareValues.getAsString(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER)
+        String[] whereArgs = new String[] {
+                newShare.getAsString(ProviderTableMeta.OCSHARES_PATH),
+                newShare.getAsString(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER)
         };
-        db.update(ProviderTableMeta.FILE_TABLE_NAME, fileValues, whereShare, whereArgsShare);
+        db.update(ProviderTableMeta.FILE_TABLE_NAME, fileValues, where, whereArgs);
     }
 
 
@@ -579,13 +554,14 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA + " INTEGER, "
                     + ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA + " INTEGER, "
                     + ProviderTableMeta.FILE_ETAG + " TEXT, "
-                    + ProviderTableMeta.FILE_SHARE_BY_LINK + " INTEGER, "
+                    + ProviderTableMeta.FILE_SHARED_VIA_LINK + " INTEGER, "
                     + ProviderTableMeta.FILE_PUBLIC_LINK  + " TEXT, "
                     + ProviderTableMeta.FILE_PERMISSIONS  + " TEXT null,"
                     + ProviderTableMeta.FILE_REMOTE_ID  + " TEXT null,"
                     + ProviderTableMeta.FILE_UPDATE_THUMBNAIL  + " INTEGER," //boolean
                     + ProviderTableMeta.FILE_IS_DOWNLOADING  + " INTEGER," //boolean
-                    + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + " TEXT);"
+                    + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + " TEXT,"
+                    + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + " INTEGER);"
                     );
 
             // Create table ocshares
@@ -684,7 +660,7 @@ public class FileContentProvider extends ContentProvider {
                 db.beginTransaction();
                 try {
                     db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
-                            " ADD COLUMN " + ProviderTableMeta.FILE_SHARE_BY_LINK + " INTEGER " +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_SHARED_VIA_LINK + " INTEGER " +
                             " DEFAULT 0");
 
                     db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
@@ -793,6 +769,24 @@ public class FileContentProvider extends ContentProvider {
                     db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
                             " ADD COLUMN " + ProviderTableMeta.FILE_ETAG_IN_CONFLICT + " TEXT " +
                             " DEFAULT NULL");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+            if (!upgraded)
+                Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
+                        ", newVersion == " + newVersion);
+
+            if (oldVersion < 12 && newVersion >= 12) {
+                Log_OC.i("SQL", "Entering in the #12 ADD in onUpgrade");
+                db.beginTransaction();
+                try {
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_SHARED_WITH_SHAREE + " INTEGER " +
+                            " DEFAULT 0");
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {

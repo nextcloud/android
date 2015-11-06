@@ -306,8 +306,8 @@
   <string name="prefs_instant_video_upload_path_title">Verzeichnis zum Hochladen der Videos</string>
   <string name="shared_subject_header">geteilt</string>
   <string name="with_you_subject_header">Mit Ihnen</string>
-  <string name="subject_token">%1$s hat \"%2$s\" mit Ihnen geteilt</string>
-  <string name="saml_subject_token">\"%1$s\" wurde mit dir geteilt</string>
+  <string name="subject_user_shared_with_you">%1$s hat \"%2$s\" mit Ihnen geteilt</string>
+  <string name="subject_shared_with_you">\"%1$s\" wurde mit dir geteilt</string>
   <string name="auth_refresh_button">Verbindung aktualisieren</string>
   <string name="auth_host_address">Serveradresse</string>
   <string name="common_error_out_memory">Nicht genügend Speicher</string>
@@ -320,4 +320,6 @@
   <string name="file_list__footer__files">%1$d Dateien</string>
   <string name="file_list__footer__files_and_folder">%1$d Dateien, 1 Ordner</string>
   <string name="file_list__footer__files_and_folders">%1$d Dateien, %2$d Ordner</string>
+  <string name="share_dialog_title">Teilen</string>
+  <string name="share_search">Suche</string>
 </resources>

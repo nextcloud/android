@@ -391,7 +391,8 @@ public class RefreshFolderOperation extends RemoteOperation {
                     Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
                 }
                 updatedFile.setPublicLink(localFile.getPublicLink());
-                updatedFile.setShareByLink(localFile.isShareByLink());
+                updatedFile.setShareViaLink(localFile.isSharedViaLink());
+                updatedFile.setShareWithSharee(localFile.isSharedWithSharee());
                 updatedFile.setEtagInConflict(localFile.getEtagInConflict());
             } else {
                 // remote eTag will not be updated unless file CONTENTS are synchronized
@@ -456,12 +457,19 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
 
+    /**
+     * Syncs the Share resources for the files contained in the folder refreshed (children, not deeper descendants).
+     *
+     * @param client    Handler of a session with an OC server.
+     * @return          The result of the remote operation retrieving the Share resources in the folder refreshed by
+     *                  the operation.
+     */
     private RemoteOperationResult refreshSharesForFolder(OwnCloudClient client) {
         RemoteOperationResult result = null;
         
         // remote request 
         GetRemoteSharesForFileOperation operation = 
-                new GetRemoteSharesForFileOperation(mLocalFolder.getRemotePath(), false, true);
+                new GetRemoteSharesForFileOperation(mLocalFolder.getRemotePath(), true, true);
         result = operation.execute(client);
         
         if (result.isSuccess()) {

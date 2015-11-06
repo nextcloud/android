@@ -318,8 +318,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="prefs_instant_video_upload_path_title">Video üleslaadimise asukoht</string>
   <string name="shared_subject_header">jagatud</string>
   <string name="with_you_subject_header">sinuga</string>
-  <string name="subject_token">%1$s jagas sinuga \"%2$s\"</string>
-  <string name="saml_subject_token">\"%1$s\" on sinuga jagatud</string>
   <string name="auth_refresh_button">Värskenda ühendust</string>
   <string name="auth_host_address">Serveri aadress</string>
   <string name="common_error_out_memory">Mälu pole piisavalt</string>
