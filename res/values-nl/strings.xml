@@ -321,8 +321,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="sync_folder_failed_content">Synchronisatie van map %1$s kon niet worden voltooid</string>
   <string name="shared_subject_header">gedeeld</string>
   <string name="with_you_subject_header">met u</string>
-  <string name="subject_token">%1$s deelde \"%2$s\" met u</string>
-  <string name="saml_subject_token">\"%1$s\" is gedeeld met u</string>
+  <string name="subject_user_shared_with_you">%1$s deelde \"%2$s\" met u</string>
+  <string name="subject_shared_with_you">\"%1$s\" is gedeeld met u</string>
   <string name="auth_refresh_button">Verversen verbinding</string>
   <string name="auth_host_address">Serveradres</string>
   <string name="common_error_out_memory">Niet voldoende geheugen</string>
@@ -335,4 +335,9 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="file_list__footer__files">%1$d bestanden</string>
   <string name="file_list__footer__files_and_folder">%1$d bestanden, 1 map</string>
   <string name="file_list__footer__files_and_folders">%1$d bestanden, %2$d mappen</string>
+  <string name="share_dialog_title">Delen</string>
+  <string name="share_with_user_section_title">Delen met gebruikers en groepen</string>
+  <string name="share_no_users">Nog geen gegevens met gebruikers gedeeld</string>
+  <string name="share_add_user_or_group">Toevoegen gebruiker of groep</string>
+  <string name="share_search">Zoeken</string>
 </resources>

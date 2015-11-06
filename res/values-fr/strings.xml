@@ -322,8 +322,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="sync_folder_failed_content">La synchronisation du dossier %1$s n\'a pas pu être terminée</string>
   <string name="shared_subject_header">a partagé</string>
   <string name="with_you_subject_header">avec vous</string>
-  <string name="subject_token">%1$s a partagé \"%2$s\" avec vous</string>
-  <string name="saml_subject_token">\"%1$s\" a été partagé avec vous</string>
+  <string name="subject_user_shared_with_you">%1$s a partagé \"%2$s\" avec vous</string>
+  <string name="subject_shared_with_you">\"%1$s\" a été partagé avec vous</string>
   <string name="auth_refresh_button">Actualiser la connexion</string>
   <string name="auth_host_address">Adresse du serveur</string>
   <string name="common_error_out_memory">Mémoire insuffisante</string>
@@ -336,4 +336,9 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="file_list__footer__files">%1$d fichiers</string>
   <string name="file_list__footer__files_and_folder">%1$d fichiers, 1 dossier</string>
   <string name="file_list__footer__files_and_folders">%1$d fichiers, %2$d dossiers</string>
+  <string name="share_dialog_title">Partage</string>
+  <string name="share_with_user_section_title">Partager avec des Utilisateurs et des Groupes</string>
+  <string name="share_no_users">Aucune donnée partagée avec des utilisateurs pour le moment</string>
+  <string name="share_add_user_or_group">Ajouter un Utilisateur ou un Groupe</string>
+  <string name="share_search">Rechercher</string>
 </resources>

@@ -318,8 +318,6 @@
   <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
   <string name="shared_subject_header">διαμοιρασμένα</string>
   <string name="with_you_subject_header">με εσάς</string>
-  <string name="subject_token">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
-  <string name="saml_subject_token">\"%1$s\" μοιράστηκε μαζί σας</string>
   <string name="auth_refresh_button">Ανανέωση σύνδεσης</string>
   <string name="auth_host_address">Διεύθυνση διακομιστή</string>
   <string name="common_error_out_memory">Δεν υπάρχει αρκετή μνήμη</string>
