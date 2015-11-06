@@ -243,6 +243,13 @@ public class FileMenuFilter {
             toShow.add(R.id.action_unfavorite_file);
         }
 
+        // SET PICTURE AS
+        if (mFile == null || (!mFile.isAudio() && !mFile.isVideo())){
+            toHide.add(R.id.action_set_as_wallpaper);
+        } else {
+            toShow.add(R.id.action_set_as_wallpaper);
+        }
+
     }
 
     private boolean anyFileSynchronizing() {
