@@ -313,8 +313,6 @@
   <string name="prefs_instant_video_upload_path_title">Sti til videoupload</string>
   <string name="shared_subject_header">delt</string>
   <string name="with_you_subject_header">med dig</string>
-  <string name="subject_token">%1$s delte \"%2$s\" med dig</string>
-  <string name="saml_subject_token">\"%1$s\" er blevet delt med dig</string>
   <string name="auth_refresh_button">Genopfrisk forbindelsen</string>
   <string name="auth_host_address">Serveradresse</string>
   <string name="common_error_out_memory">Ikke tilstrækkelig hukommelse</string>

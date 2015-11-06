@@ -607,10 +607,8 @@ public class Uploader extends FileActivity
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
         if (result.isSuccess()) {
-            dismissLoadingDialog();
             populateDirectoryList();
         } else {
-            dismissLoadingDialog();
             try {
                 Toast msg = Toast.makeText(this, 
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 

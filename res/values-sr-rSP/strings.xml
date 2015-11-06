@@ -72,4 +72,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Nalozi</string>
   <string name="folder_picker_choose_button_text">Izaberi</string>
+  <string name="share_search">Traži</string>
 </resources>
