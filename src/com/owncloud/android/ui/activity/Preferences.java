@@ -463,7 +463,7 @@ public class Preferences extends PreferenceActivity
        pAboutApp = (Preference) findPreference("about_app");
        if (pAboutApp != null) { 
                pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
-               pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
+               pAboutApp.setSummary(String.format(getString(R.string.about_version), BuildConfig.VERSION_CODE));
        }
 
        loadInstantUploadPath();
