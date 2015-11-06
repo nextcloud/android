@@ -339,7 +339,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     Log.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
                 }
                 updatedFile.setPublicLink(localFile.getPublicLink());
-                updatedFile.setShareByLink(localFile.isShareByLink());
+                updatedFile.setShareViaLink(localFile.isSharedViaLink());
+                updatedFile.setShareWithSharee(localFile.isSharedWithSharee());
                 updatedFile.setEtagInConflict(localFile.getEtagInConflict());
             } else {
                 // remote eTag will not be updated unless file CONTENTS are synchronized

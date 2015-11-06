@@ -38,4 +38,6 @@
   <string name="folder_picker_choose_button_text">Izaberite</string>
   <string name="prefs_category_security">Sigurnost</string>
   <string name="auth_host_address">Adresa servera</string>
+  <string name="share_dialog_title">Dijeljenje</string>
+  <string name="share_search">Potraži</string>
 </resources>

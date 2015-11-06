@@ -276,4 +276,6 @@ Mesedez, baimendu berriz</string>
   <string name="prefs_category_security">Segurtasuna</string>
   <string name="prefs_instant_video_upload_path_title">Bideo Igoera Bidea</string>
   <string name="auth_host_address">Zerbitzariaren helbidea</string>
+  <string name="share_dialog_title">Partekatzea</string>
+  <string name="share_search">Bilatu</string>
 </resources>

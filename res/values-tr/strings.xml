@@ -314,8 +314,6 @@
   <string name="prefs_instant_video_upload_path_title">Video Yükleme Yolu</string>
   <string name="shared_subject_header">sizinle</string>
   <string name="with_you_subject_header">paylaştı</string>
-  <string name="subject_token">%1$s, sizinle \"%2$s\" paylaşımını yaptı</string>
-  <string name="saml_subject_token">\"%1$s\" sizinle paylaşıldı</string>
   <string name="auth_refresh_button">Bağlantıyı yenile</string>
   <string name="auth_host_address">Sunucu adresi</string>
   <string name="common_error_out_memory">Yeterli hafıza yok</string>

@@ -206,4 +206,6 @@
   <string name="folder_picker_choose_button_text">Seleccionar</string>
   <string name="prefs_category_security">Seguridad</string>
   <string name="auth_host_address">Dirección del servidor</string>
+  <string name="share_dialog_title">Compartiendo</string>
+  <string name="share_search">Buscar</string>
 </resources>

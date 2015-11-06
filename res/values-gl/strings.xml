@@ -310,8 +310,6 @@ Descárgueo de aquí: %2$s</string>
   <string name="prefs_instant_video_upload_path_title">Enviar a ruta do vídeo</string>
   <string name="shared_subject_header">compartido</string>
   <string name="with_you_subject_header">con vostede</string>
-  <string name="subject_token">%1$s compartiu «%2$s» con vostede</string>
-  <string name="saml_subject_token">«%1$s» foi compartido con vostede</string>
   <string name="auth_refresh_button">Actualizar a conexión</string>
   <string name="auth_host_address">Enderezo do servidor</string>
   <string name="common_error_out_memory">Non hai memoria abondo</string>

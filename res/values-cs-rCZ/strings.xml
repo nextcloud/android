@@ -317,8 +317,8 @@ správce systému.</string>
   <string name="sync_folder_failed_content">Synchronizaci adresáře %1$s nelze dokončit</string>
   <string name="shared_subject_header">sdílené</string>
   <string name="with_you_subject_header">s vámi</string>
-  <string name="subject_token">%1$s s vámi sdílí \"%2$s\"</string>
-  <string name="saml_subject_token">\"%1$s\" ti byl nasdílen</string>
+  <string name="subject_user_shared_with_you">%1$s s vámi sdílí \"%2$s\"</string>
+  <string name="subject_shared_with_you">\"%1$s\" ti byl nasdílen</string>
   <string name="auth_refresh_button">Obnovit připojení</string>
   <string name="auth_host_address">Adresa serveru</string>
   <string name="common_error_out_memory">Nedostatek paměti</string>
@@ -331,4 +331,9 @@ správce systému.</string>
   <string name="file_list__footer__files">%1$d soubory(ů)</string>
   <string name="file_list__footer__files_and_folder">%1$d soubory(ů), 1 adresář</string>
   <string name="file_list__footer__files_and_folders">%1$d soubory(ů), %2$d adresáře(ů)</string>
+  <string name="share_dialog_title">Sdílení</string>
+  <string name="share_with_user_section_title">Sdílet s uživateli a skupinami</string>
+  <string name="share_no_users">Zatím nebyla s uživateli sdílena žádná data</string>
+  <string name="share_add_user_or_group">Přidat uživatele nebo skupinu</string>
+  <string name="share_search">Hledat</string>
 </resources>

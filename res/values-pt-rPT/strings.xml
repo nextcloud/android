@@ -316,8 +316,6 @@
   <string name="sync_folder_failed_content">Não foi possível completar a sincronização da pasta %1$s</string>
   <string name="shared_subject_header">partilhado</string>
   <string name="with_you_subject_header">consigo</string>
-  <string name="subject_token">%1$s partilhou \"%2$s\" consigo</string>
-  <string name="saml_subject_token">\"%1$s\" foi partilhado consigo</string>
   <string name="auth_refresh_button">Recarregar ligação</string>
   <string name="auth_host_address">Endereço do servidor</string>
   <string name="common_error_out_memory">Falta de memória</string>

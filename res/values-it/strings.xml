@@ -318,8 +318,8 @@
   <string name="sync_folder_failed_content">La sincronizzazione della cartella %1$s non può essere completata</string>
   <string name="shared_subject_header">condiviso</string>
   <string name="with_you_subject_header">con te</string>
-  <string name="subject_token">%1$s ha condiviso \"%2$s\" con te</string>
-  <string name="saml_subject_token">\"%1$s\" è stato condiviso con te</string>
+  <string name="subject_user_shared_with_you">%1$s ha condiviso \"%2$s\" con te</string>
+  <string name="subject_shared_with_you">\"%1$s\" è stato condiviso con te</string>
   <string name="auth_refresh_button">Aggiorna la connessione</string>
   <string name="auth_host_address">Indirizzo del server</string>
   <string name="common_error_out_memory">Memoria insufficiente</string>
@@ -332,4 +332,9 @@
   <string name="file_list__footer__files">%1$d file</string>
   <string name="file_list__footer__files_and_folder">%1$d file, 1 cartella</string>
   <string name="file_list__footer__files_and_folders">%1$d file, %2$d cartelle</string>
+  <string name="share_dialog_title">Condivisione</string>
+  <string name="share_with_user_section_title">Condividi con utenti e gruppi</string>
+  <string name="share_no_users">Ancora nessun dato condiviso con gli utenti </string>
+  <string name="share_add_user_or_group">Aggiungi utente o gruppo</string>
+  <string name="share_search">Cerca</string>
 </resources>
