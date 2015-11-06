@@ -244,6 +244,13 @@ public class FileMenuFilter {
             toHide.add(R.id.action_stream_file);
         }
 
+        // SET PICTURE AS
+        if (mFile == null || !mFile.isImage()){
+            toHide.add(R.id.action_set_as_wallpaper);
+        } else {
+            toShow.add(R.id.action_set_as_wallpaper);
+        }
+
     }
 
 }
