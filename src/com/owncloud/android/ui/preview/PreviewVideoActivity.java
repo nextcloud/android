@@ -204,8 +204,8 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
             file = getStorageManager().getFileById(file.getFileId()); 
             if (file != null) {
                 if (file.isDown()) {
-                    mVideoPlayer.setVideoPath(file.getStoragePath());
-                    
+                    mVideoPlayer.setVideoURI(file.getStorageUri());
+
                 } else {
                     // not working yet
                     String url;
@@ -216,13 +216,13 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
                         onError(null, MediaService.OC_MEDIA_ERROR, R.string.media_err_no_account);
                     }
                 }
-                
+
                 // create and prepare control panel for the user
                 mMediaController = new MediaController(this);
                 mMediaController.setMediaPlayer(mVideoPlayer);
                 mMediaController.setAnchorView(mVideoPlayer);
                 mVideoPlayer.setMediaController(mMediaController);
-                
+
             } else {
                 finish();
             }

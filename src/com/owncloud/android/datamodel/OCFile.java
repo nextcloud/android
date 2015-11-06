@@ -20,6 +20,8 @@
 
 package com.owncloud.android.datamodel;
 
+import android.content.ContentResolver;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.webkit.MimeTypeMap;
@@ -79,6 +81,12 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private String mEtagInConflict;    // Save file etag in the server, when there is a conflict. No conflict =  null
 
     private boolean mShareWithSharee;
+
+    /**
+     * URI to the local path of the file contents, if stored in the device; cached after first call
+     * to {@link #getStorageUri()}
+     */
+    private Uri mLocalUri;
 
 
     /**
@@ -214,12 +222,31 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
+     * The URI to the file contents, if stored locally
+     *
+     * @return A URI to the local copy of the file, or NULL if not stored in the device
+     */
+    public Uri getStorageUri() {
+        if (mLocalPath == null || mLocalPath.length() == 0) {
+            return null;
+        }
+        if (mLocalUri == null) {
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme(ContentResolver.SCHEME_FILE);
+            builder.path(mLocalPath);
+            mLocalUri = builder.build();
+        }
+        return mLocalUri;
+    }
+
+    /**
      * Can be used to set the path where the file is stored
      *
      * @param storage_path to set
      */
     public void setStoragePath(String storage_path) {
         mLocalPath = storage_path;
+        mLocalUri = null;
     }
 
     /**

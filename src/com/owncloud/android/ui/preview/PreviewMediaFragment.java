@@ -21,6 +21,7 @@ package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
@@ -439,8 +440,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
         // load the video file in the video player ; 
         // when done, VideoHelper#onPrepared() will be called
-        Uri uri = Uri.parse(getFile().getStoragePath());
-        mVideoPreview.setVideoPath(uri.encode(getFile().getStoragePath()));
+        mVideoPreview.setVideoURI(getFile().getStorageUri());
     }
 
 
@@ -491,7 +491,7 @@ public class PreviewMediaFragment extends FileFragment implements
                         mVideoPreview.stopPlayback();
                         mAutoplay = false;
                         mSavedPlaybackPosition = 0;
-                        mVideoPreview.setVideoPath(getFile().getStoragePath());
+                        mVideoPreview.setVideoURI(getFile().getStorageUri());
                     }
                 }
             } // else : called from onError()
