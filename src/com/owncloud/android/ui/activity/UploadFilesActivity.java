@@ -76,7 +76,7 @@ public class UploadFilesActivity extends FileActivity implements
 
     public static final int RESULT_OK_AND_MOVE = RESULT_FIRST_USER; 
     
-    private static final String KEY_DIRECTORY_PATH =
+    public static final String KEY_DIRECTORY_PATH =
             UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
     private static final String KEY_ALL_SELECTED =
             UploadFilesActivity.class.getCanonicalName() + ".KEY_ALL_SELECTED";

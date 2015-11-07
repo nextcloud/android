@@ -89,7 +89,7 @@ public class MainApp extends Application {
             // Set folder for store logs
             Log_OC.setLogDataFolder(dataFolder);
 
-            Log_OC.startLogging();
+            Log_OC.startLogging(MainApp.storagePath);
             Log_OC.d("Debug", "start logging");
         }
 

@@ -61,6 +61,8 @@ import com.owncloud.android.ui.PreferenceWithLongSummary;
 import com.owncloud.android.ui.RadioButtonPreference;
 import com.owncloud.android.utils.DisplayUtils;
 
+import java.io.File;
+
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -74,6 +76,8 @@ public class Preferences extends PreferenceActivity {
 
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
     private static final int ACTION_SELECT_UPLOAD_VIDEO_PATH = 2;
+    private static final int ACTION_SELECT_STORAGE_PATH = 3;
+    private static final int ACTION_PERFORM_MIGRATION = 4;
     private static final int ACTION_REQUEST_PASSCODE = 5;
     private static final int ACTION_CONFIRM_PASSCODE = 6;
 
@@ -278,30 +282,26 @@ public class Preferences extends PreferenceActivity {
             }
         }
 
-        mPrefStoragePath =  (PreferenceWithLongSummary)findPreference("storage_path");
-        if (mPrefStoragePath != null){
+        mPrefStoragePath =  findPreference("storage_path");
+        if (mPrefStoragePath != null) {
 
-                mPrefStoragePath.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            mPrefStoragePath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Preferences.this, LocalDirectorySelectorActivity.class);
+                    intent.putExtra(UploadFilesActivity.KEY_DIRECTORY_PATH, mStoragePath);
+                    startActivityForResult(intent, ACTION_SELECT_STORAGE_PATH);
+                    return true;
+                }
+            });
+
+            mPrefStoragePath.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         MainApp.setStoragePath((String) newValue);
                         return true;
                     }
                 });
-
-//            mPrefStoragePath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-//                @Override
-//                public boolean onPreferenceClick(Preference preference) {
-//
-////                    if (!mUploadPath.endsWith(OCFile.PATH_SEPARATOR)) {
-////                        mUploadPath += OCFile.PATH_SEPARATOR;
-////                    }
-////                    Intent intent = new Intent(Preferences.this, UploadPathActivity.class);
-////                    intent.putExtra(UploadPathActivity.KEY_INSTANT_UPLOAD_PATH, mUploadPath);
-////                    startActivityForResult(intent, ACTION_SELECT_UPLOAD_PATH);
-////                    return true;
-//                }
-//            });
         }
 
         mPrefInstantUploadPath =  findPreference("instant_upload_path");
@@ -478,7 +478,7 @@ public class Preferences extends PreferenceActivity {
 
             saveInstantUploadPathOnPreferences();
 
-        } else if (requestCode == ACTION_SELECT_UPLOAD_VIDEO_PATH && resultCode == RESULT_OK){
+        } else if (requestCode == ACTION_SELECT_UPLOAD_VIDEO_PATH && resultCode == RESULT_OK) {
 
             OCFile folderToUploadVideo =
                     (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
@@ -514,6 +514,22 @@ public class Preferences extends PreferenceActivity {
 
                 Toast.makeText(this, R.string.pass_code_removed, Toast.LENGTH_LONG).show();
             }
+        } else if (requestCode == ACTION_SELECT_STORAGE_PATH && resultCode == RESULT_OK) {
+            File currentStorageDir = new File(mStoragePath);
+            File upcomingStorageDir = new File(data.getStringExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES));
+
+            if (currentStorageDir != upcomingStorageDir) {
+                Intent migrationIntent = new Intent(this, StorageMigrationActivity.class);
+                migrationIntent.putExtra(StorageMigrationActivity.KEY_MIGRATION_SOURCE_DIR,
+                        currentStorageDir.getAbsolutePath());
+                migrationIntent.putExtra(StorageMigrationActivity.KEY_MIGRATION_TARGET_DIR,
+                        currentStorageDir.getAbsolutePath());
+                startActivityForResult(migrationIntent, ACTION_PERFORM_MIGRATION);
+            }
+        } else if (requestCode == ACTION_PERFORM_MIGRATION && resultCode == RESULT_OK) {
+            String resultStorageDir = data.getStringExtra(StorageMigrationActivity.KEY_MIGRATION_TARGET_DIR);
+            mStoragePath = resultStorageDir;
+            mPrefStoragePath.setSummary(mStoragePath);
         }
     }
 
@@ -613,7 +629,7 @@ public class Preferences extends PreferenceActivity {
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mStoragePath = appPrefs.getString("storage_path", Environment.getExternalStorageDirectory()
                                                          .getAbsolutePath());
-        mPrefStoragePath.setSummary(mStoragePath);
+        mPrefStoragePath.setSummary(mStoragePath + File.separator + MainApp.getDataFolder());
     }
 
     /**
