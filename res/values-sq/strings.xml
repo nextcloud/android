@@ -84,6 +84,7 @@
   <string name="list_layout">Skemë Liste</string>
   <string name="action_share_file">Ndajeni lidhjen me të tjerët</string>
   <string name="action_unshare_file">Zhbëjeni ndarjen e lidhjes me të tjerët</string>
+  <string name="action_share_with_users">Ndajeni me përdoruesit</string>
   <string name="common_yes">Po</string>
   <string name="common_no">Jo</string>
   <string name="common_ok">OK</string>
@@ -333,4 +334,8 @@
   <string name="share_no_users">Ende pa të dhëna të ndara me përdorues</string>
   <string name="share_add_user_or_group">Shtoni Përdorues ose Grup</string>
   <string name="share_search">Kërko</string>
+  <string name="search_users_and_groups_hint">Kërkoni për grupe dhe përdorues</string>
+  <string name="share_group_clarification">%1$s (grup)</string>
+  <string name="share_sharee_unavailable">Na ndjeni, versioni juaj i shërbyesit nuk lejon ndarje me përdorues brenda klientësh.
+        \nJu lutemi, lidhuni me përgjegjësin tuaj</string>
 </resources>

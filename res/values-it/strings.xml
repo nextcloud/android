@@ -84,6 +84,7 @@
   <string name="list_layout">Struttura elenco</string>
   <string name="action_share_file">Condividi collegamento</string>
   <string name="action_unshare_file">Rimuovi condivisione collegamento</string>
+  <string name="action_share_with_users">Condividi con utenti</string>
   <string name="common_yes">Sì</string>
   <string name="common_no">No</string>
   <string name="common_ok">OK</string>
@@ -337,4 +338,8 @@
   <string name="share_no_users">Ancora nessun dato condiviso con gli utenti </string>
   <string name="share_add_user_or_group">Aggiungi utente o gruppo</string>
   <string name="share_search">Cerca</string>
+  <string name="search_users_and_groups_hint">Cerca utenti e gruppi</string>
+  <string name="share_group_clarification">%1$s (gruppo)</string>
+  <string name="share_sharee_unavailable">Spiacenti, la versione del tuo server non consente la condivisione con utenti dai client.
+\nContatta il tuo amministratore.</string>
 </resources>

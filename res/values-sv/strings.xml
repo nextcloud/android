@@ -281,5 +281,8 @@
   <string name="prefs_category_instant_uploading">Direktuppladning</string>
   <string name="prefs_category_security">Säkerhet</string>
   <string name="prefs_instant_video_upload_path_title">Uppladdnings-sökväg för video</string>
+  <string name="subject_user_shared_with_you">%1$s delade \"%2$s\" med dig</string>
   <string name="auth_host_address">Serveradress</string>
+  <string name="share_dialog_title">Dela</string>
+  <string name="share_search">Sök</string>
 </resources>

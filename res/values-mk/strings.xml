@@ -292,6 +292,9 @@
   <string name="prefs_category_instant_uploading">Инстант прикачувања</string>
   <string name="prefs_category_security">Безбедност</string>
   <string name="prefs_instant_video_upload_path_title">Прикачи патека на видео</string>
+  <string name="subject_user_shared_with_you">%1$s сподели \"%2$s\" со тебе</string>
   <string name="auth_refresh_button">Освежи ја конекцијата</string>
   <string name="auth_host_address">Адреса на сервер</string>
+  <string name="share_dialog_title">Споделување</string>
+  <string name="share_search">Барај</string>
 </resources>

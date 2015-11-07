@@ -35,4 +35,5 @@
   <string name="actionbar_move">Færa</string>
   <string name="folder_picker_choose_button_text">Veldu</string>
   <string name="auth_host_address">Host nafn netþjóns</string>
+  <string name="share_search">Leita</string>
 </resources>

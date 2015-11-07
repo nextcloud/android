@@ -84,6 +84,7 @@
   <string name="list_layout">Διάταξη Λίστας</string>
   <string name="action_share_file">Διαμοιρασμός συνδέσμου</string>
   <string name="action_unshare_file">Ακύρωση διαμοιρασμού συνδέσμου</string>
+  <string name="action_share_with_users">Διαμοιρασμός με χρήστες</string>
   <string name="common_yes">Ναι</string>
   <string name="common_no">Όχι</string>
   <string name="common_ok">ΟΚ</string>
@@ -318,6 +319,8 @@
   <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
   <string name="shared_subject_header">διαμοιρασμένα</string>
   <string name="with_you_subject_header">με εσάς</string>
+  <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
+  <string name="subject_shared_with_you">\"%1$s\" μοιράστηκε μαζί σας</string>
   <string name="auth_refresh_button">Ανανέωση σύνδεσης</string>
   <string name="auth_host_address">Διεύθυνση διακομιστή</string>
   <string name="common_error_out_memory">Δεν υπάρχει αρκετή μνήμη</string>
@@ -330,4 +333,13 @@
   <string name="file_list__footer__files">%1$d αρχεία</string>
   <string name="file_list__footer__files_and_folder">%1$d αρχεία, 1 φάκελος</string>
   <string name="file_list__footer__files_and_folders">%1$d αρχεία, %2$d φάκελοι</string>
+  <string name="share_dialog_title">Διαμοιρασμός</string>
+  <string name="share_with_user_section_title">Διαμοιρασμός με χρήστες και ομάδες</string>
+  <string name="share_no_users">Δεν έχουν διαμοιραστεί ακόμα δεδομένα με τους χρήστες</string>
+  <string name="share_add_user_or_group">Προσθήκη χρήστη ή ομάδας</string>
+  <string name="share_search">Αναζήτηση</string>
+  <string name="search_users_and_groups_hint">Αναζήτηση χρηστών και ομάδων</string>
+  <string name="share_group_clarification">%1$s (ομάδα)</string>
+  <string name="share_sharee_unavailable">Δεν επιτρέπεται ο διαμοιρασμός μεταξύ χρηστών μέσω εφαρμογής, σε αυτή την έκδοση.
+\nΕπικοινωνήστε με το διαχειριστή του συστήματος</string>
 </resources>

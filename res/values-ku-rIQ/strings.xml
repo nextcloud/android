@@ -37,4 +37,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">هەژمارەکان</string>
   <string name="auth_host_address">ناونیشانی ڕاژه</string>
+  <string name="share_search">بگەڕێ</string>
 </resources>

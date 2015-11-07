@@ -307,6 +307,8 @@
   <string name="prefs_instant_video_upload_path_title">動画のアップロードパス</string>
   <string name="shared_subject_header">共有中</string>
   <string name="with_you_subject_header">あなたと</string>
+  <string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
+  <string name="subject_shared_with_you">\"%1$s\" があなたと共有しました</string>
   <string name="auth_refresh_button">再接続中</string>
   <string name="auth_host_address">サーバーアドレス</string>
   <string name="common_error_out_memory">十分なメモリがありません</string>
@@ -319,4 +321,9 @@
   <string name="file_list__footer__files">%1$d ファイル</string>
   <string name="file_list__footer__files_and_folder">%1$d ファイル、1 フォルダー</string>
   <string name="file_list__footer__files_and_folders">%1$d ファイル、%2$d フォルダー</string>
+  <string name="share_dialog_title">共有</string>
+  <string name="share_with_user_section_title">ユーザーまたはグループに共有</string>
+  <string name="share_no_users">ユーザーと共有されているデータはありません</string>
+  <string name="share_add_user_or_group">ユーザーまたはグループを追加</string>
+  <string name="share_search">検索</string>
 </resources>
