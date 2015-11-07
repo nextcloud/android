@@ -78,6 +78,7 @@
                   android:taskAffinity=""
                   android:excludeFromRecents="true"
                   android:theme="@style/Theme.ownCloud.NoActionBar">
+        <activity android:name=".ui.activity.LocalDirectorySelectorActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
