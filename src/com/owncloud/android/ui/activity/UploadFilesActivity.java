@@ -57,18 +57,18 @@ public class UploadFilesActivity extends FileActivity implements
     
     private ArrayAdapter<String> mDirectories;
     private File mCurrentDir = null;
-    private LocalFileListFragment mFileListFragment;
-    private Button mCancelBtn;
-    private Button mUploadBtn;
-    private Account mAccountOnCreation;
-    private DialogFragment mCurrentDialog;
+    protected LocalFileListFragment mFileListFragment;
+    protected Button mCancelBtn;
+    protected Button mUploadBtn;
+    protected Account mAccountOnCreation;
+    protected DialogFragment mCurrentDialog;
     
     public static final String EXTRA_CHOSEN_FILES =
             UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
 
     public static final int RESULT_OK_AND_MOVE = RESULT_FIRST_USER; 
     
-    private static final String KEY_DIRECTORY_PATH =
+    public static final String KEY_DIRECTORY_PATH =
             UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
     private static final String TAG = "UploadFilesActivity";
     private static final String WAIT_DIALOG_TAG = "WAIT";
@@ -81,8 +81,9 @@ public class UploadFilesActivity extends FileActivity implements
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState != null) {
-            mCurrentDir = new File(savedInstanceState.getString(
-                    UploadFilesActivity.KEY_DIRECTORY_PATH));
+            mCurrentDir = new File(savedInstanceState.getString(KEY_DIRECTORY_PATH));
+        } else if (getIntent() != null && getIntent().hasExtra(KEY_DIRECTORY_PATH)) {
+            mCurrentDir = new File(getIntent().getStringExtra(KEY_DIRECTORY_PATH));
         } else {
             mCurrentDir = Environment.getExternalStorageDirectory();
         }

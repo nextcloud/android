@@ -59,6 +59,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.UploadFilesActivity" />
+        <activity android:name=".ui.activity.LocalDirectorySelectorActivity" />
         <activity android:name=".ui.activity.Uploader" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
