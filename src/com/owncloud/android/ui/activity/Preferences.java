@@ -523,13 +523,12 @@ public class Preferences extends PreferenceActivity {
                 migrationIntent.putExtra(StorageMigrationActivity.KEY_MIGRATION_SOURCE_DIR,
                         currentStorageDir.getAbsolutePath());
                 migrationIntent.putExtra(StorageMigrationActivity.KEY_MIGRATION_TARGET_DIR,
-                        currentStorageDir.getAbsolutePath());
+                        upcomingStorageDir.getAbsolutePath());
                 startActivityForResult(migrationIntent, ACTION_PERFORM_MIGRATION);
             }
         } else if (requestCode == ACTION_PERFORM_MIGRATION && resultCode == RESULT_OK) {
             String resultStorageDir = data.getStringExtra(StorageMigrationActivity.KEY_MIGRATION_TARGET_DIR);
-            mStoragePath = resultStorageDir;
-            mPrefStoragePath.setSummary(mStoragePath);
+            saveStoragePath(resultStorageDir);
         }
     }
 
@@ -622,6 +621,19 @@ public class Preferences extends PreferenceActivity {
     }
 
     /**
+     * Save storage path
+     */
+    private void saveStoragePath(String newStoragePath) {
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mStoragePath = newStoragePath;
+        MainApp.setStoragePath(mStoragePath);
+        SharedPreferences.Editor editor = appPrefs.edit();
+        editor.putString("storage_path", mStoragePath);
+        mPrefStoragePath.setSummary(mStoragePath);
+    }
+
+    /**
      * Load storage path set on preferences
      */
     private void loadStoragePath() {
@@ -629,7 +641,7 @@ public class Preferences extends PreferenceActivity {
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mStoragePath = appPrefs.getString("storage_path", Environment.getExternalStorageDirectory()
                                                          .getAbsolutePath());
-        mPrefStoragePath.setSummary(mStoragePath + File.separator + MainApp.getDataFolder());
+        mPrefStoragePath.setSummary(mStoragePath);
     }
 
     /**

@@ -344,6 +344,23 @@
     <string name="uploader_upload_forbidden_permissions">to upload in this folder</string>
     <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
 
+    <string name="file_migration_finish_button">Finish</string>
+    <string name="file_migration_preparing">Preparing for migration...</string>
+    <string name="file_migration_checking_destination">Checking destination...</string>
+    <string name="file_migration_saving_accounts_configuration">Saving accounts configuration...</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Waiting for unfinished synchronizations...</string>
+    <string name="file_migration_migrating">Moving data...</string>
+    <string name="file_migration_updating_index">Updating index...</string>
+    <string name="file_migration_cleaning">Cleaning...</string>
+    <string name="file_migration_restoring_accounts_configuration">Restoring accounts configuration...</string>
+    <string name="file_migration_ok_finished">Finished</string>
+    <string name="file_migration_failed_not_enough_space">ERROR: Not enough space</string>
+    <string name="file_migration_failed_not_writable">ERROR: File is not writable</string>
+    <string name="file_migration_failed_not_readable">ERROR: File is not readable</string>
+    <string name="file_migration_failed_dir_already_exists">ERROR: owncloud directory already exists</string>
+    <string name="file_migration_failed_while_coping">ERROR: While migrating</string>
+    <string name="file_migration_failed_while_updating_index">ERROR: While updating index</string>
+
     <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Add account</string>
     <string name="drawer_manage_accounts">Manage accounts</string>
