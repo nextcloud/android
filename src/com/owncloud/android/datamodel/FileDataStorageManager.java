@@ -32,6 +32,7 @@ import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
+import android.provider.BaseColumns;
 import android.provider.MediaStore;
 
 import com.owncloud.android.MainApp;
@@ -764,6 +765,69 @@ public class FileDataStorageManager {
         return ret;
     }
 
+    public void migrateStoredFiles(String srcPath, String dstPath) throws Exception {
+        Cursor c = null;
+        if (getContentResolver() != null) {
+            c = getContentResolver().query(ProviderTableMeta.CONTENT_URI_FILE,
+                    null,
+                    ProviderTableMeta.FILE_STORAGE_PATH  + " IS NOT NULL",
+                    null,
+                    null);
+
+        } else {
+            try {
+                c = getContentProviderClient().query(ProviderTableMeta.CONTENT_URI_FILE,
+                        new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_STORAGE_PATH},
+                        ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL",
+                        null,
+                        null);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, e.getMessage());
+                throw e;
+            }
+        }
+
+        ArrayList<ContentProviderOperation> operations =
+                new ArrayList<ContentProviderOperation>(c.getCount());
+        if (c.moveToFirst()) {
+            do {
+                ContentValues cv = new ContentValues();
+                long fileId = c.getLong(c.getColumnIndex(ProviderTableMeta._ID));
+                String oldFileStoragePath = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
+
+                if (oldFileStoragePath.startsWith(srcPath)) {
+
+                    cv.put(
+                            ProviderTableMeta.FILE_STORAGE_PATH,
+                            oldFileStoragePath.replaceFirst(srcPath, dstPath));
+
+                    operations.add(
+                            ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
+                                    withValues(cv).
+                                    withSelection(
+                                            ProviderTableMeta._ID + "=?",
+                                            new String[]{String.valueOf(fileId)}
+                                    )
+                                    .build());
+                }
+
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        /// 3. apply updates in batch
+        try {
+            if (getContentResolver() != null) {
+                getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+
+            } else {
+                getContentProviderClient().applyBatch(operations);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
     private Vector<OCFile> getFolderContent(long parentId, boolean onlyOnDevice) {
 
