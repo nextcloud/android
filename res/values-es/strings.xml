@@ -245,6 +245,8 @@
   <string name="ssl_validator_label_validity_to">A:</string>
   <string name="ssl_validator_label_signature">Firma:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Firma:</string>
+  <string name="certificate_load_problem">Existe un problema al cargar el certificado.</string>
   <string name="ssl_validator_null_cert">No se ha podido mostrar el certificado</string>
   <string name="ssl_validator_no_info_about_error">- No hay información acerca del error</string>
   <string name="placeholder_sentence">Esto es un marcador de posición</string>

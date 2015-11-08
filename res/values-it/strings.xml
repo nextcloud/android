@@ -245,6 +245,9 @@
   <string name="ssl_validator_label_validity_to">A:</string>
   <string name="ssl_validator_label_signature">Firma:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
+  <string name="digest_algorithm_not_available">Questo algoritmo digest non è disponibile sul tuo telefono.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Impronta digitale:</string>
+  <string name="certificate_load_problem">Si è verificato un problema durante il caricamento del certificato.</string>
   <string name="ssl_validator_null_cert">Il certificato non può essere mostrato.</string>
   <string name="ssl_validator_no_info_about_error">- Nessuna informazione sull\'errore</string>
   <string name="placeholder_sentence">Questo è un segnaposto</string>

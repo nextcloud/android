@@ -242,6 +242,9 @@
   <string name="ssl_validator_label_validity_to">Deri më:</string>
   <string name="ssl_validator_label_signature">Nënshkrim:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritëm:</string>
+  <string name="digest_algorithm_not_available">Ky algoritëm digest s’është i passhëm në telefonin tuaj.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Shenja gishtash:</string>
+  <string name="certificate_load_problem">Pati një problem gjatë ngarkimit të dëshmisë.</string>
   <string name="ssl_validator_null_cert">Dëshmia s\’u shfaq dot.</string>
   <string name="ssl_validator_no_info_about_error">- Pa të dhëna rreth gabimit</string>
   <string name="placeholder_sentence">Kjo është një vendmbajtëse</string>

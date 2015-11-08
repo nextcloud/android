@@ -84,6 +84,7 @@
   <string name="list_layout">Náhled seznamu</string>
   <string name="action_share_file">Sdílet odkaz</string>
   <string name="action_unshare_file">Zrušit sdílení odkazu</string>
+  <string name="action_share_with_users">Sdílet s uživateli</string>
   <string name="common_yes">Ano</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">OK</string>
@@ -243,6 +244,9 @@
   <string name="ssl_validator_label_validity_to">Pro:</string>
   <string name="ssl_validator_label_signature">Podpis:</string>
   <string name="ssl_validator_label_signature_algorithm">Alogritmus:</string>
+  <string name="digest_algorithm_not_available">Tento algoritmus není na vašem telefonu dostupný.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Otisk:</string>
+  <string name="certificate_load_problem">Došlo k problému s načtením certifikátu.</string>
   <string name="ssl_validator_null_cert">Certifikát nemohl být zobrazen.</string>
   <string name="ssl_validator_no_info_about_error">- Žádné informace o této chybě</string>
   <string name="placeholder_sentence">Zástupný text</string>
@@ -336,4 +340,8 @@ správce systému.</string>
   <string name="share_no_users">Zatím nebyla s uživateli sdílena žádná data</string>
   <string name="share_add_user_or_group">Přidat uživatele nebo skupinu</string>
   <string name="share_search">Hledat</string>
+  <string name="search_users_and_groups_hint">Prohledat uživatele a skupiny</string>
+  <string name="share_group_clarification">%1$s (skupina)</string>
+  <string name="share_sharee_unavailable">Omlouváme se, verze vašeho serveru neumožňuje v klientské aplikaci sdílení dat mezi uživateli.
+\nKontaktujte prosím svého administrátora</string>
 </resources>

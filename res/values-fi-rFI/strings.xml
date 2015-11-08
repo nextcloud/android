@@ -236,6 +236,8 @@
   <string name="ssl_validator_label_validity_to">Päättyen:</string>
   <string name="ssl_validator_label_signature">Allekirjoitus:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmi:</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Sormenjälki:</string>
+  <string name="certificate_load_problem">Varmennetta ladatessa ilmeni ongelmia.</string>
   <string name="ssl_validator_null_cert">Varmennetta ei voi näyttää.</string>
   <string name="ssl_validator_no_info_about_error">- Ei lisätietoja virheestä</string>
   <string name="placeholder_filetype">PNG-kuva</string>
@@ -296,6 +298,7 @@
   <string name="copy_file_error">Tätä tiedostoa tai kansiota kopioitaessa tapahtui virhe</string>
   <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
   <string name="prefs_category_security">Tietoturva</string>
+  <string name="prefs_instant_video_upload_path_title">Videoiden lähetyspolku</string>
   <string name="sync_folder_failed_content">Kansion %1$s synkronointia ei voitu suorittaa kokonaan</string>
   <string name="shared_subject_header">jaettu</string>
   <string name="with_you_subject_header">kanssasi</string>

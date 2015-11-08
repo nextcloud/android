@@ -245,6 +245,9 @@
   <string name="ssl_validator_label_validity_to">Μέχρι:</string>
   <string name="ssl_validator_label_signature">Υπογραφή:</string>
   <string name="ssl_validator_label_signature_algorithm">Αλγόριθμος:</string>
+  <string name="digest_algorithm_not_available">Ο αλγόριθμος digest δεν είναι διαθέσιμος στο τηλέφωνό σας.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Ψηφιακό αποτύπωμα:</string>
+  <string name="certificate_load_problem">Πρόβλημα φόρτωσης του πιστοποιητικού.</string>
   <string name="ssl_validator_null_cert">Δεν μπορεί να εμφανιστεί το πιστοποιητικό.</string>
   <string name="ssl_validator_no_info_about_error">- Καμμία πληροφορία σχετικά με το σφάλμα</string>
   <string name="placeholder_sentence">Αυτό είναι ένα σημείο κράτησης θέσης</string>
