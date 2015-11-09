@@ -249,7 +249,7 @@ public class Preferences extends PreferenceActivity
         PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("more");
         
         boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
-        Preference pHelp =  findPreference("help");
+        Preference pHelp = findPreference("help");
         if (pHelp != null ){
             if (helpEnabled) {
                 pHelp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -271,7 +271,7 @@ public class Preferences extends PreferenceActivity
         }
 
         if (BuildConfig.DEBUG) {
-            Preference pLog =  findPreference("log");
+            Preference pLog = findPreference("log");
             if (pLog != null ){
                 pLog.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
@@ -314,7 +314,7 @@ public class Preferences extends PreferenceActivity
                         intent.putExtra(Intent.EXTRA_TEXT, recommendText);
                         startActivity(intent);
 
-                        return(true);
+                        return true;
 
                     }
                 });
@@ -331,9 +331,10 @@ public class Preferences extends PreferenceActivity
                 pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String feedbackMail   =(String) getText(R.string.mail_feedback);
-                        String feedback   =(String) getText(R.string.prefs_feedback) + " - android v" + appVersion;
-                        Intent intent = new Intent(Intent.ACTION_SENDTO); 
+                        String feedbackMail = (String) getText(R.string.mail_feedback);
+                        String feedback     = String.format("%s - android v%s", getText(R.string.prefs_feedback),  appVersion);
+                        Intent intent       = new Intent(Intent.ACTION_SENDTO);
+
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
                         
@@ -414,7 +415,7 @@ public class Preferences extends PreferenceActivity
         mPrefInstantUploadCategory =
                 (PreferenceCategory) findPreference("instant_uploading_category");
         
-        mPrefInstantUploadPathWiFi =  findPreference("instant_upload_on_wifi");
+        mPrefInstantUploadPathWiFi = findPreference("instant_upload_on_wifi");
         mPrefInstantUpload = findPreference("instant_uploading");
         
         toggleInstantPictureOptions(((CheckBoxPreference) mPrefInstantUpload).isChecked());
@@ -471,7 +472,7 @@ public class Preferences extends PreferenceActivity
                 ((CheckBoxPreference)mPrefInstantUpload).isChecked());
 
         /* About App */
-       pAboutApp = (Preference) findPreference("about_app");
+       pAboutApp = findPreference("about_app");
        if (pAboutApp != null) { 
                pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
                pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
@@ -605,8 +606,7 @@ public class Preferences extends PreferenceActivity
 
         if (requestCode == ACTION_SELECT_UPLOAD_PATH && resultCode == RESULT_OK){
 
-            OCFile folderToUpload =
-                    (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
+            OCFile folderToUpload =  data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
 
             mUploadPath = folderToUpload.getRemotePath();
 
@@ -619,8 +619,7 @@ public class Preferences extends PreferenceActivity
 
         } else if (requestCode == ACTION_SELECT_UPLOAD_VIDEO_PATH && resultCode == RESULT_OK) {
 
-            OCFile folderToUploadVideo =
-                    (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
+            OCFile folderToUploadVideo = data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
 
             mUploadVideoPath = folderToUploadVideo.getRemotePath();
 
@@ -907,7 +906,7 @@ public class Preferences extends PreferenceActivity
         editor.commit();
     }
 
-    // Methods for ComponetsGetter
+    // Methods for ComponentsGetter
     @Override
     public FileDownloader.FileDownloaderBinder getFileDownloaderBinder() {
         return mDownloaderBinder;
@@ -946,14 +945,10 @@ public class Preferences extends PreferenceActivity
 
             if (component.equals(new ComponentName(Preferences.this, FileDownloader.class))) {
                 mDownloaderBinder = (FileDownloader.FileDownloaderBinder) service;
-
             } else if (component.equals(new ComponentName(Preferences.this, FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploader.FileUploaderBinder) service;
-            } else {
-                return;
             }
-
         }
 
         @Override
