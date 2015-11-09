@@ -44,15 +44,6 @@
 							android:title="@string/prefs_instant_upload_path_title"
 							android:key="instant_upload_path" />
 	    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
-			android:key="instant_uploading"
-	        android:title="@string/prefs_instant_upload"
-	        android:summary="@string/prefs_instant_upload_summary"/>
-		<com.owncloud.android.ui.PreferenceWithLongSummary
-			android:dependency="instant_uploading"
-			android:disableDependentsState="true"
-			android:title="@string/prefs_instant_upload_path_title"
-			android:key="instant_upload_path" />
-	    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
 			android:dependency="instant_uploading"
 			android:disableDependentsState="true"
 	        android:title="@string/instant_upload_on_wifi"
@@ -83,17 +74,6 @@
 			android:title="@string/instant_video_upload_on_charging"
 			android:key="instant_video_upload_on_charging"/>
 	</PreferenceCategory>
-	
-	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">
-		<!-- DISABLED FOR RELEASE UNTIL FIXED
-	    CheckBoxPreference android:key="log_to_file"
-	                        android:title="@string/prefs_log_title"
-	                        android:summary="@string/prefs_log_summary"/>
-		<Preference 		android:key="log_history"
-	                        android:title="@string/prefs_log_title_history"
-	                        android:summary="@string/prefs_log_summary_history"/ -->
-                        
-    </PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/common_category" android:key="common_category">
 		<EditTextPreference android:title="@string/pref_cache_size"
@@ -102,6 +82,13 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">
+		<!-- DISABLED FOR RELEASE UNTIL FIXED
+	    CheckBoxPreference android:key="log_to_file"
+	                        android:title="@string/prefs_log_title"
+	                        android:summary="@string/prefs_log_summary"/>
+		<Preference 		android:key="log_history"
+	                        android:title="@string/prefs_log_title_history"
+	                        android:summary="@string/prefs_log_summary_history"/ -->
     <Preference android:title="@string/prefs_help" android:key="help" />
     <Preference android:title="@string/prefs_recommend" android:key="recommend" />
     <Preference android:title="@string/prefs_feedback" android:key="feedback" />

@@ -463,7 +463,7 @@ public class Preferences extends PreferenceActivity
        pAboutApp = (Preference) findPreference("about_app");
        if (pAboutApp != null) { 
                pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
-               pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
+               pAboutApp.setSummary(String.format(getString(R.string.about_version), BuildConfig.VERSION_CODE));
        }
 
        loadInstantUploadPath();
@@ -889,7 +889,7 @@ public class Preferences extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mUploadVideoPath = appPrefs.getString("instant_video_upload_path", getString(R.string.instant_upload_path));
-//        mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
+        mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
     }
 
     /**
