@@ -125,6 +125,8 @@ public class StorageMigrationActivity extends AppCompatActivity {
 			Account[] ocAccounts = AccountManager.get(context).getAccountsByType(MainApp.getAccountType());
 			boolean[] oldAutoSync = new boolean[ocAccounts.length];
 
+			Log_OC.stopLogging();
+
 			try {
 				publishProgress(mProgress++, R.string.file_migration_checking_destination);
 
@@ -148,15 +150,18 @@ public class StorageMigrationActivity extends AppCompatActivity {
 
 			} catch (MigrationException e) {
 				rollback();
+				Log_OC.startLogging(mStorageSource);
 				return e.getResId();
 			} catch (MigrationCleanupException e) {
 				Log_OC.w(TAG, "Migration cleanup step failed");
+				Log_OC.startLogging(mStorageSource);
 				return 0;
 			} finally {
 				publishProgress(mProgress++, R.string.file_migration_restoring_accounts_configuration);
 				restoreAccountsSyncStatus(ocAuthority, ocAccounts, oldAutoSync);
 			}
 
+			Log_OC.startLogging(mStorageTarget);
 			publishProgress(mProgress++, R.string.file_migration_ok_finished);
 
 			return 0;
