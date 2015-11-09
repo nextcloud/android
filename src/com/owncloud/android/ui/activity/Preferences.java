@@ -339,7 +339,7 @@ public class Preferences extends PreferenceActivity {
             }
         }
 
-        mPrefStoragePath =  findPreference("storage_path");
+        mPrefStoragePath =  (PreferenceWithLongSummary)findPreference("storage_path");
         if (mPrefStoragePath != null) {
 
             mPrefStoragePath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -361,7 +361,7 @@ public class Preferences extends PreferenceActivity {
                 });
         }
 
-        mPrefInstantUploadPath =  findPreference("instant_upload_path");
+        mPrefInstantUploadPath = (PreferenceWithLongSummary)findPreference("instant_upload_path");
         if (mPrefInstantUploadPath != null){
 
             mPrefInstantUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
