@@ -42,24 +42,16 @@ import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
-import android.provider.BaseColumns;
 import android.provider.MediaStore;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.utils.FileStorageUtils;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 public class FileDataStorageManager {
 
@@ -715,42 +707,10 @@ public class FileDataStorageManager {
                 if (!targetFolder.exists()) {
                     targetFolder.mkdirs();
                 }
-                copied = copyFile(localFile, targetFile);
+                copied = FileStorageUtils.copyFile(localFile, targetFile);
             }
             Log_OC.d(TAG, "Local file COPIED : " + copied);
         }
-    }
-
-    private boolean copyFile(File src, File target) {
-        boolean ret = true;
-
-        InputStream in = null;
-        OutputStream out = null;
-
-        try {
-            in = new FileInputStream(src);
-            out = new FileOutputStream(target);
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
-        } catch (IOException ex) {
-            ret = false;
-        } finally {
-            if (in != null) try {
-                in.close();
-            } catch (IOException e) {
-                e.printStackTrace(System.err);
-            }
-            if (out != null) try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace(System.err);
-            }
-        }
-
-        return ret;
     }
 
     public void migrateStoredFiles(String srcPath, String dstPath) throws Exception {
