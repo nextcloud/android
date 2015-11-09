@@ -93,6 +93,9 @@ public class StorageMigrationActivity extends AppCompatActivity {
 
 		private String mStorageTarget;
 		private String mStorageSource;
+		private int mProgress;
+
+		private static final int mProgressCopyUpperBound = 98;
 
 		private class MigrationException extends Exception {
 			private int mResId;
@@ -107,14 +110,18 @@ public class StorageMigrationActivity extends AppCompatActivity {
 			int getResId() { return mResId; }
 		}
 
+		private class MigrationCleanupException extends Exception {
+			MigrationCleanupException() {}
+		}
+
 		@Override
 		protected Integer doInBackground(String... args) {
 
 			mStorageSource = args[0];
 			mStorageTarget = args[1];
+			mProgress = 0;
 
-			int progress = 0;
-			publishProgress(progress++, R.string.file_migration_preparing);
+			publishProgress(mProgress++, R.string.file_migration_preparing);
 
 			Context context = StorageMigrationActivity.this;
 			String ocAuthority = context.getString(R.string.authority);
@@ -123,34 +130,38 @@ public class StorageMigrationActivity extends AppCompatActivity {
 			boolean[] oldAutoSync = new boolean[ocAccounts.length];
 
 			try {
-				publishProgress(progress++, R.string.file_migration_checking_destination);
+				publishProgress(mProgress++, R.string.file_migration_checking_destination);
 
 				checkDestinationAvailability();
 
-				publishProgress(progress++, R.string.file_migration_saving_accounts_configuration);
+				publishProgress(mProgress++, R.string.file_migration_saving_accounts_configuration);
 				saveAccountsSyncStatus(ocAuthority, ocAccounts, oldAutoSync);
 
-				publishProgress(progress++, R.string.file_migration_waiting_for_unfinished_sync);
+				publishProgress(mProgress++, R.string.file_migration_waiting_for_unfinished_sync);
 				stopAccountsSyncing(ocAuthority, ocAccounts);
 				waitForUnfinishedSynchronizations(ocAuthority, ocAccounts);
 
-				publishProgress(progress++, R.string.file_migration_migrating);
+				publishProgress(mProgress++, R.string.file_migration_migrating);
 				copyFiles();
 
-				publishProgress(progress++, R.string.file_migration_updating_index);
+				publishProgress(mProgress++, R.string.file_migration_updating_index);
 				updateIndex(context);
 
-				publishProgress(progress++, R.string.file_migration_cleaning);
+				publishProgress(mProgress++, R.string.file_migration_cleaning);
 				cleanup();
 
 			} catch (MigrationException e) {
+				rollback();
 				return e.getResId();
+			} catch (MigrationCleanupException e) {
+				Log_OC.w(TAG, "Migration mleanup step failed");
+				return 0;
 			} finally {
-				publishProgress(progress++, R.string.file_migration_restoring_accounts_configuration);
+				publishProgress(mProgress++, R.string.file_migration_restoring_accounts_configuration);
 				restoreAccountsSyncStatus(ocAuthority, ocAccounts, oldAutoSync);
 			}
 
-			publishProgress(progress++, R.string.file_migration_ok_finished);
+			publishProgress(mProgress++, R.string.file_migration_ok_finished);
 
 			return 0;
 		}
@@ -203,6 +214,8 @@ public class StorageMigrationActivity extends AppCompatActivity {
 			File dstFile = new File(mStorageTarget + File.separator + MainApp.getDataFolder());
 
 			copyDirs(srcFile, dstFile);
+			mProgress = Math.max(mProgress, mProgressCopyUpperBound);
+			publishProgress(mProgress);
 		}
 
 		private boolean copyFile(File src, File target) {
@@ -242,6 +255,10 @@ public class StorageMigrationActivity extends AppCompatActivity {
 				throw new MigrationException(R.string.file_migration_failed_while_coping);
 
 			for (File f : src.listFiles()) {
+
+				mProgress = Math.min(mProgress+1, mProgressCopyUpperBound);
+				publishProgress(mProgress);
+
 				if (f.isDirectory())
 					copyDirs(f, new File(dst, f.getName()));
 				else if (!copyFile(f, new File(dst, f.getName())))
@@ -258,11 +275,19 @@ public class StorageMigrationActivity extends AppCompatActivity {
 			} catch (Exception e) {
 				throw new MigrationException(R.string.file_migration_failed_while_updating_index);
 			}
-
 		}
 
-		void cleanup() {
+		void cleanup() throws MigrationCleanupException {
+			File srcFile = new File(mStorageSource + File.separator + MainApp.getDataFolder());
+			if (!srcFile.delete())
+				throw new MigrationCleanupException();
+		}
 
+		void rollback() {
+			File dstFile = new File(mStorageTarget + File.separator + MainApp.getDataFolder());
+			if (dstFile.exists())
+				if (!dstFile.delete())
+					Log_OC.w(TAG, "Rollback step failed");
 		}
 
 		long calculateUsedSpace(File dir) {
@@ -279,9 +304,8 @@ public class StorageMigrationActivity extends AppCompatActivity {
 		}
 
 		void saveAccountsSyncStatus(String authority, Account accounts[], boolean syncs[]) {
-			for (int i = 0; i < accounts.length; ++i) {
+			for (int i = 0; i < accounts.length; ++i)
 				syncs[i] = ContentResolver.getSyncAutomatically(accounts[i], authority);
-			}
 		}
 
 		void stopAccountsSyncing(String authority, Account accounts[]) {
@@ -296,9 +320,9 @@ public class StorageMigrationActivity extends AppCompatActivity {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						Log_OC.w(TAG, "Thread interrupted while waiting for account to end syncing");
+						Thread.currentThread().interrupt();
 					}
 		}
-
 
 		void restoreAccountsSyncStatus(String authority, Account accounts[], boolean oldSync[]) {
 			for (int i = 0; i < accounts.length; ++i)
