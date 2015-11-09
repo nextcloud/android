@@ -37,13 +37,9 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 /**
  * Created by Bartosz Przybylski on 07.11.2015.
@@ -154,7 +150,7 @@ public class StorageMigrationActivity extends AppCompatActivity {
 				rollback();
 				return e.getResId();
 			} catch (MigrationCleanupException e) {
-				Log_OC.w(TAG, "Migration mleanup step failed");
+				Log_OC.w(TAG, "Migration cleanup step failed");
 				return 0;
 			} finally {
 				publishProgress(mProgress++, R.string.file_migration_restoring_accounts_configuration);
@@ -205,7 +201,7 @@ public class StorageMigrationActivity extends AppCompatActivity {
 			if (new File(dstFile, MainApp.getDataFolder()).exists())
 				throw new MigrationException(R.string.file_migration_failed_dir_already_exists);
 
-			if (dstFile.getFreeSpace() < calculateUsedSpace(new File(srcFile, MainApp.getDataFolder())))
+			if (dstFile.getFreeSpace() < FileStorageUtils.getFolderSize(new File(srcFile, MainApp.getDataFolder())))
 				throw new MigrationException(R.string.file_migration_failed_not_enough_space);
 		}
 
@@ -216,38 +212,6 @@ public class StorageMigrationActivity extends AppCompatActivity {
 			copyDirs(srcFile, dstFile);
 			mProgress = Math.max(mProgress, mProgressCopyUpperBound);
 			publishProgress(mProgress);
-		}
-
-		private boolean copyFile(File src, File target) {
-			boolean ret = true;
-
-			InputStream in = null;
-			OutputStream out = null;
-
-			try {
-				in = new FileInputStream(src);
-				out = new FileOutputStream(target);
-				byte[] buf = new byte[1024];
-				int len;
-				while ((len = in.read(buf)) > 0) {
-					out.write(buf, 0, len);
-				}
-			} catch (IOException ex) {
-				ret = false;
-			} finally {
-				if (in != null) try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace(System.err);
-				}
-				if (out != null) try {
-					out.close();
-				} catch (IOException e) {
-					e.printStackTrace(System.err);
-				}
-			}
-
-			return ret;
 		}
 
 		void copyDirs(File src, File dst) throws MigrationException {
@@ -261,7 +225,7 @@ public class StorageMigrationActivity extends AppCompatActivity {
 
 				if (f.isDirectory())
 					copyDirs(f, new File(dst, f.getName()));
-				else if (!copyFile(f, new File(dst, f.getName())))
+				else if (!FileStorageUtils.copyFile(f, new File(dst, f.getName())))
 					throw new MigrationException(R.string.file_migration_failed_while_coping);
 			}
 
@@ -288,19 +252,6 @@ public class StorageMigrationActivity extends AppCompatActivity {
 			if (dstFile.exists())
 				if (!dstFile.delete())
 					Log_OC.w(TAG, "Rollback step failed");
-		}
-
-		long calculateUsedSpace(File dir) {
-			long result = 0;
-
-			for (File f : dir.listFiles()) {
-				if (f.isDirectory())
-					result += calculateUsedSpace(f);
-				else
-					result += f.length();
-			}
-
-			return result;
 		}
 
 		void saveAccountsSyncStatus(String authority, Account accounts[], boolean syncs[]) {

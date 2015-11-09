@@ -22,6 +22,11 @@ package com.owncloud.android.utils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -42,7 +47,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.StatFs;
 import android.webkit.MimeTypeMap;
 
@@ -346,13 +350,11 @@ public class FileStorageUtils {
     public static long getFolderSize(File dir) {
         if (dir.exists()) {
             long result = 0;
-            File[] fileList = dir.listFiles();
-            for(int i = 0; i < fileList.length; i++) {
-                if(fileList[i].isDirectory()) {
-                    result += getFolderSize(fileList[i]);
-                } else {
-                    result += fileList[i].length();
-                }
+            for (File f : dir.listFiles()) {
+                if (f.isDirectory())
+                    result += getFolderSize(f);
+                else
+                    result += f.length();
             }
             return result;
         }
@@ -400,6 +402,38 @@ public class FileStorageUtils {
                 file.setLastSyncDateForData(f.lastModified());
             }
         }
+    }
+
+    public static boolean copyFile(File src, File target) {
+        boolean ret = true;
+
+        InputStream in = null;
+        OutputStream out = null;
+
+        try {
+            in = new FileInputStream(src);
+            out = new FileOutputStream(target);
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+        } catch (IOException ex) {
+            ret = false;
+        } finally {
+            if (in != null) try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace(System.err);
+            }
+            if (out != null) try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace(System.err);
+            }
+        }
+
+        return ret;
     }
 
 }
