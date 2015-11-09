@@ -21,7 +21,6 @@
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
 	android:layout_width="wrap_content"
-	android:background="@color/white"
 	android:gravity="center">
 
 	<FrameLayout
@@ -45,8 +44,7 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
-	    android:orientation="horizontal"
-		android:padding="@dimen/standard_padding">
+	    android:orientation="horizontal" >
 
 		<android.support.v7.widget.AppCompatButton
 			android:theme="@style/Button"
