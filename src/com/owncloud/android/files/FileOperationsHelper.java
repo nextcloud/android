@@ -61,6 +61,8 @@ import org.apache.http.protocol.HTTP;
 
 import java.util.List;
 
+import java.util.ArrayList;
+
 /**
  *
  */
@@ -334,6 +336,11 @@ public class FileOperationsHelper {
         }
     }
 
+    public void syncFiles(ArrayList<OCFile> files) {
+        for (OCFile file: files) {
+            syncFile(file);
+        }
+    }
     public void sendCachedImage(OCFile file) {
         if (file != null) {
             Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -342,16 +349,8 @@ public class FileOperationsHelper {
 //            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + "/#" + file.getRemoteId() + "#" + file.getFileName()));
             sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + file.getRemotePath()));
             sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
-
-            // Show dialog, without the own app
-            String[] packagesToExclude = new String[] { mFileActivity.getPackageName() };
-            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude, file);
-            chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
-        } else {
-            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
         }
     }
-    
     
 
     /**
@@ -377,6 +376,12 @@ public class FileOperationsHelper {
             intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             mFileActivity.startService(intent);
 
+        }
+    }
+
+    public void toggleFavorites(ArrayList<OCFile> files, boolean isFavorite){
+        for (OCFile file: files) {
+            toggleFavorite(file, isFavorite);
         }
     }
 

@@ -167,7 +167,7 @@
   <string name="favorite">מועדף</string>
   <string name="common_rename">שינוי שם</string>
   <string name="common_remove">הסרה</string>
-  <string name="confirmation_remove_alert">האם באמת להסיר %1$s?</string>
+  <string name="confirmation_remove_file_alert">האם באמת להסיר %1$s?</string>
   <string name="confirmation_remove_folder_alert">האם באמת להסיר %1$s ואת כל התכולה?</string>
   <string name="confirmation_remove_local">מקומי בלבד</string>
   <string name="confirmation_remove_folder_local">מקומי בלבד</string>
