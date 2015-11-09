@@ -114,7 +114,7 @@
             android:name=".providers.FileContentProvider"
             android:authorities="@string/authority"
             android:enabled="true"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/sync_string_files"
             android:syncable="true" />
 
@@ -124,6 +124,12 @@
             android:enabled="true"
             android:exported="false"
             android:label="@string/search_users_and_groups_hint" />
+
+        <provider
+            android:name=".ui.adapter.DiskLruImageCacheFileProvider"
+            android:authorities="com.owncloud.imageCache.provider"
+            android:exported="true">
+        </provider>
 
         <activity
             android:name=".authentication.AuthenticatorActivity"
