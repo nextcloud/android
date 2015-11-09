@@ -2,7 +2,8 @@
 
 The BETA app is only intended to be used by experienced users that want to use and test the latest features.
 All pull requests labeled "3 - to review" or higher will be included into the branch.
-If you find a bug please comment in the corresponding pull request or create a new issue with the label "Beta".
+
+If you find a bug please verify first if it is *really* a bug in beta, then comment in the corresponding pull request or create a new issue with the prefix "Beta YYYY-MM-DD:".
 
 The compiled APKs can be found [here][2]
 
