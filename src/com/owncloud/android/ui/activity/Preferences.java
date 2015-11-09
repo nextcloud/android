@@ -630,6 +630,7 @@ public class Preferences extends PreferenceActivity {
         MainApp.setStoragePath(mStoragePath);
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString("storage_path", mStoragePath);
+        editor.commit();
         mPrefStoragePath.setSummary(mStoragePath);
     }
 
