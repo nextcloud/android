@@ -84,6 +84,7 @@ import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.CopyTmpFileAsyncTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.FileStorageUtils;
 
 
 /**
@@ -335,6 +336,8 @@ public class Uploader extends FileActivity
         Log_OC.d(TAG, "on item click");
         // TODO Enable when "On Device" is recovered ?
         Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile /*, false*/);
+        tmpfiles = sortFileList(tmpfiles);
+
         if (tmpfiles.size() <= 0) return;
         // filter on dirtype
         Vector<OCFile> files = new Vector<OCFile>();
@@ -399,16 +402,17 @@ public class Uploader extends FileActivity
         setContentView(R.layout.uploader_layout);
         
         ListView mListView = (ListView) findViewById(android.R.id.list);
+        ActionBar actionBar = getSupportActionBar();
 
         String current_dir = mParents.peek();
         if(current_dir.equals("")){
-            getSupportActionBar().setTitle(getString(R.string.default_display_name_for_root_folder));
+            actionBar.setTitle(getString(R.string.uploader_top_message));
         }
         else{
-            getSupportActionBar().setTitle(current_dir);
+            actionBar.setTitle(current_dir);
         }
         boolean notRoot = (mParents.size() > 1);
-        ActionBar actionBar = getSupportActionBar();
+
         actionBar.setDisplayHomeAsUpEnabled(notRoot);
         actionBar.setHomeButtonEnabled(notRoot);
 
@@ -420,19 +424,22 @@ public class Uploader extends FileActivity
         if (mFile != null) {
             // TODO Enable when "On Device" is recovered ?
             Vector<OCFile> files = getStorageManager().getFolderContent(mFile/*, false*/);
+            files = sortFileList(files);
+
             List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
             for (OCFile f : files) {
-                HashMap<String, Object> h = new HashMap<String, Object>();
                 if (f.isFolder()) {
+                    HashMap<String, Object> h = new HashMap<String, Object>();
                     h.put("dirname", f.getFileName());
+                    h.put("last_mod", DisplayUtils.getRelativeTimestamp(this, f));
                     data.add(h);
                 }
             }
             SimpleAdapter sa = new SimpleAdapter(this,
                                                 data,
                                                 R.layout.uploader_list_item_layout,
-                                                new String[] {"dirname"},
-                                                new int[] {R.id.filename});
+                                                new String[] {"dirname", "last_mod"},
+                                                new int[] {R.id.filename, R.id.last_mod});
             
             mListView.setAdapter(sa);
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
@@ -443,6 +450,18 @@ public class Uploader extends FileActivity
             
             mListView.setOnItemClickListener(this);
         }
+    }
+
+    private Vector<OCFile> sortFileList(Vector<OCFile> files) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(this);
+
+        // Read sorting order, default to sort by name ascending
+        FileStorageUtils.mSortOrder = sharedPreferences.getInt("sortOrder", 0);
+        FileStorageUtils.mSortAscending = sharedPreferences.getBoolean("sortAscending", true);
+
+        files = FileStorageUtils.sortFolder(files);
+        return files;
     }
 
     private String generatePath(Stack<String> dirs) {
