@@ -106,10 +106,6 @@ public class StorageMigrationActivity extends AppCompatActivity {
 			int getResId() { return mResId; }
 		}
 
-		private class MigrationCleanupException extends Exception {
-			MigrationCleanupException() {}
-		}
-
 		@Override
 		protected Integer doInBackground(String... args) {
 
@@ -152,10 +148,6 @@ public class StorageMigrationActivity extends AppCompatActivity {
 				rollback();
 				Log_OC.startLogging(mStorageSource);
 				return e.getResId();
-			} catch (MigrationCleanupException e) {
-				Log_OC.w(TAG, "Migration cleanup step failed");
-				Log_OC.startLogging(mStorageSource);
-				return 0;
 			} finally {
 				publishProgress(mProgress++, R.string.file_migration_restoring_accounts_configuration);
 				restoreAccountsSyncStatus(ocAuthority, ocAccounts, oldAutoSync);
@@ -246,10 +238,10 @@ public class StorageMigrationActivity extends AppCompatActivity {
 			}
 		}
 
-		void cleanup() throws MigrationCleanupException {
+		void cleanup() {
 			File srcFile = new File(mStorageSource + File.separator + MainApp.getDataFolder());
 			if (!srcFile.delete())
-				throw new MigrationCleanupException();
+				Log_OC.w(TAG, "Migration cleanup step failed");
 		}
 
 		void rollback() {
