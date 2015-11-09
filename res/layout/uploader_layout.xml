@@ -18,25 +18,19 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="wrap_content" android:orientation="vertical"
-	android:layout_width="wrap_content" android:background="#fefefe"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:layout_width="wrap_content"
 	android:gravity="center">
 
-	<TextView android:layout_width="fill_parent"
-		android:text="@string/uploader_top_message"
-		android:layout_height="wrap_content"
-		android:id="@+id/drawer_username"
-		android:textColor="@android:color/black"
-		android:gravity="center_horizontal">
-	</TextView>
-
-	<FrameLayout android:layout_height="fill_parent"
+	<FrameLayout
+		android:layout_height="fill_parent"
 		android:layout_width="fill_parent"
-		android:id="@+id/frameLayout1"
-		android:layout_below="@+id/drawer_username"
-		android:layout_above="@+id/linearLayout1">
+		android:id="@+id/upload_list"
+		android:layout_above="@+id/upload_actions">
 
-		<ListView android:id="@android:id/list"
+		<ListView
+			android:id="@android:id/list"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
 			android:divider="@color/list_divider_background"
@@ -46,7 +40,7 @@
 	</FrameLayout>
 
 	<LinearLayout
-	    android:id="@+id/linearLayout1"
+	    android:id="@+id/upload_actions"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
