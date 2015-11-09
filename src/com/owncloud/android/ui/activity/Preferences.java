@@ -161,7 +161,7 @@ public class Preferences extends PreferenceActivity {
         PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("more");
         
         boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
-        Preference pHelp =  findPreference("help");
+        Preference pHelp = findPreference("help");
         if (pHelp != null ){
             if (helpEnabled) {
                 pHelp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -207,7 +207,7 @@ public class Preferences extends PreferenceActivity {
                         intent.putExtra(Intent.EXTRA_TEXT, recommendText);
                         startActivity(intent);
 
-                        return(true);
+                        return true;
 
                     }
                 });
@@ -383,7 +383,7 @@ public class Preferences extends PreferenceActivity {
                 ((CheckBoxPreference)mPrefInstantUpload).isChecked());
 
         /* About App */
-       pAboutApp = (Preference) findPreference("about_app");
+       pAboutApp = findPreference("about_app");
        if (pAboutApp != null) { 
                pAboutApp.setTitle(String.format(getString(R.string.about_android),
                        getString(R.string.app_name)));
@@ -466,8 +466,7 @@ public class Preferences extends PreferenceActivity {
 
         if (requestCode == ACTION_SELECT_UPLOAD_PATH && resultCode == RESULT_OK){
 
-            OCFile folderToUpload =
-                    (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
+            OCFile folderToUpload =  data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
 
             mUploadPath = folderToUpload.getRemotePath();
 
@@ -480,8 +479,7 @@ public class Preferences extends PreferenceActivity {
 
         } else if (requestCode == ACTION_SELECT_UPLOAD_VIDEO_PATH && resultCode == RESULT_OK) {
 
-            OCFile folderToUploadVideo =
-                    (OCFile) data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
+            OCFile folderToUploadVideo = data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
 
             mUploadVideoPath = folderToUploadVideo.getRemotePath();
 

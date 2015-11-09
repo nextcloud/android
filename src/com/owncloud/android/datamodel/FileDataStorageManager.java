@@ -32,7 +32,6 @@ import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
-import android.provider.BaseColumns;
 import android.provider.MediaStore;
 
 import com.owncloud.android.MainApp;
@@ -727,42 +726,10 @@ public class FileDataStorageManager {
                 if (!targetFolder.exists()) {
                     targetFolder.mkdirs();
                 }
-                copied = copyFile(localFile, targetFile);
+                copied = FileStorageUtils.copyFile(localFile, targetFile);
             }
             Log_OC.d(TAG, "Local file COPIED : " + copied);
         }
-    }
-
-    private boolean copyFile(File src, File target) {
-        boolean ret = true;
-
-        InputStream in = null;
-        OutputStream out = null;
-
-        try {
-            in = new FileInputStream(src);
-            out = new FileOutputStream(target);
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
-        } catch (IOException ex) {
-            ret = false;
-        } finally {
-            if (in != null) try {
-                in.close();
-            } catch (IOException e) {
-                e.printStackTrace(System.err);
-            }
-            if (out != null) try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace(System.err);
-            }
-        }
-
-        return ret;
     }
 
     public void migrateStoredFiles(String srcPath, String dstPath) throws Exception {
