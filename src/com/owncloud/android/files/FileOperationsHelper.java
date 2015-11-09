@@ -315,6 +315,39 @@ public class FileOperationsHelper {
         return false;
     }
 
+    public void sendImages(ArrayList<OCFile> files){
+        ArrayList<Uri> uriList = new ArrayList<Uri>();
+
+        for (OCFile file: files){
+            if (file != null){
+                if (file.isDown()) {
+                    String storagePath = file.getStoragePath();
+                    String encodedStoragePath = WebdavUtils.encodePath(storagePath);
+                    uriList.add(Uri.parse("file://" + encodedStoragePath));
+                } else {
+                    uriList.add(Uri.parse("content://" +
+                            DiskLruImageCacheFileProvider.AUTHORITY +
+                            file.getRemotePath()));
+                }
+            } else {
+                Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+            }
+        }
+
+        Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+        // set MimeType
+        sendIntent.setType(files.get(0).getMimetype());
+        sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriList);
+        sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+
+        // Show dialog, without the own app
+        String[] packagesToExclude = new String[]{mFileActivity.getPackageName()};
+        // TODO TOBI Wofür ist das?
+        DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent,
+                packagesToExclude, files.get(0));
+        chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+    }
+
     public void sendDownloadedFile(OCFile file) {
         if (file != null) {
             String storagePath = file.getStoragePath();
@@ -334,6 +367,33 @@ public class FileOperationsHelper {
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
         }
+    }
+
+    public void sendDownloadedFiles(ArrayList<OCFile> files) {
+            ArrayList<Uri> uriList = new ArrayList<Uri>();
+
+            for (OCFile file: files){
+                if (file != null){
+                    String storagePath = file.getStoragePath();
+                    String encodedStoragePath = WebdavUtils.encodePath(storagePath);
+                    uriList.add(Uri.parse("file://" + encodedStoragePath));
+                } else {
+                    Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+                }
+            }
+
+            Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+            // set MimeType
+            sendIntent.setType(files.get(0).getMimetype());
+            sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriList);
+            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+
+            // Show dialog, without the own app
+            String[] packagesToExclude = new String[]{mFileActivity.getPackageName()};
+            // TODO TOBI Wofür ist das?
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent,
+                    packagesToExclude, files.get(0));
+            chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
     }
 
     public void syncFiles(ArrayList<OCFile> files) {

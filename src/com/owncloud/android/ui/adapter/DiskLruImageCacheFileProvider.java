@@ -73,6 +73,18 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
         Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                 String.valueOf("r" + ocFile.getRemoteId()));
 
+        if (thumbnail == null){
+                ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                        new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                                fileIcon, mStorageManager, mAccount
+                        );
+                if (thumbnail == null) {
+                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                }
+        }
+
+        // TODO TOBI: wenn Thumbnail nicht vorhanden, dann runterladen!
+
         // create a file to write bitmap data
         File f = new File(MainApp.getAppContext().getCacheDir(), ocFile.getFileName());
         try {

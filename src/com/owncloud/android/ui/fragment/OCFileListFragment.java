@@ -168,6 +168,9 @@ public class OCFileListFragment extends ExtendedListFragment {
                 } else {
                     // download, move, copy, delete
                     getActivity().getMenuInflater().inflate(R.menu.multiple_file_actions_menu, menu);
+
+                    MenuItem item = menu.findItem(R.id.action_send_file);
+                    item.setVisible(checkSendable());
                 }
 
             }
@@ -193,6 +196,25 @@ public class OCFileListFragment extends ExtendedListFragment {
                 mAdapter.removeSelection();
             }
         });
+    }
+
+    private boolean checkSendable(){
+        ArrayList<OCFile> list = mAdapter.getCheckedItems();
+        String mimtype = list.get(0).getMimetype();
+        Boolean sameMimetype = true;
+        Boolean allDown = true;
+        Boolean isImage = list.get(0).isImage();
+
+        for (OCFile file : list) {
+            if (!file.getMimetype().equalsIgnoreCase(mimtype)) {
+                sameMimetype = false;
+            }
+            if (!file.isDown()){
+                allDown = false;
+            }
+        }
+
+        return sameMimetype && (allDown || isImage);
     }
 
     // TODO Tobi needed?
@@ -470,6 +492,16 @@ public class OCFileListFragment extends ExtendedListFragment {
                     Intent action = new Intent(getActivity(), FolderPickerActivity.class);
                     action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, mTargetFiles);
                     getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_MOVE_FILES);
+                    return true;
+                }
+                case R.id.action_send_file: {
+                    // all files have same mimetype
+                    if (mTargetFiles.get(0).getMimetype().startsWith("image")){
+                        // images can be sent independent of download state
+                        mContainerActivity.getFileOperationsHelper().sendImages(mTargetFiles);
+                    } else {
+                        mContainerActivity.getFileOperationsHelper().sendDownloadedFiles(mTargetFiles);
+                    }
                     return true;
                 }
                 case R.id.action_favorite_file: {
