@@ -316,8 +316,8 @@
   <string name="sync_folder_failed_content">%1$s sinchronizavimas negali būti užbaigtas.</string>
   <string name="shared_subject_header">Dalinamasi</string>
   <string name="with_you_subject_header">su jumis</string>
-  <string name="subject_token">%1$s dalinamasi \"%2$s\" su jumis</string>
-  <string name="saml_subject_token">\"%1$s\" dalinamasi su jumis</string>
+  <string name="subject_user_shared_with_you">%1$s dalinamasi \"%2$s\" su jumis</string>
+  <string name="subject_shared_with_you">\"%1$s\" dalinamasi su jumis</string>
   <string name="auth_refresh_button">Atnaujinti sujungimą</string>
   <string name="auth_host_address">Serverio adresas</string>
   <string name="common_error_out_memory">Nepakanka atminties</string>
@@ -330,4 +330,6 @@
   <string name="file_list__footer__files">%1$d failai</string>
   <string name="file_list__footer__files_and_folder">%1$d failai, 1 aplankas</string>
   <string name="file_list__footer__files_and_folders">%1$d failai, %2$d aplankai</string>
+  <string name="share_dialog_title">Dalijimasis</string>
+  <string name="share_search">Ieškoti</string>
 </resources>

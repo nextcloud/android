@@ -281,8 +281,8 @@
   <string name="prefs_instant_video_upload_path_title">مسیر آپلود ویدئو</string>
   <string name="shared_subject_header">به اشتراک گذاشته شد</string>
   <string name="with_you_subject_header">با تو</string>
-  <string name="subject_token">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>
-  <string name="saml_subject_token">\"%1$s\" با شما به اشتراک گذاشته شد</string>
+  <string name="subject_user_shared_with_you">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>
+  <string name="subject_shared_with_you">\"%1$s\" با شما به اشتراک گذاشته شد</string>
   <string name="auth_refresh_button">بروزرسانی ارتباط</string>
   <string name="auth_host_address">آدرس سرور</string>
   <string name="common_error_out_memory">حافظه کافی وجود ندارد</string>
@@ -295,4 +295,6 @@
   <string name="file_list__footer__files">%1$d  فایل</string>
   <string name="file_list__footer__files_and_folder">%1$d فایل، 1 پوشه</string>
   <string name="file_list__footer__files_and_folders">%1$d فایل, %2$d پوشه</string>
+  <string name="share_dialog_title">اشتراک گذاری</string>
+  <string name="share_search">جست‌و‌جو</string>
 </resources>

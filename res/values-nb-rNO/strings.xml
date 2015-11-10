@@ -315,8 +315,8 @@
   <string name="prefs_instant_video_upload_path_title">Sti til video-opplasting</string>
   <string name="shared_subject_header">delte</string>
   <string name="with_you_subject_header">med deg</string>
-  <string name="subject_token">%1$s delte \"%2$s\" med deg</string>
-  <string name="saml_subject_token">\"%1$s\" er blitt delt med deg</string>
+  <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med deg</string>
+  <string name="subject_shared_with_you">\"%1$s\" er blitt delt med deg</string>
   <string name="auth_refresh_button">Oppfrisk forbindelse</string>
   <string name="auth_host_address">Server-adresse</string>
   <string name="common_error_out_memory">Ikke nok minne</string>
@@ -329,4 +329,9 @@
   <string name="file_list__footer__files">%1$d filer</string>
   <string name="file_list__footer__files_and_folder">%1$d filer, 1 mappe</string>
   <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
+  <string name="share_dialog_title">Deling</string>
+  <string name="share_with_user_section_title">Del med brukere og grupper</string>
+  <string name="share_no_users">Ingen data delt med brukere ennå</string>
+  <string name="share_add_user_or_group">Legg til bruker eller gruppe</string>
+  <string name="share_search">Søk</string>
 </resources>

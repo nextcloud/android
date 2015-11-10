@@ -227,6 +227,8 @@
   <string name="prefs_category_instant_uploading">Direkt eropgeluede Fichieren</string>
   <string name="prefs_category_security">Sécherheet</string>
   <string name="prefs_instant_video_upload_path_title">Pad fir d\'Eropluede vun de Videoen</string>
+  <string name="subject_user_shared_with_you">%1$s huet \"%2$s\" mat dir gedeelt</string>
   <string name="auth_refresh_button">Connectioun opfrëschen</string>
   <string name="auth_host_address">Server-Adress</string>
+  <string name="share_search">Sichen</string>
 </resources>

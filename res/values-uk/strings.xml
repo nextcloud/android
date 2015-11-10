@@ -314,8 +314,8 @@
   <string name="prefs_instant_video_upload_path_title">Шлях завантаження відео</string>
   <string name="shared_subject_header">поширений</string>
   <string name="with_you_subject_header">з Вами</string>
-  <string name="subject_token">%1$s поділився \"%2$s\" з вами</string>
-  <string name="saml_subject_token">З Вами поділилися \"%1$s\"</string>
+  <string name="subject_user_shared_with_you">%1$s поділився \"%2$s\" з вами</string>
+  <string name="subject_shared_with_you">З Вами поділилися \"%1$s\"</string>
   <string name="auth_refresh_button">Оновити з\'єднання</string>
   <string name="auth_host_address">Ареса серверу</string>
   <string name="common_error_out_memory">Недостатньо пам\'яті</string>
@@ -328,4 +328,6 @@
   <string name="file_list__footer__files">%1$d файлів</string>
   <string name="file_list__footer__files_and_folder">%1$d файлів, 1 тека</string>
   <string name="file_list__footer__files_and_folders">%1$d файлів, %2$d тек</string>
+  <string name="share_dialog_title">Спільний доступ</string>
+  <string name="share_search">Пошук</string>
 </resources>

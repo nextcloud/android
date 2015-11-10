@@ -60,4 +60,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Akaun</string>
   <string name="auth_host_address">Alamat pelayan</string>
+  <string name="share_search">Cari</string>
 </resources>

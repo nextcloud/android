@@ -51,4 +51,6 @@
   <string name="prefs_category_accounts">ھېساباتلار</string>
   <string name="prefs_category_security">بىخەتەرلىك</string>
   <string name="auth_host_address">مۇلازىمېتىر ئادرىسى</string>
+  <string name="share_dialog_title">ھەمبەھىر</string>
+  <string name="share_search">ئىزدە</string>
 </resources>

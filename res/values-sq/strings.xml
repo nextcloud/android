@@ -84,6 +84,7 @@
   <string name="list_layout">Skemë Liste</string>
   <string name="action_share_file">Ndajeni lidhjen me të tjerët</string>
   <string name="action_unshare_file">Zhbëjeni ndarjen e lidhjes me të tjerët</string>
+  <string name="action_share_with_users">Ndajeni me përdoruesit</string>
   <string name="common_yes">Po</string>
   <string name="common_no">Jo</string>
   <string name="common_ok">OK</string>
@@ -241,6 +242,9 @@
   <string name="ssl_validator_label_validity_to">Deri më:</string>
   <string name="ssl_validator_label_signature">Nënshkrim:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritëm:</string>
+  <string name="digest_algorithm_not_available">Ky algoritëm digest s’është i passhëm në telefonin tuaj.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Shenja gishtash:</string>
+  <string name="certificate_load_problem">Pati një problem gjatë ngarkimit të dëshmisë.</string>
   <string name="ssl_validator_null_cert">Dëshmia s\’u shfaq dot.</string>
   <string name="ssl_validator_no_info_about_error">- Pa të dhëna rreth gabimit</string>
   <string name="placeholder_sentence">Kjo është një vendmbajtëse</string>
@@ -314,8 +318,8 @@
   <string name="sync_folder_failed_content">Njëkohësimi i dosjes %1$s s’u plotësua dot</string>
   <string name="shared_subject_header">ndarë</string>
   <string name="with_you_subject_header">me ju</string>
-  <string name="subject_token">%1$s ndau me ju \"%2$s\"</string>
-  <string name="saml_subject_token">\"%1$s\" është ndarë me ju</string>
+  <string name="subject_user_shared_with_you">%1$s ndau me ju \"%2$s\"</string>
+  <string name="subject_shared_with_you">\"%1$s\" është ndarë me ju</string>
   <string name="auth_refresh_button">Rifreskoni lidhjen</string>
   <string name="auth_host_address">Adresë shërbyesi</string>
   <string name="common_error_out_memory">Pa kujtesë të mjaftueshme</string>
@@ -328,4 +332,13 @@
   <string name="file_list__footer__files">%1$d kartelë</string>
   <string name="file_list__footer__files_and_folder">%1$d kartela, 1 dosje</string>
   <string name="file_list__footer__files_and_folders">%1$d kartela, %2$d dosje</string>
+  <string name="share_dialog_title">Ndarje me të tjerët</string>
+  <string name="share_with_user_section_title">Ndani me Përdorues dhe Grupe</string>
+  <string name="share_no_users">Ende pa të dhëna të ndara me përdorues</string>
+  <string name="share_add_user_or_group">Shtoni Përdorues ose Grup</string>
+  <string name="share_search">Kërko</string>
+  <string name="search_users_and_groups_hint">Kërkoni për grupe dhe përdorues</string>
+  <string name="share_group_clarification">%1$s (grup)</string>
+  <string name="share_sharee_unavailable">Na ndjeni, versioni juaj i shërbyesit nuk lejon ndarje me përdorues brenda klientësh.
+        \nJu lutemi, lidhuni me përgjegjësin tuaj</string>
 </resources>

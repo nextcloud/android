@@ -130,4 +130,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Cyfrifon</string>
   <string name="folder_picker_choose_button_text">Dewisiwch</string>
+  <string name="share_search">Chwilio</string>
 </resources>

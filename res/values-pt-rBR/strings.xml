@@ -84,6 +84,7 @@
   <string name="list_layout">Lista de Layout</string>
   <string name="action_share_file">Compartilhar link</string>
   <string name="action_unshare_file">Descompartilhar o link</string>
+  <string name="action_share_with_users">Compartilhado com usuários</string>
   <string name="common_yes">Sim</string>
   <string name="common_no">Não</string>
   <string name="common_ok">OK</string>
@@ -318,8 +319,8 @@
   <string name="sync_folder_failed_content">A sincronização da pasta %1$s não pode ser finalizada</string>
   <string name="shared_subject_header">compartilhado</string>
   <string name="with_you_subject_header">com você</string>
-  <string name="subject_token">%1$s compartilhado \"%2$s\" com você</string>
-  <string name="saml_subject_token">\"%1$s\" foi compartilhado com você</string>
+  <string name="subject_user_shared_with_you">%1$s compartilhado \"%2$s\" com você</string>
+  <string name="subject_shared_with_you">\"%1$s\" foi compartilhado com você</string>
   <string name="auth_refresh_button">Reinicializar conexão</string>
   <string name="auth_host_address">Endereço do servidor</string>
   <string name="common_error_out_memory">Não há memoria suficiente</string>
@@ -332,4 +333,13 @@
   <string name="file_list__footer__files">%1$d arquivos</string>
   <string name="file_list__footer__files_and_folder">%1$d arquivos, 1 pasta</string>
   <string name="file_list__footer__files_and_folders">%1$d arquivos, %2$d pastas</string>
+  <string name="share_dialog_title">Compartilhamento</string>
+  <string name="share_with_user_section_title">Compartilhar com Usuários e Grupos</string>
+  <string name="share_no_users">Ainda não existe nenhum dado compartilhado com usuários</string>
+  <string name="share_add_user_or_group">Adicionar Usuário ou Grupo</string>
+  <string name="share_search">Perquisar</string>
+  <string name="search_users_and_groups_hint">Pesquisar usuários e grupos</string>
+  <string name="share_group_clarification">%1$s (grupo)</string>
+  <string name="share_sharee_unavailable">Desculpe, sua versão do servidor não permite compartilhamento com usuários que também são clientes.
+        \nEntre em contato com o administrador</string>
 </resources>
