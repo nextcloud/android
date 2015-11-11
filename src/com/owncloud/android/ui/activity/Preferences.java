@@ -62,6 +62,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
@@ -93,6 +94,8 @@ public class Preferences extends PreferenceActivity
 
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
     private static final int ACTION_SELECT_UPLOAD_VIDEO_PATH = 2;
+    private static final int ACTION_REQUEST_PASSCODE = 5;
+    private static final int ACTION_CONFIRM_PASSCODE = 6;
 
     private DbHandler mDbHandler;
     private CheckBoxPreference pCode;
@@ -117,6 +120,7 @@ public class Preferences extends PreferenceActivity
     protected FileDownloader.FileDownloaderBinder mDownloaderBinder = null;
     protected FileUploader.FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
+
 
     @SuppressWarnings("deprecation")
     @Override
@@ -220,23 +224,29 @@ public class Preferences extends PreferenceActivity
         registerForContextMenu(getListView());
 
         pCode = (CheckBoxPreference) findPreference("set_pincode");
-        if (pCode != null){
+        if (pCode != null) {
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     Intent i = new Intent(getApplicationContext(), PassCodeActivity.class);
-                    Boolean enable = (Boolean) newValue;
+                    Boolean incoming = (Boolean) newValue;
+
                     i.setAction(
-                            enable.booleanValue() ? PassCodeActivity.ACTION_ENABLE :
-                                    PassCodeActivity.ACTION_DISABLE
+                            incoming.booleanValue() ? PassCodeActivity.ACTION_REQUEST_WITH_RESULT :
+                                    PassCodeActivity.ACTION_CHECK_WITH_RESULT
                     );
-                    startActivity(i);
-                    
-                    return true;
+
+                    startActivityForResult(i, incoming.booleanValue() ? ACTION_REQUEST_PASSCODE :
+                            ACTION_CONFIRM_PASSCODE);
+
+                    // Don't update just yet, we will decide on it in onActivityResult
+                    return false;
                 }
-            });            
+            });
             
         }
+
+
 
         PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("more");
         
@@ -599,6 +609,29 @@ public class Preferences extends PreferenceActivity
             mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
 
             saveInstantUploadVideoPathOnPreferences();
+        } else if (requestCode == ACTION_REQUEST_PASSCODE && resultCode == RESULT_OK) {
+            String passcode = data.getStringExtra(PassCodeActivity.KEY_PASSCODE);
+            if (passcode != null && passcode.length() == 4) {
+                SharedPreferences.Editor appPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(getApplicationContext()).edit();
+
+                for (int i = 1; i <= 4; ++i) {
+                    appPrefs.putString("PrefPinCode" + i, passcode.substring(i-1, i));
+                }
+                appPrefs.putBoolean("set_pincode", true);
+                appPrefs.commit();
+                Toast.makeText(this, R.string.pass_code_stored, Toast.LENGTH_LONG).show();
+            }
+        } else if (requestCode == ACTION_CONFIRM_PASSCODE && resultCode == RESULT_OK) {
+            if (data.getBooleanExtra(PassCodeActivity.KEY_CHECK_RESULT, false)) {
+
+                SharedPreferences.Editor appPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(getApplicationContext()).edit();
+                appPrefs.putBoolean("set_pincode", false);
+                appPrefs.commit();
+
+                Toast.makeText(this, R.string.pass_code_removed, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
