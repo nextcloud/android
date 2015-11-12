@@ -23,8 +23,10 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
@@ -42,6 +44,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -52,6 +55,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -73,9 +77,12 @@ public class ShareFileFragment extends Fragment
 
     private static final String TAG = ShareFileFragment.class.getSimpleName();
 
-    // the fragment initialization parameters
+    /** The fragment initialization parameters */
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
+
+//    /** Tag for dialog */
+//    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
 
     /** File to share, received as a parameter in construction time */
     private OCFile mFile;
@@ -494,7 +501,18 @@ public class ShareFileFragment extends Fragment
             }
             getExpirationDateSection().setVisibility(View.VISIBLE);
             getPasswordSection().setVisibility(View.VISIBLE);
-            getGetLinkButton().setVisibility(View.VISIBLE);
+            // GetLink button
+            AppCompatButton getLinkButton = getGetLinkButton();
+            getLinkButton.setVisibility(View.VISIBLE);
+            getLinkButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //GetLink from the server and show ShareLinkToDialog
+                    ((FileActivity) getActivity()).getFileOperationsHelper().
+                            getFileWithLink(mFile);
+
+                }
+            });
 
             /// update state of expiration date switch and message depending on expiration date
             /// update state of expiration date switch and message depending on expiration date
@@ -593,7 +611,6 @@ public class ShareFileFragment extends Fragment
     private AppCompatButton getGetLinkButton() {
         return (AppCompatButton) getView().findViewById(R.id.shareViewLinkGetLinkButton);
     }
-
 
     /**
      * This interface must be implemented by activities that contain this

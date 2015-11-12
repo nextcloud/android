@@ -174,6 +174,30 @@ public class FileOperationsHelper {
         }
     }
 
+    public void getFileWithLink(OCFile file){
+        if (isSharedSupported()) {
+            if (file != null) {
+                mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
+                        getString(R.string.wait_a_moment));
+
+                Intent service = new Intent(mFileActivity, OperationsService.class);
+                service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
+                service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+                service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+                mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+            } else {
+                Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+            }
+        } else {
+            // Show a Message
+            Toast t = Toast.makeText(
+                    mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api),
+                    Toast.LENGTH_LONG
+            );
+            t.show();
+        }
+    }
 
     public void shareFileWithLinkOLD(OCFile file) {
 

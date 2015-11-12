@@ -151,9 +151,14 @@ public class ShareLinkToDialog  extends DialogFragment {
                                 ((FileActivity)getActivity()).startActivity(mIntent);
 
                             } else {
-                                // Create a new share resource
-                                ((ComponentsGetter)getActivity()).getFileOperationsHelper()
-                                    .shareFileWithLinkToApp(mFile, "", mIntent);
+//                                // Create a new share resource
+//                                ((ComponentsGetter)getActivity()).getFileOperationsHelper()
+//                                    .shareFileWithLinkToApp(mFile, "", mIntent);
+                                // Send the intent
+                                dialog.dismiss();    // explicitly added for Android 2.x devices
+
+                                // Send the file
+                                ((FileActivity)getActivity()).startActivity(mIntent);
                             }
                         }
         })
