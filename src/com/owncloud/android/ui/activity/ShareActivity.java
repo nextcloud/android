@@ -154,26 +154,28 @@ public class ShareActivity extends FileActivity
         super.onRemoteOperationFinish(operation, result);
 
         if (result.isSuccess()) {
-            Log_OC.d(TAG, "Refreshing lists on successful operation");
+            Log_OC.d(TAG, "Refreshing view on successful operation");
             refreshSharesFromStorageManager();
         }
-
     }
 
+
+    /**
+     * Updates the view, reading data from {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     */
     private void refreshSharesFromStorageManager() {
+
         ShareFileFragment shareFileFragment = getShareFileFragment();
-        if (shareFileFragment != null) {          // only if added to the view hierarchy!!
-            if (shareFileFragment.isAdded()) {
-                shareFileFragment.refreshUsersOrGroupsListFromDB();
-                shareFileFragment.refreshPublicShareFromDB();
-            }
+        if (shareFileFragment != null
+                && shareFileFragment.isAdded()) {   // only if added to the view hierarchy!!
+            shareFileFragment.refreshUsersOrGroupsListFromDB();
+            shareFileFragment.refreshPublicShareFromDB();
         }
 
         SearchShareesFragment searchShareesFragment = getSearchFragment();
-        if (searchShareesFragment != null) {
-            if (searchShareesFragment.isAdded()) {  // only if added to the view hierarchy!!
-                searchShareesFragment.refreshUsersOrGroupsListFromDB();
-            }
+        if (searchShareesFragment != null &&
+                searchShareesFragment.isAdded()) {  // only if added to the view hierarchy!!
+            searchShareesFragment.refreshUsersOrGroupsListFromDB();
         }
     }
 

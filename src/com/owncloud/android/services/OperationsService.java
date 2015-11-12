@@ -68,6 +68,7 @@ import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -89,9 +90,12 @@ public class OperationsService extends Service {
     public static final String EXTRA_RESULT = "RESULT";
     public static final String EXTRA_NEW_PARENT_PATH = "NEW_PARENT_PATH";
     public static final String EXTRA_FILE = "FILE";
-    public static final String EXTRA_PASSWORD_SHARE = "PASSWORD_SHARE";
+    public static final String EXTRA_SHARE_PASSWORD = "SHARE_PASSWORD";
     public static final String EXTRA_SHARE_TYPE = "SHARE_TYPE";
     public static final String EXTRA_SHARE_WITH = "SHARE_WITH";
+    public static final String EXTRA_SHARE_EXPIRATION_YEAR = "SHARE_EXPIRATION_YEAR";
+    public static final String EXTRA_SHARE_EXPIRATION_MONTH_OF_YEAR = "SHARE_EXPIRATION_MONTH_OF_YEAR";
+    public static final String EXTRA_SHARE_EXPIRATION_DAY_OF_MONTH = "SHARE_EXPIRATION_DAY_OF_MONTH";
 
     public static final String EXTRA_COOKIE = "COOKIE";
 
@@ -555,7 +559,7 @@ public class OperationsService extends Service {
                 String action = operationIntent.getAction();
                 if (action.equals(ACTION_CREATE_SHARE_VIA_LINK)) {  // Create public share via link
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                    String password = operationIntent.getStringExtra(EXTRA_PASSWORD_SHARE);
+                    String password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
                     Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
                     if (remotePath.length() > 0) {
                         operation = new CreateShareViaLinkOperation(
@@ -567,22 +571,52 @@ public class OperationsService extends Service {
 
                 } else if (ACTION_UPDATE_SHARE.equals(action)) {
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                    String password = operationIntent.getStringExtra(EXTRA_PASSWORD_SHARE);
                     if (remotePath.length() > 0) {
-                        operation = new UpdateShareViaLinkOperation(remotePath, password);
+                        operation = new UpdateShareViaLinkOperation(remotePath);
+
+                        String password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
+                        ((UpdateShareViaLinkOperation)operation).setPassword(password);
+
+                        int year = operationIntent.getIntExtra(EXTRA_SHARE_EXPIRATION_YEAR, 0);
+                        if (year > 0) {
+                            // expiration date is set
+                            int monthOfYear = operationIntent.getIntExtra(
+                                    EXTRA_SHARE_EXPIRATION_MONTH_OF_YEAR, 0
+                            );
+                            int dayOfMonth = operationIntent.getIntExtra(
+                                    EXTRA_SHARE_EXPIRATION_DAY_OF_MONTH, 1
+                            );
+                            Calendar expirationDate = Calendar.getInstance();
+                            expirationDate.set(Calendar.YEAR, year);
+                            expirationDate.set(Calendar.MONTH, monthOfYear);
+                            expirationDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                            ((UpdateShareViaLinkOperation)operation).setExpirationDate(
+                                    expirationDate
+                            );
+
+                        } else if (year < 0) {
+                            // expiration date to be cleared
+                            Calendar zeroDate = Calendar.getInstance();
+                            zeroDate.clear();
+                            ((UpdateShareViaLinkOperation)operation).setExpirationDate(
+                                    zeroDate
+                            );
+
+                        } // else, no update on expiration date
                     }
 
-                } else if (action.equals(ACTION_CREATE_SHARE_WITH_SHAREE)) {  // Create private share with user or group
-                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        String shareeName = operationIntent.getStringExtra(EXTRA_SHARE_WITH);
-                        ShareType shareType = (ShareType) operationIntent.getSerializableExtra(EXTRA_SHARE_TYPE);
-                        if (remotePath.length() > 0) {
-                            operation = new CreateShareWithShareeOperation(
-                                    remotePath,
-                                    shareeName,
-                                    shareType
-                            );
-                        }
+                } else if (action.equals(ACTION_CREATE_SHARE_WITH_SHAREE)) {
+                    // Create private share with user or group
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    String shareeName = operationIntent.getStringExtra(EXTRA_SHARE_WITH);
+                    ShareType shareType = (ShareType) operationIntent.getSerializableExtra(EXTRA_SHARE_TYPE);
+                    if (remotePath.length() > 0) {
+                        operation = new CreateShareWithShareeOperation(
+                                remotePath,
+                                shareeName,
+                                shareType
+                        );
+                    }
 
                 } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);

@@ -211,7 +211,7 @@ public class FileOperationsHelper {
             service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
             service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            service.putExtra(OperationsService.EXTRA_PASSWORD_SHARE, password);
+            service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, password);
             service.putExtra(OperationsService.EXTRA_SEND_INTENT, sendIntent);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
             
@@ -366,10 +366,32 @@ public class FileOperationsHelper {
         updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         updateShareIntent.putExtra(
-                OperationsService.EXTRA_PASSWORD_SHARE,
+                OperationsService.EXTRA_SHARE_PASSWORD,
                 (password == null) ? "" : password
         );
 
+        queueShareIntent(updateShareIntent);
+    }
+
+
+    /**
+     * Updates a public share on a file to set its expiration date.
+     * Starts a request to do it in {@link OperationsService}
+     *
+     * @param file          File which public share will be constrained with an expiration date.
+     * @param year          Year of the date expiration chosen. Negative value to remove current
+     *                      expiration date and leave the link unrestricted.
+     * @param monthOfYear   Month of the date chosen [0, 11]
+     * @param dayOfMonth    Day of the date chosen
+     */
+    public void setExpirationDateToShareViaLink(OCFile file, int year, int monthOfYear, int dayOfMonth) {
+        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_YEAR, year);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_MONTH_OF_YEAR, monthOfYear);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DAY_OF_MONTH, dayOfMonth);
         queueShareIntent(updateShareIntent);
     }
 

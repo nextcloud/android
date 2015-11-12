@@ -47,10 +47,13 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
+import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Fragment for Sharing a file with sharees (users or groups) or creating
@@ -95,8 +98,15 @@ public class ShareFileFragment extends Fragment
     /** Listener for changes on switch to share / unshare publicly */
     private CompoundButton.OnCheckedChangeListener mOnShareViaLinkSwitchCheckedChangeListener;
 
-    /** Listener for changes on switch to set / clear password on public link */
+    /**
+     * Listener for changes on switch to set / clear password on public link
+     */
     private CompoundButton.OnCheckedChangeListener mOnPasswordSwitchCheckedChangeListener;
+
+    /**
+     * Listener for changes on switch to set / clear expiration date on public link
+     */
+    private CompoundButton.OnCheckedChangeListener mOnExpirationDateSwitchCheckedChangeListener;
 
 
     /**
@@ -203,8 +213,7 @@ public class ShareFileFragment extends Fragment
         shareViaLinkSwitch.setOnCheckedChangeListener(mOnShareViaLinkSwitchCheckedChangeListener);
 
         // Switch for expiration date
-        Switch shareViaLinkExpirationSwitch = (Switch) view.findViewById(R.id.shareViaLinkExpirationSwitch);
-        shareViaLinkExpirationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mOnExpirationDateSwitchCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isResumed()) {
@@ -213,17 +222,26 @@ public class ShareFileFragment extends Fragment
                     return;
                 }
                 if (isChecked) {
-                    // TODO real implementation: update share with expiration date
-                    // show value of expiration date
-                    getExpirationDateValue().setText(R.string.placeholder_timestamp);
+                    ExpirationDatePickerDialogFragment dialog =
+                            ExpirationDatePickerDialogFragment.newInstance(mFile);
+                    dialog.show(
+                            getActivity().getSupportFragmentManager(),
+                            ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
+                    );
 
                 } else {
-                    // TODO real implementation: update share without expiration date
-                    // empty value
-                    getExpirationDateValue().setText(R.string.empty);
+                    ((FileActivity) getActivity()).getFileOperationsHelper().
+                            setExpirationDateToShareViaLink(mFile, -1, -1, -1);
                 }
+
+                // undo the toggle to grant the view will be correct if the dialog is cancelled
+                buttonView.setOnCheckedChangeListener(null);
+                buttonView.toggle();
+                buttonView.setOnCheckedChangeListener(mOnExpirationDateSwitchCheckedChangeListener);
             }
-        });
+        };
+        Switch shareViaLinkExpirationSwitch = (Switch) view.findViewById(R.id.shareViaLinkExpirationSwitch);
+        shareViaLinkExpirationSwitch.setOnCheckedChangeListener(mOnExpirationDateSwitchCheckedChangeListener);
 
         // Switch for password
         mOnPasswordSwitchCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
@@ -241,6 +259,11 @@ public class ShareFileFragment extends Fragment
                     ((FileActivity) getActivity()).getFileOperationsHelper().
                             setPasswordToShareViaLink(mFile, "");   // "" clears
                 }
+
+                // undo the toggle to grant the view will be correct if the dialog is cancelled
+                buttonView.setOnCheckedChangeListener(null);
+                buttonView.toggle();
+                buttonView.setOnCheckedChangeListener(mOnPasswordSwitchCheckedChangeListener);
             }
         };
         Switch shareViaLinkPasswordSwitch = (Switch) view.findViewById(R.id.shareViaLinkPasswordSwitch);
@@ -278,7 +301,7 @@ public class ShareFileFragment extends Fragment
     }
 
     /**
-     * Get users and groups from the DB to fill in the "share with" list
+     * Get users and groups from the DB to fill in the "share with" list.
      *
      * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
      * instance ready to use. If not ready, does nothing.
@@ -331,7 +354,7 @@ public class ShareFileFragment extends Fragment
 
 
     /**
-     * Get public link from the DB to fill in the "Share link" section
+     * Get public link from the DB to fill in the "Share link" section in the UI.
      *
      * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
      * instance ready to use. If not ready, does nothing.
@@ -345,7 +368,7 @@ public class ShareFileFragment extends Fragment
                     ""
             );
 
-            // Update list of users/groups
+            // Update public share section
             updatePublicShareSection();
         }
     }
@@ -369,6 +392,32 @@ public class ShareFileFragment extends Fragment
             getExpirationDateSection().setVisibility(View.VISIBLE);
             getPasswordSection().setVisibility(View.VISIBLE);
             getGetLinkButton().setVisibility(View.VISIBLE);
+
+            /// update state of expiration date switch and message depending on expiration date
+            /// update state of expiration date switch and message depending on expiration date
+            Switch expirationDateSwitch = getExpirationDateSwitch();
+            // set null listener before setChecked() to prevent infinite loop of calls
+            expirationDateSwitch.setOnCheckedChangeListener(null);
+            long expirationDate = mPublicShare.getExpirationDate();
+            if (expirationDate > 0) {
+                if (!expirationDateSwitch.isChecked()) {
+                    expirationDateSwitch.toggle();
+                }
+                String formattedDate =
+                        SimpleDateFormat.getDateInstance().format(
+                                new Date(expirationDate)
+                        );
+                getExpirationDateValue().setText(formattedDate);
+            } else {
+                if (expirationDateSwitch.isChecked()) {
+                    expirationDateSwitch.toggle();
+                }
+                getExpirationDateValue().setText(R.string.empty);
+            }
+            // recover listener
+            expirationDateSwitch.setOnCheckedChangeListener(
+                    mOnExpirationDateSwitchCheckedChangeListener
+            );
 
             /// update state of password switch and message depending on password protection
             Switch passwordSwitch = getPasswordSwitch();
@@ -407,6 +456,7 @@ public class ShareFileFragment extends Fragment
         }
     }
 
+
     /// BEWARE: next methods will failed with NullPointerException if called before onCreateView() finishes
 
     private Switch getShareViaLinkSwitch() {
@@ -415,6 +465,10 @@ public class ShareFileFragment extends Fragment
 
     private View getExpirationDateSection() {
         return getView().findViewById(R.id.shareViaLinkExpirationSection);
+    }
+
+    private Switch getExpirationDateSwitch() {
+        return (Switch) getView().findViewById(R.id.shareViaLinkExpirationSwitch);
     }
 
     private TextView getExpirationDateValue() {

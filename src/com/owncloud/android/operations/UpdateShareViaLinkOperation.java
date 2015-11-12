@@ -31,6 +31,8 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.UpdateRemoteShareOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
+import java.util.Calendar;
+
 
 /**
  * Updates an existing public share for a given file
@@ -40,20 +42,44 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
 
     private String mPath;
     private String mPassword;
+    private Calendar mExpirationDate;
 
     /**
      * Constructor
+     *
      * @param path          Full path of the file/folder being shared. Mandatory argument
-     * @param password      Password to protect a public link share.
      */
-    public UpdateShareViaLinkOperation(
-            String path,
-            String password
-    ) {
+    public UpdateShareViaLinkOperation(String path) {
 
         mPath = path;
+        mPassword = null;
+        mExpirationDate = null;
+    }
+
+
+    /**
+     * Set password to update in public link.
+     *
+     * @param password      Password to set to the public link.
+     *                      Empty string clears the current password.
+     *                      Null results in no update applied to the password.
+     */
+    public void setPassword(String password) {
         mPassword = password;
     }
+
+
+    /**
+     * Set expiration date to update in Share resource.
+     *
+     * @param expirationDate    Expiration date to set to the public link.
+     *                          Start-of-epoch clears the current expiration date.
+     *                          Null results in no update applied to the expiration date.
+     */
+    public void setExpirationDate(Calendar expirationDate) {
+        mExpirationDate = expirationDate;
+    }
+
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
@@ -70,11 +96,12 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
         }
 
         // Update remote share with password
-        RemoteOperation operation = new UpdateRemoteShareOperation(
+        UpdateRemoteShareOperation udpateOp = new UpdateRemoteShareOperation(
             publicShare.getRemoteId()
         );
-        ((UpdateRemoteShareOperation)operation).setPassword(mPassword);
-        RemoteOperationResult result = operation.execute(client);
+        udpateOp.setPassword(mPassword);
+        udpateOp.setExpirationDate(mExpirationDate);
+        RemoteOperationResult result = udpateOp.execute(client);
 
         /*
         if (!result.isSuccess() || result.getData().size() <= 0) {
@@ -92,8 +119,8 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
 
         if (result.isSuccess()) {
             // Retrieve updated share / save directly with password? -> no; the password is not be saved
-            operation = new GetRemoteShareOperation(publicShare.getRemoteId());
-            result = operation.execute(client);
+            RemoteOperation getShareOp = new GetRemoteShareOperation(publicShare.getRemoteId());
+            result = getShareOp.execute(client);
             if (result.isSuccess()) {
                 OCShare share = (OCShare) result.getData().get(0);
                 updateData(share);
