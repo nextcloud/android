@@ -18,6 +18,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <manifest package="com.owncloud.android"
+    android:versionCode="10800000"
     android:versionName="ownCloud beta" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk
