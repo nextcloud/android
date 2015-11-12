@@ -23,7 +23,6 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -102,14 +101,12 @@ public class ShareFileFragment extends Fragment
     /**
      * Listener for user actions to set, update or clear password on public link
      */
-    //private CompoundButton.OnCheckedChangeListener mOnPasswordSwitchCheckedChangeListener;
-    private OnPasswordInteractionListener mOnPasswordInteractionListener;
+    private OnPasswordInteractionListener mOnPasswordInteractionListener = null;
 
     /**
-     * Listener for changes on switch to set / clear expiration date on public link
+     * Listener for user actions to set, update or clear expiration date on public link
      */
-    private CompoundButton.OnCheckedChangeListener mOnExpirationDateSwitchCheckedChangeListener;
-
+    private OnExpirationDateInteractionListener mOnExpirationDateInteractionListener = null;
 
     /**
      * Public factory method to create new ShareFileFragment instances.
@@ -215,42 +212,93 @@ public class ShareFileFragment extends Fragment
         Switch shareViaLinkSwitch = (Switch) view.findViewById(R.id.shareViaLinkSectionSwitch);
         shareViaLinkSwitch.setOnCheckedChangeListener(mOnShareViaLinkSwitchCheckedChangeListener);
 
-        // Switch for expiration date
-        mOnExpirationDateSwitchCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isResumed()) {
-                    // very important, setCheched(...) is called automatically during
-                    // Fragment recreation on device rotations
-                    return;
-                }
-                if (isChecked) {
-                    ExpirationDatePickerDialogFragment dialog =
-                            ExpirationDatePickerDialogFragment.newInstance(mFile);
-                    dialog.show(
-                            getActivity().getSupportFragmentManager(),
-                            ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
-                    );
-
-                } else {
-                    ((FileActivity) getActivity()).getFileOperationsHelper().
-                            setExpirationDateToShareViaLink(mFile, -1, -1, -1);
-                }
-
-                // undo the toggle to grant the view will be correct if the dialog is cancelled
-                buttonView.setOnCheckedChangeListener(null);
-                buttonView.toggle();
-                buttonView.setOnCheckedChangeListener(mOnExpirationDateSwitchCheckedChangeListener);
-            }
-        };
-        Switch shareViaLinkExpirationSwitch = (Switch) view.findViewById(R.id.shareViaLinkExpirationSwitch);
-        shareViaLinkExpirationSwitch.setOnCheckedChangeListener(mOnExpirationDateSwitchCheckedChangeListener);
+        // Set listener for user actions on expiration date
+        initExpirationListener(view);
 
         // Set listener for user actions on password
         initPasswordListener(view);
 
         return view;
     }
+
+
+    /**
+     * Binds listener for user actions that start any update on a expiration date
+     * for the public link to the views receiving the user events.
+     *
+     * @param shareView     Root view in the fragment.
+     */
+    private void initExpirationListener(View shareView) {
+        mOnExpirationDateInteractionListener = new OnExpirationDateInteractionListener();
+
+        ((Switch) shareView.findViewById(R.id.shareViaLinkExpirationSwitch)).
+                setOnCheckedChangeListener(mOnExpirationDateInteractionListener);
+
+        shareView.findViewById(R.id.shareViaLinkExpirationLabel).
+                setOnClickListener(mOnExpirationDateInteractionListener);
+
+        shareView.findViewById(R.id.shareViaLinkExpirationValue).
+                setOnClickListener(mOnExpirationDateInteractionListener);
+    }
+
+    /**
+     * Listener for user actions that start any update on the expiration date for the public link.
+     */
+    private class OnExpirationDateInteractionListener
+            implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+
+        /**
+         * Called by R.id.shareViaLinkExpirationSwitch to set or clear the expiration date.
+         *
+         * @param switchView    {@link Switch} toggled by the user, R.id.shareViaLinkExpirationSwitch
+         * @param isChecked     New switch state.
+         */
+        @Override
+        public void onCheckedChanged(CompoundButton switchView, boolean isChecked) {
+            if (!isResumed()) {
+                // very important, setCheched(...) is called automatically during
+                // Fragment recreation on device rotations
+                return;
+            }
+            if (isChecked) {
+                ExpirationDatePickerDialogFragment dialog =
+                        ExpirationDatePickerDialogFragment.newInstance(mFile);
+                dialog.show(
+                        getActivity().getSupportFragmentManager(),
+                        ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
+                );
+
+            } else {
+                ((FileActivity) getActivity()).getFileOperationsHelper().
+                        setExpirationDateToShareViaLink(mFile, -1, -1, -1);
+            }
+
+            // undo the toggle to grant the view will be correct if the dialog is cancelled
+            switchView.setOnCheckedChangeListener(null);
+            switchView.toggle();
+            switchView.setOnCheckedChangeListener(mOnExpirationDateInteractionListener);
+        }
+
+        /**
+         * Called by R.id.shareViaLinkExpirationLabel or R.id.shareViaLinkExpirationValue
+         * to change the current expiration date.
+         *
+         * @param expirationView      Label or value view touched by the user.
+         */
+        @Override
+        public void onClick(View expirationView) {
+            if (mPublicShare != null && mPublicShare.getExpirationDate() > 0) {
+                ExpirationDatePickerDialogFragment dialog =
+                        ExpirationDatePickerDialogFragment.newInstance(mFile);
+                // TODO set the current chosen value in the dialog
+                dialog.show(
+                        getActivity().getSupportFragmentManager(),
+                        ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
+                );
+            }
+        }
+    }
+
 
     /**
      * Binds listener for user actions that start any update on a password for the public link
@@ -260,12 +308,15 @@ public class ShareFileFragment extends Fragment
      */
     private void initPasswordListener(View shareView) {
         mOnPasswordInteractionListener = new OnPasswordInteractionListener();
-        Switch shareViaLinkPasswordSwitch = (Switch) shareView.findViewById(R.id.shareViaLinkPasswordSwitch);
-        shareViaLinkPasswordSwitch.setOnCheckedChangeListener(mOnPasswordInteractionListener);
-        TextView shareViaLinkPasswordLabel = (TextView) shareView.findViewById(R.id.shareViaLinkPasswordLabel);
-        shareViaLinkPasswordLabel.setOnClickListener(mOnPasswordInteractionListener);
-        TextView shareViaLinkPasswordValue = (TextView) shareView.findViewById(R.id.shareViaLinkPasswordValue);
-        shareViaLinkPasswordValue.setOnClickListener(mOnPasswordInteractionListener);
+
+        ((Switch) shareView.findViewById(R.id.shareViaLinkPasswordSwitch)).
+                setOnCheckedChangeListener(mOnPasswordInteractionListener);
+
+        shareView.findViewById(R.id.shareViaLinkPasswordLabel).
+                setOnClickListener(mOnPasswordInteractionListener);
+
+        shareView.findViewById(R.id.shareViaLinkPasswordValue).
+                setOnClickListener(mOnPasswordInteractionListener);
     }
 
 
@@ -275,8 +326,14 @@ public class ShareFileFragment extends Fragment
     private class OnPasswordInteractionListener
             implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
+        /**
+         * Called by R.id.shareViaLinkPasswordSwitch to set or clear the password.
+         *
+         * @param switchView    {@link Switch} toggled by the user, R.id.shareViaLinkPasswordSwitch
+         * @param isChecked     New switch state.
+         */
         @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        public void onCheckedChanged(CompoundButton switchView, boolean isChecked) {
             if (!isResumed()) {
                 // very important, setCheched(...) is called automatically during
                 // Fragment recreation on device rotations
@@ -291,13 +348,19 @@ public class ShareFileFragment extends Fragment
             }
 
             // undo the toggle to grant the view will be correct if the dialog is cancelled
-            buttonView.setOnCheckedChangeListener(null);
-            buttonView.toggle();
-            buttonView.setOnCheckedChangeListener(mOnPasswordInteractionListener);
+            switchView.setOnCheckedChangeListener(null);
+            switchView.toggle();
+            switchView.setOnCheckedChangeListener(mOnPasswordInteractionListener);
         }
 
+        /**
+         * Called by R.id.shareViaLinkPasswordLabel or R.id.shareViaLinkPasswordValue
+         * to change the current password.
+         *
+         * @param passwordView      Label or value view touched by the user.
+         */
         @Override
-        public void onClick(View v) {
+        public void onClick(View passwordView) {
             if (mPublicShare != null && mPublicShare.isPasswordProtected()) {
                 ((FileActivity) getActivity()).getFileOperationsHelper().
                         requestPasswordForShareViaLink(mFile);
@@ -450,7 +513,7 @@ public class ShareFileFragment extends Fragment
             }
             // recover listener
             expirationDateSwitch.setOnCheckedChangeListener(
-                    mOnExpirationDateSwitchCheckedChangeListener
+                    mOnExpirationDateInteractionListener
             );
 
             /// update state of password switch and message depending on password protection
