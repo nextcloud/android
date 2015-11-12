@@ -23,6 +23,7 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -99,9 +100,10 @@ public class ShareFileFragment extends Fragment
     private CompoundButton.OnCheckedChangeListener mOnShareViaLinkSwitchCheckedChangeListener;
 
     /**
-     * Listener for changes on switch to set / clear password on public link
+     * Listener for user actions to set, update or clear password on public link
      */
-    private CompoundButton.OnCheckedChangeListener mOnPasswordSwitchCheckedChangeListener;
+    //private CompoundButton.OnCheckedChangeListener mOnPasswordSwitchCheckedChangeListener;
+    private OnPasswordInteractionListener mOnPasswordInteractionListener;
 
     /**
      * Listener for changes on switch to set / clear expiration date on public link
@@ -140,6 +142,7 @@ public class ShareFileFragment extends Fragment
             mAccount = getArguments().getParcelable(ARG_ACCOUNT);
         }
     }
+
 
     /**
      * {@inheritDoc}
@@ -243,34 +246,65 @@ public class ShareFileFragment extends Fragment
         Switch shareViaLinkExpirationSwitch = (Switch) view.findViewById(R.id.shareViaLinkExpirationSwitch);
         shareViaLinkExpirationSwitch.setOnCheckedChangeListener(mOnExpirationDateSwitchCheckedChangeListener);
 
-        // Switch for password
-        mOnPasswordSwitchCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isResumed()) {
-                    // very important, setCheched(...) is called automatically during
-                    // Fragment recreation on device rotations
-                    return;
-                }
-                if (isChecked) {
-                    ((FileActivity) getActivity()).getFileOperationsHelper().
-                            requestPasswordForShareViaLink(mFile);
-                } else {
-                    ((FileActivity) getActivity()).getFileOperationsHelper().
-                            setPasswordToShareViaLink(mFile, "");   // "" clears
-                }
-
-                // undo the toggle to grant the view will be correct if the dialog is cancelled
-                buttonView.setOnCheckedChangeListener(null);
-                buttonView.toggle();
-                buttonView.setOnCheckedChangeListener(mOnPasswordSwitchCheckedChangeListener);
-            }
-        };
-        Switch shareViaLinkPasswordSwitch = (Switch) view.findViewById(R.id.shareViaLinkPasswordSwitch);
-        shareViaLinkPasswordSwitch.setOnCheckedChangeListener(mOnShareViaLinkSwitchCheckedChangeListener);
+        // Set listener for user actions on password
+        initPasswordListener(view);
 
         return view;
     }
+
+    /**
+     * Binds listener for user actions that start any update on a password for the public link
+     * to the views receiving the user events.
+     *
+     * @param shareView     Root view in the fragment.
+     */
+    private void initPasswordListener(View shareView) {
+        mOnPasswordInteractionListener = new OnPasswordInteractionListener();
+        Switch shareViaLinkPasswordSwitch = (Switch) shareView.findViewById(R.id.shareViaLinkPasswordSwitch);
+        shareViaLinkPasswordSwitch.setOnCheckedChangeListener(mOnPasswordInteractionListener);
+        TextView shareViaLinkPasswordLabel = (TextView) shareView.findViewById(R.id.shareViaLinkPasswordLabel);
+        shareViaLinkPasswordLabel.setOnClickListener(mOnPasswordInteractionListener);
+        TextView shareViaLinkPasswordValue = (TextView) shareView.findViewById(R.id.shareViaLinkPasswordValue);
+        shareViaLinkPasswordValue.setOnClickListener(mOnPasswordInteractionListener);
+    }
+
+
+    /**
+     * Listener for user actions that start any update on a password for the public link.
+     */
+    private class OnPasswordInteractionListener
+            implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (!isResumed()) {
+                // very important, setCheched(...) is called automatically during
+                // Fragment recreation on device rotations
+                return;
+            }
+            if (isChecked) {
+                ((FileActivity) getActivity()).getFileOperationsHelper().
+                        requestPasswordForShareViaLink(mFile);
+            } else {
+                ((FileActivity) getActivity()).getFileOperationsHelper().
+                        setPasswordToShareViaLink(mFile, "");   // "" clears
+            }
+
+            // undo the toggle to grant the view will be correct if the dialog is cancelled
+            buttonView.setOnCheckedChangeListener(null);
+            buttonView.toggle();
+            buttonView.setOnCheckedChangeListener(mOnPasswordInteractionListener);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mPublicShare != null && mPublicShare.isPasswordProtected()) {
+                ((FileActivity) getActivity()).getFileOperationsHelper().
+                        requestPasswordForShareViaLink(mFile);
+            }
+        }
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -436,7 +470,7 @@ public class ShareFileFragment extends Fragment
             }
             // recover listener
             passwordSwitch.setOnCheckedChangeListener(
-                    mOnPasswordSwitchCheckedChangeListener
+                    mOnPasswordInteractionListener
             );
 
 
