@@ -20,16 +20,6 @@
 
 package com.owncloud.android.datamodel;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.Vector;
-
 import android.accounts.Account;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
@@ -53,11 +43,20 @@ import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.Vector;
 
 public class FileDataStorageManager {
 
@@ -998,7 +997,7 @@ public class FileDataStorageManager {
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? AND "
                 + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?" ;
         if (!ShareType.PUBLIC_LINK.equals(type)) {
-            selection += ProviderTableMeta.OCSHARES_SHARE_WITH + "=? AND ";
+            selection += " AND " + ProviderTableMeta.OCSHARES_SHARE_WITH + "=?";
         }
 
         String [] selectionArgs;

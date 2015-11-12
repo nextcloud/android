@@ -41,6 +41,8 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 
+import java.util.ArrayList;
+
 public class CreateShareViaLinkOperation extends SyncOperation {
 
     private String mPath;
@@ -73,9 +75,20 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         // Check if the share link already exists
         RemoteOperation operation = new GetRemoteSharesForFileOperation(mPath, false, false);
         RemoteOperationResult result = operation.execute(client);
-        // TODO - fix this check; if the user already shared the file with users or group, a share via link will not be created
 
-        if (!result.isSuccess() || result.getData().size() <= 0) {
+        boolean shareByLink = false;
+        // Check if the file is shared by link
+        if (result.isSuccess() && result.getData().size() > 0){
+            ArrayList<Object> shares = result.getData();
+            for(Object object: shares){
+                if (((OCShare) object).getShareType() == ShareType.PUBLIC_LINK){
+                    shareByLink = true;
+                    break;
+                }
+            }
+        }
+
+        if (!result.isSuccess() || !shareByLink) {
             operation = new CreateRemoteShareOperation(
                     mPath,
                     ShareType.PUBLIC_LINK,

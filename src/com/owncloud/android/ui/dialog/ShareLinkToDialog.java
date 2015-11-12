@@ -46,7 +46,6 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.CopyToClipboardActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 
@@ -142,24 +141,13 @@ public class ShareLinkToDialog  extends DialogFragment {
                             ComponentName name=new ComponentName(
                                     actInfo.applicationInfo.packageName, 
                                     actInfo.name);
-                            mIntent.setComponent(name);                               
+                            mIntent.setComponent(name);
 
-                            if (sendAction) {
-                                dialog.dismiss();    // explicitly added for Android 2.x devices
+                            // Send the intent
+                            dialog.dismiss();    // explicitly added for Android 2.x devices
 
-                                // Send the file
-                                ((FileActivity)getActivity()).startActivity(mIntent);
-
-                            } else {
-//                                // Create a new share resource
-//                                ((ComponentsGetter)getActivity()).getFileOperationsHelper()
-//                                    .shareFileWithLinkToApp(mFile, "", mIntent);
-                                // Send the intent
-                                dialog.dismiss();    // explicitly added for Android 2.x devices
-
-                                // Send the file
-                                ((FileActivity)getActivity()).startActivity(mIntent);
-                            }
+                            // Send the file
+                            ((FileActivity)getActivity()).startActivity(mIntent);
                         }
         })
         .create();
