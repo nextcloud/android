@@ -207,7 +207,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
 
                     lastModV.setVisibility(View.VISIBLE);
-                    lastModV.setText(showRelativeTimestamp(file));
+                    lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file));
 
 
                     fileSizeSeparatorV.setVisibility(View.VISIBLE);
@@ -485,11 +485,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mFiles = FileStorageUtils.sortOcFolder(mFiles);
         notifyDataSetChanged();
 
-    }
-    
-    private CharSequence showRelativeTimestamp(OCFile file){
-        return DisplayUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
-                DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
     }
 
     public void setGridMode(boolean gridMode) {

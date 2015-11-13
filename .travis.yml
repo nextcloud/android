@@ -8,6 +8,6 @@ before_install:
   - rm pom.xml
 script:
   - ./setup_env.sh ant
-  - ant clean
-  - ant debug
+  - ant clean -Djava.source=7 -Djava.target=7
+  - ant debug -Djava.source=7 -Djava.target=7
   

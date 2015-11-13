@@ -1,3 +1,7 @@
+# 2015-11-10
+- update master
+- PR [#1277] (https://github.com/owncloud/android/pull/1277) "Optimized uploader layout and user configured sorting" merged
+
 # 2015-11-05
 - update master
 - fix #1244

@@ -18,6 +18,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <manifest package="com.owncloud.android"
+    android:versionCode="10800000"
     android:versionName="ownCloud beta" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk
@@ -57,7 +58,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.UploadFilesActivity" />
-        <activity android:name=".ui.activity.Uploader" >
+        <activity android:name=".ui.activity.Uploader"
+            android:label="@string/uploader_top_message"
+            android:theme="@style/Theme.ownCloud">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
