@@ -46,8 +46,11 @@ public class ExpirationDatePickerDialogFragment
     /** Tag for FragmentsManager */
     public static final String DATE_PICKER_DIALOG = "DATE_PICKER_DIALOG";
 
-    /** Constructor arguments */
-    private static final String ARG_FILE = "ARG_FILE";
+    /** Parameter constant for {@link OCFile} instance to set the expiration date */
+    private static final String ARG_FILE = "FILE";
+
+    /** Parameter constant for date chosen initially */
+    private static final String ARG_CHOSEN_DATE_IN_MILLIS = "CHOSEN_DATE_IN_MILLIS";
 
     /** File to bind an expiration date */
     private OCFile mFile;
@@ -55,12 +58,14 @@ public class ExpirationDatePickerDialogFragment
     /**
      *  Factory method to create new instances
      *
-     *  @param file     File to bind an expiration date
-     *  @return         New dialog instance
+     *  @param file                 File to bind an expiration date
+     *  @param chosenDateInMillis   Date chosen when the dialog appears
+     *  @return                     New dialog instance
      */
-    public static ExpirationDatePickerDialogFragment newInstance(OCFile file) {
+    public static ExpirationDatePickerDialogFragment newInstance(OCFile file, long chosenDateInMillis) {
         Bundle arguments = new Bundle();
         arguments.putParcelable(ARG_FILE, file);
+        arguments.putLong(ARG_CHOSEN_DATE_IN_MILLIS, chosenDateInMillis);
 
         ExpirationDatePickerDialogFragment dialog = new ExpirationDatePickerDialogFragment();
         dialog.setArguments(arguments);
@@ -77,18 +82,28 @@ public class ExpirationDatePickerDialogFragment
         // Load arguments
         mFile = getArguments().getParcelable(ARG_FILE);
 
-        // Get current day
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        // Chosen date received as an argument must be later than tomorrow ; default to tomorrow in other case
+        final Calendar chosenDate = Calendar.getInstance();
+        long tomorrowInMillis = chosenDate.getTimeInMillis() + DateUtils.DAY_IN_MILLIS;
+        long chosenDateInMillis = getArguments().getLong(ARG_CHOSEN_DATE_IN_MILLIS);
+        if (chosenDateInMillis > tomorrowInMillis) {
+            chosenDate.setTimeInMillis(chosenDateInMillis);
+        } else {
+            chosenDate.setTimeInMillis(tomorrowInMillis);
+        }
 
-        // Create a new instance of DatePickerDialog, highlighting "tomorrow" as chosen day
-        DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day + 1);
+        // Create a new instance of DatePickerDialog
+        DatePickerDialog dialog = new DatePickerDialog(
+                getActivity(),
+                this,
+                chosenDate.get(Calendar.YEAR),
+                chosenDate.get(Calendar.MONTH),
+                chosenDate.get(Calendar.DAY_OF_MONTH)
+        );
 
         // Prevent days in the past may be chosen
         DatePicker picker = dialog.getDatePicker();
-        picker.setMinDate(System.currentTimeMillis() + DateUtils.DAY_IN_MILLIS - 1000);
+        picker.setMinDate(tomorrowInMillis - 1000);
 
         // Enforce spinners view; ignored by MD-based theme in Android >=5, but calendar is REALLY buggy
         // in Android < 5, so let's be sure it never appears (in tablets both spinners and calendar are
@@ -113,12 +128,11 @@ public class ExpirationDatePickerDialogFragment
         chosenDate.set(Calendar.YEAR, year);
         chosenDate.set(Calendar.MONTH, monthOfYear);
         chosenDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        long chosenDateInMillis = chosenDate.getTimeInMillis();
 
         ((FileActivity)getActivity()).getFileOperationsHelper().setExpirationDateToShareViaLink(
                 mFile,
-                year,
-                monthOfYear,
-                dayOfMonth
+                chosenDateInMillis
         );
     }
 }

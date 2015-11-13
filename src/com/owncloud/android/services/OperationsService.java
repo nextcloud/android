@@ -93,7 +93,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_PASSWORD = "SHARE_PASSWORD";
     public static final String EXTRA_SHARE_TYPE = "SHARE_TYPE";
     public static final String EXTRA_SHARE_WITH = "SHARE_WITH";
-    public static final String EXTRA_SHARE_EXPIRATION_YEAR = "SHARE_EXPIRATION_YEAR";
+    public static final String EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS = "SHARE_EXPIRATION_YEAR";
     public static final String EXTRA_SHARE_EXPIRATION_MONTH_OF_YEAR = "SHARE_EXPIRATION_MONTH_OF_YEAR";
     public static final String EXTRA_SHARE_EXPIRATION_DAY_OF_MONTH = "SHARE_EXPIRATION_DAY_OF_MONTH";
 
@@ -577,32 +577,13 @@ public class OperationsService extends Service {
                         String password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
                         ((UpdateShareViaLinkOperation)operation).setPassword(password);
 
-                        int year = operationIntent.getIntExtra(EXTRA_SHARE_EXPIRATION_YEAR, 0);
-                        if (year > 0) {
-                            // expiration date is set
-                            int monthOfYear = operationIntent.getIntExtra(
-                                    EXTRA_SHARE_EXPIRATION_MONTH_OF_YEAR, 0
-                            );
-                            int dayOfMonth = operationIntent.getIntExtra(
-                                    EXTRA_SHARE_EXPIRATION_DAY_OF_MONTH, 1
-                            );
-                            Calendar expirationDate = Calendar.getInstance();
-                            expirationDate.set(Calendar.YEAR, year);
-                            expirationDate.set(Calendar.MONTH, monthOfYear);
-                            expirationDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                            ((UpdateShareViaLinkOperation)operation).setExpirationDate(
-                                    expirationDate
-                            );
-
-                        } else if (year < 0) {
-                            // expiration date to be cleared
-                            Calendar zeroDate = Calendar.getInstance();
-                            zeroDate.clear();
-                            ((UpdateShareViaLinkOperation)operation).setExpirationDate(
-                                    zeroDate
-                            );
-
-                        } // else, no update on expiration date
+                        long expirationDate = operationIntent.getLongExtra(
+                                EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS,
+                                0
+                        );
+                        ((UpdateShareViaLinkOperation)operation).setExpirationDate(
+                                expirationDate
+                        );
                     }
 
                 } else if (action.equals(ACTION_CREATE_SHARE_WITH_SHAREE)) {

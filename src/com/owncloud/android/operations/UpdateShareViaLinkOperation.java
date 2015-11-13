@@ -42,7 +42,7 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
 
     private String mPath;
     private String mPassword;
-    private Calendar mExpirationDate;
+    private long mExpirationDateInMillis;
 
     /**
      * Constructor
@@ -53,7 +53,7 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
 
         mPath = path;
         mPassword = null;
-        mExpirationDate = null;
+        mExpirationDateInMillis = 0;
     }
 
 
@@ -72,12 +72,13 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
     /**
      * Set expiration date to update in Share resource.
      *
-     * @param expirationDate    Expiration date to set to the public link.
-     *                          Start-of-epoch clears the current expiration date.
-     *                          Null results in no update applied to the expiration date.
+     * @param expirationDateInMillis    Expiration date to set to the public link.
+     *                                  A negative value clears the current expiration date.
+     *                                  Zero value (start-of-epoch) results in no update done on
+     *                                  the expiration date.
      */
-    public void setExpirationDate(Calendar expirationDate) {
-        mExpirationDate = expirationDate;
+    public void setExpirationDate(long expirationDateInMillis) {
+        mExpirationDateInMillis = expirationDateInMillis;
     }
 
 
@@ -91,8 +92,10 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
         );
 
         if (publicShare == null) {
-            // TODO try to get remote?
-
+            // TODO try to get remote share before failing?
+            return new RemoteOperationResult(
+                    RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
+            );
         }
 
         // Update remote share with password
@@ -100,22 +103,8 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
             publicShare.getRemoteId()
         );
         udpateOp.setPassword(mPassword);
-        udpateOp.setExpirationDate(mExpirationDate);
+        udpateOp.setExpirationDate(mExpirationDateInMillis);
         RemoteOperationResult result = udpateOp.execute(client);
-
-        /*
-        if (!result.isSuccess() || result.getData().size() <= 0) {
-            operation = new CreateRemoteShareOperation(
-                    mPath,
-                    ShareType.PUBLIC_LINK,
-                    "",
-                    false,
-                    mPassword,
-                    OCShare.DEFAULT_PERMISSION
-            );
-            result = operation.execute(client);
-        }
-        */
 
         if (result.isSuccess()) {
             // Retrieve updated share / save directly with password? -> no; the password is not be saved

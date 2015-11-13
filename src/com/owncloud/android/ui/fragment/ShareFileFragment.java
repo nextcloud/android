@@ -262,7 +262,7 @@ public class ShareFileFragment extends Fragment
             }
             if (isChecked) {
                 ExpirationDatePickerDialogFragment dialog =
-                        ExpirationDatePickerDialogFragment.newInstance(mFile);
+                        ExpirationDatePickerDialogFragment.newInstance(mFile, -1);
                 dialog.show(
                         getActivity().getSupportFragmentManager(),
                         ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG
@@ -270,7 +270,7 @@ public class ShareFileFragment extends Fragment
 
             } else {
                 ((FileActivity) getActivity()).getFileOperationsHelper().
-                        setExpirationDateToShareViaLink(mFile, -1, -1, -1);
+                        setExpirationDateToShareViaLink(mFile, -1);
             }
 
             // undo the toggle to grant the view will be correct if the dialog is cancelled
@@ -288,9 +288,15 @@ public class ShareFileFragment extends Fragment
         @Override
         public void onClick(View expirationView) {
             if (mPublicShare != null && mPublicShare.getExpirationDate() > 0) {
+                long chosenDateInMillis = -1;
+                if (mPublicShare != null) {
+                    chosenDateInMillis = mPublicShare.getExpirationDate();
+                }
                 ExpirationDatePickerDialogFragment dialog =
-                        ExpirationDatePickerDialogFragment.newInstance(mFile);
-                // TODO set the current chosen value in the dialog
+                        ExpirationDatePickerDialogFragment.newInstance(
+                                mFile,
+                                chosenDateInMillis
+                        );
                 dialog.show(
                         getActivity().getSupportFragmentManager(),
                         ExpirationDatePickerDialogFragment.DATE_PICKER_DIALOG

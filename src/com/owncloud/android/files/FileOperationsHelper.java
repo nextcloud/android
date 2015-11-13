@@ -378,20 +378,19 @@ public class FileOperationsHelper {
      * Updates a public share on a file to set its expiration date.
      * Starts a request to do it in {@link OperationsService}
      *
-     * @param file          File which public share will be constrained with an expiration date.
-     * @param year          Year of the date expiration chosen. Negative value to remove current
-     *                      expiration date and leave the link unrestricted.
-     * @param monthOfYear   Month of the date chosen [0, 11]
-     * @param dayOfMonth    Day of the date chosen
+     * @param file                      File which public share will be constrained with an expiration date.
+     * @param expirationTimeInMillis    Expiration date to set. A negative value clears the current expiration
+     *                                  date, leaving the link unrestricted. Zero makes no change.
      */
-    public void setExpirationDateToShareViaLink(OCFile file, int year, int monthOfYear, int dayOfMonth) {
+    public void setExpirationDateToShareViaLink(OCFile file, long expirationTimeInMillis) {
         Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
         updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_YEAR, year);
-        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_MONTH_OF_YEAR, monthOfYear);
-        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DAY_OF_MONTH, dayOfMonth);
+        updateShareIntent.putExtra(
+                OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS,
+                expirationTimeInMillis
+        );
         queueShareIntent(updateShareIntent);
     }
 
