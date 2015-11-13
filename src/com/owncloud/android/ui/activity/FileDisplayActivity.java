@@ -323,11 +323,7 @@ public class FileDisplayActivity extends HookActivity
                     startTextPreview(file);
             }
 
-            if (DisplayUtils.isGridView(getFile(), getStorageManager())){
-                switchToGridView();
-            } else {
-                switchToListView();
-            }
+            switchLayout(getFile());
 
         } else {
             Log_OC.wtf(TAG, "initFragments() called with invalid NULLs!");
@@ -337,6 +333,14 @@ public class FileDisplayActivity extends HookActivity
             if (getFile() == null) {
                 Log_OC.wtf(TAG, "\t file is NULL");
             }
+        }
+    }
+
+    private void switchLayout(OCFile file){
+        if (DisplayUtils.isGridView(file, getStorageManager())){
+            switchToGridView();
+        } else {
+            switchToListView();
         }
     }
 
@@ -1304,11 +1308,7 @@ public class FileDisplayActivity extends HookActivity
         MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
 
         changeGridIcon();
-        if (DisplayUtils.isGridView(directory, getStorageManager())){
-            switchToGridView();
-        } else {
-            switchToListView();
-        }
+        switchLayout(directory);
     }
 
     /**
