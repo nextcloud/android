@@ -173,9 +173,13 @@ public class ThumbnailsCacheManager {
         }
     }
 
+    /**
+     * Shows max cache size
+     * @return max cache size in MB.
+     */
     public static long getMaxSize(){
         if (mThumbnailCache != null) {
-            return mThumbnailCache.getMaxSize();
+            return mThumbnailCache.getMaxSize() / 1024 / 1024;
         } else {
             return -1l;
         }
