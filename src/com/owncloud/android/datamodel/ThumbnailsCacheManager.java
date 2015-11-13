@@ -176,6 +176,11 @@ public class ThumbnailsCacheManager {
             mImageViewReference = new WeakReference<ImageView>(imageView);
         }
 
+        public ThumbnailGenerationTask() {
+            // Use for only creating thumbnail
+            mImageViewReference = new WeakReference<ImageView>(null);
+        }
+
         @Override
         protected Bitmap doInBackground(Object... params) {
             Bitmap thumbnail = null;
@@ -215,7 +220,7 @@ public class ThumbnailsCacheManager {
             if (bitmap != null) {
                 final ImageView imageView = mImageViewReference.get();
                 final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
-                if (this == bitmapWorkerTask) {
+                if (this == bitmapWorkerTask && imageView != null) {
                     String tagId = "";
                     if (mFile instanceof OCFile){
                         tagId = String.valueOf(((OCFile)mFile).getFileId());
