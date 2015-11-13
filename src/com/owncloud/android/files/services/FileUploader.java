@@ -209,7 +209,7 @@ public class FileUploader extends Service
                 }
             }
             // Cancel pending uploads
-            cancelUploadForAccount(account.name);
+            cancelUploadsForAccount(account);
         }
 
         if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_UPLOAD_TYPE)
