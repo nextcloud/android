@@ -318,8 +318,8 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="prefs_instant_video_upload_path_title">Video üleslaadimise asukoht</string>
   <string name="shared_subject_header">jagatud</string>
   <string name="with_you_subject_header">sinuga</string>
-  <string name="subject_token">%1$s jagas sinuga \"%2$s\"</string>
-  <string name="saml_subject_token">\"%1$s\" on sinuga jagatud</string>
+  <string name="subject_user_shared_with_you">%1$s jagas sinuga \"%2$s\"</string>
+  <string name="subject_shared_with_you">\"%1$s\" on sinuga jagatud</string>
   <string name="auth_refresh_button">Värskenda ühendust</string>
   <string name="auth_host_address">Serveri aadress</string>
   <string name="common_error_out_memory">Mälu pole piisavalt</string>
@@ -332,4 +332,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="file_list__footer__files">%1$d faili</string>
   <string name="file_list__footer__files_and_folder">%1$d faili, 1 kaust</string>
   <string name="file_list__footer__files_and_folders">%1$d faili, %2$d kausta</string>
+  <string name="share_dialog_title">Jagamine</string>
+  <string name="share_search">Otsi</string>
 </resources>

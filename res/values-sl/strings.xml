@@ -310,8 +310,8 @@
   <string name="prefs_instant_video_upload_path_title">Pot videa za pošiljanje</string>
   <string name="shared_subject_header">v souporabi</string>
   <string name="with_you_subject_header">z vami</string>
-  <string name="subject_token">Uporabnik %1$s je omogočil souporabo \"%2$s\" z vami</string>
-  <string name="saml_subject_token">\"%1$s\" je oddan v souporabo z vami</string>
+  <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\" z vami</string>
+  <string name="subject_shared_with_you">\"%1$s\" je oddan v souporabo z vami</string>
   <string name="auth_refresh_button">Osveži povezavo</string>
   <string name="auth_host_address">Naslov strežnika</string>
   <string name="common_error_out_memory">Ni dovolj pomnilnika</string>
@@ -324,4 +324,6 @@
   <string name="file_list__footer__files">%1$d datotek</string>
   <string name="file_list__footer__files_and_folder">%1$d datotek, 1 mapa</string>
   <string name="file_list__footer__files_and_folders">%1$d datotek, %2$d map</string>
+  <string name="share_dialog_title">Souporaba</string>
+  <string name="share_search">Poišči</string>
 </resources>

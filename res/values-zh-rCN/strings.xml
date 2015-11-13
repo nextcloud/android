@@ -314,8 +314,8 @@
   <string name="prefs_instant_video_upload_path_title">视频上传路径</string>
   <string name="shared_subject_header">已共享</string>
   <string name="with_you_subject_header">与你</string>
-  <string name="subject_token">%1$s和你分享了“%2$s”</string>
-  <string name="saml_subject_token">已与你分享“%1$s”</string>
+  <string name="subject_user_shared_with_you">%1$s和你分享了“%2$s”</string>
+  <string name="subject_shared_with_you">已与你分享“%1$s”</string>
   <string name="auth_refresh_button">刷新连接</string>
   <string name="auth_host_address">服务器地址</string>
   <string name="common_error_out_memory">内存不足</string>
@@ -328,4 +328,6 @@
   <string name="file_list__footer__files">%1$d 个文件</string>
   <string name="file_list__footer__files_and_folder">%1$d 个文件，1 个文件夹</string>
   <string name="file_list__footer__files_and_folders">%1$d 个文件，%2$d 个文件夹</string>
+  <string name="share_dialog_title">共享</string>
+  <string name="share_search">搜索</string>
 </resources>

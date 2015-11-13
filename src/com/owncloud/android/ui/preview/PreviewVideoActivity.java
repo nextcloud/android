@@ -78,7 +78,7 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log_OC.e(TAG, "ACTIVITY\t\tonCreate");
+        Log_OC.v(TAG, "onCreate");
         
         setContentView(R.layout.video_layout);
     
@@ -110,7 +110,6 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log_OC.e(TAG, "ACTIVITY\t\tonSaveInstanceState");
         outState.putInt(PreviewVideoActivity.EXTRA_START_POSITION, mVideoPlayer.getCurrentPosition());
         outState.putBoolean(PreviewVideoActivity.EXTRA_AUTOPLAY , mVideoPlayer.isPlaying());
     }
@@ -118,7 +117,7 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     
     @Override
     public void onBackPressed() {
-        Log_OC.e(TAG, "ACTIVTIY\t\tonBackPressed");
+        Log_OC.v(TAG, "onBackPressed");
         Intent i = new Intent();
         i.putExtra(EXTRA_AUTOPLAY, mVideoPlayer.isPlaying());
         i.putExtra(EXTRA_START_POSITION, mVideoPlayer.getCurrentPosition());
@@ -136,7 +135,7 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
      */
     @Override
     public void onPrepared(MediaPlayer mp) {
-        Log_OC.e(TAG, "ACTIVITY\t\tonPrepare");
+        Log_OC.v(TAG, "onPrepare");
         mVideoPlayer.seekTo(mSavedPlaybackPosition);
         if (mAutoplay) { 
             mVideoPlayer.start();
@@ -204,20 +203,20 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
             file = getStorageManager().getFileById(file.getFileId()); 
             if (file != null) {
                 if (file.isDown()) {
-                    mVideoPlayer.setVideoPath(file.getStoragePath());
-                    
+                    mVideoPlayer.setVideoURI(file.getStorageUri());
+
                 } else {
                     String url;
                     url = PreviewMediaFragment.generateUrlWithCredentials(getAccount(), getApplicationContext(), getFile());
                     mVideoPlayer.setVideoURI(Uri.parse(url));
                 }
-                
+
                 // create and prepare control panel for the user
                 mMediaController = new MediaController(this);
                 mMediaController.setMediaPlayer(mVideoPlayer);
                 mMediaController.setAnchorView(mVideoPlayer);
                 mVideoPlayer.setMediaController(mMediaController);
-                
+
             } else {
                 finish();
             }

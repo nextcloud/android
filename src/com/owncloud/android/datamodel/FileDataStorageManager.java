@@ -50,6 +50,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.FileInputStream;
@@ -1731,5 +1733,184 @@ public class FileDataStorageManager {
             }
         }
 
+    }
+
+    public OCCapability saveCapabilities(OCCapability capability){
+
+        // Prepare capabilities data
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME, mAccount.name);
+        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MAYOR, capability.getVersionMayor());
+        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MINOR, capability.getVersionMinor());
+        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MICRO, capability.getVersionMicro());
+        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_STRING, capability.getVersionString());
+        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_EDITION, capability.getVersionEdition());
+        cv.put(ProviderTableMeta.CAPABILITIES_CORE_POLLINTERVAL, capability.getCorePollinterval());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_API_ENABLED, capability.getFilesSharingApiEnabled().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ENABLED,
+                capability.getFilesSharingPublicEnabled().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_PASSWORD_ENFORCED,
+                capability.getFilesSharingPublicPasswordEnforced().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED,
+                capability.getFilesSharingPublicExpireDateEnabled().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_DAYS,
+                capability.getFilesSharingPublicExpireDateDays());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENFORCED,
+                capability.getFilesSharingPublicExpireDateEnforced().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_SEND_MAIL,
+                capability.getFilesSharingPublicSendMail().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_UPLOAD,
+                capability.getFilesSharingPublicUpload().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_USER_SEND_MAIL,
+                capability.getFilesSharingUserSendMail().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_RESHARING, capability.getFilesSharingResharing().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_OUTGOING,
+                capability.getFilesSharingFederationOutgoing().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING,
+                capability.getFilesSharingFederationIncoming().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING, capability.getFilesBigFileChuncking().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_FILES_UNDELETE, capability.getFilesUndelete().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_FILES_VERSIONING, capability.getFilesVersioning().getValue());
+
+        if (capabilityExists(mAccount.name)) {
+            if (getContentResolver() != null) {
+                getContentResolver().update(ProviderTableMeta.CONTENT_URI_CAPABILITIES, cv,
+                        ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + "=?",
+                        new String[]{mAccount.name});
+            } else {
+                try {
+                    getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_CAPABILITIES,
+                            cv, ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + "=?",
+                            new String[]{mAccount.name});
+                } catch (RemoteException e) {
+                    Log_OC.e(TAG,
+                            "Fail to insert insert file to database "
+                                    + e.getMessage());
+                }
+            }
+        } else {
+            Uri result_uri = null;
+            if (getContentResolver() != null) {
+                result_uri = getContentResolver().insert(
+                        ProviderTableMeta.CONTENT_URI_CAPABILITIES, cv);
+            } else {
+                try {
+                    result_uri = getContentProviderClient().insert(
+                            ProviderTableMeta.CONTENT_URI_CAPABILITIES, cv);
+                } catch (RemoteException e) {
+                    Log_OC.e(TAG,
+                            "Fail to insert insert capability to database "
+                                    + e.getMessage());
+                }
+            }
+            if (result_uri != null) {
+                long new_id = Long.parseLong(result_uri.getPathSegments()
+                        .get(1));
+                capability.setId(new_id);
+                capability.setAccountName(mAccount.name);
+            }
+        }
+
+        return capability;
+    }
+
+    private boolean capabilityExists(String accountName) {
+        Cursor c = getCapabilityCursorForAccount(accountName);
+        boolean exists = false;
+        if (c != null) {
+            exists = c.moveToFirst();
+            c.close();
+        }
+        return exists;
+    }
+
+    private Cursor getCapabilityCursorForAccount(String accountName){
+        Cursor c = null;
+        if (getContentResolver() != null) {
+            c = getContentResolver()
+                    .query(ProviderTableMeta.CONTENT_URI_CAPABILITIES,
+                            null,
+                            ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + "=? ",
+                            new String[]{accountName}, null);
+        } else {
+            try {
+                c = getContentProviderClient().query(
+                        ProviderTableMeta.CONTENT_URI_CAPABILITIES,
+                        null,
+                        ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + "=? ",
+                        new String[]{accountName}, null);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG,
+                        "Couldn't determine capability existance, assuming non existance: "
+                                + e.getMessage());
+            }
+        }
+
+        return c;
+
+    }
+    public OCCapability getCapability(String accountName){
+        OCCapability capability = null;
+        Cursor c = getCapabilityCursorForAccount(accountName);
+
+        if (c.moveToFirst()) {
+            capability = createCapabilityInstance(c);
+        }
+        c.close();
+        return capability;
+    }
+
+    private OCCapability createCapabilityInstance(Cursor c) {
+        OCCapability capability = null;
+        if (c != null) {
+            capability = new OCCapability();
+            capability.setId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
+            capability.setAccountName(c.getString(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME)));
+            capability.setVersionMayor(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_MAYOR)));
+            capability.setVersionMinor(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_MINOR)));
+            capability.setVersionMicro(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_MICRO)));
+            capability.setVersionString(c.getString(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_STRING)));
+            capability.setVersionEdition(c.getString(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_EDITION)));
+            capability.setCorePollinterval(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_CORE_POLLINTERVAL)));
+            capability.setFilesSharingApiEnabled(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_API_ENABLED))));
+            capability.setFilesSharingPublicEnabled(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_ENABLED))));
+            capability.setFilesSharingPublicPasswordEnforced(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_PASSWORD_ENFORCED))));
+            capability.setFilesSharingPublicExpireDateEnabled(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED))));
+            capability.setFilesSharingPublicExpireDateDays(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_DAYS)));
+            capability.setFilesSharingPublicExpireDateEnforced(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENFORCED))));
+            capability.setFilesSharingPublicSendMail(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_SEND_MAIL))));
+            capability.setFilesSharingPublicUpload(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_PUBLIC_UPLOAD))));
+            capability.setFilesSharingUserSendMail(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_USER_SEND_MAIL))));
+            capability.setFilesSharingResharing(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_RESHARING))));
+            capability.setFilesSharingFederationOutgoing(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_OUTGOING))));
+            capability.setFilesSharingFederationIncoming(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING))));
+            capability.setFilesBigFileChuncking(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING))));
+            capability.setFilesUndelete(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_UNDELETE))));
+            capability.setFilesVersioning(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_VERSIONING))));
+
+        }
+        return capability;
     }
 }

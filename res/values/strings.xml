@@ -253,6 +253,9 @@
     <string name="ssl_validator_label_validity_to">To:</string>
     <string name="ssl_validator_label_signature">Signature:</string>
     <string name="ssl_validator_label_signature_algorithm">Algorithm:</string>
+    <string name="digest_algorithm_not_available">This digest algorithm is not available on your phone.</string>
+    <string name="ssl_validator_label_certificate_fingerprint">Fingerprint:</string>
+    <string name="certificate_load_problem">There is a problem loading the certificate.</string>
     <string name="ssl_validator_null_cert">The certificate could not be shown.</string>
     <string name="ssl_validator_no_info_about_error">- No information about the error</string>
 

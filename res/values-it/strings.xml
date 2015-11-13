@@ -84,6 +84,7 @@
   <string name="list_layout">Struttura elenco</string>
   <string name="action_share_file">Condividi collegamento</string>
   <string name="action_unshare_file">Rimuovi condivisione collegamento</string>
+  <string name="action_share_with_users">Condividi con utenti</string>
   <string name="common_yes">Sì</string>
   <string name="common_no">No</string>
   <string name="common_ok">OK</string>
@@ -244,6 +245,9 @@
   <string name="ssl_validator_label_validity_to">A:</string>
   <string name="ssl_validator_label_signature">Firma:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
+  <string name="digest_algorithm_not_available">Questo algoritmo digest non è disponibile sul tuo telefono.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Impronta digitale:</string>
+  <string name="certificate_load_problem">Si è verificato un problema durante il caricamento del certificato.</string>
   <string name="ssl_validator_null_cert">Il certificato non può essere mostrato.</string>
   <string name="ssl_validator_no_info_about_error">- Nessuna informazione sull\'errore</string>
   <string name="placeholder_sentence">Questo è un segnaposto</string>
@@ -318,8 +322,8 @@
   <string name="sync_folder_failed_content">La sincronizzazione della cartella %1$s non può essere completata</string>
   <string name="shared_subject_header">condiviso</string>
   <string name="with_you_subject_header">con te</string>
-  <string name="subject_token">%1$s ha condiviso \"%2$s\" con te</string>
-  <string name="saml_subject_token">\"%1$s\" è stato condiviso con te</string>
+  <string name="subject_user_shared_with_you">%1$s ha condiviso \"%2$s\" con te</string>
+  <string name="subject_shared_with_you">\"%1$s\" è stato condiviso con te</string>
   <string name="auth_refresh_button">Aggiorna la connessione</string>
   <string name="auth_host_address">Indirizzo del server</string>
   <string name="common_error_out_memory">Memoria insufficiente</string>
@@ -332,4 +336,13 @@
   <string name="file_list__footer__files">%1$d file</string>
   <string name="file_list__footer__files_and_folder">%1$d file, 1 cartella</string>
   <string name="file_list__footer__files_and_folders">%1$d file, %2$d cartelle</string>
+  <string name="share_dialog_title">Condivisione</string>
+  <string name="share_with_user_section_title">Condividi con utenti e gruppi</string>
+  <string name="share_no_users">Ancora nessun dato condiviso con gli utenti </string>
+  <string name="share_add_user_or_group">Aggiungi utente o gruppo</string>
+  <string name="share_search">Cerca</string>
+  <string name="search_users_and_groups_hint">Cerca utenti e gruppi</string>
+  <string name="share_group_clarification">%1$s (gruppo)</string>
+  <string name="share_sharee_unavailable">Spiacenti, la versione del tuo server non consente la condivisione con utenti dai client.
+\nContatta il tuo amministratore.</string>
 </resources>

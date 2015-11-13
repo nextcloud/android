@@ -186,4 +186,6 @@
   <string name="auth_host_address">Servila adreso</string>
   <string name="file_list__footer__file">1 dosiero</string>
   <string name="file_list__footer__files">%1$d dosieroj</string>
+  <string name="share_dialog_title">Kunhavigo</string>
+  <string name="share_search">Serĉi</string>
 </resources>

@@ -251,4 +251,6 @@
   <string name="folder_picker_choose_button_text">בחירה</string>
   <string name="prefs_category_security">אבטחה</string>
   <string name="auth_host_address">כתובת שרת</string>
+  <string name="share_dialog_title">שיתוף</string>
+  <string name="share_search">חיפוש</string>
 </resources>

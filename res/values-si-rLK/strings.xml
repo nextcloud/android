@@ -78,4 +78,6 @@
   <string name="prefs_category_accounts">ගිණුම්</string>
   <string name="folder_picker_choose_button_text">තෝරන්න</string>
   <string name="auth_host_address">සේවාදායකයේ ලිපිනය</string>
+  <string name="share_dialog_title">හුවමාරු කිරීම</string>
+  <string name="share_search">සොයන්න</string>
 </resources>

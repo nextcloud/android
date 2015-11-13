@@ -285,6 +285,9 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="prefs_category_instant_uploading">Anında yükləmələr</string>
   <string name="prefs_category_security">Təhlükəsizlik</string>
   <string name="prefs_instant_video_upload_path_title">Video ünvanını yüklə</string>
+  <string name="subject_user_shared_with_you">%1$s paylaşdı \"%2$s\" sizinlə</string>
   <string name="auth_refresh_button">Qoşulmanı yenilə</string>
   <string name="auth_host_address">Server ünvanı</string>
+  <string name="share_dialog_title">Paylaşılır</string>
+  <string name="share_search">Axtarış</string>
 </resources>

@@ -261,4 +261,6 @@
   <string name="folder_picker_choose_button_text">Escull</string>
   <string name="prefs_category_security">Seguretat</string>
   <string name="auth_host_address">Adreça del servidor</string>
+  <string name="share_dialog_title">Compartir</string>
+  <string name="share_search">Cerca</string>
 </resources>
