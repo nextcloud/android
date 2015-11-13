@@ -208,17 +208,29 @@ public class PreviewImageFragment extends FileFragment {
             mImageView.setTag(getFile().getFileId());
 
             if (mShowResizedImage){
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        String.valueOf("r" + getFile().getRemoteId())
-                );
+                Bitmap resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        String.valueOf("r" + getFile().getRemoteId()));
 
-                if (thumbnail != null && !getFile().needsUpdateThumbnail()){
+                if (resizedImage != null && !getFile().needsUpdateThumbnail()){
                     mProgressWheel.setVisibility(View.GONE);
-                    mImageView.setImageBitmap(thumbnail);
+                    mImageView.setImageBitmap(resizedImage);
                     mImageView.setVisibility(View.VISIBLE);
-                    mBitmap  = thumbnail;
+                    mBitmap  = resizedImage;
                 } else {
-                    // generate new Thumbnail
+                    // show thumbnail while loading resized image
+                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                            String.valueOf("t" + getFile().getRemoteId()));
+
+                    if (thumbnail != null){
+                        mImageView.setImageBitmap(thumbnail);
+                        mProgressWheel.setVisibility(View.VISIBLE);
+                        mImageView.setVisibility(View.VISIBLE);
+                        mBitmap = thumbnail;
+                    } else {
+                        thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                    }
+
+                    // generate new resized image
                     if (ThumbnailsCacheManager.cancelPotentialWork(getFile(), mImageView) &&
                         mContainerActivity.getStorageManager() != null) {
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
@@ -226,13 +238,13 @@ public class PreviewImageFragment extends FileFragment {
                                         mImageView, mContainerActivity.getStorageManager(),
                                         mContainerActivity.getStorageManager().getAccount(),
                                         mProgressWheel);
-                        if (thumbnail == null) {
-                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                        if (resizedImage == null) {
+                            resizedImage = thumbnail;
                         }
                         final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
                                 new ThumbnailsCacheManager.AsyncDrawable(
                                         MainApp.getAppContext().getResources(),
-                                        thumbnail,
+                                        resizedImage,
                                         task
                                 );
                         mImageView.setImageDrawable(asyncDrawable);
