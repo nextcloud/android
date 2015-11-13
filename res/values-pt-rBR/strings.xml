@@ -245,6 +245,9 @@
   <string name="ssl_validator_label_validity_to">Para:</string>
   <string name="ssl_validator_label_signature">Assinatura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
+  <string name="digest_algorithm_not_available">Este algoritmo de resumo não está disponível no seu telefone.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Impressão digital:</string>
+  <string name="certificate_load_problem">Existe um problema ao carregar o certificado.</string>
   <string name="ssl_validator_null_cert">O certificado não pode ser mostrado.</string>
   <string name="ssl_validator_no_info_about_error">- Nenhuma informação sobre o erro</string>
   <string name="placeholder_sentence">Este é um espaço reservado</string>
