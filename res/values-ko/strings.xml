@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">초 지남</string>
   <string name="file_list_empty">내용이 없습니다. 업로드할 수 있습니다!</string>
   <string name="file_list_loading">불러오는 중...</string>
+  <string name="file_list_no_app_for_file_type">파일 형식을 열 수 있는 앱이 없습니다!</string>
   <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
   <string name="filedetails_select_file">파일을 누르면 추가 정보가 표시됩니다.</string>
   <string name="filedetails_size">크기:</string>
@@ -78,7 +79,6 @@
   <string name="filedetails_created">만든 날짜:</string>
   <string name="filedetails_modified">수정한 날짜:</string>
   <string name="filedetails_download">다운로드</string>
-  <string name="filedetails_sync_file">파일 새로 고침</string>
   <string name="filedetails_renamed_in_upload_msg">업로드 중 파일 이름을 %1$s(으)로 변경하였습니다</string>
   <string name="list_layout">목록 레이아웃</string>
   <string name="action_share_file">링크 공유</string>
@@ -86,8 +86,6 @@
   <string name="common_yes">예</string>
   <string name="common_no">아니요</string>
   <string name="common_ok">확인</string>
-  <string name="common_cancel_download">다운로드 취소</string>
-  <string name="common_cancel_upload">업로드 취소</string>
   <string name="common_cancel">취소</string>
   <string name="common_save_exit">저장하고 끝내기</string>
   <string name="common_error">오류</string>
@@ -314,11 +312,10 @@
   <string name="prefs_category_instant_uploading">즉시 업로드</string>
   <string name="prefs_category_security">보안</string>
   <string name="prefs_instant_video_upload_path_title">동영상 업로드 경로</string>
-  <string name="download_folder_failed_content">폴더 %1$s을(를) 다운로드할 수 없음</string>
   <string name="shared_subject_header">공유됨</string>
   <string name="with_you_subject_header">여러분과</string>
-  <string name="subject_token">%1$s 님이 \"%2$s\" 항목을 여러분과 공유하였습니다</string>
-  <string name="saml_subject_token">\"%1$s\"을(를) 여러분과 공유하였습니다</string>
+  <string name="subject_user_shared_with_you">%1$s 님이 \"%2$s\" 항목을 여러분과 공유하였습니다</string>
+  <string name="subject_shared_with_you">\"%1$s\"을(를) 여러분과 공유하였습니다</string>
   <string name="auth_refresh_button">연결 새로 고침</string>
   <string name="auth_host_address">서버 주소</string>
   <string name="common_error_out_memory">메모리 부족</string>
@@ -331,4 +328,9 @@
   <string name="file_list__footer__files">파일 %1$d개</string>
   <string name="file_list__footer__files_and_folder">파일 %1$d개, 폴더 1개</string>
   <string name="file_list__footer__files_and_folders">파일 %1$d개, 폴더 %2$d개</string>
+  <string name="share_dialog_title">공유</string>
+  <string name="share_with_user_section_title">Share with Users and Groups</string>
+  <string name="share_no_users">No data shared with users yet</string>
+  <string name="share_add_user_or_group">Add User or Group</string>
+  <string name="share_search">검색</string>
 </resources>

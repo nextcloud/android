@@ -72,6 +72,7 @@
   <string name="file_list_seconds_ago">несколько секунд назад</string>
   <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
   <string name="file_list_loading">Загрузка...</string>
+  <string name="file_list_no_app_for_file_type">Не найдено приложений для этого типа файла.</string>
   <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
   <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
   <string name="filedetails_size">Размер:</string>
@@ -79,7 +80,6 @@
   <string name="filedetails_created">Создан:</string>
   <string name="filedetails_modified">Изменён:</string>
   <string name="filedetails_download">Скачать</string>
-  <string name="filedetails_sync_file">Обновить файл</string>
   <string name="filedetails_renamed_in_upload_msg">Файл был переименован в %1$s во время загрузки</string>
   <string name="list_layout">Макет списка</string>
   <string name="action_share_file">Поделиться ссылкой</string>
@@ -87,8 +87,6 @@
   <string name="common_yes">Да</string>
   <string name="common_no">Нет</string>
   <string name="common_ok">ОК</string>
-  <string name="common_cancel_download">Отменить скачивание</string>
-  <string name="common_cancel_upload">Отменить загрузку</string>
   <string name="common_cancel">Отмена</string>
   <string name="common_save_exit">Сохранить и выйти</string>
   <string name="common_error">Ошибка</string>
@@ -316,11 +314,10 @@
   <string name="prefs_category_instant_uploading">Мгновенные загрузки</string>
   <string name="prefs_category_security">Безопасность</string>
   <string name="prefs_instant_video_upload_path_title">Путь для загрузки Видео</string>
-  <string name="download_folder_failed_content">Не удалось завершить скачивание каталога %1$s</string>
   <string name="shared_subject_header">поделился</string>
   <string name="with_you_subject_header">с вами</string>
-  <string name="subject_token">%1$s предоставил вам доступ к \"%2$s\"</string>
-  <string name="saml_subject_token">Вам предоставлен доступ к \"%1$s\"</string>
+  <string name="subject_user_shared_with_you">%1$s предоставил вам доступ к \"%2$s\"</string>
+  <string name="subject_shared_with_you">Вам предоставлен доступ к \"%1$s\"</string>
   <string name="auth_refresh_button">Обновить соединение</string>
   <string name="auth_host_address">Адрес сервера</string>
   <string name="common_error_out_memory">Недостаточно памяти</string>
@@ -333,4 +330,9 @@
   <string name="file_list__footer__files">%1$d файлов</string>
   <string name="file_list__footer__files_and_folder">%1$d файлов, 1 каталог</string>
   <string name="file_list__footer__files_and_folders">%1$d файлов, %2$d каталогов</string>
+  <string name="share_dialog_title">Общий доступ</string>
+  <string name="share_with_user_section_title">Поделиться с пользователями или группами</string>
+  <string name="share_no_users">Нет данных используемых совместно с другими пользователями</string>
+  <string name="share_add_user_or_group">Добавить пользователя или группу</string>
+  <string name="share_search">Найти</string>
 </resources>

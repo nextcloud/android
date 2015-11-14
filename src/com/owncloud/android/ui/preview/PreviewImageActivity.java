@@ -26,7 +26,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -54,14 +53,15 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.CreateShareViaLinkOperation;
+import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.operations.UnshareLinkOperation;
+import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.DisplayUtils;
 
 
 /**
@@ -230,11 +230,12 @@ public class PreviewImageActivity extends FileActivity implements
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
         
-        if (operation instanceof CreateShareOperation) {
-            onCreateShareOperationFinish((CreateShareOperation) operation, result);
-            
-        } else if (operation instanceof UnshareLinkOperation) {
-            onUnshareLinkOperationFinish((UnshareLinkOperation) operation, result);
+        if (operation instanceof CreateShareViaLinkOperation ||
+                operation instanceof CreateShareWithShareeOperation) {
+            onCreateShareOperationFinish(result);
+
+        } else if (operation instanceof UnshareOperation) {
+            onUnshareLinkOperationFinish((UnshareOperation) operation, result);
             
         } else if (operation instanceof RemoveFileOperation) {
             finish();
@@ -245,7 +246,7 @@ public class PreviewImageActivity extends FileActivity implements
     }
     
     
-    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation,
+    private void onUnshareLinkOperationFinish(UnshareOperation operation,
                                               RemoteOperationResult result) {
         if (result.isSuccess()) {
             OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
@@ -259,8 +260,7 @@ public class PreviewImageActivity extends FileActivity implements
             
     }
     
-    private void onCreateShareOperationFinish(CreateShareOperation operation,
-                                              RemoteOperationResult result) {
+    private void onCreateShareOperationFinish(RemoteOperationResult result) {
         if (result.isSuccess()) {
             OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
             if (file != null) {
@@ -400,7 +400,6 @@ public class PreviewImageActivity extends FileActivity implements
         
     }
 
-    
     private void requestForDownload(OCFile file) {
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");

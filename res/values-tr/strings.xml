@@ -78,7 +78,6 @@
   <string name="filedetails_created">Oluşturulma:</string>
   <string name="filedetails_modified">Değiştirilme:</string>
   <string name="filedetails_download">İndir</string>
-  <string name="filedetails_sync_file">Dosyayı yenile</string>
   <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
   <string name="list_layout">Liste Yerleşimi</string>
   <string name="action_share_file">Paylaşma bağlantısı</string>
@@ -86,8 +85,6 @@
   <string name="common_yes">Evet</string>
   <string name="common_no">Hayır</string>
   <string name="common_ok">Tamam</string>
-  <string name="common_cancel_download">İndirmeyi iptal et</string>
-  <string name="common_cancel_upload">Yüklemeyi iptal et</string>
   <string name="common_cancel">İptal</string>
   <string name="common_save_exit">Kaydet ve Çık</string>
   <string name="common_error">Hata</string>
@@ -315,11 +312,10 @@
   <string name="prefs_category_instant_uploading">Anında Yüklemeler</string>
   <string name="prefs_category_security">Güvenlik</string>
   <string name="prefs_instant_video_upload_path_title">Video Yükleme Yolu</string>
-  <string name="download_folder_failed_content">%1$s klasörün indirilmesi tamamlanamadı</string>
   <string name="shared_subject_header">sizinle</string>
   <string name="with_you_subject_header">paylaştı</string>
-  <string name="subject_token">%1$s, sizinle \"%2$s\" paylaşımını yaptı</string>
-  <string name="saml_subject_token">\"%1$s\" sizinle paylaşıldı</string>
+  <string name="subject_user_shared_with_you">%1$s, sizinle \"%2$s\" paylaşımını yaptı</string>
+  <string name="subject_shared_with_you">\"%1$s\" sizinle paylaşıldı</string>
   <string name="auth_refresh_button">Bağlantıyı yenile</string>
   <string name="auth_host_address">Sunucu adresi</string>
   <string name="common_error_out_memory">Yeterli hafıza yok</string>
@@ -332,4 +328,6 @@
   <string name="file_list__footer__files">%1$d dosya</string>
   <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
   <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
+  <string name="share_dialog_title">Paylaşım</string>
+  <string name="share_search">Ara</string>
 </resources>
