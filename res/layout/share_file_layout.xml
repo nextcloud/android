@@ -153,7 +153,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_toLeftOf="@id/shareViaLinkExpirationSwitch"
                 android:layout_toStartOf="@id/shareViaLinkExpirationSwitch"
-                android:padding="8dp"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:text="@string/share_via_link_expiration_date_label"
                 android:textSize="16sp"
                 />
@@ -167,7 +169,9 @@
                 android:layout_toLeftOf="@id/shareViaLinkExpirationSwitch"
                 android:layout_toStartOf="@id/shareViaLinkExpirationSwitch"
                 android:layout_below="@id/shareViaLinkExpirationLabel"
-                android:padding="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="8dp"
                 android:textSize="12sp"
                 />
 
@@ -197,7 +201,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_toLeftOf="@id/shareViaLinkPasswordSwitch"
                 android:layout_toStartOf="@id/shareViaLinkPasswordSwitch"
-                android:padding="8dp"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:text="@string/share_via_link_password_label"
                 android:textSize="16sp"
                 />
@@ -211,7 +217,9 @@
                 android:layout_toLeftOf="@id/shareViaLinkPasswordSwitch"
                 android:layout_toStartOf="@id/shareViaLinkPasswordSwitch"
                 android:layout_below="@id/shareViaLinkPasswordLabel"
-                android:padding="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="8dp"
                 android:text="@string/share_via_link_password_title"
                 android:textSize="12sp"
                 android:visibility="invisible"
