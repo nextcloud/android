@@ -228,7 +228,7 @@
         </RelativeLayout>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/shareViewLinkGetLinkButton"
+            android:id="@+id/shareViaLinkGetLinkButton"
             style="@style/ownCloud.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

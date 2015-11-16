@@ -184,15 +184,14 @@ public class FileMenuFilter {
         }
 
         // SHARE FILE
-        // TODO add check on SHARE available on server side?
         boolean shareAllowed = (mContext != null  &&
                 mContext.getString(R.string.share_feature).equalsIgnoreCase("on"));
-
-        // SHARE FILE, with Users
         OCCapability capability = mComponentsGetter.getStorageManager().getCapability(mAccount.name);
         boolean shareApiEnabled  = capability != null &&
-                (capability.getFilesSharingApiEnabled().isTrue() || capability.getFilesSharingApiEnabled().isUnknown());
-        if (!shareAllowed ||  mFile == null || !shareApiEnabled ) {
+                (capability.getFilesSharingApiEnabled().isTrue() ||
+                        capability.getFilesSharingApiEnabled().isUnknown()
+                );
+        if (!shareAllowed ||  mFile == null || !shareApiEnabled) {
             toHide.add(R.id.action_share_file);
         } else {
             toShow.add(R.id.action_share_file);

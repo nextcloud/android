@@ -188,6 +188,7 @@ public class ShareActivity extends FileActivity
         ShareFileFragment shareFileFragment = getShareFileFragment();
         if (shareFileFragment != null
                 && shareFileFragment.isAdded()) {   // only if added to the view hierarchy!!
+            shareFileFragment.refreshCapabilitiesFromDB();
             shareFileFragment.refreshUsersOrGroupsListFromDB();
             shareFileFragment.refreshPublicShareFromDB();
         }

@@ -23,10 +23,8 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
@@ -46,10 +44,10 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
@@ -98,6 +96,9 @@ public class ShareFileFragment extends Fragment
     /** List of private shares bound to the file */
     private ArrayList<OCShare> mPrivateShares;
 
+    /** Capabilities of the server */
+    private OCCapability mCapabilities;
+
     /** Adapter to show private shares */
     private ShareUserListAdapter mUserGroupsAdapter = null;
 
@@ -116,6 +117,7 @@ public class ShareFileFragment extends Fragment
      * Listener for user actions to set, update or clear expiration date on public link
      */
     private OnExpirationDateInteractionListener mOnExpirationDateInteractionListener = null;
+
 
     /**
      * Public factory method to create new ShareFileFragment instances.
@@ -229,7 +231,6 @@ public class ShareFileFragment extends Fragment
 
         return view;
     }
-
 
     /**
      * Binds listener for user actions that start any update on a expiration date
@@ -388,6 +389,9 @@ public class ShareFileFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // Load known capabilities of the server from DB
+        refreshCapabilitiesFromDB();
+
         // Load data into the list of private shares
         refreshUsersOrGroupsListFromDB();
 
@@ -411,6 +415,21 @@ public class ShareFileFragment extends Fragment
         super.onDetach();
         mListener = null;
     }
+
+
+    /**
+     * Get known server capabilities from DB
+     *
+     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * instance ready to use. If not ready, does nothing.
+     */
+    public void refreshCapabilitiesFromDB() {
+        if (((FileActivity)mListener).getStorageManager() != null) {
+            mCapabilities = ((FileActivity)mListener).getStorageManager().
+                    getCapability(mAccount.name);
+        }
+    }
+
 
     /**
      * Get users and groups from the DB to fill in the "share with" list.
@@ -472,11 +491,16 @@ public class ShareFileFragment extends Fragment
     /**
      * Get public link from the DB to fill in the "Share link" section in the UI.
      *
+     * Takes into account server capabilities before reading database.
+     *
      * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
      * instance ready to use. If not ready, does nothing.
      */
     public void refreshPublicShareFromDB() {
-        if (((FileActivity) mListener).getStorageManager() != null) {
+        if (isPublicShareDisabled()) {
+            hidePublicShare();
+
+        } else if (((FileActivity) mListener).getStorageManager() != null) {
             // Get public share
             mPublicShare = ((FileActivity) mListener).getStorageManager().getFirstShareByPathAndType(
                     mFile.getRemotePath(),
@@ -487,6 +511,15 @@ public class ShareFileFragment extends Fragment
             // Update public share section
             updatePublicShareSection();
         }
+    }
+
+    /**
+     * @return  'True' when public share is disabled in the server
+     */
+    private boolean isPublicShareDisabled() {
+        return (mCapabilities != null &&
+                mCapabilities.getFilesSharingPublicEnabled().isFalse()
+        );
     }
 
     /**
@@ -520,7 +553,6 @@ public class ShareFileFragment extends Fragment
                 }
             });
 
-            /// update state of expiration date switch and message depending on expiration date
             /// update state of expiration date switch and message depending on expiration date
             Switch expirationDateSwitch = getExpirationDateSwitch();
             // set null listener before setChecked() to prevent infinite loop of calls
@@ -615,7 +647,17 @@ public class ShareFileFragment extends Fragment
     }
 
     private AppCompatButton getGetLinkButton() {
-        return (AppCompatButton) getView().findViewById(R.id.shareViewLinkGetLinkButton);
+        return (AppCompatButton) getView().findViewById(R.id.shareViaLinkGetLinkButton);
+    }
+
+    /**
+     * Hides all the UI elements related to public share
+     */
+    private void hidePublicShare() {
+        getShareViaLinkSwitch().setVisibility(View.GONE);
+        getExpirationDateSection().setVisibility(View.GONE);
+        getPasswordSection().setVisibility(View.GONE);
+        getGetLinkButton().setVisibility(View.GONE);
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
@@ -639,7 +681,7 @@ public class ShareFileFragment extends Fragment
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
-    
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
