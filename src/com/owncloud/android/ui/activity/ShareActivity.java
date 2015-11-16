@@ -173,8 +173,7 @@ public class ShareActivity extends FileActivity
                 intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
                 intentToShareLink.setType(HTTP.PLAIN_TEXT_TYPE);
                 String[] packagesToExclude = new String[]{getPackageName()};
-                DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink,
-                        packagesToExclude, getFile());
+                DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
                 chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
             }
         }

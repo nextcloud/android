@@ -796,8 +796,7 @@ public class FileActivity extends AppCompatActivity
             if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
                 if (!isTryShareAgain()) {
                     SharePasswordDialogFragment dialog =
-                            SharePasswordDialogFragment.newInstance(new OCFile(operation.getPath()),
-                                    operation.getSendIntent());
+                            SharePasswordDialogFragment.newInstance(new OCFile(operation.getPath()));
                     dialog.show(getSupportFragmentManager(), DIALOG_SHARE_PASSWORD);
                 } else {
                     Toast t = Toast.makeText(this,

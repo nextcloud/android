@@ -21,7 +21,6 @@ package com.owncloud.android.ui.dialog;
 import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -45,25 +44,21 @@ public class SharePasswordDialogFragment extends DialogFragment
         implements DialogInterface.OnClickListener {
 
     private static final String ARG_FILE = "FILE";
-    private static final String ARG_SEND_INTENT = "SEND_INTENT";
 
     public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
 
     private OCFile mFile;
-    private Intent mSendIntent;
 
     /**
      * Public factory method to create new SharePasswordDialogFragment instances.
      *
      * @param file
-     * @param sendIntent
      * @return              Dialog ready to show.
      */
-    public static SharePasswordDialogFragment newInstance(OCFile file, Intent sendIntent) {
+    public static SharePasswordDialogFragment newInstance(OCFile file) {
         SharePasswordDialogFragment frag = new SharePasswordDialogFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, file);
-        args.putParcelable(ARG_SEND_INTENT, sendIntent);
         frag.setArguments(args);
         return frag;
     }
@@ -71,7 +66,6 @@ public class SharePasswordDialogFragment extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mFile = getArguments().getParcelable(ARG_FILE);
-        mSendIntent = getArguments().getParcelable(ARG_SEND_INTENT);
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -113,11 +107,8 @@ public class SharePasswordDialogFragment extends DialogFragment
             }
 
             // Share the file
-            if (mSendIntent == null) {
-                ((FileActivity) getActivity()).getFileOperationsHelper().
-                        setPasswordToShareViaLink(mFile, password);
-
-            }
+            ((FileActivity) getActivity()).getFileOperationsHelper().
+                    setPasswordToShareViaLink(mFile, password);
 
         } else {
             // Disable the flag "Share again"

@@ -329,10 +329,7 @@ public class FileOperationsHelper {
      */
     public void requestPasswordForShareViaLink(OCFile file) {
         SharePasswordDialogFragment dialog =
-                SharePasswordDialogFragment.newInstance(
-                        file,
-                        null
-                );
+                SharePasswordDialogFragment.newInstance(file);
         dialog.show(
                 mFileActivity.getSupportFragmentManager(),
                 SharePasswordDialogFragment.PASSWORD_FRAGMENT
@@ -406,8 +403,7 @@ public class FileOperationsHelper {
 
             // Show dialog, without the own app
             String[] packagesToExclude = new String[]{mFileActivity.getPackageName()};
-            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent,
-                    packagesToExclude, file);
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude);
             chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
         } else {
