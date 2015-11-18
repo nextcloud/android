@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App name  and other strings-->
-    <string name="app_name">Owncloud Beta</string>
+    <string name="app_name">ownCloud beta</string>
     <string name="account_type">owncloud.beta</string>	<!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
     <string name="authority">org.owncloud.beta.provider</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
     <string name="authorityCache">org.owncloud.beta.imageCache.provider</string>
