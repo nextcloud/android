@@ -462,8 +462,15 @@ public class Preferences extends PreferenceActivity
         /* About App */
        pAboutApp = (Preference) findPreference("about_app");
        if (pAboutApp != null) { 
-               pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
-               pAboutApp.setSummary(String.format(getString(R.string.about_version), BuildConfig.VERSION_CODE));
+               pAboutApp.setTitle(String.format(getString(R.string.about_android),
+                                                getString(R.string.app_name)));
+           try {
+               Integer currentVersion = getPackageManager().getPackageInfo
+                  (getPackageName(), 0).versionCode;
+               pAboutApp.setSummary(String.format(getString(R.string.about_version),
+                                    currentVersion));
+           } catch (NameNotFoundException e) {
+           }
        }
 
        loadInstantUploadPath();
