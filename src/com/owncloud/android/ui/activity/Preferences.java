@@ -487,20 +487,26 @@ public class Preferences extends PreferenceActivity
             pBetaLink.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    Integer currentVersion = BuildConfig.VERSION_CODE;
-                    LoadingVersionNumberTask loadTask = new LoadingVersionNumberTask();
-                    loadTask.execute();
                     Integer latestVersion = -1;
+                    Integer currentVersion = -1;
                     try {
+                        currentVersion = getPackageManager().getPackageInfo
+                                                 (getPackageName(), 0).versionCode;
+                        LoadingVersionNumberTask loadTask = new LoadingVersionNumberTask();
+                        loadTask.execute();
                         latestVersion = loadTask.get();
                     } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
+                    } catch (NameNotFoundException e) {
+                        e.printStackTrace();
                     }
-                    if (latestVersion == -1) {
-                        Toast.makeText(getApplicationContext(), "No information available!", Toast.LENGTH_SHORT).show();
+                    if (latestVersion == -1 || currentVersion == -1) {
+                        Toast.makeText(getApplicationContext(), "No information available!",
+                                       Toast.LENGTH_SHORT).show();
                     }
                     if (latestVersion > currentVersion) {
-                        String betaLinkWeb = (String) getText(R.string.beta_link) + latestVersion + ".apk";
+                        String betaLinkWeb = (String) getText(R.string.beta_link) +
+                                                              latestVersion + ".apk";
                         if (betaLinkWeb != null && betaLinkWeb.length() > 0) {
                             Uri uriUrl = Uri.parse(betaLinkWeb);
                             Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
@@ -508,7 +514,8 @@ public class Preferences extends PreferenceActivity
                             return true;
                         }
                     } else {
-                        Toast.makeText(getApplicationContext(), "No new version available!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "No new version available!",
+                                       Toast.LENGTH_SHORT).show();
                         return true;
                     }
                     return true;
@@ -518,7 +525,7 @@ public class Preferences extends PreferenceActivity
 
         /* Link to Beta apks */
         Preference pChangelogLink =  findPreference("changelog_link");
-        if (pChangelogLink != null){
+        if (pChangelogLink != null) {
             pChangelogLink.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
