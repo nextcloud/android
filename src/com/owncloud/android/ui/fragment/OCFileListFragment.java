@@ -632,9 +632,9 @@ public class OCFileListFragment extends ExtendedListFragment {
                 }
                 case R.id.action_copy:
                     Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-
-                    // Pass mTargetFile that contains info of selected file/folder
-                    action.putExtra(FolderPickerActivity.EXTRA_FILE, mTargetFile);
+                    ArrayList files = new ArrayList();
+                    files.add(mTargetFile);
+                    action.putExtra(FolderPickerActivity.EXTRA_FILES, files);
                     getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_COPY_FILES);
                     return true;
                 default:
