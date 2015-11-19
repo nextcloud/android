@@ -528,7 +528,8 @@ public class FileOperationsHelper {
                 Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
                 intent.setDataAndType(sendUri, file.getMimetype());
                 intent.putExtra("mimeType", file.getMimetype());
-                mFileActivity.startActivityForResult(Intent.createChooser(intent, "Set As"), 200);
+                mFileActivity.startActivityForResult(Intent.createChooser(intent,
+                                                    mFileActivity.getString(R.string.set_as)), 200);
             } else {
 //                 TODO re-enable after resized images is available
 //                Uri sendUri = Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + file.getRemotePath());
