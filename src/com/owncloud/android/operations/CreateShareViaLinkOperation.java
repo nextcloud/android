@@ -41,8 +41,6 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 
-import java.util.ArrayList;
-
 public class CreateShareViaLinkOperation extends SyncOperation {
 
     private String mPath;
@@ -76,19 +74,19 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         RemoteOperation operation = new GetRemoteSharesForFileOperation(mPath, false, false);
         RemoteOperationResult result = operation.execute(client);
 
-        boolean shareByLink = false;
-        // Check if the file is shared by link
-        if (result.isSuccess() && result.getData().size() > 0){
-            ArrayList<Object> shares = result.getData();
-            for(Object object: shares){
-                if (((OCShare) object).getShareType() == ShareType.PUBLIC_LINK){
-                    shareByLink = true;
+        // Create public link if doesn't exist yet
+        boolean publicShareExists = false;
+        if (result.isSuccess()) {
+            OCShare share = null;
+            for (int i=0 ; i<result.getData().size(); i++) {
+                share = (OCShare) result.getData().get(i);
+                if (ShareType.PUBLIC_LINK.equals(share.getShareType())) {
+                    publicShareExists = true;
                     break;
                 }
             }
         }
-
-        if (!result.isSuccess() || !shareByLink) {
+        if (!publicShareExists) {
             CreateRemoteShareOperation createOp = new CreateRemoteShareOperation(
                     mPath,
                     ShareType.PUBLIC_LINK,
