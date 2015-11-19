@@ -441,6 +441,7 @@
     <string name="file_list__footer__files_and_folder">%1$d files, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d files, %2$d folders</string>
     <string name="set_picture_as">Set picture as</string>
+    <string name="set_as">Set As</string>
 
     <string name="prefs_instant_behaviour_dialogTitle">Original file will be&#8230;</string>
     <string name="prefs_instant_behaviour_title">Original file will be&#8230;</string>
