@@ -1047,7 +1047,7 @@ public class FileDisplayActivity extends HookActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                String uploadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+                String uploadedRemotePath = intent.getStringExtra(FileUploader.EXTRA_REMOTE_PATH);
                 String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
                 boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
                 OCFile currentDir = getCurrentDir();
@@ -1056,7 +1056,7 @@ public class FileDisplayActivity extends HookActivity
 
                 if (sameAccount && isDescendant) {
                     String linkedToRemotePath =
-                            intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
+                            intent.getStringExtra(FileUploader.EXTRA_LINKED_TO_PATH);
                     if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
                         refreshListOfFilesFragment();
                     }
