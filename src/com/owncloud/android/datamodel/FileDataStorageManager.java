@@ -47,18 +47,11 @@ import android.provider.MediaStore;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.utils.FileStorageUtils;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 public class FileDataStorageManager {
 
@@ -711,42 +704,74 @@ public class FileDataStorageManager {
                 if (!targetFolder.exists()) {
                     targetFolder.mkdirs();
                 }
-                copied = copyFile(localFile, targetFile);
+                copied = FileStorageUtils.copyFile(localFile, targetFile);
             }
             Log_OC.d(TAG, "Local file COPIED : " + copied);
         }
     }
 
-    private boolean copyFile(File src, File target) {
-        boolean ret = true;
+    public void migrateStoredFiles(String srcPath, String dstPath) throws Exception {
+        Cursor c = null;
+        if (getContentResolver() != null) {
+            c = getContentResolver().query(ProviderTableMeta.CONTENT_URI_FILE,
+                    null,
+                    ProviderTableMeta.FILE_STORAGE_PATH  + " IS NOT NULL",
+                    null,
+                    null);
 
-        InputStream in = null;
-        OutputStream out = null;
-
-        try {
-            in = new FileInputStream(src);
-            out = new FileOutputStream(target);
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
-        } catch (IOException ex) {
-            ret = false;
-        } finally {
-            if (in != null) try {
-                in.close();
-            } catch (IOException e) {
-                e.printStackTrace(System.err);
-            }
-            if (out != null) try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace(System.err);
+        } else {
+            try {
+                c = getContentProviderClient().query(ProviderTableMeta.CONTENT_URI_FILE,
+                        new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_STORAGE_PATH},
+                        ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL",
+                        null,
+                        null);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, e.getMessage());
+                throw e;
             }
         }
 
-        return ret;
+        ArrayList<ContentProviderOperation> operations =
+                new ArrayList<ContentProviderOperation>(c.getCount());
+        if (c.moveToFirst()) {
+            do {
+                ContentValues cv = new ContentValues();
+                long fileId = c.getLong(c.getColumnIndex(ProviderTableMeta._ID));
+                String oldFileStoragePath = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
+
+                if (oldFileStoragePath.startsWith(srcPath)) {
+
+                    cv.put(
+                            ProviderTableMeta.FILE_STORAGE_PATH,
+                            oldFileStoragePath.replaceFirst(srcPath, dstPath));
+
+                    operations.add(
+                            ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
+                                    withValues(cv).
+                                    withSelection(
+                                            ProviderTableMeta._ID + "=?",
+                                            new String[]{String.valueOf(fileId)}
+                                    )
+                                    .build());
+                }
+
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        /// 3. apply updates in batch
+        try {
+            if (getContentResolver() != null) {
+                getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+
+            } else {
+                getContentProviderClient().applyBatch(operations);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     

@@ -24,10 +24,13 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.preference.PreferenceManager;
 
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -56,6 +59,8 @@ public class MainApp extends Application {
 
     private static Context mContext;
 
+    private static String storagePath;
+
     private static boolean mOnlyOnDevice = false;
 
     
@@ -66,6 +71,12 @@ public class MainApp extends Application {
         // Setup handler for uncaught exceptions.
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
         
+
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        MainApp.storagePath = appPrefs.getString("storage_path", Environment.
+                              getExternalStorageDirectory().getAbsolutePath());
+
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
@@ -85,7 +96,7 @@ public class MainApp extends Application {
             // Set folder for store logs
             Log_OC.setLogDataFolder(dataFolder);
 
-            Log_OC.startLogging();
+            Log_OC.startLogging(MainApp.storagePath);
             Log_OC.d("Debug", "start logging");
         }
 
@@ -136,6 +147,14 @@ public class MainApp extends Application {
 
     public static Context getAppContext() {
         return MainApp.mContext;
+    }
+
+    public static String getStoragePath(){
+        return MainApp.storagePath;
+    }
+
+    public static void setStoragePath(String path){
+        MainApp.storagePath = path;
     }
 
     // Methods to obtain Strings referring app_name 
