@@ -1884,6 +1884,8 @@ public class FileDataStorageManager {
 
         if (c.moveToFirst()) {
             capability = createCapabilityInstance(c);
+        } else {
+            capability = new OCCapability();    // return default with all UNKNOWN
         }
         c.close();
         return capability;

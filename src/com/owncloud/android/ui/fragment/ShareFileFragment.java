@@ -145,6 +145,7 @@ public class ShareFileFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log_OC.d(TAG, "onCreate");
         if (getArguments() != null) {
             mFile = getArguments().getParcelable(ARG_FILE);
             mAccount = getArguments().getParcelable(ARG_ACCOUNT);
@@ -158,6 +159,8 @@ public class ShareFileFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log_OC.d(TAG, "onCreateView");
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.share_file_layout, container, false);
 
@@ -204,24 +207,12 @@ public class ShareFileFragment extends Fragment
         // Switch to create public share
         mOnShareViaLinkSwitchCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isResumed()) {
-                    // very important, setCheched(...) is called automatically during
-                    // Fragment recreation on device rotations
-                    return;
-                 }
-                if (isChecked) {
-                    ((FileActivity) getActivity()).getFileOperationsHelper().
-                            shareFileViaLink(mFile);
-
-                } else {
-                    ((FileActivity) getActivity()).getFileOperationsHelper().
-                            unshareFileViaLink(mFile);
-                }
+            public void onCheckedChanged(CompoundButton switchView, boolean isChecked) {
             }
         };
-        Switch shareViaLinkSwitch = (Switch) view.findViewById(R.id.shareViaLinkSectionSwitch);
-        shareViaLinkSwitch.setOnCheckedChangeListener(mOnShareViaLinkSwitchCheckedChangeListener);
+
+        // Set listener for user actions on switch for sharing/unsharing via link
+        initShareViaLinkListener(view);
 
         // Set listener for user actions on expiration date
         initExpirationListener(view);
@@ -231,6 +222,68 @@ public class ShareFileFragment extends Fragment
 
         return view;
     }
+
+
+    /**
+     * Binds listener for user actions to create or delete a public share
+     * to the views receiving the user events.
+     *
+     * @param shareView     Root view in the fragment.
+     */
+    private void initShareViaLinkListener(View shareView) {
+        mOnShareViaLinkSwitchCheckedChangeListener = new OnShareViaLinkListener();
+        Switch shareViaLinkSwitch = (Switch) shareView.findViewById(R.id.shareViaLinkSectionSwitch);
+        shareViaLinkSwitch.setOnCheckedChangeListener(mOnShareViaLinkSwitchCheckedChangeListener);
+    }
+
+    /**
+     * Listener for user actions that create or delete a public share.
+     */
+    private class OnShareViaLinkListener
+            implements CompoundButton.OnCheckedChangeListener {
+
+        /**
+         * Called by R.id.shareViaLinkSectionSwitch to create or delete a public link.
+         *
+         * @param switchView    {@link Switch} toggled by the user, R.id.shareViaLinkSectionSwitch
+         * @param isChecked     New switch state.
+         */
+        @Override
+        public void onCheckedChanged(CompoundButton switchView, boolean isChecked) {
+            if (!isResumed()) {
+                // very important, setCheched(...) is called automatically during
+                // Fragment recreation on device rotations
+                return;
+            }
+            if (isChecked) {
+                if (mCapabilities != null &&
+                        mCapabilities.getFilesSharingPublicPasswordEnforced().isTrue()) {
+                    // password enforced by server, request to the user before trying to create
+                    ((FileActivity) getActivity()).getFileOperationsHelper().
+                            requestPasswordForShareViaLink(mFile, true);
+
+                } else {
+                    // create without password if not enforced by server or we don't know if enforced;
+                    ((FileActivity) getActivity()).getFileOperationsHelper().
+                            shareFileViaLink(mFile, null);
+
+                    // FileActivtiy#onCreateShareViaLinkOperationFinish still handles the guess of enforcement
+                    // for server in versions previous to OwnCloudVersion#MINIMUM_VERSION_CAPABILITIES_API
+                }
+
+            } else {
+                ((FileActivity) getActivity()).getFileOperationsHelper().
+                        unshareFileViaLink(mFile);
+            }
+
+            // undo the toggle to grant the view will be correct if any intermediate dialog is cancelled or
+            // the create/delete operation fails
+            switchView.setOnCheckedChangeListener(null);
+            switchView.toggle();
+            switchView.setOnCheckedChangeListener(mOnShareViaLinkSwitchCheckedChangeListener);
+        }
+    }
+
 
     /**
      * Binds listener for user actions that start any update on a expiration date
@@ -357,7 +410,7 @@ public class ShareFileFragment extends Fragment
             }
             if (isChecked) {
                 ((FileActivity) getActivity()).getFileOperationsHelper().
-                        requestPasswordForShareViaLink(mFile);
+                        requestPasswordForShareViaLink(mFile, false);
             } else {
                 ((FileActivity) getActivity()).getFileOperationsHelper().
                         setPasswordToShareViaLink(mFile, "");   // "" clears
@@ -379,7 +432,7 @@ public class ShareFileFragment extends Fragment
         public void onClick(View passwordView) {
             if (mPublicShare != null && mPublicShare.isPasswordProtected()) {
                 ((FileActivity) getActivity()).getFileOperationsHelper().
-                        requestPasswordForShareViaLink(mFile);
+                        requestPasswordForShareViaLink(mFile, false);
             }
         }
     }
@@ -388,6 +441,7 @@ public class ShareFileFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log_OC.d(TAG, "onActivityCreated");
 
         // Load known capabilities of the server from DB
         refreshCapabilitiesFromDB();

@@ -89,7 +89,7 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         }
 
         if (!result.isSuccess() || !shareByLink) {
-            operation = new CreateRemoteShareOperation(
+            CreateRemoteShareOperation createOp = new CreateRemoteShareOperation(
                     mPath,
                     ShareType.PUBLIC_LINK,
                     "",
@@ -97,7 +97,8 @@ public class CreateShareViaLinkOperation extends SyncOperation {
                     mPassword,
                     OCShare.DEFAULT_PERMISSION
             );
-            result = operation.execute(client);
+            createOp.setGetShareDetails(true);
+            result = createOp.execute(client);
         }
         
         if (result.isSuccess()) {

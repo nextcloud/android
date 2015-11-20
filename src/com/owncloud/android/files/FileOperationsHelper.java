@@ -143,18 +143,22 @@ public class FileOperationsHelper {
     /**
      * Helper method to share a file via a public link. Starts a request to do it in {@link OperationsService}
      *
-     * @param file      The file to share.
+     * @param file          The file to share.
+     * @param password      Optional password to protect the public share.
      */
-    public void shareFileViaLink(OCFile file) {
+    public void shareFileViaLink(OCFile file, String password) {
         if (isSharedSupported()) {
             if (file != null) {
                 mFileActivity.showLoadingDialog(
                         mFileActivity.getApplicationContext().
-                        getString(R.string.wait_a_moment)
+                                getString(R.string.wait_a_moment)
                 );
                 Intent service = new Intent(mFileActivity, OperationsService.class);
                 service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
                 service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+                if (password != null && password.length() > 0) {
+                    service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, password);
+                }
                 service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
                 mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
@@ -325,11 +329,14 @@ public class FileOperationsHelper {
     /**
      * Starts a dialog that requests a password to the user to protect a share link.
      *
-     * @param   file        File which public share will be protected by the requested password
+     * @param   file            File which public share will be protected by the requested password
+     * @param   createShare     When 'true', the request for password will be followed by the creation of a new
+     *                          public link; when 'false', a public share is assumed to exist, and the password
+     *                          is bound to it.
      */
-    public void requestPasswordForShareViaLink(OCFile file) {
+    public void requestPasswordForShareViaLink(OCFile file, boolean createShare) {
         SharePasswordDialogFragment dialog =
-                SharePasswordDialogFragment.newInstance(file);
+                SharePasswordDialogFragment.newInstance(file, createShare);
         dialog.show(
                 mFileActivity.getSupportFragmentManager(),
                 SharePasswordDialogFragment.PASSWORD_FRAGMENT
