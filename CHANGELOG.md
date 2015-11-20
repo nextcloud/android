@@ -1,3 +1,7 @@
+# 2015-11-20
+- PR [#1293] (https://github.com/owncloud/android/pull/1293) "External SD by przybylski" merged
+- PR [#1296] (https://github.com/owncloud/android/pull/1296) "Don't allow to remove passcode without entering it. Don't allow to set incomplete passcode by przybylski" merged
+
 # 2015-11-18
 - update all PR
 - fix #1259
