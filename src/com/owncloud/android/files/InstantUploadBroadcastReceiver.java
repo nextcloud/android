@@ -125,6 +125,12 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
 
         // instant upload behaviour
+        i = addInstantUploadBehaviour(i, context);
+
+        context.startService(i);
+    }
+
+    private Intent addInstantUploadBehaviour(Intent i, Context context){
         SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String behaviour = appPreferences.getString("prefs_instant_behaviour", "NOTHING");
 
@@ -142,7 +148,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             Log_OC.d(TAG, "upload file and delete file in original place");
         }
 
-        context.startService(i);
+        return i;
     }
 
     private void handleNewVideoAction(Context context, Intent intent) {
@@ -189,22 +195,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
 
         // instant upload behaviour
-        SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String behaviour = appPreferences.getString("prefs_instant_behaviour", "NOTHING");
-
-        if (behaviour.equalsIgnoreCase("NOTHING")) {
-            Log_OC.d(TAG, "upload file and do nothing");
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
-        } else if (behaviour.equalsIgnoreCase("COPY")) {
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_COPY);
-            Log_OC.d(TAG, "upload file and copy file to oc folder");
-        } else if (behaviour.equalsIgnoreCase("MOVE")) {
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
-            Log_OC.d(TAG, "upload file and move file to oc folder");
-        } else if (behaviour.equalsIgnoreCase("DELETE")){
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_REMOVE);
-            Log_OC.d(TAG, "upload file and delete file in original place");
-        }
+        i = addInstantUploadBehaviour(i, context);
 
         context.startService(i);
 
@@ -248,22 +239,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
 
                         // instant upload behaviour
-                        SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                        String behaviour = appPreferences.getString("prefs_instant_behaviour", "NOTHING");
-
-                        if (behaviour.equalsIgnoreCase("NOTHING")) {
-                            Log_OC.d(TAG, "upload file and do nothing");
-                            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
-                        } else if (behaviour.equalsIgnoreCase("COPY")) {
-                            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_COPY);
-                            Log_OC.d(TAG, "upload file and copy file to oc folder");
-                        } else if (behaviour.equalsIgnoreCase("MOVE")) {
-                            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
-                            Log_OC.d(TAG, "upload file and move file to oc folder");
-                        } else if (behaviour.equalsIgnoreCase("DELETE")){
-                            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_REMOVE);
-                            Log_OC.d(TAG, "upload file and delete file in original place");
-                        }
+                        i = addInstantUploadBehaviour(i, context);
 
                         context.startService(i);
 

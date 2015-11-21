@@ -325,6 +325,8 @@ public class UploadFileOperation extends RemoteOperation {
                 throw new OperationCancelledException();
             }
 
+            result = mUploadOperation.execute(client);
+
             /// move local temporal file or original file to its corresponding
             // location in the ownCloud local folder
             if (result.isSuccess()) {
