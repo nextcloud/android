@@ -1,6 +1,7 @@
 # 2015-11-21
 - fix #1297
 - update all PR
+- try for #1278
 
 # 2015-11-20
 - PR [#1293] (https://github.com/owncloud/android/pull/1293) "External SD by przybylski" merged
