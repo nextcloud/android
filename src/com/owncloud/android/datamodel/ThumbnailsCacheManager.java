@@ -271,7 +271,7 @@ public class ThumbnailsCacheManager {
                             }
                         }
                         imageView.setImageBitmap(bitmap);
-                        imageView.setVisibility(View.VISIBLE);
+                        // imageView.setVisibility(View.VISIBLE);
                     }
                 }
             }
