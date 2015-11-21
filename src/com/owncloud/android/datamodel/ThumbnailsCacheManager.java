@@ -195,10 +195,6 @@ public class ThumbnailsCacheManager {
         }
 
         protected void onPostExecute(Bitmap bitmap){
-            if (isCancelled()) {
-                bitmap = null;
-            }
-
             if (bitmap != null) {
                 final ImageView imageView = mImageViewReference.get();
                 final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
@@ -365,6 +361,7 @@ public class ThumbnailsCacheManager {
             if (bitmapData == null || bitmapData != file) {
                 // Cancel previous task
                 bitmapWorkerTask.cancel(true);
+                Log_OC.v(TAG, "Cancelled generation of thumbnail for a reused imageView");
             } else {
                 // The same work is already in progress
                 return false;

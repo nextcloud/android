@@ -79,13 +79,14 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
-import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.CreateShareViaLinkOperation;
+import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.operations.UnshareLinkOperation;
+import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -115,8 +116,6 @@ import java.io.File;
 public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
         OnSslUntrustedCertListener, OnEnforceableRefreshListener {
-
-
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -224,6 +223,13 @@ public class FileDisplayActivity extends HookActivity
         Log_OC.v(TAG, "onStart() start");
         super.onStart();
         Log_OC.v(TAG, "onStart() end");
+    }
+
+    @Override
+    protected void onStop() {
+        Log_OC.v(TAG, "onStop() start");
+        super.onStop();
+        Log_OC.v(TAG, "onStop() end");
     }
 
     @Override
@@ -636,7 +642,7 @@ public class FileDisplayActivity extends HookActivity
                             requestMoveOperation(fData, fResultCode);
                         }
                     },
-                    DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
+                    DELAY_TO_REQUEST_OPERATIONS_LATER
             );
 
         } else if (requestCode == ACTION_COPY_FILES && resultCode == RESULT_OK) {
@@ -650,7 +656,7 @@ public class FileDisplayActivity extends HookActivity
                             requestCopyOperation(fData, fResultCode);
                         }
                     },
-                    DELAY_TO_REQUEST_OPERATION_ON_ACTIVITY_RESULTS
+                    DELAY_TO_REQUEST_OPERATIONS_LATER
             );
 
         } else {
@@ -983,6 +989,7 @@ public class FileDisplayActivity extends HookActivity
                             }
 
                         }
+
                     }
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
@@ -1048,7 +1055,11 @@ public class FileDisplayActivity extends HookActivity
                         (uploadedRemotePath.startsWith(currentDir.getRemotePath()));
 
                 if (sameAccount && isDescendant) {
-                    refreshListOfFilesFragment();
+                    String linkedToRemotePath =
+                            intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
+                    if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
+                        refreshListOfFilesFragment();
+                    }
                 }
 
                 boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT,
@@ -1101,6 +1112,16 @@ public class FileDisplayActivity extends HookActivity
 
         }
 
+        // TODO refactor this receiver, and maybe DownloadFinishReceiver; this method is duplicated :S
+        private boolean isAscendant(String linkedToRemotePath) {
+            OCFile currentDir = getCurrentDir();
+            return (
+                    currentDir != null &&
+                            currentDir.getRemotePath().startsWith(linkedToRemotePath)
+            );
+        }
+
+
     }
 
 
@@ -1112,11 +1133,10 @@ public class FileDisplayActivity extends HookActivity
      */
     private class DownloadFinishReceiver extends BroadcastReceiver {
 
-        //int refreshCounter = 0;
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                boolean sameAccount = isSameAccount(context, intent);
+                boolean sameAccount = isSameAccount(intent);
                 String downloadedRemotePath =
                         intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
                 boolean isDescendant = isDescendant(downloadedRemotePath);
@@ -1125,7 +1145,6 @@ public class FileDisplayActivity extends HookActivity
                     String linkedToRemotePath =
                             intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
                     if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
-                        //Log_OC.v(TAG, "refresh #" + ++refreshCounter);
                         refreshListOfFilesFragment();
                     }
                     refreshSecondFragment(
@@ -1167,7 +1186,7 @@ public class FileDisplayActivity extends HookActivity
             );
         }
 
-        private boolean isSameAccount(Context context, Intent intent) {
+        private boolean isSameAccount(Intent intent) {
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
             return (accountName != null && getAccount() != null &&
                     accountName.equals(getAccount().name));
@@ -1334,11 +1353,14 @@ public class FileDisplayActivity extends HookActivity
         } else if (operation instanceof CreateFolderOperation) {
             onCreateFolderOperationFinish((CreateFolderOperation) operation, result);
 
-        } else if (operation instanceof CreateShareOperation) {
-            onCreateShareOperationFinish((CreateShareOperation) operation, result);
+        } else if (operation instanceof CreateShareViaLinkOperation ||
+                    operation instanceof CreateShareWithShareeOperation ) {
 
-        } else if (operation instanceof UnshareLinkOperation) {
-            onUnshareLinkOperationFinish((UnshareLinkOperation) operation, result);
+            refreshShowDetails();
+            refreshListOfFilesFragment();
+
+        } else if (operation instanceof UnshareOperation) {
+            onUnshareLinkOperationFinish((UnshareOperation) operation, result);
 
         } else if (operation instanceof MoveFileOperation) {
             onMoveFileOperationFinish((MoveFileOperation) operation, result);
@@ -1348,15 +1370,8 @@ public class FileDisplayActivity extends HookActivity
         }
 
     }
-    private void onCreateShareOperationFinish(CreateShareOperation operation,
-                                              RemoteOperationResult result) {
-        if (result.isSuccess()) {
-            refreshShowDetails();
-            refreshListOfFilesFragment();
-        }
-    }
 
-    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation,
+    private void onUnshareLinkOperationFinish(UnshareOperation operation,
                                               RemoteOperationResult result) {
         if (result.isSuccess()) {
             refreshShowDetails();
@@ -1397,8 +1412,6 @@ public class FileDisplayActivity extends HookActivity
      */
     private void onRemoveFileOperationFinish(RemoveFileOperation operation,
                                              RemoteOperationResult result) {
-        dismissLoadingDialog();
-
         Toast msg = Toast.makeText(this,
                 ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                 Toast.LENGTH_LONG);
@@ -1437,10 +1450,8 @@ public class FileDisplayActivity extends HookActivity
     private void onMoveFileOperationFinish(MoveFileOperation operation,
                                            RemoteOperationResult result) {
         if (result.isSuccess()) {
-            dismissLoadingDialog();
             refreshListOfFilesFragment();
         } else {
-            dismissLoadingDialog();
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this,
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
@@ -1462,10 +1473,8 @@ public class FileDisplayActivity extends HookActivity
      */
     private void onCopyFileOperationFinish(CopyFileOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
-            dismissLoadingDialog();
             refreshListOfFilesFragment();
         } else {
-            dismissLoadingDialog();
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this,
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
@@ -1487,7 +1496,6 @@ public class FileDisplayActivity extends HookActivity
      */
     private void onRenameFileOperationFinish(RenameFileOperation operation,
                                              RemoteOperationResult result) {
-        dismissLoadingDialog();
         OCFile renamedFile = operation.getFile();
         if (result.isSuccess()) {
             FileFragment details = getSecondFragment();
@@ -1541,6 +1549,7 @@ public class FileDisplayActivity extends HookActivity
                 OCFile syncedFile = operation.getLocalFile();
                 onTransferStateChanged(syncedFile, true, true);
                 invalidateOptionsMenu();
+                refreshShowDetails();
             }
         }
     }
@@ -1555,10 +1564,8 @@ public class FileDisplayActivity extends HookActivity
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
         if (result.isSuccess()) {
-            dismissLoadingDialog();
             refreshListOfFilesFragment();
         } else {
-            dismissLoadingDialog();
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this,
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
@@ -1621,26 +1628,60 @@ public class FileDisplayActivity extends HookActivity
         return null;
     }
 
-    public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
-        long currentSyncTime = System.currentTimeMillis();
+    /**
+     * Starts an operation to refresh the requested folder.
+     *
+     * The operation is run in a new background thread created on the fly.
+     *
+     * The refresh updates is a "light sync": properties of regular files in folder are updated (including
+     * associated shares), but not their contents. Only the contents of files marked to be kept-in-sync are
+     * synchronized too.
+     *
+     * @param folder        Folder to refresh.
+     * @param ignoreETag    If 'true', the data from the server will be fetched and sync'ed even if the eTag
+     *                      didn't change.
+     */
+    public void startSyncFolderOperation(final OCFile folder, final boolean ignoreETag) {
 
-        mSyncInProgress = true;
+        // the execution is slightly delayed to allow the activity get the window focus if it's being started
+        // or if the method is called from a dialog that is being dismissed
+        getHandler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        if (hasWindowFocus()) {
+                            long currentSyncTime = System.currentTimeMillis();
+                            mSyncInProgress = true;
 
-        // perform folder synchronization
-        RemoteOperation synchFolderOp = new RefreshFolderOperation( folder,
-                currentSyncTime,
-                false,
-                getFileOperationsHelper().isSharedSupported(),
-                ignoreETag,
-                getStorageManager(),
-                getAccount(),
-                getApplicationContext()
+                            // perform folder synchronization
+                            RemoteOperation synchFolderOp = new RefreshFolderOperation(folder,
+                                    currentSyncTime,
+                                    false,
+                                    getFileOperationsHelper().isSharedSupported(),
+                                    ignoreETag,
+                                    getStorageManager(),
+                                    getAccount(),
+                                    getApplicationContext()
+                            );
+                            synchFolderOp.execute(
+                                    getAccount(),
+                                    MainApp.getAppContext(),
+                                    FileDisplayActivity.this,
+                                    null,
+                                    null
+                            );
+
+                            mProgressBar.setIndeterminate(true);
+
+                            setBackgroundText();
+
+                        }   // else: NOTHING ; lets' not refresh when the user rotates the device but there is
+                        // another window floating over
+                    }
+                },
+                DELAY_TO_REQUEST_OPERATIONS_LATER
         );
-        synchFolderOp.execute(getAccount(), MainApp.getAppContext(), this, null, null);
 
-        mProgressBar.setIndeterminate(true);
-
-        setBackgroundText();
     }
 
     /**

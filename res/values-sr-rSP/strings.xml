@@ -34,7 +34,6 @@
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Ok</string>
-  <string name="common_cancel_upload">Otkaži otpremanje</string>
   <string name="common_cancel">Otkaži</string>
   <string name="common_error">Greška</string>
   <string name="common_error_unknown">Nepoznata greška</string>
@@ -73,4 +72,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Nalozi</string>
   <string name="folder_picker_choose_button_text">Izaberi</string>
+  <string name="share_search">Traži</string>
 </resources>

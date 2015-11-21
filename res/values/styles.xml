@@ -224,4 +224,10 @@
 		
 	<color name="setup_text_hint">#777777</color>
 	<color name="setup_text_typed">#000000</color>
+    <style name="Theme.ownCloud.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.ownCloud.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.ownCloud.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -74,6 +74,7 @@
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_empty">Nothing in here. Upload something!</string>
     <string name="file_list_loading">Loading&#8230;</string>
+    <string name="file_list_no_app_for_file_type">No App found for file type!</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
     <string name="filedetails_size">Size:</string>
@@ -81,16 +82,16 @@
     <string name="filedetails_created">Created:</string>
     <string name="filedetails_modified">Modified:</string>
     <string name="filedetails_download">Download</string>
-    <string name="filedetails_sync_file">Refresh file</string>
+    <string name="filedetails_sync_file">Synchronize</string>
     <string name="filedetails_renamed_in_upload_msg">File was renamed to %1$s during upload</string>
     <string name="list_layout">List Layout</string>
     <string name="action_share_file">Share link</string>
     <string name="action_unshare_file">Unshare link</string>
+    <string name="action_share_with_users">Share with users</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
-    <string name="common_cancel_download">Cancel download</string>
-    <string name="common_cancel_upload">Cancel upload</string>
+    <string name="common_cancel_sync">Cancel synchronization</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_save_exit">Save &amp; Exit</string>
     <string name="common_error">Error</string>
@@ -253,6 +254,9 @@
     <string name="ssl_validator_label_validity_to">To:</string>
     <string name="ssl_validator_label_signature">Signature:</string>
     <string name="ssl_validator_label_signature_algorithm">Algorithm:</string>
+    <string name="digest_algorithm_not_available">This digest algorithm is not available on your phone.</string>
+    <string name="ssl_validator_label_certificate_fingerprint">Fingerprint:</string>
+    <string name="certificate_load_problem">There is a problem loading the certificate.</string>
     <string name="ssl_validator_null_cert">The certificate could not be shown.</string>
     <string name="ssl_validator_no_info_about_error">- No information about the error</string>
 
@@ -342,13 +346,13 @@
 	<string name="prefs_category_security">Security</string>
 
 	<string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
-    <string name="download_folder_failed_content">Download of %1$s folder could not be completed</string>
+    <string name="sync_folder_failed_content">Synchronization of %1$s folder could not be completed</string>
 
 	<string name="shared_subject_header">shared</string>
 	<string name="with_you_subject_header">with you</string>
     
-	<string name="subject_token">%1$s shared \"%2$s\" with you</string>
-    <string name="saml_subject_token">\"%1$s\" has been shared with you</string>
+	<string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
+    <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
 
     <string name="auth_refresh_button">Refresh connection</string>
     <string name="auth_host_address">Server address</string>
@@ -373,5 +377,17 @@
     <string name="pref_behaviour_entries_copy">copy file to OC folder</string>
     <string name="pref_behaviour_entries_move">move file to OC folder</string>
     <string name="pref_behaviour_entries_delete">delete origin file</string>
+
+    <string name="share_dialog_title">Sharing</string>
+    <string name="share_with_user_section_title">Share with Users and Groups</string>
+    <string name="share_no_users">No data shared with users yet</string>
+    <string name="share_add_user_or_group">Add User or Group</string>
+    <string name="share_search">Search</string>
+
+    <string name="search_users_and_groups_hint">Search users and groups</string>
+    <string name="share_group_clarification">%1$s (group)</string>
+
+    <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients.
+        \nPlease contact your administrator</string>
 
 </resources>
