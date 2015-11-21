@@ -325,14 +325,14 @@ public class UploadFileOperation extends RemoteOperation {
                 throw new OperationCancelledException();
             }
 
-            result = mUploadOperation.execute(client);
-
             /// move local temporal file or original file to its corresponding
             // location in the ownCloud local folder
             if (result.isSuccess()) {
                 if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
                     mFile.setStoragePath(null);
-
+                } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_REMOVE){
+                    mFile.setStoragePath(null);
+                    originalFile.delete();
                 } else {
                     mFile.setStoragePath(expectedPath);
                     File fileToMove = null;
@@ -359,10 +359,9 @@ public class UploadFileOperation extends RemoteOperation {
                             // return result;
                         }
                     }
-                    FileDataStorageManager.triggerMediaScan(originalFile.getAbsolutePath());
-                    FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
                 }
-
+                FileDataStorageManager.triggerMediaScan(originalFile.getAbsolutePath());
+                FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
             } else if (result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
             }
