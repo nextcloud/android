@@ -77,7 +77,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
         mAccount = account;
         mStorageManager = storageManager;
-        mImageFiles = mStorageManager.getFolderImages(parentFolder, false);
+        mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
         
         mImageFiles = FileStorageUtils.sortOcFolder(mImageFiles);
         
