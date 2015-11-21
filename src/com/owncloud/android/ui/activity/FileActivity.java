@@ -145,6 +145,8 @@ public class FileActivity extends AppCompatActivity
 
     private OperationsServiceBinder mOperationsServiceBinder = null;
 
+    private boolean mResumed = false;
+
     protected FileDownloaderBinder mDownloaderBinder = null;
     protected FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
@@ -257,7 +259,7 @@ public class FileActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-
+        mResumed = true;
         if (mOperationsServiceBinder != null) {
             doOnResumeAndBound();
         }
@@ -268,7 +270,7 @@ public class FileActivity extends AppCompatActivity
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
-
+        mResumed = false;
         super.onPause();
     }
 
@@ -903,7 +905,9 @@ public class FileActivity extends AppCompatActivity
                 /*if (!mOperationsServiceBinder.isPerformingBlockingOperation()) {
                     dismissLoadingDialog();
                 }*/
-                doOnResumeAndBound();
+                if (mResumed) {
+                    doOnResumeAndBound();
+                }
 
             } else {
                 return;
