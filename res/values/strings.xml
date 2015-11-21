@@ -411,6 +411,7 @@
     <string name="action_stream_file">Stream file with external player</string>
     <string name="stream_expose_password">Do you want to stream this file with an external app?\n\nCAUTION: This may expose your password!</string>
     <string name="set_picture_as">Set picture as</string>
+    <string name="set_as">Set As</string>
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_with_user_section_title">Share with Users and Groups</string>
