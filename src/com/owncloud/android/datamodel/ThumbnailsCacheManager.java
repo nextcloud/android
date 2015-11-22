@@ -31,6 +31,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 
 import android.accounts.Account;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -44,6 +45,7 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.MenuItem;
+import android.preference.PreferenceManager;
 import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
@@ -75,12 +77,12 @@ public class ThumbnailsCacheManager {
     private static final String TAG = ThumbnailsCacheManager.class.getSimpleName();
     
     private static final String CACHE_FOLDER = "thumbnailCache";
+    private static final Integer CACHE_SIZE_MB = 10;
 
     private static final Object mThumbnailsDiskCacheLock = new Object();
     private static DiskLruImageCache mThumbnailCache = null;
     private static boolean mThumbnailCacheStarting = true;
     
-    private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient = null;
@@ -107,6 +109,18 @@ public class ThumbnailsCacheManager {
 
                 if (mThumbnailCache == null) {
                     try {
+                        SharedPreferences appPrefs =
+                                PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
+                        // due to backward compatibility
+                        Integer cacheSize = CACHE_SIZE_MB * 1024 * 1024;
+                        try {
+                            cacheSize = appPrefs.getInt("pref_cache_size", cacheSize);
+                        } catch (ClassCastException e) {
+                            String temp = appPrefs.getString("pref_cache_size",
+                                    cacheSize.toString());
+                            cacheSize = Integer.decode(temp) * 1024 * 1024;
+                        }
+
                         // Check if media is mounted or storage is built-in, if so, 
                         // try and use external cache dir; otherwise use internal cache dir
                         final String cachePath = 
@@ -116,7 +130,7 @@ public class ThumbnailsCacheManager {
                         final File diskCacheDir = new File(cachePath);
                         mThumbnailCache = new DiskLruImageCache(
                                 diskCacheDir, 
-                                DISK_CACHE_SIZE, 
+                                cacheSize,
                                 mCompressFormat, 
                                 mCompressQuality
                         );
@@ -178,11 +192,10 @@ public class ThumbnailsCacheManager {
      * @return max cache size in MB.
      */
     public static long getMaxSize(){
-        if (mThumbnailCache != null) {
-            return mThumbnailCache.getMaxSize() / 1024 / 1024;
-        } else {
-            return -1l;
+        if (mThumbnailCache == null) {
+            new ThumbnailsCacheManager.InitDiskCacheTask().execute();
         }
+        return mThumbnailCache.getMaxSize() / 1024 / 1024;
     }
 
     public static class ThumbnailGenerationTask extends AsyncTask<Object, Void, Bitmap> {
