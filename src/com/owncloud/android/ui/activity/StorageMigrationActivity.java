@@ -240,9 +240,18 @@ public class StorageMigrationActivity extends AppCompatActivity {
 
 		void cleanup() {
 			File srcFile = new File(mStorageSource + File.separator + MainApp.getDataFolder());
-			if (!srcFile.delete())
+			if (!deleteRecursive(srcFile))
 				Log_OC.w(TAG, "Migration cleanup step failed");
 		}
+
+		boolean deleteRecursive(File f) {
+			boolean res = true;
+			if (f.isDirectory())
+				for (File c : f.listFiles())
+					res = deleteRecursive(c) && res;
+			return f.delete() && res;
+		}
+
 
 		void rollback() {
 			File dstFile = new File(mStorageTarget + File.separator + MainApp.getDataFolder());
