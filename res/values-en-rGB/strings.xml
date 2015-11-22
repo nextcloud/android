@@ -295,7 +295,10 @@
   <string name="prefs_category_instant_uploading">Instant Uploads</string>
   <string name="prefs_category_security">Security</string>
   <string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
+  <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
   <string name="auth_refresh_button">Refresh connection</string>
   <string name="auth_host_address">Server address</string>
   <string name="common_error_out_memory">Not enough memory</string>
+  <string name="share_dialog_title">Sharing</string>
+  <string name="share_search">Search</string>
 </resources>

@@ -77,4 +77,6 @@
   <string name="saml_authentication_wrong_pass">密碼錯誤</string>
   <string name="prefs_category_security">安全</string>
   <string name="auth_host_address">伺服器地址</string>
+  <string name="share_dialog_title">分享</string>
+  <string name="share_search">尋找</string>
 </resources>

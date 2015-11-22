@@ -189,4 +189,6 @@
   <string name="username">Lietotājvārds</string>
   <string name="file_list__footer__folder">1 mape</string>
   <string name="file_list__footer__file">1 datne</string>
+  <string name="share_dialog_title">Dalīšanās</string>
+  <string name="share_search">Meklēt</string>
 </resources>

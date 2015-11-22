@@ -85,6 +85,7 @@ Download hier: %2$s</string>
   <string name="list_layout">Lijst layout</string>
   <string name="action_share_file">Deel link</string>
   <string name="action_unshare_file">Link niet meer delen</string>
+  <string name="action_share_with_users">Delen met gebruiker</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
@@ -247,6 +248,9 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="ssl_validator_label_validity_to">Aan:</string>
   <string name="ssl_validator_label_signature">Handtekening:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritme:</string>
+  <string name="digest_algorithm_not_available">Dit digest algoritme is niet beschikbaar op uw telefoon.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Vingerafdruk:</string>
+  <string name="certificate_load_problem">Er is een probleem met het laden van het certificaat.</string>
   <string name="ssl_validator_null_cert">Het certificaat kon niet worden getoond.</string>
   <string name="ssl_validator_no_info_about_error">- Geen informatie over de fout</string>
   <string name="placeholder_sentence">Dit is een plaatshouder</string>
@@ -340,4 +344,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="share_no_users">Nog geen gegevens met gebruikers gedeeld</string>
   <string name="share_add_user_or_group">Toevoegen gebruiker of groep</string>
   <string name="share_search">Zoeken</string>
+  <string name="search_users_and_groups_hint">Zoeken naar gebruikers en groepen</string>
+  <string name="share_group_clarification">%1$s (groep)</string>
+  <string name="share_sharee_unavailable">Sorry, uw serverversie staat niet toe om binnen de clients te delen met gebruikers.
+Neem contact op met uw beheerder</string>
 </resources>

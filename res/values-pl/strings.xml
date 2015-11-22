@@ -307,6 +307,7 @@
   <string name="prefs_instant_video_upload_path_title">Katalog wysyłania dla wideo</string>
   <string name="shared_subject_header">udostępniony</string>
   <string name="with_you_subject_header">z tobą</string>
+  <string name="subject_user_shared_with_you">%1$s wspólne \"%2$s\" z tobą</string>
   <string name="auth_refresh_button">Odśwież połączenie</string>
   <string name="auth_host_address">Adres Serwera</string>
   <string name="common_error_out_memory">Brak wystarczającej pamięci</string>
@@ -315,4 +316,6 @@
   <string name="file_list__footer__folders">%1$d folderów</string>
   <string name="file_list__footer__file">1 plik</string>
   <string name="file_list__footer__file_and_folder">1 plik , 1 folder</string>
+  <string name="share_dialog_title">Udostępnianie</string>
+  <string name="share_search">Wyszukaj</string>
 </resources>

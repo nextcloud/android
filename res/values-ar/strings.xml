@@ -255,4 +255,6 @@
   <string name="folder_picker_choose_button_text">اختيار</string>
   <string name="prefs_category_security">الأمان</string>
   <string name="auth_host_address">عنوان الخادم</string>
+  <string name="share_dialog_title">مشاركة</string>
+  <string name="share_search">البحث</string>
 </resources>

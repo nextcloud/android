@@ -141,4 +141,6 @@
   <string name="folder_picker_choose_button_text">არჩევა</string>
   <string name="prefs_category_security">უსაფრთხოება</string>
   <string name="auth_host_address">სერვერის მისამართი</string>
+  <string name="share_dialog_title">გაზიარება</string>
+  <string name="share_search">ძებნა</string>
 </resources>

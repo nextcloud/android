@@ -126,4 +126,5 @@
   <string name="prefs_category_accounts">கணக்குகள்</string>
   <string name="folder_picker_choose_button_text">தெரிவுசெய்க </string>
   <string name="auth_host_address">சேவையக முகவரி</string>
+  <string name="share_search">தேடுதல்</string>
 </resources>

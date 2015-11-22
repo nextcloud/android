@@ -84,6 +84,7 @@
   <string name="list_layout">เค้าโครงรายการ</string>
   <string name="action_share_file">แชร์ลิงค์</string>
   <string name="action_unshare_file">ยกเลิกการแชร์ลิงค์</string>
+  <string name="action_share_with_users">แชร์กับผู้ใช้</string>
   <string name="common_yes">ตกลง</string>
   <string name="common_no">ไม่ตกลง</string>
   <string name="common_ok">ตกลง</string>
@@ -201,7 +202,7 @@
   <string name="confirmation_remove_folder_alert">คุณต้องการที่จะลบ %1$s และเนื้อหาของมัน?</string>
   <string name="confirmation_remove_local">เฉพาะต้นทางเท่านั้น</string>
   <string name="confirmation_remove_folder_local">เฉพาะต้นทางเท่านั้น</string>
-  <string name="confirmation_remove_remote">จากเซิฟเวอร์</string>
+  <string name="confirmation_remove_remote">จากเซิร์ฟเวอร์</string>
   <string name="confirmation_remove_remote_and_local">รีโมท &amp; ต้นทาง</string>
   <string name="remove_success_msg">ลบเรียบร้อยแล้ว</string>
   <string name="remove_fail_msg">ไม่สามารถลบได้</string>
@@ -243,6 +244,9 @@
   <string name="ssl_validator_label_validity_to">ถึง:</string>
   <string name="ssl_validator_label_signature">ลายเซ็นต์:</string>
   <string name="ssl_validator_label_signature_algorithm">อัลกอริทึ่ม:</string>
+  <string name="digest_algorithm_not_available">อัลกอริทึมย่อยนี้ไม่สามารถใช้งานบนโทรศัพท์ของคุณ</string>
+  <string name="ssl_validator_label_certificate_fingerprint">ลายนิ้วมือ:</string>
+  <string name="certificate_load_problem">มีปัญหาในการโหลดใบรับรอง</string>
   <string name="ssl_validator_null_cert">ไม่สามารถแสดงใบรับรอง</string>
   <string name="ssl_validator_no_info_about_error">- ไม่มีข้อมูลเกี่ยวกับข้อผิดพลาด</string>
   <string name="placeholder_sentence">นี่คือ placeholder</string>
@@ -258,7 +262,7 @@
   <string name="conflict_message">ไฟล์ใดที่คุณต้องการที่จะเก็บ? หากคุณเลือกทั้งสองรุ่น ไฟล์ต้นทางจะมีจำนวนชื่อเพิ่ม</string>
   <string name="conflict_keep_both">เก็บไว้ทั้งสองอย่าง</string>
   <string name="conflict_use_local_version">เวอร์ชันต้นทาง</string>
-  <string name="conflict_use_server_version">เวอร์ชันเซิฟเวอร์</string>
+  <string name="conflict_use_server_version">เวอร์ชันเซิร์ฟเวอร์</string>
   <string name="preview_image_description">แสดงรูปภาพตัวอย่าง</string>
   <string name="preview_image_error_unknown_format">ไม่สามารถแสดงรูปภาพนี้ได้</string>
   <string name="error__upload__local_file_not_copied">%1$s ไม่สามารถคัดลอกไปยังโฟลเดอร์ %2$s ในเครื่อง</string>
@@ -316,6 +320,8 @@
   <string name="sync_folder_failed_content">ประสานข้อมูลโฟลเดอร์ %1$s ไม่สำเร็จ</string>
   <string name="shared_subject_header">ถูกแชร์</string>
   <string name="with_you_subject_header">กับคุณ</string>
+  <string name="subject_user_shared_with_you">%1$s ได้แชร์ \"%2$s\" กับคุณ</string>
+  <string name="subject_shared_with_you">\"%1$s\" ได้ถูกแชร์กับคุณ</string>
   <string name="auth_refresh_button">ฟื้นฟูการเชื่อมต่อ</string>
   <string name="auth_host_address">ที่อยู่เซิร์ฟเวอร์</string>
   <string name="common_error_out_memory">หน่วยความจำไม่พอ</string>
@@ -328,4 +334,13 @@
   <string name="file_list__footer__files">%1$d ไฟล์</string>
   <string name="file_list__footer__files_and_folder">%1$d ไฟล์, 1 โฟลเดอร์</string>
   <string name="file_list__footer__files_and_folders">%1$d ไฟล์, %2$d โฟลเดอร์</string>
+  <string name="share_dialog_title">การแชร์ข้อมูล</string>
+  <string name="share_with_user_section_title">แชร์ไปยังผู้ใช้หรือกลุ่ม</string>
+  <string name="share_no_users">ยังไม่มีข้อมูลที่แชร์กับผู้ใช้ในตอนนี้</string>
+  <string name="share_add_user_or_group">เพิ่มผู้ใช่หรือกลุ่ม</string>
+  <string name="share_search">ค้นหา</string>
+  <string name="search_users_and_groups_hint">ค้นหาผู้ใช้และกลุ่ม</string>
+  <string name="share_group_clarification">%1$s (กลุ่ม)</string>
+  <string name="share_sharee_unavailable">ขออภัย รุ่นเซิร์ฟเวอร์ของคุณไม่อนุญาตให้แชร์กับผู้ใช้ภายในไคลเอนต์
+\nกรุณาติดต่อผู้ดูแลระบบ</string>
 </resources>
