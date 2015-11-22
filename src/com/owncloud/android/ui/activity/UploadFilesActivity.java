@@ -81,8 +81,8 @@ public class UploadFilesActivity extends FileActivity implements
     private static final String TAG = "UploadFilesActivity";
     private static final String WAIT_DIALOG_TAG = "WAIT";
     private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
-    private RadioButton mRadioBtnCopyFiles;
-    private RadioButton mRadioBtnMoveFiles;
+    protected RadioButton mRadioBtnCopyFiles;
+    protected RadioButton mRadioBtnMoveFiles;
 
 
     @Override
