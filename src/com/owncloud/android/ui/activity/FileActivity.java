@@ -801,7 +801,7 @@ public class FileActivity extends AppCompatActivity
             if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
                 String password = operation.getPassword();
                 if ((password == null || password.length() == 0) &&
-                    !getCapabilities().getFilesSharingPublicEnabled().isFalse())
+                    getCapabilities().getFilesSharingPublicEnabled().isUnknown())
                     {
                     // Was tried without password, but not sure that it's optional. Try with password.
                     // Try with password before giving up.
