@@ -32,6 +32,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
+import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -160,23 +161,28 @@ public class ShareActivity extends FileActivity
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
 
-        if (result.isSuccess()) {
-            Log_OC.d(TAG, "Refreshing view on successful operation");
+        if (result.isSuccess() ||
+            (operation instanceof GetSharesForFileOperation &&
+                result.getCode() == RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
+            )
+        ) {
+            Log_OC.d(TAG, "Refreshing view on successful operation or finished refresh");
             refreshSharesFromStorageManager();
-
-            if (operation instanceof CreateShareViaLinkOperation) {
-                // Send link to the app
-                String link = ((OCShare) (result.getData().get(0))).getShareLink();
-                Log_OC.d(TAG, "Share link = " + link);
-
-                Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
-                intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
-                intentToShareLink.setType(HTTP.PLAIN_TEXT_TYPE);
-                String[] packagesToExclude = new String[]{getPackageName()};
-                DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
-                chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
-            }
         }
+
+        if (operation instanceof CreateShareViaLinkOperation) {
+            // Send link to the app
+            String link = ((OCShare) (result.getData().get(0))).getShareLink();
+            Log_OC.d(TAG, "Share link = " + link);
+
+            Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
+            intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
+            intentToShareLink.setType(HTTP.PLAIN_TEXT_TYPE);
+            String[] packagesToExclude = new String[]{getPackageName()};
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
+            chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+        }
+
     }
 
 

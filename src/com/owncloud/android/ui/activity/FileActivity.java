@@ -762,10 +762,10 @@ public class FileActivity extends AppCompatActivity
             onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
 
         } else if (operation instanceof GetSharesForFileOperation) {
-            if (result.isSuccess()) {
+            if (result.isSuccess() || result.getCode() == ResultCode.SHARE_NOT_FOUND) {
                 updateFileFromDB();
 
-            } else if (result.getCode() != ResultCode.SHARE_NOT_FOUND) {
+            } else {
                 Toast t = Toast.makeText(this,
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                         Toast.LENGTH_LONG);

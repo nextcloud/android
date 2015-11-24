@@ -1427,6 +1427,30 @@ public class FileDataStorageManager {
 //        updateSharedFiles(sharedFiles);
     }
 
+    public void removeSharesForFile(String remotePath) {
+        resetShareFlagInAFile(remotePath);
+        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>();
+        operations = prepareRemoveSharesInFile(remotePath, operations);
+        // apply operations in batch
+        if (operations.size() > 0) {
+            Log_OC.d(TAG, "Sending " + operations.size() + " operations to FileContentProvider");
+            try {
+                if (getContentResolver() != null) {
+                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+
+                } else {
+                    getContentProviderClient().applyBatch(operations);
+                }
+
+            } catch (OperationApplicationException e) {
+                Log_OC.e(TAG, "Exception in batch of operations " + e.getMessage());
+
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Exception in batch of operations  " + e.getMessage());
+            }
+        }
+    }
+
 
     public void saveSharesInFolder(ArrayList<OCShare> shares, OCFile folder) {
         resetShareFlagsInFolder(folder);
