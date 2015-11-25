@@ -21,7 +21,6 @@ package com.owncloud.android.ui.dialog;
 import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -45,25 +44,26 @@ public class SharePasswordDialogFragment extends DialogFragment
         implements DialogInterface.OnClickListener {
 
     private static final String ARG_FILE = "FILE";
-    private static final String ARG_SEND_INTENT = "SEND_INTENT";
+    private static final String ARG_CREATE_SHARE = "CREATE_SHARE";
 
     public static final String PASSWORD_FRAGMENT = "PASSWORD_FRAGMENT";
 
     private OCFile mFile;
-    private Intent mSendIntent;
+    private boolean mCreateShare;
 
     /**
      * Public factory method to create new SharePasswordDialogFragment instances.
      *
-     * @param file
-     * @param sendIntent
-     * @return              Dialog ready to show.
+     * @param   file            OCFile bound to the public share that which password will be set or updated
+     * @param   createShare     When 'true', the public share will be created; when 'false', will be assumed
+     *                          that the public share already exists, and its state will be directly updated.
+     * @return                  Dialog ready to show.
      */
-    public static SharePasswordDialogFragment newInstance(OCFile file, Intent sendIntent) {
+    public static SharePasswordDialogFragment newInstance(OCFile file, boolean createShare) {
         SharePasswordDialogFragment frag = new SharePasswordDialogFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, file);
-        args.putParcelable(ARG_SEND_INTENT, sendIntent);
+        args.putBoolean(ARG_CREATE_SHARE, createShare);
         frag.setArguments(args);
         return frag;
     }
@@ -71,7 +71,7 @@ public class SharePasswordDialogFragment extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mFile = getArguments().getParcelable(ARG_FILE);
-        mSendIntent = getArguments().getParcelable(ARG_SEND_INTENT);
+        mCreateShare = getArguments().getBoolean(ARG_CREATE_SHARE, false);
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -97,9 +97,6 @@ public class SharePasswordDialogFragment extends DialogFragment
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
-            // Enable the flag "Share again"
-            ((FileActivity) getActivity()).setTryShareAgain(true);
-
             String password =
                     ((TextView)(getDialog().findViewById(R.id.share_password)))
                         .getText().toString();
@@ -112,13 +109,16 @@ public class SharePasswordDialogFragment extends DialogFragment
                 return;
             }
 
-            // Share the file
-            ((FileActivity)getActivity()).getFileOperationsHelper()
-                                    .shareFileWithLinkToApp(mFile, password, mSendIntent);
+            if (mCreateShare) {
+                // Share the file
+                ((FileActivity) getActivity()).getFileOperationsHelper().
+                        shareFileViaLink(mFile, password);
 
-        } else {
-            // Disable the flag "Share again"
-            ((FileActivity) getActivity()).setTryShareAgain(false);
+            } else {
+                // updat existing link
+                ((FileActivity) getActivity()).getFileOperationsHelper().
+                        setPasswordToShareViaLink(mFile, password);
+            }
         }
     }
 }
