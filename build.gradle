@@ -32,7 +32,7 @@ android {
 
     defaultConfig {
         applicationId "com.owncloud.android.beta"
-        versionCode computeVersionCode()
+        versionCode 20151125
         versionName "ownCloud beta"
     }
 
@@ -72,14 +72,20 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
     }
-}
 
+    signingConfigs {
+        release {
+            storeFile file("../beta.jks")
+            storePassword KSTOREPWD
+            keyAlias "beta"
+            keyPassword KSTOREPWD
+        }
+    }
 
+     buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
 
-
-
-def computeVersionCode() {
-    def date = new Date()
-    def formattedDate = date.format('yyyyMMdd').toInteger()
-    return formattedDate
 }
