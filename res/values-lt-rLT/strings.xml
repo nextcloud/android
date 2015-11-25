@@ -102,7 +102,7 @@
   <string name="uploader_info_dirname">Katalogo pavadinimas</string>
   <string name="uploader_upload_in_progress_ticker">Įkeliama ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Siunčiama %2$s</string>
-  <string name="uploader_upload_succeeded_ticker">Nusiuntimas pavyko</string>
+  <string name="uploader_upload_succeeded_ticker">Įkėlimas pavyko</string>
   <string name="uploader_upload_succeeded_content_single">%1$s buvo sėkmingai nusiųstas</string>
   <string name="uploader_upload_failed_ticker">Nusiuntimas nepavyko</string>
   <string name="uploader_upload_failed_content_single">Nepavyko baigti %1$s nusiuntimo</string>
