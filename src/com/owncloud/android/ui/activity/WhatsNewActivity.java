@@ -61,28 +61,37 @@ public class WhatsNewActivity extends Activity {
 	private ProgressIndicator mProgress;
 	private LinearLayout mContentPanel;
 
-	int currentStep = 0;
+	private int mCurrentStep;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.whats_new_activity);
+
+		mCurrentStep = 0;
 		mProgress = (ProgressIndicator) findViewById(R.id.progressIndicator);
 		mFeaturesToShow = filterFeaturesToShow();
+
 		mProgress.setNumberOfSteps(mFeaturesToShow.length);
+
 		mForwardFinishButton = (ImageButton) findViewById(R.id.forward);
 		mForwardFinishButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if (mProgress.hasNextStep()) {
 					mProgress.animateToNextStep();
-					mContentPanel.animate().x(-mContentPanel.getChildAt(++currentStep).getLeft());
+					mContentPanel.animate().x(-mContentPanel.getChildAt(++mCurrentStep).getLeft());
+				} else if (mProgress.hasPrevStep()) {
+					mProgress.animateToPrevStep();
+					mContentPanel.animate().x(-mContentPanel.getChildAt(--mCurrentStep).getLeft());
 				} else {
 					onFinish();
 					finish();
 				}
 				if (!mProgress.hasNextStep()) {
 					mForwardFinishButton.setImageResource(R.drawable.ic_ok);
+				} else {
+					mForwardFinishButton.setImageResource(R.drawable.ic_menu_forward);
 				}
 			}
 		});
@@ -95,27 +104,26 @@ public class WhatsNewActivity extends Activity {
 			}
 		});
 
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-		final int lastSeenVersionCode = pref.getInt(KEY_LAST_SEEN_VERSION_CODE, 0);
-		final boolean isFirstRun = lastSeenVersionCode == 0;
 		TextView tv = (TextView)findViewById(R.id.welcomeText);
-		tv.setText(isFirstRun ? R.string.welcome_to_oc_title : R.string.whats_new_title);
+		tv.setText(isFirstRun() ? R.string.welcome_to_oc_title : R.string.whats_new_title);
 
-		DisplayMetrics dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
 
 		mContentPanel = (LinearLayout)findViewById(R.id.contentPanel);
 		LinearLayout.LayoutParams ll2 = (LinearLayout.LayoutParams) mContentPanel.getLayoutParams();
-		ll2.width = dm.widthPixels*mFeaturesToShow.length;
+		ll2.width = getScreenWidth()*mFeaturesToShow.length;
 		mContentPanel.setLayoutParams(ll2);
-		LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
 
+		fillContentPanelWithFeatureData();
+	}
+
+	private void fillContentPanelWithFeatureData() {
+		LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
 
 		for (int i = 0; i < mFeaturesToShow.length; ++i) {
 			FeatureItem item = mFeaturesToShow[i];
 			LinearLayout newElement = (LinearLayout)inflater.inflate(R.layout.whats_new_element, null);
 
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dm.widthPixels, ViewGroup.LayoutParams.MATCH_PARENT);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getScreenWidth(), ViewGroup.LayoutParams.MATCH_PARENT);
 			newElement.setLayoutParams(params);
 
 			mContentPanel.addView(newElement);
@@ -140,6 +148,22 @@ public class WhatsNewActivity extends Activity {
 		editor.apply();
 	}
 
+	private int getScreenWidth() {
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		return dm.widthPixels;
+	}
+
+	static private int getLastSeenVersionCode() {
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
+		return pref.getInt(KEY_LAST_SEEN_VERSION_CODE, 0);
+	}
+
+	static private boolean isFirstRun() {
+		return getLastSeenVersionCode() == 0;
+	}
+
+
 	static public void runIfNeeded(Context context) {
 		if (context instanceof WhatsNewActivity)
 			return;
@@ -152,8 +176,8 @@ public class WhatsNewActivity extends Activity {
 		List<FeatureItem> features = new LinkedList<>();
 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-		final int lastSeenVersionCode = pref.getInt(KEY_LAST_SEEN_VERSION_CODE, 0);
-		final boolean isFirstRun = lastSeenVersionCode == 0;
+		final int lastSeenVersionCode = getLastSeenVersionCode();
+		final boolean isFirstRun = isFirstRun();
 
 		for (FeatureItem item : featuresToShow) {
 			if (isFirstRun && item.shouldShowOnFirstRun()) {
@@ -173,8 +197,6 @@ public class WhatsNewActivity extends Activity {
 			new FeatureItem(R.drawable.logo, R.string.welcome_feature_3_title,  R.string.welcome_feature_3_text, "1.0.0", true),
 			new FeatureItem(R.drawable.logo, R.string.welcome_feature_4_title,  R.string.welcome_feature_4_text, "1.0.0", true),
 			new FeatureItem(R.drawable.logo, R.string.welcome_feature_5_title,  FeatureItem.doNotShow, "1.0.0", true),
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_1_title,  FeatureItem.doNotShow, "1.8.3"),
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_2_title,  FeatureItem.doNotShow, "1.8.4"),
 	};
 
 	static private class FeatureItem {
