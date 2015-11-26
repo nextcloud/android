@@ -86,9 +86,16 @@ public class FeatureList {
 			this.showOnInitialRun = showOnInitialRun;
 		}
 
+		public boolean shouldShowImage() { return image != DO_NOT_SHOW; }
 		public int getImage() { return image; }
+
+		public boolean shouldShowTitleText() { return titleText != DO_NOT_SHOW; }
 		public int getTitleText() { return titleText; }
+
+		public boolean shouldShowContentText() { return contentText != DO_NOT_SHOW; }
 		public int getContentText() { return contentText; }
+
+
 		public int getVersionNumber() { return versionNumber; }
 		public boolean shouldShowOnFirstRun() { return showOnInitialRun; }
 	}
