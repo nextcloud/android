@@ -102,8 +102,10 @@ public class ShareActivity extends FileActivity
 
         } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
             Uri data = intent.getData();
+            String dataString = intent.getDataString();
+            String shareWith = dataString.substring(dataString.lastIndexOf('/') + 1);
             doShareWith(
-                    data.getLastPathSegment(),
+                    shareWith,
                     UsersAndGroupsSearchProvider.DATA_GROUP.equals(data.getAuthority())
             );
 
