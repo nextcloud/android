@@ -64,8 +64,6 @@
   <string name="filedetails_modified">পরিবর্তিতঃ</string>
   <string name="filedetails_download">ডাউনলোড</string>
   <string name="filedetails_renamed_in_upload_msg">আপলোডের সময় ফাইলের পূণঃনামকরণ করা হয়েছে %1$s</string>
-  <string name="action_share_file">লিংক ভাগাভাগি করেন</string>
-  <string name="action_unshare_file">লিংক ছিনন করেন</string>
   <string name="common_yes">হ্যাঁ</string>
   <string name="common_no">না</string>
   <string name="common_ok">তথাস্তু</string>

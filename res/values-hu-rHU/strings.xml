@@ -78,8 +78,6 @@
   <string name="filedetails_sync_file">Szinkronizálás</string>
   <string name="filedetails_renamed_in_upload_msg">A feltöltés során az állmányt erre neveztük át: %1$s</string>
   <string name="list_layout">Lista Elrendezés</string>
-  <string name="action_share_file">Megosztás hivatkozással</string>
-  <string name="action_unshare_file">Megosztás visszavonása</string>
   <string name="common_yes">Igen</string>
   <string name="common_no">Nem</string>
   <string name="common_ok">OK</string>

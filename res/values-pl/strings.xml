@@ -80,8 +80,6 @@
   <string name="filedetails_download">Pobierz</string>
   <string name="filedetails_renamed_in_upload_msg">Podczas wysyłania nazwa pliku została zmieniona na %1$s</string>
   <string name="list_layout">Lista szablonów wyglądu</string>
-  <string name="action_share_file">Udostępnij link</string>
-  <string name="action_unshare_file">Anuluj udostępnianie</string>
   <string name="common_yes">Tak</string>
   <string name="common_no">Nie</string>
   <string name="common_ok">OK</string>

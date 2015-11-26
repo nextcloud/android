@@ -78,8 +78,6 @@
   <string name="filedetails_modified">عُدل في :</string>
   <string name="filedetails_download">تحميل</string>
   <string name="filedetails_renamed_in_upload_msg">تم تغيير اسم الملف إلى  %1$s أثناء الرفع</string>
-  <string name="action_share_file">شارك الرابط</string>
-  <string name="action_unshare_file">الغاء مشاركة الرابط</string>
   <string name="common_yes">نعم</string>
   <string name="common_no">لا</string>
   <string name="common_ok">تم</string>

@@ -82,9 +82,6 @@
   <string name="filedetails_sync_file">Njëkohëso</string>
   <string name="filedetails_renamed_in_upload_msg">Kartela u riemërtua si %1$s gjatë ngarkimit</string>
   <string name="list_layout">Skemë Liste</string>
-  <string name="action_share_file">Ndajeni lidhjen me të tjerët</string>
-  <string name="action_unshare_file">Zhbëjeni ndarjen e lidhjes me të tjerët</string>
-  <string name="action_share_with_users">Ndajeni me përdoruesit</string>
   <string name="common_yes">Po</string>
   <string name="common_no">Jo</string>
   <string name="common_ok">OK</string>
@@ -333,7 +330,6 @@
   <string name="file_list__footer__files_and_folder">%1$d kartela, 1 dosje</string>
   <string name="file_list__footer__files_and_folders">%1$d kartela, %2$d dosje</string>
   <string name="share_dialog_title">Ndarje me të tjerët</string>
-  <string name="share_with_user_section_title">Ndani me Përdorues dhe Grupe</string>
   <string name="share_no_users">Ende pa të dhëna të ndara me përdorues</string>
   <string name="share_add_user_or_group">Shtoni Përdorues ose Grup</string>
   <string name="share_search">Kërko</string>

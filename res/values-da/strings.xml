@@ -80,8 +80,6 @@
   <string name="filedetails_download">Hent</string>
   <string name="filedetails_renamed_in_upload_msg">Filen blev omdøbt til %1$s under upload</string>
   <string name="list_layout">Listevisning</string>
-  <string name="action_share_file">Del link</string>
-  <string name="action_unshare_file">Ophæv deling</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nej</string>
   <string name="common_ok">OK</string>

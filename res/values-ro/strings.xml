@@ -80,8 +80,6 @@
   <string name="filedetails_download">Descarcă</string>
   <string name="filedetails_renamed_in_upload_msg">Fișierul a fost redenumit %1$s în timpul încărcării</string>
   <string name="list_layout">Aspect listă</string>
-  <string name="action_share_file">Partajază legătură</string>
-  <string name="action_unshare_file">Departajează legătura</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Nu</string>
   <string name="common_ok">OK</string>

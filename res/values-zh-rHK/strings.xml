@@ -38,8 +38,6 @@
   <string name="filedetails_created">建立時間：</string>
   <string name="filedetails_modified">修改時間：</string>
   <string name="filedetails_download">下載</string>
-  <string name="action_share_file">分享連結</string>
-  <string name="action_unshare_file">取消分享連結</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">確定</string>

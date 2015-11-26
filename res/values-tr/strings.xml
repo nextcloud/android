@@ -82,9 +82,6 @@
   <string name="filedetails_sync_file">Eşitleme</string>
   <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
   <string name="list_layout">Liste Yerleşimi</string>
-  <string name="action_share_file">Paylaşma bağlantısı</string>
-  <string name="action_unshare_file">Bağlantı paylaşımını kaldır</string>
-  <string name="action_share_with_users">Kullanıcılarla paylaş</string>
   <string name="common_yes">Evet</string>
   <string name="common_no">Hayır</string>
   <string name="common_ok">Tamam</string>
@@ -337,7 +334,6 @@
   <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
   <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
   <string name="share_dialog_title">Paylaşım</string>
-  <string name="share_with_user_section_title">Kullanıcı ve Gruplarla paylaş</string>
   <string name="share_no_users">Henüz kullanıcılara paylaşılan veri yok</string>
   <string name="share_add_user_or_group">Kullanıcı veya Grup ekle</string>
   <string name="share_search">Ara</string>

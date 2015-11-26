@@ -83,9 +83,6 @@ Download hier: %2$s</string>
   <string name="filedetails_sync_file">Synchroniseren</string>
   <string name="filedetails_renamed_in_upload_msg">Bestand is tijdens het uploaden hernoemd naar %1$s</string>
   <string name="list_layout">Lijst layout</string>
-  <string name="action_share_file">Deel link</string>
-  <string name="action_unshare_file">Link niet meer delen</string>
-  <string name="action_share_with_users">Delen met gebruiker</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
@@ -340,7 +337,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="file_list__footer__files_and_folder">%1$d bestanden, 1 map</string>
   <string name="file_list__footer__files_and_folders">%1$d bestanden, %2$d mappen</string>
   <string name="share_dialog_title">Delen</string>
-  <string name="share_with_user_section_title">Delen met gebruikers en groepen</string>
   <string name="share_no_users">Nog geen gegevens met gebruikers gedeeld</string>
   <string name="share_add_user_or_group">Toevoegen gebruiker of groep</string>
   <string name="share_search">Zoeken</string>

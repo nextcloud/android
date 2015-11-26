@@ -82,9 +82,6 @@
   <string name="filedetails_sync_file">ประสานข้อมูล</string>
   <string name="filedetails_renamed_in_upload_msg">ไฟล์ได้ถูกเปลี่ยนชื่อเป็น %1$s ในระหว่างการอัพโหลด</string>
   <string name="list_layout">เค้าโครงรายการ</string>
-  <string name="action_share_file">แชร์ลิงค์</string>
-  <string name="action_unshare_file">ยกเลิกการแชร์ลิงค์</string>
-  <string name="action_share_with_users">แชร์กับผู้ใช้</string>
   <string name="common_yes">ตกลง</string>
   <string name="common_no">ไม่ตกลง</string>
   <string name="common_ok">ตกลง</string>
@@ -335,7 +332,6 @@
   <string name="file_list__footer__files_and_folder">%1$d ไฟล์, 1 โฟลเดอร์</string>
   <string name="file_list__footer__files_and_folders">%1$d ไฟล์, %2$d โฟลเดอร์</string>
   <string name="share_dialog_title">การแชร์ข้อมูล</string>
-  <string name="share_with_user_section_title">แชร์ไปยังผู้ใช้หรือกลุ่ม</string>
   <string name="share_no_users">ยังไม่มีข้อมูลที่แชร์กับผู้ใช้ในตอนนี้</string>
   <string name="share_add_user_or_group">เพิ่มผู้ใช่หรือกลุ่ม</string>
   <string name="share_search">ค้นหา</string>

@@ -58,8 +58,6 @@
   <string name="filedetails_modified">Đã chỉnh sửa:</string>
   <string name="filedetails_download">Tải về</string>
   <string name="filedetails_renamed_in_upload_msg">Tập tin đã bị đổi tên thành %1$s trong quá trình tải lên</string>
-  <string name="action_share_file">Chia sẻ liên kết</string>
-  <string name="action_unshare_file">Liên kết không chia sẻ</string>
   <string name="common_yes">Yes</string>
   <string name="common_no">Không</string>
   <string name="common_ok">Chấp nhận</string>

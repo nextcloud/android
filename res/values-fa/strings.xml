@@ -71,8 +71,6 @@
   <string name="filedetails_modified">تغییر یافته توسط:</string>
   <string name="filedetails_download">بارگیری</string>
   <string name="filedetails_renamed_in_upload_msg">فایل در هنگام بارگزاری به %1$s تغییر نام یافت</string>
-  <string name="action_share_file">اشتراک گذاشتن لینک</string>
-  <string name="action_unshare_file">لغو اشتراک گذاشتن لینک</string>
   <string name="common_yes">بله</string>
   <string name="common_no">نه</string>
   <string name="common_ok">باشه</string>
