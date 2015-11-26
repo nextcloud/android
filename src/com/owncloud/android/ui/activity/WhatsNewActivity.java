@@ -79,9 +79,6 @@ public class WhatsNewActivity extends Activity {
 				if (mProgress.hasNextStep()) {
 					mProgress.animateToNextStep();
 					mContentPanel.animate().x(-mContentPanel.getChildAt(++mCurrentStep).getLeft());
-				} else if (mProgress.hasPrevStep()) {
-					mProgress.animateToPrevStep();
-					mContentPanel.animate().x(-mContentPanel.getChildAt(--mCurrentStep).getLeft());
 				} else {
 					onFinish();
 					finish();
