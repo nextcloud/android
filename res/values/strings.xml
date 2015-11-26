@@ -505,4 +505,23 @@
         <item quantity="other">%d selected</item>
     </plurals>
 
+
+    <!-- What's new feature and texts to show -->
+    <string name="welcome_to_oc_title">Welcome to nextCloud!</string>
+    <string name="whats_new_title">What\'s new in nextCloud</string>
+
+    <!-- Welcome to oC intro features -->
+    <string name="welcome_feature_1_title">Instant upload</string>
+    <string name="welcome_feature_1_text">Keep your photos safe</string>
+
+    <string name="welcome_feature_2_title">Manage all your files</string>
+    <string name="welcome_feature_2_text">You can delete, move</string>
+
+    <string name="welcome_feature_3_title">Share</string>
+    <string name="welcome_feature_3_text">You can share files and folders</string>
+
+    <string name="welcome_feature_4_title">MultiAccount</string>
+    <string name="welcome_feature_4_text">Connect to all your clouds</string>
+
+    <string name="welcome_feature_5_title">Your private files synced anywhere</string>
 </resources>
