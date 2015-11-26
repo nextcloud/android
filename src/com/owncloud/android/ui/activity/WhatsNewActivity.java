@@ -122,15 +122,15 @@ public class WhatsNewActivity extends Activity {
 
 			mContentPanel.addView(newElement);
 			ImageView iv = (ImageView)newElement.findViewById(R.id.whatsNewImage);
-			if (item.getImage() != FeatureItem.DO_NOT_SHOW)
+			if (item.shouldShowImage())
 				iv.setImageResource(item.getImage());
 
 			TextView tv2 = (TextView)newElement.findViewById(R.id.whatsNewTitle);
-			if (item.getTitleText() != FeatureItem.DO_NOT_SHOW)
+			if (item.shouldShowTitleText())
 				tv2.setText(item.getTitleText());
 
 			tv2 = (TextView)newElement.findViewById(R.id.whatsNewText);
-			if (item.getContentText() != FeatureItem.DO_NOT_SHOW)
+			if (item.shouldShowContentText())
 				tv2.setText(item.getContentText());
 		}
 	}
