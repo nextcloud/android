@@ -62,19 +62,23 @@ public class ProgressIndicator extends FrameLayout {
 	public void onWindowFocusChanged(boolean hasWindowFocus) {
 		super.onWindowFocusChanged(hasWindowFocus);
 		// This is not the best place to reset steps but I couldn't find a better one
-		resetStep();
+		setStep(mCurrentStep);
 	}
 
 	public boolean hasNextStep() {
 		return mNumberOfSteps > mCurrentStep;
 	}
 
+	public boolean hasPrevStep() {
+		return mCurrentStep > 1;
+	}
+
 	public void animateToNextStep() {
 		animateToStep(++mCurrentStep);
 	}
 
-	public void resetStep() {
-		setStep(1);
+	public void animateToPrevStep() {
+		animateToStep(--mCurrentStep);
 	}
 
 	public void setNumberOfSteps(int steps) {
@@ -94,6 +98,7 @@ public class ProgressIndicator extends FrameLayout {
 		FrameLayout.LayoutParams lp = (LayoutParams) mCurrentProgressDot.getLayoutParams();
 		lp.leftMargin = dot.getLeft();
 		lp.topMargin = dot.getTop();
+		mCurrentProgressDot.setLayoutParams(lp);
 	}
 
 	private void animateToStep(int step) {
