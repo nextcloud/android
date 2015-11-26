@@ -41,6 +41,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.observer.SyncedFolderObserverService;
 import com.owncloud.android.ui.activity.Preferences;
+import com.owncloud.android.ui.activity.WhatsNewActivity;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -118,6 +119,7 @@ public class MainApp extends Application {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 Log_OC.d(activity.getClass().getSimpleName(),  "onCreate(Bundle) starting" );
+                WhatsNewActivity.runIfNeeded(activity);
                 PassCodeManager.getPassCodeManager().onActivityCreated(activity);
             }
 
