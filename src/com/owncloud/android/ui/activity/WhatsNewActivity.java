@@ -40,12 +40,11 @@ import android.widget.TextView;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.features.FeatureList;
+import com.owncloud.android.features.FeatureList.FeatureItem;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
-import com.owncloud.android.lib.common.utils.Log_OC;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * @author Bartosz Przybylski
@@ -54,8 +53,6 @@ public class WhatsNewActivity extends Activity {
 	private static String TAG = WhatsNewActivity.class.getSimpleName();
 
 	private static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
-
-	private FeatureItem[] mFeaturesToShow;
 
 	private ImageButton mForwardFinishButton;
 	private ProgressIndicator mProgress;
@@ -70,9 +67,10 @@ public class WhatsNewActivity extends Activity {
 
 		mCurrentStep = 0;
 		mProgress = (ProgressIndicator) findViewById(R.id.progressIndicator);
-		mFeaturesToShow = filterFeaturesToShow();
 
-		mProgress.setNumberOfSteps(mFeaturesToShow.length);
+		final int listLength = FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun()).length;
+
+		mProgress.setNumberOfSteps(listLength);
 
 		mForwardFinishButton = (ImageButton) findViewById(R.id.forward);
 		mForwardFinishButton.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +108,7 @@ public class WhatsNewActivity extends Activity {
 
 		mContentPanel = (LinearLayout)findViewById(R.id.contentPanel);
 		LinearLayout.LayoutParams ll2 = (LinearLayout.LayoutParams) mContentPanel.getLayoutParams();
-		ll2.width = getScreenWidth()*mFeaturesToShow.length;
+		ll2.width = getScreenWidth()*listLength;
 		mContentPanel.setLayoutParams(ll2);
 
 		fillContentPanelWithFeatureData();
@@ -119,8 +117,7 @@ public class WhatsNewActivity extends Activity {
 	private void fillContentPanelWithFeatureData() {
 		LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
 
-		for (int i = 0; i < mFeaturesToShow.length; ++i) {
-			FeatureItem item = mFeaturesToShow[i];
+		for (FeatureItem item : FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun())) {
 			LinearLayout newElement = (LinearLayout)inflater.inflate(R.layout.whats_new_element, null);
 
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getScreenWidth(), ViewGroup.LayoutParams.MATCH_PARENT);
@@ -128,15 +125,15 @@ public class WhatsNewActivity extends Activity {
 
 			mContentPanel.addView(newElement);
 			ImageView iv = (ImageView)newElement.findViewById(R.id.whatsNewImage);
-			if (item.getImage() != FeatureItem.doNotShow)
+			if (item.getImage() != FeatureItem.DO_NOT_SHOW)
 				iv.setImageResource(item.getImage());
 
 			TextView tv2 = (TextView)newElement.findViewById(R.id.whatsNewTitle);
-			if (item.getTitleText() != FeatureItem.doNotShow)
+			if (item.getTitleText() != FeatureItem.DO_NOT_SHOW)
 				tv2.setText(item.getTitleText());
 
 			tv2 = (TextView)newElement.findViewById(R.id.whatsNewText);
-			if (item.getContentText() != FeatureItem.doNotShow)
+			if (item.getContentText() != FeatureItem.DO_NOT_SHOW)
 				tv2.setText(item.getContentText());
 		}
 	}
@@ -160,82 +157,19 @@ public class WhatsNewActivity extends Activity {
 	}
 
 	static private boolean isFirstRun() {
-		return getLastSeenVersionCode() == 0;
-	}
+		if (getLastSeenVersionCode() != 0)
+			return false;
+		return AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()) == null;
 
+	}
 
 	static public void runIfNeeded(Context context) {
 		if (context instanceof WhatsNewActivity)
 			return;
 
-		if (filterFeaturesToShow().length > 0)
+		if (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun()).length > 0)
 			context.startActivity(new Intent(context, WhatsNewActivity.class));
 	}
 
-	static private FeatureItem[] filterFeaturesToShow() {
-		List<FeatureItem> features = new LinkedList<>();
 
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-		final int lastSeenVersionCode = getLastSeenVersionCode();
-		final boolean isFirstRun = isFirstRun();
-
-		for (FeatureItem item : featuresToShow) {
-			if (isFirstRun && item.shouldShowOnFirstRun()) {
-				features.add(item);
-			} else if (!isFirstRun && !item.shouldShowOnFirstRun() &&
-					BuildConfig.VERSION_CODE >= item.getVersionNumber() &&
-					lastSeenVersionCode < item.getVersionNumber()) {
-				features.add(item);
-			}
-		}
-		return features.toArray(new FeatureItem[features.size()]);
-	}
-
-	static FeatureItem featuresToShow[] = {
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_1_title, R.string.welcome_feature_1_text, "1.0.0", true),
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_2_title,  R.string.welcome_feature_2_text, "1.0.0", true),
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_3_title,  R.string.welcome_feature_3_text, "1.0.0", true),
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_4_title,  R.string.welcome_feature_4_text, "1.0.0", true),
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_5_title,  FeatureItem.doNotShow, "1.0.0", true),
-	};
-
-	static private class FeatureItem {
-		static final int doNotShow = -1;
-		private int image;
-		private int titleText;
-		private int contentText;
-		private int versionNumber;
-		private boolean showOnInitialRun;
-
-		public FeatureItem(int image, int titleText, int contentText, String version) {
-			this(image, titleText, contentText, version, false);
-		}
-
-		public FeatureItem(int image, int titleText, int contentText, String version, boolean showOnInitialRun) {
-			this.image = image;
-			this.titleText = titleText;
-			this.contentText = contentText;
-			this.versionNumber = versionCodeFromString(version);
-			this.showOnInitialRun = showOnInitialRun;
-		}
-
-		public int getImage() { return image; }
-		public int getTitleText() { return titleText; }
-		public int getContentText() { return contentText; }
-		public int getVersionNumber() { return versionNumber; }
-		public boolean shouldShowOnFirstRun() { return showOnInitialRun; }
-	}
-
-	static int versionCodeFromString(String version) {
-		String v[] = version.split(Pattern.quote("."));
-		if (v.length != 3) {
-			Log_OC.wtf(TAG, "Version string is incorrect " + version);
-			return 0;
-		}
-		int result = Integer.parseInt(v[0])*(int)(10e6) +
-				Integer.parseInt(v[1])*(int)(10e4) +
-				Integer.parseInt(v[2]);
-
-		return result;
-	}
 }
