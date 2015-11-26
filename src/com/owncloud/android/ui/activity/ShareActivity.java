@@ -172,7 +172,7 @@ public class ShareActivity extends FileActivity
             refreshSharesFromStorageManager();
         }
 
-        if (operation instanceof CreateShareViaLinkOperation) {
+        if (operation instanceof CreateShareViaLinkOperation && result.isSuccess()) {
             // Send link to the app
             String link = ((OCShare) (result.getData().get(0))).getShareLink();
             Log_OC.d(TAG, "Share link = " + link);
