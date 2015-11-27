@@ -82,8 +82,7 @@
   <string name="filedetails_sync_file">Sincronizar</string>
   <string name="filedetails_renamed_in_upload_msg">Arquivo foi renomeado para %1$s durante o envio</string>
   <string name="list_layout">Lista de Layout</string>
-  <string name="action_share_file">Compartilhar link</string>
-  <string name="action_unshare_file">Descompartilhar o link</string>
+  <string name="action_share">Compartilhar</string>
   <string name="common_yes">Sim</string>
   <string name="common_no">Não</string>
   <string name="common_ok">OK</string>
@@ -244,6 +243,9 @@
   <string name="ssl_validator_label_validity_to">Para:</string>
   <string name="ssl_validator_label_signature">Assinatura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
+  <string name="digest_algorithm_not_available">Este algoritmo de resumo não está disponível no seu telefone.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Impressão digital:</string>
+  <string name="certificate_load_problem">Existe um problema ao carregar o certificado.</string>
   <string name="ssl_validator_null_cert">O certificado não pode ser mostrado.</string>
   <string name="ssl_validator_no_info_about_error">- Nenhuma informação sobre o erro</string>
   <string name="placeholder_sentence">Este é um espaço reservado</string>
@@ -333,8 +335,14 @@
   <string name="file_list__footer__files_and_folder">%1$d arquivos, 1 pasta</string>
   <string name="file_list__footer__files_and_folders">%1$d arquivos, %2$d pastas</string>
   <string name="share_dialog_title">Compartilhamento</string>
-  <string name="share_with_user_section_title">Compartilhar com Usuários ou Grupos</string>
-  <string name="share_no_users">Nenhum dado compartilhados comusuários ainda</string>
+  <string name="share_no_users">Ainda não existe nenhum dado compartilhado com usuários</string>
   <string name="share_add_user_or_group">Adicionar Usuário ou Grupo</string>
+  <string name="share_via_link_section_title">Compartilhar link</string>
+  <string name="share_via_link_expiration_date_label">Definir data de expiração</string>
+  <string name="share_via_link_password_label">Proteger com senha</string>
   <string name="share_search">Perquisar</string>
+  <string name="search_users_and_groups_hint">Pesquisar usuários e grupos</string>
+  <string name="share_group_clarification">%1$s (grupo)</string>
+  <string name="share_sharee_unavailable">Desculpe, sua versão do servidor não permite compartilhamento com usuários que também são clientes.
+        \nEntre em contato com o administrador</string>
 </resources>

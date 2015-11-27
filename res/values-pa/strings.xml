@@ -40,6 +40,7 @@
   <string name="filedetails_created">ਬਣਾਈ:</string>
   <string name="filedetails_modified">ਸੋਧ ਕੀਤੀ:</string>
   <string name="filedetails_download">ਡਾਊਨਲੋਡ</string>
+  <string name="action_share">ਸਾਂਝਾ ਕਰੋ</string>
   <string name="common_yes">ਹਾਂ</string>
   <string name="common_no">ਨਹੀਂ</string>
   <string name="common_ok">ਠੀਕ ਹੈ</string>
@@ -119,4 +120,5 @@
   <string name="prefs_category_accounts">ਅਕਾਊਂਟ</string>
   <string name="folder_picker_choose_button_text">ਚੁਣੋ</string>
   <string name="auth_host_address">ਸਰਵਰ ਐਡਰੈਸ</string>
+  <string name="share_search">ਖੋਜ</string>
 </resources>

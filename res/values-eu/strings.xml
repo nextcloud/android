@@ -71,8 +71,7 @@
   <string name="filedetails_modified">Aldatuta:</string>
   <string name="filedetails_download">Deskargatu</string>
   <string name="filedetails_renamed_in_upload_msg">Fitxategiaren izena %1$sra aldatu da igotzean</string>
-  <string name="action_share_file">Elkarbanatu lotura</string>
-  <string name="action_unshare_file">Lotura partekatzeari utzi</string>
+  <string name="action_share">Partekatu</string>
   <string name="common_yes">Bai</string>
   <string name="common_no">Ez</string>
   <string name="common_ok">Ados</string>
@@ -277,5 +276,8 @@ Mesedez, baimendu berriz</string>
   <string name="prefs_instant_video_upload_path_title">Bideo Igoera Bidea</string>
   <string name="auth_host_address">Zerbitzariaren helbidea</string>
   <string name="share_dialog_title">Partekatzea</string>
+  <string name="share_via_link_section_title">Elkarbanatu lotura</string>
+  <string name="share_via_link_expiration_date_label">Ezarri muga data</string>
+  <string name="share_via_link_password_label">Babestu pasahitzarekin</string>
   <string name="share_search">Bilatu</string>
 </resources>

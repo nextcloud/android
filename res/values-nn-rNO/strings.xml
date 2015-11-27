@@ -58,7 +58,7 @@
   <string name="filedetails_created">Oppretta:</string>
   <string name="filedetails_modified">Endra:</string>
   <string name="filedetails_download">Last ned</string>
-  <string name="action_share_file">Del lenkje</string>
+  <string name="action_share">Del</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nei</string>
   <string name="common_ok">Greitt</string>
@@ -127,5 +127,8 @@
   <string name="prefs_category_security">Tryggleik</string>
   <string name="auth_host_address">Tenaradresse</string>
   <string name="share_dialog_title">Deling</string>
+  <string name="share_via_link_section_title">Del lenkje</string>
+  <string name="share_via_link_expiration_date_label">Set utløpsdato</string>
+  <string name="share_via_link_password_label">Passordvern</string>
   <string name="share_search">Søk</string>
 </resources>

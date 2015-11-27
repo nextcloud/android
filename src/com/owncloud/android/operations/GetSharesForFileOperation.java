@@ -72,6 +72,11 @@ public class GetSharesForFileOperation extends SyncOperation {
             }
 
             getStorageManager().saveSharesDB(shares);
+
+        } else if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_NOT_FOUND) {
+            // no share on the file - remove local shares
+            getStorageManager().removeSharesForFile(mPath);
+
         }
 
         return result;

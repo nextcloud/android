@@ -73,8 +73,7 @@
   <string name="filedetails_modified">Ändrad:</string>
   <string name="filedetails_download">Ladda ner</string>
   <string name="filedetails_renamed_in_upload_msg">Filen bytte namn till %1$s under uppladdningen</string>
-  <string name="action_share_file">Dela länk</string>
-  <string name="action_unshare_file">Sluta dela länk</string>
+  <string name="action_share">Dela</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nej</string>
   <string name="common_ok">OK</string>
@@ -281,5 +280,11 @@
   <string name="prefs_category_instant_uploading">Direktuppladning</string>
   <string name="prefs_category_security">Säkerhet</string>
   <string name="prefs_instant_video_upload_path_title">Uppladdnings-sökväg för video</string>
+  <string name="subject_user_shared_with_you">%1$s delade \"%2$s\" med dig</string>
   <string name="auth_host_address">Serveradress</string>
+  <string name="share_dialog_title">Dela</string>
+  <string name="share_via_link_section_title">Dela länk</string>
+  <string name="share_via_link_expiration_date_label">Sätt utgångsdatum</string>
+  <string name="share_via_link_password_label">Lösenordsskydda</string>
+  <string name="share_search">Sök</string>
 </resources>

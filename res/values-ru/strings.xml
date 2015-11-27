@@ -82,8 +82,7 @@
   <string name="filedetails_download">Скачать</string>
   <string name="filedetails_renamed_in_upload_msg">Файл был переименован в %1$s во время загрузки</string>
   <string name="list_layout">Макет списка</string>
-  <string name="action_share_file">Поделиться ссылкой</string>
-  <string name="action_unshare_file">Убрать ссылку</string>
+  <string name="action_share">Общий доступ</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Нет</string>
   <string name="common_ok">ОК</string>
@@ -331,8 +330,10 @@
   <string name="file_list__footer__files_and_folder">%1$d файлов, 1 каталог</string>
   <string name="file_list__footer__files_and_folders">%1$d файлов, %2$d каталогов</string>
   <string name="share_dialog_title">Общий доступ</string>
-  <string name="share_with_user_section_title">Поделиться с пользователями или группами</string>
   <string name="share_no_users">Нет данных используемых совместно с другими пользователями</string>
   <string name="share_add_user_or_group">Добавить пользователя или группу</string>
+  <string name="share_via_link_section_title">Поделиться ссылкой</string>
+  <string name="share_via_link_expiration_date_label">Установить срок действия</string>
+  <string name="share_via_link_password_label">Защитить паролем</string>
   <string name="share_search">Найти</string>
 </resources>

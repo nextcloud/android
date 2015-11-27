@@ -30,7 +30,7 @@
   <string name="filedetails_size">Veličina:</string>
   <string name="filedetails_type">Tip:</string>
   <string name="filedetails_download">Preuzmi</string>
-  <string name="action_share_file">Podeli prečicu</string>
+  <string name="action_share">Deljenje</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Ok</string>
@@ -72,5 +72,8 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Nalozi</string>
   <string name="folder_picker_choose_button_text">Izaberi</string>
+  <string name="share_via_link_section_title">Veza deljenja</string>
+  <string name="share_via_link_expiration_date_label">Datum isteka</string>
+  <string name="share_via_link_password_label">Zaštita lozinkom</string>
   <string name="share_search">Traži</string>
 </resources>

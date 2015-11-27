@@ -80,8 +80,7 @@
   <string name="filedetails_download">Herunterladen</string>
   <string name="filedetails_renamed_in_upload_msg">Datei wurde wärend des Uploads zu %1$s umbenannt</string>
   <string name="list_layout">Listen-Layout</string>
-  <string name="action_share_file">Link teilen</string>
-  <string name="action_unshare_file">Link nicht mehr teilen</string>
+  <string name="action_share">Share</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="common_ok">OK</string>
@@ -321,5 +320,8 @@
   <string name="file_list__footer__files_and_folder">%1$d Dateien, 1 Ordner</string>
   <string name="file_list__footer__files_and_folders">%1$d Dateien, %2$d Ordner</string>
   <string name="share_dialog_title">Teilen</string>
+  <string name="share_via_link_section_title">Link teilen</string>
+  <string name="share_via_link_expiration_date_label">Ein Ablaufdatum setzen</string>
+  <string name="share_via_link_password_label">Passwortschutz</string>
   <string name="share_search">Suche</string>
 </resources>

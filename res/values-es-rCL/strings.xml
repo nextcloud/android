@@ -44,6 +44,7 @@
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
   <string name="filedetails_renamed_in_upload_msg">El archivo fue renombrado a %1$s durante la subida</string>
+  <string name="action_share">Compartir</string>
   <string name="common_yes">Si</string>
   <string name="common_no">No</string>
   <string name="common_ok">OK</string>

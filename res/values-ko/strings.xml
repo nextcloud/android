@@ -81,8 +81,7 @@
   <string name="filedetails_download">다운로드</string>
   <string name="filedetails_renamed_in_upload_msg">업로드 중 파일 이름을 %1$s(으)로 변경하였습니다</string>
   <string name="list_layout">목록 레이아웃</string>
-  <string name="action_share_file">링크 공유</string>
-  <string name="action_unshare_file">링크 공유 해제</string>
+  <string name="action_share">공유</string>
   <string name="common_yes">예</string>
   <string name="common_no">아니요</string>
   <string name="common_ok">확인</string>
@@ -314,6 +313,8 @@
   <string name="prefs_instant_video_upload_path_title">동영상 업로드 경로</string>
   <string name="shared_subject_header">공유됨</string>
   <string name="with_you_subject_header">여러분과</string>
+  <string name="subject_user_shared_with_you">%1$s 님이 \"%2$s\" 항목을 여러분과 공유하였습니다</string>
+  <string name="subject_shared_with_you">\"%1$s\"을(를) 여러분과 공유하였습니다</string>
   <string name="auth_refresh_button">연결 새로 고침</string>
   <string name="auth_host_address">서버 주소</string>
   <string name="common_error_out_memory">메모리 부족</string>
@@ -326,4 +327,11 @@
   <string name="file_list__footer__files">파일 %1$d개</string>
   <string name="file_list__footer__files_and_folder">파일 %1$d개, 폴더 1개</string>
   <string name="file_list__footer__files_and_folders">파일 %1$d개, 폴더 %2$d개</string>
+  <string name="share_dialog_title">공유</string>
+  <string name="share_no_users">No data shared with users yet</string>
+  <string name="share_add_user_or_group">Add User or Group</string>
+  <string name="share_via_link_section_title">링크 공유</string>
+  <string name="share_via_link_expiration_date_label">만료 날짜 설정</string>
+  <string name="share_via_link_password_label">암호 보호</string>
+  <string name="share_search">검색</string>
 </resources>
