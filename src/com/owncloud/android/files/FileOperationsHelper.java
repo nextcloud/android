@@ -481,7 +481,7 @@ public class FileOperationsHelper {
 
             // Show dialog, without the own app
             String[] packagesToExclude = new String[] { mFileActivity.getPackageName() };
-            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude, file);
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude);
             chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
