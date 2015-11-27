@@ -21,6 +21,7 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Todos los archivos</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_open">Abrir</string>
@@ -73,8 +74,6 @@
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
   <string name="filedetails_renamed_in_upload_msg">El archivo fue renombrado como %1$s durante la subida</string>
-  <string name="action_share_file">Compartir vínculo</string>
-  <string name="action_unshare_file">Dejar de compartir vínculo</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>

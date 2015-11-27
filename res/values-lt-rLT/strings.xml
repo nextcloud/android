@@ -82,8 +82,6 @@
   <string name="filedetails_sync_file">Sinchronizuojama</string>
   <string name="filedetails_renamed_in_upload_msg">Įkėlimo metu failas buvo pervadintas į %1$s</string>
   <string name="list_layout">Sąrašo išdėstymas</string>
-  <string name="action_share_file">Dalintis nuoroda</string>
-  <string name="action_unshare_file">Nebesidalinti nuoroda</string>
   <string name="common_yes">Taip</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Gerai</string>
@@ -101,7 +99,7 @@
   <string name="uploader_info_dirname">Katalogo pavadinimas</string>
   <string name="uploader_upload_in_progress_ticker">Įkeliama ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Siunčiama %2$s</string>
-  <string name="uploader_upload_succeeded_ticker">Nusiuntimas pavyko</string>
+  <string name="uploader_upload_succeeded_ticker">Įkėlimas pavyko</string>
   <string name="uploader_upload_succeeded_content_single">%1$s buvo sėkmingai nusiųstas</string>
   <string name="uploader_upload_failed_ticker">Nusiuntimas nepavyko</string>
   <string name="uploader_upload_failed_content_single">Nepavyko baigti %1$s nusiuntimo</string>
@@ -243,6 +241,9 @@
   <string name="ssl_validator_label_validity_to">Iki:</string>
   <string name="ssl_validator_label_signature">Parašas:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmas:</string>
+  <string name="digest_algorithm_not_available">Tavo telefonas nepalaiko digest algoritmo.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Kontrolinis kodas:</string>
+  <string name="certificate_load_problem">Klaida įkeliant sertifikatą.</string>
   <string name="ssl_validator_null_cert">Sertifikatas negali būti parodytas.</string>
   <string name="ssl_validator_no_info_about_error">- Nėra informacijos apie klaidą</string>
   <string name="placeholder_sentence">Rezervas</string>
@@ -331,5 +332,11 @@
   <string name="file_list__footer__files_and_folder">%1$d failai, 1 aplankas</string>
   <string name="file_list__footer__files_and_folders">%1$d failai, %2$d aplankai</string>
   <string name="share_dialog_title">Dalijimasis</string>
+  <string name="share_no_users">Su vartotojais niekuo nesidalinama</string>
+  <string name="share_add_user_or_group">Pridėti vartotoją ar grupę</string>
   <string name="share_search">Ieškoti</string>
+  <string name="search_users_and_groups_hint">Surasti vartotoją ar grupę</string>
+  <string name="share_group_clarification">%1$s (grupė)</string>
+  <string name="share_sharee_unavailable">Serveris nepalaiko dalinimosi su vartotojais kliente.
+\nSusisiekite su administratoriumi.</string>
 </resources>

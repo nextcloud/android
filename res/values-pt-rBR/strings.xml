@@ -82,9 +82,6 @@
   <string name="filedetails_sync_file">Sincronizar</string>
   <string name="filedetails_renamed_in_upload_msg">Arquivo foi renomeado para %1$s durante o envio</string>
   <string name="list_layout">Lista de Layout</string>
-  <string name="action_share_file">Compartilhar link</string>
-  <string name="action_unshare_file">Descompartilhar o link</string>
-  <string name="action_share_with_users">Compartilhado com usuários</string>
   <string name="common_yes">Sim</string>
   <string name="common_no">Não</string>
   <string name="common_ok">OK</string>
@@ -337,7 +334,6 @@
   <string name="file_list__footer__files_and_folder">%1$d arquivos, 1 pasta</string>
   <string name="file_list__footer__files_and_folders">%1$d arquivos, %2$d pastas</string>
   <string name="share_dialog_title">Compartilhamento</string>
-  <string name="share_with_user_section_title">Compartilhar com Usuários e Grupos</string>
   <string name="share_no_users">Ainda não existe nenhum dado compartilhado com usuários</string>
   <string name="share_add_user_or_group">Adicionar Usuário ou Grupo</string>
   <string name="share_search">Perquisar</string>

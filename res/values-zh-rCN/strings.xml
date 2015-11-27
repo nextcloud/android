@@ -81,8 +81,6 @@
   <string name="filedetails_download">下载</string>
   <string name="filedetails_renamed_in_upload_msg">上传过程中文件被更名为了 %1$s</string>
   <string name="list_layout">列表布局</string>
-  <string name="action_share_file">分享链接</string>
-  <string name="action_unshare_file">取消分享链接</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">确定</string>

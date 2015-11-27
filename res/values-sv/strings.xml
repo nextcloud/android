@@ -73,8 +73,6 @@
   <string name="filedetails_modified">Ändrad:</string>
   <string name="filedetails_download">Ladda ner</string>
   <string name="filedetails_renamed_in_upload_msg">Filen bytte namn till %1$s under uppladdningen</string>
-  <string name="action_share_file">Dela länk</string>
-  <string name="action_unshare_file">Sluta dela länk</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nej</string>
   <string name="common_ok">OK</string>

@@ -83,9 +83,6 @@ Téléchargez-le ici : %2$s</string>
   <string name="filedetails_sync_file">Synchroniser</string>
   <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %s pendant le téléversement</string>
   <string name="list_layout">Affichage en liste</string>
-  <string name="action_share_file">Partager le lien</string>
-  <string name="action_unshare_file">Ne plus partager ce lien</string>
-  <string name="action_share_with_users">Partager avec des utilisateurs</string>
   <string name="common_yes">Oui</string>
   <string name="common_no">Non</string>
   <string name="common_ok">OK</string>
@@ -341,7 +338,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="file_list__footer__files_and_folder">%1$d fichiers, 1 dossier</string>
   <string name="file_list__footer__files_and_folders">%1$d fichiers, %2$d dossiers</string>
   <string name="share_dialog_title">Partage</string>
-  <string name="share_with_user_section_title">Partager avec des Utilisateurs et des Groupes</string>
   <string name="share_no_users">Aucune donnée partagée avec des utilisateurs pour le moment</string>
   <string name="share_add_user_or_group">Ajouter un Utilisateur ou un Groupe</string>
   <string name="share_search">Rechercher</string>

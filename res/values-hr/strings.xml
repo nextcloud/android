@@ -43,7 +43,6 @@
   <string name="file_list_seconds_ago">prije par sekundi</string>
   <string name="file_list_empty">Nema ničega u ovoj mapi. Pošalji nešto!</string>
   <string name="filedetails_download">Preuzimanje</string>
-  <string name="action_share_file">Podijelite vezu</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">U redu</string>

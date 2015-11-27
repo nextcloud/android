@@ -80,8 +80,6 @@
   <string name="filedetails_download">Изтегляне</string>
   <string name="filedetails_renamed_in_upload_msg">Файлът беше преименуван на %1$s по време на качването.</string>
   <string name="list_layout">Списък с изгледи</string>
-  <string name="action_share_file">Връзка за споделяне</string>
-  <string name="action_unshare_file">Премахване връзка за споделяне</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">ОК</string>

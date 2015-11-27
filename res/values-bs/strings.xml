@@ -20,7 +20,6 @@
   <string name="uploader_btn_upload_text">Učitaj</string>
   <string name="uploader_btn_new_folder_text">Novi direktorij</string>
   <string name="filedetails_download">Preuzmite</string>
-  <string name="action_share_file">Podijelite vezu</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Ok</string>

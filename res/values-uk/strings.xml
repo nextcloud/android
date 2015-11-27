@@ -81,8 +81,6 @@
   <string name="filedetails_download">Завантажити</string>
   <string name="filedetails_renamed_in_upload_msg">Файл був переіменований в %1$s протягом вивантаження</string>
   <string name="list_layout">Вигляд списку</string>
-  <string name="action_share_file">Опублікувати посилання</string>
-  <string name="action_unshare_file">Видалити посилання</string>
   <string name="common_yes">Так</string>
   <string name="common_no">Ні</string>
   <string name="common_ok">OK</string>
