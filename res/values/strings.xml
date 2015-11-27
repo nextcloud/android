@@ -344,7 +344,7 @@
     <string name="forbidden_permissions_copy">to copy this file</string>
 
     <string name="prefs_category_instant_uploading">Instant uploads</string>
-	<string name="prefs_category_security">Security</string>
+    <string name="prefs_category_details">Details</string>
 
 	<string name="prefs_instant_video_upload_path_title">Upload video path</string>
     <string name="sync_folder_failed_content">Synchronization of %1$s folder could not be completed</string>
