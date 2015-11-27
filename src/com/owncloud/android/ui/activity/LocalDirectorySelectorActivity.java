@@ -35,6 +35,8 @@ public class LocalDirectorySelectorActivity extends UploadFilesActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mUploadBtn.setText(R.string.folder_picker_choose_button_text);
+		mRadioBtnCopyFiles.setVisibility(View.GONE);
+		mRadioBtnMoveFiles.setVisibility(View.GONE);
 	}
 
 	@Override
