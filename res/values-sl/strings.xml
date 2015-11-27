@@ -80,6 +80,7 @@
   <string name="filedetails_download">Prejmi</string>
   <string name="filedetails_renamed_in_upload_msg">Datoteka je bila med nalaganjem preimenovana v %1$s</string>
   <string name="list_layout">Postavitev seznama</string>
+  <string name="action_share">Souporaba</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">V redu</string>
@@ -323,5 +324,8 @@
   <string name="file_list__footer__files_and_folder">%1$d datotek, 1 mapa</string>
   <string name="file_list__footer__files_and_folders">%1$d datotek, %2$d map</string>
   <string name="share_dialog_title">Souporaba</string>
+  <string name="share_via_link_section_title">Povezava za souporabo</string>
+  <string name="share_via_link_expiration_date_label">Nastavi datum preteka</string>
+  <string name="share_via_link_password_label">Zaščiti z geslom</string>
   <string name="share_search">Poišči</string>
 </resources>

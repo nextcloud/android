@@ -81,6 +81,7 @@
   <string name="filedetails_download">다운로드</string>
   <string name="filedetails_renamed_in_upload_msg">업로드 중 파일 이름을 %1$s(으)로 변경하였습니다</string>
   <string name="list_layout">목록 레이아웃</string>
+  <string name="action_share">공유</string>
   <string name="common_yes">예</string>
   <string name="common_no">아니요</string>
   <string name="common_ok">확인</string>
@@ -329,5 +330,8 @@
   <string name="share_dialog_title">공유</string>
   <string name="share_no_users">No data shared with users yet</string>
   <string name="share_add_user_or_group">Add User or Group</string>
+  <string name="share_via_link_section_title">링크 공유</string>
+  <string name="share_via_link_expiration_date_label">만료 날짜 설정</string>
+  <string name="share_via_link_password_label">암호 보호</string>
   <string name="share_search">검색</string>
 </resources>

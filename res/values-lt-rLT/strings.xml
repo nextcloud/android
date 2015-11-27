@@ -82,6 +82,7 @@
   <string name="filedetails_sync_file">Sinchronizuojama</string>
   <string name="filedetails_renamed_in_upload_msg">Įkėlimo metu failas buvo pervadintas į %1$s</string>
   <string name="list_layout">Sąrašo išdėstymas</string>
+  <string name="action_share">Dalintis</string>
   <string name="common_yes">Taip</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Gerai</string>
@@ -334,6 +335,9 @@
   <string name="share_dialog_title">Dalijimasis</string>
   <string name="share_no_users">Su vartotojais niekuo nesidalinama</string>
   <string name="share_add_user_or_group">Pridėti vartotoją ar grupę</string>
+  <string name="share_via_link_section_title">Dalintis nuoroda</string>
+  <string name="share_via_link_expiration_date_label">Nustatykite galiojimo laiką</string>
+  <string name="share_via_link_password_label">Apsaugotas slaptažodžiu</string>
   <string name="share_search">Ieškoti</string>
   <string name="search_users_and_groups_hint">Surasti vartotoją ar grupę</string>
   <string name="share_group_clarification">%1$s (grupė)</string>

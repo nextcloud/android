@@ -83,6 +83,7 @@
   <string name="filedetails_sync_file">ファイルを同期</string>
   <string name="filedetails_renamed_in_upload_msg">アップロード中にファイル名を %1$s に変更しました</string>
   <string name="list_layout">リストレイアウト</string>
+  <string name="action_share">共有</string>
   <string name="common_yes">はい</string>
   <string name="common_no">いいえ</string>
   <string name="common_ok">OK</string>
@@ -272,6 +273,8 @@
   <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
   <string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
   <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
+  <string name="update_link_file_no_exist">更新できません。ファイルがあるか確認してください。</string>
+  <string name="update_link_file_error">共有リンクを更新する際にエラーが発生しました</string>
   <string name="share_link_password_title">パスワードを入力</string>
   <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
   <string name="activity_chooser_send_file_title">送信</string>
@@ -335,8 +338,14 @@
   <string name="file_list__footer__files_and_folder">%1$d ファイル、1 フォルダー</string>
   <string name="file_list__footer__files_and_folders">%1$d ファイル、%2$d フォルダー</string>
   <string name="share_dialog_title">共有</string>
+  <string name="share_with_user_section_title">ユーザーとグループで共有</string>
   <string name="share_no_users">ユーザーと共有されているデータはありません</string>
   <string name="share_add_user_or_group">ユーザーまたはグループを追加</string>
+  <string name="share_via_link_section_title">URLで共有</string>
+  <string name="share_via_link_expiration_date_label">有効期限を設定</string>
+  <string name="share_via_link_password_label">パスワード保護を有効化</string>
+  <string name="share_via_link_password_title">セキュア</string>
+  <string name="share_get_public_link_button">リンクを取得</string>
   <string name="share_search">検索</string>
   <string name="search_users_and_groups_hint">ユーザーとグループを検索</string>
   <string name="share_group_clarification">%1$s (グループ)</string>
