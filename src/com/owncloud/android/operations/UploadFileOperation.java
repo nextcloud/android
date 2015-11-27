@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.channels.FileChannel;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -348,17 +349,37 @@ public class UploadFileOperation extends RemoteOperation {
                     if (!expectedFile.equals(fileToMove)) {
                         File expectedFolder = expectedFile.getParentFile();
                         expectedFolder.mkdirs();
-                        if (!expectedFolder.isDirectory() || !fileToMove.renameTo(expectedFile)) {
-                            mFile.setStoragePath(null); // forget the local file
-                            // by now, treat this as a success; the file was
-                            // uploaded; the user won't like that the local file
-                            // is not linked, but this should be a very rare
-                            // fail;
-                            // the best option could be show a warning message
-                            // (but not a fail)
-                            // result = new
-                            // RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
-                            // return result;
+
+                        if (expectedFolder.isDirectory()){
+                            if (!fileToMove.renameTo(expectedFile)){
+                                // try to copy and then delete
+                                expectedFile.createNewFile();
+                                FileChannel inChannel = new FileInputStream(fileToMove).getChannel();
+                                FileChannel outChannel = new FileOutputStream(expectedFile).getChannel();
+
+                                try {
+                                    inChannel.transferTo(0, inChannel.size(), outChannel);
+                                    fileToMove.delete();
+                                } catch (Exception e){
+                                    mFile.setStoragePath(null); // forget the local file
+                                    // by now, treat this as a success; the file was
+                                    // uploaded; the user won't like that the local file
+                                    // is not linked, but this should be a very rare
+                                    // fail;
+                                    // the best option could be show a warning message
+                                    // (but not a fail)
+                                    // result = new
+                                    // RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                                    // return result;
+                                }
+                                finally {
+                                    if (inChannel != null) inChannel.close();
+                                    if (outChannel != null) outChannel.close();
+                                }
+                            }
+
+                        } else {
+                            mFile.setStoragePath(null);
                         }
                     }
                 }
