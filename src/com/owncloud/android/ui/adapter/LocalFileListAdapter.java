@@ -227,7 +227,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
     public void swapDirectory(File directory) {
         mDirectory = directory;
         mFiles = (mDirectory != null ? mDirectory.listFiles() : null);
-        if (mFiles != null) {
+        if (mFiles != null && mFiles.length > 0) {
             Arrays.sort(mFiles, new Comparator<File>() {
                 @Override
                 public int compare(File lhs, File rhs) {
