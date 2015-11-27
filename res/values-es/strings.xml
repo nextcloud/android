@@ -82,6 +82,7 @@
   <string name="filedetails_sync_file">Sincronizar</string>
   <string name="filedetails_renamed_in_upload_msg">El fichero fue renombrado como %1$s durante la subida</string>
   <string name="list_layout">Diseño de lista</string>
+  <string name="action_share">Compartir</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>
@@ -335,6 +336,9 @@
   <string name="share_dialog_title">Compartiendo</string>
   <string name="share_no_users">Aún no se ha compartido con ningún usuario.</string>
   <string name="share_add_user_or_group">Añadir usuario o grupo</string>
+  <string name="share_via_link_section_title">Compartir enlace</string>
+  <string name="share_via_link_expiration_date_label">Establecer fecha de caducidad</string>
+  <string name="share_via_link_password_label">Protección con contraseña</string>
   <string name="share_search">Buscar</string>
   <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
   <string name="share_group_clarification">%1$s (grupo)</string>

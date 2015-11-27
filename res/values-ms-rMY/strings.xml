@@ -38,6 +38,7 @@
   <string name="filedetails_created">Telah dibina:</string>
   <string name="filedetails_modified">Telah diubah:</string>
   <string name="filedetails_download">Muatturun</string>
+  <string name="action_share">Kongsi</string>
   <string name="common_yes">Ya</string>
   <string name="common_no">Tidak</string>
   <string name="common_ok">OK</string>
