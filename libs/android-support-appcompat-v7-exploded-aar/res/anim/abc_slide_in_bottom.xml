@@ -17,3 +17,4 @@
            android:interpolator="@android:anim/decelerate_interpolator"
            android:fromYDelta="50%p" android:toYDelta="0"
            android:duration="@android:integer/config_mediumAnimTime"/>
+<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v7/appcompat/res/anim/abc_slide_in_bottom.xml -->

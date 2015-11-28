@@ -24,4 +24,4 @@
     <alpha 	android:interpolator="@android:anim/decelerate_interpolator"
               android:fromAlpha="1.0" android:toAlpha="0.0"
               android:duration="@integer/abc_config_activityShortDur" />
-</set>
+</set><!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v7/appcompat/res/anim/abc_shrink_fade_out_from_bottom.xml -->
