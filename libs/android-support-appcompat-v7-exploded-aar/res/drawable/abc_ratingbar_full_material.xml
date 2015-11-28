@@ -22,3 +22,4 @@
     <item android:id="@android:id/progress"
         android:drawable="@drawable/abc_btn_rating_star_on_mtrl_alpha" />
 </layer-list>
+<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v7/appcompat/res/drawable/abc_ratingbar_full_material.xml -->

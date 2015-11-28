@@ -20,3 +20,4 @@
     <item android:state_enabled="true" android:drawable="@drawable/abc_textfield_search_default_mtrl_alpha"/>
     <item android:drawable="@drawable/abc_textfield_search_default_mtrl_alpha"/>
 </selector>
+<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v7/appcompat/res/drawable/abc_textfield_search_material.xml -->

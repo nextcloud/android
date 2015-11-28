@@ -66,3 +66,4 @@
         android:id="@+id/action_divider"
         android:background="?android:attr/dividerHorizontal" />
 </RelativeLayout>
+<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v7/appcompat/res/layout/notification_template_big_media_narrow.xml -->
