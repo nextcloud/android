@@ -1,3 +1,8 @@
+# 2015-11-28 
+
+- update all PR
+- PR [#1191] (https://github.com/owncloud/android/pull/1191) "Cancel upload on wlan exit" merged
+
 # 2015-11-21
 - fix #1297
 - update all PR
