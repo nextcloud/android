@@ -18,4 +18,4 @@
     <alpha android:fromAlpha="0.0" android:toAlpha="1.0"
            android:interpolator="@android:anim/decelerate_interpolator"
            android:duration="@integer/abc_config_activityShortDur" />
-</set>
+</set><!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v7/appcompat/res/anim/abc_popup_enter.xml -->
