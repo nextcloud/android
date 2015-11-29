@@ -24,3 +24,4 @@
     <item android:state_focused="true"                                                             android:drawable="@drawable/abc_list_focused_holo" />
     <item                                                                                          android:drawable="@android:color/transparent" />
 </selector>
+<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v7/appcompat/res/drawable/abc_item_background_holo_light.xml -->
