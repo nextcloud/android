@@ -49,7 +49,7 @@ public class OwnCloudListPreference extends ListPreference {
         }
 
         int preselect = findIndexOfValue(getValue());
-        // TODO for some reason value change is persisted but not directly shown in Android-15 emulator
+
         // same thing happens for the Standard ListPreference though
         android.support.v7.app.AlertDialog.Builder builder =
                 new android.support.v7.app.AlertDialog.Builder(mContext, R.style.ownCloud_AlertDialog)
@@ -82,6 +82,11 @@ public class OwnCloudListPreference extends ListPreference {
             String value = getEntryValues()[which].toString();
             if (callChangeListener(value)) {
                 setValue(value);
+
+                // Workaround for pre kitkat since they don't support change listener within setValue
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                    setSummary(getEntries()[which]);
+                }
             }
             dialog.dismiss();
         }
