@@ -368,15 +368,13 @@
     <string name="file_list__footer__files">%1$d files</string>
     <string name="file_list__footer__files_and_folder">%1$d files, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d files, %2$d folders</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Upload file to server and ...</string>
-    <string name="prefs_instant_behaviour_title">Behaviour</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Original file will be...</string>
+    <string name="prefs_instant_behaviour_title">Original file will be...</string>
     <string name="upload_copy_files">Copy file</string>
     <string name="upload_move_files">Move file</string>
 
-    <string name="pref_behaviour_entries_do_nothing">do nothing</string>
-    <string name="pref_behaviour_entries_copy">copy file to OC folder</string>
-    <string name="pref_behaviour_entries_move">move file to OC folder</string>
-    <string name="pref_behaviour_entries_delete">delete origin file</string>
+    <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
+    <string name="pref_behaviour_entries_move">moved to ownCloud folder</string>
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_with_user_section_title">Share with Users and Groups</string>
