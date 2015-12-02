@@ -101,7 +101,6 @@ public class FileUploader extends Service
     public static final int LOCAL_BEHAVIOUR_COPY = 0;
     public static final int LOCAL_BEHAVIOUR_MOVE = 1;
     public static final int LOCAL_BEHAVIOUR_FORGET = 2;
-    public static final int LOCAL_BEHAVIOUR_REMOVE = 3;
 
     public static final int UPLOAD_SINGLE_FILE = 0;
     public static final int UPLOAD_MULTIPLE_FILES = 1;
@@ -245,7 +244,7 @@ public class FileUploader extends Service
 
         boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
         boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false);
-        int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_COPY);
+        int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
 
         if (intent.hasExtra(KEY_FILE) && files == null) {
             Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");

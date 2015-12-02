@@ -333,9 +333,6 @@ public class UploadFileOperation extends RemoteOperation {
             if (result.isSuccess()) {
                 if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
                     mFile.setStoragePath("");
-                } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_REMOVE){
-                    mFile.setStoragePath("");
-                    originalFile.delete();
                 } else {
                     mFile.setStoragePath(expectedPath);
                     File fileToMove = null;
