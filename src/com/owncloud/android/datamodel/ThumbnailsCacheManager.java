@@ -239,7 +239,7 @@ public class ThumbnailsCacheManager {
                 if (mFile instanceof OCFile) {
                     thumbnail = doOCFileInBackground(mIsThumbnail);
 
-                    if (((OCFile) mFile).isVideo()){
+                    if (((OCFile) mFile).isVideo() && thumbnail != null){
                         thumbnail = addVideoOverlay(thumbnail);
                     }
                 }  else if (mFile instanceof File) {
@@ -248,7 +248,7 @@ public class ThumbnailsCacheManager {
                     String url = ((File) mFile).getAbsolutePath();
                     String mMimeType = FileStorageUtils.getMimeTypeFromName(url);
 
-                    if (mMimeType != null && mMimeType.startsWith("video/")){
+                    if (mMimeType != null && mMimeType.startsWith("video/") && thumbnail != null){
                         thumbnail = addVideoOverlay(thumbnail);
                     }
                 //} else {  do nothing
