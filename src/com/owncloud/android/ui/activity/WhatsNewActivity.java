@@ -28,7 +28,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -50,7 +52,6 @@ import com.owncloud.android.ui.whatsnew.ProgressIndicator;
  * @author Bartosz Przybylski
  */
 public class WhatsNewActivity extends Activity {
-	private static String TAG = WhatsNewActivity.class.getSimpleName();
 
 	private static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
 
@@ -83,11 +84,7 @@ public class WhatsNewActivity extends Activity {
 					onFinish();
 					finish();
 				}
-				if (!mProgress.hasNextStep()) {
-					mForwardFinishButton.setImageResource(R.drawable.ic_ok);
-				} else {
-					mForwardFinishButton.setImageResource(R.drawable.ic_menu_forward);
-				}
+				updateNextButtonIfNeeded();
 			}
 		});
 		Button skipButton = (Button) findViewById(R.id.skip);
@@ -133,6 +130,48 @@ public class WhatsNewActivity extends Activity {
 			if (item.shouldShowContentText())
 				tv2.setText(item.getContentText());
 		}
+		mContentPanel.setOnTouchListener(new OnSwipeTouchListener(getApplicationContext()) {
+
+			@Override
+			public void onSwipeLeft() {
+				handleMoveToNext();
+			}
+
+			@Override
+			public void onSwipeRight() {
+				handleMoveToPrev();
+			}
+		});
+	}
+
+	@Override
+	public void onBackPressed() {
+		onFinish();
+		super.onBackPressed();
+	}
+
+
+	private void updateNextButtonIfNeeded() {
+		if (!mProgress.hasNextStep())
+			mForwardFinishButton.setImageResource(R.drawable.ic_ok);
+		else
+			mForwardFinishButton.setImageResource(R.drawable.ic_menu_forward);
+	}
+
+	private void handleMoveToNext() {
+		if (mProgress.hasNextStep()) {
+			mProgress.animateToNextStep();
+			mContentPanel.animate().x(-mContentPanel.getChildAt(++mCurrentStep).getLeft());
+			updateNextButtonIfNeeded();
+		}
+	}
+
+	private void handleMoveToPrev() {
+		if (mProgress.hasPrevStep()) {
+			mProgress.animateToPrevStep();
+			mContentPanel.animate().x(-mContentPanel.getChildAt(--mCurrentStep).getLeft());
+			updateNextButtonIfNeeded();
+		}
 	}
 
 	private void onFinish() {
@@ -168,5 +207,45 @@ public class WhatsNewActivity extends Activity {
 			context.startActivity(new Intent(context, WhatsNewActivity.class));
 	}
 
+
+	public abstract class OnSwipeTouchListener implements View.OnTouchListener {
+
+		private final GestureDetector gestureDetector;
+
+		public OnSwipeTouchListener(Context context) {
+			gestureDetector = new GestureDetector(context, new GestureListener());
+		}
+
+		abstract public void onSwipeLeft();
+
+		abstract public void onSwipeRight();
+
+		public boolean onTouch(View v, MotionEvent event) {
+			return gestureDetector.onTouchEvent(event);
+		}
+
+		private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+			private static final int SWIPE_DISTANCE_THRESHOLD = 100;
+			private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+			@Override
+			public boolean onDown(MotionEvent e) { return true; }
+
+			@Override
+			public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+				final float distanceX = e2.getX() - e1.getX();
+				final float distanceY = e2.getY() - e1.getY();
+				if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+					if (distanceX > 0)
+						onSwipeRight();
+					else
+						onSwipeLeft();
+					return true;
+				}
+				return false;
+			}
+		}
+	}
 
 }
