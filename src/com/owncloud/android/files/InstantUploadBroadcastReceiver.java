@@ -140,17 +140,10 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         if (behaviour.equalsIgnoreCase("NOTHING")) {
             Log_OC.d(TAG, "upload file and do nothing");
             i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
-        } else if (behaviour.equalsIgnoreCase("COPY")) {
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_COPY);
-            Log_OC.d(TAG, "upload file and copy file to oc folder");
         } else if (behaviour.equalsIgnoreCase("MOVE")) {
             i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
             Log_OC.d(TAG, "upload file and move file to oc folder");
-        } else if (behaviour.equalsIgnoreCase("DELETE")){
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_REMOVE);
-            Log_OC.d(TAG, "upload file and delete file in original place");
         }
-
         return i;
     }
 

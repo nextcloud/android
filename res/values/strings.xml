@@ -394,6 +394,8 @@
     <string name="pref_cache_size">Cache size</string>
     <string name="prefs_instant_behaviour_dialogTitle">Upload file to server and ...</string>
     <string name="prefs_instant_behaviour_title">Behaviour</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Original file will be...</string>
+    <string name="prefs_instant_behaviour_title">Original file will be...</string>
     <string name="upload_copy_files">Copy file</string>
     <string name="upload_move_files">Move file</string>
     <string name="prefs_storage_path">Storage path</string>
@@ -413,6 +415,8 @@
     <string name="stream_expose_password">Do you want to stream this file with an external app?\n\nCAUTION: This may expose your password!</string>
     <string name="set_picture_as">Set picture as</string>
     <string name="set_as">Set As</string>
+    <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
+    <string name="pref_behaviour_entries_move">moved to ownCloud folder</string>
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_with_user_section_title">Share with users and groups</string>

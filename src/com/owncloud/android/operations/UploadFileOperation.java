@@ -332,10 +332,7 @@ public class UploadFileOperation extends RemoteOperation {
             // location in the ownCloud local folder
             if (result.isSuccess()) {
                 if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
-                    mFile.setStoragePath(null);
-                } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_REMOVE){
-                    mFile.setStoragePath(null);
-                    originalFile.delete();
+                    mFile.setStoragePath("");
                 } else {
                     mFile.setStoragePath(expectedPath);
                     File fileToMove = null;
