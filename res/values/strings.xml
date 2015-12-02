@@ -392,8 +392,6 @@
     <string name="action_switch_list_view">Switch to list view</string>
     <string name="common_category">Common</string>
     <string name="pref_cache_size">Cache size</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Upload file to server and ...</string>
-    <string name="prefs_instant_behaviour_title">Behaviour</string>
     <string name="prefs_instant_behaviour_dialogTitle">Original file will be...</string>
     <string name="prefs_instant_behaviour_title">Original file will be...</string>
     <string name="upload_copy_files">Copy file</string>
@@ -403,7 +401,6 @@
 
     <string name="pref_behaviour_entries_do_nothing">do nothing</string>
     <string name="pref_behaviour_entries_copy">copy file to OC folder</string>
-    <string name="pref_behaviour_entries_move">move file to OC folder</string>
     <string name="pref_behaviour_entries_delete">delete origin file</string>
     <string name="confirmation_remove_files_alert">Do you really want to remove selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to remove a folder and its content?</string>
