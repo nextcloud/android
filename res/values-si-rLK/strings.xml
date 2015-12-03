@@ -36,7 +36,6 @@
   <string name="common_yes">ඔව්</string>
   <string name="common_no">එපා</string>
   <string name="common_ok">හරි</string>
-  <string name="common_cancel_upload">උඩුගත කිරීම අත් හරින්න</string>
   <string name="common_cancel">එපා</string>
   <string name="common_save_exit">සුරැක &amp; පිටවන්න</string>
   <string name="common_error">දෝශය</string>
@@ -79,4 +78,6 @@
   <string name="prefs_category_accounts">ගිණුම්</string>
   <string name="folder_picker_choose_button_text">තෝරන්න</string>
   <string name="auth_host_address">සේවාදායකයේ ලිපිනය</string>
+  <string name="share_dialog_title">හුවමාරු කිරීම</string>
+  <string name="share_search">සොයන්න</string>
 </resources>

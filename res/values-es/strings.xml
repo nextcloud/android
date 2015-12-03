@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">hace segundos</string>
   <string name="file_list_empty">No hay nada aquí. ¡Suba algo!</string>
   <string name="file_list_loading">Cargando...</string>
+  <string name="file_list_no_app_for_file_type">¡No se encontró una aplicación para el tipo de archivo!</string>
   <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
   <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
@@ -78,16 +79,16 @@
   <string name="filedetails_created">Creado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
-  <string name="filedetails_sync_file">Actualizar archivo</string>
+  <string name="filedetails_sync_file">Sincronizar</string>
   <string name="filedetails_renamed_in_upload_msg">El fichero fue renombrado como %1$s durante la subida</string>
   <string name="list_layout">Diseño de lista</string>
   <string name="action_share_file">Compartir con enlace</string>
   <string name="action_unshare_file">Dejar de compartir</string>
+  <string name="action_share_with_users">Compartir con usuarios</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>
-  <string name="common_cancel_download">Cancelar descarga</string>
-  <string name="common_cancel_upload">Cancelar subida</string>
+  <string name="common_cancel_sync">Cancelar sincronización</string>
   <string name="common_cancel">Cancelar</string>
   <string name="common_save_exit">Guardar &amp; Salir</string>
   <string name="common_error">Error</string>
@@ -138,9 +139,9 @@
   <string name="pass_code_configure_your_pass_code_explanation">La contraseña será requerida cada vez que la aplicación sea iniciada</string>
   <string name="pass_code_reenter_your_pass_code">Reintroduzca la contraseña, por favor.</string>
   <string name="pass_code_remove_your_pass_code">Borre su contraseña</string>
-  <string name="pass_code_mismatch">Las contraseñas no son identicas</string>
-  <string name="pass_code_wrong">Contraseña incorrecta</string>
-  <string name="pass_code_removed">Contraseña borrada</string>
+  <string name="pass_code_mismatch">Los códigos de acceso no son idénticos</string>
+  <string name="pass_code_wrong">Código de acceso incorrecto</string>
+  <string name="pass_code_removed">Código de acceso borrado</string>
   <string name="pass_code_stored">Contraseña almacenada</string>
   <string name="media_notif_ticker">Reproductor de música %1$s</string>
   <string name="media_state_playing">%1$s (reproduciendo)</string>
@@ -244,6 +245,8 @@
   <string name="ssl_validator_label_validity_to">A:</string>
   <string name="ssl_validator_label_signature">Firma:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Firma:</string>
+  <string name="certificate_load_problem">Existe un problema al cargar el certificado.</string>
   <string name="ssl_validator_null_cert">No se ha podido mostrar el certificado</string>
   <string name="ssl_validator_no_info_about_error">- No hay información acerca del error</string>
   <string name="placeholder_sentence">Esto es un marcador de posición</string>
@@ -307,7 +310,7 @@
   <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
   <string name="move_file_error">Hubo un error al tratar de mover este archivo o carpeta</string>
   <string name="forbidden_permissions_move">para mover este archivo</string>
-  <string name="copy_file_not_found">No se puede copiar. Revise si el archivo existe</string>
+  <string name="copy_file_not_found">No se puede copiar. Revise si existe el archivo</string>
   <string name="copy_file_invalid_into_descendent">No se puede copiar una carpeta dentro de una de sus subcarpetas.</string>
   <string name="copy_file_invalid_overwrite">El fichero ya existe en el directorio de destino</string>
   <string name="copy_file_error">Hubo un error al tratar de copiar este archivo o carpeta</string>
@@ -315,11 +318,11 @@
   <string name="prefs_category_instant_uploading">Subidas instantáneas</string>
   <string name="prefs_category_security">Seguridad</string>
   <string name="prefs_instant_video_upload_path_title">Guardar videos subidos en la carpeta:</string>
-  <string name="download_folder_failed_content">La descarga de la carpeta %1$s no ha podido ser completada</string>
+  <string name="sync_folder_failed_content">La sincronización de la carpeta %1$s no se pudo completar</string>
   <string name="shared_subject_header">compartido</string>
   <string name="with_you_subject_header">con usted</string>
-  <string name="subject_token">%1$s compartió \"%2$s\" conmigo</string>
-  <string name="saml_subject_token">\"%1$s\" ha sido compartido con usted.</string>
+  <string name="subject_user_shared_with_you">%1$s compartió \"%2$s\" conmigo</string>
+  <string name="subject_shared_with_you">\"%1$s\" ha sido compartido con usted.</string>
   <string name="auth_refresh_button">Refrescar la conexión</string>
   <string name="auth_host_address">Dirección del servidor</string>
   <string name="common_error_out_memory">No hay suficiente memoria</string>
@@ -332,4 +335,12 @@
   <string name="file_list__footer__files">%1$d archivos</string>
   <string name="file_list__footer__files_and_folder">%1$d archivos, 1 carpeta</string>
   <string name="file_list__footer__files_and_folders">%1$d archivos, %2$d carpetas</string>
+  <string name="share_dialog_title">Compartiendo</string>
+  <string name="share_with_user_section_title">Compartir con Usuarios y Grupos</string>
+  <string name="share_no_users">Aún no se ha compartido con ningún usuario.</string>
+  <string name="share_add_user_or_group">Añadir usuario o grupo</string>
+  <string name="share_search">Buscar</string>
+  <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
+  <string name="share_group_clarification">%1$s (grupo)</string>
+  <string name="share_sharee_unavailable">Lo siento, compartir no está disponible en su servidor.\nPor favor, contacte con su administrador</string>
 </resources>

@@ -21,15 +21,14 @@
 
 package com.owncloud.android.operations;
 
-import java.util.ArrayList;
-
-import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.operations.common.SyncOperation;
+
+import java.util.ArrayList;
 
 /**
  * Provide a list shares for a specific file.
@@ -73,6 +72,11 @@ public class GetSharesForFileOperation extends SyncOperation {
             }
 
             getStorageManager().saveSharesDB(shares);
+
+        } else if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_NOT_FOUND) {
+            // no share on the file - remove local shares
+            getStorageManager().removeSharesForFile(mPath);
+
         }
 
         return result;
