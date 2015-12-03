@@ -138,8 +138,11 @@ class SyncFolderHandler extends Handler {
 
     public void add(Account account, String remotePath,
                     SynchronizeFolderOperation syncFolderOperation){
-        mPendingOperations.putIfAbsent(account, remotePath, syncFolderOperation);
-        sendBroadcastNewSyncFolder(account, remotePath);    // TODO upgrade!
+        Pair<String, String> putResult =
+                mPendingOperations.putIfAbsent(account, remotePath, syncFolderOperation);
+        if (putResult != null) {
+            sendBroadcastNewSyncFolder(account, remotePath);    // TODO upgrade!
+        }
     }
 
 

@@ -1735,18 +1735,33 @@ public class FileDataStorageManager {
                 Log_OC.d(TAG, "checking parents to remove conflict; STARTING with " + parentPath);
                 while (parentPath.length() > 0) {
 
-                    String where =
+                    String whereForDescencentsInConflict =
                             ProviderTableMeta.FILE_ETAG_IN_CONFLICT + " IS NOT NULL AND " +
                                     ProviderTableMeta.FILE_CONTENT_TYPE + " != 'DIR' AND " +
                                     ProviderTableMeta.FILE_ACCOUNT_OWNER + " = ? AND " +
                                     ProviderTableMeta.FILE_PATH + " LIKE ?";
-                    Cursor descendentsInConflict = getContentResolver().query(
-                            ProviderTableMeta.CONTENT_URI_FILE,
-                            new String[]{ProviderTableMeta._ID},
-                            where,
-                            new String[]{mAccount.name, parentPath + "%"},
-                            null
-                    );
+                    Cursor descendentsInConflict = null;
+                    if (getContentResolver() != null) {
+                        descendentsInConflict = getContentResolver().query(
+                                ProviderTableMeta.CONTENT_URI_FILE,
+                                new String[]{ProviderTableMeta._ID},
+                                whereForDescencentsInConflict,
+                                new String[]{mAccount.name, parentPath + "%"},
+                                null
+                        );
+                    } else {
+                        try {
+                            descendentsInConflict = getContentProviderClient().query(
+                                    ProviderTableMeta.CONTENT_URI_FILE,
+                                    new String[]{ProviderTableMeta._ID},
+                                    whereForDescencentsInConflict,
+                                    new String[]{mAccount.name, parentPath + "%"},
+                                    null
+                            );
+                        } catch (RemoteException e) {
+                            Log_OC.e(TAG, "Failed querying for descendents in conflict " + e.getMessage());
+                        }
+                    }
                     if (descendentsInConflict == null || descendentsInConflict.getCount() == 0) {
                         Log_OC.d(TAG, "NO MORE conflicts in " + parentPath);
                         if (getContentResolver() != null) {

@@ -299,8 +299,10 @@ public class FileUploader extends Service
                 Pair<String, String> putResult = mPendingUploads.putIfAbsent(
                         account, files[i].getRemotePath(), newUpload
                 );
-                uploadKey = putResult.first;
-                requestedUploads.add(uploadKey);
+                if (putResult != null) {
+                    uploadKey = putResult.first;
+                    requestedUploads.add(uploadKey);
+                }   // else, file already in the queue of uploads; don't repeat the request
             }
 
         } catch (IllegalArgumentException e) {
