@@ -9,6 +9,8 @@ some advantages over the Web interface:
 
 * A simplified interface that fits nicely on a tablet or smartphone
 * Automatic synchronization of your files
+* Share files with other ownCloud users and groups, and create public share 
+  links
 * Instant uploads of photos or videos recorded on your Android device
 * Easily add files from your device to ownCloud
 * Two-factor authentication
@@ -69,9 +71,8 @@ shortcut to your files, and contains the Settings button.
    :alt: Top-left menu.
 
 Click the overflow button at the top right (that's the one with three vertical 
-dots, and that is really what it is called) to open a user menu. ``Refresh 
-account`` syncs your files, and ``Sort`` gives you the option to sort your files 
-by date, or alphabetically.
+dots) to open a user menu. ``Refresh account`` syncs your files, and ``Sort`` 
+gives you the option to sort your files by date, or alphabetically.
 
 .. figure:: images/android-6.png
    :alt: Top-right menu.
@@ -86,34 +87,39 @@ your music player, or from your Android filesystem.
    :alt: File upload dialogue.
 
 All files (that you have permission to access) on your ownCloud server are 
-displayed in your Android app, but are not downloaded until you click on them to 
-download them. Downloaded files are marked with a green arrow.
+displayed in your Android app, but are not downloaded until you click on them. 
+Downloaded files are marked with a green arrow.
 
 .. figure:: images/android-8.png
    :scale: 75%
    :alt: Downloaded files are marked with green arrows.
 
-Download and preview a file with a short press on the filename.  Then a short 
-press on the overflow button opens a menu with 
-options for managing your file.
+Download and view a file with a short press on the filename.  Then a short 
+press on the overflow button opens a menu with options for managing your file.
 
 .. figure:: images/android-9.png
    :scale: 75%
    :alt: File management options. Betsy Ross says "Don't believe everything you 
-   read on the Internet."
+    read on the Internet."
    
-When you are on your mail Files page, a long press on any folder displays a 
-list of options: Share Link, Download, Rename, Move, Copy, and Remove.
+When you are on your main Files page, a long press on any file or folder 
+displays a list of options: Share, Open With, Synchronize, Rename, Move, Copy, 
+Remove, Send, Favorite, and Details.
 
 .. figure:: images/android-11.png
    :scale: 75%
    :alt: Folder and file management options.
    
-When you enter a folder, a long press on any file or folder has these 
-additional options: Open With, Refresh File, Send, Favorite, and Details. The 
-Download option appears on files that have not been downloaded to your Android 
-device.  
+Click Share to share files. You can share with other ownCloud users, and create 
+public share links. If your ownCloud server administrator has enabled username 
+auto-completion, when you start typing user or group names they will 
+auto-complete. After you have shared files, click the Share button to see who 
+you have shared with, and to remove shares.
 
+.. figure:: images/android-12.png
+   :scale: 75%
+   :alt: Sharing files.
+   
 Settings
 --------
 
@@ -134,5 +140,5 @@ uploaded to this directory. You also have the option to choose any other
 existing directory, or to create a new one. Another nice option is Upload 
 Pictures/Video via WiFi Only, to conserve your mobile data usage.
 
-The bottom section of the Settings screen has links to help and the 
-app's version number.
+The bottom section of the Settings screen has links to Help, Recommend to a 
+friend, Feedback, and the version number.
