@@ -79,12 +79,14 @@
   <string name="filedetails_created">Erstellt:</string>
   <string name="filedetails_modified">Geändert:</string>
   <string name="filedetails_download">Herunterladen</string>
+  <string name="filedetails_sync_file">Synchronisation</string>
   <string name="filedetails_renamed_in_upload_msg">Datei wurde wärend des Uploads zu %1$s umbenannt</string>
   <string name="list_layout">Listen-Layout</string>
   <string name="action_share">Teilen</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_sync">Synchronisation abbrechen</string>
   <string name="common_cancel">Abbrechen</string>
   <string name="common_save_exit">Speichern &amp; schließen</string>
   <string name="common_error">Fehler</string>
@@ -241,6 +243,8 @@
   <string name="ssl_validator_label_validity_to">Bis:</string>
   <string name="ssl_validator_label_signature">Signatur:</string>
   <string name="ssl_validator_label_signature_algorithm">Algorithmus:</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Fingerabdruck:</string>
+  <string name="certificate_load_problem">Beim Laden des Zertifikats ist ein Fehler aufgetreten.</string>
   <string name="ssl_validator_null_cert">Das Zertifikat konnte nicht gezeigt werden.</string>
   <string name="ssl_validator_no_info_about_error">- Keine Informationen über den Fehler</string>
   <string name="placeholder_sentence">Dies ist ein Platzhalter</string>
