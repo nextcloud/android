@@ -489,4 +489,9 @@
         <item quantity="other">%d selected</item>
     </plurals>
 
+    <string name="storage_description_external">External</string>
+    <string name="storage_description_sd">SD card</string>
+    <string name="storage_description_sd_no">SD card %1$d</string>
+    <string name="storage_description_unknown">Unknown</string>
+
 </resources>
