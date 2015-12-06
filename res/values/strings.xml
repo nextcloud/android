@@ -414,4 +414,9 @@
     <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients.
         \nPlease contact your administrator</string>
 
+    <string name="storage_description_external">External</string>
+    <string name="storage_description_sd">SD card</string>
+    <string name="storage_description_sd_no">SD card %1$d</string>
+    <string name="storage_description_unknown">Unknown</string>
+
 </resources>
