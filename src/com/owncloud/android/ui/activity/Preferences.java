@@ -70,7 +70,8 @@ import com.owncloud.android.utils.DisplayUtils;
  * It proxies the necessary calls via {@link android.support.v7.app.AppCompatDelegate} to be used
  * with AppCompat.
  */
-public class Preferences extends PreferenceActivity {
+public class Preferences extends PreferenceActivity
+        implements StorageMigration.StorageMigrationProgressListener {
     
     private static final String TAG = Preferences.class.getSimpleName();
 
@@ -104,6 +105,8 @@ public class Preferences extends PreferenceActivity {
 
 	public static class Keys {
 		public static final String STORAGE_PATH = "storage_path";
+		public static final String INSTANT_UPLOAD_PATH = "instant_upload_path";
+		public static final String INSTANT_VIDEO_UPLOAD_PATH = "instant_video_upload_path";
 	}
 
     @SuppressWarnings("deprecation")
@@ -310,13 +313,13 @@ public class Preferences extends PreferenceActivity {
 
 						storageMigration.migrate();
 
-                        return true;
+                        return false;
                     }
                 });
 
         }
 
-        mPrefInstantUploadPath = (PreferenceWithLongSummary)findPreference("instant_upload_path");
+        mPrefInstantUploadPath = (PreferenceWithLongSummary)findPreference(Keys.INSTANT_UPLOAD_PATH);
         if (mPrefInstantUploadPath != null){
 
             mPrefInstantUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -354,7 +357,7 @@ public class Preferences extends PreferenceActivity {
             }
         });
 
-        mPrefInstantVideoUploadPath =  findPreference("instant_video_upload_path");
+        mPrefInstantVideoUploadPath =  findPreference(Keys.INSTANT_VIDEO_UPLOAD_PATH);
         if (mPrefInstantVideoUploadPath != null){
 
             mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -626,7 +629,7 @@ public class Preferences extends PreferenceActivity {
     private void loadInstantUploadPath() {
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mUploadPath = appPrefs.getString("instant_upload_path", getString(R.string.instant_upload_path));
+        mUploadPath = appPrefs.getString(Keys.INSTANT_UPLOAD_PATH, getString(R.string.instant_upload_path));
         mPrefInstantUploadPath.setSummary(mUploadPath);
     }
 
@@ -643,6 +646,7 @@ public class Preferences extends PreferenceActivity {
         editor.commit();
 		String storageDescription = DataStorageUtils.getStorageDescriptionByPath(mStoragePath, this);
         mPrefStoragePath.setSummary(storageDescription);
+		mPrefStoragePath.setValue(newStoragePath);
     }
 
     /**
@@ -664,7 +668,7 @@ public class Preferences extends PreferenceActivity {
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
-        editor.putString("instant_upload_path", mUploadPath);
+        editor.putString(Keys.INSTANT_UPLOAD_PATH, mUploadPath);
         editor.commit();
     }
 
@@ -682,15 +686,14 @@ public class Preferences extends PreferenceActivity {
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
-        editor.putString("instant_video_upload_path", mUploadVideoPath);
+        editor.putString(Keys.INSTANT_VIDEO_UPLOAD_PATH, mUploadVideoPath);
         editor.commit();
     }
 
 	@Override
 	public void onStorageMigrationFinished(String storagePath, boolean succeed) {
-		if (succeed) {
+		if (succeed)
 			saveStoragePath(storagePath);
-		}
 	}
 
 	@Override
