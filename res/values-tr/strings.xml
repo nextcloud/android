@@ -272,6 +272,8 @@
   <string name="share_link_file_error">Bu dosya veya klasörü paylaşmaya çalışılırken bir hata oluştu</string>
   <string name="unshare_link_file_no_exist">Paylaşımı kaldırma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
   <string name="unshare_link_file_error">Bu dosya veya klasör paylaşımı kaldırılmaya çalışılırken bir hata oluştu</string>
+  <string name="update_link_file_no_exist">Güncelleme yapılamıyor. Lütfen dosyanın mevcut olup olmadığını kontrol edin.</string>
+  <string name="update_link_file_error">Paylaşılan bağlantı güncellenirken hata oluştu</string>
   <string name="share_link_password_title">Bir parola girin</string>
   <string name="share_link_empty_password">Bir parola girmelisiniz</string>
   <string name="activity_chooser_send_file_title">Gönder</string>
@@ -288,6 +290,7 @@
   <string name="forbidden_permissions_delete">Bu dosyayı silme</string>
   <string name="share_link_forbidden_permissions">Bu dosyayı paylaşma</string>
   <string name="unshare_link_forbidden_permissions">Bu dosya paylaşımını kaldırma</string>
+  <string name="update_link_forbidden_permissions">Paylaşılan bağlantıyı güncellemek için</string>
   <string name="forbidden_permissions_create">Dosya oluşturma</string>
   <string name="uploader_upload_forbidden_permissions">Bu klasöre yükleme</string>
   <string name="downloader_download_file_not_found">Bu dosya artık sunucuda mevcut değil</string>
@@ -335,11 +338,14 @@
   <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
   <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
   <string name="share_dialog_title">Paylaşım</string>
+  <string name="share_with_user_section_title">Kullanıcı ve Gruplarla paylaş</string>
   <string name="share_no_users">Henüz kullanıcılara paylaşılan veri yok</string>
   <string name="share_add_user_or_group">Kullanıcı veya Grup ekle</string>
   <string name="share_via_link_section_title">Paylaşma bağlantısı</string>
   <string name="share_via_link_expiration_date_label">Son kullanma tarihini ayarla</string>
   <string name="share_via_link_password_label">Parola koruması</string>
+  <string name="share_via_link_password_title">Güvenli</string>
+  <string name="share_get_public_link_button">Bağlantıyı al</string>
   <string name="share_search">Ara</string>
   <string name="search_users_and_groups_hint">Kullanıcı ve Grupları Ara</string>
   <string name="share_group_clarification">%1$s (grup)</string>
