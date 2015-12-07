@@ -40,6 +40,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.ui.activity.Preferences;
 
 import android.accounts.Account;
 import android.annotation.SuppressLint;
