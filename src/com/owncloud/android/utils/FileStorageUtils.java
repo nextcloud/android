@@ -54,6 +54,7 @@ import java.util.Vector;
 
 import third_parties.daveKoeller.AlphanumComparator;
 
+import com.owncloud.android.ui.activity.Preferences;
 
 import android.accounts.Account;
 import android.annotation.SuppressLint;
