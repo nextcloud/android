@@ -344,6 +344,7 @@
     <string name="uploader_upload_forbidden_permissions">to upload in this folder</string>
     <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
 
+    <string name="file_migration_dialog_title">Updating storage path</string>
     <string name="file_migration_finish_button">Finish</string>
     <string name="file_migration_preparing">Preparing for migration...</string>
     <string name="file_migration_checking_destination">Checking destination...</string>
@@ -360,6 +361,10 @@
     <string name="file_migration_failed_dir_already_exists">ERROR: owncloud directory already exists</string>
     <string name="file_migration_failed_while_coping">ERROR: While migrating</string>
     <string name="file_migration_failed_while_updating_index">ERROR: While updating index</string>
+
+    <string name="file_migration_directory_already_exists">Data folder already exists, what to do?</string>
+    <string name="file_migration_override_data_folder">Override</string>
+    <string name="file_migration_use_data_folder">Use existing</string>
 
     <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Add account</string>

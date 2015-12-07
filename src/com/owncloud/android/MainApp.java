@@ -35,6 +35,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.Preferences;
 
 
 /**
@@ -67,7 +68,7 @@ public class MainApp extends Application {
 
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        MainApp.storagePath = appPrefs.getString("storage_path", Environment.
+        MainApp.storagePath = appPrefs.getString(Preferences.Keys.STORAGE_PATH, Environment.
                               getExternalStorageDirectory().getAbsolutePath());
 
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
