@@ -69,7 +69,7 @@ public class DataStorageUtils {
 		storagePath = System.getenv("SECONDARY_STORAGE"); // : separated paths to sd cards
 		list.addAll(getSDCardStorage(storagePath, context));
 
-		//list.add(new Storage("Costam", Environment.getExternalStorageDirectory().getAbsolutePath() + "/costam"));
+		list.add(new Storage("Costam", Environment.getExternalStorageDirectory().getAbsolutePath() + "/costam"));
 
 		return list.toArray(new Storage[list.size()]);
 	}
