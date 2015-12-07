@@ -36,6 +36,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.ui.activity.Preferences;
 
 import android.accounts.Account;
 import android.annotation.SuppressLint;
@@ -94,7 +95,7 @@ public class FileStorageUtils {
     public static String getInstantUploadFilePath(Context context, String fileName) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String uploadPathdef = context.getString(R.string.instant_upload_path);
-        String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
+        String uploadPath = pref.getString(Preferences.Keys.INSTANT_UPLOAD_PATH, uploadPathdef);
         String value = uploadPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
         return value;
     }
@@ -108,7 +109,7 @@ public class FileStorageUtils {
     public static String getInstantVideoUploadFilePath(Context context, String fileName) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String uploadVideoPathdef = context.getString(R.string.instant_upload_path);
-        String uploadVideoPath = pref.getString("instant_video_upload_path", uploadVideoPathdef);
+        String uploadVideoPath = pref.getString(Preferences.Keys.INSTANT_VIDEO_UPLOAD_PATH, uploadVideoPathdef);
         String value = uploadVideoPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
         return value;
     }
