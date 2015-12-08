@@ -328,10 +328,13 @@
   <string name="file_list__footer__files_and_folders">%1$d Dateien, %2$d Ordner</string>
   <string name="share_dialog_title">Teilen</string>
   <string name="share_with_user_section_title">Mit Benutzern und Gruppen teilen</string>
+  <string name="share_no_users">Bis jetzt hast du noch keine Dateien mit anderen geteilt</string>
   <string name="share_add_user_or_group">Benutzer oder Gruppe hinzufügen</string>
   <string name="share_via_link_section_title">Link teilen</string>
   <string name="share_via_link_expiration_date_label">Ein Ablaufdatum setzen</string>
   <string name="share_via_link_password_label">Passwortschutz</string>
+  <string name="share_get_public_link_button">Link erstellen</string>
   <string name="share_search">Suche</string>
   <string name="search_users_and_groups_hint">Nach Benutzern und Gruppen suchen</string>
+  <string name="share_group_clarification">%1$s (group)</string>
 </resources>
