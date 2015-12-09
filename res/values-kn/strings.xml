@@ -21,7 +21,7 @@
   <string name="uploader_btn_upload_text">ಪೇರಿಸು</string>
   <string name="uploader_btn_new_folder_text">﻿ಹೊಸ ಕಡತಕೋಶ</string>
   <string name="filedetails_download">ಪ್ರತಿಯನ್ನು ಸ್ಥಳೀಯವಾಗಿ ಉಳಿಸಿಕೊಳ್ಳಿ</string>
-  <string name="action_share_file">ಸಂಪರ್ಕ ಕೊಂಡಿಯನ್ನು  ﻿ಹಂಚಿಕೊಳ್ಳಬಹುದು</string>
+  <string name="action_share">﻿ಹಂಚಿಕೊಳ್ಳಿ</string>
   <string name="common_yes">﻿ಹೌದು</string>
   <string name="common_no">﻿ಇಲ್ಲ</string>
   <string name="common_ok">ಸರಿ</string>
@@ -40,5 +40,8 @@
   <string name="prefs_category_security">﻿ಭದ್ರತೆ</string>
   <string name="auth_host_address">﻿ಪರಿಚಾರಕ ಗಣಕಯಂತ್ರದ ವಿಳಾಸ</string>
   <string name="share_dialog_title">﻿ಹಂಚಿಕೆ</string>
+  <string name="share_via_link_section_title">ಸಂಪರ್ಕ ಕೊಂಡಿಯನ್ನು  ﻿ಹಂಚಿಕೊಳ್ಳಬಹುದು</string>
+  <string name="share_via_link_expiration_date_label">ಮುಕ್ತಾಯ ದಿನಾಂಕವನ್ನು ನಿರ್ದರಿಸಿ</string>
+  <string name="share_via_link_password_label">﻿ಗುಪ್ತಪದ ರಕ್ಷಿಸಿಕೂಳ್ಲಿ</string>
   <string name="share_search">﻿ಹುಡುಕು</string>
 </resources>

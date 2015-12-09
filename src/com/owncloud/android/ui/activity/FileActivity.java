@@ -67,12 +67,14 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
+import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.NavigationDrawerItem;
@@ -93,8 +95,6 @@ public class FileActivity extends AppCompatActivity
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
-    public static final String EXTRA_WAITING_TO_PREVIEW =
-            "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
     public static final String EXTRA_FROM_NOTIFICATION =
             "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
 
@@ -113,8 +113,12 @@ public class FileActivity extends AppCompatActivity
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
     private Account mAccount;
 
-    /** Main {@link OCFile} handled by the activity.*/
+    /** Capabilites of the server where {@link #mAccount} lives */
+     private OCCapability mCapabilities;
+
+     /** Main {@link OCFile} handled by the activity.*/
     private OCFile mFile;
+
 
     /** Flag to signal that the activity will is finishing to enforce the creation of an ownCloud
      * {@link Account} */
@@ -141,11 +145,11 @@ public class FileActivity extends AppCompatActivity
 
     private OperationsServiceBinder mOperationsServiceBinder = null;
 
+    private boolean mResumed = false;
+
     protected FileDownloaderBinder mDownloaderBinder = null;
     protected FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
-
-    private boolean mTryShareAgain = false;
 
     // Navigation Drawer
     protected DrawerLayout mDrawerLayout;
@@ -159,6 +163,7 @@ public class FileActivity extends AppCompatActivity
     protected ArrayList<NavigationDrawerItem> mDrawerItems;
 
     protected NavigationDrawerListAdapter mNavigationDrawerAdapter = null;
+
 
 
     // TODO re-enable when "Accounts" is available in Navigation Drawer
@@ -183,7 +188,6 @@ public class FileActivity extends AppCompatActivity
             mFileOperationsHelper.setOpIdWaitingFor(
                     savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
                     );
-            mTryShareAgain = savedInstanceState.getBoolean(KEY_TRY_SHARE_AGAIN);
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle(savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
             }
@@ -255,7 +259,7 @@ public class FileActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-
+        mResumed = true;
         if (mOperationsServiceBinder != null) {
             doOnResumeAndBound();
         }
@@ -266,7 +270,7 @@ public class FileActivity extends AppCompatActivity
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
-
+        mResumed = false;
         super.onPause();
     }
 
@@ -554,7 +558,6 @@ public class FileActivity extends AppCompatActivity
         outState.putParcelable(FileActivity.EXTRA_FILE, mFile);
         outState.putBoolean(FileActivity.EXTRA_FROM_NOTIFICATION, mFromNotification);
         outState.putLong(KEY_WAITING_FOR_OP_ID, mFileOperationsHelper.getOpIdWaitingFor());
-        outState.putBoolean(KEY_TRY_SHARE_AGAIN, mTryShareAgain);
         if(getSupportActionBar() != null && getSupportActionBar().getTitle() != null) {
             // Null check in case the actionbar is used in ActionBar.NAVIGATION_MODE_LIST
             // since it doesn't have a title then
@@ -598,6 +601,18 @@ public class FileActivity extends AppCompatActivity
         mAccount = account;
     }
 
+
+    /**
+     * Getter for the capabilities of the server where the current OC account lives.
+     *
+     * @return  Capabilities of the server where the current OC account lives. Null if the account is not
+     *          set yet.
+     */
+    public OCCapability getCapabilities() {
+        return mCapabilities;
+    }
+
+
     /**
      * @return Value of mFromNotification: True if the Activity is launched by a notification
      */
@@ -610,14 +625,6 @@ public class FileActivity extends AppCompatActivity
      */
     protected boolean isRedirectingToSetupAccount() {
         return mRedirectingToSetupAccount;
-    }
-
-    public boolean isTryShareAgain(){
-        return mTryShareAgain;
-    }
-
-    public void setTryShareAgain(boolean tryShareAgain) {
-       mTryShareAgain = tryShareAgain;
     }
 
     public OperationsServiceBinder getOperationsServiceBinder() {
@@ -676,6 +683,7 @@ public class FileActivity extends AppCompatActivity
     protected void onAccountSet(boolean stateWasRecovered) {
         if (getAccount() != null) {
             mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
+            mCapabilities = mStorageManager.getCapability(mAccount.name);
 
         } else {
             Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
@@ -730,12 +738,12 @@ public class FileActivity extends AppCompatActivity
                         Toast.LENGTH_LONG);
                 t.show();
             }
-            mTryShareAgain = false;
 
         } else if (operation == null ||
                 operation instanceof CreateShareWithShareeOperation ||
                 operation instanceof UnshareOperation ||
-                operation instanceof SynchronizeFolderOperation
+                operation instanceof SynchronizeFolderOperation ||
+                operation instanceof UpdateShareViaLinkOperation
                 ) {
             if (result.isSuccess()) {
                 updateFileFromDB();
@@ -754,10 +762,10 @@ public class FileActivity extends AppCompatActivity
             onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
 
         } else if (operation instanceof GetSharesForFileOperation) {
-            if (result.isSuccess()) {
+            if (result.isSuccess() || result.getCode() == ResultCode.SHARE_NOT_FOUND) {
                 updateFileFromDB();
 
-            } else if (result.getCode() != ResultCode.SHARE_NOT_FOUND) {
+            } else {
                 Toast t = Toast.makeText(this,
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                         Toast.LENGTH_LONG);
@@ -781,25 +789,31 @@ public class FileActivity extends AppCompatActivity
     private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
                                                      RemoteOperationResult result) {
         if (result.isSuccess()) {
-            mTryShareAgain = false;
             updateFileFromDB();
 
             Intent sendIntent = operation.getSendIntentWithSubject(this);
-            startActivity(sendIntent);
+            if (sendIntent != null) {
+                startActivity(sendIntent);
+            }
+
         } else {
             // Detect Failure (403) --> needs Password
             if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
-                if (!isTryShareAgain()) {
+                String password = operation.getPassword();
+                if ((password == null || password.length() == 0) &&
+                    getCapabilities().getFilesSharingPublicEnabled().isUnknown())
+                    {
+                    // Was tried without password, but not sure that it's optional. Try with password.
+                    // Try with password before giving up.
+                    // See also ShareFileFragment#OnShareViaLinkListener
                     SharePasswordDialogFragment dialog =
-                            SharePasswordDialogFragment.newInstance(new OCFile(operation.getPath()),
-                                    operation.getSendIntent());
+                            SharePasswordDialogFragment.newInstance(new OCFile(operation.getPath()), true);
                     dialog.show(getSupportFragmentManager(), DIALOG_SHARE_PASSWORD);
                 } else {
                     Toast t = Toast.makeText(this,
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
                         Toast.LENGTH_LONG);
                     t.show();
-                    mTryShareAgain = false;
                 }
             } else {
                 Toast t = Toast.makeText(this,
@@ -891,7 +905,9 @@ public class FileActivity extends AppCompatActivity
                 /*if (!mOperationsServiceBinder.isPerformingBlockingOperation()) {
                     dismissLoadingDialog();
                 }*/
-                doOnResumeAndBound();
+                if (mResumed) {
+                    doOnResumeAndBound();
+                }
 
             } else {
                 return;

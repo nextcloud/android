@@ -48,8 +48,7 @@
   <string name="filedetails_modified">Modifita je:</string>
   <string name="filedetails_download">Elŝuti</string>
   <string name="filedetails_renamed_in_upload_msg">La dosiero alinomiĝis al %1$s dum alŝuto</string>
-  <string name="action_share_file">Konhavigi ligilon</string>
-  <string name="action_unshare_file">Malkunhavigi ligilon</string>
+  <string name="action_share">Kunhavigi</string>
   <string name="common_yes">Jes</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Akcepti</string>
@@ -187,5 +186,8 @@
   <string name="file_list__footer__file">1 dosiero</string>
   <string name="file_list__footer__files">%1$d dosieroj</string>
   <string name="share_dialog_title">Kunhavigo</string>
+  <string name="share_via_link_section_title">Kunhavigi ligilon</string>
+  <string name="share_via_link_expiration_date_label">Agordi limdaton</string>
+  <string name="share_via_link_password_label">Protekti per pasvorto</string>
   <string name="share_search">Serĉi</string>
 </resources>

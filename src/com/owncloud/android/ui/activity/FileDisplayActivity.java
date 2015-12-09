@@ -26,7 +26,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
-import android.support.v7.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -50,6 +49,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -79,14 +79,11 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
-import com.owncloud.android.operations.CreateShareViaLinkOperation;
-import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -1047,7 +1044,7 @@ public class FileDisplayActivity extends HookActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                String uploadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+                String uploadedRemotePath = intent.getStringExtra(FileUploader.EXTRA_REMOTE_PATH);
                 String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
                 boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
                 OCFile currentDir = getCurrentDir();
@@ -1056,7 +1053,7 @@ public class FileDisplayActivity extends HookActivity
 
                 if (sameAccount && isDescendant) {
                     String linkedToRemotePath =
-                            intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
+                            intent.getStringExtra(FileUploader.EXTRA_LINKED_TO_PATH);
                     if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
                         refreshListOfFilesFragment();
                     }
@@ -1353,15 +1350,6 @@ public class FileDisplayActivity extends HookActivity
         } else if (operation instanceof CreateFolderOperation) {
             onCreateFolderOperationFinish((CreateFolderOperation) operation, result);
 
-        } else if (operation instanceof CreateShareViaLinkOperation ||
-                    operation instanceof CreateShareWithShareeOperation ) {
-
-            refreshShowDetails();
-            refreshListOfFilesFragment();
-
-        } else if (operation instanceof UnshareOperation) {
-            onUnshareLinkOperationFinish((UnshareOperation) operation, result);
-
         } else if (operation instanceof MoveFileOperation) {
             onMoveFileOperationFinish((MoveFileOperation) operation, result);
 
@@ -1369,18 +1357,6 @@ public class FileDisplayActivity extends HookActivity
             onCopyFileOperationFinish((CopyFileOperation) operation, result);
         }
 
-    }
-
-    private void onUnshareLinkOperationFinish(UnshareOperation operation,
-                                              RemoteOperationResult result) {
-        if (result.isSuccess()) {
-            refreshShowDetails();
-            refreshListOfFilesFragment();
-
-        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
-            cleanSecondFragment();
-            refreshListOfFilesFragment();
-        }
     }
 
     private void refreshShowDetails() {

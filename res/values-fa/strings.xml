@@ -71,8 +71,7 @@
   <string name="filedetails_modified">تغییر یافته توسط:</string>
   <string name="filedetails_download">بارگیری</string>
   <string name="filedetails_renamed_in_upload_msg">فایل در هنگام بارگزاری به %1$s تغییر نام یافت</string>
-  <string name="action_share_file">اشتراک گذاشتن لینک</string>
-  <string name="action_unshare_file">لغو اشتراک گذاشتن لینک</string>
+  <string name="action_share">اشتراک‌گذاری</string>
   <string name="common_yes">بله</string>
   <string name="common_no">نه</string>
   <string name="common_ok">باشه</string>
@@ -296,5 +295,8 @@
   <string name="file_list__footer__files_and_folder">%1$d فایل، 1 پوشه</string>
   <string name="file_list__footer__files_and_folders">%1$d فایل, %2$d پوشه</string>
   <string name="share_dialog_title">اشتراک گذاری</string>
+  <string name="share_via_link_section_title">اشتراک گذاشتن لینک</string>
+  <string name="share_via_link_expiration_date_label">تنظیم تاریخ انقضا</string>
+  <string name="share_via_link_password_label">نگهداری کردن رمز عبور</string>
   <string name="share_search">جست‌و‌جو</string>
 </resources>

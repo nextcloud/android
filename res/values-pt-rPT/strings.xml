@@ -82,8 +82,7 @@
   <string name="filedetails_sync_file">Sincronizar</string>
   <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado para %1$s durante o envio.</string>
   <string name="list_layout">Apresentação da Lista</string>
-  <string name="action_share_file">Partilhar a hiperligação</string>
-  <string name="action_unshare_file">Cancelar partilha da hiperligação</string>
+  <string name="action_share">Compartilhar</string>
   <string name="common_yes">Sim</string>
   <string name="common_no">Não</string>
   <string name="common_ok">ACEITAR</string>
@@ -331,8 +330,10 @@
   <string name="file_list__footer__files_and_folder">%1$d ficheiros, 1 pasta</string>
   <string name="file_list__footer__files_and_folders">%1$d ficheiros, %2$d pastas</string>
   <string name="share_dialog_title">Partilha</string>
-  <string name="share_with_user_section_title">Partilhar com Utilizadores e Grupos</string>
   <string name="share_no_users">Ainda não foram partilhados os dados com os utilizadores</string>
   <string name="share_add_user_or_group">Adicionar Utilziador ou Grupo</string>
+  <string name="share_via_link_section_title">Compartilhar hiperligação</string>
+  <string name="share_via_link_expiration_date_label">Definir a data de expiração</string>
+  <string name="share_via_link_password_label">Proteger com Palavra-passe</string>
   <string name="share_search">Procurar</string>
 </resources>

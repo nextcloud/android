@@ -59,7 +59,7 @@
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
   <string name="filedetails_renamed_in_upload_msg">El archivo fue renombrado como %1$s durante la subida</string>
-  <string name="action_share_file">Enlace compartido</string>
+  <string name="action_share">Compartir</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>
@@ -207,5 +207,8 @@
   <string name="prefs_category_security">Seguridad</string>
   <string name="auth_host_address">Dirección del servidor</string>
   <string name="share_dialog_title">Compartiendo</string>
+  <string name="share_via_link_section_title">Enlace compartido</string>
+  <string name="share_via_link_expiration_date_label">Establecer fecha de caducidad</string>
+  <string name="share_via_link_password_label">Protección con contraseña</string>
   <string name="share_search">Buscar</string>
 </resources>

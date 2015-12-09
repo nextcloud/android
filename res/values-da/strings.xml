@@ -80,8 +80,7 @@
   <string name="filedetails_download">Hent</string>
   <string name="filedetails_renamed_in_upload_msg">Filen blev omdøbt til %1$s under upload</string>
   <string name="list_layout">Listevisning</string>
-  <string name="action_share_file">Del link</string>
-  <string name="action_unshare_file">Ophæv deling</string>
+  <string name="action_share">Del</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nej</string>
   <string name="common_ok">OK</string>
@@ -328,5 +327,8 @@
   <string name="file_list__footer__files_and_folder">%1$d filer, 1 mape</string>
   <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
   <string name="share_dialog_title">Deling</string>
+  <string name="share_via_link_section_title">Del link</string>
+  <string name="share_via_link_expiration_date_label">Vælg udløbsdato</string>
+  <string name="share_via_link_password_label">Beskyt med adgangskode</string>
   <string name="share_search">Søg</string>
 </resources>

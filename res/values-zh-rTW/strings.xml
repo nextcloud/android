@@ -80,8 +80,7 @@
   <string name="filedetails_download">下載</string>
   <string name="filedetails_renamed_in_upload_msg">檔案名稱在上傳時已被更改為 %1$s</string>
   <string name="list_layout">列表版型</string>
-  <string name="action_share_file">分享連結</string>
-  <string name="action_unshare_file">取消共享連結</string>
+  <string name="action_share">分享</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">好</string>
@@ -324,8 +323,10 @@
   <string name="file_list__footer__files_and_folder">%1$d 個檔案, 1 個資料夾</string>
   <string name="file_list__footer__files_and_folders">%1$d 個檔案, %2$d 個資料夾</string>
   <string name="share_dialog_title">分享</string>
-  <string name="share_with_user_section_title">與用戶或群組分享</string>
   <string name="share_no_users">目前沒有任何您分享的內容</string>
   <string name="share_add_user_or_group">新增使用者或是群組</string>
+  <string name="share_via_link_section_title">分享連結</string>
+  <string name="share_via_link_expiration_date_label">指定到期日</string>
+  <string name="share_via_link_password_label">密碼保護</string>
   <string name="share_search">搜尋</string>
 </resources>

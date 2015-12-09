@@ -78,8 +78,7 @@
   <string name="filedetails_sync_file">Szinkronizálás</string>
   <string name="filedetails_renamed_in_upload_msg">A feltöltés során az állmányt erre neveztük át: %1$s</string>
   <string name="list_layout">Lista Elrendezés</string>
-  <string name="action_share_file">Megosztás hivatkozással</string>
-  <string name="action_unshare_file">Megosztás visszavonása</string>
+  <string name="action_share">Megosztás</string>
   <string name="common_yes">Igen</string>
   <string name="common_no">Nem</string>
   <string name="common_ok">OK</string>
@@ -192,6 +191,7 @@
   <string name="sync_file_nothing_to_do_msg">Az állományok már szinkonizálva vannak</string>
   <string name="create_dir_fail_msg">A könyvtárt nem lehet létrehozni</string>
   <string name="filename_forbidden_characters">Nem megendedett karakterek: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">A fájlnév legalább egy érvénytelen karaktert tartalmaz!</string>
   <string name="filename_empty">A fájl név nem lehet üres</string>
   <string name="wait_a_moment">Egy pillanat...</string>
   <string name="filedisplay_unexpected_bad_get_content">Váratlan hiba; válassza ki a fájlt más programból</string>
@@ -268,5 +268,8 @@
   <string name="file_list__footer__files_and_folder">%1$d fájl, 1 könyvtár</string>
   <string name="file_list__footer__files_and_folders">%1$d fájl, %2$d könyvtár</string>
   <string name="share_dialog_title">Megosztás</string>
+  <string name="share_via_link_section_title">Megosztás hivatkozással</string>
+  <string name="share_via_link_expiration_date_label">Legyen lejárati idő</string>
+  <string name="share_via_link_password_label">Jelszóval is védem</string>
   <string name="share_search">Keresés</string>
 </resources>
