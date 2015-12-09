@@ -74,8 +74,7 @@
   <string name="filedetails_modified">Изменето:</string>
   <string name="filedetails_download">Преземање</string>
   <string name="filedetails_renamed_in_upload_msg">Датотеката беше преименувана во %1$s за време на префрлањето</string>
-  <string name="action_share_file">Сподели ја врската</string>
-  <string name="action_unshare_file">Тргнете го споделувањето на врската</string>
+  <string name="action_share">Сподели</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">Во ред</string>
@@ -296,5 +295,8 @@
   <string name="auth_refresh_button">Освежи ја конекцијата</string>
   <string name="auth_host_address">Адреса на сервер</string>
   <string name="share_dialog_title">Споделување</string>
+  <string name="share_via_link_section_title">Сподели ја врската</string>
+  <string name="share_via_link_expiration_date_label">Постави рок на траење</string>
+  <string name="share_via_link_password_label">Заштити со лозинка</string>
   <string name="share_search">Барај</string>
 </resources>

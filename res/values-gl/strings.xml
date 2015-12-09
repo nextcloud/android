@@ -83,9 +83,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="filedetails_sync_file">Sincronizar</string>
   <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado a %1$s durante o envío</string>
   <string name="list_layout">Deseño da lista</string>
-  <string name="action_share_file">Ligazón para compartir</string>
-  <string name="action_unshare_file">Deixar de compartir a ligazón</string>
-  <string name="action_share_with_users">Compartir con usuarios</string>
+  <string name="action_share">Compartir</string>
   <string name="common_yes">Si</string>
   <string name="common_no">Non</string>
   <string name="common_ok">Aceptar</string>
@@ -335,9 +333,11 @@ Descárgueo de aquí: %2$s</string>
   <string name="file_list__footer__files_and_folder">%1$d ficheiros, 1 cartafol</string>
   <string name="file_list__footer__files_and_folders">%1$d ficheiros, %2$d cartafoles</string>
   <string name="share_dialog_title">Compartindo</string>
-  <string name="share_with_user_section_title">Compartir con Usuarios e Grupos</string>
   <string name="share_no_users">Aínda non hai datos compartidos con usuarios</string>
   <string name="share_add_user_or_group">Engadir Usuario ou Grupo</string>
+  <string name="share_via_link_section_title">Ligazón para compartir</string>
+  <string name="share_via_link_expiration_date_label">Definir a data de caducidade</string>
+  <string name="share_via_link_password_label">Protexido con contrasinal</string>
   <string name="share_search">Buscar</string>
   <string name="search_users_and_groups_hint">Buscar usuarios e grupos</string>
   <string name="share_group_clarification">%1$s (grupo)</string>

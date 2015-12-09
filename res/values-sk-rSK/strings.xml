@@ -82,9 +82,7 @@
   <string name="filedetails_sync_file">Synchronizovať</string>
   <string name="filedetails_renamed_in_upload_msg">Súbor bol premenovaný na %1$s počas nahrávania</string>
   <string name="list_layout">Rozvrhnutie zoznamu</string>
-  <string name="action_share_file">Zdieľať linku</string>
-  <string name="action_unshare_file">Zrušiť zdieľanie odkazu</string>
-  <string name="action_share_with_users">Zdieľať s používateľmi</string>
+  <string name="action_share">Zdieľať</string>
   <string name="common_yes">Áno</string>
   <string name="common_no">Nie</string>
   <string name="common_ok">OK</string>
@@ -337,9 +335,11 @@
   <string name="file_list__footer__files_and_folder">%1$d súb., 1 priečinok</string>
   <string name="file_list__footer__files_and_folders">%1$d súb., %2$d prieč.</string>
   <string name="share_dialog_title">Zdieľanie</string>
-  <string name="share_with_user_section_title">Zdieľať s používateľmi alebo skupinami</string>
   <string name="share_no_users">Zatiaľ s používateľmi nezdieľate žiadne dáta.</string>
   <string name="share_add_user_or_group">Pridať používateľa alebo skupinu</string>
+  <string name="share_via_link_section_title">Zdieľať linku</string>
+  <string name="share_via_link_expiration_date_label">Nastaviť dátum expirácie</string>
+  <string name="share_via_link_password_label">Chrániť heslom</string>
   <string name="share_search">Hľadať</string>
   <string name="search_users_and_groups_hint">Vyhľadať používateľov alebo skupiny</string>
   <string name="share_group_clarification">%1$s (skupina)</string>

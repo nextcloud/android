@@ -62,7 +62,7 @@
   <string name="filedetails_created">Erstallt:</string>
   <string name="filedetails_modified">Geännert:</string>
   <string name="filedetails_download">Eroflueden</string>
-  <string name="action_share_file">Link deelen</string>
+  <string name="action_share">Deelen</string>
   <string name="common_yes">Jo</string>
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
@@ -230,5 +230,8 @@
   <string name="subject_user_shared_with_you">%1$s huet \"%2$s\" mat dir gedeelt</string>
   <string name="auth_refresh_button">Connectioun opfrëschen</string>
   <string name="auth_host_address">Server-Adress</string>
+  <string name="share_via_link_section_title">Link deelen</string>
+  <string name="share_via_link_expiration_date_label">Verfallsdatum setzen</string>
+  <string name="share_via_link_password_label">Passwuertgeschützt</string>
   <string name="share_search">Sichen</string>
 </resources>

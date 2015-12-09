@@ -83,9 +83,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="filedetails_sync_file">Synchroniser</string>
   <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %s pendant le téléversement</string>
   <string name="list_layout">Affichage en liste</string>
-  <string name="action_share_file">Partager le lien</string>
-  <string name="action_unshare_file">Ne plus partager ce lien</string>
-  <string name="action_share_with_users">Partager avec des utilisateurs</string>
+  <string name="action_share">Partage</string>
   <string name="common_yes">Oui</string>
   <string name="common_no">Non</string>
   <string name="common_ok">OK</string>
@@ -278,6 +276,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
   <string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier est bien présent</string>
   <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
+  <string name="update_link_file_no_exist">Actualisation impossible. Veuillez vérifier si ce fichier existe</string>
+  <string name="update_link_file_error">Une erreur est survenue lors de la tentative de rafraîchissement du lien partagé</string>
   <string name="share_link_password_title">Saisissez un mot de passe</string>
   <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
   <string name="activity_chooser_send_file_title">Envoyer</string>
@@ -294,6 +294,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="forbidden_permissions_delete">d’effacer ce fichier</string>
   <string name="share_link_forbidden_permissions">afin de partager ce fichier</string>
   <string name="unshare_link_forbidden_permissions">afin de ne plus partager ce fichier</string>
+  <string name="update_link_forbidden_permissions">pour mettre à jour ce lien partagé</string>
   <string name="forbidden_permissions_create">de créer ce fichier</string>
   <string name="uploader_upload_forbidden_permissions">afin d’importer dans ce répertoire</string>
   <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
@@ -341,9 +342,14 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="file_list__footer__files_and_folder">%1$d fichiers, 1 dossier</string>
   <string name="file_list__footer__files_and_folders">%1$d fichiers, %2$d dossiers</string>
   <string name="share_dialog_title">Partage</string>
-  <string name="share_with_user_section_title">Partager avec des Utilisateurs et des Groupes</string>
+  <string name="share_with_user_section_title">Partager avec des utilisateurs et des groupes</string>
   <string name="share_no_users">Aucune donnée partagée avec des utilisateurs pour le moment</string>
   <string name="share_add_user_or_group">Ajouter un Utilisateur ou un Groupe</string>
+  <string name="share_via_link_section_title">Partager par lien public</string>
+  <string name="share_via_link_expiration_date_label">Spécifier une date d\'expiration</string>
+  <string name="share_via_link_password_label">Protéger par un mot de passe</string>
+  <string name="share_via_link_password_title">Sécurisé</string>
+  <string name="share_get_public_link_button">Obtenir le lien</string>
   <string name="share_search">Rechercher</string>
   <string name="search_users_and_groups_hint">Chercher parmi les utilisateurs et groupes</string>
   <string name="share_group_clarification">%1$s (groupe)</string>

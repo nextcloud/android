@@ -82,9 +82,7 @@
   <string name="filedetails_sync_file">Συγχρονισμός</string>
   <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά τη μεταφόρτωση</string>
   <string name="list_layout">Διάταξη Λίστας</string>
-  <string name="action_share_file">Διαμοιρασμός συνδέσμου</string>
-  <string name="action_unshare_file">Ακύρωση διαμοιρασμού συνδέσμου</string>
-  <string name="action_share_with_users">Διαμοιρασμός με χρήστες</string>
+  <string name="action_share">Διαμοιράστε</string>
   <string name="common_yes">Ναι</string>
   <string name="common_no">Όχι</string>
   <string name="common_ok">ΟΚ</string>
@@ -337,9 +335,11 @@
   <string name="file_list__footer__files_and_folder">%1$d αρχεία, 1 φάκελος</string>
   <string name="file_list__footer__files_and_folders">%1$d αρχεία, %2$d φάκελοι</string>
   <string name="share_dialog_title">Διαμοιρασμός</string>
-  <string name="share_with_user_section_title">Διαμοιρασμός με χρήστες και ομάδες</string>
   <string name="share_no_users">Δεν έχουν διαμοιραστεί ακόμα δεδομένα με τους χρήστες</string>
   <string name="share_add_user_or_group">Προσθήκη χρήστη ή ομάδας</string>
+  <string name="share_via_link_section_title">Διαμοιρασμός συνδέσμου</string>
+  <string name="share_via_link_expiration_date_label">Ορισμός ημ. λήξης</string>
+  <string name="share_via_link_password_label">Προστασία συνθηματικού</string>
   <string name="share_search">Αναζήτηση</string>
   <string name="search_users_and_groups_hint">Αναζήτηση χρηστών και ομάδων</string>
   <string name="share_group_clarification">%1$s (ομάδα)</string>

@@ -81,8 +81,7 @@
   <string name="filedetails_download">Last ned</string>
   <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
   <string name="list_layout">Listeoppsett</string>
-  <string name="action_share_file">Del lenke</string>
-  <string name="action_unshare_file">Avslutt deling av lenke</string>
+  <string name="action_share">Delt ressurs</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nei</string>
   <string name="common_ok">OK</string>
@@ -330,8 +329,10 @@
   <string name="file_list__footer__files_and_folder">%1$d filer, 1 mappe</string>
   <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
   <string name="share_dialog_title">Deling</string>
-  <string name="share_with_user_section_title">Del med brukere og grupper</string>
   <string name="share_no_users">Ingen data delt med brukere ennå</string>
   <string name="share_add_user_or_group">Legg til bruker eller gruppe</string>
+  <string name="share_via_link_section_title">Del lenke</string>
+  <string name="share_via_link_expiration_date_label">Sett utløpsdato</string>
+  <string name="share_via_link_password_label">Passordbeskyttet</string>
   <string name="share_search">Søk</string>
 </resources>

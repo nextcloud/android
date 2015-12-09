@@ -25,11 +25,14 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.CreateShareViaLinkOperation;
+import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -37,9 +40,12 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.fragment.SearchShareesFragment;
 import com.owncloud.android.ui.fragment.ShareFileFragment;
 import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
+
+import org.apache.http.protocol.HTTP;
 
 
 /**
@@ -55,6 +61,8 @@ public class ShareActivity extends FileActivity
     private static final String TAG_SHARE_FRAGMENT = "SHARE_FRAGMENT";
     private static final String TAG_SEARCH_FRAGMENT = "SEARCH_USER_AND_GROUPS_FRAGMENT";
 
+    /** Tag for dialog */
+    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +86,7 @@ public class ShareActivity extends FileActivity
 
         // Load data into the list
         Log_OC.d(TAG, "Refreshing lists on account set");
-        refreshUsersInLists();
+        refreshSharesFromStorageManager();
 
         // Request for a refresh of the data through the server (starts an Async Task)
         refreshUsersOrGroupsListFromServer();
@@ -94,8 +102,10 @@ public class ShareActivity extends FileActivity
 
         } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
             Uri data = intent.getData();
+            String dataString = intent.getDataString();
+            String shareWith = dataString.substring(dataString.lastIndexOf('/') + 1);
             doShareWith(
-                    data.getLastPathSegment(),
+                    shareWith,
                     UsersAndGroupsSearchProvider.DATA_GROUP.equals(data.getAuthority())
             );
 
@@ -153,26 +163,48 @@ public class ShareActivity extends FileActivity
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
 
-        if (result.isSuccess()) {
-            Log_OC.d(TAG, "Refreshing lists on successful sync");
-            refreshUsersInLists();
+        if (result.isSuccess() ||
+            (operation instanceof GetSharesForFileOperation &&
+                result.getCode() == RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
+            )
+        ) {
+            Log_OC.d(TAG, "Refreshing view on successful operation or finished refresh");
+            refreshSharesFromStorageManager();
+        }
+
+        if (operation instanceof CreateShareViaLinkOperation && result.isSuccess()) {
+            // Send link to the app
+            String link = ((OCShare) (result.getData().get(0))).getShareLink();
+            Log_OC.d(TAG, "Share link = " + link);
+
+            Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
+            intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
+            intentToShareLink.setType(HTTP.PLAIN_TEXT_TYPE);
+            String[] packagesToExclude = new String[]{getPackageName()};
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
+            chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
         }
 
     }
 
-    private void refreshUsersInLists() {
+
+    /**
+     * Updates the view, reading data from {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     */
+    private void refreshSharesFromStorageManager() {
+
         ShareFileFragment shareFileFragment = getShareFileFragment();
-        if (shareFileFragment != null) {          // only if added to the view hierarchy!!
-            if (shareFileFragment.isAdded()) {
-                shareFileFragment.refreshUsersOrGroupsListFromDB();
-            }
+        if (shareFileFragment != null
+                && shareFileFragment.isAdded()) {   // only if added to the view hierarchy!!
+            shareFileFragment.refreshCapabilitiesFromDB();
+            shareFileFragment.refreshUsersOrGroupsListFromDB();
+            shareFileFragment.refreshPublicShareFromDB();
         }
 
         SearchShareesFragment searchShareesFragment = getSearchFragment();
-        if (searchShareesFragment != null) {
-            if (searchShareesFragment.isAdded()) {  // only if added to the view hierarchy!!
-                searchShareesFragment.refreshUsersOrGroupsListFromDB();
-            }
+        if (searchShareesFragment != null &&
+                searchShareesFragment.isAdded()) {  // only if added to the view hierarchy!!
+            searchShareesFragment.refreshUsersOrGroupsListFromDB();
         }
     }
 

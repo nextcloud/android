@@ -20,7 +20,7 @@
   <string name="file_list_seconds_ago">վրկ. առաջ</string>
   <string name="filedetails_size">Չափս.</string>
   <string name="filedetails_download">Բեռնել</string>
-  <string name="action_share_file">Կիսվել հղմամբ</string>
+  <string name="action_share">Կիսվել</string>
   <string name="common_yes">Այո</string>
   <string name="common_no">Ոչ</string>
   <string name="common_cancel">Չեղարկել</string>
@@ -42,4 +42,5 @@
   <string name="file_list__footer__files">%1$d ֆայլ</string>
   <string name="file_list__footer__files_and_folder">%1$d ֆայլ, 1 պանակ</string>
   <string name="file_list__footer__files_and_folders">%1$d ֆայլ, %2$d պանակ</string>
+  <string name="share_via_link_section_title">Կիսվել հղմամբ</string>
 </resources>

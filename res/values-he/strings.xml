@@ -64,8 +64,7 @@
   <string name="filedetails_modified">מועד השינוי:</string>
   <string name="filedetails_download">הורדה</string>
   <string name="filedetails_renamed_in_upload_msg">שם הקובץ השתנה ל־ %1$s במהלך ההעלאה</string>
-  <string name="action_share_file">קישור לשיתוף</string>
-  <string name="action_unshare_file">ביטול קישור לשיתוף</string>
+  <string name="action_share">שיתוף</string>
   <string name="common_yes">כן</string>
   <string name="common_no">לא</string>
   <string name="common_ok">אישור</string>
@@ -252,5 +251,8 @@
   <string name="prefs_category_security">אבטחה</string>
   <string name="auth_host_address">כתובת שרת</string>
   <string name="share_dialog_title">שיתוף</string>
+  <string name="share_via_link_section_title">קישור לשיתוף</string>
+  <string name="share_via_link_expiration_date_label">הגדרת תאריך תפוגה</string>
+  <string name="share_via_link_password_label">הגנה בססמה</string>
   <string name="share_search">חיפוש</string>
 </resources>

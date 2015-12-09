@@ -43,6 +43,7 @@
   <string name="filedetails_modified">მოდიფიცირებულია:</string>
   <string name="filedetails_download">ჩამოტვირთვა</string>
   <string name="filedetails_renamed_in_upload_msg">ფაილ %1$s–ზე გადარქმეულ იქნა სახელი ატვირთვის დროს</string>
+  <string name="action_share">გაზიარება</string>
   <string name="common_yes">კი</string>
   <string name="common_no">არა</string>
   <string name="common_ok">დიახ</string>
@@ -142,5 +143,7 @@
   <string name="prefs_category_security">უსაფრთხოება</string>
   <string name="auth_host_address">სერვერის მისამართი</string>
   <string name="share_dialog_title">გაზიარება</string>
+  <string name="share_via_link_expiration_date_label">მიუთითე ვადის გასვლის დრო</string>
+  <string name="share_via_link_password_label">პაროლით დაცვა</string>
   <string name="share_search">ძებნა</string>
 </resources>

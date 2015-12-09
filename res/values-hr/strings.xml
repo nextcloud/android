@@ -43,7 +43,7 @@
   <string name="file_list_seconds_ago">prije par sekundi</string>
   <string name="file_list_empty">Nema ničega u ovoj mapi. Pošalji nešto!</string>
   <string name="filedetails_download">Preuzimanje</string>
-  <string name="action_share_file">Podijelite vezu</string>
+  <string name="action_share">Dijeljenje</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">U redu</string>
@@ -66,5 +66,8 @@
   <string name="prefs_category_security">Sigurnost</string>
   <string name="auth_host_address">Adresa poslužitelja</string>
   <string name="share_dialog_title">Dijeljenje zajedničkih resursa</string>
+  <string name="share_via_link_section_title">Podijelite vezu</string>
+  <string name="share_via_link_expiration_date_label">Odredite datum isteka</string>
+  <string name="share_via_link_password_label">Zaštititi lozinkom</string>
   <string name="share_search">pretraži</string>
 </resources>

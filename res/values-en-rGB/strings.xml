@@ -74,8 +74,7 @@
   <string name="filedetails_modified">Modified:</string>
   <string name="filedetails_download">Download</string>
   <string name="filedetails_renamed_in_upload_msg">File was renamed to %1$s during upload</string>
-  <string name="action_share_file">Share link</string>
-  <string name="action_unshare_file">Unshare link</string>
+  <string name="action_share">Share</string>
   <string name="common_yes">Yes</string>
   <string name="common_no">No</string>
   <string name="common_ok">OK</string>
@@ -300,5 +299,8 @@
   <string name="auth_host_address">Server address</string>
   <string name="common_error_out_memory">Not enough memory</string>
   <string name="share_dialog_title">Sharing</string>
+  <string name="share_via_link_section_title">Share link</string>
+  <string name="share_via_link_expiration_date_label">Set expiration date</string>
+  <string name="share_via_link_password_label">Password protect</string>
   <string name="share_search">Search</string>
 </resources>

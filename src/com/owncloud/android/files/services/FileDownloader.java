@@ -174,10 +174,11 @@ public class FileDownloader extends Service
                 Pair<String, String> putResult = mPendingDownloads.putIfAbsent(
                         account, file.getRemotePath(), newDownload
                 );
-                String downloadKey = putResult.first;
-                requestedDownloads.add(downloadKey);
-
-                sendBroadcastNewDownload(newDownload, putResult.second);
+                if (putResult != null) {
+                    String downloadKey = putResult.first;
+                    requestedDownloads.add(downloadKey);
+                    sendBroadcastNewDownload(newDownload, putResult.second);
+                }   // else, file already in the queue of downloads; don't repeat the request
 
             } catch (IllegalArgumentException e) {
                 Log_OC.e(TAG, "Not enough information provided in intent: " + e.getMessage());

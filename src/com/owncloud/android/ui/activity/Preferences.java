@@ -106,6 +106,7 @@ public class Preferences extends PreferenceActivity
     private String mUploadPath;
     private PreferenceCategory mPrefInstantUploadCategory;
     private Preference mPrefInstantUpload;
+    private Preference mPrefInstantUploadBehaviour;
     private Preference mPrefInstantUploadPath;
     private Preference mPrefInstantUploadPathWiFi;
     private Preference mPrefInstantVideoUpload;
@@ -393,6 +394,9 @@ public class Preferences extends PreferenceActivity
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 toggleInstantPictureOptions((Boolean) newValue);
+                toggleInstantUploadBehaviour(
+                        ((CheckBoxPreference)mPrefInstantVideoUpload).isChecked(),
+                        (Boolean) newValue);
                 return true;
             }
         });
@@ -420,14 +424,22 @@ public class Preferences extends PreferenceActivity
         toggleInstantVideoOptions(((CheckBoxPreference) mPrefInstantVideoUpload).isChecked());
         
         mPrefInstantVideoUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            
+
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 toggleInstantVideoOptions((Boolean) newValue);
+                toggleInstantUploadBehaviour(
+                        (Boolean) newValue,
+                        ((CheckBoxPreference) mPrefInstantUpload).isChecked());
                 return true;
             }
         });
-            
+
+        mPrefInstantUploadBehaviour = findPreference("prefs_instant_behaviour");
+        toggleInstantUploadBehaviour(
+                ((CheckBoxPreference)mPrefInstantVideoUpload).isChecked(),
+                ((CheckBoxPreference)mPrefInstantUpload).isChecked());
+
         /* About App */
        pAboutApp = (Preference) findPreference("about_app");
        if (pAboutApp != null) { 
@@ -469,6 +481,14 @@ public class Preferences extends PreferenceActivity
         } else {
             mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPathWiFi);
             mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPath);
+        }
+    }
+
+    private void toggleInstantUploadBehaviour(Boolean video, Boolean picture){
+        if (picture || video){
+            mPrefInstantUploadCategory.addPreference(mPrefInstantUploadBehaviour);
+        } else {
+            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadBehaviour);
         }
     }
 

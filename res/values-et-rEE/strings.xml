@@ -80,8 +80,7 @@
   <string name="filedetails_download">Lae alla</string>
   <string name="filedetails_renamed_in_upload_msg">Fail nimetati üleslaadimise käigus ümber %1$ </string>
   <string name="list_layout">Nimekirja paigutus</string>
-  <string name="action_share_file">Jaga linki</string>
-  <string name="action_unshare_file">Tühista lingi jagamine</string>
+  <string name="action_share">Jaga</string>
   <string name="common_yes">Jah</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
@@ -333,5 +332,8 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="file_list__footer__files_and_folder">%1$d faili, 1 kaust</string>
   <string name="file_list__footer__files_and_folders">%1$d faili, %2$d kausta</string>
   <string name="share_dialog_title">Jagamine</string>
+  <string name="share_via_link_section_title">Jaga linki</string>
+  <string name="share_via_link_expiration_date_label">Määra aegumise kuupäev</string>
+  <string name="share_via_link_password_label">Parooliga kaitstud</string>
   <string name="share_search">Otsi</string>
 </resources>
