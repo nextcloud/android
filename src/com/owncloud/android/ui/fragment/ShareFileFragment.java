@@ -135,8 +135,10 @@ public class ShareFileFragment extends Fragment
         return fragment;
     }
 
+    /**
+     * Required empty public constructor
+     */
     public ShareFileFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -443,6 +445,8 @@ public class ShareFileFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
         Log_OC.d(TAG, "onActivityCreated");
 
+        getActivity().setTitle(R.string.share_dialog_title);
+
         // Load known capabilities of the server from DB
         refreshCapabilitiesFromDB();
 
@@ -536,10 +540,16 @@ public class ShareFileFragment extends Fragment
     @Override
     public void unshareButtonPressed(OCShare share) {
         // Unshare
+        Log_OC.d(TAG, "Unsharing " + share.getSharedWithDisplayName());
         mListener.unshareWith(share);
-        Log_OC.d(TAG, "Unshare - " + share.getSharedWithDisplayName());
     }
 
+    @Override
+    public void editShare(OCShare share) {
+        // move to fragment to edit share
+        Log_OC.d(TAG, "Editing " + share.getSharedWithDisplayName());
+        mListener.showEditShare(share);
+    }
 
 
     /**
@@ -748,6 +758,7 @@ public class ShareFileFragment extends Fragment
      */
     public interface OnShareFragmentInteractionListener {
         void showSearchUsersAndGroups();
+        void showEditShare(OCShare share);
         void refreshUsersOrGroupsListFromServer();
         void unshareWith(OCShare share);
     }

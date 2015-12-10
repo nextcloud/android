@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/canShareCheckBox"
+        android:text="@string/share_privilege_can_share"
+        />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/canEditCheckBox"
+        android:text="@string/share_privilege_can_edit"
+        />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/canEditCreateCheckBox"
+        android:text="@string/share_privilege_can_edit_create"
+        android:visibility="gone"
+        />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/canEditChangeCheckBox"
+        android:text="@string/share_privilege_can_edit_change"
+        android:visibility="gone"
+        />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/canEditDeleteCheckBox"
+        android:text="@string/share_privilege_can_edit_delete"
+        android:visibility="gone"
+        />
+
+</LinearLayout>

@@ -41,6 +41,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
+import com.owncloud.android.ui.fragment.EditShareFragment;
 import com.owncloud.android.ui.fragment.SearchShareesFragment;
 import com.owncloud.android.ui.fragment.ShareFileFragment;
 import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
@@ -60,6 +61,7 @@ public class ShareActivity extends FileActivity
 
     private static final String TAG_SHARE_FRAGMENT = "SHARE_FRAGMENT";
     private static final String TAG_SEARCH_FRAGMENT = "SEARCH_USER_AND_GROUPS_FRAGMENT";
+    private static final String TAG_EDIT_SHARE_FRAGMENT = "EDIT_SHARE_FRAGMENT";
 
     /** Tag for dialog */
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
@@ -129,6 +131,16 @@ public class ShareActivity extends FileActivity
         Fragment searchFragment = SearchShareesFragment.newInstance(getFile(), getAccount());
         ft.replace(R.id.share_fragment_container, searchFragment, TAG_SEARCH_FRAGMENT);
         ft.addToBackStack(null);    // BACK button will recover the ShareFragment
+        ft.commit();
+    }
+
+    @Override
+    public void showEditShare(OCShare share) {
+        // replace current fragment with EditShareFragment on demand
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment editShareFragment = EditShareFragment.newInstance(share, getFile(), getAccount());
+        ft.replace(R.id.share_fragment_container, editShareFragment, TAG_EDIT_SHARE_FRAGMENT);
+        ft.addToBackStack(null);    // BACK button will recover the previous fragment
         ft.commit();
     }
 

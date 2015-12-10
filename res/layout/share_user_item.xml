@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.9"
+            android:layout_weight="0.8"
             android:textSize="16dip"
             android:text="@string/username"
             android:id="@+id/userOrGroupName"
@@ -42,11 +42,22 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.1"
+            android:id="@+id/editShareButton"
+            android:src="@android:drawable/ic_menu_edit"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
             android:id="@+id/unshareButton"
             android:src="@drawable/ic_cancel"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="4dp"
             android:layout_gravity="center_horizontal"/>
+
     </LinearLayout>
 
     <View

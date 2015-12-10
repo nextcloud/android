@@ -148,6 +148,8 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        getActivity().setTitle(R.string.share_dialog_title);
+
         // Load data into the list
         refreshUsersOrGroupsListFromDB();
     }
@@ -230,6 +232,14 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
         Log_OC.d(TAG, "Unshare - " + share.getSharedWithDisplayName());
     }
 
+    @Override
+    public void editShare(OCShare share) {
+        // move to fragment to edit share
+        Log_OC.d(TAG, "Editing " + share.getSharedWithDisplayName());
+        mListener.showEditShare(share);
+    }
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -241,6 +251,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnSearchFragmentInteractionListener {
+        void showEditShare(OCShare share);
         void unshareWith(OCShare share);
     }
 
