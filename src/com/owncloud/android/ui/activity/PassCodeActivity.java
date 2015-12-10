@@ -24,12 +24,15 @@ package com.owncloud.android.ui.activity;
 
 import java.util.Arrays;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
@@ -40,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 public class PassCodeActivity extends AppCompatActivity {
@@ -286,7 +290,7 @@ public class PassCodeActivity extends AppCompatActivity {
      */
     private void processFullPassCode() {
         if (ACTION_CHECK.equals(getIntent().getAction())) {
-            if (checkPassCode()) {
+            if (checkPassCodeFromAccountSettings()) {
                 /// pass code accepted in request, user is allowed to access the app
                 finish();
 
@@ -296,7 +300,7 @@ public class PassCodeActivity extends AppCompatActivity {
             }
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
-            if (checkPassCode()) {
+            if (checkPassCodeFromAccountSettings()) {
 
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(KEY_CHECK_RESULT, true);
@@ -346,6 +350,15 @@ public class PassCodeActivity extends AppCompatActivity {
         mPassCodeHdr.setText(R.string.pass_code_reenter_your_pass_code);
         mPassCodeHdrExplanation.setVisibility(View.INVISIBLE);
         mConfirmingPassCode = true;
+    }
+
+
+    boolean checkPassCodeFromAccountSettings() {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(this);
+        AccountManager accountManager = AccountManager.get(this);
+
+        String pin = accountManager.getUserData(account, "PIN");
+        return pin != null && pin.equals(TextUtils.join("", mPassCodeDigits));
     }
 
     /**

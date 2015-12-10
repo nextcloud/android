@@ -19,12 +19,12 @@
  */
 package com.owncloud.android.authentication;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.PowerManager;
-import android.preference.PreferenceManager;
 import android.view.WindowManager;
 
 import com.owncloud.android.MainApp;
@@ -43,7 +43,7 @@ public class PassCodeManager {
         // other activities may be exempted, if needed
     }
 
-    private static int PASS_CODE_TIMEOUT = 1000;
+    private static int PASS_CODE_TIMEOUT = 0;
         // keeping a "low" positive value is the easiest way to prevent the pass code is requested on rotations
 
     public static PassCodeManager mPassCodeManagerInstance = null;
@@ -108,8 +108,11 @@ public class PassCodeManager {
     }
 
     private boolean passCodeIsEnabled() {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-        return (appPrefs.getBoolean("set_pincode", false));
+        Account account = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        AccountManager accountManager = AccountManager.get(MainApp.getAppContext());
+        String hasPin = accountManager.getUserData(account, "HASPIN");
+        boolean result = hasPin != null && Boolean.parseBoolean(hasPin);
+        return result;
     }
 
 }
