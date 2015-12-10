@@ -612,6 +612,12 @@ public class Preferences extends PreferenceActivity
         } else if (requestCode == ACTION_REQUEST_PASSCODE && resultCode == RESULT_OK) {
             String passcode = data.getStringExtra(PassCodeActivity.KEY_PASSCODE);
             if (passcode != null && passcode.length() == 4) {
+
+                AccountManager accountManager = AccountManager.get(this);
+                Account account = AccountUtils.getCurrentOwnCloudAccount(this);
+                accountManager.setUserData(account, "PIN", passcode);
+                accountManager.setUserData(account, "HASPIN", Boolean.TRUE.toString());
+
                 SharedPreferences.Editor appPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
 
@@ -629,6 +635,10 @@ public class Preferences extends PreferenceActivity
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
                 appPrefs.putBoolean("set_pincode", false);
                 appPrefs.commit();
+
+                AccountManager accountManager = AccountManager.get(this);
+                Account account = AccountUtils.getCurrentOwnCloudAccount(this);
+                accountManager.setUserData(account, "HASPIN", Boolean.FALSE.toString());
 
                 Toast.makeText(this, R.string.pass_code_removed, Toast.LENGTH_LONG).show();
             }
