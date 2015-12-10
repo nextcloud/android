@@ -12,6 +12,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">გახსნა</string>
   <string name="prefs_category_general">ზოგადი</string>
   <string name="prefs_category_more">უფრო მეტი</string>
   <string name="prefs_accounts">ანგარიში</string>
@@ -42,11 +43,10 @@
   <string name="filedetails_modified">მოდიფიცირებულია:</string>
   <string name="filedetails_download">ჩამოტვირთვა</string>
   <string name="filedetails_renamed_in_upload_msg">ფაილ %1$s–ზე გადარქმეულ იქნა სახელი ატვირთვის დროს</string>
+  <string name="action_share">გაზიარება</string>
   <string name="common_yes">კი</string>
   <string name="common_no">არა</string>
   <string name="common_ok">დიახ</string>
-  <string name="common_cancel_download">ჩამოტვირთვის შეჩერება</string>
-  <string name="common_cancel_upload">ატვირთვის გაუქმება</string>
   <string name="common_cancel">გაუქმება</string>
   <string name="common_save_exit">შენახვა &amp;გამოსვლა</string>
   <string name="common_error">შეცდომა</string>
@@ -99,6 +99,7 @@
   <string name="common_rename">გადარქმევა</string>
   <string name="common_remove">წაშლა</string>
   <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>
+  <string name="confirmation_remove_folder_local">მხოლოდ ლოკალური</string>
   <string name="remove_success_msg">წაშლა შარმატებით დასრულდა</string>
   <string name="remove_fail_msg">წაშლა წარუმატებლად დამთავრდა</string>
   <string name="rename_dialog_title">შეიყვანეთ ახალი სახელი</string>
@@ -141,4 +142,8 @@
   <string name="folder_picker_choose_button_text">არჩევა</string>
   <string name="prefs_category_security">უსაფრთხოება</string>
   <string name="auth_host_address">სერვერის მისამართი</string>
+  <string name="share_dialog_title">გაზიარება</string>
+  <string name="share_via_link_expiration_date_label">მიუთითე ვადის გასვლის დრო</string>
+  <string name="share_via_link_password_label">პაროლით დაცვა</string>
+  <string name="share_search">ძებნა</string>
 </resources>

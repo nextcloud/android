@@ -141,9 +141,8 @@ public class FileFragment extends Fragment {
          * @param downloading   Flag signaling if the file is now downloading.
          * @param uploading     Flag signaling if the file is now uploading.
          */
-        public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading); 
+        public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading);
 
-        
     }
 
 }

@@ -63,15 +63,11 @@
   <string name="filedetails_created">তৈরীর নির্ঘন্টঃ</string>
   <string name="filedetails_modified">পরিবর্তিতঃ</string>
   <string name="filedetails_download">ডাউনলোড</string>
-  <string name="filedetails_sync_file">ফাইল নবোদ্যম করুন</string>
   <string name="filedetails_renamed_in_upload_msg">আপলোডের সময় ফাইলের পূণঃনামকরণ করা হয়েছে %1$s</string>
-  <string name="action_share_file">লিংক ভাগাভাগি করেন</string>
-  <string name="action_unshare_file">লিংক ছিনন করেন</string>
+  <string name="action_share">ভাগাভাগি কর</string>
   <string name="common_yes">হ্যাঁ</string>
   <string name="common_no">না</string>
   <string name="common_ok">তথাস্তু</string>
-  <string name="common_cancel_download">ডাউনলোড বাতিল করেন</string>
-  <string name="common_cancel_upload">আপলোড বাতিল কর</string>
   <string name="common_cancel">বাতিল</string>
   <string name="common_save_exit">সংরক্ষণ কর এবং &amp;প্রস্থান</string>
   <string name="common_error">সমস্যা</string>
@@ -249,6 +245,7 @@
   <string name="downloader_download_file_not_found">সার্ভারে এই ফাইলটি আর প্রাপ্তব্য নয়</string>
   <string name="prefs_category_accounts">একাউন্ট</string>
   <string name="prefs_add_account">একাউন্ট যোগ কর</string>
+  <string name="auth_redirect_non_secure_connection_title">নিরাপদ সংযোগকে একটি অনিরাপদ পথে দিকবদল করা হয়েছে</string>
   <string name="saml_authentication_wrong_pass">ভুল কুটশব্দ</string>
   <string name="actionbar_move">সরাও</string>
   <string name="file_list_empty_moving">এখানে কিছু নেই। একটি ফোল্ডার যোগ করতে পারেন!</string>
@@ -256,4 +253,9 @@
   <string name="move_file_not_found">সরাতে ব্যার্থ হলো। ফাইলটি রয়েছে কিনা দেখুন।</string>
   <string name="prefs_category_security">নিরাপত্তা</string>
   <string name="auth_host_address">সার্ভার ঠিকানা</string>
+  <string name="share_dialog_title">ভাগাভাগিরত</string>
+  <string name="share_via_link_section_title">লিংক ভাগাভাগি করেন</string>
+  <string name="share_via_link_expiration_date_label">মেয়াদোত্তীর্ণ হওয়ার তারিখ নির্ধারণ করুন</string>
+  <string name="share_via_link_password_label">কূটশব্দ সুরক্ষিত</string>
+  <string name="share_search">অনুসন্ধান</string>
 </resources>

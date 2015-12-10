@@ -185,7 +185,6 @@ public class UploadDbHandler extends Observable {
      * Stores an upload object in DB.
      * 
      * @param uploadObject
-     * @param message
      * @return true on success.
      */
     public boolean storeUpload(UploadDbObject uploadObject) {
