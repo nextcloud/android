@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">פתיחה</string>
   <string name="prefs_category_general">כללי</string>
   <string name="prefs_category_more">יותר</string>
   <string name="prefs_accounts">חשבונות</string>
@@ -62,15 +63,11 @@
   <string name="filedetails_created">מועד היצירה:</string>
   <string name="filedetails_modified">מועד השינוי:</string>
   <string name="filedetails_download">הורדה</string>
-  <string name="filedetails_sync_file">רענון קובץ</string>
   <string name="filedetails_renamed_in_upload_msg">שם הקובץ השתנה ל־ %1$s במהלך ההעלאה</string>
-  <string name="action_share_file">קישור לשיתוף</string>
-  <string name="action_unshare_file">ביטול קישור לשיתוף</string>
+  <string name="action_share">שיתוף</string>
   <string name="common_yes">כן</string>
   <string name="common_no">לא</string>
   <string name="common_ok">אישור</string>
-  <string name="common_cancel_download">ביטול ההורדה</string>
-  <string name="common_cancel_upload">ביטול ההעלאה</string>
   <string name="common_cancel">ביטול</string>
   <string name="common_save_exit">לשמור ולצאת</string>
   <string name="common_error">שגיאה</string>
@@ -172,6 +169,7 @@
   <string name="confirmation_remove_alert">האם באמת להסיר %1$s?</string>
   <string name="confirmation_remove_folder_alert">האם באמת להסיר %1$s ואת כל התכולה?</string>
   <string name="confirmation_remove_local">מקומי בלבד</string>
+  <string name="confirmation_remove_folder_local">מקומי בלבד</string>
   <string name="remove_success_msg">ההסרה הצליחה</string>
   <string name="remove_fail_msg">ההסרה נכשלה</string>
   <string name="rename_dialog_title">נא להזין שם חדש</string>
@@ -248,7 +246,13 @@
   <string name="downloader_download_file_not_found">הקובץ אינו זמין יותר על השרת</string>
   <string name="prefs_category_accounts">חשבונות</string>
   <string name="prefs_add_account">הוספת חשבון</string>
+  <string name="auth_redirect_non_secure_connection_title">חיבור מאובטח מנותב דרך נתיב לא מאובטח</string>
   <string name="folder_picker_choose_button_text">בחירה</string>
   <string name="prefs_category_security">אבטחה</string>
   <string name="auth_host_address">כתובת שרת</string>
+  <string name="share_dialog_title">שיתוף</string>
+  <string name="share_via_link_section_title">קישור לשיתוף</string>
+  <string name="share_via_link_expiration_date_label">הגדרת תאריך תפוגה</string>
+  <string name="share_via_link_password_label">הגנה בססמה</string>
+  <string name="share_search">חיפוש</string>
 </resources>

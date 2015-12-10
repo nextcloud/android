@@ -20,8 +20,8 @@ repositories {
 
 dependencies {
     compile name: 'touch-image-view'
-    compile 'com.android.support:support-v4:22.2.1'
     compile project(':owncloud-android-library')
+    compile 'com.android.support:support-v4:22.2.1'
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile 'com.android.support:appcompat-v7:22.2.1'
 }
@@ -59,12 +59,6 @@ android {
         }
     }
 
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-    
     productFlavors {
     }
 
@@ -72,5 +66,9 @@ android {
         exclude 'META-INF/LICENSE.txt'
     }
 }
+
+
+
+
 
 

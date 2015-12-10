@@ -14,8 +14,10 @@
   <string name="auth_password">Нууц үг</string>
   <string name="sync_string_files">Файлууд</string>
   <string name="uploader_btn_upload_text">Байршуулах</string>
+  <string name="action_share">Түгээх</string>
   <string name="create_account">Аккаунт үүсгэх</string>
   <string name="common_remove">Устгах</string>
   <string name="empty"></string>
   <string name="prefs_category_security">Аюулгүй байдал</string>
+  <string name="share_dialog_title">Түгээлт</string>
 </resources>

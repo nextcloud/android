@@ -29,7 +29,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 public class UploadDbObject implements Serializable {
 
     /** Generated - should be refreshed every time the class changes!! */
-    ;
     private static final long serialVersionUID = -2306246191385279928L;
 
     private static final String TAG = "UploadDbObject";

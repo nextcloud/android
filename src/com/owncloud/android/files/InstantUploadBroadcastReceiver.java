@@ -20,20 +20,19 @@
 
 package com.owncloud.android.files;
 
-import java.util.Map.Entry;
-
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
 
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.db.UploadDbHandler;
 import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -107,6 +106,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             Log_OC.d(TAG, "Duplicate detected: " + file_path + ". Ignore.");
             return;
         }
+
         lastUploadedPhotoPath = file_path;
         Log_OC.d(TAG, "Path: " + file_path + "");        
         
@@ -118,7 +118,34 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploadService.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploadService.KEY_CREATE_REMOTE_FOLDER, true);
         i.putExtra(FileUploadService.KEY_WIFI_ONLY, instantPictureUploadViaWiFiOnly(context));
+
+// On master
+//        Intent i = new Intent(context, FileUploader.class);
+//        i.putExtra(FileUploader.KEY_ACCOUNT, account);
+//        i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
+//        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
+//        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
+//        i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
+//        i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+
+        // instant upload behaviour
+        i = addInstantUploadBehaviour(i, context);
+
         context.startService(i);
+    }
+
+    private Intent addInstantUploadBehaviour(Intent i, Context context){
+        SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String behaviour = appPreferences.getString("prefs_instant_behaviour", "NOTHING");
+
+        if (behaviour.equalsIgnoreCase("NOTHING")) {
+            Log_OC.d(TAG, "upload file and do nothing");
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
+        } else if (behaviour.equalsIgnoreCase("MOVE")) {
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+            Log_OC.d(TAG, "upload file and move file to oc folder");
+        }
+        return i;
     }
 
     private void handleNewVideoAction(Context context, Intent intent) {
@@ -161,58 +188,25 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploadService.KEY_CREATE_REMOTE_FOLDER, true);
         i.putExtra(FileUploadService.KEY_WIFI_ONLY, instantVideoUploadViaWiFiOnly(context));
         context.startService(i);
-    }
-
-    //obsolete. delete.
-//    private void handleConnectivityAction(Context context, Intent intent) {
-//        if (!instantPictureUploadEnabled(context)) {
-//            Log_OC.d(TAG, "Instant upload disabled, don't upload anything");
+// On master
+//        if (!isOnline(context) || (instantVideoUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
 //            return;
 //        }
 //
-//        if (!intent.hasExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY)
-//                && isOnline(context)
-//                && (!instantPictureUploadViaWiFiOnly(context) || (instantPictureUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))) {
-//            UploadDbHandler db = new UploadDbHandler(context);
-//            Cursor c = db.getAwaitingFiles();
-//            if (c.moveToFirst()) {
-//                do {
-//                    String account_name = c.getString(c.getColumnIndex("account"));
-//                    String file_path = c.getString(c.getColumnIndex("path"));
-//                    File f = new File(file_path);
-//                    if (f.exists()) {
-//                        Account account = new Account(account_name, MainApp.getAccountType());
-//
-//                        String mimeType = null;
-//                        try {
-//                            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
-//                                    f.getName().substring(f.getName().lastIndexOf('.') + 1));
-//
-//                        } catch (Throwable e) {
-//                            Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + f.getName());
-//                        }
-//                        if (mimeType == null)
-//                            mimeType = "application/octet-stream";
-//
-//                        Intent i = new Intent(context, FileUploader.class);
-//                        i.putExtra(FileUploader.KEY_ACCOUNT, account);
-//                        i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
-//                        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, f.getName()));
-//                        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-//                        i.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, true);
-//                        i.putExtra(FileUploader.KEY_WIFI_ONLY, instantPictureUploadViaWiFiOnly(context));
-//                        context.startService(i);
-//
-//                    } else {
-//                        Log_OC.w(TAG, "Instant upload file " + f.getAbsolutePath() + " dont exist anymore");
-//                    }
-//                } while (c.moveToNext());
-//            }
-//            c.close();
-//            db.close();
-//        }
-//
-//    }
+//        Intent i = new Intent(context, FileUploader.class);
+//        i.putExtra(FileUploader.KEY_ACCOUNT, account);
+//        i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
+//        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantVideoUploadFilePath(context, file_name));
+//        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
+//        i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
+//        i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+
+        // instant upload behaviour
+        i = addInstantUploadBehaviour(i, context);
+
+        context.startService(i);
+
+    }
 
     public static boolean instantPictureUploadEnabled(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_uploading", false);

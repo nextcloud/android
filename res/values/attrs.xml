@@ -11,4 +11,13 @@
 
 	</declare-styleable>
 
+	<string-array name="pref_behaviour_entries">
+		<item>@string/pref_behaviour_entries_keep_file</item>
+		<item>@string/pref_behaviour_entries_move</item>
+	</string-array>
+
+	<string-array name="pref_behaviour_entryValues">
+		<item>NOTHING</item>
+		<item>MOVE</item>
+	</string-array>
 </resources>

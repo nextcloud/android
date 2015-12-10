@@ -72,15 +72,11 @@
   <string name="filedetails_created">Yaradıldı:</string>
   <string name="filedetails_modified">Dəyişdirildi:</string>
   <string name="filedetails_download">Yüklə</string>
-  <string name="filedetails_sync_file">Faylı yenilə</string>
   <string name="filedetails_renamed_in_upload_msg">Yüklənmə müddətində fayl buna %1$s yeniləndi</string>
-  <string name="action_share_file">Linki yayımla</string>
-  <string name="action_unshare_file">Link yayımlanmasını dayandır</string>
+  <string name="action_share">Paylaş</string>
   <string name="common_yes">Bəli</string>
   <string name="common_no">Xeyir</string>
   <string name="common_ok">Oldu</string>
-  <string name="common_cancel_download">Endirimi dayandır</string>
-  <string name="common_cancel_upload">Yüklənməni dayandır</string>
   <string name="common_cancel">Dayandır</string>
   <string name="common_save_exit">Saxla &amp; Çıx</string>
   <string name="common_error">Səhv</string>
@@ -269,7 +265,6 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="downloader_download_file_not_found">Bu fayla serverdə artıq uzun müddətdir ki, çatmaq mümkün deyil</string>
   <string name="prefs_category_accounts">Hesablar</string>
   <string name="prefs_add_account">Hesab əlavə et</string>
-  <string name="auth_redirect_non_secure_connection_title">Təhlükəsiz qoşulma, təhlükəsiz olmayan istiqamətə yönlədirilmişdir</string>
   <string name="actionbar_logger">Jurnallar</string>
   <string name="log_send_history_button">Tarixçəni göndər</string>
   <string name="log_send_no_mail_app">Jurnalların ötürülməsi üçün proqram təminatı tapılmadı!</string>
@@ -285,10 +280,14 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="move_file_invalid_overwrite">Fayl artıq mənsəb qovluğunda mövcuddur</string>
   <string name="move_file_error">Fayl və ya qovluğun köçürülməsi müddətində səhv baş verdi</string>
   <string name="forbidden_permissions_move">bu faylı köçürtmək</string>
+  <string name="copy_file_invalid_overwrite">Fayl artıq mənsəb qovluğunda mövcuddur</string>
   <string name="prefs_category_instant_uploading">Anında yükləmələr</string>
   <string name="prefs_category_security">Təhlükəsizlik</string>
   <string name="prefs_instant_video_upload_path_title">Video ünvanını yüklə</string>
-  <string name="download_folder_failed_content">Qovluğun endirilməsinin %1$s hissəsi tamamlana bilməz </string>
+  <string name="subject_user_shared_with_you">%1$s paylaşdı \"%2$s\" sizinlə</string>
   <string name="auth_refresh_button">Qoşulmanı yenilə</string>
   <string name="auth_host_address">Server ünvanı</string>
+  <string name="share_dialog_title">Paylaşılır</string>
+  <string name="share_via_link_section_title">Linki yayımla</string>
+  <string name="share_search">Axtarış</string>
 </resources>
