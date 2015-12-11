@@ -1,4 +1,3 @@
-
 /**
  *   ownCloud Android client application
  *
@@ -32,7 +31,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 13;
+    public static final int DB_VERSION = 14;
 
     private ProviderMeta() {
     }
@@ -41,6 +40,7 @@ public class ProviderMeta {
         public static final String FILE_TABLE_NAME = "filelist";
         public static final String OCSHARES_TABLE_NAME = "ocshares";
         public static final String CAPABILITIES_TABLE_NAME = "capabilities";
+        public static final String UPLOADS_TABLE_NAME = "list_of_uploads";
         public static final Uri CONTENT_URI = Uri.parse("content://"
                 + MainApp.getAuthority() + "/");
         public static final Uri CONTENT_URI_FILE = Uri.parse("content://"
@@ -51,6 +51,8 @@ public class ProviderMeta {
                 + MainApp.getAuthority() + "/shares");
         public static final Uri CONTENT_URI_CAPABILITIES = Uri.parse("content://"
                 + MainApp.getAuthority() + "/capabilities");
+        public static final Uri CONTENT_URI_UPLOADS = Uri.parse("content://"
+                + MainApp.getAuthority() + "/uploads");
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
         public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.owncloud.file";
@@ -130,5 +132,12 @@ public class ProviderMeta {
 
         public static final String CAPABILITIES_DEFAULT_SORT_ORDER = CAPABILITIES_ACCOUNT_NAME
                 + " collate nocase asc";
+
+        //Columns of Uploads table
+        public static final String UPLOADS_FILE_ID = "file_id";
+        public static final String UPLOADS_PATH = "path";
+        public static final String UPLOADS_STATUS = "status";
+
+        public static final String UPLOADS_DEFAULT_SORT_ORDER = UPLOADS_FILE_ID  + " collate nocase asc";
     }
 }
