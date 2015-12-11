@@ -77,7 +77,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
         }
         i.putExtra(FileUploadService.KEY_ACCOUNT, getAccount());
         i.putExtra(FileUploadService.KEY_FILE, (Parcelable)getFile());
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadSingleMulti.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadQuantity.UPLOAD_SINGLE_FILE);
         
         startService(i);
         finish();

@@ -1,6 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2011-2012  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author LukeOwncloud
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -32,10 +34,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 /**
  * Database helper for storing list of files to be uploaded, including status
  * information for each file.
- * 
- * @author Bartek Przybylski
- * @author LukeOwncloud
- * 
  */
 public class UploadDbHandler extends Observable {
     private SQLiteDatabase mDB;
@@ -43,19 +41,8 @@ public class UploadDbHandler extends Observable {
     private final String mDatabaseName;
     private final int mDatabaseVersion = 4;
 
-    static private final String TAG = "UploadDbHandler";
+    static private final String TAG = UploadDbHandler.class.getSimpleName();
     static private final String TABLE_UPLOAD = "list_of_uploads";
-
-    // for testing only
-    public void recreateDb() {
-//        getDB().beginTransaction();
-//        try {
-//            mHelper.onUpgrade(getDB(), 0, mDatabaseVersion);
-//            getDB().setTransactionSuccessful();
-//        } finally {
-//            getDB().endTransaction();
-//        }
-    }
 
     public enum UploadStatus {
         /**
@@ -88,7 +75,7 @@ public class UploadDbHandler extends Observable {
         UPLOAD_CANCELLED(6);
         private final int value;
 
-        private UploadStatus(int value) {
+        UploadStatus(int value) {
             this.value = value;
         }
 
@@ -116,41 +103,6 @@ public class UploadDbHandler extends Observable {
         setDB(null);
         me = null;
     }
-
-    /**
-     * Store a file persistently (to be uploaded later).
-     * 
-     * @param filepath local file path to file
-     * @param account account for uploading
-     * @param message optional message. can be null.
-     * @return false if an error occurred, else true.
-     */
-    public boolean storeFile(String filepath, String account, String message) {
-        // /OBSOLETE
-        Log_OC.i(TAG, "obsolete method called");
-        return false;
-        // ContentValues cv = new ContentValues();
-        // cv.put("path", filepath);
-        // cv.put("account", account);
-        // cv.put("attempt",
-        // UploadStatus.UPLOAD_STATUS_UPLOAD_LATER.getValue());
-        // cv.put("message", message);
-        // long result = mDB.insert(TABLE_UPLOAD, null, cv);
-        // Log_OC.d(TABLE_UPLOAD, "putFileForLater returns with: " + result +
-        // " for file: " + filepath);
-        // return result != -1;
-    }
-
-    // ununsed until now. uncomment if needed.
-    // public Cursor getFailedFiles() {
-    // return mDB.query(TABLE_INSTANT_UPLOAD, null, "attempt>" +
-    // UploadStatus.UPLOAD_STATUS_UPLOAD_LATER, null, null, null, null);
-    // }
-
-    // ununsed until now. uncomment if needed.
-    // public void clearFiles() {
-    // mDB.delete(TABLE_INSTANT_UPLOAD, null, null);
-    // }
 
     private class OpenerHelper extends SQLiteOpenHelper {
         public OpenerHelper(Context context) {
@@ -197,7 +149,7 @@ public class UploadDbHandler extends Observable {
 
         long result = getDB().insert(TABLE_UPLOAD, null, cv);
         
-        Log_OC.d(TAG, "putFileForLater returns with: " + result + " for file: " + uploadObject.getLocalPath());
+        Log_OC.d(TAG, "storeUpload returns with: " + result + " for file: " + uploadObject.getLocalPath());
         if (result == -1) {
             Log_OC.e(TAG, "Failed to insert item " + uploadObject.getLocalPath() + " into upload db.");
             return false;
@@ -217,12 +169,10 @@ public class UploadDbHandler extends Observable {
                 uploadDbObject.getLastResult());
     }
 
-    public int updateUploadInternal(Cursor c, UploadStatus status, RemoteOperationResult result) {
+    private int updateUploadInternal(Cursor c, UploadStatus status, RemoteOperationResult result) {
         
         while(c.moveToNext()) {
             // read upload object and update
-            
-            
             String uploadObjectString = c.getString(c.getColumnIndex("uploadObject"));
             UploadDbObject uploadObject = UploadDbObject.fromString(uploadObjectString);
             
@@ -280,7 +230,7 @@ public class UploadDbHandler extends Observable {
      * are informed.
      */
     public void notifyObserversNow() {
-        Log_OC.d("UploadListAdapter", "notifyObserversNow");
+        Log_OC.d(TAG, "notifyObserversNow");
         setChanged();
         notifyObservers();
     }
@@ -407,7 +357,8 @@ public class UploadDbHandler extends Observable {
     
     public void setAllCurrentToUploadLater() {
         
-        Cursor c = getDB().query(TABLE_UPLOAD, null, "uploadStatus==" + UploadStatus.UPLOAD_IN_PROGRESS.value, null, null, null, null);
+        Cursor c = getDB().query(TABLE_UPLOAD, null, "uploadStatus==" + UploadStatus.UPLOAD_IN_PROGRESS.value,
+                null, null, null, null);
         
         updateUploadInternal(c, UploadStatus.UPLOAD_LATER, null);
     }

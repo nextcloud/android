@@ -120,7 +120,7 @@ public class UploadListFragment extends ExpandableListFragment {
         int childPosition = ExpandableListView.getPackedPositionChild(info.packedPosition);
         int groupPosition = ExpandableListView.getPackedPositionGroup(info.packedPosition);
         UploadDbObject uploadFile = (UploadDbObject) mAdapter.getChild(groupPosition, childPosition);
-        if (UploadUtils.userCanCancelUpload(uploadFile)) {
+        if (uploadFile.userCanCancelUpload()) {
             MenuItem item = menu.findItem(R.id.action_remove_upload);
             if (item != null) {
                 item.setVisible(false);
@@ -133,7 +133,7 @@ public class UploadListFragment extends ExpandableListFragment {
                 item.setEnabled(false);
             }
         }
-        if (!UploadUtils.userCanRetryUpload(uploadFile)) {
+        if (!uploadFile.userCanRetryUpload()) {
             MenuItem item = menu.findItem(R.id.action_retry_upload);
             if (item != null) {
                 item.setVisible(false);

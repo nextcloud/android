@@ -1,3 +1,22 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author LukeOwncloud
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 package com.owncloud.android.ui.adapter;
 
 import java.lang.ref.WeakReference;
@@ -16,7 +35,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,7 +53,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.UploadUtils;
 
 /**
  * This Adapter populates a ListView with following types of uploads: pending,
@@ -241,7 +258,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             statusView.setText(status);
 
             ImageButton rightButton = (ImageButton) view.findViewById(R.id.upload_right_button);
-            if (UploadUtils.userCanRetryUpload(uploadObject)
+            if (uploadObject.userCanRetryUpload()
                     && uploadObject.getUploadStatus() != UploadStatus.UPLOAD_SUCCEEDED) {
                 //Refresh
                 rightButton.setImageDrawable(mActivity.getDrawable(R.drawable.ic_action_refresh_grey));
@@ -251,7 +268,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         parentFileActivity.getFileOperationsHelper().retryUpload(uploadObject);                                        
                     }
                 });
-            } else if (UploadUtils.userCanCancelUpload(uploadObject)) {
+            } else if (uploadObject.userCanCancelUpload()) {
                 //Cancel
                 rightButton.setImageDrawable(mActivity.getDrawable(R.drawable.ic_cancel));
                 rightButton.setOnClickListener(new OnClickListener() {                
@@ -275,7 +292,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
             fileIcon.setImageResource(R.drawable.file);
             try {
-                //TODO Wait for https://github.com/owncloud/android/pull/746 and add thumbnail.
                 Bitmap b = ThumbnailsCacheManager.getBitmapFromDiskCache(uploadObject.getOCFile().getRemoteId());
                 if (b != null) {
                     fileIcon.setImageBitmap(b);

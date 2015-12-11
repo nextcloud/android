@@ -64,7 +64,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploadService;
@@ -692,7 +691,7 @@ public class FileDisplayActivity extends HookActivity implements
             i.putExtra(FileUploadService.KEY_LOCAL_FILE, filePaths);
             i.putExtra(FileUploadService.KEY_REMOTE_FILE, remotePaths);
             i.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                    FileUploadService.UploadSingleMulti.UPLOAD_MULTIPLE_FILES);
+                    FileUploadService.UploadQuantity.UPLOAD_MULTIPLE_FILES);
             if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
                 i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_MOVE);
             startService(i);
@@ -772,7 +771,7 @@ public class FileDisplayActivity extends HookActivity implements
         i.putExtra(FileUploadService.KEY_REMOTE_FILE, remotePath);
         i.putExtra(FileUploadService.KEY_MIME_TYPE, mimeType);
         i.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                FileUploadService.UploadSingleMulti.UPLOAD_SINGLE_FILE);
+                FileUploadService.UploadQuantity.UPLOAD_SINGLE_FILE);
         if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) {
             i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR,
                     FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_MOVE);
@@ -786,13 +785,8 @@ public class FileDisplayActivity extends HookActivity implements
     /**
      * Request the operation for moving the file/folder from one path to another
      *
-<<<<<<< HEAD
      * @param data              Intent received
      * @param resultCode        Result code received
-=======
-     * @param data       Intent received
-     * @param resultCode Result code received
->>>>>>> master
      */
     private void requestMoveOperation(Intent data, int resultCode) {
         OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);

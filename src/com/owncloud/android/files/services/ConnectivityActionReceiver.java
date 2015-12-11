@@ -1,3 +1,23 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author LukeOwncloud
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.files.services;
 
 import android.content.BroadcastReceiver;
@@ -7,12 +27,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.NetworkInfo.State;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.owncloud.android.files.InstantUploadBroadcastReceiver;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
@@ -24,37 +41,36 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  * service, ... - Handle offline mode (cf.
  * https://github.com/owncloud/android/issues/162)
  * 
- * @author LukeOwncloud
- * 
  */
 public class ConnectivityActionReceiver extends BroadcastReceiver {
-    private static final String TAG = "ConnectivityActionReceiver";
+    private static final String TAG = ConnectivityActionReceiver.class.getSimpleName();
 
     @Override
     public void onReceive(final Context context, Intent intent) {
         // LOG ALL EVENTS:
-        Log.v(TAG, "action: " + intent.getAction());
-        Log.v(TAG, "component: " + intent.getComponent());
+        Log_OC.v(TAG, "action: " + intent.getAction());
+        Log_OC.v(TAG, "component: " + intent.getComponent());
         Bundle extras = intent.getExtras();
         if (extras != null) {
             for (String key : extras.keySet()) {
-                Log.v(TAG, "key [" + key + "]: " + extras.get(key));
+                Log_OC.v(TAG, "key [" + key + "]: " + extras.get(key));
             }
         } else {
-            Log.v(TAG, "no extras");
+            Log_OC.v(TAG, "no extras");
         }
 
         
         /**
          * Just checking for State.CONNECTED will is not good enough, as it ends here multiple times.
          * Work around from:
-         * http://stackoverflow.com/questions/17287178/connectivitymanager-getactivenetworkinfo-returning-true-when-internet-is-off
+         * http://stackoverflow.com/
+         * questions/17287178/connectivitymanager-getactivenetworkinfo-returning-true-when-internet-is-off
          */            
         if(intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
             NetworkInfo networkInfo =
                 intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
             if(networkInfo.isConnected()) {
-                Log.d(TAG, "Wifi is connected: " + String.valueOf(networkInfo));
+                Log_OC.d(TAG, "Wifi is connected: " + String.valueOf(networkInfo));
                 wifiConnected(context);
             }
         } else if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
@@ -63,7 +79,7 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
             if(networkInfo == null || networkInfo.getType() == ConnectivityManager.TYPE_WIFI &&
                 ! networkInfo.isConnected()) {
-                Log.d(TAG, "Wifi is disconnected: " + String.valueOf(networkInfo));
+                Log_OC.d(TAG, "Wifi is disconnected: " + String.valueOf(networkInfo));
                 wifiDisconnected(context);
             }
         }

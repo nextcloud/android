@@ -293,7 +293,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         in the database when the FileUploader service gets it!
         i.putExtra(FileUploader.KEY_LOCAL_FILE, localFile.getStoragePath());*/
         i.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                FileUploadService.UploadSingleMulti.UPLOAD_SINGLE_FILE);
+                FileUploadService.UploadQuantity.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploadService.KEY_FORCE_OVERWRITE, true);
         mContext.startService(i);
         mTransferWasRequested = true;

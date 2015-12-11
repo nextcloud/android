@@ -43,10 +43,12 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     // Image action
     // Unofficial action, works for most devices but not HTC. See: https://github.com/owncloud/android/issues/6
     private static String NEW_PHOTO_ACTION_UNOFFICIAL = "com.android.camera.NEW_PICTURE";
-    // Officially supported action since SDK 14: http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE
+    // Officially supported action since SDK 14:
+    // http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE
     private static String NEW_PHOTO_ACTION = "android.hardware.action.NEW_PICTURE";
     // Video action
-    // Officially supported action since SDK 14: http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_VIDEO
+    // Officially supported action since SDK 14:
+    // http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_VIDEO
     private static String NEW_VIDEO_ACTION = "android.hardware.action.NEW_VIDEO";
 
     @Override
@@ -91,7 +93,8 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
-        String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE };
+        String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE,
+                Images.Media.SIZE };
         c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
         if (!c.moveToFirst()) {
             Log_OC.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
@@ -114,7 +117,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploadService.KEY_ACCOUNT, account);
         i.putExtra(FileUploadService.KEY_LOCAL_FILE, file_path);
         i.putExtra(FileUploadService.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadSingleMulti.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadQuantity.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploadService.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploadService.KEY_CREATE_REMOTE_FOLDER, true);
         i.putExtra(FileUploadService.KEY_WIFI_ONLY, instantPictureUploadViaWiFiOnly(context));
@@ -167,7 +170,8 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
-        String[] CONTENT_PROJECTION = { Video.Media.DATA, Video.Media.DISPLAY_NAME, Video.Media.MIME_TYPE, Video.Media.SIZE };
+        String[] CONTENT_PROJECTION = { Video.Media.DATA, Video.Media.DISPLAY_NAME, Video.Media.MIME_TYPE,
+                Video.Media.SIZE };
         c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
         if (!c.moveToFirst()) {
             Log_OC.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
@@ -183,7 +187,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploadService.KEY_ACCOUNT, account);
         i.putExtra(FileUploadService.KEY_LOCAL_FILE, file_path);
         i.putExtra(FileUploadService.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadSingleMulti.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadQuantity.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploadService.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploadService.KEY_CREATE_REMOTE_FOLDER, true);
         i.putExtra(FileUploadService.KEY_WIFI_ONLY, instantVideoUploadViaWiFiOnly(context));

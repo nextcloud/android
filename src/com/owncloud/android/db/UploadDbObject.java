@@ -1,3 +1,23 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author LukeOwncloud
+ *   Copyright (C) 2015 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.db;
 
 import java.io.ByteArrayInputStream;
@@ -23,58 +43,45 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  * Stores all information in order to start upload operations. PersistentUploadObject can
  * be stored persistently by {@link UploadDbHandler}.
  * 
- * @author LukeOwncloud
- * 
  */
 public class UploadDbObject implements Serializable {
 
     /** Generated - should be refreshed every time the class changes!! */
     private static final long serialVersionUID = -2306246191385279928L;
 
-    private static final String TAG = "UploadDbObject";
+    private static final String TAG = UploadDbObject.class.getSimpleName();
     
     public UploadDbObject(OCFile ocFile) {
-        this.ocFile = ocFile;
+        this.mFile = ocFile;
     }
-//    /**
-//     * Local path to file which is to be uploaded.
-//     */
-//    String localPath;
-//    /**
-//     * Remote path where file is to be uploaded to.
-//     */
-//    String remotePath;
-//
-//    /**
-//     * Mime type of upload file.
-//     */
-//    String mimeType;
-    OCFile ocFile;
+
+
+    OCFile mFile;
     
     public OCFile getOCFile() {
-        return ocFile;
+        return mFile;
     }
     
     
     /**
      * Local action for upload.
      */
-    LocalBehaviour localAction;
+    LocalBehaviour mLocalAction;
 
     /**
      * Date and time when this upload was first requested.
      */
-    Calendar uploadTime = new GregorianCalendar();
+    Calendar mUploadTime = new GregorianCalendar();
 
     public Calendar getUploadTime() {
-        return uploadTime;
+        return mUploadTime;
     }
 
     /**
      * @return the uploadStatus
      */
     public UploadStatus getUploadStatus() {
-        return uploadStatus;
+        return mUploadStatus;
     }
 
     /**
@@ -82,7 +89,7 @@ public class UploadDbObject implements Serializable {
      * @param uploadStatus the uploadStatus to set
      */
     public void setUploadStatus(UploadStatus uploadStatus) {
-        this.uploadStatus = uploadStatus;
+        this.mUploadStatus = uploadStatus;
         setLastResult(null);
     }
 
@@ -90,71 +97,71 @@ public class UploadDbObject implements Serializable {
      * @return the lastResult
      */
     public RemoteOperationResult getLastResult() {
-        return lastResult;
+        return mLastResult;
     }
 
     /**
      * @param lastResult the lastResult to set
      */
     public void setLastResult(RemoteOperationResult lastResult) {
-        this.lastResult = lastResult;
+        this.mLastResult = lastResult;
     }
 
     /**
      * Overwrite destination file?
      */
-    boolean forceOverwrite;
+    boolean mForceOverwrite;
     /**
      * Create destination folder?
      */
-    boolean isCreateRemoteFolder;
+    boolean mIsCreateRemoteFolder;
     /**
      * Upload only via wifi?
      */
-    boolean isUseWifiOnly;
+    boolean mIsUseWifiOnly;
     /**
      * Upload only if phone being charged?
      */
-    boolean isWhileChargingOnly;
+    boolean mIsWhileChargingOnly;
     /**
      * Earliest time when upload may be started. Negative if not set.
      */
-    long uploadTimestamp;
+    long mUploadTimestamp;
 
     /**
      * Name of Owncloud account to upload file to.
      */
-    String accountName;
+    String mAccountName;
 
     /**
      * Status of upload (later, in_progress, ...).
      */
-    UploadStatus uploadStatus;
+    UploadStatus mUploadStatus;
 
     /**
      * Result from last upload operation. Can be null.
      */
-    RemoteOperationResult lastResult;
+    RemoteOperationResult mLastResult;
 
     /**
      * @return the localPath
      */
     public String getLocalPath() {
-        return ocFile.getStoragePath();
+        return mFile.getStoragePath();
     }
 
     /**
      * @return the remotePath
      */
     public String getRemotePath() {
-        return ocFile.getRemotePath();
+        return mFile.getRemotePath();
     }
 
     /**
      * @return the mimeType
      */
     public String getMimeType() {
-        return ocFile.getMimetype();
+        return mFile.getMimetype();
     }
 
 
@@ -163,70 +170,70 @@ public class UploadDbObject implements Serializable {
      */
     public LocalBehaviour getLocalAction() {
         // return null;
-        return localAction;
+        return mLocalAction;
     }
 
     /**
      * @param localAction the localAction to set
      */
     public void setLocalAction(LocalBehaviour localAction) {
-        this.localAction = localAction;
+        this.mLocalAction = localAction;
     }
 
     /**
      * @return the forceOverwrite
      */
     public boolean isForceOverwrite() {
-        return forceOverwrite;
+        return mForceOverwrite;
     }
 
     /**
      * @param forceOverwrite the forceOverwrite to set
      */
     public void setForceOverwrite(boolean forceOverwrite) {
-        this.forceOverwrite = forceOverwrite;
+        this.mForceOverwrite = forceOverwrite;
     }
 
     /**
      * @return the isCreateRemoteFolder
      */
     public boolean isCreateRemoteFolder() {
-        return isCreateRemoteFolder;
+        return mIsCreateRemoteFolder;
     }
 
     /**
      * @param isCreateRemoteFolder the isCreateRemoteFolder to set
      */
     public void setCreateRemoteFolder(boolean isCreateRemoteFolder) {
-        this.isCreateRemoteFolder = isCreateRemoteFolder;
+        this.mIsCreateRemoteFolder = isCreateRemoteFolder;
     }
 
     /**
      * @return the isUseWifiOnly
      */
     public boolean isUseWifiOnly() {
-        return isUseWifiOnly;
+        return mIsUseWifiOnly;
     }
 
     /**
      * @param isUseWifiOnly the isUseWifiOnly to set
      */
     public void setUseWifiOnly(boolean isUseWifiOnly) {
-        this.isUseWifiOnly = isUseWifiOnly;
+        this.mIsUseWifiOnly = isUseWifiOnly;
     }
 
     /**
      * @return the accountName
      */
     public String getAccountName() {
-        return accountName;
+        return mAccountName;
     }
 
     /**
      * @param accountName the accountName to set
      */
     public void setAccountName(String accountName) {
-        this.accountName = accountName;
+        this.mAccountName = accountName;
     }
 
     /**
@@ -279,11 +286,11 @@ public class UploadDbObject implements Serializable {
     }
 
     public void setWhileChargingOnly(boolean isWhileChargingOnly) {
-        this.isWhileChargingOnly = isWhileChargingOnly;        
+        this.mIsWhileChargingOnly = isWhileChargingOnly;
     }
     
     public boolean isWhileChargingOnly() {
-        return isWhileChargingOnly;
+        return mIsWhileChargingOnly;
     }
 
     /**
@@ -291,7 +298,7 @@ public class UploadDbObject implements Serializable {
      * @return the uploadTimestamp
      */
     public long getUploadTimestamp() {
-        return uploadTimestamp;
+        return mUploadTimestamp;
     }
 
     /**
@@ -299,14 +306,15 @@ public class UploadDbObject implements Serializable {
      * @param uploadTimestamp the uploadTimestamp to set
      */
     public void setUploadTimestamp(long uploadTimestamp) {
-        this.uploadTimestamp = uploadTimestamp;
+        this.mUploadTimestamp = uploadTimestamp;
     }
     
     /**
      * For debugging purposes only.
      */
     public String toFormattedString() {
-        return getLocalPath() + " status:"+getUploadStatus() + " result:" + (getLastResult()==null?"null":getLastResult().getCode());
+        return getLocalPath() + " status:" + getUploadStatus() + " result:" +
+                (getLastResult() == null?"null" : getLastResult().getCode());
     }
 
     /**
@@ -316,5 +324,39 @@ public class UploadDbObject implements Serializable {
         setUseWifiOnly(false);
         setWhileChargingOnly(false);
         setUploadTimestamp(0);
+    }
+
+    /**
+     * Returns true when user is able to cancel this upload. That is, when
+     * upload is currently in progress or scheduled for upload.
+     */
+    public  boolean userCanCancelUpload() {
+        switch (this.getUploadStatus()) {
+            case UPLOAD_IN_PROGRESS:
+            case UPLOAD_LATER:
+            case UPLOAD_FAILED_RETRY:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * Returns true when user can choose to retry this upload. That is, when
+     * user cancelled upload before or when upload has failed.
+     */
+    public boolean userCanRetryUpload() {
+        switch (this.getUploadStatus()) {
+            case UPLOAD_CANCELLED:
+            case UPLOAD_FAILED_RETRY://automatically retried. no need for user option.
+            case UPLOAD_FAILED_GIVE_UP: //TODO this case needs to be handled as described by
+                // https://github.com/owncloud/android/issues/765#issuecomment-66490312
+            case UPLOAD_LATER: //upload is already schedule but allow user to increase priority
+            case UPLOAD_SUCCEEDED: // if user wants let him to re-upload (maybe
+                // remote file was deleted...)
+                return true;
+            default:
+                return false;
+        }
     }
 }

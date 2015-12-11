@@ -1,6 +1,8 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+/**
+ *   ownCloud Android client application
+ *
+ *   @author LukeOwncloud
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -80,7 +82,6 @@ import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -98,10 +99,7 @@ import com.owncloud.android.utils.UriUtils;
  * Every file passed to this service is uploaded. No filtering is performed.
  * However, Intent keys (e.g., KEY_WIFI_ONLY) are obeyed.
  * 
- * @author LukeOwncloud
- * 
  */
-@SuppressWarnings("unused")
 public class FileUploadService extends Service implements OnDatatransferProgressListener {
 
     private volatile Looper mServiceLooper;
@@ -138,7 +136,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
      */
     public static final String KEY_ACCOUNT = "ACCOUNT";
     /**
-     * Set whether single file or multiple files are to be uploaded. Value must be of type {@link UploadSingleMulti}.
+     * Set whether single file or multiple files are to be uploaded. Value must be of type {@link UploadQuantity}.
      */
     public static final String KEY_UPLOAD_TYPE = "UPLOAD_TYPE";
     /**
@@ -186,7 +184,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         LOCAL_BEHAVIOUR_FORGET(2);
         private final int value;
 
-        private LocalBehaviour(int value) {
+        LocalBehaviour(int value) {
             this.value = value;
         }
 
@@ -195,11 +193,11 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         }
     }
     
-    public enum UploadSingleMulti {
+    public enum UploadQuantity {
         UPLOAD_SINGLE_FILE(0), UPLOAD_MULTIPLE_FILES(1);
         private final int value;
 
-        private UploadSingleMulti(int value) {
+        UploadQuantity(int value) {
             this.value = value;
         }
 
@@ -282,8 +280,8 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - onCreate");
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mBinder = new FileUploaderBinder();
-        mDb = UploadDbHandler.getInstance(this.getBaseContext());
-        mDb.recreateDb(); //for testing only
+        mDb = UploadDbHandler.getInstance(this);
+//        mDb.recreateDb(); //for testing only
         
         //when this service starts there is no upload in progress. if db says so, app probably crashed before.
         mDb.setAllCurrentToUploadLater();
@@ -388,7 +386,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             mDb.notifyObserversNow();
         } else {
             Log_OC.d(TAG, "Receive upload intent.");
-            UploadSingleMulti uploadType = (UploadSingleMulti) intent.getSerializableExtra(KEY_UPLOAD_TYPE);
+            UploadQuantity uploadType = (UploadQuantity) intent.getSerializableExtra(KEY_UPLOAD_TYPE);
             if (uploadType == null) {
                 Log_OC.e(TAG, "Incorrect or no upload type provided");
                 return;
@@ -403,7 +401,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             OCFile[] files = null;
             // if KEY_FILE given, use it
             if (intent.hasExtra(KEY_FILE)) {
-                if (uploadType == UploadSingleMulti.UPLOAD_SINGLE_FILE) {
+                if (uploadType == UploadQuantity.UPLOAD_SINGLE_FILE) {
                     files = new OCFile[] { intent.getParcelableExtra(KEY_FILE) };
                 } else {
                     files = (OCFile[]) intent.getParcelableArrayExtra(KEY_FILE);
@@ -419,7 +417,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 String[] localPaths;
                 String[] remotePaths;
                 String[] mimeTypes;
-                if (uploadType == UploadSingleMulti.UPLOAD_SINGLE_FILE) {
+                if (uploadType == UploadQuantity.UPLOAD_SINGLE_FILE) {
                     localPaths = new String[] { intent.getStringExtra(KEY_LOCAL_FILE) };
                     remotePaths = new String[] { intent.getStringExtra(KEY_REMOTE_FILE) };
                     mimeTypes = new String[] { intent.getStringExtra(KEY_MIME_TYPE) };
@@ -800,7 +798,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
          * 
          * @param listener Object to notify about progress of transfer.
          * @param account ownCloud account holding the file of interest.
-         * @param file {@link OCfile} of interest for listener.
+         * @param file {@link OCFile} of interest for listener.
          */
         public void addDatatransferProgressListener(OnDatatransferProgressListener listener, Account account,
                 OCFile file) {
@@ -816,7 +814,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
          * 
          * @param listener Object to notify about progress of transfer.
          * @param account ownCloud account holding the file of interest.
-         * @param file {@link OCfile} of interest for listener.
+         * @param file {@link OCFile} of interest for listener.
          */
         public void removeDatatransferProgressListener(OnDatatransferProgressListener listener, Account account,
                 OCFile file) {
