@@ -541,12 +541,6 @@ public class FileDisplayActivity extends HookActivity implements
                 dialog.show(getSupportFragmentManager(), DIALOG_UPLOAD_SOURCE);
                 break;
             }
-            case R.id.action_upload_list: {
-                Intent uploadListIntent = new Intent(getApplicationContext(),
-                        UploadListActivity.class);
-                startActivity(uploadListIntent);
-                break;
-            }
             case android.R.id.home: {
                 FileFragment second = getSecondFragment();
                 OCFile currentDir = getCurrentDir();

@@ -49,13 +49,6 @@
         android:title="@string/actionbar_sort"
         android:contentDescription="@string/actionbar_sort"/>
 
-	<item
-        android:id="@+id/action_upload_list"
-        android:icon="@drawable/ic_action_settings"
-        android:orderInCategory="2"
-        app:showAsAction="never"
-        android:title="Open upload list"/>
-
     <!-- <item android:id="@+id/search"
     android:title="@string/actionbar_search"
     android:icon="@drawable/ic_action_search"></item> -->
