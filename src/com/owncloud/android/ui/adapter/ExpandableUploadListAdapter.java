@@ -25,7 +25,6 @@ import java.util.Comparator;
 import java.util.Observable;
 import java.util.Observer;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
@@ -44,8 +43,8 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.db.UploadDbHandler;
-import com.owncloud.android.db.UploadDbHandler.UploadStatus;
+import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -62,7 +61,9 @@ import com.owncloud.android.utils.DisplayUtils;
 public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer {
 
     private static final String TAG = "ExpandableUploadListAdapter";
-    private Activity mActivity;
+    private FileActivity mParentActivity;
+
+    private UploadsStorageManager mUploadsStorageManager;
     
     public ProgressListener mProgressListener; 
     UploadFileOperation mCurrentUpload;
@@ -92,22 +93,16 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         abstract public int getGroupIcon();
     }
     private UploadGroup[] mUploadGroups = null;
-    UploadDbHandler mDb;
 
-    FileActivity parentFileActivity;
-    public void setFileActivity(FileActivity parentFileActivity) {
-        this.parentFileActivity = parentFileActivity;
-    }
-    
-    public ExpandableUploadListAdapter(Activity context) {
+    public ExpandableUploadListAdapter(FileActivity parentActivity) {
         Log_OC.d(TAG, "UploadListAdapter");
-        mActivity = context;
-        mDb = UploadDbHandler.getInstance(mActivity);
+        mParentActivity = parentActivity;
+        mUploadsStorageManager = new UploadsStorageManager(mParentActivity.getContentResolver());
         mUploadGroups = new UploadGroup[3];
         mUploadGroups[0] = new UploadGroup("Current Uploads") {
             @Override
             public void refresh() {
-                items = mDb.getCurrentAndPendingUploads();
+                items = mUploadsStorageManager.getCurrentAndPendingUploads();
                 Arrays.sort(items, comparator);
             }
             @Override
@@ -118,7 +113,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         mUploadGroups[1] = new UploadGroup("Failed Uploads"){
             @Override
             public void refresh() {
-                items = mDb.getFailedUploads();
+                items = mUploadsStorageManager.getFailedUploads();
                 Arrays.sort(items, comparator);
             }
             @Override
@@ -130,7 +125,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         mUploadGroups[2] = new UploadGroup("Finished Uploads"){
             @Override
             public void refresh() {
-                items = mDb.getFinishedUploads();
+                items = mUploadsStorageManager.getFinishedUploads();
                 Arrays.sort(items, comparator);
             }
             @Override
@@ -145,14 +140,14 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     @Override
     public void registerDataSetObserver(DataSetObserver observer) {
         super.registerDataSetObserver(observer);
-        mDb.addObserver(this);
+        mUploadsStorageManager.addObserver(this);
         Log_OC.d(TAG, "registerDataSetObserver");
     }
 
     @Override
     public void unregisterDataSetObserver(DataSetObserver observer) {
         super.unregisterDataSetObserver(observer);
-        mDb.deleteObserver(this);
+        mUploadsStorageManager.deleteObserver(this);
         Log_OC.d(TAG, "unregisterDataSetObserver");
     }
 
@@ -164,7 +159,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     private View getView(UploadDbObject[] uploadsItems, int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            LayoutInflater inflator = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflator =
+                    (LayoutInflater) mParentActivity.getSystemService(
+                            Context.LAYOUT_INFLATER_SERVICE
+                    );
             view = inflator.inflate(R.layout.upload_list_item, null);
         }
         if (uploadsItems != null && uploadsItems.length > position) {
@@ -186,13 +184,13 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             String status;
             switch (uploadObject.getUploadStatus()) {
             case UPLOAD_IN_PROGRESS:
-                status = mActivity.getResources().getString(R.string.uploader_upload_in_progress_ticker);
+                status = mParentActivity.getString(R.string.uploader_upload_in_progress_ticker);
                 ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                 progressBar.setProgress(0);
                 progressBar.setVisibility(View.VISIBLE);
                 mProgressListener = new ProgressListener(progressBar);
-                if(parentFileActivity.getFileUploaderBinder() != null) {
-                    mCurrentUpload = parentFileActivity.getFileUploaderBinder().getCurrentUploadOperation();
+                if(mParentActivity.getFileUploaderBinder() != null) {
+                    mCurrentUpload = mParentActivity.getFileUploaderBinder().getCurrentUploadOperation();
                     if(mCurrentUpload != null) {
                         mCurrentUpload.addDatatransferProgressListener(mProgressListener);
                         Log_OC.d(TAG, "added progress listener for current upload: " + mCurrentUpload);
@@ -200,7 +198,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         Log_OC.w(TAG, "getFileUploaderBinder().getCurrentUploadOperation() return null. That is odd.");
                     }
                 } else {
-                    Log_OC.e(TAG, "UploadBinder == null. It should have been created on creating parentFileActivity"
+                    Log_OC.e(TAG, "UploadBinder == null. It should have been created on creating mParentActivity"
                             + " which inherits from FileActivity. Fix that!");
                 }
                 break;
@@ -218,14 +216,14 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 } else {
                     status = "Upload will be retried shortly.";
                 }
-                String laterReason = FileUploadService.getUploadLaterReason(mActivity, uploadObject);
+                String laterReason = FileUploadService.getUploadLaterReason(mParentActivity, uploadObject);
                 if(laterReason != null) {
                     //Upload failed once but is delayed now, show reason.
                     status += "\n" + laterReason;
                 }
                 break;
             case UPLOAD_LATER:
-                status = FileUploadService.getUploadLaterReason(mActivity, uploadObject);
+                status = FileUploadService.getUploadLaterReason(mParentActivity, uploadObject);
                 break;
             case UPLOAD_SUCCEEDED:
                 status = "Completed.";
@@ -246,11 +244,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             if(uploadObject.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
                 ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                 progressBar.setVisibility(View.GONE);
-                if (parentFileActivity.getFileUploaderBinder() != null && mProgressListener != null
+                if (mParentActivity.getFileUploaderBinder() != null && mProgressListener != null
                         && mCurrentUpload != null) {
                     OCFile currentOcFile = mCurrentUpload.getFile();
-                    parentFileActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener,
-                            uploadObject.getAccount(mActivity), currentOcFile);
+                    mParentActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener,
+                            uploadObject.getAccount(mParentActivity), currentOcFile);
                     mProgressListener = null;
                     mCurrentUpload = null;
                 }            
@@ -260,30 +258,30 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             ImageButton rightButton = (ImageButton) view.findViewById(R.id.upload_right_button);
             if (uploadObject.userCanRetryUpload()
                     && uploadObject.getUploadStatus() != UploadStatus.UPLOAD_SUCCEEDED) {
-                //Refresh
-                rightButton.setImageDrawable(mActivity.getDrawable(R.drawable.ic_action_refresh_grey));
-                rightButton.setOnClickListener(new OnClickListener() {                
+                //Refresh   - TODO test buttons in Android 4.x
+                rightButton.setImageDrawable(mParentActivity.getDrawable(R.drawable.ic_action_refresh_grey));
+                rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        parentFileActivity.getFileOperationsHelper().retryUpload(uploadObject);                                        
+                        mParentActivity.getFileOperationsHelper().retryUpload(uploadObject);
                     }
                 });
             } else if (uploadObject.userCanCancelUpload()) {
                 //Cancel
-                rightButton.setImageDrawable(mActivity.getDrawable(R.drawable.ic_cancel));
+                rightButton.setImageDrawable(mParentActivity.getDrawable(R.drawable.ic_cancel));
                 rightButton.setOnClickListener(new OnClickListener() {                
                     @Override
                     public void onClick(View v) {
-                        parentFileActivity.getFileOperationsHelper().cancelTransference(uploadObject.getOCFile());                                        
+                        mParentActivity.getFileOperationsHelper().cancelTransference(uploadObject.getOCFile());
                     }
                 });
             } else {
                 //Delete
-                rightButton.setImageDrawable(mActivity.getDrawable(R.drawable.ic_delete));
+                rightButton.setImageDrawable(mParentActivity.getDrawable(R.drawable.ic_delete));
                 rightButton.setOnClickListener(new OnClickListener() {                
                     @Override
                     public void onClick(View v) {
-                        parentFileActivity.getFileOperationsHelper().removeUploadFromList(uploadObject);                                        
+                        mParentActivity.getFileOperationsHelper().removeUploadFromList(uploadObject);
                     }
                 });
             }
@@ -300,8 +298,13 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             }            
 
             TextView uploadDate = (TextView) view.findViewById(R.id.upload_date);
-            CharSequence dateString = DisplayUtils.getRelativeDateTimeString(mActivity, uploadObject.getUploadTime()
-                    .getTimeInMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
+            CharSequence dateString = DisplayUtils.getRelativeDateTimeString(
+                    mParentActivity,
+                    uploadObject.getUploadTime().getTimeInMillis(),
+                    DateUtils.SECOND_IN_MILLIS,
+                    DateUtils.WEEK_IN_MILLIS,
+                    0
+            );
             uploadDate.setText(dateString);
         }
 
@@ -318,7 +321,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     
 
     /**
-     * Load upload items from {@link UploadDbHandler}.
+     * Load upload items from {@link UploadsStorageManager}.
      */
     private void loadUploadItemsFromDb() {
         Log_OC.d(TAG, "loadUploadItemsFromDb");
@@ -326,7 +329,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         for (UploadGroup group : mUploadGroups) {
             group.refresh();
         }
-        mActivity.runOnUiThread(new Runnable() {
+        mParentActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 notifyDataSetChanged();
@@ -404,7 +407,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         
         UploadGroup group = (UploadGroup) getGroup(groupPosition);
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) mActivity
+            LayoutInflater infalInflater = (LayoutInflater) mParentActivity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.upload_list_group, null);
         }

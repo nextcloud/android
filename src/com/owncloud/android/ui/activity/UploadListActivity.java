@@ -21,7 +21,6 @@ package com.owncloud.android.ui.activity;
 
 import java.io.File;
 
-import android.accounts.Account;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -38,19 +37,18 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.UploadDbHandler;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.errorhandling.ExceptionHandler;
 import com.owncloud.android.ui.fragment.UploadListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 
 /**
  * Activity listing pending, active, and completed uploads. User can delete
  * completed uploads from view. Content of this list of coming from
- * {@link UploadDbHandler}.
+ * {@link UploadsStorageManager}.
  *
  */
 public class UploadListActivity extends FileActivity implements UploadListFragment.ContainerActivity {
@@ -140,13 +138,13 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 break;
             }
             case R.id.action_clear_failed_uploads: {
-                UploadDbHandler db = UploadDbHandler.getInstance(this);
-                db.clearFailedUploads();
+                UploadsStorageManager usm = new UploadsStorageManager(getContentResolver());
+                usm.clearFailedUploads();
                 break;
             }
             case R.id.action_clear_finished_uploads: {
-                UploadDbHandler db = UploadDbHandler.getInstance(this);
-                db.clearFinishedUploads();
+                UploadsStorageManager usm = new UploadsStorageManager(getContentResolver());
+                usm.clearFinishedUploads();
                 break;
             }
             default:

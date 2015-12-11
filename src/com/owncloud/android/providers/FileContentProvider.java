@@ -846,6 +846,15 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.UPLOADS_FILE_ID + " INTEGER, "
                 + ProviderTableMeta.UPLOADS_PATH + " TEXT, "
                 + ProviderTableMeta.UPLOADS_STATUS + " INTEGER );" );   // UploadStatus
+
+        /* before:
+        // PRIMARY KEY should always imply NOT NULL. Unfortunately, due to a
+        // bug in some early versions, this is not the case in SQLite.
+        //db.execSQL("CREATE TABLE " + TABLE_UPLOAD + " (" + " path TEXT PRIMARY KEY NOT NULL UNIQUE,"
+        //        + " uploadStatus INTEGER NOT NULL, uploadObject TEXT NOT NULL);");
+        // uploadStatus is used to easy filtering, it has precedence over
+        // uploadObject.getUploadStatus()
+        */
     }
 
     /**

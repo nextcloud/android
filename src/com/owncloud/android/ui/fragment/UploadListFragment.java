@@ -30,11 +30,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.db.UploadDbObject;
@@ -42,7 +40,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ExpandableUploadListAdapter;
-import com.owncloud.android.utils.UploadUtils;
 
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.
@@ -86,12 +83,11 @@ public class UploadListFragment extends ExpandableListFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         Log_OC.d(TAG, "onActivityCreated() start");
         super.onActivityCreated(savedInstanceState);
-        mAdapter = new ExpandableUploadListAdapter(getActivity());
+        mAdapter = new ExpandableUploadListAdapter((FileActivity)getActivity());
         setListAdapter(mAdapter);
-        mAdapter.setFileActivity(((FileActivity) getActivity()));
+        //mAdapter.setFileActivity(((FileActivity) getActivity()));
         
         registerForContextMenu(getListView());
         getListView().setOnCreateContextMenuListener(this);

@@ -34,14 +34,15 @@ import android.util.Base64;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.UploadDbHandler.UploadStatus;
+import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.files.services.FileUploadService.LocalBehaviour;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  * Stores all information in order to start upload operations. PersistentUploadObject can
- * be stored persistently by {@link UploadDbHandler}.
+ * be stored persistently by {@link UploadsStorageManager}.
  * 
  */
 public class UploadDbObject implements Serializable {

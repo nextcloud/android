@@ -58,8 +58,8 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.UploadDbHandler;
-import com.owncloud.android.db.UploadDbHandler.UploadStatus;
+import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -90,7 +90,7 @@ import com.owncloud.android.utils.UriUtils;
 
 /**
  * Service for uploading files. Invoke using context.startService(...). Files to
- * be uploaded are stored persistently using {@link UploadDbHandler}.
+ * be uploaded are stored persistently using {@link UploadsStorageManager}.
  * 
  * On next invocation of {@link FileUploadService} uploaded files which
  * previously failed will be uploaded again until either upload succeeded or a
@@ -213,7 +213,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
     private Account mLastAccount = null;
     private FileDataStorageManager mStorageManager;
     //since there can be only one instance of an Android service, there also just one db connection.
-    private UploadDbHandler mDb = null;
+    private UploadsStorageManager mUploadsStorageManager = null;
     
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     private final AtomicBoolean mCancellationPossible = new AtomicBoolean(false);
@@ -280,11 +280,10 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - onCreate");
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mBinder = new FileUploaderBinder();
-        mDb = UploadDbHandler.getInstance(this);
-//        mDb.recreateDb(); //for testing only
-        
+        mUploadsStorageManager = new UploadsStorageManager(getContentResolver());
+
         //when this service starts there is no upload in progress. if db says so, app probably crashed before.
-        mDb.setAllCurrentToUploadLater();
+        mUploadsStorageManager.setAllCurrentToUploadLater();
         
         HandlerThread thread = new HandlerThread("FileUploadService-Requester");
         thread.start();
@@ -351,8 +350,8 @@ public class FileUploadService extends Service implements OnDatatransferProgress
      * 
      * First, onHandleIntent() stores all information associated with the upload
      * in a {@link UploadDbObject} which is stored persistently using
-     * {@link UploadDbHandler}. Then, the oldest, pending upload from
-     * {@link UploadDbHandler} is taken and upload is started.
+     * {@link UploadsStorageManager}. Then, the oldest, pending upload from
+     * {@link UploadsStorageManager} is taken and upload is started.
      * @param intentStartId 
      */
 
@@ -365,7 +364,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             // retry of pending upload was requested. 
             // ==> First check persistent uploads, then perform upload.
             int countAddedEntries = 0;
-            UploadDbObject[] list = mDb.getPendingUploads();
+            UploadDbObject[] list = mUploadsStorageManager.getPendingUploads();
             for (UploadDbObject uploadDbObject : list) {
                 Log_OC.d(TAG, "Retrieved from DB: " + uploadDbObject.toFormattedString());
                 
@@ -381,9 +380,9 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             Log_OC.d(TAG, "added " + countAddedEntries
                     + " entrie(s) to mPendingUploads (this should be 0 except for the first time).");
             // null intent is received when charging or wifi state changes.
-            // fake a mDb change event, so that GUI can update the reason for
+            // fake a mUploadsStorageManager change event, so that GUI can update the reason for
             // LATER status of uploads.
-            mDb.notifyObserversNow();
+            mUploadsStorageManager.notifyObserversNow();
         } else {
             Log_OC.d(TAG, "Receive upload intent.");
             UploadQuantity uploadType = (UploadQuantity) intent.getSerializableExtra(KEY_UPLOAD_TYPE);
@@ -481,11 +480,11 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                     // however, it can happened that the user uploaded the same
                     // file before in which case there is an old db entry.
                     // delete that to be sure we have the latest one.
-                    if(mDb.removeUpload(uploadObject.getLocalPath())>0) {
+                    if(mUploadsStorageManager.removeUpload(uploadObject.getLocalPath())>0) {
                         Log_OC.w(TAG, "There was an old DB entry " + uploadObject.getLocalPath()
                                 + " which had to be removed in order to add new one.");
                     }
-                    boolean success = mDb.storeUpload(uploadObject);
+                    boolean success = mUploadsStorageManager.storeUpload(uploadObject);
                     if(!success) {
                         Log_OC.e(TAG, "Could not add upload " + uploadObject.getLocalPath()
                                 + " to database. This should not happen.");
@@ -511,7 +510,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             UploadDbObject uploadDbObject = mPendingUploads.get(remotePath);
             uploadDbObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
             uploadDbObject.setLastResult(null);
-            mDb.updateUploadStatus(uploadDbObject);
+            mUploadsStorageManager.updateUploadStatus(uploadDbObject);
 
             Log_OC.d(TAG, "Start uploading " + remotePath);
         } else {
@@ -557,7 +556,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
     }
 
     /**
-     * Tries uploading uploadDbObject, creates notifications, and updates mDb.
+     * Tries uploading uploadDbObject, creates notifications, and updates mUploadsStorageManager.
      */
     public class UploadTask implements Runnable {
         UploadDbObject uploadDbObject;
@@ -593,8 +592,11 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 // KEY_UPLOAD_TIMESTAMP - TODO use AlarmManager to wake up this service
                 break;
             case FILE_GONE:
-                mDb.updateUploadStatus(uploadDbObject.getLocalPath(), UploadStatus.UPLOAD_FAILED_GIVE_UP,
-                        new RemoteOperationResult(ResultCode.FILE_NOT_FOUND));
+                mUploadsStorageManager.updateUploadStatus(
+                        uploadDbObject.getLocalPath(),
+                        UploadStatus.UPLOAD_FAILED_GIVE_UP,
+                        new RemoteOperationResult(ResultCode.FILE_NOT_FOUND)
+                );
                 if (mPendingUploads.remove(uploadDbObject.getRemotePath()) == null) {
                     Log_OC.w(TAG, "Could remove " + uploadDbObject.getRemotePath()
                             + " from mPendingUploads because it does not exist.");
@@ -713,7 +715,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 // storagePath inside upload is the temporary path. file
                 // contains the correct path used as db reference.
                 upload.getOCFile().setStoragePath(file.getStoragePath());
-                mDb.updateUploadStatus(upload);
+                mUploadsStorageManager.updateUploadStatus(upload);
             }
         }
 
@@ -740,7 +742,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             if(upload == null) {
                 Log_OC.e(TAG, "Could not delete upload "+file+" from mPendingUploads.");
             }
-            int d = mDb.removeUpload(file.getStoragePath());
+            int d = mUploadsStorageManager.removeUpload(file.getStoragePath());
             if(d == 0) {
                 Log_OC.e(TAG, "Could not delete upload "+file.getStoragePath()+" from database.");
             }            
@@ -1187,14 +1189,19 @@ public class FileUploadService extends Service implements OnDatatransferProgress
      * Updates the persistent upload database that upload is in progress.
      */
     private void updateDatabaseUploadStart(UploadFileOperation upload) {
-        mDb.updateUploadStatus(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_IN_PROGRESS, null);    
+        mUploadsStorageManager.updateUploadStatus(
+                upload.getOriginalStoragePath(),
+                UploadStatus.UPLOAD_IN_PROGRESS, null
+        );
     }
 
     /**
      * Callback method to update the progress bar in the status notification
      */
     @Override
-    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath) {
+    public void onTransferProgress(
+            long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath
+    ) {
         int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
         if (percent != mLastPercent) {
             mNotificationBuilder.setProgress(100, percent, false);
@@ -1281,18 +1288,28 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         // result: success or fail notification
         Log_OC.d(TAG, "updateDataseUploadResult uploadResult: " + uploadResult + " upload: " + upload);
         if (uploadResult.isCancelled()) {
-            mDb.updateUploadStatus(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_CANCELLED, uploadResult);
+            mUploadsStorageManager.updateUploadStatus(
+                    upload.getOriginalStoragePath(),
+                    UploadStatus.UPLOAD_CANCELLED,
+                    uploadResult
+            );
         } else {
 
             if (uploadResult.isSuccess()) {
-                mDb.updateUploadStatus(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_SUCCEEDED, uploadResult);
+                mUploadsStorageManager.updateUploadStatus(
+                        upload.getOriginalStoragePath(),
+                        UploadStatus.UPLOAD_SUCCEEDED,
+                        uploadResult
+                );
             } else {
                 // TODO: Disable for testing of menu actions in uploads view
 //                if (shouldRetryFailedUpload(uploadResult)) {
-//                    mDb.updateUploadStatus(upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED_RETRY, uploadResult);
+//                    mUploadsStorageManager.updateUploadStatus(
+//                        upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED_RETRY, uploadResult
+//                    );
 //                } else {
-//                    mDb.updateUploadStatus(upload.getOriginalStoragePath(),
-//                            UploadDbHandler.UploadStatus.UPLOAD_FAILED_GIVE_UP, uploadResult);
+//                    mUploadsStorageManager.updateUploadStatus(upload.getOriginalStoragePath(),
+//                            UploadsStorageManager.UploadStatus.UPLOAD_FAILED_GIVE_UP, uploadResult);
 //                }
             }
         }

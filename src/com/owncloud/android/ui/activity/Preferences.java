@@ -73,7 +73,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.UploadDbHandler;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploadService;
@@ -94,8 +94,6 @@ public class Preferences extends PreferenceActivity
     
     private static final String TAG = "OwnCloudPreferences";
 
-
-    private UploadDbHandler mDbHandler;
 
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
     private static final int ACTION_SELECT_UPLOAD_VIDEO_PATH = 2;
@@ -129,7 +127,6 @@ public class Preferences extends PreferenceActivity
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
-        mDbHandler = UploadDbHandler.getInstance(getBaseContext());
         addPreferencesFromResource(R.xml.preferences);
 
         ActionBar actionBar = getSupportActionBar();
@@ -667,8 +664,6 @@ public class Preferences extends PreferenceActivity
 
     @Override
     protected void onDestroy() {
-        mDbHandler.close();
-
         if (mDownloadServiceConnection != null) {
             unbindService(mDownloadServiceConnection);
             mDownloadServiceConnection = null;

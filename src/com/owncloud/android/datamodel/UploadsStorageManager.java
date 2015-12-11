@@ -2,6 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author LukeOwncloud
+ *   @author David A. Velasco
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -17,17 +18,17 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.owncloud.android.db;
+package com.owncloud.android.datamodel;
 
 import java.util.Observable;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 
-import com.owncloud.android.MainApp;
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -35,14 +36,11 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  * Database helper for storing list of files to be uploaded, including status
  * information for each file.
  */
-public class UploadDbHandler extends Observable {
-    private SQLiteDatabase mDB;
-    private OpenerHelper mHelper;
-    private final String mDatabaseName;
-    private final int mDatabaseVersion = 4;
+public class UploadsStorageManager extends Observable {
 
-    static private final String TAG = UploadDbHandler.class.getSimpleName();
-    static private final String TABLE_UPLOAD = "list_of_uploads";
+    private ContentResolver mContentResolver;
+
+    static private final String TAG = UploadsStorageManager.class.getSimpleName();
 
     public enum UploadStatus {
         /**
@@ -84,53 +82,11 @@ public class UploadDbHandler extends Observable {
         }
     };
 
-    private UploadDbHandler(Context context) {
-        mDatabaseName = MainApp.getDBName();
-        mHelper = new OpenerHelper(context);
-    }
-
-    private static UploadDbHandler me = null;
-
-    static public UploadDbHandler getInstance(Context context) {
-        if (me == null) {
-            me = new UploadDbHandler(context);
+    public UploadsStorageManager(ContentResolver contentResolver) {
+        if (contentResolver == null) {
+            throw new IllegalArgumentException("Cannot create an instance with a NULL contentResolver");
         }
-        return me;
-    }
-
-    public void close() {
-        getDB().close();
-        setDB(null);
-        me = null;
-    }
-
-    private class OpenerHelper extends SQLiteOpenHelper {
-        public OpenerHelper(Context context) {
-            super(context, mDatabaseName, null, mDatabaseVersion);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            // PRIMARY KEY should always imply NOT NULL. Unfortunately, due to a
-            // bug in some early versions, this is not the case in SQLite.
-            db.execSQL("CREATE TABLE " + TABLE_UPLOAD + " (" + " path TEXT PRIMARY KEY NOT NULL UNIQUE,"
-                    + " uploadStatus INTEGER NOT NULL, uploadObject TEXT NOT NULL);");
-            // uploadStatus is used to easy filtering, it has precedence over
-            // uploadObject.getUploadStatus()
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            if (newVersion == 4) {
-                db.execSQL("DROP TABLE IF EXISTS " + "instant_upload" + ";"); // drop
-                                                                              // old
-                                                                              // db
-                                                                              // (name)
-                db.execSQL("DROP TABLE IF EXISTS " + TABLE_UPLOAD + ";");
-                onCreate(db);
-            }
-
-        }
+        mContentResolver = contentResolver;
     }
 
     /**
@@ -140,17 +96,17 @@ public class UploadDbHandler extends Observable {
      * @return true on success.
      */
     public boolean storeUpload(UploadDbObject uploadObject) {
-        Log_OC.e(TAG, "Inserting "+uploadObject.getLocalPath()+" with uploadStatus="+uploadObject.getUploadStatus());
+        Log_OC.e(TAG, "Inserting " + uploadObject.getLocalPath() + " with uploadStatus=" + uploadObject.getUploadStatus());
         
         ContentValues cv = new ContentValues();
-        cv.put("path", uploadObject.getLocalPath());
-        cv.put("uploadStatus", uploadObject.getUploadStatus().value);
-        cv.put("uploadObject", uploadObject.toString());
+        cv.put(ProviderTableMeta.UPLOADS_PATH, uploadObject.getLocalPath());
+        cv.put(ProviderTableMeta.UPLOADS_STATUS, uploadObject.getUploadStatus().value);
+        // TODO - CRITICAL cv.put("uploadObject", uploadObject.toString());
 
-        long result = getDB().insert(TABLE_UPLOAD, null, cv);
+        Uri result = getDB().insert(ProviderTableMeta.CONTENT_URI_UPLOADS, cv);
         
         Log_OC.d(TAG, "storeUpload returns with: " + result + " for file: " + uploadObject.getLocalPath());
-        if (result == -1) {
+        if (result == null) {
             Log_OC.e(TAG, "Failed to insert item " + uploadObject.getLocalPath() + " into upload db.");
             return false;
         } else {
@@ -188,11 +144,15 @@ public class UploadDbHandler extends Observable {
             uploadObjectString = uploadObject.toString();
             // store update upload object to db
             ContentValues cv = new ContentValues();
-            cv.put("uploadStatus", status.value);
-            cv.put("uploadObject", uploadObjectString);
-            
-            
-            int r = getDB().update(TABLE_UPLOAD, cv, "path=?", new String[] { path });
+            cv.put(ProviderTableMeta.UPLOADS_STATUS, status.value);
+            // TODO - CRITICAL cv.put("uploadObject", uploadObjectString);
+
+            int r = getDB().update(
+                    ProviderTableMeta.CONTENT_URI_UPLOADS,
+                    cv,
+                    ProviderTableMeta.UPLOADS_PATH + "=?",
+                    new String[] {path}
+            );
             
             if (r == 1) {
                 notifyObserversNow();
@@ -212,10 +172,15 @@ public class UploadDbHandler extends Observable {
      * @return 1 if file status was updated, else 0.
      */
     public int updateUploadStatus(String filepath, UploadStatus status, RemoteOperationResult result) {
+        //Log_OC.e(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
         
-//        Log_OC.e(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
-        
-        Cursor c = getDB().query(TABLE_UPLOAD, null, "path=?", new String[] { filepath }, null, null, null);
+        Cursor c = getDB().query(
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                null,
+                ProviderTableMeta.UPLOADS_PATH + "=?",
+                new String[] { filepath },
+                null
+        );
 
         if (c.getCount() != 1) {
             Log_OC.e(TAG, c.getCount() + " items for path=" + filepath
@@ -243,8 +208,12 @@ public class UploadDbHandler extends Observable {
      * @return true when one or more upload entries were removed
      */
     public int removeUpload(String localPath) {
-        int result = getDB().delete(TABLE_UPLOAD, "path = ?", new String[] { localPath });
-        Log_OC.d(TABLE_UPLOAD, "delete returns with: " + result + " for file: " + localPath);
+        int result = getDB().delete(
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                ProviderTableMeta.UPLOADS_PATH,
+                new String[] { localPath }
+        );
+        Log_OC.d(TAG, "delete returns with: " + result + " for file: " + localPath);
         if(result > 0) {
             notifyObserversNow();
         }
@@ -261,7 +230,13 @@ public class UploadDbHandler extends Observable {
 
 
     private UploadDbObject[] getUploads(String selection, String[] selectionArgs) {
-        Cursor c = getDB().query(TABLE_UPLOAD, null, selection, selectionArgs, null, null, null);
+        Cursor c = getDB().query(
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                null,
+                selection,
+                selectionArgs,
+                null
+        );
         UploadDbObject[] list = new UploadDbObject[c.getCount()];
         if (c.moveToFirst()) {
             do {
@@ -321,23 +296,20 @@ public class UploadDbHandler extends Observable {
         return getUploads("uploadStatus==" + UploadStatus.UPLOAD_SUCCEEDED.value, null);
     }
 
-    private SQLiteDatabase getDB() {
-        if (mDB == null) {
-            mDB = mHelper.getWritableDatabase();
-        }
-        return mDB;
-    }
-
-    private void setDB(SQLiteDatabase mDB) {
-        this.mDB = mDB;
+    private ContentResolver getDB() {
+        return mContentResolver;
     }
 
     public long clearFailedUploads() {
-        String[] where = new String[2];
-        where[0] = String.valueOf(UploadStatus.UPLOAD_CANCELLED.value);
-        where[1] = String.valueOf(UploadStatus.UPLOAD_FAILED_GIVE_UP.value);
-        long result = getDB().delete(TABLE_UPLOAD, "uploadStatus = ? OR uploadStatus = ?", where);
-        Log_OC.d(TABLE_UPLOAD, "delete all failed uploads");
+        String[] whereArgs = new String[2];
+        whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_CANCELLED.value);
+        whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED_GIVE_UP.value);
+        long result = getDB().delete(
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=?",
+                whereArgs
+        );
+        Log_OC.d(TAG, "delete all failed uploads");
         if (result > 0) {
             notifyObserversNow();
         }
@@ -345,10 +317,14 @@ public class UploadDbHandler extends Observable {
     }
 
     public long clearFinishedUploads() {
-        String[] where = new String[1];
-        where[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
-        long result = getDB().delete(TABLE_UPLOAD, "uploadStatus = ?", where);
-        Log_OC.d(TABLE_UPLOAD, "delete all finished uploads");
+        String[] whereArgs = new String[1];
+        whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
+        long result = getDB().delete(
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                ProviderTableMeta.UPLOADS_STATUS + "=? ",
+                whereArgs
+        );
+        Log_OC.d(TAG, "delete all finished uploads");
         if (result > 0) {
             notifyObserversNow();
         }
@@ -356,10 +332,15 @@ public class UploadDbHandler extends Observable {
     }
     
     public void setAllCurrentToUploadLater() {
-        
-        Cursor c = getDB().query(TABLE_UPLOAD, null, "uploadStatus==" + UploadStatus.UPLOAD_IN_PROGRESS.value,
-                null, null, null, null);
-        
+        Cursor c = getDB().query(
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                null,
+                ProviderTableMeta.UPLOADS_STATUS + "=? ",
+                new String[]{
+                        Integer.toString(UploadStatus.UPLOAD_IN_PROGRESS.value)
+                },
+                null
+        );
         updateUploadInternal(c, UploadStatus.UPLOAD_LATER, null);
     }
 
