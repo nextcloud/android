@@ -27,13 +27,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.ui.activity.FileActivity;
 
 public class EditShareFragment extends Fragment {
 
@@ -117,10 +123,11 @@ public class EditShareFragment extends Fragment {
 
         // Setup layout
         initPrivileges(view);
+        initUnshareButton(view);
+        initDoneButton(view);
 
         return view;
     }
-
 
     /**
      * Binds listener for user actions to enable or disable a privilege on the edited share
@@ -308,6 +315,44 @@ public class EditShareFragment extends Fragment {
             checkBoxView.toggle();
             checkBoxView.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
         }
+    }
+
+
+    /**
+     * Binds listener for user interactions on the 'unshare' button with the button itself.
+     *
+     * @param editShareView     Root view in the fragment.
+     */
+    private void initUnshareButton(View editShareView) {
+        TextView unshareButton  = (TextView) editShareView.findViewById(R.id.unshareButton);
+        unshareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FileActivity) getActivity()).getFileOperationsHelper().
+                        unshareFileWithUserOrGroup(
+                                mFile,
+                                mShare.getShareType(),
+                                mShare.getShareWith()
+                        )
+                ;
+            }
+        });
+    }
+
+
+    /**
+     * Binds listener for user interactions on the 'done' button with the button itself.
+     *
+     * @param editShareView     Root view in the fragment.
+     */
+    private void initDoneButton(View editShareView) {
+        TextView doneButton  = (TextView) editShareView.findViewById(R.id.doneButton);
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "TODO - update permissions in server", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 

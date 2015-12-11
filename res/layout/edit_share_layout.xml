@@ -42,4 +42,33 @@
         android:visibility="gone"
         />
 
+    <!-- ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/unshareButton"
+        android:src="@drawable/ic_cancel"
+        android:layout_gravity="center_horizontal"
+        /-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/unshareButton"
+        style="@style/ownCloud.Button"
+        android:drawableRight="@drawable/ic_cancel"
+        android:drawableEnd="@drawable/ic_cancel"
+        android:text="@string/edit_share_unshare"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/doneButton"
+        style="@style/ownCloud.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/edit_share_done"
+        android:contentDescription="@string/edit_share_done"
+        />
+
 </LinearLayout>

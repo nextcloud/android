@@ -33,6 +33,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
+import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -197,6 +198,9 @@ public class ShareActivity extends FileActivity
             chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
         }
 
+        if (operation instanceof UnshareOperation && result.isSuccess() && getEditShareFragment() != null) {
+            getSupportFragmentManager().popBackStack();
+        }
     }
 
 
@@ -236,6 +240,15 @@ public class ShareActivity extends FileActivity
      */
     private SearchShareesFragment getSearchFragment() {
         return (SearchShareesFragment) getSupportFragmentManager().findFragmentByTag(TAG_SEARCH_FRAGMENT);
+    }
+
+    /**
+     * Shortcut to get access to the {@link EditShareFragment} instance, if any
+     *
+     * @return  A {@link EditShareFragment} instance, or null
+     */
+    private EditShareFragment getEditShareFragment() {
+        return (EditShareFragment) getSupportFragmentManager().findFragmentByTag(TAG_EDIT_SHARE_FRAGMENT);
     }
 
 }
