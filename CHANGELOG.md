@@ -1,5 +1,7 @@
-# 2015-11-28 
+# 2015-12-13
+- update all PR
 
+# 2015-11-28 
 - update all PR
 - PR [#1191] (https://github.com/owncloud/android/pull/1191) "Cancel upload on wlan exit" merged
 - PR [#1220] (https://github.com/owncloud/android/pull/1220) "Move to compile target Marshmallow (Android 6 - v23)" merged
