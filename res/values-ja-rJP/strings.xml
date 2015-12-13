@@ -338,6 +338,10 @@
   <string name="file_list__footer__files">%1$d ファイル</string>
   <string name="file_list__footer__files_and_folder">%1$d ファイル、1 フォルダー</string>
   <string name="file_list__footer__files_and_folders">%1$d ファイル、%2$d フォルダー</string>
+  <string name="upload_copy_files">ファイルをコピー</string>
+  <string name="upload_move_files">ファイルを移動</string>
+  <string name="pref_behaviour_entries_keep_file">元のフォルダに保持</string>
+  <string name="pref_behaviour_entries_move">アプリフォルダに移動</string>
   <string name="share_dialog_title">共有</string>
   <string name="share_with_user_section_title">ユーザーとグループで共有</string>
   <string name="share_no_users">ユーザーと共有されているデータはありません</string>
