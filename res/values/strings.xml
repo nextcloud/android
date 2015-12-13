@@ -413,7 +413,7 @@
     <string name="set_picture_as">Set picture as</string>
     <string name="set_as">Set As</string>
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
-    <string name="pref_behaviour_entries_move">moved to ownCloud folder</string>
+    <string name="pref_behaviour_entries_move">moved to app folder</string>
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_with_user_section_title">Share with users and groups</string>

@@ -382,13 +382,14 @@ public class ThumbnailsCacheManager {
                     OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(mAccount);
                     if (mClient != null && serverOCVersion != null) {
                         if (serverOCVersion.supportsRemoteThumbnails()) {
+                            GetMethod get = null;
                             try {
                                 if (mIsThumbnail) {
                                     String uri = mClient.getBaseUri() + "" +
                                             "/index.php/apps/files/api/v1/thumbnail/" +
                                             pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
                                     Log_OC.d("Thumbnail", "Download URI: " + uri);
-                                    GetMethod get = new GetMethod(uri);
+                                    get = new GetMethod(uri);
                                     int status = mClient.executeMethod(get);
                                     if (status == HttpStatus.SC_OK) {
                                         InputStream inputStream = get.getResponseBodyAsStream();
@@ -396,6 +397,7 @@ public class ThumbnailsCacheManager {
                                         thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
                                     } else {
                                         Log_OC.d(TAG, "Status: " + status);
+                                        mClient.exhaustResponse(get.getResponseBodyAsStream());
                                     }
                                 } else {
                                     String gallery = "";
@@ -409,7 +411,7 @@ public class ThumbnailsCacheManager {
                                             "/index.php/apps/" + gallery + "/api/preview/" + Integer.parseInt(file.getRemoteId().substring(0,8)) +
                                             "/" + pxW + "/" + pxH;
                                     Log_OC.d("Thumbnail", "FileName: " + file.getFileName() + " Download URI: " + uri);
-                                    GetMethod get = new GetMethod(uri);
+                                    get = new GetMethod(uri);
                                     int status = mClient.executeMethod(get);
                                     if (status == HttpStatus.SC_OK) {
                                         InputStream inputStream = get.getResponseBodyAsStream();
@@ -430,6 +432,10 @@ public class ThumbnailsCacheManager {
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
+                            } finally {
+                                if (get != null) {
+                                    get.releaseConnection();
+                                }
                             }
                         } else {
                             Log_OC.d(TAG, "Server too old");

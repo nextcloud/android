@@ -242,6 +242,8 @@
   <string name="ssl_validator_label_validity_to">An:</string>
   <string name="ssl_validator_label_signature">Signatur:</string>
   <string name="ssl_validator_label_signature_algorithm">Algorithmus:</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Fingerprint:</string>
+  <string name="certificate_load_problem">Es ist ein Problem beim Laden des Zertifikats aufgetreten.</string>
   <string name="ssl_validator_null_cert">Das Zertifikat konnte nicht angezeigt werden.</string>
   <string name="ssl_validator_no_info_about_error">- Keine Informationen über den Fehler</string>
   <string name="placeholder_sentence">Dies ist ein Platzhalter</string>
@@ -268,6 +270,7 @@
   <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
   <string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Prüfen Sie, ob die Datei existiert</string>
   <string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
+  <string name="update_link_file_no_exist">Update nicht möglich. Bitte überprüfen Sie, ob die Datei existiert</string>
   <string name="share_link_password_title">Passwort eingeben</string>
   <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
   <string name="activity_chooser_send_file_title">Senden</string>
@@ -305,6 +308,7 @@
   <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
   <string name="move_file_error">Es ist ein Fehler beim Verschieben dieser Datei oder dieses Ordners aufgetreten.</string>
   <string name="forbidden_permissions_move">um diese Datei zu verschieben</string>
+  <string name="copy_file_not_found">Kopieren nicht möglich. Bitte überprüfen Sie, ob die Datei existiert</string>
   <string name="copy_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
   <string name="forbidden_permissions_copy">um diese Datei zu kopieren</string>
   <string name="prefs_category_instant_uploading">Sofortiges Hochladen</string>
@@ -326,12 +330,18 @@
   <string name="file_list__footer__files">%1$d Dateien</string>
   <string name="file_list__footer__files_and_folder">%1$d Dateien, 1 Ordner</string>
   <string name="file_list__footer__files_and_folders">%1$d Dateien, %2$d Ordner</string>
+  <string name="upload_copy_files">Datei kopieren</string>
+  <string name="upload_move_files">Datei verschieben</string>
   <string name="share_dialog_title">Teilen</string>
   <string name="share_with_user_section_title">Mit Benutzern und Gruppen teilen</string>
+  <string name="share_no_users">Bis jetzt hast du noch keine Dateien mit anderen geteilt</string>
   <string name="share_add_user_or_group">Benutzer oder Gruppe hinzufügen</string>
   <string name="share_via_link_section_title">Link teilen</string>
   <string name="share_via_link_expiration_date_label">Ein Ablaufdatum setzen</string>
   <string name="share_via_link_password_label">Passwortschutz</string>
+  <string name="share_via_link_password_title">Gesichert</string>
+  <string name="share_get_public_link_button">Link erstellen</string>
   <string name="share_search">Suche</string>
   <string name="search_users_and_groups_hint">Nach Benutzern und Gruppen suchen</string>
+  <string name="share_group_clarification">%1$s (group)</string>
 </resources>

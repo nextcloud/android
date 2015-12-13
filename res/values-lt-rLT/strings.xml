@@ -270,6 +270,8 @@
   <string name="share_link_file_error">Įvyko klaida bandant dalinti šį failą ar aplanką</string>
   <string name="unshare_link_file_no_exist">Nepavyksta nebedalinti. Patikrinkite ar failas egzistuoja</string>
   <string name="unshare_link_file_error">Įvyko klaida bandant nebedalinti šio failu ar aplanku</string>
+  <string name="update_link_file_no_exist">Nepavyko atnaujinti. Prašau patikrinti ar failas egzistuoja</string>
+  <string name="update_link_file_error">Klaida atnaujinant dalijimosi nuorodą</string>
   <string name="share_link_password_title">Įveskite slaptažodį</string>
   <string name="share_link_empty_password">Slaptažodis privalomas</string>
   <string name="activity_chooser_send_file_title">Siųsti</string>
@@ -286,6 +288,7 @@
   <string name="forbidden_permissions_delete">ištrinti failo</string>
   <string name="share_link_forbidden_permissions">dalintis failu</string>
   <string name="unshare_link_forbidden_permissions">nebesidalinti failu</string>
+  <string name="update_link_forbidden_permissions">atnaujinti dalijimosi nuorodą</string>
   <string name="forbidden_permissions_create">sukurti failą</string>
   <string name="uploader_upload_forbidden_permissions">įkelti į aplanką</string>
   <string name="downloader_download_file_not_found">Failas neegzistuoja serveryje</string>
@@ -333,11 +336,14 @@
   <string name="file_list__footer__files_and_folder">%1$d failai, 1 aplankas</string>
   <string name="file_list__footer__files_and_folders">%1$d failai, %2$d aplankai</string>
   <string name="share_dialog_title">Dalijimasis</string>
+  <string name="share_with_user_section_title">Dalintis su vartotojais ar grupėmis</string>
   <string name="share_no_users">Su vartotojais niekuo nesidalinama</string>
   <string name="share_add_user_or_group">Pridėti vartotoją ar grupę</string>
   <string name="share_via_link_section_title">Dalintis nuoroda</string>
   <string name="share_via_link_expiration_date_label">Nustatykite galiojimo laiką</string>
   <string name="share_via_link_password_label">Apsaugotas slaptažodžiu</string>
+  <string name="share_via_link_password_title">Apsaugota</string>
+  <string name="share_get_public_link_button">Gauti nuorodą</string>
   <string name="share_search">Ieškoti</string>
   <string name="search_users_and_groups_hint">Surasti vartotoją ar grupę</string>
   <string name="share_group_clarification">%1$s (grupė)</string>

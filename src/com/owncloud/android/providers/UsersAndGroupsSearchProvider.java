@@ -29,14 +29,18 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.BaseColumns;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetRemoteShareesOperation;
+import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -136,6 +140,8 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                 // Get JSonObjects from response
                 names.add((JSONObject) o);
             }
+        } else {
+            showErrorMessage(result);
         }
 
         /// convert the responses from the OC server to the expected format
@@ -192,6 +198,32 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         // TODO implementation
         return 0;
+    }
+
+    /**
+     * Show error message
+     *
+     * @param result    Result with the failure information.
+     */
+    public void showErrorMessage(final RemoteOperationResult result) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                // The Toast must be shown in the main thread to grant that will be hidden correctly; otherwise
+                // the thread may die before, an exception will occur, and the message will be left on the screen
+                // until the app dies
+                Toast.makeText(
+                        getContext().getApplicationContext(),
+                        ErrorMessageAdapter.getErrorCauseMessage(
+                                result,
+                                null,
+                                getContext().getResources()
+                        ),
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
     }
 
 }
