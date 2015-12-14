@@ -5,6 +5,7 @@
         android:id="@+id/action_upload_select_all"
         android:checkable="true"
         app:showAsAction="always"
+        android:icon="@drawable/select_all"
         android:title="@string/file_list_select_all"
         android:contentDescription="@string/file_list_select_all"/>
 </menu>
