@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="about_android">%1$s Android App</string>
@@ -394,5 +394,6 @@
 
     <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients.
         \nPlease contact your administrator</string>
+    <string name="file_list_select_all">Select All</string>
 
 </resources>
