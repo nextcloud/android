@@ -33,7 +33,9 @@
     <color name="background_color">#F7F7F7</color>
     <color name="actionbar_start_color">#1D2D44</color>
     <color name="actionbar_end_color">#1D2D44</color>
-    
+    <color name="primary_button_color">@color/owncloud_blue_accent</color>
+    <color name="drawer_header_color">@color/owncloud_blue_accent</color>
+
     <!-- Button -->
     <color name="button_text_color">#000000</color>
     
