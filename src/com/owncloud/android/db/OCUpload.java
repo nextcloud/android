@@ -20,59 +20,91 @@
 
 package com.owncloud.android.db;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import android.accounts.Account;
 import android.content.Context;
-import android.util.Base64;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.files.services.FileUploadService.LocalBehaviour;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Stores all information in order to start upload operations. PersistentUploadObject can
  * be stored persistently by {@link UploadsStorageManager}.
  * 
  */
-public class UploadDbObject implements Serializable {
+public class OCUpload {
 
     /** Generated - should be refreshed every time the class changes!! */
-    private static final long serialVersionUID = -2306246191385279928L;
+//    private static final long serialVersionUID = 2647551318657321611L;
 
-    private static final String TAG = UploadDbObject.class.getSimpleName();
-    
-    public UploadDbObject(OCFile ocFile) {
+    private static final String TAG = OCUpload.class.getSimpleName();
+
+    private long mId;
+
+    private OCFile mFile;
+    /**
+     * Local action for upload.
+     */
+    private LocalBehaviour mLocalAction;
+    /**
+     * Date and time when this upload was first requested.
+     */
+    private Calendar mUploadTime = new GregorianCalendar();
+    /**
+     * Overwrite destination file?
+     */
+    private boolean mForceOverwrite;
+    /**
+     * Create destination folder?
+     */
+    private boolean mIsCreateRemoteFolder;
+    /**
+     * Upload only via wifi?
+     */
+    private boolean mIsUseWifiOnly;
+    /**
+     * Upload only if phone being charged?
+     */
+    private boolean mIsWhileChargingOnly;
+    /**
+     * Earliest time when upload may be started. Negative if not set.
+     */
+    private long mUploadTimestamp;
+    /**
+     * Name of Owncloud account to upload file to.
+     */
+    private String mAccountName;
+    /**
+     * Status of upload (later, in_progress, ...).
+     */
+    private UploadStatus mUploadStatus;
+    /**
+     * Result from last upload operation. Can be null.
+     */
+    private UploadResult mLastResult;
+
+    // Constructor
+    public OCUpload(OCFile ocFile) {
         this.mFile = ocFile;
     }
 
 
-    OCFile mFile;
-    
+    // Getters & Setters
+    public void setUploadId(long id) {
+        mId = id;
+    }
+    public long getUploadId() {
+        return mId;
+    }
+
     public OCFile getOCFile() {
         return mFile;
     }
-    
-    
-    /**
-     * Local action for upload.
-     */
-    LocalBehaviour mLocalAction;
-
-    /**
-     * Date and time when this upload was first requested.
-     */
-    Calendar mUploadTime = new GregorianCalendar();
 
     public Calendar getUploadTime() {
         return mUploadTime;
@@ -97,52 +129,17 @@ public class UploadDbObject implements Serializable {
     /**
      * @return the lastResult
      */
-    public RemoteOperationResult getLastResult() {
+    public UploadResult getLastResult() {
         return mLastResult;
     }
 
     /**
      * @param lastResult the lastResult to set
      */
-    public void setLastResult(RemoteOperationResult lastResult) {
+    public void setLastResult(UploadResult lastResult) {
         this.mLastResult = lastResult;
     }
 
-    /**
-     * Overwrite destination file?
-     */
-    boolean mForceOverwrite;
-    /**
-     * Create destination folder?
-     */
-    boolean mIsCreateRemoteFolder;
-    /**
-     * Upload only via wifi?
-     */
-    boolean mIsUseWifiOnly;
-    /**
-     * Upload only if phone being charged?
-     */
-    boolean mIsWhileChargingOnly;
-    /**
-     * Earliest time when upload may be started. Negative if not set.
-     */
-    long mUploadTimestamp;
-
-    /**
-     * Name of Owncloud account to upload file to.
-     */
-    String mAccountName;
-
-    /**
-     * Status of upload (later, in_progress, ...).
-     */
-    UploadStatus mUploadStatus;
-
-    /**
-     * Result from last upload operation. Can be null.
-     */
-    RemoteOperationResult mLastResult;
 
     /**
      * @return the localPath
@@ -164,7 +161,6 @@ public class UploadDbObject implements Serializable {
     public String getMimeType() {
         return mFile.getMimetype();
     }
-
 
     /**
      * @return the localAction
@@ -236,49 +232,7 @@ public class UploadDbObject implements Serializable {
     public void setAccountName(String accountName) {
         this.mAccountName = accountName;
     }
-
-    /**
-     * Returns a base64 encoded serialized string of this object.
-     */
-    @Override
-    public String toString() {
-        // serialize the object
-        try {
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            ObjectOutputStream so = new ObjectOutputStream(bo);
-            so.writeObject(this);
-            so.flush();
-            String serializedObjectBase64 = Base64.encodeToString(bo.toByteArray(), Base64.DEFAULT);
-            so.close();
-            bo.close();
-            return serializedObjectBase64;
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Cannot serialize UploadDbObject with localPath:" + getLocalPath(), e);
-        }
-        return null;
-    }
-
-    /**
-     * Accepts a base64 encoded serialized string of an {@link UploadDbObject}
-     * and instantiates and returns an according object.
-     * 
-     * @param serializedObjectBase64
-     * @return
-     */
-    static public UploadDbObject fromString(String serializedObjectBase64) {
-        // deserialize the object
-        try {
-            byte[] b = Base64.decode(serializedObjectBase64, Base64.DEFAULT);
-            ByteArrayInputStream bi = new ByteArrayInputStream(b);
-            ObjectInputStream si = new ObjectInputStream(bi);
-            UploadDbObject obj = (UploadDbObject) si.readObject();
-            return obj;
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Cannot deserialize UploadDbObject " + serializedObjectBase64, e);
-        }
-        return null;
-    }
-
+    
     /**
      * Returns owncloud account as {@link Account} object.  
      */
@@ -314,8 +268,9 @@ public class UploadDbObject implements Serializable {
      * For debugging purposes only.
      */
     public String toFormattedString() {
-        return getLocalPath() + " status:" + getUploadStatus() + " result:" +
-                (getLastResult() == null?"null" : getLastResult().getCode());
+        String localPath = getLocalPath()!= null ? getLocalPath() : "";
+        return localPath+ " status:" + getUploadStatus() + " result:" +
+                (getLastResult() == null?"null" : getLastResult().getValue());
     }
 
     /**

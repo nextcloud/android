@@ -30,7 +30,6 @@ import third_parties.daveKoeller.AlphanumComparator;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.UploadDbObject;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 
 import android.accounts.Account;

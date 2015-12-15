@@ -845,7 +845,17 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
                 + ProviderTableMeta.UPLOADS_FILE_ID + " INTEGER, "
                 + ProviderTableMeta.UPLOADS_PATH + " TEXT, "
-                + ProviderTableMeta.UPLOADS_STATUS + " INTEGER );" );   // UploadStatus
+                + ProviderTableMeta.UPLOADS_STATUS + " INTEGER, "               // UploadStatus
+                + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " TEXT, "
+                + ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR + " INTEGER, "      // Upload LocalBehaviour
+                + ProviderTableMeta.UPLOADS_UPLOAD_TIME + " INTEGER, "
+                + ProviderTableMeta.UPLOADS_FORCE_OVERWRITE + " INTEGER, "  // boolean
+                + ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER + " INTEGER, "  // boolean
+                + ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY + " INTEGER, "  // boolean
+                + ProviderTableMeta.UPLOADS_IS_WIFI_ONLY + "INTEGER, " // boolean
+                + ProviderTableMeta.UPLOADS_UPLOAD_TIMESTAMP + " INTEGER, "
+                + ProviderTableMeta.UPLOADS_LAST_RESULT + " INTEGER );" );     // Upload LastResult
+
 
         /* before:
         // PRIMARY KEY should always imply NOT NULL. Unfortunately, due to a

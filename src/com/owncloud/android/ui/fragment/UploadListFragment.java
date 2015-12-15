@@ -35,7 +35,7 @@ import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ListView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.db.UploadDbObject;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -96,10 +96,10 @@ public class UploadListFragment extends ExpandableListFragment {
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
         boolean handled = false;
-        UploadDbObject uploadDbObject = (UploadDbObject) mAdapter.getChild(groupPosition, childPosition);
-        if (uploadDbObject != null) {
+        OCUpload OCUpload = (OCUpload) mAdapter.getChild(groupPosition, childPosition);
+        if (OCUpload != null) {
             // notify the click to container Activity
-            handled = mContainerActivity.onUploadItemClick(uploadDbObject);
+            handled = mContainerActivity.onUploadItemClick(OCUpload);
         } else {
             Log_OC.w(TAG, "Null object in ListAdapter!!");
         }
@@ -115,7 +115,7 @@ public class UploadListFragment extends ExpandableListFragment {
         ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) menuInfo;  
         int childPosition = ExpandableListView.getPackedPositionChild(info.packedPosition);
         int groupPosition = ExpandableListView.getPackedPositionGroup(info.packedPosition);
-        UploadDbObject uploadFile = (UploadDbObject) mAdapter.getChild(groupPosition, childPosition);
+        OCUpload uploadFile = (OCUpload) mAdapter.getChild(groupPosition, childPosition);
         if (uploadFile.userCanCancelUpload()) {
             MenuItem item = menu.findItem(R.id.action_remove_upload);
             if (item != null) {
@@ -143,7 +143,7 @@ public class UploadListFragment extends ExpandableListFragment {
         ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) item.getMenuInfo();  
         int childPosition = ExpandableListView.getPackedPositionChild(info.packedPosition);
         int groupPosition = ExpandableListView.getPackedPositionGroup(info.packedPosition);
-        UploadDbObject uploadFile = (UploadDbObject) mAdapter.getChild(groupPosition, childPosition);
+        OCUpload uploadFile = (OCUpload) mAdapter.getChild(groupPosition, childPosition);
         switch (item.getItemId()) {
         case R.id.action_cancel_upload:
             ((FileActivity) getActivity()).getFileOperationsHelper().cancelTransference(uploadFile.getOCFile());
@@ -185,7 +185,7 @@ public class UploadListFragment extends ExpandableListFragment {
          * @param file
          * @return return true if click was handled.
          */
-        public boolean onUploadItemClick(UploadDbObject file);
+        public boolean onUploadItemClick(OCUpload file);
 
     }
 

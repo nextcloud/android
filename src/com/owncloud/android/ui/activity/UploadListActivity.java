@@ -38,7 +38,7 @@ import android.widget.Toast;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.db.UploadDbObject;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -66,7 +66,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     // UploadListFragment.ContainerActivity
     // ////////////////////////////////////////
     @Override
-    public boolean onUploadItemClick(UploadDbObject file) {
+    public boolean onUploadItemClick(OCUpload file) {
         File f = new File(file.getLocalPath());
         if(!f.exists()) {
             Toast.makeText(this, "Cannot open. Local file does not exist.",
@@ -111,7 +111,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
      * there is none.
      */
     @SuppressWarnings("unused")
-    private void openPreview(UploadDbObject file) {
+    private void openPreview(OCUpload file) {
      // preview image
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(EXTRA_FILE, (Parcelable)file.getOCFile());
@@ -120,7 +120,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     }
     
     @SuppressWarnings("unused")
-    private void openDetails(UploadDbObject file) {
+    private void openDetails(OCUpload file) {
         OCFile ocFile = file.getOCFile();
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable) ocFile);

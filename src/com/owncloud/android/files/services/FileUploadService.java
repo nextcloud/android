@@ -60,7 +60,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
-import com.owncloud.android.db.UploadDbObject;
+import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -191,6 +192,19 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         public int getValue() {
             return value;
         }
+
+        public static LocalBehaviour fromValue(int value){
+            switch (value)
+            {
+                case 0:
+                    return LOCAL_BEHAVIOUR_COPY;
+                case 1:
+                    return LOCAL_BEHAVIOUR_MOVE;
+                case 2:
+                    return LOCAL_BEHAVIOUR_FORGET;
+            }
+            return null;
+        }
     }
     
     public enum UploadQuantity {
@@ -222,7 +236,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
      * List of uploads that are currently pending. Maps from remotePath to where file
      * is being uploaded to {@link UploadFileOperation}.
      */
-    private ConcurrentMap<String, UploadDbObject> mPendingUploads = new ConcurrentHashMap<String, UploadDbObject>();
+    private ConcurrentMap<String, OCUpload> mPendingUploads = new ConcurrentHashMap<String, OCUpload>();
     
     /**
      * {@link UploadFileOperation} object of ongoing upload. Can be null. Note: There can only be one concurrent upload!
@@ -255,8 +269,8 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         return account.name + remotePath;
     }
 
-    private String buildRemoteName(UploadDbObject uploadDbObject) {
-        return uploadDbObject.getAccountName() + uploadDbObject.getRemotePath();
+    private String buildRemoteName(OCUpload OCUpload) {
+        return OCUpload.getAccountName() + OCUpload.getRemotePath();
     }
 
     /**
@@ -349,7 +363,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
      * caller activity goes away.
      * 
      * First, onHandleIntent() stores all information associated with the upload
-     * in a {@link UploadDbObject} which is stored persistently using
+     * in a {@link OCUpload} which is stored persistently using
      * {@link UploadsStorageManager}. Then, the oldest, pending upload from
      * {@link UploadsStorageManager} is taken and upload is started.
      * @param intentStartId 
@@ -364,14 +378,14 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             // retry of pending upload was requested. 
             // ==> First check persistent uploads, then perform upload.
             int countAddedEntries = 0;
-            UploadDbObject[] list = mUploadsStorageManager.getPendingUploads();
-            for (UploadDbObject uploadDbObject : list) {
-                Log_OC.d(TAG, "Retrieved from DB: " + uploadDbObject.toFormattedString());
+            OCUpload[] list = mUploadsStorageManager.getPendingUploads();
+            for (OCUpload OCUpload : list) {
+                Log_OC.d(TAG, "Retrieved from DB: " + OCUpload.toFormattedString());
                 
-                String uploadKey = buildRemoteName(uploadDbObject);
-                UploadDbObject previous = mPendingUploads.putIfAbsent(uploadKey, uploadDbObject);
+                String uploadKey = buildRemoteName(OCUpload);
+                OCUpload previous = mPendingUploads.putIfAbsent(uploadKey, OCUpload);
                 if(previous == null) {
-                    Log_OC.d(TAG, "mPendingUploads added: " + uploadDbObject.toFormattedString());
+                    Log_OC.d(TAG, "mPendingUploads added: " + OCUpload.toFormattedString());
                     countAddedEntries++;
                 } else {
                     //already pending. ignore.
@@ -458,7 +472,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             // save always persistently path of upload, so it can be retried if
             // failed.
             for (int i = 0; i < files.length; i++) {
-                UploadDbObject uploadObject = new UploadDbObject(files[i]);
+                OCUpload uploadObject = new OCUpload(files[i]);
                 uploadObject.setAccountName(account.name);
                 uploadObject.setForceOverwrite(forceOverwrite);
                 uploadObject.setCreateRemoteFolder(isCreateRemoteFolder);
@@ -469,7 +483,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 uploadObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
                 
                 String uploadKey = buildRemoteName(uploadObject);
-                UploadDbObject previous = mPendingUploads.putIfAbsent(uploadKey, uploadObject);
+                OCUpload previous = mPendingUploads.putIfAbsent(uploadKey, uploadObject);
                 
                 if(previous == null)
                 {
@@ -507,10 +521,10 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             list.add(remotePath);
             it = list.iterator();
             // update db status for upload
-            UploadDbObject uploadDbObject = mPendingUploads.get(remotePath);
-            uploadDbObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
-            uploadDbObject.setLastResult(null);
-            mUploadsStorageManager.updateUploadStatus(uploadDbObject);
+            OCUpload OCUpload = mPendingUploads.get(remotePath);
+            OCUpload.setUploadStatus(UploadStatus.UPLOAD_LATER);
+            OCUpload.setLastResult(null);
+            mUploadsStorageManager.updateUploadStatus(OCUpload);
 
             Log_OC.d(TAG, "Start uploading " + remotePath);
         } else {
@@ -519,14 +533,14 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         if (it.hasNext()) {
             while (it.hasNext()) {
                 String upload = it.next();
-                UploadDbObject uploadDbObject = mPendingUploads.get(upload);
+                OCUpload OCUpload = mPendingUploads.get(upload);
 
-                if (uploadDbObject == null) {
+                if (OCUpload == null) {
                     Log_OC.e(TAG, "Cannot upload null. Fix that!");
                     continue;
                 }
 
-                UploadTask uploadTask = new UploadTask(uploadDbObject);
+                UploadTask uploadTask = new UploadTask(OCUpload);
                 uploadExecutor.submit(uploadTask);
             }
             StopSelfTask stopSelfTask = new StopSelfTask(intentStartId);
@@ -556,22 +570,22 @@ public class FileUploadService extends Service implements OnDatatransferProgress
     }
 
     /**
-     * Tries uploading uploadDbObject, creates notifications, and updates mUploadsStorageManager.
+     * Tries uploading OCUpload, creates notifications, and updates mUploadsStorageManager.
      */
     public class UploadTask implements Runnable {
-        UploadDbObject uploadDbObject;
+        OCUpload OCUpload;
 
-        public UploadTask(UploadDbObject uploadDbObject) {
-            this.uploadDbObject = uploadDbObject;
+        public UploadTask(OCUpload OCUpload) {
+            this.OCUpload = OCUpload;
         }
 
         @Override
         public void run() {
             Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - before uploading.");
-            switch (canUploadFileNow(uploadDbObject)) {
+            switch (canUploadFileNow(OCUpload)) {
             case NOW:
-                Log_OC.d(TAG, "Calling uploadFile for " + uploadDbObject.getRemotePath());
-                RemoteOperationResult uploadResult = uploadFile(uploadDbObject);
+                Log_OC.d(TAG, "Calling uploadFile for " + OCUpload.getRemotePath());
+                RemoteOperationResult uploadResult = uploadFile(OCUpload);
                 //TODO store renamed upload path?
                 updateDatabaseUploadResult(uploadResult, mCurrentUpload);
                 notifyUploadResult(uploadResult, mCurrentUpload);
@@ -580,7 +594,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 //                if (!shouldRetryFailedUpload(uploadResult)) {
 //                    Log_OC.d(TAG, "Upload with result " + uploadResult.getCode() + ": " + uploadResult.getLogMessage()
 //                            + " will be abandoned.");
-//                    mPendingUploads.remove(buildRemoteName(uploadDbObject));
+//                    mPendingUploads.remove(buildRemoteName(OCUpload));
 //                }
                 Log_OC.d(TAG, "mCurrentUpload = null");
                 mCurrentUpload = null;
@@ -593,12 +607,12 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 break;
             case FILE_GONE:
                 mUploadsStorageManager.updateUploadStatus(
-                        uploadDbObject.getLocalPath(),
+                        OCUpload.getLocalPath(),
                         UploadStatus.UPLOAD_FAILED_GIVE_UP,
-                        new RemoteOperationResult(ResultCode.FILE_NOT_FOUND)
+                        com.owncloud.android.db.UploadResult.FILE_ERROR
                 );
-                if (mPendingUploads.remove(uploadDbObject.getRemotePath()) == null) {
-                    Log_OC.w(TAG, "Could remove " + uploadDbObject.getRemotePath()
+                if (mPendingUploads.remove(OCUpload.getRemotePath()) == null) {
+                    Log_OC.w(TAG, "Could remove " + OCUpload.getRemotePath()
                             + " from mPendingUploads because it does not exist.");
                 }
 
@@ -613,23 +627,23 @@ public class FileUploadService extends Service implements OnDatatransferProgress
     }
 
     /**
-     * Returns the reason as String why state of uploadDbObject is LATER. If
+     * Returns the reason as String why state of OCUpload is LATER. If
      * upload state != LATER return null.
      */
-    static public String getUploadLaterReason(Context context, UploadDbObject uploadDbObject) {
+    static public String getUploadLaterReason(Context context, OCUpload OCUpload) {
         StringBuilder reason = new StringBuilder();
         Date now = new Date();
-        if (now.getTime() < uploadDbObject.getUploadTimestamp()) {
-            reason.append("Waiting for " + DisplayUtils.unixTimeToHumanReadable(uploadDbObject.getUploadTimestamp()));
+        if (now.getTime() < OCUpload.getUploadTimestamp()) {
+            reason.append("Waiting for " + DisplayUtils.unixTimeToHumanReadable(OCUpload.getUploadTimestamp()));
         }
-        if (uploadDbObject.isUseWifiOnly() && !UploadUtils.isConnectedViaWiFi(context)) {
+        if (OCUpload.isUseWifiOnly() && !UploadUtils.isConnectedViaWiFi(context)) {
             if (reason.length() > 0) {
                 reason.append(" and wifi connectivity");
             } else {
                 reason.append("Waiting for wifi connectivity");
             }
         }
-        if (uploadDbObject.isWhileChargingOnly() && !UploadUtils.isCharging(context)) {
+        if (OCUpload.isWhileChargingOnly() && !UploadUtils.isCharging(context)) {
             if (reason.length() > 0) {
                 reason.append(" and charging");
             } else {
@@ -640,7 +654,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         if (reason.length() > 1) {
             return reason.toString();
         }
-        if (uploadDbObject.getUploadStatus() == UploadStatus.UPLOAD_LATER) {
+        if (OCUpload.getUploadStatus() == UploadStatus.UPLOAD_LATER) {
             return "Upload is pending and will start shortly.";
         }
         return null;
@@ -709,9 +723,9 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 Log_OC.d(TAG, "Calling cancel for " + file.getRemotePath() + " while upload is pending.");                
                 // upload not in progress, but pending.
                 // in this case we have to update the db here.
-                UploadDbObject upload = mPendingUploads.remove(buildRemoteName(account, file));
+                OCUpload upload = mPendingUploads.remove(buildRemoteName(account, file));
                 upload.setUploadStatus(UploadStatus.UPLOAD_CANCELLED);
-                upload.setLastResult(new RemoteOperationResult(ResultCode.CANCELLED));
+                upload.setLastResult(UploadResult.CANCELLED);
                 // storagePath inside upload is the temporary path. file
                 // contains the correct path used as db reference.
                 upload.getOCFile().setStoragePath(file.getStoragePath());
@@ -738,7 +752,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         }
 
         public void remove(Account account, OCFile file) {
-            UploadDbObject upload = mPendingUploads.remove(buildRemoteName(account, file));
+            OCUpload upload = mPendingUploads.remove(buildRemoteName(account, file));
             if(upload == null) {
                 Log_OC.e(TAG, "Could not delete upload "+file+" from mPendingUploads.");
             }
@@ -751,7 +765,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         /**
          * Puts upload in upload list and tell FileUploadService to upload items in list. 
          */
-        public void retry(Account account, UploadDbObject upload) {
+        public void retry(Account account, OCUpload upload) {
             String uploadKey = buildRemoteName(upload);
             mPendingUploads.put(uploadKey, upload);
             FileUploadService.retry(getApplicationContext(), uploadKey);
@@ -831,7 +845,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
                 String localFileName) {
-            Set<Entry<String, UploadDbObject>> uploads = mPendingUploads.entrySet();
+            Set<Entry<String, OCUpload>> uploads = mPendingUploads.entrySet();
             UploadFileOperation currentUpload = mCurrentUpload;
             if (currentUpload == null) {
                 Log_OC.e(TAG, "Found no current upload with remote path " + localFileName + ". Ignore.");
@@ -851,7 +865,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
     
     /**
      * Returns true when the file may be uploaded now. This methods checks all
-     * restraints of the passed {@link UploadDbObject}, these include
+     * restraints of the passed {@link OCUpload}, these include
      * isUseWifiOnly(), check if local file exists, check if file was already
      * uploaded...
      * 
@@ -865,34 +879,34 @@ public class FileUploadService extends Service implements OnDatatransferProgress
      *         entity should remove upload from queue.
      * 
      */
-    private CanUploadFileNowStatus canUploadFileNow(UploadDbObject uploadDbObject) {
+    private CanUploadFileNowStatus canUploadFileNow(OCUpload OCUpload) {
 
-        if (uploadDbObject.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
+        if (OCUpload.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
             Log_OC.w(TAG, "Already succeeded uploadObject was again scheduled for upload. Fix that!");
             return CanUploadFileNowStatus.ERROR;
         }
 
-        if (uploadDbObject.isUseWifiOnly()
+        if (OCUpload.isUseWifiOnly()
                 && !UploadUtils.isConnectedViaWiFi(getApplicationContext())) {
             Log_OC.d(TAG, "Do not start upload because it is wifi-only.");
             return CanUploadFileNowStatus.LATER;
         }
         
-        if(uploadDbObject.isWhileChargingOnly() && !UploadUtils.isCharging(getApplicationContext())) {
+        if(OCUpload.isWhileChargingOnly() && !UploadUtils.isCharging(getApplicationContext())) {
             Log_OC.d(TAG, "Do not start upload because it is while charging only.");
             return CanUploadFileNowStatus.LATER;
         }
         Date now = new Date();
-        if (now.getTime() < uploadDbObject.getUploadTimestamp()) {
+        if (now.getTime() < OCUpload.getUploadTimestamp()) {
             Log_OC.d(
                     TAG,
                     "Do not start upload because it is schedule for "
-                            + DisplayUtils.unixTimeToHumanReadable(uploadDbObject.getUploadTimestamp()));
+                            + DisplayUtils.unixTimeToHumanReadable(OCUpload.getUploadTimestamp()));
             return CanUploadFileNowStatus.LATER;
         }
         
 
-        if (!new File(uploadDbObject.getLocalPath()).exists()) {
+        if (!new File(OCUpload.getLocalPath()).exists()) {
             Log_OC.d(TAG, "Do not start upload because local file does not exist.");
             return CanUploadFileNowStatus.FILE_GONE;
         }
@@ -907,11 +921,11 @@ public class FileUploadService extends Service implements OnDatatransferProgress
      * 
      * Before uploading starts mCurrentUpload is set.
      * 
-     * @param uploadDbObject Key to access the upload to perform, contained in
+     * @param OCUpload Key to access the upload to perform, contained in
      *            mPendingUploads
      * @return RemoteOperationResult of upload operation.
      */
-    private RemoteOperationResult uploadFile(UploadDbObject uploadDbObject) {
+    private RemoteOperationResult uploadFile(OCUpload OCUpload) {
         
         if (mCurrentUpload != null) {
             Log_OC.e(TAG,
@@ -920,19 +934,19 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         }
         
         AccountManager aMgr = AccountManager.get(this);
-        Account account = uploadDbObject.getAccount(getApplicationContext());
+        Account account = OCUpload.getAccount(getApplicationContext());
         String version = aMgr.getUserData(account, Constants.KEY_OC_VERSION);
         OwnCloudVersion ocv = new OwnCloudVersion(version);
 
         boolean chunked = FileUploadService.chunkedUploadIsSupported(ocv);
         String uploadKey = null;
 
-        uploadKey = buildRemoteName(account, uploadDbObject.getRemotePath());
-        OCFile file = uploadDbObject.getOCFile();
+        uploadKey = buildRemoteName(account, OCUpload.getRemotePath());
+        OCFile file = OCUpload.getOCFile();
         Log_OC.d(TAG, "mCurrentUpload = new UploadFileOperation");
-        mCurrentUpload = new UploadFileOperation(account, file, chunked, uploadDbObject.isForceOverwrite(),
-                uploadDbObject.getLocalAction(), getApplicationContext());
-        if (uploadDbObject.isCreateRemoteFolder()) {
+        mCurrentUpload = new UploadFileOperation(account, file, chunked, OCUpload.isForceOverwrite(),
+                OCUpload.getLocalAction(), getApplicationContext());
+        if (OCUpload.isCreateRemoteFolder()) {
             mCurrentUpload.setRemoteFolderToBeCreated();
         }
         mCurrentUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
@@ -1291,7 +1305,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             mUploadsStorageManager.updateUploadStatus(
                     upload.getOriginalStoragePath(),
                     UploadStatus.UPLOAD_CANCELLED,
-                    uploadResult
+                    UploadResult.CANCELLED
             );
         } else {
 
@@ -1299,7 +1313,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 mUploadsStorageManager.updateUploadStatus(
                         upload.getOriginalStoragePath(),
                         UploadStatus.UPLOAD_SUCCEEDED,
-                        uploadResult
+                        UploadResult.UPLOADED
                 );
             } else {
                 // TODO: Disable for testing of menu actions in uploads view

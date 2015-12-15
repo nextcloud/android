@@ -45,7 +45,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
-import com.owncloud.android.db.UploadDbObject;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -60,7 +60,7 @@ import com.owncloud.android.utils.DisplayUtils;
  */
 public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer {
 
-    private static final String TAG = "ExpandableUploadListAdapter";
+    private static final String TAG = ExpandableUploadListAdapter.class.getSimpleName();
     private FileActivity mParentActivity;
 
     private UploadsStorageManager mUploadsStorageManager;
@@ -72,21 +72,21 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         public void refresh();
     }
     abstract class UploadGroup implements Refresh {
-        UploadDbObject[] items;
+        OCUpload[] items;
         String name;
         public UploadGroup(String groupName) {
             this.name = groupName;            
-            items = new UploadDbObject[0];
+            items = new OCUpload[0];
         }        
         public String getGroupName() {
             return name;
         }
-        public Comparator<UploadDbObject> comparator = new Comparator<UploadDbObject>() {
+        public Comparator<OCUpload> comparator = new Comparator<OCUpload>() {
             @Override
-            public int compare(UploadDbObject lhs, UploadDbObject rhs) {
+            public int compare(OCUpload lhs, OCUpload rhs) {
                 return compareUploadTime(lhs, rhs);
             }
-            private int compareUploadTime(UploadDbObject lhs, UploadDbObject rhs) {
+            private int compareUploadTime(OCUpload lhs, OCUpload rhs) {
                 return rhs.getUploadTime().compareTo(lhs.getUploadTime());
             }
         };
@@ -156,7 +156,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         return true;
     }
     
-    private View getView(UploadDbObject[] uploadsItems, int position, View convertView, ViewGroup parent) {
+    private View getView(OCUpload[] uploadsItems, int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflator =
@@ -166,89 +166,89 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             view = inflator.inflate(R.layout.upload_list_item, null);
         }
         if (uploadsItems != null && uploadsItems.length > position) {
-            final UploadDbObject uploadObject = uploadsItems[position];
+            final OCUpload upload = uploadsItems[position];
 
             TextView fileName = (TextView) view.findViewById(R.id.upload_name);
-            String file = uploadObject.getOCFile().getFileName();
+            String file = upload.getOCFile().getFileName();
             fileName.setText(file);
             
             TextView localPath = (TextView) view.findViewById(R.id.upload_local_path);
-            String path = uploadObject.getOCFile().getStoragePath();
+            String path = upload.getOCFile().getStoragePath();
             path = path.substring(0, path.length() - file.length() - 1);
             localPath.setText("Path: " + path);
 
             TextView fileSize = (TextView) view.findViewById(R.id.upload_file_size);
-            fileSize.setText(DisplayUtils.bytesToHumanReadable(uploadObject.getOCFile().getFileLength()));
+            fileSize.setText(DisplayUtils.bytesToHumanReadable(upload.getOCFile().getFileLength()));
 
             TextView statusView = (TextView) view.findViewById(R.id.upload_status);
             String status;
-            switch (uploadObject.getUploadStatus()) {
-            case UPLOAD_IN_PROGRESS:
-                status = mParentActivity.getString(R.string.uploader_upload_in_progress_ticker);
-                ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
-                progressBar.setProgress(0);
-                progressBar.setVisibility(View.VISIBLE);
-                mProgressListener = new ProgressListener(progressBar);
-                if(mParentActivity.getFileUploaderBinder() != null) {
-                    mCurrentUpload = mParentActivity.getFileUploaderBinder().getCurrentUploadOperation();
-                    if(mCurrentUpload != null) {
-                        mCurrentUpload.addDatatransferProgressListener(mProgressListener);
-                        Log_OC.d(TAG, "added progress listener for current upload: " + mCurrentUpload);
+            switch (upload.getUploadStatus()) {
+                case UPLOAD_IN_PROGRESS:
+                    status = mParentActivity.getString(R.string.uploader_upload_in_progress_ticker);
+                    ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
+                    progressBar.setProgress(0);
+                    progressBar.setVisibility(View.VISIBLE);
+                    mProgressListener = new ProgressListener(progressBar);
+                    if(mParentActivity.getFileUploaderBinder() != null) {
+                        mCurrentUpload = mParentActivity.getFileUploaderBinder().getCurrentUploadOperation();
+                        if(mCurrentUpload != null) {
+                            mCurrentUpload.addDatatransferProgressListener(mProgressListener);
+                            Log_OC.d(TAG, "added progress listener for current upload: " + mCurrentUpload);
+                        } else {
+                            Log_OC.w(TAG, "getFileUploaderBinder().getCurrentUploadOperation() return null. That is odd.");
+                        }
                     } else {
-                        Log_OC.w(TAG, "getFileUploaderBinder().getCurrentUploadOperation() return null. That is odd.");
+                        Log_OC.e(TAG, "UploadBinder == null. It should have been created on creating mParentActivity"
+                                + " which inherits from FileActivity. Fix that!");
                     }
-                } else {
-                    Log_OC.e(TAG, "UploadBinder == null. It should have been created on creating mParentActivity"
-                            + " which inherits from FileActivity. Fix that!");
-                }
-                break;
-            case UPLOAD_FAILED_GIVE_UP:
-                if (uploadObject.getLastResult() != null) {
-                    status = "Upload failed: " + uploadObject.getLastResult().getLogMessage();
-                } else {
-                    status = "Upload failed.";
-                }
-                break;
-            case UPLOAD_FAILED_RETRY:
-                if(uploadObject.getLastResult() != null){
-                    status = "Last failure: "
-                        + uploadObject.getLastResult().getLogMessage();
-                } else {
-                    status = "Upload will be retried shortly.";
-                }
-                String laterReason = FileUploadService.getUploadLaterReason(mParentActivity, uploadObject);
-                if(laterReason != null) {
-                    //Upload failed once but is delayed now, show reason.
-                    status += "\n" + laterReason;
-                }
-                break;
-            case UPLOAD_LATER:
-                status = FileUploadService.getUploadLaterReason(mParentActivity, uploadObject);
-                break;
-            case UPLOAD_SUCCEEDED:
-                status = "Completed.";
-                break;
-            case UPLOAD_CANCELLED:
-                status = "Upload cancelled.";
-                break;
-            case UPLOAD_PAUSED:
-                status = "Upload paused.";
-                break;
-            default:
-                status = uploadObject.getUploadStatus().toString();
-                if(uploadObject.getLastResult() != null){
-                    uploadObject.getLastResult().getLogMessage();
-                } 
-                break;
+                    break;
+                case UPLOAD_FAILED_GIVE_UP:
+                    if (upload.getLastResult() != null) {
+                        status = "Upload failed: " + upload.getLastResult().toString();
+                    } else {
+                        status = "Upload failed.";
+                    }
+                    break;
+                case UPLOAD_FAILED_RETRY:
+                    if(upload.getLastResult() != null){
+                        status = "Last failure: "
+                                + upload.getLastResult().toString();
+                    } else {
+                        status = "Upload will be retried shortly.";
+                    }
+                    String laterReason = FileUploadService.getUploadLaterReason(mParentActivity, upload);
+                    if(laterReason != null) {
+                        //Upload failed once but is delayed now, show reason.
+                        status += "\n" + laterReason;
+                    }
+                    break;
+                case UPLOAD_LATER:
+                    status = FileUploadService.getUploadLaterReason(mParentActivity, upload);
+                    break;
+                case UPLOAD_SUCCEEDED:
+                    status = "Completed.";
+                    break;
+                case UPLOAD_CANCELLED:
+                    status = "Upload cancelled.";
+                    break;
+                case UPLOAD_PAUSED:
+                    status = "Upload paused.";
+                    break;
+                default:
+                    status = upload.getUploadStatus().toString();
+                    if(upload.getLastResult() != null){
+                        upload.getLastResult().toString();
+                    }
+                    break;
             }
-            if(uploadObject.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
+            if(upload.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
                 ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                 progressBar.setVisibility(View.GONE);
                 if (mParentActivity.getFileUploaderBinder() != null && mProgressListener != null
                         && mCurrentUpload != null) {
                     OCFile currentOcFile = mCurrentUpload.getFile();
                     mParentActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener,
-                            uploadObject.getAccount(mParentActivity), currentOcFile);
+                            upload.getAccount(mParentActivity), currentOcFile);
                     mProgressListener = null;
                     mCurrentUpload = null;
                 }            
@@ -256,23 +256,23 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             statusView.setText(status);
 
             ImageButton rightButton = (ImageButton) view.findViewById(R.id.upload_right_button);
-            if (uploadObject.userCanRetryUpload()
-                    && uploadObject.getUploadStatus() != UploadStatus.UPLOAD_SUCCEEDED) {
+            if (upload.userCanRetryUpload()
+                    && upload.getUploadStatus() != UploadStatus.UPLOAD_SUCCEEDED) {
                 //Refresh   - TODO test buttons in Android 4.x
                 rightButton.setImageDrawable(mParentActivity.getDrawable(R.drawable.ic_action_refresh_grey));
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mParentActivity.getFileOperationsHelper().retryUpload(uploadObject);
+                        mParentActivity.getFileOperationsHelper().retryUpload(upload);
                     }
                 });
-            } else if (uploadObject.userCanCancelUpload()) {
+            } else if (upload.userCanCancelUpload()) {
                 //Cancel
                 rightButton.setImageDrawable(mParentActivity.getDrawable(R.drawable.ic_cancel));
                 rightButton.setOnClickListener(new OnClickListener() {                
                     @Override
                     public void onClick(View v) {
-                        mParentActivity.getFileOperationsHelper().cancelTransference(uploadObject.getOCFile());
+                        mParentActivity.getFileOperationsHelper().cancelTransference(upload.getOCFile());
                     }
                 });
             } else {
@@ -281,7 +281,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 rightButton.setOnClickListener(new OnClickListener() {                
                     @Override
                     public void onClick(View v) {
-                        mParentActivity.getFileOperationsHelper().removeUploadFromList(uploadObject);
+                        mParentActivity.getFileOperationsHelper().removeUploadFromList(upload);
                     }
                 });
             }
@@ -290,7 +290,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
             fileIcon.setImageResource(R.drawable.file);
             try {
-                Bitmap b = ThumbnailsCacheManager.getBitmapFromDiskCache(uploadObject.getOCFile().getRemoteId());
+                Bitmap b = ThumbnailsCacheManager.getBitmapFromDiskCache(upload.getOCFile().getRemoteId());
                 if (b != null) {
                     fileIcon.setImageBitmap(b);
                 }
@@ -300,7 +300,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             TextView uploadDate = (TextView) view.findViewById(R.id.upload_date);
             CharSequence dateString = DisplayUtils.getRelativeDateTimeString(
                     mParentActivity,
-                    uploadObject.getUploadTime().getTimeInMillis(),
+                    upload.getUploadTime().getTimeInMillis(),
                     DateUtils.SECOND_IN_MILLIS,
                     DateUtils.WEEK_IN_MILLIS,
                     0

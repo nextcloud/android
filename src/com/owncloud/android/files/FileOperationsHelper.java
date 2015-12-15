@@ -36,10 +36,9 @@ import android.widget.Toast;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.UploadDbObject;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
-import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -508,7 +507,7 @@ public class FileOperationsHelper {
     /**
      * Retry uploading a failed or cancelled upload with force.
      */
-    public void retryUpload(UploadDbObject upload) {
+    public void retryUpload(OCUpload upload) {
         Account account = mFileActivity.getAccount();
         FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
         if (uploaderBinder != null) {
@@ -522,7 +521,7 @@ public class FileOperationsHelper {
     /**
      * Remove upload from upload list.
      */
-    public void removeUploadFromList(UploadDbObject upload) {
+    public void removeUploadFromList(OCUpload upload) {
         Account account = mFileActivity.getAccount();
         FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
         if (uploaderBinder != null) {

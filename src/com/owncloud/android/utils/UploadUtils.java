@@ -27,8 +27,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.os.BatteryManager;
 
-import com.owncloud.android.db.UploadDbObject;
-
 
 public class UploadUtils {
 
