@@ -268,9 +268,9 @@ public class UploadsStorageManager extends Observable {
         if (c.moveToFirst()) {
             do {
                 long fileUploadId = c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_FILE_ID));
-                // getFile for this fileUploadId
-                OCFile file = getUploadFile(fileUploadId);
-                OCUpload upload = new OCUpload(file);
+//                // getFile for this fileUploadId
+//                OCFile file = getUploadFile(fileUploadId);
+                OCUpload upload = createOCUploadFromCursor(c);
                 if (upload == null) {
                     Log_OC.e(TAG, "Upload for file id = " + fileUploadId + "not found on DB");
                 } else {
@@ -369,7 +369,6 @@ public class UploadsStorageManager extends Observable {
             upload.setAccountName(c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_ACCOUNT_NAME)));
             upload.setLocalAction(FileUploadService.LocalBehaviour.fromValue(
                     c.getInt(c.getColumnIndex((ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR)))));
-            upload.setUploadId(c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_UPLOAD_TIME)));
             upload.setForceOverwrite(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE)) == 1 ? true : false);
             upload.setCreateRemoteFolder(c.getInt(
@@ -378,6 +377,7 @@ public class UploadsStorageManager extends Observable {
                     c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY)) == 1 ? true : false);
             upload.setUseWifiOnly(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY)) == 1 ? true : false);
+            upload.setUploadTimestamp(c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_UPLOAD_TIMESTAMP)));
             upload.setLastResult(UploadResult.fromValue(
                     c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_LAST_RESULT))));
         }

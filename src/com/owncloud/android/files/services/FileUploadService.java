@@ -410,6 +410,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 Log_OC.e(TAG, "KEY_ACCOUNT no set or provided KEY_ACCOUNT does not exist");
                 return;
             }
+            mStorageManager = new FileDataStorageManager(account, getContentResolver());
 
             OCFile[] files = null;
             // if KEY_FILE given, use it
@@ -454,6 +455,8 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                                 + " and localPaths[i]:" + localPaths[i]);
                         return;
                     }
+                    mStorageManager.saveFile(files[i]);
+                    files[i] = mStorageManager.getFileByLocalPath(files[i].getStoragePath());
                 }
             }
 
@@ -472,40 +475,40 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             // save always persistently path of upload, so it can be retried if
             // failed.
             for (int i = 0; i < files.length; i++) {
-                OCUpload uploadObject = new OCUpload(files[i]);
-                uploadObject.setAccountName(account.name);
-                uploadObject.setForceOverwrite(forceOverwrite);
-                uploadObject.setCreateRemoteFolder(isCreateRemoteFolder);
-                uploadObject.setLocalAction(localAction);
-                uploadObject.setUseWifiOnly(isUseWifiOnly);
-                uploadObject.setWhileChargingOnly(isWhileChargingOnly);
-                uploadObject.setUploadTimestamp(uploadTimestamp);
-                uploadObject.setUploadStatus(UploadStatus.UPLOAD_LATER);
+                OCUpload upload = new OCUpload(files[i]);
+                upload.setAccountName(account.name);
+                upload.setForceOverwrite(forceOverwrite);
+                upload.setCreateRemoteFolder(isCreateRemoteFolder);
+                upload.setLocalAction(localAction);
+                upload.setUseWifiOnly(isUseWifiOnly);
+                upload.setWhileChargingOnly(isWhileChargingOnly);
+                upload.setUploadTimestamp(uploadTimestamp);
+                upload.setUploadStatus(UploadStatus.UPLOAD_LATER);
                 
-                String uploadKey = buildRemoteName(uploadObject);
-                OCUpload previous = mPendingUploads.putIfAbsent(uploadKey, uploadObject);
+                String uploadKey = buildRemoteName(upload);
+                OCUpload previous = mPendingUploads.putIfAbsent(uploadKey, upload);
                 
                 if(previous == null)
                 {
-                    Log_OC.d(TAG, "mPendingUploads added: " + uploadObject.toFormattedString());
+                    Log_OC.d(TAG, "mPendingUploads added: " + upload.toFormattedString());
 
                     // if upload was not queued before, we can add it to
                     // database because the user wants the file to be uploaded.
                     // however, it can happened that the user uploaded the same
                     // file before in which case there is an old db entry.
                     // delete that to be sure we have the latest one.
-                    if(mUploadsStorageManager.removeUpload(uploadObject.getLocalPath())>0) {
-                        Log_OC.w(TAG, "There was an old DB entry " + uploadObject.getLocalPath()
+                    if(mUploadsStorageManager.removeUpload(upload.getLocalPath())>0) {
+                        Log_OC.w(TAG, "There was an old DB entry " + upload.getLocalPath()
                                 + " which had to be removed in order to add new one.");
                     }
-                    boolean success = mUploadsStorageManager.storeUpload(uploadObject);
+                    boolean success = mUploadsStorageManager.storeUpload(upload);
                     if(!success) {
-                        Log_OC.e(TAG, "Could not add upload " + uploadObject.getLocalPath()
+                        Log_OC.e(TAG, "Could not add upload " + upload.getLocalPath()
                                 + " to database. This should not happen.");
                     } 
                 } else {
                     Log_OC.w(TAG, "FileUploadService got upload intent for file which is already queued: "
-                            + uploadObject.getRemotePath());
+                            + upload.getRemotePath());
                     // upload already pending. ignore.
                 }
             }

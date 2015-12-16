@@ -28,6 +28,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.files.services.FileUploadService.LocalBehaviour;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -54,7 +55,7 @@ public class OCUpload {
     /**
      * Date and time when this upload was first requested.
      */
-    private Calendar mUploadTime = new GregorianCalendar();
+    private Calendar mUploadTime = new GregorianCalendar();  //TODO needed??
     /**
      * Overwrite destination file?
      */
@@ -232,7 +233,7 @@ public class OCUpload {
     public void setAccountName(String accountName) {
         this.mAccountName = accountName;
     }
-    
+
     /**
      * Returns owncloud account as {@link Account} object.  
      */
@@ -268,9 +269,14 @@ public class OCUpload {
      * For debugging purposes only.
      */
     public String toFormattedString() {
-        String localPath = getLocalPath()!= null ? getLocalPath() : "";
-        return localPath+ " status:" + getUploadStatus() + " result:" +
-                (getLastResult() == null?"null" : getLastResult().getValue());
+        try {
+            String localPath = getLocalPath() != null ? getLocalPath() : "";
+            return localPath + " status:" + getUploadStatus() + " result:" +
+                    (getLastResult() == null ? "null" : getLastResult().getValue());
+        } catch (NullPointerException e){
+            Log_OC.d(TAG, "Exception " + e.toString() );
+            return (e.toString());
+        }
     }
 
     /**
