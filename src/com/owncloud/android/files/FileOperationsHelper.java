@@ -39,6 +39,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
@@ -382,6 +383,26 @@ public class FileOperationsHelper {
         updateShareIntent.putExtra(
                 OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS,
                 expirationTimeInMillis
+        );
+        queueShareIntent(updateShareIntent);
+    }
+
+
+    /**
+     * Updates a share on a file to set its access permissions.
+     * Starts a request to do it in {@link OperationsService}
+     *
+     * @param share                     {@link OCShare} instance which permissions will be updated.
+     * @param permissions               New permissions to set. A value <= 0 makes no update.
+     */
+    public void setPermissionsToShare(OCShare share, int permissions) {
+        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        updateShareIntent.putExtra(
+                OperationsService.EXTRA_SHARE_PERMISSIONS,
+                permissions
         );
         queueShareIntent(updateShareIntent);
     }

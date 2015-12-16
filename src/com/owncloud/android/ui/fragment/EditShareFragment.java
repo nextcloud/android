@@ -27,18 +27,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.ui.activity.FileActivity;
 
 public class EditShareFragment extends Fragment {
@@ -107,6 +104,15 @@ public class EditShareFragment extends Fragment {
             mFile = getArguments().getParcelable(ARG_FILE);
             mAccount = getArguments().getParcelable(ARG_ACCOUNT);
         }
+    }
+
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log_OC.d(TAG, "onActivityCreated");
+        getActivity().setTitle(mShare.getSharedWithDisplayName());
     }
 
 
@@ -350,17 +356,75 @@ public class EditShareFragment extends Fragment {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "TODO - update permissions in server", Toast.LENGTH_LONG).show();
+                SharePermissionsBuilder spb = new SharePermissionsBuilder();
+                spb.setSharePermission(getCanShareCheckBox().isChecked());
+                if (mFile.isFolder()) {
+                    spb.setUpdatePermission(getCanEditChangeCheckBox().isChecked())
+                        .setCreatePermission(getCanEditCreateCheckBox().isChecked())
+                        .setDeletePermission(getCanEditDeleteCheckBox().isChecked());
+                } else {
+                    spb.setUpdatePermission(getCanEditCheckBox().isChecked());
+                }
+                int permissions = spb.build();
+
+                ((FileActivity) getActivity()).getFileOperationsHelper().
+                        setPermissionsToShare(
+                                mShare,
+                                permissions
+                        );
             }
         });
     }
 
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log_OC.d(TAG, "onActivityCreated");
-        getActivity().setTitle(mShare.getSharedWithDisplayName());
+    /**
+     * Shortcut to access {@link CheckBox} R.id.canShareCheckBox
+     *
+     * @return  {@link CheckBox} R.id.canShareCheckBox or null if called before
+     *          {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} finished.
+     */
+    private CheckBox getCanShareCheckBox() {
+        return (CheckBox) getView().findViewById(R.id.canShareCheckBox);
     }
+
+    /**
+     * Shortcut to access {@link CheckBox} R.id.canEditCheckBox
+     *
+     * @return  {@link CheckBox} R.id.canEditCheckBox or null if called before
+     *          {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} finished.
+     */
+    private CheckBox getCanEditCheckBox() {
+        return (CheckBox) getView().findViewById(R.id.canEditCheckBox);
+    }
+
+    /**
+     * Shortcut to access {@link CheckBox} R.id.canEditCreateCheckBox
+     *
+     * @return  {@link CheckBox} R.id.canEditCreateCheckBox or null if called before
+     *          {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} finished.
+     */
+    private CheckBox getCanEditCreateCheckBox() {
+        return (CheckBox) getView().findViewById(R.id.canEditCreateCheckBox);
+    }
+
+    /**
+     * Shortcut to access {@link CheckBox} R.id.canEditChangeCheckBox
+     *
+     * @return  {@link CheckBox} R.id.canEditChangeCheckBox or null if called before
+     *          {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} finished.
+     */
+    private CheckBox getCanEditChangeCheckBox() {
+        return (CheckBox) getView().findViewById(R.id.canEditChangeCheckBox);
+    }
+
+    /**
+     * Shortcut to access {@link CheckBox} R.id.canEditDeleteCheckBox
+     *
+     * @return  {@link CheckBox} R.id.canEditDeleteCheckBox or null if called before
+     *          {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} finished.
+     */
+    private CheckBox getCanEditDeleteCheckBox() {
+        return (CheckBox) getView().findViewById(R.id.canEditDeleteCheckBox);
+    }
+
 
 }

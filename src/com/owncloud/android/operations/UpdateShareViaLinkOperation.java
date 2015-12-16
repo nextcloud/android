@@ -99,15 +99,15 @@ public class UpdateShareViaLinkOperation extends SyncOperation {
         }
 
         // Update remote share with password
-        UpdateRemoteShareOperation udpateOp = new UpdateRemoteShareOperation(
+        UpdateRemoteShareOperation updateOp = new UpdateRemoteShareOperation(
             publicShare.getRemoteId()
         );
-        udpateOp.setPassword(mPassword);
-        udpateOp.setExpirationDate(mExpirationDateInMillis);
-        RemoteOperationResult result = udpateOp.execute(client);
+        updateOp.setPassword(mPassword);
+        updateOp.setExpirationDate(mExpirationDateInMillis);
+        RemoteOperationResult result = updateOp.execute(client);
 
         if (result.isSuccess()) {
-            // Retrieve updated share / save directly with password? -> no; the password is not be saved
+            // Retrieve updated share / save directly with password? -> no; the password is not to be saved
             RemoteOperation getShareOp = new GetRemoteShareOperation(publicShare.getRemoteId());
             result = getShareOp.execute(client);
             if (result.isSuccess()) {
