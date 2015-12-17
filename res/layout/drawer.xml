@@ -75,8 +75,8 @@
 
             <ImageView
                 android:id="@+id/itemIcon"
-                android:layout_width="24sp"
-                android:layout_height="24sp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginLeft="@dimen/standard_padding"
                 android:layout_marginBottom="3dp"
                 android:layout_gravity="bottom"
