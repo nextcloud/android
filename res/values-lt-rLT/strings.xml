@@ -335,6 +335,12 @@
   <string name="file_list__footer__files">%1$d failai</string>
   <string name="file_list__footer__files_and_folder">%1$d failai, 1 aplankas</string>
   <string name="file_list__footer__files_and_folders">%1$d failai, %2$d aplankai</string>
+  <string name="prefs_instant_behaviour_dialogTitle">Pradinis failas bus...</string>
+  <string name="prefs_instant_behaviour_title">Pradinis failas bus...</string>
+  <string name="upload_copy_files">Kopijuoti failą</string>
+  <string name="upload_move_files">Perkelti failą</string>
+  <string name="pref_behaviour_entries_keep_file">paliktas pradiniame aplanke</string>
+  <string name="pref_behaviour_entries_move">perkelti į app aplanką</string>
   <string name="share_dialog_title">Dalijimasis</string>
   <string name="share_with_user_section_title">Dalintis su vartotojais ar grupėmis</string>
   <string name="share_no_users">Su vartotojais niekuo nesidalinama</string>
