@@ -22,7 +22,10 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
+import android.app.ActionBar;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
@@ -50,6 +54,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
@@ -127,12 +132,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
 
         if (getFile() != null && mAccount != null) {
-            mLayout = R.layout.file_details_fragment;
+            mLayout = R.layout.file_details_fragment_new;
         }
 
         mView = inflater.inflate(mLayout, null);
         
-        if (mLayout == R.layout.file_details_fragment) {
+        if (mLayout == R.layout.file_details_fragment_new) {
             mView.findViewById(R.id.fdFavorite).setOnClickListener(this);
             ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.fdProgressBar);
             DisplayUtils.colorPreLollipopHorizontalProgressBar(progressBar);
@@ -371,7 +376,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      * @return 'True' when the fragment is ready to show details of a file
      */
     private boolean readyToShow() {
-        return (getFile() != null && mAccount != null && mLayout == R.layout.file_details_fragment);
+        return (getFile() != null && mAccount != null && mLayout == R.layout.file_details_fragment_new);
     }
 
 
@@ -401,17 +406,29 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
 
         ImageView iv = (ImageView) getView().findViewById(R.id.fdIcon);
+        ImageView headerImage = (ImageView) getView().findViewById(R.id.fdHeaderImage);
 
         if (iv != null) {
-            Bitmap thumbnail;
             iv.setTag(file.getFileId());
+            // Name of the file, to deduce the icon to use in case the MIME type is not precise enough
+            String filename = file.getFileName();
+            int resource = MimetypeIconUtil.getFileTypeIconId(mimetype, filename);
+            iv.setImageResource(resource);
+
+            Bitmap thumbnail;
+            RelativeLayout.LayoutParams layoutParams =
+                    new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                            RelativeLayout.LayoutParams.MATCH_PARENT);
 
             if (file.isImage()) {
                 String tagId = String.valueOf(file.getRemoteId());
                 thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
 
                 if (thumbnail != null && !file.needsUpdateThumbnail()) {
-                    iv.setImageBitmap(thumbnail);
+                    headerImage.setImageBitmap(thumbnail);
+                    headerImage.setColorFilter(R.color.owncloud_blue_transparent);
+                    headerImage.setLayoutParams(layoutParams);
+                    headerImage.setScaleType(ImageView.ScaleType.FIT_XY);
                 } else {
                     // generate new Thumbnail
                     if (ThumbnailsCacheManager.cancelPotentialWork(file, iv)) {
@@ -428,15 +445,19 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                                         thumbnail,
                                         task
                                 );
-                        iv.setImageDrawable(asyncDrawable);
+                        Bitmap newThumbnail = asyncDrawable.getBitmap();
+                        headerImage.setColorFilter(R.color.owncloud_blue_transparent);
+                        headerImage.setImageBitmap(newThumbnail);
+                        headerImage.setLayoutParams(layoutParams);
+                        headerImage.setScaleType(ImageView.ScaleType.FIT_XY);
+
                         task.execute(file);
                     }
                 }
             } else {
-				// Name of the file, to deduce the icon to use in case the MIME type is not precise enough
-				String filename = file.getFileName();
-                iv.setImageResource(MimetypeIconUtil.getFileTypeIconId(mimetype, filename));
+                headerImage.setImageResource(resource);
 			}
+
         }
     }
 

@@ -19,12 +19,20 @@
  */
 package com.owncloud.android.utils;
 
+import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.DrawFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
@@ -266,5 +274,6 @@ public class BitmapUtils {
 
         return (mimeType != null && mimeType.startsWith("image/"));
     }
-    
+
+
 }
