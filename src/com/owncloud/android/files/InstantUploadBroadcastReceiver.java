@@ -38,6 +38,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
+import android.net.Uri;
 import android.os.BatteryManager;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images;
@@ -96,7 +97,12 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         }
 
         String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE };
-        c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
+        Uri contentUri = intent.getData();
+        if (contentUri == null) {
+            Log_OC.e(TAG, "Unexpected NULL URI in Intent: " + intent.toString());
+            return;
+        }
+        c = context.getContentResolver().query(contentUri, CONTENT_PROJECTION, null, null, null);
         if (!c.moveToFirst()) {
             Log_OC.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
             return;
