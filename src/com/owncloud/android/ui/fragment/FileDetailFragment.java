@@ -22,10 +22,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
-import android.app.ActionBar;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +35,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
@@ -54,7 +52,6 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
@@ -286,8 +283,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fdFavorite: {
-                CheckBox cb = (CheckBox) getView().findViewById(R.id.fdFavorite);
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(),cb.isChecked());
+                Switch favSwitch = (Switch) getView().findViewById(R.id.fdFavorite);
+                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), favSwitch.isChecked());
                 break;
             }
             case R.id.fdCancelBtn: {
@@ -345,8 +342,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
             setTimeModified(file.getModificationTimestamp());
             
-            CheckBox cb = (CheckBox)getView().findViewById(R.id.fdFavorite);
-            cb.setChecked(file.isFavorite());
+            Switch favSwitch = (Switch) getView().findViewById(R.id.fdFavorite);
+            favSwitch.setChecked(file.isFavorite());
 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();

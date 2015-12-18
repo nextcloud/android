@@ -395,4 +395,8 @@
     <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients.
         \nPlease contact your administrator</string>
 
+    <string name="filedetails_share_link_enable">Share by link enabled</string>
+    <string name="filedetails_share_link_disable">Share by link disabled</string>
+    <string name="filedetails_share_users_with_access">Users and Groups with access</string>
+
 </resources>
