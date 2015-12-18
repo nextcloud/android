@@ -99,7 +99,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         Log_OC.i(TAG, "onActivityCreated() stop");
     }
 
-    public void SelectAllFiles(boolean value)
+    public void selectAllFiles(boolean value)
     {
         ListView lst = (ListView)getListView();
         for (int pos = 0; pos < lst.getCount(); pos++) {

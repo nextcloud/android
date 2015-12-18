@@ -175,7 +175,7 @@ public class UploadFilesActivity extends FileActivity implements
             case R.id.action_upload_select_all:
             {
                 item.setChecked(!item.isChecked());
-                mFileListFragment.SelectAllFiles(item.isChecked());
+                mFileListFragment.selectAllFiles(item.isChecked());
                 break;
             }
             default:
