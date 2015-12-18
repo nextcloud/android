@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2015  ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        card_view:cardCornerRadius="3dp"
+        card_view:cardUseCompatPadding="true">
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/fdScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/fdFileHeaderContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@color/owncloud_blue_dark_transparent">
+
+                    <ImageView
+                        android:id="@+id/fdHeaderImage"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/file"/>
+
+                    <LinearLayout
+                        android:id="@+id/fdTitleLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/owncloud_blue_transparent">
+                        <ImageView
+                            android:id="@+id/fdIcon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/file"
+                            android:layout_marginLeft="8dp"
+                            android:layout_gravity="center_vertical"/>
+
+                        <TextView
+                            android:id="@+id/fdFilename"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_filename"
+                            android:textSize="24sp"
+                            android:textColor="@color/white"
+                            android:layout_marginLeft="8dp"
+                            android:layout_gravity="center_vertical"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/list_divider_background"/>
+
+                <TableLayout
+                    android:id="@+id/fdDetailsTable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp">
+
+                    <TableRow
+                        android:id="@+id/fdTypeRow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dip"
+                        android:layout_marginTop="20dp">
+
+                        <TextView
+                            android:id="@+id/fdTypeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/filedetails_type"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/fdType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_filetype"
+                            android:textSize="16sp"
+                            android:maxLines="2"/>
+
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/fdSizeRow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:layout_marginTop="12dp">
+                        <TextView
+                            android:id="@+id/fdSizeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/filedetails_size"
+                            android:textSize="16sp"/>
+                        <TextView
+                            android:id="@+id/fdSize"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_filesize"
+                            android:textSize="16sp" />
+
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/fdCreatedRow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:layout_marginTop="12dp">
+                        <TextView
+                            android:id="@+id/fdCreatedLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/filedetails_created"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/fdCreated"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_timestamp"
+                            android:textSize="16sp" />
+
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/fdModifiedRow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:layout_marginTop="12dp">
+                        <TextView
+                            android:id="@+id/fdModifiedLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/filedetails_modified"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/fdModified"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_timestamp"
+                            android:textSize="16sp"/>
+
+                    </TableRow>
+
+                </TableLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin = "10dp"
+                    android:background="@color/list_divider_background"/>
+
+                <RelativeLayout
+                    android:id="@+id/fdProgressAndControl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fdDetailsContainer"
+                    android:gravity="center_horizontal"
+                    android:layout_margin="16dp">
+                    <Switch
+                        android:id="@+id/fdFavorite"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="@string/favorite"
+                        android:textColor="@color/textColor"
+                        android:layout_gravity="start"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/fdFavorite"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/fdProgressText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/downloader_download_in_progress_ticker"/>
+
+                        <LinearLayout
+                            android:id="@+id/fdProgressBlock"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:orientation="horizontal"
+                            >
+
+                            <ProgressBar
+                                android:id="@+id/fdProgressBar"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:indeterminate="false"
+                                android:indeterminateOnly="false"/>
+
+                            <ImageButton
+                                android:id="@+id/fdCancelBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:src="@drawable/ic_cancel"
+                                android:background="@android:color/transparent"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin = "10dp"
+                    android:background="@color/list_divider_background"/>
+
+                <LinearLayout
+                    android:id="@+id/fdShareContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="16dp">
+                    <TextView
+                        android:id="@+id/fdShareTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="@string/action_share"
+                        android:textColor="@color/textColor"
+                        android:layout_gravity="start"/>
+                    <TextView
+                        android:id="@+id/fdSharebyLink"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:text="@string/filedetails_share_link_disable"
+                        android:layout_gravity="start"
+                        android:padding="8dp"/>
+                    <TextView
+                        android:id="@+id/fdShareWithUsersTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="@string/filedetails_share_users_with_access"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="8dp"/>
+
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:id="@+id/shareUsersList"
+                        android:visibility="gone"
+                        android:scrollbars="vertical"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/shareNoUsers"
+                        android:text="@string/share_no_users"
+                        android:textSize="12sp"
+                        android:padding="12dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
