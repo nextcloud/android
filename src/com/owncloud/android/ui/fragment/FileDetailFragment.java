@@ -31,7 +31,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -129,12 +128,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
 
         if (getFile() != null && mAccount != null) {
-            mLayout = R.layout.file_details_fragment_new;
+            mLayout = R.layout.file_details_fragment;
         }
 
         mView = inflater.inflate(mLayout, null);
         
-        if (mLayout == R.layout.file_details_fragment_new) {
+        if (mLayout == R.layout.file_details_fragment) {
             mView.findViewById(R.id.fdFavorite).setOnClickListener(this);
             ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.fdProgressBar);
             DisplayUtils.colorPreLollipopHorizontalProgressBar(progressBar);
@@ -373,7 +372,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
      * @return 'True' when the fragment is ready to show details of a file
      */
     private boolean readyToShow() {
-        return (getFile() != null && mAccount != null && mLayout == R.layout.file_details_fragment_new);
+        return (getFile() != null && mAccount != null && mLayout == R.layout.file_details_fragment);
     }
 
 
