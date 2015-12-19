@@ -91,8 +91,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      */
     private Uri mLocalUri;
 
-    private boolean mShowGridView;
-
 
     /**
      * Create new {@link OCFile} with given path.

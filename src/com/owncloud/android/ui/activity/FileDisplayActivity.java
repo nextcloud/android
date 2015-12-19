@@ -320,7 +320,7 @@ public class FileDisplayActivity extends HookActivity
                     startTextPreview(file);
             }
 
-            switchLayout(getFile());
+            switchLayout(getCurrentDir());
 
         } else {
             Log_OC.wtf(TAG, "initFragments() called with invalid NULLs!");
@@ -334,7 +334,7 @@ public class FileDisplayActivity extends HookActivity
     }
 
     private void switchLayout(OCFile file){
-        if (DisplayUtils.isGridView(file, getStorageManager())){
+        if (DisplayUtils.isGridViewPreferred(file, getStorageManager())){
             switchToGridView();
         } else {
             switchToListView();
@@ -507,8 +507,6 @@ public class FileDisplayActivity extends HookActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         mOptionsMenu = menu;
-
-        MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
 
         changeGridIcon();
 
@@ -709,7 +707,6 @@ public class FileDisplayActivity extends HookActivity
             Toast t = Toast.makeText(this, getString(R.string.filedisplay_no_file_selected),
                     Toast.LENGTH_LONG);
             t.show();
-            return;
         }
     }
 
@@ -834,7 +831,7 @@ public class FileDisplayActivity extends HookActivity
 
     private void changeGridIcon(){
         MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
-        if (DisplayUtils.isGridView(getFile(), getStorageManager())) {
+        if (DisplayUtils.isGridViewPreferred(getFile(), getStorageManager())){
             menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
             menuItem.setIcon(ContextCompat.getDrawable(getApplicationContext(),
                     R.drawable.ic_view_list));
@@ -1255,8 +1252,6 @@ public class FileDisplayActivity extends HookActivity
         cleanSecondFragment();
         // Sync Folder
         startSyncFolderOperation(directory, false);
-
-        MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
 
         changeGridIcon();
         switchLayout(directory);

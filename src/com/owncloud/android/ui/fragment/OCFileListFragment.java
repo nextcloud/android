@@ -523,7 +523,7 @@ public class OCFileListFragment extends ExtendedListFragment
             OwnCloudVersion version = AccountUtils.getServerVersion(
                     ((FileActivity)mContainerActivity).getAccount());
             if (version != null && version.supportsRemoteThumbnails() &&
-                    DisplayUtils.isGridView(mFile, mContainerActivity.getStorageManager())) {
+                    DisplayUtils.isGridViewPreferred(mFile, mContainerActivity.getStorageManager())) {
                 switchToGridView();
                 registerLongClickListener();
             } else {
