@@ -337,11 +337,11 @@
   <string name="file_list__footer__files">%1$d archivos</string>
   <string name="file_list__footer__files_and_folder">%1$d archivos, 1 carpeta</string>
   <string name="file_list__footer__files_and_folders">%1$d archivos, %2$d carpetas</string>
-  <string name="prefs_instant_behaviour_dialogTitle">Archivo original sera...</string>
-  <string name="prefs_instant_behaviour_title">Archivo original sera...</string>
+  <string name="prefs_instant_behaviour_dialogTitle">El archivo original será...</string>
+  <string name="prefs_instant_behaviour_title">El archivo original será...</string>
   <string name="upload_copy_files">Copiar archivo</string>
   <string name="upload_move_files">Mover archivo</string>
-  <string name="pref_behaviour_entries_keep_file">dejado en carpeta original</string>
+  <string name="pref_behaviour_entries_keep_file">dejado en la carpeta original</string>
   <string name="pref_behaviour_entries_move">movido a la carpeta apps</string>
   <string name="share_dialog_title">Compartiendo</string>
   <string name="share_with_user_section_title">Compartir con usuarios y grupos</string>
@@ -351,7 +351,7 @@
   <string name="share_via_link_expiration_date_label">Establecer fecha de caducidad</string>
   <string name="share_via_link_password_label">Protección con contraseña</string>
   <string name="share_via_link_password_title">Asegurado</string>
-  <string name="share_get_public_link_button">coger enlace</string>
+  <string name="share_get_public_link_button">Obtener enlace</string>
   <string name="share_search">Buscar</string>
   <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
   <string name="share_group_clarification">%1$s (grupo)</string>
