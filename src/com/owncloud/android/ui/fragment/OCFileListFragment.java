@@ -23,8 +23,11 @@
 package com.owncloud.android.ui.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -35,6 +38,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.PopupMenu;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -337,6 +341,8 @@ public class OCFileListFragment extends ExtendedListFragment
 
 //            String.format(mContext.getString(R.string.subject_token),
 //                    getClient().getCredentials().getUsername(), file.getFileName()));
+
+            changeGridIcon(menu, targetFile);
         }
     }
 
@@ -523,7 +529,7 @@ public class OCFileListFragment extends ExtendedListFragment
             OwnCloudVersion version = AccountUtils.getServerVersion(
                     ((FileActivity)mContainerActivity).getAccount());
             if (version != null && version.supportsRemoteThumbnails() &&
-                    DisplayUtils.isGridViewPreferred(mFile, mContainerActivity.getStorageManager())) {
+                    isGridViewPreferred(mFile)) {
                 switchToGridView();
                 registerLongClickListener();
             } else {
@@ -582,5 +588,68 @@ public class OCFileListFragment extends ExtendedListFragment
 
     public void sortBySize(boolean descending) {
         mAdapter.setSortOrder(FileStorageUtils.SORT_SIZE, descending);
+    }
+
+    /**
+     * Determines if user set folder to grid or list view. If folder is not set itself,
+     * it finds a parent that is set (at least root is set).
+     * @param file
+     * @return
+     */
+    public boolean isGridViewPreferred(OCFile file){
+        if (file != null) {
+            OCFile fileToTest = file;
+            OCFile parentDir = null;
+            String parentPath = null;
+            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+
+            SharedPreferences setting = MainApp.getAppContext().getSharedPreferences(
+                    "viewMode", Context.MODE_PRIVATE);
+
+            if (setting.contains(String.valueOf(fileToTest.getFileId()))) {
+                return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
+            } else {
+                do {
+                    if (fileToTest.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
+                        parentPath = new File(fileToTest.getRemotePath()).getParent();
+                        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
+                                parentPath + OCFile.PATH_SEPARATOR;
+                        parentDir = storageManager.getFileByPath(parentPath);
+                    } else {
+                        parentDir = storageManager.getFileByPath(OCFile.ROOT_PATH);
+                    }
+
+                    while (parentDir == null) {
+                        parentPath = new File(parentPath).getParent();
+                        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
+                                parentPath + OCFile.PATH_SEPARATOR;
+                        parentDir = storageManager.getFileByPath(parentPath);
+                    }
+                    fileToTest = parentDir;
+                } while (endWhile(parentDir, setting));
+                return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private boolean endWhile(OCFile parentDir, SharedPreferences setting) {
+        if (parentDir.getRemotePath().compareToIgnoreCase(OCFile.ROOT_PATH) == 0) {
+            return false;
+        } else {
+            return !setting.contains(String.valueOf(parentDir.getFileId()));
+        }
+    }
+
+    private void changeGridIcon(ContextMenu menu, OCFile targetFile){
+        MenuItem menuItem = menu.findItem(R.id.action_switch_view);
+        if (isGridViewPreferred(targetFile)){
+            menuItem.setTitle(getString(R.string.action_switch_list_view));
+            menuItem.setIcon(R.drawable.ic_view_list);
+        } else {
+            menuItem.setTitle(getString(R.string.action_switch_grid_view));
+            menuItem.setIcon(R.drawable.ic_view_module);
+        }
     }
 }

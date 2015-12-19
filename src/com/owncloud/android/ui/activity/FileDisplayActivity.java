@@ -150,7 +150,6 @@ public class FileDisplayActivity extends HookActivity
     private static String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
 
     private OCFile mWaitingToSend;
-    private Menu mOptionsMenu;
 
 
     @Override
@@ -320,8 +319,6 @@ public class FileDisplayActivity extends HookActivity
                     startTextPreview(file);
             }
 
-            switchLayout(getCurrentDir());
-
         } else {
             Log_OC.wtf(TAG, "initFragments() called with invalid NULLs!");
             if (getAccount() == null) {
@@ -330,14 +327,6 @@ public class FileDisplayActivity extends HookActivity
             if (getFile() == null) {
                 Log_OC.wtf(TAG, "\t file is NULL");
             }
-        }
-    }
-
-    private void switchLayout(OCFile file){
-        if (DisplayUtils.isGridViewPreferred(file, getStorageManager())){
-            switchToGridView();
-        } else {
-            switchToListView();
         }
     }
 
@@ -498,7 +487,8 @@ public class FileDisplayActivity extends HookActivity
         menu.findItem(R.id.action_create_dir).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
-        
+        menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -506,10 +496,6 @@ public class FileDisplayActivity extends HookActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-        mOptionsMenu = menu;
-
-        changeGridIcon();
-
         return true;
     }
     
@@ -579,12 +565,16 @@ public class FileDisplayActivity extends HookActivity
             }
             case R.id.action_switch_view:{
                 if (isGridView()){
-                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-                    DisplayUtils.setViewMode(getFile(), false);
+                    item.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
+                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
+                            R.drawable.ic_view_module));
+                    setViewMode(getFile(), false);
                     switchToListView();
                 } else {
-                    item.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
-                    DisplayUtils.setViewMode(getFile(), true);
+                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
+                            R.drawable.ic_view_list));
+                    setViewMode(getFile(), true);
                     switchToGridView();
                 }
                 return true;
@@ -593,6 +583,15 @@ public class FileDisplayActivity extends HookActivity
             retval = super.onOptionsItemSelected(item);
         }
         return retval;
+    }
+
+    public void setViewMode(OCFile file, boolean setGrid){
+        SharedPreferences setting = MainApp.getAppContext().getSharedPreferences(
+                "viewMode", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putBoolean(String.valueOf(file.getFileId()), setGrid);
+        editor.commit();
     }
 
     private void startSynchronization() {
@@ -824,21 +823,6 @@ public class FileDisplayActivity extends HookActivity
             cleanSecondFragment();
         } else {
             super.onBackPressed();
-        }
-
-        changeGridIcon();
-    }
-
-    private void changeGridIcon(){
-        MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
-        if (DisplayUtils.isGridViewPreferred(getFile(), getStorageManager())){
-            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-            menuItem.setIcon(ContextCompat.getDrawable(getApplicationContext(),
-                    R.drawable.ic_view_list));
-        } else {
-            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
-            menuItem.setIcon(ContextCompat.getDrawable(getApplicationContext(),
-                    R.drawable.ic_view_module));
         }
     }
 
@@ -1252,9 +1236,6 @@ public class FileDisplayActivity extends HookActivity
         cleanSecondFragment();
         // Sync Folder
         startSyncFolderOperation(directory, false);
-
-        changeGridIcon();
-        switchLayout(directory);
     }
 
     /**
