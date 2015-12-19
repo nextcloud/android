@@ -254,66 +254,7 @@ public class DisplayUtils {
         return size;
     }
 
-    /**
-     * Determines if user set folder to grid or list view. If folder is not set itself,
-     * it finds a parent that is set (at least root is set).
-     * @param file
-     * @param storageManager
-     * @return
-     */
-    public static boolean isGridViewPreferred(OCFile file, FileDataStorageManager storageManager){
-        if (file != null) {
-            OCFile fileToTest = file;
-            OCFile parentDir = null;
-            String parentPath = null;
 
-            SharedPreferences setting = MainApp.getAppContext().getSharedPreferences(
-                    "viewMode", Context.MODE_PRIVATE);
-
-            if (setting.contains(String.valueOf(fileToTest.getFileId()))) {
-                return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
-            } else {
-                do {
-                    if (fileToTest.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
-                        parentPath = new File(fileToTest.getRemotePath()).getParent();
-                        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
-                                parentPath + OCFile.PATH_SEPARATOR;
-                        parentDir = storageManager.getFileByPath(parentPath);
-                    } else {
-                        parentDir = storageManager.getFileByPath(OCFile.ROOT_PATH);
-                    }
-
-                    while (parentDir == null) {
-                        parentPath = new File(parentPath).getParent();
-                        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
-                                parentPath + OCFile.PATH_SEPARATOR;
-                        parentDir = storageManager.getFileByPath(parentPath);
-                    }
-                    fileToTest = parentDir;
-                } while (endWhile(parentDir, setting));
-                return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
-            }
-        } else {
-            return false;
-        }
-    }
-
-    private static boolean endWhile(OCFile parentDir, SharedPreferences setting) {
-        if (parentDir.getRemotePath().compareToIgnoreCase(OCFile.ROOT_PATH) == 0) {
-            return false;
-        } else {
-            return !setting.contains(String.valueOf(parentDir.getFileId()));
-        }
-    }
-
-    public static void setViewMode(OCFile file, boolean setGrid){
-        SharedPreferences setting = MainApp.getAppContext().getSharedPreferences(
-                "viewMode", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = setting.edit();
-        editor.putBoolean(String.valueOf(file.getFileId()), setGrid);
-        editor.commit();
-    }
 
     /**
      * sets the coloring of the given progress bar to color_accent.
