@@ -129,16 +129,28 @@
             android:name=".providers.FileContentProvider"
             android:authorities="@string/authority"
             android:enabled="true"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/sync_string_files"
             android:syncable="true" />
 
         <provider
             android:name=".providers.UsersAndGroupsSearchProvider"
-            android:authorities="com.nextcloud.android.providers.UsersAndGroupsSearchProvider"
+            android:authorities=".providers.UsersAndGroupsSearchProvider"
             android:enabled="true"
             android:exported="false"
             android:label="@string/search_users_and_groups_hint" />
+
+        <provider
+            android:authorities="@string/document_provider_authority"
+            android:name="org.nextcloud.providers.DocumentsStorageProvider"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS"
+            android:enabled="@bool/atLeastKitKat">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
 
         <activity
             android:name=".authentication.AuthenticatorActivity"
