@@ -75,8 +75,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     private boolean mIsDownloading;
 
-    private boolean mShowGridView;
-
 
     /**
      * Create new {@link OCFile} with given path.

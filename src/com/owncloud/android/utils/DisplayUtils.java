@@ -264,7 +264,7 @@ public class DisplayUtils {
      * @param storageManager
      * @return
      */
-    public static boolean isGridView(OCFile file, FileDataStorageManager storageManager){
+    public static boolean isGridViewPreferred(OCFile file, FileDataStorageManager storageManager){
         if (file != null) {
             OCFile fileToTest = file;
             OCFile parentDir = null;
@@ -273,8 +273,8 @@ public class DisplayUtils {
             SharedPreferences setting = MainApp.getAppContext().getSharedPreferences(
                     "viewMode", Context.MODE_PRIVATE);
 
-            if (setting.contains(fileToTest.getRemoteId())) {
-                return setting.getBoolean(fileToTest.getRemoteId(), false);
+            if (setting.contains(String.valueOf(fileToTest.getFileId()))) {
+                return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
             } else {
                 do {
                     if (fileToTest.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
@@ -294,7 +294,7 @@ public class DisplayUtils {
                     }
                     fileToTest = parentDir;
                 } while (endWhile(parentDir, setting));
-                return setting.getBoolean(fileToTest.getRemoteId(), false);
+                return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
             }
         } else {
             return false;
@@ -305,7 +305,7 @@ public class DisplayUtils {
         if (parentDir.getRemotePath().compareToIgnoreCase(OCFile.ROOT_PATH) == 0) {
             return false;
         } else {
-            return !setting.contains(parentDir.getRemoteId());
+            return !setting.contains(String.valueOf(parentDir.getFileId()));
         }
     }
 
@@ -314,7 +314,7 @@ public class DisplayUtils {
                 "viewMode", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = setting.edit();
-        editor.putBoolean(file.getRemoteId(), setGrid);
+        editor.putBoolean(String.valueOf(file.getFileId()), setGrid);
         editor.commit();
     }
 
