@@ -2,7 +2,6 @@
  *   ownCloud Android client application
  *
  *   @author masensio
- *   @author David A. Velasco
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -18,43 +17,32 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
 package com.owncloud.android.operations;
 
-import java.util.ArrayList;
-
-import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.GetRemoteSharesOperation;
+import com.owncloud.android.lib.resources.status.GetRemoteCapabilitiesOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.common.SyncOperation;
 
 /**
- * Access to remote operation to get the share files/folders
- * Save the data in Database
+ * Get and save capabilities from the server
  */
-
-public class GetSharesOperation extends SyncOperation {
-
-    private static final String TAG = GetSharesOperation.class.getSimpleName();
+public class GetCapabilitiesOperarion extends SyncOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        GetRemoteSharesOperation operation = new GetRemoteSharesOperation();
-        RemoteOperationResult result = operation.execute(client);
+        GetRemoteCapabilitiesOperation getCapabilities = new GetRemoteCapabilitiesOperation();
+        RemoteOperationResult result = getCapabilities.execute(client);
 
-        if (result.isSuccess()) {
+        if (result.isSuccess()){
+            // Read data from the result
+            if( result.getData()!= null && result.getData().size() > 0) {
+                OCCapability capability = (OCCapability) result.getData().get(0);
 
-            // Update DB with the response
-            Log_OC.d(TAG, "Share list size = " + result.getData().size());
-            ArrayList<OCShare> shares = new ArrayList<OCShare>();
-            for(Object obj: result.getData()) {
-                shares.add((OCShare) obj);
+                // Save the capabilities into database
+                getStorageManager().saveCapabilities(capability);
             }
-
-            getStorageManager().saveSharesDB(shares);
         }
 
         return result;

@@ -20,6 +20,9 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.text.DateFormat;
 import java.util.Date;
@@ -31,6 +34,7 @@ import javax.security.auth.x500.X500Principal;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -42,7 +46,9 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
     //private final static String TAG = X509CertificateViewAdapter.class.getSimpleName();
     
     private X509Certificate mCertificate = null;
-    
+
+    private static final String TAG = X509CertificateViewAdapter.class.getSimpleName();
+
     public X509CertificateViewAdapter(X509Certificate certificate) {
         mCertificate = certificate;
     }
@@ -63,25 +69,68 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
         }
     }
 
+    private byte[] getDigest(String algorithm, byte[] message) {
+        MessageDigest md = null;
+
+        try {
+            md = MessageDigest.getInstance(algorithm);
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
+        md.reset();
+        return md.digest(message);
+    }
+
     private void showSignature(View dialogView) {
-        TextView sigView = ((TextView)dialogView.findViewById(R.id.value_signature));
-        TextView algorithmView = ((TextView)dialogView.findViewById(R.id.value_signature_algorithm));
-        sigView.setText(getHex(mCertificate.getSignature()));
-        algorithmView.setText(mCertificate.getSigAlgName());
+        byte[] cert = null;
+
+        TextView certFingerprintView = ((TextView) dialogView.findViewById(R.id.value_certificate_fingerprint));
+        TextView algorithmView = ((TextView) dialogView.findViewById(R.id.value_signature_algorithm));
+
+        try {
+            cert = mCertificate.getEncoded();
+            if (cert == null) {
+
+                certFingerprintView.setText(R.string.certificate_load_problem);
+                algorithmView.setText(R.string.certificate_load_problem);
+
+            } else {
+
+                certFingerprintView.setText(
+                        getDigestHexBytesWithColonsAndNewLines(dialogView, "SHA-256", cert)
+                                + getDigestHexBytesWithColonsAndNewLines(dialogView, "SHA-1", cert)
+                                + getDigestHexBytesWithColonsAndNewLines(dialogView, "MD5", cert));
+                algorithmView.setText(mCertificate.getSigAlgName());
+
+            }
+
+        } catch (CertificateEncodingException e) {
+            Log.e(TAG, "Problem while trying to decode the certificate.");
+        }
+
+
     }
     
-    public String getHex(final byte [] raw) {
-        if (raw == null) {
-           return null;
+    private final String getDigestHexBytesWithColonsAndNewLines(View dialogView, final String digestType, final byte [] cert) {
+        final byte[] rawDigest;
+        final String newLine = System.getProperty("line.separator");
+
+        rawDigest = getDigest(digestType, cert);
+
+        if ( rawDigest == null) {
+            return digestType + ":" + newLine + dialogView.getContext().getString(R.string.digest_algorithm_not_available) + newLine + newLine;
         }
-        final StringBuilder hex = new StringBuilder(2 * raw.length);
-        for (final byte b : raw) {
+
+        final StringBuilder hex = new StringBuilder(3 * rawDigest.length);
+
+        for (final byte b : rawDigest) {
            final int hiVal = (b & 0xF0) >> 4;
            final int loVal = b & 0x0F;
            hex.append((char) ('0' + (hiVal + (hiVal / 10 * 7))));
            hex.append((char) ('0' + (loVal + (loVal / 10 * 7))));
+           hex.append(":");
         }
-        return hex.toString();
+        return digestType + ":" + newLine + hex.toString().replaceFirst("\\:$","") + newLine + newLine;
      }    
 
     private void showValidity(Date notBefore, Date notAfter, View dialogView) {

@@ -32,6 +32,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 
+import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -53,8 +54,6 @@ public class FileStorageUtils {
     public static Boolean mSortAscending = true;
 
     
-    //private static final String LOG_TAG = "FileStorageUtils";
-
     public static final String getSavePath(String accountName) {
         File sdCard = Environment.getExternalStorageDirectory();
         return sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/" + Uri.encode(accountName, "@");
@@ -120,7 +119,7 @@ public class FileStorageUtils {
      * Creates and populates a new {@link OCFile} object with the data read from the server.
      * 
      * @param remote    remote file read from the server (remote file or folder).
-     * @return          New OCFile instance representing the remote resource described by we.
+     * @return          New OCFile instance representing the remote resource described by remote.
      */
     public static OCFile fillOCFile(RemoteFile remote) {
         OCFile file = new OCFile(remote.getRemotePath());
@@ -302,5 +301,33 @@ public class FileStorageUtils {
         String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
         return (result != null) ? result : "";
     }
-  
+
+    /**
+     * Scans the default location for saving local copies of files searching for
+     * a 'lost' file with the same full name as the {@link OCFile} received as
+     * parameter.
+     *
+     * This method helps to keep linked local copies of the files when the app is uninstalled, and then
+     * reinstalled in the device. OR after the cache of the app was deleted in system settings.
+     *
+     * The method is assuming that all the local changes in the file where synchronized in the past. This is dangerous,
+     * but assuming the contrary could lead to massive unnecessary synchronizations of downloaded file after deleting
+     * the app cache.
+     *
+     * This should be changed in the near future to avoid any chance of data loss, but we need to add some options
+     * to limit hard automatic synchronizations to wifi, unless the user wants otherwise.
+     *
+     * @param file      File to associate a possible 'lost' local file.
+     * @param account   Account holding file.
+     */
+    public static void searchForLocalFileInDefaultPath(OCFile file, Account account) {
+        if (file.getStoragePath() == null && !file.isFolder()) {
+            File f = new File(FileStorageUtils.getDefaultSavePathFor(account.name, file));
+            if (f.exists()) {
+                file.setStoragePath(f.getAbsolutePath());
+                file.setLastSyncDateForData(f.lastModified());
+            }
+        }
+    }
+
 }
