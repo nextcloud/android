@@ -226,6 +226,7 @@ public class FileMenuFilter {
         } else {
             toShow.add(R.id.action_unfavorite_file);
         }
+
     }
 
 }

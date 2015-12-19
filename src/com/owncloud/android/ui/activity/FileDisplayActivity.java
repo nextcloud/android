@@ -706,6 +706,7 @@ public class FileDisplayActivity extends HookActivity
             Toast t = Toast.makeText(this, getString(R.string.filedisplay_no_file_selected),
                     Toast.LENGTH_LONG);
             t.show();
+            return;
         }
     }
 
