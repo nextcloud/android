@@ -56,8 +56,7 @@ public class AccountUtils {
      *                      account). If none is available and valid, returns null.
      */
     public static Account getCurrentOwnCloudAccount(Context context) {
-        Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
-                MainApp.getAccountType());
+        Account[] ocAccounts = getAccounts(context);
         Account defaultAccount = null;
 
         SharedPreferences appPreferences = PreferenceManager
@@ -83,10 +82,14 @@ public class AccountUtils {
         return defaultAccount;
     }
 
+    public static Account[] getAccounts(Context context) {
+        AccountManager accountManager = AccountManager.get(context);
+        return accountManager.getAccountsByType(MainApp.getAccountType());
+    }
+
     
     public static boolean exists(Account account, Context context) {
-        Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
-                MainApp.getAccountType());
+        Account[] ocAccounts = getAccounts(context);
 
         if (account != null && account.name != null) {
             int lastAtPos = account.name.lastIndexOf("@");
@@ -128,10 +131,8 @@ public class AccountUtils {
     public static boolean setCurrentOwnCloudAccount(Context context, String accountName) {
         boolean result = false;
         if (accountName != null) {
-            Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
-                    MainApp.getAccountType());
             boolean found;
-            for (Account account : ocAccounts) {
+            for (Account account : getAccounts(context)) {
                 found = (account.name.equals(accountName));
                 if (found) {
                     SharedPreferences.Editor appPrefs = PreferenceManager
