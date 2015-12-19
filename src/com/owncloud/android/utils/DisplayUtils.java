@@ -22,21 +22,9 @@
 
 package com.owncloud.android.utils;
 
-import java.io.File;
-import java.net.IDN;
-import java.text.DateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Vector;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -47,7 +35,6 @@ import android.widget.SeekBar;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 
 import java.net.IDN;
@@ -253,8 +240,6 @@ public class DisplayUtils {
         }
         return size;
     }
-
-
 
     /**
      * sets the coloring of the given progress bar to color_accent.
