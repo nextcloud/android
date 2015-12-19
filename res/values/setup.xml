@@ -4,6 +4,7 @@
     <string name="app_name">ownCloud</string>
     <string name="account_type">owncloud</string>	<!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
     <string name="authority">org.owncloud</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name="document_provider_authority">org.owncloud.documents</string>
     <string name ="db_file">owncloud.db</string>
     <string name ="db_name">ownCloud</string>
     <string name ="data_folder">owncloud</string>
