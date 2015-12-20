@@ -124,7 +124,7 @@
 
         <provider
             android:name=".providers.UsersAndGroupsSearchProvider"
-            android:authorities="com.owncloud.android.providers.UsersAndGroupsSearchProvider"
+            android:authorities="@string/authoritySearch"
             android:enabled="true"
             android:exported="false"
             android:label="@string/search_users_and_groups_hint" />
