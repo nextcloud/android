@@ -54,7 +54,7 @@
         android:layout_marginLeft="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin">
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/deleteLogHistoryButton"
         android:theme="@style/Button"
         android:layout_width="fill_parent"
