@@ -109,8 +109,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/placeholder_filetype"
-                            android:textSize="16sp"
-                            android:maxLines="2"/>
+                            android:textSize="16sp"/>
 
                     </TableRow>
                     <TableRow
@@ -138,7 +137,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:layout_marginTop="12dp">
+                        android:layout_marginTop="12dp"
+                        android:visibility="gone">
                         <TextView
                             android:id="@+id/fdCreatedLabel"
                             android:layout_width="wrap_content"
@@ -283,15 +283,14 @@
                     <ListView
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
-                        android:id="@+id/shareUsersList"
+                        android:id="@+id/fdshareUsersList"
                         android:visibility="gone"
-                        android:scrollbars="vertical"
                         android:layout_weight="1"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/shareNoUsers"
+                        android:id="@+id/fdShareNoUsers"
                         android:text="@string/share_no_users"
                         android:textSize="12sp"
                         android:padding="12dp" />
