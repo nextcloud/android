@@ -27,6 +27,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -139,6 +140,17 @@ public class MainApp extends Application {
     //   public static final String ACCOUNT_TYPE = "owncloud";    
     public static String getAccountType() {
         return getAppContext().getResources().getString(R.string.account_type);
+    }
+
+    // Non gradle build systems do not provide BuildConfig.VERSION_CODE
+    // so we must fallback to this method :(
+    public static int getVersionCode() {
+        try {
+            String thisPackageName = getAppContext().getPackageName();
+            return getAppContext().getPackageManager().getPackageInfo(thisPackageName, 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            return 0;
+        }
     }
 
     //  From AccountAuthenticator 
