@@ -34,6 +34,7 @@
                     android:id="@+id/fdScrollView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:orientation="vertical"
                     android:fillViewport="true">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,7 +90,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp">
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="8dp">
 
                     <TableRow
                         android:id="@+id/fdTypeRow"
@@ -109,7 +111,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/placeholder_filetype"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp"
+                            android:layout_marginLeft="4dp" />
 
                     </TableRow>
                     <TableRow
@@ -129,7 +132,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/placeholder_filesize"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:layout_marginLeft="4dp" />
 
                     </TableRow>
                     <TableRow
@@ -150,7 +154,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/placeholder_timestamp"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:layout_marginLeft="4dp" />
 
                     </TableRow>
                     <TableRow
@@ -170,7 +175,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/placeholder_timestamp"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp"
+                            android:layout_marginLeft="4dp" />
 
                     </TableRow>
 
@@ -179,14 +185,13 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_margin = "10dp"
+                    android:layout_margin = "5dp"
                     android:background="@color/list_divider_background"/>
 
                 <RelativeLayout
                     android:id="@+id/fdProgressAndControl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/fdDetailsContainer"
                     android:gravity="center_horizontal"
                     android:layout_margin="16dp">
                     <Switch
@@ -195,7 +200,6 @@
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:text="@string/favorite"
-                        android:textColor="@color/textColor"
                         android:layout_gravity="start"/>
 
                     <LinearLayout
@@ -246,13 +250,13 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_margin = "10dp"
+                    android:layout_margin = "5dp"
                     android:background="@color/list_divider_background"/>
 
                 <LinearLayout
                     android:id="@+id/fdShareContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_margin="16dp">
                     <TextView
@@ -261,7 +265,6 @@
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:text="@string/action_share"
-                        android:textColor="@color/textColor"
                         android:layout_gravity="start"/>
                     <TextView
                         android:id="@+id/fdSharebyLink"
@@ -278,7 +281,7 @@
                         android:textSize="16sp"
                         android:text="@string/filedetails_share_users_with_access"
                         android:layout_gravity="start"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="12dp"/>
 
                     <ListView
                         android:layout_width="match_parent"
