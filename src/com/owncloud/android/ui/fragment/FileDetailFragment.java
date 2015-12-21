@@ -31,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -64,7 +65,8 @@ import java.util.ArrayList;
 /**
  * This Fragment is used to display the details about a file.
  */
-public class FileDetailFragment extends FileFragment implements OnClickListener {
+public class FileDetailFragment extends FileFragment implements OnClickListener,
+        CompoundButton.OnCheckedChangeListener {
 
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
@@ -142,7 +144,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         mView = inflater.inflate(mLayout, null);
         
         if (mLayout == R.layout.file_details_fragment) {
-            mView.findViewById(R.id.fdFavorite).setOnClickListener(this);
+            ((Switch) mView.findViewById(R.id.fdFavorite)).setOnCheckedChangeListener(this);
             ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.fdProgressBar);
             DisplayUtils.colorPreLollipopHorizontalProgressBar(progressBar);
             mProgressListener = new ProgressListener(progressBar);
@@ -289,11 +291,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fdFavorite: {
-                Switch favSwitch = (Switch) getView().findViewById(R.id.fdFavorite);
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), favSwitch.isChecked());
-                break;
-            }
             case R.id.fdCancelBtn: {
                 ((FileDisplayActivity) mContainerActivity).cancelTransference(getFile());
                 break;
@@ -301,6 +298,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             default:
                 Log_OC.e(TAG, "Incorrect view clicked!");
         }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        Switch favSwitch = (Switch) getView().findViewById(R.id.fdFavorite);
+        mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), favSwitch.isChecked());
     }
 
     /**
@@ -350,7 +353,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             setTimeModified(file.getModificationTimestamp());
             
             Switch favSwitch = (Switch) getView().findViewById(R.id.fdFavorite);
-            favSwitch.setActivated(file.isFavorite());
+            favSwitch.setChecked(file.isFavorite());
 
             setShareByLinkInfo(file.isSharedViaLink());
 
