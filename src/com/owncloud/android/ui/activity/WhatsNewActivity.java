@@ -53,199 +53,200 @@ import com.owncloud.android.ui.whatsnew.ProgressIndicator;
  */
 public class WhatsNewActivity extends Activity {
 
-	private static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
+    private static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
 
-	private ImageButton mForwardFinishButton;
-	private ProgressIndicator mProgress;
-	private LinearLayout mContentPanel;
+    private ImageButton mForwardFinishButton;
+    private ProgressIndicator mProgress;
+    private LinearLayout mContentPanel;
 
-	private int mCurrentStep;
+    private int mCurrentStep;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.whats_new_activity);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.whats_new_activity);
 
-		mCurrentStep = 0;
-		mProgress = (ProgressIndicator) findViewById(R.id.progressIndicator);
+        mCurrentStep = 0;
+        mProgress = (ProgressIndicator) findViewById(R.id.progressIndicator);
 
-		final int listLength = FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun()).length;
+        final int listLength = FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun()).length;
 
-		mProgress.setNumberOfSteps(listLength);
+        mProgress.setNumberOfSteps(listLength);
 
-		mForwardFinishButton = (ImageButton) findViewById(R.id.forward);
-		mForwardFinishButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if (mProgress.hasNextStep()) {
-					mProgress.animateToNextStep();
-					mContentPanel.animate().x(-mContentPanel.getChildAt(++mCurrentStep).getLeft());
-				} else {
-					onFinish();
-					finish();
-				}
-				updateNextButtonIfNeeded();
-			}
-		});
-		Button skipButton = (Button) findViewById(R.id.skip);
-		skipButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				onFinish();
-				finish();
-			}
-		});
+        mForwardFinishButton = (ImageButton) findViewById(R.id.forward);
+        mForwardFinishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mProgress.hasNextStep()) {
+                    mProgress.animateToNextStep();
+                    mContentPanel.animate().x(-mContentPanel.getChildAt(++mCurrentStep).getLeft());
+                } else {
+                    onFinish();
+                    finish();
+                }
+                updateNextButtonIfNeeded();
+            }
+        });
+        Button skipButton = (Button) findViewById(R.id.skip);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onFinish();
+                finish();
+            }
+        });
 
-		TextView tv = (TextView)findViewById(R.id.welcomeText);
-		tv.setText(isFirstRun() ? R.string.welcome_to_oc_title : R.string.whats_new_title);
-
-
-		mContentPanel = (LinearLayout)findViewById(R.id.contentPanel);
-		LinearLayout.LayoutParams ll2 = (LinearLayout.LayoutParams) mContentPanel.getLayoutParams();
-		ll2.width = getScreenWidth()*listLength;
-		mContentPanel.setLayoutParams(ll2);
-
-		fillContentPanelWithFeatureData();
-	}
-
-	private void fillContentPanelWithFeatureData() {
-		LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-
-		for (FeatureItem item : FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun())) {
-			LinearLayout newElement = (LinearLayout)inflater.inflate(R.layout.whats_new_element, null);
-
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getScreenWidth(), ViewGroup.LayoutParams.MATCH_PARENT);
-			newElement.setLayoutParams(params);
-
-			mContentPanel.addView(newElement);
-			ImageView iv = (ImageView)newElement.findViewById(R.id.whatsNewImage);
-			if (item.shouldShowImage())
-				iv.setImageResource(item.getImage());
-
-			TextView tv2 = (TextView)newElement.findViewById(R.id.whatsNewTitle);
-			if (item.shouldShowTitleText())
-				tv2.setText(item.getTitleText());
-
-			tv2 = (TextView)newElement.findViewById(R.id.whatsNewText);
-			if (item.shouldShowContentText())
-				tv2.setText(item.getContentText());
-		}
-		mContentPanel.setOnTouchListener(new OnSwipeTouchListener(getApplicationContext()) {
-
-			@Override
-			public void onSwipeLeft() {
-				handleMoveToNext();
-			}
-
-			@Override
-			public void onSwipeRight() {
-				handleMoveToPrev();
-			}
-		});
-	}
-
-	@Override
-	public void onBackPressed() {
-		onFinish();
-		super.onBackPressed();
-	}
+        TextView tv = (TextView)findViewById(R.id.welcomeText);
+        tv.setText(isFirstRun() ? R.string.welcome_to_oc_title : R.string.whats_new_title);
 
 
-	private void updateNextButtonIfNeeded() {
-		if (!mProgress.hasNextStep())
-			mForwardFinishButton.setImageResource(R.drawable.ic_ok);
-		else
-			mForwardFinishButton.setImageResource(R.drawable.ic_menu_forward);
-	}
+        mContentPanel = (LinearLayout)findViewById(R.id.contentPanel);
+        LinearLayout.LayoutParams ll2 = (LinearLayout.LayoutParams) mContentPanel.getLayoutParams();
+        ll2.width = getScreenWidth()*listLength;
+        mContentPanel.setLayoutParams(ll2);
 
-	private void handleMoveToNext() {
-		if (mProgress.hasNextStep()) {
-			mProgress.animateToNextStep();
-			mContentPanel.animate().x(-mContentPanel.getChildAt(++mCurrentStep).getLeft());
-			updateNextButtonIfNeeded();
-		}
-	}
+        fillContentPanelWithFeatureData();
+        updateNextButtonIfNeeded();
+    }
 
-	private void handleMoveToPrev() {
-		if (mProgress.hasPrevStep()) {
-			mProgress.animateToPrevStep();
-			mContentPanel.animate().x(-mContentPanel.getChildAt(--mCurrentStep).getLeft());
-			updateNextButtonIfNeeded();
-		}
-	}
+    private void fillContentPanelWithFeatureData() {
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
 
-	private void onFinish() {
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-		SharedPreferences.Editor editor = pref.edit();
-		editor.putInt(KEY_LAST_SEEN_VERSION_CODE, BuildConfig.VERSION_CODE);
-		editor.apply();
-	}
+        for (FeatureItem item : FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun())) {
+            LinearLayout newElement = (LinearLayout)inflater.inflate(R.layout.whats_new_element, null);
 
-	private int getScreenWidth() {
-		DisplayMetrics dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
-		return dm.widthPixels;
-	}
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getScreenWidth(), ViewGroup.LayoutParams.MATCH_PARENT);
+            newElement.setLayoutParams(params);
 
-	static private int getLastSeenVersionCode() {
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-		return pref.getInt(KEY_LAST_SEEN_VERSION_CODE, 0);
-	}
+            mContentPanel.addView(newElement);
+            ImageView iv = (ImageView)newElement.findViewById(R.id.whatsNewImage);
+            if (item.shouldShowImage())
+                iv.setImageResource(item.getImage());
 
-	static private boolean isFirstRun() {
-		if (getLastSeenVersionCode() != 0)
-			return false;
-		return AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()) == null;
+            TextView tv2 = (TextView)newElement.findViewById(R.id.whatsNewTitle);
+            if (item.shouldShowTitleText())
+                tv2.setText(item.getTitleText());
 
-	}
+            tv2 = (TextView)newElement.findViewById(R.id.whatsNewText);
+            if (item.shouldShowContentText())
+                tv2.setText(item.getContentText());
+        }
+        mContentPanel.setOnTouchListener(new OnSwipeTouchListener(getApplicationContext()) {
 
-	static public void runIfNeeded(Context context) {
-		if (context instanceof WhatsNewActivity)
-			return;
+            @Override
+            public void onSwipeLeft() {
+                handleMoveToNext();
+            }
 
-		if (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun()).length > 0)
-			context.startActivity(new Intent(context, WhatsNewActivity.class));
-	}
+            @Override
+            public void onSwipeRight() {
+                handleMoveToPrev();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        onFinish();
+        super.onBackPressed();
+    }
 
 
-	public abstract class OnSwipeTouchListener implements View.OnTouchListener {
+    private void updateNextButtonIfNeeded() {
+        if (!mProgress.hasNextStep())
+            mForwardFinishButton.setImageResource(R.drawable.ic_ok);
+        else
+            mForwardFinishButton.setImageResource(R.drawable.ic_menu_forward);
+    }
 
-		private final GestureDetector gestureDetector;
+    private void handleMoveToNext() {
+        if (mProgress.hasNextStep()) {
+            mProgress.animateToNextStep();
+            mContentPanel.animate().x(-mContentPanel.getChildAt(++mCurrentStep).getLeft());
+            updateNextButtonIfNeeded();
+        }
+    }
 
-		public OnSwipeTouchListener(Context context) {
-			gestureDetector = new GestureDetector(context, new GestureListener());
-		}
+    private void handleMoveToPrev() {
+        if (mProgress.hasPrevStep()) {
+            mProgress.animateToPrevStep();
+            mContentPanel.animate().x(-mContentPanel.getChildAt(--mCurrentStep).getLeft());
+            updateNextButtonIfNeeded();
+        }
+    }
 
-		abstract public void onSwipeLeft();
+    private void onFinish() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt(KEY_LAST_SEEN_VERSION_CODE, BuildConfig.VERSION_CODE);
+        editor.apply();
+    }
 
-		abstract public void onSwipeRight();
+    private int getScreenWidth() {
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        return dm.widthPixels;
+    }
 
-		public boolean onTouch(View v, MotionEvent event) {
-			return gestureDetector.onTouchEvent(event);
-		}
+    static private int getLastSeenVersionCode() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
+        return pref.getInt(KEY_LAST_SEEN_VERSION_CODE, 0);
+    }
 
-		private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+    static private boolean isFirstRun() {
+        if (getLastSeenVersionCode() != 0)
+            return false;
+        return AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()) == null;
 
-			private static final int SWIPE_DISTANCE_THRESHOLD = 100;
-			private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+    }
 
-			@Override
-			public boolean onDown(MotionEvent e) { return true; }
+    static public void runIfNeeded(Context context) {
+        if (context instanceof WhatsNewActivity)
+            return;
 
-			@Override
-			public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-				final float distanceX = e2.getX() - e1.getX();
-				final float distanceY = e2.getY() - e1.getY();
-				if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-					if (distanceX > 0)
-						onSwipeRight();
-					else
-						onSwipeLeft();
-					return true;
-				}
-				return false;
-			}
-		}
-	}
+        if (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun()).length > 0)
+            context.startActivity(new Intent(context, WhatsNewActivity.class));
+    }
+
+
+    public abstract class OnSwipeTouchListener implements View.OnTouchListener {
+
+        private final GestureDetector gestureDetector;
+
+        public OnSwipeTouchListener(Context context) {
+            gestureDetector = new GestureDetector(context, new GestureListener());
+        }
+
+        abstract public void onSwipeLeft();
+
+        abstract public void onSwipeRight();
+
+        public boolean onTouch(View v, MotionEvent event) {
+            return gestureDetector.onTouchEvent(event);
+        }
+
+        private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+            private static final int SWIPE_DISTANCE_THRESHOLD = 100;
+            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+            @Override
+            public boolean onDown(MotionEvent e) { return true; }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                final float distanceX = e2.getX() - e1.getX();
+                final float distanceY = e2.getY() - e1.getY();
+                if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (distanceX > 0)
+                        onSwipeRight();
+                    else
+                        onSwipeLeft();
+                    return true;
+                }
+                return false;
+            }
+        }
+    }
 
 }
