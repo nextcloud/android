@@ -22,6 +22,7 @@
 package com.owncloud.android.features;
 
 import com.owncloud.android.BuildConfig;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -43,8 +44,8 @@ public class FeatureList {
 			new FeatureItem(R.drawable.logo, R.string.welcome_feature_2_title,  R.string.welcome_feature_2_text, "1.0.0", SHOW_ON_FIRST_RUN),
 			new FeatureItem(R.drawable.logo, R.string.welcome_feature_3_title,  R.string.welcome_feature_3_text, "1.0.0", SHOW_ON_FIRST_RUN),
 			new FeatureItem(R.drawable.logo, R.string.welcome_feature_4_title,  R.string.welcome_feature_4_text, "1.0.0", SHOW_ON_FIRST_RUN),
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_5_title,  FeatureItem.DO_NOT_SHOW, "1.0.0", SHOW_ON_FIRST_RUN),
-	};
+			new FeatureItem(R.drawable.logo, R.string.welcome_feature_5_title,  FeatureItem.DO_NOT_SHOW, "1.0.0", SHOW_ON_FIRST_RUN)
+    };
 
 
 	static public FeatureItem[] get() {
@@ -52,13 +53,13 @@ public class FeatureList {
 	}
 
 	static public FeatureItem[] getFiltered(final int lastSeenVersionCode, final boolean isFirstRun) {
-		List<FeatureItem> features = new LinkedList<FeatureItem>();
+		List<FeatureItem> features = new LinkedList<>();
 
 		for (FeatureItem item : get()) {
 			if (isFirstRun && item.shouldShowOnFirstRun()) {
 				features.add(item);
 			} else if (!isFirstRun && !item.shouldShowOnFirstRun() &&
-					BuildConfig.VERSION_CODE >= item.getVersionNumber() &&
+					MainApp.getVersionCode() >= item.getVersionNumber() &&
 					lastSeenVersionCode < item.getVersionNumber()) {
 				features.add(item);
 			}

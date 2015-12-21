@@ -39,7 +39,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -178,7 +177,7 @@ public class WhatsNewActivity extends Activity {
     private void onFinish() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putInt(KEY_LAST_SEEN_VERSION_CODE, BuildConfig.VERSION_CODE);
+        editor.putInt(KEY_LAST_SEEN_VERSION_CODE, MainApp.getVersionCode());
         editor.apply();
     }
 
