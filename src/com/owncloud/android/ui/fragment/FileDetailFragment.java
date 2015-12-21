@@ -32,6 +32,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -47,14 +48,17 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 
 /**
@@ -62,18 +66,22 @@ import java.lang.ref.WeakReference;
  */
 public class FileDetailFragment extends FileFragment implements OnClickListener {
 
-    private int mLayout;
-    private View mView;
-    private Account mAccount;
-
-    public ProgressListener mProgressListener;
-
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
     public static final String FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT";
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
+
+    private int mLayout;
+    private View mView;
+    private Account mAccount;
+
+    public ProgressListener mProgressListener;
+
+    // to show share with users/groups info
+    private ArrayList<OCShare> mShares;
+    private UserListAdapter mUserGroupsAdapter = null;
 
 
     /**
@@ -342,7 +350,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             setTimeModified(file.getModificationTimestamp());
             
             Switch favSwitch = (Switch) getView().findViewById(R.id.fdFavorite);
-            favSwitch.setChecked(file.isFavorite());
+            favSwitch.setActivated(file.isFavorite());
+
+            setShareByLinkInfo(file.isSharedViaLink());
+
+            setShareWithUserInfo();
 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
@@ -481,6 +493,70 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
     }
 
+    /**
+     * Updates the creation time of the file
+     *
+     * @param milliseconds Unix time to set
+     */
+    private void setTimeCreated(long milliseconds) {
+        TextView tv = (TextView) getView().findViewById(R.id.fdCreated);
+        if (tv != null) {
+            tv.setText(DisplayUtils.unixTimeToHumanReadable(milliseconds));
+        }
+    }
+
+    /**
+     * Updates Share by link data
+     * @param isShareByLink
+     */
+    private void setShareByLinkInfo(boolean isShareByLink) {
+        TextView tv = (TextView) getView().findViewById(R.id.fdSharebyLink);
+        if (tv != null) {
+            tv.setText(isShareByLink ? R.string.filedetails_share_link_enable :
+                    R.string.filedetails_share_link_disable);
+        }
+    }
+
+    /**
+     * Update Share With data
+     */
+    private void setShareWithUserInfo(){
+        // Get Users and Groups
+        if (((FileActivity) getActivity()).getStorageManager() != null) {
+            FileDataStorageManager fileDataStorageManager = ((FileActivity) getActivity()).getStorageManager();
+            mShares =fileDataStorageManager.getSharesWithForAFile(
+                    getFile().getRemotePath(),mAccount.name
+            );
+
+            // Update list of users/groups
+            updateListOfUserGroups();
+        }
+    }
+
+    private void updateListOfUserGroups() {
+        // Update list of users/groups
+        // TODO Refactoring: create a new {@link ShareUserListAdapter} instance with every call should not be needed
+        mUserGroupsAdapter = new UserListAdapter(
+                getActivity().getApplicationContext(),
+                R.layout.share_user_item, mShares
+        );
+
+        // Show data
+        ListView usersList = (ListView) getView().findViewById(R.id.fdshareUsersList);
+
+        // No data
+        TextView noList = (TextView) getView().findViewById(R.id.fdShareNoUsers);
+
+        if (mShares.size() > 0) {
+            usersList.setVisibility(View.VISIBLE);
+            usersList.setAdapter(mUserGroupsAdapter);
+            noList.setVisibility(View.GONE);
+
+        } else {
+            usersList.setVisibility(View.GONE);
+            noList.setVisibility(View.VISIBLE);
+        }
+    }
     /**
      * Enables or disables buttons for a file being downloaded
      */
