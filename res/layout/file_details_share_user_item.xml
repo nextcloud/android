@@ -16,30 +16,21 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="1"
-        android:longClickable="true">
+        android:weightSum="1">
 
         <ImageView
             android:id="@+id/userIcon"
-            android:layout_width="24sp"
-            android:layout_height="24sp"
-            android:layout_marginLeft="16sp"
-            android:layout_gravity="center_vertical"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
             android:src="@drawable/ic_account_circle_dark"
-            />
+            android:layout_gravity="center_vertical"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.9"
             android:textSize="16dip"
             android:text="@string/username"
             android:id="@+id/userOrGroupName"
@@ -47,10 +38,4 @@
             android:singleLine="true"
             android:ellipsize="middle"
             android:textColor="@color/owncloud_blue"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/list_divider_background"></View>
 </LinearLayout>
