@@ -33,6 +33,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -527,7 +528,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         // Get Users and Groups
         if (((FileActivity) getActivity()).getStorageManager() != null) {
             FileDataStorageManager fileDataStorageManager = ((FileActivity) getActivity()).getStorageManager();
-            mShares =fileDataStorageManager.getSharesWithForAFile(
+            mShares = fileDataStorageManager.getSharesWithForAFile(
                     getFile().getRemotePath(),mAccount.name
             );
 
@@ -554,12 +555,37 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             usersList.setVisibility(View.VISIBLE);
             usersList.setAdapter(mUserGroupsAdapter);
             noList.setVisibility(View.GONE);
+            setListViewHeightBasedOnChildren(usersList);
 
         } else {
             usersList.setVisibility(View.GONE);
             noList.setVisibility(View.VISIBLE);
         }
     }
+
+    /* Fix scroll in listview when the parent is ac ScrollView */
+    private static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0) {
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
+
     /**
      * Enables or disables buttons for a file being downloaded
      */
