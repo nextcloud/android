@@ -1,3 +1,10 @@
+# 2015-12-22
+- always show log in navigation drawer
+
+# 2015-12-20
+- update all PR
+- added fix_NPE_in_instant_uploads
+
 # 2015-12-13
 - update all PR
 
