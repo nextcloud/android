@@ -399,8 +399,8 @@ public class FileActivity extends AppCompatActivity
         mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2], mDrawerContentDescriptions[2],
                 R.drawable.ic_action_settings));
         // Logs
-            mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[3],
-                    mDrawerContentDescriptions[3],R.drawable.ic_log));
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[3], mDrawerContentDescriptions[3],
+                R.drawable.ic_log));
 
         // setting the nav drawer list adapter
         mNavigationDrawerAdapter = new NavigationDrawerListAdapter(getApplicationContext(), this,
