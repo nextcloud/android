@@ -519,6 +519,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             tv.setText(isShareByLink ? R.string.filedetails_share_link_enable :
                     R.string.filedetails_share_link_disable);
         }
+        ImageView linkIcon = (ImageView) getView().findViewById(R.id.fdShareLinkIcon);
+        if (linkIcon != null) {
+            linkIcon.setVisibility(isShareByLink ? View.VISIBLE : View.GONE);
+        }
     }
 
     /**

@@ -222,8 +222,7 @@
                             android:gravity="center"
                             android:layout_marginTop="12dp"
                             android:layout_marginBottom="12dp"
-                            android:orientation="horizontal"
-                            >
+                            android:orientation="horizontal">
 
                             <ProgressBar
                                 android:id="@+id/fdProgressBar"
@@ -250,7 +249,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_margin = "5dp"
+                    android:layout_margin ="5dp"
                     android:background="@color/list_divider_background"/>
 
                 <LinearLayout
@@ -266,14 +265,28 @@
                         android:textSize="16sp"
                         android:text="@string/action_share"
                         android:layout_gravity="start"/>
-                    <TextView
-                        android:id="@+id/fdSharebyLink"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:text="@string/filedetails_share_link_disable"
-                        android:layout_gravity="start"
-                        android:padding="8dp"/>
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+                        <ImageView
+                            android:id="@+id/fdShareLinkIcon"
+                            android:layout_width="14sp"
+                            android:layout_height="14sp"
+                            android:src="@drawable/shared_via_link"
+                            android:layout_gravity="center_vertical"
+                            android:visibility="gone"
+                            android:layout_marginRight="8dp"/>
+                        <TextView
+                            android:id="@+id/fdSharebyLink"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="@string/filedetails_share_link_disable"
+                            android:layout_gravity="start"/>
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/fdShareWithUsersTitle"
                         android:layout_width="match_parent"
@@ -281,8 +294,7 @@
                         android:textSize="16sp"
                         android:text="@string/filedetails_share_users_with_access"
                         android:layout_gravity="start"
-                        android:layout_marginTop="12dp"/>
-
+                        android:layout_marginTop="8dp"/>
                     <ListView
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
@@ -295,7 +307,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/fdShareNoUsers"
                         android:text="@string/share_no_users"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:padding="12dp" />
 
                 </LinearLayout>
