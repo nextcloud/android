@@ -595,7 +595,7 @@ public class Preferences extends PreferenceActivity
             });
         }
 
-        /* Link to Beta apks */
+        /* Link to beta changelog */
         Preference pChangelogLink =  findPreference("changelog_link");
         if (pChangelogLink != null) {
             pChangelogLink.setOnPreferenceClickListener(new OnPreferenceClickListener() {
