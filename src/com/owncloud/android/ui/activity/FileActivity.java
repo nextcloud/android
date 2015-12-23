@@ -74,6 +74,7 @@ import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
+import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
@@ -104,7 +105,6 @@ public class FileActivity extends AppCompatActivity
 
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String DIALOG_SHARE_PASSWORD = "DIALOG_SHARE_PASSWORD";
-    private static final String KEY_TRY_SHARE_AGAIN = "TRY_SHARE_AGAIN";
     private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
 
     protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
@@ -753,7 +753,8 @@ public class FileActivity extends AppCompatActivity
                 operation instanceof CreateShareWithShareeOperation ||
                 operation instanceof UnshareOperation ||
                 operation instanceof SynchronizeFolderOperation ||
-                operation instanceof UpdateShareViaLinkOperation
+                operation instanceof UpdateShareViaLinkOperation ||
+                operation instanceof UpdateSharePermissionsOperation
                 ) {
             if (result.isSuccess()) {
                 updateFileFromDB();

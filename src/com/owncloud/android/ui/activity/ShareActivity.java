@@ -34,6 +34,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.UnshareOperation;
+import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -201,6 +202,10 @@ public class ShareActivity extends FileActivity
         if (operation instanceof UnshareOperation && result.isSuccess() && getEditShareFragment() != null) {
             getSupportFragmentManager().popBackStack();
         }
+
+        if (operation instanceof UpdateSharePermissionsOperation && getEditShareFragment() != null) {
+            getEditShareFragment().onUpdateSharePermissionsFinished(result);
+        }
     }
 
 
@@ -222,6 +227,7 @@ public class ShareActivity extends FileActivity
                 searchShareesFragment.isAdded()) {  // only if added to the view hierarchy!!
             searchShareesFragment.refreshUsersOrGroupsListFromDB();
         }
+
     }
 
     /**

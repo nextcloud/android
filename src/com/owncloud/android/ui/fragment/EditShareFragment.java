@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
@@ -142,13 +143,19 @@ public class EditShareFragment extends Fragment {
      * @param editShareView     Root view in the fragment.
      */
     private void initPrivileges(View editShareView) {
-        mOnPrivilegeChangeListener = new OnPrivilegeChangeListener();
+        boolean setListener = false;
+        if (mOnPrivilegeChangeListener == null) {
+            mOnPrivilegeChangeListener = new OnPrivilegeChangeListener();
+            setListener = true;
+        }
         int sharePermissions = mShare.getPermissions();
         CheckBox checkBox;
 
         checkBox = (CheckBox) editShareView.findViewById(R.id.canShareCheckBox);
         checkBox.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
-        checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+        if (setListener) {
+            checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+        }
 
         checkBox = (CheckBox) editShareView.findViewById(R.id.canEditCheckBox);
         int anyUpdatePermission =
@@ -158,7 +165,9 @@ public class EditShareFragment extends Fragment {
                 ;
         boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
         checkBox.setChecked(canEdit);
-        checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+        if (setListener) {
+            checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+        }
 
         if (mFile.isFolder()) {
             checkBox = (CheckBox) editShareView.findViewById(R.id.canEditCreateCheckBox);
@@ -166,24 +175,46 @@ public class EditShareFragment extends Fragment {
                 checkBox.setVisibility(View.VISIBLE);
                 checkBox.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
             }
-            checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+            if (setListener) {
+                checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+            }
 
             checkBox = (CheckBox) editShareView.findViewById(R.id.canEditChangeCheckBox);
             if (canEdit) {
                 checkBox.setVisibility(View.VISIBLE);
                 checkBox.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
             }
-            checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+            if (setListener) {
+                checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+            }
 
             checkBox = (CheckBox) editShareView.findViewById(R.id.canEditDeleteCheckBox);
             if (canEdit) {
                 checkBox.setVisibility(View.VISIBLE);
                 checkBox.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
             }
-            checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+            if (setListener) {
+                checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+            }
 
         }   // else, trust in visibility GONE in R.layout.edit_share_layout
 
+    }
+
+    /**
+     * Called when an operation to update share permissions finished.
+     * s
+     * @param result        Result of the update operation
+     */
+    public void onUpdateSharePermissionsFinished(RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            getFragmentManager().popBackStack();
+
+        } else {
+            if (getView() != null) {
+                initPrivileges(getView());
+            }
+        }
     }
 
 
