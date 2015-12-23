@@ -352,14 +352,15 @@ public class OCFileListFragment extends ExtendedListFragment {
                 }
 
                 // TODO maybe change: only recreate menu if count changes
-                menu.clear();
-                if (checkedCount == 1) {
-                    createContextMenu(menu);
-                } else {
-                    // download, move, copy, delete
-                    getActivity().getMenuInflater().inflate(R.menu.multiple_file_actions_menu, menu);
+                if (menu != null) {
+                    menu.clear();
+                    if (checkedCount == 1) {
+                        createContextMenu(menu);
+                    } else {
+                        // download, move, copy, delete
+                        getActivity().getMenuInflater().inflate(R.menu.multiple_file_actions_menu, menu);
+                    }
                 }
-
             }
 
             @Override
