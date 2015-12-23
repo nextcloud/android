@@ -88,7 +88,12 @@ public class OCFileListFragment extends ExtendedListFragment
     private OCFile mTargetFile;
     
    
-    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -211,6 +216,11 @@ public class OCFileListFragment extends ExtendedListFragment
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(KEY_FILE, mFile);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu (Menu menu) {
+        changeGridIcon(menu);   // this is enough if the option stays out of the action bar
     }
 
     /**
@@ -340,7 +350,6 @@ public class OCFileListFragment extends ExtendedListFragment
 //            String.format(mContext.getString(R.string.subject_token),
 //                    getClient().getCredentials().getUsername(), file.getFileName()));
 
-            changeGridIcon(menu, targetFile);
         }
     }
 
@@ -640,9 +649,9 @@ public class OCFileListFragment extends ExtendedListFragment
         }
     }
 
-    private void changeGridIcon(ContextMenu menu, OCFile targetFile){
+    private void changeGridIcon(Menu menu){
         MenuItem menuItem = menu.findItem(R.id.action_switch_view);
-        if (isGridViewPreferred(targetFile)){
+        if (isGridViewPreferred(mFile)){
             menuItem.setTitle(getString(R.string.action_switch_list_view));
             menuItem.setIcon(R.drawable.ic_view_list);
         } else {
