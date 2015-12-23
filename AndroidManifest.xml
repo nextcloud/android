@@ -62,7 +62,7 @@
         <activity android:name=".ui.activity.LocalDirectorySelectorActivity" />
         <activity android:name=".ui.activity.StorageMigrationActivity" />
         <activity android:name=".ui.activity.Uploader"
-            android:label="@string/uploader_top_message"
+            android:label="@string/app_name"
             android:theme="@style/Theme.ownCloud">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
