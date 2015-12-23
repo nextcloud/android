@@ -28,8 +28,10 @@ import android.os.Environment;
 import com.owncloud.android.R;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Bartosz Przybylski
@@ -49,30 +51,24 @@ public class DataStorageUtils {
 	}
 
 	static public Storage[] getAvailableStoragePoints(Context context) {
-		// Android 6.0 and later changed some internal implementation of accessing storage
-		// so for now we return only single path named "external"
-		// TODO(przybylski): add 6.0 code
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
-			return new Storage[] {
-				new Storage(context.getString(R.string.storage_description_external),
-						    Environment.getExternalStorageDirectory().getAbsolutePath())
-			};
-		}
+        List<Storage> result = new ArrayList<>();
 
-		List<Storage> list = new ArrayList<>();
+        String storagePath = Environment.getExternalStorageDirectory().getPath();
+        if (canBeAddedToAvailableList(result, storagePath))
+            result.add(new Storage(context.getString(R.string.storage_description_default),
+                    storagePath));
 
-		String storagePath = Environment.getExternalStorageDirectory().getPath();
-		if (canBeAddedToAvailableList(storagePath))
-			list.add(new Storage(context.getString(R.string.storage_description_external),
-					 			 storagePath));
 
-		storagePath = System.getenv("SECONDARY_STORAGE"); // : separated paths to sd cards
-		list.addAll(getSDCardStorage(storagePath, context));
+        int cardNo = 1;
 
-		return list.toArray(new Storage[list.size()]);
+        for (String potentialPath : getPotentialPaths(getMountedResources()))
+            if (canBeAddedToAvailableList(result, potentialPath))
+                result.add(new Storage(constructSDCardName(context, cardNo++), potentialPath));
+
+        return result.toArray(new Storage[result.size()]);
 	}
 
-	static public String getStorageDescriptionByPath(String path, Context context) {
+	public static String getStorageDescriptionByPath(String path, Context context) {
 		Storage[] storages = getAvailableStoragePoints(context);
 		for (Storage s : storages) {
 			if (s.getPath().equals(path))
@@ -81,24 +77,47 @@ public class DataStorageUtils {
 		return context.getString(R.string.storage_description_unknown);
 	}
 
-	private static List<Storage> getSDCardStorage(String storagePath, Context context) {
-		if (storagePath == null) return new ArrayList<>();
+    private static String constructSDCardName(Context context, int no) {
+        return context.getString(R.string.storage_description_sd_no, no);
+    }
 
-		String[] paths = storagePath.split(":");
-		List<Storage> list = new ArrayList<>();
-		if (paths.length == 1)
-			list.add(new Storage(context.getString(R.string.storage_description_sd), paths[0]));
-		else
-			for (int i = 0; i < paths.length; ++i) {
-				if (canBeAddedToAvailableList(paths[i]))
-					list.add(new Storage(context.getString(R.string.storage_description_sd_no, i+1),
-							paths[i]));
-			}
-		return list;
-	}
+    private static String getMountedResources() {
+        String s = "";
+        try {
+            final Process process = new ProcessBuilder().command("mount")
+                    .redirectErrorStream(true).start();
 
-	private static boolean canBeAddedToAvailableList(String path) {
+            process.waitFor();
+            final InputStream is = process.getInputStream();
+            final byte buffer[] = new byte[1024];
+            while (is.read(buffer) != -1)
+                s += new String(buffer);
+            is.close();
+        } catch (final Exception e) { }
+        return s;
+    }
+
+    private static String[] getPotentialPaths(String mounted) {
+        final List<String> result = new ArrayList<String>();
+        final String reg = "(?i).*vold.*(vfat|ntfs|exfat|fat32|ext3|ext4).*rw.*";
+
+        for (String line : mounted.split("\n"))
+            if (!line.toLowerCase(Locale.US).contains("asec") && line.matches(reg)) {
+                    String parts[] = line.split(" ");
+                    for (String path : parts) {
+                        if (path.startsWith("/") &&
+                                !path.toLowerCase(Locale.US).contains("vold"))
+                            result.add(path);
+                    }
+            }
+        return result.toArray(new String[result.size()]);
+    }
+
+	private static boolean canBeAddedToAvailableList(List<Storage> currentList, String path) {
 		if (path == null) return false;
+        for (Storage storage : currentList)
+            if (storage.getPath().equals(path))
+                return false;
 		File f = new File(path);
 		return f.exists() && f.isDirectory();
 	}
