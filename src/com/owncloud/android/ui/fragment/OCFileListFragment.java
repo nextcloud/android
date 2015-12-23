@@ -37,7 +37,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.PopupMenu;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -68,7 +67,7 @@ import java.io.File;
  */
 public class OCFileListFragment extends ExtendedListFragment
         implements FileActionsDialogFragment.FileActionsDialogFragmentListener {
-    
+
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
     private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
@@ -79,14 +78,16 @@ public class OCFileListFragment extends ExtendedListFragment
 
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
 
+    private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
+
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile = null;
     private FileListListAdapter mAdapter;
     private boolean mJustFolders;
-    
+
     private OCFile mTargetFile;
-    
+
    
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,7 +111,7 @@ public class OCFileListFragment extends ExtendedListFragment
         }
         try {
             setOnRefreshListener((OnEnforceableRefreshListener) activity);
-            
+
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " +
                     SwipeRefreshLayout.OnRefreshListener.class.getSimpleName());
@@ -334,11 +335,11 @@ public class OCFileListFragment extends ExtendedListFragment
                 );
                 mf.filter(menu);
             }
-                 
+
             /// TODO break this direct dependency on FileDisplayActivity... if possible
             MenuItem item = menu.findItem(R.id.action_open_file_with);
             FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
-            if (frag != null && frag instanceof FileDetailFragment && 
+            if (frag != null && frag instanceof FileDetailFragment &&
                     frag.getFile().getFileId() == targetFile.getFileId()) {
                 item = menu.findItem(R.id.action_see_details);
                 if (item != null) {
@@ -429,7 +430,7 @@ public class OCFileListFragment extends ExtendedListFragment
                 return false;
         }
     }
-    
+
     /**
      * {@inhericDoc}
      */
@@ -464,7 +465,7 @@ public class OCFileListFragment extends ExtendedListFragment
         // TODO Enable when "On Device" is recovered ?
         // listDirectory(null, onlyOnDevice);
     }
-    
+
     public void refreshDirectory(){
         // TODO Enable when "On Device" is recovered ?
         listDirectory(getCurrentFile()/*, MainApp.getOnlyOnDevice()*/);
@@ -610,8 +611,10 @@ public class OCFileListFragment extends ExtendedListFragment
             String parentPath = null;
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
 
-            SharedPreferences setting = MainApp.getAppContext().getSharedPreferences(
-                    "viewMode", Context.MODE_PRIVATE);
+            SharedPreferences setting =
+                    getActivity().getSharedPreferences(
+                            GRID_IS_PREFERED_PREFERENCE, Context.MODE_PRIVATE
+                    );
 
             if (setting.contains(String.valueOf(fileToTest.getFileId()))) {
                 return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
@@ -659,4 +662,26 @@ public class OCFileListFragment extends ExtendedListFragment
             menuItem.setIcon(R.drawable.ic_view_module);
         }
     }
+
+    public void setListAsPreferred() {
+        saveGridAsPreferred(false);
+        switchToListView();
+    }
+
+    public void setGridAsPreferred() {
+        saveGridAsPreferred(true);
+        switchToGridView();
+    }
+
+    private void saveGridAsPreferred(boolean setGrid){
+        SharedPreferences setting = getActivity().getSharedPreferences(
+                GRID_IS_PREFERED_PREFERENCE, Context.MODE_PRIVATE
+        );
+
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putBoolean(String.valueOf(mFile.getFileId()), setGrid);
+        editor.apply();
+    }
+
+
 }
