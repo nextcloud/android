@@ -446,9 +446,7 @@ public class PreviewMediaFragment extends FileFragment implements
             mUri = getFile().getStoragePath();
         } else {
             Context context = MainApp.getAppContext();
-            Account account = mContainerActivity.getStorageManager().getAccount();
-
-            mUri = generateUrlWithCredentials(account, context, getFile());
+            mUri = generateUrlWithCredentials(mAccount, context, getFile());
         }
 
         mVideoPreview.setVideoPath(mUri);
