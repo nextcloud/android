@@ -570,17 +570,15 @@ public class FileDisplayActivity extends HookActivity
             }
             case R.id.action_switch_view:{
                 if (isGridView()){
-                    item.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
+                    item.setTitle(getString(R.string.action_switch_grid_view));
                     item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
                             R.drawable.ic_view_module));
-                    setViewMode(getFile(), false);
-                    switchToListView();
+                    getListOfFilesFragment().setListAsPreferred();
                 } else {
                     item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
                     item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
                             R.drawable.ic_view_list));
-                    setViewMode(getFile(), true);
-                    switchToGridView();
+                    getListOfFilesFragment().setGridAsPreferred();
                 }
 
                 return true;
@@ -589,15 +587,6 @@ public class FileDisplayActivity extends HookActivity
             retval = super.onOptionsItemSelected(item);
         }
         return retval;
-    }
-
-    public void setViewMode(OCFile file, boolean setGrid){
-        SharedPreferences setting = MainApp.getAppContext().getSharedPreferences(
-                "viewMode", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = setting.edit();
-        editor.putBoolean(String.valueOf(file.getFileId()), setGrid);
-        editor.commit();
     }
 
     private void startSynchronization() {
@@ -1841,12 +1830,6 @@ public class FileDisplayActivity extends HookActivity
         getListOfFilesFragment().sortByName(ascending);
     }
     private boolean isGridView(){ return getListOfFilesFragment().isGridView(); }
-    private void switchToGridView() {
-        getListOfFilesFragment().switchToGridView();
-    }
-    private void switchToListView() {
-        getListOfFilesFragment().switchToListView();
-    }
 
    public void allFilesOption() {
        browseToRoot();
