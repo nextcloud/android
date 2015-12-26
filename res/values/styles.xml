@@ -68,13 +68,13 @@
 	</style>
 
 	<style name="Button" parent="Base.Widget.AppCompat.Button">
-		<item name="colorButtonNormal">@color/secondary_button_color</item>
-		<item name="android:textColor">@color/color_accent</item>
+		<item name="colorButtonNormal">@color/secondary_button_background_color</item>
+		<item name="android:textColor">@color/secondary_button_text_color</item>
 	</style>
 
 	<style name="Button.Primary" parent="Button">
-		<item name="colorButtonNormal">@color/primary_button_color</item>
-		<item name="android:textColor">@color/white</item>
+		<item name="colorButtonNormal">@color/primary_button_background_color</item>
+		<item name="android:textColor">@color/primary_button_text_color</item>
 	</style>
 
 	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
