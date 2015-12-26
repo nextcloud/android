@@ -78,8 +78,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     private boolean mIsDownloading;
 
-    private boolean mShowGridView;
-
     private String mEtagInConflict;    // Save file etag in the server, when there is a conflict. No conflict =  null
 
     private boolean mShareWithSharee;

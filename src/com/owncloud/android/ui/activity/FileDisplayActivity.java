@@ -321,8 +321,6 @@ public class FileDisplayActivity extends HookActivity
                     startTextPreview(file);
             }
 
-            switchLayout(getFile());
-
         } else {
             Log_OC.wtf(TAG, "initFragments() called with invalid NULLs!");
             if (getAccount() == null) {
@@ -331,14 +329,6 @@ public class FileDisplayActivity extends HookActivity
             if (getFile() == null) {
                 Log_OC.wtf(TAG, "\t file is NULL");
             }
-        }
-    }
-
-    private void switchLayout(OCFile file){
-        if (DisplayUtils.isGridView(file, getStorageManager())){
-            switchToGridView();
-        } else {
-            switchToListView();
         }
     }
 
@@ -496,7 +486,7 @@ public class FileDisplayActivity extends HookActivity
         menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
         menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
-        
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -504,13 +494,6 @@ public class FileDisplayActivity extends HookActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-        menu.findItem(R.id.action_create_dir).setVisible(false);
-        mOptionsMenu = menu;
-
-        MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
-
-        changeGridIcon();
-
         return true;
     }
     
@@ -567,17 +550,15 @@ public class FileDisplayActivity extends HookActivity
             }
             case R.id.action_switch_view:{
                 if (isGridView()){
-                    item.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
+                    item.setTitle(getString(R.string.action_switch_grid_view));
                     item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
                             R.drawable.ic_view_module));
-                    DisplayUtils.setViewMode(getFile(), false);
-                    switchToListView();
+                    getListOfFilesFragment().setListAsPreferred();
                 } else {
                     item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
                     item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
                             R.drawable.ic_view_list));
-                    DisplayUtils.setViewMode(getFile(), true);
-                    switchToGridView();
+                    getListOfFilesFragment().setGridAsPreferred();
                 }
 
                 return true;
@@ -871,20 +852,6 @@ public class FileDisplayActivity extends HookActivity
                 setFile(listOfFiles.getCurrentFile());
             }
             cleanSecondFragment();
-            changeGridIcon();
-        }
-    }
-
-    private void changeGridIcon(){
-        MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
-        if (DisplayUtils.isGridView(getFile(), getStorageManager())){
-            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-            menuItem.setIcon(ContextCompat.getDrawable(getApplicationContext(),
-                    R.drawable.ic_view_list));
-        } else {
-            menuItem.setTitle(getApplicationContext().getString(R.string.action_switch_grid_view));
-            menuItem.setIcon(ContextCompat.getDrawable(getApplicationContext(),
-                    R.drawable.ic_view_module));
         }
     }
 
@@ -1302,11 +1269,6 @@ public class FileDisplayActivity extends HookActivity
         cleanSecondFragment();
         // Sync Folder
         startSyncFolderOperation(directory, false);
-
-        MenuItem menuItem = mOptionsMenu.findItem(R.id.action_switch_view);
-
-        changeGridIcon();
-        switchLayout(directory);
     }
 
     /**
@@ -1903,12 +1865,6 @@ public class FileDisplayActivity extends HookActivity
         getListOfFilesFragment().sortByName(ascending);
     }
     private boolean isGridView(){ return getListOfFilesFragment().isGridView(); }
-    private void switchToGridView() {
-        getListOfFilesFragment().switchToGridView();
-    }
-    private void switchToListView() {
-        getListOfFilesFragment().switchToListView();
-    }
 
    public void allFilesOption() {
        browseToRoot();
