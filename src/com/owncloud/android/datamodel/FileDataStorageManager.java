@@ -153,11 +153,11 @@ public class FileDataStorageManager {
 
 
     public Vector<OCFile> getFolderImages(OCFile folder, boolean onlyOnDevice) {
-        Vector<OCFile> ret = new Vector<OCFile>(); 
+        Vector<OCFile> ret = new Vector<OCFile>();
         if (folder != null) {
             // TODO better implementation, filtering in the access to database instead of here
             Vector<OCFile> tmp = getFolderContent(folder, onlyOnDevice);
-            OCFile current = null; 
+            OCFile current = null;
             for (int i=0; i<tmp.size(); i++) {
                 current = tmp.get(i);
                 if (current.isImage()) {
@@ -779,7 +779,7 @@ public class FileDataStorageManager {
         }
     }
 
-    
+
     private Vector<OCFile> getFolderContent(long parentId, boolean onlyOnDevice) {
 
         Vector<OCFile> ret = new Vector<OCFile>();
@@ -1561,7 +1561,7 @@ public class FileDataStorageManager {
             String [] whereArgs = new String[]{ "", mAccount.name };
 
             Vector<OCFile> files = getFolderContent(folder, false);
-            
+
             for (OCFile file : files) {
                 whereArgs[0] = file.getRemotePath();
                 preparedOperations.add(

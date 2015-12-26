@@ -25,6 +25,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -38,6 +39,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.ExceptionHandler;
+import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.Preferences;
 
 
@@ -71,7 +73,7 @@ public class MainApp extends Application {
 
         // Setup handler for uncaught exceptions.
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
-        
+
 
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -158,7 +160,7 @@ public class MainApp extends Application {
         MainApp.storagePath = path;
     }
 
-    // Methods to obtain Strings referring app_name 
+    // Methods to obtain Strings referring app_name
     //   From AccountAuthenticator 
     //   public static final String ACCOUNT_TYPE = "owncloud";    
     public static String getAccountType() {

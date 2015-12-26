@@ -40,6 +40,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -60,7 +62,6 @@
         </activity>
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.LocalDirectorySelectorActivity" />
-        <activity android:name=".ui.activity.StorageMigrationActivity" />
         <activity android:name=".ui.activity.Uploader"
             android:label="@string/app_name"
             android:theme="@style/Theme.ownCloud">
@@ -176,7 +177,7 @@
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
-        
+
         <activity android:name=".ui.activity.LogHistoryActivity"/>
         <activity android:name=".ui.activity.ErrorReportActivity"/>
 

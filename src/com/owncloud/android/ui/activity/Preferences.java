@@ -261,11 +261,11 @@ public class Preferences extends PreferenceActivity
                                     PassCodeActivity.ACTION_CHECK_WITH_RESULT
                     );
                     startActivity(i);
-                    
+
                     return true;
                 }
-            });            
-            
+            });
+
         }
 
         final Preference pCacheSize = findPreference("pref_cache_size");
@@ -525,7 +525,7 @@ public class Preferences extends PreferenceActivity
 
         /* About App */
        pAboutApp = findPreference("about_app");
-       if (pAboutApp != null) { 
+       if (pAboutApp != null) {
                pAboutApp.setTitle(String.format(getString(R.string.about_android),
                                                 getString(R.string.app_name)));
            try {
@@ -1022,10 +1022,7 @@ public class Preferences extends PreferenceActivity
      * Load upload video path set on preferences
      */
     private void loadInstantUploadVideoPath() {
-        SharedPreferences appPrefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mUploadVideoPath = appPrefs.getString("instant_video_upload_path", getString(R.string.instant_upload_path));
-        mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
+        mPrefInstantVideoUploadPath.setSummary(MainApp.getStoragePath());
     }
 
     /**

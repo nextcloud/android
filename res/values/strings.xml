@@ -417,6 +417,8 @@
     <string name="set_as">Set As</string>
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
+    <string name="prefs_storage_path">Storage path</string>
+    <string name="prefs_common">Common</string>
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_with_user_section_title">Share with users and groups</string>
@@ -437,11 +439,12 @@
         \nPlease contact your administrator</string>
     <string name="changelog">https://github.com/owncloud/android/raw/beta/CHANGELOG.md</string>
 
-    <string name="storage_description_external">External</string>
-    <string name="storage_description_sd">SD card</string>
+    <string name="storage_description_default">Default</string>
     <string name="storage_description_sd_no">SD card %1$d</string>
     <string name="storage_description_unknown">Unknown</string>
 
     <string name="action_switch_grid_view">Switch to grid view</string>
     <string name="action_switch_list_view">Switch to list view</string>
+
+
 </resources>
