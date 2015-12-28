@@ -29,6 +29,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -43,6 +44,7 @@ import android.os.BatteryManager;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
+import android.support.v4.content.ContextCompat;
 import android.webkit.MimeTypeMap;
 
 
@@ -97,6 +99,15 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         }
 
         String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE };
+
+        int permissionCheck = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (android.content.pm.PackageManager.PERMISSION_GRANTED != permissionCheck) {
+            Log_OC.w(TAG, "Read external storage permission isn't granted, aborting");
+            return;
+        }
+
         Uri contentUri = intent.getData();
         if (contentUri == null) {
             Log_OC.e(TAG, "Unexpected NULL URI in Intent: " + intent.toString());
