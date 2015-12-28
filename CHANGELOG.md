@@ -1,5 +1,6 @@
 # 2015-11-28
 - fix #1381
+- updated PR [#1220] (https://github.com/owncloud/android/pull/1220) fixing file access on Marshmallow devices (upload/download)
 
 # 2015-12-22
 - always show log in navigation drawer
