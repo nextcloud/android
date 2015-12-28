@@ -84,7 +84,6 @@
   <string name="common_yes">Jah</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_sync">Tühista sünkroonimine</string>
   <string name="common_cancel">Loobu</string>
   <string name="common_save_exit">Salvesta &amp; Välju</string>
   <string name="common_error">Viga</string>
@@ -245,8 +244,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="ssl_validator_label_validity_to">Saaja:</string>
   <string name="ssl_validator_label_signature">Allkiri:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritm:</string>
-  <string name="ssl_validator_label_certificate_fingerprint">Sõrmejälg:</string>
-  <string name="certificate_load_problem">Tekkis tõrge sertifikaadi laadimisel.</string>
   <string name="ssl_validator_null_cert">Ei suuda kuvada sertifikaati.</string>
   <string name="ssl_validator_no_info_about_error">- Vea kohta puudub info</string>
   <string name="placeholder_sentence">See on kohahoidja</string>
@@ -334,22 +331,9 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="file_list__footer__files">%1$d faili</string>
   <string name="file_list__footer__files_and_folder">%1$d faili, 1 kaust</string>
   <string name="file_list__footer__files_and_folders">%1$d faili, %2$d kausta</string>
-  <string name="prefs_instant_behaviour_dialogTitle">Algne fail...</string>
-  <string name="prefs_instant_behaviour_title">Algne fail...</string>
-  <string name="upload_copy_files">Kopeeri fail</string>
-  <string name="upload_move_files">Liiguta fail</string>
-  <string name="pref_behaviour_entries_keep_file">hoitakse algses kaustas</string>
-  <string name="pref_behaviour_entries_move">liigutatakse rakenduse kausta</string>
   <string name="share_dialog_title">Jagamine</string>
-  <string name="share_with_user_section_title">Jaga kasutajate ja gruppidega</string>
-  <string name="share_no_users">Kasutajatega pole veel midagi jagatud</string>
-  <string name="share_add_user_or_group">Lisa kasutaja või gruppLisa kasutaja või grupp</string>
   <string name="share_via_link_section_title">Jaga linki</string>
   <string name="share_via_link_expiration_date_label">Määra aegumise kuupäev</string>
   <string name="share_via_link_password_label">Parooliga kaitstud</string>
-  <string name="share_via_link_password_title">Turvatud</string>
-  <string name="share_get_public_link_button">Hangi link</string>
   <string name="share_search">Otsi</string>
-  <string name="search_users_and_groups_hint">Otsi kasutajaid ja gruppe</string>
-  <string name="share_group_clarification">%1$s (grupp)</string>
 </resources>

@@ -71,7 +71,7 @@
             android:layout_height="100dp"
             android:paddingTop="@dimen/standard_padding"
             android:paddingBottom="@dimen/standard_padding"
-            android:background="@color/drawer_header_color">
+            android:background="@color/owncloud_blue_accent">
 
             <ImageView
                 android:id="@+id/itemIcon"
