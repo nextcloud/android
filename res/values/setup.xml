@@ -40,7 +40,11 @@
     <color name="primary_button_text_color">@color/white</color>
     <color name="secondary_button_background_color">#D6D7D7</color>
     <color name="secondary_button_text_color">@color/color_accent</color>
+    <color name="drawer_header_color">@color/owncloud_blue_accent</color>
 
+    <!-- Button -->
+    <color name="button_text_color">#000000</color>
+    
     <!-- Multiaccount support -->
     <bool name="multiaccount_support">true</bool>
     
