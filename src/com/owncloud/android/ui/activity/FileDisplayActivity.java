@@ -22,6 +22,7 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
@@ -35,6 +36,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SyncRequest;
+import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -43,12 +45,15 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDialog;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -107,6 +112,7 @@ public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
         OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
+    private static final int PERMISSIONS_WRITE_EXTERNAL_STORAGE = 1;
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
@@ -187,9 +193,6 @@ public class FileDisplayActivity extends HookActivity
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
-        if (savedInstanceState == null) {
-            createMinFragments();
-        }
 
         // Action bar setup
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS,
@@ -200,12 +203,73 @@ public class FileDisplayActivity extends HookActivity
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        Log_OC.v(TAG, "onCreate() end");
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            // Check if we should show an explanation
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                // write access isn't considered a rationale enforced permission in 23
+                // code is still in place in case this changes in the future
+
+                // Show explanation to the user and then request permission
+                Snackbar.make(findViewById(R.id.ListLayout), "Write access is required to upload/download files.",
+                        Snackbar.LENGTH_INDEFINITE)
+                        .setAction("OK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                requestWriteExternalStoreagePermission();
+                            }
+                        }).show();
+            } else {
+                // No explanation needed, request the permission.
+                requestWriteExternalStoreagePermission();
+            }
+        }
+
+        if (savedInstanceState == null) {
+            createMinFragments();
+        }
+
         mProgressBar.setIndeterminate(mSyncInProgress);
-        // always AFTER setContentView(...) ; to work around bug in its implementation
+        // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
 
         setBackgroundText();
+    }
 
-        Log_OC.v(TAG, "onCreate() end");
+    /**
+     * request the write permission for external storage.
+     */
+    private void requestWriteExternalStoreagePermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                PERMISSIONS_WRITE_EXTERNAL_STORAGE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted
+                    startSynchronization();
+                    // toggle on is save since this is the only scenario this code gets accessed
+                } else {
+                    // permission denied --> do nothing
+                }
+                return;
+            }
+        }
     }
 
     @Override
