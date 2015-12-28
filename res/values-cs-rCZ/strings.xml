@@ -3,7 +3,7 @@
   <string name="about_android">%1$s Android aplikace</string>
   <string name="about_version">verze %1$s</string>
   <string name="actionbar_sync">Obnovit účet</string>
-  <string name="actionbar_upload">Odeslat</string>
+  <string name="actionbar_upload">Nahrát</string>
   <string name="actionbar_upload_from_apps">Obsah z ostatních aplikací</string>
   <string name="actionbar_upload_files">Soubory</string>
   <string name="actionbar_open_with">Otevřít pomocí</string>
@@ -57,7 +57,7 @@
   <string name="auth_register">Nováček s %1$s?</string>
   <string name="sync_string_files">Soubory</string>
   <string name="setup_btn_connect">Připojit</string>
-  <string name="uploader_btn_upload_text">Odeslat</string>
+  <string name="uploader_btn_upload_text">Nahrát</string>
   <string name="uploader_btn_new_folder_text">Nová složka</string>
   <string name="uploader_top_message">Vyberte adresář pro nahrání:</string>
   <string name="uploader_wrn_no_account_title">Nenalezen žádný účet</string>
@@ -96,7 +96,7 @@
   <string name="change_password">Změnit heslo</string>
   <string name="delete_account">Smazat účet</string>
   <string name="create_account">Vytvořit účet</string>
-  <string name="upload_chooser_title">Odeslat z ...</string>
+  <string name="upload_chooser_title">Nahrát z ...</string>
   <string name="uploader_info_dirname">Název složky</string>
   <string name="uploader_upload_in_progress_ticker">Odesílám...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Odesílám %2$s</string>
@@ -336,6 +336,12 @@ správce systému.</string>
   <string name="file_list__footer__files">%1$d soubory(ů)</string>
   <string name="file_list__footer__files_and_folder">%1$d soubory(ů), 1 adresář</string>
   <string name="file_list__footer__files_and_folders">%1$d soubory(ů), %2$d adresáře(ů)</string>
+  <string name="prefs_instant_behaviour_dialogTitle">Originální soubor bude...</string>
+  <string name="prefs_instant_behaviour_title">Originální soubor bude...</string>
+  <string name="upload_copy_files">Zkopírovat soubor</string>
+  <string name="upload_move_files">Přesunout soubor</string>
+  <string name="pref_behaviour_entries_keep_file">ponechán ve výchozím adresáři</string>
+  <string name="pref_behaviour_entries_move">přesunut do adresáře aplikace</string>
   <string name="share_dialog_title">Sdílení</string>
   <string name="share_with_user_section_title">Sdílet s uživateli a skupinami</string>
   <string name="share_no_users">Zatím nebyla s uživateli sdílena žádná data</string>

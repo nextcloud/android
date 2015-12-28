@@ -102,8 +102,10 @@ public class ShareActivity extends FileActivity
 
         } else if (UsersAndGroupsSearchProvider.ACTION_SHARE_WITH.equals(intent.getAction())) {
             Uri data = intent.getData();
+            String dataString = intent.getDataString();
+            String shareWith = dataString.substring(dataString.lastIndexOf('/') + 1);
             doShareWith(
-                    data.getLastPathSegment(),
+                    shareWith,
                     UsersAndGroupsSearchProvider.DATA_GROUP.equals(data.getAuthority())
             );
 
@@ -170,7 +172,7 @@ public class ShareActivity extends FileActivity
             refreshSharesFromStorageManager();
         }
 
-        if (operation instanceof CreateShareViaLinkOperation) {
+        if (operation instanceof CreateShareViaLinkOperation && result.isSuccess()) {
             // Send link to the app
             String link = ((OCShare) (result.getData().get(0))).getShareLink();
             Log_OC.d(TAG, "Share link = " + link);
