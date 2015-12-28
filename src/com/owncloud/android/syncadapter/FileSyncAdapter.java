@@ -154,7 +154,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         mForgottenLocalFiles = new HashMap<String, String>();
         mSyncResult = syncResult;
         mSyncResult.fullSyncRequested = false;
-        mSyncResult.delayUntil = 60*60*24; // avoid too many automatic synchronizations
+        mSyncResult.delayUntil = (System.currentTimeMillis()/1000) + 3*60*60; // avoid too many automatic synchronizations
 
         this.setAccount(account);
         this.setContentProviderClient(providerClient);

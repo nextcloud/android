@@ -340,6 +340,12 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="file_list__footer__files">%1$d bestanden</string>
   <string name="file_list__footer__files_and_folder">%1$d bestanden, 1 map</string>
   <string name="file_list__footer__files_and_folders">%1$d bestanden, %2$d mappen</string>
+  <string name="prefs_instant_behaviour_dialogTitle">Originele bestand zal zijn...</string>
+  <string name="prefs_instant_behaviour_title">Originele bestand zal zijn...</string>
+  <string name="upload_copy_files">Kopiëren bestand</string>
+  <string name="upload_move_files">Verplaatsen bestand</string>
+  <string name="pref_behaviour_entries_keep_file">bewaard in originele map</string>
+  <string name="pref_behaviour_entries_move">verplaatst naar app map</string>
   <string name="share_dialog_title">Delen</string>
   <string name="share_with_user_section_title">Delen met gebruikers en groepen</string>
   <string name="share_no_users">Nog geen gegevens met gebruikers gedeeld</string>

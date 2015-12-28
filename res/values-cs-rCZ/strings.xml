@@ -336,6 +336,12 @@ správce systému.</string>
   <string name="file_list__footer__files">%1$d soubory(ů)</string>
   <string name="file_list__footer__files_and_folder">%1$d soubory(ů), 1 adresář</string>
   <string name="file_list__footer__files_and_folders">%1$d soubory(ů), %2$d adresáře(ů)</string>
+  <string name="prefs_instant_behaviour_dialogTitle">Originální soubor bude...</string>
+  <string name="prefs_instant_behaviour_title">Originální soubor bude...</string>
+  <string name="upload_copy_files">Zkopírovat soubor</string>
+  <string name="upload_move_files">Přesunout soubor</string>
+  <string name="pref_behaviour_entries_keep_file">ponechán ve výchozím adresáři</string>
+  <string name="pref_behaviour_entries_move">přesunut do adresáře aplikace</string>
   <string name="share_dialog_title">Sdílení</string>
   <string name="share_with_user_section_title">Sdílet s uživateli a skupinami</string>
   <string name="share_no_users">Zatím nebyla s uživateli sdílena žádná data</string>
