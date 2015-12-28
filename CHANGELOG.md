@@ -1,3 +1,6 @@
+# 2015-11-28
+- fix #1381
+
 # 2015-12-22
 - always show log in navigation drawer
 
