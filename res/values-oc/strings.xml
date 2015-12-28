@@ -83,9 +83,7 @@ Telecargatz-lo aicí : %2$s</string>
   <string name="filedetails_sync_file">Sincronizar</string>
   <string name="filedetails_renamed_in_upload_msg">Lo fichièr es estat renomenat en %s pendent lo mandadís</string>
   <string name="list_layout">Afichatge en lista</string>
-  <string name="action_share_file">Partejar lo ligam</string>
-  <string name="action_unshare_file">Partejar pas mai aqueste ligam</string>
-  <string name="action_share_with_users">Partejar amb d\'Utilizaires</string>
+  <string name="action_share">Partejar</string>
   <string name="common_yes">Òc</string>
   <string name="common_no">Non</string>
   <string name="common_ok">D\'acòrdi</string>
@@ -338,9 +336,11 @@ En rason d\'aquesta modificacion, totes los fichièrs mandats amb de versions an
   <string name="file_list__footer__files_and_folder">%1$d fichièrs, 1 dorsièr</string>
   <string name="file_list__footer__files_and_folders">%1$d fichièrs, %2$d dorsièrs</string>
   <string name="share_dialog_title">Partiment</string>
-  <string name="share_with_user_section_title">Partejar amb d\'utilizaires e de gropes</string>
   <string name="share_no_users">Cap de donada es pas partejada amb d\'utilizaires pel moment</string>
   <string name="share_add_user_or_group">Apondre un utilizaire o un grop</string>
+  <string name="share_via_link_section_title">Partejar lo ligam</string>
+  <string name="share_via_link_expiration_date_label">Especificar una data d\'expiracion</string>
+  <string name="share_via_link_password_label">Protegir per un senhal</string>
   <string name="share_search">Recercar</string>
   <string name="search_users_and_groups_hint">Recercar d\'utilizaires e de gropes</string>
 </resources>

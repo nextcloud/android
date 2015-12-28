@@ -29,7 +29,7 @@
   <string name="filedetails_size">Dimension:</string>
   <string name="filedetails_type">Typo:</string>
   <string name="filedetails_download">Discargar</string>
-  <string name="action_share_file">Compartir ligamine</string>
+  <string name="action_share">Compartir</string>
   <string name="common_yes">Si</string>
   <string name="common_no">No</string>
   <string name="common_ok">Ok</string>
@@ -45,5 +45,8 @@
   <string name="prefs_category_accounts">Contos</string>
   <string name="saml_authentication_wrong_pass">Contrasigno errate</string>
   <string name="folder_picker_choose_button_text">Seliger</string>
+  <string name="share_via_link_section_title">Compartir ligamine</string>
+  <string name="share_via_link_expiration_date_label">Fixa data de expiration</string>
+  <string name="share_via_link_password_label">Protegite per contrasigno</string>
   <string name="share_search">Cercar</string>
 </resources>

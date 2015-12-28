@@ -70,8 +70,7 @@
   <string name="filedetails_modified">Modificēta:</string>
   <string name="filedetails_download">Lejupielādēt</string>
   <string name="filedetails_renamed_in_upload_msg">Datne tika pārsaukta uz %1$s augšupielādes laikā</string>
-  <string name="action_share_file">Dalīt saiti</string>
-  <string name="action_unshare_file">Pārtraukt dalīt saiti</string>
+  <string name="action_share">Dalīties</string>
   <string name="common_yes">Jā</string>
   <string name="common_no">Nē</string>
   <string name="common_ok">Labi</string>
@@ -190,5 +189,8 @@
   <string name="file_list__footer__folder">1 mape</string>
   <string name="file_list__footer__file">1 datne</string>
   <string name="share_dialog_title">Dalīšanās</string>
+  <string name="share_via_link_section_title">Dalīt saiti</string>
+  <string name="share_via_link_expiration_date_label">Iestaties termiņa datumu</string>
+  <string name="share_via_link_password_label">Aizsargāt ar paroli</string>
   <string name="share_search">Meklēt</string>
 </resources>

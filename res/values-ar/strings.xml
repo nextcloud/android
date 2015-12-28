@@ -78,8 +78,7 @@
   <string name="filedetails_modified">عُدل في :</string>
   <string name="filedetails_download">تحميل</string>
   <string name="filedetails_renamed_in_upload_msg">تم تغيير اسم الملف إلى  %1$s أثناء الرفع</string>
-  <string name="action_share_file">شارك الرابط</string>
-  <string name="action_unshare_file">الغاء مشاركة الرابط</string>
+  <string name="action_share">شارك</string>
   <string name="common_yes">نعم</string>
   <string name="common_no">لا</string>
   <string name="common_ok">تم</string>
@@ -256,5 +255,8 @@
   <string name="prefs_category_security">الأمان</string>
   <string name="auth_host_address">عنوان الخادم</string>
   <string name="share_dialog_title">مشاركة</string>
+  <string name="share_via_link_section_title">شارك الرابط</string>
+  <string name="share_via_link_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
+  <string name="share_via_link_password_label">حماية كلمة السر</string>
   <string name="share_search">البحث</string>
 </resources>

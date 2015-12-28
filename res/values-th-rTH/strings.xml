@@ -82,9 +82,7 @@
   <string name="filedetails_sync_file">ประสานข้อมูล</string>
   <string name="filedetails_renamed_in_upload_msg">ไฟล์ได้ถูกเปลี่ยนชื่อเป็น %1$s ในระหว่างการอัพโหลด</string>
   <string name="list_layout">เค้าโครงรายการ</string>
-  <string name="action_share_file">แชร์ลิงค์</string>
-  <string name="action_unshare_file">ยกเลิกการแชร์ลิงค์</string>
-  <string name="action_share_with_users">แชร์กับผู้ใช้</string>
+  <string name="action_share">แชร์</string>
   <string name="common_yes">ตกลง</string>
   <string name="common_no">ไม่ตกลง</string>
   <string name="common_ok">ตกลง</string>
@@ -272,6 +270,8 @@
   <string name="share_link_file_error">เกิดข้อผิดพลาดในขณะที่พยายามจะแชร์ไฟล์หรือโฟลเดอร์นี้</string>
   <string name="unshare_link_file_no_exist">ไม่สามารถยกเลิกการแชร์ กรุณาตรวจสอบไฟล์ที่มีอยู่</string>
   <string name="unshare_link_file_error">เกิดข้อผิดพลาดในขณะที่จะยกเลิกการอชร์ไฟล์หรือโฟลเดอร์นี้</string>
+  <string name="update_link_file_no_exist">ไม่สามารถอัพเดท กรุณาตรวจสอบว่ามีไฟล์นั้นอยู่จริง</string>
+  <string name="update_link_file_error">เกิดข้อผิดพลาดในขณะที่กำลังพยายามอัพเดทลิงค์ที่แชร์</string>
   <string name="share_link_password_title">ป้อนรหัสผ่าน</string>
   <string name="share_link_empty_password">คุณจะต้องใส่รหัสผ่าน</string>
   <string name="activity_chooser_send_file_title">ส่ง</string>
@@ -288,6 +288,7 @@
   <string name="forbidden_permissions_delete">เพื่อลบไฟล์นี้</string>
   <string name="share_link_forbidden_permissions">เพื่อแชร์ไฟล์นี้</string>
   <string name="unshare_link_forbidden_permissions">เพื่อเลิกแชร์ไฟล์นี้</string>
+  <string name="update_link_forbidden_permissions">เพื่ออัพเดทลิงค์นี้ที่ถูกแชร์</string>
   <string name="forbidden_permissions_create">เพื่อสร้างไฟล์</string>
   <string name="uploader_upload_forbidden_permissions">เพื่ออัพโหลดในโฟลเดอร์นี้</string>
   <string name="downloader_download_file_not_found">ไฟล์ไม่พร้อมใช้งานบนเซิร์ฟเวอร์</string>
@@ -335,9 +336,14 @@
   <string name="file_list__footer__files_and_folder">%1$d ไฟล์, 1 โฟลเดอร์</string>
   <string name="file_list__footer__files_and_folders">%1$d ไฟล์, %2$d โฟลเดอร์</string>
   <string name="share_dialog_title">การแชร์ข้อมูล</string>
-  <string name="share_with_user_section_title">แชร์ไปยังผู้ใช้หรือกลุ่ม</string>
+  <string name="share_with_user_section_title">แชร์กับผู้ใช้และกลุ่ม</string>
   <string name="share_no_users">ยังไม่มีข้อมูลที่แชร์กับผู้ใช้ในตอนนี้</string>
   <string name="share_add_user_or_group">เพิ่มผู้ใช่หรือกลุ่ม</string>
+  <string name="share_via_link_section_title">แชร์ลิงค์</string>
+  <string name="share_via_link_expiration_date_label">กำหนดวันที่หมดอายุ</string>
+  <string name="share_via_link_password_label">รหัสผ่านป้องกัน</string>
+  <string name="share_via_link_password_title">ความปลอดภัย</string>
+  <string name="share_get_public_link_button">รับลิงค์</string>
   <string name="share_search">ค้นหา</string>
   <string name="search_users_and_groups_hint">ค้นหาผู้ใช้และกลุ่ม</string>
   <string name="share_group_clarification">%1$s (กลุ่ม)</string>

@@ -80,8 +80,7 @@
   <string name="filedetails_download">Преузми</string>
   <string name="filedetails_renamed_in_upload_msg">Фајл је преименован у %1$s током отпремања</string>
   <string name="list_layout">Распоред листе</string>
-  <string name="action_share_file">Веза дељења</string>
-  <string name="action_unshare_file">Не дели везом</string>
+  <string name="action_share">Дељење</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">У реду</string>
@@ -318,5 +317,8 @@
   <string name="file_list__footer__files_and_folder">%1$d фајлова, 1 фасцикла</string>
   <string name="file_list__footer__files_and_folders">%1$d фајлова, %2$d фасцикли</string>
   <string name="share_dialog_title">Дељење</string>
+  <string name="share_via_link_section_title">Веза дељења</string>
+  <string name="share_via_link_expiration_date_label">Постави датум истека</string>
+  <string name="share_via_link_password_label">Заштићено лозинком</string>
   <string name="share_search">Тражи</string>
 </resources>

@@ -28,6 +28,7 @@
   <string name="setup_btn_connect">जुड़ें </string>
   <string name="uploader_btn_upload_text">अपलोड </string>
   <string name="uploader_btn_new_folder_text">नया फ़ोल्डर</string>
+  <string name="action_share">साझा करें</string>
   <string name="common_cancel">रद्द करें </string>
   <string name="common_error">त्रुटि</string>
   <string name="ssl_validator_btn_details_see">विवरण </string>
