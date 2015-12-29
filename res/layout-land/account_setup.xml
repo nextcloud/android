@@ -65,6 +65,7 @@
 					android:layout_height="wrap_content"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginBottom="10dp"
+					android:theme="@style/Button"
 					android:text="@string/auth_check_server"
 					android:visibility="gone"
 					android:contentDescription="@string/auth_check_server"/>

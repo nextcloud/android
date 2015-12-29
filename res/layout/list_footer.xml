@@ -10,7 +10,8 @@
     <TextView
         android:id="@+id/footerText"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_padding"
         android:layout_gravity="center"
         android:gravity="center"
         android:textColor="@color/setup_text_hint"
