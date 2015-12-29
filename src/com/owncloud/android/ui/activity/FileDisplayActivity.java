@@ -100,6 +100,7 @@ import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
 
 import java.io.File;
@@ -112,7 +113,6 @@ public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
         OnSslUntrustedCertListener, OnEnforceableRefreshListener {
 
-    private static final int PERMISSIONS_WRITE_EXTERNAL_STORAGE = 1;
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
@@ -210,33 +210,26 @@ public class FileDisplayActivity extends HookActivity
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+        if (PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             // Check if we should show an explanation
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+            if (PermissionUtil.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-                // write access isn't considered a rationale enforced permission in 23
-                // code is still in place in case this changes in the future
-
                 // Show explanation to the user and then request permission
                 Snackbar snackbar = Snackbar.make(findViewById(R.id.ListLayout), R.string.permission_storage_access,
                         Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.common_ok, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                requestWriteExternalStoreagePermission();
+                                PermissionUtil.requestWriteExternalStoreagePermission(FileDisplayActivity.this);
                             }
                         });
 
-                // Changing action button text color
-                View sbView = snackbar.getView();
-                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_action);
-                textView.setTextColor(ContextCompat.getColor(this, R.color.white));
+                DisplayUtils.colorSnackbar(this, snackbar);
+
                 snackbar.show();
             } else {
                 // No explanation needed, request the permission.
-                requestWriteExternalStoreagePermission();
+                PermissionUtil.requestWriteExternalStoreagePermission(this);
             }
         }
 
@@ -250,20 +243,11 @@ public class FileDisplayActivity extends HookActivity
         setBackgroundText();
     }
 
-    /**
-     * request the write permission for external storage.
-     */
-    private void requestWriteExternalStoreagePermission() {
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                PERMISSIONS_WRITE_EXTERNAL_STORAGE);
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
+            case PermissionUtil.PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

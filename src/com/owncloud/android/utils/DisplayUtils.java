@@ -28,10 +28,14 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.os.Build;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.Display;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -278,4 +282,16 @@ public class DisplayUtils {
         }
     }
 
+    /**
+     * set the owncloud standard colors for the snackbar.
+     *
+     * @param context the context relevant for setting the color according to the context's theme
+     * @param snackbar the snackbar to be colored
+     */
+    public static void colorSnackbar(Context context, Snackbar snackbar) {
+        // Changing action button text color
+        View sbView = snackbar.getView();
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_action);
+        textView.setTextColor(ContextCompat.getColor(context, R.color.white));
+    }
 }
