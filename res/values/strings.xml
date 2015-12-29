@@ -445,4 +445,6 @@
     <string name="action_switch_list_view">Switch to list view</string>
 
 
+    <string name="permission_storage_access">Write access is required to upload/download files.</string>
+
 </resources>
