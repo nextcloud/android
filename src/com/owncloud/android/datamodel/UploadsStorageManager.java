@@ -186,8 +186,13 @@ public class UploadsStorageManager extends Observable {
             } else {
                 Log_OC.e(TAG, "Failed to update upload db.");
             }
+
+            c.close();
+
             return r;
         }
+
+        c.close();
         return 0;
     }
     /**
@@ -212,6 +217,9 @@ public class UploadsStorageManager extends Observable {
         if (c.getCount() != 1) {
             Log_OC.e(TAG, c.getCount() + " items for path=" + filepath
                     + " available in UploadDb. Expected 1. Failed to update upload db.");
+
+            c.close();
+
             return 0;
         }
         return updateUploadInternal(c, status, result);
@@ -278,6 +286,9 @@ public class UploadsStorageManager extends Observable {
                 }
             } while (c.moveToNext());
         }
+
+        c.close();
+
         return list;
     }
 
@@ -294,6 +305,8 @@ public class UploadsStorageManager extends Observable {
         if (c.moveToFirst()) {
             file = createFileInstance(c);
         }
+
+        c.close();
 
         return file;
     }
