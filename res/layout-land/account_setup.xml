@@ -110,7 +110,6 @@
 					    android:padding="0dp"
 					    android:scaleType="fitCenter"
 					    android:src="@drawable/ic_action_refresh_grey"
-					    android:onClick="onRefreshClick"
 					    android:visibility="gone"
 						android:background="@android:color/transparent"
                         android:contentDescription="@string/auth_refresh_button"
