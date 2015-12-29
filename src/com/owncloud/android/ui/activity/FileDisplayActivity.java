@@ -231,7 +231,7 @@ public class FileDisplayActivity extends HookActivity
 
                 // Changing action button text color
                 View sbView = snackbar.getView();
-                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_action);
                 textView.setTextColor(ContextCompat.getColor(this, R.color.white));
                 snackbar.show();
             } else {
