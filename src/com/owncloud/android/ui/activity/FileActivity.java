@@ -373,12 +373,7 @@ public class FileActivity extends AppCompatActivity
 //        }
 
         // Display username in drawer
-        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-        if (account != null) {
-            TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
-            int lastAtPos = account.name.lastIndexOf("@");
-            username.setText(account.name.substring(0, lastAtPos));
-        }
+        setUsernameInDrawer(navigationDrawerLayout, AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()));
 
         // load slide menu items
         mDrawerTitles = getResources().getStringArray(R.array.drawer_items);
@@ -447,6 +442,21 @@ public class FileActivity extends AppCompatActivity
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(false);
+    }
+
+    /**
+     * sets the given account name in the drawer in case the drawer is available. The account name
+     * is shortened beginning from the @-sign in the username.
+     *
+     * @param navigationDrawerLayout the drawer layout to be used
+     * @param account                the account to be set in the drawer
+     */
+    protected void setUsernameInDrawer(RelativeLayout navigationDrawerLayout, Account account) {
+        if (navigationDrawerLayout != null && account != null) {
+            TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
+            int lastAtPos = account.name.lastIndexOf("@");
+            username.setText(account.name.substring(0, lastAtPos));
+        }
     }
 
     /**

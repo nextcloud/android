@@ -24,7 +24,7 @@
     android:layout_height="56dp"
     android:layout_marginLeft="8dp"
     android:gravity="left"
-    android:paddingLeft="16dp"
+    android:paddingLeft="@dimen/standard_padding"
     android:paddingTop="8dp"
     android:textSize="16dp"
     android:groupIndicator="@android:color/transparent"

@@ -18,12 +18,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:oc="http://schemas.android.com/apk/res/com.owncloud.android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="20dp" >
+    android:padding="@dimen/standard_padding" >
 
 
     <TextView
@@ -33,6 +32,7 @@
         android:text="@string/pass_code_enter_pass_code"
         android:textColor="@android:color/black"
         android:gravity="center_horizontal"
+        android:textSize="16sp"
          />
 
     <TextView
@@ -42,6 +42,7 @@
         android:text="@string/pass_code_configure_your_pass_code_explanation"
         android:textAppearance="@android:style/TextAppearance.Small"
         android:gravity="center_horizontal"
+        android:textSize="14sp"
          />
     
     <LinearLayout
@@ -81,7 +82,7 @@
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/cancel"
-        style="@style/ownCloud.Button"
+        android:theme="@style/Button.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/common_cancel" />

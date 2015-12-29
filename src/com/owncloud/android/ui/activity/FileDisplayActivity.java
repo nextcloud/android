@@ -277,12 +277,7 @@ public class FileDisplayActivity extends HookActivity implements
             setFile(file);
 
             if (mAccountWasSet) {
-                RelativeLayout navigationDrawerLayout = (RelativeLayout) findViewById(R.id.left_drawer);
-                if (navigationDrawerLayout != null && getAccount() != null) {
-                    TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
-                    int lastAtPos = getAccount().name.lastIndexOf("@");
-                    username.setText(getAccount().name.substring(0, lastAtPos));
-                }
+                setUsernameInDrawer((RelativeLayout) findViewById(R.id.left_drawer), getAccount());
             }
 
             if (!stateWasRecovered) {
