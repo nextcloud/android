@@ -220,14 +220,20 @@ public class FileDisplayActivity extends HookActivity
                 // code is still in place in case this changes in the future
 
                 // Show explanation to the user and then request permission
-                Snackbar.make(findViewById(R.id.ListLayout), R.string.permission_storage_access,
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.ListLayout), R.string.permission_storage_access,
                         Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.common_ok, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 requestWriteExternalStoreagePermission();
                             }
-                        }).show();
+                        });
+
+                // Changing action button text color
+                View sbView = snackbar.getView();
+                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(ContextCompat.getColor(this, R.color.white));
+                snackbar.show();
             } else {
                 // No explanation needed, request the permission.
                 requestWriteExternalStoreagePermission();

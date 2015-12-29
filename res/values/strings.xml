@@ -407,6 +407,6 @@
     <string name="manage_space_clear_data">Clear data</string>
     <string name="manage_space_error">Some files could not be deleted.</string>
 
-    <string name="permission_storage_access">Write access is required to upload/download files.</string>
+    <string name="permission_storage_access">Additional permissions required to upload &amp; download files.</string>
 
 </resources>
