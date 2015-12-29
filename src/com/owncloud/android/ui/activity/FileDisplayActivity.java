@@ -220,9 +220,9 @@ public class FileDisplayActivity extends HookActivity
                 // code is still in place in case this changes in the future
 
                 // Show explanation to the user and then request permission
-                Snackbar.make(findViewById(R.id.ListLayout), "Write access is required to upload/download files.",
+                Snackbar.make(findViewById(R.id.ListLayout), R.string.permission_storage_access,
                         Snackbar.LENGTH_INDEFINITE)
-                        .setAction("OK", new View.OnClickListener() {
+                        .setAction(R.string.common_ok, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 requestWriteExternalStoreagePermission();
