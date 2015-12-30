@@ -227,11 +227,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
-                return true;
-            }
-            case R.id.action_unshare_file: {
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
+                mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
                 return true;
             }
             case R.id.action_open_file_with: {
@@ -248,9 +244,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
                 return true;
             }
-            case R.id.action_cancel_download:
-            case R.id.action_cancel_upload: {
-                ((FileDisplayActivity) mContainerActivity).cancelTransference(getFile());
+            case R.id.action_cancel_sync: {
+                ((FileDisplayActivity)mContainerActivity).cancelTransference(getFile());
                 return true;
             }
             case R.id.action_download_file:
@@ -263,7 +258,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 if (!getFile().isDown()) {  // Download the file                    
                     Log_OC.d(TAG, getFile().getRemotePath() + " : File must be downloaded");
                     ((FileDisplayActivity) mContainerActivity).startDownloadForSending(getFile());
-
                 }
                 else {
                     mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
@@ -299,7 +293,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 Log_OC.e(TAG, "Incorrect view clicked!");
         }
     }
-
 
     /**
      * Check if the fragment was created with an empty layout. An empty fragment can't show file details, must be replaced.

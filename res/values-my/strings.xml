@@ -19,4 +19,5 @@
   <string name="common_cancel">ပယ်ဖျက်မည်</string>
   <string name="empty"></string>
   <string name="folder_picker_choose_button_text">ရွေးချယ်</string>
+  <string name="share_via_link_expiration_date_label">သက်တမ်းကုန်ဆုံးမည့်ရက်သတ်မှတ်မည်</string>
 </resources>

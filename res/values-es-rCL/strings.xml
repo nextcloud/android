@@ -43,13 +43,11 @@
   <string name="filedetails_created">Creado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
-  <string name="filedetails_sync_file">refrescar archivo</string>
   <string name="filedetails_renamed_in_upload_msg">El archivo fue renombrado a %1$s durante la subida</string>
+  <string name="action_share">Compartir</string>
   <string name="common_yes">Si</string>
   <string name="common_no">No</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">cancelar bajada</string>
-  <string name="common_cancel_upload">cancelar subida</string>
   <string name="common_cancel">Cancelar</string>
   <string name="common_save_exit">Guardar&amp;Salir</string>
   <string name="common_error">Error</string>
