@@ -293,6 +293,9 @@ public class StorageMigration {
                 deleteRecursive(dstFile);
                 dstFile.delete();
 
+                File srcFile = new File(mStorageSource + File.separator + MainApp.getDataFolder());
+                srcFile.mkdirs();
+
                 publishProgress(R.string.file_migration_checking_destination);
 
                 checkDestinationAvailability();
