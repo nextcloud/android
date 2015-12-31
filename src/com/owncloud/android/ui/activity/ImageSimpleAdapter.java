@@ -23,6 +23,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncDrawable;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 
 public class ImageSimpleAdapter extends SimpleAdapter {
     
@@ -54,7 +55,7 @@ public class ImageSimpleAdapter extends SimpleAdapter {
         TextView filename = (TextView) vi.findViewById(R.id.filename);
         filename.setText((CharSequence) file.getFileName());
         
-        ImageView fileIcon = (ImageView) vi.findViewById(R.id.imageView1);
+        ImageView fileIcon = (ImageView) vi.findViewById(R.id.thumbnail);
         fileIcon.setTag(file.getFileId());
         
      // get Thumbnail if file is image
@@ -85,7 +86,7 @@ public class ImageSimpleAdapter extends SimpleAdapter {
             }
         } else {
             fileIcon.setImageResource(
-                    DisplayUtils.getFileTypeIconId(file.getMimetype(), file.getFileName())
+                    MimetypeIconUtil.getFileTypeIconId(file.getMimetype(), file.getFileName())
             );
         }
         return vi;
