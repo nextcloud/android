@@ -289,4 +289,15 @@ public class AccountUtils {
         return serverVersion;
     }
 
+    public static boolean hasSearchUsersSupport(Account account){
+        OwnCloudVersion serverVersion = null;
+        if (account != null) {
+            AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
+            String serverVersionStr = accountMgr.getUserData(account, Constants.KEY_OC_VERSION);
+            if (serverVersionStr != null) {
+                serverVersion = new OwnCloudVersion(serverVersionStr);
+            }
+        }
+        return (serverVersion != null ? serverVersion.isSearchUsersSupported() : false);
+    }
 }

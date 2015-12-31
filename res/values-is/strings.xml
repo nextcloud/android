@@ -20,11 +20,10 @@
   <string name="file_list_seconds_ago">sek.</string>
   <string name="file_list_empty">Ekkert hér. Settu eitthvað inn!</string>
   <string name="filedetails_download">Niðurhal</string>
-  <string name="action_share_file">Deila hlekk</string>
+  <string name="action_share">Deila</string>
   <string name="common_yes">Já</string>
   <string name="common_no">Nei</string>
   <string name="common_ok">Í lagi</string>
-  <string name="common_cancel_upload">Hætta við innsendingu</string>
   <string name="common_cancel">Hætta við</string>
   <string name="common_error"><strong>Villa</strong></string>
   <string name="change_password">Breyta lykilorði</string>
@@ -36,4 +35,8 @@
   <string name="actionbar_move">Færa</string>
   <string name="folder_picker_choose_button_text">Veldu</string>
   <string name="auth_host_address">Host nafn netþjóns</string>
+  <string name="share_via_link_section_title">Deila hlekk</string>
+  <string name="share_via_link_expiration_date_label">Setja gildistíma</string>
+  <string name="share_via_link_password_label">Verja með lykilorði</string>
+  <string name="share_search">Leita</string>
 </resources>

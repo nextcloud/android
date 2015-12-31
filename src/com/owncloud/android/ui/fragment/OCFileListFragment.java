@@ -53,8 +53,8 @@ import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
-import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 
@@ -63,7 +63,8 @@ import java.io.File;
  *
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
-public class OCFileListFragment extends ExtendedListFragment implements FileActionsDialogFragment.FileActionsDialogFragmentListener {
+public class OCFileListFragment extends ExtendedListFragment
+        implements FileActionsDialogFragment.FileActionsDialogFragmentListener {
     
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
@@ -193,7 +194,8 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 }
             }
 
-            FileActionsDialogFragment dialog = FileActionsDialogFragment.newInstance(menu, fileIndex, targetFile.getFileName());
+            FileActionsDialogFragment dialog = FileActionsDialogFragment.newInstance(menu,
+                    fileIndex, targetFile.getFileName());
             dialog.setTargetFragment(this, 0);
             dialog.show(getFragmentManager(), FileActionsDialogFragment.FTAG_FILE_ACTIONS);
         }
@@ -342,15 +344,11 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
         mTargetFile = (OCFile) mAdapter.getItem(filePosition);
         switch (menuId) {
             case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(mTargetFile);
+                mContainerActivity.getFileOperationsHelper().showShareFile(mTargetFile);
                 return true;
             }
             case R.id.action_open_file_with: {
                 mContainerActivity.getFileOperationsHelper().openFile(mTargetFile);
-                return true;
-            }
-            case R.id.action_unshare_file: {
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(mTargetFile);
                 return true;
             }
             case R.id.action_rename_file: {
@@ -368,9 +366,8 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 mContainerActivity.getFileOperationsHelper().syncFile(mTargetFile);
                 return true;
             }
-            case R.id.action_cancel_download:
-            case R.id.action_cancel_upload: {
-                ((FileDisplayActivity) mContainerActivity).cancelTransference(mTargetFile);
+            case R.id.action_cancel_sync: {
+                ((FileDisplayActivity)mContainerActivity).cancelTransference(mTargetFile);
                 return true;
             }
             case R.id.action_see_details: {
@@ -422,7 +419,8 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
     @Override
     public boolean onContextItemSelected (MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        boolean matched = onFileActionChosen(item.getItemId(), ((AdapterContextMenuInfo) item.getMenuInfo()).position);
+        boolean matched = onFileActionChosen(item.getItemId(),
+                ((AdapterContextMenuInfo) item.getMenuInfo()).position);
         if(!matched) {
             return super.onContextItemSelected(item);
         } else {

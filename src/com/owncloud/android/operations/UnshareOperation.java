@@ -22,7 +22,6 @@ package com.owncloud.android.operations;
 
 import android.content.Context;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -36,20 +35,26 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 
 import com.owncloud.android.operations.common.SyncOperation;
 
+import java.util.ArrayList;
+
 /**
  * Unshare file/folder
  * Save the data in Database
  */
-public class UnshareLinkOperation extends SyncOperation {
+public class UnshareOperation extends SyncOperation {
 
-    private static final String TAG = UnshareLinkOperation.class.getSimpleName();
+    private static final String TAG = UnshareOperation.class.getSimpleName();
     
     private String mRemotePath;
+    private ShareType mShareType;
+    private String mShareWith;
     private Context mContext;
     
-    
-    public UnshareLinkOperation(String remotePath, Context context) {
+    public UnshareOperation(String remotePath, ShareType shareType, String shareWith,
+                                Context context) {
         mRemotePath = remotePath;
+        mShareType = shareType;
+        mShareWith = shareWith;
         mContext = context;
     }
 
@@ -59,31 +64,38 @@ public class UnshareLinkOperation extends SyncOperation {
         
         // Get Share for a file
         OCShare share = getStorageManager().getFirstShareByPathAndType(mRemotePath,
-                ShareType.PUBLIC_LINK);
+                mShareType, mShareWith);
         
         if (share != null) {
+            OCFile file = getStorageManager().getFileByPath(mRemotePath);
             RemoveRemoteShareOperation operation =
-                    new RemoveRemoteShareOperation((int) share.getIdRemoteShared());
+                    new RemoveRemoteShareOperation((int) share.getRemoteId());
             result = operation.execute(client);
 
-            if (result.isSuccess() || result.getCode() == ResultCode.SHARE_NOT_FOUND) {
-                Log_OC.d(TAG, "Share id = " + share.getIdRemoteShared() + " deleted");
+            if (result.isSuccess()) {
+                Log_OC.d(TAG, "Share id = " + share.getRemoteId() + " deleted");
 
-                OCFile file = getStorageManager().getFileByPath(mRemotePath);
-                file.setShareByLink(false);
-                file.setPublicLink("");
+                if (mShareType == ShareType.PUBLIC_LINK) {
+                    file.setShareViaLink(false);
+                    file.setPublicLink("");
+                } else if (mShareType == ShareType.USER || mShareType == ShareType.GROUP){
+                    // Check if it is the last share
+                    ArrayList <OCShare> sharesWith = getStorageManager().
+                            getSharesWithForAFile(mRemotePath,
+                            getStorageManager().getAccount().name);
+                    if (sharesWith.size() == 1) {
+                        file.setShareWithSharee(false);
+                    }
+                }
+
                 getStorageManager().saveFile(file);
                 getStorageManager().removeShare(share);
                 
-                if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
-                    if (existsFile(client, file.getRemotePath())) {
-                        result = new RemoteOperationResult(ResultCode.OK);
-                    } else {
-                        getStorageManager().removeFile(file, true, true);
-                    }
-                }
-            } 
-                
+            } else if (!existsFile(client, file.getRemotePath())) {
+                // unshare failed because file was deleted before
+                getStorageManager().removeFile(file, true, true);
+            }
+
         } else {
             result = new RemoteOperationResult(ResultCode.SHARE_NOT_FOUND);
         }

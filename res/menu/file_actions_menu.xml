@@ -20,14 +20,10 @@
 
     <item
         android:id="@+id/action_share_file"
-        android:title="@string/action_share_file"
+        android:title="@string/action_share"
         android:icon="@android:drawable/ic_menu_share"
         android:orderInCategory="1" />
-    <item
-        android:id="@+id/action_unshare_file"
-        android:title="@string/action_unshare_file"
-        android:icon="@android:drawable/ic_menu_share"
-        android:orderInCategory="1" />
+
     <item
         android:id="@+id/action_open_file_with"
         android:title="@string/actionbar_open_with"
@@ -44,13 +40,8 @@
         android:icon="@drawable/ic_action_refresh"
         android:orderInCategory="1" />
     <item
-        android:id="@+id/action_cancel_download"
-        android:title="@string/common_cancel_download"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
-        android:orderInCategory="1" />
-    <item
-        android:id="@+id/action_cancel_upload"
-        android:title="@string/common_cancel_upload"
+        android:id="@+id/action_cancel_sync"
+        android:title="@string/common_cancel_sync"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
         android:orderInCategory="1" />
     <item

@@ -176,7 +176,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private EditText mUsernameInput;
     private EditText mPasswordInput;
     private View mOkButton;
-    private View mCenteredRefreshButton;
     private TextView mAuthStatusView;
 
     private int mAuthStatusText = 0, mAuthStatusIcon = 0;
@@ -261,16 +260,22 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
         });
 
-        mCenteredRefreshButton = findViewById(R.id.centeredRefreshButton);
-        mCenteredRefreshButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.centeredRefreshButton).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 checkOcServer();
             }
         });
-        
-        mOkButton = findViewById(R.id.buttonOK);
+
+        findViewById(R.id.embeddedRefreshButton).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                checkOcServer();
+            }
+        });
+
 
         /// initialize block to be moved to single Fragment to check server and get info about it 
         initServerPreFragment(savedInstanceState);
@@ -702,7 +707,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         mHostUrlInput.removeTextChangedListener(mHostUrlInputWatcher);
         mHostUrlInput.setOnFocusChangeListener(null);
-        
+
         super.onPause();
     }
     
@@ -742,7 +747,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mOAuthTokenEndpointText.getText().toString().trim());
         
         getServerInfoIntent.putExtra(
-                OperationsService.EXTRA_OAUTH2_QUERY_PARAMETERS, 
+                OperationsService.EXTRA_OAUTH2_QUERY_PARAMETERS,
                 queryParameters);
         
         if (mOperationsServiceBinder != null) {
@@ -801,6 +806,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         showRefreshButton(false);
 
         if (uri.length() != 0) {
+            uri = stripIndexPhpOrAppsFiles(uri, mHostUrlInput);
+
             // Handle internationalized domain names
             uri = DisplayUtils.convertIdn(uri, true);
 
@@ -811,8 +818,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Intent getServerInfoIntent = new Intent();
             getServerInfoIntent.setAction(OperationsService.ACTION_GET_SERVER_INFO);
             getServerInfoIntent.putExtra(
-                OperationsService.EXTRA_SERVER_URL,
-                normalizeUrlSuffix(uri)
+                    OperationsService.EXTRA_SERVER_URL,
+                    normalizeUrlSuffix(uri)
             );
             if (mOperationsServiceBinder != null) {
                 mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(getServerInfoIntent);
@@ -1143,6 +1150,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         return url;
     }
 
+    private String stripIndexPhpOrAppsFiles(String url, EditText mHostUrlInput) {
+        if (url.endsWith("/index.php")) {
+            url = url.substring(0, url.lastIndexOf("/index.php"));
+            mHostUrlInput.setText(url);
+        } else if (url.contains("/index.php/apps/")) {
+            url = url.substring(0, url.lastIndexOf("/index.php/apps/"));
+            mHostUrlInput.setText(url);
+        }
+
+        return url;
+    }
 
     // TODO remove, if possible
     private String trimUrlWebdav(String url){       
@@ -1623,18 +1641,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mRefreshButton.setVisibility(View.GONE);
         }
     }
-
-    /**
-     * Called when the refresh button in the input field for ownCloud host is clicked.
-     * 
-     * Performs a new check on the URL in the input field.
-     * 
-     * @param view      Refresh 'button'
-     */
-    public void onRefreshClick(View view) {
-        checkOcServer();
-    }
-
 
     /**
      * Called when the eye icon in the password field is clicked.

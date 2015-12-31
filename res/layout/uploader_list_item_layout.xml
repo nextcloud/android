@@ -17,19 +17,21 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="56dp"
-    android:background="@drawable/list_selector"
-    android:orientation="horizontal" >
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:background="#fefefe"
+	android:orientation="horizontal"
+	android:layout_height="72dp"
+    android:padding="@dimen/standard_padding">
   
-    <ImageView
-        android:id="@+id/imageView1"
+    <ImageView 
         android:layout_width="@dimen/file_icon_size"
         android:layout_height="@dimen/file_icon_size"
         android:layout_gravity="center_vertical|center"
-        android:layout_margin="4dp"
-        android:src="@drawable/ic_menu_archive" />
+        android:src="@drawable/ic_menu_archive"
+        android:id="@+id/thumbnail"
+        android:layout_marginRight="@dimen/standard_padding"/>
     
     <TextView 
         android:text="TextView" 
