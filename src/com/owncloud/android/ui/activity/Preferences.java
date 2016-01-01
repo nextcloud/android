@@ -56,11 +56,16 @@ import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datastorage.DataStorageProvider;
+import com.owncloud.android.datastorage.StoragePoint;
+import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.files.FileOperationsHelper;
+import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.PreferenceWithLongSummary;
 import com.owncloud.android.ui.RadioButtonPreference;
-import com.owncloud.android.utils.DataStorageUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
 
@@ -290,7 +295,7 @@ public class Preferences extends PreferenceActivity
 
         mPrefStoragePath =  (ListPreference) findPreference(Keys.STORAGE_PATH);
         if (mPrefStoragePath != null) {
-            DataStorageUtils.Storage[] storageOptions = DataStorageUtils.getAvailableStoragePoints(getApplicationContext());
+            StoragePoint[] storageOptions = DataStorageProvider.getInstance().getAvailableStoragePoints();
             String[] entries = new String[storageOptions.length];
             String[] values = new String[storageOptions.length];
             for (int i = 0; i < storageOptions.length; ++i) {
@@ -644,7 +649,7 @@ public class Preferences extends PreferenceActivity
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString(Keys.STORAGE_PATH, mStoragePath);
         editor.commit();
-        String storageDescription = DataStorageUtils.getStorageDescriptionByPath(mStoragePath, this);
+        String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
         mPrefStoragePath.setSummary(storageDescription);
         mPrefStoragePath.setValue(newStoragePath);
     }
@@ -657,7 +662,7 @@ public class Preferences extends PreferenceActivity
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mStoragePath = appPrefs.getString(Keys.STORAGE_PATH, Environment.getExternalStorageDirectory()
                                                          .getAbsolutePath());
-        String storageDescription = DataStorageUtils.getStorageDescriptionByPath(mStoragePath, getApplicationContext());
+        String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
         mPrefStoragePath.setSummary(storageDescription);
     }
 
