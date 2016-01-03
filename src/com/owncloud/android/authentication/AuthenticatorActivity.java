@@ -1615,7 +1615,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void setStatusUrl(){
-        String text = getString(R.string.auth_unknown_error_title) + "<br/>" + mHostUrlInput.getText().toString().trim() + "/status.php";
+        String text = getString(R.string.auth_unknown_error_title,
+                                mHostUrlInput.getText().toString().trim() + "/status.php");
         mServerStatusView.setText(Html.fromHtml(text));
         Linkify.addLinks(mServerStatusView, Linkify.WEB_URLS);
     }
