@@ -437,10 +437,6 @@
         \nPlease contact your administrator</string>
     <string name="changelog">https://github.com/owncloud/android/raw/beta/CHANGELOG.md</string>
 
-    <string name="storage_description_default">Default</string>
-    <string name="storage_description_sd_no">SD card %1$d</string>
-    <string name="storage_description_unknown">Unknown</string>
-
     <string name="action_switch_grid_view">Switch to grid view</string>
     <string name="action_switch_list_view">Switch to list view</string>
 
