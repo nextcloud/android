@@ -1,3 +1,7 @@
+# 2016-01-03
+- update all PR
+- PR [#1399] (https://github.com/owncloud/android/pull/399) Upload shows files
+
 # 2015-11-28
 - fix #1381
 - updated PR [#1220] (https://github.com/owncloud/android/pull/1220) fixing file access on Marshmallow devices (upload/download)
