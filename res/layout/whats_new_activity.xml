@@ -29,7 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:weightSum="3">
+        android:weightSum="3"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/skip"
@@ -37,23 +40,31 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Skip" />
+            android:text="Skip"
+            android:layout_gravity="center_vertical|center_horizontal"/>
 
         <com.owncloud.android.ui.whatsnew.ProgressIndicator
             android:id="@+id/progressIndicator"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical|center_horizontal">
         </com.owncloud.android.ui.whatsnew.ProgressIndicator>
 
-        <ImageButton
-            android:id="@+id/forward"
-            android:src="@drawable/ic_menu_forward"
-            style="@style/Button.Borderless"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/folder_picker_choose_button_text" />
+            android:orientation="vertical"
+            android:layout_gravity="center">
+            <ImageButton
+                android:id="@+id/forward"
+                android:src="@drawable/arrow_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="16dp"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
