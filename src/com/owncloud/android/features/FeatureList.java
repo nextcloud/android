@@ -40,11 +40,11 @@ public class FeatureList {
 
 
 	static final private FeatureItem featuresList[] = {
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_1_title, R.string.welcome_feature_1_text, "1.0.0", SHOW_ON_FIRST_RUN),
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_2_title,  R.string.welcome_feature_2_text, "1.0.0", SHOW_ON_FIRST_RUN),
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_3_title,  R.string.welcome_feature_3_text, "1.0.0", SHOW_ON_FIRST_RUN),
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_4_title,  R.string.welcome_feature_4_text, "1.0.0", SHOW_ON_FIRST_RUN),
-			new FeatureItem(R.drawable.logo, R.string.welcome_feature_5_title,  FeatureItem.DO_NOT_SHOW, "1.0.0", SHOW_ON_FIRST_RUN)
+			new FeatureItem(R.drawable.what_new_instant_upload, R.string.welcome_feature_1_title, R.string.welcome_feature_1_text, "1.0.0", SHOW_ON_FIRST_RUN),
+			new FeatureItem(R.drawable.whats_new_files, R.string.welcome_feature_2_title,  R.string.welcome_feature_2_text, "1.0.0", SHOW_ON_FIRST_RUN),
+			new FeatureItem(R.drawable.whats_new_share, R.string.welcome_feature_3_title,  R.string.welcome_feature_3_text, "1.0.0", SHOW_ON_FIRST_RUN),
+			new FeatureItem(R.drawable.whats_new_accounts, R.string.welcome_feature_4_title,  R.string.welcome_feature_4_text, "1.0.0", SHOW_ON_FIRST_RUN),
+			new FeatureItem(R.drawable.whats_new_oc_files, R.string.welcome_feature_5_title,  FeatureItem.DO_NOT_SHOW, "1.0.0", SHOW_ON_FIRST_RUN)
     };
 
 
