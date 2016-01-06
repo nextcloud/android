@@ -53,7 +53,7 @@ public class FeatureList {
 	}
 
 	static public FeatureItem[] getFiltered(final int lastSeenVersionCode, final boolean isFirstRun) {
-		List<FeatureItem> features = new LinkedList<>();
+		List<FeatureItem> features = new LinkedList<FeatureItem>();
 
 		for (FeatureItem item : get()) {
 			if (isFirstRun && item.shouldShowOnFirstRun()) {
