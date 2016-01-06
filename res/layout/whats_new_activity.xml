@@ -30,9 +30,9 @@
         android:layout_height="0dp"
         android:layout_weight="10"
         android:weightSum="3"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/skip"
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="16dp"/>
+                android:padding="@dimen/standard_padding"/>
         </LinearLayout>
     </LinearLayout>
 
