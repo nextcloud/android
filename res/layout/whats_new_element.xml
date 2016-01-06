@@ -25,6 +25,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/whatsNewText"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/standard_margin"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>
