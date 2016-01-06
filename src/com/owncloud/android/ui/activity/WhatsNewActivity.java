@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -152,10 +153,21 @@ public class WhatsNewActivity extends Activity {
 
 
     private void updateNextButtonIfNeeded() {
-        if (!mProgress.hasNextStep())
-            mForwardFinishButton.setImageResource(R.drawable.ic_ok);
-        else
-            mForwardFinishButton.setImageResource(R.drawable.ic_menu_forward);
+        if (!mProgress.hasNextStep()) {
+            mForwardFinishButton.setImageResource(R.drawable.ic_done_white);
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                mForwardFinishButton.setBackground(getResources().getDrawable(R.drawable.round_button));
+            } else {
+                mForwardFinishButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.round_button));
+            }
+        } else {
+            mForwardFinishButton.setImageResource(R.drawable.arrow_right);
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                mForwardFinishButton.setBackground(null);
+            } else {
+                mForwardFinishButton.setBackgroundDrawable(null);
+            }
+        }
     }
 
     private void handleMoveToNext() {
