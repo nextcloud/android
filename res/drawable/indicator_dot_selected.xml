@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-       android:shape="ring"
-       android:innerRadius="0dp"
-       android:thickness="3dp"
-       android:useLevel="false">
-    <solid android:color="@color/owncloud_blue_accent"/>
-    <size android:width="15dp" android:height="10dp" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:bottom="2dp" android:top="2dp" android:right="2dp" android:left="2dp">
+        <shape
+            android:shape="oval">
+            <solid android:color="@color/owncloud_blue_accent"/>
+            <size android:width="8dp" android:height="8dp" />
+        </shape>
+    </item>
+</layer-list>
