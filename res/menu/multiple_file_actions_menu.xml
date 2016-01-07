@@ -25,17 +25,17 @@
     <item
         android:id="@+id/action_move"
         android:title="@string/actionbar_move"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_export"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_copy"
         android:title="@android:string/copy"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_copy"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_remove_file"
         android:title="@string/common_remove"
-        android:icon="@android:drawable/ic_menu_delete"
+        android:icon="@drawable/ic_delete"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_favorite_file"
