@@ -68,7 +68,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final int RESULTS_PER_PAGE = 50;
     private static final int REQUESTED_PAGE = 1;
 
-    public static final String AUTHORITY = UsersAndGroupsSearchProvider.class.getCanonicalName();
+    public static final String AUTHORITY = "org.owncloud.beta.android.providers.UsersAndGroupsSearchProvider";
     public static final String ACTION_SHARE_WITH = AUTHORITY + ".action.SHARE_WITH";
     public static final String DATA_USER = AUTHORITY + ".data.user";
     public static final String DATA_GROUP = AUTHORITY + ".data.group";

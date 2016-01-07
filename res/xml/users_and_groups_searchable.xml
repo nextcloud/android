@@ -22,7 +22,7 @@
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
     android:label="@string/app_name"
     android:hint="@string/search_users_and_groups_hint"
-    android:searchSuggestAuthority="com.owncloud.android.providers.UsersAndGroupsSearchProvider"
+    android:searchSuggestAuthority="@string/authoritySearch"
     android:searchSuggestIntentAction="com.owncloud.android.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH"
     android:searchSuggestThreshold="1" >
 </searchable>
