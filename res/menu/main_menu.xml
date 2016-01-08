@@ -35,6 +35,12 @@
         android:title="@string/actionbar_mkdir"
         android:contentDescription="@string/actionbar_mkdir"/>
     <item
+        android:id="@+id/action_switch_view"
+        android:icon="@drawable/ic_view_module"
+        android:orderInCategory="2"
+        app:showAsAction="never"
+        android:title="@string/action_switch_grid_view" />
+    <item
         android:id="@+id/action_sync_account"
         android:icon="@drawable/ic_action_refresh"
         android:orderInCategory="2"

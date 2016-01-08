@@ -95,7 +95,7 @@ public class ExtendedListFragment extends Fragment
     }
 
 
-    protected void switchToGridView() {
+    public void switchToGridView() {
         if ((mCurrentListView == mListView)) {
 
             mListView.setAdapter(null);
@@ -110,8 +110,8 @@ public class ExtendedListFragment extends Fragment
             mCurrentListView = mGridView;
         }
     }
-    
-    protected void switchToListView() {
+
+    public void switchToListView() {
         if (mCurrentListView == mGridView) {
             mGridView.setAdapter(null);
             mRefreshGridLayout.setVisibility(View.GONE);
@@ -124,6 +124,13 @@ public class ExtendedListFragment extends Fragment
 
             mCurrentListView = mListView;
         }
+    }
+
+    public boolean isGridView(){
+        if (mAdapter instanceof FileListListAdapter) {
+            return ((FileListListAdapter) mAdapter).isGridMode();
+        }
+        return false;
     }
     
     

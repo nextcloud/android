@@ -405,4 +405,6 @@
     <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients.
         \nPlease contact your administrator</string>
 
+    <string name="action_switch_grid_view">Switch to grid view</string>
+    <string name="action_switch_list_view">Switch to list view</string>
 </resources>
