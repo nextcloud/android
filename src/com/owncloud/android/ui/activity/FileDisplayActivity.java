@@ -151,7 +151,7 @@ public class FileDisplayActivity extends HookActivity
 
     private OCFile mWaitingToSend;
 
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -487,7 +487,8 @@ public class FileDisplayActivity extends HookActivity
         menu.findItem(R.id.action_create_dir).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
-        
+        menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -561,6 +562,20 @@ public class FileDisplayActivity extends HookActivity
                         });
                 builder.create().show();
                 break;
+            }
+            case R.id.action_switch_view:{
+                if (isGridView()){
+                    item.setTitle(getString(R.string.action_switch_grid_view));
+                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
+                            R.drawable.ic_view_module));
+                    getListOfFilesFragment().setListAsPreferred();
+                } else {
+                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
+                            R.drawable.ic_view_list));
+                    getListOfFilesFragment().setGridAsPreferred();
+                }
+                return true;
             }
         default:
             retval = super.onOptionsItemSelected(item);
@@ -1808,6 +1823,7 @@ public class FileDisplayActivity extends HookActivity
     private void sortByName(boolean ascending) {
         getListOfFilesFragment().sortByName(ascending);
     }
+    private boolean isGridView(){ return getListOfFilesFragment().isGridView(); }
 
    public void allFilesOption() {
        browseToRoot();
