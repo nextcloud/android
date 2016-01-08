@@ -329,11 +329,18 @@
   <string name="file_list__footer__files">%1$d ficheiros</string>
   <string name="file_list__footer__files_and_folder">%1$d ficheiros, 1 pasta</string>
   <string name="file_list__footer__files_and_folders">%1$d ficheiros, %2$d pastas</string>
+  <string name="prefs_instant_behaviour_dialogTitle">O ficheiro original será...</string>
+  <string name="prefs_instant_behaviour_title">O ficheiro original será...</string>
+  <string name="upload_copy_files">Copiar ficheiro</string>
+  <string name="upload_move_files">Mover ficheiro</string>
   <string name="share_dialog_title">Partilha</string>
+  <string name="share_with_user_section_title">Partilhar com utilizadores e grupos</string>
   <string name="share_no_users">Ainda não foram partilhados os dados com os utilizadores</string>
   <string name="share_add_user_or_group">Adicionar Utilziador ou Grupo</string>
   <string name="share_via_link_section_title">Compartilhar hiperligação</string>
   <string name="share_via_link_expiration_date_label">Definir a data de expiração</string>
   <string name="share_via_link_password_label">Proteger com Palavra-passe</string>
+  <string name="share_get_public_link_button">Obter ligação</string>
   <string name="share_search">Procurar</string>
+  <string name="search_users_and_groups_hint">Pesquisar utilizadores e grupos</string>
 </resources>
