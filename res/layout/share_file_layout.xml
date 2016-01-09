@@ -25,28 +25,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_material_light"
         android:orientation="vertical"
+        android:padding="@dimen/standard_padding"
         >
 
         <RelativeLayout
             android:id="@+id/shareHeaderContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:background="@color/background_color">
+            android:layout_marginBottom="8dp">
 
             <ImageView
                 android:id="@+id/shareFileIcon"
                 android:layout_width="@dimen/file_icon_size"
                 android:layout_height="@dimen/file_icon_size"
                 android:src="@drawable/file"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"/>
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_gravity="center_vertical"/>
 
             <TextView
                 android:id="@+id/shareFileName"
@@ -54,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/placeholder_filename"
                 android:textSize="16sp"
-                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
                 android:layout_marginLeft="4dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginRight="8dp"
@@ -62,8 +58,7 @@
                 android:layout_toRightOf="@+id/shareFileIcon"
                 android:layout_toEndOf="@+id/shareFileIcon"
                 android:singleLine="true"
-                android:ellipsize="middle"
-                android:layout_marginTop="12dp"/>
+                android:ellipsize="middle"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -77,7 +72,6 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginLeft="4dp"
                 android:layout_marginStart="4dp"
-                android:layout_marginBottom="12dp"
                 android:layout_gravity="center_vertical"/>
 
         </RelativeLayout>
@@ -85,13 +79,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:text="@string/share_with_user_section_title"
             android:id="@+id/shareWithUsersSectionTitle"
             android:layout_gravity="start"
-            android:padding="8dp"
-            android:background="@color/actionbar_start_color"
-            android:textColor="@color/white"/>
+            android:textColor="@color/color_accent"
+            style="?android:attr/listSeparatorTextViewStyle"/>
 
         <ListView
             android:layout_width="match_parent"
@@ -106,8 +98,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/shareNoUsers"
             android:text="@string/share_no_users"
-            android:textSize="12sp"
-            android:padding="12dp" />
+            android:padding="8dp"
+            android:textSize="12sp" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/addUserButton"
@@ -122,18 +114,20 @@
         <Switch
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:text="@string/share_via_link_section_title"
             android:id="@+id/shareViaLinkSectionSwitch"
             android:layout_gravity="start"
-            android:padding="8dp"
-            android:background="@color/actionbar_start_color"
-            android:textColor="@color/white"/>
+            android:textColor="@color/color_accent"
+            style="?android:attr/listSeparatorTextViewStyle"
+            android:checked="false"
+            android:layout_marginTop="8dp"
+            android:paddingRight="8dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/shareViaLinkExpirationSection"
+            android:layout_marginTop="8dp"
             >
 
             <Switch
@@ -142,9 +136,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_centerInParent="true"
+                android:layout_alignParentTop="true"
                 android:padding="8dp"
-                />
+                android:checked="false" />
 
             <TextView
                 android:id="@+id/shareViaLinkExpirationLabel"
@@ -158,7 +152,8 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="@string/share_via_link_expiration_date_label"
-                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
                 />
 
             <TextView
@@ -190,7 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_centerInParent="true"
+                android:layout_alignParentTop="true"
                 android:padding="8dp"
             />
 
@@ -202,11 +197,12 @@
                 android:layout_alignParentStart="true"
                 android:layout_toLeftOf="@id/shareViaLinkPasswordSwitch"
                 android:layout_toStartOf="@id/shareViaLinkPasswordSwitch"
+                android:textColor="@color/black"
                 android:paddingTop="8dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="@string/share_via_link_password_label"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 />
 
             <TextView
