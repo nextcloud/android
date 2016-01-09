@@ -121,7 +121,7 @@
                 android:text="@string/share_add_user_or_group"
                 android:contentDescription="shareAddUserButton"/>
 
-            <Switch
+            <android.support.v7.widget.SwitchCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/share_via_link_section_title"
@@ -140,7 +140,7 @@
                 android:layout_marginTop="8dp"
                 >
 
-                <Switch
+                <android.support.v7.widget.SwitchCompat
                     android:id="@+id/shareViaLinkExpirationSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
                 android:id="@+id/shareViaLinkPasswordSection"
                 >
 
-                <Switch
+                <android.support.v7.widget.SwitchCompat
                     android:id="@+id/shareViaLinkPasswordSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
