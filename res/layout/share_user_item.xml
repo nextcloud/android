@@ -26,6 +26,13 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:longClickable="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/icon"
+            android:src="@drawable/ic_user"
+            android:layout_gravity="center_vertical"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +42,7 @@
             android:id="@+id/userOrGroupName"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginLeft="8dp"
             android:textColor="@color/textColor"
             android:singleLine="true"
             android:ellipsize="middle"
