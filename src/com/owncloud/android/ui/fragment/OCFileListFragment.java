@@ -110,8 +110,6 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
 
-    private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
-
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile = null;
