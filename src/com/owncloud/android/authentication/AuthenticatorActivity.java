@@ -44,8 +44,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
+import android.text.Html;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.util.Linkify;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -1239,7 +1241,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         case UNHANDLED_HTTP_CODE:
         case UNKNOWN_ERROR:
-            mServerStatusText = R.string.auth_unknown_error_title;
+            setStatusUrl();
             break;
         case OK_REDIRECT_TO_NON_SECURE_CONNECTION:
             mServerStatusIcon = R.drawable.ic_lock_open;
@@ -1326,7 +1328,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         case UNHANDLED_HTTP_CODE:
         case UNKNOWN_ERROR:
-            mAuthStatusText = R.string.auth_unknown_error_title;
+            setStatusUrl();
             break;
         default:
             mAuthStatusText = 0;
@@ -1610,13 +1612,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mServerStatusView.setVisibility(View.INVISIBLE);
 
         } else {
-            mServerStatusView.setText(mServerStatusText);
+            setStatusUrl();
             mServerStatusView.setCompoundDrawablesWithIntrinsicBounds(mServerStatusIcon, 0, 0, 0);
             mServerStatusView.setVisibility(View.VISIBLE);
         }
 
     }
 
+    private void setStatusUrl(){
+        String text = getString(R.string.auth_unknown_error_title,
+                                mHostUrlInput.getText().toString().trim() + "/status.php");
+        mServerStatusView.setText(Html.fromHtml(text));
+        Linkify.addLinks(mServerStatusView, Linkify.WEB_URLS);
+    }
 
     /**
      * Updates the content and visibility state of the icon and text associated
