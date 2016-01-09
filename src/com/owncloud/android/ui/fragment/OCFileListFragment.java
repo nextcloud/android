@@ -27,10 +27,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Context;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.net.Uri;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -108,6 +110,8 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
 
+    private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
+
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile = null;
@@ -117,7 +121,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     private OCFile mTargetFile;
 
     private boolean miniFabClicked = false;
-    
+
 
 
     @Override

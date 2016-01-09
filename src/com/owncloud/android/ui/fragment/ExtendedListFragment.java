@@ -77,7 +77,7 @@ public class ExtendedListFragment extends Fragment
     private FloatingActionButton fabUpload;
     private FloatingActionButton fabMkdir;
     private FloatingActionButton fabUploadFromApp;
-    
+
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
     private ArrayList<Integer> mFirstPositions;
@@ -162,7 +162,7 @@ public class ExtendedListFragment extends Fragment
         }
         return false;
     }
-    
+
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

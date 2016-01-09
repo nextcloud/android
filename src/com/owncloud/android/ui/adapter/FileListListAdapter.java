@@ -87,7 +87,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private SharedPreferences mAppPreferences;
 
     private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
-    
+
     public FileListListAdapter(
             boolean justFolders, 
             Context context,
@@ -331,7 +331,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
             }
-            
+
             // For all Views
             
             // this if-else is needed even though favorite icon is visible by default

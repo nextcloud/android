@@ -15,6 +15,7 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">כל הקבצים</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_open">פתיחה</string>
@@ -247,6 +248,8 @@
   <string name="prefs_category_accounts">חשבונות</string>
   <string name="prefs_add_account">הוספת חשבון</string>
   <string name="auth_redirect_non_secure_connection_title">חיבור מאובטח מנותב דרך נתיב לא מאובטח</string>
+  <string name="saml_authentication_wrong_pass">סיסמא שגוייה</string>
+  <string name="actionbar_move">העברה</string>
   <string name="folder_picker_choose_button_text">בחירה</string>
   <string name="prefs_category_security">אבטחה</string>
   <string name="auth_host_address">כתובת שרת</string>
