@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/searchUsersListView"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical"
+        android:layout_marginLeft="@dimen/standard_margin"/>
 
 </LinearLayout>
