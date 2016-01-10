@@ -42,6 +42,7 @@
 			android:divider="@color/list_divider_background"
 			android:dividerHeight="1dip">
 		</ListView>
+
 	</FrameLayout>
 
 	<LinearLayout

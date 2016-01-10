@@ -751,9 +751,7 @@ public class Uploader extends FileActivity
             if (file.isFolder()) {
                 return file;
             } else if (getStorageManager() != null) {
-                String parentPath = file.getRemotePath().substring(0, 
-                                                            file.getRemotePath().lastIndexOf(file.getFileName()));
-                return getStorageManager().getFileByPath(parentPath);
+                return getStorageManager().getFileByPath(file.getParentRemotePath());
             }
         }
         return null;
@@ -767,11 +765,10 @@ public class Uploader extends FileActivity
     
     protected void requestCredentialsUpdate() {
         Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
-        updateAccountCredentials.putExtra(
-                AuthenticatorActivity.EXTRA_ACTION, 
-                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
-        updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount())
+        .putExtra(AuthenticatorActivity.EXTRA_ACTION,
+                  AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN)
+        .addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         startActivity(updateAccountCredentials);
     }
     

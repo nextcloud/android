@@ -1,3 +1,24 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Tobias Kaminsky
+ *   Copyright (C) 2016  Tobias Kaminsky
+ *   Copyright (C) 2016 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.ui.activity;
 
 import java.util.HashMap;
@@ -30,7 +51,8 @@ public class ImageSimpleAdapter extends SimpleAdapter {
     private Context mContext;
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
-    public LayoutInflater inflater = null;
+    private int mResource;
+    private LayoutInflater inflater;
 
     public ImageSimpleAdapter(Context context,
             List<? extends Map<String, ?>> data, int resource, String[] from,
@@ -39,6 +61,7 @@ public class ImageSimpleAdapter extends SimpleAdapter {
         mAccount = account;
         mStorageManager = storageManager;
         mContext = context;
+        mResource = resource;
         inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -47,7 +70,7 @@ public class ImageSimpleAdapter extends SimpleAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         if (convertView == null)
-            vi = inflater.inflate(R.layout.uploader_list_item_layout, null);
+            vi = inflater.inflate(mResource, null);
 
         HashMap<String, OCFile> data = (HashMap<String, OCFile>) getItem(position);
         OCFile file = data.get("dirname");
@@ -58,7 +81,7 @@ public class ImageSimpleAdapter extends SimpleAdapter {
         ImageView fileIcon = (ImageView) vi.findViewById(R.id.thumbnail);
         fileIcon.setTag(file.getFileId());
         
-     // get Thumbnail if file is image
+        // get Thumbnail if file is image
         if (file.isImage() && file.getRemoteId() != null){
              // Thumbnail in Cache?
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
