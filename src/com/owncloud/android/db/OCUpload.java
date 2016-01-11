@@ -92,8 +92,24 @@ public class OCUpload {
     // Constructor
     public OCUpload(OCFile ocFile) {
         this.mFile = ocFile;
+        resetData();     // TODO needed???
+
     }
 
+    // TODO needed???
+    private void resetData(){
+        mId = -1;
+        mLocalAction = LocalBehaviour.LOCAL_BEHAVIOUR_COPY;
+        mUploadTime = new GregorianCalendar();
+        mForceOverwrite = false;
+        mIsCreateRemoteFolder = false;
+        mIsUseWifiOnly = true;
+        mIsWhileChargingOnly = false;
+        mUploadTimestamp = -1;
+        mAccountName = "";
+        mUploadStatus = UploadStatus.UPLOAD_LATER;
+        mLastResult = UploadResult.UPLOADED;
+    }
 
     // Getters & Setters
     public void setUploadId(long id) {

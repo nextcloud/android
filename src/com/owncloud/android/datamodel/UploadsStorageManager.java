@@ -142,6 +142,35 @@ public class UploadsStorageManager extends Observable {
     }
 
     /**
+     * Update an upload object in DB.
+     *
+     * @param ocUpload
+     * @return num of updated uploads.
+     */
+    public int updateUpload(OCUpload ocUpload) {
+        Log_OC.e(TAG, "Updating " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
+
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.UPLOADS_PATH, ocUpload.getLocalPath());
+        cv.put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.getUploadStatus().value);
+
+        int result = getDB().update(ProviderTableMeta.CONTENT_URI_UPLOADS,
+                cv,
+                ProviderTableMeta.UPLOADS_FILE_ID + "=?",
+                new String[]{ String.valueOf(ocUpload.getOCFile().getFileId()) }
+        );
+
+        Log_OC.d(TAG, "updateUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
+        if (result != 1) {
+            Log_OC.e(TAG, "Failed to update item " + ocUpload.getLocalPath() + " into upload db.");
+        } else {
+            notifyObserversNow();
+        }
+
+        return result;
+    }
+
+    /**
      * Update upload status of file in DB.
      * 
      * @return 1 if file status was updated, else 0.
@@ -152,7 +181,8 @@ public class UploadsStorageManager extends Observable {
     }
 
     private int updateUploadInternal(Cursor c, UploadStatus status, UploadResult result) {
-        
+
+        int r = 0;
         while(c.moveToNext()) {
             // read upload object and update
             OCUpload upload = createOCUploadFromCursor(c);
@@ -167,34 +197,14 @@ public class UploadsStorageManager extends Observable {
             upload.setUploadStatus(status);
             upload.setLastResult(result);
             // store update upload object to db
-            updateUploadStatus(upload);
-            ContentValues cv = new ContentValues();
-            cv.put(ProviderTableMeta.UPLOADS_STATUS, status.value);
-            int r = updateUploadStatus(upload);
-            // TODO - CRITICAL cv.put("ocUpload", uploadObjectString);
+            r = updateUpload(upload);
 
-            // TODO: review if it is needed or not
-//            int r = getDB().update(
-//                    ProviderTableMeta.CONTENT_URI_UPLOADS,
-//                    cv,
-//                    ProviderTableMeta.UPLOADS_PATH + "=?",
-//                    new String[] {path}
-//            );
-            
-            if (r == 1) {
-                notifyObserversNow();
-            } else {
-                Log_OC.e(TAG, "Failed to update upload db.");
-            }
-
-            c.close();
-
-            return r;
         }
 
         c.close();
-        return 0;
+        return r;
     }
+
     /**
      * Update upload status of file uniquely referenced by filepath.
      * 
@@ -219,7 +229,6 @@ public class UploadsStorageManager extends Observable {
                     + " available in UploadDb. Expected 1. Failed to update upload db.");
 
             c.close();
-
             return 0;
         }
         return updateUploadInternal(c, status, result);
@@ -285,9 +294,9 @@ public class UploadsStorageManager extends Observable {
                     list[c.getPosition()] = upload;
                 }
             } while (c.moveToNext());
-        }
 
-        c.close();
+            c.close();
+        }
 
         return list;
     }
@@ -304,9 +313,8 @@ public class UploadsStorageManager extends Observable {
 
         if (c.moveToFirst()) {
             file = createFileInstance(c);
+            c.close();
         }
-
-        c.close();
 
         return file;
     }
