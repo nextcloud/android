@@ -206,13 +206,6 @@ public class ShareFileFragment extends Fragment
             }
         });
 
-        // Switch to create public share
-        mOnShareViaLinkSwitchCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton switchView, boolean isChecked) {
-            }
-        };
-
         // Set listener for user actions on switch for sharing/unsharing via link
         initShareViaLinkListener(view);
 

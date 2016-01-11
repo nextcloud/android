@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -149,52 +150,52 @@ public class EditShareFragment extends Fragment {
             setListener = true;
         }
         int sharePermissions = mShare.getPermissions();
-        CheckBox checkBox;
+        CompoundButton compound;
 
-        checkBox = (CheckBox) editShareView.findViewById(R.id.canShareCheckBox);
-        checkBox.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
+        compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);
+        compound.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
         if (setListener) {
-            checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+            compound.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
         }
 
-        checkBox = (CheckBox) editShareView.findViewById(R.id.canEditCheckBox);
+        compound = (CompoundButton) editShareView.findViewById(R.id.canEditSwitch);
         int anyUpdatePermission =
                 OCShare.CREATE_PERMISSION_FLAG |
                         OCShare.UPDATE_PERMISSION_FLAG |
                         OCShare.DELETE_PERMISSION_FLAG
                 ;
         boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
-        checkBox.setChecked(canEdit);
+        compound.setChecked(canEdit);
         if (setListener) {
-            checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+            compound.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
         }
 
         if (mFile.isFolder()) {
-            checkBox = (CheckBox) editShareView.findViewById(R.id.canEditCreateCheckBox);
+            compound = (CompoundButton) editShareView.findViewById(R.id.canEditCreateCheckBox);
             if (canEdit) {
-                checkBox.setVisibility(View.VISIBLE);
-                checkBox.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
+                compound.setVisibility(View.VISIBLE);
+                compound.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
             }
             if (setListener) {
-                checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+                compound.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
             }
 
-            checkBox = (CheckBox) editShareView.findViewById(R.id.canEditChangeCheckBox);
+            compound = (CompoundButton) editShareView.findViewById(R.id.canEditChangeCheckBox);
             if (canEdit) {
-                checkBox.setVisibility(View.VISIBLE);
-                checkBox.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
+                compound.setVisibility(View.VISIBLE);
+                compound.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
             }
             if (setListener) {
-                checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+                compound.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
             }
 
-            checkBox = (CheckBox) editShareView.findViewById(R.id.canEditDeleteCheckBox);
+            compound = (CompoundButton) editShareView.findViewById(R.id.canEditDeleteCheckBox);
             if (canEdit) {
-                checkBox.setVisibility(View.VISIBLE);
-                checkBox.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
+                compound.setVisibility(View.VISIBLE);
+                compound.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
             }
             if (setListener) {
-                checkBox.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+                compound.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
             }
 
         }   // else, trust in visibility GONE in R.layout.edit_share_layout
@@ -225,13 +226,14 @@ public class EditShareFragment extends Fragment {
             implements CompoundButton.OnCheckedChangeListener {
 
         /**
-         * Called by R.id.shareViaLinkSectionSwitch to create or delete a public link.
+         * Called by every {@link Switch} and {@link CheckBox} in the fragment to update
+         * the state of its associated permission.
          *
-         * @param checkBoxView  {@link CheckBox} toggled by the user
+         * @param compound  {@link CompoundButton} toggled by the user
          * @param isChecked     New switch state.
          */
         @Override
-        public void onCheckedChanged(CompoundButton checkBoxView, boolean isChecked) {
+        public void onCheckedChanged(CompoundButton compound, boolean isChecked) {
             if (!isResumed()) {
                 // very important, setCheched(...) is called automatically during
                 // Fragment recreation on device rotations
@@ -239,9 +241,9 @@ public class EditShareFragment extends Fragment {
             }
             /// else, getView() cannot be NULL
 
-            CheckBox subordinate;
-            switch(checkBoxView.getId()) {
-                case R.id.canShareCheckBox:
+            CompoundButton subordinate;
+            switch(compound.getId()) {
+                case R.id.canShareSwitch:
                     Log_OC.v(TAG, "canShareCheckBox toggled to " + isChecked);
                     /// TODO?
                     // option 1: direct update approach
@@ -252,14 +254,14 @@ public class EditShareFragment extends Fragment {
                     // option 2: nothing?
                     break;
 
-                case R.id.canEditCheckBox:
+                case R.id.canEditSwitch:
                     Log_OC.v(TAG, "canEditCheckBox toggled to " + isChecked);
                     /// sync subordinate CheckBoxes
                     if (mFile.isFolder()) {
                         if (isChecked) {
                             for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
                                 //noinspection ConstantConditions, prevented in the method beginning
-                                subordinate = (CheckBox) getView().findViewById(sSubordinateCheckBoxIds[i]);
+                                subordinate = (CompoundButton) getView().findViewById(sSubordinateCheckBoxIds[i]);
                                 subordinate.setVisibility(View.VISIBLE);
                                 if (!subordinate.isChecked()) {
                                     toggleDisablingListener(subordinate);
@@ -268,7 +270,7 @@ public class EditShareFragment extends Fragment {
                         } else {
                             for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
                                 //noinspection ConstantConditions, prevented in the method beginning
-                                subordinate = (CheckBox) getView().findViewById(sSubordinateCheckBoxIds[i]);
+                                subordinate = (CompoundButton) getView().findViewById(sSubordinateCheckBoxIds[i]);
                                 subordinate.setVisibility(View.GONE);
                                 if (subordinate.isChecked()) {
                                     toggleDisablingListener(subordinate);
@@ -281,19 +283,19 @@ public class EditShareFragment extends Fragment {
 
                 case R.id.canEditCreateCheckBox:
                     Log_OC.v(TAG, "canEditCreateCheckBox toggled to " + isChecked);
-                    syncCanEditCheckBox(checkBoxView, isChecked);
+                    syncCanEditSwitch(compound, isChecked);
                     /// TODO - anything else?; only if modification-on-change approach is taken
                     break;
 
                 case R.id.canEditChangeCheckBox:
                     Log_OC.v(TAG, "canEditChangeCheckBox toggled to " + isChecked);
-                    syncCanEditCheckBox(checkBoxView, isChecked);
+                    syncCanEditSwitch(compound, isChecked);
                     /// TODO - anything else?; only if modification-on-change approach is taken
                     break;
 
                 case R.id.canEditDeleteCheckBox:
                     Log_OC.v(TAG, "canEditDeleteCheckBox toggled to " + isChecked);
-                    syncCanEditCheckBox(checkBoxView, isChecked);
+                    syncCanEditSwitch(compound, isChecked);
                     /// TODO - anything else?; only if modification-on-change approach is taken
                     break;
             }
@@ -309,20 +311,20 @@ public class EditShareFragment extends Fragment {
         }
 
         /**
-         * Sync value of "can edit" CheckBox according to a change in one of its subordinate checkboxes.
+         * Sync value of "can edit" {@link Switch} according to a change in one of its subordinate checkboxes.
          *
          * If all the subordinates are disabled, "can edit" has to be disabled.
          *
          * If any subordinate is enabled, "can edit" has to be enabled.
          *
-         * @param subordinateCheckBoxView   Subordinate CheckBox that was changed.
+         * @param subordinateCheckBoxView   Subordinate {@link CheckBox} that was changed.
          * @param isChecked                 'true' iif subordinateCheckBoxView was checked.
          */
-        private void syncCanEditCheckBox(View subordinateCheckBoxView, boolean isChecked) {
-            CheckBox canEditCheckBox = (CheckBox) getView().findViewById(R.id.canEditCheckBox);
+        private void syncCanEditSwitch(View subordinateCheckBoxView, boolean isChecked) {
+            CompoundButton canEditCompound = (CompoundButton) getView().findViewById(R.id.canEditSwitch);
             if (isChecked) {
-                if (!canEditCheckBox.isChecked()) {
-                    toggleDisablingListener(canEditCheckBox);
+                if (!canEditCompound.isChecked()) {
+                    toggleDisablingListener(canEditCompound);
                 }
             } else {
                 boolean allDisabled = true;
@@ -332,8 +334,8 @@ public class EditShareFragment extends Fragment {
                                     !((CheckBox) getView().findViewById(sSubordinateCheckBoxIds[i])).isChecked()
                     ;
                 }
-                if (canEditCheckBox.isChecked() && allDisabled) {
-                    toggleDisablingListener(canEditCheckBox);
+                if (canEditCompound.isChecked() && allDisabled) {
+                    toggleDisablingListener(canEditCompound);
                     for (int i=0; i<sSubordinateCheckBoxIds.length; i++) {
                         getView().findViewById(sSubordinateCheckBoxIds[i]).setVisibility(View.GONE);
                     }
@@ -343,14 +345,15 @@ public class EditShareFragment extends Fragment {
 
 
         /**
-         * Toggle value of received CheckBox granting that its change listener is not called.
+         * Toggle value of received {@link CompoundButton} granting that its change listener is not called.
          *
-         * @param checkBoxView      CheckBox to toggle without reporting to the change listener
+         * @param compound      {@link CompoundButton} (switch or checkBox) to toggle without reporting to
+         *                      the change listener
          */
-        private void toggleDisablingListener(CheckBox checkBoxView) {
-            checkBoxView.setOnCheckedChangeListener(null);
-            checkBoxView.toggle();
-            checkBoxView.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+        private void toggleDisablingListener(CompoundButton compound) {
+            compound.setOnCheckedChangeListener(null);
+            compound.toggle();
+            compound.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
         }
     }
 
@@ -388,13 +391,13 @@ public class EditShareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 SharePermissionsBuilder spb = new SharePermissionsBuilder();
-                spb.setSharePermission(getCanShareCheckBox().isChecked());
+                spb.setSharePermission(getCanShareSwitch().isChecked());
                 if (mFile.isFolder()) {
                     spb.setUpdatePermission(getCanEditChangeCheckBox().isChecked())
                         .setCreatePermission(getCanEditCreateCheckBox().isChecked())
                         .setDeletePermission(getCanEditDeleteCheckBox().isChecked());
                 } else {
-                    spb.setUpdatePermission(getCanEditCheckBox().isChecked());
+                    spb.setUpdatePermission(getCanEditSwitch().isChecked());
                 }
                 int permissions = spb.build();
 
@@ -408,23 +411,23 @@ public class EditShareFragment extends Fragment {
     }
 
     /**
-     * Shortcut to access {@link CheckBox} R.id.canShareCheckBox
+     * Shortcut to access {@link Switch} R.id.canShareSwitch
      *
-     * @return  {@link CheckBox} R.id.canShareCheckBox or null if called before
+     * @return  {@link Switch} R.id.canShareCheckBox or null if called before
      *          {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} finished.
      */
-    private CheckBox getCanShareCheckBox() {
-        return (CheckBox) getView().findViewById(R.id.canShareCheckBox);
+    private Switch getCanShareSwitch() {
+        return (Switch) getView().findViewById(R.id.canShareSwitch);
     }
 
     /**
-     * Shortcut to access {@link CheckBox} R.id.canEditCheckBox
+     * Shortcut to access {@link Switch} R.id.canEditSwitch
      *
-     * @return  {@link CheckBox} R.id.canEditCheckBox or null if called before
+     * @return  {@link Switch} R.id.canEditSwitch or null if called before
      *          {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} finished.
      */
-    private CheckBox getCanEditCheckBox() {
-        return (CheckBox) getView().findViewById(R.id.canEditCheckBox);
+    private Switch getCanEditSwitch() {
+        return (Switch) getView().findViewById(R.id.canEditSwitch);
     }
 
     /**
