@@ -60,6 +60,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final String[] COLUMNS = {
         BaseColumns._ID,
         SearchManager.SUGGEST_COLUMN_TEXT_1,
+        SearchManager.SUGGEST_COLUMN_ICON_1,
         SearchManager.SUGGEST_COLUMN_INTENT_DATA
     };
 
@@ -151,6 +152,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             int count = 0;
             JSONObject item;
             String displayName;
+            int icon;
             Uri dataUri;
             Uri userBaseUri = new Uri.Builder().scheme("content").authority(DATA_USER).build();
             Uri groupBaseUri = new Uri.Builder().scheme("content").authority(DATA_GROUP).build();
@@ -163,14 +165,17 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                     String shareWith = value.getString(GetRemoteShareesOperation.PROPERTY_SHARE_WITH);
                     if (GetRemoteShareesOperation.GROUP_TYPE.equals(type)) {
                         displayName = getContext().getString(R.string.share_group_clarification, userName);
+                        icon = R.drawable.ic_group;
                         dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
                     } else {
                         displayName = userName;
+                        icon = R.drawable.ic_user;
                         dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
                     }
                     response.newRow()
                             .add(count++)             // BaseColumns._ID
                             .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
+                            .add(icon)                // SearchManager.SUGGEST_COLUMN_ICON_1
                             .add(dataUri);
                 }
             } catch (JSONException e) {
