@@ -470,7 +470,7 @@ public class Uploader extends FileActivity
             for (OCFile f : files) {
                 if (f.isFolder()) {
                     HashMap<String, Object> h = new HashMap<String, Object>();
-                    h.put("dirname", f.getFileName());
+                    h.put("dirname", f);
                     h.put("last_mod", DisplayUtils.getRelativeTimestamp(this, f));
                     data.add(h);
                 }
