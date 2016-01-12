@@ -357,4 +357,6 @@
   <string name="share_group_clarification">%1$s (grupo)</string>
   <string name="share_sharee_unavailable">Desculpe, sua versão do servidor não permite compartilhamento com usuários que também são clientes.
         \nEntre em contato com o administrador</string>
+  <string name="action_switch_grid_view">Alternar para exibição de grade</string>
+  <string name="action_switch_list_view">Alternar para exibição de lista</string>
 </resources>

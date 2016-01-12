@@ -361,4 +361,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="share_group_clarification">%1$s (groupe)</string>
   <string name="share_sharee_unavailable">Désolé, la version du serveur ne permet pas aux applications d\'initier des partage avec d\'autres utilisateurs.
 \nVeuillez contacter votre administrateur</string>
+  <string name="action_switch_grid_view">Basculer en vue par grille</string>
+  <string name="action_switch_list_view">Basculer en vue par liste</string>
 </resources>
