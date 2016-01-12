@@ -24,11 +24,12 @@
     android:minWidth="200dp"
     android:padding="@dimen/standard_padding">
 
-    <SearchView
+    <android.support.v7.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
-        android:hint="@string/share_search"/>
+        android:hint="@string/share_search"
+        style="@style/ownCloud.SearchView"/>
 
     <ListView
         android:layout_width="match_parent"
