@@ -141,6 +141,11 @@
 		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
 	</style>
 
+	<style name="Theme.ownCloud.Dialog.NoTitle" parent="style/Theme.ownCloud.Dialog">
+		<item name="windowNoTitle">true</item>
+		<item name="colorAccent">@color/owncloud_blue_accent</item>
+	</style>
+
 	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="style/Theme.AppCompat.Light.Dialog.Alert">
 		<item name="windowNoTitle">false</item>
 		<item name="colorAccent">@color/owncloud_blue_accent</item>

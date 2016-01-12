@@ -43,7 +43,7 @@
                 android:layout_gravity="center_vertical"/>
 
             <TextView
-                android:id="@+id/shareFileName"
+                android:id="@+id/shareFileNameHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/placeholder_filename"
@@ -64,7 +64,7 @@
                 android:textSize="12sp"
                 android:text="@string/placeholder_filesize"
                 android:id="@+id/shareFileSize"
-                android:layout_below="@+id/shareFileName"
+                android:layout_below="@+id/shareFileNameHeader"
                 android:layout_toRightOf="@+id/shareFileIcon"
                 android:layout_toEndOf="@+id/shareFileIcon"
                 android:layout_marginLeft="4dp"
