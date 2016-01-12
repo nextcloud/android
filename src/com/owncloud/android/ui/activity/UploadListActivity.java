@@ -29,6 +29,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
+import android.support.v4.view.GravityCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -58,8 +59,18 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.upload_list_layout);
+
+        // Navigation Drawer
+        initDrawer();
+
+        // enable ActionBar app icon to behave as action to toggle nav drawer
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     // ////////////////////////////////////////
@@ -127,29 +138,37 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, file.getAccount(this));
         startActivity(showDetailsIntent);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
-            case R.id.action_retry_uploads: {
+            case android.R.id.home:
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    mDrawerLayout.openDrawer(GravityCompat.START);
+                }
+                break;
+            case R.id.action_retry_uploads:
                 Log_OC.d(TAG, "FileUploadService.retry() called by onMenuItemSelected()");
                 FileUploadService.retry(this);
                 break;
-            }
-            case R.id.action_clear_failed_uploads: {
+
+            case R.id.action_clear_failed_uploads:
                 UploadsStorageManager usm = new UploadsStorageManager(getContentResolver());
                 usm.clearFailedUploads();
                 break;
-            }
-            case R.id.action_clear_finished_uploads: {
-                UploadsStorageManager usm = new UploadsStorageManager(getContentResolver());
-                usm.clearFinishedUploads();
+
+            case R.id.action_clear_finished_uploads:
+                UploadsStorageManager storageManager = new UploadsStorageManager(getContentResolver());
+                storageManager.clearFinishedUploads();
                 break;
-            }
+
             default:
                 retval = super.onOptionsItemSelected(item);
         }
+
         return retval;
     }
 
