@@ -33,14 +33,13 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
-import android.widget.SearchView;
+import android.support.v7.widget.SearchView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
 
 import java.util.ArrayList;
