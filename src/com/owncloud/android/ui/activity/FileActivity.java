@@ -1005,6 +1005,7 @@ public class FileActivity extends AppCompatActivity
                 case 2: // Uploads
                     Intent uploadListIntent = new Intent(getApplicationContext(),
                             UploadListActivity.class);
+                    uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(uploadListIntent);
                     mDrawerLayout.closeDrawers();
                     break;

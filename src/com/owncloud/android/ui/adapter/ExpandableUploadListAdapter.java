@@ -174,7 +174,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             
             TextView localPath = (TextView) view.findViewById(R.id.upload_local_path);
             String path = upload.getOCFile().getStoragePath();
-            path = path.substring(0, path.length() - file.length() - 1);
+            path = path == null ? "" : path.substring(0, path.length() - file.length() - 1);
             localPath.setText("Path: " + path);
 
             TextView fileSize = (TextView) view.findViewById(R.id.upload_file_size);

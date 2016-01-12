@@ -28,7 +28,6 @@ import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Parcelable;
 import android.support.v4.view.GravityCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -125,7 +124,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     private void openPreview(OCUpload file) {
      // preview image
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-        showDetailsIntent.putExtra(EXTRA_FILE, (Parcelable)file.getOCFile());
+        showDetailsIntent.putExtra(EXTRA_FILE, file.getOCFile());
         showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
         startActivity(showDetailsIntent);  
     }
@@ -134,7 +133,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     private void openDetails(OCUpload file) {
         OCFile ocFile = file.getOCFile();
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable) ocFile);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, ocFile);
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, file.getAccount(this));
         startActivity(showDetailsIntent);
     }
