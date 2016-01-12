@@ -35,7 +35,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Parcelable;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -847,7 +846,7 @@ public class FileActivity extends AppCompatActivity
         if (!result.isSuccess()) {
             if (result.getCode() == ResultCode.SYNC_CONFLICT) {
                 Intent i = new Intent(this, ConflictsResolveActivity.class);
-                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, (Parcelable)syncedFile);
+                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, syncedFile);
                 i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, getAccount());
                 startActivity(i);
             }

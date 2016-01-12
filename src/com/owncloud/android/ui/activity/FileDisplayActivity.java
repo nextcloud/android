@@ -42,7 +42,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.support.v4.app.Fragment;
@@ -57,7 +56,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -242,11 +240,7 @@ public class FileDisplayActivity extends HookActivity implements
     }
 
     /**
-<<<<<<< HEAD
      *  Called when the ownCloud {@link Account} associated to the Activity was just updated.
-=======
-     * Called when the ownCloud {@link Account} associated to the Activity was just updated.
->>>>>>> master
      */
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
@@ -364,17 +358,10 @@ public class FileDisplayActivity extends HookActivity implements
     /**
      * Replaces the second fragment managed by the activity with the received as
      * a parameter.
-<<<<<<< HEAD
      *
      * Assumes never will be more than two fragments managed at the same time.
      *
      * @param fragment      New second Fragment to set.
-=======
-     * <p/>
-     * Assumes never will be more than two fragments managed at the same time.
-     *
-     * @param fragment New second Fragment to set.
->>>>>>> master
      */
     private void setSecondFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -1625,7 +1612,7 @@ public class FileDisplayActivity extends HookActivity implements
         if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
-            i.putExtra(FileDownloader.EXTRA_FILE, (Parcelable)mWaitingToPreview);
+            i.putExtra(FileDownloader.EXTRA_FILE, mWaitingToPreview);
             startService(i);
         }
     }
@@ -1718,7 +1705,7 @@ public class FileDisplayActivity extends HookActivity implements
         if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
-            i.putExtra(FileDownloader.EXTRA_FILE, (Parcelable)file);
+            i.putExtra(FileDownloader.EXTRA_FILE, file);
             startService(i);
         }
     }
@@ -1750,7 +1737,7 @@ public class FileDisplayActivity extends HookActivity implements
      */
     public void startImagePreview(OCFile file) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-        showDetailsIntent.putExtra(EXTRA_FILE, (Parcelable)file);
+        showDetailsIntent.putExtra(EXTRA_FILE, file);
         showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
         startActivity(showDetailsIntent);
 
@@ -1796,11 +1783,7 @@ public class FileDisplayActivity extends HookActivity implements
      * to monitor the download progress and prepares the activity to preview
      * or open the file when the download finishes.
      *
-<<<<<<< HEAD
      * @param file          {@link OCFile} to download and preview.
-=======
-     * @param file {@link OCFile} to download and preview.
->>>>>>> master
      */
     public void startDownloadForPreview(OCFile file) {
         Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount());
