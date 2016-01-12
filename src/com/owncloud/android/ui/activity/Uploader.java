@@ -121,6 +121,8 @@ public class Uploader extends FileActivity
 
     private static final String TAG = Uploader.class.getSimpleName();
 
+    private ProgressBar mProgressBar;
+
     private AccountManager mAccountManager;
     private Stack<String> mParents;
     private ArrayList<Parcelable> mStreamsToUpload;
@@ -178,6 +180,8 @@ public class Uploader extends FileActivity
         if (mAccountSelected) {
             setAccount((Account) savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT));
         }
+
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     @Override
@@ -502,8 +506,8 @@ public class Uploader extends FileActivity
                                                                         getApplicationContext()
                                                                       );
         synchFolderOp.execute(getAccount(), this, null, null);
-        
-        setSupportProgressBarIndeterminateVisibility(true);
+
+        mProgressBar.setIndeterminate(true);
     }
 
 
@@ -863,7 +867,7 @@ public class Uploader extends FileActivity
                     }
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                    setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
+                    mProgressBar.setIndeterminate(mSyncInProgress);
                 }
             } catch (RuntimeException e) {
                 // avoid app crashes after changing the serial id of RemoteOperationResult 
