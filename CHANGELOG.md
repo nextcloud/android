@@ -1,5 +1,6 @@
 # 2016-01-12
 - PR [#1424] (https://github.com/owncloud/android/pull/1424) "semi transparent checkmark" merged
+- PR [#1416] (https://github.com/owncloud/android/pull/1416) "share view enhancement" merged
 
 # 2016-01-03
 - update all PR
