@@ -78,7 +78,7 @@
             android:textColor="@color/white"
             />
 
-        <TextView
+        <android.support.v7.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/unshareButton"
@@ -87,7 +87,7 @@
             android:drawableRight="@drawable/ic_action_delete"
             android:drawableEnd="@drawable/ic_action_delete"
             android:text="@string/edit_share_unshare"
-            android:layout_gravity="center_horizontal"
+            android:gravity="center"
             />
 
         <android.support.v7.widget.AppCompatButton
@@ -96,7 +96,6 @@
             android:theme="@style/Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:text="@string/edit_share_done"
             android:contentDescription="@string/edit_share_done"
             />
