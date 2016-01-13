@@ -356,4 +356,6 @@
   <string name="share_group_clarification">%1$s (グループ)</string>
   <string name="share_sharee_unavailable">申し訳ありませんが、このサーバーのバージョンではこのクライアントアプリ上で他のユーザーと共有することができません。
         \n管理者に相談してしてください。</string>
+  <string name="action_switch_grid_view">グリッド表示に変更</string>
+  <string name="action_switch_list_view">リスト表示に変更</string>
 </resources>
