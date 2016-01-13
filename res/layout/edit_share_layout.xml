@@ -17,96 +17,90 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              tools:context="com.owncloud.android.ui.fragment.ShareFileFragment">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.owncloud.android.ui.fragment.EditShareFragment"
+            android:id="@+id/shareScroll">
 
-    <!--CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/canEditCheckBox"
-        android:text="@string/share_privilege_can_edit"
-        /-->
-    <Switch
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/two_line_primary_text_size"
-        android:text="@string/share_privilege_can_edit"
-        android:id="@+id/canEditSwitch"
-        android:layout_gravity="start"
-        android:padding="@dimen/standard_half_padding"
-        android:layout_marginTop="@dimen/standard_half_margin"
-        android:background="@color/actionbar_start_color"
-        android:textColor="@color/white"
-        />
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
 
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/canEditCreateCheckBox"
-        android:text="@string/share_privilege_can_edit_create"
-        android:visibility="gone"
-        />
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/two_line_primary_text_size"
+            android:text="@string/share_privilege_can_edit"
+            android:id="@+id/canEditSwitch"
+            android:layout_gravity="start"
+            android:padding="@dimen/standard_half_padding"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:background="@color/actionbar_start_color"
+            android:textColor="@color/white"
+            />
 
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/canEditChangeCheckBox"
-        android:text="@string/share_privilege_can_edit_change"
-        android:visibility="gone"
-        />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/canEditCreateCheckBox"
+            android:text="@string/share_privilege_can_edit_create"
+            android:visibility="gone"
+            />
 
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/canEditDeleteCheckBox"
-        android:text="@string/share_privilege_can_edit_delete"
-        android:visibility="gone"
-        />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/canEditChangeCheckBox"
+            android:text="@string/share_privilege_can_edit_change"
+            android:visibility="gone"
+            />
 
-    <!-- CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/canShareCheckBox"
-        android:text="@string/share_privilege_can_share"
-        /-->
-    <Switch
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/two_line_primary_text_size"
-        android:text="@string/share_privilege_can_share"
-        android:id="@+id/canShareSwitch"
-        android:layout_gravity="start"
-        android:padding="@dimen/standard_half_padding"
-        android:layout_marginTop="@dimen/standard_half_margin"
-        android:background="@color/actionbar_start_color"
-        android:textColor="@color/white"
-        />
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/canEditDeleteCheckBox"
+            android:text="@string/share_privilege_can_edit_delete"
+            android:visibility="gone"
+            />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/unshareButton"
-        style="@style/Button.Primary"
-        android:theme="@style/Button.Primary"
-        android:drawableRight="@drawable/ic_action_delete"
-        android:drawableEnd="@drawable/ic_action_delete"
-        android:text="@string/edit_share_unshare"
-        android:layout_gravity="center_horizontal"
-        />
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/two_line_primary_text_size"
+            android:text="@string/share_privilege_can_share"
+            android:id="@+id/canShareSwitch"
+            android:layout_gravity="start"
+            android:padding="@dimen/standard_half_padding"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:background="@color/actionbar_start_color"
+            android:textColor="@color/white"
+            />
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/doneButton"
-        style="@style/Button.Primary"
-        android:theme="@style/Button.Primary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/edit_share_done"
-        android:contentDescription="@string/edit_share_done"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/unshareButton"
+            style="@style/Button.Primary"
+            android:theme="@style/Button.Primary"
+            android:drawableRight="@drawable/ic_action_delete"
+            android:drawableEnd="@drawable/ic_action_delete"
+            android:text="@string/edit_share_unshare"
+            android:layout_gravity="center_horizontal"
+            />
 
-</LinearLayout>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/doneButton"
+            style="@style/Button.Primary"
+            android:theme="@style/Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/edit_share_done"
+            android:contentDescription="@string/edit_share_done"
+            />
+
+    </LinearLayout>
+
+</ScrollView>
