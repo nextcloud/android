@@ -1,22 +1,36 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_version">útgáfa %1$s</string>
   <string name="actionbar_upload">Senda inn</string>
   <string name="actionbar_upload_files">Skrár</string>
+  <string name="actionbar_open_with">Opna með</string>
+  <string name="actionbar_mkdir">Ný mappa</string>
   <string name="actionbar_settings">Stillingar</string>
   <string name="actionbar_send_file">Senda</string>
+  <string name="actionbar_sort">Raða</string>
+  <string name="actionbar_sort_title">Raða sem</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Nýjast - Elst</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Allar skrár</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_close">Loka</string>
   <string name="drawer_open">Opna</string>
   <string name="prefs_category_more">Meira</string>
   <string name="prefs_help">Hjálp</string>
   <string name="auth_username">Notendanafn</string>
   <string name="auth_password">Lykilorð</string>
   <string name="sync_string_files">Skrár</string>
+  <string name="setup_btn_connect">Tengjast</string>
   <string name="uploader_btn_upload_text">Senda inn</string>
+  <string name="uploader_btn_new_folder_text">Ný mappa</string>
+  <string name="uploader_wrn_no_account_quit_btn_text">Hætta</string>
   <string name="file_list_seconds_ago">sek.</string>
   <string name="file_list_empty">Ekkert hér. Settu eitthvað inn!</string>
   <string name="filedetails_download">Niðurhal</string>
@@ -26,15 +40,32 @@
   <string name="common_ok">Í lagi</string>
   <string name="common_cancel">Hætta við</string>
   <string name="common_error"><strong>Villa</strong></string>
+  <string name="about_title">Um</string>
   <string name="change_password">Breyta lykilorði</string>
   <string name="uploader_info_dirname">Nafn möppu</string>
-  <string name="common_rename">Endurskýra</string>
+  <string name="foreign_files_move">Færa allt</string>
+  <string name="favorite">Uppáhalds</string>
+  <string name="common_rename">Endurnefna</string>
   <string name="common_remove">Fjarlægja</string>
+  <string name="ssl_validator_btn_details_hide">Fela</string>
+  <string name="ssl_validator_label_C">Land:</string>
+  <string name="ssl_validator_label_ST">Sýsla:</string>
+  <string name="ssl_validator_label_validity_from">Frá:</string>
+  <string name="ssl_validator_label_validity_to">Til:</string>
+  <string name="placeholder_filetype">PNG mynd</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="activity_chooser_send_file_title">Senda</string>
   <string name="empty"></string>
   <string name="actionbar_move">Færa</string>
   <string name="folder_picker_choose_button_text">Veldu</string>
+  <string name="with_you_subject_header">með þér</string>
+  <string name="subject_user_shared_with_you">%1$s deilt \"%2$s\" með þér</string>
   <string name="auth_host_address">Host nafn netþjóns</string>
+  <string name="username">Notendanafn</string>
+  <string name="file_list__footer__folder">1 mappa</string>
+  <string name="file_list__footer__file">1 skrá</string>
   <string name="share_via_link_section_title">Deila hlekk</string>
   <string name="share_via_link_expiration_date_label">Setja gildistíma</string>
   <string name="share_via_link_password_label">Verja með lykilorði</string>

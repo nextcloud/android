@@ -335,6 +335,12 @@
   <string name="file_list__footer__files">%1$d ไฟล์</string>
   <string name="file_list__footer__files_and_folder">%1$d ไฟล์, 1 โฟลเดอร์</string>
   <string name="file_list__footer__files_and_folders">%1$d ไฟล์, %2$d โฟลเดอร์</string>
+  <string name="prefs_instant_behaviour_dialogTitle">ไฟล์ต้นฉบับ...</string>
+  <string name="prefs_instant_behaviour_title">ไฟล์ต้นฉบับ...</string>
+  <string name="upload_copy_files">คัดลอกไฟล์</string>
+  <string name="upload_move_files">ย้ายไฟล์</string>
+  <string name="pref_behaviour_entries_keep_file">เก็บไว้ในโฟลเดอร์ต้นฉบับ</string>
+  <string name="pref_behaviour_entries_move">ถูกย้ายไปยังโฟลเดอร์แอพพลิเคชัน</string>
   <string name="share_dialog_title">การแชร์ข้อมูล</string>
   <string name="share_with_user_section_title">แชร์กับผู้ใช้และกลุ่ม</string>
   <string name="share_no_users">ยังไม่มีข้อมูลที่แชร์กับผู้ใช้ในตอนนี้</string>
@@ -349,4 +355,6 @@
   <string name="share_group_clarification">%1$s (กลุ่ม)</string>
   <string name="share_sharee_unavailable">ขออภัย รุ่นเซิร์ฟเวอร์ของคุณไม่อนุญาตให้แชร์กับผู้ใช้ภายในไคลเอนต์
 \nกรุณาติดต่อผู้ดูแลระบบ</string>
+  <string name="action_switch_grid_view">สลับไปยังมุมมองตาราง</string>
+  <string name="action_switch_list_view">สลับไปยังมุมมองรายการ</string>
 </resources>
