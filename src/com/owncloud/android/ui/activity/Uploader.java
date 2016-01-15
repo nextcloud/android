@@ -569,7 +569,7 @@ public class Uploader extends FileActivity
 
                 Intent intent = new Intent(getApplicationContext(), FileUploadService.class);
                 intent.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                        FileUploadService.UploadQuantity.UPLOAD_MULTIPLE_FILES);
+                        FileUploadService.UPLOAD_MULTIPLE_FILES);
                 intent.putExtra(FileUploadService.KEY_LOCAL_FILE,
                         local.toArray(new String[local.size()]));
                 intent.putExtra(FileUploadService.KEY_REMOTE_FILE,
@@ -705,7 +705,7 @@ public class Uploader extends FileActivity
         if (result != null) {
             Intent intent = new Intent(getApplicationContext(), FileUploadService.class);
             intent.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                    FileUploadService.UploadQuantity.UPLOAD_SINGLE_FILE);
+                    FileUploadService.UPLOAD_SINGLE_FILE);
             intent.putExtra(FileUploadService.KEY_LOCAL_FILE, result);
             intent.putExtra(FileUploadService.KEY_REMOTE_FILE, mRemoteCacheData.get(index));
             intent.putExtra(FileUploadService.KEY_ACCOUNT, getAccount());

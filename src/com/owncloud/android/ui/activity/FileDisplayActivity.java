@@ -66,7 +66,6 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -688,7 +687,7 @@ public class FileDisplayActivity extends HookActivity implements
             i.putExtra(FileUploadService.KEY_LOCAL_FILE, filePaths);
             i.putExtra(FileUploadService.KEY_REMOTE_FILE, remotePaths);
             i.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                    FileUploadService.UploadQuantity.UPLOAD_MULTIPLE_FILES);
+                    FileUploadService.UPLOAD_MULTIPLE_FILES);
             if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
                 i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_MOVE);
             startService(i);
@@ -768,7 +767,7 @@ public class FileDisplayActivity extends HookActivity implements
         i.putExtra(FileUploadService.KEY_REMOTE_FILE, remotePath);
         i.putExtra(FileUploadService.KEY_MIME_TYPE, mimeType);
         i.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                FileUploadService.UploadQuantity.UPLOAD_SINGLE_FILE);
+                FileUploadService.UPLOAD_SINGLE_FILE);
         if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) {
             i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR,
                     FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_MOVE);
@@ -1077,7 +1076,7 @@ public class FileDisplayActivity extends HookActivity implements
 
                 if (sameAccount && isDescendant) {
                     String linkedToRemotePath =
-                            intent.getStringExtra(FileUploader.EXTRA_LINKED_TO_PATH);
+                            intent.getStringExtra(FileUploadService.EXTRA_LINKED_TO_PATH);
                     if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
                         refreshListOfFilesFragment();
                     }

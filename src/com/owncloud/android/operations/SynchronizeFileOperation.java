@@ -22,22 +22,22 @@
 
 package com.owncloud.android.operations;
 
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploadService;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.resources.files.RemoteFile;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
-import com.owncloud.android.operations.common.SyncOperation;
-import com.owncloud.android.utils.FileStorageUtils;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * Remote operation performing the read of remote file in the ownCloud server.
@@ -293,7 +293,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         in the database when the FileUploader service gets it!
         i.putExtra(FileUploader.KEY_LOCAL_FILE, localFile.getStoragePath());*/
         i.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                FileUploadService.UploadQuantity.UPLOAD_SINGLE_FILE);
+                FileUploadService.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploadService.KEY_FORCE_OVERWRITE, true);
         mContext.startService(i);
         mTransferWasRequested = true;

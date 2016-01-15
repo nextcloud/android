@@ -32,7 +32,6 @@ import android.provider.MediaStore.Video;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.files.services.FileUploadService;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -117,7 +116,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploadService.KEY_ACCOUNT, account);
         i.putExtra(FileUploadService.KEY_LOCAL_FILE, file_path);
         i.putExtra(FileUploadService.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadQuantity.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploadService.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploadService.KEY_CREATE_REMOTE_FOLDER, true);
         i.putExtra(FileUploadService.KEY_WIFI_ONLY, instantPictureUploadViaWiFiOnly(context));
@@ -143,9 +142,9 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         if (behaviour.equalsIgnoreCase("NOTHING")) {
             Log_OC.d(TAG, "upload file and do nothing");
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
+            i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LOCAL_BEHAVIOUR_FORGET);
         } else if (behaviour.equalsIgnoreCase("MOVE")) {
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+            i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LOCAL_BEHAVIOUR_MOVE);
             Log_OC.d(TAG, "upload file and move file to oc folder");
         }
         return i;
@@ -187,7 +186,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploadService.KEY_ACCOUNT, account);
         i.putExtra(FileUploadService.KEY_LOCAL_FILE, file_path);
         i.putExtra(FileUploadService.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadQuantity.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploadService.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploadService.KEY_CREATE_REMOTE_FOLDER, true);
         i.putExtra(FileUploadService.KEY_WIFI_ONLY, instantVideoUploadViaWiFiOnly(context));

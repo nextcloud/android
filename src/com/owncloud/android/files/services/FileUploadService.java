@@ -21,6 +21,8 @@
 package com.owncloud.android.files.services;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.OnAccountsUpdateListener;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -93,7 +95,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * However, Intent keys (e.g., KEY_WIFI_ONLY) are obeyed.
  * 
  */
-public class FileUploadService extends Service implements OnDatatransferProgressListener {
+public class FileUploadService extends Service implements OnDatatransferProgressListener,
+        OnAccountsUpdateListener {
 
     private static final String TAG = FileUploadService.class.getSimpleName();
 
@@ -203,18 +206,18 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         }
     }
     
-    public enum UploadQuantity {
-        UPLOAD_SINGLE_FILE(0), UPLOAD_MULTIPLE_FILES(1);
-        private final int value;
-
-        UploadQuantity(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    };
+//    public enum UploadQuantity {
+//        UPLOAD_SINGLE_FILE(0), UPLOAD_MULTIPLE_FILES(1);
+//        private final int value;
+//
+//        UploadQuantity(int value) {
+//            this.value = value;
+//        }
+//
+//        public int getValue() {
+//            return value;
+//        }
+//    };
 
     private volatile Looper mServiceLooper;
     private volatile ServiceHandler mServiceHandler;
@@ -321,10 +324,8 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         Log_OC.d(TAG, "FileUploadService.retry() called by onCreate()");
         FileUploadService.retry(getApplicationContext());
 
-        // From Uploader
-        // add AccountsUpdatedListener
-//        AccountManager am = AccountManager.get(getApplicationContext());
-//        am.addOnAccountsUpdatedListener(this, null, false);
+        AccountManager am = AccountManager.get(getApplicationContext());
+        am.addOnAccountsUpdatedListener(this, null, false);
     }
 
     /**
@@ -345,10 +346,8 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         //mServiceLooper.quit();
         mUploadExecutor.shutdown();
 
-        // From Uploader
-        // remove AccountsUpdatedListener
-//        AccountManager am = AccountManager.get(getApplicationContext());
-//        am.removeOnAccountsUpdatedListener(this);
+        AccountManager am = AccountManager.get(getApplicationContext());
+        am.removeOnAccountsUpdatedListener(this);
 
         super.onDestroy();
 
@@ -509,15 +508,15 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         return Service.START_NOT_STICKY;
     }
 
-    //    @Override
-//    public void onAccountsUpdated(Account[] accounts) {
-//        // Review current upload, and cancel it if its account doen't exist
-//        if (mCurrentUpload != null &&
-//                !AccountUtils.exists(mCurrentUpload.getAccount(), getApplicationContext())) {
-//            mCurrentUpload.cancel();
-//        }
-//        // The rest of uploads are cancelled when they try to start
-//    }
+    @Override
+    public void onAccountsUpdated(Account[] accounts) {
+        // Review current upload, and cancel it if its account doen't exist
+        if (mCurrentUpload != null &&
+                !AccountUtils.exists(mCurrentUpload.getAccount(), getApplicationContext())) {
+            mCurrentUpload.cancel();
+        }
+        // The rest of uploads are cancelled when they try to start
+    }
 
     /**
      * Provides a binder object that clients can use to perform operations on
@@ -761,7 +760,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
      * requested.
      *
      * Created with the Looper of a new thread, started in
-     * {@link FileUploader#onCreate()}.
+     * {@link FileUploadService#onCreate()}.
      */
     private static class ServiceHandler extends Handler {
         // don't make it a final class, and don't remove the static ; lint will

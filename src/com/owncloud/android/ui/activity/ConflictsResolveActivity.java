@@ -67,7 +67,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 // use server version -> delete local, request download
                 Intent intent = new Intent(this, FileDownloader.class);
                 intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
-                intent.putExtra(FileDownloader.EXTRA_FILE, (Parcelable) getFile());
+                intent.putExtra(FileDownloader.EXTRA_FILE, getFile());
                 startService(intent);
                 finish();
                 return;
@@ -76,8 +76,8 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 return;
         }
         i.putExtra(FileUploadService.KEY_ACCOUNT, getAccount());
-        i.putExtra(FileUploadService.KEY_FILE, (Parcelable)getFile());
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UploadQuantity.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploadService.KEY_FILE, getFile());
+        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_SINGLE_FILE);
         
         startService(i);
         finish();

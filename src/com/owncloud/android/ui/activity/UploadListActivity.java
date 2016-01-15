@@ -19,8 +19,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import java.io.File;
-
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -34,7 +32,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -44,6 +41,8 @@ import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.fragment.UploadListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
+
+import java.io.File;
 
 /**
  * Activity listing pending, active, and completed uploads. User can delete
