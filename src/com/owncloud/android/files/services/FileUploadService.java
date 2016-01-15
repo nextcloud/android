@@ -79,8 +79,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -147,7 +145,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
      */
     public static final String KEY_WHILE_CHARGING_ONLY = "KEY_WHILE_CHARGING_ONLY";
     /**
-     * Set to future UNIX timestamp. Upload will not be performed before this timestamp. 
+     * Set to future UNIX timestamp. Upload will not be performed before this timestamp.
      */
     public static final String KEY_UPLOAD_TIMESTAMP= "KEY_UPLOAD_TIMESTAMP";
     
@@ -221,7 +219,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 
     private volatile Looper mServiceLooper;
     private volatile ServiceHandler mServiceHandler;
-    private ExecutorService mUploadExecutor;
+    //private ExecutorService mUploadExecutor;
 
     private IBinder mBinder;
     private OwnCloudClient mUploadClient = null;
@@ -319,7 +317,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         //when this service starts there is no upload in progress. if db says so, app probably crashed before.
         mUploadsStorageManager.setAllCurrentToUploadLater();
 
-        mUploadExecutor = Executors.newFixedThreadPool(1);
+       // mUploadExecutor = Executors.newFixedThreadPool(1);
 
         Log_OC.d(TAG, "FileUploadService.retry() called by onCreate()");
         FileUploadService.retry(getApplicationContext());
@@ -344,7 +342,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         //Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.size() + " - onDestroy");
         Log_OC.d(TAG, "mPendingUploads size:" + mPendingUploads.toString() + " - onDestroy");
         //mServiceLooper.quit();
-        mUploadExecutor.shutdown();
+        //mUploadExecutor.shutdown();
 
         AccountManager am = AccountManager.get(getApplicationContext());
         am.removeOnAccountsUpdatedListener(this);
@@ -418,12 +416,17 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             }
         }
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(account,
-                getContentResolver());
+        mStorageManager = new FileDataStorageManager(account, getContentResolver());
 
         boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
         boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false);
         int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
+
+        boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
+        boolean isUseWifiOnly = intent.getBooleanExtra(KEY_WIFI_ONLY, true);
+        boolean isWhileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
+        long uploadTimestamp = intent.getLongExtra(KEY_UPLOAD_TIMESTAMP, -1);
+
 
         if (intent.hasExtra(KEY_FILE) && files == null) {
             Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
@@ -448,11 +451,16 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 files[i] = obtainNewOCFileToUpload(remotePaths[i], localPaths[i],
                         ((mimeTypes != null) ? mimeTypes[i] : null));
                 if (files[i] == null) {
-                    // TODO @andomaex add failure Notification
+                    Log_OC.e(TAG, "obtainNewOCFileToUpload() returned null for remotePaths[i]:" + remotePaths[i]
+                            + " and localPaths[i]:" + localPaths[i]);
                     return Service.START_NOT_STICKY;
                 }
+
+                mStorageManager.saveFile(files[i]);
+                files[i] = mStorageManager.getFileByLocalPath(files[i].getStoragePath());
             }
         }
+        // at this point variable "OCFile[] files" is loaded correctly.
 
         OwnCloudVersion ocv = AccountUtils.getServerVersion(account);
 
@@ -482,6 +490,21 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 if (putResult != null) {
                     uploadKey = putResult.first;
                     requestedUploads.add(uploadKey);
+                    // Save upload in database
+                    OCUpload ocUpload = new OCUpload(files[i]);
+                    ocUpload.setAccountName(account.name);
+                    ocUpload.setForceOverwrite(forceOverwrite);
+                    ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
+                    ocUpload.setLocalAction(LocalBehaviour.fromValue(localAction));
+                    ocUpload.setUseWifiOnly(isUseWifiOnly);
+                    ocUpload.setWhileChargingOnly(isWhileChargingOnly);
+                    ocUpload.setUploadTimestamp(uploadTimestamp);
+                    ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
+
+                    // storagePath inside upload is the temporary path. file
+                    // contains the correct path used as db reference.
+                    ocUpload.getOCFile().setStoragePath(localPaths[i]);
+                    mUploadsStorageManager.storeUpload(ocUpload);
                 }   // else, file already in the queue of uploads; don't repeat the request
             }
 
@@ -1890,8 +1913,6 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         }
         return CanUploadFileNowStatus.NOW;        
     }
-
-
 
     /**
      * Call if all pending uploads are to be retried.
