@@ -151,9 +151,9 @@ public class UploadListFragment extends ExpandableListFragment {
         case R.id.action_remove_upload: {
             ((FileActivity) getActivity()).getFileOperationsHelper().removeUploadFromList(uploadFile);
             return true;
-        }case R.id.action_retry_upload: {
-            ((FileActivity) getActivity()).getFileOperationsHelper().retryUpload(uploadFile);
-            return true;
+//        }case R.id.action_retry_upload: {
+//            ((FileActivity) getActivity()).getFileOperationsHelper().retryUpload(uploadFile);
+//            return true;
         }case R.id.action_see_details: {
             Intent showDetailsIntent = new Intent(getActivity(), FileDisplayActivity.class);
             showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable) uploadFile.getOCFile());

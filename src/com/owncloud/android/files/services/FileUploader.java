@@ -20,13 +20,6 @@
 
 package com.owncloud.android.files.services;
 
-import java.io.File;
-import java.util.AbstractList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Vector;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.OnAccountsUpdateListener;
@@ -73,6 +66,13 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.UriUtils;
+
+import java.io.File;
+import java.util.AbstractList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Vector;
 
 
 public class FileUploader extends Service
@@ -289,7 +289,7 @@ public class FileUploader extends Service
                         chunked,
                         //isInstant,
                         forceOverwrite,
-                        FileUploadService.LocalBehaviour.values()[localAction], // Change for compilation
+                        localAction, // Change for compilation
                         getApplicationContext()
                 );
                 if (isInstant) {

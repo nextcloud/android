@@ -190,16 +190,19 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     progressBar.setVisibility(View.VISIBLE);
                     mProgressListener = new ProgressListener(progressBar);
                     if(mParentActivity.getFileUploaderBinder() != null) {
-                        mCurrentUpload = mParentActivity.getFileUploaderBinder().getCurrentUploadOperation();
-                        if(mCurrentUpload != null) {
-                            mCurrentUpload.addDatatransferProgressListener(mProgressListener);
-                            Log_OC.d(TAG, "added progress listener for current upload: " + mCurrentUpload);
-                        } else {
-                            Log_OC.w(TAG, "getFileUploaderBinder().getCurrentUploadOperation() return null. That is odd.");
-                        }
+                        mParentActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener,
+                                mParentActivity.getAccount(), upload.getOCFile());
+//                        mCurrentUpload = mParentActivity.getFileUploaderBinder().getCurrentUploadOperation();
+//                        if(mCurrentUpload != null) {
+//                            mCurrentUpload.addDatatransferProgressListener(mProgressListener);
+//                            Log_OC.d(TAG, "added progress listener for current upload: " + mCurrentUpload);
+//                        } else {
+//                            Log_OC.w(TAG, "getFileUploaderBinder().getCurrentUploadOperation() return null. That is odd.");
+//                        }
                     } else {
                         Log_OC.e(TAG, "UploadBinder == null. It should have been created on creating mParentActivity"
                                 + " which inherits from FileActivity. Fix that!");
+                        Log_OC.e(TAG, "PENDING BINDING for upload = " + upload.getLocalPath());
                     }
                     break;
                 case UPLOAD_FAILED_GIVE_UP:
@@ -263,7 +266,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mParentActivity.getFileOperationsHelper().retryUpload(upload);
+                   //     mParentActivity.getFileOperationsHelper().retryUpload(upload);
                     }
                 });
             } else if (upload.userCanCancelUpload()) {

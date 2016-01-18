@@ -27,7 +27,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
-import com.owncloud.android.files.services.FileUploadService.LocalBehaviour;
+import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.util.Calendar;
@@ -49,9 +49,9 @@ public class OCUpload {
 
     private OCFile mFile;
     /**
-     * Local action for upload.
+     * Local action for upload. (0 - COPY, 1 - MOVE, 2 - FORGET)
      */
-    private LocalBehaviour mLocalAction;
+    private int mLocalAction;
     /**
      * Date and time when this upload was first requested.
      */
@@ -99,7 +99,7 @@ public class OCUpload {
     // TODO needed???
     private void resetData(){
         mId = -1;
-        mLocalAction = LocalBehaviour.LOCAL_BEHAVIOUR_COPY;
+        mLocalAction = FileUploadService.LOCAL_BEHAVIOUR_COPY;
         mUploadTime = new GregorianCalendar();
         mForceOverwrite = false;
         mIsCreateRemoteFolder = false;
@@ -182,15 +182,14 @@ public class OCUpload {
     /**
      * @return the localAction
      */
-    public LocalBehaviour getLocalAction() {
-        // return null;
+    public int getLocalAction() {
         return mLocalAction;
     }
 
     /**
      * @param localAction the localAction to set
      */
-    public void setLocalAction(LocalBehaviour localAction) {
+    public void setLocalAction(int localAction) {
         this.mLocalAction = localAction;
     }
 

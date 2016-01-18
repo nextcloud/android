@@ -148,10 +148,10 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                     mDrawerLayout.openDrawer(GravityCompat.START);
                 }
                 break;
-            case R.id.action_retry_uploads:
-                Log_OC.d(TAG, "FileUploadService.retry() called by onMenuItemSelected()");
-                FileUploadService.retry(this);
-                break;
+//            case R.id.action_retry_uploads:
+//                Log_OC.d(TAG, "FileUploadService.retry() called by onMenuItemSelected()");
+//                FileUploadService.retry(this);
+//                break;
 
             case R.id.action_clear_failed_uploads:
                 UploadsStorageManager usm = new UploadsStorageManager(getContentResolver());
@@ -212,6 +212,10 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 mUploaderBinder = null;
             }
         }
-    };  
+    };
+
+    public void addBinderToItem(){
+
+    }
 
 }

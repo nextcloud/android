@@ -20,9 +20,6 @@
  */
 package com.owncloud.android.datamodel;
 
-import java.io.File;
-import java.util.Observable;
-
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -31,9 +28,11 @@ import android.net.Uri;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.db.UploadResult;
-import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
+
+import java.io.File;
+import java.util.Observable;
 
 /**
  * Database helper for storing list of files to be uploaded, including status
@@ -388,8 +387,7 @@ public class UploadsStorageManager extends Observable {
             upload.setUploadId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
             upload.setUploadStatus(UploadStatus.fromValue(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_STATUS))));
             upload.setAccountName(c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_ACCOUNT_NAME)));
-            upload.setLocalAction(FileUploadService.LocalBehaviour.fromValue(
-                    c.getInt(c.getColumnIndex((ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR)))));
+            upload.setLocalAction(c.getInt(c.getColumnIndex((ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR))));
             upload.setForceOverwrite(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE)) == 1 );
             upload.setCreateRemoteFolder(c.getInt(

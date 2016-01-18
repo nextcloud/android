@@ -689,7 +689,7 @@ public class FileDisplayActivity extends HookActivity implements
             i.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
                     FileUploadService.UPLOAD_MULTIPLE_FILES);
             if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
-                i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_MOVE);
+                i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LOCAL_BEHAVIOUR_MOVE);
             startService(i);
 
         } else {
@@ -770,7 +770,7 @@ public class FileDisplayActivity extends HookActivity implements
                 FileUploadService.UPLOAD_SINGLE_FILE);
         if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) {
             i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR,
-                    FileUploadService.LocalBehaviour.LOCAL_BEHAVIOUR_MOVE);
+                    FileUploadService.LOCAL_BEHAVIOUR_MOVE);
         }
         if(startService(i) == null) {
             Log_OC.e(TAG, "FileUploadService could not be started");

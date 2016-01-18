@@ -71,7 +71,7 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
                 intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
             if(networkInfo.isConnected()) {
                 Log_OC.d(TAG, "Wifi is connected: " + String.valueOf(networkInfo));
-                wifiConnected(context);
+//                wifiConnected(context);
             }
         } else if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
             ConnectivityManager cm =
@@ -86,10 +86,10 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
         
     }
 
-    private void wifiConnected(Context context) {
-        Log_OC.d(TAG, "FileUploadService.retry() called by onReceive()");
-      FileUploadService.retry(context);        
-    }
+//    private void wifiConnected(Context context) {
+//        Log_OC.d(TAG, "FileUploadService.retry() called by onReceive()");
+//      FileUploadService.retry(context);
+//    }
 
     private void wifiDisconnected(Context context) {
         

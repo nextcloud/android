@@ -24,9 +24,6 @@
 package com.owncloud.android.ui.adapter;
 
 
-import java.io.File;
-import java.util.Vector;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -56,6 +53,8 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
+
+import java.util.Vector;
 
 
 /**

@@ -504,19 +504,19 @@ public class FileOperationsHelper {
                 getString(R.string.wait_a_moment));
     }
 
-    /**
-     * Retry uploading a failed or cancelled upload with force.
-     */
-    public void retryUpload(OCUpload upload) {
-        Account account = mFileActivity.getAccount();
-        FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
-        if (uploaderBinder != null) {
-            upload.removeAllUploadRestrictions(); //only this object, upload DB stays untouched.
-            uploaderBinder.retry(account, upload);            
-        }  else {
-            Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + upload.getOCFile());            
-        }
-    }
+//    /**
+//     * Retry uploading a failed or cancelled upload with force.
+//     */
+//    public void retryUpload(OCUpload upload) {
+//        Account account = mFileActivity.getAccount();
+//        FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
+//        if (uploaderBinder != null) {
+//            upload.removeAllUploadRestrictions(); //only this object, upload DB stays untouched.
+//            uploaderBinder.retry(account, upload);
+//        }  else {
+//            Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + upload.getOCFile());
+//        }
+//    }
     
     /**
      * Remove upload from upload list.
