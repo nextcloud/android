@@ -26,12 +26,16 @@ package com.owncloud.android.operations;
  */
 
 
+import android.accounts.Account;
+
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.CreateRemoteShareOperation;
+import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
@@ -43,6 +47,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     private String mPath;
     private String mShareeName;
     private ShareType mShareType;
+    private int mPermissions;
 
     /**
      * Constructor.
@@ -51,25 +56,49 @@ public class CreateShareWithShareeOperation extends SyncOperation {
      * @param shareeName    User or group name of the target sharee.
      * @param shareType     Type of share determines type of sharee; {@link ShareType#USER} and {@link ShareType#GROUP}
      *                      are the only valid values for the moment.
+     * @param permissions   Share permissions key as detailed in
+     *                      https://doc.owncloud.org/server/8.2/developer_manual/core/ocs-share-api.html .
+     *                      If < 0, maximum permissions are dynamically found out and requested. This requires
+     *                      an extra interaction with the server, and should be used only for RESHARING.
      */
-    public CreateShareWithShareeOperation(String path, String shareeName, ShareType shareType) {
+    public CreateShareWithShareeOperation(String path, String shareeName, ShareType shareType, int permissions) {
         if (!ShareType.USER.equals(shareType) && !ShareType.GROUP.equals(shareType)) {
             throw new IllegalArgumentException("Illegal share type " + shareType);
         }
         mPath = path;
         mShareeName = shareeName;
         mShareType = shareType;
+        mPermissions = permissions;
     }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        // Check if the share link already exists
-        // TODO or not
-        /*
-        RemoteOperation operation = new GetRemoteSharesForFileOperation(mPath, false, false);
-        RemoteOperationResult result = operation.execute(client);
-        if (!result.isSuccess() || result.getData().size() <= 0) {
-        */
+        int permissions = mPermissions;
+        if (permissions < 0) {
+            // find out maximum permissions
+            RemoteOperation operation = new GetRemoteSharesForFileOperation(mPath, true, false);
+            RemoteOperationResult result = operation.execute(client);
+            if (!result.isSuccess()) {
+                return result;
+            } else {
+                OCShare share = null;
+                Account account = getStorageManager().getAccount();
+                String userId = account.name.substring(0, account.name.lastIndexOf("@"));
+                    // TODO OcAccount needed everywhere :(
+                boolean sharedWithMe = false;
+
+                for (int i=0; i<result.getData().size() && !sharedWithMe; i++) {
+                    share = (OCShare) result.getData().get(i);
+                    sharedWithMe = userId.equals(share.getShareWith());
+                }
+
+                if (share != null && sharedWithMe) {
+                    permissions = share.getPermissions();
+                } else {
+                    permissions = OCShare.DEFAULT_PERMISSION;
+                }
+            }
+        }
 
         CreateRemoteShareOperation operation = new CreateRemoteShareOperation(
                 mPath,
@@ -77,7 +106,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
                 mShareeName,
                 false,
                 "",
-                OCShare.DEFAULT_PERMISSION
+                permissions
         );
         operation.setGetShareDetails(true);
         RemoteOperationResult result = operation.execute(client);

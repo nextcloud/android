@@ -130,7 +130,7 @@ public class EditShareFragment extends Fragment {
         View view = inflater.inflate(R.layout.edit_share_layout, container, false);
 
         // Setup layout
-        initPrivileges(view);
+        initPermissions(view);
         initUnshareButton(view);
         initDoneButton(view);
 
@@ -143,7 +143,7 @@ public class EditShareFragment extends Fragment {
      *
      * @param editShareView     Root view in the fragment.
      */
-    private void initPrivileges(View editShareView) {
+    private void initPermissions(View editShareView) {
         boolean setListener = false;
         if (mOnPrivilegeChangeListener == null) {
             mOnPrivilegeChangeListener = new OnPrivilegeChangeListener();
@@ -213,7 +213,7 @@ public class EditShareFragment extends Fragment {
 
         } else {
             if (getView() != null) {
-                initPrivileges(getView());
+                initPermissions(getView());
             }
         }
     }

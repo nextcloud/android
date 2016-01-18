@@ -122,9 +122,24 @@ public class ShareActivity extends FileActivity
         getFileOperationsHelper().shareFileWithSharee(
                 getFile(),
                 shareeName,
-                (isGroup ? ShareType.GROUP : ShareType.USER)
+                (isGroup ? ShareType.GROUP : ShareType.USER),
+                getMaximumPermissions()
         );
     }
+
+
+    private int getMaximumPermissions() {
+        if (getFile().isSharedWithMe()) {
+            return -1;  // maximum permissions will be requested dynamically
+
+        } else if (getFile().isFolder()) {
+            return OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
+
+        } else {    // isFile
+            return OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
+        }
+    }
+
 
     @Override
     public void showSearchUsersAndGroups() {

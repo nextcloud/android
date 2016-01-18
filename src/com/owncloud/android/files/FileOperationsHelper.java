@@ -228,8 +228,9 @@ public class FileOperationsHelper {
      * @param file          The file to share.
      * @param shareeName    Name (user name or group name) of the target sharee.
      * @param shareType     The share type determines the sharee type.
+     * @param permissions   Permissions to grant to sharee on the shared file.
      */
-    public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType) {
+    public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType, int permissions) {
         if (file != null) {
             // TODO check capability?
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
@@ -241,6 +242,7 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             service.putExtra(OperationsService.EXTRA_SHARE_WITH, shareeName);
             service.putExtra(OperationsService.EXTRA_SHARE_TYPE, shareType);
+            service.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         } else {

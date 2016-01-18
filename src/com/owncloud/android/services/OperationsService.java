@@ -69,7 +69,6 @@ import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -598,11 +597,13 @@ public class OperationsService extends Service {
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String shareeName = operationIntent.getStringExtra(EXTRA_SHARE_WITH);
                     ShareType shareType = (ShareType) operationIntent.getSerializableExtra(EXTRA_SHARE_TYPE);
+                    int permissions = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, -1);
                     if (remotePath.length() > 0) {
                         operation = new CreateShareWithShareeOperation(
                                 remotePath,
                                 shareeName,
-                                shareType
+                                shareType,
+                                permissions
                         );
                     }
 
