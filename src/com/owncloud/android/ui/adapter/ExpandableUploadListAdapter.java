@@ -19,12 +19,6 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import java.lang.ref.WeakReference;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Observable;
-import java.util.Observer;
-
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
@@ -53,6 +47,12 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
 
+import java.lang.ref.WeakReference;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * This Adapter populates a ListView with following types of uploads: pending,
  * active, completed. Filtering possible.
@@ -66,7 +66,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     private UploadsStorageManager mUploadsStorageManager;
     
     public ProgressListener mProgressListener; 
-    UploadFileOperation mCurrentUpload;
+    private UploadFileOperation mCurrentUpload;
     
     interface Refresh {
         public void refresh();
@@ -165,6 +165,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     );
             view = inflator.inflate(R.layout.upload_list_item, null);
         }
+
+        view.invalidate();
+
         if (uploadsItems != null && uploadsItems.length > position) {
             final OCUpload upload = uploadsItems[position];
 
@@ -321,7 +324,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         return false;
     }
 
-    
 
     /**
      * Load upload items from {@link UploadsStorageManager}.
@@ -407,12 +409,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         listView.expandGroup(groupPosition);
         
         listView.setGroupIndicator(null);
-        
         UploadGroup group = (UploadGroup) getGroup(groupPosition);
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) mParentActivity
+            LayoutInflater inflaInflater = (LayoutInflater) mParentActivity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.upload_list_group, null);
+            convertView = inflaInflater.inflate(R.layout.upload_list_group, null);
         }
         TextView tv = (TextView) convertView.findViewById(R.id.uploadListGroupName);
         tv.setText(group.getGroupName());
@@ -426,7 +427,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         return true;
     }
     
-    private class ProgressListener implements OnDatatransferProgressListener {
+    public class ProgressListener implements OnDatatransferProgressListener {
         int mLastPercent = 0;
         WeakReference<ProgressBar> mProgressBar = null;
         
@@ -447,5 +448,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             mLastPercent = percent;
         }
 
-    }; 
+    };
+
+    public void addBinder(){
+        notifyDataSetChanged();
+    }
 }

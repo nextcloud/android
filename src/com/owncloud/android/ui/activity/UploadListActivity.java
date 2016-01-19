@@ -19,6 +19,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.app.FragmentManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -26,6 +27,8 @@ import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +42,7 @@ import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.UploadListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 
@@ -54,12 +58,17 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
     private static final String TAG = UploadListActivity.class.getSimpleName();
 
+    private static final String TAG_UPLOAD_LIST_FRAGMENT = "UPLOAD_LIST_FRAGMENT";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.upload_list_layout);
+
+        // Add fragment with a transaction for setting a tag
+        createUploadListFragment();
 
         // Navigation Drawer
         initDrawer();
@@ -69,6 +78,13 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    private void createUploadListFragment(){
+        UploadListFragment uploadList = new UploadListFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.upload_list_fragment, uploadList, TAG_UPLOAD_LIST_FRAGMENT);
+        transaction.commit();
     }
 
     // ////////////////////////////////////////
@@ -194,6 +210,12 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                     Log_OC.d(TAG, "UploadListActivity connected to Upload service. component: " +
                             component + " service: "
                             + service);
+                    // Say to UploadListFragment that the Binder is READY in the Activity
+                    UploadListFragment uploadListFragment =
+                            (UploadListFragment) getSupportFragmentManager().findFragmentByTag(TAG_UPLOAD_LIST_FRAGMENT);
+                    if (uploadListFragment != null) {
+                        uploadListFragment.binderReady();
+                    }
                 } else {
                     Log_OC.d(TAG, "mUploaderBinder already set. mUploaderBinder: " +
                             mUploaderBinder + " service:" + service);
@@ -213,9 +235,5 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
             }
         }
     };
-
-    public void addBinderToItem(){
-
-    }
 
 }

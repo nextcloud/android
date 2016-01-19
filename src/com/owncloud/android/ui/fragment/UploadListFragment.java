@@ -22,7 +22,6 @@ package com.owncloud.android.ui.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -54,7 +53,18 @@ public class UploadListFragment extends ExpandableListFragment {
      */
     private UploadListFragment.ContainerActivity mContainerActivity;
 
-    ExpandableUploadListAdapter mAdapter;
+    private ExpandableUploadListAdapter mAdapter;
+
+    /** Is binder ready in the Activity? */
+    private boolean mBinderReady = false;
+
+    public void setBinderReady(boolean ready) {
+        mBinderReady = ready;
+    }
+    public boolean isBinderReady(){
+        return mBinderReady;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -85,12 +95,20 @@ public class UploadListFragment extends ExpandableListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onActivityCreated() start");
         super.onActivityCreated(savedInstanceState);
-        mAdapter = new ExpandableUploadListAdapter((FileActivity)getActivity());
-        setListAdapter(mAdapter);
+//        mAdapter = new ExpandableUploadListAdapter((FileActivity)getActivity());
+//        setListAdapter(mAdapter);
         //mAdapter.setFileActivity(((FileActivity) getActivity()));
         
         registerForContextMenu(getListView());
         getListView().setOnCreateContextMenuListener(this);
+    }
+
+    @Override
+    public void onStart() {
+        Log_OC.d(TAG, "onStart() start");
+        super.onStart();
+        mAdapter = new ExpandableUploadListAdapter((FileActivity)getActivity());
+        setListAdapter(mAdapter);
     }
 
     @Override
@@ -156,7 +174,7 @@ public class UploadListFragment extends ExpandableListFragment {
 //            return true;
         }case R.id.action_see_details: {
             Intent showDetailsIntent = new Intent(getActivity(), FileDisplayActivity.class);
-            showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable) uploadFile.getOCFile());
+            showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, uploadFile.getOCFile());
             showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, uploadFile.getAccount(getActivity()));
             startActivity(showDetailsIntent);
             return true;
@@ -187,6 +205,14 @@ public class UploadListFragment extends ExpandableListFragment {
          */
         public boolean onUploadItemClick(OCUpload file);
 
+    }
+
+    public void binderReady(){
+        setBinderReady(true);
+
+        if (mAdapter != null) {
+            mAdapter.addBinder();
+        }
     }
 
 }

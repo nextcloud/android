@@ -1328,6 +1328,8 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 //                DbHandler db = new DbHandler(this.getBaseContext());
 //                db.removeIUPendingFile(mCurrentUpload.getOriginalStoragePath());
 //                db.close();
+                mPendingUploads.remove(upload.getAccount(), upload.getFile().getRemotePath());
+                updateDatabaseUploadResult(uploadResult, mCurrentUpload);
                 // remove success notification, with a delay of 2 seconds
                 NotificationDelayer.cancelWithDelay(mNotificationManager, R.string.uploader_upload_succeeded_ticker,
                         2000);
