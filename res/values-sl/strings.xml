@@ -79,14 +79,14 @@
   <string name="filedetails_created">Ustvarjeno:</string>
   <string name="filedetails_modified">Spremenjeno:</string>
   <string name="filedetails_download">Prejmi</string>
-  <string name="filedetails_sync_file">Sinhroniziraj</string>
+  <string name="filedetails_sync_file">Uskladi</string>
   <string name="filedetails_renamed_in_upload_msg">Datoteka je bila med nalaganjem preimenovana v %1$s</string>
   <string name="list_layout">Postavitev seznama</string>
   <string name="action_share">Souporaba</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">V redu</string>
-  <string name="common_cancel_sync">Prekliči sinhronizacijo</string>
+  <string name="common_cancel_sync">Prekliči usklajevanje</string>
   <string name="common_cancel">Prekliči</string>
   <string name="common_save_exit">Shrani in končaj</string>
   <string name="common_error">Napaka</string>
@@ -244,6 +244,7 @@
   <string name="ssl_validator_label_signature">Podpis:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritem:</string>
   <string name="digest_algorithm_not_available">Ta algoritem ni na voljo na vašem telefonu.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Prstni odtis:</string>
   <string name="certificate_load_problem">Imam težavo z nalaganjem certifikata.</string>
   <string name="ssl_validator_null_cert">Potrdila ni mogoče pokazati.</string>
   <string name="ssl_validator_no_info_about_error">– Ni podatkov o napaki</string>
@@ -278,7 +279,7 @@
   <string name="activity_chooser_send_file_title">Pošlji</string>
   <string name="copy_link">Kopiraj povezavo</string>
   <string name="clipboard_text_copied">Kopirano v odložišče</string>
-  <string name="error_cant_bind_to_operations_service">Kritična napaka: dejanj ni možno izvesti</string>
+  <string name="error_cant_bind_to_operations_service">Kritična napaka: opravil ni možno izvesti</string>
   <string name="network_error_socket_exception">Med povezovanjem s strežnikom je prišlo do napake.</string>
   <string name="network_error_socket_timeout_exception">Med čakanjem na vzpostavitev povezave s strežnikom je prišlo do napake. Zahtevanega dejanja ni mogoče izvesti.</string>
   <string name="network_error_connect_timeout_exception">Med čakanjem na vzpostavitev povezave s strežnikom je prišlo do napake. Zahtevanega dejanja ni bilo mogoče končati.</string>
@@ -336,6 +337,10 @@
   <string name="file_list__footer__files">%1$d datotek</string>
   <string name="file_list__footer__files_and_folder">%1$d datotek, 1 mapa</string>
   <string name="file_list__footer__files_and_folders">%1$d datotek, %2$d map</string>
+  <string name="prefs_instant_behaviour_dialogTitle">Izvorna datoteka bo ...</string>
+  <string name="prefs_instant_behaviour_title">Izvorna datoteka bo ...</string>
+  <string name="upload_copy_files">Kopiraj datoteko</string>
+  <string name="upload_move_files">Premakni datoteko</string>
   <string name="share_dialog_title">Souporaba</string>
   <string name="share_with_user_section_title">Deli z uporabniki in skupinami</string>
   <string name="share_no_users">Podatki še niso bili deljeni z uporabniki</string>
