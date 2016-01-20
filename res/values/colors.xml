@@ -24,7 +24,8 @@
     <color name="owncloud_blue_bright">#00ddff</color>
 
     <color name="list_item_lastmod_and_filesize_text">@color/secondaryTextColor</color>
-    <color name="actionModeBackground">#989898</color>
+    <color name="actionModeBackground">#757575</color>
+    <color name="actionModeStatusBarBackground">#616161</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="fab_white">#fafafa</color>
@@ -40,7 +41,7 @@
     <color name="login_text_hint_color">#757575</color>
     <color name="transparent">#00000000</color>
     <color name="secondaryTextColor">#a0a0a0</color>
-    <color name="listItemHighlighted">#f8f8f8</color>
+    <color name="listItemHighlighted">#ECECEC</color>
     <color name="highlightTextColor">#55739a</color>
 
     <!-- Colors -->
