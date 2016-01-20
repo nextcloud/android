@@ -24,8 +24,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.GestureDetector;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,6 +43,7 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
@@ -63,6 +67,8 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
     private static final String KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE";
+
+    private ScaleGestureDetector SGD = null;
 
     protected SwipeRefreshLayout mRefreshListLayout;
     private SwipeRefreshLayout mRefreshGridLayout;
@@ -89,6 +95,9 @@ public class ExtendedListFragment extends Fragment
     private View mGridFooterView;
 
     private FilterableListAdapter mAdapter;
+
+p   private float scale = -1f;
+    private GestureDetector gestureDetector;
 
     protected void setListAdapter(FilterableListAdapter listAdapter) {
         mAdapter = listAdapter;
@@ -176,6 +185,33 @@ public class ExtendedListFragment extends Fragment
 
         mGridFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
+        SGD = new ScaleGestureDetector(MainApp.getAppContext(),new ScaleListener());
+//        gestureDetector = new GestureDetector(MainApp.getAppContext(), new SingleTapConfirm());
+
+        mGridView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                if (SGD.onTouchEvent(motionEvent)) {
+//                    return false;
+//                }
+//                return false;
+
+                SGD.onTouchEvent(motionEvent);
+                return false;
+            }
+        });
+
+        if (savedInstanceState != null) {
+            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
+            if (mCurrentListView == mListView) {
+                Log_OC.v(TAG, "Setting and centering around list position " + referencePosition);
+                mListView.setAndCenterSelection(referencePosition);
+            } else {
+                Log_OC.v(TAG, "Setting grid position " + referencePosition);
+                mGridView.setSelection(referencePosition);
+            }
+        }
+
         // Pull-down to refresh layout
         mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_list);
         mRefreshGridLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_grid);
@@ -210,6 +246,29 @@ public class ExtendedListFragment extends Fragment
         }
 
         return v;
+    }
+
+    private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return true;
+        }
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            if (scale == -1f){
+                mGridView.setNumColumns(GridView.AUTO_FIT);
+                scale = mGridView.getNumColumns();
+            }
+            scale *= 1-(detector.getScaleFactor()- 1);
+            scale = Math.max(2.0f, Math.min(scale, 10.0f));
+            Integer scaleInt = Math.round(scale);
+            mGridView.setNumColumns(scaleInt);
+
+            return true;
+        }
     }
 
     /**
