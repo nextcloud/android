@@ -357,4 +357,6 @@
   <string name="share_group_clarification">%1$s (gruppe)</string>
   <string name="share_sharee_unavailable">Beklager, server-versjonen din tillater ikke klienter å dele med brukere.
         \nKontakt systemadministratoren</string>
+  <string name="action_switch_grid_view">Bytt til rutenett-visning</string>
+  <string name="action_switch_list_view">Bytt til listevisning</string>
 </resources>

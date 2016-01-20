@@ -360,4 +360,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="share_group_clarification">%1$s (groep)</string>
   <string name="share_sharee_unavailable">Sorry, uw serverversie staat niet toe om binnen de clients te delen met gebruikers.
 Neem contact op met uw beheerder</string>
+  <string name="action_switch_grid_view">Omschakelen naar rasteroverzicht</string>
+  <string name="action_switch_list_view">Omschakelen naar lijstoverzicht</string>
 </resources>
