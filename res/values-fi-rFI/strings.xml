@@ -331,4 +331,6 @@
   <string name="share_search">Etsi</string>
   <string name="search_users_and_groups_hint">Etsi käyttäjiä ja ryhmiä</string>
   <string name="share_group_clarification">%1$s (ryhmä)</string>
+  <string name="action_switch_grid_view">Vaihda ruudukkonäkymään</string>
+  <string name="action_switch_list_view">Vaihda luettelonäkymään</string>
 </resources>

@@ -353,4 +353,6 @@
   <string name="share_group_clarification">%1$s (grup)</string>
   <string name="share_sharee_unavailable">Na ndjeni, versioni juaj i shërbyesit nuk lejon ndarje me përdorues brenda klientësh.
         \nJu lutemi, lidhuni me përgjegjësin tuaj</string>
+  <string name="action_switch_grid_view">Kalo te pamja mozaik</string>
+  <string name="action_switch_list_view">Kalo te pamja listë</string>
 </resources>

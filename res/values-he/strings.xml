@@ -11,6 +11,12 @@
   <string name="actionbar_settings">הגדרות</string>
   <string name="actionbar_see_details">פרטים</string>
   <string name="actionbar_send_file">שליחה</string>
+  <string name="actionbar_sort">מיון</string>
+  <string name="actionbar_sort_title">מיון על בסיס</string>
+  <string-array name="actionbar_sortby">
+    <item>א-ת</item>
+    <item>חדש - ישן</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
@@ -18,11 +24,15 @@
   <string name="drawer_item_all_files">כל הקבצים</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">הגדרות</string>
+  <string name="drawer_item_logs">לוגים</string>
+  <string name="drawer_close">סגירה</string>
   <string name="drawer_open">פתיחה</string>
   <string name="prefs_category_general">כללי</string>
   <string name="prefs_category_more">יותר</string>
   <string name="prefs_accounts">חשבונות</string>
   <string name="prefs_manage_accounts">ניהול חשבונות</string>
+  <string name="prefs_passcode">נעילת סיסמא</string>
   <string name="prefs_instant_upload">העלאת תמונות מהירה</string>
   <string name="prefs_instant_upload_summary">העלאה מהירה של תמונות שצולמו במצלמה</string>
   <string name="prefs_instant_video_upload">העלאת סרטים מהירה</string>
@@ -36,7 +46,10 @@
   <string name="prefs_recommend">המלצה לחבר</string>
   <string name="prefs_feedback">משוב</string>
   <string name="prefs_imprint">חותמת</string>
+  <string name="prefs_remember_last_share_location">לזכור מקום שיתוף</string>
+  <string name="prefs_remember_last_upload_location_summary">לזכור מיקום שיתוף העלאה אחרון</string>
   <string name="recommend_subject">לבדיקה %1$s בטלפון החכם שלך!</string>
+  <string name="recommend_text">הנך מוזמן להשתמש ב- %1$s בטלפון החכם שלך!\nניתן להוריד מכאן: %2$s</string>
   <string name="auth_check_server">בודק שרת</string>
   <string name="auth_host_url">כתובת שרת https://…</string>
   <string name="auth_username">שם משתמש</string>
@@ -57,6 +70,8 @@
   <string name="uploader_info_uploading">בהעלאה</string>
   <string name="file_list_seconds_ago">שניות</string>
   <string name="file_list_empty">אין כאן שום דבר. אולי ברצונך להעלות משהו?</string>
+  <string name="file_list_loading">בטעינה …</string>
+  <string name="file_list_no_app_for_file_type">לא נמצא יישום התומך בסוג קובץ זה!</string>
   <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
   <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
   <string name="filedetails_size">גודל:</string>
@@ -64,11 +79,14 @@
   <string name="filedetails_created">מועד היצירה:</string>
   <string name="filedetails_modified">מועד השינוי:</string>
   <string name="filedetails_download">הורדה</string>
+  <string name="filedetails_sync_file">סנכרון</string>
   <string name="filedetails_renamed_in_upload_msg">שם הקובץ השתנה ל־ %1$s במהלך ההעלאה</string>
+  <string name="list_layout">פריסת רשימה</string>
   <string name="action_share">שיתוף</string>
   <string name="common_yes">כן</string>
   <string name="common_no">לא</string>
   <string name="common_ok">אישור</string>
+  <string name="common_cancel_sync">ביטון סנכרון</string>
   <string name="common_cancel">ביטול</string>
   <string name="common_save_exit">לשמור ולצאת</string>
   <string name="common_error">שגיאה</string>
@@ -114,6 +132,15 @@
   <string name="foreign_files_local_text">מקומי: %1$s</string>
   <string name="foreign_files_remote_text">מרוחק: %1$s</string>
   <string name="upload_query_move_foreign_files">אין מספיק מקום להעתקת הקבצים שנבחרו אל תיקיית %1$s . האם להעביר אותם במקום?</string>
+  <string name="pass_code_enter_pass_code">יש להכניס את הקוד שלך</string>
+  <string name="pass_code_configure_your_pass_code">יש להכניס את הקוד שלך</string>
+  <string name="pass_code_configure_your_pass_code_explanation">בכל פעם שיישום זה נפתח יהיה צורך להכניס את הקוד</string>
+  <string name="pass_code_reenter_your_pass_code">יש להכניס את הקוד שנית</string>
+  <string name="pass_code_remove_your_pass_code">יש להסיר את הקוד שלך</string>
+  <string name="pass_code_mismatch">הקודים אינם זהים</string>
+  <string name="pass_code_wrong">קוד שגוי</string>
+  <string name="pass_code_removed">הקוד הוסר</string>
+  <string name="pass_code_stored">הקוד נשמר</string>
   <string name="media_notif_ticker">נגנן המוזיקה %1$s</string>
   <string name="media_state_playing">%1$s (מתנגן)</string>
   <string name="media_state_loading">%1$s (בטעינה)</string>
@@ -138,6 +165,7 @@
   <string name="auth_no_net_conn_title">אין חיבור לאינטרנט</string>
   <string name="auth_nossl_plain_ok_title">אין חיבור מוצפן זמין.</string>
   <string name="auth_connection_established">החיבור נוצר</string>
+  <string name="auth_testing_connection">בדיקת חיבור</string>
   <string name="auth_not_configured_title">תצורת השרת פגומה</string>
   <string name="auth_account_not_new">חשבון לאותו משתמש ושרת כבר קיים במכשיר זה</string>
   <string name="auth_account_not_the_same">שם המשתמש שהוכנס לא מתאים לשם המשתמש של חשבון זה</string>
@@ -164,13 +192,17 @@
   <string name="auth_fail_get_user_name">השרת אינו מחזיר מספר משתמש נכון, יש ליצור קשר עם מנהל
 ⇥</string>
   <string name="auth_can_not_auth_against_server">לא מצליח לאמת מול השרת</string>
+  <string name="auth_account_does_not_exist">עדיין לא קיים חשבון במכשיר</string>
   <string name="favorite">מועדף</string>
+  <string name="unfavorite">לא מועדף</string>
   <string name="common_rename">שינוי שם</string>
   <string name="common_remove">הסרה</string>
   <string name="confirmation_remove_file_alert">האם באמת להסיר %1$s?</string>
   <string name="confirmation_remove_folder_alert">האם באמת להסיר %1$s ואת כל התכולה?</string>
   <string name="confirmation_remove_local">מקומי בלבד</string>
   <string name="confirmation_remove_folder_local">מקומי בלבד</string>
+  <string name="confirmation_remove_remote">מהשרת</string>
+  <string name="confirmation_remove_remote_and_local">חיצוני &amp; מקומי</string>
   <string name="remove_success_msg">ההסרה הצליחה</string>
   <string name="remove_fail_msg">ההסרה נכשלה</string>
   <string name="rename_dialog_title">נא להזין שם חדש</string>
@@ -180,11 +212,13 @@
   <string name="sync_file_nothing_to_do_msg">תוכן הקובץ כבר מסונכרן</string>
   <string name="create_dir_fail_msg">לא ניתן ליצור תיקייה</string>
   <string name="filename_forbidden_characters">תווים אסורים: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">שם קובץ כולל לפחות תו אחד לא חוקי</string>
   <string name="filename_empty">שם קובץ לא יכול להיות ריק</string>
   <string name="wait_a_moment">נא להמתין רגע</string>
   <string name="filedisplay_unexpected_bad_get_content">תקלה בלתי צפויה ; נא לבחור בקובץ מיישום אחר</string>
   <string name="filedisplay_no_file_selected">לא נבחרו קבצים</string>
   <string name="activity_chooser_title">שליחת קישור אל ...</string>
+  <string name="wait_for_tmp_copy_from_private_storage">מעתיק קובץ מאחסון פרטי</string>
   <string name="oauth_check_onoff">התחברות באמצעות oAuth2</string>
   <string name="oauth_login_connection">התחברות אל שרת oAuth2…</string>
   <string name="ssl_validator_header">לא ניתן לאמת את זהות האתר</string>
@@ -209,6 +243,9 @@
   <string name="ssl_validator_label_validity_to">סיום:</string>
   <string name="ssl_validator_label_signature">חתימה:</string>
   <string name="ssl_validator_label_signature_algorithm">אלגוריתם:</string>
+  <string name="digest_algorithm_not_available">אלגוריתם digest זה אינו זמין במכשיר הטלפון החכם שלך.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">טביעת אצבע:</string>
+  <string name="certificate_load_problem">קיימת בעיה בטעינת האישור.</string>
   <string name="ssl_validator_null_cert">לא ניתן להראות את תעודת האישור.</string>
   <string name="ssl_validator_no_info_about_error">- אין מידע על השגיאה</string>
   <string name="placeholder_sentence">זהו ממלא מקום</string>
@@ -220,14 +257,25 @@
   <string name="instant_upload_on_wifi">העלאת תמונות דרך WiFi בלבד</string>
   <string name="instant_video_upload_on_wifi">העלאות קבצי וידאו על בסיס WiFi בלבד</string>
   <string name="instant_upload_path">/InstantUpload</string>
+  <string name="conflict_title">התנגשות בין קבצים</string>
+  <string name="conflict_message">איזה קבצים לשמור? אם יבחרו שתי הגרסאות, הקובץ המקומי יקבל מספר שיצורף לשמו.</string>
   <string name="conflict_keep_both">להשאיר את שניהם</string>
+  <string name="conflict_use_local_version">גרסה מקומית</string>
+  <string name="conflict_use_server_version">גרסת שרת</string>
   <string name="preview_image_description">תצוגה מקדימה לתמונה</string>
   <string name="preview_image_error_unknown_format">תמונה זו לא ניתנת לצפייה</string>
   <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>
+  <string name="prefs_instant_upload_path_title">העלאת נתיב</string>
   <string name="share_link_no_support_share_api">מצטערים, שיתוף אינו מורשה על השרת שלך. יש ליצור קשר עם
 ⇥⇥מנהל.</string>
+  <string name="share_link_file_no_exist">לא ניתן לשתף. יש לבדוק אם הקובץ קיים</string>
   <string name="share_link_file_error">שגיאה אירעה בזמן ניסיון לשתף קובץ זה או תיקייה זו</string>
+  <string name="unshare_link_file_no_exist">לא ניתן לבטל שיתוף. יש לבדוק אם הקובץ קיים</string>
   <string name="unshare_link_file_error">שגיאה אירעה בזמן ניסיון לבטל שיתוף לקובץ זה או לתיקייה זו</string>
+  <string name="update_link_file_no_exist">לא ניתן לעדכן. יש לבדוק אם הקובץ קיים</string>
+  <string name="update_link_file_error">שגיאה אירעה בזמן עדכון קישור השיתוף</string>
+  <string name="share_link_password_title">הכנסת סיסמא</string>
+  <string name="share_link_empty_password">יש להכניס סיסמא</string>
   <string name="activity_chooser_send_file_title">שליחה</string>
   <string name="copy_link">העתקת קישור</string>
   <string name="clipboard_text_copied">הועתק ללוח הגזירים - clipboard</string>
@@ -242,20 +290,73 @@
   <string name="forbidden_permissions_delete">למחוק קובץ זה</string>
   <string name="share_link_forbidden_permissions">לשתף קובץ זה</string>
   <string name="unshare_link_forbidden_permissions">לבטל שיתוף לקובץ זה</string>
+  <string name="update_link_forbidden_permissions">לעדכון קישור שיתוף זה</string>
   <string name="forbidden_permissions_create">ליצור קובץ</string>
   <string name="uploader_upload_forbidden_permissions">להעלאה לתיקייה זו</string>
   <string name="downloader_download_file_not_found">הקובץ אינו זמין יותר על השרת</string>
   <string name="prefs_category_accounts">חשבונות</string>
   <string name="prefs_add_account">הוספת חשבון</string>
   <string name="auth_redirect_non_secure_connection_title">חיבור מאובטח מנותב דרך נתיב לא מאובטח</string>
+  <string name="actionbar_logger">לוגים</string>
+  <string name="log_send_history_button">שליחת היסטוריה</string>
+  <string name="log_send_no_mail_app">לא נמצא יישום לשליחת לוגים. יש להתקין יישום דואר עכשיו!</string>
+  <string name="log_send_mail_subject">%1$s לוגים של יישום אנדרואיד</string>
+  <string name="log_progress_dialog_text">טעינת מידע...</string>
+  <string name="saml_authentication_required_text">נדרש אימות</string>
   <string name="saml_authentication_wrong_pass">סיסמא שגוייה</string>
   <string name="actionbar_move">העברה</string>
+  <string name="file_list_empty_moving">אין כאן כלום. ניתן להוסיף תיקייה!</string>
   <string name="folder_picker_choose_button_text">בחירה</string>
+  <string name="move_file_not_found">לא ניתן להעביר. יש לבדוק אם הקובץ קיים</string>
+  <string name="move_file_invalid_into_descendent">לא ניתן להעביר תיקייה אל תוך תיקיית משנה של אותה תיקייה</string>
+  <string name="move_file_invalid_overwrite">הקובץ כבר קיים בתיקיית היעד</string>
+  <string name="move_file_error">אירעה שגיאה בזמן ניסיון להעביר את הקובץ או התיקייה</string>
+  <string name="forbidden_permissions_move">להעביר את הקובץ הזה</string>
+  <string name="copy_file_not_found">לא ניתן להעתיק. יש לבדוק אם הקובץ קיים</string>
+  <string name="copy_file_invalid_into_descendent">לא ניתן להעתיק תיקייה אל תוך תיקיית משנה של אותה תיקייה</string>
+  <string name="copy_file_invalid_overwrite">הקובץ כבר קיים בתיקיית היעד</string>
+  <string name="copy_file_error">אירעה שגיאה בזמן ניסיון להעתיק את הקובץ או התיקייה</string>
+  <string name="forbidden_permissions_copy">להעתיק את הקובץ הזה</string>
+  <string name="prefs_category_instant_uploading">העלאות מיידיות</string>
   <string name="prefs_category_security">אבטחה</string>
+  <string name="prefs_instant_video_upload_path_title">נתיב העלאת וידאו</string>
+  <string name="sync_folder_failed_content">לא ניתן להשלים סנכרון של %1$s תיקיות</string>
+  <string name="shared_subject_header">משותף</string>
+  <string name="with_you_subject_header">אתך</string>
+  <string name="subject_user_shared_with_you">%1$s משתף \"%2$s\" אתך</string>
+  <string name="subject_shared_with_you">\"%1$s\" שותף אתך</string>
+  <string name="auth_refresh_button">רענון חיבור</string>
   <string name="auth_host_address">כתובת שרת</string>
+  <string name="common_error_out_memory">אין די זכרון</string>
+  <string name="username">שם משתמש</string>
+  <string name="file_list__footer__folder">1 תיקייה</string>
+  <string name="file_list__footer__folders">%1$d תיקיות</string>
+  <string name="file_list__footer__file">1 קובץ</string>
+  <string name="file_list__footer__file_and_folder">1 קובץ, 1 תיקייה</string>
+  <string name="file_list__footer__file_and_folders">1 קובץ, %1$d תיקיות</string>
+  <string name="file_list__footer__files">%1$d קבצים</string>
+  <string name="file_list__footer__files_and_folder">%1$d קבצים, 1 תיקייה</string>
+  <string name="file_list__footer__files_and_folders">%1$d קבצים, %2$d תיקיות</string>
+  <string name="prefs_instant_behaviour_dialogTitle">קובץ מקורי יהיה...</string>
+  <string name="prefs_instant_behaviour_title">תיקייה מקורית תהיה...</string>
+  <string name="upload_copy_files">העתקת קובץ</string>
+  <string name="upload_move_files">העברת קובץ</string>
+  <string name="pref_behaviour_entries_keep_file">נשמר בתיקייה מקורית</string>
+  <string name="pref_behaviour_entries_move">הועבר לתיקיית ישומים</string>
   <string name="share_dialog_title">שיתוף</string>
+  <string name="share_with_user_section_title">שיתוף עם משתמשים וקבוצות</string>
+  <string name="share_no_users">עדיין לא שותף מידע עם משתמשים</string>
+  <string name="share_add_user_or_group">הוספת משתמש או קבוצה</string>
   <string name="share_via_link_section_title">קישור לשיתוף</string>
   <string name="share_via_link_expiration_date_label">הגדרת תאריך תפוגה</string>
   <string name="share_via_link_password_label">הגנה בססמה</string>
+  <string name="share_via_link_password_title">מאובטח</string>
+  <string name="share_get_public_link_button">קבלת קישור</string>
   <string name="share_search">חיפוש</string>
+  <string name="search_users_and_groups_hint">חיפוש משתמשים וקבוצות</string>
+  <string name="share_group_clarification">%1$s (קבוצה)</string>
+  <string name="share_sharee_unavailable">מצטערים, גרסת השרת שלך לא מאפשרת שיתוף עם משתמשים בין לקוחות.
+        \nיש ליצור קשר עם המנהל</string>
+  <string name="action_switch_grid_view">מעבר לתצוגת טבלה</string>
+  <string name="action_switch_list_view">מעבר לתצוגת רשימה</string>
 </resources>

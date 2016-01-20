@@ -357,4 +357,6 @@
   <string name="share_group_clarification">%1$s (gruppo)</string>
   <string name="share_sharee_unavailable">Spiacenti, la versione del tuo server non consente la condivisione con utenti dai client.
 \nContatta il tuo amministratore.</string>
+  <string name="action_switch_grid_view">Passa alla vista a griglia</string>
+  <string name="action_switch_list_view">Passa alla vista a elenco</string>
 </resources>

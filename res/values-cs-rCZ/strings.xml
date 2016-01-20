@@ -356,4 +356,6 @@ správce systému.</string>
   <string name="share_group_clarification">%1$s (skupina)</string>
   <string name="share_sharee_unavailable">Omlouváme se, verze vašeho serveru neumožňuje v klientské aplikaci sdílení dat mezi uživateli.
 \nKontaktujte prosím svého administrátora</string>
+  <string name="action_switch_grid_view">Zobrazení v mřížce</string>
+  <string name="action_switch_list_view">Zobrazení v seznamu</string>
 </resources>
