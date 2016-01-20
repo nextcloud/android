@@ -21,7 +21,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/search_layout"
-    android:minWidth="200dp">
+    android:minWidth="200dp"
+    android:padding="@dimen/standard_padding">
 
     <SearchView
         android:layout_width="match_parent"
@@ -33,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/searchUsersListView"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical"
+        android:layout_marginLeft="20dp"/>
 
 </LinearLayout>

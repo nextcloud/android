@@ -135,6 +135,11 @@
 		<item name="android:textColor">@color/fab_white</item>
 	</style>
 
+	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+		<item name="windowNoTitle">false</item>
+		<item name="colorAccent">@color/owncloud_blue_accent</item>
+	</style>
+
 	<!-- Button Bar hack due to Lollipop bug:
 		https://code.google.com/p/android/issues/detail?id=78302
 	fix see:
@@ -230,4 +235,5 @@
     </style>
     <style name="Theme.ownCloud.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.ownCloud.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
