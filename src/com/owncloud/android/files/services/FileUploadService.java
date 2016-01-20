@@ -152,7 +152,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
     
     public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
 
-    public static final String KEY_INSTANT_UPLOAD = "INSTANT_UPLOAD";
+    //public static final String KEY_INSTANT_UPLOAD = "INSTANT_UPLOAD";
 
     public static final int LOCAL_BEHAVIOUR_COPY = 0;
     public static final int LOCAL_BEHAVIOUR_MOVE = 1;
@@ -401,7 +401,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         mStorageManager = new FileDataStorageManager(account, getContentResolver());
 
         boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
-        boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false);
+     //   boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false);
         int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
 
         boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
@@ -461,7 +461,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                         localAction, // Change for compilation
                         getApplicationContext()
                 );
-                if (isInstant) {
+                if (isCreateRemoteFolder) {
                     newUpload.setRemoteFolderToBeCreated();
                 }
                 newUpload.addDatatransferProgressListener(this);
