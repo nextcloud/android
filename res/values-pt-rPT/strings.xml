@@ -352,4 +352,9 @@
   <string name="share_get_public_link_button">Obter ligação</string>
   <string name="share_search">Procurar</string>
   <string name="search_users_and_groups_hint">Pesquisar utilizadores e grupos</string>
+  <string name="share_group_clarification">%1$s (grupo)</string>
+  <string name="share_sharee_unavailable">Desculpe, a versão do seu servidor não autoriza a partilha com utilizadores no mesmo cliente.
+        \nPor favor contacte o seu administrador</string>
+  <string name="action_switch_grid_view">Alterar para vista de grelha</string>
+  <string name="action_switch_list_view">Alterar para vista em lista</string>
 </resources>
