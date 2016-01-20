@@ -268,7 +268,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             if (upload.userCanRetryUpload()
                     && upload.getUploadStatus() != UploadStatus.UPLOAD_SUCCEEDED) {
                 //Refresh   - TODO test buttons in Android 4.x
-                rightButton.setImageResource(R.drawable.ic_action_refresh_grey);
+                rightButton.setImageResource(R.drawable.ic_refresh);
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
