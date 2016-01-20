@@ -19,15 +19,16 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.app.FragmentManager;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.view.Menu;
@@ -42,7 +43,6 @@ import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.UploadListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 
@@ -60,6 +60,8 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
     private static final String TAG_UPLOAD_LIST_FRAGMENT = "UPLOAD_LIST_FRAGMENT";
 
+    private UploadMessagesReceiver mUploadMessagesReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,11 +69,11 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.upload_list_layout);
 
-        // Add fragment with a transaction for setting a tag
-        createUploadListFragment();
-
         // Navigation Drawer
         initDrawer();
+
+        // Add fragment with a transaction for setting a tag
+        createUploadListFragment();
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -85,6 +87,34 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.upload_list_fragment, uploadList, TAG_UPLOAD_LIST_FRAGMENT);
         transaction.commit();
+    }
+
+
+    @Override
+    protected void onResume() {
+        Log_OC.v(TAG, "onResume() start");
+        super.onResume();
+
+        // Listen for upload messages
+        mUploadMessagesReceiver = new UploadMessagesReceiver();
+        IntentFilter uploadIntentFilter = new IntentFilter();
+        uploadIntentFilter.addAction(FileUploadService.getUploadStartMessage());
+        uploadIntentFilter.addAction(FileUploadService.getUploadFinishMessage());
+        registerReceiver(mUploadMessagesReceiver, uploadIntentFilter);
+
+        Log_OC.v(TAG, "onResume() end");
+
+    }
+
+    @Override
+    protected void onPause() {
+        Log_OC.v(TAG, "onPause() start");
+        if (mUploadMessagesReceiver != null) {
+            unregisterReceiver(mUploadMessagesReceiver);
+            mUploadMessagesReceiver = null;
+        }
+        super.onPause();
+        Log_OC.v(TAG, "onPause() end");
     }
 
     // ////////////////////////////////////////
@@ -236,4 +266,20 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         }
     };
 
+    /**
+     * Once the file upload has changed its status -> update uploads list view
+     */
+    private class UploadMessagesReceiver extends BroadcastReceiver {
+        /**
+         * {@link BroadcastReceiver} to enable syncing feedback in UI
+         */
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            UploadListFragment uploadListFragment =
+                    (UploadListFragment) getSupportFragmentManager().findFragmentByTag(TAG_UPLOAD_LIST_FRAGMENT);
+
+            uploadListFragment.updateUploads();
+
+        }
+    }
 }

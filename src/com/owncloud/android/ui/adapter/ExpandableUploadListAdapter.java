@@ -166,7 +166,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             view = inflator.inflate(R.layout.upload_list_item, null);
         }
 
-        view.invalidate();
 
         if (uploadsItems != null && uploadsItems.length > position) {
             final OCUpload upload = uploadsItems[position];
@@ -334,18 +333,24 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         for (UploadGroup group : mUploadGroups) {
             group.refresh();
         }
-        mParentActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                notifyDataSetChanged();
-            }
-        });
-
+//        mParentActivity.runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                notifyDataSetChanged();
+//            }
+//        });
+        notifyDataSetChanged();
     }
 
     @Override
     public void update(Observable arg0, Object arg1) {
         Log_OC.d(TAG, "update");
+        loadUploadItemsFromDb();
+    }
+
+
+    public void refreshView() {
+        Log_OC.d(TAG, "refreshView");
         loadUploadItemsFromDb();
     }
 

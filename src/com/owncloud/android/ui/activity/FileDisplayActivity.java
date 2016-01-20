@@ -1064,11 +1064,8 @@ public class FileDisplayActivity extends HookActivity implements
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                String uploadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+                String uploadedRemotePath = intent.getStringExtra(FileUploadService.EXTRA_REMOTE_PATH);
                 String accountName = intent.getStringExtra(FileUploadService.ACCOUNT_NAME);
-// On master
-//                String uploadedRemotePath = intent.getStringExtra(FileUploader.EXTRA_REMOTE_PATH);
-//                String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
                 boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
                 OCFile currentDir = getCurrentDir();
                 boolean isDescendant = (currentDir != null) && (uploadedRemotePath != null) &&

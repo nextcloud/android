@@ -4,16 +4,18 @@
         android:layout_height="match_parent"
         android:clickable="true" >
 
-
-    <fragment
-        android:id="@+id/upload_list_fragment"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        class="com.owncloud.android.ui.fragment.UploadListFragment"/>
+        android:background="@color/background_color">
+
+        <FrameLayout
+            android:id="@+id/upload_list_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+    </LinearLayout>
 
     <include
         layout="@layout/drawer"

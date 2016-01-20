@@ -98,6 +98,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 
     private static final String TAG = FileUploadService.class.getSimpleName();
 
+    private static final String UPLOAD_START_MESSAGE = "UPLOAD_START";
     private static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
     public static final String EXTRA_UPLOAD_RESULT = "RESULT";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
@@ -250,6 +251,10 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 
     private static final String MIME_TYPE_PDF = "application/pdf";
     private static final String FILE_EXTENSION_PDF = ".pdf";
+
+    public static String getUploadStartMessage() {
+        return FileUploadService.class.getName() + UPLOAD_START_MESSAGE;
+    }
 
     public static String getUploadFinishMessage() {
         return FileUploadService.class.getName() + UPLOAD_FINISH_MESSAGE;
@@ -1189,18 +1194,10 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 
         mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
 
-        updateDatabaseUploadStart(mCurrentUpload);
+        sendBroadcastUploadStarted(mCurrentUpload);
     }
 
-    /**
-     * Updates the persistent upload database that upload is in progress.
-     */
-    private void updateDatabaseUploadStart(UploadFileOperation upload) {
-        mUploadsStorageManager.updateUploadStatus(
-                upload.getOriginalStoragePath(),
-                UploadStatus.UPLOAD_IN_PROGRESS, null
-        );
-    }
+
 
     /**
      * Callback method to update the progress bar in the status notification
@@ -1394,6 +1391,35 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 //    }
 
     /**
+     * Updates the persistent upload database that upload is in progress.
+     */
+    private void updateDatabaseUploadStart(UploadFileOperation upload) {
+        mUploadsStorageManager.updateUploadStatus(
+                upload.getOriginalStoragePath(),
+                UploadStatus.UPLOAD_IN_PROGRESS, null
+        );
+    }
+
+    /**
+     * Sends a broadcast in order to the interested activities can update their
+     * view
+     *
+     * @param upload                    Finished upload operation
+     */
+    private void sendBroadcastUploadStarted(
+            UploadFileOperation upload) {
+
+        Intent start = new Intent(getUploadStartMessage());
+        start.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath()); // real remote
+        start.putExtra(EXTRA_OLD_FILE_PATH, upload.getOriginalStoragePath());
+        start.putExtra(ACCOUNT_NAME, upload.getAccount().name);
+
+        updateDatabaseUploadStart(mCurrentUpload);
+
+        sendStickyBroadcast(start);
+    }
+
+    /**
      * Sends a broadcast in order to the interested activities can update their
      * view
      *
@@ -1426,6 +1452,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 
         sendStickyBroadcast(end);
     }
+
 
     // TODO: Remove. Replace by sendBroadcastUploadFinished(UploadFileOperation, RemoteOperationResult, String)
 //    /**

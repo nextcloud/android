@@ -215,4 +215,10 @@ public class UploadListFragment extends ExpandableListFragment {
         }
     }
 
+    public void updateUploads(){
+        if (mAdapter != null) {
+            mAdapter.refreshView();
+        }
+    }
+
 }
