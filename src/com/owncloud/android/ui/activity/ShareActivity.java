@@ -123,14 +123,14 @@ public class ShareActivity extends FileActivity
                 getFile(),
                 shareeName,
                 (isGroup ? ShareType.GROUP : ShareType.USER),
-                getMaximumPermissions()
+                getAppropiatePermissions()
         );
     }
 
 
-    private int getMaximumPermissions() {
+    private int getAppropiatePermissions() {
         if (getFile().isSharedWithMe()) {
-            return -1;  // maximum permissions will be requested dynamically
+            return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
 
         } else if (getFile().isFolder()) {
             return OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;

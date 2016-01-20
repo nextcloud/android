@@ -58,8 +58,6 @@ public class CreateShareWithShareeOperation extends SyncOperation {
      *                      are the only valid values for the moment.
      * @param permissions   Share permissions key as detailed in
      *                      https://doc.owncloud.org/server/8.2/developer_manual/core/ocs-share-api.html .
-     *                      If < 0, maximum permissions are dynamically found out and requested. This requires
-     *                      an extra interaction with the server, and should be used only for RESHARING.
      */
     public CreateShareWithShareeOperation(String path, String shareeName, ShareType shareType, int permissions) {
         if (!ShareType.USER.equals(shareType) && !ShareType.GROUP.equals(shareType)) {
@@ -73,32 +71,6 @@ public class CreateShareWithShareeOperation extends SyncOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        int permissions = mPermissions;
-        if (permissions < 0) {
-            // find out maximum permissions
-            RemoteOperation operation = new GetRemoteSharesForFileOperation(mPath, true, false);
-            RemoteOperationResult result = operation.execute(client);
-            if (!result.isSuccess()) {
-                return result;
-            } else {
-                OCShare share = null;
-                Account account = getStorageManager().getAccount();
-                String userId = account.name.substring(0, account.name.lastIndexOf("@"));
-                    // TODO OcAccount needed everywhere :(
-                boolean sharedWithMe = false;
-
-                for (int i=0; i<result.getData().size() && !sharedWithMe; i++) {
-                    share = (OCShare) result.getData().get(i);
-                    sharedWithMe = userId.equals(share.getShareWith());
-                }
-
-                if (share != null && sharedWithMe) {
-                    permissions = share.getPermissions();
-                } else {
-                    permissions = OCShare.DEFAULT_PERMISSION;
-                }
-            }
-        }
 
         CreateRemoteShareOperation operation = new CreateRemoteShareOperation(
                 mPath,
@@ -106,7 +78,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
                 mShareeName,
                 false,
                 "",
-                permissions
+                mPermissions
         );
         operation.setGetShareDetails(true);
         RemoteOperationResult result = operation.execute(client);
