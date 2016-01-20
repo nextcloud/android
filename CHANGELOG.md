@@ -1,3 +1,7 @@
+# 2016-01-20
+- update master
+- PR: 1413_share_view_enhancement
+
 # 2016-01-03
 - update all PR
 - PR [#1399] (https://github.com/owncloud/android/pull/399) Upload shows files
