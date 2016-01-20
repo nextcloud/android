@@ -633,10 +633,10 @@ public class Uploader extends FileActivity
                         mNumCacheFile++;
                         showWaitingCopyDialog();
                         copyTask.execute(params);
-                    } else {
-                        remote.add(filePath);
-                        local.add(data);
-                    }
+//                    } else {
+//                        remote.add(filePath);
+//                        local.add(data);
+//                    }
                 }
                 else {
                     throw new SecurityException();
