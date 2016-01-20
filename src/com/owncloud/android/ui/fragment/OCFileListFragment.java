@@ -24,6 +24,7 @@ package com.owncloud.android.ui.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ActionMode;
@@ -84,6 +85,16 @@ public class OCFileListFragment extends ExtendedListFragment {
     private FileListListAdapter mAdapter;
     private boolean mJustFolders;
 
+    private int mStatusBarColorActionMode;
+    private int mStatusBarColor;
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mStatusBarColorActionMode = getResources().getColor(R.color.actionModeStatusBarBackground);
+        mStatusBarColor = getResources().getColor(R.color.primary_dark);
+    }
     /**
      * {@inheritDoc}
      */
@@ -176,6 +187,12 @@ public class OCFileListFragment extends ExtendedListFragment {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 this.menu = menu;
+
+                //set gray color
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getActivity().getWindow().setStatusBarColor(mStatusBarColorActionMode);
+                }
+
                 return true;
             }
 
@@ -192,6 +209,11 @@ public class OCFileListFragment extends ExtendedListFragment {
             @Override
             public void onDestroyActionMode(ActionMode mode) {
                 mAdapter.removeSelection();
+
+                // reset to primary dark color
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getActivity().getWindow().setStatusBarColor(mStatusBarColor);
+                }
             }
         });
     }
