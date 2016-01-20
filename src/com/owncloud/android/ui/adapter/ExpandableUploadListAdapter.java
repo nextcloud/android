@@ -45,8 +45,11 @@ import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -169,18 +172,19 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
         if (uploadsItems != null && uploadsItems.length > position) {
             final OCUpload upload = uploadsItems[position];
+            final OCFile uploadOCFile = upload.getOCFile();
 
-            TextView fileName = (TextView) view.findViewById(R.id.upload_name);
-            String file = upload.getOCFile().getFileName();
-            fileName.setText(file);
+            TextView fileTextView = (TextView) view.findViewById(R.id.upload_name);
+            String fileName = uploadOCFile.getFileName();
+            fileTextView.setText(fileName);
             
             TextView localPath = (TextView) view.findViewById(R.id.upload_local_path);
-            String path = upload.getOCFile().getStoragePath();
-            path = path == null ? "" : path.substring(0, path.length() - file.length() - 1);
+            String path = uploadOCFile.getStoragePath();
+            path = path == null ? "" : path.substring(0, path.length() - fileName.length() - 1);
             localPath.setText("Path: " + path);
 
             TextView fileSize = (TextView) view.findViewById(R.id.upload_file_size);
-            fileSize.setText(DisplayUtils.bytesToHumanReadable(upload.getOCFile().getFileLength()));
+            fileSize.setText(DisplayUtils.bytesToHumanReadable(uploadOCFile.getFileLength()));
 
             TextView statusView = (TextView) view.findViewById(R.id.upload_status);
             String status;
@@ -193,7 +197,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     mProgressListener = new ProgressListener(progressBar);
                     if(mParentActivity.getFileUploaderBinder() != null) {
                         mParentActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener,
-                                mParentActivity.getAccount(), upload.getOCFile());
+                                mParentActivity.getAccount(), uploadOCFile);
 //                        mCurrentUpload = mParentActivity.getFileUploaderBinder().getCurrentUploadOperation();
 //                        if(mCurrentUpload != null) {
 //                            mCurrentUpload.addDatatransferProgressListener(mProgressListener);
@@ -264,7 +268,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             if (upload.userCanRetryUpload()
                     && upload.getUploadStatus() != UploadStatus.UPLOAD_SUCCEEDED) {
                 //Refresh   - TODO test buttons in Android 4.x
-                rightButton.setImageDrawable(mParentActivity.getDrawable(R.drawable.ic_action_refresh_grey));
+                rightButton.setImageResource(R.drawable.ic_action_refresh_grey);
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -273,16 +277,16 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 });
             } else if (upload.userCanCancelUpload()) {
                 //Cancel
-                rightButton.setImageDrawable(mParentActivity.getDrawable(R.drawable.ic_cancel));
+                rightButton.setImageResource(R.drawable.ic_cancel);
                 rightButton.setOnClickListener(new OnClickListener() {                
                     @Override
                     public void onClick(View v) {
-                        mParentActivity.getFileOperationsHelper().cancelTransference(upload.getOCFile());
+                        mParentActivity.getFileOperationsHelper().cancelTransference(uploadOCFile);
                     }
                 });
             } else {
                 //Delete
-                rightButton.setImageDrawable(mParentActivity.getDrawable(R.drawable.ic_delete));
+                rightButton.setImageResource(R.drawable.ic_delete);
                 rightButton.setOnClickListener(new OnClickListener() {                
                     @Override
                     public void onClick(View v) {
@@ -292,16 +296,50 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             }
             
 
-            ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
+            ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
             fileIcon.setImageResource(R.drawable.file);
-            try {
-                Bitmap b = ThumbnailsCacheManager.getBitmapFromDiskCache(upload.getOCFile().getRemoteId());
-                if (b != null) {
-                    fileIcon.setImageBitmap(b);
-                }
-            } catch (NullPointerException e) {
-            }            
 
+            /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
+             * {@link ThumbnailsCacheManager#cancelPotentialWork} will NEVER cancel any task.
+             **/
+            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialWork(uploadOCFile,
+                    fileIcon));
+
+            if (uploadOCFile.isImage() && uploadOCFile.getStoragePath()!= null){
+                File file = new File(uploadOCFile.getStoragePath());
+                // Thumbnail in Cache?
+                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        String.valueOf(file.hashCode()));
+                if (thumbnail != null) {
+                    fileIcon.setImageBitmap(thumbnail);
+                } else {
+                    // generate new Thumbnail
+                    if (allowedToCreateNewThumbnail) {
+                        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
+                        if (thumbnail == null) {
+                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                        }
+                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncDrawable(
+                                        mParentActivity.getResources(),
+                                        thumbnail,
+                                        task
+                                );
+                        fileIcon.setImageDrawable(asyncDrawable);
+                        task.execute(file);
+                        Log_OC.v(TAG, "Executing task to generate a new thumbnail");
+                    }
+                }
+
+                if (uploadOCFile.getMimetype().equalsIgnoreCase("image/png")) {
+                    fileIcon.setBackgroundColor(mParentActivity.getResources()
+                            .getColor(R.color.background_color));
+                }
+            } else {
+                fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(upload.getMimeType(),
+                        uploadOCFile.getFileName()));
+            }
             TextView uploadDate = (TextView) view.findViewById(R.id.upload_date);
             CharSequence dateString = DisplayUtils.getRelativeDateTimeString(
                     mParentActivity,
