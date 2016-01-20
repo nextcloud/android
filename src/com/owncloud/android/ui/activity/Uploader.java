@@ -122,6 +122,8 @@ public class Uploader extends FileActivity
 
     private static final String TAG = Uploader.class.getSimpleName();
 
+    private ProgressBar mProgressBar;
+
     private AccountManager mAccountManager;
     private Stack<String> mParents;
     private ArrayList<Parcelable> mStreamsToUpload;
@@ -179,6 +181,8 @@ public class Uploader extends FileActivity
         if (mAccountSelected) {
             setAccount((Account) savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT));
         }
+
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     @Override
@@ -511,7 +515,7 @@ public class Uploader extends FileActivity
                                                                       );
         synchFolderOp.execute(getAccount(), this, null, null);
 
-        setSupportProgressBarIndeterminateVisibility(true);
+        mProgressBar.setIndeterminate(true);
     }
 
     private Vector<OCFile> sortFileList(Vector<OCFile> files) {
@@ -556,7 +560,7 @@ public class Uploader extends FileActivity
             
             // this checks the mimeType 
             for (Parcelable mStream : mStreamsToUpload) {
-                
+
                 Uri uri = (Uri) mStream;
                 String data = null;
                 String filePath = "";
@@ -628,11 +632,12 @@ public class Uploader extends FileActivity
                     if (data == null) {
                         mRemoteCacheData.add(filePath);
                         CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
-                        Object[] params = { uri, filePath, mRemoteCacheData.size()-1,
+                        Object[] params = {uri, filePath, mRemoteCacheData.size() - 1,
                                 getAccount().name, getContentResolver()};
                         mNumCacheFile++;
                         showWaitingCopyDialog();
                         copyTask.execute(params);
+                    }
 //                    } else {
 //                        remote.add(filePath);
 //                        local.add(data);
@@ -658,7 +663,7 @@ public class Uploader extends FileActivity
 
                 finish();
             }
-            
+
         } catch (SecurityException e) {
             String message = String.format(getString(R.string.uploader_error_forbidden_content),
                     getString(R.string.app_name));
@@ -773,9 +778,7 @@ public class Uploader extends FileActivity
             if (file.isFolder()) {
                 return file;
             } else if (getStorageManager() != null) {
-                String parentPath = file.getRemotePath().substring(0,
-                                                            file.getRemotePath().lastIndexOf(file.getFileName()));
-                return getStorageManager().getFileByPath(parentPath);
+                return getStorageManager().getFileByPath(file.getParentRemotePath());
             }
         }
         return null;
@@ -789,11 +792,10 @@ public class Uploader extends FileActivity
 
     protected void requestCredentialsUpdate() {
         Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
-        updateAccountCredentials.putExtra(
-                AuthenticatorActivity.EXTRA_ACTION,
-                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
-        updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount())
+        .putExtra(AuthenticatorActivity.EXTRA_ACTION,
+                  AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN)
+        .addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         startActivity(updateAccountCredentials);
     }
 
@@ -888,7 +890,7 @@ public class Uploader extends FileActivity
                     }
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                    setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
+                    mProgressBar.setIndeterminate(mSyncInProgress);
                 }
             } catch (RuntimeException e) {
                 // avoid app crashes after changing the serial id of RemoteOperationResult
