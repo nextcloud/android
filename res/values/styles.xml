@@ -26,6 +26,7 @@
     	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
 		<item name="actionModeBackground">@color/actionModeBackground</item>
 		<item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    	<item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorPrimaryDark">@color/primary_dark</item>
 		<item name="colorAccent">@color/color_accent</item>
