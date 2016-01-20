@@ -2,6 +2,10 @@
 - update master
 - PR: 1413_share_view_enhancement
 
+# 2016-01-12
+- PR [#1424] (https://github.com/owncloud/android/pull/1424) "semi transparent checkmark" merged
+- PR [#1416] (https://github.com/owncloud/android/pull/1416) "share view enhancement" merged
+
 # 2016-01-03
 - update all PR
 - PR [#1399] (https://github.com/owncloud/android/pull/399) Upload shows files

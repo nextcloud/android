@@ -418,7 +418,7 @@
     <string name="prefs_storage_path">Storage path</string>
     <string name="prefs_common">Common</string>
 
-    <string name="share_dialog_title">Sharing</string>
+    <string name="share_file">Share %1$s</string>
     <string name="share_with_user_section_title">Share with users and groups</string>
     <string name="share_no_users">No data shared with users yet</string>
     <string name="share_add_user_or_group">Add User or Group</string>
@@ -427,6 +427,7 @@
     <string name="share_via_link_password_label">Password protect</string>
     <string name="share_via_link_password_title">Secured</string>
     <string name="share_get_public_link_button">Get link</string>
+    <string name="share_with_title">Share with &#8230;</string>
 
     <string name="share_search">Search</string>
 

@@ -24,11 +24,20 @@
     android:minWidth="200dp"
     android:padding="@dimen/standard_padding">
 
-    <SearchView
+    <TextView
+        android:id="@+id/searchUserGroupsTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/share_with_title"
+        android:textAppearance="@android:style/TextAppearance.DialogWindowTitle"
+        android:layout_marginBottom="@dimen/standard_margin"/>
+
+    <android.support.v7.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
-        android:hint="@string/share_search"/>
+        android:hint="@string/share_search"
+        style="@style/ownCloud.SearchView"/>
 
     <ListView
         android:layout_width="match_parent"
