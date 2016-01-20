@@ -78,28 +78,6 @@
             android:textColor="@color/white"
             />
 
-        <android.support.v7.widget.AppCompatButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/unshareButton"
-            style="@style/Button.Primary"
-            android:theme="@style/Button.Primary"
-            android:drawableRight="@drawable/ic_action_delete"
-            android:drawableEnd="@drawable/ic_action_delete"
-            android:text="@string/edit_share_unshare"
-            android:gravity="center"
-            />
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/doneButton"
-            style="@style/Button.Primary"
-            android:theme="@style/Button.Primary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/edit_share_done"
-            android:contentDescription="@string/edit_share_done"
-            />
-
     </LinearLayout>
 
 </ScrollView>

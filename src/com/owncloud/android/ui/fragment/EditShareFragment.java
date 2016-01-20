@@ -30,9 +30,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -130,94 +130,101 @@ public class EditShareFragment extends Fragment {
         View view = inflater.inflate(R.layout.edit_share_layout, container, false);
 
         // Setup layout
-        initPermissions(view);
-        initUnshareButton(view);
-        initDoneButton(view);
+        refreshUiFromState(view);
+        setPermissionsListening(view, true);
 
         return view;
     }
 
+
     /**
-     * Binds listener for user actions to enable or disable a privilege on the edited share
-     * to the views receiving the user events.
+     * Updates the UI with the current permissions in the edited {@OCShare}
      *
      * @param editShareView     Root view in the fragment.
      */
-    private void initPermissions(View editShareView) {
-        boolean setListener = false;
-        if (mOnPrivilegeChangeListener == null) {
-            mOnPrivilegeChangeListener = new OnPrivilegeChangeListener();
-            setListener = true;
+    private void refreshUiFromState(View editShareView) {
+        if (editShareView != null) {
+            setPermissionsListening(editShareView, false);
+
+            int sharePermissions = mShare.getPermissions();
+            CompoundButton compound;
+
+            compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);
+            compound.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
+
+            compound = (CompoundButton) editShareView.findViewById(R.id.canEditSwitch);
+            int anyUpdatePermission =
+                    OCShare.CREATE_PERMISSION_FLAG |
+                            OCShare.UPDATE_PERMISSION_FLAG |
+                            OCShare.DELETE_PERMISSION_FLAG;
+            boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
+            compound.setChecked(canEdit);
+
+            if (mFile.isFolder()) {
+                compound = (CompoundButton) editShareView.findViewById(R.id.canEditCreateCheckBox);
+                if (canEdit) {
+                    compound.setVisibility(View.VISIBLE);
+                    compound.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
+                } else {
+                    compound.setVisibility(View.GONE);
+                }
+
+                compound = (CompoundButton) editShareView.findViewById(R.id.canEditChangeCheckBox);
+                if (canEdit) {
+                    compound.setVisibility(View.VISIBLE);
+                    compound.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
+                } else {
+                    compound.setVisibility(View.GONE);
+                }
+
+                compound = (CompoundButton) editShareView.findViewById(R.id.canEditDeleteCheckBox);
+                if (canEdit) {
+                    compound.setVisibility(View.VISIBLE);
+                    compound.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
+                } else {
+                    compound.setVisibility(View.GONE);
+                }
+
+            }
+
+            setPermissionsListening(editShareView, true);
+
         }
-        int sharePermissions = mShare.getPermissions();
+    }
+
+
+    /**
+     * Binds or unbinds listener for user actions to enable or disable a permission on the edited share
+     * to the views receiving the user events.
+     *
+     * @param editShareView     Root view in the fragment.
+     * @param enable            When 'true', listener is bound to view; when 'false', it is unbound.
+     */
+    private void setPermissionsListening(View editShareView, boolean enable) {
+        if (enable && mOnPrivilegeChangeListener == null) {
+            mOnPrivilegeChangeListener = new OnPrivilegeChangeListener();
+        }
+        CompoundButton.OnCheckedChangeListener changeListener = enable ? mOnPrivilegeChangeListener : null;
         CompoundButton compound;
 
         compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);
-        compound.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
-        if (setListener) {
-            compound.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
-        }
+        compound.setOnCheckedChangeListener(changeListener);
 
         compound = (CompoundButton) editShareView.findViewById(R.id.canEditSwitch);
-        int anyUpdatePermission =
-                OCShare.CREATE_PERMISSION_FLAG |
-                        OCShare.UPDATE_PERMISSION_FLAG |
-                        OCShare.DELETE_PERMISSION_FLAG
-                ;
-        boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
-        compound.setChecked(canEdit);
-        if (setListener) {
-            compound.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
-        }
+        compound.setOnCheckedChangeListener(changeListener);
 
         if (mFile.isFolder()) {
             compound = (CompoundButton) editShareView.findViewById(R.id.canEditCreateCheckBox);
-            if (canEdit) {
-                compound.setVisibility(View.VISIBLE);
-                compound.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
-            }
-            if (setListener) {
-                compound.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
-            }
+            compound.setOnCheckedChangeListener(changeListener);
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canEditChangeCheckBox);
-            if (canEdit) {
-                compound.setVisibility(View.VISIBLE);
-                compound.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
-            }
-            if (setListener) {
-                compound.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
-            }
+            compound.setOnCheckedChangeListener(changeListener);
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canEditDeleteCheckBox);
-            if (canEdit) {
-                compound.setVisibility(View.VISIBLE);
-                compound.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
-            }
-            if (setListener) {
-                compound.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
-            }
-
-        }   // else, trust in visibility GONE in R.layout.edit_share_layout
-
-    }
-
-    /**
-     * Called when an operation to update share permissions finished.
-     * s
-     * @param result        Result of the update operation
-     */
-    public void onUpdateSharePermissionsFinished(RemoteOperationResult result) {
-        if (result.isSuccess()) {
-            getFragmentManager().popBackStack();
-
-        } else {
-            if (getView() != null) {
-                initPermissions(getView());
-            }
+            compound.setOnCheckedChangeListener(changeListener);
         }
-    }
 
+    }
 
     /**
      * Listener for user actions that enable or disable a privilege
@@ -245,13 +252,7 @@ public class EditShareFragment extends Fragment {
             switch(compound.getId()) {
                 case R.id.canShareSwitch:
                     Log_OC.v(TAG, "canShareCheckBox toggled to " + isChecked);
-                    /// TODO?
-                    // option 1: direct update approach
-                    /*
-                    ((FileActivity) getActivity()).getFileOperationsHelper().
-                        setPrivilegeToShare(mFile, mShare, privilege, isChecked);
-                        */
-                    // option 2: nothing?
+                    updatePermissionsToShare();
                     break;
 
                 case R.id.canEditSwitch:
@@ -278,36 +279,28 @@ public class EditShareFragment extends Fragment {
                             }
                         }
                     }
-                    /// TODO - anything else?; only if modification-on-change approach is taken
+                    updatePermissionsToShare();
                     break;
 
                 case R.id.canEditCreateCheckBox:
                     Log_OC.v(TAG, "canEditCreateCheckBox toggled to " + isChecked);
                     syncCanEditSwitch(compound, isChecked);
-                    /// TODO - anything else?; only if modification-on-change approach is taken
+                    updatePermissionsToShare();
                     break;
 
                 case R.id.canEditChangeCheckBox:
                     Log_OC.v(TAG, "canEditChangeCheckBox toggled to " + isChecked);
                     syncCanEditSwitch(compound, isChecked);
-                    /// TODO - anything else?; only if modification-on-change approach is taken
+                    updatePermissionsToShare();
                     break;
 
                 case R.id.canEditDeleteCheckBox:
                     Log_OC.v(TAG, "canEditDeleteCheckBox toggled to " + isChecked);
                     syncCanEditSwitch(compound, isChecked);
-                    /// TODO - anything else?; only if modification-on-change approach is taken
+                    updatePermissionsToShare();
                     break;
             }
 
-            // undo the toggle to grant the view will be correct if any intermediate dialog is cancelled or
-            // the create/delete operation fails
-            // ONLY if direct update approach is followed
-            /*
-            checkBoxView.setOnCheckedChangeListener(null);
-            checkBoxView.toggle();
-            checkBoxView.setOnCheckedChangeListener(mOnShareViaLinkSwitchCheckedChangeListener);
-            */
         }
 
         /**
@@ -353,61 +346,66 @@ public class EditShareFragment extends Fragment {
         private void toggleDisablingListener(CompoundButton compound) {
             compound.setOnCheckedChangeListener(null);
             compound.toggle();
-            compound.setOnCheckedChangeListener(mOnPrivilegeChangeListener);
+            compound.setOnCheckedChangeListener(this);
         }
     }
 
 
     /**
-     * Binds listener for user interactions on the 'unshare' button with the button itself.
+     * Updates the UI after the result of an update operation on the edited {@link OCShare} permissions.
      *
-     * @param editShareView     Root view in the fragment.
+     * @param result        Result of an update on the edited {@link OCShare} permissions.
      */
-    private void initUnshareButton(View editShareView) {
-        TextView unshareButton  = (TextView) editShareView.findViewById(R.id.unshareButton);
-        unshareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((FileActivity) getActivity()).getFileOperationsHelper().
-                        unshareFileWithUserOrGroup(
-                                mFile,
-                                mShare.getShareType(),
-                                mShare.getShareWith()
-                        )
-                ;
-            }
-        });
+    public void onUpdateSharePermissionsFinished(RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            refreshUiFromDB(getView());
+        } else {
+            refreshUiFromState(getView());
+        }
     }
 
 
     /**
-     * Binds listener for user interactions on the 'done' button with the button itself.
+     * Get {@link OCShare} instance from DB and updates the UI.
+     *
+     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * instance ready to use. If not ready, does nothing.
      *
      * @param editShareView     Root view in the fragment.
      */
-    private void initDoneButton(View editShareView) {
-        TextView doneButton  = (TextView) editShareView.findViewById(R.id.doneButton);
-        doneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharePermissionsBuilder spb = new SharePermissionsBuilder();
-                spb.setSharePermission(getCanShareSwitch().isChecked());
-                if (mFile.isFolder()) {
-                    spb.setUpdatePermission(getCanEditChangeCheckBox().isChecked())
-                        .setCreatePermission(getCanEditCreateCheckBox().isChecked())
-                        .setDeletePermission(getCanEditDeleteCheckBox().isChecked());
-                } else {
-                    spb.setUpdatePermission(getCanEditSwitch().isChecked());
-                }
-                int permissions = spb.build();
+    private void refreshUiFromDB(View editShareView) {
+        FileDataStorageManager storageManager = ((FileActivity) getActivity()).getStorageManager();
+        if (storageManager != null) {
+            // Get edited share
+            mShare = storageManager.getShareById(mShare.getId());
 
-                ((FileActivity) getActivity()).getFileOperationsHelper().
-                        setPermissionsToShare(
-                                mShare,
-                                permissions
-                        );
-            }
-        });
+            // Updates UI with new state
+            refreshUiFromState(editShareView);
+        }
+    }
+
+
+    /**
+     * Updates the permissions of the {@link OCShare} according to the values set in the UI
+     */
+    private void updatePermissionsToShare() {
+        SharePermissionsBuilder spb = new SharePermissionsBuilder();
+        spb.setSharePermission(getCanShareSwitch().isChecked());
+        if (mFile.isFolder()) {
+            spb.setUpdatePermission(getCanEditChangeCheckBox().isChecked())
+                    .setCreatePermission(getCanEditCreateCheckBox().isChecked())
+                    .setDeletePermission(getCanEditDeleteCheckBox().isChecked());
+        } else {
+            spb.setUpdatePermission(getCanEditSwitch().isChecked());
+        }
+        int permissions = spb.build();
+
+        ((FileActivity) getActivity()).getFileOperationsHelper().
+                setPermissionsToShare(
+                        mShare,
+                        permissions
+                )
+        ;
     }
 
     /**

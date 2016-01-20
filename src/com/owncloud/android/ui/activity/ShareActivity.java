@@ -218,9 +218,11 @@ public class ShareActivity extends FileActivity
             getSupportFragmentManager().popBackStack();
         }
 
-        if (operation instanceof UpdateSharePermissionsOperation && getEditShareFragment() != null) {
+        if (operation instanceof UpdateSharePermissionsOperation
+                && getEditShareFragment() != null && getEditShareFragment().isAdded()) {
             getEditShareFragment().onUpdateSharePermissionsFinished(result);
         }
+
     }
 
 
