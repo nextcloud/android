@@ -2,6 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author LukeOwncloud
+ *   @author masensio
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -40,12 +41,12 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploadService;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
@@ -198,13 +199,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     if(mParentActivity.getFileUploaderBinder() != null) {
                         mParentActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener,
                                 mParentActivity.getAccount(), uploadOCFile);
-//                        mCurrentUpload = mParentActivity.getFileUploaderBinder().getCurrentUploadOperation();
-//                        if(mCurrentUpload != null) {
-//                            mCurrentUpload.addDatatransferProgressListener(mProgressListener);
-//                            Log_OC.d(TAG, "added progress listener for current upload: " + mCurrentUpload);
-//                        } else {
-//                            Log_OC.w(TAG, "getFileUploaderBinder().getCurrentUploadOperation() return null. That is odd.");
-//                        }
                     } else {
                         Log_OC.e(TAG, "UploadBinder == null. It should have been created on creating mParentActivity"
                                 + " which inherits from FileActivity. Fix that!");
@@ -219,12 +213,12 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     }
                     break;
                 case UPLOAD_FAILED_RETRY:
-                    if(upload.getLastResult() != null){
-                        status = "Last failure: "
-                                + upload.getLastResult().toString();
-                    } else {
+//                    if(upload.getLastResult() != UploadResult.UNKNOWN){
+//                        status = "Last failure: "
+//                                + upload.getLastResult().toString();
+//                    } else {
                         status = "Upload will be retried shortly.";
-                    }
+//                    }
                     String laterReason = FileUploadService.getUploadLaterReason(mParentActivity, upload);
                     if(laterReason != null) {
                         //Upload failed once but is delayed now, show reason.

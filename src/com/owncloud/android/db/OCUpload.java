@@ -108,7 +108,7 @@ public class OCUpload {
         mUploadTimestamp = -1;
         mAccountName = "";
         mUploadStatus = UploadStatus.UPLOAD_LATER;
-        mLastResult = UploadResult.UPLOADED;
+        mLastResult = UploadResult.UNKNOWN;
     }
 
     // Getters & Setters
@@ -140,7 +140,7 @@ public class OCUpload {
      */
     public void setUploadStatus(UploadStatus uploadStatus) {
         this.mUploadStatus = uploadStatus;
-        setLastResult(null);
+        setLastResult(UploadResult.UNKNOWN);
     }
 
     /**

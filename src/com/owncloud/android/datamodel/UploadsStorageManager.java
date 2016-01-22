@@ -3,6 +3,7 @@
  *
  *   @author LukeOwncloud
  *   @author David A. Velasco
+ *   @author masensio
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -152,6 +153,7 @@ public class UploadsStorageManager extends Observable {
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.UPLOADS_PATH, ocUpload.getLocalPath());
         cv.put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.getUploadStatus().value);
+        cv.put(ProviderTableMeta.UPLOADS_LAST_RESULT, ocUpload.getLastResult().getValue());
 
         int result = getDB().update(ProviderTableMeta.CONTENT_URI_UPLOADS,
                 cv,

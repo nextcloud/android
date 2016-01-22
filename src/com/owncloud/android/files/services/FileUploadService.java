@@ -1307,6 +1307,8 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 //                }
             }
 
+            updateDatabaseUploadResult(uploadResult, mCurrentUpload);
+
             if(!uploadResult.isSuccess()){
                 //in case of failure, do not show details file view (because there is no file!)
                 Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
@@ -1326,7 +1328,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 //                db.removeIUPendingFile(mCurrentUpload.getOriginalStoragePath());
 //                db.close();
                 mPendingUploads.remove(upload.getAccount(), upload.getFile().getRemotePath());
-                updateDatabaseUploadResult(uploadResult, mCurrentUpload);
+                //updateDatabaseUploadResult(uploadResult, mCurrentUpload);
                 // remove success notification, with a delay of 2 seconds
                 NotificationDelayer.cancelWithDelay(mNotificationManager, R.string.uploader_upload_succeeded_ticker,
                         2000);
@@ -1356,39 +1358,40 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 );
             } else {
                 // TODO: Disable for testing of menu actions in uploads view
-//                if (shouldRetryFailedUpload(uploadResult)) {
-//                    mUploadsStorageManager.updateUploadStatus(
-//                        upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED_RETRY, uploadResult
-//                    );
-//                } else {
-//                    mUploadsStorageManager.updateUploadStatus(upload.getOriginalStoragePath(),
-//                            UploadsStorageManager.UploadStatus.UPLOAD_FAILED_GIVE_UP, uploadResult);
-//                }
+                if (shouldRetryFailedUpload(uploadResult)) {
+                    mUploadsStorageManager.updateUploadStatus(
+                            upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED_RETRY,
+                            UploadResult.fromOperationResult(uploadResult));
+                } else {
+                    mUploadsStorageManager.updateUploadStatus(upload.getOriginalStoragePath(),
+                            UploadsStorageManager.UploadStatus.UPLOAD_FAILED_GIVE_UP,
+                            UploadResult.fromOperationResult(uploadResult));
+                }
             }
         }
     }
 
     // TODO: Disable for testing of menu actions in uploads view
-//
-//    /**
-//     * Determines whether with given uploadResult the upload should be retried later.
-//     * @param uploadResult
-//     * @return true if upload should be retried later, false if is should be abandoned.
-//     */
-//    private boolean shouldRetryFailedUpload(RemoteOperationResult uploadResult) {
-//        if (uploadResult.isSuccess()) {
-//            return false;
-//        }
-//        switch (uploadResult.getCode()) {
-//        case HOST_NOT_AVAILABLE:
-//        case NO_NETWORK_CONNECTION:
-//        case TIMEOUT:
-//        case WRONG_CONNECTION: // SocketException
-//            return true;
-//        default:
-//            return false;
-//        }
-//    }
+
+    /**
+     * Determines whether with given uploadResult the upload should be retried later.
+     * @param uploadResult
+     * @return true if upload should be retried later, false if is should be abandoned.
+     */
+    private boolean shouldRetryFailedUpload(RemoteOperationResult uploadResult) {
+        if (uploadResult.isSuccess()) {
+            return false;
+        }
+        switch (uploadResult.getCode()) {
+            case HOST_NOT_AVAILABLE:
+            case NO_NETWORK_CONNECTION:
+            case TIMEOUT:
+            case WRONG_CONNECTION: // SocketException
+                return true;
+            default:
+                return false;
+        }
+    }
 
     /**
      * Updates the persistent upload database that upload is in progress.
@@ -1396,7 +1399,8 @@ public class FileUploadService extends Service implements OnDatatransferProgress
     private void updateDatabaseUploadStart(UploadFileOperation upload) {
         mUploadsStorageManager.updateUploadStatus(
                 upload.getOriginalStoragePath(),
-                UploadStatus.UPLOAD_IN_PROGRESS, null
+                UploadStatus.UPLOAD_IN_PROGRESS,
+                UploadResult.UNKNOWN
         );
     }
 
