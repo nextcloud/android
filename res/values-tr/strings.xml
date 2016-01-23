@@ -71,7 +71,7 @@
   <string name="file_list_seconds_ago">saniyeler önce</string>
   <string name="file_list_empty">Burada hiçbir şey yok. Bir şeyler yükleyin!</string>
   <string name="file_list_loading">Yükleniyor...</string>
-  <string name="file_list_no_app_for_file_type">Dosya tipi için uygulama bulunamadı!</string>
+  <string name="file_list_no_app_for_file_type">Dosya türü için uygulama bulunamadı!</string>
   <string name="local_file_list_empty">Bu klasörde dosya yok.</string>
   <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
   <string name="filedetails_size">Boyut:</string>
@@ -79,7 +79,7 @@
   <string name="filedetails_created">Oluşturulma:</string>
   <string name="filedetails_modified">Değiştirilme:</string>
   <string name="filedetails_download">İndir</string>
-  <string name="filedetails_sync_file">Eşitleme</string>
+  <string name="filedetails_sync_file">Eşitle</string>
   <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
   <string name="list_layout">Liste Yerleşimi</string>
   <string name="action_share">Paylaş</string>
@@ -243,7 +243,7 @@
   <string name="ssl_validator_label_validity_to">Bitiş:</string>
   <string name="ssl_validator_label_signature">İmza:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritma:</string>
-  <string name="digest_algorithm_not_available">Özümlenen algoritma telefonunuz için mevcut değil</string>
+  <string name="digest_algorithm_not_available">Özümlenen algoritma telefonunuz için mevcut değil.</string>
   <string name="ssl_validator_label_certificate_fingerprint">Parmak izi:</string>
   <string name="certificate_load_problem">Sertifika yüklemesinde problem var.</string>
   <string name="ssl_validator_null_cert">Sertifika gösterilemedi.</string>
@@ -286,10 +286,10 @@
   <string name="network_host_not_available">İşlem tamamlanamadı, sunucu kullanılamıyor</string>
   <string name="empty"></string>
   <string name="forbidden_permissions">%s izniniz yok</string>
-  <string name="forbidden_permissions_rename">Bu dosyayı adlandırma</string>
-  <string name="forbidden_permissions_delete">Bu dosyayı silme</string>
-  <string name="share_link_forbidden_permissions">Bu dosyayı paylaşma</string>
-  <string name="unshare_link_forbidden_permissions">Bu dosya paylaşımını kaldırma</string>
+  <string name="forbidden_permissions_rename">Bu dosyayı adlandırmak için</string>
+  <string name="forbidden_permissions_delete">Bu dosyayı silmek için</string>
+  <string name="share_link_forbidden_permissions">Bu dosyayı paylaşmak için</string>
+  <string name="unshare_link_forbidden_permissions">Bu dosya paylaşımını kaldırmak için</string>
   <string name="update_link_forbidden_permissions">Paylaşılan bağlantıyı güncellemek için</string>
   <string name="forbidden_permissions_create">Dosya oluşturma</string>
   <string name="uploader_upload_forbidden_permissions">Bu klasöre yükleme</string>
@@ -337,11 +337,11 @@
   <string name="file_list__footer__files">%1$d dosya</string>
   <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
   <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
-  <string name="prefs_instant_behaviour_dialogTitle">Orijinal dosya olacak...</string>
-  <string name="prefs_instant_behaviour_title">Orijinal dosya olacak...</string>
+  <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya...</string>
+  <string name="prefs_instant_behaviour_title">Özgün dosya...</string>
   <string name="upload_copy_files">Dosyayı kopyala</string>
   <string name="upload_move_files">Dosyayı taşı</string>
-  <string name="pref_behaviour_entries_keep_file">orjinal klasöründe tut</string>
+  <string name="pref_behaviour_entries_keep_file">özgün klasöründe tutuldu</string>
   <string name="pref_behaviour_entries_move">app klasörüne taşındı</string>
   <string name="share_dialog_title">Paylaşım</string>
   <string name="share_with_user_section_title">Kullanıcı ve Gruplarla paylaş</string>
@@ -355,7 +355,7 @@
   <string name="share_search">Ara</string>
   <string name="search_users_and_groups_hint">Kullanıcı ve Grupları Ara</string>
   <string name="share_group_clarification">%1$s (grup)</string>
-  <string name="share_sharee_unavailable">Üzgünüz sunucu versiyonunuz istemcilerdeki kullanıcılara paylaşıma izin vermiyor.
+  <string name="share_sharee_unavailable">Üzgünüz sunucu sürümünüz istemcilerdeki kullanıcılara paylaşıma izin vermiyor.
 \nLütfen yöneticinize başvurun</string>
   <string name="action_switch_grid_view">Tablo görünümüne geç</string>
   <string name="action_switch_list_view">Liste görünümüne geç</string>
