@@ -81,7 +81,7 @@ public class ImageSimpleAdapter extends SimpleAdapter {
         ImageView fileIcon = (ImageView) vi.findViewById(R.id.thumbnail);
         fileIcon.setTag(file.getFileId());
 
-        // TODO enable after DisplayUtils.getRelativeTimestamp exists
+        // TODO enable after #1277 is merged
 //        TextView lastModV = (TextView) vi.findViewById(R.id.last_mod);
 //        lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file));
         
