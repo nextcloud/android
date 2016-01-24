@@ -80,6 +80,10 @@ public class ImageSimpleAdapter extends SimpleAdapter {
         
         ImageView fileIcon = (ImageView) vi.findViewById(R.id.thumbnail);
         fileIcon.setTag(file.getFileId());
+
+        // TODO enable after DisplayUtils.getRelativeTimestamp exists
+//        TextView lastModV = (TextView) vi.findViewById(R.id.last_mod);
+//        lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file));
         
         // get Thumbnail if file is image
         if (file.isImage() && file.getRemoteId() != null){
