@@ -97,7 +97,6 @@ public class ExtendedListFragment extends Fragment
     private FilterableListAdapter mAdapter;
 
 p   private float scale = -1f;
-    private GestureDetector gestureDetector;
 
     protected void setListAdapter(FilterableListAdapter listAdapter) {
         mAdapter = listAdapter;
@@ -266,6 +265,7 @@ p   private float scale = -1f;
             scale = Math.max(2.0f, Math.min(scale, 10.0f));
             Integer scaleInt = Math.round(scale);
             mGridView.setNumColumns(scaleInt);
+            mGridView.invalidateViews();
 
             return true;
         }
