@@ -162,29 +162,16 @@ public class EditShareFragment extends Fragment {
 
             if (mFile.isFolder()) {
                 compound = (CompoundButton) editShareView.findViewById(R.id.canEditCreateCheckBox);
-                if (canEdit) {
-                    compound.setVisibility(View.VISIBLE);
-                    compound.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
-                } else {
-                    compound.setVisibility(View.GONE);
-                }
+                compound.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
+                compound.setVisibility(canEdit ? View.VISIBLE : View.GONE);
 
                 compound = (CompoundButton) editShareView.findViewById(R.id.canEditChangeCheckBox);
-                if (canEdit) {
-                    compound.setVisibility(View.VISIBLE);
-                    compound.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
-                } else {
-                    compound.setVisibility(View.GONE);
-                }
+                compound.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
+                compound.setVisibility(canEdit ? View.VISIBLE : View.GONE);
 
                 compound = (CompoundButton) editShareView.findViewById(R.id.canEditDeleteCheckBox);
-                if (canEdit) {
-                    compound.setVisibility(View.VISIBLE);
-                    compound.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
-                } else {
-                    compound.setVisibility(View.GONE);
-                }
-
+                compound.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
+                compound.setVisibility(canEdit ? View.VISIBLE : View.GONE);
             }
 
             setPermissionsListening(editShareView, true);
@@ -264,10 +251,15 @@ public class EditShareFragment extends Fragment {
                                 //noinspection ConstantConditions, prevented in the method beginning
                                 subordinate = (CompoundButton) getView().findViewById(sSubordinateCheckBoxIds[i]);
                                 subordinate.setVisibility(View.VISIBLE);
-                                if (!subordinate.isChecked()) {
+                                if (!subordinate.isChecked() &&
+                                        !mFile.isSharedWithMe()) {          // see (1)
                                     toggleDisablingListener(subordinate);
                                 }
                             }
+                            if (!mFile.isSharedWithMe()) {
+                                updatePermissionsToShare(); // see (1)
+                            }
+
                         } else {
                             for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
                                 //noinspection ConstantConditions, prevented in the method beginning
@@ -277,9 +269,15 @@ public class EditShareFragment extends Fragment {
                                     toggleDisablingListener(subordinate);
                                 }
                             }
+                            updatePermissionsToShare(); // see (1)
                         }
                     }
-                    updatePermissionsToShare();
+                    // updatePermissionsToShare()
+                    // (1) These modifications result in an exceptional UI behaviour for the case
+                    // where the switch 'can edit' is enabled for a *reshared folder*; if the same
+                    // behaviour was applied than for owned folder, and the user did not have full
+                    // permissions to update the folder, an error would be reported by the server
+                    // and the children checkboxes would be automatically hidden again
                     break;
 
                 case R.id.canEditCreateCheckBox:
