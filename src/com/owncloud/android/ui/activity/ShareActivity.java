@@ -245,6 +245,12 @@ public class ShareActivity extends FileActivity
             searchShareesFragment.refreshUsersOrGroupsListFromDB();
         }
 
+        EditShareFragment editShareFragment = getEditShareFragment();
+        if (editShareFragment != null &&
+                editShareFragment.isAdded())    {
+            editShareFragment.refreshUiFromDB();
+        }
+
     }
 
     /**

@@ -368,6 +368,19 @@ public class EditShareFragment extends Fragment {
      *
      * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
      * instance ready to use. If not ready, does nothing.
+     */
+    public void refreshUiFromDB() {
+        if (getView() != null) {
+            refreshUiFromDB(getView());
+        }
+    }
+
+
+    /**
+     * Get {@link OCShare} instance from DB and updates the UI.
+     *
+     * Depends on the parent Activity provides a {@link com.owncloud.android.datamodel.FileDataStorageManager}
+     * instance ready to use. If not ready, does nothing.
      *
      * @param editShareView     Root view in the fragment.
      */
