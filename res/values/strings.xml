@@ -126,6 +126,7 @@
     <string name="uploads_view_upload_status_failed_credentials_error">Credentials error</string>
     <string name="uploads_view_upload_status_failed_folder_error">Folder error</string>
     <string name="uploads_view_upload_status_failed_file_error">File error</string>
+    <string name="uploads_view_upload_status_failed_priviledges_error">Priviledges error</string>
     <string name="downloader_download_in_progress_ticker">Downloading &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
     <string name="downloader_download_succeeded_ticker">Download succeeded</string>

@@ -86,15 +86,16 @@ public enum UploadResult {
                 return CONFLICT_ERROR;
             case LOCAL_STORAGE_NOT_COPIED:
                 return FILE_ERROR;
-//            case UNAUTHORIZED:
-//                return PRIVILEDGES_ERROR;
+            case FORBIDDEN:
+                return PRIVILEDGES_ERROR;
             case CANCELLED:
                 return CANCELLED;
             case UNKNOWN_ERROR:
                 if (result.getException() instanceof java.io.FileNotFoundException)
                     return FILE_ERROR;
                 return UNKNOWN;
+            default:
+                return UNKNOWN;
         }
-        return null;
     }
 }

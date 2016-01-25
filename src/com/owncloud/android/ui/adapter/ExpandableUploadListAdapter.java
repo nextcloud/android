@@ -239,6 +239,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                 status = mParentActivity.getString(
                                         R.string.uploads_view_upload_status_failed_file_error);
                                 break;
+                            case PRIVILEDGES_ERROR:
+                                status = mParentActivity.getString(
+                                        R.string.uploads_view_upload_status_failed_priviledges_error);
+                                break;
                             default:
                                 status = "Upload failed: " + upload.getLastResult().toString();
                                 break;

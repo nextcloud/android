@@ -503,7 +503,7 @@ public class UploadsStorageManager extends Observable {
                 },
                 null
         );
-        updateUploadInternal(c, UploadStatus.UPLOAD_LATER, null);
+        updateUploadInternal(c, UploadStatus.UPLOAD_LATER, UploadResult.UNKNOWN);
     }
 
 }
