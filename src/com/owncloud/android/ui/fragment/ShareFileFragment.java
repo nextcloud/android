@@ -66,7 +66,7 @@ import java.util.Date;
  * A simple {@link Fragment} subclass.
  *
  * Activities that contain this fragment must implement the
- * {@link ShareFileFragment.OnShareFragmentInteractionListener} interface
+ * {@link ShareFragmentListener} interface
  * to handle interaction events.
  *
  * Use the {@link ShareFileFragment#newInstance} factory method to
@@ -91,7 +91,7 @@ public class ShareFileFragment extends Fragment
     private Account mAccount;
 
     /** Reference to parent listener */
-    private OnShareFragmentInteractionListener mListener;
+    private ShareFragmentListener mListener;
 
     /** List of private shares bound to the file */
     private ArrayList<OCShare> mPrivateShares;
@@ -454,7 +454,7 @@ public class ShareFileFragment extends Fragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnShareFragmentInteractionListener) activity;
+            mListener = (ShareFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnShareFragmentInteractionListener");
@@ -737,23 +737,6 @@ public class ShareFileFragment extends Fragment
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnShareFragmentInteractionListener {
-        void showSearchUsersAndGroups();
-        void showEditShare(OCShare share);
-        void refreshUsersOrGroupsListFromServer();
-        void unshareWith(OCShare share);
     }
 
 }

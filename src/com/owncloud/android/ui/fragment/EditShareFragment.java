@@ -271,8 +271,10 @@ public class EditShareFragment extends Fragment {
                             }
                             updatePermissionsToShare(); // see (1)
                         }
+                    } else {
+                        updatePermissionsToShare();
                     }
-                    // updatePermissionsToShare()
+                    // updatePermissionsToShare()   // see (1)
                     // (1) These modifications result in an exceptional UI behaviour for the case
                     // where the switch 'can edit' is enabled for a *reshared folder*; if the same
                     // behaviour was applied than for owned folder, and the user did not have full
@@ -357,6 +359,14 @@ public class EditShareFragment extends Fragment {
     public void onUpdateSharePermissionsFinished(RemoteOperationResult result) {
         if (result.isSuccess()) {
             refreshUiFromDB(getView());
+        } else if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_NOT_FOUND) {
+            // share or file was deleted from other client before completing the operation
+            int backStackCount = getFragmentManager().getBackStackEntryCount();
+            for (int i=0; i<backStackCount; i++) {
+                getFragmentManager().popBackStack();
+            }
+            ((ShareFragmentListener)getActivity()).
+                    refreshUsersOrGroupsListFromServer();
         } else {
             refreshUiFromState(getView());
         }
@@ -468,6 +478,5 @@ public class EditShareFragment extends Fragment {
     private CheckBox getCanEditDeleteCheckBox() {
         return (CheckBox) getView().findViewById(R.id.canEditDeleteCheckBox);
     }
-
 
 }

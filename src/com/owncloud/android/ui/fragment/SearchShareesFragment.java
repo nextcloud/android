@@ -40,7 +40,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
 
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  *
  * Activities that contain this fragment must implement the
- * {@link SearchShareesFragment.OnSearchFragmentInteractionListener} interface
+ * {@link ShareFragmentListener} interface
  * to handle interaction events.
  *
  * Use the {@link SearchShareesFragment#newInstance} factory method to
@@ -71,7 +70,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     // other members
     private ArrayList<OCShare> mShares;
     private ShareUserListAdapter mUserGroupsAdapter = null;
-    private OnSearchFragmentInteractionListener mListener;
+    private ShareFragmentListener mListener;
 
 
     /**
@@ -198,7 +197,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnSearchFragmentInteractionListener) activity;
+            mListener = (ShareFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -237,22 +236,6 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
         // move to fragment to edit share
         Log_OC.d(TAG, "Editing " + share.getSharedWithDisplayName());
         mListener.showEditShare(share);
-    }
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnSearchFragmentInteractionListener {
-        void showEditShare(OCShare share);
-        void unshareWith(OCShare share);
     }
 
 }
