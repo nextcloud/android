@@ -341,7 +341,7 @@ public class OCUpload implements Parcelable{
 
 
     /****
-     * PARCELABLE METHODS
+     *
      */
     public static final Parcelable.Creator<OCUpload> CREATOR = new Parcelable.Creator<OCUpload>() {
 

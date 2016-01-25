@@ -78,6 +78,7 @@ public enum UploadResult {
             case WRONG_CONNECTION:
                 return NETWORK_CONNECTION;
             case ACCOUNT_EXCEPTION:
+            case UNAUTHORIZED:
                 return CREDENTIAL_ERROR;
 //            case
 //                return FOLDER_ERROR;
@@ -85,8 +86,8 @@ public enum UploadResult {
                 return CONFLICT_ERROR;
             case FILE_NOT_FOUND:
                 return FILE_ERROR;
-            case UNAUTHORIZED:
-                return PRIVILEDGES_ERROR;
+//            case UNAUTHORIZED:
+//                return PRIVILEDGES_ERROR;
             case CANCELLED:
                 return CANCELLED;
         }

@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.text.format.DateUtils;
@@ -36,6 +37,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -207,7 +209,29 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     break;
                 case UPLOAD_FAILED_GIVE_UP:
                     if (upload.getLastResult() != null) {
-                        status = "Upload failed: " + upload.getLastResult().toString();
+                        if (upload.getLastResult() == UploadResult.CREDENTIAL_ERROR) {
+                            status = mParentActivity.getString(
+                                    R.string.uploads_view_upload_status_failed_credentials_error);
+
+                            view.setOnClickListener(new OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    // let the user update credentials with one click
+                                    Intent updateAccountCredentials = new Intent(mParentActivity,
+                                            AuthenticatorActivity.class);
+                                    updateAccountCredentials.putExtra(
+                                            AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount(mParentActivity));
+                                    updateAccountCredentials.putExtra(
+                                            AuthenticatorActivity.EXTRA_ACTION,
+                                            AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
+                                    updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                                    updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                                    mParentActivity.startActivity(updateAccountCredentials);
+                                }
+                            });
+                        } else {
+                            status = "Upload failed: " + upload.getLastResult().toString();
+                        }
                     } else {
                         status = "Upload failed.";
                     }
@@ -216,7 +240,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     if (upload.getLastResult() == UploadResult.NETWORK_CONNECTION) {
                         status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error);
                     } else {
-                        status =  mParentActivity.getString(R.string.uploads_view_upload_status_failed_retry);;
+                        status =  mParentActivity.getString(R.string.uploads_view_upload_status_failed_retry);
                     }
                     String laterReason = FileUploadService.getUploadLaterReason(mParentActivity, upload);
                     if(laterReason != null) {
@@ -228,13 +252,13 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     status = FileUploadService.getUploadLaterReason(mParentActivity, upload);
                     break;
                 case UPLOAD_SUCCEEDED:
-                    status = "Completed.";
+                    status =  mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
                     break;
                 case UPLOAD_CANCELLED:
-                    status = "Upload cancelled.";
+                    status =  mParentActivity.getString(R.string.uploads_view_upload_status_cancelled);
                     break;
                 case UPLOAD_PAUSED:
-                    status = "Upload paused.";
+                    status =  mParentActivity.getString(R.string.uploads_view_upload_status_paused);
                     break;
                 default:
                     status = upload.getUploadStatus().toString();
@@ -265,7 +289,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log_OC.d(TAG, "Retry unpload CLICK");
                         mParentActivity.getFileOperationsHelper().retryUpload(upload);
                     }
                 });
@@ -365,12 +388,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         for (UploadGroup group : mUploadGroups) {
             group.refresh();
         }
-//        mParentActivity.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                notifyDataSetChanged();
-//            }
-//        });
+
         notifyDataSetChanged();
     }
 

@@ -128,6 +128,13 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_PATH, ocUpload.getLocalPath());
         cv.put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.getUploadStatus().value);
         cv.put(ProviderTableMeta.UPLOADS_FILE_ID, ocUpload.getOCFile().getFileId());
+        cv.put(ProviderTableMeta.UPLOADS_ACCOUNT_NAME, ocUpload.getAccountName());
+        cv.put(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR, ocUpload.getLocalAction());
+        //cv.put(ProviderTableMeta.UPLOADS_UPLOAD_TIME, ocUpload.getUploadTime());
+        cv.put(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE, ocUpload.isForceOverwrite() ? 1 : 0);
+        cv.put(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY, ocUpload.isWhileChargingOnly() ? 1 : 0);
+        cv.put(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY, ocUpload.isUseWifiOnly() ? 1 : 0);
+        cv.put(ProviderTableMeta.UPLOADS_LAST_RESULT, ocUpload.getLastResult().getValue());
 
         Uri result = getDB().insert(ProviderTableMeta.CONTENT_URI_UPLOADS, cv);
         

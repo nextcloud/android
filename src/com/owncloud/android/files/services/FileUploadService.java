@@ -871,7 +871,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 notifyUploadStart(mCurrentUpload);
 
                 RemoteOperationResult uploadResult = null, grantResult;
-                
+
                 try {
                     /// prepare client object to send the request to the ownCloud server
                     if (mCurrentAccount == null || !mCurrentAccount.equals(mCurrentUpload.getAccount())) {
