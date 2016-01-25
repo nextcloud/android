@@ -22,6 +22,8 @@ package com.owncloud.android.db;
 
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 
+import java.io.FileNotFoundException;
+
 public enum UploadResult {
     UPLOADED(0),
     NETWORK_CONNECTION(1),
@@ -68,8 +70,6 @@ public enum UploadResult {
 
     public static UploadResult fromOperationResult(RemoteOperationResult result){
         switch (result.getCode()){
-            case UNKNOWN_ERROR:
-                return UNKNOWN;
             case OK:
                 return UPLOADED;
             case NO_NETWORK_CONNECTION:
@@ -84,12 +84,16 @@ public enum UploadResult {
                 return FOLDER_ERROR;
             case CONFLICT:
                 return CONFLICT_ERROR;
-//            case FILE_NOT_FOUND:
-//                return FILE_ERROR;
+            case LOCAL_STORAGE_NOT_COPIED:
+                return FILE_ERROR;
 //            case UNAUTHORIZED:
 //                return PRIVILEDGES_ERROR;
             case CANCELLED:
                 return CANCELLED;
+            case UNKNOWN_ERROR:
+                if (result.getException() instanceof java.io.FileNotFoundException)
+                    return FILE_ERROR;
+                return UNKNOWN;
         }
         return null;
     }

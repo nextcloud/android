@@ -209,31 +209,39 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     break;
                 case UPLOAD_FAILED_GIVE_UP:
                     if (upload.getLastResult() != null) {
-                        if (upload.getLastResult() == UploadResult.CREDENTIAL_ERROR) {
-                            status = mParentActivity.getString(
-                                    R.string.uploads_view_upload_status_failed_credentials_error);
+                        switch (upload.getLastResult()) {
+                            case CREDENTIAL_ERROR:
+                                status = mParentActivity.getString(
+                                        R.string.uploads_view_upload_status_failed_credentials_error);
 
-                            view.setOnClickListener(new OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    // let the user update credentials with one click
-                                    Intent updateAccountCredentials = new Intent(mParentActivity,
-                                            AuthenticatorActivity.class);
-                                    updateAccountCredentials.putExtra(
-                                            AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount(mParentActivity));
-                                    updateAccountCredentials.putExtra(
-                                            AuthenticatorActivity.EXTRA_ACTION,
-                                            AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
-                                    updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                                    updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                                    mParentActivity.startActivity(updateAccountCredentials);
-                                }
-                            });
-                        } else  if (upload.getLastResult() == UploadResult.FOLDER_ERROR) {
-                            status = mParentActivity.getString(
-                                    R.string.uploads_view_upload_status_failed_folder_error);
-                        } else {
-                            status = "Upload failed: " + upload.getLastResult().toString();
+                                view.setOnClickListener(new OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        // let the user update credentials with one click
+                                        Intent updateAccountCredentials = new Intent(mParentActivity,
+                                                AuthenticatorActivity.class);
+                                        updateAccountCredentials.putExtra(
+                                                AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount(mParentActivity));
+                                        updateAccountCredentials.putExtra(
+                                                AuthenticatorActivity.EXTRA_ACTION,
+                                                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
+                                        updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                                        updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                                        mParentActivity.startActivity(updateAccountCredentials);
+                                    }
+                                });
+                                break;
+                            case FOLDER_ERROR:
+                                status = mParentActivity.getString(
+                                        R.string.uploads_view_upload_status_failed_folder_error);
+                                break;
+                            case FILE_ERROR:
+                                status = mParentActivity.getString(
+                                        R.string.uploads_view_upload_status_failed_file_error);
+                                break;
+                            default:
+                                status = "Upload failed: " + upload.getLastResult().toString();
+                                break;
                         }
                     } else {
                         status = "Upload failed.";
