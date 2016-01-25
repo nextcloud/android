@@ -80,12 +80,12 @@ public enum UploadResult {
             case ACCOUNT_EXCEPTION:
             case UNAUTHORIZED:
                 return CREDENTIAL_ERROR;
-//            case
-//                return FOLDER_ERROR;
+            case FILE_NOT_FOUND:
+                return FOLDER_ERROR;
             case CONFLICT:
                 return CONFLICT_ERROR;
-            case FILE_NOT_FOUND:
-                return FILE_ERROR;
+//            case FILE_NOT_FOUND:
+//                return FILE_ERROR;
 //            case UNAUTHORIZED:
 //                return PRIVILEDGES_ERROR;
             case CANCELLED:

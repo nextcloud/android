@@ -229,6 +229,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                     mParentActivity.startActivity(updateAccountCredentials);
                                 }
                             });
+                        } else  if (upload.getLastResult() == UploadResult.FOLDER_ERROR) {
+                            status = mParentActivity.getString(
+                                    R.string.uploads_view_upload_status_failed_folder_error);
                         } else {
                             status = "Upload failed: " + upload.getLastResult().toString();
                         }
