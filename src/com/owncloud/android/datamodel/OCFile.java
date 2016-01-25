@@ -56,7 +56,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     private static final String TAG = OCFile.class.getSimpleName();
 
-
     private long mId;
     private long mParentId;
     private long mLength;

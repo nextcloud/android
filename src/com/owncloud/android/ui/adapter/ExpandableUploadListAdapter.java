@@ -213,12 +213,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     }
                     break;
                 case UPLOAD_FAILED_RETRY:
-//                    if(upload.getLastResult() != UploadResult.UNKNOWN){
-//                        status = "Last failure: "
-//                                + upload.getLastResult().toString();
-//                    } else {
-                        status = "Upload will be retried shortly.";
-//                    }
+                    if (upload.getLastResult() == UploadResult.NETWORK_CONNECTION) {
+                        status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error);
+                    } else {
+                        status =  mParentActivity.getString(R.string.uploads_view_upload_status_failed_retry);;
+                    }
                     String laterReason = FileUploadService.getUploadLaterReason(mParentActivity, upload);
                     if(laterReason != null) {
                         //Upload failed once but is delayed now, show reason.
@@ -266,7 +265,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                   //     mParentActivity.getFileOperationsHelper().retryUpload(upload);
+                        Log_OC.d(TAG, "Retry unpload CLICK");
+                        mParentActivity.getFileOperationsHelper().retryUpload(upload);
                     }
                 });
             } else if (upload.userCanCancelUpload()) {

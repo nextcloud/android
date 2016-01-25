@@ -22,6 +22,8 @@ package com.owncloud.android.db;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
@@ -38,7 +40,7 @@ import java.util.GregorianCalendar;
  * be stored persistently by {@link UploadsStorageManager}.
  * 
  */
-public class OCUpload {
+public class OCUpload implements Parcelable{
 
     /** Generated - should be refreshed every time the class changes!! */
 //    private static final long serialVersionUID = 2647551318657321611L;
@@ -335,5 +337,75 @@ public class OCUpload {
             default:
                 return false;
         }
+    }
+
+
+    /****
+     * PARCELABLE METHODS
+     */
+    public static final Parcelable.Creator<OCUpload> CREATOR = new Parcelable.Creator<OCUpload>() {
+
+        @Override
+        public OCUpload createFromParcel(Parcel source) {
+            return new OCUpload(source);
+        }
+
+        @Override
+        public OCUpload[] newArray(int size) {
+            return new OCUpload[size];
+        }
+    };
+
+    /**
+     * Reconstruct from parcel
+     *
+     * @param source The source parcel
+     */
+    protected OCUpload(Parcel source) {
+        readFromParcel(source);
+    }
+
+    public void readFromParcel(Parcel source) {
+        mId = source.readLong();
+        mFile = source.readParcelable(OCFile.class.getClassLoader());
+        mLocalAction = source.readInt();
+        mForceOverwrite = source.readInt() == 0;
+        mIsCreateRemoteFolder = source.readInt() == 0;
+        mIsUseWifiOnly = source.readInt() == 0;
+        mIsWhileChargingOnly = source.readInt() == 0;
+        mUploadTimestamp = source.readLong();
+        mAccountName = source.readString();
+        try {
+            mUploadStatus = UploadStatus.valueOf(source.readString());
+        } catch (IllegalArgumentException x) {
+            mUploadStatus = UploadStatus.UPLOAD_LATER;
+        }
+        try {
+            mLastResult = UploadResult.valueOf(source.readString());
+        } catch (IllegalArgumentException x) {
+            mLastResult = UploadResult.UNKNOWN;
+        }
+    }
+
+
+    @Override
+    public int describeContents() {
+        return this.hashCode();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(mId);
+        dest.writeParcelable(mFile, flags);
+        dest.writeInt(mLocalAction);
+        //dest.writeLong(mUploadTime);
+        dest.writeInt(mForceOverwrite ? 1 : 0);
+        dest.writeInt(mIsCreateRemoteFolder ? 1 : 0);
+        dest.writeInt(mIsUseWifiOnly ? 1 : 0);
+        dest.writeInt(mIsWhileChargingOnly ? 1 : 0);
+        dest.writeLong(mUploadTimestamp);
+        dest.writeString(mAccountName);
+        dest.writeString(mUploadStatus.name());
+        dest.writeString(((mLastResult == null) ? "" : mLastResult.name()));
     }
 }
