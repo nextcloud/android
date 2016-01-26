@@ -287,7 +287,7 @@ public class SynchronizeFileOperation extends SyncOperation {
     private void requestForUpload(OCFile file) {
         Intent i = new Intent(mContext, FileUploadService.class);
         i.putExtra(FileUploadService.KEY_ACCOUNT, mAccount);
-        i.putExtra(FileUploadService.KEY_FILE, (Parcelable)file);
+        i.putExtra(FileUploadService.KEY_FILE, file);
         /*i.putExtra(FileUploader.KEY_REMOTE_FILE, mRemotePath);
         // doing this we would lose the value of keepInSync in the road, and maybe it's not updated
         in the database when the FileUploader service gets it!

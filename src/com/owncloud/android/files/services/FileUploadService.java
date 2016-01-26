@@ -492,7 +492,6 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 
                         // storagePath inside upload is the temporary path. file
                         // contains the correct path used as db reference.
-                        ocUpload.getOCFile().setStoragePath(localPaths[i]);
                         long id = mUploadsStorageManager.storeUpload(ocUpload);
                         newUpload.setOCUploadId(id);
 
