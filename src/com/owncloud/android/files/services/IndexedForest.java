@@ -98,8 +98,12 @@ public class IndexedForest<V> {
     }
 
 
-    public /* synchronized */ Pair<String, String> putIfAbsent(Account account, String remotePath, V value) {
+    public /* synchronized */ Pair<String, String> putIfAbsent(Account account, String remotePath, V value,
+                                                               String keySufix) {
         String targetKey = buildKey(account, remotePath);
+        if (keySufix != null){
+            targetKey = targetKey + keySufix;
+        }
         Node<V> valuedNode = new Node(targetKey, value);
         Node<V> previousValue = mMap.putIfAbsent(
             targetKey,

@@ -119,9 +119,9 @@ public class UploadsStorageManager extends Observable {
      * Stores an upload object in DB.
      * 
      * @param ocUpload
-     * @return true on success.
+     * @return upload id, -1 if the insert process fails.
      */
-    public boolean storeUpload(OCUpload ocUpload) {
+    public long storeUpload(OCUpload ocUpload) {
         Log_OC.e(TAG, "Inserting " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
         
         ContentValues cv = new ContentValues();
@@ -141,10 +141,12 @@ public class UploadsStorageManager extends Observable {
         Log_OC.d(TAG, "storeUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
         if (result == null) {
             Log_OC.e(TAG, "Failed to insert item " + ocUpload.getLocalPath() + " into upload db.");
-            return false;
+            return -1;
         } else {
+            long new_id = Long.parseLong(result.getPathSegments().get(1));
+            ocUpload.setUploadId(new_id);
             notifyObserversNow();
-            return true;
+            return new_id;
         }
     }
 
@@ -164,8 +166,8 @@ public class UploadsStorageManager extends Observable {
 
         int result = getDB().update(ProviderTableMeta.CONTENT_URI_UPLOADS,
                 cv,
-                ProviderTableMeta.UPLOADS_FILE_ID + "=?",
-                new String[]{ String.valueOf(ocUpload.getOCFile().getFileId()) }
+                ProviderTableMeta._ID + "=?",
+                new String[]{String.valueOf(ocUpload.getUploadId())}
         );
 
         Log_OC.d(TAG, "updateUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
@@ -184,7 +186,7 @@ public class UploadsStorageManager extends Observable {
      * @return 1 if file status was updated, else 0.
      */
     public int updateUploadStatus(OCUpload ocUpload) {
-        return updateUploadStatus(ocUpload.getLocalPath(), ocUpload.getUploadStatus(),
+        return updateUploadStatus(ocUpload.getUploadId(), ocUpload.getUploadStatus(),
                 ocUpload.getLastResult());
     }
 
@@ -214,26 +216,26 @@ public class UploadsStorageManager extends Observable {
     }
 
     /**
-     * Update upload status of file uniquely referenced by filepath.
+     * Update upload status of file uniquely referenced by id.
      * 
-     * @param filepath filepath local file path to file. used as identifier.
+     * @param id     upload id.
      * @param status new status.
      * @param result new result of upload operation
      * @return 1 if file status was updated, else 0.
      */
-    public int updateUploadStatus(String filepath, UploadStatus status, UploadResult result) {
+    public int updateUploadStatus(long id, UploadStatus status, UploadResult result) {
         //Log_OC.e(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
         
         Cursor c = getDB().query(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 null,
-                ProviderTableMeta.UPLOADS_PATH + "=?",
-                new String[] { filepath },
+                ProviderTableMeta._ID + "=?",
+                new String[] { String.valueOf(id) },
                 null
         );
 
         if (c.getCount() != 1) {
-            Log_OC.e(TAG, c.getCount() + " items for path=" + filepath
+            Log_OC.e(TAG, c.getCount() + " items for id=" + id
                     + " available in UploadDb. Expected 1. Failed to update upload db.");
 
             c.close();
@@ -241,7 +243,30 @@ public class UploadsStorageManager extends Observable {
         }
         return updateUploadInternal(c, status, result);
     }
-    
+
+
+    public int updateFileIdUpload(long uploadId, long fileId) {
+        Log_OC.e(TAG, "Updating " + uploadId + " with fileId= " + fileId);
+
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.UPLOADS_FILE_ID, fileId);
+
+        int result = getDB().update(ProviderTableMeta.CONTENT_URI_UPLOADS,
+                cv,
+                ProviderTableMeta._ID + "=?",
+                new String[]{String.valueOf(uploadId)}
+        );
+
+        Log_OC.d(TAG, "updateUpload returns with: " + result + " for fileId: " + fileId);
+        if (result != 1) {
+            Log_OC.e(TAG, "Failed to update item " + uploadId + " into upload db.");
+        } else {
+            notifyObserversNow();
+        }
+
+        return result;
+    }
+
     /**
      * Should be called when some value of this DB was changed. All observers
      * are informed.
@@ -266,6 +291,26 @@ public class UploadsStorageManager extends Observable {
                 new String[]{localPath}
         );
         Log_OC.d(TAG, "delete returns with: " + result + " for file: " + localPath);
+        if(result > 0) {
+            notifyObserversNow();
+        }
+        return result;
+    }
+
+    /**
+     * Remove upload from upload list. Should be called when cleaning up upload
+     * list.
+     *
+     * @param  id
+     * @return true when one or more upload entries were removed
+     */
+    public int removeUpload(long id) {
+        int result = getDB().delete(
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                ProviderTableMeta._ID + "=?",
+                new String[]{String.valueOf(id)}
+        );
+        Log_OC.d(TAG, "delete returns with: " + result + " for file: " + id);
         if(result > 0) {
             notifyObserversNow();
         }

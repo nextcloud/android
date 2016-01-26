@@ -183,7 +183,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             
             TextView localPath = (TextView) view.findViewById(R.id.upload_local_path);
             String path = uploadOCFile.getStoragePath();
-            path = path == null ? "" : path.substring(0, path.length() - fileName.length() - 1);
+            Log_OC.d(TAG, "PATH: "  + path);
+            path = (path == null || path.isEmpty()) ? "" : path.substring(0, path.length() - fileName.length() - 1);
             localPath.setText("Path: " + path);
 
             TextView fileSize = (TextView) view.findViewById(R.id.upload_file_size);
@@ -200,7 +201,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     mProgressListener = new ProgressListener(progressBar);
                     if(mParentActivity.getFileUploaderBinder() != null) {
                         mParentActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener,
-                                mParentActivity.getAccount(), uploadOCFile);
+                                mParentActivity.getAccount(), uploadOCFile, upload.getUploadId());
                     } else {
                         Log_OC.e(TAG, "UploadBinder == null. It should have been created on creating mParentActivity"
                                 + " which inherits from FileActivity. Fix that!");
@@ -244,11 +245,14 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                         R.string.uploads_view_upload_status_failed_priviledges_error);
                                 break;
                             default:
-                                status = "Upload failed: " + upload.getLastResult().toString();
+                                status = mParentActivity.getString(
+                                        R.string.uploads_view_upload_status_failed) + ": "
+                                        + upload.getLastResult().toString();
                                 break;
                         }
                     } else {
-                        status = "Upload failed.";
+                        status = mParentActivity.getString(
+                                R.string.uploads_view_upload_status_failed);;
                     }
                     break;
                 case UPLOAD_FAILED_RETRY:
@@ -289,7 +293,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         && mCurrentUpload != null) {
                     OCFile currentOcFile = mCurrentUpload.getFile();
                     mParentActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener,
-                            upload.getAccount(mParentActivity), currentOcFile);
+                            upload.getAccount(mParentActivity), currentOcFile, upload.getUploadId());
                     mProgressListener = null;
                     mCurrentUpload = null;
                 }            

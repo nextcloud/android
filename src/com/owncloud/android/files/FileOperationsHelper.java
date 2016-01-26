@@ -522,10 +522,9 @@ public class FileOperationsHelper {
      * Remove upload from upload list.
      */
     public void removeUploadFromList(OCUpload upload) {
-        Account account = mFileActivity.getAccount();
         FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
         if (uploaderBinder != null) {
-            uploaderBinder.remove(account, upload.getOCFile());            
+            uploaderBinder.remove(upload);
         }  else {
             Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + upload.getOCFile());            
         }

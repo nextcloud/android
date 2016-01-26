@@ -287,7 +287,6 @@ public class FileUploader extends Service
                         account,
                         files[i],
                         chunked,
-                        //isInstant,
                         forceOverwrite,
                         localAction, // Change for compilation
                         getApplicationContext()
@@ -298,7 +297,7 @@ public class FileUploader extends Service
                 newUpload.addDatatransferProgressListener(this);
                 newUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
                 Pair<String, String> putResult = mPendingUploads.putIfAbsent(
-                        account, files[i].getRemotePath(), newUpload
+                        account, files[i].getRemotePath(), newUpload, null
                 );
                 if (putResult != null) {
                     uploadKey = putResult.first;

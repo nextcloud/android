@@ -82,6 +82,7 @@ public class UploadFileOperation extends RemoteOperation {
     private int mLocalBehaviour = FileUploadService.LOCAL_BEHAVIOUR_COPY;
     private boolean mWasRenamed = false;
     private String mOriginalFileName = null;
+    private long mOCUploadId = -1;
     /**
      * Local path to file which is to be uploaded (before any possible renaming or moving).
      */
@@ -175,6 +176,13 @@ public class UploadFileOperation extends RemoteOperation {
 
     public boolean wasRenamed() {
         return mWasRenamed;
+    }
+
+    public void setOCUploadId(long id){
+        mOCUploadId = id;
+    }
+    public long getOCUploadId() {
+        return mOCUploadId;
     }
 
     public Set<OnDatatransferProgressListener> getDataTransferListeners() {

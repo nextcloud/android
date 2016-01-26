@@ -2,6 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author LukeOwncloud
+ *   @author masensio
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -418,7 +419,6 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 mStorageManager = new FileDataStorageManager(account, getContentResolver());
 
                 boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
-                //   boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false);
                 int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
 
                 boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
@@ -469,9 +469,8 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                                 account,
                                 files[i],
                                 chunked,
-                                //isInstant,
                                 forceOverwrite,
-                                localAction, // Change for compilation
+                                localAction,
                                 getApplicationContext()
                         );
                         if (isCreateRemoteFolder) {
@@ -479,28 +478,34 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                         }
                         newUpload.addDatatransferProgressListener(this);
                         newUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
+
+                        // Save upload in database
+                        OCUpload ocUpload = new OCUpload(files[i]);
+                        ocUpload.setAccountName(account.name);
+                        ocUpload.setForceOverwrite(forceOverwrite);
+                        ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
+                        ocUpload.setLocalAction(localAction);
+                        ocUpload.setUseWifiOnly(isUseWifiOnly);
+                        ocUpload.setWhileChargingOnly(isWhileChargingOnly);
+//                    ocUpload.setUploadTimestamp(uploadTimestamp);
+                        ocUpload.setUploadStatus(UploadStatus.UPLOAD_LATER);
+
+                        // storagePath inside upload is the temporary path. file
+                        // contains the correct path used as db reference.
+                        ocUpload.getOCFile().setStoragePath(localPaths[i]);
+                        long id = mUploadsStorageManager.storeUpload(ocUpload);
+                        newUpload.setOCUploadId(id);
+
                         Pair<String, String> putResult = mPendingUploads.putIfAbsent(
-                                account, files[i].getRemotePath(), newUpload
+                                account, files[i].getRemotePath(), newUpload, String.valueOf(id)
                         );
                         if (putResult != null) {
                             uploadKey = putResult.first;
                             requestedUploads.add(uploadKey);
-                            // Save upload in database
-                            OCUpload ocUpload = new OCUpload(files[i]);
-                            ocUpload.setAccountName(account.name);
-                            ocUpload.setForceOverwrite(forceOverwrite);
-                            ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
-                            ocUpload.setLocalAction(localAction);
-                            ocUpload.setUseWifiOnly(isUseWifiOnly);
-                            ocUpload.setWhileChargingOnly(isWhileChargingOnly);
-//                    ocUpload.setUploadTimestamp(uploadTimestamp);
-                            ocUpload.setUploadStatus(UploadStatus.UPLOAD_LATER);
-
-                            // storagePath inside upload is the temporary path. file
-                            // contains the correct path used as db reference.
-                            ocUpload.getOCFile().setStoragePath(localPaths[i]);
-                            mUploadsStorageManager.storeUpload(ocUpload);
-                        }   // else, file already in the queue of uploads; don't repeat the request
+                        } else {
+                            mUploadsStorageManager.removeUpload(id);
+                        }
+                        // else, file already in the queue of uploads; don't repeat the request
                     }
 
                 } catch (IllegalArgumentException e) {
@@ -536,9 +541,10 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 }
                 newUpload.addDatatransferProgressListener(this);
                 newUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
+                newUpload.setOCUploadId(upload.getUploadId());
 
                 Pair<String, String> putResult = mPendingUploads.putIfAbsent(
-                        account, upload.getOCFile().getRemotePath(), newUpload
+                        account, upload.getOCFile().getRemotePath(), newUpload, String.valueOf(upload.getUploadId())
                 );
                 if (putResult != null) {
                     String uploadKey = putResult.first;
@@ -680,11 +686,18 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             UploadFileOperation upload = removeResult.first;
             //OCUpload upload = mPendingUploads.remove(buildRemoteName(account, file));
             if(upload == null) {
-                Log_OC.e(TAG, "Could not delete upload "+ file +" from mPendingUploads.");
+                Log_OC.e(TAG, "Could not delete upload " + file + " from mPendingUploads.");
             }
             int d = mUploadsStorageManager.removeUpload(upload.getStoragePath());
             if(d == 0) {
                 Log_OC.e(TAG, "Could not delete upload "+ file.getStoragePath() +" from database.");
+            }
+        }
+
+        public void remove(OCUpload upload) {
+            int d = mUploadsStorageManager.removeUpload(upload.getUploadId());
+            if(d == 0) {
+                Log_OC.e(TAG, "Could not delete upload "+ upload.getRemotePath() +" from database.");
             }
         }
 
@@ -694,7 +707,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
          * Puts upload in upload list and tell FileUploadService to upload items in list.
          */
         public void retry(Account account, OCUpload upload) {
-            String uploadKey = buildRemoteName(account, upload.getOCFile());
+//            String uploadKey = buildRemoteName(account, upload.getOCFile());
 //            mPendingUploads.put(uploadKey, upload);
             FileUploadService.retry(getApplicationContext(), account, upload);
         }
@@ -747,10 +760,10 @@ public class FileUploadService extends Service implements OnDatatransferProgress
          * @param file      {@link OCFile} of interest for listener.
          */
         public void addDatatransferProgressListener(OnDatatransferProgressListener listener, Account account,
-                                                    OCFile file) {
+                                                    OCFile file, long uploadId) {
             if (account == null || file == null || listener == null)
                 return;
-            String targetKey = buildRemoteName(account, file);
+            String targetKey = buildRemoteName(account, file, uploadId);
             mBoundListeners.put(targetKey, listener);
         }
 
@@ -763,10 +776,10 @@ public class FileUploadService extends Service implements OnDatatransferProgress
          * @param file      {@link OCFile} of interest for listener.
          */
         public void removeDatatransferProgressListener(OnDatatransferProgressListener listener, Account account,
-                                                       OCFile file) {
+                                                       OCFile file, long uploadId) {
             if (account == null || file == null || listener == null)
                 return;
-            String targetKey = buildRemoteName(account, file);
+            String targetKey = buildRemoteName(account, file, uploadId);
             if (mBoundListeners.get(targetKey) == listener) {
                 mBoundListeners.remove(targetKey);
             }
@@ -778,7 +791,12 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
                                        String fileName) {
 
-            String key = buildRemoteName(mCurrentUpload.getAccount(), mCurrentUpload.getFile());
+            OCFile uploadFileKey = mCurrentUpload.getFile();
+            if(mCurrentUpload.wasRenamed()){
+                uploadFileKey = mCurrentUpload.getOldFile();
+            }
+            String key = buildRemoteName(mCurrentUpload.getAccount(), uploadFileKey,
+                    mCurrentUpload.getOCUploadId());
             OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
             if (boundListener != null) {
                 boundListener.onTransferProgress(progressRate, totalTransferredSoFar,
@@ -808,8 +826,12 @@ public class FileUploadService extends Service implements OnDatatransferProgress
          * @param file          File to upload
          * @return              Key
          */
-        private String buildRemoteName(Account account, OCFile file) {
-            return account.name + file.getRemotePath();
+        private String buildRemoteName(Account account, OCFile file, long uploadId) {
+            String suffix = String.valueOf(uploadId);
+            if (uploadId != -1) {
+                suffix = "";
+            }
+            return account.name + file.getRemotePath() + suffix;
         }
 
     }
@@ -921,6 +943,8 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                                 mCurrentAccount,
                                 mCurrentUpload.getOldFile().getRemotePath()
                         );
+                        mUploadsStorageManager.updateFileIdUpload(mCurrentUpload.getOCUploadId(),
+                                mCurrentUpload.getFile().getFileId());
                     } else {
                         removeResult = mPendingUploads.removePayload(
                                 mCurrentAccount,
@@ -1391,7 +1415,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         Log_OC.d(TAG, "updateDataseUploadResult uploadResult: " + uploadResult + " upload: " + upload);
         if (uploadResult.isCancelled()) {
             mUploadsStorageManager.updateUploadStatus(
-                    upload.getOriginalStoragePath(),
+                    upload.getOCUploadId(),
                     UploadStatus.UPLOAD_CANCELLED,
                     UploadResult.CANCELLED
             );
@@ -1399,7 +1423,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 
             if (uploadResult.isSuccess()) {
                 mUploadsStorageManager.updateUploadStatus(
-                        upload.getOriginalStoragePath(),
+                        upload.getOCUploadId(),
                         UploadStatus.UPLOAD_SUCCEEDED,
                         UploadResult.UPLOADED
                 );
@@ -1407,10 +1431,10 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                 // TODO: Disable for testing of menu actions in uploads view
                 if (shouldRetryFailedUpload(uploadResult)) {
                     mUploadsStorageManager.updateUploadStatus(
-                            upload.getOriginalStoragePath(), UploadStatus.UPLOAD_FAILED_RETRY,
+                            upload.getOCUploadId(), UploadStatus.UPLOAD_FAILED_RETRY,
                             UploadResult.fromOperationResult(uploadResult));
                 } else {
-                    mUploadsStorageManager.updateUploadStatus(upload.getOriginalStoragePath(),
+                    mUploadsStorageManager.updateUploadStatus(upload.getOCUploadId(),
                             UploadsStorageManager.UploadStatus.UPLOAD_FAILED_GIVE_UP,
                             UploadResult.fromOperationResult(uploadResult));
                 }
@@ -1445,7 +1469,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
      */
     private void updateDatabaseUploadStart(UploadFileOperation upload) {
         mUploadsStorageManager.updateUploadStatus(
-                upload.getOriginalStoragePath(),
+                upload.getOCUploadId(),
                 UploadStatus.UPLOAD_IN_PROGRESS,
                 UploadResult.UNKNOWN
         );

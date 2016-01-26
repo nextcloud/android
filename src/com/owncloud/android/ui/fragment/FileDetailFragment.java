@@ -547,7 +547,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
                 mContainerActivity.getFileUploaderBinder().
-                        addDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                        addDatatransferProgressListener(mProgressListener, mAccount, getFile(), 0);
             }
         } else {
             Log_OC.d(TAG, "mProgressListener == null");
@@ -563,7 +563,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
                 mContainerActivity.getFileUploaderBinder().
-                        removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
+                        removeDatatransferProgressListener(mProgressListener, mAccount, getFile(), 0);
             }
         }
     }
