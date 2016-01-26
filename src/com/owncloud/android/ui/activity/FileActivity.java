@@ -62,6 +62,10 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -739,7 +743,7 @@ public class FileActivity extends AppCompatActivity
                 (result.isException() && result.getException() instanceof AuthenticatorException)
                 )) {
 
-            requestCredentialsUpdate();
+            requestCredentialsUpdate(this);
 
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
                 dismissLoadingDialog();
@@ -785,14 +789,50 @@ public class FileActivity extends AppCompatActivity
         }
     }
 
-    protected void requestCredentialsUpdate() {
-        Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
-        updateAccountCredentials.putExtra(
-                AuthenticatorActivity.EXTRA_ACTION,
-                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
-        updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        startActivity(updateAccountCredentials);
+    /**
+     * Invalidates the credentials stored for the current OC account and requests new credentials to the user,
+     * navigating to {@link AuthenticatorActivity}
+     *
+     * @param context   Android Context needed to access the {@link AccountManager}. Received as a parameter
+     *                  to make the method accessible to {@link android.content.BroadcastReceiver}s.
+     */
+    protected void requestCredentialsUpdate(Context context) {
+
+        try {
+            /// step 1 - invalidate credentials of current account
+            OwnCloudClient client;
+            OwnCloudAccount ocAccount =
+                    new OwnCloudAccount(getAccount(), context);
+            client = (OwnCloudClientManagerFactory.getDefaultSingleton().
+                    removeClientFor(ocAccount));
+            if (client != null) {
+                OwnCloudCredentials cred = client.getCredentials();
+                if (cred != null) {
+                    AccountManager am = AccountManager.get(context);
+                    if (cred.authTokenExpires()) {
+                        am.invalidateAuthToken(
+                                getAccount().type,
+                                cred.getAuthToken()
+                        );
+                    } else {
+                        am.clearPassword(getAccount());
+                    }
+                }
+            }
+
+            /// step 2 - request credentials to user
+            Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+            updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
+            updateAccountCredentials.putExtra(
+                    AuthenticatorActivity.EXTRA_ACTION,
+                    AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
+            updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            startActivity(updateAccountCredentials);
+
+        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+            Toast.makeText(context, R.string.auth_account_does_not_exist, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

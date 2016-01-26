@@ -491,32 +491,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                     (synchResult.isException() && synchResult.getException() 
                                             instanceof AuthenticatorException))) {
 
-                            try {
-                                OwnCloudClient client;
-                                OwnCloudAccount ocAccount =
-                                        new OwnCloudAccount(getAccount(), context);
-                                client = (OwnCloudClientManagerFactory.getDefaultSingleton().
-                                        removeClientFor(ocAccount));
-
-                                if (client != null) {
-                                    OwnCloudCredentials cred = client.getCredentials();
-                                    if (cred != null) {
-                                        AccountManager am = AccountManager.get(context);
-                                        if (cred.authTokenExpires()) {
-                                            am.invalidateAuthToken(
-                                                    getAccount().type,
-                                                    cred.getAuthToken()
-                                            );
-                                        } else {
-                                            am.clearPassword(getAccount());
-                                        }
-                                    }
-                                }
-                                requestCredentialsUpdate();
-
-                            } catch (AccountNotFoundException e) {
-                                Log_OC.e(TAG, "Account " + getAccount() + " was removed!", e);
-                            }
+                            requestCredentialsUpdate(context);
 
                         }
                     }
