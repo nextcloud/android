@@ -49,13 +49,14 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/unshareButton"
             android:src="@drawable/ic_action_delete"
             android:paddingRight="@dimen/standard_padding"
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
+            android:layout_margin="2dp"
             android:layout_gravity="center_vertical"/>
 
         <ImageView
