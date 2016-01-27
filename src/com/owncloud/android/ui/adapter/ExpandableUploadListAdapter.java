@@ -62,7 +62,7 @@ import java.util.Observer;
 /**
  * This Adapter populates a ListView with following types of uploads: pending,
  * active, completed. Filtering possible.
- * 
+ *
  */
 public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer {
 
@@ -70,10 +70,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     private FileActivity mParentActivity;
 
     private UploadsStorageManager mUploadsStorageManager;
-    
-    public ProgressListener mProgressListener; 
+
+    public ProgressListener mProgressListener;
     private UploadFileOperation mCurrentUpload;
-    
+
     interface Refresh {
         public void refresh();
     }
@@ -81,9 +81,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         OCUpload[] items;
         String name;
         public UploadGroup(String groupName) {
-            this.name = groupName;            
+            this.name = groupName;
             items = new OCUpload[0];
-        }        
+        }
         public String getGroupName() {
             return name;
         }
@@ -161,7 +161,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     public boolean areAllItemsEnabled() {
         return true;
     }
-    
+
     private View getView(OCUpload[] uploadsItems, int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
@@ -180,7 +180,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             TextView fileTextView = (TextView) view.findViewById(R.id.upload_name);
             String fileName = uploadOCFile.getFileName();
             fileTextView.setText(fileName);
-            
+
             TextView pathTextView = (TextView) view.findViewById(R.id.upload_local_path);
             String path = uploadOCFile.getRemotePath();
             path = (path == null || path.isEmpty()) ? "" : path.substring(0, path.length() - fileName.length() - 1);
@@ -326,7 +326,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                             upload.getAccount(mParentActivity), currentOcFile, upload.getUploadId());
                     mProgressListener = null;
                     mCurrentUpload = null;
-                }            
+                }
             }
             statusTextView.setText(status);
 
@@ -344,7 +344,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             } else if (upload.userCanCancelUpload()) {
                 //Cancel
                 rightButton.setImageResource(R.drawable.ic_cancel);
-                rightButton.setOnClickListener(new OnClickListener() {                
+                rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mParentActivity.getFileOperationsHelper().cancelTransference(uploadOCFile);
@@ -353,14 +353,14 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             } else {
                 //Delete
                 rightButton.setImageResource(R.drawable.ic_delete);
-                rightButton.setOnClickListener(new OnClickListener() {                
+                rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mParentActivity.getFileOperationsHelper().removeUploadFromList(upload);
                     }
                 });
             }
-            
+
 
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
             fileIcon.setImageResource(R.drawable.file);
@@ -371,7 +371,42 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialWork(uploadOCFile,
                     fileIcon));
 
-            if (uploadOCFile.isImage() && uploadOCFile.getStoragePath()!= null){
+            if ((uploadOCFile.isImage() && uploadOCFile.getRemoteId() != null &&
+                    upload.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED)){
+                // Thumbnail in Cache?
+                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        String.valueOf(uploadOCFile.getRemoteId())
+                );
+                if (thumbnail != null && !uploadOCFile.needsUpdateThumbnail()){
+                    fileIcon.setImageBitmap(thumbnail);
+                } else {
+                    // generate new Thumbnail
+                    if (allowedToCreateNewThumbnail) {
+                        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                                        fileIcon, mParentActivity.getStorageManager(), mParentActivity.getAccount()
+                                );
+                        if (thumbnail == null) {
+                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                        }
+                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncDrawable(
+                                        mParentActivity.getResources(),
+                                        thumbnail,
+                                        task
+                                );
+                        fileIcon.setImageDrawable(asyncDrawable);
+                        task.execute(uploadOCFile);
+                    }
+                }
+
+                if (uploadOCFile.getMimetype().equalsIgnoreCase("image/png")) {
+                    fileIcon.setBackgroundColor(mParentActivity.getResources()
+                            .getColor(R.color.background_color));
+                }
+
+
+            } else if (uploadOCFile.isImage() && uploadOCFile.getStoragePath() != null) {
                 File file = new File(uploadOCFile.getStoragePath());
                 // Thumbnail in Cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
@@ -406,12 +441,13 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(upload.getMimeType(),
                         uploadOCFile.getFileName()));
             }
+
         }
 
         return view;
     }
 
-    
+
 
     @Override
     public boolean hasStableIds() {
@@ -424,7 +460,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
      */
     private void loadUploadItemsFromDb() {
         Log_OC.d(TAG, "loadUploadItemsFromDb");
-        
+
         for (UploadGroup group : mUploadGroups) {
             group.refresh();
         }
@@ -456,7 +492,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView,
-            ViewGroup parent) {
+                             ViewGroup parent) {
         return getView(mUploadGroups[(int) getGroupId(groupPosition)].items, childPosition, convertView, parent);
     }
 
@@ -502,7 +538,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         //force group to stay unfolded
         ExpandableListView listView = (ExpandableListView) parent;
         listView.expandGroup(groupPosition);
-        
+
         listView.setGroupIndicator(null);
         UploadGroup group = (UploadGroup) getGroup(groupPosition);
         if (convertView == null) {
@@ -521,15 +557,15 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
-    
+
     public class ProgressListener implements OnDatatransferProgressListener {
         int mLastPercent = 0;
         WeakReference<ProgressBar> mProgressBar = null;
-        
+
         ProgressListener(ProgressBar progressBar) {
             mProgressBar = new WeakReference<ProgressBar>(progressBar);
         }
-        
+
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
             int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
