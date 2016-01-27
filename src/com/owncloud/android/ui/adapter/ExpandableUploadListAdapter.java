@@ -99,6 +99,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         abstract public int getGroupIcon();
     }
     private UploadGroup[] mUploadGroups = null;
+    private final int MAX_NUM_UPLOADS_SHOWN = 30;
 
     public ExpandableUploadListAdapter(FileActivity parentActivity) {
         Log_OC.d(TAG, "ExpandableUploadListAdapter");
@@ -110,6 +111,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             public void refresh() {
                 items = mUploadsStorageManager.getCurrentAndPendingUploads();
                 Arrays.sort(items, comparator);
+                items = trimToMaxLength(items);
             }
             @Override
             public int getGroupIcon() {
@@ -121,6 +123,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             public void refresh() {
                 items = mUploadsStorageManager.getFailedUploads();
                 Arrays.sort(items, comparator);
+                items = trimToMaxLength(items);
             }
             @Override
             public int getGroupIcon() {
@@ -133,6 +136,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             public void refresh() {
                 items = mUploadsStorageManager.getFinishedUploads();
                 Arrays.sort(items, comparator);
+                items = trimToMaxLength(items);
             }
             @Override
             public int getGroupIcon() {
@@ -141,6 +145,21 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
         };
         loadUploadItemsFromDb();
+    }
+
+
+    private OCUpload[] trimToMaxLength(OCUpload[] items){
+        if (items.length > 30) {
+            OCUpload[] arrayTrim= new OCUpload[30];
+
+            for(int i = 0; i < MAX_NUM_UPLOADS_SHOWN; i++){
+                arrayTrim[i] = items[i];
+            }
+            return arrayTrim;
+
+        } else {
+            return items;
+        }
     }
 
     @Override
@@ -297,6 +316,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     uploadDateTextView.setVisibility(View.GONE);
                     break;
                 case UPLOAD_LATER:
+                    uploadDateTextView.setVisibility(View.GONE);
+                    pathTextView.setVisibility(View.GONE);
+                    fileSizeTextView.setVisibility(View.GONE);
+                    accountNameTextView.setVisibility(View.INVISIBLE);
                     status = FileUploadService.getUploadLaterReason(mParentActivity, upload);
                     break;
                 case UPLOAD_SUCCEEDED:
