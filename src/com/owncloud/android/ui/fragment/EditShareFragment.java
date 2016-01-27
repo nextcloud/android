@@ -359,14 +359,6 @@ public class EditShareFragment extends Fragment {
     public void onUpdateSharePermissionsFinished(RemoteOperationResult result) {
         if (result.isSuccess()) {
             refreshUiFromDB(getView());
-        } else if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_NOT_FOUND) {
-            // share or file was deleted from other client before completing the operation
-            int backStackCount = getFragmentManager().getBackStackEntryCount();
-            for (int i=0; i<backStackCount; i++) {
-                getFragmentManager().popBackStack();
-            }
-            ((ShareFragmentListener)getActivity()).
-                    refreshUsersOrGroupsListFromServer();
         } else {
             refreshUiFromState(getView());
         }
