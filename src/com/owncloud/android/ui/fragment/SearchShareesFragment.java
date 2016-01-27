@@ -147,7 +147,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        getActivity().setTitle(R.string.share_dialog_title);
+        getActivity().setTitle(R.string.share_with_title);
 
         // Load data into the list
         refreshUsersOrGroupsListFromDB();
