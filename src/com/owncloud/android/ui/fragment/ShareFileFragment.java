@@ -66,7 +66,7 @@ import java.util.Date;
  * A simple {@link Fragment} subclass.
  *
  * Activities that contain this fragment must implement the
- * {@link ShareFileFragment.OnShareFragmentInteractionListener} interface
+ * {@link ShareFragmentListener} interface
  * to handle interaction events.
  *
  * Use the {@link ShareFileFragment#newInstance} factory method to
@@ -91,7 +91,7 @@ public class ShareFileFragment extends Fragment
     private Account mAccount;
 
     /** Reference to parent listener */
-    private OnShareFragmentInteractionListener mListener;
+    private ShareFragmentListener mListener;
 
     /** List of private shares bound to the file */
     private ArrayList<OCShare> mPrivateShares;
@@ -135,8 +135,10 @@ public class ShareFileFragment extends Fragment
         return fragment;
     }
 
+    /**
+     * Required empty public constructor
+     */
     public ShareFileFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -203,13 +205,6 @@ public class ShareFileFragment extends Fragment
                 }
             }
         });
-
-        // Switch to create public share
-        mOnShareViaLinkSwitchCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton switchView, boolean isChecked) {
-            }
-        };
 
         // Set listener for user actions on switch for sharing/unsharing via link
         initShareViaLinkListener(view);
@@ -443,6 +438,8 @@ public class ShareFileFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
         Log_OC.d(TAG, "onActivityCreated");
 
+        getActivity().setTitle(R.string.share_dialog_title);
+
         // Load known capabilities of the server from DB
         refreshCapabilitiesFromDB();
 
@@ -457,7 +454,7 @@ public class ShareFileFragment extends Fragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnShareFragmentInteractionListener) activity;
+            mListener = (ShareFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnShareFragmentInteractionListener");
@@ -536,10 +533,16 @@ public class ShareFileFragment extends Fragment
     @Override
     public void unshareButtonPressed(OCShare share) {
         // Unshare
+        Log_OC.d(TAG, "Unsharing " + share.getSharedWithDisplayName());
         mListener.unshareWith(share);
-        Log_OC.d(TAG, "Unshare - " + share.getSharedWithDisplayName());
     }
 
+    @Override
+    public void editShare(OCShare share) {
+        // move to fragment to edit share
+        Log_OC.d(TAG, "Editing " + share.getSharedWithDisplayName());
+        mListener.showEditShare(share);
+    }
 
 
     /**
@@ -734,22 +737,6 @@ public class ShareFileFragment extends Fragment
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnShareFragmentInteractionListener {
-        void showSearchUsersAndGroups();
-        void refreshUsersOrGroupsListFromServer();
-        void unshareWith(OCShare share);
     }
 
 }
