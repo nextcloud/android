@@ -105,7 +105,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         mParentActivity = parentActivity;
         mUploadsStorageManager = new UploadsStorageManager(mParentActivity.getContentResolver());
         mUploadGroups = new UploadGroup[3];
-        mUploadGroups[0] = new UploadGroup("Current Uploads") {
+        mUploadGroups[0] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_current_uploads)) {
             @Override
             public void refresh() {
                 items = mUploadsStorageManager.getCurrentAndPendingUploads();
@@ -116,7 +116,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 return R.drawable.upload_in_progress;
             }
         };
-        mUploadGroups[1] = new UploadGroup("Failed Uploads"){
+        mUploadGroups[1] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_failed_uploads)){
             @Override
             public void refresh() {
                 items = mUploadsStorageManager.getFailedUploads();
@@ -128,7 +128,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             }
 
         };
-        mUploadGroups[2] = new UploadGroup("Finished Uploads"){
+        mUploadGroups[2] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_finished_uploads)){
             @Override
             public void refresh() {
                 items = mUploadsStorageManager.getFinishedUploads();
@@ -181,17 +181,37 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             String fileName = uploadOCFile.getFileName();
             fileTextView.setText(fileName);
             
-            TextView localPath = (TextView) view.findViewById(R.id.upload_local_path);
-            String path = uploadOCFile.getStoragePath();
-            Log_OC.d(TAG, "PATH: "  + path);
+            TextView pathTextView = (TextView) view.findViewById(R.id.upload_local_path);
+            String path = uploadOCFile.getRemotePath();
             path = (path == null || path.isEmpty()) ? "" : path.substring(0, path.length() - fileName.length() - 1);
-            localPath.setText("Path: " + path);
+            pathTextView.setText(mParentActivity.getString(R.string.app_name) + path);
 
-            TextView fileSize = (TextView) view.findViewById(R.id.upload_file_size);
-            fileSize.setText(DisplayUtils.bytesToHumanReadable(uploadOCFile.getFileLength()));
+            TextView fileSizeTextView = (TextView) view.findViewById(R.id.upload_file_size);
+            fileSizeTextView.setText(DisplayUtils.bytesToHumanReadable(uploadOCFile.getFileLength()) + ", ");
 
-            TextView statusView = (TextView) view.findViewById(R.id.upload_status);
+            TextView uploadDateTextView = (TextView) view.findViewById(R.id.upload_date);
+            CharSequence dateString = DisplayUtils.getRelativeDateTimeString(
+                    mParentActivity,
+                    uploadOCFile.getModificationTimestamp(),
+                    DateUtils.SECOND_IN_MILLIS,
+                    DateUtils.WEEK_IN_MILLIS,
+                    0
+            );
+            uploadDateTextView.setText(dateString);
+
+            TextView accountNameTextView = (TextView) view.findViewById(R.id.upload_account);
+            accountNameTextView.setText(upload.getAccountName());
+
+            TextView statusTextView = (TextView) view.findViewById(R.id.upload_status);
             String status;
+
+            // Reset fields visibility
+            uploadDateTextView.setVisibility(View.VISIBLE);
+            pathTextView.setVisibility(View.VISIBLE);
+            fileSizeTextView.setVisibility(View.VISIBLE);
+            accountNameTextView.setVisibility(View.VISIBLE);
+            statusTextView.setVisibility(View.VISIBLE);
+
             switch (upload.getUploadStatus()) {
                 case UPLOAD_IN_PROGRESS:
                     status = mParentActivity.getString(R.string.uploader_upload_in_progress_ticker);
@@ -207,8 +227,13 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                 + " which inherits from FileActivity. Fix that!");
                         Log_OC.e(TAG, "PENDING BINDING for upload = " + upload.getLocalPath());
                     }
+                    uploadDateTextView.setVisibility(View.GONE);
+                    pathTextView.setVisibility(View.GONE);
+                    fileSizeTextView.setVisibility(View.GONE);
+                    accountNameTextView.setVisibility(View.INVISIBLE);
                     break;
                 case UPLOAD_FAILED_GIVE_UP:
+                    uploadDateTextView.setVisibility(View.GONE);
                     if (upload.getLastResult() != null) {
                         switch (upload.getLastResult()) {
                             case CREDENTIAL_ERROR:
@@ -242,7 +267,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                 break;
                             case PRIVILEDGES_ERROR:
                                 status = mParentActivity.getString(
-                                        R.string.uploads_view_upload_status_failed_priviledges_error);
+                                        R.string.uploads_view_upload_status_failed_permission_error);
                                 break;
                             default:
                                 status = mParentActivity.getString(
@@ -259,19 +284,24 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     if (upload.getLastResult() == UploadResult.NETWORK_CONNECTION) {
                         status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error);
                     } else {
-                        status =  mParentActivity.getString(R.string.uploads_view_upload_status_failed_retry);
+                        status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_retry);
                     }
                     String laterReason = FileUploadService.getUploadLaterReason(mParentActivity, upload);
                     if(laterReason != null) {
                         //Upload failed once but is delayed now, show reason.
-                        status += "\n" + laterReason;
+                        status = laterReason;
                     }
+                    pathTextView.setVisibility(View.GONE);
+                    fileSizeTextView.setVisibility(View.GONE);
+                    accountNameTextView.setVisibility(View.INVISIBLE);
+                    uploadDateTextView.setVisibility(View.GONE);
                     break;
                 case UPLOAD_LATER:
                     status = FileUploadService.getUploadLaterReason(mParentActivity, upload);
                     break;
                 case UPLOAD_SUCCEEDED:
                     status =  mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
+                    statusTextView.setVisibility(View.GONE);
                     break;
                 case UPLOAD_CANCELLED:
                     status =  mParentActivity.getString(R.string.uploads_view_upload_status_cancelled);
@@ -298,7 +328,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     mCurrentUpload = null;
                 }            
             }
-            statusView.setText(status);
+            statusTextView.setText(status);
 
             ImageButton rightButton = (ImageButton) view.findViewById(R.id.upload_right_button);
             if (upload.userCanRetryUpload()
@@ -376,15 +406,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(upload.getMimeType(),
                         uploadOCFile.getFileName()));
             }
-            TextView uploadDate = (TextView) view.findViewById(R.id.upload_date);
-            CharSequence dateString = DisplayUtils.getRelativeDateTimeString(
-                    mParentActivity,
-                    upload.getUploadTime().getTimeInMillis(),
-                    DateUtils.SECOND_IN_MILLIS,
-                    DateUtils.WEEK_IN_MILLIS,
-                    0
-            );
-            uploadDate.setText(dateString);
         }
 
         return view;

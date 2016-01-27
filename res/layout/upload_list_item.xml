@@ -3,10 +3,10 @@
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:orientation="horizontal"
-    android:layout_height="56dp">
+    android:layout_height="72dp">
 
     <FrameLayout
-        android:layout_width="56dp"
+        android:layout_width="72dp"
         android:layout_height="match_parent"
         android:focusable="false"
         android:focusableInTouchMode="false">
@@ -25,6 +25,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
         android:orientation="vertical" >
 
         <TextView
@@ -34,37 +35,39 @@
             android:layout_gravity="center_vertical"
             android:ellipsize="middle"
             android:singleLine="true"
-            android:textColor="#303030"
-            android:text="TextView"
+            android:textColor="@color/textColor"
+            android:text="@string/placeholder_filename"
             android:textSize="16dip" />
 
-        
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1">
-
-            <TextView
-                android:id="@+id/upload_local_path"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:ellipsize="middle"
-                android:singleLine="true"
-                android:text="TextView"
-                android:textSize="12dip"/>
-
+            android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/upload_file_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="left"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                android:layout_weight=".5"
-                android:text="TextView"
+                android:text="@string/placeholder_filesize"
+                android:textSize="12dip"/>
+            <TextView
+                android:id="@+id/upload_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:text="@string/placeholder_timestamp"
+                android:textSize="12dip"/>
+            <TextView
+                android:id="@+id/upload_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
+                android:text="@string/uploads_view_upload_status_succeeded"
                 android:textSize="12dip"/>
 
         </LinearLayout>
@@ -74,34 +77,26 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-             />
-        
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/upload_account"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:weightSum="1">
+            android:textColor="@color/list_item_lastmod_and_filesize_text"
+            android:singleLine="true"
+            android:text="@string/auth_username"
+            android:textSize="12dip"/>
 
-            <TextView
-                android:id="@+id/upload_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:text="TextView"
-                android:textSize="12dip"/>
-
-            <TextView
-                android:id="@+id/upload_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textColor="@color/list_item_lastmod_and_filesize_text"
-                android:layout_weight=".5"
-                android:text="TextView"
-                android:textSize="12dip"/>
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/upload_local_path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/list_item_lastmod_and_filesize_text"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:text="@string/instant_upload_path"
+            android:textSize="12dip"/>
 
     </LinearLayout>
 
@@ -111,6 +106,7 @@
         android:layout_height="match_parent"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:layout_gravity="center_vertical"
         android:paddingLeft="8dp"
      >
 

@@ -1897,20 +1897,21 @@ public class FileUploadService extends Service implements OnDatatransferProgress
         StringBuilder reason = new StringBuilder();
         Date now = new Date();
         if (now.getTime() < OCUpload.getUploadTimestamp()) {
-            reason.append("Waiting for " + DisplayUtils.unixTimeToHumanReadable(OCUpload.getUploadTimestamp()));
+            reason.append(context.getString(R.string.uploads_view_later_reason_waiting_for) +
+                    DisplayUtils.unixTimeToHumanReadable(OCUpload.getUploadTimestamp()));
         }
         if (OCUpload.isUseWifiOnly() && !UploadUtils.isConnectedViaWiFi(context)) {
             if (reason.length() > 0) {
-                reason.append(" and wifi connectivity");
+                reason.append(context.getString(R.string.uploads_view_later_reason_add_wifi_reason));
             } else {
-                reason.append("Waiting for wifi connectivity");
+                reason.append(context.getString(R.string.uploads_view_later_reason_waiting_for_wifi));
             }
         }
         if (OCUpload.isWhileChargingOnly() && !UploadUtils.isCharging(context)) {
             if (reason.length() > 0) {
-                reason.append(" and charging");
+                reason.append(context.getString(R.string.uploads_view_later_reason_add_charging_reason));
             } else {
-                reason.append("Waiting for charging");
+                reason.append(context.getString(R.string.uploads_view_later_reason_waiting_for_charging));
             }
         }
         reason.append(".");
@@ -1918,7 +1919,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
             return reason.toString();
         }
         if (OCUpload.getUploadStatus() == UploadStatus.UPLOAD_LATER) {
-            return "Upload is pending and will start shortly.";
+            return context.getString(R.string.uploads_view_later_waiting_to_upload);
         }
         return null;
     }
