@@ -126,6 +126,15 @@
   <string name="foreign_files_local_text">Helyi: %1$s</string>
   <string name="foreign_files_remote_text">Távoli: %1$s</string>
   <string name="upload_query_move_foreign_files">Nincs elég hely a kiválasztott fájlok másolására a %1$s könyvtárban. Szeretnéd áthelyezni inkább?</string>
+  <string name="pass_code_enter_pass_code">Kérlek illeszd be a számkódodat</string>
+  <string name="pass_code_configure_your_pass_code">Írd be a számkódodat</string>
+  <string name="pass_code_configure_your_pass_code_explanation">A számkódra minden alkalommal szükség lesz az applikáció indításához</string>
+  <string name="pass_code_reenter_your_pass_code">Kérlek írd be újra a számkódodat</string>
+  <string name="pass_code_remove_your_pass_code">Számkódod eltávolítása</string>
+  <string name="pass_code_mismatch">A számkódok nem egyeznek</string>
+  <string name="pass_code_wrong">Hibás számkód</string>
+  <string name="pass_code_removed">Számkód törölve</string>
+  <string name="pass_code_stored">Számkód eltárolva</string>
   <string name="media_notif_ticker">%1$s zene lejátszó</string>
   <string name="media_state_playing">%1$s (lejátszás)</string>
   <string name="media_state_loading">%1$s (betöltés)</string>
@@ -249,9 +258,11 @@
   <string name="prefs_category_accounts">Fiókok</string>
   <string name="prefs_add_account">Fiók hozzáadása</string>
   <string name="actionbar_logger">Naplók</string>
+  <string name="log_progress_dialog_text">Adatok betöltése...</string>
   <string name="saml_authentication_required_text">Felhasználóazonosítás szükséges</string>
   <string name="saml_authentication_wrong_pass">Hibás jelszó</string>
   <string name="actionbar_move">Mozgatás</string>
+  <string name="file_list_empty_moving">Itt nincs semmi! Adj hozzá egy mappát!</string>
   <string name="folder_picker_choose_button_text">Válasszon</string>
   <string name="prefs_category_security">Biztonság</string>
   <string name="shared_subject_header">megosztva</string>
@@ -272,4 +283,6 @@
   <string name="share_via_link_expiration_date_label">Legyen lejárati idő</string>
   <string name="share_via_link_password_label">Jelszóval is védem</string>
   <string name="share_search">Keresés</string>
+  <string name="action_switch_grid_view">Rács nézetre váltás</string>
+  <string name="action_switch_list_view">Lista nézetre váltás</string>
 </resources>

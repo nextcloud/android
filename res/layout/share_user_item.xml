@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
             android:id="@+id/unshareButton"
-            android:src="@drawable/ic_cancel"
+            android:src="@drawable/ic_action_delete"
             android:padding="8dp"/>
     </LinearLayout>
 

@@ -87,6 +87,16 @@ public class ShareUserListAdapter extends ArrayAdapter {
             userName.setText(name);
             iconView.setImageDrawable(icon);
 
+            /// bind listener to edit privileges
+            final ImageView editShareButton = (ImageView) view.findViewById(R.id.editShareButton);
+            editShareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.editShare(mShares.get(position));
+                }
+            });
+
+            /// bind listener to unshare
             final ImageView unshareButton = (ImageView) view.findViewById(R.id.unshareButton);
             unshareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,6 +110,7 @@ public class ShareUserListAdapter extends ArrayAdapter {
 
     public interface ShareUserAdapterListener {
         void unshareButtonPressed(OCShare share);
+        void editShare(OCShare share);
     }
 
 
