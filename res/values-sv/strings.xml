@@ -273,7 +273,6 @@
   <string name="unshare_link_file_no_exist">Lyckades ej sluta dela. Vänligen kontrollera om filen existerar</string>
   <string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp</string>
   <string name="update_link_file_no_exist">Kunde inte uppdatera. Var god kolla om filen existerar.</string>
-  <string name="update_link_file_error">Ett fel uppstod medan den delade länken försökte uppdateras</string>
   <string name="share_link_password_title">Ange ett lösenord</string>
   <string name="share_link_empty_password">Du måste ange ett lösenord</string>
   <string name="activity_chooser_send_file_title">Skicka</string>
@@ -290,7 +289,6 @@
   <string name="forbidden_permissions_delete">att radera denna fil</string>
   <string name="share_link_forbidden_permissions">att dela denna fil</string>
   <string name="unshare_link_forbidden_permissions">att avbryta delningen utav denna fil</string>
-  <string name="update_link_forbidden_permissions">för att uppdatera denna delade länken</string>
   <string name="forbidden_permissions_create">att skapa filen</string>
   <string name="uploader_upload_forbidden_permissions">att ladda upp i den här mappen</string>
   <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>

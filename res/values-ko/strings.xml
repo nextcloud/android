@@ -272,7 +272,6 @@
   <string name="unshare_link_file_no_exist">공유를 해제할 수 없습니다. 파일이 있는지 확인하십시오</string>
   <string name="unshare_link_file_error">이 파일이나 폴더의 공유를 해제하는 중 오류 발생</string>
   <string name="update_link_file_no_exist">업데이트에 실패하였습니다. 이미 파일이 존재하지는 않는지 확인해주세요.</string>
-  <string name="update_link_file_error">공유된 링크를 업데이트 하는데 에러가 발생하였습니다.</string>
   <string name="share_link_password_title">암호 입력</string>
   <string name="share_link_empty_password">암호를 입력해야 합니다</string>
   <string name="activity_chooser_send_file_title">보내기</string>
@@ -289,7 +288,6 @@
   <string name="forbidden_permissions_delete">이 파일을 삭제할</string>
   <string name="share_link_forbidden_permissions">이 파일을 공유할</string>
   <string name="unshare_link_forbidden_permissions">이 파일의 공유를 해제할</string>
-  <string name="update_link_forbidden_permissions">이 공유된 링크를 업데이트</string>
   <string name="forbidden_permissions_create">파일을 생성할</string>
   <string name="uploader_upload_forbidden_permissions">이 폴더에 업로드할</string>
   <string name="downloader_download_file_not_found">이 파일을 서버에서 더 이상 사용할 수 없습니다</string>

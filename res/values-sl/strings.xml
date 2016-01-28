@@ -273,7 +273,6 @@
   <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
   <string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
   <string name="update_link_file_no_exist">Posodobitev ni mogoča. Preverite, ali datoteka obstaja.</string>
-  <string name="update_link_file_error">Prišlo je do napake med posodabljanjem povezav</string>
   <string name="share_link_password_title">Vpis gesla</string>
   <string name="share_link_empty_password">Vpisati je treba geslo.</string>
   <string name="activity_chooser_send_file_title">Pošlji</string>
@@ -290,7 +289,6 @@
   <string name="forbidden_permissions_delete">za izbris datoteke.</string>
   <string name="share_link_forbidden_permissions">za omogočanje souporabe datoteke.</string>
   <string name="unshare_link_forbidden_permissions">za preklic souporabe datoteke.</string>
-  <string name="update_link_forbidden_permissions">za posodobitev te povezave za souporabo</string>
   <string name="forbidden_permissions_create">za ustvarjanje datoteke.</string>
   <string name="uploader_upload_forbidden_permissions">za pošiljanje datoteke v oblak.</string>
   <string name="downloader_download_file_not_found">Datoteka na strežniku ni več na voljo.</string>

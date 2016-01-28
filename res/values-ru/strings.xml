@@ -274,7 +274,6 @@
   <string name="unshare_link_file_no_exist">Невозможно закрыть доступ. Убедитесь что файл существует</string>
   <string name="unshare_link_file_error">При попытке закрыть доступ к этому файлу или каталогу произошла ошибка</string>
   <string name="update_link_file_no_exist">Не удается обновить. Пожалуйста, проверьте, существует ли файл</string>
-  <string name="update_link_file_error">Произошла ошибка при попытке обновить общую ссылку</string>
   <string name="share_link_password_title">Введите пароль</string>
   <string name="share_link_empty_password">Вы должны ввести пароль</string>
   <string name="activity_chooser_send_file_title">Отправить</string>
@@ -291,7 +290,6 @@
   <string name="forbidden_permissions_delete">для удаления этого файла</string>
   <string name="share_link_forbidden_permissions">для открытия доступа к этому файлу</string>
   <string name="unshare_link_forbidden_permissions">для закрытия доступа к этому файлу</string>
-  <string name="update_link_forbidden_permissions">обновить эту общую ссылку</string>
   <string name="forbidden_permissions_create">для создания файла</string>
   <string name="uploader_upload_forbidden_permissions">для загрузки в этот каталог</string>
   <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
