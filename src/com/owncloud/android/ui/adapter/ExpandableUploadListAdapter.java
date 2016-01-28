@@ -93,7 +93,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 return compareUploadTime(lhs, rhs);
             }
             private int compareUploadTime(OCUpload lhs, OCUpload rhs) {
-                return rhs.getUploadTime().compareTo(lhs.getUploadTime());
+                return Long.valueOf(rhs.getOCFile().getModificationTimestamp()).
+                        compareTo(lhs.getOCFile().getModificationTimestamp());
             }
         };
         abstract public int getGroupIcon();
