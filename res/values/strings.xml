@@ -404,4 +404,6 @@
 
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
+
+    <string name="manage_space">Manage space</string>
 </resources>
