@@ -354,4 +354,9 @@
   <string name="share_group_clarification">%1$s (그룹)</string>
   <string name="share_sharee_unavailable">죄송합니다. 이 버전에서는 사용자들이 클라이언트에서 공유하는 것을 허용하지 않습니다.
 \n서버의 관리자에게 문의하시기 바랍니다.</string>
+  <string name="share_privilege_can_share">공유 가능</string>
+  <string name="share_privilege_can_edit">편집 가능</string>
+  <string name="share_privilege_can_edit_create">생성</string>
+  <string name="share_privilege_can_edit_change">변경</string>
+  <string name="share_privilege_can_edit_delete">삭제</string>
 </resources>

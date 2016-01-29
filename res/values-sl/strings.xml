@@ -355,6 +355,11 @@
   <string name="share_group_clarification">%1$s (skupina)</string>
   <string name="share_sharee_unavailable">Različica strežnika ne omogoča souporabe predmetov z uporabniki med strankami.
 \nStopite v stik s skrbnikom sistema.</string>
+  <string name="share_privilege_can_share">lahko omogoči souporabo</string>
+  <string name="share_privilege_can_edit">lahko ureja</string>
+  <string name="share_privilege_can_edit_create">ustvari</string>
+  <string name="share_privilege_can_edit_change">spremeni</string>
+  <string name="share_privilege_can_edit_delete">izbriši</string>
   <string name="action_switch_grid_view">Preklopi v mrežni pogled</string>
   <string name="action_switch_list_view">Preklopi v seznamski pogled</string>
 </resources>

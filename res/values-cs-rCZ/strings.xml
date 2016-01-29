@@ -354,6 +354,11 @@ správce systému.</string>
   <string name="share_group_clarification">%1$s (skupina)</string>
   <string name="share_sharee_unavailable">Omlouváme se, verze vašeho serveru neumožňuje v klientské aplikaci sdílení dat mezi uživateli.
 \nKontaktujte prosím svého administrátora</string>
+  <string name="share_privilege_can_share">může sdílet</string>
+  <string name="share_privilege_can_edit">lze upravovat</string>
+  <string name="share_privilege_can_edit_create">vytvořit</string>
+  <string name="share_privilege_can_edit_change">změnit</string>
+  <string name="share_privilege_can_edit_delete">smazat</string>
   <string name="action_switch_grid_view">Zobrazení v mřížce</string>
   <string name="action_switch_list_view">Zobrazení v seznamu</string>
 </resources>

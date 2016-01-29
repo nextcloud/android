@@ -269,6 +269,7 @@
   <string name="unshare_link_file_no_exist">S\’arrin të zhbëjë ndarjen me të tjerët. Ju lutemi, kontrolloni nëse kartela ekziston</string>
   <string name="unshare_link_file_error">Ndodhi një gabim teksa përpiqej të zhbëhej ndarja me të tjerët e kësaj kartele apo dosjeje</string>
   <string name="update_link_file_no_exist">S’u arrit të përditësohej gjë. Ju lutemi, kontrolloni nëse ekziston apo jo kartela.</string>
+  <string name="update_link_file_error">Ndodhi një gabim teksa provohej të përditësohej ndarja</string>
   <string name="share_link_password_title">Jepni një fjalëkalim</string>
   <string name="share_link_empty_password">Duhet të jepni një fjalëkalim</string>
   <string name="activity_chooser_send_file_title">Dërgoje</string>
@@ -285,6 +286,7 @@
   <string name="forbidden_permissions_delete">për fshirje të kësaj kartele</string>
   <string name="share_link_forbidden_permissions">për ndarje me të tjerët të kësaj kartele</string>
   <string name="unshare_link_forbidden_permissions">për zhbërje të ndarjes me të tjerët të kësaj kartele</string>
+  <string name="update_link_forbidden_permissions">që të përditësohet kjo ndarje</string>
   <string name="forbidden_permissions_create">për krijim kartele</string>
   <string name="uploader_upload_forbidden_permissions">për ngarkim në këtë dosje</string>
   <string name="downloader_download_file_not_found">Kartela s\’gjendet më te shërbyesi</string>
@@ -351,6 +353,13 @@
   <string name="share_group_clarification">%1$s (grup)</string>
   <string name="share_sharee_unavailable">Na ndjeni, versioni juaj i shërbyesit nuk lejon ndarje me përdorues brenda klientësh.
         \nJu lutemi, lidhuni me përgjegjësin tuaj</string>
+  <string name="share_privilege_can_share">mund të ndajë</string>
+  <string name="share_privilege_can_edit">mund të përpunojnë</string>
+  <string name="share_privilege_can_edit_create">krijoje</string>
+  <string name="share_privilege_can_edit_change">ndrysho</string>
+  <string name="share_privilege_can_edit_delete">fshi</string>
+  <string name="edit_share_unshare">Resht së ndari</string>
+  <string name="edit_share_done">u bë</string>
   <string name="action_switch_grid_view">Kalo te pamja mozaik</string>
   <string name="action_switch_list_view">Kalo te pamja listë</string>
 </resources>

@@ -83,4 +83,7 @@
   <string name="share_via_link_expiration_date_label">කල් ඉකුත් විමේ දිනය දමන්න</string>
   <string name="share_via_link_password_label">මුර පදයකින් ආරක්ශාකරන්න</string>
   <string name="share_search">සොයන්න</string>
+  <string name="share_privilege_can_edit">සංස්කරණය කළ හැක</string>
+  <string name="share_privilege_can_edit_create">සදන්න</string>
+  <string name="share_privilege_can_edit_delete">මකන්න</string>
 </resources>

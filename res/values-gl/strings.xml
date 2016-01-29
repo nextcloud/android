@@ -343,4 +343,9 @@ Descárgueo de aquí: %2$s</string>
   <string name="share_group_clarification">%1$s (grupo)</string>
   <string name="share_sharee_unavailable">Sentímolo, pero a versión do seu servidor non permite compartir con usuarios desde o cliente.
 \nPor favor contacte co seu administrador</string>
+  <string name="share_privilege_can_share">pode compartir</string>
+  <string name="share_privilege_can_edit">pode editar</string>
+  <string name="share_privilege_can_edit_create">crear</string>
+  <string name="share_privilege_can_edit_change">cambio</string>
+  <string name="share_privilege_can_edit_delete">eliminar</string>
 </resources>

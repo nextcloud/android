@@ -355,6 +355,11 @@
   <string name="share_group_clarification">%1$s (grup)</string>
   <string name="share_sharee_unavailable">Üzgünüz sunucu sürümünüz istemcilerdeki kullanıcılara paylaşıma izin vermiyor.
 \nLütfen yöneticinize başvurun</string>
+  <string name="share_privilege_can_share">paylaşabilir</string>
+  <string name="share_privilege_can_edit">düzenleyebilir</string>
+  <string name="share_privilege_can_edit_create">oluştur</string>
+  <string name="share_privilege_can_edit_change">değiştir</string>
+  <string name="share_privilege_can_edit_delete">sil</string>
   <string name="action_switch_grid_view">Tablo görünümüne geç</string>
   <string name="action_switch_list_view">Liste görünümüne geç</string>
 </resources>

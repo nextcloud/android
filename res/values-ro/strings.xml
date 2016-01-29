@@ -326,4 +326,9 @@
   <string name="share_via_link_expiration_date_label">Specifică data expirării</string>
   <string name="share_via_link_password_label">Protejare cu parolă</string>
   <string name="share_search">Căutare</string>
+  <string name="share_privilege_can_share">se poate partaja</string>
+  <string name="share_privilege_can_edit">se poate edita</string>
+  <string name="share_privilege_can_edit_create">creare</string>
+  <string name="share_privilege_can_edit_change">modifică</string>
+  <string name="share_privilege_can_edit_delete">ștergere</string>
 </resources>

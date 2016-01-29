@@ -107,4 +107,6 @@
   <string name="prefs_category_accounts">Konten</string>
   <string name="auth_host_address">Adresse des Servers</string>
   <string name="share_via_link_section_title">Link teilen</string>
+  <string name="share_privilege_can_share">Kann teilen</string>
+  <string name="share_privilege_can_edit">Kann bearbeiten</string>
 </resources>

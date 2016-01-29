@@ -353,4 +353,9 @@
   <string name="share_group_clarification">%1$s (grupė)</string>
   <string name="share_sharee_unavailable">Serveris nepalaiko dalinimosi su vartotojais kliente.
 \nSusisiekite su administratoriumi.</string>
+  <string name="share_privilege_can_share">gali dalintis</string>
+  <string name="share_privilege_can_edit">gali redaguoti</string>
+  <string name="share_privilege_can_edit_create">sukurti</string>
+  <string name="share_privilege_can_edit_change">keisti</string>
+  <string name="share_privilege_can_edit_delete">ištrinti</string>
 </resources>

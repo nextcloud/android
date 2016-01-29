@@ -355,6 +355,11 @@
   <string name="search_users_and_groups_hint">Поиск пользователей и групп</string>
   <string name="share_group_clarification">%1$s (группа)</string>
   <string name="share_sharee_unavailable">Извините, версия вашего сервера не позволяет поделиться с пользователями через клиент. \nПожалуйста обратитесь к администратору</string>
+  <string name="share_privilege_can_share">можно поделиться</string>
+  <string name="share_privilege_can_edit">можно редактировать</string>
+  <string name="share_privilege_can_edit_create">создать</string>
+  <string name="share_privilege_can_edit_change">изменить</string>
+  <string name="share_privilege_can_edit_delete">удалить</string>
   <string name="action_switch_grid_view">Переключить на табличный вид</string>
   <string name="action_switch_list_view">Переключить на отображение в виде списка</string>
 </resources>

@@ -348,4 +348,9 @@
   <string name="search_users_and_groups_hint">Sök användare och grupper</string>
   <string name="share_group_clarification">%1$s (grupp)</string>
   <string name="share_sharee_unavailable">Tyvärr tillåter inte din serverversion delning med användare inom klienter. \nVar god kontakta din administrator.</string>
+  <string name="share_privilege_can_share">får dela</string>
+  <string name="share_privilege_can_edit">kan redigera</string>
+  <string name="share_privilege_can_edit_create">skapa</string>
+  <string name="share_privilege_can_edit_change">ändra</string>
+  <string name="share_privilege_can_edit_delete">radera</string>
 </resources>

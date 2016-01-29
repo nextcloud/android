@@ -345,4 +345,9 @@
   <string name="share_group_clarification">%1$s (skupina)</string>
   <string name="share_sharee_unavailable">Je nám ľúto, vaša verzia servera neumožňuje zdieľanie s používateľmi alebo skupinami.
 \nProsím, obráťte sa na svojho správcu</string>
+  <string name="share_privilege_can_share">môže zdieľať</string>
+  <string name="share_privilege_can_edit">môže upraviť</string>
+  <string name="share_privilege_can_edit_create">vytvoriť</string>
+  <string name="share_privilege_can_edit_change">zmeniť</string>
+  <string name="share_privilege_can_edit_delete">vymazať</string>
 </resources>

@@ -283,6 +283,11 @@
   <string name="share_via_link_expiration_date_label">Legyen lejárati idő</string>
   <string name="share_via_link_password_label">Jelszóval is védem</string>
   <string name="share_search">Keresés</string>
+  <string name="share_privilege_can_share">megosztható</string>
+  <string name="share_privilege_can_edit">módosíthat</string>
+  <string name="share_privilege_can_edit_create">létrehoz</string>
+  <string name="share_privilege_can_edit_change">változtatás</string>
+  <string name="share_privilege_can_edit_delete">törlés</string>
   <string name="action_switch_grid_view">Rács nézetre váltás</string>
   <string name="action_switch_list_view">Lista nézetre váltás</string>
 </resources>

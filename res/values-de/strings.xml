@@ -355,4 +355,9 @@
   <string name="share_group_clarification">%1$s (Gruppe)</string>
   <string name="share_sharee_unavailable">Entschuldigung, Deine Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht.
 \nBitte kontaktiere Deinen Administrator</string>
+  <string name="share_privilege_can_share">kann teilen</string>
+  <string name="share_privilege_can_edit">kann bearbeiten</string>
+  <string name="share_privilege_can_edit_create">erstellen</string>
+  <string name="share_privilege_can_edit_change">Ändern</string>
+  <string name="share_privilege_can_edit_delete">löschen</string>
 </resources>

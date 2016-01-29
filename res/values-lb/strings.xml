@@ -234,4 +234,8 @@
   <string name="share_via_link_expiration_date_label">Verfallsdatum setzen</string>
   <string name="share_via_link_password_label">Passwuertgeschützt</string>
   <string name="share_search">Sichen</string>
+  <string name="share_privilege_can_share">kann deelen</string>
+  <string name="share_privilege_can_edit">kann änneren</string>
+  <string name="share_privilege_can_edit_create">erstellen</string>
+  <string name="share_privilege_can_edit_delete">läschen</string>
 </resources>

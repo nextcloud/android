@@ -354,6 +354,11 @@
   <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
   <string name="share_group_clarification">%1$s (grupo)</string>
   <string name="share_sharee_unavailable">Lo siento, compartir no está disponible en su servidor.\nPor favor, contacte con su administrador</string>
+  <string name="share_privilege_can_share">puede compartir</string>
+  <string name="share_privilege_can_edit">puede editar</string>
+  <string name="share_privilege_can_edit_create">crear</string>
+  <string name="share_privilege_can_edit_change">cambio</string>
+  <string name="share_privilege_can_edit_delete">borrar</string>
   <string name="action_switch_grid_view">Cambiar a vista de cuadrícula</string>
   <string name="action_switch_list_view">Cambiar a vista de lista</string>
 </resources>

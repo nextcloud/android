@@ -49,4 +49,8 @@
   <string name="share_via_link_expiration_date_label">Fixa data de expiration</string>
   <string name="share_via_link_password_label">Protegite per contrasigno</string>
   <string name="share_search">Cercar</string>
+  <string name="share_privilege_can_share">pote compartir</string>
+  <string name="share_privilege_can_edit">pote modificar</string>
+  <string name="share_privilege_can_edit_create">crear</string>
+  <string name="share_privilege_can_edit_delete">deler</string>
 </resources>
