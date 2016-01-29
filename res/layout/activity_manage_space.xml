@@ -4,4 +4,26 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/general_description"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:singleLine="false"
+        android:layout_margin="10dp"
+        style="?android:attr/editTextPreferenceStyle"
+        android:text="@string/manage_space_description"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/manage_space_clear_data"
+        android:id="@+id/clearDataButton"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="4dp"
+        android:theme="@style/Button.Primary"
+        style="@style/Button.Primary"
+        android:contentDescription="@string/manage_space_clear_data"/>
+
 </LinearLayout>
