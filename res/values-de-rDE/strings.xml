@@ -360,4 +360,6 @@
   <string name="share_privilege_can_edit_create">erstellen</string>
   <string name="share_privilege_can_edit_change">Ändern</string>
   <string name="share_privilege_can_edit_delete">löschen</string>
+  <string name="edit_share_unshare">Freigabe löschen.</string>
+  <string name="edit_share_done">Erledigt</string>
 </resources>
