@@ -35,13 +35,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-<<<<<<< HEAD
             android:layout_weight="0.8"
             android:textSize="@dimen/two_line_primary_text_size"
-=======
-            android:layout_weight="1"
-            android:textSize="14sp"
->>>>>>> remotes/upstream/1413_share_view_enhancement
             android:text="@string/username"
             android:id="@+id/userOrGroupName"
             android:layout_marginTop="8dp"
@@ -69,18 +64,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/editShareButton"
             android:src="@drawable/ic_navigate_next"
-<<<<<<< HEAD
             android:layout_marginRight="@dimen/standard_margin"
             android:layout_marginEnd="@dimen/standard_margin"
             android:layout_gravity="center_horizontal"/>
-
-=======
             android:paddingRight="@dimen/standard_padding"
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:layout_gravity="center_vertical"/>
->>>>>>> remotes/upstream/1413_share_view_enhancement
     </LinearLayout>
 
     <View
