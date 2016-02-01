@@ -40,11 +40,13 @@ public class FeatureList {
 
 
 	static final private FeatureItem featuresList[] = {
-			new FeatureItem(R.drawable.what_new_instant_upload, R.string.welcome_feature_1_title, R.string.welcome_feature_1_text, "1.0.0", SHOW_ON_FIRST_RUN),
-			new FeatureItem(R.drawable.whats_new_files, R.string.welcome_feature_2_title,  R.string.welcome_feature_2_text, "1.0.0", SHOW_ON_FIRST_RUN),
-			new FeatureItem(R.drawable.whats_new_share, R.string.welcome_feature_3_title,  R.string.welcome_feature_3_text, "1.0.0", SHOW_ON_FIRST_RUN),
-			new FeatureItem(R.drawable.whats_new_accounts, R.string.welcome_feature_4_title,  R.string.welcome_feature_4_text, "1.0.0", SHOW_ON_FIRST_RUN),
-			new FeatureItem(R.drawable.whats_new_oc_files, R.string.welcome_feature_5_title,  FeatureItem.DO_NOT_SHOW, "1.0.0", SHOW_ON_FIRST_RUN)
+            // Basic features showed on first install
+			new FeatureItem(R.drawable.what_new_instant_upload, R.string.welcome_feature_1_title, R.string.welcome_feature_1_text, "1.0.0", "0", SHOW_ON_FIRST_RUN),
+			new FeatureItem(R.drawable.whats_new_files, R.string.welcome_feature_2_title,  R.string.welcome_feature_2_text, "1.0.0", "0", SHOW_ON_FIRST_RUN),
+			new FeatureItem(R.drawable.whats_new_share, R.string.welcome_feature_3_title,  R.string.welcome_feature_3_text, "1.0.0", "0" ,SHOW_ON_FIRST_RUN),
+			new FeatureItem(R.drawable.whats_new_accounts, R.string.welcome_feature_4_title,  R.string.welcome_feature_4_text, "1.0.0", "0", SHOW_ON_FIRST_RUN),
+			new FeatureItem(R.drawable.whats_new_oc_files, R.string.welcome_feature_5_title,  FeatureItem.DO_NOT_SHOW, "1.0.0", "0", SHOW_ON_FIRST_RUN)
+            // Features introduced in certain point in time
     };
 
 
@@ -52,15 +54,16 @@ public class FeatureList {
 		return featuresList;
 	}
 
-	static public FeatureItem[] getFiltered(final int lastSeenVersionCode, final boolean isFirstRun) {
+	static public FeatureItem[] getFiltered(final int lastSeenVersionCode, final boolean isFirstRun, boolean isBeta) {
 		List<FeatureItem> features = new LinkedList<FeatureItem>();
 
 		for (FeatureItem item : get()) {
+            final int itemVersionCode = isBeta ? item.getBetaVersionNumber() : item.getVersionNumber();
 			if (isFirstRun && item.shouldShowOnFirstRun()) {
 				features.add(item);
 			} else if (!isFirstRun && !item.shouldShowOnFirstRun() &&
-					MainApp.getVersionCode() >= item.getVersionNumber() &&
-					lastSeenVersionCode < item.getVersionNumber()) {
+					MainApp.getVersionCode() >= itemVersionCode &&
+					lastSeenVersionCode < itemVersionCode) {
 				features.add(item);
 			}
 		}
@@ -73,17 +76,19 @@ public class FeatureList {
 		private int titleText;
 		private int contentText;
 		private int versionNumber;
+        private int betaVersion;
 		private boolean showOnInitialRun;
 
-		public FeatureItem(int image, int titleText, int contentText, String version) {
-			this(image, titleText, contentText, version, false);
+		public FeatureItem(int image, int titleText, int contentText, String version, String betaVersion) {
+			this(image, titleText, contentText, version, betaVersion, false);
 		}
 
-		public FeatureItem(int image, int titleText, int contentText, String version, boolean showOnInitialRun) {
+		public FeatureItem(int image, int titleText, int contentText, String version, String betaVersion, boolean showOnInitialRun) {
 			this.image = image;
 			this.titleText = titleText;
 			this.contentText = contentText;
 			this.versionNumber = versionCodeFromString(version);
+            this.betaVersion = Integer.parseInt(betaVersion);
 			this.showOnInitialRun = showOnInitialRun;
 		}
 
@@ -96,8 +101,8 @@ public class FeatureList {
 		public boolean shouldShowContentText() { return contentText != DO_NOT_SHOW; }
 		public int getContentText() { return contentText; }
 
-
 		public int getVersionNumber() { return versionNumber; }
+        public int getBetaVersionNumber() { return betaVersion; }
 		public boolean shouldShowOnFirstRun() { return showOnInitialRun; }
 	}
 
