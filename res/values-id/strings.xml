@@ -335,4 +335,9 @@
   <string name="share_via_link_expiration_date_label">Atur tanggal kedaluwarsa</string>
   <string name="share_via_link_password_label">Lindungi dengan sandi</string>
   <string name="share_search">Cari</string>
+  <string name="share_privilege_can_share">dapat berbagi</string>
+  <string name="share_privilege_can_edit">dapat disunting</string>
+  <string name="share_privilege_can_edit_create">buat</string>
+  <string name="share_privilege_can_edit_change">ubah</string>
+  <string name="share_privilege_can_edit_delete">hapus</string>
 </resources>

@@ -288,7 +288,7 @@
 	<string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists</string>
 	<string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder</string>
     <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists </string>
-    <string name="update_link_file_error">An error occurred while trying to update the shared link</string>
+    <string name="update_link_file_error">An error occurred while trying to update the share</string>
     <string name="share_link_password_title">Enter a password</string>
     <string name="share_link_empty_password">You must enter a password</string>
 
@@ -310,7 +310,7 @@
     <string name="forbidden_permissions_delete">to delete this file</string>
     <string name="share_link_forbidden_permissions">to share this file</string>
     <string name="unshare_link_forbidden_permissions">to unshare this file</string>
-    <string name="update_link_forbidden_permissions">to update this shared link</string>
+    <string name="update_link_forbidden_permissions">to update this share</string>
     <string name="forbidden_permissions_create">to create the file</string>
     <string name="uploader_upload_forbidden_permissions">to upload in this folder</string>
     <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
@@ -436,6 +436,13 @@
 
     <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients.
         \nPlease contact your administrator</string>
+    <string name="share_privilege_can_share">can share</string>
+    <string name="share_privilege_can_edit">can edit</string>
+    <string name="share_privilege_can_edit_create">create</string>
+    <string name="share_privilege_can_edit_change">change</string>
+    <string name="share_privilege_can_edit_delete">delete</string>
+    <string name="edit_share_unshare">Stop sharing</string>
+    <string name="edit_share_done">done</string>
     <string name="changelog">https://github.com/owncloud/android/raw/beta/CHANGELOG.md</string>
 
     <string name="permission_storage_access">Additional permissions required to upload &amp; download files.</string>

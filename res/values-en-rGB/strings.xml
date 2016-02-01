@@ -303,4 +303,9 @@
   <string name="share_via_link_expiration_date_label">Set expiration date</string>
   <string name="share_via_link_password_label">Password protect</string>
   <string name="share_search">Search</string>
+  <string name="share_privilege_can_share">can share</string>
+  <string name="share_privilege_can_edit">can edit</string>
+  <string name="share_privilege_can_edit_create">create</string>
+  <string name="share_privilege_can_edit_change">change</string>
+  <string name="share_privilege_can_edit_delete">delete</string>
 </resources>

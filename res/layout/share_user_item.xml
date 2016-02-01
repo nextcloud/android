@@ -36,8 +36,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:textSize="14sp"
+            android:layout_weight="0.8"
+            android:textSize="@dimen/two_line_primary_text_size"
             android:text="@string/username"
             android:id="@+id/userOrGroupName"
             android:layout_marginTop="8dp"
@@ -53,8 +53,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
             android:id="@+id/unshareButton"
-            android:src="@drawable/ic_cancel"
-            android:padding="8dp"/>
+            android:src="@drawable/ic_action_delete"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_gravity="center_horizontal"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:id="@+id/editShareButton"
+            android:src="@drawable/ic_navigate_next"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:layout_gravity="center_horizontal"/>
+
     </LinearLayout>
 
     <View

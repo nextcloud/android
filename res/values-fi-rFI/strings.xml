@@ -256,6 +256,10 @@
 		ylläpitäjään.</string>
   <string name="share_link_file_no_exist">Jakaminen epäonnistui. Varmista, että tiedosto on olemassa</string>
   <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
+  <string name="unshare_link_file_no_exist">Jakamisen lopettaminen epäonnistui. Tarkista onko tiedosto olemassa</string>
+  <string name="unshare_link_file_error">Tiedoston tai kansion jakamista lopettaessa tapahtui virhe</string>
+  <string name="update_link_file_no_exist">Päivittäminen epäonnistui. Tarkista onko tiedosto olemassa</string>
+  <string name="update_link_file_error">Jakoa päivittäessä tapahtui virhe</string>
   <string name="share_link_password_title">Anna salasana</string>
   <string name="share_link_empty_password">Salasana on pakko antaa</string>
   <string name="activity_chooser_send_file_title">Lähetä</string>
@@ -331,6 +335,12 @@
   <string name="share_search">Etsi</string>
   <string name="search_users_and_groups_hint">Etsi käyttäjiä ja ryhmiä</string>
   <string name="share_group_clarification">%1$s (ryhmä)</string>
+  <string name="share_privilege_can_share">jaa</string>
+  <string name="share_privilege_can_edit">voi muokata</string>
+  <string name="share_privilege_can_edit_create">luo</string>
+  <string name="share_privilege_can_edit_change">muuta</string>
+  <string name="share_privilege_can_edit_delete">poista</string>
+  <string name="edit_share_unshare">Lopeta jakaminen</string>
   <string name="action_switch_grid_view">Vaihda ruudukkonäkymään</string>
   <string name="action_switch_list_view">Vaihda luettelonäkymään</string>
 </resources>

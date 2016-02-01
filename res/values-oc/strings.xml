@@ -343,4 +343,9 @@ En rason d\'aquesta modificacion, totes los fichièrs mandats amb de versions an
   <string name="share_via_link_password_label">Protegir per un senhal</string>
   <string name="share_search">Recercar</string>
   <string name="search_users_and_groups_hint">Recercar d\'utilizaires e de gropes</string>
+  <string name="share_privilege_can_share">pòt partejar</string>
+  <string name="share_privilege_can_edit">pòt modificar</string>
+  <string name="share_privilege_can_edit_create">crear</string>
+  <string name="share_privilege_can_edit_change">modificacion</string>
+  <string name="share_privilege_can_edit_delete">suprimir</string>
 </resources>

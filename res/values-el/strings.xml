@@ -347,4 +347,9 @@
   <string name="share_group_clarification">%1$s (ομάδα)</string>
   <string name="share_sharee_unavailable">Δεν επιτρέπεται ο διαμοιρασμός μεταξύ χρηστών μέσω εφαρμογής, σε αυτή την έκδοση.
 \nΕπικοινωνήστε με το διαχειριστή του συστήματος</string>
+  <string name="share_privilege_can_share">δυνατότητα διαμοιρασμού</string>
+  <string name="share_privilege_can_edit">δυνατότητα επεξεργασίας</string>
+  <string name="share_privilege_can_edit_create">δημιουργία</string>
+  <string name="share_privilege_can_edit_change">αλλαγή</string>
+  <string name="share_privilege_can_edit_delete">διαγραφή</string>
 </resources>

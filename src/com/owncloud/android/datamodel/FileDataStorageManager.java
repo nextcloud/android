@@ -100,7 +100,7 @@ public class FileDataStorageManager {
 
 
     public OCFile getFileByPath(String path) {
-        Cursor c = getCursorForValue(ProviderTableMeta.FILE_PATH, path);
+        Cursor c = getFileCursorForValue(ProviderTableMeta.FILE_PATH, path);
         OCFile file = null;
         if (c.moveToFirst()) {
             file = createFileInstance(c);
@@ -114,7 +114,7 @@ public class FileDataStorageManager {
 
 
     public OCFile getFileById(long id) {
-        Cursor c = getCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
+        Cursor c = getFileCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
         OCFile file = null;
         if (c.moveToFirst()) {
             file = createFileInstance(c);
@@ -124,7 +124,7 @@ public class FileDataStorageManager {
     }
 
     public OCFile getFileByLocalPath(String path) {
-        Cursor c = getCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
+        Cursor c = getFileCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
         OCFile file = null;
         if (c.moveToFirst()) {
             file = createFileInstance(c);
@@ -859,7 +859,7 @@ public class FileDataStorageManager {
         return retval;
     }
 
-    private Cursor getCursorForValue(String key, String value) {
+    private Cursor getFileCursorForValue(String key, String value) {
         Cursor c = null;
         if (getContentResolver() != null) {
             c = getContentResolver()
@@ -964,7 +964,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
         cv.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name);
 
-        if (shareExists(share.getRemoteId())) {// for renamed files; no more delete and create
+        if (shareExistsForRemoteId(share.getRemoteId())) {// for renamed files; no more delete and create
             overriden = true;
             if (getContentResolver() != null) {
                 getContentResolver().update(ProviderTableMeta.CONTENT_URI_SHARE, cv,
@@ -1005,6 +1005,95 @@ public class FileDataStorageManager {
 
         return overriden;
     }
+
+    /**
+     * Retrieves an stored {@link OCShare} given its id.
+     *
+     * @param id    Identifier.
+     * @return      Stored {@link OCShare} given its id.
+     */
+    public OCShare getShareById(long id) {
+        OCShare share = null;
+        Cursor c = getShareCursorForValue(
+                ProviderTableMeta._ID,
+                String.valueOf(id)
+        );
+        if (c != null) {
+            if (c.moveToFirst()) {
+                share = createShareInstance(c);
+            }
+            c.close();
+        }
+        return share;
+    }
+
+
+    /**
+     * Checks the existance of an stored {@link OCShare} matching the given remote id (not to be confused with
+     * the local id) in the current account.
+     *
+     * @param remoteId      Remote of the share in the server.
+     * @return              'True' if a matching {@link OCShare} is stored in the current account.
+     */
+    private boolean shareExistsForRemoteId(long remoteId) {
+        return shareExistsForValue(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, String.valueOf(remoteId));
+    }
+
+
+    /**
+     * Checks the existance of an stored {@link OCShare} in the current account
+     * matching a given column and a value for that column
+     *
+     * @param key           Name of the column to match.
+     * @param value         Value of the column to match.
+     * @return              'True' if a matching {@link OCShare} is stored in the current account.
+     */
+    private boolean shareExistsForValue(String key, String value) {
+        Cursor c = getShareCursorForValue(key, value);
+        boolean retval = c.moveToFirst();
+        c.close();
+        return retval;
+    }
+
+
+    /**
+     * Gets a {@link Cursor} for an stored {@link OCShare} in the current account
+     * matching a given column and a value for that column
+     *
+     * @param key           Name of the column to match.
+     * @param value         Value of the column to match.
+     * @return              'True' if a matching {@link OCShare} is stored in the current account.
+     */
+    private Cursor getShareCursorForValue(String key, String value) {
+        Cursor c;
+        if (getContentResolver() != null) {
+            c = getContentResolver()
+                    .query(ProviderTableMeta.CONTENT_URI_SHARE,
+                            null,
+                            key + "=? AND "
+                                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?",
+                            new String[]{value, mAccount.name},
+                            null
+                    );
+        } else {
+            try {
+                c = getContentProviderClient().query(
+                        ProviderTableMeta.CONTENT_URI_SHARE,
+                        null,
+                        key + "=? AND "
+                                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?",
+                        new String[]{value, mAccount.name},
+                        null
+                );
+            } catch (RemoteException e) {
+                Log_OC.w(TAG,
+                        "Could not get details, assuming share does not exist: "+ e.getMessage());
+                c = null;
+            }
+        }
+        return c;
+    }
+
 
 
     /**
@@ -1100,40 +1189,6 @@ public class FileDataStorageManager {
                     c.getColumnIndex(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED)));
         }
         return share;
-    }
-
-    private boolean shareExists(String cmp_key, String value) {
-        Cursor c;
-        if (getContentResolver() != null) {
-            c = getContentResolver()
-                    .query(ProviderTableMeta.CONTENT_URI_SHARE,
-                            null,
-                            cmp_key + "=? AND "
-                                    + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER
-                                    + "=?",
-                            new String[]{value, mAccount.name}, null);
-        } else {
-            try {
-                c = getContentProviderClient().query(
-                        ProviderTableMeta.CONTENT_URI_SHARE,
-                        null,
-                        cmp_key + "=? AND "
-                                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?",
-                        new String[]{value, mAccount.name}, null);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG,
-                        "Couldn't determine file existance, assuming non existance: "
-                                + e.getMessage());
-                return false;
-            }
-        }
-        boolean retval = c.moveToFirst();
-        c.close();
-        return retval;
-    }
-
-    private boolean shareExists(long remoteId) {
-        return shareExists(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, String.valueOf(remoteId));
     }
 
     private void resetShareFlagsInAllFiles() {
@@ -1245,7 +1300,7 @@ public class FileDataStorageManager {
                 cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getRemoteId());
                 cv.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name);
 
-                if (shareExists(share.getRemoteId())) {
+                if (shareExistsForRemoteId(share.getRemoteId())) {
                     // updating an existing file
                     operations.add(
                             ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI_SHARE).

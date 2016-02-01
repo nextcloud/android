@@ -321,4 +321,9 @@
   <string name="share_via_link_expiration_date_label">Постави датум истека</string>
   <string name="share_via_link_password_label">Заштићено лозинком</string>
   <string name="share_search">Тражи</string>
+  <string name="share_privilege_can_share">може да дели</string>
+  <string name="share_privilege_can_edit">може да мења</string>
+  <string name="share_privilege_can_edit_create">направи</string>
+  <string name="share_privilege_can_edit_change">измени</string>
+  <string name="share_privilege_can_edit_delete">обриши</string>
 </resources>

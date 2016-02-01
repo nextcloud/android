@@ -81,4 +81,6 @@
   <string name="share_via_link_expiration_date_label">設定分享期限</string>
   <string name="share_via_link_password_label">密碼保護</string>
   <string name="share_search">尋找</string>
+  <string name="share_privilege_can_edit_create">新增</string>
+  <string name="share_privilege_can_edit_delete">刪除</string>
 </resources>

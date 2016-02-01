@@ -320,4 +320,9 @@
   <string name="share_via_link_expiration_date_label">Ustaw datę wygaśnięcia</string>
   <string name="share_via_link_password_label">Zabezpiecz hasłem</string>
   <string name="share_search">Wyszukaj</string>
+  <string name="share_privilege_can_share">może współdzielić</string>
+  <string name="share_privilege_can_edit">może edytować</string>
+  <string name="share_privilege_can_edit_create">utwórz</string>
+  <string name="share_privilege_can_edit_change">zmiany</string>
+  <string name="share_privilege_can_edit_delete">skasuj</string>
 </resources>

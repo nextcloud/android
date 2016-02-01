@@ -290,4 +290,7 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="share_dialog_title">Paylaşılır</string>
   <string name="share_via_link_section_title">Linki yayımla</string>
   <string name="share_search">Axtarış</string>
+  <string name="share_privilege_can_share">yayımlaya bilərsiniz</string>
+  <string name="share_privilege_can_edit">dəyişmək olar</string>
+  <string name="share_privilege_can_edit_delete">sil</string>
 </resources>

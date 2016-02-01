@@ -332,4 +332,9 @@
   <string name="share_via_link_expiration_date_label">Встановити термін дії</string>
   <string name="share_via_link_password_label">Захистити паролем</string>
   <string name="share_search">Пошук</string>
+  <string name="share_privilege_can_share">може ділитися з іншими</string>
+  <string name="share_privilege_can_edit">може редагувати</string>
+  <string name="share_privilege_can_edit_create">створити</string>
+  <string name="share_privilege_can_edit_change">змінити</string>
+  <string name="share_privilege_can_edit_delete">видалити</string>
 </resources>

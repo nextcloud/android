@@ -273,7 +273,6 @@
   <string name="unshare_link_file_no_exist">No se puede dejar de compartir. Revise si el archivo existe</string>
   <string name="unshare_link_file_error">Ocurrió un error al tratar de ya no compartir este archivo o carpeta</string>
   <string name="update_link_file_no_exist">No se puede actualizar. Revise si el archivo existe</string>
-  <string name="update_link_file_error">Se produjo un error al tratar de actualizar el enlace compartido</string>
   <string name="share_link_password_title">Introduzca una contraseña</string>
   <string name="share_link_empty_password">Debe introducir una contraseña</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
@@ -290,7 +289,6 @@
   <string name="forbidden_permissions_delete">para eliminar este archivo</string>
   <string name="share_link_forbidden_permissions">para compartir este archivo</string>
   <string name="unshare_link_forbidden_permissions">para dejar de compartir este archivo</string>
-  <string name="update_link_forbidden_permissions">para actualizar este enlace compartido</string>
   <string name="forbidden_permissions_create">para crear el archivo</string>
   <string name="uploader_upload_forbidden_permissions">para subir archivos a esta carpeta</string>
   <string name="downloader_download_file_not_found">Este archivo ya no se encuentra en el servidor</string>
@@ -356,6 +354,11 @@
   <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
   <string name="share_group_clarification">%1$s (grupo)</string>
   <string name="share_sharee_unavailable">Lo siento, compartir no está disponible en su servidor.\nPor favor, contacte con su administrador</string>
+  <string name="share_privilege_can_share">puede compartir</string>
+  <string name="share_privilege_can_edit">puede editar</string>
+  <string name="share_privilege_can_edit_create">crear</string>
+  <string name="share_privilege_can_edit_change">cambio</string>
+  <string name="share_privilege_can_edit_delete">borrar</string>
   <string name="action_switch_grid_view">Cambiar a vista de cuadrícula</string>
   <string name="action_switch_list_view">Cambiar a vista de lista</string>
 </resources>

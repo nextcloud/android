@@ -211,4 +211,8 @@
   <string name="share_via_link_expiration_date_label">Establecer fecha de caducidad</string>
   <string name="share_via_link_password_label">Protección con contraseña</string>
   <string name="share_search">Buscar</string>
+  <string name="share_privilege_can_share">puede compartir</string>
+  <string name="share_privilege_can_edit">puede editar</string>
+  <string name="share_privilege_can_edit_create">crear</string>
+  <string name="share_privilege_can_edit_delete">eliminar</string>
 </resources>

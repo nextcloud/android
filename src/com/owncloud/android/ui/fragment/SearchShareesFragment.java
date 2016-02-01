@@ -50,7 +50,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  *
  * Activities that contain this fragment must implement the
- * {@link SearchShareesFragment.OnSearchFragmentInteractionListener} interface
+ * {@link ShareFragmentListener} interface
  * to handle interaction events.
  *
  * Use the {@link SearchShareesFragment#newInstance} factory method to
@@ -70,7 +70,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     // other members
     private ArrayList<OCShare> mShares;
     private ShareUserListAdapter mUserGroupsAdapter = null;
-    private OnSearchFragmentInteractionListener mListener;
+    private ShareFragmentListener mListener;
 
 
     /**
@@ -147,6 +147,8 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        getActivity().setTitle(R.string.share_dialog_title);
+
         // Load data into the list
         refreshUsersOrGroupsListFromDB();
     }
@@ -195,7 +197,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnSearchFragmentInteractionListener) activity;
+            mListener = (ShareFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -229,18 +231,11 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
         Log_OC.d(TAG, "Unshare - " + share.getSharedWithDisplayName());
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnSearchFragmentInteractionListener {
-        void unshareWith(OCShare share);
+    @Override
+    public void editShare(OCShare share) {
+        // move to fragment to edit share
+        Log_OC.d(TAG, "Editing " + share.getSharedWithDisplayName());
+        mListener.showEditShare(share);
     }
 
 }

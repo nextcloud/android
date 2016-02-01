@@ -70,4 +70,9 @@
   <string name="share_via_link_expiration_date_label">Odredite datum isteka</string>
   <string name="share_via_link_password_label">Zaštititi lozinkom</string>
   <string name="share_search">pretraži</string>
+  <string name="share_privilege_can_share">Dijeljenje moguće</string>
+  <string name="share_privilege_can_edit">Uređivanje moguće</string>
+  <string name="share_privilege_can_edit_create">Kreirajte</string>
+  <string name="share_privilege_can_edit_change">promijeni</string>
+  <string name="share_privilege_can_edit_delete">Izbrišite</string>
 </resources>

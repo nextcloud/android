@@ -320,4 +320,9 @@
   <string name="share_via_link_expiration_date_label">Задаване на дата на изтичане</string>
   <string name="share_via_link_password_label">Защитено с парола</string>
   <string name="share_search">Търсене</string>
+  <string name="share_privilege_can_share">може да споделя</string>
+  <string name="share_privilege_can_edit">може да променя</string>
+  <string name="share_privilege_can_edit_create">създаване</string>
+  <string name="share_privilege_can_edit_change">промяна</string>
+  <string name="share_privilege_can_edit_delete">изтриване</string>
 </resources>

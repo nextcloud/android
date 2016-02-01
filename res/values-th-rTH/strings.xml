@@ -271,7 +271,7 @@
   <string name="unshare_link_file_no_exist">ไม่สามารถยกเลิกการแชร์ กรุณาตรวจสอบไฟล์ที่มีอยู่</string>
   <string name="unshare_link_file_error">เกิดข้อผิดพลาดในขณะที่จะยกเลิกการอชร์ไฟล์หรือโฟลเดอร์นี้</string>
   <string name="update_link_file_no_exist">ไม่สามารถอัพเดท กรุณาตรวจสอบว่ามีไฟล์นั้นอยู่จริง</string>
-  <string name="update_link_file_error">เกิดข้อผิดพลาดในขณะที่กำลังพยายามอัพเดทลิงค์ที่แชร์</string>
+  <string name="update_link_file_error">เกิดข้อผิดพลาดในขณะที่พยายามอัพเดทการแชร์</string>
   <string name="share_link_password_title">ป้อนรหัสผ่าน</string>
   <string name="share_link_empty_password">คุณจะต้องใส่รหัสผ่าน</string>
   <string name="activity_chooser_send_file_title">ส่ง</string>
@@ -288,7 +288,7 @@
   <string name="forbidden_permissions_delete">เพื่อลบไฟล์นี้</string>
   <string name="share_link_forbidden_permissions">เพื่อแชร์ไฟล์นี้</string>
   <string name="unshare_link_forbidden_permissions">เพื่อเลิกแชร์ไฟล์นี้</string>
-  <string name="update_link_forbidden_permissions">เพื่ออัพเดทลิงค์นี้ที่ถูกแชร์</string>
+  <string name="update_link_forbidden_permissions">เพื่ออัพเดทการแชร์นี้</string>
   <string name="forbidden_permissions_create">เพื่อสร้างไฟล์</string>
   <string name="uploader_upload_forbidden_permissions">เพื่ออัพโหลดในโฟลเดอร์นี้</string>
   <string name="downloader_download_file_not_found">ไฟล์ไม่พร้อมใช้งานบนเซิร์ฟเวอร์</string>
@@ -355,6 +355,13 @@
   <string name="share_group_clarification">%1$s (กลุ่ม)</string>
   <string name="share_sharee_unavailable">ขออภัย รุ่นเซิร์ฟเวอร์ของคุณไม่อนุญาตให้แชร์กับผู้ใช้ภายในไคลเอนต์
 \nกรุณาติดต่อผู้ดูแลระบบ</string>
+  <string name="share_privilege_can_share">สามารถแชร์ได้</string>
+  <string name="share_privilege_can_edit">สามารถแก้ไข</string>
+  <string name="share_privilege_can_edit_create">สร้าง</string>
+  <string name="share_privilege_can_edit_change">เปลี่ยนแปลง</string>
+  <string name="share_privilege_can_edit_delete">ลบ</string>
+  <string name="edit_share_unshare">ยกเลิกการแชร์</string>
+  <string name="edit_share_done">สำเร็จ</string>
   <string name="action_switch_grid_view">สลับไปยังมุมมองตาราง</string>
   <string name="action_switch_list_view">สลับไปยังมุมมองรายการ</string>
 </resources>

@@ -259,4 +259,9 @@
   <string name="share_via_link_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
   <string name="share_via_link_password_label">حماية كلمة السر</string>
   <string name="share_search">البحث</string>
+  <string name="share_privilege_can_share">يمكن المشاركة</string>
+  <string name="share_privilege_can_edit">يمكن التحرير</string>
+  <string name="share_privilege_can_edit_create">إنشاء</string>
+  <string name="share_privilege_can_edit_change">تغيير</string>
+  <string name="share_privilege_can_edit_delete">حذف</string>
 </resources>
