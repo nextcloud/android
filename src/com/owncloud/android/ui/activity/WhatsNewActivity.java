@@ -69,7 +69,8 @@ public class WhatsNewActivity extends Activity {
         mCurrentStep = 0;
         mProgress = (ProgressIndicator) findViewById(R.id.progressIndicator);
 
-        final int listLength = FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun()).length;
+        final boolean isBeta = getResources().getBoolean(R.bool.is_beta);
+        final int listLength = FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta).length;
 
         mProgress.setNumberOfSteps(listLength);
 
@@ -112,7 +113,9 @@ public class WhatsNewActivity extends Activity {
     private void fillContentPanelWithFeatureData() {
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        for (FeatureItem item : FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun())) {
+        final boolean isBeta = getResources().getBoolean(R.bool.is_beta);
+
+        for (FeatureItem item : FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta)) {
             LinearLayout newElement = (LinearLayout)inflater.inflate(R.layout.whats_new_element, null);
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getScreenWidth(), ViewGroup.LayoutParams.MATCH_PARENT);
@@ -215,7 +218,9 @@ public class WhatsNewActivity extends Activity {
         if (context instanceof WhatsNewActivity)
             return;
 
-        if (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun()).length > 0)
+        final boolean isBeta = context.getResources().getBoolean(R.bool.is_beta);
+
+        if (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta).length > 0)
             context.startActivity(new Intent(context, WhatsNewActivity.class));
     }
 
