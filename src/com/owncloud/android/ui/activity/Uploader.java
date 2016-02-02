@@ -607,14 +607,11 @@ public class Uploader extends FileActivity
                     if (data == null) {
                         mRemoteCacheData.add(filePath);
                         CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
-                        Object[] params = { uri, filePath, mRemoteCacheData.size()-1,
+                        Object[] params = {uri, filePath, mRemoteCacheData.size() - 1,
                                 getAccount().name, getContentResolver()};
                         mNumCacheFile++;
                         showWaitingCopyDialog();
                         copyTask.execute(params);
-                    } else {
-                        remote.add(filePath);
-                        local.add(data);
                     }
                 }
                 else {
