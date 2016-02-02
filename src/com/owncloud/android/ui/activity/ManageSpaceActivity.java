@@ -1,7 +1,5 @@
 package com.owncloud.android.ui.activity;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -11,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -65,9 +62,14 @@ public class ManageSpaceActivity extends AppCompatActivity {
         // Clear data
         clearApplicationData();
 
-        // Recover passcode
+
+        // Clear SharedPreferences
         SharedPreferences.Editor appPrefsEditor = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext()).edit();
+        appPrefsEditor.clear();
+        appPrefsEditor.commit();
+
+        // Recover passcode
         if (passCodeEnable) {
             appPrefsEditor.putString("PrefPinCode1", passCodeDigits[0]);
             appPrefsEditor.putString("PrefPinCode2", passCodeDigits[1]);
@@ -99,7 +101,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
         }
     }
 
-    public static boolean deleteDir(File dir) {
+    public boolean deleteDir(File dir) {
         if (dir != null && dir.isDirectory()) {
             String[] children = dir.list();
             for (int i = 0; i < children.length; i++) {
@@ -112,7 +114,6 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
         return dir.delete();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
