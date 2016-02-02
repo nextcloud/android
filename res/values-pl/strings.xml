@@ -78,16 +78,12 @@
   <string name="filedetails_created">Utworzono:</string>
   <string name="filedetails_modified">Zmodyfikowano:</string>
   <string name="filedetails_download">Pobierz</string>
-  <string name="filedetails_sync_file">Odśwież plik</string>
   <string name="filedetails_renamed_in_upload_msg">Podczas wysyłania nazwa pliku została zmieniona na %1$s</string>
   <string name="list_layout">Lista szablonów wyglądu</string>
-  <string name="action_share_file">Udostępnij link</string>
-  <string name="action_unshare_file">Anuluj udostępnianie</string>
+  <string name="action_share">Udostępnij</string>
   <string name="common_yes">Tak</string>
   <string name="common_no">Nie</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Anuluj pobieranie</string>
-  <string name="common_cancel_upload">Anuluj wysyłanie</string>
   <string name="common_cancel">Anuluj</string>
   <string name="common_save_exit">Zapisz i wyjdź</string>
   <string name="common_error">Błąd</string>
@@ -308,9 +304,9 @@
   <string name="prefs_category_instant_uploading">Automatyczne wysyłanie</string>
   <string name="prefs_category_security">Bezpieczeństwo</string>
   <string name="prefs_instant_video_upload_path_title">Katalog wysyłania dla wideo</string>
-  <string name="download_folder_failed_content">Pobieranie %1$s katalogu nie może zostać ukończone</string>
   <string name="shared_subject_header">udostępniony</string>
   <string name="with_you_subject_header">z tobą</string>
+  <string name="subject_user_shared_with_you">%1$s wspólne \"%2$s\" z tobą</string>
   <string name="auth_refresh_button">Odśwież połączenie</string>
   <string name="auth_host_address">Adres Serwera</string>
   <string name="common_error_out_memory">Brak wystarczającej pamięci</string>
@@ -319,4 +315,14 @@
   <string name="file_list__footer__folders">%1$d folderów</string>
   <string name="file_list__footer__file">1 plik</string>
   <string name="file_list__footer__file_and_folder">1 plik , 1 folder</string>
+  <string name="share_dialog_title">Udostępnianie</string>
+  <string name="share_via_link_section_title">Udostępnij link</string>
+  <string name="share_via_link_expiration_date_label">Ustaw datę wygaśnięcia</string>
+  <string name="share_via_link_password_label">Zabezpiecz hasłem</string>
+  <string name="share_search">Wyszukaj</string>
+  <string name="share_privilege_can_share">może współdzielić</string>
+  <string name="share_privilege_can_edit">może edytować</string>
+  <string name="share_privilege_can_edit_create">utwórz</string>
+  <string name="share_privilege_can_edit_change">zmiany</string>
+  <string name="share_privilege_can_edit_delete">skasuj</string>
 </resources>

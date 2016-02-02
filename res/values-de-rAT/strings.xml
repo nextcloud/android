@@ -59,14 +59,10 @@
   <string name="filedetails_created">Erstellt am:</string>
   <string name="filedetails_modified">Verändert am:</string>
   <string name="filedetails_download">Herunterladen</string>
-  <string name="filedetails_sync_file">Datei neu laden</string>
-  <string name="action_share_file">Link teilen</string>
-  <string name="action_unshare_file">Link nicht mehr teilen</string>
+  <string name="action_share">Freigeben</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Herunterladen abbrechen</string>
-  <string name="common_cancel_upload">Hochladen abbrechen</string>
   <string name="common_cancel">Abbrechen</string>
   <string name="common_save_exit">Speichern &amp; Schließen</string>
   <string name="common_error">Fehler</string>
@@ -110,4 +106,7 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Konten</string>
   <string name="auth_host_address">Adresse des Servers</string>
+  <string name="share_via_link_section_title">Link teilen</string>
+  <string name="share_privilege_can_share">Kann teilen</string>
+  <string name="share_privilege_can_edit">Kann bearbeiten</string>
 </resources>

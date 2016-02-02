@@ -55,7 +55,8 @@ public class NotificationBuilderWithProgressBar extends NotificationCompat.Build
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             return new NotificationBuilderWithProgressBar(context); 
         } else {
-            return new NotificationCompat.Builder(context);
+            return new NotificationCompat.Builder(context).
+                    setColor(context.getResources().getColor(R.color.primary));
         }
     }
     

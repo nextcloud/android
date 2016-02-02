@@ -39,11 +39,10 @@
   <string name="filedetails_modified">Addaswyd:</string>
   <string name="filedetails_download">Llwytho i lawr</string>
   <string name="filedetails_renamed_in_upload_msg">Ailenwyd y ffeil i %1$s wrth lwytho i fyny</string>
+  <string name="action_share">Rhannu</string>
   <string name="common_yes">Ie</string>
   <string name="common_no">Na</string>
   <string name="common_ok">Iawn</string>
-  <string name="common_cancel_download">Diddymu llwytho i lawr</string>
-  <string name="common_cancel_upload">Diddymu llwytho i fyny</string>
   <string name="common_cancel">Diddymu</string>
   <string name="common_save_exit">Cadw &amp; Gadael</string>
   <string name="common_error">Gwall</string>
@@ -132,4 +131,10 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Cyfrifon</string>
   <string name="folder_picker_choose_button_text">Dewisiwch</string>
+  <string name="share_via_link_expiration_date_label">Gosod dyddiad dod i ben</string>
+  <string name="share_via_link_password_label">Diogelu cyfrinair</string>
+  <string name="share_search">Chwilio</string>
+  <string name="share_privilege_can_edit">yn gallu golygu</string>
+  <string name="share_privilege_can_edit_create">creu</string>
+  <string name="share_privilege_can_edit_delete">dileu</string>
 </resources>

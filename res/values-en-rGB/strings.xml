@@ -73,15 +73,11 @@
   <string name="filedetails_created">Created:</string>
   <string name="filedetails_modified">Modified:</string>
   <string name="filedetails_download">Download</string>
-  <string name="filedetails_sync_file">Refresh file</string>
   <string name="filedetails_renamed_in_upload_msg">File was renamed to %1$s during upload</string>
-  <string name="action_share_file">Share link</string>
-  <string name="action_unshare_file">Unshare link</string>
+  <string name="action_share">Share</string>
   <string name="common_yes">Yes</string>
   <string name="common_no">No</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Cancel download</string>
-  <string name="common_cancel_upload">Cancel upload</string>
   <string name="common_cancel">Cancel</string>
   <string name="common_save_exit">Save &amp; Exit</string>
   <string name="common_error">Error</string>
@@ -298,8 +294,18 @@
   <string name="prefs_category_instant_uploading">Instant Uploads</string>
   <string name="prefs_category_security">Security</string>
   <string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
-  <string name="download_folder_failed_content">Download of %1$s folder could not be completed</string>
+  <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
   <string name="auth_refresh_button">Refresh connection</string>
   <string name="auth_host_address">Server address</string>
   <string name="common_error_out_memory">Not enough memory</string>
+  <string name="share_dialog_title">Sharing</string>
+  <string name="share_via_link_section_title">Share link</string>
+  <string name="share_via_link_expiration_date_label">Set expiration date</string>
+  <string name="share_via_link_password_label">Password protect</string>
+  <string name="share_search">Search</string>
+  <string name="share_privilege_can_share">can share</string>
+  <string name="share_privilege_can_edit">can edit</string>
+  <string name="share_privilege_can_edit_create">create</string>
+  <string name="share_privilege_can_edit_change">change</string>
+  <string name="share_privilege_can_edit_delete">delete</string>
 </resources>

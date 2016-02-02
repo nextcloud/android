@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">pred sekundami</string>
   <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
   <string name="file_list_loading">Načítavam...</string>
+  <string name="file_list_no_app_for_file_type">Nenašla sa aplikácia pre tento typ súboru!</string>
   <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
   <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
   <string name="filedetails_size">Veľkosť:</string>
@@ -78,16 +79,14 @@
   <string name="filedetails_created">Vytvorený:</string>
   <string name="filedetails_modified">Zmenený:</string>
   <string name="filedetails_download">Stiahnuť</string>
-  <string name="filedetails_sync_file">Obnoviť súbor</string>
+  <string name="filedetails_sync_file">Synchronizovať</string>
   <string name="filedetails_renamed_in_upload_msg">Súbor bol premenovaný na %1$s počas nahrávania</string>
   <string name="list_layout">Rozvrhnutie zoznamu</string>
-  <string name="action_share_file">Zdieľať linku</string>
-  <string name="action_unshare_file">Zrušiť zdieľanie odkazu</string>
+  <string name="action_share">Zdieľať</string>
   <string name="common_yes">Áno</string>
   <string name="common_no">Nie</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Zrušiť sťahovanie</string>
-  <string name="common_cancel_upload">Zrušiť odosielanie</string>
+  <string name="common_cancel_sync">Zrušiť synchronizáciu</string>
   <string name="common_cancel">Zrušiť</string>
   <string name="common_save_exit">Uložiť a ukončiť</string>
   <string name="common_error">Chyba</string>
@@ -244,6 +243,9 @@
   <string name="ssl_validator_label_validity_to">Do: </string>
   <string name="ssl_validator_label_signature">Podpis:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmus:</string>
+  <string name="digest_algorithm_not_available">Algoritmus digest nie je na vašom telefóne dostupný.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Odtlačok:</string>
+  <string name="certificate_load_problem">Nastal problém s načítaním certifikátu.</string>
   <string name="ssl_validator_null_cert">Certifikát nemohol byť zobrazený.</string>
   <string name="ssl_validator_no_info_about_error">- Žiadne informácie o tejto chybe</string>
   <string name="placeholder_sentence">Toto je \"placeholder\"</string>
@@ -315,11 +317,11 @@
   <string name="prefs_category_instant_uploading">Okamžité nahratie</string>
   <string name="prefs_category_security">Zabezpečenie</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pre nahrávanie videí</string>
-  <string name="download_folder_failed_content">Sťahovanie %1$s priečinka nebolo dokončené</string>
+  <string name="sync_folder_failed_content">Synchronizáciu priečinka %1$s nebolo možné dokončiť</string>
   <string name="shared_subject_header">zdieľané</string>
   <string name="with_you_subject_header">s vami</string>
-  <string name="subject_token">%1$s vám zdieľal \"%2$s\"</string>
-  <string name="saml_subject_token">\"%1$s\" bol s vami nazdieľaný</string>
+  <string name="subject_user_shared_with_you">%1$s vám zdieľal \"%2$s\"</string>
+  <string name="subject_shared_with_you">\"%1$s\" bol s vami nazdieľaný</string>
   <string name="auth_refresh_button">Obnoviť pripojenie</string>
   <string name="auth_host_address">Adresa servera</string>
   <string name="common_error_out_memory">Nedostatok pamäte</string>
@@ -332,4 +334,20 @@
   <string name="file_list__footer__files">%1$d súb.</string>
   <string name="file_list__footer__files_and_folder">%1$d súb., 1 priečinok</string>
   <string name="file_list__footer__files_and_folders">%1$d súb., %2$d prieč.</string>
+  <string name="share_dialog_title">Zdieľanie</string>
+  <string name="share_no_users">Zatiaľ s používateľmi nezdieľate žiadne dáta.</string>
+  <string name="share_add_user_or_group">Pridať používateľa alebo skupinu</string>
+  <string name="share_via_link_section_title">Zdieľať linku</string>
+  <string name="share_via_link_expiration_date_label">Nastaviť dátum expirácie</string>
+  <string name="share_via_link_password_label">Chrániť heslom</string>
+  <string name="share_search">Hľadať</string>
+  <string name="search_users_and_groups_hint">Vyhľadať používateľov alebo skupiny</string>
+  <string name="share_group_clarification">%1$s (skupina)</string>
+  <string name="share_sharee_unavailable">Je nám ľúto, vaša verzia servera neumožňuje zdieľanie s používateľmi alebo skupinami.
+\nProsím, obráťte sa na svojho správcu</string>
+  <string name="share_privilege_can_share">môže zdieľať</string>
+  <string name="share_privilege_can_edit">môže upraviť</string>
+  <string name="share_privilege_can_edit_create">vytvoriť</string>
+  <string name="share_privilege_can_edit_change">zmeniť</string>
+  <string name="share_privilege_can_edit_delete">vymazať</string>
 </resources>

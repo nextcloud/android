@@ -39,30 +39,13 @@
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_menu_archive" />
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/sharedIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:layout_gravity="top|right"
-            android:orientation="vertical"
-            android:layout_margin="2dp">
-
-            <ImageView
-                android:id="@+id/sharedIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="2dp"
-                android:src="@drawable/sharedlink" />
-
-            <ImageView
-                android:id="@+id/sharedWithMeIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
-                android:src="@drawable/shared_with_me"
-                android:visibility="invisible" />
-        </LinearLayout>
+            android:src="@drawable/shared_via_link" />
 
         <ImageView
             android:id="@+id/localFileIndicator"

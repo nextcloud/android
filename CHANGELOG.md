@@ -1,3 +1,17 @@
+## 1.9.0 (December 2015)
+- Share privately with users or groups in your server
+- Share link with password protection and expiration date
+- Fully sync a folder in two ways (manually)
+- Detect share configuration in server
+- Fingerprints in untrusted certificate dialog
+- Thumbnail in details view
+- OC color in notifications
+- Fixed video preview
+- Fixed sorting with accents
+- Error shown when no app can "open with" a file
+- Fixed relative date in some languages
+- Media scanner triggered after uploads
+
 ## 1.8.0 (September 2015)
 - New MATERIAL DESIGN theme
 - Updated FILE TYPE ICONS

@@ -48,13 +48,10 @@
   <string name="filedetails_modified">Modifita je:</string>
   <string name="filedetails_download">Elŝuti</string>
   <string name="filedetails_renamed_in_upload_msg">La dosiero alinomiĝis al %1$s dum alŝuto</string>
-  <string name="action_share_file">Konhavigi ligilon</string>
-  <string name="action_unshare_file">Malkunhavigi ligilon</string>
+  <string name="action_share">Kunhavigi</string>
   <string name="common_yes">Jes</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Akcepti</string>
-  <string name="common_cancel_download">Nuligi elŝuton</string>
-  <string name="common_cancel_upload">Nuligi alŝuton</string>
   <string name="common_cancel">Nuligi</string>
   <string name="common_save_exit">Konservi kaj forlasi</string>
   <string name="common_error">Eraro</string>
@@ -188,4 +185,13 @@
   <string name="auth_host_address">Servila adreso</string>
   <string name="file_list__footer__file">1 dosiero</string>
   <string name="file_list__footer__files">%1$d dosieroj</string>
+  <string name="share_dialog_title">Kunhavigo</string>
+  <string name="share_via_link_section_title">Kunhavigi ligilon</string>
+  <string name="share_via_link_expiration_date_label">Agordi limdaton</string>
+  <string name="share_via_link_password_label">Protekti per pasvorto</string>
+  <string name="share_search">Serĉi</string>
+  <string name="share_privilege_can_share">kunhavebla</string>
+  <string name="share_privilege_can_edit">povas redakti</string>
+  <string name="share_privilege_can_edit_create">krei</string>
+  <string name="share_privilege_can_edit_delete">forigi</string>
 </resources>

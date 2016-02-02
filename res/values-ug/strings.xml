@@ -33,10 +33,10 @@
   <string name="filedetails_created">قۇرۇلغان ۋاقتى:</string>
   <string name="filedetails_modified">ئۆزگەرتكەن ۋاقىت:</string>
   <string name="filedetails_download">چۈشۈر</string>
+  <string name="action_share">ھەمبەھىر</string>
   <string name="common_yes">ھەئە</string>
   <string name="common_no">ياق</string>
   <string name="common_ok">جەزملە</string>
-  <string name="common_cancel_upload">يۈكلەشتىن ۋاز كەچ</string>
   <string name="common_cancel">ۋاز كەچ</string>
   <string name="common_save_exit">ساقلاپ چېكىن</string>
   <string name="common_error">خاتالىق</string>
@@ -52,4 +52,7 @@
   <string name="prefs_category_accounts">ھېساباتلار</string>
   <string name="prefs_category_security">بىخەتەرلىك</string>
   <string name="auth_host_address">مۇلازىمېتىر ئادرىسى</string>
+  <string name="share_dialog_title">ھەمبەھىر</string>
+  <string name="share_search">ئىزدە</string>
+  <string name="share_privilege_can_edit_delete">ئۆچۈر</string>
 </resources>

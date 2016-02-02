@@ -72,15 +72,11 @@
   <string name="filedetails_created">Yaradıldı:</string>
   <string name="filedetails_modified">Dəyişdirildi:</string>
   <string name="filedetails_download">Yüklə</string>
-  <string name="filedetails_sync_file">Faylı yenilə</string>
   <string name="filedetails_renamed_in_upload_msg">Yüklənmə müddətində fayl buna %1$s yeniləndi</string>
-  <string name="action_share_file">Linki yayımla</string>
-  <string name="action_unshare_file">Link yayımlanmasını dayandır</string>
+  <string name="action_share">Paylaş</string>
   <string name="common_yes">Bəli</string>
   <string name="common_no">Xeyir</string>
   <string name="common_ok">Oldu</string>
-  <string name="common_cancel_download">Endirimi dayandır</string>
-  <string name="common_cancel_upload">Yüklənməni dayandır</string>
   <string name="common_cancel">Dayandır</string>
   <string name="common_save_exit">Saxla &amp; Çıx</string>
   <string name="common_error">Səhv</string>
@@ -288,7 +284,13 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="prefs_category_instant_uploading">Anında yükləmələr</string>
   <string name="prefs_category_security">Təhlükəsizlik</string>
   <string name="prefs_instant_video_upload_path_title">Video ünvanını yüklə</string>
-  <string name="download_folder_failed_content">Qovluğun endirilməsinin %1$s hissəsi tamamlana bilməz </string>
+  <string name="subject_user_shared_with_you">%1$s paylaşdı \"%2$s\" sizinlə</string>
   <string name="auth_refresh_button">Qoşulmanı yenilə</string>
   <string name="auth_host_address">Server ünvanı</string>
+  <string name="share_dialog_title">Paylaşılır</string>
+  <string name="share_via_link_section_title">Linki yayımla</string>
+  <string name="share_search">Axtarış</string>
+  <string name="share_privilege_can_share">yayımlaya bilərsiniz</string>
+  <string name="share_privilege_can_edit">dəyişmək olar</string>
+  <string name="share_privilege_can_edit_delete">sil</string>
 </resources>

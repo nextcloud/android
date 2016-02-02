@@ -71,6 +71,7 @@
   <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
   <string name="file_list_empty">Δεν υπάρχει τίποτα εδώ. Μεταφορτώστε κάτι!</string>
   <string name="file_list_loading">Φόρτωση...</string>
+  <string name="file_list_no_app_for_file_type">Δεν βρέθηκε εφαρμογή για αυτόν τον τύπο αρχείου</string>
   <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
   <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
   <string name="filedetails_size">Μέγεθος:</string>
@@ -78,16 +79,14 @@
   <string name="filedetails_created">Δημιουργήθηκε:</string>
   <string name="filedetails_modified">Τροποποιήθηκε:</string>
   <string name="filedetails_download">Λήψη</string>
-  <string name="filedetails_sync_file">Ανανέωση αρχείου</string>
+  <string name="filedetails_sync_file">Συγχρονισμός</string>
   <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά τη μεταφόρτωση</string>
   <string name="list_layout">Διάταξη Λίστας</string>
-  <string name="action_share_file">Διαμοιρασμός συνδέσμου</string>
-  <string name="action_unshare_file">Ακύρωση διαμοιρασμού συνδέσμου</string>
+  <string name="action_share">Διαμοιράστε</string>
   <string name="common_yes">Ναι</string>
   <string name="common_no">Όχι</string>
   <string name="common_ok">ΟΚ</string>
-  <string name="common_cancel_download">Ακύρωση λήψης</string>
-  <string name="common_cancel_upload">Ακύρωση μεταφόρτωσης</string>
+  <string name="common_cancel_sync">Ακύρωση συγχρονισμού</string>
   <string name="common_cancel">Άκυρο</string>
   <string name="common_save_exit">Αποθήκευση &amp; Έξοδος</string>
   <string name="common_error">Σφάλμα</string>
@@ -244,6 +243,9 @@
   <string name="ssl_validator_label_validity_to">Μέχρι:</string>
   <string name="ssl_validator_label_signature">Υπογραφή:</string>
   <string name="ssl_validator_label_signature_algorithm">Αλγόριθμος:</string>
+  <string name="digest_algorithm_not_available">Ο αλγόριθμος digest δεν είναι διαθέσιμος στο τηλέφωνό σας.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Ψηφιακό αποτύπωμα:</string>
+  <string name="certificate_load_problem">Πρόβλημα φόρτωσης του πιστοποιητικού.</string>
   <string name="ssl_validator_null_cert">Δεν μπορεί να εμφανιστεί το πιστοποιητικό.</string>
   <string name="ssl_validator_no_info_about_error">- Καμμία πληροφορία σχετικά με το σφάλμα</string>
   <string name="placeholder_sentence">Αυτό είναι ένα σημείο κράτησης θέσης</string>
@@ -315,11 +317,11 @@
   <string name="prefs_category_instant_uploading">Στιγμιαίες Μεταφορτώσεις</string>
   <string name="prefs_category_security">Ασφάλεια</string>
   <string name="prefs_instant_video_upload_path_title">Διαδρομή Μεταφόρτωσης Βίντεο</string>
-  <string name="download_folder_failed_content">Η λήψη του φακέλου %1$s δεν ολοκληρώθηκε με επιτυχία.</string>
+  <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
   <string name="shared_subject_header">διαμοιρασμένα</string>
   <string name="with_you_subject_header">με εσάς</string>
-  <string name="subject_token">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
-  <string name="saml_subject_token">\"%1$s\" μοιράστηκε μαζί σας</string>
+  <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
+  <string name="subject_shared_with_you">\"%1$s\" μοιράστηκε μαζί σας</string>
   <string name="auth_refresh_button">Ανανέωση σύνδεσης</string>
   <string name="auth_host_address">Διεύθυνση διακομιστή</string>
   <string name="common_error_out_memory">Δεν υπάρχει αρκετή μνήμη</string>
@@ -332,4 +334,22 @@
   <string name="file_list__footer__files">%1$d αρχεία</string>
   <string name="file_list__footer__files_and_folder">%1$d αρχεία, 1 φάκελος</string>
   <string name="file_list__footer__files_and_folders">%1$d αρχεία, %2$d φάκελοι</string>
+  <string name="upload_copy_files">Αντιγραφή αρχείου</string>
+  <string name="share_dialog_title">Διαμοιρασμός</string>
+  <string name="share_no_users">Δεν έχουν διαμοιραστεί ακόμα δεδομένα με τους χρήστες</string>
+  <string name="share_add_user_or_group">Προσθήκη χρήστη ή ομάδας</string>
+  <string name="share_via_link_section_title">Διαμοιρασμός συνδέσμου</string>
+  <string name="share_via_link_expiration_date_label">Ορισμός ημ. λήξης</string>
+  <string name="share_via_link_password_label">Προστασία συνθηματικού</string>
+  <string name="share_get_public_link_button">Λήψη συνδέσμου</string>
+  <string name="share_search">Αναζήτηση</string>
+  <string name="search_users_and_groups_hint">Αναζήτηση χρηστών και ομάδων</string>
+  <string name="share_group_clarification">%1$s (ομάδα)</string>
+  <string name="share_sharee_unavailable">Δεν επιτρέπεται ο διαμοιρασμός μεταξύ χρηστών μέσω εφαρμογής, σε αυτή την έκδοση.
+\nΕπικοινωνήστε με το διαχειριστή του συστήματος</string>
+  <string name="share_privilege_can_share">δυνατότητα διαμοιρασμού</string>
+  <string name="share_privilege_can_edit">δυνατότητα επεξεργασίας</string>
+  <string name="share_privilege_can_edit_create">δημιουργία</string>
+  <string name="share_privilege_can_edit_change">αλλαγή</string>
+  <string name="share_privilege_can_edit_delete">διαγραφή</string>
 </resources>

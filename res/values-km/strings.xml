@@ -55,11 +55,10 @@
   <string name="filedetails_created">បាន​បង្កើត៖</string>
   <string name="filedetails_modified">បាន​កែ​សម្រួល៖</string>
   <string name="filedetails_download">ទាញយក</string>
+  <string name="action_share">ចែក​រំលែក</string>
   <string name="common_yes">ព្រម</string>
   <string name="common_no">ទេ</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">បោះបង់ការទាញយក</string>
-  <string name="common_cancel_upload">បោះបង់​ការ​ផ្ទុកឡើង</string>
   <string name="common_cancel">លើកលែង</string>
   <string name="common_save_exit">រក្សាទុក &amp; ចាកចេញ</string>
   <string name="common_error">កំហុស</string>
@@ -105,4 +104,12 @@
   <string name="folder_picker_choose_button_text">ជ្រើស</string>
   <string name="prefs_category_security">សុវត្ថិភាព</string>
   <string name="auth_host_address">អាសយដ្ឋាន​ម៉ាស៊ីន​បម្រើ</string>
+  <string name="share_dialog_title">ការ​ចែក​រំលែក</string>
+  <string name="share_via_link_expiration_date_label">កំណត់​ពេល​ផុត​កំណត់</string>
+  <string name="share_via_link_password_label">ការ​ពារ​ដោយ​ពាក្យ​សម្ងាត់</string>
+  <string name="share_search">ស្វែង​រក</string>
+  <string name="share_privilege_can_share">អាច​ចែក​រំលែក</string>
+  <string name="share_privilege_can_edit">អាច​កែប្រែ</string>
+  <string name="share_privilege_can_edit_create">បង្កើត</string>
+  <string name="share_privilege_can_edit_delete">លុប</string>
 </resources>

@@ -70,15 +70,11 @@
   <string name="filedetails_created">ایجاد شده توسط:</string>
   <string name="filedetails_modified">تغییر یافته توسط:</string>
   <string name="filedetails_download">بارگیری</string>
-  <string name="filedetails_sync_file">بازنمایی فایل</string>
   <string name="filedetails_renamed_in_upload_msg">فایل در هنگام بارگزاری به %1$s تغییر نام یافت</string>
-  <string name="action_share_file">اشتراک گذاشتن لینک</string>
-  <string name="action_unshare_file">لغو اشتراک گذاشتن لینک</string>
+  <string name="action_share">اشتراک‌گذاری</string>
   <string name="common_yes">بله</string>
   <string name="common_no">نه</string>
   <string name="common_ok">باشه</string>
-  <string name="common_cancel_download">قطع دانلود</string>
-  <string name="common_cancel_upload">متوقف کردن بار گذاری</string>
   <string name="common_cancel">منصرف شدن</string>
   <string name="common_save_exit">ذخیره سازی و خروج</string>
   <string name="common_error">خطا</string>
@@ -115,6 +111,7 @@
   <string name="sync_fail_in_favourites_ticker">همگام سازی پرونده ها ناموفق بود.</string>
   <string name="sync_fail_in_favourites_content">محتوای %1$d فایل ها نمی توانند همگام باشند(%2$d ناسازگاری)</string>
   <string name="sync_foreign_files_forgotten_ticker">بعضی از فایلهای محلی فراموش شده اند</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d fفایل از %2$s پوشه نتوانستند کپی شوند در</string>
   <string name="sync_current_folder_was_removed">پوشه %1$s دیگر وجود ندارد</string>
   <string name="foreign_files_move">انتقال همه</string>
   <string name="foreign_files_success">همه ی فایل ها جا به جا شدند</string>
@@ -281,11 +278,10 @@
   <string name="prefs_category_instant_uploading">آپلودهای فوری</string>
   <string name="prefs_category_security">امنیت</string>
   <string name="prefs_instant_video_upload_path_title">مسیر آپلود ویدئو</string>
-  <string name="download_folder_failed_content">امکان تکمیل دانلود پوشه  %1$s وجود ندارد</string>
   <string name="shared_subject_header">به اشتراک گذاشته شد</string>
   <string name="with_you_subject_header">با تو</string>
-  <string name="subject_token">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>
-  <string name="saml_subject_token">\"%1$s\" با شما به اشتراک گذاشته شد</string>
+  <string name="subject_user_shared_with_you">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>
+  <string name="subject_shared_with_you">\"%1$s\" با شما به اشتراک گذاشته شد</string>
   <string name="auth_refresh_button">بروزرسانی ارتباط</string>
   <string name="auth_host_address">آدرس سرور</string>
   <string name="common_error_out_memory">حافظه کافی وجود ندارد</string>
@@ -297,4 +293,15 @@
   <string name="file_list__footer__file_and_folders">1 فایل، %1$d پوشه</string>
   <string name="file_list__footer__files">%1$d  فایل</string>
   <string name="file_list__footer__files_and_folder">%1$d فایل، 1 پوشه</string>
+  <string name="file_list__footer__files_and_folders">%1$d فایل, %2$d پوشه</string>
+  <string name="share_dialog_title">اشتراک گذاری</string>
+  <string name="share_via_link_section_title">اشتراک گذاشتن لینک</string>
+  <string name="share_via_link_expiration_date_label">تنظیم تاریخ انقضا</string>
+  <string name="share_via_link_password_label">نگهداری کردن رمز عبور</string>
+  <string name="share_search">جست‌و‌جو</string>
+  <string name="share_privilege_can_share">قابل به اشتراک گذاری</string>
+  <string name="share_privilege_can_edit">می توان ویرایش کرد</string>
+  <string name="share_privilege_can_edit_create">ایجاد</string>
+  <string name="share_privilege_can_edit_change">تغییر</string>
+  <string name="share_privilege_can_edit_delete">حذف</string>
 </resources>

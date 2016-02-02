@@ -17,10 +17,12 @@
   <string name="sync_string_files">ফাইলস</string>
   <string name="uploader_btn_new_folder_text">নতুন ফোল্ডার</string>
   <string name="filedetails_download">ডাউনলোড করুন</string>
+  <string name="action_share">শেয়ার</string>
   <string name="common_cancel">বাতিল করা</string>
   <string name="common_error">ভুল</string>
   <string name="uploader_info_dirname">ফোল্ডারের নাম</string>
   <string name="common_rename">পুনঃনামকরণ</string>
   <string name="common_remove">সরান</string>
   <string name="empty"></string>
+  <string name="share_search">অনুসন্ধান</string>
 </resources>

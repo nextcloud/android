@@ -16,7 +16,7 @@
   <string name="setup_btn_connect">منسلک</string>
   <string name="file_list_seconds_ago">سیکنڈز پہلے</string>
   <string name="filedetails_download">ڈاؤن لوڈ،</string>
-  <string name="action_share_file">اشتراک لنک</string>
+  <string name="action_share">اشتراک</string>
   <string name="common_yes">ہاں</string>
   <string name="common_no">نہیں</string>
   <string name="common_ok">اوکے</string>
@@ -26,4 +26,11 @@
   <string name="activity_chooser_send_file_title">بھجیں</string>
   <string name="empty"></string>
   <string name="folder_picker_choose_button_text">منتخب کریں</string>
+  <string name="share_via_link_section_title">اشتراک لنک</string>
+  <string name="share_via_link_expiration_date_label">تاریخ معیاد سیٹ کریں</string>
+  <string name="share_via_link_password_label">محفوظ پاسورڈ</string>
+  <string name="share_search">تلاش</string>
+  <string name="share_privilege_can_edit">تبدیل کر سکے ھیں</string>
+  <string name="share_privilege_can_edit_create">نیا بنائیں</string>
+  <string name="share_privilege_can_edit_delete">ختم کریں</string>
 </resources>

@@ -78,16 +78,12 @@
   <string name="filedetails_created">Създаден на:</string>
   <string name="filedetails_modified">Променен на:</string>
   <string name="filedetails_download">Изтегляне</string>
-  <string name="filedetails_sync_file">Обновяване на файла</string>
   <string name="filedetails_renamed_in_upload_msg">Файлът беше преименуван на %1$s по време на качването.</string>
   <string name="list_layout">Списък с изгледи</string>
-  <string name="action_share_file">Връзка за споделяне</string>
-  <string name="action_unshare_file">Премахване връзка за споделяне</string>
+  <string name="action_share">Споделяне</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">ОК</string>
-  <string name="common_cancel_download">Отказване на тегленето</string>
-  <string name="common_cancel_upload">Отказване на качването</string>
   <string name="common_cancel">Отказ</string>
   <string name="common_save_exit">Запазване и изход</string>
   <string name="common_error">Грешка</string>
@@ -304,10 +300,9 @@
   <string name="prefs_category_instant_uploading">Незабавно качване</string>
   <string name="prefs_category_security">Сигурност</string>
   <string name="prefs_instant_video_upload_path_title">Качване на видео път</string>
-  <string name="download_folder_failed_content">Свалянето на директорията %1$s не може да бъде завършено</string>
   <string name="shared_subject_header">споделен</string>
   <string name="with_you_subject_header">с теб</string>
-  <string name="subject_token">%1$s споделен \"%2$s\" с теб</string>
+  <string name="subject_user_shared_with_you">%1$s споделен \"%2$s\" с теб</string>
   <string name="auth_refresh_button">Обнови връзката</string>
   <string name="auth_host_address">Адрес на сървъра</string>
   <string name="common_error_out_memory">Няма достатъчно памет</string>
@@ -320,4 +315,14 @@
   <string name="file_list__footer__files">%1$d файла</string>
   <string name="file_list__footer__files_and_folder">%1$d файла, 1 папка</string>
   <string name="file_list__footer__files_and_folders">%1$d файла, %2$d папки</string>
+  <string name="share_dialog_title">Споделяне</string>
+  <string name="share_via_link_section_title">Връзка за споделяне</string>
+  <string name="share_via_link_expiration_date_label">Задаване на дата на изтичане</string>
+  <string name="share_via_link_password_label">Защитено с парола</string>
+  <string name="share_search">Търсене</string>
+  <string name="share_privilege_can_share">може да споделя</string>
+  <string name="share_privilege_can_edit">може да променя</string>
+  <string name="share_privilege_can_edit_create">създаване</string>
+  <string name="share_privilege_can_edit_change">промяна</string>
+  <string name="share_privilege_can_edit_delete">изтриване</string>
 </resources>

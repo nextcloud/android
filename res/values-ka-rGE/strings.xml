@@ -43,11 +43,10 @@
   <string name="filedetails_modified">მოდიფიცირებულია:</string>
   <string name="filedetails_download">ჩამოტვირთვა</string>
   <string name="filedetails_renamed_in_upload_msg">ფაილ %1$s–ზე გადარქმეულ იქნა სახელი ატვირთვის დროს</string>
+  <string name="action_share">გაზიარება</string>
   <string name="common_yes">კი</string>
   <string name="common_no">არა</string>
   <string name="common_ok">დიახ</string>
-  <string name="common_cancel_download">ჩამოტვირთვის შეჩერება</string>
-  <string name="common_cancel_upload">ატვირთვის გაუქმება</string>
   <string name="common_cancel">გაუქმება</string>
   <string name="common_save_exit">შენახვა &amp;გამოსვლა</string>
   <string name="common_error">შეცდომა</string>
@@ -143,4 +142,11 @@
   <string name="folder_picker_choose_button_text">არჩევა</string>
   <string name="prefs_category_security">უსაფრთხოება</string>
   <string name="auth_host_address">სერვერის მისამართი</string>
+  <string name="share_dialog_title">გაზიარება</string>
+  <string name="share_via_link_expiration_date_label">მიუთითე ვადის გასვლის დრო</string>
+  <string name="share_via_link_password_label">პაროლით დაცვა</string>
+  <string name="share_search">ძებნა</string>
+  <string name="share_privilege_can_edit">შეგიძლია შეცვლა</string>
+  <string name="share_privilege_can_edit_create">შექმნა</string>
+  <string name="share_privilege_can_edit_delete">წაშლა</string>
 </resources>

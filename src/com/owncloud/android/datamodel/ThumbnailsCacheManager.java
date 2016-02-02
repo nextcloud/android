@@ -278,12 +278,13 @@ public class ThumbnailsCacheManager {
                     OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(mAccount);
                     if (mClient != null && serverOCVersion != null) {
                         if (serverOCVersion.supportsRemoteThumbnails()) {
+                            GetMethod get = null;
                             try {
                                 String uri = mClient.getBaseUri() + "" +
                                         "/index.php/apps/files/api/v1/thumbnail/" +
                                         px + "/" + px + Uri.encode(file.getRemotePath(), "/");
                                 Log_OC.d("Thumbnail", "URI: " + uri);
-                                GetMethod get = new GetMethod(uri);
+                                get = new GetMethod(uri);
                                 int status = mClient.executeMethod(get);
                                 if (status == HttpStatus.SC_OK) {
                                     InputStream inputStream = get.getResponseBodyAsStream();
@@ -299,9 +300,15 @@ public class ThumbnailsCacheManager {
                                     if (thumbnail != null) {
                                         addBitmapToCache(imageKey, thumbnail);
                                     }
+                                } else {
+                                    mClient.exhaustResponse(get.getResponseBodyAsStream());
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
+                            } finally {
+                                if (get != null) {
+                                    get.releaseConnection();
+                                }
                             }
                         } else {
                             Log_OC.d(TAG, "Server too old");

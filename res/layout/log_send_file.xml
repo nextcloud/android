@@ -20,28 +20,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
     android:weightSum="1" >
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="15dp"
-        android:layout_weight="1" >
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding">
 
             <TextView
                 android:id="@+id/logTV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/empty" />
+                android:text="@string/empty"
+                android:typeface="monospace"/>
         </LinearLayout>
     </ScrollView>
 
@@ -49,11 +49,14 @@
         android:id="@+id/historyButtonBar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin">
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/deleteLogHistoryButton"
-        style="@style/ownCloud.Button"
+        android:theme="@style/Button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -62,7 +65,7 @@
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/sendLogHistoryButton"
-        style="@style/ownCloud.Button"
+        android:theme="@style/Button.Primary"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

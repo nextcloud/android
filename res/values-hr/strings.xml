@@ -43,11 +43,10 @@
   <string name="file_list_seconds_ago">prije par sekundi</string>
   <string name="file_list_empty">Nema ničega u ovoj mapi. Pošalji nešto!</string>
   <string name="filedetails_download">Preuzimanje</string>
-  <string name="action_share_file">Podijelite vezu</string>
+  <string name="action_share">Dijeljenje</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">U redu</string>
-  <string name="common_cancel_upload">Prekini upload</string>
   <string name="common_cancel">Odustani</string>
   <string name="common_error">Greška</string>
   <string name="common_error_unknown">Nepoznata pogreška</string>
@@ -66,4 +65,14 @@
   <string name="folder_picker_choose_button_text">Odaberite</string>
   <string name="prefs_category_security">Sigurnost</string>
   <string name="auth_host_address">Adresa poslužitelja</string>
+  <string name="share_dialog_title">Dijeljenje zajedničkih resursa</string>
+  <string name="share_via_link_section_title">Podijelite vezu</string>
+  <string name="share_via_link_expiration_date_label">Odredite datum isteka</string>
+  <string name="share_via_link_password_label">Zaštititi lozinkom</string>
+  <string name="share_search">pretraži</string>
+  <string name="share_privilege_can_share">Dijeljenje moguće</string>
+  <string name="share_privilege_can_edit">Uređivanje moguće</string>
+  <string name="share_privilege_can_edit_create">Kreirajte</string>
+  <string name="share_privilege_can_edit_change">promijeni</string>
+  <string name="share_privilege_can_edit_delete">Izbrišite</string>
 </resources>

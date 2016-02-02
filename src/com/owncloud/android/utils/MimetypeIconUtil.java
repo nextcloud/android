@@ -69,15 +69,15 @@ public class MimetypeIconUtil {
     /**
      * Returns the resource identifier of an image to use as icon associated to a type of folder.
      *
-     * @param isSharedWithUser flag if the folder is shared with the user
-     * @param isShareByLink flag if the folder is shared by link
+     * @param isSharedViaUsers flag if the folder is shared via the users system
+     * @param isSharedViaLink flag if the folder is publicly shared via link
      * @return Identifier of an image resource.
      */
-    public static int getFolderTypeIconId(boolean isSharedWithUser, boolean isShareByLink) {
-        if (isSharedWithUser) {
-            return R.drawable.shared_with_me_folder;
-        } else if (isShareByLink) {
+    public static int getFolderTypeIconId(boolean isSharedViaUsers, boolean isSharedViaLink) {
+        if (isSharedViaLink) {
             return R.drawable.folder_public;
+        } else if (isSharedViaUsers) {
+            return R.drawable.shared_with_me_folder;
         }
 
         return R.drawable.ic_menu_archive;

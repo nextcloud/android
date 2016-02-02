@@ -72,15 +72,11 @@
   <string name="filedetails_created">Creat:</string>
   <string name="filedetails_modified">Modificat:</string>
   <string name="filedetails_download">Baixa</string>
-  <string name="filedetails_sync_file">Actualitza el fitxer</string>
   <string name="filedetails_renamed_in_upload_msg">L\'arxiu s\'ha canviat de nom a %1$s durant la càrrega</string>
-  <string name="action_share_file">Enllaç de compartició</string>
-  <string name="action_unshare_file">Deixa de compartir l\'enllaç</string>
+  <string name="action_share">Comparteix</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">D\'acord</string>
-  <string name="common_cancel_download">Cancelar la descàrrega</string>
-  <string name="common_cancel_upload">Cancel·la la pujada</string>
   <string name="common_cancel">Cancel·la</string>
   <string name="common_save_exit">Desa &amp; Surt</string>
   <string name="common_error">Error</string>
@@ -264,4 +260,14 @@
   <string name="folder_picker_choose_button_text">Escull</string>
   <string name="prefs_category_security">Seguretat</string>
   <string name="auth_host_address">Adreça del servidor</string>
+  <string name="share_dialog_title">Compartir</string>
+  <string name="share_via_link_section_title">Comparteix l\'enllaç</string>
+  <string name="share_via_link_expiration_date_label">Estableix la data de venciment</string>
+  <string name="share_via_link_password_label">Protegir amb contrasenya</string>
+  <string name="share_search">Cerca</string>
+  <string name="share_privilege_can_share">pot compartir</string>
+  <string name="share_privilege_can_edit">pot editar</string>
+  <string name="share_privilege_can_edit_create">crea</string>
+  <string name="share_privilege_can_edit_change">cambi</string>
+  <string name="share_privilege_can_edit_delete">elimina</string>
 </resources>

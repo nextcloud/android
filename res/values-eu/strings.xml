@@ -70,15 +70,11 @@
   <string name="filedetails_created">Sortuta:</string>
   <string name="filedetails_modified">Aldatuta:</string>
   <string name="filedetails_download">Deskargatu</string>
-  <string name="filedetails_sync_file">Freskatu fitxaegia</string>
   <string name="filedetails_renamed_in_upload_msg">Fitxategiaren izena %1$sra aldatu da igotzean</string>
-  <string name="action_share_file">Elkarbanatu lotura</string>
-  <string name="action_unshare_file">Lotura partekatzeari utzi</string>
+  <string name="action_share">Partekatu</string>
   <string name="common_yes">Bai</string>
   <string name="common_no">Ez</string>
   <string name="common_ok">Ados</string>
-  <string name="common_cancel_download">Utzi deskarga bertan behera </string>
-  <string name="common_cancel_upload">Ezeztatu igoera</string>
   <string name="common_cancel">Ezeztatu</string>
   <string name="common_save_exit">Gorde eta Irten</string>
   <string name="common_error">Errorea</string>
@@ -278,6 +274,15 @@ Mesedez, baimendu berriz</string>
   <string name="prefs_category_instant_uploading">Berehalako Igoerak</string>
   <string name="prefs_category_security">Segurtasuna</string>
   <string name="prefs_instant_video_upload_path_title">Bideo Igoera Bidea</string>
-  <string name="download_folder_failed_content">%1$s karpetaren deskarga ezin izan da burutu</string>
   <string name="auth_host_address">Zerbitzariaren helbidea</string>
+  <string name="share_dialog_title">Partekatzea</string>
+  <string name="share_via_link_section_title">Elkarbanatu lotura</string>
+  <string name="share_via_link_expiration_date_label">Ezarri muga data</string>
+  <string name="share_via_link_password_label">Babestu pasahitzarekin</string>
+  <string name="share_search">Bilatu</string>
+  <string name="share_privilege_can_share">elkarbana dezake</string>
+  <string name="share_privilege_can_edit">editatu dezake</string>
+  <string name="share_privilege_can_edit_create">sortu</string>
+  <string name="share_privilege_can_edit_change">aldatu</string>
+  <string name="share_privilege_can_edit_delete">ezabatu</string>
 </resources>

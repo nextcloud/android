@@ -22,15 +22,16 @@
 	android:layout_width="fill_parent"
 	android:background="#fefefe"
 	android:orientation="horizontal"
-	android:layout_height="56dp"  >
+	android:layout_height="72dp"
+    android:padding="@dimen/standard_padding">
   
     <ImageView 
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/file_icon_size"
+        android:layout_height="@dimen/file_icon_size"
         android:layout_gravity="center_vertical|center"
-        android:layout_margin="4dp"
         android:src="@drawable/ic_menu_archive" 
-        android:id="@+id/thumbnail" />
+        android:id="@+id/thumbnail"
+        android:layout_marginRight="@dimen/standard_padding"/>
     
     <TextView 
         android:text="TextView" 

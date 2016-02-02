@@ -77,15 +77,11 @@
   <string name="filedetails_created">انشئ في :</string>
   <string name="filedetails_modified">عُدل في :</string>
   <string name="filedetails_download">تحميل</string>
-  <string name="filedetails_sync_file">تحديث الملف</string>
   <string name="filedetails_renamed_in_upload_msg">تم تغيير اسم الملف إلى  %1$s أثناء الرفع</string>
-  <string name="action_share_file">شارك الرابط</string>
-  <string name="action_unshare_file">الغاء مشاركة الرابط</string>
+  <string name="action_share">شارك</string>
   <string name="common_yes">نعم</string>
   <string name="common_no">لا</string>
   <string name="common_ok">تم</string>
-  <string name="common_cancel_download">إلغاء التحميل</string>
-  <string name="common_cancel_upload">إلغاء الرفع</string>
   <string name="common_cancel">إلغاء</string>
   <string name="common_save_exit">حفظ + خروج</string>
   <string name="common_error">خطأ</string>
@@ -258,4 +254,14 @@
   <string name="folder_picker_choose_button_text">اختيار</string>
   <string name="prefs_category_security">الأمان</string>
   <string name="auth_host_address">عنوان الخادم</string>
+  <string name="share_dialog_title">مشاركة</string>
+  <string name="share_via_link_section_title">شارك الرابط</string>
+  <string name="share_via_link_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
+  <string name="share_via_link_password_label">حماية كلمة السر</string>
+  <string name="share_search">البحث</string>
+  <string name="share_privilege_can_share">يمكن المشاركة</string>
+  <string name="share_privilege_can_edit">يمكن التحرير</string>
+  <string name="share_privilege_can_edit_create">إنشاء</string>
+  <string name="share_privilege_can_edit_change">تغيير</string>
+  <string name="share_privilege_can_edit_delete">حذف</string>
 </resources>

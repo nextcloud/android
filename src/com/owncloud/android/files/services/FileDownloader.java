@@ -21,14 +21,12 @@
 package com.owncloud.android.files.services;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -54,7 +52,6 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AccountsException;
 import android.accounts.OnAccountsUpdateListener;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -153,7 +150,7 @@ public class FileDownloader extends Service
 
     /**
      * Entry point to add one or several files to the queue of downloads.
-     * <p/>
+     *
      * New downloads are added calling to startService(), resulting in a call to this method.
      * This ensures the service will keep on working although the caller activity goes away.
      */
@@ -169,12 +166,6 @@ public class FileDownloader extends Service
         } else {
             final Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
             final OCFile file = intent.getParcelableExtra(EXTRA_FILE);
-
-            /*Log_OC.v(
-                    "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                    "Received request to download file"
-            );*/
-
             AbstractList<String> requestedDownloads = new Vector<String>();
             try {
                 DownloadFileOperation newDownload = new DownloadFileOperation(account, file);
@@ -183,24 +174,11 @@ public class FileDownloader extends Service
                 Pair<String, String> putResult = mPendingDownloads.putIfAbsent(
                         account, file.getRemotePath(), newDownload
                 );
-                String downloadKey = putResult.first;
-                requestedDownloads.add(downloadKey);
-                    /*Log_OC.v(
-                        "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Download on " + file.getRemotePath() + " added to queue"
-                    );*/
-
-                // Store file on db with state 'downloading'
-                    /*
-                    TODO - check if helps with UI responsiveness,
-                    letting only folders use FileDownloaderBinder to check
-                    FileDataStorageManager storageManager =
-                    new FileDataStorageManager(account, getContentResolver());
-                    file.setDownloading(true);
-                    storageManager.saveFile(file);
-                    */
-
-                sendBroadcastNewDownload(newDownload, putResult.second);
+                if (putResult != null) {
+                    String downloadKey = putResult.first;
+                    requestedDownloads.add(downloadKey);
+                    sendBroadcastNewDownload(newDownload, putResult.second);
+                }   // else, file already in the queue of downloads; don't repeat the request
 
             } catch (IllegalArgumentException e) {
                 Log_OC.e(TAG, "Not enough information provided in intent: " + e.getMessage());
@@ -275,34 +253,23 @@ public class FileDownloader extends Service
          * @param file    A file in the queue of pending downloads
          */
         public void cancel(Account account, OCFile file) {
-            /*Log_OC.v(
-                    "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                    "Received request to cancel download of " + file.getRemotePath()
-            );
-            Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                    "Removing download of " + file.getRemotePath());*/
-            Pair<DownloadFileOperation, String> removeResult =
-                    mPendingDownloads.remove(account, file.getRemotePath());
+            Pair<DownloadFileOperation, String> removeResult = mPendingDownloads.remove(account, file.getRemotePath());
             DownloadFileOperation download = removeResult.first;
             if (download != null) {
-                /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Canceling returned download of " + file.getRemotePath());*/
                 download.cancel();
             } else {
                 if (mCurrentDownload != null && mCurrentAccount != null &&
                         mCurrentDownload.getRemotePath().startsWith(file.getRemotePath()) &&
                         account.name.equals(mCurrentAccount.name)) {
-                    /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                     "Canceling current sync as descendant: " + mCurrentDownload.getRemotePath());*/
                     mCurrentDownload.cancel();
                 }
             }
         }
 
         /**
-         * Cancels a pending or current upload for an account
+         * Cancels all the downloads for an account
          *
-         * @param account Owncloud accountName where the remote file will be stored.
+         * @param account   ownCloud account.
          */
         public void cancel(Account account) {
             Log_OC.d(TAG, "Account= " + account.name);
@@ -325,7 +292,7 @@ public class FileDownloader extends Service
         /**
          * Returns True when the file described by 'file' in the ownCloud account 'account'
          * is downloading or waiting to download.
-         * <p/>
+         *
          * If 'file' is a directory, returns 'true' if any of its descendant files is downloading or
          * waiting to download.
          *
@@ -349,7 +316,6 @@ public class FileDownloader extends Service
                 OnDatatransferProgressListener listener, Account account, OCFile file
         ) {
             if (account == null || file == null || listener == null) return;
-            //String targetKey = buildKey(account, file.getRemotePath());
             mBoundListeners.put(file.getFileId(), listener);
         }
 
@@ -357,15 +323,14 @@ public class FileDownloader extends Service
         /**
          * Removes a listener interested in the progress of the download for a concrete file.
          *
-         * @param listener Object to notify about progress of transfer.
-         * @param account  ownCloud account holding the file of interest.
-         * @param file     {@link OCFile} of interest for listener.
+         * @param listener      Object to notify about progress of transfer.
+         * @param account       ownCloud account holding the file of interest.
+         * @param file          {@link OCFile} of interest for listener.
          */
         public void removeDatatransferProgressListener(
                 OnDatatransferProgressListener listener, Account account, OCFile file
         ) {
             if (account == null || file == null || listener == null) return;
-            //String targetKey = buildKey(account, file.getRemotePath());
             Long fileId = file.getFileId();
             if (mBoundListeners.get(fileId) == listener) {
                 mBoundListeners.remove(fileId);
@@ -375,8 +340,6 @@ public class FileDownloader extends Service
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar,
                                        long totalToTransfer, String fileName) {
-            //String key = buildKey(mCurrentDownload.getAccount(),
-            // mCurrentDownload.getFile().getRemotePath());
             OnDatatransferProgressListener boundListener =
                     mBoundListeners.get(mCurrentDownload.getFile().getFileId());
             if (boundListener != null) {
@@ -385,23 +348,12 @@ public class FileDownloader extends Service
             }
         }
 
-        /**
-         * Review downloads and cancel it if its account doesn't exist
-         */
-        public void checkAccountOfCurrentDownload() {
-            if (mCurrentDownload != null &&
-                    !AccountUtils.exists(mCurrentDownload.getAccount(), getApplicationContext())) {
-                mCurrentDownload.cancel();
-            }
-            // The rest of downloads are cancelled when they try to start
-        }
-
     }
 
 
     /**
      * Download worker. Performs the pending downloads in the order they were requested.
-     * <p/>
+
      * Created with the Looper of a new thread, started in {@link FileUploader#onCreate()}.
      */
     private static class ServiceHandler extends Handler {
@@ -440,14 +392,13 @@ public class FileDownloader extends Service
      */
     private void downloadFile(String downloadKey) {
 
-        /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                "Getting download of " + downloadKey);*/
         mCurrentDownload = mPendingDownloads.get(downloadKey);
 
         if (mCurrentDownload != null) {
             // Detect if the account exists
             if (AccountUtils.exists(mCurrentDownload.getAccount(), getApplicationContext())) {
                 Log_OC.d(TAG, "Account " + mCurrentDownload.getAccount().name + " exists");
+
                 notifyDownloadStart(mCurrentDownload);
 
                 RemoteOperationResult downloadResult = null;
@@ -470,26 +421,16 @@ public class FileDownloader extends Service
 
 
                     /// perform the download
-                    /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Executing download of " + mCurrentDownload.getRemotePath());*/
                     downloadResult = mCurrentDownload.execute(mDownloadClient);
                     if (downloadResult.isSuccess()) {
                         saveDownloadedFile();
                     }
 
-                } catch (AccountsException e) {
-                    Log_OC.e(TAG, "Error while trying to get authorization for "
-                            + mCurrentAccount.name, e);
-                    downloadResult = new RemoteOperationResult(e);
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "Error while trying to get authorization for "
-                            + mCurrentAccount.name, e);
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Error downloading", e);
                     downloadResult = new RemoteOperationResult(e);
 
                 } finally {
-                /*Log_OC.v(   "NOW " + TAG + ", thread " + Thread.currentThread().getName(),
-                        "Removing payload " + mCurrentDownload.getRemotePath());*/
-
                     Pair<DownloadFileOperation, String> removeResult =
                             mPendingDownloads.removePayload(mCurrentAccount,
                                     mCurrentDownload.getRemotePath());
@@ -497,9 +438,9 @@ public class FileDownloader extends Service
                     /// notify result
                     notifyDownloadResult(mCurrentDownload, downloadResult);
 
-                    sendBroadcastDownloadFinished(mCurrentDownload, downloadResult,
-                            removeResult.second);
+                    sendBroadcastDownloadFinished(mCurrentDownload, downloadResult, removeResult.second);
                 }
+
             } else {
                 // Cancel the transfer
                 Log_OC.d(TAG, "Account " + mCurrentDownload.getAccount().toString() +
@@ -513,6 +454,8 @@ public class FileDownloader extends Service
 
     /**
      * Updates the OC File after a successful download.
+     *
+     * TODO move to DownloadFileOperation
      */
     private void saveDownloadedFile() {
         OCFile file = mStorageManager.getFileById(mCurrentDownload.getFile().getFileId());
@@ -522,24 +465,15 @@ public class FileDownloader extends Service
         file.setNeedsUpdateThumbnail(true);
         file.setModificationTimestamp(mCurrentDownload.getModificationTimestamp());
         file.setModificationTimestampAtLastSyncForData(mCurrentDownload.getModificationTimestamp());
-        // file.setEtag(mCurrentDownload.getEtag());    // TODO Etag, where available
+        file.setEtag(mCurrentDownload.getEtag());
         file.setMimetype(mCurrentDownload.getMimeType());
         file.setStoragePath(mCurrentDownload.getSavePath());
         file.setFileLength((new File(mCurrentDownload.getSavePath()).length()));
         file.setRemoteId(mCurrentDownload.getFile().getRemoteId());
         mStorageManager.saveFile(file);
         mStorageManager.triggerMediaScan(file.getStoragePath());
+        mStorageManager.saveConflict(file, null);
     }
-
-    /**
-     * Update the OC File after a unsuccessful download
-     */
-    private void updateUnsuccessfulDownloadedFile() {
-        OCFile file = mStorageManager.getFileById(mCurrentDownload.getFile().getFileId());
-        file.setDownloading(false);
-        mStorageManager.saveFile(file);
-    }
-
 
     /**
      * Creates a status notification to show the download progress
@@ -683,6 +617,7 @@ public class FileDownloader extends Service
             DownloadFileOperation download,
             RemoteOperationResult downloadResult,
             String unlinkedFromRemotePath) {
+
         Intent end = new Intent(getDownloadFinishMessage());
         end.putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess());
         end.putExtra(ACCOUNT_NAME, download.getAccount().name);

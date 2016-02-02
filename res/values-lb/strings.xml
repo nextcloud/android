@@ -62,13 +62,10 @@
   <string name="filedetails_created">Erstallt:</string>
   <string name="filedetails_modified">Geännert:</string>
   <string name="filedetails_download">Eroflueden</string>
-  <string name="filedetails_sync_file">Fichier opfrëschen</string>
-  <string name="action_share_file">Link deelen</string>
+  <string name="action_share">Deelen</string>
   <string name="common_yes">Jo</string>
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">Eroflueden ofbriechen</string>
-  <string name="common_cancel_upload">Eroplueden ofbriechen</string>
   <string name="common_cancel">Ofbriechen</string>
   <string name="common_save_exit">Späicheren an Zoumaachen</string>
   <string name="common_error">Feeler</string>
@@ -230,7 +227,15 @@
   <string name="prefs_category_instant_uploading">Direkt eropgeluede Fichieren</string>
   <string name="prefs_category_security">Sécherheet</string>
   <string name="prefs_instant_video_upload_path_title">Pad fir d\'Eropluede vun de Videoen</string>
-  <string name="download_folder_failed_content">D\'Erofluede vum %1$s-Dossier konnt net ofgeschloss ginn</string>
+  <string name="subject_user_shared_with_you">%1$s huet \"%2$s\" mat dir gedeelt</string>
   <string name="auth_refresh_button">Connectioun opfrëschen</string>
   <string name="auth_host_address">Server-Adress</string>
+  <string name="share_via_link_section_title">Link deelen</string>
+  <string name="share_via_link_expiration_date_label">Verfallsdatum setzen</string>
+  <string name="share_via_link_password_label">Passwuertgeschützt</string>
+  <string name="share_search">Sichen</string>
+  <string name="share_privilege_can_share">kann deelen</string>
+  <string name="share_privilege_can_edit">kann änneren</string>
+  <string name="share_privilege_can_edit_create">erstellen</string>
+  <string name="share_privilege_can_edit_delete">läschen</string>
 </resources>

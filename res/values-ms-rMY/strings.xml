@@ -38,10 +38,10 @@
   <string name="filedetails_created">Telah dibina:</string>
   <string name="filedetails_modified">Telah diubah:</string>
   <string name="filedetails_download">Muatturun</string>
+  <string name="action_share">Kongsi</string>
   <string name="common_yes">Ya</string>
   <string name="common_no">Tidak</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_upload">Batal muat naik</string>
   <string name="common_cancel">Batal</string>
   <string name="common_save_exit">Simpan &amp; Keluar</string>
   <string name="common_error">Ralat</string>
@@ -61,4 +61,7 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Akaun</string>
   <string name="auth_host_address">Alamat pelayan</string>
+  <string name="share_search">Cari</string>
+  <string name="share_privilege_can_share">boleh berkongsi</string>
+  <string name="share_privilege_can_edit">boleh mengubah</string>
 </resources>

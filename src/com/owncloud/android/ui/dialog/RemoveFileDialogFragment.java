@@ -25,7 +25,6 @@ package com.owncloud.android.ui.dialog;
  * 
  *  Triggers the removal according to the user response.
  */
-import java.util.Vector;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -106,34 +105,6 @@ implements ConfirmationDialogFragmentListener {
     public void onCancel(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter)getActivity();
         cg.getFileOperationsHelper().removeFile(mTargetFile, true);
-        
-        FileDataStorageManager storageManager = cg.getStorageManager();
-        
-        boolean containsFavorite = false;
-        if (mTargetFile.isFolder()) {
-            // TODO Enable when "On Device" is recovered ?
-            Vector<OCFile> files = storageManager.getFolderContent(mTargetFile/*, false*/);
-            for(OCFile file: files) {
-                containsFavorite = file.isFavorite() || containsFavorite;
-
-                if (containsFavorite)
-                    break;
-            }
-        }
-
-        // Remove etag for parent, if file is a favorite
-        // or is a folder and contains favorite
-        if (mTargetFile.isFavorite() || containsFavorite) {
-            OCFile folder = null;
-            if (mTargetFile.isFolder()) {
-                folder = mTargetFile;
-            } else {
-                folder = storageManager.getFileById(mTargetFile.getParentId());
-            }
-            
-           folder.setEtag("");
-           storageManager.saveFile(folder);
-        }
     }
 
     @Override

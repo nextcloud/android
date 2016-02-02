@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_version">տարբերակ %1$s</string>
   <string name="actionbar_upload_files">Ֆայլեր</string>
   <string name="actionbar_mkdir">Նոր պանակ</string>
   <string name="actionbar_send_file">Ուղարկել</string>
@@ -7,17 +8,40 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Բոլոր ֆայլերը</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_close">Փակել</string>
   <string name="drawer_open">Բացել</string>
+  <string name="auth_username">Օգտանուն</string>
   <string name="auth_password">Գաղտնաբառ</string>
   <string name="sync_string_files">Ֆայլեր</string>
   <string name="uploader_btn_new_folder_text">Նոր պանակ</string>
+  <string name="file_list_seconds_ago">վրկ. առաջ</string>
+  <string name="filedetails_size">Չափս.</string>
   <string name="filedetails_download">Բեռնել</string>
-  <string name="action_share_file">Կիսվել հղմամբ</string>
+  <string name="action_share">Կիսվել</string>
+  <string name="common_yes">Այո</string>
+  <string name="common_no">Ոչ</string>
   <string name="common_cancel">Չեղարկել</string>
+  <string name="common_error">Սխալ</string>
+  <string name="uploader_info_dirname">Պանակի անուն</string>
   <string name="common_rename">Վերանվանել</string>
   <string name="ssl_validator_label_C">Երկիր.</string>
+  <string name="ssl_validator_label_validity_from">Ումից.</string>
+  <string name="ssl_validator_label_validity_to">Ում.</string>
+  <string name="placeholder_filesize">389 ԿԲ</string>
   <string name="activity_chooser_send_file_title">Ուղարկել</string>
   <string name="empty"></string>
+  <string name="username">Օգտանուն</string>
+  <string name="file_list__footer__folder">1 պանակ</string>
+  <string name="file_list__footer__folders">%1$d պանակ</string>
+  <string name="file_list__footer__file">1 ֆայլ</string>
+  <string name="file_list__footer__file_and_folder">1 ֆայլ, 1 պանակ</string>
+  <string name="file_list__footer__file_and_folders">1 ֆայլ, %1$d պանակ</string>
+  <string name="file_list__footer__files">%1$d ֆայլ</string>
+  <string name="file_list__footer__files_and_folder">%1$d ֆայլ, 1 պանակ</string>
+  <string name="file_list__footer__files_and_folders">%1$d ֆայլ, %2$d պանակ</string>
+  <string name="share_via_link_section_title">Կիսվել հղմամբ</string>
+  <string name="share_privilege_can_edit_delete">ջնջել</string>
 </resources>

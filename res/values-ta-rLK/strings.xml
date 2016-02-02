@@ -39,11 +39,10 @@
   <string name="filedetails_modified">மாற்றப்பட்டது:</string>
   <string name="filedetails_download">பதிவிறக்குக</string>
   <string name="filedetails_renamed_in_upload_msg">பதிவேற்றும்போது கோப்பின் பெயரானது %1$s ஆக பெயர்மாற்றப்பட்டது</string>
+  <string name="action_share">பகிர்வு</string>
   <string name="common_yes">ஆம்</string>
   <string name="common_no">இல்லை</string>
   <string name="common_ok">சரி </string>
-  <string name="common_cancel_download">பதிவிறக்கலை இரத்துசெய்க</string>
-  <string name="common_cancel_upload">பதிவேற்றலை இரத்து செய்க</string>
   <string name="common_cancel">இரத்து செய்க</string>
   <string name="common_save_exit">சேமிக்க மற்றும் amp; வெளியேறு</string>
   <string name="common_error">வழு</string>
@@ -128,4 +127,10 @@
   <string name="prefs_category_accounts">கணக்குகள்</string>
   <string name="folder_picker_choose_button_text">தெரிவுசெய்க </string>
   <string name="auth_host_address">சேவையக முகவரி</string>
+  <string name="share_via_link_expiration_date_label">காலாவதி தேதியை குறிப்பிடுக</string>
+  <string name="share_via_link_password_label">கடவுச்சொல்லை பாதுகாத்தல்</string>
+  <string name="share_search">தேடுதல்</string>
+  <string name="share_privilege_can_edit">தொகுக்க முடியும்</string>
+  <string name="share_privilege_can_edit_create">உருவவாக்கல்</string>
+  <string name="share_privilege_can_edit_delete">நீக்குக</string>
 </resources>

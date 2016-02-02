@@ -57,15 +57,11 @@
   <string name="filedetails_created">Đã tạo:</string>
   <string name="filedetails_modified">Đã chỉnh sửa:</string>
   <string name="filedetails_download">Tải về</string>
-  <string name="filedetails_sync_file">Cập nhật lại tập tin</string>
   <string name="filedetails_renamed_in_upload_msg">Tập tin đã bị đổi tên thành %1$s trong quá trình tải lên</string>
-  <string name="action_share_file">Chia sẻ liên kết</string>
-  <string name="action_unshare_file">Liên kết không chia sẻ</string>
+  <string name="action_share">Chia sẻ</string>
   <string name="common_yes">Yes</string>
   <string name="common_no">Không</string>
   <string name="common_ok">Chấp nhận</string>
-  <string name="common_cancel_download">Hủy tải về</string>
-  <string name="common_cancel_upload">Hủy upload</string>
   <string name="common_cancel">Hủy</string>
   <string name="common_save_exit">Lưu &amp; Thoát</string>
   <string name="common_error">Lỗi</string>
@@ -209,4 +205,13 @@
   <string name="prefs_category_accounts">Tài khoản</string>
   <string name="folder_picker_choose_button_text">Chọn</string>
   <string name="auth_host_address">Địa chỉ máy chủ</string>
+  <string name="share_dialog_title">Chia sẻ</string>
+  <string name="share_via_link_section_title">Chia sẻ liên kết</string>
+  <string name="share_via_link_expiration_date_label">Đặt ngày kết thúc</string>
+  <string name="share_via_link_password_label">Mật khẩu bảo vệ</string>
+  <string name="share_search">Tìm kiếm</string>
+  <string name="share_privilege_can_share">có thể chia sẽ</string>
+  <string name="share_privilege_can_edit">có thể chỉnh sửa</string>
+  <string name="share_privilege_can_edit_create">tạo</string>
+  <string name="share_privilege_can_edit_delete">xóa</string>
 </resources>
