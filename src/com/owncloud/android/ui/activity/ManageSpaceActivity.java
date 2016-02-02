@@ -1,6 +1,7 @@
 package com.owncloud.android.ui.activity;
 
-import android.content.Intent;
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -77,8 +78,9 @@ public class ManageSpaceActivity extends AppCompatActivity {
         appPrefsEditor.putBoolean("set_pincode", passCodeEnable);
         appPrefsEditor.commit();
 
-        String message = getString(R.string.manage_string_message, getString(R.string.app_name));
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+        finish();
+        System.exit(0);
 
     }
 
@@ -89,9 +91,9 @@ public class ManageSpaceActivity extends AppCompatActivity {
             String[] children = appDir.list();
             for (String s : children) {
                 if (!s.equals("lib")) {
-                    deleteDir(new File(appDir, s));
-                    Log_OC.i(TAG, "*******File /data/data/" + getString(R.string.app_name)+
-                            "/" + s + " DELETED *******");
+                    File fileToDelete = new File(appDir, s);
+                    deleteDir(fileToDelete);
+                    Log_OC.d(TAG, "Clear Application Data, File: " + fileToDelete.getName()+ " DELETED *******");
                 }
             }
         }
