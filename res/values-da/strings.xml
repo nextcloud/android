@@ -331,4 +331,9 @@
   <string name="share_via_link_expiration_date_label">Vælg udløbsdato</string>
   <string name="share_via_link_password_label">Beskyt med adgangskode</string>
   <string name="share_search">Søg</string>
+  <string name="share_privilege_can_share">kan dele</string>
+  <string name="share_privilege_can_edit">kan redigere</string>
+  <string name="share_privilege_can_edit_create">opret</string>
+  <string name="share_privilege_can_edit_change">tilpas</string>
+  <string name="share_privilege_can_edit_delete">slet</string>
 </resources>

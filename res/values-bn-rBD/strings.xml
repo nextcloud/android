@@ -258,4 +258,8 @@
   <string name="share_via_link_expiration_date_label">মেয়াদোত্তীর্ণ হওয়ার তারিখ নির্ধারণ করুন</string>
   <string name="share_via_link_password_label">কূটশব্দ সুরক্ষিত</string>
   <string name="share_search">অনুসন্ধান</string>
+  <string name="share_privilege_can_share">ভাগাভাগি করেত পারেন</string>
+  <string name="share_privilege_can_edit">সম্পাদনা করতে পারবেন</string>
+  <string name="share_privilege_can_edit_create">তৈরী করুন</string>
+  <string name="share_privilege_can_edit_delete">মুছে ফেল</string>
 </resources>

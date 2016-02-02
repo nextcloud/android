@@ -243,6 +243,9 @@
   <string name="ssl_validator_label_validity_to">Til:</string>
   <string name="ssl_validator_label_signature">Signatur:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritme:</string>
+  <string name="digest_algorithm_not_available">Digest-algoritmen er ikke tilgjengelig på din telefon.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Fingeravtrykk:</string>
+  <string name="certificate_load_problem">Det er et problem med lasting av sertifikatet.</string>
   <string name="ssl_validator_null_cert">Sertifikatet kunne ikke vises.</string>
   <string name="ssl_validator_no_info_about_error">- Ingen informasjon om feilen</string>
   <string name="placeholder_sentence">Dette er en plassholder</string>
@@ -269,6 +272,7 @@
   <string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen</string>
   <string name="unshare_link_file_no_exist">Kan ikke fjerne deling. Sjekk om filen eksisterer.</string>
   <string name="unshare_link_file_error">En feil oppstod ved avslutting av delingen av denne filen eller mappen</string>
+  <string name="update_link_file_no_exist">Kan ikke oppdatere. Sjekk om filen eksisterer</string>
   <string name="share_link_password_title">Skriv inn ett passord</string>
   <string name="share_link_empty_password">Du må skrive inn ett passord</string>
   <string name="activity_chooser_send_file_title">Send</string>
@@ -314,6 +318,7 @@
   <string name="prefs_category_instant_uploading">Umiddelbare opplastinger</string>
   <string name="prefs_category_security">Sikkerhet</string>
   <string name="prefs_instant_video_upload_path_title">Sti til video-opplasting</string>
+  <string name="sync_folder_failed_content">Synkronisering av %1$s mappe kunne ikke fullføres</string>
   <string name="shared_subject_header">delte</string>
   <string name="with_you_subject_header">med deg</string>
   <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med deg</string>
@@ -330,11 +335,31 @@
   <string name="file_list__footer__files">%1$d filer</string>
   <string name="file_list__footer__files_and_folder">%1$d filer, 1 mappe</string>
   <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
+  <string name="prefs_instant_behaviour_dialogTitle">Opprinnelig fil vil bli...</string>
+  <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli...</string>
+  <string name="upload_copy_files">Kopier fil</string>
+  <string name="upload_move_files">Flytt fil</string>
+  <string name="pref_behaviour_entries_keep_file">beholdt i opprinnelig mappe</string>
+  <string name="pref_behaviour_entries_move">flyttet til app-mappe</string>
   <string name="share_dialog_title">Deling</string>
+  <string name="share_with_user_section_title">Del med brukere og grupper</string>
   <string name="share_no_users">Ingen data delt med brukere ennå</string>
   <string name="share_add_user_or_group">Legg til bruker eller gruppe</string>
   <string name="share_via_link_section_title">Del lenke</string>
   <string name="share_via_link_expiration_date_label">Sett utløpsdato</string>
   <string name="share_via_link_password_label">Passordbeskyttet</string>
+  <string name="share_via_link_password_title">Sikret</string>
+  <string name="share_get_public_link_button">Hent lenke</string>
   <string name="share_search">Søk</string>
+  <string name="search_users_and_groups_hint">Søk etter brukere og grupper</string>
+  <string name="share_group_clarification">%1$s (gruppe)</string>
+  <string name="share_sharee_unavailable">Beklager, server-versjonen din tillater ikke klienter å dele med brukere.
+        \nKontakt systemadministratoren</string>
+  <string name="share_privilege_can_share">kan dele</string>
+  <string name="share_privilege_can_edit">kan endre</string>
+  <string name="share_privilege_can_edit_create">opprette</string>
+  <string name="share_privilege_can_edit_change">endre</string>
+  <string name="share_privilege_can_edit_delete">slett</string>
+  <string name="action_switch_grid_view">Bytt til rutenett-visning</string>
+  <string name="action_switch_list_view">Bytt til listevisning</string>
 </resources>

@@ -299,4 +299,9 @@
   <string name="share_via_link_expiration_date_label">تنظیم تاریخ انقضا</string>
   <string name="share_via_link_password_label">نگهداری کردن رمز عبور</string>
   <string name="share_search">جست‌و‌جو</string>
+  <string name="share_privilege_can_share">قابل به اشتراک گذاری</string>
+  <string name="share_privilege_can_edit">می توان ویرایش کرد</string>
+  <string name="share_privilege_can_edit_create">ایجاد</string>
+  <string name="share_privilege_can_edit_change">تغییر</string>
+  <string name="share_privilege_can_edit_delete">حذف</string>
 </resources>

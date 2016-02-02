@@ -210,4 +210,8 @@
   <string name="share_via_link_expiration_date_label">Đặt ngày kết thúc</string>
   <string name="share_via_link_password_label">Mật khẩu bảo vệ</string>
   <string name="share_search">Tìm kiếm</string>
+  <string name="share_privilege_can_share">có thể chia sẽ</string>
+  <string name="share_privilege_can_edit">có thể chỉnh sửa</string>
+  <string name="share_privilege_can_edit_create">tạo</string>
+  <string name="share_privilege_can_edit_delete">xóa</string>
 </resources>

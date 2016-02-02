@@ -272,7 +272,6 @@
   <string name="unshare_link_file_no_exist">공유를 해제할 수 없습니다. 파일이 있는지 확인하십시오</string>
   <string name="unshare_link_file_error">이 파일이나 폴더의 공유를 해제하는 중 오류 발생</string>
   <string name="update_link_file_no_exist">업데이트에 실패하였습니다. 이미 파일이 존재하지는 않는지 확인해주세요.</string>
-  <string name="update_link_file_error">공유된 링크를 업데이트 하는데 에러가 발생하였습니다.</string>
   <string name="share_link_password_title">암호 입력</string>
   <string name="share_link_empty_password">암호를 입력해야 합니다</string>
   <string name="activity_chooser_send_file_title">보내기</string>
@@ -289,7 +288,6 @@
   <string name="forbidden_permissions_delete">이 파일을 삭제할</string>
   <string name="share_link_forbidden_permissions">이 파일을 공유할</string>
   <string name="unshare_link_forbidden_permissions">이 파일의 공유를 해제할</string>
-  <string name="update_link_forbidden_permissions">이 공유된 링크를 업데이트</string>
   <string name="forbidden_permissions_create">파일을 생성할</string>
   <string name="uploader_upload_forbidden_permissions">이 폴더에 업로드할</string>
   <string name="downloader_download_file_not_found">이 파일을 서버에서 더 이상 사용할 수 없습니다</string>
@@ -336,6 +334,12 @@
   <string name="file_list__footer__files">파일 %1$d개</string>
   <string name="file_list__footer__files_and_folder">파일 %1$d개, 폴더 1개</string>
   <string name="file_list__footer__files_and_folders">파일 %1$d개, 폴더 %2$d개</string>
+  <string name="prefs_instant_behaviour_dialogTitle">원래 파일은...</string>
+  <string name="prefs_instant_behaviour_title">원래 파일은...</string>
+  <string name="upload_copy_files">파일 복사</string>
+  <string name="upload_move_files">파일 이동</string>
+  <string name="pref_behaviour_entries_keep_file">원래 폴더에 유지</string>
+  <string name="pref_behaviour_entries_move">앱 폴더로 이동되었습니다.</string>
   <string name="share_dialog_title">공유</string>
   <string name="share_with_user_section_title">유저와 그룹에 공유하기</string>
   <string name="share_no_users">No data shared with users yet</string>
@@ -350,4 +354,9 @@
   <string name="share_group_clarification">%1$s (그룹)</string>
   <string name="share_sharee_unavailable">죄송합니다. 이 버전에서는 사용자들이 클라이언트에서 공유하는 것을 허용하지 않습니다.
 \n서버의 관리자에게 문의하시기 바랍니다.</string>
+  <string name="share_privilege_can_share">공유 가능</string>
+  <string name="share_privilege_can_edit">편집 가능</string>
+  <string name="share_privilege_can_edit_create">생성</string>
+  <string name="share_privilege_can_edit_change">변경</string>
+  <string name="share_privilege_can_edit_delete">삭제</string>
 </resources>

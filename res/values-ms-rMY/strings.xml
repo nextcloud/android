@@ -62,4 +62,6 @@
   <string name="prefs_category_accounts">Akaun</string>
   <string name="auth_host_address">Alamat pelayan</string>
   <string name="share_search">Cari</string>
+  <string name="share_privilege_can_share">boleh berkongsi</string>
+  <string name="share_privilege_can_edit">boleh mengubah</string>
 </resources>

@@ -108,4 +108,8 @@
   <string name="share_via_link_expiration_date_label">កំណត់​ពេល​ផុត​កំណត់</string>
   <string name="share_via_link_password_label">ការ​ពារ​ដោយ​ពាក្យ​សម្ងាត់</string>
   <string name="share_search">ស្វែង​រក</string>
+  <string name="share_privilege_can_share">អាច​ចែក​រំលែក</string>
+  <string name="share_privilege_can_edit">អាច​កែប្រែ</string>
+  <string name="share_privilege_can_edit_create">បង្កើត</string>
+  <string name="share_privilege_can_edit_delete">លុប</string>
 </resources>

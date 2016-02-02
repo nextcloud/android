@@ -21,8 +21,10 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Сите датотеки</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Подесувања</string>
   <string name="drawer_open">Отвори</string>
   <string name="prefs_category_general">Општо</string>
   <string name="prefs_category_more">Повеќе</string>
@@ -184,6 +186,7 @@
  </string>
   <string name="auth_can_not_auth_against_server">Не можам да се авторизирам на овој сервер </string>
   <string name="auth_account_does_not_exist">Сметката сеуште не постои на овој уред</string>
+  <string name="favorite">Омилен</string>
   <string name="common_rename">Преименувај</string>
   <string name="common_remove">Отстрани</string>
   <string name="confirmation_remove_alert">Дали навистина сакаш да ја отстраниш %1$s?</string>
@@ -299,4 +302,9 @@
   <string name="share_via_link_expiration_date_label">Постави рок на траење</string>
   <string name="share_via_link_password_label">Заштити со лозинка</string>
   <string name="share_search">Барај</string>
+  <string name="share_privilege_can_share">може да споделува</string>
+  <string name="share_privilege_can_edit">може да се измени</string>
+  <string name="share_privilege_can_edit_create">креирај</string>
+  <string name="share_privilege_can_edit_change">промени</string>
+  <string name="share_privilege_can_edit_delete">избриши</string>
 </resources>

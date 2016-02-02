@@ -193,4 +193,8 @@
   <string name="share_via_link_expiration_date_label">Iestaties termiņa datumu</string>
   <string name="share_via_link_password_label">Aizsargāt ar paroli</string>
   <string name="share_search">Meklēt</string>
+  <string name="share_privilege_can_share">Var dalīties</string>
+  <string name="share_privilege_can_edit">var rediģēt</string>
+  <string name="share_privilege_can_edit_create">izveidot</string>
+  <string name="share_privilege_can_edit_delete">dzēst</string>
 </resources>

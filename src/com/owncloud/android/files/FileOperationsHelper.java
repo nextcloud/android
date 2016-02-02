@@ -39,6 +39,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
@@ -227,8 +228,9 @@ public class FileOperationsHelper {
      * @param file          The file to share.
      * @param shareeName    Name (user name or group name) of the target sharee.
      * @param shareType     The share type determines the sharee type.
+     * @param permissions   Permissions to grant to sharee on the shared file.
      */
-    public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType) {
+    public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType, int permissions) {
         if (file != null) {
             // TODO check capability?
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
@@ -240,6 +242,7 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             service.putExtra(OperationsService.EXTRA_SHARE_WITH, shareeName);
             service.putExtra(OperationsService.EXTRA_SHARE_TYPE, shareType);
+            service.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         } else {
@@ -382,6 +385,26 @@ public class FileOperationsHelper {
         updateShareIntent.putExtra(
                 OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS,
                 expirationTimeInMillis
+        );
+        queueShareIntent(updateShareIntent);
+    }
+
+
+    /**
+     * Updates a share on a file to set its access permissions.
+     * Starts a request to do it in {@link OperationsService}
+     *
+     * @param share                     {@link OCShare} instance which permissions will be updated.
+     * @param permissions               New permissions to set. A value <= 0 makes no update.
+     */
+    public void setPermissionsToShare(OCShare share, int permissions) {
+        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        updateShareIntent.putExtra(
+                OperationsService.EXTRA_SHARE_PERMISSIONS,
+                permissions
         );
         queueShareIntent(updateShareIntent);
     }

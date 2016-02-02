@@ -159,13 +159,13 @@
   <string name="media_play_pause_description">Butoni Luaje ose Pushoje</string>
   <string name="media_forward_description">Butoni Përpara</string>
   <string name="auth_getting_authorization">Po merret autorizim…</string>
-  <string name="auth_trying_to_login">Po përpiqet të bëhet hyrja…</string>
+  <string name="auth_trying_to_login">Po provohet hyrja…</string>
   <string name="auth_no_net_conn_title">Pa lidhje rrjeti</string>
   <string name="auth_nossl_plain_ok_title">S\’ka lidhje të sigurt.</string>
   <string name="auth_connection_established">Lidhja u vendos</string>
   <string name="auth_testing_connection">Po provohet lidhja</string>
   <string name="auth_not_configured_title">Formësim i keqformuar shërbyesi</string>
-  <string name="auth_account_not_new">Ka tashmë në pajisje një llogari për të njëjtin përdorues dhe shërbyes</string>
+  <string name="auth_account_not_new">Në pajisje ka tashmë një llogari për të njëjtin përdorues dhe shërbyes</string>
   <string name="auth_account_not_the_same">Përdoruesi i dhënë s\’përputhet me përdoruesin e kësaj llogarie</string>
   <string name="auth_unknown_error_title">Ndodhi një gabim i panjohur!</string>
   <string name="auth_unknown_host_title">S\’u gjet dot strehë</string>
@@ -205,7 +205,7 @@
   <string name="rename_dialog_title">Jepni një emër të ri</string>
   <string name="rename_local_fail_msg">Kopja vendore s\’u riemërtua dot; provoni një emër tjetër</string>
   <string name="rename_server_fail_msg">Riemërtimi s\’u plotësua dot</string>
-  <string name="sync_file_fail_msg">S\’u kap dot kartela</string>
+  <string name="sync_file_fail_msg">S\’u kap dot kartela e largët</string>
   <string name="sync_file_nothing_to_do_msg">Lëndë kartele tashmë e njëkohësuar</string>
   <string name="create_dir_fail_msg">S\’u krijua dot dosja</string>
   <string name="filename_forbidden_characters">Shenja të ndaluara: / \\ &lt; &gt; : \" | ? *</string>
@@ -269,7 +269,7 @@
   <string name="unshare_link_file_no_exist">S\’arrin të zhbëjë ndarjen me të tjerët. Ju lutemi, kontrolloni nëse kartela ekziston</string>
   <string name="unshare_link_file_error">Ndodhi një gabim teksa përpiqej të zhbëhej ndarja me të tjerët e kësaj kartele apo dosjeje</string>
   <string name="update_link_file_no_exist">S’u arrit të përditësohej gjë. Ju lutemi, kontrolloni nëse ekziston apo jo kartela.</string>
-  <string name="update_link_file_error">Ndodhi një gabim teksa provohej të përditësohej lidhja e ndarë me të tjerët</string>
+  <string name="update_link_file_error">Ndodhi një gabim teksa provohej të përditësohej ndarja</string>
   <string name="share_link_password_title">Jepni një fjalëkalim</string>
   <string name="share_link_empty_password">Duhet të jepni një fjalëkalim</string>
   <string name="activity_chooser_send_file_title">Dërgoje</string>
@@ -286,7 +286,7 @@
   <string name="forbidden_permissions_delete">për fshirje të kësaj kartele</string>
   <string name="share_link_forbidden_permissions">për ndarje me të tjerët të kësaj kartele</string>
   <string name="unshare_link_forbidden_permissions">për zhbërje të ndarjes me të tjerët të kësaj kartele</string>
-  <string name="update_link_forbidden_permissions">që të përditësohet kjo lidhje e ndarë me të tjerët</string>
+  <string name="update_link_forbidden_permissions">që të përditësohet kjo ndarje</string>
   <string name="forbidden_permissions_create">për krijim kartele</string>
   <string name="uploader_upload_forbidden_permissions">për ngarkim në këtë dosje</string>
   <string name="downloader_download_file_not_found">Kartela s\’gjendet më te shërbyesi</string>
@@ -353,4 +353,13 @@
   <string name="share_group_clarification">%1$s (grup)</string>
   <string name="share_sharee_unavailable">Na ndjeni, versioni juaj i shërbyesit nuk lejon ndarje me përdorues brenda klientësh.
         \nJu lutemi, lidhuni me përgjegjësin tuaj</string>
+  <string name="share_privilege_can_share">mund të ndajë</string>
+  <string name="share_privilege_can_edit">mund të përpunojnë</string>
+  <string name="share_privilege_can_edit_create">krijoje</string>
+  <string name="share_privilege_can_edit_change">ndrysho</string>
+  <string name="share_privilege_can_edit_delete">fshi</string>
+  <string name="edit_share_unshare">Resht së ndari</string>
+  <string name="edit_share_done">u bë</string>
+  <string name="action_switch_grid_view">Kalo te pamja mozaik</string>
+  <string name="action_switch_list_view">Kalo te pamja listë</string>
 </resources>

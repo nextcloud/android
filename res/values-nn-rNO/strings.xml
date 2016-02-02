@@ -131,4 +131,8 @@
   <string name="share_via_link_expiration_date_label">Set utløpsdato</string>
   <string name="share_via_link_password_label">Passordvern</string>
   <string name="share_search">Søk</string>
+  <string name="share_privilege_can_share">kan dela</string>
+  <string name="share_privilege_can_edit">kan endra</string>
+  <string name="share_privilege_can_edit_create">lag</string>
+  <string name="share_privilege_can_edit_delete">slett</string>
 </resources>

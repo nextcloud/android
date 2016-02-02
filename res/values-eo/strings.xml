@@ -190,4 +190,8 @@
   <string name="share_via_link_expiration_date_label">Agordi limdaton</string>
   <string name="share_via_link_password_label">Protekti per pasvorto</string>
   <string name="share_search">Serĉi</string>
+  <string name="share_privilege_can_share">kunhavebla</string>
+  <string name="share_privilege_can_edit">povas redakti</string>
+  <string name="share_privilege_can_edit_create">krei</string>
+  <string name="share_privilege_can_edit_delete">forigi</string>
 </resources>

@@ -134,4 +134,7 @@
   <string name="share_via_link_expiration_date_label">Gosod dyddiad dod i ben</string>
   <string name="share_via_link_password_label">Diogelu cyfrinair</string>
   <string name="share_search">Chwilio</string>
+  <string name="share_privilege_can_edit">yn gallu golygu</string>
+  <string name="share_privilege_can_edit_create">creu</string>
+  <string name="share_privilege_can_edit_delete">dileu</string>
 </resources>
