@@ -406,7 +406,6 @@
     <string name="action_switch_list_view">List view</string>
 
     <string name="manage_space_title">Manage space</string>
-    <string name="manage_space_description"> All %1$s\'s data will be deleted permanentlty. \nThis includes all files, settings, accounts, databases, etc. \n\nThis process can take some minutes.</string>
+    <string name="manage_space_description">Settings, Database and Server Certificates from  %1$s\'s data will be deleted permanentlty. \n\nDownloaded files will keep untouched.\n\nThis process can take some time.</string>
     <string name="manage_space_clear_data">Clear data</string>
-    <string name="manage_string_message">%1$s\'s data deleted</string>
 </resources>
