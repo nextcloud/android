@@ -277,6 +277,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier est bien présent</string>
   <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
   <string name="update_link_file_no_exist">Actualisation impossible. Veuillez vérifier que ce fichier existe</string>
+  <string name="update_link_file_error">Une erreur est survenue lors de la mise à jour du partage</string>
   <string name="share_link_password_title">Saisissez un mot de passe</string>
   <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
   <string name="activity_chooser_send_file_title">Envoyer</string>
@@ -291,10 +292,11 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="forbidden_permissions">Vous n\'avez pas la permission %s</string>
   <string name="forbidden_permissions_rename">de renommer ce fichier</string>
   <string name="forbidden_permissions_delete">d’effacer ce fichier</string>
-  <string name="share_link_forbidden_permissions">afin de partager ce fichier</string>
-  <string name="unshare_link_forbidden_permissions">afin de ne plus partager ce fichier</string>
+  <string name="share_link_forbidden_permissions">de partager ce fichier</string>
+  <string name="unshare_link_forbidden_permissions">de terminer le partage de ce fichier</string>
+  <string name="update_link_forbidden_permissions">de modifier ce partage</string>
   <string name="forbidden_permissions_create">de créer ce fichier</string>
-  <string name="uploader_upload_forbidden_permissions">afin d’importer dans ce répertoire</string>
+  <string name="uploader_upload_forbidden_permissions">de téléverser dans ce dossier</string>
   <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
   <string name="prefs_category_accounts">Comptes</string>
   <string name="prefs_add_account">Ajouter un compte</string>
@@ -364,6 +366,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="share_privilege_can_edit_create">création</string>
   <string name="share_privilege_can_edit_change">modification</string>
   <string name="share_privilege_can_edit_delete">suppression</string>
+  <string name="edit_share_unshare">Terminer le partage</string>
+  <string name="edit_share_done">Terminé</string>
   <string name="action_switch_grid_view">Basculer en vue par grille</string>
   <string name="action_switch_list_view">Basculer en vue par liste</string>
 </resources>
