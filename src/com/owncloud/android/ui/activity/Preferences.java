@@ -616,9 +616,9 @@ public class Preferences extends PreferenceActivity
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
 
                 for (int i = 1; i <= 4; ++i) {
-                    appPrefs.putString("PrefPinCode" + i, passcode.substring(i-1, i));
+                    appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i-1, i));
                 }
-                appPrefs.putBoolean("set_pincode", true);
+                appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, true);
                 appPrefs.commit();
                 Toast.makeText(this, R.string.pass_code_stored, Toast.LENGTH_LONG).show();
             }
@@ -627,7 +627,7 @@ public class Preferences extends PreferenceActivity
 
                 SharedPreferences.Editor appPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
-                appPrefs.putBoolean("set_pincode", false);
+                appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false);
                 appPrefs.commit();
 
                 Toast.makeText(this, R.string.pass_code_removed, Toast.LENGTH_LONG).show();
