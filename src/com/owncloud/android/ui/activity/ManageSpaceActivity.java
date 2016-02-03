@@ -163,7 +163,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
                 for (int i = 0; i < children.length; i++) {
                     boolean success = deleteDir(new File(dir, children[i]));
                     if (!success) {
-                        Log_OC.d(TAG, "File NOT deleted " + children[i]);
+                        Log_OC.w(TAG, "File NOT deleted " + children[i]);
                         return false;
                     } else {
                         Log_OC.d(TAG, "File deleted " + children[i]);
