@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s एण्ड्रॉयड एप्प</string>
   <string name="about_version">संस्करण %1$s</string>
   <string name="actionbar_sync">खाता रिफ्रेश करें </string>
   <string name="actionbar_upload">अपलोड </string>

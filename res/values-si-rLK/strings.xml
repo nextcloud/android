@@ -13,7 +13,6 @@
   <string name="prefs_category_general">සාමාන්‍යයෙන්</string>
   <string name="prefs_category_more">වැඩි</string>
   <string name="prefs_accounts">ගිණුම්</string>
-  <string name="prefs_manage_accounts">ගිණුම් කළමනාකරනය</string>
   <string name="prefs_help">උදව්</string>
   <string name="auth_username">පරිශීලක නම</string>
   <string name="auth_password">මුර පදය</string>
@@ -21,7 +20,6 @@
   <string name="setup_btn_connect">සම්බන්ධ වන්න</string>
   <string name="uploader_btn_upload_text">උඩුගත කිරීම</string>
   <string name="uploader_wrn_no_account_title">ගිණුමක් හමු නොවුණි</string>
-  <string name="uploader_wrn_no_account_text">%1$s ගිණුම් මෙම යන්ත්‍රයේ නොමැත. කරුණාකර ගිණුමක් සාදන්න</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ස්ථාපනය</string>
   <string name="uploader_wrn_no_account_quit_btn_text">නික්මෙන්න</string>
   <string name="uploader_info_uploading">උඩුගතවේ</string>
@@ -38,7 +36,6 @@
   <string name="common_no">එපා</string>
   <string name="common_ok">හරි</string>
   <string name="common_cancel">එපා</string>
-  <string name="common_save_exit">සුරැක &amp; පිටවන්න</string>
   <string name="common_error">දෝශය</string>
   <string name="about_title">පිළිබඳව</string>
   <string name="change_password">මුරපදය වෙනස් කිරීම</string>
@@ -51,7 +48,6 @@
   <string name="downloader_download_succeeded_ticker">බාගත කිරීම සාර්ථකයි</string>
   <string name="downloader_download_failed_ticker">බාගත කිරීම අසාර්ථකයි</string>
   <string name="common_choose_account">ගිණුම තෝරන්න</string>
-  <string name="auth_trying_to_login">පිවිසීමට උත්සහ කරනවා...</string>
   <string name="auth_no_net_conn_title">ජාල සම්බන්ධතාවක් නොමැත</string>
   <string name="auth_nossl_plain_ok_title">ආරක්ෂිත සම්බන්ධතාවක් නොලැබුණි</string>
   <string name="auth_connection_established">සම්බන්ධතාවක් සාදන ලදී</string>
@@ -59,7 +55,6 @@
   <string name="auth_unknown_error_title">නොදන්නා දෝෂයක් ඇතිවිය</string>
   <string name="auth_unknown_host_title">සේවාදායකයා සොයාගත නොහැක</string>
   <string name="auth_timeout_title">සේවාදායකයා පිළිතුරු දීමට දිගු කාලයක් ගත්තේය</string>
-  <string name="auth_incorrect_address_title">විකෘතිවු යොමුවක්</string>
   <string name="auth_ssl_general_error_title">SSL ආරම්භ කිරීම අසාර්ථකයි</string>
   <string name="auth_bad_oc_version_title">හඳුනාගත නොහැකි  අනුවාදයක්</string>
   <string name="auth_wrong_connection_title">සම්බන්ධයක් ඇතිකර ගැනීමට නොහැකි විය</string>

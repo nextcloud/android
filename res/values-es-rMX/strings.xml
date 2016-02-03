@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">App Android %1$s</string>
   <string name="about_version">versión %1$s</string>
   <string name="actionbar_sync">Actualizar cuenta</string>
   <string name="actionbar_upload">Subir archivo</string>
@@ -22,18 +21,13 @@
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
-  <string name="prefs_manage_accounts">Gestionar cuentas</string>
-  <string name="prefs_log_title">Habilitar registro</string>
   <string name="prefs_log_summary">Esto es usado para registrar problemas</string>
-  <string name="prefs_log_title_history">Historia del Registro</string>
   <string name="prefs_log_summary_history">Esto muestra los registros grabados</string>
-  <string name="prefs_log_delete_history_button">Eliminar Historial</string>
   <string name="prefs_help">Ayuda</string>
   <string name="prefs_recommend">Recomendar a un amigo</string>
   <string name="prefs_feedback">Mensajes de retroalimentación</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Prueba  %1$s en tu smarthphone!</string>
-  <string name="auth_check_server">Compruebe el servidor.</string>
   <string name="auth_host_url">Dirección del servidor https://…</string>
   <string name="auth_username">Nombre de usuario</string>
   <string name="auth_password">Contraseña</string>
@@ -43,7 +37,6 @@
   <string name="uploader_btn_upload_text">Subir</string>
   <string name="uploader_btn_new_folder_text">Nueva carpeta</string>
   <string name="uploader_wrn_no_account_title">No se encontraron cuentas</string>
-  <string name="uploader_wrn_no_account_text">No hay cuentas de %1$s en tu dispositivo. Por favor configura una cuenta primero.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
   <string name="uploader_wrn_no_content_title">No hay contenido para subir</string>
@@ -64,7 +57,6 @@
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>
   <string name="common_cancel">Cancelar</string>
-  <string name="common_save_exit">Guardar &amp; Salir</string>
   <string name="common_error">Error</string>
   <string name="common_loading">Cargando ...</string>
   <string name="common_error_unknown">Error desconocido</string>
@@ -77,19 +69,15 @@
   <string name="uploader_upload_in_progress_ticker">Subiendo...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Subiendo %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Subido con éxito</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s se ha subido con éxito</string>
   <string name="uploader_upload_failed_ticker">Error en la subida</string>
   <string name="uploader_upload_failed_content_single">La subida de %1$s no se pudo completar</string>
   <string name="downloader_download_in_progress_ticker">Descargando ...</string>
   <string name="downloader_download_in_progress_content">%1$s Descargada de %2$s</string>
   <string name="downloader_download_succeeded_ticker">Descarga completa</string>
-  <string name="downloader_download_succeeded_content">%1$s se ha descargado con éxito</string>
   <string name="downloader_download_failed_ticker">Falló la descarga</string>
   <string name="downloader_download_failed_content">La descarga de %1$s no se pudo completar</string>
   <string name="downloader_not_downloaded_yet">No descargado</string>
   <string name="common_choose_account">Elige una cuenta</string>
-  <string name="sync_fail_ticker">Falló la sincronización</string>
-  <string name="sync_fail_content">La sincronización de %1$s s no se pudo completar</string>
   <string name="sync_fail_content_unauthorized">Contraseña no válida para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>
   <string name="sync_conflicts_in_favourites_content">Falló la sincronización de contenidos de %1$d archivos</string>
@@ -121,7 +109,6 @@
   <string name="media_rewind_description">Botón Rebobinado</string>
   <string name="media_play_pause_description">Botón de reproducción o pausa </string>
   <string name="media_forward_description">Botón avance rápido</string>
-  <string name="auth_trying_to_login">Intentado iniciar sesión...</string>
   <string name="auth_no_net_conn_title">Sin conexión de red</string>
   <string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
   <string name="auth_connection_established">Conexión establecida</string>
@@ -132,7 +119,6 @@
   <string name="auth_unknown_host_title">No se pudo encontrar la dirección</string>
   <string name="auth_incorrect_path_title">Instancia de servidor no encontrada</string>
   <string name="auth_timeout_title">El servidor ha tardado demasiado en responder</string>
-  <string name="auth_incorrect_address_title">URL no válida</string>
   <string name="auth_ssl_general_error_title">Falló la inicialización SSL</string>
   <string name="auth_ssl_unverified_server_title">No fue posible verificar la identidad del servidor SLL</string>
   <string name="auth_bad_oc_version_title">No se reconoce  la versión del servidor </string>
@@ -141,11 +127,8 @@
   <string name="auth_unauthorized">Nombre de usuario o contraseña incorrecta</string>
   <string name="auth_oauth_error">Autorización no satisfactoria</string>
   <string name="auth_oauth_error_access_denied">Acceso denegado por servidor de autorización</string>
-  <string name="auth_wtf_reenter_URL">Estado inesperado; por favor, introduzca la URL del servidor de nuevo</string>
   <string name="auth_expired_oauth_token_toast">Su autorización ha expirado. Por favor, autorice de nuevo</string>
-  <string name="auth_expired_basic_auth_toast">Por favor, introduzca la contraseña actual.</string>
   <string name="auth_expired_saml_sso_token_toast">Su sesión ha expirado. Favor de conectarse de nuevo</string>
-  <string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
   <string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
   <string name="favorite">Favorito</string>
@@ -194,7 +177,6 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Subir imágenes sólo via WiFi</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
   <string name="conflict_keep_both">Mantener ambas</string>
   <string name="preview_image_description">Previsualización de imagen</string>

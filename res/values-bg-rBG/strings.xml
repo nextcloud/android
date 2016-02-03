@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Android приложение</string>
   <string name="about_version">версия %1$s</string>
   <string name="actionbar_sync">Обновяви профила</string>
   <string name="actionbar_upload">Качване</string>
@@ -31,17 +30,13 @@
   <string name="prefs_category_general">Общи</string>
   <string name="prefs_category_more">Още</string>
   <string name="prefs_accounts">Профили</string>
-  <string name="prefs_manage_accounts">Управление на профилите</string>
   <string name="prefs_passcode">Заключваща парола</string>
   <string name="prefs_instant_upload">Незабавно качване на снимки</string>
   <string name="prefs_instant_upload_summary">Незабвано качване на снимки направени с камерата</string>
   <string name="prefs_instant_video_upload">Незабавно качване на видео</string>
   <string name="prefs_instant_video_upload_summary">Незабавно качване на видеота записани от камерата.</string>
-  <string name="prefs_log_title">Включване на доклади</string>
   <string name="prefs_log_summary">Използва се за докладване на проблеми</string>
-  <string name="prefs_log_title_history">История на докладите</string>
   <string name="prefs_log_summary_history">Показва запазените доклади</string>
-  <string name="prefs_log_delete_history_button">Изтриване на историята</string>
   <string name="prefs_help">Помощ</string>
   <string name="prefs_recommend">Препоръчай на приятел</string>
   <string name="prefs_feedback">Обратна Връзка</string>
@@ -50,7 +45,6 @@
   <string name="prefs_remember_last_upload_location_summary">Запомни мястото на последната споделена папка</string>
   <string name="recommend_subject">Опитай %1$s на смартфона си!</string>
   <string name="recommend_text">Бих желал да те поканя да ползваш %1$s на своя смартфон!\nИзтеглия я от тук:%2$s</string>
-  <string name="auth_check_server">Проверка на сървъра</string>
   <string name="auth_host_url">Адрес на сървъра https://…</string>
   <string name="auth_username">Потребител</string>
   <string name="auth_password">Парола</string>
@@ -61,7 +55,6 @@
   <string name="uploader_btn_new_folder_text">Нова папка</string>
   <string name="uploader_top_message">Избери папка за качване:</string>
   <string name="uploader_wrn_no_account_title">Няма открит профил</string>
-  <string name="uploader_wrn_no_account_text">Няма %1$s профили на устройстото ти. Моля, първо настрой профил.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Изход</string>
   <string name="uploader_wrn_no_content_title">Няма съдържание за качване</string>
@@ -79,13 +72,11 @@
   <string name="filedetails_modified">Променен на:</string>
   <string name="filedetails_download">Изтегляне</string>
   <string name="filedetails_renamed_in_upload_msg">Файлът беше преименуван на %1$s по време на качването.</string>
-  <string name="list_layout">Списък с изгледи</string>
   <string name="action_share">Споделяне</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">ОК</string>
   <string name="common_cancel">Отказ</string>
-  <string name="common_save_exit">Запазване и изход</string>
   <string name="common_error">Грешка</string>
   <string name="common_loading">Зареждане...</string>
   <string name="common_error_unknown">Непозната грешка</string>
@@ -98,22 +89,15 @@
   <string name="uploader_upload_in_progress_ticker">Качване...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Качване %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Качването е успешно.</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s е успешно качен.</string>
   <string name="uploader_upload_failed_ticker">Качването е неуспешно.</string>
   <string name="uploader_upload_failed_content_single">Качването на %1$s не може да бъде завършено.</string>
-  <string name="uploader_upload_failed_credentials_error">Неуспешно качване, трябва да се впишеш отново.</string>
   <string name="downloader_download_in_progress_ticker">Изтегляне...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Сваляне %2$s</string>
   <string name="downloader_download_succeeded_ticker">Изтеглянето е успешно.</string>
-  <string name="downloader_download_succeeded_content">%1$s е успешно изтеглен.</string>
   <string name="downloader_download_failed_ticker">Изтеглянето е неуспешно.</string>
   <string name="downloader_download_failed_content">Изтеглянето на %1$s не може да бъде завършено.</string>
   <string name="downloader_not_downloaded_yet">Все още не е изтеглено</string>
-  <string name="downloader_download_failed_credentials_error">Неуспешно изтегляне, трябва да влезете отново.</string>
   <string name="common_choose_account">Изберете профил</string>
-  <string name="sync_fail_ticker">Неуспешна синхронизация.</string>
-  <string name="sync_fail_ticker_unauthorized">Неуспешно синхронизиране, трябва да влезете отново.</string>
-  <string name="sync_fail_content">Синхронизацията на %1$s не може да бъде завършена.</string>
   <string name="sync_fail_content_unauthorized">Неправилна парола за %1$s.</string>
   <string name="sync_conflicts_in_favourites_ticker">Открити са конфликти</string>
   <string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync файла не могат да бъдат сихронизирани</string>
@@ -128,11 +112,8 @@
   <string name="foreign_files_fail">Неуспешно преместване на някои файлове.</string>
   <string name="foreign_files_local_text">Локален: %1$s</string>
   <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
-  <string name="upload_query_move_foreign_files">Няма достатъчно място за копирането на избраните файлове до папка %1$s. Да се преместят ли вместо това?</string>
-  <string name="pass_code_enter_pass_code">Моля, въведи парола за достъп</string>
   <string name="pass_code_configure_your_pass_code">Въведи парола за достъп</string>
   <string name="pass_code_configure_your_pass_code_explanation">Паролата ще се изисква при всяко стартиране на приложението</string>
-  <string name="pass_code_reenter_your_pass_code">Моля,  въведи парола за достъп отново</string>
   <string name="pass_code_remove_your_pass_code">Премахни парола</string>
   <string name="pass_code_mismatch">Паролите не съвпадат</string>
   <string name="pass_code_wrong">Грешна парола</string>
@@ -157,8 +138,6 @@
   <string name="media_rewind_description">Бутон за превъртане</string>
   <string name="media_play_pause_description">Бутон пусни / пауза </string>
   <string name="media_forward_description">Бутон за превъртане напред</string>
-  <string name="auth_getting_authorization">Получване на оторизация...</string>
-  <string name="auth_trying_to_login">Опит за влизане...</string>
   <string name="auth_no_net_conn_title">Няма интернет връзка</string>
   <string name="auth_nossl_plain_ok_title">Няма сигурна връзка</string>
   <string name="auth_connection_established">Осъществена връзка</string>
@@ -170,7 +149,6 @@
   <string name="auth_unknown_host_title">Неуспешно намиране на сървъра.</string>
   <string name="auth_incorrect_path_title">Сървърът не е открит.</string>
   <string name="auth_timeout_title">Сървърът се забави прекалено много с отговора.</string>
-  <string name="auth_incorrect_address_title">Грешен URL адрес</string>
   <string name="auth_ssl_general_error_title">Неуспешна инициализация на SSL.</string>
   <string name="auth_ssl_unverified_server_title">Неуспешна проверка на SSL самоличността на сървъра.</string>
   <string name="auth_bad_oc_version_title">Неизвестна версия на сървъра.</string>
@@ -179,16 +157,12 @@
   <string name="auth_unauthorized">Грешно потребителско име или парола</string>
   <string name="auth_oauth_error">Неуспешна оторизация</string>
   <string name="auth_oauth_error_access_denied">Достъпът отказан от оторизиращия сървър</string>
-  <string name="auth_wtf_reenter_URL">Неочаквано състояние; въведете URL адреса на сървъра отново.</string>
   <string name="auth_expired_oauth_token_toast">Оторизацията изтече. Моля, оторизирайте се отново.</string>
-  <string name="auth_expired_basic_auth_toast">Въведете текущата парола</string>
   <string name="auth_expired_saml_sso_token_toast">Сесията изтече. Моля, свържете се повторно.</string>
-  <string name="auth_connecting_auth_server">Свързване с оторизиращия сървър...</string>
   <string name="auth_unsupported_auth_method">Сървърът не поддържа този метод за оторизиране</string>
   <string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
   <string name="auth_fail_get_user_name">Вашият сървър не връща правилен потребителски индентификатор.
 Моля, свържете се с администратора.</string>
-  <string name="auth_can_not_auth_against_server">Неуспешен опит за оторизиране с този сървър.</string>
   <string name="auth_account_does_not_exist">Профила не съществува на устройството все още</string>
   <string name="favorite">Любими</string>
   <string name="common_rename">Преименуване</string>
@@ -245,14 +219,11 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Качване на снимки само през WiFi</string>
-  <string name="instant_video_upload_on_wifi">Качване на видео само през WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_keep_both">Запазване и на двата</string>
   <string name="preview_image_description">Преглед на изображението</string>
   <string name="preview_image_error_unknown_format">Изображението не може да бъде показано</string>
   <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
-  <string name="prefs_instant_upload_path_title">Местоположение на качване</string>
   <string name="share_link_no_support_share_api">За съжаление споделянето не е включено на сървъра ви. 
 Моля, свържете се с администратора.</string>
   <string name="share_link_file_no_exist">Неуспешен опит за споделяне. Моля, провери дали файла съществува.</string>
@@ -282,10 +253,7 @@
   <string name="prefs_add_account">Добавяне на профил</string>
   <string name="auth_redirect_non_secure_connection_title">Сигурна връзка е пренасочена по несигурен път.</string>
   <string name="actionbar_logger">Доклади</string>
-  <string name="log_send_history_button">Изпрати История</string>
-  <string name="log_send_no_mail_app">Не са намерени журнали за изпращане от приложението. Инсталирайте приложението за електронна поща!</string>
   <string name="log_send_mail_subject">%1$s Android журнали на приложенията</string>
-  <string name="log_progress_dialog_text">Зареждане на данни...</string>
   <string name="saml_authentication_required_text">Нужна е идентификация</string>
   <string name="saml_authentication_wrong_pass">Грешна парола</string>
   <string name="actionbar_move">Премести</string>
@@ -297,9 +265,7 @@
   <string name="move_file_error">Настъпи грешка при опита за преместване на този файл или папка.</string>
   <string name="forbidden_permissions_move">за да преместиш този файл</string>
   <string name="copy_file_invalid_overwrite">Файлът вече съществува в отдалечената папка.</string>
-  <string name="prefs_category_instant_uploading">Незабавно качване</string>
   <string name="prefs_category_security">Сигурност</string>
-  <string name="prefs_instant_video_upload_path_title">Качване на видео път</string>
   <string name="shared_subject_header">споделен</string>
   <string name="with_you_subject_header">с теб</string>
   <string name="subject_user_shared_with_you">%1$s споделен \"%2$s\" с теб</string>

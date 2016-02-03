@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Android lietotne</string>
   <string name="about_version">versija %1$s</string>
   <string name="actionbar_sync">Atsvaidzināt kontu</string>
   <string name="actionbar_upload">Augšupielādēt</string>
@@ -30,21 +29,16 @@
   <string name="prefs_category_general">Vispārīgi</string>
   <string name="prefs_category_more">Vairāk</string>
   <string name="prefs_accounts">Konti</string>
-  <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
   <string name="prefs_instant_upload">Automātiskā bilžu augšuplāde</string>
   <string name="prefs_instant_upload_summary">Automātiski augšuplādēt tikko uzņemtās bildes</string>
   <string name="prefs_instant_video_upload">Automātiskā video augšuplāde</string>
   <string name="prefs_instant_video_upload_summary">Automātiski augšuplādēt tikko uzņemtos video</string>
-  <string name="prefs_log_title">Ieslēgt ierakstīšanu</string>
   <string name="prefs_log_summary">Šo lieto lai ierakstītu informāciju par problēmām</string>
-  <string name="prefs_log_title_history">Ierakstu žurnāls</string>
   <string name="prefs_log_summary_history">Šis parāda ierakstu žurnālu</string>
-  <string name="prefs_log_delete_history_button">Iztīrīt žurnālu</string>
   <string name="prefs_help">Palīdzība</string>
   <string name="prefs_recommend">Ieteikt draugam</string>
   <string name="prefs_feedback">Atsauksmes</string>
   <string name="recommend_subject">Izmēģini %1$s uz savu viedtālruni!</string>
-  <string name="auth_check_server">Pārbaudīt serveri</string>
   <string name="auth_username">Lietotājvārds</string>
   <string name="auth_password">Parole</string>
   <string name="sync_string_files">Datnes</string>
@@ -52,7 +46,6 @@
   <string name="uploader_btn_upload_text">Augšupielādēt</string>
   <string name="uploader_btn_new_folder_text">Jauna mape</string>
   <string name="uploader_wrn_no_account_title">Nav atrastu kontu</string>
-  <string name="uploader_wrn_no_account_text">Uz šīs ierīces nav %1$s kontu. Lūdzu, vispirms iestatiet kontu.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Iestatīt</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Iziet</string>
   <string name="uploader_wrn_no_content_title">Nav satura, ko augšupielādēt</string>
@@ -75,7 +68,6 @@
   <string name="common_no">Nē</string>
   <string name="common_ok">Labi</string>
   <string name="common_cancel">Atcelt</string>
-  <string name="common_save_exit">Saglabāt un iziet</string>
   <string name="common_error">Kļūda</string>
   <string name="common_loading">Ielādē</string>
   <string name="common_error_unknown">Nezināma kļūda</string>
@@ -88,23 +80,18 @@
   <string name="uploader_upload_in_progress_ticker">Augšupielādē ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% augšupielādē %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Augšupielāde ir veiksmīga</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s tika veiksmīgi augšupielādēts</string>
   <string name="uploader_upload_failed_ticker">Neizdevās augšupielādēt</string>
   <string name="uploader_upload_failed_content_single">Nevarēja pabeigt %1$s augšupielādēšanu</string>
   <string name="downloader_download_in_progress_ticker">Lejupielādē ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% lejupielādē %2$s</string>
   <string name="downloader_download_succeeded_ticker">Lejupielāde beidzās veiksmīgi</string>
-  <string name="downloader_download_succeeded_content">%1$s tika veiksmīgi lejupielādēts</string>
   <string name="downloader_download_failed_ticker">Neizdevās lejupielādēt</string>
   <string name="downloader_download_failed_content">Nevarēja pabeigt %1$s lejupielādēšanu</string>
   <string name="common_choose_account">Izvēlieties kontu</string>
-  <string name="sync_fail_ticker">Neizdevās sinhronizēties</string>
-  <string name="sync_fail_content">Nevarēja pabeigt %1$s sinhronizēšanu</string>
   <string name="sync_conflicts_in_favourites_ticker">Ir atrasti konflikti</string>
   <string name="sync_conflicts_in_favourites_content">Nevarēja sinhronizēt %1$d kept-in-sync datnes</string>
   <string name="sync_fail_in_favourites_ticker">Kept-in-sync datnes cieta neveiksmi</string>
   <string name="sync_fail_in_favourites_content">Nevarēja sinhronizēt %1$d datņu saturu (%2$d konflikti)</string>
-  <string name="auth_trying_to_login">Mēģina ierakstīties...</string>
   <string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
   <string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
   <string name="auth_connection_established">Savienojums ir izveidots</string>
@@ -113,7 +100,6 @@
   <string name="auth_unknown_host_title">Nevarēja atrast datoru</string>
   <string name="auth_incorrect_path_title">Servera instance nav atrasta</string>
   <string name="auth_timeout_title">Serveris pārāk ilgi neatbildēja</string>
-  <string name="auth_incorrect_address_title">Slikti formatēts URL</string>
   <string name="auth_ssl_general_error_title">Neizdevās inicializēt SSL</string>
   <string name="auth_bad_oc_version_title">Neatpazīta servera versija</string>
   <string name="auth_wrong_connection_title">Nevarēja izveidot savienojumu</string>
@@ -158,7 +144,6 @@
   <string name="ssl_validator_label_signature">Paraksts:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritms:</string>
   <string name="placeholder_filetype">PNG attēls</string>
-  <string name="instant_upload_on_wifi">Attēlus augšupielādēt tikai caur WiFi</string>
   <string name="instant_upload_path">/TūlītējaAugšupielāde</string>
   <string name="conflict_keep_both">Paturēt abas</string>
   <string name="preview_image_error_unknown_format">Šo attēlu nevar attēlot</string>
@@ -174,7 +159,6 @@
   <string name="forbidden_permissions_create">lai izveidotu datni</string>
   <string name="prefs_category_accounts">Konti</string>
   <string name="prefs_add_account">Pievienot kontu</string>
-  <string name="log_progress_dialog_text">Ielādē datus…</string>
   <string name="saml_authentication_wrong_pass">Nepareiza parole</string>
   <string name="actionbar_move">Pārvietot</string>
   <string name="file_list_empty_moving">Šeit nekā nav. Jūs varat pievienot mapi!</string>

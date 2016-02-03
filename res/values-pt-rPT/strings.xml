@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s App(s) Android</string>
   <string name="about_version">versão %1$s</string>
   <string name="actionbar_sync">Atualizar conta</string>
   <string name="actionbar_upload">Enviar</string>
@@ -31,17 +30,13 @@
   <string name="prefs_category_general">Geral</string>
   <string name="prefs_category_more">Mais</string>
   <string name="prefs_accounts">Contas</string>
-  <string name="prefs_manage_accounts">Gerir Contas</string>
   <string name="prefs_passcode">Bloquear código</string>
   <string name="prefs_instant_upload">Envios instantâneos de imagens</string>
   <string name="prefs_instant_upload_summary">Envio instantâneo de imagens tiradas com a câmara</string>
   <string name="prefs_instant_video_upload">Envios instantâneos dos vídeos</string>
   <string name="prefs_instant_video_upload_summary">Envio instantâneo de vídeos gravados com a câmara  </string>
-  <string name="prefs_log_title">Ativar Registo de Eventos</string>
   <string name="prefs_log_summary">Isto é utilizado para registar problemas</string>
-  <string name="prefs_log_title_history">Histórico dos Registos</string>
   <string name="prefs_log_summary_history">Isto mostra os registos guardados</string>
-  <string name="prefs_log_delete_history_button">Apagar Histórico</string>
   <string name="prefs_help">Ajuda</string>
   <string name="prefs_recommend">Recomendar a um amigo</string>
   <string name="prefs_feedback">Feedback</string>
@@ -50,7 +45,6 @@
   <string name="prefs_remember_last_upload_location_summary">Lembrar da última localização de envio de partilha</string>
   <string name="recommend_subject">Test %1$s no seu smartphone!</string>
   <string name="recommend_text">Eu quero convidar-te para usares %1$s no teu smartphone!\nTransfere  aqui: %2$s</string>
-  <string name="auth_check_server">Verificar Servidor</string>
   <string name="auth_host_url">Endereço do servidor https://..</string>
   <string name="auth_username">Nome de Utilizador</string>
   <string name="auth_password">Palavra-passe</string>
@@ -61,7 +55,6 @@
   <string name="uploader_btn_new_folder_text">Nova Pasta</string>
   <string name="uploader_top_message">Escolha a pasta de envio:</string>
   <string name="uploader_wrn_no_account_title">A conta não foi encontrada</string>
-  <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s no seu dispositivo. Por favor, configure primeiro uma conta.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
   <string name="uploader_wrn_no_content_title">Sem conteúdo para enviar</string>
@@ -71,7 +64,6 @@
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Aqui não existe nada. Envie alguma coisa!</string>
   <string name="file_list_loading">A carregar...</string>
-  <string name="file_list_no_app_for_file_type">Nenhuma App encontrada por tipo de ficheiro!</string>
   <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
   <string name="filedetails_select_file">Toque num ficheiro para visualizar a informação adicional.</string>
   <string name="filedetails_size">Tamanho:</string>
@@ -81,14 +73,11 @@
   <string name="filedetails_download">Transferir</string>
   <string name="filedetails_sync_file">Sincronizar</string>
   <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado para %1$s durante o envio.</string>
-  <string name="list_layout">Apresentação da Lista</string>
   <string name="action_share">Compartilhar</string>
   <string name="common_yes">Sim</string>
   <string name="common_no">Não</string>
   <string name="common_ok">ACEITAR</string>
-  <string name="common_cancel_sync">Cancelar sincronização</string>
   <string name="common_cancel">Cancelar</string>
-  <string name="common_save_exit">Guardar &amp; Sair</string>
   <string name="common_error">Erro</string>
   <string name="common_loading">A carregar ...</string>
   <string name="common_error_unknown">Erro Desconhecido</string>
@@ -101,22 +90,15 @@
   <string name="uploader_upload_in_progress_ticker">A enviar ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%%  A enviar %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Envio bem sucedido</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s foi enviado com sucesso</string>
   <string name="uploader_upload_failed_ticker">Não foi possível enviar</string>
   <string name="uploader_upload_failed_content_single">Não foi possível concluir o envio de %1$s.</string>
-  <string name="uploader_upload_failed_credentials_error">Falha no envio, precisa de reiniciar a sessão</string>
   <string name="downloader_download_in_progress_ticker">A transferir...</string>
   <string name="downloader_download_in_progress_content">%1$d%% A transferir %2$s</string>
   <string name="downloader_download_succeeded_ticker">Transferência bem sucedida</string>
-  <string name="downloader_download_succeeded_content">%1$s foi transferido com sucesso</string>
   <string name="downloader_download_failed_ticker">Transferência falhada</string>
   <string name="downloader_download_failed_content">Não foi possível concluir a transferência de %1$s</string>
   <string name="downloader_not_downloaded_yet">Ainda não foi transferido</string>
-  <string name="downloader_download_failed_credentials_error">Não foi possível transferir, tem de iniciar a sessão novamente</string>
   <string name="common_choose_account">Escolha a conta</string>
-  <string name="sync_fail_ticker">Falhou a sincronização</string>
-  <string name="sync_fail_ticker_unauthorized">Falhou a sincronização, precisa de reiniciar a sessão</string>
-  <string name="sync_fail_content">Não foi possível concluir a sincronização de %1$s</string>
   <string name="sync_fail_content_unauthorized">Senha inválida para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Foram encontrados conflitos</string>
   <string name="sync_conflicts_in_favourites_content">Não foi possível sincronizar o ficheiro %1$d</string>
@@ -131,11 +113,8 @@
   <string name="foreign_files_fail">Não foi possível mover alguns ficheiros</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
-  <string name="upload_query_move_foreign_files">Não existe espaço disponível para copiar o ficheiro seleccionado para a pasta %1$s . Em vez disso deseja mover o ficheiro?</string>
-  <string name="pass_code_enter_pass_code">Por favor, insira o seu código</string>
   <string name="pass_code_configure_your_pass_code">Insira o seu código</string>
   <string name="pass_code_configure_your_pass_code_explanation">O código será solicitado sempre que a aplicação for iniciada</string>
-  <string name="pass_code_reenter_your_pass_code">Por favor, reinsira o seu código</string>
   <string name="pass_code_remove_your_pass_code">Remova o seu código</string>
   <string name="pass_code_mismatch">Os códigos não coincidem</string>
   <string name="pass_code_wrong">Código Incorreto</string>
@@ -160,8 +139,6 @@
   <string name="media_rewind_description">Botão de Retroceder</string>
   <string name="media_play_pause_description">Botão de Reproduzir/Pausar</string>
   <string name="media_forward_description">Botão de avanço rápido</string>
-  <string name="auth_getting_authorization">A obter autorização...</string>
-  <string name="auth_trying_to_login">A tentar iniciar a sessão...</string>
   <string name="auth_no_net_conn_title">Sem ligação à rede</string>
   <string name="auth_nossl_plain_ok_title">Ligação segura indisponível.</string>
   <string name="auth_connection_established">Ligação estabelecida</string>
@@ -173,7 +150,6 @@
   <string name="auth_unknown_host_title">Não foi possível encontrar o anfitrião</string>
   <string name="auth_incorrect_path_title">Instância do servidor não encontrada</string>
   <string name="auth_timeout_title">O servidor demorou muito tempo a responder</string>
-  <string name="auth_incorrect_address_title">URL errado</string>
   <string name="auth_ssl_general_error_title">Inicialização de SSL falhou</string>
   <string name="auth_ssl_unverified_server_title">Não foi possível verificar a identidade do servidor SSL</string>
   <string name="auth_bad_oc_version_title">Versão do servidor não reconhecida</string>
@@ -182,15 +158,11 @@
   <string name="auth_unauthorized">Nome de utilizador/password inválida</string>
   <string name="auth_oauth_error">autorização mal sucedida</string>
   <string name="auth_oauth_error_access_denied">Acesso negado pelo servidor</string>
-  <string name="auth_wtf_reenter_URL">Estado inesperado, por favor, digite a URL do servidor novamente</string>
   <string name="auth_expired_oauth_token_toast">O prazo da sua autorização expirou. Por favor renove-a</string>
-  <string name="auth_expired_basic_auth_toast">Por favor, insira a palavra-passe atual</string>
   <string name="auth_expired_saml_sso_token_toast">A sua sessão expirou. Por favor autentique-se de novo</string>
-  <string name="auth_connecting_auth_server">A verificar a sua autenticação no servidor...</string>
   <string name="auth_unsupported_auth_method">O servidor não suporta este método de autenticação</string>
   <string name="auth_unsupported_multiaccount">%1$s não suporta contas múltiplas</string>
   <string name="auth_fail_get_user_name">O seu servidor não transmite o ID correcto. Por favor contacte o administrador.</string>
-  <string name="auth_can_not_auth_against_server">Não foi possível autenticar no servidor</string>
   <string name="auth_account_does_not_exist">Conta ainda não existe no dispositivo</string>
   <string name="favorite">Favorito</string>
   <string name="unfavorite">Retirar Favorito</string>
@@ -253,8 +225,6 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Só enviar as fotografias via wi-fi</string>
-  <string name="instant_video_upload_on_wifi">Só enviar os vídeos por wi-fi</string>
   <string name="instant_upload_path">/Envio Instantâneo </string>
   <string name="conflict_title">Conflito de ficheiro</string>
   <string name="conflict_message">Quais os ficheiros que pretende manter? Se selecionar ambas as versões, o ficheiro local irá ter um número adicionado ao seu nome.</string>
@@ -264,7 +234,6 @@
   <string name="preview_image_description">Pré-Visualizar imagem</string>
   <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
   <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
-  <string name="prefs_instant_upload_path_title">Caminho de \'A Enviar\'</string>
   <string name="share_link_no_support_share_api">Lamentamos mas não é possível partilhar através do seu servidor. Por favor contacte o seu administrador.</string>
   <string name="share_link_file_no_exist">Não é possivel partilhar. Por favor verifique se o ficheiro existe</string>
   <string name="share_link_file_error">Ocorreu um erro enquanto tentava partilhar este ficheiro ou pasta</string>
@@ -296,10 +265,7 @@
   <string name="prefs_add_account">Adicionar conta</string>
   <string name="auth_redirect_non_secure_connection_title">Uma ligação segura foi redireccionada por uma rota insegura.</string>
   <string name="actionbar_logger">Registos de Alterações</string>
-  <string name="log_send_history_button">Enviar Histórico</string>
-  <string name="log_send_no_mail_app">Não foi encontrado o aplicativo para envio de registos . Instale app e-mail!</string>
   <string name="log_send_mail_subject">%1$s Android Aplicação de Registyos</string>
-  <string name="log_progress_dialog_text">A carregar os dados...</string>
   <string name="saml_authentication_required_text">Autenticação necessária</string>
   <string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
   <string name="actionbar_move">Mover</string>
@@ -315,9 +281,7 @@
   <string name="copy_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
   <string name="copy_file_error">Ocorreu um ocorreu quando tentava copiar este ficheiro ou pasta</string>
   <string name="forbidden_permissions_copy">para copiar este ficheiro</string>
-  <string name="prefs_category_instant_uploading">Envios Instantâneos</string>
   <string name="prefs_category_security">Segurança</string>
-  <string name="prefs_instant_video_upload_path_title">Envio do Caminho do Vídeo</string>
   <string name="sync_folder_failed_content">Não foi possível completar a sincronização da pasta %1$s</string>
   <string name="shared_subject_header">partilhado</string>
   <string name="with_you_subject_header">consigo</string>
@@ -344,7 +308,6 @@
   <string name="share_dialog_title">Partilha</string>
   <string name="share_with_user_section_title">Partilhar com utilizadores e grupos</string>
   <string name="share_no_users">Ainda não foram partilhados os dados com os utilizadores</string>
-  <string name="share_add_user_or_group">Adicionar Utilziador ou Grupo</string>
   <string name="share_via_link_section_title">Compartilhar hiperligação</string>
   <string name="share_via_link_expiration_date_label">Definir a data de expiração</string>
   <string name="share_via_link_password_label">Proteger com Palavra-passe</string>
@@ -362,6 +325,4 @@
   <string name="share_privilege_can_edit_delete">eliminar</string>
   <string name="edit_share_unshare">Parar partilha</string>
   <string name="edit_share_done">feito</string>
-  <string name="action_switch_grid_view">Alterar para vista de grelha</string>
-  <string name="action_switch_list_view">Alterar para vista em lista</string>
 </resources>

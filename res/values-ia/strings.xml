@@ -15,7 +15,6 @@
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_accounts">Contos</string>
-  <string name="prefs_log_delete_history_button">Deler historia</string>
   <string name="prefs_help">Adjuta</string>
   <string name="auth_username">Nomine de usator</string>
   <string name="auth_password">Contrasigno</string>

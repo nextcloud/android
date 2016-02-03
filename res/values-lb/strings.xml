@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Android-App</string>
   <string name="about_version">Versioun %1$s</string>
   <string name="actionbar_sync">Kont opfrëschen</string>
   <string name="actionbar_upload">Eroplueden</string>
@@ -27,21 +26,16 @@
   <string name="prefs_category_general">Allgemeng</string>
   <string name="prefs_category_more">Méi</string>
   <string name="prefs_accounts">Konten</string>
-  <string name="prefs_manage_accounts">Konte geréieren</string>
   <string name="prefs_instant_upload">Biller direkt eroplueden</string>
   <string name="prefs_instant_upload_summary">Biller vum Fotoapparat direkt eroplueden</string>
   <string name="prefs_instant_video_upload">Videoen direkt eroplueden</string>
   <string name="prefs_instant_video_upload_summary">Biller vun der Kamera direkt eroplueden</string>
-  <string name="prefs_log_title">Protokoller aktivéieren</string>
   <string name="prefs_log_summary">Heiduerch gi Problemer protokolléiert</string>
-  <string name="prefs_log_title_history">Protokoll-Historique</string>
   <string name="prefs_log_summary_history">Hei ginn déi enregistréiert Protokoller ugewisen</string>
-  <string name="prefs_log_delete_history_button">Historique läschen</string>
   <string name="prefs_help">Hëllef</string>
   <string name="prefs_recommend">Engem Frënd recommendéieren</string>
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Impressum</string>
-  <string name="auth_check_server">Server kontrolléieren</string>
   <string name="auth_host_url">Server-Adress https://…</string>
   <string name="auth_username">Benotzernumm</string>
   <string name="auth_password">Passwuert</string>
@@ -67,7 +61,6 @@
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Ofbriechen</string>
-  <string name="common_save_exit">Späicheren an Zoumaachen</string>
   <string name="common_error">Feeler</string>
   <string name="common_error_unknown">Onbekannte Feeler</string>
   <string name="about_title">Iwwer</string>
@@ -77,21 +70,14 @@
   <string name="uploader_info_dirname">Dossiersnumm:</string>
   <string name="uploader_upload_in_progress_ticker">Lueden erop ...</string>
   <string name="uploader_upload_succeeded_ticker">Eroplueden ofgeschloss</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s gouf erfollegräich eropgelueden</string>
   <string name="uploader_upload_failed_ticker">Eropluede feelgeschloen</string>
   <string name="uploader_upload_failed_content_single">Eropluede vun %1$s konnt net ofgeschloss ginn</string>
-  <string name="uploader_upload_failed_credentials_error">Eropluede feelgeschloen, du muss dech nei aloggen</string>
   <string name="downloader_download_in_progress_ticker">Lueden erof …</string>
   <string name="downloader_download_succeeded_ticker">Eroflueden ofgeschloss</string>
-  <string name="downloader_download_succeeded_content">%1$s gouf erfollegräich erofgelueden</string>
   <string name="downloader_download_failed_ticker">Erofluede feelgeschloen</string>
   <string name="downloader_download_failed_content">Erofluede vun %1$s konnt net ofgeschloss ginn</string>
   <string name="downloader_not_downloaded_yet">Nach net erofgelueden</string>
-  <string name="downloader_download_failed_credentials_error">Erofluede feelgeschloen, du muss dech nei aloggen</string>
   <string name="common_choose_account">Kont auswielen</string>
-  <string name="sync_fail_ticker">Synchroniséierung feelgeschloen</string>
-  <string name="sync_fail_ticker_unauthorized">Synchroniséierung feelgeschloen, du muss dech nei aloggen</string>
-  <string name="sync_fail_content">Synchroniséierung vun %1$s konnt net ofgeschloss ginn</string>
   <string name="sync_fail_content_unauthorized">Ongëltegt Passwuert fir %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikter fonnt</string>
   <string name="sync_foreign_files_forgotten_ticker">Verschidde lokal Fichiere goufe vergiess</string>
@@ -126,7 +112,6 @@
   <string name="auth_unknown_host_title">Server konnt net fonnt ginn</string>
   <string name="auth_incorrect_path_title">Server-Instanz net fonnt</string>
   <string name="auth_timeout_title">De Server huet ze laang gebraucht fir ze äntweren</string>
-  <string name="auth_incorrect_address_title">Ongëlteg URL</string>
   <string name="auth_ssl_general_error_title">SSL-Initialiséierung feelgeschloen</string>
   <string name="auth_ssl_unverified_server_title">Konnt d\'Identitéit vum SSL-Server net verifizéieren</string>
   <string name="auth_bad_oc_version_title">Onbekannte Server-Versioun</string>
@@ -135,7 +120,6 @@
   <string name="auth_unauthorized">Falsche Benotzernumm oder falscht Passwuert</string>
   <string name="auth_oauth_error">Authoriséierung net erfollegräich</string>
   <string name="auth_oauth_error_access_denied">Accès duerch den Authoriséierungsserver verweigert</string>
-  <string name="auth_expired_basic_auth_toast">Gëff w.e.g. däin aktuellt Passwuert an</string>
   <string name="auth_expired_saml_sso_token_toast">Deng Sessioun ass ofgelaf. Connectéier dech nei w.e.g.</string>
   <string name="auth_unsupported_auth_method">De Server ënnerstëtzt dës Authentifizéierungsmethod net</string>
   <string name="common_rename">Ëmbenennen</string>
@@ -186,7 +170,6 @@
   <string name="preview_image_description">Biller-Virschau</string>
   <string name="preview_image_error_unknown_format">Dëst Bild kann net ugewise ginn</string>
   <string name="error__upload__local_file_not_copied">%1$s konnt net an de lokalen Dossier %2$s kopéiert ginn</string>
-  <string name="prefs_instant_upload_path_title">Pad fir d\'Eroplueden</string>
   <string name="share_link_password_title">E Passwuert aginn</string>
   <string name="share_link_empty_password">Du muss e Passwuert aginn</string>
   <string name="activity_chooser_send_file_title">Schécken</string>
@@ -209,10 +192,7 @@
   <string name="prefs_category_accounts">Konten</string>
   <string name="prefs_add_account">Kont dobäisetzen</string>
   <string name="actionbar_logger">Protokoller</string>
-  <string name="log_send_history_button">Historique schécken</string>
-  <string name="log_send_no_mail_app">Keng App fonnt fir d\'Protokoller ze schécken. Installéier eng Mail-App!</string>
   <string name="log_send_mail_subject">Protokoller vun der %1$s-Android-App</string>
-  <string name="log_progress_dialog_text">Date gi gelueden…</string>
   <string name="saml_authentication_required_text">Authentifizéierung néideg</string>
   <string name="saml_authentication_wrong_pass">Falscht Passwuert</string>
   <string name="actionbar_move">Réckelen</string>
@@ -224,9 +204,7 @@
   <string name="move_file_error">Beim Réckele vun dësem Fichier oder Dossier ass e Feeler opgetrueden</string>
   <string name="forbidden_permissions_move">fir dëse Fichier ze réckelen</string>
   <string name="copy_file_invalid_overwrite">De Fichier existéiert schonn am Zildossier</string>
-  <string name="prefs_category_instant_uploading">Direkt eropgeluede Fichieren</string>
   <string name="prefs_category_security">Sécherheet</string>
-  <string name="prefs_instant_video_upload_path_title">Pad fir d\'Eropluede vun de Videoen</string>
   <string name="subject_user_shared_with_you">%1$s huet \"%2$s\" mat dir gedeelt</string>
   <string name="auth_refresh_button">Connectioun opfrëschen</string>
   <string name="auth_host_address">Server-Adress</string>
