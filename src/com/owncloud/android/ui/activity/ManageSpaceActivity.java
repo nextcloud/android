@@ -146,12 +146,16 @@ public class ManageSpaceActivity extends AppCompatActivity {
             File appDir = new File(getCacheDir().getParent());
             if (appDir.exists()) {
                 String[] children = appDir.list();
-                for (String s : children) {
-                    if (!LIB_FOLDER.equals(s)) {
-                        File fileToDelete = new File(appDir, s);
-                        clearResult = clearResult && deleteDir(fileToDelete);
-                        Log_OC.d(TAG, "Clear Application Data, File: " + fileToDelete.getName()+ " DELETED *******");
+                if (children != null) {
+                    for (String s : children) {
+                        if (!LIB_FOLDER.equals(s)) {
+                            File fileToDelete = new File(appDir, s);
+                            clearResult = clearResult && deleteDir(fileToDelete);
+                            Log_OC.d(TAG, "Clear Application Data, File: " + fileToDelete.getName() + " DELETED *****");
+                        }
                     }
+                } else {
+                    clearResult = false;
                 }
             }
             return  clearResult;
@@ -160,14 +164,18 @@ public class ManageSpaceActivity extends AppCompatActivity {
         public boolean deleteDir(File dir) {
             if (dir != null && dir.isDirectory()) {
                 String[] children = dir.list();
-                for (int i = 0; i < children.length; i++) {
-                    boolean success = deleteDir(new File(dir, children[i]));
-                    if (!success) {
-                        Log_OC.w(TAG, "File NOT deleted " + children[i]);
-                        return false;
-                    } else {
-                        Log_OC.d(TAG, "File deleted " + children[i]);
+                if (children != null) {
+                    for (int i = 0; i < children.length; i++) {
+                        boolean success = deleteDir(new File(dir, children[i]));
+                        if (!success) {
+                            Log_OC.w(TAG, "File NOT deleted " + children[i]);
+                            return false;
+                        } else {
+                            Log_OC.d(TAG, "File deleted " + children[i]);
+                        }
                     }
+                } else {
+                    return false;
                 }
             }
 
