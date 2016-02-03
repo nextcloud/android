@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2016 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
@@ -10,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_gravity="center_vertical"
         android:singleLine="false"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/standard_margin"
         style="?android:attr/editTextPreferenceStyle"
         android:text="@string/manage_space_description"
         />
@@ -21,7 +38,7 @@
         android:text="@string/manage_space_clear_data"
         android:id="@+id/clearDataButton"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/standard_half_margin"
         android:theme="@style/Button.Primary"
         style="@style/Button.Primary"
         android:contentDescription="@string/manage_space_clear_data"/>

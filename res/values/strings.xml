@@ -408,4 +408,5 @@
     <string name="manage_space_title">Manage space</string>
     <string name="manage_space_description">Settings, Database and Server Certificates from  %1$s\'s data will be deleted permanentlty. \n\nDownloaded files will keep untouched.\n\nThis process can take some time.</string>
     <string name="manage_space_clear_data">Clear data</string>
+    <string name="manage_space_error">Some error occurs when trying to clean app data.</string>
 </resources>

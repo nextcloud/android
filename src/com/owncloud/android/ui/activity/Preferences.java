@@ -90,7 +90,7 @@ import com.owncloud.android.utils.DisplayUtils;
 public class Preferences extends PreferenceActivity
         implements AccountManagerCallback<Boolean>, ComponentsGetter {
     
-    private static final String TAG = "OwnCloudPreferences";
+    private static final String TAG = Preferences.class.getSimpleName();
 
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
     private static final int ACTION_SELECT_UPLOAD_VIDEO_PATH = 2;
@@ -223,8 +223,8 @@ public class Preferences extends PreferenceActivity
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
-        pCode = (CheckBoxPreference) findPreference("set_pincode");
-        if (pCode != null) {
+        pCode = (CheckBoxPreference) findPreference(PassCodeActivity.PREFERENCE_SET_PASSCODE);
+        if (pCode != null){
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -547,7 +547,7 @@ public class Preferences extends PreferenceActivity
         super.onResume();
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean state = appPrefs.getBoolean("set_pincode", false);
+        boolean state = appPrefs.getBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false);
         pCode.setChecked(state);
 
         // Populate the accounts category with the list of accounts

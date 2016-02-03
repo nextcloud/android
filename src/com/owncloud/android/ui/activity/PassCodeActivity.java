@@ -25,6 +25,7 @@ package com.owncloud.android.ui.activity;
 import java.util.Arrays;
 
 import android.content.Intent;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -42,6 +43,8 @@ import android.widget.Toast;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.util.Arrays;
+
 public class PassCodeActivity extends AppCompatActivity {
 
     private static final String TAG = PassCodeActivity.class.getSimpleName();
@@ -52,6 +55,14 @@ public class PassCodeActivity extends AppCompatActivity {
 
     public final static String KEY_PASSCODE  = "KEY_PASSCODE";
     public final static String KEY_CHECK_RESULT = "KEY_CHECK_RESULT";
+
+    // NOTE: PREFERENCE_SET_PASSCODE must have the same value as preferences.xml-->android:key for passcode preference
+    public final static String PREFERENCE_SET_PASSCODE = "set_pincode";
+
+    public final static String PREFERENCE_PASSCODE_D1 = "PrefPinCode1";
+    public final static String PREFERENCE_PASSCODE_D2 = "PrefPinCode2";
+    public final static String PREFERENCE_PASSCODE_D3 = "PrefPinCode3";
+    public final static String PREFERENCE_PASSCODE_D4 = "PrefPinCode4";
 
     private Button mBCancel;
     private TextView mPassCodeHdr;
@@ -297,7 +308,6 @@ public class PassCodeActivity extends AppCompatActivity {
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
             if (checkPassCode()) {
-
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(KEY_CHECK_RESULT, true);
                 setResult(RESULT_OK, resultIntent);
@@ -358,10 +368,10 @@ public class PassCodeActivity extends AppCompatActivity {
             .getDefaultSharedPreferences(getApplicationContext());
 
         String savedPassCodeDigits[] = new String[4];
-        savedPassCodeDigits[0] = appPrefs.getString("PrefPinCode1", null);
-        savedPassCodeDigits[1] = appPrefs.getString("PrefPinCode2", null);
-        savedPassCodeDigits[2] = appPrefs.getString("PrefPinCode3", null);
-        savedPassCodeDigits[3] = appPrefs.getString("PrefPinCode4", null);
+        savedPassCodeDigits[0] = appPrefs.getString(PREFERENCE_PASSCODE_D1, null);
+        savedPassCodeDigits[1] = appPrefs.getString(PREFERENCE_PASSCODE_D2, null);
+        savedPassCodeDigits[2] = appPrefs.getString(PREFERENCE_PASSCODE_D3, null);
+        savedPassCodeDigits[3] = appPrefs.getString(PREFERENCE_PASSCODE_D4, null);
 
         boolean result = true;
         for (int i = 0; i < mPassCodeDigits.length && result; i++) {
@@ -422,14 +432,12 @@ public class PassCodeActivity extends AppCompatActivity {
      * Saves the pass code input by the user as the current pass code.
      */
     protected void savePassCodeAndExit() {
-        SharedPreferences.Editor appPrefs = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext()).edit();
-
         Intent resultIntent = new Intent();
         resultIntent.putExtra(KEY_PASSCODE,
                 mPassCodeDigits[0] + mPassCodeDigits[1] + mPassCodeDigits[2] + mPassCodeDigits[3]);
 
         setResult(RESULT_OK, resultIntent);
+
         finish();
     }
 
@@ -444,8 +452,8 @@ public class PassCodeActivity extends AppCompatActivity {
         SharedPreferences appPrefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
 
-        boolean state = appPrefs.getBoolean("set_pincode", false);
-        appPrefsE.putBoolean("set_pincode", !state);
+        boolean state = appPrefs.getBoolean(PREFERENCE_SET_PASSCODE, false);
+        appPrefsE.putBoolean(PREFERENCE_SET_PASSCODE, !state);
         // TODO WIP: this is reverting the value of the preference because it was changed BEFORE
         // entering
         // TODO         in this activity; was the PreferenceCheckBox in the caller who did it
