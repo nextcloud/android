@@ -368,7 +368,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
 
         if (mSelection.get(position) != null) {
-            view.setBackgroundColor(Color.rgb(248, 248, 248));
+            view.setBackgroundColor(mContext.getResources().getColor(R.color.selected_item_background));
         } else {
             view.setBackgroundColor(Color.WHITE);
         }

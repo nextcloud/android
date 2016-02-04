@@ -24,8 +24,6 @@
     <color name="owncloud_blue_bright">#00ddff</color>
 
     <color name="list_item_lastmod_and_filesize_text">#989898</color>
-    <color name="actionModeBackground">#757575</color>
-    <color name="actionModeStatusBarBackground">#616161</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="textColor">#303030</color>
