@@ -233,7 +233,7 @@ public class PreviewImageFragment extends FileFragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        if (mContainerActivity.getStorageManager() != null) {
+        if (mContainerActivity.getStorageManager() != null && getFile() != null) {
             // Update the file
             setFile(mContainerActivity.getStorageManager().getFileById(getFile().getFileId()));
 
