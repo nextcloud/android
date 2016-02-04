@@ -109,7 +109,7 @@ public class PassCodeManager {
 
     private boolean passCodeIsEnabled() {
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-        return (appPrefs.getBoolean("set_pincode", false));
+        return (appPrefs.getBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false));
     }
 
 }

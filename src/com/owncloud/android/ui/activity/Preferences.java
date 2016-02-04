@@ -90,7 +90,7 @@ import com.owncloud.android.utils.DisplayUtils;
 public class Preferences extends PreferenceActivity
         implements AccountManagerCallback<Boolean>, ComponentsGetter {
     
-    private static final String TAG = "OwnCloudPreferences";
+    private static final String TAG = Preferences.class.getSimpleName();
 
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
     private static final int ACTION_SELECT_UPLOAD_VIDEO_PATH = 2;
@@ -223,8 +223,8 @@ public class Preferences extends PreferenceActivity
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
-        pCode = (CheckBoxPreference) findPreference("set_pincode");
-        if (pCode != null) {
+        pCode = (CheckBoxPreference) findPreference(PassCodeActivity.PREFERENCE_SET_PASSCODE);
+        if (pCode != null){
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -547,7 +547,7 @@ public class Preferences extends PreferenceActivity
         super.onResume();
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean state = appPrefs.getBoolean("set_pincode", false);
+        boolean state = appPrefs.getBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false);
         pCode.setChecked(state);
 
         // Populate the accounts category with the list of accounts
@@ -616,9 +616,9 @@ public class Preferences extends PreferenceActivity
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
 
                 for (int i = 1; i <= 4; ++i) {
-                    appPrefs.putString("PrefPinCode" + i, passcode.substring(i-1, i));
+                    appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i-1, i));
                 }
-                appPrefs.putBoolean("set_pincode", true);
+                appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, true);
                 appPrefs.commit();
                 Toast.makeText(this, R.string.pass_code_stored, Toast.LENGTH_LONG).show();
             }
@@ -627,7 +627,7 @@ public class Preferences extends PreferenceActivity
 
                 SharedPreferences.Editor appPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
-                appPrefs.putBoolean("set_pincode", false);
+                appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false);
                 appPrefs.commit();
 
                 Toast.makeText(this, R.string.pass_code_removed, Toast.LENGTH_LONG).show();
