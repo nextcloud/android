@@ -30,6 +30,7 @@
   <string name="prefs_category_general">Основные</string>
   <string name="prefs_category_more">Больше</string>
   <string name="prefs_accounts">Учётные записи</string>
+  <string name="prefs_manage_accounts">Управление аккаунтами</string>
   <string name="prefs_passcode">Блокировка кодом</string>
   <string name="prefs_instant_upload">Мгновенная загрузка фотографий</string>
   <string name="prefs_instant_upload_summary">Немедленно загружать фотографии сделанные камерой</string>
@@ -284,7 +285,6 @@
   <string name="copy_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
   <string name="copy_file_error">Произошла ошибка во время копирования этого файла или папки</string>
   <string name="forbidden_permissions_copy">для копирования этого файла</string>
-  <string name="prefs_category_security">Безопасность</string>
   <string name="sync_folder_failed_content">Синхронизация папки %1$s не может быть завершена</string>
   <string name="shared_subject_header">поделился</string>
   <string name="with_you_subject_header">с вами</string>

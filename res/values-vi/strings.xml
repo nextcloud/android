@@ -20,6 +20,7 @@
   <string name="prefs_category_general">Tổng hợp</string>
   <string name="prefs_category_more">hơn</string>
   <string name="prefs_accounts">Tài khoản</string>
+  <string name="prefs_manage_accounts">Quản lý tài khoản</string>
   <string name="prefs_log_summary">Được sử dụng cho các vấn đề liên quan đến nhật trình</string>
   <string name="prefs_log_summary_history">Hiển thị các nhật trình đã được ghi nhận lại</string>
   <string name="prefs_help">Giúp đỡ</string>

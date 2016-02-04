@@ -280,7 +280,6 @@
   <string name="copy_file_invalid_overwrite">파일이 이미 대상 폴더에 존재합니다</string>
   <string name="copy_file_error">이 파일이나 폴더를 복사할 수 없습니다.</string>
   <string name="forbidden_permissions_copy">이 파일을 복사할</string>
-  <string name="prefs_category_security">보안</string>
   <string name="sync_folder_failed_content">%1$s  폴더의 동기화를 완료할 수 없습니다</string>
   <string name="shared_subject_header">공유됨</string>
   <string name="with_you_subject_header">여러분과</string>

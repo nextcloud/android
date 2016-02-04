@@ -248,7 +248,6 @@
   <string name="copy_file_invalid_overwrite">این فایل هم‌اکنون در پوشه‌‎ی مقصد وجود دارد</string>
   <string name="copy_file_error">یک خطا در زمان تلاش برای کپی این فایل یا شاخه رخ داد</string>
   <string name="forbidden_permissions_copy">کپی این فایل</string>
-  <string name="prefs_category_security">امنیت</string>
   <string name="shared_subject_header">به اشتراک گذاشته شد</string>
   <string name="with_you_subject_header">با تو</string>
   <string name="subject_user_shared_with_you">\"%2$s\" توسط %1$s با شما به اشتراک گذاشته شد</string>

@@ -30,6 +30,7 @@
   <string name="prefs_category_general">Xeral</string>
   <string name="prefs_category_more">Máis</string>
   <string name="prefs_accounts">Contas</string>
+  <string name="prefs_manage_accounts">Xestionar as contas</string>
   <string name="prefs_passcode">Código de bloqueo</string>
   <string name="prefs_instant_upload">Envío instantáneo de fotos</string>
   <string name="prefs_instant_upload_summary">Enviar instantaneamente as fotos tiradas coa cámara</string>
@@ -278,7 +279,6 @@ Descárgueo de aquí: %2$s</string>
   <string name="copy_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
   <string name="copy_file_error">Oconteceu un erro mentras se intentaba copiar este ficheiro ou cartafol</string>
   <string name="forbidden_permissions_copy">copiar este ficheiro</string>
-  <string name="prefs_category_security">Seguridade</string>
   <string name="sync_folder_failed_content">A sincronización do cartafol %1$s non se completou</string>
   <string name="shared_subject_header">compartido</string>
   <string name="with_you_subject_header">con vostede</string>

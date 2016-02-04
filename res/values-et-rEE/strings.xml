@@ -30,6 +30,7 @@
   <string name="prefs_category_general">Üldine</string>
   <string name="prefs_category_more">Rohkem</string>
   <string name="prefs_accounts">Kontod</string>
+  <string name="prefs_manage_accounts">Halda kontosid</string>
   <string name="prefs_passcode">Parooli lukk</string>
   <string name="prefs_instant_upload">Piltide kohene üleslaadimine</string>
   <string name="prefs_instant_upload_summary">Laadi koheselt üles kaameraga tehtud pildid</string>
@@ -282,7 +283,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="copy_file_invalid_overwrite">See fail on juba sihtkaustas olemas</string>
   <string name="copy_file_error">Selle faili või kausta kopeerimisel tekkis tõrge</string>
   <string name="forbidden_permissions_copy">et kopeerida seda faili</string>
-  <string name="prefs_category_security">Turvalisus</string>
   <string name="shared_subject_header">jagatud</string>
   <string name="with_you_subject_header">sinuga</string>
   <string name="subject_user_shared_with_you">%1$s jagas sinuga \"%2$s\"</string>

@@ -228,7 +228,6 @@
   <string name="actionbar_logger">سجل</string>
   <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
   <string name="folder_picker_choose_button_text">اختيار</string>
-  <string name="prefs_category_security">الأمان</string>
   <string name="auth_host_address">عنوان الخادم</string>
   <string name="share_dialog_title">مشاركة</string>
   <string name="share_via_link_section_title">شارك الرابط</string>

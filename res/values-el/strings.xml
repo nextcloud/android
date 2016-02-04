@@ -30,6 +30,7 @@
   <string name="prefs_category_general">Γενικά</string>
   <string name="prefs_category_more">Περισσότερα</string>
   <string name="prefs_accounts">Λογαριασμοί</string>
+  <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
   <string name="prefs_passcode">Κλείδωμα με κωδικό πρόσβασης</string>
   <string name="prefs_instant_upload">Στιγμιαίες μεταφορτώσεις εικόνων</string>
   <string name="prefs_instant_upload_summary">Μεταφορτώστε απευθείας φωτογραφίες από την κάμερα</string>
@@ -280,7 +281,6 @@
   <string name="copy_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
   <string name="copy_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια αντιγραφής αυτού του αρχείου ή φακέλου</string>
   <string name="forbidden_permissions_copy">για αντιγραφή αυτού του αρχείου</string>
-  <string name="prefs_category_security">Ασφάλεια</string>
   <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
   <string name="shared_subject_header">διαμοιρασμένα</string>
   <string name="with_you_subject_header">με εσάς</string>

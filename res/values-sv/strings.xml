@@ -30,6 +30,7 @@
   <string name="prefs_category_general">Allmänt</string>
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Konton</string>
+  <string name="prefs_manage_accounts">Hantera konton</string>
   <string name="prefs_passcode">Lösenordslås</string>
   <string name="prefs_instant_upload">Direktuppladdning av kamerabilder</string>
   <string name="prefs_instant_upload_summary">Direktuppladning av bilder tagna med kameran</string>
@@ -281,7 +282,6 @@
   <string name="copy_file_invalid_overwrite">Filen existerar redan i destinationsmappen</string>
   <string name="copy_file_error">Ett fel uppstod, kunde inte kopiera filen eller mappen</string>
   <string name="forbidden_permissions_copy">att kopiera denna fil</string>
-  <string name="prefs_category_security">Säkerhet</string>
   <string name="sync_folder_failed_content">Synkronisering av %1$s mapp kunde inte slutföras</string>
   <string name="shared_subject_header">delad</string>
   <string name="with_you_subject_header">med dig</string>

@@ -30,6 +30,7 @@
   <string name="prefs_category_general">常规</string>
   <string name="prefs_category_more">更多</string>
   <string name="prefs_accounts">账号</string>
+  <string name="prefs_manage_accounts">管理账号</string>
   <string name="prefs_passcode">密码锁</string>
   <string name="prefs_instant_upload">即时图片上传</string>
   <string name="prefs_instant_upload_summary">即时上传相机拍摄的图片</string>
@@ -275,7 +276,6 @@
   <string name="copy_file_invalid_overwrite">该文件已经存在在目标文件夹</string>
   <string name="copy_file_error">尝试复制这个文件或文件夹时发生了错误</string>
   <string name="forbidden_permissions_copy">复制这个文件</string>
-  <string name="prefs_category_security">安全</string>
   <string name="shared_subject_header">已共享</string>
   <string name="with_you_subject_header">与你</string>
   <string name="subject_user_shared_with_you">%1$s和你分享了“%2$s”</string>

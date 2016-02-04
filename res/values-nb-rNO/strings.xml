@@ -281,7 +281,6 @@
   <string name="copy_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
   <string name="copy_file_error">En feil oppstod ved kopiering av denne filen eller mappen</string>
   <string name="forbidden_permissions_copy">å kopiere denne filen</string>
-  <string name="prefs_category_security">Sikkerhet</string>
   <string name="sync_folder_failed_content">Synkronisering av %1$s mappe kunne ikke fullføres</string>
   <string name="shared_subject_header">delte</string>
   <string name="with_you_subject_header">med deg</string>

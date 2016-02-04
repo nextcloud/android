@@ -30,6 +30,7 @@
   <string name="prefs_category_general">ทั่วไป</string>
   <string name="prefs_category_more">เพิ่มเติม</string>
   <string name="prefs_accounts">บัญชี</string>
+  <string name="prefs_manage_accounts">บริหารจัดการบัญชี</string>
   <string name="prefs_passcode">ล็อค Passcodes</string>
   <string name="prefs_instant_upload">อัพโหลดรูปภาพทันที</string>
   <string name="prefs_instant_upload_summary">อัพโหลดรูปภาพที่ถ่ายโดยกล้องทันที</string>
@@ -281,7 +282,6 @@
   <string name="copy_file_invalid_overwrite">มีไฟล์อยู่แล้วในโฟลเดอร์ปลายทาง</string>
   <string name="copy_file_error">เกิดข้อผิดพลาดขณะพยายามคัดลอกไฟล์หรือโฟลเดอร์นี้</string>
   <string name="forbidden_permissions_copy">เพื่อคัดลอกไฟล์นี้</string>
-  <string name="prefs_category_security">ความปลอดภัย</string>
   <string name="sync_folder_failed_content">ประสานข้อมูลโฟลเดอร์ %1$s ไม่สำเร็จ</string>
   <string name="shared_subject_header">ถูกแชร์</string>
   <string name="with_you_subject_header">กับคุณ</string>

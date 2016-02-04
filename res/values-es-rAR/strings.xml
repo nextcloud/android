@@ -27,6 +27,7 @@
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
+  <string name="prefs_manage_accounts">Gestionar cuentas</string>
   <string name="prefs_instant_upload">Subir fotos instantáneamente. </string>
   <string name="prefs_instant_upload_summary">Subir instantáneamente fotos tomadas por la cámara.</string>
   <string name="prefs_instant_video_upload">Subir videos instantáneamente. </string>
@@ -243,7 +244,6 @@
   <string name="move_file_error">Un error ocurrió intentando mover el archivo o carpeta</string>
   <string name="forbidden_permissions_move">para mover este archivo</string>
   <string name="copy_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
-  <string name="prefs_category_security">Seguridad</string>
   <string name="auth_host_address">Dirección del servidor</string>
   <string name="share_dialog_title">Compartiendo</string>
   <string name="share_via_link_section_title">Compartir vínculo</string>

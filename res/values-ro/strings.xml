@@ -30,6 +30,7 @@
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Mai mult</string>
   <string name="prefs_accounts">Conturi</string>
+  <string name="prefs_manage_accounts">Administrare conturi</string>
   <string name="prefs_passcode">Parolă blocare</string>
   <string name="prefs_instant_upload">Încărcare instantă de imagini</string>
   <string name="prefs_instant_upload_summary">Încarcă instantant imagini luate cu camera</string>
@@ -269,7 +270,6 @@
   <string name="move_file_error">O eroare apare la transferarea acestui fișier sau dosar</string>
   <string name="forbidden_permissions_move">pentru a muta acest fișier</string>
   <string name="copy_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
-  <string name="prefs_category_security">Securitate</string>
   <string name="shared_subject_header">partajat</string>
   <string name="with_you_subject_header">cu tine</string>
   <string name="subject_user_shared_with_you">%1$s a partajat fișierul \"%2$s\" cu tine</string>

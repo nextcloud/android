@@ -204,7 +204,6 @@
   <string name="move_file_error">Beim Réckele vun dësem Fichier oder Dossier ass e Feeler opgetrueden</string>
   <string name="forbidden_permissions_move">fir dëse Fichier ze réckelen</string>
   <string name="copy_file_invalid_overwrite">De Fichier existéiert schonn am Zildossier</string>
-  <string name="prefs_category_security">Sécherheet</string>
   <string name="subject_user_shared_with_you">%1$s huet \"%2$s\" mat dir gedeelt</string>
   <string name="auth_refresh_button">Connectioun opfrëschen</string>
   <string name="auth_host_address">Server-Adress</string>

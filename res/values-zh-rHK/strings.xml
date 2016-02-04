@@ -71,7 +71,6 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">帳號</string>
   <string name="saml_authentication_wrong_pass">密碼錯誤</string>
-  <string name="prefs_category_security">安全</string>
   <string name="auth_host_address">伺服器地址</string>
   <string name="share_dialog_title">分享</string>
   <string name="share_via_link_section_title">分享連結</string>

@@ -30,6 +30,7 @@
   <string name="prefs_category_general">Ogólne</string>
   <string name="prefs_category_more">Więcej</string>
   <string name="prefs_accounts">Konta</string>
+  <string name="prefs_manage_accounts">Zarządzaj kontami</string>
   <string name="prefs_passcode">Blokowanie hasła</string>
   <string name="prefs_instant_upload">natychmiastowa wysyłka obrazków</string>
   <string name="prefs_instant_upload_summary">Wysyłaj od razu zdjęcia zrobione aparatem</string>
@@ -269,7 +270,6 @@
   <string name="move_file_error">Pojawił się błąd podczas próby przeniesienia tego pliku lub folderu</string>
   <string name="forbidden_permissions_move">aby przenieść ten plik</string>
   <string name="copy_file_invalid_overwrite">Plik istnieje już w folderze docelowym</string>
-  <string name="prefs_category_security">Bezpieczeństwo</string>
   <string name="shared_subject_header">udostępniony</string>
   <string name="with_you_subject_header">z tobą</string>
   <string name="subject_user_shared_with_you">%1$s wspólne \"%2$s\" z tobą</string>

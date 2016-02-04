@@ -30,6 +30,7 @@
   <string name="prefs_category_general">Splošno</string>
   <string name="prefs_category_more">Več</string>
   <string name="prefs_accounts">Računi</string>
+  <string name="prefs_manage_accounts">Upravljanje z računi</string>
   <string name="prefs_passcode">Zaklep s kodo PIN</string>
   <string name="prefs_instant_upload">Takojšnje pošiljanje slik</string>
   <string name="prefs_instant_upload_summary">Takojšnje pošiljanje slik, zajetih s fotoaparatom, na strežnik</string>
@@ -281,7 +282,6 @@
   <string name="copy_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja.</string>
   <string name="copy_file_error">Prišlo je do napake med kopiranjem datoteke v mapo</string>
   <string name="forbidden_permissions_copy">za kopiranje te datoteke</string>
-  <string name="prefs_category_security">Varnost</string>
   <string name="sync_folder_failed_content">Usklajevanja mape %1$s ni mogoče zaključiti</string>
   <string name="shared_subject_header">v souporabi</string>
   <string name="with_you_subject_header">z vami</string>

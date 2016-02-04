@@ -28,6 +28,7 @@
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Més</string>
   <string name="prefs_accounts">Comptes</string>
+  <string name="prefs_manage_accounts">Gestió de comptes</string>
   <string name="prefs_passcode">Contrasenya</string>
   <string name="prefs_instant_upload">Pujada instantànies de fotografies</string>
   <string name="prefs_instant_upload_summary">Puja instantàniament les fotografies preses amb la càmera</string>
@@ -232,7 +233,6 @@
   <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
   <string name="actionbar_move">Moure</string>
   <string name="folder_picker_choose_button_text">Escull</string>
-  <string name="prefs_category_security">Seguretat</string>
   <string name="auth_host_address">Adreça del servidor</string>
   <string name="share_dialog_title">Compartir</string>
   <string name="share_via_link_section_title">Comparteix l\'enllaç</string>

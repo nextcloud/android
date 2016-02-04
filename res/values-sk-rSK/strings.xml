@@ -30,6 +30,7 @@
   <string name="prefs_category_general">Všeobecné</string>
   <string name="prefs_category_more">Viac</string>
   <string name="prefs_accounts">Účty</string>
+  <string name="prefs_manage_accounts">Správa účtov</string>
   <string name="prefs_passcode">Heslo</string>
   <string name="prefs_instant_upload">Okamžité nahratie obrázka</string>
   <string name="prefs_instant_upload_summary">Okamžite nahrať obrázok zaznamenaný fotoaparátom</string>
@@ -280,7 +281,6 @@
   <string name="copy_file_invalid_overwrite">Súbor už v cieľovom priečinku existuje</string>
   <string name="copy_file_error">Počas kopírovania súboru alebo zložky sa vyskytla chyba</string>
   <string name="forbidden_permissions_copy">kopírovať súbor</string>
-  <string name="prefs_category_security">Zabezpečenie</string>
   <string name="sync_folder_failed_content">Synchronizáciu priečinka %1$s nebolo možné dokončiť</string>
   <string name="shared_subject_header">zdieľané</string>
   <string name="with_you_subject_header">s vami</string>

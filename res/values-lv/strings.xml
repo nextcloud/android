@@ -165,7 +165,6 @@
   <string name="folder_picker_choose_button_text">Izvēlieties</string>
   <string name="forbidden_permissions_move">lai pārvietotu šo datni</string>
   <string name="forbidden_permissions_copy">lai kopētu šo datni</string>
-  <string name="prefs_category_security">Drošība</string>
   <string name="shared_subject_header">koplietots</string>
   <string name="with_you_subject_header">ar jums</string>
   <string name="auth_host_address">Servera adrese</string>

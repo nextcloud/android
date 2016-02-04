@@ -260,7 +260,6 @@
   <string name="move_file_error">Се случи грешка кога пробував да ја преместам оваа датотека или папка</string>
   <string name="forbidden_permissions_move">да ја преместам оваа датотека</string>
   <string name="copy_file_invalid_overwrite">Датотеката веќе постои во целната папка</string>
-  <string name="prefs_category_security">Безбедност</string>
   <string name="subject_user_shared_with_you">%1$s сподели \"%2$s\" со тебе</string>
   <string name="auth_refresh_button">Освежи ја конекцијата</string>
   <string name="auth_host_address">Адреса на сервер</string>

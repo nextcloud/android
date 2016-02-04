@@ -30,6 +30,7 @@
   <string name="prefs_category_general">Obecné</string>
   <string name="prefs_category_more">Více</string>
   <string name="prefs_accounts">Účty</string>
+  <string name="prefs_manage_accounts">Spravovat účty</string>
   <string name="prefs_passcode">Zámek bezpečnostního kódu</string>
   <string name="prefs_instant_upload">Okamžité nahrávání obrázků</string>
   <string name="prefs_instant_upload_summary">Okamžitě nahrávat vytvořené fotografie</string>
@@ -282,7 +283,6 @@ správce systému.</string>
   <string name="copy_file_invalid_overwrite">Soubor již v cílové složce existuje</string>
   <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či složky došlo k chybě</string>
   <string name="forbidden_permissions_copy">pro zkopírování tohoto souboru</string>
-  <string name="prefs_category_security">Zabezpečení</string>
   <string name="sync_folder_failed_content">Synchronizaci adresáře %1$s nelze dokončit</string>
   <string name="shared_subject_header">sdílené</string>
   <string name="with_you_subject_header">s vámi</string>

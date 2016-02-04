@@ -283,7 +283,6 @@
   <string name="copy_file_invalid_overwrite">הקובץ כבר קיים בתיקיית היעד</string>
   <string name="copy_file_error">אירעה שגיאה בזמן ניסיון להעתיק את הקובץ או התיקייה</string>
   <string name="forbidden_permissions_copy">להעתיק את הקובץ הזה</string>
-  <string name="prefs_category_security">אבטחה</string>
   <string name="sync_folder_failed_content">לא ניתן להשלים סנכרון של %1$s תיקיות</string>
   <string name="shared_subject_header">משותף</string>
   <string name="with_you_subject_header">אתך</string>

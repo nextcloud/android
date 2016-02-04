@@ -13,6 +13,7 @@
   <string name="prefs_category_general">සාමාන්‍යයෙන්</string>
   <string name="prefs_category_more">වැඩි</string>
   <string name="prefs_accounts">ගිණුම්</string>
+  <string name="prefs_manage_accounts">ගිණුම් කළමනාකරනය</string>
   <string name="prefs_help">උදව්</string>
   <string name="auth_username">පරිශීලක නම</string>
   <string name="auth_password">මුර පදය</string>

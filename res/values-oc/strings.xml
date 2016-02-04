@@ -30,6 +30,7 @@
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Mai</string>
   <string name="prefs_accounts">Comptes</string>
+  <string name="prefs_manage_accounts">Maneja comptes</string>
   <string name="prefs_passcode">Còde de seguretat</string>
   <string name="prefs_instant_upload">Mandadís immediat de las fòtos</string>
   <string name="prefs_instant_upload_summary">Mandar immediatament las fòtos presas per la camèra</string>
@@ -281,7 +282,6 @@ En rason d\'aquesta modificacion, totes los fichièrs mandats amb de versions an
   <string name="copy_file_invalid_overwrite">Fichièr ja existent dins lo dorsièr de destinacion</string>
   <string name="copy_file_error">Una error s\'es produsida al moment de la còpia d\'aqueste fichièr o dorsièr</string>
   <string name="forbidden_permissions_copy">de copiar aqueste fichièr</string>
-  <string name="prefs_category_security">Seguretat</string>
   <string name="sync_folder_failed_content">La sincronizacion del dorsièr %1$s a pas pogut èsser acabad</string>
   <string name="shared_subject_header">a partejat</string>
   <string name="with_you_subject_header">amb vos</string>
