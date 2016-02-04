@@ -110,7 +110,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mStatusBarColorActionMode = getResources().getColor(R.color.actionModeStatusBarBackground);
+        mStatusBarColorActionMode = getResources().getColor(R.color.action_mode_status_bar_background);
         mStatusBarColor = getResources().getColor(R.color.primary_dark);
     }
 
