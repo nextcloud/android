@@ -908,12 +908,12 @@ public class FileActivity extends AppCompatActivity
     /**
      * Show loading dialog
      */
-    public void showLoadingDialog() {
+    public void showLoadingDialog(String message) {
         // Construct dialog
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
         if (frag == null) {
             Log_OC.d(TAG, "show loading dialog");
-            LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
+            LoadingDialog loading = new LoadingDialog(message);
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             loading.show(ft, DIALOG_WAIT_TAG);
