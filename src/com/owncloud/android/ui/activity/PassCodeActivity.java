@@ -43,8 +43,6 @@ import android.widget.Toast;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
-import java.util.Arrays;
-
 public class PassCodeActivity extends AppCompatActivity {
 
     private static final String TAG = PassCodeActivity.class.getSimpleName();
@@ -153,7 +151,7 @@ public class PassCodeActivity extends AppCompatActivity {
             mBCancel.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    revertActionAndExit();
+                    finish();
                 }
             });
         } else {
@@ -376,7 +374,7 @@ public class PassCodeActivity extends AppCompatActivity {
 
         boolean result = true;
         for (int i = 0; i < mPassCodeDigits.length && result; i++) {
-            result = result && (mPassCodeDigits[i] != null) &&
+            result = (mPassCodeDigits[i] != null) &&
                     mPassCodeDigits[i].equals(savedPassCodeDigits[i]);
         }
         return result;
@@ -393,8 +391,7 @@ public class PassCodeActivity extends AppCompatActivity {
 
         boolean result = true;
         for (int i = 0; i < mPassCodeEditTexts.length && result; i++) {
-            result = result &&
-                    ((mPassCodeEditTexts[i].getText().toString()).equals(mPassCodeDigits[i]));
+            result = ((mPassCodeEditTexts[i].getText().toString()).equals(mPassCodeDigits[i]));
         }
         return result;
     }
@@ -422,8 +419,8 @@ public class PassCodeActivity extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount()== 0){
             if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction()) ||
                     ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
-                revertActionAndExit();
-            }
+                finish();
+            }   // else, do nothing, but report that the key was consumed to stay alive
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -442,25 +439,6 @@ public class PassCodeActivity extends AppCompatActivity {
         finish();
     }
 
-    /**
-     * Cancellation of ACTION_ENABLE or ACTION_DISABLE; reverts the enable or disable action done by
-     * {@link Preferences}, then finishes.
-     */
-    protected void revertActionAndExit() {
-        SharedPreferences.Editor appPrefsE = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext()).edit();
-
-        SharedPreferences appPrefs = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-
-        boolean state = appPrefs.getBoolean(PREFERENCE_SET_PASSCODE, false);
-        appPrefsE.putBoolean(PREFERENCE_SET_PASSCODE, !state);
-        // TODO WIP: this is reverting the value of the preference because it was changed BEFORE
-        // entering
-        // TODO         in this activity; was the PreferenceCheckBox in the caller who did it
-        appPrefsE.commit();
-        finish();
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -504,7 +482,7 @@ public class PassCodeActivity extends AppCompatActivity {
          *  - moves the focus automatically to the next field
          *  - for the last field, triggers the processing of the full pass code
          *
-         * @param s
+         * @param s     Changed text
          */
         @Override
         public void afterTextChanged(Editable s) {
