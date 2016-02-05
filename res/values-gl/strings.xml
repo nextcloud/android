@@ -279,6 +279,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="copy_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
   <string name="copy_file_error">Oconteceu un erro mentras se intentaba copiar este ficheiro ou cartafol</string>
   <string name="forbidden_permissions_copy">copiar este ficheiro</string>
+  <string name="prefs_category_details">Detalles</string>
   <string name="sync_folder_failed_content">A sincronización do cartafol %1$s non se completou</string>
   <string name="shared_subject_header">compartido</string>
   <string name="with_you_subject_header">con vostede</string>

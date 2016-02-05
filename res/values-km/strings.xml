@@ -94,6 +94,7 @@
   <string name="prefs_category_accounts">គណនី</string>
   <string name="saml_authentication_wrong_pass">ខុស​ពាក្យ​សម្ងាត់</string>
   <string name="folder_picker_choose_button_text">ជ្រើស</string>
+  <string name="prefs_category_details">ព័ត៌មាន​លម្អិត</string>
   <string name="auth_host_address">អាសយដ្ឋាន​ម៉ាស៊ីន​បម្រើ</string>
   <string name="share_dialog_title">ការ​ចែក​រំលែក</string>
   <string name="share_via_link_expiration_date_label">កំណត់​ពេល​ផុត​កំណត់</string>

@@ -276,6 +276,7 @@
   <string name="copy_file_invalid_overwrite">Файл вже існує в теці призначення</string>
   <string name="copy_file_error">Виникла помилка під час спроби скопіювати даний файл чи папку</string>
   <string name="forbidden_permissions_copy">скопіювати даний файл</string>
+  <string name="prefs_category_details">Деталі</string>
   <string name="shared_subject_header">поширений</string>
   <string name="with_you_subject_header">з Вами</string>
   <string name="subject_user_shared_with_you">%1$s поділився \"%2$s\" з вами</string>

@@ -165,6 +165,7 @@
   <string name="folder_picker_choose_button_text">Elekti</string>
   <string name="move_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
   <string name="copy_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
+  <string name="prefs_category_details">Detaloj</string>
   <string name="auth_host_address">Servila adreso</string>
   <string name="file_list__footer__file">1 dosiero</string>
   <string name="file_list__footer__files">%1$d dosieroj</string>

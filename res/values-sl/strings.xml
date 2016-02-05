@@ -282,6 +282,7 @@
   <string name="copy_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja.</string>
   <string name="copy_file_error">Prišlo je do napake med kopiranjem datoteke v mapo</string>
   <string name="forbidden_permissions_copy">za kopiranje te datoteke</string>
+  <string name="prefs_category_details">Podrobnosti</string>
   <string name="sync_folder_failed_content">Usklajevanja mape %1$s ni mogoče zaključiti</string>
   <string name="shared_subject_header">v souporabi</string>
   <string name="with_you_subject_header">z vami</string>

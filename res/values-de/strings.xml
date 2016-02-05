@@ -284,6 +284,7 @@
   <string name="copy_file_invalid_overwrite">Die Datei existiert bereits im Zielverzeichnis</string>
   <string name="copy_file_error">Es ist ein Fehler beim Kopieren der Datei oder des Ordners aufgetreten.</string>
   <string name="forbidden_permissions_copy">diese Datei zu kopieren</string>
+  <string name="prefs_category_details">Details</string>
   <string name="sync_folder_failed_content">Bei der Synchronisation konnte %1$s Ordner nicht fertig gestellt werden</string>
   <string name="shared_subject_header">geteilt</string>
   <string name="with_you_subject_header">Mit Dir</string>

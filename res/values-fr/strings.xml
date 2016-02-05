@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">Application Android %1$s</string>
   <string name="about_version">version %1$s</string>
   <string name="actionbar_sync">Actualiser le compte</string>
   <string name="actionbar_upload">Téléverser</string>
@@ -36,8 +37,11 @@
   <string name="prefs_instant_upload_summary">Téléverser immédiatement les photos prises par la caméra</string>
   <string name="prefs_instant_video_upload">Téléversement immédiat des vidéos</string>
   <string name="prefs_instant_video_upload_summary">Téléverser immédiatement les vidéos prises par la caméra</string>
+  <string name="prefs_log_title">Activer la journalisation</string>
   <string name="prefs_log_summary">Utilisé pour enregistrer les problèmes dans les logs</string>
+  <string name="prefs_log_title_history">Historique de la journalisation</string>
   <string name="prefs_log_summary_history">Cela affiche les logs enregistrés</string>
+  <string name="prefs_log_delete_history_button">Supprimer l\'historique</string>
   <string name="prefs_help">Aide</string>
   <string name="prefs_recommend">Recommander à un ami</string>
   <string name="prefs_feedback">Commentaires</string>
@@ -47,6 +51,7 @@
   <string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
   <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !
 Téléchargez-le ici : %2$s</string>
+  <string name="auth_check_server">Vérifier le serveur</string>
   <string name="auth_host_url">Adresse du serveur https://…</string>
   <string name="auth_username">Nom d\'utilisateur</string>
   <string name="auth_password">Mot de passe</string>
@@ -57,6 +62,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="uploader_btn_new_folder_text">Nouveau dossier</string>
   <string name="uploader_top_message">Sélectionner le dossier d\'envoi :</string>
   <string name="uploader_wrn_no_account_title">Aucun compte n\'a été trouvé</string>
+  <string name="uploader_wrn_no_account_text">Aucun %1$s compte sur l\'appareil. Veuillez configurer un compte au préalable.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuration</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quitter</string>
   <string name="uploader_wrn_no_content_title">Rien à envoyer</string>
@@ -66,6 +72,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="file_list_seconds_ago">il y a quelques secondes</string>
   <string name="file_list_empty">Il n\'y a rien ici ! Envoyez donc quelque chose :)</string>
   <string name="file_list_loading">Chargement...</string>
+  <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier !</string>
   <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
   <string name="filedetails_select_file">Sélectionnez un fichier pour afficher des informations supplémentaires</string>
   <string name="filedetails_size">Taille :</string>
@@ -75,11 +82,14 @@ Téléchargez-le ici : %2$s</string>
   <string name="filedetails_download">Télécharger</string>
   <string name="filedetails_sync_file">Synchroniser</string>
   <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %s pendant le téléversement</string>
+  <string name="list_layout">Affichage en liste</string>
   <string name="action_share">Partager</string>
   <string name="common_yes">Oui</string>
   <string name="common_no">Non</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_sync">Annuler la synchronisation</string>
   <string name="common_cancel">Annuler</string>
+  <string name="common_save_exit">Enregistrer &amp; quitter</string>
   <string name="common_error">Erreur</string>
   <string name="common_loading">Chargement…</string>
   <string name="common_error_unknown">Erreur inconnue </string>
@@ -92,15 +102,22 @@ Téléchargez-le ici : %2$s</string>
   <string name="uploader_upload_in_progress_ticker">Téléversement…</string>
   <string name="uploader_upload_in_progress_content">Envoi du fichier %2$s : %1$d%% effectués</string>
   <string name="uploader_upload_succeeded_ticker">Téléversement réussi</string>
+  <string name="uploader_upload_succeeded_content_single">%1$s téléversé</string>
   <string name="uploader_upload_failed_ticker">Échec de l\'envoi</string>
   <string name="uploader_upload_failed_content_single">L\'envoi de %1$s a échoué</string>
+  <string name="uploader_upload_failed_credentials_error">Le téléversement a échoué, vous devez vous reconnecter</string>
   <string name="downloader_download_in_progress_ticker">Téléchargement en cours…</string>
   <string name="downloader_download_in_progress_content">Téléchargement en cours de %2$s, %1$d%% effectués</string>
   <string name="downloader_download_succeeded_ticker">Téléchargement réussi</string>
+  <string name="downloader_download_succeeded_content">%1$s téléchargé</string>
   <string name="downloader_download_failed_ticker">Le téléchargement a échoué</string>
   <string name="downloader_download_failed_content">Le téléchargement de %1$s a échoué</string>
   <string name="downloader_not_downloaded_yet">Pas encore téléchargé</string>
+  <string name="downloader_download_failed_credentials_error">Le téléchargement a échoué, vous devez vous reconnecter</string>
   <string name="common_choose_account">Choisissez un compte</string>
+  <string name="sync_fail_ticker">La synchronisation a échoué</string>
+  <string name="sync_fail_ticker_unauthorized">La synchronisation a échoué, vous devez vous reconnecter</string>
+  <string name="sync_fail_content">La synchronisation de %1$s ne peut être achevée</string>
   <string name="sync_fail_content_unauthorized">Mot de passe non valide pour %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
   <string name="sync_conflicts_in_favourites_content">%1$d fichiers à garder synchronisés n\'ont pu être synchronisés</string>
@@ -288,6 +305,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="copy_file_invalid_overwrite">Fichier déjà existant dans le dossier de destination</string>
   <string name="copy_file_error">Une erreur est survenue lors de la copie de ce fichier ou dossier</string>
   <string name="forbidden_permissions_copy">de copier ce fichier</string>
+  <string name="prefs_category_details">Détails</string>
   <string name="sync_folder_failed_content">La synchronisation du dossier %1$s n\'a pas pu être terminée</string>
   <string name="shared_subject_header">a partagé</string>
   <string name="with_you_subject_header">avec vous</string>

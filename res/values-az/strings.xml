@@ -252,6 +252,7 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="move_file_error">Fayl və ya qovluğun köçürülməsi müddətində səhv baş verdi</string>
   <string name="forbidden_permissions_move">bu faylı köçürtmək</string>
   <string name="copy_file_invalid_overwrite">Fayl artıq mənsəb qovluğunda mövcuddur</string>
+  <string name="prefs_category_details">Detallar</string>
   <string name="subject_user_shared_with_you">%1$s paylaşdı \"%2$s\" sizinlə</string>
   <string name="auth_refresh_button">Qoşulmanı yenilə</string>
   <string name="auth_host_address">Server ünvanı</string>

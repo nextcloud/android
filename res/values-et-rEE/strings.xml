@@ -283,6 +283,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="copy_file_invalid_overwrite">See fail on juba sihtkaustas olemas</string>
   <string name="copy_file_error">Selle faili või kausta kopeerimisel tekkis tõrge</string>
   <string name="forbidden_permissions_copy">et kopeerida seda faili</string>
+  <string name="prefs_category_details">Üksikasjad</string>
   <string name="shared_subject_header">jagatud</string>
   <string name="with_you_subject_header">sinuga</string>
   <string name="subject_user_shared_with_you">%1$s jagas sinuga \"%2$s\"</string>

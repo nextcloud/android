@@ -260,6 +260,7 @@
   <string name="move_file_error">An error occurred whilst trying to move this file or folder</string>
   <string name="forbidden_permissions_move">to move this file</string>
   <string name="copy_file_invalid_overwrite">The file exists already in the destination folder</string>
+  <string name="prefs_category_details">Details</string>
   <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
   <string name="auth_refresh_button">Refresh connection</string>
   <string name="auth_host_address">Server address</string>

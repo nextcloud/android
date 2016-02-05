@@ -282,6 +282,7 @@
   <string name="copy_file_invalid_overwrite">Dosya zaten hedef klasörde mevcut</string>
   <string name="copy_file_error">Bu dosya veya klasörü kopyalamaya çalışılırken bir hata oluştu</string>
   <string name="forbidden_permissions_copy">bu dosyayı kopyalamak için</string>
+  <string name="prefs_category_details">Ayrıntılar</string>
   <string name="sync_folder_failed_content">%1$s klasörünün eşitlemesi tamamlanamadı</string>
   <string name="shared_subject_header">sizinle</string>
   <string name="with_you_subject_header">paylaştı</string>

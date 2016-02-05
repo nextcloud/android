@@ -297,6 +297,7 @@
   <string name="copy_file_invalid_overwrite">そのファイルは宛先フォルダーにすでに存在します。</string>
   <string name="copy_file_error">このファイルまたはフォルダーをコピーする際にエラーが発生しました</string>
   <string name="forbidden_permissions_copy">このファイルをコピー</string>
+  <string name="prefs_category_details">詳細</string>
   <string name="sync_folder_failed_content">%1$s フォルダーの同期が完了しませんでした。</string>
   <string name="shared_subject_header">共有中</string>
   <string name="with_you_subject_header">あなたと</string>

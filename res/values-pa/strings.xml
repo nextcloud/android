@@ -110,6 +110,7 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">ਅਕਾਊਂਟ</string>
   <string name="folder_picker_choose_button_text">ਚੁਣੋ</string>
+  <string name="prefs_category_details">ਵੇਰਵ</string>
   <string name="auth_host_address">ਸਰਵਰ ਐਡਰੈਸ</string>
   <string name="share_search">ਖੋਜ</string>
 </resources>

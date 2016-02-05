@@ -282,6 +282,7 @@
   <string name="copy_file_invalid_overwrite">El fichero ya existe en el directorio de destino</string>
   <string name="copy_file_error">Hubo un error al tratar de copiar este archivo o carpeta</string>
   <string name="forbidden_permissions_copy">para copiar este archivo</string>
+  <string name="prefs_category_details">Detalles</string>
   <string name="sync_folder_failed_content">La sincronización de la carpeta %1$s no se pudo completar</string>
   <string name="shared_subject_header">compartido</string>
   <string name="with_you_subject_header">con usted</string>

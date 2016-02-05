@@ -266,6 +266,7 @@
   <string name="forbidden_permissions_move">да преместите овај фајл</string>
   <string name="copy_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
   <string name="forbidden_permissions_copy">да копирате овај фајл</string>
+  <string name="prefs_category_details">Подаци</string>
   <string name="shared_subject_header">дељено</string>
   <string name="with_you_subject_header">са вама</string>
   <string name="subject_user_shared_with_you">%1$s подели „%2$s“ са вама</string>

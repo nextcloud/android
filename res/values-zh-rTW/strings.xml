@@ -274,6 +274,7 @@
   <string name="move_file_error">在移動檔案或目錄時發生了錯誤</string>
   <string name="forbidden_permissions_move">移動這個檔案</string>
   <string name="copy_file_invalid_overwrite">這個檔案已經存在於目的目錄中</string>
+  <string name="prefs_category_details">詳細資料</string>
   <string name="shared_subject_header">以分享的</string>
   <string name="with_you_subject_header">與你</string>
   <string name="subject_user_shared_with_you">%1$s 分享了 \"%2$s\" 給您</string>
