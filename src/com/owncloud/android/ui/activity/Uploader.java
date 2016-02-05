@@ -105,6 +105,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.adapter.ImageSimpleAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.CopyTmpFileAsyncTask;
@@ -486,7 +487,7 @@ public class Uploader extends FileActivity
         }
     }
     
-    public void startSyncFolderOperation(OCFile folder) {
+    private void startSyncFolderOperation(OCFile folder) {
         long currentSyncTime = System.currentTimeMillis(); 
         
         mSyncInProgress = true;
