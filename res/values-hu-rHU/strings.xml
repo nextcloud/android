@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Android Alkalmazás</string>
   <string name="about_version">verzió %1$s</string>
   <string name="actionbar_sync">Fiók frissítése</string>
   <string name="actionbar_upload">Feltöltés</string>
@@ -11,13 +10,22 @@
   <string name="actionbar_settings">Beállítások</string>
   <string name="actionbar_see_details">Részletek</string>
   <string name="actionbar_send_file">Küldjük el</string>
+  <string name="actionbar_sort">Rendezés</string>
+  <string name="actionbar_sort_title">Rendezés elve</string>
+  <string-array name="actionbar_sortby">
+    <item>A-Z</item>
+    <item>Újabb - régebbi</item>
+  </string-array>
   <!--TODO re-enable when server-side folder size calculation is available   
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Összes fájl</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Beállítások</string>
+  <string name="drawer_item_logs">Naplófájlok</string>
+  <string name="drawer_close">Bezárás</string>
   <string name="drawer_open">Megnyitás</string>
   <string name="prefs_category_general">Általános</string>
   <string name="prefs_category_more">Több</string>
@@ -27,17 +35,14 @@
   <string name="prefs_instant_upload_summary">Kamera által készítette képek azonnali feltöltése</string>
   <string name="prefs_instant_video_upload">Azonnali video feltöltések</string>
   <string name="prefs_instant_video_upload_summary">Kamera által készített videó azonnali feltöltése</string>
-  <string name="prefs_log_title">Naplózás engedélyezése</string>
   <string name="prefs_log_summary">Ez használható a problémák naplózásához</string>
-  <string name="prefs_log_title_history">Naplózás előzménye</string>
   <string name="prefs_log_summary_history">Ez megjeleníti a rögzitett eseményeket</string>
-  <string name="prefs_log_delete_history_button">Előzmények törlése</string>
   <string name="prefs_help">Súgó</string>
   <string name="prefs_recommend">Ajánlja egy barátjának</string>
   <string name="prefs_feedback">Visszajelzés</string>
   <string name="prefs_imprint">Impresszum</string>
+  <string name="prefs_remember_last_share_location">Emlékezzen a megosztás helyére</string>
   <string name="recommend_subject">Próbálja ki %1$s-t az okostelefonján!</string>
-  <string name="auth_check_server">Szerver állapot ellenörzés</string>
   <string name="auth_host_url">Kiszolgáló címe https://...</string>
   <string name="auth_username">Felhasználói név</string>
   <string name="auth_password">Jelszó</string>
@@ -48,7 +53,6 @@
   <string name="uploader_btn_new_folder_text">Új mappa</string>
   <string name="uploader_top_message">Válassz feltöltési mappát:</string>
   <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
-  <string name="uploader_wrn_no_account_text">Nem található %1$s fiók ezen a készüléken. Hozzon létre egy fiókot előbb.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Beállítás</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Kilépés</string>
   <string name="uploader_wrn_no_content_title">Nincs feltölthető tartalom</string>
@@ -57,6 +61,7 @@
   <string name="uploader_info_uploading">Feltöltés</string>
   <string name="file_list_seconds_ago">pár másodperce</string>
   <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
+  <string name="file_list_loading">Betöltés...</string>
   <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
   <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
@@ -64,17 +69,13 @@
   <string name="filedetails_created">Készült:</string>
   <string name="filedetails_modified">Módosítva:</string>
   <string name="filedetails_download">Letöltés</string>
-  <string name="filedetails_sync_file">File frissítése</string>
+  <string name="filedetails_sync_file">Szinkronizálás</string>
   <string name="filedetails_renamed_in_upload_msg">A feltöltés során az állmányt erre neveztük át: %1$s</string>
-  <string name="action_share_file">Megosztás hivatkozással</string>
-  <string name="action_unshare_file">Megosztás visszavonása</string>
+  <string name="action_share">Megosztás</string>
   <string name="common_yes">Igen</string>
   <string name="common_no">Nem</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_download">A letöltés megszakítása</string>
-  <string name="common_cancel_upload">A feltöltés megszakítása</string>
   <string name="common_cancel">Mégsem</string>
-  <string name="common_save_exit">Mentés &amp; Kilépés</string>
   <string name="common_error">Hiba</string>
   <string name="common_loading">Betöltés ...</string>
   <string name="common_error_unknown">Ismeretlen hiba</string>
@@ -87,22 +88,15 @@
   <string name="uploader_upload_in_progress_ticker">Feltöltés ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Feltöltés %2$s</string>
   <string name="uploader_upload_succeeded_ticker">A feltöltés sikerült</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s sikeresen fel lett töltve</string>
   <string name="uploader_upload_failed_ticker">A feltöltés nem sikerült</string>
   <string name="uploader_upload_failed_content_single"> %1$s fájl feltöltése sikertelen</string>
-  <string name="uploader_upload_failed_credentials_error">Feltöltés sikertelen, jelentkezz be újra</string>
   <string name="downloader_download_in_progress_ticker">Letöltés ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Letöltés %2$s</string>
   <string name="downloader_download_succeeded_ticker">A letöltés sikeres</string>
-  <string name="downloader_download_succeeded_content">%1$s sikeresen letöltve</string>
   <string name="downloader_download_failed_ticker">A letöltés sikertelen</string>
   <string name="downloader_download_failed_content">A letöltésből %1$s nem lett befejezve</string>
   <string name="downloader_not_downloaded_yet">Még nem töltötte le</string>
-  <string name="downloader_download_failed_credentials_error">Letöltés sikertelen, jelentkezz be újra.</string>
   <string name="common_choose_account">Válasszon azonosítót</string>
-  <string name="sync_fail_ticker">A szinkronizálás sikertelen</string>
-  <string name="sync_fail_ticker_unauthorized">Szinkronizálás sikertelen, jelentkezz be újra.</string>
-  <string name="sync_fail_content">%1$s szinkronizációját nem sikerült befejezni</string>
   <string name="sync_fail_content_unauthorized">Érvénytelen jelszó a következőhöz %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Ütközések vannak</string>
   <string name="sync_conflicts_in_favourites_content">%1$d szinkronizálandó állományokat nem sikerült szinkronizálni</string>
@@ -115,7 +109,13 @@
   <string name="foreign_files_fail">Egyes fájlokat nem sikerült áthelyezni</string>
   <string name="foreign_files_local_text">Helyi: %1$s</string>
   <string name="foreign_files_remote_text">Távoli: %1$s</string>
-  <string name="upload_query_move_foreign_files">Nincs elég hely a kiválasztott fájlok másolására a %1$s könyvtárban. Szeretnéd áthelyezni inkább?</string>
+  <string name="pass_code_configure_your_pass_code">Írd be a számkódodat</string>
+  <string name="pass_code_configure_your_pass_code_explanation">A számkódra minden alkalommal szükség lesz az applikáció indításához</string>
+  <string name="pass_code_remove_your_pass_code">Számkódod eltávolítása</string>
+  <string name="pass_code_mismatch">A számkódok nem egyeznek</string>
+  <string name="pass_code_wrong">Hibás számkód</string>
+  <string name="pass_code_removed">Számkód törölve</string>
+  <string name="pass_code_stored">Számkód eltárolva</string>
   <string name="media_notif_ticker">%1$s zene lejátszó</string>
   <string name="media_state_playing">%1$s (lejátszás)</string>
   <string name="media_state_loading">%1$s (betöltés)</string>
@@ -135,10 +135,10 @@
   <string name="media_rewind_description">Következő button</string>
   <string name="media_play_pause_description">Lejátszás vagy pillanat állj gomb</string>
   <string name="media_forward_description">Gyors előre gomb</string>
-  <string name="auth_trying_to_login">Bejelentkezés...</string>
   <string name="auth_no_net_conn_title">Nincs hálózati kapcsolat</string>
   <string name="auth_nossl_plain_ok_title">Nem érhető el biztonságos kapcsolat.</string>
   <string name="auth_connection_established">A kapcsolat létrejött</string>
+  <string name="auth_testing_connection">Kapcsolat ellenőrzése</string>
   <string name="auth_not_configured_title">Hibás a kiszolgáló beállítása</string>
   <string name="auth_account_not_new">Egy bejelentkezési beállítás már létezik ugyanehhez a kiszolgálóhoz és felhasználóhoz</string>
   <string name="auth_account_not_the_same">A megadott felhasználó nem azonos ezzel a belépési jogosultsággal</string>
@@ -146,7 +146,6 @@
   <string name="auth_unknown_host_title">A kiszolgáló nem található</string>
   <string name="auth_incorrect_path_title">Kiszolgáló nem található</string>
   <string name="auth_timeout_title">A kiszolgáló túl sokára válaszolt</string>
-  <string name="auth_incorrect_address_title">Hibás URL</string>
   <string name="auth_ssl_general_error_title">Nem sikerült az SSL kapcsolat felépítése</string>
   <string name="auth_ssl_unverified_server_title">Az SSL kiszolgáló tanúsítványát nem sikerült ellenőrizni</string>
   <string name="auth_bad_oc_version_title">Ismeretlen változat a kiszolgálón</string>
@@ -155,14 +154,10 @@
   <string name="auth_unauthorized">Hibás felhasználónév vagy jelszó</string>
   <string name="auth_oauth_error">Sikertelen azonosítás</string>
   <string name="auth_oauth_error_access_denied">Hozzáférés megtagadva az azonsítást végző szerver által</string>
-  <string name="auth_wtf_reenter_URL">Nem várt állapot; kérlek, menj a szerver URL-jére újra.</string>
   <string name="auth_expired_oauth_token_toast">A jogosultsága lejárt. Kérjük jelentkezzen be ismét!</string>
-  <string name="auth_expired_basic_auth_toast">Kélek, írd be a jelenlegi jelszavadat</string>
   <string name="auth_expired_saml_sso_token_toast">Lejárt a munkamenetének érvényessége. Kérjük jelentkezzen be ismét!</string>
-  <string name="auth_connecting_auth_server">Kapcsolódás a felhasználóazonosítást végző kiszolgálóhoz...</string>
   <string name="auth_unsupported_auth_method">A kiszolgáló nem támogatja ezt a felhasználóazonosítási módszert</string>
   <string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
-  <string name="auth_can_not_auth_against_server">Nem tudod hitelesíteni magadat ezen a szerveren</string>
   <string name="favorite">Kedvenc</string>
   <string name="unfavorite">Nem kedvenc</string>
   <string name="common_rename">Átnevezés</string>
@@ -180,6 +175,7 @@
   <string name="sync_file_nothing_to_do_msg">Az állományok már szinkonizálva vannak</string>
   <string name="create_dir_fail_msg">A könyvtárt nem lehet létrehozni</string>
   <string name="filename_forbidden_characters">Nem megendedett karakterek: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">A fájlnév legalább egy érvénytelen karaktert tartalmaz!</string>
   <string name="filename_empty">A fájl név nem lehet üres</string>
   <string name="wait_a_moment">Egy pillanat...</string>
   <string name="filedisplay_unexpected_bad_get_content">Váratlan hiba; válassza ki a fájlt más programból</string>
@@ -217,15 +213,16 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Képeket csak WiFi kapcsolaton keresztül töltsünk föl</string>
-  <string name="instant_video_upload_on_wifi">Videó feltöltés csak WIFI-vel</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_keep_both">Mindkettő megtartása</string>
+  <string name="conflict_use_local_version">helyi verzió</string>
+  <string name="conflict_use_server_version">szerver verzió</string>
   <string name="preview_image_description">Előnézeti kép</string>
   <string name="preview_image_error_unknown_format">Ez a kép nem jeleníthető meg</string>
   <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi könyvtárba</string>
   <string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
   <string name="unshare_link_file_error">Hiba lépett fel a mappa megosztásának visszavonásakor</string>
+  <string name="share_link_password_title">Jelszó beírása</string>
   <string name="activity_chooser_send_file_title">Küldjük el</string>
   <string name="copy_link">Link másolása</string>
   <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
@@ -236,7 +233,30 @@
   <string name="saml_authentication_required_text">Felhasználóazonosítás szükséges</string>
   <string name="saml_authentication_wrong_pass">Hibás jelszó</string>
   <string name="actionbar_move">Mozgatás</string>
+  <string name="file_list_empty_moving">Itt nincs semmi! Adj hozzá egy mappát!</string>
   <string name="folder_picker_choose_button_text">Válasszon</string>
-  <string name="prefs_category_security">Biztonság</string>
+  <string name="prefs_category_details">Részletek</string>
+  <string name="shared_subject_header">megosztva</string>
+  <string name="with_you_subject_header">veled</string>
   <string name="auth_host_address">A kiszolgáló címe</string>
+  <string name="common_error_out_memory">Nincs elég memória</string>
+  <string name="username">Felhasználónév</string>
+  <string name="file_list__footer__folder">1 könyvtár</string>
+  <string name="file_list__footer__folders">%1$d könyvtár</string>
+  <string name="file_list__footer__file">1 fájl</string>
+  <string name="file_list__footer__file_and_folder">1 fájl, 1 könyvtár</string>
+  <string name="file_list__footer__file_and_folders">1 fájl, %1$d könyvtár</string>
+  <string name="file_list__footer__files">%1$d fájl</string>
+  <string name="file_list__footer__files_and_folder">%1$d fájl, 1 könyvtár</string>
+  <string name="file_list__footer__files_and_folders">%1$d fájl, %2$d könyvtár</string>
+  <string name="share_dialog_title">Megosztás</string>
+  <string name="share_via_link_section_title">Megosztás hivatkozással</string>
+  <string name="share_via_link_expiration_date_label">Legyen lejárati idő</string>
+  <string name="share_via_link_password_label">Jelszóval is védem</string>
+  <string name="share_search">Keresés</string>
+  <string name="share_privilege_can_share">megosztható</string>
+  <string name="share_privilege_can_edit">módosíthat</string>
+  <string name="share_privilege_can_edit_create">létrehoz</string>
+  <string name="share_privilege_can_edit_change">változtatás</string>
+  <string name="share_privilege_can_edit_delete">törlés</string>
 </resources>

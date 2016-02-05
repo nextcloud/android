@@ -18,10 +18,9 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="1" >
+    android:layout_weight="1">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_containing_list"
@@ -35,6 +34,8 @@
             android:id="@+id/list_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:divider="@color/list_divider_background"
+            android:dividerHeight="1px"
             android:visibility="visible" />
 
     </android.support.v4.widget.SwipeRefreshLayout>

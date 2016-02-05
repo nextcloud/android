@@ -23,7 +23,9 @@
 package com.owncloud.android.ui.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -35,7 +37,6 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.PopupMenu;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -50,14 +51,13 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.FileActionsDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
-import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ import java.util.ArrayList;
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
 public class OCFileListFragment extends ExtendedListFragment {
-    
+
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
     private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
@@ -79,6 +79,8 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
 
+    private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
+
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile = null;
@@ -87,7 +89,6 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     private int mStatusBarColorActionMode;
     private int mStatusBarColor;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         }
         try {
             setOnRefreshListener((OnEnforceableRefreshListener) activity);
-            
+
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " +
                     SwipeRefreshLayout.OnRefreshListener.class.getSimpleName());
@@ -218,56 +219,18 @@ public class OCFileListFragment extends ExtendedListFragment {
         });
     }
 
-    // TODO Tobi needed?
-    private void showFileAction(int fileIndex) {
-        Bundle args = getArguments();
-        PopupMenu pm = new PopupMenu(getActivity(),null);
-        Menu menu = pm.getMenu();
-
-        boolean allowContextualActions =
-                (args == null) ? true : args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
-
-        if (allowContextualActions) {
-            MenuInflater inflater = getActivity().getMenuInflater();
-
-            inflater.inflate(R.menu.file_actions_menu, menu);
-            OCFile targetFile = (OCFile) mAdapter.getItem(fileIndex);
-
-            if (mContainerActivity.getStorageManager() != null) {
-                FileMenuFilter mf = new FileMenuFilter(
-                        targetFile,
-                        mContainerActivity.getStorageManager().getAccount(),
-                        mContainerActivity,
-                        getActivity()
-                );
-                mf.filter(menu);
-            }
-
-            /// TODO break this direct dependency on FileDisplayActivity... if possible
-            MenuItem item = menu.findItem(R.id.action_open_file_with);
-            FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
-            if (frag != null && frag instanceof FileDetailFragment &&
-                    frag.getFile().getFileId() == targetFile.getFileId()) {
-                item = menu.findItem(R.id.action_see_details);
-                if (item != null) {
-                    item.setVisible(false);
-                    item.setEnabled(false);
-                }
-            }
-
-            FileActionsDialogFragment dialog = FileActionsDialogFragment.newInstance(menu, fileIndex, targetFile.getFileName());
-            dialog.setTargetFragment(this, 0);
-            dialog.show(getFragmentManager(), FileActionsDialogFragment.FTAG_FILE_ACTIONS);
-        }
-    }
-
-    /**
+     /**
      * Saves the current listed folder.
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(KEY_FILE, mFile);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu (Menu menu) {
+        changeGridIcon(menu);   // this is enough if the option stays out of the action bar
     }
 
     /**
@@ -360,7 +323,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     /**
      * {@inheritDoc}
      */
-    // TODO Tobi needed?
     public void createContextMenu(Menu menu) {
         Bundle args = getArguments();
         boolean allowContextualActions =
@@ -382,11 +344,11 @@ public class OCFileListFragment extends ExtendedListFragment {
                 );
                 mf.filter(menu);
             }
-                 
+
             /// TODO break this direct dependency on FileDisplayActivity... if possible
             MenuItem item = menu.findItem(R.id.action_open_file_with);
             FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
-            if (frag != null && frag instanceof FileDetailFragment && 
+            if (frag != null && frag instanceof FileDetailFragment &&
                     frag.getFile().getFileId() == targetFile.getFileId()) {
                 item = menu.findItem(R.id.action_see_details);
                 if (item != null) {
@@ -394,24 +356,27 @@ public class OCFileListFragment extends ExtendedListFragment {
                     item.setEnabled(false);
                 }
             }
+
+//            String.format(mContext.getString(R.string.subject_token),
+//                    getClient().getCredentials().getUsername(), file.getFileName()));
+
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean onFileActionChosen(int menuId) {
         if (mAdapter.getCheckedItems().size() == 1){
             OCFile mTargetFile = mAdapter.getCheckedItems().get(0);
 
             switch (menuId) {
                 case R.id.action_share_file: {
-                    mContainerActivity.getFileOperationsHelper().shareFileWithLink(mTargetFile);
+                    mContainerActivity.getFileOperationsHelper().showShareFile(mTargetFile);
                     return true;
                 }
                 case R.id.action_open_file_with: {
                     mContainerActivity.getFileOperationsHelper().openFile(mTargetFile);
-                    return true;
-                }
-                case R.id.action_unshare_file: {
-                    mContainerActivity.getFileOperationsHelper().unshareFileWithLink(mTargetFile);
                     return true;
                 }
                 case R.id.action_rename_file: {
@@ -429,8 +394,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                     mContainerActivity.getFileOperationsHelper().syncFile(mTargetFile);
                     return true;
                 }
-                case R.id.action_cancel_download:
-                case R.id.action_cancel_upload: {
+                case R.id.action_cancel_sync: {
                     ((FileDisplayActivity) mContainerActivity).cancelTransference(mTargetFile);
                     return true;
                 }
@@ -443,7 +407,6 @@ public class OCFileListFragment extends ExtendedListFragment {
                     if (!mTargetFile.isDown()) {  // Download the file
                         Log_OC.d(TAG, mTargetFile.getRemotePath() + " : File must be downloaded");
                         ((FileDisplayActivity) mContainerActivity).startDownloadForSending(mTargetFile);
-
                     } else {
                         mContainerActivity.getFileOperationsHelper().sendDownloadedFile(mTargetFile);
                     }
@@ -514,7 +477,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         }
 
     }
-    
+
     /**
      * {@inhericDoc}
      */
@@ -548,7 +511,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         // TODO Enable when "On Device" is recovered ?
         // listDirectory(null, onlyOnDevice);
     }
-    
+
     public void refreshDirectory(){
         // TODO Enable when "On Device" is recovered ?
         listDirectory(getCurrentFile()/*, MainApp.getOnlyOnDevice()*/);
@@ -620,7 +583,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             OwnCloudVersion version = AccountUtils.getServerVersion(
                     ((FileActivity)mContainerActivity).getAccount());
             if (version != null && version.supportsRemoteThumbnails() &&
-                imagesCount > 0 && imagesCount == filesCount) {
+                    isGridViewPreferred(mFile)) {
                 switchToGridView();
                 registerLongClickListener();
             } else {
@@ -680,4 +643,91 @@ public class OCFileListFragment extends ExtendedListFragment {
     public void sortBySize(boolean descending) {
         mAdapter.setSortOrder(FileStorageUtils.SORT_SIZE, descending);
     }
+
+    /**
+     * Determines if user set folder to grid or list view. If folder is not set itself,
+     * it finds a parent that is set (at least root is set).
+     * @param file
+     * @return
+     */
+    public boolean isGridViewPreferred(OCFile file){
+        if (file != null) {
+            OCFile fileToTest = file;
+            OCFile parentDir = null;
+            String parentPath = null;
+            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+
+            SharedPreferences setting =
+                    getActivity().getSharedPreferences(
+                            GRID_IS_PREFERED_PREFERENCE, Context.MODE_PRIVATE
+                    );
+
+            if (setting.contains(String.valueOf(fileToTest.getFileId()))) {
+                return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
+            } else {
+                do {
+                    if (fileToTest.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
+                        parentPath = new File(fileToTest.getRemotePath()).getParent();
+                        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
+                                parentPath + OCFile.PATH_SEPARATOR;
+                        parentDir = storageManager.getFileByPath(parentPath);
+                    } else {
+                        parentDir = storageManager.getFileByPath(OCFile.ROOT_PATH);
+                    }
+
+                    while (parentDir == null) {
+                        parentPath = new File(parentPath).getParent();
+                        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
+                                parentPath + OCFile.PATH_SEPARATOR;
+                        parentDir = storageManager.getFileByPath(parentPath);
+                    }
+                    fileToTest = parentDir;
+                } while (endWhile(parentDir, setting));
+                return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private boolean endWhile(OCFile parentDir, SharedPreferences setting) {
+        if (parentDir.getRemotePath().compareToIgnoreCase(OCFile.ROOT_PATH) == 0) {
+            return false;
+        } else {
+            return !setting.contains(String.valueOf(parentDir.getFileId()));
+        }
+    }
+
+    private void changeGridIcon(Menu menu){
+        MenuItem menuItem = menu.findItem(R.id.action_switch_view);
+        if (isGridViewPreferred(mFile)){
+            menuItem.setTitle(getString(R.string.action_switch_list_view));
+            menuItem.setIcon(R.drawable.ic_view_list);
+        } else {
+            menuItem.setTitle(getString(R.string.action_switch_grid_view));
+            menuItem.setIcon(R.drawable.ic_view_module);
+        }
+    }
+
+    public void setListAsPreferred() {
+        saveGridAsPreferred(false);
+        switchToListView();
+    }
+
+    public void setGridAsPreferred() {
+        saveGridAsPreferred(true);
+        switchToGridView();
+    }
+
+    private void saveGridAsPreferred(boolean setGrid){
+        SharedPreferences setting = getActivity().getSharedPreferences(
+                GRID_IS_PREFERED_PREFERENCE, Context.MODE_PRIVATE
+        );
+
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putBoolean(String.valueOf(mFile.getFileId()), setGrid);
+        editor.apply();
+    }
+
+
 }

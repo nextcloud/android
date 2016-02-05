@@ -37,6 +37,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 
+import java.math.BigDecimal;
 import java.net.IDN;
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -52,6 +53,7 @@ public class DisplayUtils {
     private static final String OWNCLOUD_APP_NAME = "ownCloud";
     
     private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+    private static final int[] sizeScales = { 0, 0, 1, 1, 1, 2, 2, 2, 2 };
 
     private static Map<String, String> mimeType2HumanReadable;
 
@@ -72,19 +74,24 @@ public class DisplayUtils {
 
     /**
      * Converts the file size in bytes to human readable output.
-     * 
+     * <ul>
+     *     <li>appends a size suffix, e.g. B, KB, MB etc.</li>
+     *     <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
+     * </ul>
+     *
      * @param bytes Input file size
      * @return Like something readable like "12 MB"
      */
     public static String bytesToHumanReadable(long bytes) {
         double result = bytes;
-        int attachedsuff = 0;
-        while (result > 1024 && attachedsuff < sizeSuffixes.length) {
+        int attachedSuff = 0;
+        while (result > 1024 && attachedSuff < sizeSuffixes.length) {
             result /= 1024.;
-            attachedsuff++;
+            attachedSuff++;
         }
-        result = ((int) (result * 100)) / 100.;
-        return result + " " + sizeSuffixes[attachedsuff];
+
+        return new BigDecimal(result).setScale(
+                sizeScales[attachedSuff], BigDecimal.ROUND_HALF_UP) + " " + sizeSuffixes[attachedSuff];
     }
 
     /**
@@ -193,22 +200,19 @@ public class DisplayUtils {
         else if ((System.currentTimeMillis() - time) < 60 * 1000) {
             return c.getString(R.string.file_list_seconds_ago);
         } else {
-            // Workaround 2.x bug (see https://github.com/owncloud/android/issues/716)
-            if (    Build.VERSION.SDK_INT <= Build.VERSION_CODES.HONEYCOMB && 
-                    (System.currentTimeMillis() - time) > 24 * 60 * 60 * 1000   ) {
-                Date date = new Date(time);
-                date.setHours(0);
-                date.setMinutes(0);
-                date.setSeconds(0);
-                dateString = DateUtils.getRelativeDateTimeString(
-                        c, date.getTime(), minResolution, transitionResolution, flags
-                );
-            } else {
-                dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
+            dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
+        }
+
+        String[] parts = dateString.toString().split(",");
+        if (parts.length == 2) {
+            if (parts[1].contains(":") && !parts[0].contains(":")) {
+                return parts[0];
+            } else if (parts[0].contains(":") && !parts[1].contains(":")) {
+                return parts[1];
             }
         }
-        
-        return dateString.toString().split(",")[0];
+        //dateString contains unexpected format. fallback: use relative date time string from android api as is.
+        return dateString.toString();
     }
 
     /**
@@ -273,4 +277,5 @@ public class DisplayUtils {
             }
         }
     }
+
 }

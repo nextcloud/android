@@ -20,9 +20,6 @@
 
 package com.owncloud.android.files;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.view.Menu;
@@ -34,9 +31,12 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
@@ -58,7 +58,8 @@ public class FileMenuFilter {
      *                          {@link FileUploader} and {@link FileDownloader} services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
-    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context) {
+    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg,
+                          Context context) {
         mFile = targetFile;
         mAccount = account;
         mComponentsGetter = cg;
@@ -106,21 +107,25 @@ public class FileMenuFilter {
      * @param toHide            List to save the options that must be shown in the menu.
      */
     private void filter(List<Integer> toShow, List <Integer> toHide) {
-        boolean downloading = false;
-        boolean uploading = false;
+        boolean synchronizing = false;
         if (mComponentsGetter != null && mFile != null && mAccount != null) {
-            FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
-            downloading = (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile));
             OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
-            downloading |= (opsBinder != null && opsBinder.isSynchronizing(mAccount, mFile.getRemotePath()));
             FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
-            uploading = (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile));
+            FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
+            synchronizing = (
+                // comparing local and remote
+                (opsBinder != null && opsBinder.isSynchronizing(mAccount, mFile.getRemotePath())) ||
+                // downloading
+                (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) ||
+                // uploading
+                (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile))
+            );
         }
 
         /// decision is taken for each possible action on a file in the menu
 
         // DOWNLOAD 
-        if (mFile == null || mFile.isDown() || downloading || uploading) {
+        if (mFile == null || mFile.isDown() || mFile.isFolder() || synchronizing) {
             toHide.add(R.id.action_download_file);
 
         } else {
@@ -128,7 +133,7 @@ public class FileMenuFilter {
         }
 
         // RENAME
-        if (mFile == null || downloading || uploading) {
+        if (mFile == null || synchronizing) {
             toHide.add(R.id.action_rename_file);
 
         } else {
@@ -136,7 +141,7 @@ public class FileMenuFilter {
         }
 
         // MOVE & COPY
-        if (mFile == null || downloading || uploading) {
+        if (mFile == null || synchronizing) {
             toHide.add(R.id.action_move);
             toHide.add(R.id.action_copy);
         } else {
@@ -145,7 +150,7 @@ public class FileMenuFilter {
         }
 
         // REMOVE
-        if (mFile == null || downloading || uploading) {
+        if (mFile == null || synchronizing) {
             toHide.add(R.id.action_remove_file);
 
         } else {
@@ -153,51 +158,41 @@ public class FileMenuFilter {
         }
 
         // OPEN WITH (different to preview!)
-        if (mFile == null || mFile.isFolder() || !mFile.isDown() || downloading || uploading) {
+        if (mFile == null || mFile.isFolder() || !mFile.isDown() || synchronizing) {
             toHide.add(R.id.action_open_file_with);
 
         } else {
             toShow.add(R.id.action_open_file_with);
         }
 
+        // CANCEL SYNCHRONIZATION
+        if (mFile == null || !synchronizing) {
+            toHide.add(R.id.action_cancel_sync);
 
-        // CANCEL DOWNLOAD
-        if (mFile == null || !downloading) {
-            toHide.add(R.id.action_cancel_download);
         } else {
-            toShow.add(R.id.action_cancel_download);
+            toShow.add(R.id.action_cancel_sync);
         }
 
-        // CANCEL UPLOAD
-        if (mFile == null || !uploading || mFile.isFolder()) {
-            toHide.add(R.id.action_cancel_upload);
-        } else {
-            toShow.add(R.id.action_cancel_upload);
-        }
-
-        // SYNC FILE CONTENTS
-        if (mFile == null || mFile.isFolder() || !mFile.isDown() || downloading || uploading) {
+        // SYNC CONTENTS (BOTH FILE AND FOLDER)
+        if (mFile == null || (!mFile.isFolder() && !mFile.isDown()) || synchronizing) {
             toHide.add(R.id.action_sync_file);
+
         } else {
             toShow.add(R.id.action_sync_file);
         }
 
-        // SHARE FILE 
-        // TODO add check on SHARE available on server side?
+        // SHARE FILE
         boolean shareAllowed = (mContext != null  &&
                 mContext.getString(R.string.share_feature).equalsIgnoreCase("on"));
-        if (!shareAllowed || mFile == null) {
+        OCCapability capability = mComponentsGetter.getStorageManager().getCapability(mAccount.name);
+        boolean shareApiEnabled  = capability != null &&
+                (capability.getFilesSharingApiEnabled().isTrue() ||
+                        capability.getFilesSharingApiEnabled().isUnknown()
+                );
+        if (!shareAllowed ||  mFile == null || !shareApiEnabled) {
             toHide.add(R.id.action_share_file);
         } else {
             toShow.add(R.id.action_share_file);
-        }
-
-        // UNSHARE FILE  
-        // TODO add check on SHARE available on server side?
-        if ( !shareAllowed || (mFile == null || !mFile.isShareByLink())) {
-            toHide.add(R.id.action_unshare_file);
-        } else {
-            toShow.add(R.id.action_unshare_file);
         }
 
         // SEE DETAILS
@@ -210,21 +205,21 @@ public class FileMenuFilter {
         // SEND
         boolean sendAllowed = (mContext != null &&
                 mContext.getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on"));
-        if (mFile == null || !sendAllowed || mFile.isFolder() || uploading || downloading) {
+        if (mFile == null || !sendAllowed || mFile.isFolder() || synchronizing) {
             toHide.add(R.id.action_send_file);
         } else {
             toShow.add(R.id.action_send_file);
         }
 
         // FAVORITES
-        if (mFile == null || downloading || uploading || mFile.isFolder() || mFile.isFavorite()) {
+        if (mFile == null || synchronizing || mFile.isFolder() || mFile.isFavorite()) {
             toHide.add(R.id.action_favorite_file);
         } else {
             toShow.add(R.id.action_favorite_file);
         }
 
         // UNFAVORITES
-        if (mFile == null || downloading || uploading || mFile.isFolder() || !mFile.isFavorite()) {
+        if (mFile == null || synchronizing || mFile.isFolder() || !mFile.isFavorite()) {
             toHide.add(R.id.action_unfavorite_file);
         } else {
             toShow.add(R.id.action_unfavorite_file);

@@ -1,10 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Apl Android</string>
   <string name="about_version">versi %1$s</string>
   <string name="actionbar_sync">Segarkan akun</string>
   <string name="actionbar_upload">Unggah</string>
-  <string name="actionbar_upload_from_apps">Konten dari apl lain</string>
+  <string name="actionbar_upload_from_apps">Konten dari aplikasi lain</string>
   <string name="actionbar_upload_files">Berkas</string>
   <string name="actionbar_open_with">Buka dengan</string>
   <string name="actionbar_mkdir">Folder baru</string>
@@ -31,17 +30,13 @@
   <string name="prefs_category_general">Umum</string>
   <string name="prefs_category_more">Lainnya</string>
   <string name="prefs_accounts">Akun</string>
-  <string name="prefs_manage_accounts">Kelola Akun</string>
   <string name="prefs_passcode">Kunci kode sandi</string>
   <string name="prefs_instant_upload">Unggah gambar cepat</string>
   <string name="prefs_instant_upload_summary">Unggah gambar yang diambil kamera dengan cepat</string>
   <string name="prefs_instant_video_upload">Unggah video cepat</string>
   <string name="prefs_instant_video_upload_summary">Unggah video yang direkam kamera dengan cepat</string>
-  <string name="prefs_log_title">Aktifkan Pencatatan</string>
   <string name="prefs_log_summary">Ini digunakan untuk mencatat masalah</string>
-  <string name="prefs_log_title_history">Riwayat Catatan</string>
   <string name="prefs_log_summary_history">Ini menampilkan catatan yang disimpan</string>
-  <string name="prefs_log_delete_history_button">Riwayat Hapus</string>
   <string name="prefs_help">Bantuan</string>
   <string name="prefs_recommend">Rekomendasikan ke teman</string>
   <string name="prefs_feedback">Umpan balik</string>
@@ -50,7 +45,6 @@
   <string name="prefs_remember_last_upload_location_summary">Ingat lokasi unggahan berbagi terakhir</string>
   <string name="recommend_subject">Cobalah %1$s pada ponsel cerdas Anda!</string>
   <string name="recommend_text">Saya mengajak Anda untuk menggunakan %1$s di ponsel cerdas Anda!\nUnduh gratis disini: %2$s</string>
-  <string name="auth_check_server">Periksa Server</string>
   <string name="auth_host_url">Alamat server https://…</string>
   <string name="auth_username">Nama Pengguna</string>
   <string name="auth_password">Sandi</string>
@@ -61,7 +55,6 @@
   <string name="uploader_btn_new_folder_text">Folder baru</string>
   <string name="uploader_top_message">Pilih folder unggah:</string>
   <string name="uploader_wrn_no_account_title">Tidak ada akun yang ditemukan</string>
-  <string name="uploader_wrn_no_account_text">Belum ada akun %1$s pada perangkat Anda. Silahkan buat akun terlebih dahulu.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Pengaturan</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Keluar</string>
   <string name="uploader_wrn_no_content_title">Tidak ada konten untuk diunggah</string>
@@ -78,21 +71,15 @@
   <string name="filedetails_created">Dibuat:</string>
   <string name="filedetails_modified">Diubah:</string>
   <string name="filedetails_download">Unduh</string>
-  <string name="filedetails_sync_file">Segarkan berkas</string>
   <string name="filedetails_renamed_in_upload_msg">Berkas diubah namanya menjadi %1$s saat pengunggahan</string>
-  <string name="list_layout">Daftar Tata Letak</string>
-  <string name="action_share_file">Bagikan tautan</string>
-  <string name="action_unshare_file">Batal bagikan tautan</string>
+  <string name="action_share">Bagikan</string>
   <string name="common_yes">Ya</string>
   <string name="common_no">Tidak</string>
   <string name="common_ok">Oke</string>
-  <string name="common_cancel_download">Batal mengunduh</string>
-  <string name="common_cancel_upload">Batal mengunggah</string>
   <string name="common_cancel">Batal</string>
-  <string name="common_save_exit">Simpan &amp; Keluar</string>
   <string name="common_error">Kesalahan</string>
   <string name="common_loading">Memuat ...</string>
-  <string name="common_error_unknown">Galat tidak diketahui</string>
+  <string name="common_error_unknown">Kesalahan tidak diketahui</string>
   <string name="about_title">Tentang</string>
   <string name="change_password">Ubah sandi</string>
   <string name="delete_account">Hapus akun</string>
@@ -102,22 +89,15 @@
   <string name="uploader_upload_in_progress_ticker">Mengungggah...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Mengunggah %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Berhasil mengunggah</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s berhasil diunggah</string>
   <string name="uploader_upload_failed_ticker">Gagal mengunggah</string>
   <string name="uploader_upload_failed_content_single">Unggah %1$s tidak selesai</string>
-  <string name="uploader_upload_failed_credentials_error">Unggah gagal, Anda perlu masuk ulang</string>
   <string name="downloader_download_in_progress_ticker">Mengunduh...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Mengunduh %2$s</string>
   <string name="downloader_download_succeeded_ticker">Berhasil mengunduh</string>
-  <string name="downloader_download_succeeded_content">%1$s berhasil diunduh</string>
   <string name="downloader_download_failed_ticker">Gagal Mengunduh</string>
   <string name="downloader_download_failed_content">Mengunduh %1$s tidak selesai</string>
   <string name="downloader_not_downloaded_yet">Belum diunduh</string>
-  <string name="downloader_download_failed_credentials_error">Gagal mengunduh, Anda perlu masuk kembali</string>
   <string name="common_choose_account">Pilih akun</string>
-  <string name="sync_fail_ticker">Sinkronisasi gagal</string>
-  <string name="sync_fail_ticker_unauthorized">Sinkronisasi gagal, Anda perlu masuk kembali</string>
-  <string name="sync_fail_content">Sinkronisasi %1$s tidak selesai</string>
   <string name="sync_fail_content_unauthorized">Sandi salah untuk %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflik ditemukan</string>
   <string name="sync_conflicts_in_favourites_content">%1$d berkas kept-in-sync tidak dapat disinkronkan</string>
@@ -131,12 +111,9 @@
   <string name="foreign_files_success">Semua berkas sudah dipindahkan</string>
   <string name="foreign_files_fail">Beberapa berkas tidak dapat dipindahkan</string>
   <string name="foreign_files_local_text">Lokal: %1$s</string>
-  <string name="foreign_files_remote_text">Jauh: %1$s</string>
-  <string name="upload_query_move_foreign_files">Ruang tidak cukup untuk menyalin berkas terpilih kedalam folder %1$s. Apakah Anda ingin memindahkannya saja?</string>
-  <string name="pass_code_enter_pass_code">Silakan masukkan kode sandi Anda</string>
+  <string name="foreign_files_remote_text">Remote: %1$s</string>
   <string name="pass_code_configure_your_pass_code">Masukkan kode sandi Anda</string>
   <string name="pass_code_configure_your_pass_code_explanation">Kode sandi akan diminta setiap kali apl dijalankan.</string>
-  <string name="pass_code_reenter_your_pass_code">Silakan masukkan ulang kode sandi Anda</string>
   <string name="pass_code_remove_your_pass_code">Hapus kode sandi Anda</string>
   <string name="pass_code_mismatch">Kode sandi tidak sama</string>
   <string name="pass_code_wrong">Kode sandi salah</string>
@@ -148,7 +125,7 @@
   <string name="media_event_done">%1$s pemutaran selesai</string>
   <string name="media_err_nothing_to_play">Tidak ditemukan berkas media</string>
   <string name="media_err_no_account">Tidak ada akun yang diberikan</string>
-  <string name="media_err_not_in_owncloud">Brkas tidak didalam akun yang sah</string>
+  <string name="media_err_not_in_owncloud">Berkas tidak didalam akun yang sah</string>
   <string name="media_err_unsupported">Kodek media tidak didukung</string>
   <string name="media_err_io">Berkas media tidak dapat dibaca</string>
   <string name="media_err_malformed">Berkas media tidak di enkode dengan benar</string>
@@ -161,8 +138,6 @@
   <string name="media_rewind_description">Tombol mundur</string>
   <string name="media_play_pause_description">Tombol main dan jeda</string>
   <string name="media_forward_description">Tombol maju</string>
-  <string name="auth_getting_authorization">Mendapatkan otorisasi...</string>
-  <string name="auth_trying_to_login">Mencoba untuk masuk...</string>
   <string name="auth_no_net_conn_title">Tidak ada koneksi internet</string>
   <string name="auth_nossl_plain_ok_title">Sambungan aman tidak tersedia</string>
   <string name="auth_connection_established">Sambungan dibuat</string>
@@ -174,7 +149,6 @@
   <string name="auth_unknown_host_title">Tidak menemukan host</string>
   <string name="auth_incorrect_path_title">Instansi server tidak ditemukan</string>
   <string name="auth_timeout_title">Server terlalu lama merespon</string>
-  <string name="auth_incorrect_address_title">Format URL salah</string>
   <string name="auth_ssl_general_error_title">Menginisiasi SSL gagal</string>
   <string name="auth_ssl_unverified_server_title">Tidak dapat memverifikasi identitas server SSL</string>
   <string name="auth_bad_oc_version_title">Versi server tidak dikenal</string>
@@ -183,16 +157,12 @@
   <string name="auth_unauthorized">Nama pengguna dan sandi salah</string>
   <string name="auth_oauth_error">Otorisasi tidak berhasil</string>
   <string name="auth_oauth_error_access_denied">Akses ditolak oleh server otorisasi</string>
-  <string name="auth_wtf_reenter_URL">Keadaan tak terduga, silahkan masukkan URL server yang lagi</string>
   <string name="auth_expired_oauth_token_toast">Otorisasi Anda telah berakhir. Silakan mengotorisasi lagi</string>
-  <string name="auth_expired_basic_auth_toast">Silakan mesukkan sandi saat ini</string>
   <string name="auth_expired_saml_sso_token_toast">Sesi Anda telah berakhir. Silakan masuk kembali</string>
-  <string name="auth_connecting_auth_server">Menyambungkan ke server otentikasi...</string>
   <string name="auth_unsupported_auth_method">Server tidak mendukung medote otentikasi ini</string>
   <string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
   <string name="auth_fail_get_user_name">Server Anda tidak membalas id pengguna dengan banar, Sialakn hubungi Administrator
 	</string>
-  <string name="auth_can_not_auth_against_server">Tidak dapat mengotentikasi pada server ini</string>
   <string name="auth_account_does_not_exist">Akun tidak ada di perangkat ini</string>
   <string name="favorite">Favorit</string>
   <string name="unfavorite">Hapus favorit</string>
@@ -252,8 +222,6 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Hanya unggah gambar via WiFi</string>
-  <string name="instant_video_upload_on_wifi">Hanya unggah video via WiFi</string>
   <string name="instant_upload_path">/UnggahInstan</string>
   <string name="conflict_title">Berkas konflik</string>
   <string name="conflict_message">Berkas mana yang ingin Anda simpan? Jika Anda memilih kedua versi, berkas lokal akan memiliki angka yang ditambahkan pada namanya.</string>
@@ -263,7 +231,6 @@
   <string name="preview_image_description">Pratilik gambar</string>
   <string name="preview_image_error_unknown_format">Gambar ini tidak dapat ditampilkan</string>
   <string name="error__upload__local_file_not_copied">%1$s tidak dapat disalin ke folder lokal %2$s</string>
-  <string name="prefs_instant_upload_path_title">Jalur Lokasi Unggah</string>
   <string name="share_link_no_support_share_api">Maaf, berbagi tidak diaktifkan pada server Anda. Silakan hubungi
 		administrator Anda.</string>
   <string name="share_link_file_no_exist">Tidak dapat berbagi. Mohon periksa apakah berkas ada</string>
@@ -293,10 +260,7 @@
   <string name="prefs_add_account">Tambah akun</string>
   <string name="auth_redirect_non_secure_connection_title">Sambungan aman dialihkan melalui rute yang tidak aman.</string>
   <string name="actionbar_logger">Log</string>
-  <string name="log_send_history_button">Kirim Riwayat</string>
-  <string name="log_send_no_mail_app">Tidak ada apl untuk mengirim log. Instal apl mail!</string>
   <string name="log_send_mail_subject">%1$s Android apl log</string>
-  <string name="log_progress_dialog_text">Memuat data...</string>
   <string name="saml_authentication_required_text">Diperlukan otentikasi</string>
   <string name="saml_authentication_wrong_pass">Sandi salah</string>
   <string name="actionbar_move">Pindah</string>
@@ -312,14 +276,11 @@
   <string name="copy_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
   <string name="copy_file_error">Terjadi kesalahan ketika mencoba menyalin berkas atau folder ini</string>
   <string name="forbidden_permissions_copy">untuk menyalin berkas ini</string>
-  <string name="prefs_category_instant_uploading">Unggah Cepat</string>
-  <string name="prefs_category_security">Keamanan</string>
-  <string name="prefs_instant_video_upload_path_title">Unggah Lokasi Video</string>
-  <string name="download_folder_failed_content">Mengunduh folder %1$s  tidak selesai</string>
+  <string name="prefs_category_details">Rincian</string>
   <string name="shared_subject_header">dibagikan</string>
   <string name="with_you_subject_header">kepada Anda</string>
-  <string name="subject_token">%1$s dibagikan \"%2$s\" kepada Anda</string>
-  <string name="saml_subject_token">\"%1$s\" telah membagikan dengan Anda</string>
+  <string name="subject_user_shared_with_you">%1$s dibagikan \"%2$s\" kepada Anda</string>
+  <string name="subject_shared_with_you">\"%1$s\" telah membagikan dengan Anda</string>
   <string name="auth_refresh_button">Menyegarkan sambungan</string>
   <string name="auth_host_address">Alamat server</string>
   <string name="common_error_out_memory">Memori tidak cukup</string>
@@ -332,4 +293,15 @@
   <string name="file_list__footer__files">%1$d berkas</string>
   <string name="file_list__footer__files_and_folder">%1$d berkas, 1 folder</string>
   <string name="file_list__footer__files_and_folders">%1$d berkas, %2$d folder</string>
+  <string name="share_dialog_title">Berbagi</string>
+  <string name="share_no_users">Tidak ada data yang dibagikan dengan pengguna</string>
+  <string name="share_via_link_section_title">Bagikan tautan</string>
+  <string name="share_via_link_expiration_date_label">Atur tanggal kedaluwarsa</string>
+  <string name="share_via_link_password_label">Lindungi dengan sandi</string>
+  <string name="share_search">Cari</string>
+  <string name="share_privilege_can_share">dapat berbagi</string>
+  <string name="share_privilege_can_edit">dapat disunting</string>
+  <string name="share_privilege_can_edit_create">buat</string>
+  <string name="share_privilege_can_edit_change">ubah</string>
+  <string name="share_privilege_can_edit_delete">hapus</string>
 </resources>

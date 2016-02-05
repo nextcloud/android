@@ -20,7 +20,18 @@
 
 package com.owncloud.android.files;
 
-import java.io.File;
+import android.accounts.Account;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo.State;
+import android.preference.PreferenceManager;
+import android.provider.MediaStore.Images;
+import android.provider.MediaStore.Video;
+import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
@@ -29,18 +40,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
 
-
-import android.accounts.Account;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo.State;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore.Images;
-import android.provider.MediaStore.Video;
-import android.webkit.MimeTypeMap;
+import java.io.File;
 
 
 public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
@@ -122,7 +122,25 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+
+        // instant upload behaviour
+        i = addInstantUploadBehaviour(i, context);
+
         context.startService(i);
+    }
+
+    private Intent addInstantUploadBehaviour(Intent i, Context context){
+        SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String behaviour = appPreferences.getString("prefs_instant_behaviour", "NOTHING");
+
+        if (behaviour.equalsIgnoreCase("NOTHING")) {
+            Log_OC.d(TAG, "upload file and do nothing");
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
+        } else if (behaviour.equalsIgnoreCase("MOVE")) {
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+            Log_OC.d(TAG, "upload file and move file to oc folder");
+        }
+        return i;
     }
 
     private void handleNewVideoAction(Context context, Intent intent) {
@@ -167,6 +185,10 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+
+        // instant upload behaviour
+        i = addInstantUploadBehaviour(i, context);
+
         context.startService(i);
 
     }
@@ -207,6 +229,10 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                         i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, f.getName()));
                         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
                         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+
+                        // instant upload behaviour
+                        i = addInstantUploadBehaviour(i, context);
+
                         context.startService(i);
 
                     } else {

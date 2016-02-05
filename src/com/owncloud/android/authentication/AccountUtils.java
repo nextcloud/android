@@ -20,7 +20,12 @@
 
 package com.owncloud.android.authentication;
 
-import java.util.Locale;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.preference.PreferenceManager;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
@@ -28,12 +33,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.preference.PreferenceManager;
+import java.util.Locale;
 
 public class AccountUtils {
 
@@ -289,4 +289,15 @@ public class AccountUtils {
         return serverVersion;
     }
 
+    public static boolean hasSearchUsersSupport(Account account){
+        OwnCloudVersion serverVersion = null;
+        if (account != null) {
+            AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
+            String serverVersionStr = accountMgr.getUserData(account, Constants.KEY_OC_VERSION);
+            if (serverVersionStr != null) {
+                serverVersion = new OwnCloudVersion(serverVersionStr);
+            }
+        }
+        return (serverVersion != null ? serverVersion.isSearchUsersSupported() : false);
+    }
 }

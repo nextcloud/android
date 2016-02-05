@@ -21,13 +21,6 @@
 
 package com.owncloud.android.datamodel;
 
-import java.io.File;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.GetMethod;
-
 import android.accounts.Account;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -35,7 +28,6 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -52,7 +44,13 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.DisplayUtils;
+
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+
+import java.io.File;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
 
 /**
  * Manager for concurrent access to thumbnails cache.
@@ -278,12 +276,13 @@ public class ThumbnailsCacheManager {
                     OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(mAccount);
                     if (mClient != null && serverOCVersion != null) {
                         if (serverOCVersion.supportsRemoteThumbnails()) {
+                            GetMethod get = null;
                             try {
                                 String uri = mClient.getBaseUri() + "" +
                                         "/index.php/apps/files/api/v1/thumbnail/" +
                                         px + "/" + px + Uri.encode(file.getRemotePath(), "/");
                                 Log_OC.d("Thumbnail", "URI: " + uri);
-                                GetMethod get = new GetMethod(uri);
+                                get = new GetMethod(uri);
                                 int status = mClient.executeMethod(get);
                                 if (status == HttpStatus.SC_OK) {
                                     InputStream inputStream = get.getResponseBodyAsStream();
@@ -299,9 +298,15 @@ public class ThumbnailsCacheManager {
                                     if (thumbnail != null) {
                                         addBitmapToCache(imageKey, thumbnail);
                                     }
+                                } else {
+                                    mClient.exhaustResponse(get.getResponseBodyAsStream());
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
+                            } finally {
+                                if (get != null) {
+                                    get.releaseConnection();
+                                }
                             }
                         } else {
                             Log_OC.d(TAG, "Server too old");

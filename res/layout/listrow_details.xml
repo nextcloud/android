@@ -23,7 +23,7 @@
     android:clickable="true"
     android:orientation="vertical"
     android:background="#fff"
-    android:paddingLeft="16dp"
+    android:paddingLeft="@dimen/standard_padding"
     tools:context=".MainActivity" >
 
     <TextView
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:drawablePadding="5dp"
         android:gravity="center_vertical"
-        android:paddingLeft="16dp"
+        android:paddingLeft="@dimen/standard_padding"
         android:textSize="16dp" >
 
     </TextView>

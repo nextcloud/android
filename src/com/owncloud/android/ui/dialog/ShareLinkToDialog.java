@@ -20,12 +20,6 @@
 
 package com.owncloud.android.ui.dialog;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
-import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -36,6 +30,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,11 +39,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.CopyToClipboardActivity;
-import com.owncloud.android.ui.activity.FileActivity;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Dialog showing a list activities able to resolve a given Intent, 
@@ -61,20 +58,15 @@ public class ShareLinkToDialog  extends DialogFragment {
             ".ARG_INTENT";
     private final static String ARG_PACKAGES_TO_EXCLUDE =  ShareLinkToDialog.class.getSimpleName() +
             ".ARG_PACKAGES_TO_EXCLUDE";
-    private final static String ARG_FILE_TO_SHARE = ShareLinkToDialog.class.getSimpleName() +
-            ".FILE_TO_SHARE";
-    
+
     private ActivityAdapter mAdapter;
-    private OCFile mFile;
     private Intent mIntent;
     
-    public static ShareLinkToDialog newInstance(Intent intent, String[] packagesToExclude,
-                                                OCFile fileToShare) {
+    public static ShareLinkToDialog newInstance(Intent intent, String[] packagesToExclude) {
         ShareLinkToDialog f = new ShareLinkToDialog();
         Bundle args = new Bundle();
         args.putParcelable(ARG_INTENT, intent);
         args.putStringArray(ARG_PACKAGES_TO_EXCLUDE, packagesToExclude);
-        args.putParcelable(ARG_FILE_TO_SHARE, fileToShare);
         f.setArguments(args);
         return f;
     }
@@ -90,8 +82,7 @@ public class ShareLinkToDialog  extends DialogFragment {
         String[] packagesToExclude = getArguments().getStringArray(ARG_PACKAGES_TO_EXCLUDE);
         List<String> packagesToExcludeList = Arrays.asList(packagesToExclude != null ?
                 packagesToExclude : new String[0]);
-        mFile = getArguments().getParcelable(ARG_FILE_TO_SHARE);
-        
+
         PackageManager pm= getActivity().getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(mIntent,
                 PackageManager.MATCH_DEFAULT_ONLY);
@@ -142,19 +133,10 @@ public class ShareLinkToDialog  extends DialogFragment {
                             ComponentName name=new ComponentName(
                                     actInfo.applicationInfo.packageName, 
                                     actInfo.name);
-                            mIntent.setComponent(name);                               
+                            mIntent.setComponent(name);
 
-                            if (sendAction) {
-                                dialog.dismiss();    // explicitly added for Android 2.x devices
-
-                                // Send the file
-                                ((FileActivity)getActivity()).startActivity(mIntent);
-
-                            } else {
-                                // Create a new share resource
-                                ((ComponentsGetter)getActivity()).getFileOperationsHelper()
-                                    .shareFileWithLinkToApp(mFile, "", mIntent);
-                            }
+                            // Send the file
+                            getActivity().startActivity(mIntent);
                         }
         })
         .create();

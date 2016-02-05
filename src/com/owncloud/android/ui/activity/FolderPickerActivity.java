@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -38,18 +37,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.OwnCloudCredentials;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -354,9 +347,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         actionBar.setDisplayHomeAsUpEnabled(!atRoot);
         actionBar.setHomeButtonEnabled(!atRoot);
         actionBar.setTitle(
-            atRoot 
-                ? getString(R.string.default_display_name_for_root_folder) 
-                : currentDir.getFileName()
+                atRoot
+                        ? getString(R.string.default_display_name_for_root_folder)
+                        : currentDir.getFileName()
         );
     }
 
@@ -398,7 +391,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         super.onRemoteOperationFinish(operation, result);
         
         if (operation instanceof CreateFolderOperation) {
-            onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
+            onCreateFolderOperationFinish((CreateFolderOperation) operation, result);
             
         }
     }
@@ -416,10 +409,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             ) {
         
         if (result.isSuccess()) {
-            dismissLoadingDialog();
             refreshListOfFilesFragment();
         } else {
-            dismissLoadingDialog();
             try {
                 Toast msg = Toast.makeText(FolderPickerActivity.this, 
                         ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
@@ -502,32 +493,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                     (synchResult.isException() && synchResult.getException() 
                                             instanceof AuthenticatorException))) {
 
-                            try {
-                                OwnCloudClient client;
-                                OwnCloudAccount ocAccount =
-                                        new OwnCloudAccount(getAccount(), context);
-                                client = (OwnCloudClientManagerFactory.getDefaultSingleton().
-                                        removeClientFor(ocAccount));
-
-                                if (client != null) {
-                                    OwnCloudCredentials cred = client.getCredentials();
-                                    if (cred != null) {
-                                        AccountManager am = AccountManager.get(context);
-                                        if (cred.authTokenExpires()) {
-                                            am.invalidateAuthToken(
-                                                    getAccount().type,
-                                                    cred.getAuthToken()
-                                            );
-                                        } else {
-                                            am.clearPassword(getAccount());
-                                        }
-                                    }
-                                }
-                                requestCredentialsUpdate();
-
-                            } catch (AccountNotFoundException e) {
-                                Log_OC.e(TAG, "Account " + getAccount() + " was removed!", e);
-                            }
+                            requestCredentialsUpdate(context);
 
                         }
                     }
@@ -550,9 +516,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     
 
     /**
-     * Shows the information of the {@link OCFile} received as a 
+     * Shows the information of the {@link OCFile} received as a
      * parameter in the second fragment.
-     * 
+     *
      * @param file          {@link OCFile} whose details will be shown
      */
     @Override
