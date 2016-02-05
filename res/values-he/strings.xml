@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">יישום אנדרואיד %1$s</string>
   <string name="about_version">גרסה %1$s</string>
   <string name="actionbar_sync">רענון חשבון</string>
   <string name="actionbar_upload">העלאה</string>
@@ -30,13 +31,17 @@
   <string name="prefs_category_general">כללי</string>
   <string name="prefs_category_more">יותר</string>
   <string name="prefs_accounts">חשבונות</string>
+  <string name="prefs_manage_accounts">ניהול חשבונות</string>
   <string name="prefs_passcode">נעילת סיסמא</string>
   <string name="prefs_instant_upload">העלאת תמונות מהירה</string>
   <string name="prefs_instant_upload_summary">העלאה מהירה של תמונות שצולמו במצלמה</string>
   <string name="prefs_instant_video_upload">העלאת סרטים מהירה</string>
   <string name="prefs_instant_video_upload_summary">העלאה מהירה של סרטים שצולמו במצלמה</string>
+  <string name="prefs_log_title">מאפשר התחברות</string>
   <string name="prefs_log_summary">משמש לתיעוד בעיות</string>
+  <string name="prefs_log_title_history">הסטורית התחברות</string>
   <string name="prefs_log_summary_history">מראה את יומני התעוד</string>
+  <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>
   <string name="prefs_help">עזרה</string>
   <string name="prefs_recommend">המלצה לחבר</string>
   <string name="prefs_feedback">משוב</string>
@@ -45,6 +50,7 @@
   <string name="prefs_remember_last_upload_location_summary">לזכור מיקום שיתוף העלאה אחרון</string>
   <string name="recommend_subject">לבדיקה %1$s בטלפון החכם שלך!</string>
   <string name="recommend_text">הנך מוזמן להשתמש ב- %1$s בטלפון החכם שלך!\nניתן להוריד מכאן: %2$s</string>
+  <string name="auth_check_server">בדיקת שרת</string>
   <string name="auth_host_url">כתובת שרת https://…</string>
   <string name="auth_username">שם משתמש</string>
   <string name="auth_password">ססמה</string>
@@ -55,6 +61,7 @@
   <string name="uploader_btn_new_folder_text">תיקייה חדשה</string>
   <string name="uploader_top_message">בחירת תיקיית העלאה:</string>
   <string name="uploader_wrn_no_account_title">לא נמצא חשבון</string>
+  <string name="uploader_wrn_no_account_text">לא מוגדרים חשבונות %1$s במכשיר שלך. יש להגדיר חשבות תחילה.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>
   <string name="uploader_wrn_no_account_quit_btn_text">יציאה</string>
   <string name="uploader_wrn_no_content_title">אין תוכן להעלאה</string>
@@ -64,6 +71,7 @@
   <string name="file_list_seconds_ago">שניות</string>
   <string name="file_list_empty">אין כאן שום דבר. אולי ברצונך להעלות משהו?</string>
   <string name="file_list_loading">בטעינה …</string>
+  <string name="file_list_no_app_for_file_type">לא נמצא יישום עבור סוג זה!</string>
   <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
   <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
   <string name="filedetails_size">גודל:</string>
@@ -73,11 +81,14 @@
   <string name="filedetails_download">הורדה</string>
   <string name="filedetails_sync_file">סנכרון</string>
   <string name="filedetails_renamed_in_upload_msg">שם הקובץ השתנה ל־ %1$s במהלך ההעלאה</string>
+  <string name="list_layout">תצורת רשימה</string>
   <string name="action_share">שיתוף</string>
   <string name="common_yes">כן</string>
   <string name="common_no">לא</string>
   <string name="common_ok">אישור</string>
+  <string name="common_cancel_sync">ביטול סנכרון</string>
   <string name="common_cancel">ביטול</string>
+  <string name="common_save_exit">שמירה ויציאה</string>
   <string name="common_error">שגיאה</string>
   <string name="common_loading">בטעינה …</string>
   <string name="common_error_unknown">שגיאה בלתי ידועה</string>
@@ -90,15 +101,21 @@
   <string name="uploader_upload_in_progress_ticker">מתבצעת העלאה …</string>
   <string name="uploader_upload_in_progress_content">%1$d%% בהעלאה %2$s</string>
   <string name="uploader_upload_succeeded_ticker">ההעלאה הצליחה</string>
+  <string name="uploader_upload_succeeded_content_single">%1$s הועלו</string>
   <string name="uploader_upload_failed_ticker">ההעלאה נכשלה</string>
   <string name="uploader_upload_failed_content_single">אין אפשרות להשלים את ההעלאה של %1$s</string>
+  <string name="uploader_upload_failed_credentials_error">העלאה נכשלה, יש להתחבר מחדש</string>
   <string name="downloader_download_in_progress_ticker">בהורדה …</string>
   <string name="downloader_download_in_progress_content">%1$d%% בהורדה %2$s</string>
   <string name="downloader_download_succeeded_ticker">ההורדה הצליחה</string>
+  <string name="downloader_download_succeeded_content">%1$s הורדו</string>
   <string name="downloader_download_failed_ticker">ההורדה נכשלה</string>
   <string name="downloader_download_failed_content">לא ניתן להשלים את ההורדה של </string>
   <string name="downloader_not_downloaded_yet">לא הורד עדיין</string>
+  <string name="downloader_download_failed_credentials_error">הורדה נכשלה, יש להתחבר מחדש</string>
   <string name="common_choose_account">נא לבחור בחשבון</string>
+  <string name="sync_fail_ticker">סנכרון נכשל</string>
+  <string name="sync_fail_ticker_unauthorized">סנכרון נכשל, יש להתחבר מחדש</string>
   <string name="sync_fail_content_unauthorized">סיסמא שגוייה עבור %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">נמצאו התנגשויות</string>
   <string name="sync_conflicts_in_favourites_content">לא ניתן לסנכרן %1$d קבצים שהוגדרו לסנכרון</string>
@@ -283,6 +300,7 @@
   <string name="copy_file_invalid_overwrite">הקובץ כבר קיים בתיקיית היעד</string>
   <string name="copy_file_error">אירעה שגיאה בזמן ניסיון להעתיק את הקובץ או התיקייה</string>
   <string name="forbidden_permissions_copy">להעתיק את הקובץ הזה</string>
+  <string name="prefs_category_details">פרטים</string>
   <string name="sync_folder_failed_content">לא ניתן להשלים סנכרון של %1$s תיקיות</string>
   <string name="shared_subject_header">משותף</string>
   <string name="with_you_subject_header">אתך</string>

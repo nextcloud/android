@@ -187,6 +187,7 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Tài khoản</string>
   <string name="folder_picker_choose_button_text">Chọn</string>
+  <string name="prefs_category_details">Chi tiết</string>
   <string name="auth_host_address">Địa chỉ máy chủ</string>
   <string name="share_dialog_title">Chia sẻ</string>
   <string name="share_via_link_section_title">Chia sẻ liên kết</string>

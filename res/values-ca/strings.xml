@@ -233,6 +233,7 @@
   <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
   <string name="actionbar_move">Moure</string>
   <string name="folder_picker_choose_button_text">Escull</string>
+  <string name="prefs_category_details">Detalls</string>
   <string name="auth_host_address">Adreça del servidor</string>
   <string name="share_dialog_title">Compartir</string>
   <string name="share_via_link_section_title">Comparteix l\'enllaç</string>

@@ -270,6 +270,7 @@
   <string name="move_file_error">Pojawił się błąd podczas próby przeniesienia tego pliku lub folderu</string>
   <string name="forbidden_permissions_move">aby przenieść ten plik</string>
   <string name="copy_file_invalid_overwrite">Plik istnieje już w folderze docelowym</string>
+  <string name="prefs_category_details">Szczegóły</string>
   <string name="shared_subject_header">udostępniony</string>
   <string name="with_you_subject_header">z tobą</string>
   <string name="subject_user_shared_with_you">%1$s wspólne \"%2$s\" z tobą</string>

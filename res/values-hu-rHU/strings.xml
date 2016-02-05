@@ -235,6 +235,7 @@
   <string name="actionbar_move">Mozgatás</string>
   <string name="file_list_empty_moving">Itt nincs semmi! Adj hozzá egy mappát!</string>
   <string name="folder_picker_choose_button_text">Válasszon</string>
+  <string name="prefs_category_details">Részletek</string>
   <string name="shared_subject_header">megosztva</string>
   <string name="with_you_subject_header">veled</string>
   <string name="auth_host_address">A kiszolgáló címe</string>

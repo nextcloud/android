@@ -60,6 +60,7 @@
   <string name="saml_authentication_required_text">Potrebna autentikacija</string>
   <string name="saml_authentication_wrong_pass">Pogrešna lozinka</string>
   <string name="folder_picker_choose_button_text">Odaberite</string>
+  <string name="prefs_category_details">Detalji</string>
   <string name="auth_host_address">Adresa poslužitelja</string>
   <string name="share_dialog_title">Dijeljenje zajedničkih resursa</string>
   <string name="share_via_link_section_title">Podijelite vezu</string>

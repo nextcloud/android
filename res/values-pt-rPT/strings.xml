@@ -316,6 +316,7 @@
   <string name="copy_file_error">Ocorreu um ocorreu quando tentava copiar este ficheiro ou pasta</string>
   <string name="forbidden_permissions_copy">para copiar este ficheiro</string>
   <string name="prefs_category_instant_uploading">Envios instantâneos</string>
+  <string name="prefs_category_details">Detalhes</string>
   <string name="prefs_instant_video_upload_path_title">Enviar caminho de vídeo</string>
   <string name="sync_folder_failed_content">Não foi possível completar a sincronização da pasta %1$s</string>
   <string name="shared_subject_header">partilhado</string>

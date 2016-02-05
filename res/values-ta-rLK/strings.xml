@@ -117,6 +117,7 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">கணக்குகள்</string>
   <string name="folder_picker_choose_button_text">தெரிவுசெய்க </string>
+  <string name="prefs_category_details">விவரங்கள்</string>
   <string name="auth_host_address">சேவையக முகவரி</string>
   <string name="share_via_link_expiration_date_label">காலாவதி தேதியை குறிப்பிடுக</string>
   <string name="share_via_link_password_label">கடவுச்சொல்லை பாதுகாத்தல்</string>

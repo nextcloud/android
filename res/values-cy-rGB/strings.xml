@@ -122,6 +122,7 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Cyfrifon</string>
   <string name="folder_picker_choose_button_text">Dewisiwch</string>
+  <string name="prefs_category_details">Manylion</string>
   <string name="share_via_link_expiration_date_label">Gosod dyddiad dod i ben</string>
   <string name="share_via_link_password_label">Diogelu cyfrinair</string>
   <string name="share_search">Chwilio</string>

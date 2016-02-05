@@ -297,6 +297,7 @@
   <string name="copy_file_not_found">Kopiointi epäonnistui. Tarkista onko tiedostoa olemassa</string>
   <string name="copy_file_invalid_overwrite">Tiedosto on jo kohdekansiossa.</string>
   <string name="copy_file_error">Tätä tiedostoa tai kansiota kopioitaessa tapahtui virhe</string>
+  <string name="prefs_category_details">Tiedot</string>
   <string name="sync_folder_failed_content">Kansion %1$s synkronointia ei voitu suorittaa kokonaan</string>
   <string name="shared_subject_header">jaettu</string>
   <string name="with_you_subject_header">kanssasi</string>

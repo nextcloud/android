@@ -115,6 +115,8 @@
   <string name="downloader_download_failed_credentials_error">Scaricamento non riuscito, devi effettuare nuovamente l\'accesso</string>
   <string name="common_choose_account">Scegli account</string>
   <string name="sync_fail_ticker">Sincronizzazione non riuscita</string>
+  <string name="sync_fail_ticker_unauthorized">Sincronizzazione non riuscita, devi ripetere l\'accesso</string>
+  <string name="sync_fail_content">La sincronizzazione di %1$s non può essere completata</string>
   <string name="sync_fail_content_unauthorized">Password non valida per %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>
   <string name="sync_conflicts_in_favourites_content">%1$d file non possono essere sincronizzati</string>
@@ -129,6 +131,7 @@
   <string name="foreign_files_fail">Alcuni file non possono essere spostati</string>
   <string name="foreign_files_local_text">Locale: %1$s</string>
   <string name="foreign_files_remote_text">Remoto %1$s</string>
+  <string name="upload_query_move_foreign_files">Non c\'è spazio sufficiente per copiare i file selezionati nella cartella %1$s. Vuoi invece spostarli?</string>
   <string name="pass_code_enter_pass_code">Digita il tuo codice segreto</string>
   <string name="pass_code_configure_your_pass_code">Digita il tuo codice segreto</string>
   <string name="pass_code_configure_your_pass_code_explanation">Il codice segreto sarà richiesto ogni volta che l\'applicazione è avviata</string>
@@ -157,6 +160,7 @@
   <string name="media_rewind_description">Pulsante Riavvolgi</string>
   <string name="media_play_pause_description">Pulsante Riproduci o pausa</string>
   <string name="media_forward_description">Pulsante Avanti veloce</string>
+  <string name="auth_getting_authorization">Recupero delle autorizzazioni in corso...</string>
   <string name="auth_trying_to_login">Tentativo di accesso in corso...</string>
   <string name="auth_no_net_conn_title">Nessuna connessione di rete</string>
   <string name="auth_nossl_plain_ok_title">Connessione sicura disponibile.</string>
@@ -178,6 +182,7 @@
   <string name="auth_unauthorized">Nome utente o password errati</string>
   <string name="auth_oauth_error">Autorizzazione non riuscita</string>
   <string name="auth_oauth_error_access_denied">Accesso negato dal server di autorizzazione</string>
+  <string name="auth_wtf_reenter_URL">Stato inatteso; digita nuovamente l\'indirizzo del server</string>
   <string name="auth_expired_oauth_token_toast">Autorizzazione scaduta. Richiedi l\'autorizzazione</string>
   <string name="auth_expired_basic_auth_toast">Digita la password attuale</string>
   <string name="auth_expired_saml_sso_token_toast">Sessione scaduta. Riconnettiti</string>
@@ -294,6 +299,7 @@
   <string name="auth_redirect_non_secure_connection_title">La connessione sicura è rediretta attraverso un percorso non sicuro.</string>
   <string name="actionbar_logger">Registri</string>
   <string name="log_send_history_button">Cronologia invii</string>
+  <string name="log_send_no_mail_app">Non è stata trovata alcuna applicazione per l\'invio dei log. Installa un client di posta.</string>
   <string name="log_send_mail_subject">Registri applicazione %1$s Android</string>
   <string name="log_progress_dialog_text">Caricamento dati in corso...</string>
   <string name="saml_authentication_required_text">Autenticazione richiesta</string>
@@ -312,6 +318,7 @@
   <string name="copy_file_error">Si è verificato un errore durante il tentativo di copiare il file o la cartella</string>
   <string name="forbidden_permissions_copy">per copiare questo file</string>
   <string name="prefs_category_instant_uploading">Caricamenti istantanei</string>
+  <string name="prefs_category_details">Dettagli</string>
   <string name="prefs_instant_video_upload_path_title">Percorso di caricamento dei video</string>
   <string name="sync_folder_failed_content">La sincronizzazione della cartella %1$s non può essere completata</string>
   <string name="shared_subject_header">condiviso</string>

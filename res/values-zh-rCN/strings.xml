@@ -276,6 +276,7 @@
   <string name="copy_file_invalid_overwrite">该文件已经存在在目标文件夹</string>
   <string name="copy_file_error">尝试复制这个文件或文件夹时发生了错误</string>
   <string name="forbidden_permissions_copy">复制这个文件</string>
+  <string name="prefs_category_details">详细信息</string>
   <string name="shared_subject_header">已共享</string>
   <string name="with_you_subject_header">与你</string>
   <string name="subject_user_shared_with_you">%1$s和你分享了“%2$s”</string>

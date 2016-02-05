@@ -144,4 +144,5 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Cuentas</string>
   <string name="folder_picker_choose_button_text">Choose</string>
+  <string name="prefs_category_details">detalles</string>
 </resources>

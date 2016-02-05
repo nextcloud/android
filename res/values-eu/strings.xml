@@ -243,6 +243,7 @@ Mesedez, baimendu berriz</string>
   <string name="move_file_error">Errore bat gertatu da fitxategi edo karpeta hau mugitzen saiatzerakoan</string>
   <string name="forbidden_permissions_move">fitxategi hau mugitzeko</string>
   <string name="copy_file_invalid_overwrite">Fitxategia dagoeneko existitzen da helburuko karpetan</string>
+  <string name="prefs_category_details">Xehetasunak</string>
   <string name="auth_host_address">Zerbitzariaren helbidea</string>
   <string name="share_dialog_title">Partekatzea</string>
   <string name="share_via_link_section_title">Elkarbanatu lotura</string>

@@ -270,6 +270,7 @@
   <string name="move_file_error">O eroare apare la transferarea acestui fișier sau dosar</string>
   <string name="forbidden_permissions_move">pentru a muta acest fișier</string>
   <string name="copy_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
+  <string name="prefs_category_details">Detalii</string>
   <string name="shared_subject_header">partajat</string>
   <string name="with_you_subject_header">cu tine</string>
   <string name="subject_user_shared_with_you">%1$s a partajat fișierul \"%2$s\" cu tine</string>

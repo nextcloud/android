@@ -226,6 +226,7 @@
   <string name="file_list_empty_moving">এখানে কিছু নেই। একটি ফোল্ডার যোগ করতে পারেন!</string>
   <string name="folder_picker_choose_button_text">বেছে নিন</string>
   <string name="move_file_not_found">সরাতে ব্যার্থ হলো। ফাইলটি রয়েছে কিনা দেখুন।</string>
+  <string name="prefs_category_details">বিস্তারিত</string>
   <string name="auth_host_address">সার্ভার ঠিকানা</string>
   <string name="share_dialog_title">ভাগাভাগিরত</string>
   <string name="share_via_link_section_title">লিংক ভাগাভাগি করেন</string>

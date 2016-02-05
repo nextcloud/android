@@ -110,6 +110,7 @@
   <string name="prefs_category_accounts">Kontoar</string>
   <string name="saml_authentication_wrong_pass">Feil passord</string>
   <string name="folder_picker_choose_button_text">Vel</string>
+  <string name="prefs_category_details">Detaljar</string>
   <string name="auth_host_address">Tenaradresse</string>
   <string name="share_dialog_title">Deling</string>
   <string name="share_via_link_section_title">Del lenkje</string>

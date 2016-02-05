@@ -283,6 +283,7 @@
   <string name="prefs_category_instant_uploading">Sofortiges Hochladen</string>
   <string name="prefs_category_security">Sicherheit</string>
   <string name="prefs_instant_video_upload_path_title">Verzeichnis zum Hochladen der Videos</string>
+  <string name="prefs_category_details">Details</string>
   <string name="sync_folder_failed_content">Bei der Synchronisation konnte %1$s Ordner nicht fertig gestellt werden</string>
   <string name="shared_subject_header">geteilt</string>
   <string name="with_you_subject_header">Mit Ihnen</string>

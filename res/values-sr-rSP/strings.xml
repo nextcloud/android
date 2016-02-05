@@ -71,6 +71,7 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Nalozi</string>
   <string name="folder_picker_choose_button_text">Izaberi</string>
+  <string name="prefs_category_details">Detaljnije</string>
   <string name="share_via_link_section_title">Veza deljenja</string>
   <string name="share_via_link_expiration_date_label">Datum isteka</string>
   <string name="share_via_link_password_label">Zaštita lozinkom</string>
