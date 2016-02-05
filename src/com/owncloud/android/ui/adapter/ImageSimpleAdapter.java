@@ -2,7 +2,6 @@
  *   ownCloud Android client application
  *
  *   @author Tobias Kaminsky
- *   Copyright (C) 2016  Tobias Kaminsky
  *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -19,16 +18,11 @@
  *
  */
 
-package com.owncloud.android.ui.activity;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.storage.StorageManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,21 +31,21 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncDrawable;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ImageSimpleAdapter extends SimpleAdapter {
     
     private Context mContext;
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
-    private int mResource;
     private LayoutInflater inflater;
 
     public ImageSimpleAdapter(Context context,
@@ -61,7 +55,6 @@ public class ImageSimpleAdapter extends SimpleAdapter {
         mAccount = account;
         mStorageManager = storageManager;
         mContext = context;
-        mResource = resource;
         inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -70,13 +63,13 @@ public class ImageSimpleAdapter extends SimpleAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         if (convertView == null)
-            vi = inflater.inflate(mResource, null);
+            vi = inflater.inflate(R.layout.uploader_list_item_layout, null);
 
         HashMap<String, OCFile> data = (HashMap<String, OCFile>) getItem(position);
         OCFile file = data.get("dirname");
 
         TextView filename = (TextView) vi.findViewById(R.id.filename);
-        filename.setText((CharSequence) file.getFileName());
+        filename.setText(file.getFileName());
         
         ImageView fileIcon = (ImageView) vi.findViewById(R.id.thumbnail);
         fileIcon.setTag(file.getFileId());
