@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s แอพฯ แอนดรอยด์</string>
   <string name="about_version">รุ่น %1$s</string>
   <string name="actionbar_sync">ฟื้นฟูบัญชี</string>
   <string name="actionbar_upload">อัพโหลดไฟล์</string>
@@ -37,11 +36,8 @@
   <string name="prefs_instant_upload_summary">อัพโหลดรูปภาพที่ถ่ายโดยกล้องทันที</string>
   <string name="prefs_instant_video_upload">อัพโหลดวิดีโอทันที</string>
   <string name="prefs_instant_video_upload_summary">อัพโหลดวิดีโอที่บันทึกโดยกล้องทันที</string>
-  <string name="prefs_log_title">เปิดใช้งานการบันทึกข้อมูล</string>
   <string name="prefs_log_summary">นี้จะใช้เพื่อบันทึกปัญหาที่เกิดขึ้น</string>
-  <string name="prefs_log_title_history">ประวัติการบันทึกข้อมูล</string>
   <string name="prefs_log_summary_history">สิ่งนี้จะแสดงข้อมูลที่ถูกบันทึกไว้</string>
-  <string name="prefs_log_delete_history_button">ลบประวัติ</string>
   <string name="prefs_help">ช่วยเหลือ</string>
   <string name="prefs_recommend">แนะนำให้เพื่อน</string>
   <string name="prefs_feedback">ข้อเสนอแนะ</string>
@@ -50,7 +46,6 @@
   <string name="prefs_remember_last_upload_location_summary">จดจำตำแหน่งล่าสุดที่ใช้ร่วมกัน</string>
   <string name="recommend_subject">ลองใช้ %1$s บนสมาร์ทโฟนของคุณ!</string>
   <string name="recommend_text">ฉันอยากจะขอเชิญให้คุณใช้ %1$s บนสมาร์ทโฟนของคุณ!\nดาวน์โหลดที่นี่: %2$s</string>
-  <string name="auth_check_server">ตรวจสอบเซิร์ฟเวอร์</string>
   <string name="auth_host_url">ที่อยู่ของเซิร์ฟเวอร์ https://…</string>
   <string name="auth_username">ชื่อผู้ใช้</string>
   <string name="auth_password">รหัสผ่าน</string>
@@ -61,7 +56,6 @@
   <string name="uploader_btn_new_folder_text">โฟลเดอร์ใหม่</string>
   <string name="uploader_top_message">เลือกโฟลเดอร์ที่ต้องการอัพโหลด:</string>
   <string name="uploader_wrn_no_account_title">ไม่พบบัญชีที่ต้องการ</string>
-  <string name="uploader_wrn_no_account_text">ไม่มีบัญชี %1$s บนอุปกรณ์ของคุณ กรุณาตั้งค่าบัญชีของคุณก่อน</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ตั้งค่า</string>
   <string name="uploader_wrn_no_account_quit_btn_text">ออก</string>
   <string name="uploader_wrn_no_content_title">ยังไม่มีเนื้อหาที่ถูกอัพโหลด</string>
@@ -71,7 +65,6 @@
   <string name="file_list_seconds_ago">วินาที ก่อนหน้านี้</string>
   <string name="file_list_empty">ยังไม่มีไฟล์ใดๆเลย ลองอัพโหลดดูสิ!</string>
   <string name="file_list_loading">กำลังโหลด...</string>
-  <string name="file_list_no_app_for_file_type">ไม่พบแอพฯ ที่จะใช้เปิดไฟล์ประเภทนี้!</string>
   <string name="local_file_list_empty">ยังไม่มีไฟล์ในโฟลเดอร์นี้</string>
   <string name="filedetails_select_file">แตะที่ไฟล์ เพื่อแสดงข้อมูลเพิ่มเติม</string>
   <string name="filedetails_size">ขนาด:</string>
@@ -81,14 +74,11 @@
   <string name="filedetails_download">ดาวน์โหลด</string>
   <string name="filedetails_sync_file">ประสานข้อมูล</string>
   <string name="filedetails_renamed_in_upload_msg">ไฟล์ได้ถูกเปลี่ยนชื่อเป็น %1$s ในระหว่างการอัพโหลด</string>
-  <string name="list_layout">เค้าโครงรายการ</string>
   <string name="action_share">แชร์</string>
   <string name="common_yes">ตกลง</string>
   <string name="common_no">ไม่ตกลง</string>
   <string name="common_ok">ตกลง</string>
-  <string name="common_cancel_sync">ยกเลิกการประสานข้อมูล</string>
   <string name="common_cancel">ยกเลิก</string>
-  <string name="common_save_exit">บันทึก &amp; ออก</string>
   <string name="common_error">ข้อผิดพลาด</string>
   <string name="common_loading">กำลังโหลด ...</string>
   <string name="common_error_unknown">ข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
@@ -101,22 +91,15 @@
   <string name="uploader_upload_in_progress_ticker">กำลังอัพโหลด ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% กำลังอัพโหลด %2$s</string>
   <string name="uploader_upload_succeeded_ticker">อัพโหลดเสร็จสิ้น</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s ได้ถูกอัพโหลดเรียบร้อยแล้ว</string>
   <string name="uploader_upload_failed_ticker">อัพโหลดล้มเหลว</string>
   <string name="uploader_upload_failed_content_single">ไม่สามารถดำเนินการอัพโหลด %1$s ให้เสร็จสมบูรณ์ได้</string>
-  <string name="uploader_upload_failed_credentials_error">อัพโหลดล้มเหลวคุณจะต้องเข้าสู่ระบบใหม่</string>
   <string name="downloader_download_in_progress_ticker">กำลังดาวน์โหลด ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% กำลังดาวน์โหลด %2$s</string>
   <string name="downloader_download_succeeded_ticker">ดาวน์โหลดเสร็จสิ้น</string>
-  <string name="downloader_download_succeeded_content">%1$s ถูกดาวน์โหลดเรียบร้อยแล้ว</string>
   <string name="downloader_download_failed_ticker">ดาวน์โหลดล้มเหลว</string>
   <string name="downloader_download_failed_content">การดาวน์โหลด %1$s ไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้</string>
   <string name="downloader_not_downloaded_yet">ยังดาวน์โหลดไม่ได้</string>
-  <string name="downloader_download_failed_credentials_error">การดาวน์โหลดล้มเหลวคุณจะต้องเข้าสู่ระบบใหม่</string>
   <string name="common_choose_account">เลือกบัญชี</string>
-  <string name="sync_fail_ticker">การเชื่อมประสานข้อมูลล้มเหลว</string>
-  <string name="sync_fail_ticker_unauthorized">การประสานข้อมูลล้มเหลว คุณจะต้องเข้าสู่ระบบใหม่</string>
-  <string name="sync_fail_content">การประสานข้อมูลของ %1$s ไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้</string>
   <string name="sync_fail_content_unauthorized">รหัสผ่านไม่ถูกต้องสำหรับ %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">ตรวจพบความขัดแย้ง</string>
   <string name="sync_conflicts_in_favourites_content">%1$d ไฟล์ kept-in-sync ไม่สามารถประสานข้อมูลได้</string>
@@ -131,11 +114,8 @@
   <string name="foreign_files_fail">มีบางแฟ้มข้อมูลไม่สามารถย้ายได้</string>
   <string name="foreign_files_local_text">ต้นทาง: %1$s</string>
   <string name="foreign_files_remote_text">ปลายทาง: %1$s</string>
-  <string name="upload_query_move_foreign_files">พื้นที่ใน %1$s ไม่เพียงพอต่อการย้ายไฟล์ คุณต้องการที่จะย้ายไปที่อื่นแทน?</string>
-  <string name="pass_code_enter_pass_code">กรุณาใส่ Passcodes ของคุณ</string>
   <string name="pass_code_configure_your_pass_code">ใส่ Passcodes ของคุณ</string>
   <string name="pass_code_configure_your_pass_code_explanation">จะมีการร้องขอ Passcodes ทุกครั้งเมื่อเริ่มต้นใช้แอพฯ</string>
-  <string name="pass_code_reenter_your_pass_code">กรุณาป้อน Passcodes ของคุณอีกครั้ง</string>
   <string name="pass_code_remove_your_pass_code">ลบ Passcodes ของคุณ</string>
   <string name="pass_code_mismatch">Passcodes ของคุณไม่ตรงกัน</string>
   <string name="pass_code_wrong">Passcode ไม่ถูกต้อง</string>
@@ -160,8 +140,6 @@
   <string name="media_rewind_description">ปุ่มย้อนกลับ</string>
   <string name="media_play_pause_description">เล่นหรือกดปุ่มหยุดชั่วคราว</string>
   <string name="media_forward_description">ปุ่มเลื่อนไปข้างหน้า</string>
-  <string name="auth_getting_authorization">ได้รับการอนุมัติ ...</string>
-  <string name="auth_trying_to_login">กำลังเข้าสู่ระบบ...</string>
   <string name="auth_no_net_conn_title">ไม่มีการเชื่อมต่อเครือข่ายใดๆ</string>
   <string name="auth_nossl_plain_ok_title">การเชื่อมต่อแบบปลอดภัยไม่สามารถใช้งานได้</string>
   <string name="auth_connection_established">ติดตั้งการเชื่อมต่อแล้ว</string>
@@ -173,7 +151,6 @@
   <string name="auth_unknown_host_title">ไม่พบโฮสต์ที่ต้องการ</string>
   <string name="auth_incorrect_path_title">ไม่พบค่าตัวอย่างเซิร์ฟเวอร์</string>
   <string name="auth_timeout_title">เซิร์ฟเวอร์ดังกล่าวใช้เวลาตอบสนองนานเกินไป</string>
-  <string name="auth_incorrect_address_title">Malformed URL</string>
   <string name="auth_ssl_general_error_title">การเตรียมใช้งาน SSL ล้มเหลว</string>
   <string name="auth_ssl_unverified_server_title">ไม่สามารถตรวจสอบตัวตนของเซิร์ฟเวอร์ SSL</string>
   <string name="auth_bad_oc_version_title">ไม่รู้จักรุ่นของเซิร์ฟเวอร์</string>
@@ -182,15 +159,11 @@
   <string name="auth_unauthorized">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
   <string name="auth_oauth_error">ตรวจสอบสิทธิ์ไม่สำเร็จ</string>
   <string name="auth_oauth_error_access_denied">การเข้าถึงถูกปฏิเสธโดยเซิร์ฟเวอร์ตรวจสอบสิทธิ์</string>
-  <string name="auth_wtf_reenter_URL">เกิดข้อผิดพลาด โปรดป้อน URL เซิร์ฟเวอร์อีกครั้ง</string>
   <string name="auth_expired_oauth_token_toast">สิทธิ์การเข้าถึงของคุณหมดอายุแล้ว กรุณาขอสิทธิ์ใหม่</string>
-  <string name="auth_expired_basic_auth_toast">กรุณาใส่รหัสผ่านปัจจุบัน</string>
   <string name="auth_expired_saml_sso_token_toast">เซสชันของคุณหมดอายุ โปรดเชื่อมต่ออีกครั้ง</string>
-  <string name="auth_connecting_auth_server">กำลังเชื่อมต่อกับเซิร์ฟเวอร์เพื่อยืนยันตัวตน</string>
   <string name="auth_unsupported_auth_method">เซิร์ฟเวอร์ไม่สนับสนุนการยืนยันตัวตนนี้</string>
   <string name="auth_unsupported_multiaccount">%1$s ไม่สนับสนุนให้มีหลายบัญชี</string>
   <string name="auth_fail_get_user_name">เซิร์ฟเวอร์ของคุณไม่ได้ส่งคืนรหัสผู้ใช้ที่ถูกต้อง กรุณาติดต่อผู้ดูแลระบบ!</string>
-  <string name="auth_can_not_auth_against_server">ไม่สามารถยืนยันตัวตนกับเซิร์ฟเวอร์นี้</string>
   <string name="auth_account_does_not_exist">ยังไม่มีบัญชีในอุปกรณ์นี้</string>
   <string name="favorite">รายการโปรด</string>
   <string name="unfavorite">ออกจากรายการโปรด</string>
@@ -253,8 +226,6 @@
   <string name="placeholder_filesize">389 กิโลไบต์</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">อัพโหลดรูปภาพผ่านทาง WiFi เท่านั้น</string>
-  <string name="instant_video_upload_on_wifi">อัพโหลดวีดีโอผ่านทาง WiFi เท่านั้น</string>
   <string name="instant_upload_path">/อัพโหลดทันที</string>
   <string name="conflict_title">ไฟล์ที่ขัดแย้ง</string>
   <string name="conflict_message">ไฟล์ใดที่คุณต้องการที่จะเก็บ? หากคุณเลือกทั้งสองรุ่น ไฟล์ต้นทางจะมีจำนวนชื่อเพิ่ม</string>
@@ -264,7 +235,6 @@
   <string name="preview_image_description">แสดงรูปภาพตัวอย่าง</string>
   <string name="preview_image_error_unknown_format">ไม่สามารถแสดงรูปภาพนี้ได้</string>
   <string name="error__upload__local_file_not_copied">%1$s ไม่สามารถคัดลอกไปยังโฟลเดอร์ %2$s ในเครื่อง</string>
-  <string name="prefs_instant_upload_path_title">เส้นทางอัพโหลด</string>
   <string name="share_link_no_support_share_api">ขออภัยการแชร์ไม่ได้เปิดใช้งานบนเซิร์ฟเวอร์ของคุณ กรุณาติดต่อผู้ดูแลระบบ</string>
   <string name="share_link_file_no_exist">ไม่สามารถแชร์ กรุณาตรวจสอบไฟล์ที่มีอยู่</string>
   <string name="share_link_file_error">เกิดข้อผิดพลาดในขณะที่พยายามจะแชร์ไฟล์หรือโฟลเดอร์นี้</string>
@@ -296,10 +266,7 @@
   <string name="prefs_add_account">เพิ่มบัญชี</string>
   <string name="auth_redirect_non_secure_connection_title">เชื่อมต่อที่ปลอดภัยถูกเปลี่ยนเส้นทางผ่านเราเตอร์ที่ไม่ปลอดภัย</string>
   <string name="actionbar_logger">บันทึก</string>
-  <string name="log_send_history_button">ส่งประวัติ</string>
-  <string name="log_send_no_mail_app">ไม่พบการส่งบันทึกของแอพฯ ติดตั้งแอพฯเมล!</string>
   <string name="log_send_mail_subject">%1$s บันทึกแอพแอนดรอยด์</string>
-  <string name="log_progress_dialog_text">กำลังโหลดข้อมูล ...</string>
   <string name="saml_authentication_required_text">จำเป็นต้องยืนยันตัวตน</string>
   <string name="saml_authentication_wrong_pass">รหัสผ่านไม่ถูกต้อง</string>
   <string name="actionbar_move">ย้าย</string>
@@ -315,9 +282,6 @@
   <string name="copy_file_invalid_overwrite">มีไฟล์อยู่แล้วในโฟลเดอร์ปลายทาง</string>
   <string name="copy_file_error">เกิดข้อผิดพลาดขณะพยายามคัดลอกไฟล์หรือโฟลเดอร์นี้</string>
   <string name="forbidden_permissions_copy">เพื่อคัดลอกไฟล์นี้</string>
-  <string name="prefs_category_instant_uploading">อัพโหลดทันที</string>
-  <string name="prefs_category_security">ความปลอดภัย</string>
-  <string name="prefs_instant_video_upload_path_title">อัพโหลดเส้นทางวิดีโอ</string>
   <string name="sync_folder_failed_content">ประสานข้อมูลโฟลเดอร์ %1$s ไม่สำเร็จ</string>
   <string name="shared_subject_header">ถูกแชร์</string>
   <string name="with_you_subject_header">กับคุณ</string>
@@ -344,7 +308,6 @@
   <string name="share_dialog_title">การแชร์ข้อมูล</string>
   <string name="share_with_user_section_title">แชร์กับผู้ใช้และกลุ่ม</string>
   <string name="share_no_users">ยังไม่มีข้อมูลที่แชร์กับผู้ใช้ในตอนนี้</string>
-  <string name="share_add_user_or_group">เพิ่มผู้ใช่หรือกลุ่ม</string>
   <string name="share_via_link_section_title">แชร์ลิงค์</string>
   <string name="share_via_link_expiration_date_label">กำหนดวันที่หมดอายุ</string>
   <string name="share_via_link_password_label">รหัสผ่านป้องกัน</string>
@@ -362,6 +325,4 @@
   <string name="share_privilege_can_edit_delete">ลบ</string>
   <string name="edit_share_unshare">ยกเลิกการแชร์</string>
   <string name="edit_share_done">สำเร็จ</string>
-  <string name="action_switch_grid_view">สลับไปยังมุมมองตาราง</string>
-  <string name="action_switch_list_view">สลับไปยังมุมมองรายการ</string>
 </resources>

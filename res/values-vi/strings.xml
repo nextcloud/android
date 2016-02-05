@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Ứng dụng trên Android</string>
   <string name="about_version">phiên bản %1$s</string>
   <string name="actionbar_sync">Cập nhật lại tài khoản</string>
   <string name="actionbar_upload">Tải lên</string>
@@ -22,17 +21,13 @@
   <string name="prefs_category_more">hơn</string>
   <string name="prefs_accounts">Tài khoản</string>
   <string name="prefs_manage_accounts">Quản lý tài khoản</string>
-  <string name="prefs_log_title">Bật chế độ nhật trình</string>
   <string name="prefs_log_summary">Được sử dụng cho các vấn đề liên quan đến nhật trình</string>
-  <string name="prefs_log_title_history">Nhật trình dữ kiện</string>
   <string name="prefs_log_summary_history">Hiển thị các nhật trình đã được ghi nhận lại</string>
-  <string name="prefs_log_delete_history_button">Xóa lịch sử</string>
   <string name="prefs_help">Giúp đỡ</string>
   <string name="prefs_recommend">Giới thiệu đến bạn bè</string>
   <string name="prefs_feedback">Phản hồi</string>
   <string name="prefs_imprint">Đánh dấu</string>
   <string name="recommend_subject">Thử %1$s trên smartphone của bạn!</string>
-  <string name="auth_check_server">Kiểm tra máy chủ</string>
   <string name="auth_host_url">Địa chỉ máy chủ https://…</string>
   <string name="auth_username">Tên người dùng</string>
   <string name="auth_password">Mật khẩu</string>
@@ -42,7 +37,6 @@
   <string name="uploader_btn_upload_text">Tải lên</string>
   <string name="uploader_btn_new_folder_text">Tạo thư mục</string>
   <string name="uploader_wrn_no_account_title">Không tìm thấy tài khoản</string>
-  <string name="uploader_wrn_no_account_text">Trên thiết bị của bạn không có tài khoản %1$s. Bước đầu tiên hãy thiết lập một tài khoản.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Cài đặt</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Thoát</string>
   <string name="uploader_wrn_no_content_title">Không có nội dung tải lên</string>
@@ -63,7 +57,6 @@
   <string name="common_no">Không</string>
   <string name="common_ok">Chấp nhận</string>
   <string name="common_cancel">Hủy</string>
-  <string name="common_save_exit">Lưu &amp; Thoát</string>
   <string name="common_error">Lỗi</string>
   <string name="common_loading">Đang tải...</string>
   <string name="common_error_unknown">Lỗi chưa biết</string>
@@ -76,19 +69,15 @@
   <string name="uploader_upload_in_progress_ticker">Đang tải lên ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Đang tải lên %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Tải lên thành công</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s là tải lên thành công</string>
   <string name="uploader_upload_failed_ticker">Tải lên thất bại</string>
   <string name="uploader_upload_failed_content_single">Tải lên %1$s không thể hoàn thành</string>
   <string name="downloader_download_in_progress_ticker">Đang tải về ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Đang tải về %2$s</string>
   <string name="downloader_download_succeeded_ticker">Tải về thành công</string>
-  <string name="downloader_download_succeeded_content">%1$s là hoàn thành việc tải về</string>
   <string name="downloader_download_failed_ticker">Tải về thất bại</string>
   <string name="downloader_download_failed_content">Tải về %1$s không thể được hoàn thành</string>
   <string name="downloader_not_downloaded_yet">Vẫn chưa tải về</string>
   <string name="common_choose_account">Chọn tài khoản</string>
-  <string name="sync_fail_ticker">Đồng bộ thất bại</string>
-  <string name="sync_fail_content">Đồng bộ %1$s không thể hoàn thành</string>
   <string name="sync_fail_content_unauthorized">Mật khẩu không hợp lệ đối với %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Tìm thấy xung đột</string>
   <string name="sync_conflicts_in_favourites_content">%1$d file trong hàng đợi đồng bộ không thể được đồng bộ</string>
@@ -120,7 +109,6 @@
   <string name="media_rewind_description">Nút chuyển lại</string>
   <string name="media_play_pause_description">Nút phát hoặc tạm dừng</string>
   <string name="media_forward_description">Nút đẩy nhanh tốc độ phát</string>
-  <string name="auth_trying_to_login">Đang cố gắng để đăng nhập…</string>
   <string name="auth_no_net_conn_title">Không có kết nối mạng</string>
   <string name="auth_nossl_plain_ok_title">Bảo mật kết nối không có giá trị.</string>
   <string name="auth_connection_established">Kết nối đã thiết lập</string>
@@ -131,7 +119,6 @@
   <string name="auth_unknown_host_title">Không thể tìm thấy máy chủ</string>
   <string name="auth_incorrect_path_title">Phiên bản máy chủ không tìm thấy</string>
   <string name="auth_timeout_title">Máy chủ đã quá dài để đáp ứng</string>
-  <string name="auth_incorrect_address_title">Thay đổi URL</string>
   <string name="auth_ssl_general_error_title">SSL khởi tạo thất bại</string>
   <string name="auth_ssl_unverified_server_title">không thể xác minh danh tính của máy chủ SSL</string>
   <string name="auth_bad_oc_version_title">Không chấp nhận phiên bản máy chủ</string>
@@ -140,11 +127,8 @@
   <string name="auth_unauthorized">Sai tên người dùng hoặc mật khẩu</string>
   <string name="auth_oauth_error">Xác nhận không thành công</string>
   <string name="auth_oauth_error_access_denied">Từ chối truy cập vì xác nhận từ phía máy chủ</string>
-  <string name="auth_wtf_reenter_URL">Trạng thái không rõ, vui lòng điền lại đường dẫn liên kết một lần nữa</string>
   <string name="auth_expired_oauth_token_toast">Hạn xác nhận của bạn đã hết. Vui lòng, xác nhận lại</string>
-  <string name="auth_expired_basic_auth_toast">Vui lòng điền vào mật khẩu hiện tại của bạn</string>
   <string name="auth_expired_saml_sso_token_toast">Phiên làm việc của bạn đã kết thúc. Vui lòng kết nối lại</string>
-  <string name="auth_connecting_auth_server">Đang kết nối đến máy chủ xác thực...</string>
   <string name="auth_unsupported_auth_method">Máy chủ không hổ trợ phương thức xác thực này</string>
   <string name="auth_unsupported_multiaccount">%1$s  không hỗ trợ nhiều tài khoản</string>
   <string name="favorite">Ưu thích</string>
@@ -194,7 +178,6 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Tải hình ảnh lên thông qua WiFi</string>
   <string name="instant_upload_path">/Upload tức thì</string>
   <string name="conflict_keep_both">Giữ cho cả hai</string>
   <string name="preview_image_description">Xem trước hình ảnh</string>

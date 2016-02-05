@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">Aplikacioni Android %1$s</string>
   <string name="about_version">version %1$s</string>
   <string name="actionbar_sync">Rifreskoni llogarinë</string>
   <string name="actionbar_upload">Ngarkoni</string>
@@ -31,17 +30,13 @@
   <string name="prefs_category_general">Të përgjithshme</string>
   <string name="prefs_category_more">Më tepër</string>
   <string name="prefs_accounts">Llogari</string>
-  <string name="prefs_manage_accounts">Administroni Llogari</string>
   <string name="prefs_passcode">Kyçje kodkalimi</string>
   <string name="prefs_instant_upload">Ngarkime të menjëhershme fotosh</string>
   <string name="prefs_instant_upload_summary">Ngarkoni menjëherë foto të bëra nga kamera</string>
   <string name="prefs_instant_video_upload">Ngarkime të menjëhershme videosh</string>
   <string name="prefs_instant_video_upload_summary">Ngarkoni menjëherë video të bëra nga kamera</string>
-  <string name="prefs_log_title">Aktivizoni Regjistrimet</string>
   <string name="prefs_log_summary">Kjo përdoret për të regjistruar probleme</string>
-  <string name="prefs_log_title_history">Historik Regjistrimesh</string>
   <string name="prefs_log_summary_history">Kjo shfaq regjistrimet e bëra</string>
-  <string name="prefs_log_delete_history_button">Fshije Historikun</string>
   <string name="prefs_help">Ndihmë</string>
   <string name="prefs_recommend">Këshillojani një shoku</string>
   <string name="prefs_feedback">Përshtypje</string>
@@ -50,7 +45,6 @@
   <string name="prefs_remember_last_upload_location_summary">Mba mend vendin e fundit të ngarkimit për ndarje me të tjerët</string>
   <string name="recommend_subject">Provojeni %1$s te telefoni juaj!</string>
   <string name="recommend_text">Dua t\’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarkojeni prej këtu: %2$s</string>
-  <string name="auth_check_server">Kontrollo Shërbyesin</string>
   <string name="auth_host_url">Adresë https://… e shërbyesit</string>
   <string name="auth_username">Emër përdoruesi</string>
   <string name="auth_password">Fjalëkalim</string>
@@ -61,7 +55,6 @@
   <string name="uploader_btn_new_folder_text">Dosje e re</string>
   <string name="uploader_top_message">Zgjidhni dosje ngarkimi:</string>
   <string name="uploader_wrn_no_account_title">S\’u gjet llogari</string>
-  <string name="uploader_wrn_no_account_text">S\’ka llogari %1$s te pajisja juaj. Ju lutemi, rregulloni së pari një llogari.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Rregullim</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Dilni</string>
   <string name="uploader_wrn_no_content_title">Pa lëndë për ngarkim</string>
@@ -71,7 +64,6 @@
   <string name="file_list_seconds_ago">sekonda më parë</string>
   <string name="file_list_empty">Këtu nuk ka gjë. Ngarkoni diçka!</string>
   <string name="file_list_loading">Po ngarkohet…</string>
-  <string name="file_list_no_app_for_file_type">S\’u gjet aplikacion për llojin e kartelës!</string>
   <string name="local_file_list_empty">Në këtë dosje s\’ka kartela.</string>
   <string name="filedetails_select_file">Prekni mbi një kartelë që të shfaqen të dhëna shtesë.</string>
   <string name="filedetails_size">Madhësi:</string>
@@ -81,14 +73,11 @@
   <string name="filedetails_download">Shkarkoje</string>
   <string name="filedetails_sync_file">Njëkohëso</string>
   <string name="filedetails_renamed_in_upload_msg">Kartela u riemërtua si %1$s gjatë ngarkimit</string>
-  <string name="list_layout">Skemë Liste</string>
   <string name="action_share">Ndaje</string>
   <string name="common_yes">Po</string>
   <string name="common_no">Jo</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_sync">Anuloje njëkohësimin</string>
   <string name="common_cancel">Anuloje</string>
-  <string name="common_save_exit">Ruaje &amp; Dil</string>
   <string name="common_error">Gabim</string>
   <string name="common_loading">Po ngarkohet …</string>
   <string name="common_error_unknown">Gabim i panjohur</string>
@@ -101,22 +90,15 @@
   <string name="uploader_upload_in_progress_ticker">Po ngarkohet …</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Po ngarkohet %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Ngarkimi doli me sukses</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s u ngarkua me sukses</string>
   <string name="uploader_upload_failed_ticker">Ngarkimi dështoi</string>
   <string name="uploader_upload_failed_content_single">Ngarkimi i %1$s s\’u plotësua dot</string>
-  <string name="uploader_upload_failed_credentials_error">Ngarkimi dështoi, lypset të ribëni hyrjen</string>
   <string name="downloader_download_in_progress_ticker">Po shkarkohet …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Shkarkim %2$s</string>
   <string name="downloader_download_succeeded_ticker">Shkarkimi doli me sukses</string>
-  <string name="downloader_download_succeeded_content">%1$s u shkarkua me sukses</string>
   <string name="downloader_download_failed_ticker">Shkarkimi dështoi</string>
   <string name="downloader_download_failed_content">Shkarkimi i %1$s s\’u plotësua dot</string>
   <string name="downloader_not_downloaded_yet">Ende e pashkarkuar</string>
-  <string name="downloader_download_failed_credentials_error">Shkarkimi dështoi, lypset të ribëni hyrjen</string>
   <string name="common_choose_account">Zgjidhni llogari</string>
-  <string name="sync_fail_ticker">Njëkohësimi dështoi</string>
-  <string name="sync_fail_ticker_unauthorized">Njëkohësimi dështoi, lypset të ribëni hyrjen</string>
-  <string name="sync_fail_content">Njëkohësimi i %1$s s\’u plotësua dot</string>
   <string name="sync_fail_content_unauthorized">Fjalëkalim i pavlefshëm për %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">U hasën përplasje</string>
   <string name="sync_fail_in_favourites_content">Lënda e %1$d kartelave s\’u njëkohësua dot (%2$d përplasje)</string>
@@ -129,11 +111,8 @@
   <string name="foreign_files_fail">Disa kartela s\’u zhvendosën dot</string>
   <string name="foreign_files_local_text">Vendore: %1$s</string>
   <string name="foreign_files_remote_text">E largët: %1$s</string>
-  <string name="upload_query_move_foreign_files">S\’ka hapësirë të mjaftueshme për të kopjuar te dosja %1$s kartelat e përzgjedhur. Doni t\i zhvendosni më mirë? </string>
-  <string name="pass_code_enter_pass_code">Ju lutemi, futni kodkalimin tuaj</string>
   <string name="pass_code_configure_your_pass_code">Jepni kodkalimin tuaj</string>
   <string name="pass_code_configure_your_pass_code_explanation">Kodkalimi do të kërkohet sa herë që niset aplikacioni</string>
-  <string name="pass_code_reenter_your_pass_code">Ju lutemi, rifutni kodkalimin tuaj</string>
   <string name="pass_code_remove_your_pass_code">Hiqeni kodkalimin tuaj</string>
   <string name="pass_code_mismatch">Kodkalimet s\’janë të njëjtë</string>
   <string name="pass_code_wrong">Kodkalim i pasaktë</string>
@@ -158,8 +137,6 @@
   <string name="media_rewind_description">Butoni Mbrapsht</string>
   <string name="media_play_pause_description">Butoni Luaje ose Pushoje</string>
   <string name="media_forward_description">Butoni Përpara</string>
-  <string name="auth_getting_authorization">Po merret autorizim…</string>
-  <string name="auth_trying_to_login">Po provohet hyrja…</string>
   <string name="auth_no_net_conn_title">Pa lidhje rrjeti</string>
   <string name="auth_nossl_plain_ok_title">S\’ka lidhje të sigurt.</string>
   <string name="auth_connection_established">Lidhja u vendos</string>
@@ -171,7 +148,6 @@
   <string name="auth_unknown_host_title">S\’u gjet dot strehë</string>
   <string name="auth_incorrect_path_title">S\’u gjet dot instancë shërbyesi</string>
   <string name="auth_timeout_title">Shërbyesit iu desh shumë kohë për përgjigje</string>
-  <string name="auth_incorrect_address_title">URL e keqformuar</string>
   <string name="auth_ssl_general_error_title">Gatitja e SSL-së dështoi</string>
   <string name="auth_ssl_unverified_server_title">S\’u verifikua dot identiteti i shërbyesit SSL</string>
   <string name="auth_bad_oc_version_title">Version i papranuar shërbyesi</string>
@@ -180,15 +156,11 @@
   <string name="auth_unauthorized">Emër përdoruesi ose fjalëkalim i gabuar</string>
   <string name="auth_oauth_error">Autorizim jo i suksesshëm</string>
   <string name="auth_oauth_error_access_denied">Hyrje e mohuar nga shërbyesi i autorizimeve</string>
-  <string name="auth_wtf_reenter_URL">Gjendje e papritur; ju lutemi, rijepni URL-në e shërbyesit</string>
   <string name="auth_expired_oauth_token_toast">Autorizimi juaj skadoi. Ju lutemi, autorizohuni sërish</string>
-  <string name="auth_expired_basic_auth_toast">Ju lutemi, jepni fjalëkalimin e tanishëm</string>
   <string name="auth_expired_saml_sso_token_toast">Sesioni juaj skadoi. Ju lutemi, rilidhuni</string>
-  <string name="auth_connecting_auth_server">Po lidhet te shërbyesi i mirëfilltësimeve…</string>
   <string name="auth_unsupported_auth_method">Shërbyesi s\’e mbulon këtë metodë mirëfilltësimesh</string>
   <string name="auth_unsupported_multiaccount">%1$s s\’mbulon llogari të shumëfishta</string>
   <string name="auth_fail_get_user_name">Shërbyesi juaj s\’po përgjigje me id të saktë përdoruesi, ju lutemi, lidhuni me një admin</string>
-  <string name="auth_can_not_auth_against_server">S\’mund të bëhet mirëfilltësim kundrejt këtij shërbyesi</string>
   <string name="auth_account_does_not_exist">Llogaria s\’ekziston ende te pajisja</string>
   <string name="favorite">Vëre te Të parapëlqyerit</string>
   <string name="unfavorite">Hiqe nga Të parapëlqyerit</string>
@@ -251,8 +223,6 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Fotot ngarkoji vetëm përmes WiFi-it</string>
-  <string name="instant_video_upload_on_wifi">Videot ngarkoji vetëm përmes WiFi-it</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Përplasje kartelash</string>
   <string name="conflict_message">Cilat kartela doni të mbani? Nëse përzgjidhni të dy versionet, kartelës vendore do t\’i shtohet një numër te emri.</string>
@@ -262,7 +232,6 @@
   <string name="preview_image_description">Paraparje figure</string>
   <string name="preview_image_error_unknown_format">Kjo figurë nuk mund të shfaqet</string>
   <string name="error__upload__local_file_not_copied">%1$s s\’u kopjua dot te dosja vendore %2$s</string>
-  <string name="prefs_instant_upload_path_title">Shteg Ngarkimi</string>
   <string name="share_link_no_support_share_api">Na ndjeni, ndarja me të tjerët s\’është e aktivizuar te shërbyesi juaj. Ju lutemi, lidhuni me përgjegjësin tuaj.</string>
   <string name="share_link_file_no_exist">S\’arrin të ndajë me të tjerët. Ju lutemi, kontrolloni nëse kartela ekziston apo jo</string>
   <string name="share_link_file_error">Ndodhi një gabim teksa përpiqej të ndahej me të tjerët kjo kartelë apo dosje</string>
@@ -294,10 +263,7 @@
   <string name="prefs_add_account">Shtoni llogari</string>
   <string name="auth_redirect_non_secure_connection_title">Lidhja e sigurt është ridrejtuar përmes një rruge të pasigurt.</string>
   <string name="actionbar_logger">Regjistra</string>
-  <string name="log_send_history_button">Historik Dërgimesh</string>
-  <string name="log_send_no_mail_app">S\’u gjet aplikacion për dërgim regjistrash. Instaloni aplikacion email-esh!</string>
   <string name="log_send_mail_subject">Regjistra aplikacioni %1$s për Android</string>
-  <string name="log_progress_dialog_text">Po ngarkohen të dhëna…</string>
   <string name="saml_authentication_required_text">Lypset mirëfilltësim</string>
   <string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
   <string name="actionbar_move">Zhvendose</string>
@@ -313,9 +279,6 @@
   <string name="copy_file_invalid_overwrite">Kartela gjendet tashmë te dosja vendmbërritje</string>
   <string name="copy_file_error">Ndodhi një gabim teksa përpiqej të kopjohej kjo kartelë apo dosje</string>
   <string name="forbidden_permissions_copy">për kopjim të kësaj kartele</string>
-  <string name="prefs_category_instant_uploading">Ngarkime të Menjëhershme</string>
-  <string name="prefs_category_security">Siguri</string>
-  <string name="prefs_instant_video_upload_path_title">Shteg Ngarkimi Videosh</string>
   <string name="sync_folder_failed_content">Njëkohësimi i dosjes %1$s s’u plotësua dot</string>
   <string name="shared_subject_header">ndarë</string>
   <string name="with_you_subject_header">me ju</string>
@@ -342,7 +305,6 @@
   <string name="share_dialog_title">Ndarje me të tjerët</string>
   <string name="share_with_user_section_title">Ndajeni me përdorues dhe grupe</string>
   <string name="share_no_users">Ende pa të dhëna të ndara me përdorues</string>
-  <string name="share_add_user_or_group">Shtoni Përdorues ose Grup</string>
   <string name="share_via_link_section_title">Lidhje ndarjeje</string>
   <string name="share_via_link_expiration_date_label">Caktoni datë skadimi</string>
   <string name="share_via_link_password_label">Mbroje me fjalëkalim</string>
@@ -360,6 +322,4 @@
   <string name="share_privilege_can_edit_delete">fshi</string>
   <string name="edit_share_unshare">Resht së ndari</string>
   <string name="edit_share_done">u bë</string>
-  <string name="action_switch_grid_view">Kalo te pamja mozaik</string>
-  <string name="action_switch_list_view">Kalo te pamja listë</string>
 </resources>

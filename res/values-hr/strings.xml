@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Android aplikacija</string>
   <string name="about_version">verzija %1$s</string>
   <string name="actionbar_sync">Osvježi račun</string>
   <string name="actionbar_upload">Učitaj</string>
@@ -27,7 +26,6 @@
   <string name="prefs_category_general">Općenito</string>
   <string name="prefs_category_more">više</string>
   <string name="prefs_accounts">Korisnićki računi</string>
-  <string name="prefs_manage_accounts">Upravljaj računima</string>
   <string name="prefs_instant_upload">Trenutni upload slika</string>
   <string name="prefs_instant_upload_summary">Trenutni upload slika snimljenih kamerom</string>
   <string name="prefs_instant_video_upload">Trenutni upload videa</string>
@@ -52,7 +50,6 @@
   <string name="common_error_unknown">Nepoznata pogreška</string>
   <string name="change_password">Izmjena lozinke</string>
   <string name="uploader_info_dirname">Naziv mape</string>
-  <string name="auth_trying_to_login">Trying to login…</string>
   <string name="favorite">Favorit</string>
   <string name="common_rename">Promjeni ime</string>
   <string name="common_remove">Makni</string>
@@ -63,7 +60,6 @@
   <string name="saml_authentication_required_text">Potrebna autentikacija</string>
   <string name="saml_authentication_wrong_pass">Pogrešna lozinka</string>
   <string name="folder_picker_choose_button_text">Odaberite</string>
-  <string name="prefs_category_security">Sigurnost</string>
   <string name="auth_host_address">Adresa poslužitelja</string>
   <string name="share_dialog_title">Dijeljenje zajedničkih resursa</string>
   <string name="share_via_link_section_title">Podijelite vezu</string>

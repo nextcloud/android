@@ -15,7 +15,6 @@
   <string name="drawer_open">Otvori</string>
   <string name="prefs_category_general">Opšte</string>
   <string name="prefs_accounts">Nalozi</string>
-  <string name="prefs_manage_accounts">Upravljaj nalozima</string>
   <string name="prefs_help">Pomoć</string>
   <string name="prefs_imprint">Žig</string>
   <string name="auth_username">Korisničko ime</string>

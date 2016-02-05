@@ -29,7 +29,6 @@
   <string name="setup_btn_connect">Berhubung</string>
   <string name="uploader_btn_upload_text">Muat naik</string>
   <string name="uploader_wrn_no_account_title">Tiada akaun dijumpai</string>
-  <string name="uploader_wrn_no_account_text">Device anda tidak mempunyai sebarang akaun %1$s. Mohon bina akaun dahulu.</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Berhenti</string>
   <string name="uploader_info_uploading">Memuatnaik</string>
   <string name="file_list_empty">Tiada apa-apa di sini. Muat naik sesuatu!</string>
@@ -43,7 +42,6 @@
   <string name="common_no">Tidak</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Batal</string>
-  <string name="common_save_exit">Simpan &amp; Keluar</string>
   <string name="common_error">Ralat</string>
   <string name="about_title">Mengenai</string>
   <string name="change_password">Ubah kata laluan</string>

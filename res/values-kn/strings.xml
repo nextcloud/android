@@ -37,7 +37,6 @@
   <string name="saml_authentication_required_text">﻿ದೃಢೀಕರಣ ಅಗತ್ಯವಿದೆ</string>
   <string name="saml_authentication_wrong_pass">ದುರ್ಬಲ ಗುಪ್ತಪದ</string>
   <string name="folder_picker_choose_button_text">﻿ಆಯ್ಕೆ</string>
-  <string name="prefs_category_security">﻿ಭದ್ರತೆ</string>
   <string name="auth_host_address">﻿ಪರಿಚಾರಕ ಗಣಕಯಂತ್ರದ ವಿಳಾಸ</string>
   <string name="share_dialog_title">﻿ಹಂಚಿಕೆ</string>
   <string name="share_via_link_section_title">ಸಂಪರ್ಕ ಕೊಂಡಿಯನ್ನು  ﻿ಹಂಚಿಕೊಳ್ಳಬಹುದು</string>

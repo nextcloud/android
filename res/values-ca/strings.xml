@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s aplicació per Android</string>
   <string name="about_version">versió %1$s</string>
   <string name="actionbar_sync">Actualitza compte</string>
   <string name="actionbar_upload">Puja un fitxer</string>
@@ -35,17 +34,13 @@
   <string name="prefs_instant_upload_summary">Puja instantàniament les fotografies preses amb la càmera</string>
   <string name="prefs_instant_video_upload">Pujades de vídeos instantanies</string>
   <string name="prefs_instant_video_upload_summary">Pujar instantàniament vídeos gravats per la càmera</string>
-  <string name="prefs_log_title">Habilita el registre</string>
   <string name="prefs_log_summary">Això s\'usa per registrar problemes</string>
-  <string name="prefs_log_title_history">Història del registre</string>
   <string name="prefs_log_summary_history">Això mostra els registres desats</string>
-  <string name="prefs_log_delete_history_button">Esborra la història</string>
   <string name="prefs_help">Ajuda</string>
   <string name="prefs_recommend">Recomana a un amic</string>
   <string name="prefs_feedback">Comentaris</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Proveu %1$s a un telèfon avançat!</string>
-  <string name="auth_check_server">Comprova el servidor</string>
   <string name="auth_host_url">Adreça del servidor https://…</string>
   <string name="auth_username">Nom d\'usuari</string>
   <string name="auth_password">Contrasenya</string>
@@ -56,7 +51,6 @@
   <string name="uploader_btn_new_folder_text">Carpeta nova</string>
   <string name="uploader_top_message">Seleccioneu la carpeta de pujada:</string>
   <string name="uploader_wrn_no_account_title">No s\'ha trobat el compte</string>
-  <string name="uploader_wrn_no_account_text">No hi ha comptes %1$s en el dispositiu. Configureu un compte primer</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configura</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Surt</string>
   <string name="uploader_wrn_no_content_title">No hi ha continguts per pujar</string>
@@ -78,7 +72,6 @@
   <string name="common_no">No</string>
   <string name="common_ok">D\'acord</string>
   <string name="common_cancel">Cancel·la</string>
-  <string name="common_save_exit">Desa &amp; Surt</string>
   <string name="common_error">Error</string>
   <string name="common_loading">Carregant...</string>
   <string name="common_error_unknown">Error desconegut</string>
@@ -91,22 +84,15 @@
   <string name="uploader_upload_in_progress_ticker">S\'està pujant ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Pujant %2$s</string>
   <string name="uploader_upload_succeeded_ticker">La pujada ha estat correcte</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s s\'ha pujat correctament</string>
   <string name="uploader_upload_failed_ticker">La pujada ha fallat</string>
   <string name="uploader_upload_failed_content_single">La pujada de %1$s no s\'ha pogut acabar</string>
-  <string name="uploader_upload_failed_credentials_error">La pujada ha fallat, t\'has de tornar a acreditar</string>
   <string name="downloader_download_in_progress_ticker">S\'està baixant ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% pujant %2$s</string>
   <string name="downloader_download_succeeded_ticker">La baixada ha estat correcte</string>
-  <string name="downloader_download_succeeded_content">%1$s s\'han baixat correctament</string>
   <string name="downloader_download_failed_ticker">La baixada ha fallat</string>
   <string name="downloader_download_failed_content">La baixada de %1$s no s\'ha pogut acabar</string>
   <string name="downloader_not_downloaded_yet">No baixat encara</string>
-  <string name="downloader_download_failed_credentials_error">La descàrrega ha fallat, t\'has de tornar a acreditar</string>
   <string name="common_choose_account">Escolliu el compte</string>
-  <string name="sync_fail_ticker">La sincronització ha fallat</string>
-  <string name="sync_fail_ticker_unauthorized">La sincronització ha fallat, us heu d\'acreditar de nou</string>
-  <string name="sync_fail_content">La sincronització de %1$s no s\'ha pogut acabar</string>
   <string name="sync_fail_content_unauthorized">Contrasenya no vàlida per %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
   <string name="sync_conflicts_in_favourites_content">%1$d mantinguts els arxius que no podien ser sincronitzats</string>
@@ -120,7 +106,6 @@
   <string name="foreign_files_fail">Alguns fitxers no s\'han pogut moure</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remot: %1$s</string>
-  <string name="upload_query_move_foreign_files">No hi ha prou espai per copiar els fitxers seleccionats a la carpeta %1$s. Els hi voleu moure?</string>
   <string name="media_notif_ticker">reproductor de música %1$s</string>
   <string name="media_state_playing">%1$s (sonant)</string>
   <string name="media_state_loading">%1$s (carregant)</string>
@@ -140,8 +125,6 @@
   <string name="media_rewind_description">Botó de rebobinat</string>
   <string name="media_play_pause_description">Botó de reproducció o pausa</string>
   <string name="media_forward_description">Botó de reproducció ràpida</string>
-  <string name="auth_getting_authorization">S\'està autenticant...</string>
-  <string name="auth_trying_to_login">S\'està intentant acreditar-vos...</string>
   <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
   <string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
   <string name="auth_connection_established">S\'ha establert la connexió</string>
@@ -152,7 +135,6 @@
   <string name="auth_unknown_host_title">No s\'ha trobat el servidor</string>
   <string name="auth_incorrect_path_title">No s\'ha trobat la instància del servidor</string>
   <string name="auth_timeout_title">El servidor ha trigat massa en respondre</string>
-  <string name="auth_incorrect_address_title">La URL esà malformada</string>
   <string name="auth_ssl_general_error_title">La inicialització SSL ha fallat</string>
   <string name="auth_ssl_unverified_server_title">No s\'ha pogut verificar la identitat SSL del servidor</string>
   <string name="auth_bad_oc_version_title">Versió del servidor desconeguda</string>
@@ -161,15 +143,11 @@
   <string name="auth_unauthorized">Nom d\'usuari o contrasenya incorrectes</string>
   <string name="auth_oauth_error">Autorització sense èxit</string>
   <string name="auth_oauth_error_access_denied">El servidor d\'autenticació us ha denegat l\'accés</string>
-  <string name="auth_wtf_reenter_URL">Estat inesperat; escriviu l\'adreça de nou</string>
   <string name="auth_expired_oauth_token_toast">La vostra autorització ha vençut. Acrediteu-vos de nou</string>
-  <string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
   <string name="auth_expired_saml_sso_token_toast">La sessió ha vençut. Connecteu-vos de nou</string>
-  <string name="auth_connecting_auth_server">S\'està connectant a un servidor d\'autenticació...</string>
   <string name="auth_unsupported_auth_method">El serivdor no permet aquest mètode d\'autenticació</string>
   <string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
   <string name="auth_fail_get_user_name">El servidor no retorna una id d\'usuari correcta, contacteu amb l\'administrador.</string>
-  <string name="auth_can_not_auth_against_server">No es pot autenticar en aquest servidor</string>
   <string name="favorite">Preferits</string>
   <string name="common_rename">Reanomena</string>
   <string name="common_remove">Elimina</string>
@@ -223,8 +201,6 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Puja les fotos només via WiFi</string>
-  <string name="instant_video_upload_on_wifi">Puja les fotos només via WiFi</string>
   <string name="instant_upload_path">/CarregaInstantània</string>
   <string name="conflict_keep_both">Mantén-los ambdós</string>
   <string name="preview_image_description">Visualització prèvia d\'imatge</string>
@@ -253,12 +229,10 @@
   <string name="prefs_category_accounts">Comptes</string>
   <string name="prefs_add_account">Afegeix compte</string>
   <string name="auth_redirect_non_secure_connection_title">La connexió segura està essent redirigida a través d\'una ruta insegura</string>
-  <string name="log_progress_dialog_text">Carregant dades...</string>
   <string name="saml_authentication_required_text">Es requereix autenticació</string>
   <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
   <string name="actionbar_move">Moure</string>
   <string name="folder_picker_choose_button_text">Escull</string>
-  <string name="prefs_category_security">Seguretat</string>
   <string name="auth_host_address">Adreça del servidor</string>
   <string name="share_dialog_title">Compartir</string>
   <string name="share_via_link_section_title">Comparteix l\'enllaç</string>

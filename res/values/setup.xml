@@ -6,7 +6,7 @@
     <string name="authority">org.owncloud.beta.provider</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
     <string name="authorityCache">org.owncloud.beta.imageCache.provider</string>
     <string name="authoritySearch">org.owncloud.beta.android.providers.UsersAndGroupsSearchProvider</string>
-    <string name="document_provider_authority">org.owncloud.documents</string>
+    <string name="document_provider_authority">org.owncloud.beta.documents</string>
     <string name ="db_file">owncloud.db</string>
     <string name ="db_name">ownCloud</string>
     <string name ="data_folder">owncloud-beta</string>

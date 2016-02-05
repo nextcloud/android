@@ -18,6 +18,5 @@
   <string name="create_account">Аккаунт үүсгэх</string>
   <string name="common_remove">Устгах</string>
   <string name="empty"></string>
-  <string name="prefs_category_security">Аюулгүй байдал</string>
   <string name="share_dialog_title">Түгээлт</string>
 </resources>

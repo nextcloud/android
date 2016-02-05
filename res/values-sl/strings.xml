@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">Program za Android %1$s</string>
   <string name="about_version">različica %1$s</string>
   <string name="actionbar_sync">Osveži račun</string>
   <string name="actionbar_upload">Pošlji datoteko</string>
@@ -37,11 +36,8 @@
   <string name="prefs_instant_upload_summary">Takojšnje pošiljanje slik, zajetih s fotoaparatom, na strežnik</string>
   <string name="prefs_instant_video_upload">Takojšnje pošiljanje posnetkov</string>
   <string name="prefs_instant_video_upload_summary">Takojšnje pošiljanje posnetkov, zajetih s fotoaparatom, na strežnik</string>
-  <string name="prefs_log_title">Omogoči zapisovanje dnevnika</string>
   <string name="prefs_log_summary">Uporablja se za beleženje težav in napak</string>
-  <string name="prefs_log_title_history">Zgodovina beleženja dnevnika</string>
   <string name="prefs_log_summary_history">Pokaže shranjene dnevnike</string>
-  <string name="prefs_log_delete_history_button">Izbriši zgodovino</string>
   <string name="prefs_help">Pomoč</string>
   <string name="prefs_recommend">Priporoči prijateljem</string>
   <string name="prefs_feedback">Odziv</string>
@@ -50,7 +46,6 @@
   <string name="prefs_remember_last_upload_location_summary">Zapomni si zadnje mesto za pošiljanje v oblak</string>
   <string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
   <string name="recommend_text">Želim ti predstaviti %1$s na pametnem telefonu!\nPrejmeš ga lahko na: %2$s</string>
-  <string name="auth_check_server">Preveri strežnik</string>
   <string name="auth_host_url">Naslov strežnika https://…</string>
   <string name="auth_username">Uporabniško ime</string>
   <string name="auth_password">Geslo</string>
@@ -61,7 +56,6 @@
   <string name="uploader_btn_new_folder_text">Nova mapa</string>
   <string name="uploader_top_message">Izbor mape za pošiljanje:</string>
   <string name="uploader_wrn_no_account_title">Uporabniškega računa ni mogoče najti</string>
-  <string name="uploader_wrn_no_account_text">Na napravi ni računov %1$s. Nastaviti je treba vsaj en račun.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavi</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Končaj</string>
   <string name="uploader_wrn_no_content_title">Ni vsebine za pošiljanje</string>
@@ -71,7 +65,6 @@
   <string name="file_list_seconds_ago">pred nekaj sekundami</string>
   <string name="file_list_empty">Tukaj še ni ničesar. Najprej je treba datoteke poslati v oblak!</string>
   <string name="file_list_loading">Poteka nalaganje ...</string>
-  <string name="file_list_no_app_for_file_type">Za to vrsto datoteke ni določenega programa!</string>
   <string name="local_file_list_empty">V tej mapi ni datotek.</string>
   <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
   <string name="filedetails_size">Velikost:</string>
@@ -81,14 +74,11 @@
   <string name="filedetails_download">Prejmi</string>
   <string name="filedetails_sync_file">Uskladi</string>
   <string name="filedetails_renamed_in_upload_msg">Datoteka je bila med nalaganjem preimenovana v %1$s</string>
-  <string name="list_layout">Postavitev seznama</string>
   <string name="action_share">Souporaba</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">V redu</string>
-  <string name="common_cancel_sync">Prekliči usklajevanje</string>
   <string name="common_cancel">Prekliči</string>
-  <string name="common_save_exit">Shrani in končaj</string>
   <string name="common_error">Napaka</string>
   <string name="common_loading">Nalaganje ...</string>
   <string name="common_error_unknown">Neznana napaka</string>
@@ -101,22 +91,15 @@
   <string name="uploader_upload_in_progress_ticker">Pošiljanje …</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Pošiljanje %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Pošiljanje je uspešno končano</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s je uspešno poslan</string>
   <string name="uploader_upload_failed_ticker">Pošiljanje je spodletelo</string>
   <string name="uploader_upload_failed_content_single">Pošiljanja %1$s ni mogoče dokončati</string>
-  <string name="uploader_upload_failed_credentials_error">Pošiljanje je spodletelo. Pred nadaljevanjem se je treba prijaviti.</string>
   <string name="downloader_download_in_progress_ticker">Prejemanje …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Prejemanje %2$s</string>
   <string name="downloader_download_succeeded_ticker">Prejemanje je uspešno končano</string>
-  <string name="downloader_download_succeeded_content">%1$s je uspešno prejet</string>
   <string name="downloader_download_failed_ticker">Prejemanje je spodletelo</string>
   <string name="downloader_download_failed_content">Prejemanja %1$s ni mogoče dokončati</string>
   <string name="downloader_not_downloaded_yet">Prejem še ni zaključen</string>
-  <string name="downloader_download_failed_credentials_error">Prejemanje je spodletelo. Pred nadaljevanjem se je treba prijaviti.</string>
   <string name="common_choose_account">Izbor računa</string>
-  <string name="sync_fail_ticker">Usklajevanje je spodletelo</string>
-  <string name="sync_fail_ticker_unauthorized">Usklajevanje je spodletelo. Znova se je treba prijaviti.</string>
-  <string name="sync_fail_content">Usklajevanja %1$s ni mogoče dokončati</string>
   <string name="sync_fail_content_unauthorized">Neveljavno geslo za %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
   <string name="sync_conflicts_in_favourites_content">%1$d stalno usklajenih datotek ni bilo mogoče uskladiti</string>
@@ -131,11 +114,8 @@
   <string name="foreign_files_fail">Nekaterih datotek ni mogoče premakniti</string>
   <string name="foreign_files_local_text">Krajevno: %1$s</string>
   <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
-  <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali jih želite premakniti?</string>
-  <string name="pass_code_enter_pass_code">Vnesite kodo PIN programa</string>
   <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
   <string name="pass_code_configure_your_pass_code_explanation">Koda bo zahtevana vsakič pred zagonom programa.</string>
-  <string name="pass_code_reenter_your_pass_code">Ponovno vnesite kodo</string>
   <string name="pass_code_remove_your_pass_code">Odstrani kodo PIN programa</string>
   <string name="pass_code_mismatch">Vpisani kodi PIN nista enaki</string>
   <string name="pass_code_wrong">Napačna koda PIN</string>
@@ -160,8 +140,6 @@
   <string name="media_rewind_description">Vrni nazaj</string>
   <string name="media_play_pause_description">Gumb za predvajanje in premor</string>
   <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>
-  <string name="auth_getting_authorization">Pridobivanje overitve ...</string>
-  <string name="auth_trying_to_login">Poskus prijave …</string>
   <string name="auth_no_net_conn_title">Ni omrežne povezave</string>
   <string name="auth_nossl_plain_ok_title">Varna povezava ni na voljo.</string>
   <string name="auth_connection_established">Povezava je vzpostavljena</string>
@@ -173,7 +151,6 @@
   <string name="auth_unknown_host_title">Gostitelja ni mogoče najti</string>
   <string name="auth_incorrect_path_title">Primerka strežnika ni mogoče najti</string>
   <string name="auth_timeout_title">Odziv s strežnika je časovno pretekel</string>
-  <string name="auth_incorrect_address_title">Napačno oblikovan naslov URL</string>
   <string name="auth_ssl_general_error_title">Začenjanje SSL je spodletelo</string>
   <string name="auth_ssl_unverified_server_title">Ni mogoče overiti istovetnosti strežnika SSL</string>
   <string name="auth_bad_oc_version_title">Nepoznana različica strežnika</string>
@@ -182,16 +159,12 @@
   <string name="auth_unauthorized">Napačno uporabniško ime ali geslo</string>
   <string name="auth_oauth_error">Overitev ni uspešno končana</string>
   <string name="auth_oauth_error_access_denied">Dostop je zavrnjen s strani overitvenega strežnika</string>
-  <string name="auth_wtf_reenter_URL">Nepričakovano stanje; ponovno je treba vpisati naslov URL strežnika</string>
   <string name="auth_expired_oauth_token_toast">Overitev računa je potekla. Pred nadaljevanjem je treba prijavo ponovno overiti.</string>
-  <string name="auth_expired_basic_auth_toast">Vnesite trenutno geslo</string>
   <string name="auth_expired_saml_sso_token_toast">Seja je potekla. Ponovno je treba vzpostaviti povezavo.</string>
-  <string name="auth_connecting_auth_server">Poteka povezovanje z overitvenim strežnikom ...</string>
   <string name="auth_unsupported_auth_method">Strežnik ne podpira tega načina overitve</string>
   <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
   <string name="auth_fail_get_user_name">Strežnik ne vrača ustreznega ID uporabnika. Stopite v stik s skrbnikom sistema.
 	</string>
-  <string name="auth_can_not_auth_against_server">Ni mogoče preveriti pristnosti strežnika</string>
   <string name="auth_account_does_not_exist">Račun na napravi še ne obstaja.</string>
   <string name="favorite">Priljubljene</string>
   <string name="unfavorite">Odstrani priljubljeno</string>
@@ -254,8 +227,6 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Pošiljaj slike le preko povezav Wi-Fi</string>
-  <string name="instant_video_upload_on_wifi">Pošlji posnetke le preko povezave Wi-Fi</string>
   <string name="instant_upload_path">/Poslano</string>
   <string name="conflict_title">Neskladje datotek</string>
   <string name="conflict_message">Katere datoteke želite ohraniti? Če izberete obe različici, bo krajevni datoteki dodatna k imenu še številka.</string>
@@ -265,7 +236,6 @@
   <string name="preview_image_description">Predogled slike</string>
   <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
   <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
-  <string name="prefs_instant_upload_path_title">Pot za pošiljanje</string>
   <string name="share_link_no_support_share_api">Souporaba je na strežniku onemogočena. Možnost lahko spreminjajo le
 		uporabniki s skrbniškimi dovoljenji.</string>
   <string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
@@ -296,10 +266,7 @@
   <string name="prefs_add_account">Dodaj račun</string>
   <string name="auth_redirect_non_secure_connection_title">Varna povezava je preusmerjena prek nevarovane poti.</string>
   <string name="actionbar_logger">Dnevnik</string>
-  <string name="log_send_history_button">Pošlji zgodovino</string>
-  <string name="log_send_no_mail_app">Ni nameščenega poštnega programa za pošiljanje dnevnikov.</string>
   <string name="log_send_mail_subject">%1$s dnevniki programa</string>
-  <string name="log_progress_dialog_text">Poteka nalaganje podatkov ...</string>
   <string name="saml_authentication_required_text">Zahtevana je overitev</string>
   <string name="saml_authentication_wrong_pass">Napačno geslo</string>
   <string name="actionbar_move">Premakni</string>
@@ -315,9 +282,6 @@
   <string name="copy_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja.</string>
   <string name="copy_file_error">Prišlo je do napake med kopiranjem datoteke v mapo</string>
   <string name="forbidden_permissions_copy">za kopiranje te datoteke</string>
-  <string name="prefs_category_instant_uploading">Takojšnje pošiljanje v oblak</string>
-  <string name="prefs_category_security">Varnost</string>
-  <string name="prefs_instant_video_upload_path_title">Pot videa za pošiljanje</string>
   <string name="sync_folder_failed_content">Usklajevanja mape %1$s ni mogoče zaključiti</string>
   <string name="shared_subject_header">v souporabi</string>
   <string name="with_you_subject_header">z vami</string>
@@ -344,7 +308,6 @@
   <string name="share_dialog_title">Souporaba</string>
   <string name="share_with_user_section_title">Omogoči souporabo s skupino ali z uporabnikom</string>
   <string name="share_no_users">Ni datotek, ki bi jih omogočili za souporabo z drugimi</string>
-  <string name="share_add_user_or_group">Dodaj uporabnika ali skupino</string>
   <string name="share_via_link_section_title">Povezava za souporabo</string>
   <string name="share_via_link_expiration_date_label">Nastavi datum preteka</string>
   <string name="share_via_link_password_label">Zaščiti z geslom</string>
@@ -360,6 +323,4 @@
   <string name="share_privilege_can_edit_create">ustvari</string>
   <string name="share_privilege_can_edit_change">spremeni</string>
   <string name="share_privilege_can_edit_delete">izbriši</string>
-  <string name="action_switch_grid_view">Preklopi v mrežni pogled</string>
-  <string name="action_switch_list_view">Preklopi v seznamski pogled</string>
 </resources>

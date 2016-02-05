@@ -367,7 +367,7 @@
     <string name="forbidden_permissions_copy">to copy this file</string>
 
     <string name="prefs_category_instant_uploading">Instant uploads</string>
-	<string name="prefs_category_security">Security</string>
+    <string name="prefs_category_details">Details</string>
 
     <string name="download_folder_failed_content">Download of %1$s folder could not be completed</string>
 	<string name="prefs_instant_video_upload_path_title">Upload video path</string>
@@ -454,4 +454,9 @@
 
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
+
+    <string name="manage_space_title">Manage space</string>
+    <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanentlty. \n\nDownloaded files will be kept untouched.\n\nThis process can take some time.</string>
+    <string name="manage_space_clear_data">Clear data</string>
+    <string name="manage_space_error">Some files could not be deleted.</string>
 </resources>
