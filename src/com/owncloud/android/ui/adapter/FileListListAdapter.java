@@ -24,23 +24,13 @@
 package com.owncloud.android.ui.adapter;
 
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +53,11 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
 
 /**
@@ -214,7 +209,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
-//                    if (!file.isFolder()) {
+                    if (!file.isFolder()) {
+                        // TODO Tobi: why did i commented this?
 //                        AbsListView parentList = (AbsListView)parent;
 //                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 //                            if (parentList.getChoiceMode() == AbsListView.CHOICE_MODE_NONE) {
@@ -231,7 +227,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 //                            }
 //                        }
 
-                    if (file.isFolder()) {
+                    } else { //Folder
                         fileSizeSeparatorV.setVisibility(View.GONE);
                         fileSizeV.setVisibility(View.GONE);
                     }
@@ -400,7 +396,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
 
         if (mSelection.get(position) != null) {
-            view.setBackgroundColor(Color.rgb(248, 248, 248));
+            view.setBackgroundColor(mContext.getResources().getColor(R.color.selected_item_background));
         } else {
             view.setBackgroundColor(Color.WHITE);
         }
@@ -471,7 +467,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return ret;
     }
     
-    
+
     public void setSortOrder(Integer order, boolean ascending) {
         SharedPreferences.Editor editor = mAppPreferences.edit();
         editor.putInt("sortOrder", order);
@@ -491,10 +487,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mGridMode = gridMode;
     }
 
-    public boolean isGridMode() {
-        return mGridMode;
-    }
-
+    // TODO Tobi: all methods needed?
     public void setNewSelection(int position, boolean checked) {
         mSelection.put(position, checked);
         notifyDataSetChanged();
@@ -530,5 +523,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             }
         }
         return files;
+    }
+
+    public boolean isGridMode() {
+        return mGridMode;
     }
 }

@@ -50,7 +50,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -907,11 +906,15 @@ public class FileActivity extends AppCompatActivity
      */
     public void showLoadingDialog(String message) {
         // Construct dialog
-        LoadingDialog loading = new LoadingDialog(message);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        loading.show(ft, DIALOG_WAIT_TAG);
-
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+        if (frag == null) {
+            Log_OC.d(TAG, "show loading dialog");
+            LoadingDialog loading = new LoadingDialog(message);
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            loading.show(ft, DIALOG_WAIT_TAG);
+            fm.executePendingTransactions();
+        }
     }
 
 

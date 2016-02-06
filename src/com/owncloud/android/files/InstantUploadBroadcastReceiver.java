@@ -20,15 +20,6 @@
 
 package com.owncloud.android.files;
 
-import java.io.File;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.FileStorageUtils;
-
 import android.Manifest;
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
@@ -46,6 +37,15 @@ import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
 import android.support.v4.content.ContextCompat;
 import android.webkit.MimeTypeMap;
+
+import com.owncloud.android.MainApp;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.FileStorageUtils;
+
+import java.io.File;
 
 
 public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
@@ -129,7 +129,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         db.putFileForLater(file_path, account.name, null);
         db.close();
 
-        if (!isOnline(context) 
+        if (!isOnline(context)
                 || (instantPictureUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))
                 || (instantUploadWhenChargingOnly(context) && !isCharging(context))
            ) {
@@ -194,13 +194,13 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         mime_type = c.getString(c.getColumnIndex(Video.Media.MIME_TYPE));
         c.close();
         Log_OC.d(TAG, file_path + "");
-        
+
         // save always temporally the picture to upload
         DbHandler db = new DbHandler(context);
         db.putFileForLater(file_path, account.name, null);
         db.close();
 
-        if (!isOnline(context) 
+        if (!isOnline(context)
                 || (instantVideoUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))
                 || (instantVideoUploadWhenChargingOnly(context) && !isCharging(context))
            ) {
@@ -307,7 +307,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI
                 && cm.getActiveNetworkInfo().getState() == State.CONNECTED;
     }
-    
+
     public static boolean isCharging(Context context){
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent batteryStatus = context.registerReceiver(null, ifilter);

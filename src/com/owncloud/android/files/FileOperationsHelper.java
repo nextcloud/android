@@ -25,20 +25,16 @@ import android.accounts.Account;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v4.app.DialogFragment;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -49,23 +45,12 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.adapter.DiskLruImageCacheFileProvider;
 import com.owncloud.android.ui.activity.ShareActivity;
+import com.owncloud.android.ui.adapter.DiskLruImageCacheFileProvider;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 
-
 import java.io.File;
-import java.util.List;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import org.apache.http.protocol.HTTP;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -532,7 +517,7 @@ public class FileOperationsHelper {
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(intent);
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
                     getString(R.string.wait_a_moment));
-            
+
         } else {
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FOLDER);

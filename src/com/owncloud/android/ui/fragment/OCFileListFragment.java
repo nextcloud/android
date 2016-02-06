@@ -25,33 +25,22 @@ package com.owncloud.android.ui.fragment;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Context;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
-import android.net.Uri;
-import android.content.SharedPreferences;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ActionMode;
-import android.support.v7.app.AlertDialog;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,16 +61,12 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.dialog.FileActionsDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.dialog.UploadSourceDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.ExceptionHandler;
-import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -94,7 +79,7 @@ import java.util.ArrayList;
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
 public class OCFileListFragment extends ExtendedListFragment {
-    
+
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
     private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
@@ -117,13 +102,10 @@ public class OCFileListFragment extends ExtendedListFragment {
     private FileListListAdapter mAdapter;
     private boolean mJustFolders;
 
-    private OCFile mTargetFile;
-
     private boolean miniFabClicked = false;
 
     private int mStatusBarColorActionMode;
     private int mStatusBarColor;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -132,7 +114,6 @@ public class OCFileListFragment extends ExtendedListFragment {
         mStatusBarColorActionMode = getResources().getColor(R.color.actionModeStatusBarBackground);
         mStatusBarColor = getResources().getColor(R.color.primary_dark);
     }
-
     /**
      * {@inheritDoc}
      */
@@ -449,51 +430,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         });
     }
 
-
-    private void showFileAction(int fileIndex) {
-        Bundle args = getArguments();
-        PopupMenu pm = new PopupMenu(getActivity(),null);
-        Menu menu = pm.getMenu();
-
-        boolean allowContextualActions =
-                (args == null) ? true : args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
-
-        if (allowContextualActions) {
-            MenuInflater inflater = getActivity().getMenuInflater();
-
-            inflater.inflate(R.menu.file_actions_menu, menu);
-            OCFile targetFile = (OCFile) mAdapter.getItem(fileIndex);
-
-            if (mContainerActivity.getStorageManager() != null) {
-                FileMenuFilter mf = new FileMenuFilter(
-                        targetFile,
-                        mContainerActivity.getStorageManager().getAccount(),
-                        mContainerActivity,
-                        getActivity()
-                );
-                mf.filter(menu);
-            }
-
-            /// TODO break this direct dependency on FileDisplayActivity... if possible
-            MenuItem item = menu.findItem(R.id.action_open_file_with);
-            FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
-            if (frag != null && frag instanceof FileDetailFragment &&
-                    frag.getFile().getFileId() == targetFile.getFileId()) {
-                item = menu.findItem(R.id.action_see_details);
-                if (item != null) {
-                    item.setVisible(false);
-                    item.setEnabled(false);
-                }
-            }
-
-            FileActionsDialogFragment dialog = FileActionsDialogFragment.newInstance(menu,
-                    fileIndex, targetFile.getFileName());
-            dialog.setTargetFragment(this, 0);
-            dialog.show(getFragmentManager(), FileActionsDialogFragment.FTAG_FILE_ACTIONS);
-        }
-    }
-
-    /**
+     /**
      * Saves the current listed folder.
      */
     @Override
@@ -589,7 +526,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     /**
      * {@inheritDoc}
      */
-    // TODO Tobi needed?
     public void createContextMenu(Menu menu) {
         Bundle args = getArguments();
         boolean allowContextualActions =
@@ -630,6 +566,9 @@ public class OCFileListFragment extends ExtendedListFragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean onFileActionChosen(int menuId) {
         if (mAdapter.getCheckedItems().size() == 1){
             OCFile mTargetFile = mAdapter.getCheckedItems().get(0);
@@ -754,7 +693,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     @Override
     public boolean onContextItemSelected (MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        boolean matched = onFileActionChosen(item.getItemId())  ;
+        boolean matched = onFileActionChosen(item.getItemId());
         if(!matched) {
             return super.onContextItemSelected(item);
         } else {

@@ -20,30 +20,14 @@
 
 package com.owncloud.android.utils;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Vector;
-
-import third_parties.daveKoeller.AlphanumComparator;
+import android.accounts.Account;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.StatFs;
+import android.preference.PreferenceManager;
+import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -51,14 +35,20 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.ui.activity.Preferences;
 
-import android.accounts.Account;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.net.Uri;
-import android.os.StatFs;
-import android.webkit.MimeTypeMap;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Vector;
+
+import third_parties.daveKoeller.AlphanumComparator;
 
 
 /**

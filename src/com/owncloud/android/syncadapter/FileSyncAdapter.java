@@ -22,25 +22,6 @@
 
 package com.owncloud.android.syncadapter;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.jackrabbit.webdav.DavException;
-
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.operations.UpdateOCVersionOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
-
 import android.accounts.Account;
 import android.accounts.AccountsException;
 import android.app.NotificationManager;
@@ -53,6 +34,25 @@ import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.UpdateOCVersionOperation;
+import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
+
+import org.apache.jackrabbit.webdav.DavException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of {@link AbstractThreadedSyncAdapter} responsible for synchronizing 

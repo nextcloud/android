@@ -22,10 +22,7 @@
  */
 package com.owncloud.android.ui.activity;
 
-import java.util.Arrays;
-
 import android.content.Intent;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;

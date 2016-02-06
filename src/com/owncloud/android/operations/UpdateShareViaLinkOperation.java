@@ -31,8 +31,6 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.UpdateRemoteShareOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
-import java.util.Calendar;
-
 
 /**
  * Updates an existing public share for a given file

@@ -399,7 +399,6 @@
     <string name="pref_cache_size">Cache size</string>
     <string name="upload_copy_files">Copy file</string>
     <string name="upload_move_files">Move file</string>
-
     <string name="pref_behaviour_entries_do_nothing">do nothing</string>
     <string name="pref_behaviour_entries_copy">copy file to OC folder</string>
     <string name="pref_behaviour_entries_delete">delete origin file</string>

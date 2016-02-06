@@ -21,17 +21,7 @@
 
 package com.owncloud.android.datamodel;
 
-import java.io.File;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.net.FileNameMap;
-import java.net.URLConnection;
-
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.GetMethod;
-
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -39,11 +29,9 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Point;
-import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -65,8 +53,14 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+
+import java.io.File;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
 
 /**
  * Manager for concurrent access to thumbnails cache.
@@ -81,7 +75,7 @@ public class ThumbnailsCacheManager {
     private static final Object mThumbnailsDiskCacheLock = new Object();
     private static DiskLruImageCache mThumbnailCache = null;
     private static boolean mThumbnailCacheStarting = true;
-    
+
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient = null;
@@ -114,7 +108,7 @@ public class ThumbnailsCacheManager {
                             cacheSize = Integer.decode(temp) * 1024 * 1024;
                         }
 
-                        // Check if media is mounted or storage is built-in, if so, 
+                        // Check if media is mounted or storage is built-in, if so,
                         // try and use external cache dir; otherwise use internal cache dir
                         final String cachePath = 
                                 MainApp.getAppContext().getExternalCacheDir().getPath() + 
@@ -235,7 +229,7 @@ public class ThumbnailsCacheManager {
                 mFile = params[0];
                 mIsThumbnail = (Boolean) params[1];
 
-                
+
                 if (mFile instanceof OCFile) {
                     thumbnail = doOCFileInBackground(mIsThumbnail);
 

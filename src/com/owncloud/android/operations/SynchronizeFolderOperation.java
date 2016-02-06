@@ -20,18 +20,10 @@
 
 package com.owncloud.android.operations;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -48,6 +40,12 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 //import android.support.v4.content.LocalBroadcastManager;
