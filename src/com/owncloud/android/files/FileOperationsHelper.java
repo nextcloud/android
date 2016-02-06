@@ -53,6 +53,7 @@ import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 
+import java.util.Collection;
 import java.util.List;
 
 import java.util.ArrayList;
@@ -428,7 +429,7 @@ public class FileOperationsHelper {
         }
     }
 
-    public void syncFiles(ArrayList<OCFile> files) {
+    public void syncFiles(Collection<OCFile> files) {
         for (OCFile file: files) {
             syncFile(file);
         }
@@ -460,7 +461,7 @@ public class FileOperationsHelper {
         }
     }
 
-    public void toggleFavorites(ArrayList<OCFile> files, boolean isFavorite){
+    public void toggleFavorites(Collection<OCFile> files, boolean isFavorite){
         for (OCFile file: files) {
             toggleFavorite(file, isFavorite);
         }
