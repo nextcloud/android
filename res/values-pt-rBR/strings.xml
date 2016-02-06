@@ -366,4 +366,8 @@
   <string name="edit_share_done">finalizado</string>
   <string name="action_switch_grid_view">Grade de exibição</string>
   <string name="action_switch_list_view">Lista de visualização</string>
+  <string name="manage_space_title">Gerenciar o espaço</string>
+  <string name="manage_space_description">Definições, banco de dados e certificados de servidor de %1$s será excluído permanentemente. Arquivos baixados serão mantidos inalterados. \n\nEste processo pode demorar algum tempo.</string>
+  <string name="manage_space_clear_data">Limpar dados</string>
+  <string name="manage_space_error">Alguns arquivos não puderam ser excluído.</string>
 </resources>

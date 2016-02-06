@@ -341,4 +341,5 @@
   <string name="edit_share_done">valmis</string>
   <string name="action_switch_grid_view">Ruudukkonäkymä</string>
   <string name="action_switch_list_view">Luettelonäkymä</string>
+  <string name="manage_space_error">Joitain tiedostoja ei voitu poistaa.</string>
 </resources>
