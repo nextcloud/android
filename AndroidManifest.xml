@@ -18,8 +18,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <manifest package="com.owncloud.android"
-    android:versionCode="20160201"
-    android:versionName="20160201"
+    android:versionCode="20160206"
+    android:versionName="20160206"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk
