@@ -20,7 +20,10 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
@@ -71,6 +74,7 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
     private static final String KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE";
+    private static final String GRID_COLUMNS = "gridColumns";
 
     private ScaleGestureDetector SGD = null;
 
@@ -306,6 +310,10 @@ p   private float scale = -1f;
             mTops = new ArrayList<>();
             mHeightCell = 0;
         }
+
+        SharedPreferences appPreferences = PreferenceManager
+                .getDefaultSharedPreferences(MainApp.getAppContext());
+        scale = appPreferences.getFloat(GRID_COLUMNS, -1.0f);
     }    
     
     
@@ -320,6 +328,12 @@ p   private float scale = -1f;
         savedInstanceState.putIntegerArrayList(KEY_TOPS, mTops);
         savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
+
+        SharedPreferences appPreferences = PreferenceManager
+                .getDefaultSharedPreferences(MainApp.getAppContext());
+        SharedPreferences.Editor editor = appPreferences.edit();
+        editor.putFloat(GRID_COLUMNS, scale);
+        editor.apply();
     }
 
     /**
