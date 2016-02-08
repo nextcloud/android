@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s Android app</string>
   <string name="about_version">versie %1$s</string>
   <string name="actionbar_sync">Account verversen</string>
   <string name="actionbar_upload">Uploaden</string>
@@ -36,8 +37,11 @@
   <string name="prefs_instant_upload_summary">Direct uploaden van foto\'s genomen met de camera</string>
   <string name="prefs_instant_video_upload">Direct uploaden van video\'s</string>
   <string name="prefs_instant_video_upload_summary">Direct uploaden van video\'s vanaf de camera</string>
+  <string name="prefs_log_title">Logging inschakelen</string>
   <string name="prefs_log_summary">Dit wordt gebruikt om problemen te loggen.</string>
+  <string name="prefs_log_title_history">Logging geschiedenis</string>
   <string name="prefs_log_summary_history">Dit toont de bijgehouden logs</string>
+  <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
   <string name="prefs_help">Help</string>
   <string name="prefs_recommend">Aanbevelen bij een vriend</string>
   <string name="prefs_feedback">Feedback</string>
@@ -47,6 +51,7 @@
   <string name="recommend_subject">Probeer %1$s op uw smartphone!</string>
   <string name="recommend_text">Uitnodiging om %1$s op uw smartphone uit te proberen!
 Download hier: %2$s</string>
+  <string name="auth_check_server">Controleer server</string>
   <string name="auth_host_url">Serveradres https://…</string>
   <string name="auth_username">Gebruikersnaam</string>
   <string name="auth_password">Wachtwoord</string>
@@ -57,6 +62,7 @@ Download hier: %2$s</string>
   <string name="uploader_btn_new_folder_text">Nieuwe map</string>
   <string name="uploader_top_message">Kies upload map:</string>
   <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
+  <string name="uploader_wrn_no_account_text">Er zijn geen %1$s accounts op dit apparaat. Stel eerst een account in.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configureren</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Afsluiten</string>
   <string name="uploader_wrn_no_content_title">Geen inhoud om te uploaden</string>
@@ -66,6 +72,7 @@ Download hier: %2$s</string>
   <string name="file_list_seconds_ago">seconden geleden</string>
   <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
   <string name="file_list_loading">Laden...</string>
+  <string name="file_list_no_app_for_file_type">Geen app gevonden voor dit bestandsformaat!</string>
   <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
   <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
   <string name="filedetails_size">Grootte:</string>
@@ -75,11 +82,14 @@ Download hier: %2$s</string>
   <string name="filedetails_download">Download</string>
   <string name="filedetails_sync_file">Synchroniseren</string>
   <string name="filedetails_renamed_in_upload_msg">Bestand is tijdens het uploaden hernoemd naar %1$s</string>
+  <string name="list_layout">Lijst overzicht</string>
   <string name="action_share">Deel</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_sync">Sync annuleren</string>
   <string name="common_cancel">Annuleren</string>
+  <string name="common_save_exit">Opslaan &amp; einde</string>
   <string name="common_error">Fout</string>
   <string name="common_loading">Laden...</string>
   <string name="common_error_unknown">Onbekende fout</string>
@@ -92,15 +102,18 @@ Download hier: %2$s</string>
   <string name="uploader_upload_in_progress_ticker">Uploaden ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Uploaden %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Upload succesvol</string>
+  <string name="uploader_upload_succeeded_content_single">%1$s geüpload</string>
   <string name="uploader_upload_failed_ticker">Upload mislukt</string>
   <string name="uploader_upload_failed_content_single">Upload van %1$s kon niet voltooid worden</string>
   <string name="downloader_download_in_progress_ticker">Downloaden ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Aan het downloaden %2$s</string>
   <string name="downloader_download_succeeded_ticker">Downloaden gelukt</string>
+  <string name="downloader_download_succeeded_content">%1$s gedownload.</string>
   <string name="downloader_download_failed_ticker">Downloaden mislukt</string>
   <string name="downloader_download_failed_content">Download van %1$s kon niet worden voltooid</string>
   <string name="downloader_not_downloaded_yet">Nog niet gedownload</string>
   <string name="common_choose_account">Kies account</string>
+  <string name="sync_fail_ticker">Sync mislukt</string>
   <string name="sync_fail_content_unauthorized">Ongeldig wachtwoord voor %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>
   <string name="sync_conflicts_in_favourites_content">%1$d in-synch-houden bestanden konden niet worden gesync\'d</string>
@@ -239,6 +252,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="preview_image_description">Afbeelding voorbeeld</string>
   <string name="preview_image_error_unknown_format">Deze afbeelding kan niet worden getoond</string>
   <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de %2$s lokale map</string>
+  <string name="prefs_instant_upload_path_title">Upload pad</string>
   <string name="share_link_no_support_share_api">Sorry, delen is niet mogelijk op uw server. Neem contact op met uw
 		beheerder.</string>
   <string name="share_link_file_no_exist">Kan dit niet delen. Controleer of dit bestand wel bestaat.</string>
@@ -272,6 +286,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="auth_redirect_non_secure_connection_title">De beveiligde verbinding is omgeleid via een onveilige route.</string>
   <string name="actionbar_logger">Logs</string>
   <string name="log_send_mail_subject">%1$s Android app logs</string>
+  <string name="log_progress_dialog_text">Laden data …</string>
   <string name="saml_authentication_required_text">Authenticatie vereist</string>
   <string name="saml_authentication_wrong_pass">Onjuist wachtwoord</string>
   <string name="actionbar_move">Verplaatsen</string>

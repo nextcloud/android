@@ -365,4 +365,7 @@ správce systému.</string>
   <string name="edit_share_done">dokončeno</string>
   <string name="action_switch_grid_view">Zobrazení v mřížce</string>
   <string name="action_switch_list_view">Zobrazení v seznamu</string>
+  <string name="manage_space_title">Spravovat úložný prostor</string>
+  <string name="manage_space_clear_data">Vyčistit data</string>
+  <string name="manage_space_error">Některé soubory nebylo možno smazat.</string>
 </resources>
