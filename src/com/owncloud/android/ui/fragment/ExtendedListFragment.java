@@ -20,10 +20,10 @@
 
 package com.owncloud.android.ui.fragment;
 
-import java.util.ArrayList;
-
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.GestureDetector;
@@ -47,6 +47,8 @@ import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 
+import java.util.ArrayList;
+
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
 /**
@@ -63,6 +65,7 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_TOPS = "TOPS";
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
+    private static final String GRID_COLUMNS = "gridColumns";
     private ScaleGestureDetector SGD = null;
 
     private SwipeRefreshLayout mRefreshListLayout;
@@ -248,6 +251,10 @@ public class ExtendedListFragment extends Fragment
             mTops = new ArrayList<Integer>();
             mHeightCell = 0;
         }
+
+        SharedPreferences appPreferences = PreferenceManager
+                .getDefaultSharedPreferences(MainApp.getAppContext());
+        scale = appPreferences.getFloat(GRID_COLUMNS, -1.0f);
     }    
     
     
@@ -261,6 +268,12 @@ public class ExtendedListFragment extends Fragment
         savedInstanceState.putIntegerArrayList(KEY_TOPS, mTops);
         savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
+
+        SharedPreferences appPreferences = PreferenceManager
+                .getDefaultSharedPreferences(MainApp.getAppContext());
+        SharedPreferences.Editor editor = appPreferences.edit();
+        editor.putFloat(GRID_COLUMNS, scale);
+        editor.apply();
     }
 
     /**
