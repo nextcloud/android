@@ -23,7 +23,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
@@ -56,7 +55,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -67,11 +65,6 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.OwnCloudCredentials;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -625,14 +618,19 @@ public class FileDisplayActivity extends HookActivity
 
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK ||
                 resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+
             //getClipData is only supported on api level 16+, Jelly Bean
-            if (data.getData() == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN &&
+                    data.getClipData() != null &&
+                    data.getClipData().getItemCount() > 0) {
+
                 for( int i = 0; i < data.getClipData().getItemCount(); i++){
                     Intent intent = new Intent();
                     intent.setData(data.getClipData().getItemAt(i).getUri());
                     requestSimpleUpload(intent, resultCode);
                 }
-            }else {
+
+            } else {
                 requestSimpleUpload(data, resultCode);
             }
         } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK ||
