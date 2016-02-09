@@ -320,7 +320,7 @@
   <string name="forbidden_permissions_copy">このファイルをコピー</string>
   <string name="prefs_category_instant_uploading">自動アップロード</string>
   <string name="prefs_category_details">詳細</string>
-  <string name="prefs_instant_video_upload_path_title">ビデオパスのアップロード</string>
+  <string name="prefs_instant_video_upload_path_title">動画のアップロードパス</string>
   <string name="sync_folder_failed_content">%1$s フォルダーの同期が完了しませんでした。</string>
   <string name="shared_subject_header">共有中</string>
   <string name="with_you_subject_header">あなたと</string>

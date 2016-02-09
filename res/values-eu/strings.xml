@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s Android aplikazioa</string>
   <string name="about_version">%1$s bertsioa</string>
   <string name="actionbar_sync">Freskatu kontua</string>
   <string name="actionbar_upload">Igo fitxategia</string>
@@ -20,8 +21,12 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Fitxategi guztiak</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Ezarpenak</string>
+  <string name="drawer_item_logs">Egunkariak</string>
+  <string name="drawer_close">Itxi</string>
   <string name="drawer_open">Ireki</string>
   <string name="prefs_category_general">Orokorra</string>
   <string name="prefs_category_more">Gehiago</string>
@@ -32,11 +37,14 @@
   <string name="prefs_instant_video_upload">Uneko bideo igoerak</string>
   <string name="prefs_instant_video_upload_summary">Igo berehala kamerak filmatutako bideoak</string>
   <string name="prefs_log_summary">Arazoen erregistroa gordetzeko erabiltzen da</string>
+  <string name="prefs_log_title_history">Saio historia</string>
   <string name="prefs_log_summary_history">Honek gordetako erregistroak bistaratzen ditu.</string>
+  <string name="prefs_log_delete_history_button">Ezabatu historiala</string>
   <string name="prefs_help">Laguntza</string>
   <string name="prefs_recommend">Lagun bati aholkatu</string>
   <string name="prefs_feedback">Oharrak</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Oroitu partekatutako kokalekua</string>
   <string name="recommend_subject">Probatu %1$s zure telefono adimentsuan!</string>
   <string name="recommend_text">Nik %1$s zure telefono adimentsuan erabitzera gonbidatu nahi zaitut!\nDeskargatu hemen: %2$s</string>
   <string name="auth_host_url">Zerbitzariaren helbidea https://</string>
@@ -124,6 +132,8 @@
   <string name="media_rewind_description">Atzeratu botoia</string>
   <string name="media_play_pause_description">Erreproduzitu edo pausatu botoia</string>
   <string name="media_forward_description">Azkar aurreratu botoia</string>
+  <string name="auth_getting_authorization">Baimena eskuratzen</string>
+  <string name="auth_trying_to_login">Saio hasten saiatzen</string>
   <string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
   <string name="auth_nossl_plain_ok_title">Konexio segurua ez dago eskuragarri</string>
   <string name="auth_connection_established">Konexioa ezarri da</string>
@@ -155,6 +165,7 @@ Mesedez, baimendu berriz</string>
   <string name="confirmation_remove_folder_alert">Ziru zaude %1$s eta bere edukiak ezabatu nahi dituzula?</string>
   <string name="confirmation_remove_local">Bertakoa bakarrik</string>
   <string name="confirmation_remove_folder_local">Bertakoa bakarrik</string>
+  <string name="confirmation_remove_remote">Zerbitzaritik</string>
   <string name="remove_success_msg">Ongi ezabatu da</string>
   <string name="remove_fail_msg">Ezin izan da ezabaketa burutu</string>
   <string name="rename_dialog_title">Idatzi izen berri bat</string>
@@ -164,6 +175,7 @@ Mesedez, baimendu berriz</string>
   <string name="sync_file_nothing_to_do_msg">Fitxategi edukiak dagoeneko sinkronizaturik</string>
   <string name="create_dir_fail_msg">Ezin izan da karpeta sortu</string>
   <string name="filename_forbidden_characters">Debekatutako karaktereak: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_forbidden_charaters_from_server">Fitxategi izenak behintzat baliogabeko karaktere bat du</string>
   <string name="filename_empty">Fitxategi izena ezin da hutsa izan</string>
   <string name="wait_a_moment">Itxaron momentu bat</string>
   <string name="filedisplay_unexpected_bad_get_content">Ezusteko arazoa; mesedez, saiatu beste app batekin fitxategia hautatzeko</string>

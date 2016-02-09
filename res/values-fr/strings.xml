@@ -31,7 +31,7 @@
   <string name="prefs_category_general">Général</string>
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_accounts">Comptes</string>
-  <string name="prefs_manage_accounts">Gestion des comptes utilisateur</string>
+  <string name="prefs_manage_accounts">Gestion des comptes</string>
   <string name="prefs_passcode">Code de sécurité</string>
   <string name="prefs_instant_upload">Téléversement immédiat des photos</string>
   <string name="prefs_instant_upload_summary">Téléverser immédiatement les photos prises par la caméra</string>
@@ -62,7 +62,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="uploader_btn_new_folder_text">Nouveau dossier</string>
   <string name="uploader_top_message">Sélectionner le dossier d\'envoi :</string>
   <string name="uploader_wrn_no_account_title">Aucun compte n\'a été trouvé</string>
-  <string name="uploader_wrn_no_account_text">Aucun %1$s compte sur l\'appareil. Veuillez configurer un compte au préalable.</string>
+  <string name="uploader_wrn_no_account_text">Aucun compte %1$s sur l\'appareil. Veuillez configurer un compte au préalable.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuration</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quitter</string>
   <string name="uploader_wrn_no_content_title">Rien à envoyer</string>
@@ -89,7 +89,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel_sync">Annuler la synchronisation</string>
   <string name="common_cancel">Annuler</string>
-  <string name="common_save_exit">Enregistrer &amp; quitter</string>
+  <string name="common_save_exit">Enregistrer et quitter</string>
   <string name="common_error">Erreur</string>
   <string name="common_loading">Chargement…</string>
   <string name="common_error_unknown">Erreur inconnue </string>
@@ -136,7 +136,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="foreign_files_fail">Certains fichiers n\'ont pu être déplacés</string>
   <string name="foreign_files_local_text">Local : %1$s</string>
   <string name="foreign_files_remote_text">Distant : %1$s</string>
-  <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace disque pour copier la sélection dans le dossier %1$s. A la place, souhaitez-vous les déplacer ?</string>
+  <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace disque pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
   <string name="pass_code_enter_pass_code">Veuillez saisir votre code de sécurité</string>
   <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
   <string name="pass_code_configure_your_pass_code_explanation">Le code de sécurité sera demandé à chaque ouverture de l\'application</string>
@@ -178,7 +178,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="auth_unknown_host_title">Impossible de trouver l\'hôte</string>
   <string name="auth_incorrect_path_title">Aucune instance du serveur n\'a été trouvée</string>
   <string name="auth_timeout_title">Le serveur a pris trop de temps à répondre</string>
-  <string name="auth_incorrect_address_title">Adresse du serveur invalide</string>
+  <string name="auth_incorrect_address_title">Adresse du serveur non valable</string>
   <string name="auth_ssl_general_error_title">Échec de l\'initialisation SSL</string>
   <string name="auth_ssl_unverified_server_title">Impossible de vérifier l\'identité du serveur SSL</string>
   <string name="auth_bad_oc_version_title">La version du serveur n\'est pas reconnue</string>
@@ -371,7 +371,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="action_switch_grid_view">Mosaïque</string>
   <string name="action_switch_list_view">Liste</string>
   <string name="manage_space_title">Gestion de l\'espace</string>
-  <string name="manage_space_description">Les Paramètres, la Base de Données et les certificats du serveur %1$s\'s seront définitivement effacés. \n\nLes Fichiers téléchargés ne seront pas impactés.\n\nCe processus peut prendre un certain temps.</string>
+  <string name="manage_space_description">Les paramètres, la base de données et les certificats provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCe processus peut prendre un certain temps.</string>
   <string name="manage_space_clear_data">Effacer les données</string>
   <string name="manage_space_error">Certains fichiers n\'ont pu être supprimés.</string>
 </resources>
