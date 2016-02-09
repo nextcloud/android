@@ -207,9 +207,6 @@
     <string name="confirmation_remove_alert">"Do you really want to remove %1$s?"</string>
     <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and its contents?"</string>
     <string name="confirmation_remove_local">Local only</string>
-    <string name="confirmation_remove_folder_local">Local only</string>
-    <string name="confirmation_remove_remote">From server</string>
-    <string name="confirmation_remove_remote_and_local">Remote &amp; local</string>
     <string name="remove_success_msg">"Removal succeeded"</string>
     <string name="remove_fail_msg">"Removal failed"</string>
     <string name="rename_dialog_title">Enter a new name</string>
