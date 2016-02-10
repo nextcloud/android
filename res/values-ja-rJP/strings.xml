@@ -338,6 +338,8 @@
   <string name="file_list__footer__files">%1$d ファイル</string>
   <string name="file_list__footer__files_and_folder">%1$d ファイル、1 フォルダー</string>
   <string name="file_list__footer__files_and_folders">%1$d ファイル、%2$d フォルダー</string>
+  <string name="prefs_instant_behaviour_dialogTitle">オリジナルファイルについて</string>
+  <string name="prefs_instant_behaviour_title">オリジナルファイルは、... になります。</string>
   <string name="upload_copy_files">ファイルをコピー</string>
   <string name="upload_move_files">ファイルを移動</string>
   <string name="pref_behaviour_entries_keep_file">元のフォルダに保持</string>
@@ -366,6 +368,7 @@
   <string name="action_switch_grid_view">グリッド表示</string>
   <string name="action_switch_list_view">リスト表示</string>
   <string name="manage_space_title">管理領域</string>
+  <string name="manage_space_description">%1$s にあるデータから、設定、データベース、サーバー証明書は完全に削除されます。\n\nダウンロードファイルは、そのまま残ります。\n\nこの操作はしばらくかかります。</string>
   <string name="manage_space_clear_data">データのクリア</string>
   <string name="manage_space_error">いくつかのファイルがクリアできませんでした。</string>
 </resources>
