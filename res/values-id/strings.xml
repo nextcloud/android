@@ -82,7 +82,6 @@
   <string name="common_error_unknown">Kesalahan tidak diketahui</string>
   <string name="about_title">Tentang</string>
   <string name="change_password">Ubah sandi</string>
-  <string name="delete_account">Hapus akun</string>
   <string name="create_account">Buat akun</string>
   <string name="upload_chooser_title">Unggah dari...</string>
   <string name="uploader_info_dirname">Nama folder</string>
@@ -171,9 +170,6 @@
   <string name="confirmation_remove_alert">Apakah Anda yakin ingin menghapus %1$s?</string>
   <string name="confirmation_remove_folder_alert">Apakah Anda yakin ingin menghapus %1$s dan isinya?</string>
   <string name="confirmation_remove_local">Lokal saja</string>
-  <string name="confirmation_remove_folder_local">Lokal saja</string>
-  <string name="confirmation_remove_remote">Dari server</string>
-  <string name="confirmation_remove_remote_and_local">Remot &amp; lokal</string>
   <string name="remove_success_msg">Penghapusan berhasil</string>
   <string name="remove_fail_msg">Penghapusan gagal</string>
   <string name="rename_dialog_title">Masukkan nama baru</string>

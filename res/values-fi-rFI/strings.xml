@@ -94,7 +94,6 @@
   <string name="common_error_unknown">Tuntematon virhe</string>
   <string name="about_title">Tietoja</string>
   <string name="change_password">Vaihda salasana</string>
-  <string name="delete_account">Poista tili</string>
   <string name="create_account">Luo tili</string>
   <string name="upload_chooser_title">Lataus täältä:</string>
   <string name="uploader_info_dirname">Kansion nimi</string>
@@ -191,9 +190,6 @@
   <string name="confirmation_remove_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
   <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
   <string name="confirmation_remove_local">Vain paikallinen</string>
-  <string name="confirmation_remove_folder_local">Vain paikallinen</string>
-  <string name="confirmation_remove_remote">Palvelimelta</string>
-  <string name="confirmation_remove_remote_and_local">Etä ja paikallinen</string>
   <string name="remove_success_msg">Poistettu onnistuneesti</string>
   <string name="remove_fail_msg">Poistamista ei voitu suorittaa loppuun asti</string>
   <string name="rename_dialog_title">Anna uusi nimi</string>

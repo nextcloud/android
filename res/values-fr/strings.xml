@@ -95,7 +95,6 @@ Téléchargez-le ici : %2$s</string>
   <string name="common_error_unknown">Erreur inconnue </string>
   <string name="about_title">À propos de</string>
   <string name="change_password">Changer de mot de passe</string>
-  <string name="delete_account">Supprimer ce compte</string>
   <string name="create_account">Créer un compte</string>
   <string name="upload_chooser_title">Téléverser un fichier depuis…</string>
   <string name="uploader_info_dirname">Nom du dossier</string>
@@ -205,9 +204,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="confirmation_remove_alert">Voulez-vous vraiment supprimer %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et son contenu ?</string>
   <string name="confirmation_remove_local">Local seulement</string>
-  <string name="confirmation_remove_folder_local">Local seulement</string>
-  <string name="confirmation_remove_remote">Depuis le serveur</string>
-  <string name="confirmation_remove_remote_and_local">Distant &amp; local</string>
   <string name="remove_success_msg">Suppression effectuée avec succès</string>
   <string name="remove_fail_msg">Suppression impossible</string>
   <string name="rename_dialog_title">Entrez un nouveau nom</string>

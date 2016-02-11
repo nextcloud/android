@@ -83,7 +83,6 @@
   <string name="common_error_unknown">Tundmatu viga</string>
   <string name="about_title">Info</string>
   <string name="change_password">Muuda parooli</string>
-  <string name="delete_account">Kustuta konto</string>
   <string name="create_account">Loo konto</string>
   <string name="upload_chooser_title">Lae fail üles kohast ...</string>
   <string name="uploader_info_dirname">Kausta nimi</string>
@@ -176,9 +175,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="confirmation_remove_alert">Oled sa kindel, et soovid %1$s eemaldada?</string>
   <string name="confirmation_remove_folder_alert">Kas sa tõesti soovid eemaldada %1$s ja selle sisu?</string>
   <string name="confirmation_remove_local">Ainult kohalik</string>
-  <string name="confirmation_remove_folder_local">Ainult kohalik</string>
-  <string name="confirmation_remove_remote">Serverist</string>
-  <string name="confirmation_remove_remote_and_local">Kaugfail &amp; kohalik</string>
   <string name="remove_success_msg">Eemaldamine oli edukas</string>
   <string name="remove_fail_msg">Eemaldamine ebaõnnestus</string>
   <string name="rename_dialog_title">Sisesta uus nimi</string>

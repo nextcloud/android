@@ -46,7 +46,6 @@
   <string name="common_error_unknown">ਅਣਜਾਣ ਗਲਤੀ</string>
   <string name="about_title">ਇਸ ਬਾਰੇ</string>
   <string name="change_password">ਪਾਸਵਰਡ ਬਦਲੋ</string>
-  <string name="delete_account">ਅਕਾਊਂਟ ਹਟਾਓ</string>
   <string name="create_account">ਅਕਾਊਂਟ ਬਣਾਓ</string>
   <string name="upload_chooser_title">... ਤੋਂ ਅੱਪਲੋਡ</string>
   <string name="uploader_upload_in_progress_ticker">... ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
@@ -79,7 +78,6 @@
   <string name="common_rename">ਨਾਂ ਬਦਲੋ</string>
   <string name="common_remove">ਹਟਾਓ</string>
   <string name="confirmation_remove_local">ਕੇਵਲ ਲੋਕਲ</string>
-  <string name="confirmation_remove_folder_local">ਕੇਵਲ ਲੋਕਲ</string>
   <string name="wait_a_moment">ਪਲ਼ ਭਰ ਲਈ ਉਡੀਕੋ</string>
   <string name="filedisplay_no_file_selected">ਕੋਈ ਫਾਇਲ ਨਹੀਂ ਚੁਣੀ ਗਈ</string>
   <string name="ssl_validator_header">ਇਹ ਸਾਈਟ ਦੀ ਪਛਾਣ ਦੀ ਜਾਂਚ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ ਹੈ</string>

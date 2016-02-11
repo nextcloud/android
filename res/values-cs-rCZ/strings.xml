@@ -94,7 +94,6 @@
   <string name="common_error_unknown">Neznámá chyba</string>
   <string name="about_title">O aplikaci</string>
   <string name="change_password">Změnit heslo</string>
-  <string name="delete_account">Smazat účet</string>
   <string name="create_account">Vytvořit účet</string>
   <string name="upload_chooser_title">Nahrát z ...</string>
   <string name="uploader_info_dirname">Název složky</string>
@@ -199,9 +198,6 @@
   <string name="confirmation_remove_alert">Opravdu chcete odstranit %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Opravdu chcete odstranit %1$s a jeho obsah?</string>
   <string name="confirmation_remove_local">Pouze místní</string>
-  <string name="confirmation_remove_folder_local">Pouze místní</string>
-  <string name="confirmation_remove_remote">Ze serveru</string>
-  <string name="confirmation_remove_remote_and_local">Vzdálený &amp; místní</string>
   <string name="remove_success_msg">Úspěšně odstraněno</string>
   <string name="remove_fail_msg">Odstranění nelze dokončit</string>
   <string name="rename_dialog_title">Zadejte nový název</string>

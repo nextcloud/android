@@ -83,7 +83,6 @@
   <string name="common_error_unknown">Errore ezezaguna</string>
   <string name="about_title">Honi buruz</string>
   <string name="change_password">Aldatu pasahitza</string>
-  <string name="delete_account">Ezabatu kontua</string>
   <string name="create_account">Sortu kontua</string>
   <string name="upload_chooser_title">Igo fitxategia hemendik ...</string>
   <string name="uploader_info_dirname">Karpetaren izena</string>
@@ -164,8 +163,6 @@ Mesedez, baimendu berriz</string>
   <string name="confirmation_remove_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
   <string name="confirmation_remove_folder_alert">Ziru zaude %1$s eta bere edukiak ezabatu nahi dituzula?</string>
   <string name="confirmation_remove_local">Bertakoa bakarrik</string>
-  <string name="confirmation_remove_folder_local">Bertakoa bakarrik</string>
-  <string name="confirmation_remove_remote">Zerbitzaritik</string>
   <string name="remove_success_msg">Ongi ezabatu da</string>
   <string name="remove_fail_msg">Ezin izan da ezabaketa burutu</string>
   <string name="rename_dialog_title">Idatzi izen berri bat</string>

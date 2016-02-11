@@ -50,7 +50,6 @@
   <string name="common_error_unknown">უცნობი შეცდომა</string>
   <string name="about_title">ჩვენს შესახებ</string>
   <string name="change_password">პაროლის შეცვლა</string>
-  <string name="delete_account">ანგარიშის წაშლა</string>
   <string name="create_account">ანგარიშის შექმნა</string>
   <string name="upload_chooser_title">ატვირთე აქედან...</string>
   <string name="uploader_info_dirname">ფოლდერის სახელი</string>
@@ -91,7 +90,6 @@
   <string name="common_rename">გადარქმევა</string>
   <string name="common_remove">წაშლა</string>
   <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>
-  <string name="confirmation_remove_folder_local">მხოლოდ ლოკალური</string>
   <string name="remove_success_msg">წაშლა შარმატებით დასრულდა</string>
   <string name="remove_fail_msg">წაშლა წარუმატებლად დამთავრდა</string>
   <string name="rename_dialog_title">შეიყვანეთ ახალი სახელი</string>

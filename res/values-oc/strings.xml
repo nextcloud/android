@@ -85,7 +85,6 @@ Telecargatz-lo aicí : %2$s</string>
   <string name="common_error_unknown">Error desconeguda </string>
   <string name="about_title">A prepaus de</string>
   <string name="change_password">Cambiar de senhal</string>
-  <string name="delete_account">Suprimir aqueste compte</string>
   <string name="create_account">Crear un compte</string>
   <string name="upload_chooser_title">Mandar un fichièr dempuèi…</string>
   <string name="uploader_info_dirname">Nom del dorsièr</string>
@@ -178,9 +177,6 @@ En rason d\'aquesta modificacion, totes los fichièrs mandats amb de versions an
   <string name="confirmation_remove_alert">Sètz segur que volètz suprimir %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Sètz segur que volètz suprimir %1$s e son contengut ?</string>
   <string name="confirmation_remove_local">Local solament</string>
-  <string name="confirmation_remove_folder_local">Local solament</string>
-  <string name="confirmation_remove_remote">Dempuèi lo servidor</string>
-  <string name="confirmation_remove_remote_and_local">Distant &amp; local</string>
   <string name="remove_success_msg">Supression efectuada amb succès</string>
   <string name="remove_fail_msg">Supression impossibla</string>
   <string name="rename_dialog_title">Entratz un nom novèl</string>

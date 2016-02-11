@@ -94,7 +94,6 @@
   <string name="common_error_unknown">שגיאה בלתי ידועה</string>
   <string name="about_title">על אודות</string>
   <string name="change_password">שינוי ססמה</string>
-  <string name="delete_account">מחיקת חשבון</string>
   <string name="create_account">יצירת חשבון</string>
   <string name="upload_chooser_title">העלאה מהמיקום …</string>
   <string name="uploader_info_dirname">שם התיקייה</string>
@@ -200,9 +199,6 @@
   <string name="confirmation_remove_alert">האם באמת להסיר %1$s?</string>
   <string name="confirmation_remove_folder_alert">האם באמת להסיר %1$s ואת כל התכולה?</string>
   <string name="confirmation_remove_local">מקומי בלבד</string>
-  <string name="confirmation_remove_folder_local">מקומי בלבד</string>
-  <string name="confirmation_remove_remote">מהשרת</string>
-  <string name="confirmation_remove_remote_and_local">חיצוני &amp; מקומי</string>
   <string name="remove_success_msg">ההסרה הצליחה</string>
   <string name="remove_fail_msg">ההסרה נכשלה</string>
   <string name="rename_dialog_title">נא להזין שם חדש</string>

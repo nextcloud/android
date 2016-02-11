@@ -38,7 +38,6 @@
   <string name="common_error_unknown">Nepoznata greška</string>
   <string name="about_title">O programu</string>
   <string name="change_password">Izmeni lozinku</string>
-  <string name="delete_account">Ukloni nalog</string>
   <string name="create_account">Novi nalog</string>
   <string name="uploader_info_dirname">Ime fascikle</string>
   <string name="uploader_upload_in_progress_ticker">Otpremanje...</string>

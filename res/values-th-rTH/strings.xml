@@ -94,7 +94,6 @@
   <string name="common_error_unknown">ข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
   <string name="about_title">เกี่ยวกับเรา</string>
   <string name="change_password">เปลี่ยนรหัสผ่าน</string>
-  <string name="delete_account">ลบบัญชี</string>
   <string name="create_account">สร้างบัญชีใหม่</string>
   <string name="upload_chooser_title">อัพโหลดไฟล์จาก ...</string>
   <string name="uploader_info_dirname">ชื่อโฟลเดอร์</string>
@@ -199,9 +198,6 @@
   <string name="confirmation_remove_alert">คุณต้องการที่จะลบ %1$s?</string>
   <string name="confirmation_remove_folder_alert">คุณต้องการที่จะลบ %1$s และเนื้อหาของมัน?</string>
   <string name="confirmation_remove_local">เฉพาะต้นทางเท่านั้น</string>
-  <string name="confirmation_remove_folder_local">เฉพาะต้นทางเท่านั้น</string>
-  <string name="confirmation_remove_remote">จากเซิร์ฟเวอร์</string>
-  <string name="confirmation_remove_remote_and_local">รีโมท &amp; ต้นทาง</string>
   <string name="remove_success_msg">ลบเรียบร้อยแล้ว</string>
   <string name="remove_fail_msg">ไม่สามารถลบได้</string>
   <string name="rename_dialog_title">กรอกชื่อใหม่</string>

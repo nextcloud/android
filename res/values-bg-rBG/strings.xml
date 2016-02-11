@@ -82,7 +82,6 @@
   <string name="common_error_unknown">Непозната грешка</string>
   <string name="about_title">Относно</string>
   <string name="change_password">Промяна на парола</string>
-  <string name="delete_account">Изтриване на профила</string>
   <string name="create_account">Създаване на профил</string>
   <string name="upload_chooser_title">Качване от...</string>
   <string name="uploader_info_dirname">Име на папката</string>
@@ -170,7 +169,6 @@
   <string name="confirmation_remove_alert">Наистина ли искате да изтриете %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Наистина ли искате да премахнете %1$s и съдържанието му?</string>
   <string name="confirmation_remove_local">Само локално</string>
-  <string name="confirmation_remove_folder_local">Само локално</string>
   <string name="remove_success_msg">Премахването успешно.</string>
   <string name="remove_fail_msg">Неуспешно прехамхване.</string>
   <string name="rename_dialog_title">Въведете ново име</string>

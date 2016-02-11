@@ -84,7 +84,6 @@
   <string name="common_error_unknown">Neznana napaka</string>
   <string name="about_title">O oblaku %1$s</string>
   <string name="change_password">Spremeni geslo</string>
-  <string name="delete_account">Izbriši račun</string>
   <string name="create_account">Ustvari račun</string>
   <string name="upload_chooser_title">Pošlji datoteko iz …</string>
   <string name="uploader_info_dirname">Ime mape</string>
@@ -173,9 +172,6 @@
   <string name="confirmation_remove_alert">Ali res želite odstraniti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ali res želite odstraniti %1$s skupaj s celotno vsebino?</string>
   <string name="confirmation_remove_local">Le krajevno</string>
-  <string name="confirmation_remove_folder_local">Le krajevno</string>
-  <string name="confirmation_remove_remote">S strežnika</string>
-  <string name="confirmation_remove_remote_and_local">Oddaljeno &amp; krajevno</string>
   <string name="remove_success_msg">Odstranitev je uspešno končana</string>
   <string name="remove_fail_msg">Odstranjevanje je spodletelo</string>
   <string name="rename_dialog_title">Vnesite novo ime</string>

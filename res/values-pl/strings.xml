@@ -83,7 +83,6 @@
   <string name="common_error_unknown">Nieznany błąd</string>
   <string name="about_title">O aplikacji</string>
   <string name="change_password">Zmień hasło</string>
-  <string name="delete_account">Usuń konto</string>
   <string name="create_account">Utwórz konto</string>
   <string name="upload_chooser_title">Wyślij plik z …</string>
   <string name="uploader_info_dirname">Nazwa folderu</string>
@@ -172,8 +171,6 @@
   <string name="confirmation_remove_alert">Czy naprawdę chcesz usunąć %1$s?</string>
   <string name="confirmation_remove_folder_alert">Czy naprawdę chcesz usunąć %1$s i jego zawartość?</string>
   <string name="confirmation_remove_local">Tylko lokalnie</string>
-  <string name="confirmation_remove_folder_local">Tylko lokalnie</string>
-  <string name="confirmation_remove_remote">Z serwera</string>
   <string name="remove_success_msg">Usunięto</string>
   <string name="remove_fail_msg">Nie można usunąć</string>
   <string name="rename_dialog_title">Wprowadź nową nazwę</string>

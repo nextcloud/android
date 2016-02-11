@@ -84,7 +84,6 @@
   <string name="common_error_unknown">Okänt fel</string>
   <string name="about_title">Om</string>
   <string name="change_password">Ändra lösenord</string>
-  <string name="delete_account">Radera konto</string>
   <string name="create_account">Skapa konto</string>
   <string name="upload_chooser_title">Ladda upp från ...</string>
   <string name="uploader_info_dirname">Mappnamn</string>
@@ -173,9 +172,6 @@
   <string name="confirmation_remove_alert">Vill du verkligen ta bort %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
   <string name="confirmation_remove_local">Endast lokalt</string>
-  <string name="confirmation_remove_folder_local">Endast lokalt</string>
-  <string name="confirmation_remove_remote">Från servern</string>
-  <string name="confirmation_remove_remote_and_local">Fjärr &amp; lokal</string>
   <string name="remove_success_msg">Lyckad radering</string>
   <string name="remove_fail_msg">Radering kunde inte slutföras</string>
   <string name="rename_dialog_title">Ange ett nytt namn</string>

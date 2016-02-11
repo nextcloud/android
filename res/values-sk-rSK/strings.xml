@@ -84,7 +84,6 @@
   <string name="common_error_unknown">Neznáma chyba</string>
   <string name="about_title">O</string>
   <string name="change_password">Zmeniť heslo</string>
-  <string name="delete_account">Zmazať účet</string>
   <string name="create_account">Vytvoriť účet</string>
   <string name="upload_chooser_title">Odoslať z ...</string>
   <string name="uploader_info_dirname">Názov priečinka</string>
@@ -173,9 +172,6 @@
   <string name="confirmation_remove_alert">Naozaj chcete odstrániť %1$s?</string>
   <string name="confirmation_remove_folder_alert">Naozaj chcete odstrániť %1$s a jeho obsah?</string>
   <string name="confirmation_remove_local">Iba lokálne</string>
-  <string name="confirmation_remove_folder_local">Iba lokálne</string>
-  <string name="confirmation_remove_remote">Zo servera</string>
-  <string name="confirmation_remove_remote_and_local">Vzdialene aj lokálne</string>
   <string name="remove_success_msg">Úspešne odstránené</string>
   <string name="remove_fail_msg">Odstránenie zlyhalo</string>
   <string name="rename_dialog_title">Zadajte nové meno</string>

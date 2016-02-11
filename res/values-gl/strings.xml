@@ -85,7 +85,6 @@ Descárgueo de aquí: %2$s</string>
   <string name="common_error_unknown">Produciuse un erro descoñecido</string>
   <string name="about_title">Sobre</string>
   <string name="change_password">Cambiar o contrasinal</string>
-  <string name="delete_account">Eliminar a conta</string>
   <string name="create_account">Crear unha conta</string>
   <string name="upload_chooser_title">Enviar desde…</string>
   <string name="uploader_info_dirname">Nome do cartafol</string>
@@ -174,9 +173,6 @@ Descárgueo de aquí: %2$s</string>
   <string name="confirmation_remove_alert">Confirma que quere retirar %1$s?</string>
   <string name="confirmation_remove_folder_alert">Confirma que quere retirar %1$s e o seu contido?</string>
   <string name="confirmation_remove_local">Só local</string>
-  <string name="confirmation_remove_folder_local">Só local</string>
-  <string name="confirmation_remove_remote">Desde servidor</string>
-  <string name="confirmation_remove_remote_and_local">Remoto e local</string>
   <string name="remove_success_msg">Retirado correctamente</string>
   <string name="remove_fail_msg">Non foi posíbel retiralo</string>
   <string name="rename_dialog_title">Introducir un novo nome</string>

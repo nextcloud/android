@@ -84,7 +84,6 @@
   <string name="common_error_unknown">Neatpažinta klaida</string>
   <string name="about_title">Apie</string>
   <string name="change_password">Pakeisti slaptažodį</string>
-  <string name="delete_account">Ištrinti paskyrą</string>
   <string name="create_account">Sukurti paskyrą</string>
   <string name="upload_chooser_title">Įkelti iš ...</string>
   <string name="uploader_info_dirname">Katalogo pavadinimas</string>
@@ -172,9 +171,6 @@
   <string name="confirmation_remove_alert">Ar tikrai norite pašalinti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ar tikrai norite pašalinti %1$s ir ten esantį turinį?</string>
   <string name="confirmation_remove_local">Tik vietiniai</string>
-  <string name="confirmation_remove_folder_local">Tik vietiniai</string>
-  <string name="confirmation_remove_remote">Iš serverio</string>
-  <string name="confirmation_remove_remote_and_local">Išorinis &amp; vietinis</string>
   <string name="remove_success_msg">Pašalinta sėkmingai</string>
   <string name="remove_fail_msg">Pašalinti nepavyko</string>
   <string name="rename_dialog_title">Įveskite naują pavadinimą</string>

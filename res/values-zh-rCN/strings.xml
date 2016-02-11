@@ -83,7 +83,6 @@
   <string name="common_error_unknown">未知错误</string>
   <string name="about_title">关于</string>
   <string name="change_password">修改密码</string>
-  <string name="delete_account">删除账号</string>
   <string name="create_account">创建账号</string>
   <string name="upload_chooser_title">上传自...</string>
   <string name="uploader_info_dirname">文件夹名称</string>
@@ -172,9 +171,6 @@
   <string name="confirmation_remove_alert">你确定要删除 %1$s 吗？</string>
   <string name="confirmation_remove_folder_alert">您确定要删除 %1$s 及其内容吗？</string>
   <string name="confirmation_remove_local">仅本地</string>
-  <string name="confirmation_remove_folder_local">仅本地</string>
-  <string name="confirmation_remove_remote">来自服务器</string>
-  <string name="confirmation_remove_remote_and_local">远程 &amp; 本地</string>
   <string name="remove_success_msg">成功删除</string>
   <string name="remove_fail_msg">无法完成删除</string>
   <string name="rename_dialog_title">请输出新的名字</string>

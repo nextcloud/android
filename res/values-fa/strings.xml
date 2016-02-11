@@ -74,7 +74,6 @@
   <string name="common_error_unknown">خطای نامشخص</string>
   <string name="about_title">درباره</string>
   <string name="change_password">تغییر گذر واژه</string>
-  <string name="delete_account">حذف حساب</string>
   <string name="create_account">ساخت حساب</string>
   <string name="upload_chooser_title">بارگزاری از ...</string>
   <string name="uploader_info_dirname">نام پوشه</string>
@@ -156,8 +155,6 @@
   <string name="confirmation_remove_alert">آیا واقعا می‌خواهید %1$s حذف شود ؟</string>
   <string name="confirmation_remove_folder_alert">آیا واقعا می‌خواهید %1$s و محتوای درون آن حذف شود ؟</string>
   <string name="confirmation_remove_local">فقط محلی</string>
-  <string name="confirmation_remove_folder_local">فقط محلی</string>
-  <string name="confirmation_remove_remote">از سرور</string>
   <string name="remove_success_msg">حذف با موفقیت انجام شد</string>
   <string name="remove_fail_msg">حذف نا موفق بود</string>
   <string name="rename_dialog_title">نام جدید وارد کنید</string>

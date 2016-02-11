@@ -91,7 +91,6 @@
   <string name="common_error_unknown">Bilinmeyen hata</string>
   <string name="about_title">Hakkında</string>
   <string name="change_password">Parola değiştir</string>
-  <string name="delete_account">Hesabı sil</string>
   <string name="create_account">Hesap oluştur</string>
   <string name="upload_chooser_title">Şuradan yükle...</string>
   <string name="uploader_info_dirname">Klasör adı</string>
@@ -191,9 +190,6 @@
   <string name="confirmation_remove_alert">Gerçekten %1$s dosyasını kaldırmak istiyor musunuz?</string>
   <string name="confirmation_remove_folder_alert">Gerçekten %1$s ve içeriğini kaldırmak istediğinizden emin misiniz?</string>
   <string name="confirmation_remove_local">Sadece yerel</string>
-  <string name="confirmation_remove_folder_local">Sadece yerel</string>
-  <string name="confirmation_remove_remote">Sunucudan</string>
-  <string name="confirmation_remove_remote_and_local">Uzak ve yerel</string>
   <string name="remove_success_msg">Kaldırma başarılı</string>
   <string name="remove_fail_msg">Kaldırma başarısız</string>
   <string name="rename_dialog_title">Yeni bir isim girin</string>

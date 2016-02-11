@@ -65,7 +65,6 @@
   <string name="common_error_unknown">Onbekannte Feeler</string>
   <string name="about_title">Iwwer</string>
   <string name="change_password">Passwuert änneren</string>
-  <string name="delete_account">Kont läschen</string>
   <string name="create_account">Kont uleeën</string>
   <string name="uploader_info_dirname">Dossiersnumm:</string>
   <string name="uploader_upload_in_progress_ticker">Lueden erop ...</string>
@@ -127,7 +126,6 @@
   <string name="confirmation_remove_alert">Wëlls du %1$s wierklech läschen?</string>
   <string name="confirmation_remove_folder_alert">Wëlls du %1$s an de ganzen Inhalt wierklech läschen?</string>
   <string name="confirmation_remove_local">Nemme lokal</string>
-  <string name="confirmation_remove_folder_local">Nemme lokal</string>
   <string name="remove_success_msg">Erfollegräich geläscht</string>
   <string name="remove_fail_msg">Läsche feelgeschloen</string>
   <string name="rename_dialog_title">Gëff en neien Numm an</string>

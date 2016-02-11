@@ -84,7 +84,6 @@
   <string name="common_error_unknown">Unbekannter Fehler</string>
   <string name="about_title">Über</string>
   <string name="change_password">Passwort ändern</string>
-  <string name="delete_account">Account löschen</string>
   <string name="create_account">Account erstellen</string>
   <string name="upload_chooser_title">Dateien hochladen von...</string>
   <string name="uploader_info_dirname">Ordnername</string>
@@ -173,9 +172,6 @@
   <string name="confirmation_remove_alert">Möchten Sie %1$s wirklich löschen?</string>
   <string name="confirmation_remove_folder_alert">Möchten Sie wirklich %1$s und dessen Inhalte entfernen?</string>
   <string name="confirmation_remove_local">Nur lokal</string>
-  <string name="confirmation_remove_folder_local">Nur lokal</string>
-  <string name="confirmation_remove_remote">Vom Server</string>
-  <string name="confirmation_remove_remote_and_local">Remote &amp; lokal</string>
   <string name="remove_success_msg">Erfolgreich gelöscht</string>
   <string name="remove_fail_msg">Der Löschvorgang konnte nicht beendet werden</string>
   <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>

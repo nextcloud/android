@@ -76,7 +76,6 @@
   <string name="common_error_unknown">Bəlli olmayan səhv baş verdi</string>
   <string name="about_title">Haqqında</string>
   <string name="change_password">Şifrəni dəyiş</string>
-  <string name="delete_account">Hesabı sil</string>
   <string name="create_account">Hesab yarat</string>
   <string name="upload_chooser_title">Burdan yüklə ...</string>
   <string name="uploader_info_dirname">Qovluq adı</string>
@@ -160,7 +159,6 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="confirmation_remove_alert">Siz həqiqətən %1$s silmək istəyirsiniz?</string>
   <string name="confirmation_remove_folder_alert">Siz həqiqətəndə %1$s və onun kontentini silmək istəyirsiniz?</string>
   <string name="confirmation_remove_local">Yalnız daxili</string>
-  <string name="confirmation_remove_folder_local">Yalnız daxili</string>
   <string name="remove_success_msg">Silmə uğurlu oldu</string>
   <string name="remove_fail_msg">Silmək mümkün olmadı</string>
   <string name="rename_dialog_title">Yeni adı daxil edin</string>

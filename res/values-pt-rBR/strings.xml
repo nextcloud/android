@@ -94,7 +94,6 @@
   <string name="common_error_unknown">Erro desconhecido</string>
   <string name="about_title">Sobre</string>
   <string name="change_password">Alterar senha</string>
-  <string name="delete_account">Remover conta</string>
   <string name="create_account">Criar conta</string>
   <string name="upload_chooser_title">Enviar de …</string>
   <string name="uploader_info_dirname">Nome da pasta</string>
@@ -200,9 +199,6 @@
   <string name="confirmation_remove_alert">Você realmente deseja remover %1$s?</string>
   <string name="confirmation_remove_folder_alert">Você realmente deseja remover %1$s e seus conteúdos?</string>
   <string name="confirmation_remove_local">Somente local</string>
-  <string name="confirmation_remove_folder_local">Somente local</string>
-  <string name="confirmation_remove_remote">Do servidor</string>
-  <string name="confirmation_remove_remote_and_local">Remoto &amp; local</string>
   <string name="remove_success_msg">Removido com sucesso</string>
   <string name="remove_fail_msg">Erro ao remover</string>
   <string name="rename_dialog_title">Digite um novo nome</string>

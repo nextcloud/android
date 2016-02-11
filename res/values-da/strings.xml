@@ -83,7 +83,6 @@
   <string name="common_error_unknown">Ukendt fejl</string>
   <string name="about_title">Om</string>
   <string name="change_password">Skift kodeord</string>
-  <string name="delete_account">Slet konto</string>
   <string name="create_account">Opret konto</string>
   <string name="upload_chooser_title">Upload fra ...</string>
   <string name="uploader_info_dirname">Mappenavn</string>
@@ -171,9 +170,6 @@
   <string name="confirmation_remove_alert">Er du sikker på at du vil fjerne %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Ønsker du virkelig at slette %1$s og dets indhold?</string>
   <string name="confirmation_remove_local">Kun lokal</string>
-  <string name="confirmation_remove_folder_local">Kun lokal</string>
-  <string name="confirmation_remove_remote">Fra server</string>
-  <string name="confirmation_remove_remote_and_local">Fjernbeliggende og lokalt</string>
   <string name="remove_success_msg">Vellykket fjernelse</string>
   <string name="remove_fail_msg">Fjernelse kunne ikke fuldføres</string>
   <string name="rename_dialog_title">Indtast et nyt navn</string>

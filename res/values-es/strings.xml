@@ -94,7 +94,6 @@
   <string name="common_error_unknown">Error desconocido</string>
   <string name="about_title">Acerca de</string>
   <string name="change_password">Cambiar contraseña</string>
-  <string name="delete_account">Eliminar cuenta</string>
   <string name="create_account">Crear cuenta</string>
   <string name="upload_chooser_title">Subir desde...</string>
   <string name="uploader_info_dirname">Nombre de la carpeta</string>
@@ -200,9 +199,6 @@
   <string name="confirmation_remove_alert">¿Realmente desea eliminar %1$s?</string>
   <string name="confirmation_remove_folder_alert">¿Realmente desea eliminar %1$s y todo su contenido?</string>
   <string name="confirmation_remove_local">Sólo local</string>
-  <string name="confirmation_remove_folder_local">Sólo local</string>
-  <string name="confirmation_remove_remote">Desde el servidor</string>
-  <string name="confirmation_remove_remote_and_local">Remoto &amp; local</string>
   <string name="remove_success_msg">Borrado correctamente</string>
   <string name="remove_fail_msg">El borrado no pudo ser completado</string>
   <string name="rename_dialog_title">Introduzca un nombre nuevo</string>

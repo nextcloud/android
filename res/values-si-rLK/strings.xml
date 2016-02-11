@@ -40,7 +40,6 @@
   <string name="common_error">දෝශය</string>
   <string name="about_title">පිළිබඳව</string>
   <string name="change_password">මුරපදය වෙනස් කිරීම</string>
-  <string name="delete_account">ගිණුම මකන්න</string>
   <string name="create_account">ගිණුම සාදන්න</string>
   <string name="uploader_info_dirname">ෆොල්ඩරයේ නම</string>
   <string name="uploader_upload_succeeded_ticker">උඩුගත කිරීම සාර්ථකයි</string>
@@ -63,7 +62,6 @@
   <string name="common_rename">නැවත නම් කරන්න</string>
   <string name="common_remove">ඉවත් කරන්න </string>
   <string name="confirmation_remove_local">පෙදෙසි පමණක්</string>
-  <string name="confirmation_remove_folder_local">පෙදෙසි පමණක්</string>
   <string name="remove_success_msg">සාර්ථක ඉවත්කිරීමක්</string>
   <string name="remove_fail_msg">ඉවත් කිරීම සම්පූර්ණ කළ නොහැක</string>
   <string name="rename_server_fail_msg">නැවත නම් කිරීම සම්පුර්ණ කළ නොහැකි විය</string>

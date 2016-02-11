@@ -95,7 +95,6 @@ Download hier: %2$s</string>
   <string name="common_error_unknown">Onbekende fout</string>
   <string name="about_title">Over</string>
   <string name="change_password">Wijzig wachtwoord</string>
-  <string name="delete_account">Verwijder account</string>
   <string name="create_account">Maak account aan</string>
   <string name="upload_chooser_title">Upload van ...</string>
   <string name="uploader_info_dirname">Mapnaam</string>
@@ -189,9 +188,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="confirmation_remove_alert">Wilt u %1$s werkelijk verwijderen?</string>
   <string name="confirmation_remove_folder_alert">Wilt u %1$s en de inhoud ervan werkelijk verwijderen?</string>
   <string name="confirmation_remove_local">Alleen lokaal</string>
-  <string name="confirmation_remove_folder_local">Alleen lokaal</string>
-  <string name="confirmation_remove_remote">Van server</string>
-  <string name="confirmation_remove_remote_and_local">Extern &amp; lokaal</string>
   <string name="remove_success_msg">Succesvol verwijderd</string>
   <string name="remove_fail_msg">Verwijdering kon niet voltooid worden</string>
   <string name="rename_dialog_title">Voer een nieuwe naam in</string>

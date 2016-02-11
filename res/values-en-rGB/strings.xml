@@ -77,7 +77,6 @@
   <string name="common_error_unknown">Unknown error</string>
   <string name="about_title">About</string>
   <string name="change_password">Change password</string>
-  <string name="delete_account">Delete account</string>
   <string name="create_account">Create account</string>
   <string name="upload_chooser_title">Upload from …</string>
   <string name="uploader_info_dirname">Folder name</string>
@@ -166,7 +165,6 @@
   <string name="confirmation_remove_alert">Do you really want to remove %1$s?</string>
   <string name="confirmation_remove_folder_alert">Do you really want to remove %1$s and its contents?</string>
   <string name="confirmation_remove_local">Local only</string>
-  <string name="confirmation_remove_folder_local">Local only</string>
   <string name="remove_success_msg">Removal succeeded</string>
   <string name="remove_fail_msg">Removal failed</string>
   <string name="rename_dialog_title">Enter a new name</string>
