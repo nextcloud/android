@@ -24,4 +24,5 @@
   <string name="activity_chooser_send_file_title">పంపించు</string>
   <string name="empty"></string>
   <string name="auth_host_address">సేవకి చిరునామా</string>
+  <string name="share_privilege_can_edit_delete">తొలగించు</string>
 </resources>

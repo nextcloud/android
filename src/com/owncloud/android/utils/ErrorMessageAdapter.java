@@ -39,6 +39,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
+import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 
@@ -204,7 +205,8 @@ public class ErrorMessageAdapter {
                 message = res.getString(R.string.unshare_link_file_error);
             }
 
-        } else if (operation instanceof UpdateShareViaLinkOperation) {
+        } else if (operation instanceof UpdateShareViaLinkOperation ||
+                    operation instanceof UpdateSharePermissionsOperation) {
 
             if (result.getData() != null && result.getData().size() > 0) {
                 message = (String) result.getData().get(0);     // share API sends its own error messages

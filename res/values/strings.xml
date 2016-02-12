@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="about_android">%1$s Android App</string>
+    <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Refresh account</string>
     <string name="actionbar_upload">Upload</string>
@@ -32,17 +32,17 @@
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_accounts">Accounts</string>
-    <string name="prefs_manage_accounts">Manage Accounts</string>
+    <string name="prefs_manage_accounts">Manage accounts</string>
     <string name="prefs_passcode">Passcode lock</string>
     <string name="prefs_instant_upload">Instant picture uploads</string>
     <string name="prefs_instant_upload_summary">Instantly upload pictures taken by camera</string>
     <string name="prefs_instant_video_upload">Instant video uploads</string>
     <string name="prefs_instant_video_upload_summary">Instantly upload videos recorded by camera</string>
-    <string name="prefs_log_title">Enable Logging</string>
+    <string name="prefs_log_title">Enable logging</string>
     <string name="prefs_log_summary">This is used to log problems</string>
-    <string name="prefs_log_title_history">Logging History</string>
+    <string name="prefs_log_title_history">Logging history</string>
     <string name="prefs_log_summary_history">This shows the recorded logs</string>
-    <string name="prefs_log_delete_history_button">Delete History</string>
+    <string name="prefs_log_delete_history_button">Delete history</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to a friend</string>
     <string name="prefs_feedback">Feedback</string>
@@ -53,7 +53,7 @@
 	<string name="recommend_subject">"Try %1$s on your smartphone!"</string>
 	<string name="recommend_text">"I want to invite you to use %1$s on your smartphone!\nDownload here: %2$s"</string>
 
-    <string name="auth_check_server">Check Server</string>
+    <string name="auth_check_server">Check server</string>
     <string name="auth_host_url">Server address https://…</string>
     <string name="auth_username">Username</string>
     <string name="auth_password">Password</string>
@@ -64,7 +64,7 @@
     <string name="uploader_btn_new_folder_text">New folder</string>
     <string name="uploader_top_message">Choose upload folder:</string>
     <string name="uploader_wrn_no_account_title">No account found</string>
-    <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please setup an account first.</string>
+    <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please set up an account first.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
     <string name="uploader_wrn_no_content_title">No content to upload</string>
@@ -74,7 +74,7 @@
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_empty">Nothing in here. Upload something!</string>
     <string name="file_list_loading">Loading&#8230;</string>
-    <string name="file_list_no_app_for_file_type">No App found for file type!</string>
+    <string name="file_list_no_app_for_file_type">No app found for file type!</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
     <string name="filedetails_size">Size:</string>
@@ -84,42 +84,42 @@
     <string name="filedetails_download">Download</string>
     <string name="filedetails_sync_file">Synchronize</string>
     <string name="filedetails_renamed_in_upload_msg">File was renamed to %1$s during upload</string>
-    <string name="list_layout">List Layout</string>
+    <string name="list_layout">List layout</string>
     <string name="action_share">Share</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
-    <string name="common_cancel_sync">Cancel synchronization</string>
+    <string name="common_cancel_sync">Cancel sync</string>
     <string name="common_cancel">Cancel</string>
-    <string name="common_save_exit">Save &amp; Exit</string>
+    <string name="common_save_exit">Save &amp; exit</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Loading &#8230;</string>
     <string name="common_error_unknown">Unknown error</string>
     <string name="about_title">About</string>
     <string name="change_password">Change password</string>
-    <string name="delete_account">Delete account</string>
+    <string name="delete_account">Remove account</string>
     <string name="create_account">Create account</string>
     <string name="upload_chooser_title">Upload from &#8230;</string>
     <string name="uploader_info_dirname">Folder name</string>
     <string name="uploader_upload_in_progress_ticker">Uploading &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Upload succeeded</string>
-    <string name="uploader_upload_succeeded_content_single">%1$s was successfully uploaded</string>
+    <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
     <string name="uploader_upload_failed_ticker">Upload failed</string>
     <string name="uploader_upload_failed_content_single">Upload of %1$s could not be completed</string>
-    <string name="uploader_upload_failed_credentials_error">Upload failed, you need to relogin</string>
+    <string name="uploader_upload_failed_credentials_error">Upload failed, you need to log in again</string>
     <string name="downloader_download_in_progress_ticker">Downloading &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
     <string name="downloader_download_succeeded_ticker">Download succeeded</string>
-    <string name="downloader_download_succeeded_content">%1$s was successfully downloaded</string>
+    <string name="downloader_download_succeeded_content">%1$s downloaded</string>
     <string name="downloader_download_failed_ticker">Download failed</string>
     <string name="downloader_download_failed_content">Download of %1$s could not be completed</string>
     <string name="downloader_not_downloaded_yet">Not downloaded yet</string>
-    <string name="downloader_download_failed_credentials_error">Download failed, you need to relogin</string>
+    <string name="downloader_download_failed_credentials_error">Download failed, you need to log in again</string>
     <string name="common_choose_account">Choose account</string>
-    <string name="sync_fail_ticker">Synchronization failed</string>
-    <string name="sync_fail_ticker_unauthorized">Synchronization failed, you need to relogin</string>
-    <string name="sync_fail_content">Synchronization of %1$s could not be completed</string>
+    <string name="sync_fail_ticker">Sync failed</string>
+    <string name="sync_fail_ticker_unauthorized">Sync failed, you need to log in again</string>
+    <string name="sync_fail_content">Sync of %1$s could not be completed</string>
     <string name="sync_fail_content_unauthorized">Invalid password for %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
     <string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync files could not be sync\'ed</string>
@@ -134,12 +134,12 @@
     <string name="foreign_files_fail">"Some files could not be moved"</string>
     <string name="foreign_files_local_text">"Local: %1$s"</string>
     <string name="foreign_files_remote_text">"Remote: %1$s"</string>
-    <string name="upload_query_move_foreign_files">There is not space enough to copy the selected files into the %1$s folder. Would you like to move them instead? </string>
-    <string name="pass_code_enter_pass_code">Please, insert your passcode</string>
+    <string name="upload_query_move_foreign_files">There is not enough space to copy the selected files into the %1$s folder. Would you like to move them instead? </string>
+    <string name="pass_code_enter_pass_code">Please insert your passcode</string>
     
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
     <string name="pass_code_configure_your_pass_code_explanation">The passcode will be requested every time the app is started</string>
-    <string name="pass_code_reenter_your_pass_code">Please, reenter your passcode</string>
+    <string name="pass_code_reenter_your_pass_code">Please reenter your passcode</string>
     <string name="pass_code_remove_your_pass_code">Remove your passcode</string>
     <string name="pass_code_mismatch">The passcodes are not the same</string>
     <string name="pass_code_wrong">Incorrect passcode</string>
@@ -166,8 +166,8 @@
     <string name="media_play_pause_description">Play or pause button</string>
     <string name="media_forward_description">Fast forward button</string>
 
-	<string name="auth_getting_authorization">Getting authorization&#8230;</string>
-	<string name="auth_trying_to_login">Trying to login&#8230;</string>
+	<string name="auth_getting_authorization">Getting authorization &#8230;</string>
+	<string name="auth_trying_to_login">Trying to log in &#8230;</string>
 	<string name="auth_no_net_conn_title">No network connection</string>
 	<string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
 	<string name="auth_connection_established">Connection established</string>
@@ -179,7 +179,7 @@
 	<string name="auth_unknown_host_title">Couldn\'t find host</string>
 	<string name="auth_incorrect_path_title">Server instance not found</string>
 	<string name="auth_timeout_title">The server took too long to respond</string>
-	<string name="auth_incorrect_address_title">Malformed URL</string>
+	<string name="auth_incorrect_address_title">Wrong server address format</string>
 	<string name="auth_ssl_general_error_title">SSL initialization failed</string>
 	<string name="auth_ssl_unverified_server_title">Couldn\'t verify SSL server\'s identity</string>
 	<string name="auth_bad_oc_version_title">Unrecognized server version</string>
@@ -188,16 +188,16 @@
 	<string name="auth_unauthorized">Wrong username or password</string>
 	<string name="auth_oauth_error">Unsuccessful authorization</string>
 	<string name="auth_oauth_error_access_denied">Access denied by authorization server</string>
-	<string name="auth_wtf_reenter_URL">Unexpected state; please, enter the server URL again</string>
+	<string name="auth_wtf_reenter_URL">Unexpected state; please enter the server address again</string>
 	<string name="auth_expired_oauth_token_toast">Your authorization expired. Please, authorize again</string>
-	<string name="auth_expired_basic_auth_toast">Please, enter the current password</string>
+	<string name="auth_expired_basic_auth_toast">Please enter the current password</string>
 	<string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
-	<string name="auth_connecting_auth_server">Connecting to authentication server…</string>
+	<string name="auth_connecting_auth_server">Connecting to authentication server …</string>
 	<string name="auth_unsupported_auth_method">The server does not support this authentication method</string>
 	<string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
 	<string name="auth_fail_get_user_name">Your server is not returning a correct user id, please contact an administrator
 	</string>
-	<string name="auth_can_not_auth_against_server">Cannot authenticate against this server</string>
+	<string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
     <string name="auth_account_does_not_exist">Account does not exist in the device yet</string>
     
     <string name="favorite">Favorite</string>
@@ -207,9 +207,6 @@
     <string name="confirmation_remove_alert">"Do you really want to remove %1$s?"</string>
     <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and its contents?"</string>
     <string name="confirmation_remove_local">Local only</string>
-    <string name="confirmation_remove_folder_local">Local only</string>
-    <string name="confirmation_remove_remote">From server</string>
-    <string name="confirmation_remove_remote_and_local">Remote &amp; local</string>
     <string name="remove_success_msg">"Removal succeeded"</string>
     <string name="remove_fail_msg">"Removal failed"</string>
     <string name="rename_dialog_title">Enter a new name</string>
@@ -265,8 +262,8 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="instant_upload_on_wifi">Upload pictures via WiFi only</string>
-    <string name="instant_video_upload_on_wifi">Upload videos via WiFi only</string>
+    <string name="instant_upload_on_wifi">Upload pictures via wifi only</string>
+    <string name="instant_video_upload_on_wifi">Upload videos via wifi only</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">File conflict</string>
     <string name="conflict_message">Which files do you want to keep? If you select both versions, the local file will have a number added to its name.</string>
@@ -278,7 +275,7 @@
     <string name="preview_image_error_unknown_format">This image cannot be shown</string>
 
     <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local folder</string>
-    <string name="prefs_instant_upload_path_title">Upload Path</string>
+    <string name="prefs_instant_upload_path_title">Upload path</string>
 
 	<string name="share_link_no_support_share_api">Sorry, sharing is not enabled on your server. Please contact your
 		administrator.</string>
@@ -287,7 +284,7 @@
 	<string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists</string>
 	<string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder</string>
     <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists </string>
-    <string name="update_link_file_error">An error occurred while trying to update the shared link</string>
+    <string name="update_link_file_error">An error occurred while trying to update the share</string>
     <string name="share_link_password_title">Enter a password</string>
     <string name="share_link_empty_password">You must enter a password</string>
 
@@ -309,7 +306,7 @@
     <string name="forbidden_permissions_delete">to delete this file</string>
     <string name="share_link_forbidden_permissions">to share this file</string>
     <string name="unshare_link_forbidden_permissions">to unshare this file</string>
-    <string name="update_link_forbidden_permissions">to update this shared link</string>
+    <string name="update_link_forbidden_permissions">to update this share</string>
     <string name="forbidden_permissions_create">to create the file</string>
     <string name="uploader_upload_forbidden_permissions">to upload in this folder</string>
     <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
@@ -319,10 +316,10 @@
     <string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through an unsecured route.</string>
 
 	<string name="actionbar_logger">Logs</string>
-	<string name="log_send_history_button">Send History</string>
-	<string name="log_send_no_mail_app">No app for sending logs found. Install mail app!</string>
+	<string name="log_send_history_button">Send history</string>
+	<string name="log_send_no_mail_app">No app for sending logs found. Please install a mail app.</string>
 	<string name="log_send_mail_subject">%1$s Android app logs</string>
-	<string name="log_progress_dialog_text">Loading data&#8230;</string>
+	<string name="log_progress_dialog_text">Loading data &#8230;</string>
 
 	<string name="saml_authentication_required_text">Authentication required</string>
 	<string name="saml_authentication_wrong_pass">Wrong password</string>
@@ -343,10 +340,10 @@
     <string name="copy_file_error">An error occurred while trying to copy this file or folder</string>
     <string name="forbidden_permissions_copy">to copy this file</string>
 
-    <string name="prefs_category_instant_uploading">Instant Uploads</string>
-	<string name="prefs_category_security">Security</string>
+    <string name="prefs_category_instant_uploading">Instant uploads</string>
+    <string name="prefs_category_details">Details</string>
 
-	<string name="prefs_instant_video_upload_path_title">Upload Video Path</string>
+	<string name="prefs_instant_video_upload_path_title">Upload video path</string>
     <string name="sync_folder_failed_content">Synchronization of %1$s folder could not be completed</string>
 
 	<string name="shared_subject_header">shared</string>
@@ -380,7 +377,7 @@
     <string name="share_dialog_title">Sharing</string>
     <string name="share_with_user_section_title">Share with users and groups</string>
     <string name="share_no_users">No data shared with users yet</string>
-    <string name="share_add_user_or_group">Add User or Group</string>
+    <string name="share_add_user_or_group">Add user or group</string>
     <string name="share_via_link_section_title">Share link</string>
     <string name="share_via_link_expiration_date_label">Set expiration date</string>
     <string name="share_via_link_password_label">Password protect</string>
@@ -394,5 +391,19 @@
 
     <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients.
         \nPlease contact your administrator</string>
+    <string name="share_privilege_can_share">can share</string>
+    <string name="share_privilege_can_edit">can edit</string>
+    <string name="share_privilege_can_edit_create">create</string>
+    <string name="share_privilege_can_edit_change">change</string>
+    <string name="share_privilege_can_edit_delete">delete</string>
+    <string name="edit_share_unshare">Stop sharing</string>
+    <string name="edit_share_done">done</string>
 
+    <string name="action_switch_grid_view">Grid view</string>
+    <string name="action_switch_list_view">List view</string>
+
+    <string name="manage_space_title">Manage space</string>
+    <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanentlty. \n\nDownloaded files will be kept untouched.\n\nThis process can take some time.</string>
+    <string name="manage_space_clear_data">Clear data</string>
+    <string name="manage_space_error">Some files could not be deleted.</string>
 </resources>

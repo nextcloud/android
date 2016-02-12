@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Android 应用</string>
   <string name="about_version">版本：%1$s</string>
   <string name="actionbar_sync">刷新帐户</string>
   <string name="actionbar_upload">上传</string>
@@ -37,11 +36,8 @@
   <string name="prefs_instant_upload_summary">即时上传相机拍摄的图片</string>
   <string name="prefs_instant_video_upload">即时上传视频</string>
   <string name="prefs_instant_video_upload_summary">即时上传由相机拍摄的视频</string>
-  <string name="prefs_log_title">开启日志</string>
   <string name="prefs_log_summary">用于记录问题</string>
-  <string name="prefs_log_title_history">日志历史</string>
   <string name="prefs_log_summary_history">这显示已经保存的日志</string>
-  <string name="prefs_log_delete_history_button">删除历史</string>
   <string name="prefs_help">帮助</string>
   <string name="prefs_recommend">推荐给朋友</string>
   <string name="prefs_feedback">反馈</string>
@@ -50,7 +46,6 @@
   <string name="prefs_remember_last_upload_location_summary">记住上次共享上传的位置</string>
   <string name="recommend_subject">在您的智能手机上试用 %1$s！</string>
   <string name="recommend_text">我邀请你在智能手机上使用 %1$s\n下载路径：%2$s</string>
-  <string name="auth_check_server">检查服务器</string>
   <string name="auth_host_url">服务器地址 https://...</string>
   <string name="auth_username">用户名</string>
   <string name="auth_password">密码</string>
@@ -61,7 +56,6 @@
   <string name="uploader_btn_new_folder_text">新建文件夹</string>
   <string name="uploader_top_message">选择上传文件夹：</string>
   <string name="uploader_wrn_no_account_title">未找到账号</string>
-  <string name="uploader_wrn_no_account_text">设备上未找到 %1$s 账号，请先设置账号。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">设置</string>
   <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
   <string name="uploader_wrn_no_content_title">没有需要上传的内容</string>
@@ -71,7 +65,6 @@
   <string name="file_list_seconds_ago">几秒前</string>
   <string name="file_list_empty">这里还什么都没有。上传些东西吧！</string>
   <string name="file_list_loading">加载中...</string>
-  <string name="file_list_no_app_for_file_type">找不到用于打开此类型文件的应用</string>
   <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
   <string name="filedetails_select_file">点击一个文件可以显示额外的信息。</string>
   <string name="filedetails_size">大小：</string>
@@ -80,41 +73,31 @@
   <string name="filedetails_modified">修改于：</string>
   <string name="filedetails_download">下载</string>
   <string name="filedetails_renamed_in_upload_msg">上传过程中文件被更名为了 %1$s</string>
-  <string name="list_layout">列表布局</string>
   <string name="action_share">共享</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">确定</string>
   <string name="common_cancel">取消</string>
-  <string name="common_save_exit">保存并退出</string>
   <string name="common_error">错误</string>
   <string name="common_loading">加载中...</string>
   <string name="common_error_unknown">未知错误</string>
   <string name="about_title">关于</string>
   <string name="change_password">修改密码</string>
-  <string name="delete_account">删除账号</string>
   <string name="create_account">创建账号</string>
   <string name="upload_chooser_title">上传自...</string>
   <string name="uploader_info_dirname">文件夹名称</string>
   <string name="uploader_upload_in_progress_ticker">上传...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% 上传 %2$s</string>
   <string name="uploader_upload_succeeded_ticker">上传成功</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s 成功上传</string>
   <string name="uploader_upload_failed_ticker">上传失败</string>
   <string name="uploader_upload_failed_content_single">%1$s 未能成功上传</string>
-  <string name="uploader_upload_failed_credentials_error">上传失败，您需要重新登录</string>
   <string name="downloader_download_in_progress_ticker">下载中...</string>
   <string name="downloader_download_in_progress_content">%1$d%% 下载中 %2$s</string>
   <string name="downloader_download_succeeded_ticker">下载成功</string>
-  <string name="downloader_download_succeeded_content">成功下载 %1$s </string>
   <string name="downloader_download_failed_ticker">下载失败</string>
   <string name="downloader_download_failed_content">%1$s 下载未能完成</string>
   <string name="downloader_not_downloaded_yet">未下载完毕</string>
-  <string name="downloader_download_failed_credentials_error">下载失败，您需要重新登录</string>
   <string name="common_choose_account">选择账户</string>
-  <string name="sync_fail_ticker">同步失败</string>
-  <string name="sync_fail_ticker_unauthorized">同步失败，您需要重新登录</string>
-  <string name="sync_fail_content"> %1$s同步未完成。</string>
   <string name="sync_fail_content_unauthorized">%1$s 的密码错误</string>
   <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
   <string name="sync_conflicts_in_favourites_content">%1$d 文件无法同步</string>
@@ -129,11 +112,8 @@
   <string name="foreign_files_fail">某些文件无法被移动</string>
   <string name="foreign_files_local_text">本地: %1$s</string>
   <string name="foreign_files_remote_text">远程:%1$s</string>
-  <string name="upload_query_move_foreign_files">没有足够的空间以复制选定的文件到 %1$s 文件夹，您想移动文件到此文件夹吗？</string>
-  <string name="pass_code_enter_pass_code">请输入您的密码</string>
   <string name="pass_code_configure_your_pass_code">输入您的密码</string>
   <string name="pass_code_configure_your_pass_code_explanation">每次应用启动将会请求密码</string>
-  <string name="pass_code_reenter_your_pass_code">请重新输入您的密码</string>
   <string name="pass_code_remove_your_pass_code">移除您的密码</string>
   <string name="pass_code_mismatch">密码不一致</string>
   <string name="pass_code_wrong">错误的密码</string>
@@ -158,8 +138,6 @@
   <string name="media_rewind_description">后退按钮</string>
   <string name="media_play_pause_description">播放暂停按钮</string>
   <string name="media_forward_description">快进按钮</string>
-  <string name="auth_getting_authorization">正在认证...</string>
-  <string name="auth_trying_to_login">尝试登录...</string>
   <string name="auth_no_net_conn_title">没有网络连接</string>
   <string name="auth_nossl_plain_ok_title">安全连接不可用。</string>
   <string name="auth_connection_established">连接已建立。</string>
@@ -171,7 +149,6 @@
   <string name="auth_unknown_host_title">无法找到主机</string>
   <string name="auth_incorrect_path_title">未发现服务器实例</string>
   <string name="auth_timeout_title">看起来服务器不太给力</string>
-  <string name="auth_incorrect_address_title">网址不正确</string>
   <string name="auth_ssl_general_error_title">SSL初始化失败</string>
   <string name="auth_ssl_unverified_server_title">无法验证 SSL 服务器的身份</string>
   <string name="auth_bad_oc_version_title">不可辨识的服务器服务器版本</string>
@@ -180,16 +157,12 @@
   <string name="auth_unauthorized">用户名或密码错误</string>
   <string name="auth_oauth_error">认证不成功</string>
   <string name="auth_oauth_error_access_denied">访问被认证服务器拒绝</string>
-  <string name="auth_wtf_reenter_URL">意外状态；请再次输入服务器的地址</string>
   <string name="auth_expired_oauth_token_toast">你的授权已经过期。请重新授权。</string>
-  <string name="auth_expired_basic_auth_toast">请输入当前密码</string>
   <string name="auth_expired_saml_sso_token_toast">您的会话超时了，请重新连接</string>
-  <string name="auth_connecting_auth_server">正在连接到认证服务器....</string>
   <string name="auth_unsupported_auth_method">服务器不支持这种验证方式</string>
   <string name="auth_unsupported_multiaccount">%1$s不支持多个账户</string>
   <string name="auth_fail_get_user_name">您的服务器没有返回一个正确的用户 id，请联系管理员
 	</string>
-  <string name="auth_can_not_auth_against_server">无法通过此服务器认证</string>
   <string name="auth_account_does_not_exist">设备中还未存在该帐号</string>
   <string name="favorite">收藏</string>
   <string name="unfavorite">取消收藏</string>
@@ -198,9 +171,6 @@
   <string name="confirmation_remove_alert">你确定要删除 %1$s 吗？</string>
   <string name="confirmation_remove_folder_alert">您确定要删除 %1$s 及其内容吗？</string>
   <string name="confirmation_remove_local">仅本地</string>
-  <string name="confirmation_remove_folder_local">仅本地</string>
-  <string name="confirmation_remove_remote">来自服务器</string>
-  <string name="confirmation_remove_remote_and_local">远程 &amp; 本地</string>
   <string name="remove_success_msg">成功删除</string>
   <string name="remove_fail_msg">无法完成删除</string>
   <string name="rename_dialog_title">请输出新的名字</string>
@@ -249,8 +219,6 @@
   <string name="placeholder_filesize">389字节</string>
   <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">仅通过 WIFI 上传图片。</string>
-  <string name="instant_video_upload_on_wifi">仅通过 WIFI 上传视频</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">文件冲突</string>
   <string name="conflict_message">您想要保留哪个文件？如果您同时选中了两个版本，本地的文件的文件名将被加上一个数字</string>
@@ -260,7 +228,6 @@
   <string name="preview_image_description">图片预览</string>
   <string name="preview_image_error_unknown_format">无法显示图片</string>
   <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
-  <string name="prefs_instant_upload_path_title">上传路径</string>
   <string name="share_link_no_support_share_api">抱歉，共享功能未启用。请联系管理员。</string>
   <string name="share_link_file_no_exist">无法共享。请检查文件是否存在</string>
   <string name="share_link_file_error">共享文件或目录出错</string>
@@ -289,10 +256,7 @@
   <string name="prefs_add_account">添加账号</string>
   <string name="auth_redirect_non_secure_connection_title">安全连接是通过一个非安全路由定向的。</string>
   <string name="actionbar_logger">日志</string>
-  <string name="log_send_history_button">发送历史</string>
-  <string name="log_send_no_mail_app">未找到可以发送日志的程序。请安装 mail!</string>
   <string name="log_send_mail_subject">%1$s Android 程序日志</string>
-  <string name="log_progress_dialog_text">载入数据...</string>
   <string name="saml_authentication_required_text">需要认证</string>
   <string name="saml_authentication_wrong_pass">错误密码</string>
   <string name="actionbar_move">移动</string>
@@ -308,9 +272,7 @@
   <string name="copy_file_invalid_overwrite">该文件已经存在在目标文件夹</string>
   <string name="copy_file_error">尝试复制这个文件或文件夹时发生了错误</string>
   <string name="forbidden_permissions_copy">复制这个文件</string>
-  <string name="prefs_category_instant_uploading">即时上传</string>
-  <string name="prefs_category_security">安全</string>
-  <string name="prefs_instant_video_upload_path_title">视频上传路径</string>
+  <string name="prefs_category_details">详细信息</string>
   <string name="shared_subject_header">已共享</string>
   <string name="with_you_subject_header">与你</string>
   <string name="subject_user_shared_with_you">%1$s和你分享了“%2$s”</string>
@@ -332,4 +294,9 @@
   <string name="share_via_link_expiration_date_label">设置过期日期</string>
   <string name="share_via_link_password_label">密码保护</string>
   <string name="share_search">搜索</string>
+  <string name="share_privilege_can_share">可共享</string>
+  <string name="share_privilege_can_edit">可编辑</string>
+  <string name="share_privilege_can_edit_create">创建</string>
+  <string name="share_privilege_can_edit_change">更改</string>
+  <string name="share_privilege_can_edit_delete">删除</string>
 </resources>

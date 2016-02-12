@@ -23,7 +23,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
@@ -56,7 +55,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -67,11 +65,6 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.OwnCloudCredentials;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -151,7 +144,7 @@ public class FileDisplayActivity extends HookActivity
 
     private OCFile mWaitingToSend;
 
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -487,7 +480,8 @@ public class FileDisplayActivity extends HookActivity
         menu.findItem(R.id.action_create_dir).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
-        
+        menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -562,6 +556,20 @@ public class FileDisplayActivity extends HookActivity
                 builder.create().show();
                 break;
             }
+            case R.id.action_switch_view:{
+                if (isGridView()){
+                    item.setTitle(getString(R.string.action_switch_grid_view));
+                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
+                            R.drawable.ic_view_module));
+                    getListOfFilesFragment().setListAsPreferred();
+                } else {
+                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
+                            R.drawable.ic_view_list));
+                    getListOfFilesFragment().setGridAsPreferred();
+                }
+                return true;
+            }
         default:
             retval = super.onOptionsItemSelected(item);
         }
@@ -610,14 +618,19 @@ public class FileDisplayActivity extends HookActivity
 
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK ||
                 resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+
             //getClipData is only supported on api level 16+, Jelly Bean
-            if (data.getData() == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN &&
+                    data.getClipData() != null &&
+                    data.getClipData().getItemCount() > 0) {
+
                 for( int i = 0; i < data.getClipData().getItemCount(); i++){
                     Intent intent = new Intent();
                     intent.setData(data.getClipData().getItemAt(i).getUri());
                     requestSimpleUpload(intent, resultCode);
                 }
-            }else {
+
+            } else {
                 requestSimpleUpload(data, resultCode);
             }
         } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK ||
@@ -953,32 +966,7 @@ public class FileDisplayActivity extends HookActivity
                                         (synchResult.isException() && synchResult.getException()
                                                 instanceof AuthenticatorException))) {
 
-
-                            try {
-                                OwnCloudClient client;
-                                OwnCloudAccount ocAccount =
-                                        new OwnCloudAccount(getAccount(), context);
-                                client = (OwnCloudClientManagerFactory.getDefaultSingleton().
-                                        removeClientFor(ocAccount));
-                                if (client != null) {
-                                    OwnCloudCredentials cred = client.getCredentials();
-                                    if (cred != null) {
-                                        AccountManager am = AccountManager.get(context);
-                                        if (cred.authTokenExpires()) {
-                                            am.invalidateAuthToken(
-                                                    getAccount().type,
-                                                    cred.getAuthToken()
-                                            );
-                                        } else {
-                                            am.clearPassword(getAccount());
-                                        }
-                                    }
-                                }
-                                requestCredentialsUpdate();
-
-                            } catch (AccountNotFoundException e) {
-                                Log_OC.e(TAG, "Account " + getAccount() + " was removed!", e);
-                            }
+                            requestCredentialsUpdate(context);
 
                         }
 
@@ -1808,6 +1796,7 @@ public class FileDisplayActivity extends HookActivity
     private void sortByName(boolean ascending) {
         getListOfFilesFragment().sortByName(ascending);
     }
+    private boolean isGridView(){ return getListOfFilesFragment().isGridView(); }
 
    public void allFilesOption() {
        browseToRoot();

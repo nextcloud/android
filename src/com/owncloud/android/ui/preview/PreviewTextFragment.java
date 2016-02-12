@@ -1,3 +1,22 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   Copyright (C) 2016 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
@@ -290,6 +309,20 @@ public class PreviewTextFragment extends FileFragment {
             item.setVisible(false);
             item.setEnabled(false);
         }
+
+        Boolean dualPane = getResources().getBoolean(R.bool.large_land_layout);
+
+        item = menu.findItem(R.id.action_switch_view);
+        if (item != null && !dualPane){
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+        item = menu.findItem(R.id.action_sort);
+        if (item != null && !dualPane) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
     }
 
     /**
@@ -368,8 +401,10 @@ public class PreviewTextFragment extends FileFragment {
     public void onStop() {
         super.onStop();
         Log_OC.e(TAG, "onStop");
-        if (mTextLoadTask != null)
+        if (mTextLoadTask != null) {
             mTextLoadTask.cancel(Boolean.TRUE);
+            mTextLoadTask.dismissLoadingDialog();
+        }
     }
 
     /**

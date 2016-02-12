@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Android app</string>
   <string name="about_version">versjon %1$s</string>
   <string name="actionbar_sync">Oppdater konto</string>
   <string name="actionbar_upload">Last opp</string>
@@ -31,17 +30,13 @@
   <string name="prefs_category_general">Generelt</string>
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Kontoer</string>
-  <string name="prefs_manage_accounts">Håndter kontoer</string>
   <string name="prefs_passcode">Passordlås</string>
   <string name="prefs_instant_upload">Umiddelbare bildeopplastninger</string>
   <string name="prefs_instant_upload_summary">Last opp bilder tatt av kameraet umiddelbart</string>
   <string name="prefs_instant_video_upload">Umiddelbare video-opplastninger</string>
   <string name="prefs_instant_video_upload_summary">Last opp videoer tatt opp av kameraet umiddelbart</string>
-  <string name="prefs_log_title">Aktiver loggføring</string>
   <string name="prefs_log_summary">Denne er brukt til å loggføre problemer</string>
-  <string name="prefs_log_title_history">Loggføringshistorikk</string>
   <string name="prefs_log_summary_history">Denne viser de lagrede loggene</string>
-  <string name="prefs_log_delete_history_button">Slett historikk</string>
   <string name="prefs_help">Hjelp</string>
   <string name="prefs_recommend">Anbefal til en venn</string>
   <string name="prefs_feedback">Tilbakemelding</string>
@@ -50,7 +45,6 @@
   <string name="prefs_remember_last_upload_location_summary">Husk sist delt plassering for opplasting</string>
   <string name="recommend_subject">Prøv %1$s på smarttelefonen din!</string>
   <string name="recommend_text">Jeg ønsker å invitere deg til å bruke %1$s på smarttelefonen din!\nLast ned her: %2$s</string>
-  <string name="auth_check_server">Sjekk server</string>
   <string name="auth_host_url">Serveradresse https://...</string>
   <string name="auth_username">Brukernavn</string>
   <string name="auth_password">Passord</string>
@@ -61,7 +55,6 @@
   <string name="uploader_btn_new_folder_text">Ny mappe</string>
   <string name="uploader_top_message">Velg opplastingsmappe:</string>
   <string name="uploader_wrn_no_account_title">Ingen konto funnet</string>
-  <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s kontoer for din enhet. For å bruker denne appen må du først opprette en.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Avslutt</string>
   <string name="uploader_wrn_no_content_title">Intet innhold å laste opp</string>
@@ -71,7 +64,6 @@
   <string name="file_list_seconds_ago">for få sekunder siden</string>
   <string name="file_list_empty">Ingenting her. Last opp noe!</string>
   <string name="file_list_loading">Laster...</string>
-  <string name="file_list_no_app_for_file_type">Ingen app funnet for filtypen!</string>
   <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
   <string name="filedetails_select_file">Trykk på en fil for å vise ekstra informasjon.</string>
   <string name="filedetails_size">Størrelse:</string>
@@ -81,42 +73,31 @@
   <string name="filedetails_download">Last ned</string>
   <string name="filedetails_sync_file">Synkroniser</string>
   <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
-  <string name="list_layout">Listeoppsett</string>
   <string name="action_share">Delt ressurs</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nei</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_sync">Avbryt synkronisering</string>
   <string name="common_cancel">Avbryt</string>
-  <string name="common_save_exit">Lagre og avslutt</string>
   <string name="common_error">Feil</string>
   <string name="common_loading">Laster...</string>
   <string name="common_error_unknown">Ukjent feil</string>
   <string name="about_title">Om</string>
   <string name="change_password">Endre passord</string>
-  <string name="delete_account">Slett konto</string>
   <string name="create_account">Opprett konto</string>
   <string name="upload_chooser_title">Last opp fra...</string>
   <string name="uploader_info_dirname">Mappenavn</string>
   <string name="uploader_upload_in_progress_ticker">Laster opp...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Laster opp %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Opplasting fullført</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s ble lastet opp</string>
   <string name="uploader_upload_failed_ticker">Opplasting feilet</string>
   <string name="uploader_upload_failed_content_single">Opplasting av %1$s kunne ikke fullføres</string>
-  <string name="uploader_upload_failed_credentials_error">Opplasting feilet. Du må logge inn på nytt</string>
   <string name="downloader_download_in_progress_ticker">Laster ned...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Laster ned %2$s</string>
   <string name="downloader_download_succeeded_ticker">Nedlasting fullført</string>
-  <string name="downloader_download_succeeded_content">%1$s ble lastet ned</string>
   <string name="downloader_download_failed_ticker">Nedlasting feilet</string>
   <string name="downloader_download_failed_content">Nedlasting av %1$s kunne ikke fullføres</string>
   <string name="downloader_not_downloaded_yet">Ikke lastet ned enda</string>
-  <string name="downloader_download_failed_credentials_error">Nedlasting feilet. Du må logge inn på nytt</string>
   <string name="common_choose_account">Velg konto</string>
-  <string name="sync_fail_ticker">Synkronisering feilet</string>
-  <string name="sync_fail_ticker_unauthorized">Synkronisering feilet, du må logge inn på nytt</string>
-  <string name="sync_fail_content">Synkronisering av %1$s kunne ikke fullføres</string>
   <string name="sync_fail_content_unauthorized">Ugyldig passord for %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
   <string name="sync_conflicts_in_favourites_content">%1$d hold-i-synk filer kunne ikke synkroniseres</string>
@@ -131,11 +112,8 @@
   <string name="foreign_files_fail">Noen filer kunne ikke fjernes</string>
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Ekstern: %1$s</string>
-  <string name="upload_query_move_foreign_files">Det er ikke nok plass til å kopiere de valgte filene inn i mappen %1$s. Vil du flytte dem i stedet? </string>
-  <string name="pass_code_enter_pass_code">Legg inn passordet ditt</string>
   <string name="pass_code_configure_your_pass_code">Skriv inn passordet ditt</string>
   <string name="pass_code_configure_your_pass_code_explanation">Passordet vil bli krevd hver gang appen startes</string>
-  <string name="pass_code_reenter_your_pass_code">Skriv inn passordet på nytt</string>
   <string name="pass_code_remove_your_pass_code">Fjern passordet ditt</string>
   <string name="pass_code_mismatch">Passordene er ikke like</string>
   <string name="pass_code_wrong">Feil passord</string>
@@ -160,8 +138,6 @@
   <string name="media_rewind_description">Spol tilbake</string>
   <string name="media_play_pause_description">Spill eller pause</string>
   <string name="media_forward_description">Spol fremover</string>
-  <string name="auth_getting_authorization">Henter godkjenning...</string>
-  <string name="auth_trying_to_login">Prøver å logge inn...</string>
   <string name="auth_no_net_conn_title">Ingen nettverkstilkobling</string>
   <string name="auth_nossl_plain_ok_title">Sikker tilkobling ikke tilgjengelig.</string>
   <string name="auth_connection_established">Tilkobling opprettet</string>
@@ -173,7 +149,6 @@
   <string name="auth_unknown_host_title">Fant ikke tjener</string>
   <string name="auth_incorrect_path_title">Finner ikke server instans</string>
   <string name="auth_timeout_title">Serveren brukte for lang tid på å svare</string>
-  <string name="auth_incorrect_address_title">Feil formatert URL</string>
   <string name="auth_ssl_general_error_title">Oppstart av SSL feilet</string>
   <string name="auth_ssl_unverified_server_title">Kunne ikke verifisere SSL-serverens identitet</string>
   <string name="auth_bad_oc_version_title">Ukjent server versjon</string>
@@ -182,16 +157,12 @@
   <string name="auth_unauthorized">Feil brukernavn eller passord</string>
   <string name="auth_oauth_error">Mislykket autorisasjon</string>
   <string name="auth_oauth_error_access_denied">Tilgang nektet av autorisasjonsserver</string>
-  <string name="auth_wtf_reenter_URL">Uforventet tilstand; vennligst skriv inn serveradressen en gang til</string>
   <string name="auth_expired_oauth_token_toast">Autorisasjonen din har gått ut. Vennligt autoriser igjen</string>
-  <string name="auth_expired_basic_auth_toast">Vennligst skriv inn gjeldende passord</string>
   <string name="auth_expired_saml_sso_token_toast">Sesjonen din har gått ut. Vennligst koble til igjen</string>
-  <string name="auth_connecting_auth_server">Kobler til autorisasjonsserver...</string>
   <string name="auth_unsupported_auth_method">Serveren støtter ikke denne autorisasjonsmetoden</string>
   <string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
   <string name="auth_fail_get_user_name">Tjeneren din svarer ikke med korrekt bruker-ID, vennligst ta kontakt med en administrator
 	</string>
-  <string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne serveren</string>
   <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
   <string name="favorite">Gjør til favoritt</string>
   <string name="unfavorite">Fjern favoritt</string>
@@ -200,9 +171,6 @@
   <string name="confirmation_remove_alert">Vil du virkelig fjerne %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vil du virkelig fjerne %1$s inkludert innholdet?</string>
   <string name="confirmation_remove_local">Kun lokalt</string>
-  <string name="confirmation_remove_folder_local">Kun lokalt</string>
-  <string name="confirmation_remove_remote">Fra server</string>
-  <string name="confirmation_remove_remote_and_local">Ekstern &amp; lokal</string>
   <string name="remove_success_msg">Fjerning var vellykket</string>
   <string name="remove_fail_msg">Fjerning mislyktes</string>
   <string name="rename_dialog_title">Skriv inn et nytt navn</string>
@@ -243,6 +211,9 @@
   <string name="ssl_validator_label_validity_to">Til:</string>
   <string name="ssl_validator_label_signature">Signatur:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritme:</string>
+  <string name="digest_algorithm_not_available">Digest-algoritmen er ikke tilgjengelig på din telefon.</string>
+  <string name="ssl_validator_label_certificate_fingerprint">Fingeravtrykk:</string>
+  <string name="certificate_load_problem">Det er et problem med lasting av sertifikatet.</string>
   <string name="ssl_validator_null_cert">Sertifikatet kunne ikke vises.</string>
   <string name="ssl_validator_no_info_about_error">- Ingen informasjon om feilen</string>
   <string name="placeholder_sentence">Dette er en plassholder</string>
@@ -251,8 +222,6 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">18.05.2012 12:23</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Kun last opp bilder via WiFi</string>
-  <string name="instant_video_upload_on_wifi">Last opp video kun via WiFi</string>
   <string name="instant_upload_path">/Direkteopplasting</string>
   <string name="conflict_title">Filkonflikt</string>
   <string name="conflict_message">Hvilke filer ønsker du å beholder? Hvis du velger begge versjonene, får den lokale filen lagt til et tall i navnet.</string>
@@ -262,13 +231,13 @@
   <string name="preview_image_description">Bildeforhåndsvisning</string>
   <string name="preview_image_error_unknown_format">Dette bildet kan ikke vises</string>
   <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til lokal mappe %2$s</string>
-  <string name="prefs_instant_upload_path_title">Sti til opplasting</string>
   <string name="share_link_no_support_share_api">Beklager, deling er ikke skrudd på for din tjener. Ta kontakt med
 		administratoren.</string>
   <string name="share_link_file_no_exist">Kan ikke dele. Sjekk om filen eksisterer.</string>
   <string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen</string>
   <string name="unshare_link_file_no_exist">Kan ikke fjerne deling. Sjekk om filen eksisterer.</string>
   <string name="unshare_link_file_error">En feil oppstod ved avslutting av delingen av denne filen eller mappen</string>
+  <string name="update_link_file_no_exist">Kan ikke oppdatere. Sjekk om filen eksisterer</string>
   <string name="share_link_password_title">Skriv inn ett passord</string>
   <string name="share_link_empty_password">Du må skrive inn ett passord</string>
   <string name="activity_chooser_send_file_title">Send</string>
@@ -292,10 +261,7 @@
   <string name="prefs_add_account">Legg til en konto</string>
   <string name="auth_redirect_non_secure_connection_title">Sikker tilkobling videresendes gjennom en usikker rute.</string>
   <string name="actionbar_logger">Logger</string>
-  <string name="log_send_history_button">Send historikk</string>
-  <string name="log_send_no_mail_app">Ingen app for sending av logger funnet. Installer epost-app!</string>
   <string name="log_send_mail_subject">%1$s Android app logger</string>
-  <string name="log_progress_dialog_text">Laster data...</string>
   <string name="saml_authentication_required_text">Autentisering kreves</string>
   <string name="saml_authentication_wrong_pass">Feil passord</string>
   <string name="actionbar_move">Flytt</string>
@@ -311,9 +277,8 @@
   <string name="copy_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
   <string name="copy_file_error">En feil oppstod ved kopiering av denne filen eller mappen</string>
   <string name="forbidden_permissions_copy">å kopiere denne filen</string>
-  <string name="prefs_category_instant_uploading">Umiddelbare opplastinger</string>
-  <string name="prefs_category_security">Sikkerhet</string>
-  <string name="prefs_instant_video_upload_path_title">Sti til video-opplasting</string>
+  <string name="prefs_category_details">Detaljer</string>
+  <string name="sync_folder_failed_content">Synkronisering av %1$s mappe kunne ikke fullføres</string>
   <string name="shared_subject_header">delte</string>
   <string name="with_you_subject_header">med deg</string>
   <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med deg</string>
@@ -330,11 +295,28 @@
   <string name="file_list__footer__files">%1$d filer</string>
   <string name="file_list__footer__files_and_folder">%1$d filer, 1 mappe</string>
   <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
+  <string name="prefs_instant_behaviour_dialogTitle">Opprinnelig fil vil bli...</string>
+  <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli...</string>
+  <string name="upload_copy_files">Kopier fil</string>
+  <string name="upload_move_files">Flytt fil</string>
+  <string name="pref_behaviour_entries_keep_file">beholdt i opprinnelig mappe</string>
+  <string name="pref_behaviour_entries_move">flyttet til app-mappe</string>
   <string name="share_dialog_title">Deling</string>
+  <string name="share_with_user_section_title">Del med brukere og grupper</string>
   <string name="share_no_users">Ingen data delt med brukere ennå</string>
-  <string name="share_add_user_or_group">Legg til bruker eller gruppe</string>
   <string name="share_via_link_section_title">Del lenke</string>
   <string name="share_via_link_expiration_date_label">Sett utløpsdato</string>
   <string name="share_via_link_password_label">Passordbeskyttet</string>
+  <string name="share_via_link_password_title">Sikret</string>
+  <string name="share_get_public_link_button">Hent lenke</string>
   <string name="share_search">Søk</string>
+  <string name="search_users_and_groups_hint">Søk etter brukere og grupper</string>
+  <string name="share_group_clarification">%1$s (gruppe)</string>
+  <string name="share_sharee_unavailable">Beklager, server-versjonen din tillater ikke klienter å dele med brukere.
+        \nKontakt systemadministratoren</string>
+  <string name="share_privilege_can_share">kan dele</string>
+  <string name="share_privilege_can_edit">kan endre</string>
+  <string name="share_privilege_can_edit_create">opprette</string>
+  <string name="share_privilege_can_edit_change">endre</string>
+  <string name="share_privilege_can_edit_delete">slett</string>
 </resources>
