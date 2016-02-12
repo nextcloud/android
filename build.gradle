@@ -30,9 +30,6 @@ dependencies {
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-    // as long as ownCloud uses Apache HTTP
-    // http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-apache-http-client
-    useLibrary 'org.apache.http.legacy'
 
     sourceSets {
         main {
