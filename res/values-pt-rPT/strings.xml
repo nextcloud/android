@@ -94,6 +94,7 @@
   <string name="common_error_unknown">Erro Desconhecido</string>
   <string name="about_title">Sobre</string>
   <string name="change_password">Alterar senha</string>
+  <string name="delete_account">Remover conta</string>
   <string name="create_account">Criar conta</string>
   <string name="upload_chooser_title">Enviar de ...</string>
   <string name="uploader_info_dirname">Nome da pasta</string>

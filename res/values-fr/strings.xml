@@ -95,6 +95,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="common_error_unknown">Erreur inconnue </string>
   <string name="about_title">À propos de</string>
   <string name="change_password">Changer de mot de passe</string>
+  <string name="delete_account">Supprimer le compte</string>
   <string name="create_account">Créer un compte</string>
   <string name="upload_chooser_title">Téléverser un fichier depuis…</string>
   <string name="uploader_info_dirname">Nom du dossier</string>
@@ -319,7 +320,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="forbidden_permissions_copy">de copier ce fichier</string>
   <string name="prefs_category_instant_uploading">Téléversement immédiat</string>
   <string name="prefs_category_details">Détails</string>
-  <string name="prefs_instant_video_upload_path_title">Répértoire de Téléversement des Vidéos</string>
+  <string name="prefs_instant_video_upload_path_title">Répertoire de téléversement des vidéos</string>
   <string name="sync_folder_failed_content">La synchronisation du dossier %1$s n\'a pas pu être terminée</string>
   <string name="shared_subject_header">a partagé</string>
   <string name="with_you_subject_header">avec vous</string>

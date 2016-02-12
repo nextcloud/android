@@ -95,6 +95,7 @@
   <string name="common_error_unknown">Неизвестная ошибка</string>
   <string name="about_title">О программе</string>
   <string name="change_password">Сменить пароль</string>
+  <string name="delete_account">Удалить аккаунт</string>
   <string name="create_account">Создать учётную запись</string>
   <string name="upload_chooser_title">Загрузить из ...</string>
   <string name="uploader_info_dirname">Имя каталога</string>

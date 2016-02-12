@@ -94,6 +94,7 @@
   <string name="common_error_unknown">שגיאה בלתי ידועה</string>
   <string name="about_title">על אודות</string>
   <string name="change_password">שינוי ססמה</string>
+  <string name="delete_account">הסרת חשבון</string>
   <string name="create_account">יצירת חשבון</string>
   <string name="upload_chooser_title">העלאה מהמיקום …</string>
   <string name="uploader_info_dirname">שם התיקייה</string>

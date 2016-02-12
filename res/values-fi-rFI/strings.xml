@@ -94,6 +94,7 @@
   <string name="common_error_unknown">Tuntematon virhe</string>
   <string name="about_title">Tietoja</string>
   <string name="change_password">Vaihda salasana</string>
+  <string name="delete_account">Poista tili</string>
   <string name="create_account">Luo tili</string>
   <string name="upload_chooser_title">Lataus täältä:</string>
   <string name="uploader_info_dirname">Kansion nimi</string>
@@ -337,5 +338,7 @@
   <string name="edit_share_done">valmis</string>
   <string name="action_switch_grid_view">Ruudukkonäkymä</string>
   <string name="action_switch_list_view">Luettelonäkymä</string>
+  <string name="manage_space_title">Hallitse tilaa</string>
+  <string name="manage_space_clear_data">Tyhjennä tiedot</string>
   <string name="manage_space_error">Joitain tiedostoja ei voitu poistaa.</string>
 </resources>

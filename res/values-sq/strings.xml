@@ -94,6 +94,7 @@
   <string name="common_error_unknown">Gabim i panjohur</string>
   <string name="about_title">Rreth</string>
   <string name="change_password">Ndryshoni fjalëkalimin</string>
+  <string name="delete_account">Hiqe llogarinë</string>
   <string name="create_account">Krijoni llogari</string>
   <string name="upload_chooser_title">Ngarkojeni prej …</string>
   <string name="uploader_info_dirname">Emër dosjeje</string>
