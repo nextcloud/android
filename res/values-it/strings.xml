@@ -94,6 +94,7 @@
   <string name="common_error_unknown">Errore sconosciuto</string>
   <string name="about_title">Informazioni</string>
   <string name="change_password">Modifica la password</string>
+  <string name="delete_account">Rimuovi account</string>
   <string name="create_account">Crea account</string>
   <string name="upload_chooser_title">Carica file da...</string>
   <string name="uploader_info_dirname">Nome della cartella</string>
