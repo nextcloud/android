@@ -74,11 +74,11 @@ public class ProgressIndicator extends FrameLayout {
 	}
 
 	public void animateToNextStep() {
-		animateToStep(++mCurrentStep);
+		animateToStep(mCurrentStep+1);
 	}
 
 	public void animateToPrevStep() {
-		animateToStep(--mCurrentStep);
+		animateToStep(mCurrentStep-1);
 	}
 
 	public void setNumberOfSteps(int steps) {
@@ -101,8 +101,9 @@ public class ProgressIndicator extends FrameLayout {
 		mCurrentProgressDot.setLayoutParams(lp);
 	}
 
-	private void animateToStep(int step) {
+	public void animateToStep(int step) {
 		if (step < 1 || step > mNumberOfSteps) return;
+        mCurrentStep = step;
 		View dot = mDotsContainer.getChildAt(step-1);
 		mCurrentProgressDot
 				.animate()
