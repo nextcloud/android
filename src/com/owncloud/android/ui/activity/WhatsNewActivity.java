@@ -1,7 +1,6 @@
 /**
  *   ownCloud Android client application
  *
- *   @author Bartosz Przybylski
  *   Copyright (C) 2015 Bartosz Przybylski
  *   Copyright (C) 2015 ownCloud Inc.
  *
@@ -58,7 +57,6 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     private ImageButton mForwardFinishButton;
     private ProgressIndicator mProgress;
     private ViewPager mPager;
-    private FeaturesViewAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +66,10 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         mProgress = (ProgressIndicator) findViewById(R.id.progressIndicator);
         mPager = (ViewPager)findViewById(R.id.contentPanel);
         final boolean isBeta = getResources().getBoolean(R.bool.is_beta);
-        mAdapter = new FeaturesViewAdapter(getSupportFragmentManager(), FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta));
+        FeaturesViewAdapter adapter = new FeaturesViewAdapter(getSupportFragmentManager(), FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta));
 
-        mProgress.setNumberOfSteps(mAdapter.getCount());
-        mPager.setAdapter(mAdapter);
+        mProgress.setNumberOfSteps(adapter.getCount());
+        mPager.setAdapter(adapter);
         mPager.addOnPageChangeListener(this);
 
 
@@ -80,8 +78,8 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             @Override
             public void onClick(View view) {
                 if (mProgress.hasNextStep()) {
-                    mProgress.animateToNextStep();
                     mPager.setCurrentItem(mPager.getCurrentItem()+1, true);
+                    mProgress.animateToStep(mPager.getCurrentItem()+1);
                 } else {
                     onFinish();
                     finish();

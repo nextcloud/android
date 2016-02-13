@@ -19,9 +19,10 @@
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:bottom="5dp" android:top="5dp" android:right="5dp" android:left="5dp">
+
         <shape
             android:shape="oval">
-            <solid android:color="@color/owncloud_blue_accent"/>
+            <solid android:color="@color/owncloud_blue_dark_transparent"/>
             <size android:width="8dp" android:height="8dp" />
         </shape>
     </item>
