@@ -21,6 +21,9 @@
 
 package com.owncloud.android.features;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -70,7 +73,7 @@ public class FeatureList {
 		return features.toArray(new FeatureItem[features.size()]);
 	}
 
-	static public class FeatureItem {
+	static public class FeatureItem implements Parcelable {
 		public static final int DO_NOT_SHOW = -1;
 		private int image;
 		private int titleText;
@@ -104,7 +107,44 @@ public class FeatureList {
 		public int getVersionNumber() { return versionNumber; }
         public int getBetaVersionNumber() { return betaVersion; }
 		public boolean shouldShowOnFirstRun() { return showOnInitialRun; }
-	}
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(image);
+            dest.writeInt(titleText);
+            dest.writeInt(contentText);
+            dest.writeInt(versionNumber);
+            dest.writeInt(betaVersion);
+            dest.writeByte((byte) (showOnInitialRun ? 1 : 0));
+        }
+
+        private FeatureItem(Parcel p) {
+            image = p.readInt();
+            titleText = p.readInt();
+            contentText = p.readInt();
+            versionNumber = p.readInt();
+            betaVersion = p.readInt();
+            showOnInitialRun = p.readByte() == 1;
+        }
+        public static final Parcelable.Creator CREATOR =
+                new Parcelable.Creator() {
+
+                    @Override
+                    public Object createFromParcel(Parcel source) {
+                        return new FeatureItem(source);
+                    }
+
+                    @Override
+                    public Object[] newArray(int size) {
+                        return new FeatureItem[size];
+                    }
+                };
+    }
 
 	static int versionCodeFromString(String version) {
 		String v[] = version.split(Pattern.quote("."));
