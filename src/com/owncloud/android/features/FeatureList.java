@@ -48,7 +48,7 @@ public class FeatureList {
 			new FeatureItem(R.drawable.whats_new_files, R.string.welcome_feature_2_title,  R.string.welcome_feature_2_text, "1.0.0", "0", SHOW_ON_FIRST_RUN),
 			new FeatureItem(R.drawable.whats_new_share, R.string.welcome_feature_3_title,  R.string.welcome_feature_3_text, "1.0.0", "0" ,SHOW_ON_FIRST_RUN),
 			new FeatureItem(R.drawable.whats_new_accounts, R.string.welcome_feature_4_title,  R.string.welcome_feature_4_text, "1.0.0", "0", SHOW_ON_FIRST_RUN),
-			new FeatureItem(R.drawable.whats_new_oc_files, R.string.welcome_feature_5_title,  FeatureItem.DO_NOT_SHOW, "1.0.0", "0", SHOW_ON_FIRST_RUN)
+			new FeatureItem(R.drawable.whats_new_oc_files, R.string.welcome_feature_5_title,  FeatureItem.DO_NOT_SHOW, "1.0.0", "0", SHOW_ON_FIRST_RUN),
             // Features introduced in certain point in time
     };
 
@@ -58,7 +58,7 @@ public class FeatureList {
 	}
 
 	static public FeatureItem[] getFiltered(final int lastSeenVersionCode, final boolean isFirstRun, boolean isBeta) {
-		List<FeatureItem> features = new LinkedList<FeatureItem>();
+		List<FeatureItem> features = new LinkedList<>();
 
 		for (FeatureItem item : get()) {
             final int itemVersionCode = isBeta ? item.getBetaVersionNumber() : item.getVersionNumber();
@@ -154,7 +154,7 @@ public class FeatureList {
 		}
 		int result = Integer.parseInt(v[0])*(int)(10e6) +
 				Integer.parseInt(v[1])*(int)(10e4) +
-				Integer.parseInt(v[2]);
+				Integer.parseInt(v[2])*100;
 
 		return result;
 	}

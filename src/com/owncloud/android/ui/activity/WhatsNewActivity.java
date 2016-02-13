@@ -42,6 +42,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountAuthenticatorActivity;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.features.FeatureList;
 import com.owncloud.android.features.FeatureList.FeatureItem;
@@ -150,10 +151,18 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         if (context instanceof WhatsNewActivity)
             return;
 
-        final boolean isBeta = context.getResources().getBoolean(R.bool.is_beta);
-
-        if (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta).length > 0)
+        if (shouldShow(context))
             context.startActivity(new Intent(context, WhatsNewActivity.class));
+    }
+
+    static private boolean shouldShow(Context context) {
+        final boolean isBeta = context.getResources().getBoolean(R.bool.is_beta);
+        return (isFirstRun() && context instanceof AccountAuthenticatorActivity) ||
+                (
+                        !(isFirstRun() && (context instanceof FileDisplayActivity)) &&
+                        !(context instanceof PassCodeActivity) &&
+                        (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta).length > 0)
+                );
     }
 
     @Override
