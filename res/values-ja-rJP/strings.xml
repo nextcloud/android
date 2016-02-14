@@ -95,6 +95,7 @@
   <string name="common_error_unknown">不明なエラー</string>
   <string name="about_title">について</string>
   <string name="change_password">パスワードを変更</string>
+  <string name="delete_account">アカウント削除</string>
   <string name="create_account">アカウントを作成</string>
   <string name="upload_chooser_title">アップロード …</string>
   <string name="uploader_info_dirname">フォルダー名</string>
