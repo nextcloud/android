@@ -140,9 +140,8 @@ NOTE: You must have mvn (version >= 3.1.1) in your environment path. Current And
 Download/install Android plugin for Maven, then build ownCloud with mvn:
 
 * Resolve necessary dependencies running:
-    - Windows: "setup_env.bat maven"
-    - Mac OS/Linux: "./setup_env.sh maven"
-	
+  - Windows: "setup_env.bat maven"
+  - Mac OS/Linux: "./setup_env.sh maven"
 * cd ..
 * git clone https://github.com/mosabua/maven-android-sdk-deployer.git
 * cd maven-android-sdk-deployer
