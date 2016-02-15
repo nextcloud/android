@@ -22,4 +22,7 @@
   <string name="folder_picker_choose_button_text">Kies</string>
   <string name="share_via_link_expiration_date_label">Stel verval datum</string>
   <string name="share_via_link_password_label">Beskerm met Wagwoord</string>
+  <string name="share_privilege_can_edit">kan wysig</string>
+  <string name="share_privilege_can_edit_create">skep</string>
+  <string name="share_privilege_can_edit_delete">uitvee</string>
 </resources>

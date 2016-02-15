@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s অ্যানড্রয়েড অ্যাপ</string>
   <string name="about_version">সংস্করণ %1$s </string>
   <string name="actionbar_upload_files">ফাইলস</string>
   <string name="actionbar_mkdir">নতুন ফোল্ডার</string>
