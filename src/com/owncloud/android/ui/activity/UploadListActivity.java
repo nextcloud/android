@@ -186,6 +186,10 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
+        UploadsStorageManager storageManager = null;
+        UploadListFragment uploadListFragment =
+                (UploadListFragment) getSupportFragmentManager().findFragmentByTag(TAG_UPLOAD_LIST_FRAGMENT);
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -200,13 +204,19 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 //                break;
 
             case R.id.action_clear_failed_uploads:
-                UploadsStorageManager usm = new UploadsStorageManager(getContentResolver());
-                usm.clearFailedUploads();
+                storageManager = new UploadsStorageManager(getContentResolver());
+                storageManager.clearFailedUploads();
+                uploadListFragment.updateUploads();
                 break;
 
             case R.id.action_clear_finished_uploads:
-                UploadsStorageManager storageManager = new UploadsStorageManager(getContentResolver());
+                storageManager = new UploadsStorageManager(getContentResolver());
                 storageManager.clearFinishedUploads();
+                uploadListFragment.updateUploads();
+                break;
+
+            case R.id.action_clear_all_uploads:
+                // IMPLEMENTATION PENDING
                 break;
 
             default:

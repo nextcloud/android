@@ -426,4 +426,9 @@
 
     <string name="action_switch_grid_view">Switch to grid view</string>
     <string name="action_switch_list_view">Switch to list view</string>
+
+    <string name="action_retry_uploads">Retry current uploads</string>
+    <string name="action_clear_failed_uploads">Clear failed uploads</string>
+    <string name="action_clear_finished_uploads">Clear finished uploads</string>
+    <string name="action_clear_all_uploads">Clear all uploads</string>
 </resources>

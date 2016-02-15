@@ -21,11 +21,14 @@
 
     <item
         android:id="@+id/action_retry_uploads"
-        android:title="Retry current uploads"/>
+        android:title="@string/action_retry_uploads"/>
     <item
         android:id="@+id/action_clear_failed_uploads"
-        android:title="Clear failed uploads"/>
+        android:title="@string/action_clear_failed_uploads"/>
     <item
         android:id="@+id/action_clear_finished_uploads"
-        android:title="Clear finished uploads"/>    
+        android:title="@string/action_clear_finished_uploads"/>
+    <item
+        android:id="@+id/action_clear_all_uploads"
+        android:title="@string/action_clear_all_uploads"/>
 </menu>
