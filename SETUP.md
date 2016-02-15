@@ -61,7 +61,7 @@ To set up the project in Android Studio follow the next steps:
 
 ### 3. Working in a terminal with Gradle:
 
-[Gradle][7] is the build system used by Android Studio to manage the building operations on Android apps. You do not need to install Gradle in your system, and Google recommends not to do it, but instead trusting on the Graddle wrapper included in the project [8].
+[Gradle][7] is the build system used by Android Studio to manage the building operations on Android apps. You do not need to install Gradle in your system, and Google recommends not to do it, but instead trusting on the [Graddle wrapper][8] included in the project.
 
 * Open a terminal and go to the 'android' directory that contains the repository.
 * Complete the setup of project properties running:
