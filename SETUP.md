@@ -88,33 +88,32 @@ The generated APK file is saved in android/build/outputs/apk as android-debug.ap
 * Choose the option 'Android'/'Android Project from Existing Code' and click 'Next'
 * Choose 'android/' folder as root
 * Choose the projects with the next names under the 'New Project Name' column:
-<<<<<<< 340836d36fed078a936533ed916696865b93cd5c
-** owncloud-android 
-** android-support-appcompat-v7-exploded-aar
-** android-support-design-exploded-aar
-** owncloud-android-workaround-accounts	(optional)
-** ownCloud Android Library
-** ownCloud Sample Client (optional)
-** ownCloud Android library test project (optional)
-** ownCloud Android library test cases (optional)
+  - owncloud-android 
+  - android-support-appcompat-v7-exploded-aar
+  - android-support-design-exploded-aar
+  - owncloud-android-workaround-accounts (optional)
+  - ownCloud Android Library
+  - ownCloud Sample Client (optional)
+  - ownCloud Android library test project (optional)
+  - ownCloud Android library test cases (optional)
 * Do not choose the project owncloud-android-tests; it's obsolete.
 * Do not enable 'Copy projects into workspace'.
 * Click the 'Finish' button.	
 * Wait for a while; if 'Build automatically' is enabled in Eclipse, some errors could appear during the creation of the projects, but all of them should finally disappear.
 * If any error persists, clean and build manually the next projects in order:
-** ownCloud Android Library
-** android-support-appcompat-v7-exploded-aar
-** android-support-design-exploded-aar
-** owncloud-android
+  - ownCloud Android Library
+  - android-support-appcompat-v7-exploded-aar
+  - android-support-design-exploded-aar
+  - owncloud-android
 * If any error on those projects persists, check the project properties. In the 'Android' section, API Level should be
-** ownCloud Android Library	-> API level 19
-** android-support-appcompat-v7-exploded-aa -> API level 23
-** android-support-design-exploded-aa -> API level 23
-** owncloud-android	-> API level 23 ; in this project, three library projects should appear referred in the bottom of the dialog: 
-*** libs\android-support-appcompat-v7-exploded-aar, 
-*** libs\android-support-design-exploded-aar, 
-*** owncloud-android-library. 
-*** Add them if needed.
+  - ownCloud Android Library	-> API level 19
+  - android-support-appcompat-v7-exploded-aa -> API level 23
+  - android-support-design-exploded-aa -> API level 23
+  - owncloud-android	-> API level 23 ; in this project, three library projects should appear referred in the bottom of the dialog: 
+    - libs\android-support-appcompat-v7-exploded-aar, 
+    - libs\android-support-design-exploded-aar, 
+    - owncloud-android-library. 
+    - Add them if needed.
 * After those actions you should be good to go. HAVE FUN!
 
 
