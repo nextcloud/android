@@ -38,6 +38,7 @@
   <string name="prefs_instant_video_upload_summary">Videos von der Kamera sofort hochladen</string>
   <string name="prefs_log_summary">Dies wird zur Protokollierung von Problemen benutzt</string>
   <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokolle</string>
+  <string name="prefs_log_delete_history_button">Verlauf löschen</string>
   <string name="prefs_help">Hilfe</string>
   <string name="prefs_recommend">Dies einem Freund empfehlen</string>
   <string name="prefs_feedback">Rückmeldungen</string>
@@ -78,12 +79,14 @@
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_sync">sychronisation abbrechen</string>
   <string name="common_cancel">Abbrechen</string>
   <string name="common_error">Fehler</string>
   <string name="common_loading">Lade …</string>
   <string name="common_error_unknown">Unbekannter Fehler</string>
   <string name="about_title">Über</string>
   <string name="change_password">Passwort ändern</string>
+  <string name="delete_account">Benutzerkonto löschen</string>
   <string name="create_account">Account erstellen</string>
   <string name="upload_chooser_title">Dateien hochladen von...</string>
   <string name="uploader_info_dirname">Ordnername</string>
