@@ -70,4 +70,9 @@
   <string name="share_via_link_expiration_date_label">Setja gildistíma</string>
   <string name="share_via_link_password_label">Verja með lykilorði</string>
   <string name="share_search">Leita</string>
+  <string name="share_privilege_can_share">getur deilt</string>
+  <string name="share_privilege_can_edit">getur breytt</string>
+  <string name="share_privilege_can_edit_create">mynda</string>
+  <string name="share_privilege_can_edit_change">breyta</string>
+  <string name="share_privilege_can_edit_delete">eyða</string>
 </resources>

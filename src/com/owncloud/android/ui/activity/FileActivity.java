@@ -909,6 +909,8 @@ public class FileActivity extends AppCompatActivity
      * Show loading dialog
      */
     public void showLoadingDialog(String message) {
+        // grant that only one waiting dialog is shown
+        dismissLoadingDialog();
         // Construct dialog
         LoadingDialog loading = new LoadingDialog(message);
         FragmentManager fm = getSupportFragmentManager();

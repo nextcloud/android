@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Android App</string>
+  <string name="about_android">%1$s Android app</string>
   <string name="about_version">versie %1$s</string>
   <string name="actionbar_sync">Account verversen</string>
   <string name="actionbar_upload">Uploaden</string>
@@ -37,11 +37,11 @@
   <string name="prefs_instant_upload_summary">Direct uploaden van foto\'s genomen met de camera</string>
   <string name="prefs_instant_video_upload">Direct uploaden van video\'s</string>
   <string name="prefs_instant_video_upload_summary">Direct uploaden van video\'s vanaf de camera</string>
-  <string name="prefs_log_title">Loggen aanzetten</string>
+  <string name="prefs_log_title">Logging inschakelen</string>
   <string name="prefs_log_summary">Dit wordt gebruikt om problemen te loggen.</string>
-  <string name="prefs_log_title_history">Log-geschiedenis</string>
+  <string name="prefs_log_title_history">Logging geschiedenis</string>
   <string name="prefs_log_summary_history">Dit toont de bijgehouden logs</string>
-  <string name="prefs_log_delete_history_button">Verwijder Geschiedenis</string>
+  <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
   <string name="prefs_help">Help</string>
   <string name="prefs_recommend">Aanbevelen bij een vriend</string>
   <string name="prefs_feedback">Feedback</string>
@@ -62,7 +62,7 @@ Download hier: %2$s</string>
   <string name="uploader_btn_new_folder_text">Nieuwe map</string>
   <string name="uploader_top_message">Kies upload map:</string>
   <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
-  <string name="uploader_wrn_no_account_text">Er zijn nog geen %1$s accounts op je apparaat. Stel eerst een account in.</string>
+  <string name="uploader_wrn_no_account_text">Er zijn geen %1$s accounts op dit apparaat. Stel eerst een account in.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configureren</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Afsluiten</string>
   <string name="uploader_wrn_no_content_title">Geen inhoud om te uploaden</string>
@@ -72,7 +72,7 @@ Download hier: %2$s</string>
   <string name="file_list_seconds_ago">seconden geleden</string>
   <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
   <string name="file_list_loading">Laden...</string>
-  <string name="file_list_no_app_for_file_type">Geen app gevonden voor het bestandstype!</string>
+  <string name="file_list_no_app_for_file_type">Geen app gevonden voor dit bestandsformaat!</string>
   <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
   <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
   <string name="filedetails_size">Grootte:</string>
@@ -82,42 +82,37 @@ Download hier: %2$s</string>
   <string name="filedetails_download">Download</string>
   <string name="filedetails_sync_file">Synchroniseren</string>
   <string name="filedetails_renamed_in_upload_msg">Bestand is tijdens het uploaden hernoemd naar %1$s</string>
-  <string name="list_layout">Lijst layout</string>
+  <string name="list_layout">Lijst overzicht</string>
   <string name="action_share">Deel</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_sync">Annuleren synchronisatie</string>
+  <string name="common_cancel_sync">Sync annuleren</string>
   <string name="common_cancel">Annuleren</string>
-  <string name="common_save_exit">Opslaan &amp; Afsluiten</string>
+  <string name="common_save_exit">Opslaan &amp; einde</string>
   <string name="common_error">Fout</string>
   <string name="common_loading">Laden...</string>
   <string name="common_error_unknown">Onbekende fout</string>
   <string name="about_title">Over</string>
   <string name="change_password">Wijzig wachtwoord</string>
-  <string name="delete_account">Verwijder account</string>
   <string name="create_account">Maak account aan</string>
   <string name="upload_chooser_title">Upload van ...</string>
   <string name="uploader_info_dirname">Mapnaam</string>
   <string name="uploader_upload_in_progress_ticker">Uploaden ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Uploaden %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Upload succesvol</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s is met succes ge-upload</string>
+  <string name="uploader_upload_succeeded_content_single">%1$s geüpload</string>
   <string name="uploader_upload_failed_ticker">Upload mislukt</string>
   <string name="uploader_upload_failed_content_single">Upload van %1$s kon niet voltooid worden</string>
-  <string name="uploader_upload_failed_credentials_error">Update mislukt, u moet opnieuw inloggen</string>
   <string name="downloader_download_in_progress_ticker">Downloaden ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Aan het downloaden %2$s</string>
   <string name="downloader_download_succeeded_ticker">Downloaden gelukt</string>
-  <string name="downloader_download_succeeded_content">%1$s werd succesvol gedownload</string>
+  <string name="downloader_download_succeeded_content">%1$s gedownload.</string>
   <string name="downloader_download_failed_ticker">Downloaden mislukt</string>
   <string name="downloader_download_failed_content">Download van %1$s kon niet worden voltooid</string>
   <string name="downloader_not_downloaded_yet">Nog niet gedownload</string>
-  <string name="downloader_download_failed_credentials_error">Download mislukt, u moet opnieuw inloggen</string>
   <string name="common_choose_account">Kies account</string>
-  <string name="sync_fail_ticker">Synchronisatie mislukt</string>
-  <string name="sync_fail_ticker_unauthorized">Synchronisatie mislukt, opnieuw inloggen</string>
-  <string name="sync_fail_content">Synchronisatie van %1$s kon niet worden voltooid</string>
+  <string name="sync_fail_ticker">Sync mislukt</string>
   <string name="sync_fail_content_unauthorized">Ongeldig wachtwoord voor %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>
   <string name="sync_conflicts_in_favourites_content">%1$d in-synch-houden bestanden konden niet worden gesync\'d</string>
@@ -134,11 +129,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="foreign_files_fail">Een paar bestanden konden niet worden verplaatst</string>
   <string name="foreign_files_local_text">Lokaal: %1$s</string>
   <string name="foreign_files_remote_text">Extern: %1$s</string>
-  <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de bestanden te gekopieëren in map %1$s. Wilt u ze erheen verplaatsten? </string>
-  <string name="pass_code_enter_pass_code">Geef uw pincode op</string>
   <string name="pass_code_configure_your_pass_code">Invoeren pincode</string>
   <string name="pass_code_configure_your_pass_code_explanation">De pincode wordt elke keer gevraagd bij opstarten van de app</string>
-  <string name="pass_code_reenter_your_pass_code">Voer de pincode nogmaals in</string>
   <string name="pass_code_remove_your_pass_code">Verwijderen pincode</string>
   <string name="pass_code_mismatch">De pincodes komen niet overeen</string>
   <string name="pass_code_wrong">Onjuiste pincode</string>
@@ -163,8 +155,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="media_rewind_description">terugpoel knop</string>
   <string name="media_play_pause_description">Speel of pauze knop</string>
   <string name="media_forward_description">Doorspoel knop</string>
-  <string name="auth_getting_authorization">Ophalen autorisaties...</string>
-  <string name="auth_trying_to_login">Proberen om in te loggen...</string>
   <string name="auth_no_net_conn_title">Geen netwerkverbinding</string>
   <string name="auth_nossl_plain_ok_title">Veilige verbinding niet beschikbaar.</string>
   <string name="auth_connection_established">Verbinding tot stand gebracht</string>
@@ -176,7 +166,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="auth_unknown_host_title">Kon geen host vinden</string>
   <string name="auth_incorrect_path_title">Server instantie niet gevonden</string>
   <string name="auth_timeout_title">De server had te lang nodig om te reageren</string>
-  <string name="auth_incorrect_address_title">Misvormde URL</string>
   <string name="auth_ssl_general_error_title">SSL initialisatie mislukt</string>
   <string name="auth_ssl_unverified_server_title">Kon de identiteit van de SSL server niet verifiëren</string>
   <string name="auth_bad_oc_version_title">Onherkende server versie</string>
@@ -185,16 +174,12 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="auth_unauthorized">Verkeerde gebruikersnaam of wachtwoord</string>
   <string name="auth_oauth_error">Authorisatie niet succesvol</string>
   <string name="auth_oauth_error_access_denied">Toegang geweigerd door authorizatieserver</string>
-  <string name="auth_wtf_reenter_URL">Onverwachte toestand; voer a.u.b de server-URL nogmaals in.</string>
   <string name="auth_expired_oauth_token_toast">Uw autorisatie is verstreken. Autoriseer opnieuw.</string>
-  <string name="auth_expired_basic_auth_toast">Geef het huidige wachtwoord op</string>
   <string name="auth_expired_saml_sso_token_toast">Uw sessie is verstreken. Verbind opnieuw</string>
-  <string name="auth_connecting_auth_server">Verbinden met authenticatieserver...</string>
   <string name="auth_unsupported_auth_method">De server ondersteunt deze authenticatiemethode niet</string>
   <string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
   <string name="auth_fail_get_user_name">Uw server geeft geen goede userid terug, neem contact op met uw beheerder
 	</string>
-  <string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
   <string name="auth_account_does_not_exist">Het account bestaat nog niet in dit apparaat</string>
   <string name="favorite">Favoriet</string>
   <string name="unfavorite">Niet meer favoriet</string>
@@ -203,9 +188,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="confirmation_remove_alert">Wilt u %1$s werkelijk verwijderen?</string>
   <string name="confirmation_remove_folder_alert">Wilt u %1$s en de inhoud ervan werkelijk verwijderen?</string>
   <string name="confirmation_remove_local">Alleen lokaal</string>
-  <string name="confirmation_remove_folder_local">Alleen lokaal</string>
-  <string name="confirmation_remove_remote">Van server</string>
-  <string name="confirmation_remove_remote_and_local">Extern &amp; lokaal</string>
   <string name="remove_success_msg">Succesvol verwijderd</string>
   <string name="remove_fail_msg">Verwijdering kon niet voltooid worden</string>
   <string name="rename_dialog_title">Voer een nieuwe naam in</string>
@@ -257,8 +239,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Upload afbeeldingen alleen via WiFi</string>
-  <string name="instant_video_upload_on_wifi">Upload video\'s alleen over wifi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Bestandsconflict</string>
   <string name="conflict_message">Welke bestanden wilt u bewaren? Als u beide versies selecteert zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
@@ -276,7 +256,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Ga na of het bestand bestaat</string>
   <string name="unshare_link_file_error">Er trad een fout op bij uw poging het delen van dit bestand of deze map te beëindigen</string>
   <string name="update_link_file_no_exist">Kan niet bijwerken. Ga na of het bestand bestaat</string>
-  <string name="update_link_file_error">Er trad een fout op bij uw poging deze gedeelde link bij te werken</string>
+  <string name="update_link_file_error">Er trad een fout op bij uw poging de share bij te werken</string>
   <string name="share_link_password_title">Vul het wachtwoord in</string>
   <string name="share_link_empty_password">U moet een wachtwoord opgeven</string>
   <string name="activity_chooser_send_file_title">Versturen</string>
@@ -293,7 +273,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="forbidden_permissions_delete">om dit bestand te verwijderen</string>
   <string name="share_link_forbidden_permissions">om dit bestand te delen</string>
   <string name="unshare_link_forbidden_permissions">om dit bestand niet meer te delen</string>
-  <string name="update_link_forbidden_permissions">deze gedeelde link bij te werken</string>
+  <string name="update_link_forbidden_permissions">om deze share bij te werken</string>
   <string name="forbidden_permissions_create">om dit bestand te creëren</string>
   <string name="uploader_upload_forbidden_permissions">om dit bestand in deze map te uploaden</string>
   <string name="downloader_download_file_not_found">Dit bestand is niet langer beschikbaar op de server</string>
@@ -301,10 +281,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="prefs_add_account">Toevoegen account</string>
   <string name="auth_redirect_non_secure_connection_title">De beveiligde verbinding is omgeleid via een onveilige route.</string>
   <string name="actionbar_logger">Logs</string>
-  <string name="log_send_history_button">Verstuur geschiedenis</string>
-  <string name="log_send_no_mail_app">Geen app voor versturen van logs gevonden. Installeer de mail app!</string>
   <string name="log_send_mail_subject">%1$s Android app logs</string>
-  <string name="log_progress_dialog_text">Laden data...</string>
+  <string name="log_progress_dialog_text">Laden data …</string>
   <string name="saml_authentication_required_text">Authenticatie vereist</string>
   <string name="saml_authentication_wrong_pass">Onjuist wachtwoord</string>
   <string name="actionbar_move">Verplaatsen</string>
@@ -320,9 +298,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="copy_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
   <string name="copy_file_error">Er trad een fout op bij uw poging dit bestand of deze map te kopiëren</string>
   <string name="forbidden_permissions_copy">om dit bestand te kopiëren</string>
-  <string name="prefs_category_instant_uploading">Directe uploads</string>
-  <string name="prefs_category_security">Beveiliging</string>
-  <string name="prefs_instant_video_upload_path_title">Upload Video Pad</string>
+  <string name="prefs_category_details">Details</string>
   <string name="sync_folder_failed_content">Synchronisatie van map %1$s kon niet worden voltooid</string>
   <string name="shared_subject_header">gedeeld</string>
   <string name="with_you_subject_header">met u</string>
@@ -349,7 +325,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="share_dialog_title">Delen</string>
   <string name="share_with_user_section_title">Delen met gebruikers en groepen</string>
   <string name="share_no_users">Nog geen gegevens met gebruikers gedeeld</string>
-  <string name="share_add_user_or_group">Toevoegen gebruiker of groep</string>
   <string name="share_via_link_section_title">Deel link</string>
   <string name="share_via_link_expiration_date_label">Stel vervaldatum in</string>
   <string name="share_via_link_password_label">Wachtwoord beveiligd</string>
@@ -360,6 +335,11 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="share_group_clarification">%1$s (groep)</string>
   <string name="share_sharee_unavailable">Sorry, uw serverversie staat niet toe om binnen de clients te delen met gebruikers.
 Neem contact op met uw beheerder</string>
-  <string name="action_switch_grid_view">Omschakelen naar rasteroverzicht</string>
-  <string name="action_switch_list_view">Omschakelen naar lijstoverzicht</string>
+  <string name="share_privilege_can_share">kan delen</string>
+  <string name="share_privilege_can_edit">kan wijzigen</string>
+  <string name="share_privilege_can_edit_create">creëer</string>
+  <string name="share_privilege_can_edit_change">wijzig</string>
+  <string name="share_privilege_can_edit_delete">verwijderen</string>
+  <string name="edit_share_unshare">Stop met delen</string>
+  <string name="edit_share_done">gedaan</string>
 </resources>

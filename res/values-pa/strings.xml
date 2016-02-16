@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s ਐਡਰਾਇਡ ਐਪ</string>
   <string name="about_version">ਵਰਜਨ %1$s</string>
   <string name="actionbar_sync">ਅਕਾਊਂਟ ਤਾਜ਼ਾ ਕਰੋ</string>
   <string name="actionbar_upload">ਅੱਪਲੋਡ</string>
@@ -18,9 +17,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="prefs_category_general">ਆਮ</string>
   <string name="prefs_accounts">ਅਕਾਊਂਟ</string>
-  <string name="prefs_log_title">ਲਾਗ ਰੱਖਣਾ ਚਾਲੂ</string>
-  <string name="prefs_log_title_history">ਲਾਗ ਰੱਖਣ ਅਤੀਤ</string>
-  <string name="prefs_log_delete_history_button">ਅਤੀਤ ਹਟਆਓ</string>
   <string name="auth_username">ਯੂਜ਼ਰ-ਨਾਂ</string>
   <string name="auth_password">ਪਾਸਵਰ</string>
   <string name="auth_register">%1$s ਲਈ ਨਵੇਂ ਹੋ?</string>
@@ -45,13 +41,11 @@
   <string name="common_no">ਨਹੀਂ</string>
   <string name="common_ok">ਠੀਕ ਹੈ</string>
   <string name="common_cancel">ਰੱਦ ਕਰੋ</string>
-  <string name="common_save_exit">ਸੰਭਾਲੋ ਅਤੇ ਬੰਦ ਕਰੋ</string>
   <string name="common_error">ਗਲਤੀ</string>
   <string name="common_loading">...ਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
   <string name="common_error_unknown">ਅਣਜਾਣ ਗਲਤੀ</string>
   <string name="about_title">ਇਸ ਬਾਰੇ</string>
   <string name="change_password">ਪਾਸਵਰਡ ਬਦਲੋ</string>
-  <string name="delete_account">ਅਕਾਊਂਟ ਹਟਾਓ</string>
   <string name="create_account">ਅਕਾਊਂਟ ਬਣਾਓ</string>
   <string name="upload_chooser_title">... ਤੋਂ ਅੱਪਲੋਡ</string>
   <string name="uploader_upload_in_progress_ticker">... ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
@@ -62,7 +56,6 @@
   <string name="downloader_download_in_progress_ticker">... ਡਾਊਨਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
   <string name="downloader_not_downloaded_yet">ਹਾਲੇ ਡਾਊਨਲੋਡ ਨਹੀਂ</string>
   <string name="common_choose_account">ਅਕਾਊਂਟ ਚੁਣੋ</string>
-  <string name="sync_fail_ticker">ਸੈਕਰੋਨਾਈਜ਼ ਕਰਨ ਲਈ ਫੇਲ੍ਹ</string>
   <string name="sync_fail_content_unauthorized">%1$s ਲਈ ਗਲਤ ਪਾਸਵਰਡ</string>
   <string name="foreign_files_move">ਸਭ ਭੇਜੋ</string>
   <string name="foreign_files_success">ਸਭ ਫਾਇਲਾਂ ਨੂੰ ਭੇਜਿਆ ਗਿਆ</string>
@@ -74,7 +67,6 @@
   <string name="media_state_loading">%1$s (ਲੋਡ ਹੁੰਦਾ ਹੈ)</string>
   <string name="media_event_done">%1$s ਚੱਲਣਾ ਬੰਦ</string>
   <string name="media_err_nothing_to_play">ਕੋਈ ਮੀਡਿਆ ਫਾਇਲ ਨਹੀਂ ਲੱਭੀ</string>
-  <string name="auth_trying_to_login">...ਲਾਗਇਨ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਜਾਰੀ</string>
   <string name="auth_no_net_conn_title">ਕੋਈ ਨੈੱਟਵਰਕ ਕੁਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ</string>
   <string name="auth_nossl_plain_ok_title">ਸੁਰੱਖਿਅਤ ਕੁਨੈਕਸ਼ਨ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।</string>
   <string name="auth_connection_established">ਕੁਨੈਕਸ਼ਨ ਬਣਾਇਆ ਗਿਆ ਹੈ</string>
@@ -83,11 +75,9 @@
   <string name="auth_ssl_general_error_title">SSL ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਫੇਲ੍ਹ ਹੈ</string>
   <string name="auth_secure_connection">ਸੁਰੱਖਿਅਤ ਕੁਨੈਕਸ਼ਨ ਬਣਾਇਆ ਗਿਆ ਹੈ</string>
   <string name="auth_unauthorized">ਗਲਤ ਯੂਜ਼ਰ-ਨਾਂ ਜਾਂ ਪਾਸਵਰਡ</string>
-  <string name="auth_expired_basic_auth_toast">ਆਪਣਾ ਮੌਜੂਦਾ ਪਾਸਵਰਡ ਦਿਉ ਜੀ</string>
   <string name="common_rename">ਨਾਂ ਬਦਲੋ</string>
   <string name="common_remove">ਹਟਾਓ</string>
   <string name="confirmation_remove_local">ਕੇਵਲ ਲੋਕਲ</string>
-  <string name="confirmation_remove_folder_local">ਕੇਵਲ ਲੋਕਲ</string>
   <string name="wait_a_moment">ਪਲ਼ ਭਰ ਲਈ ਉਡੀਕੋ</string>
   <string name="filedisplay_no_file_selected">ਕੋਈ ਫਾਇਲ ਨਹੀਂ ਚੁਣੀ ਗਈ</string>
   <string name="ssl_validator_header">ਇਹ ਸਾਈਟ ਦੀ ਪਛਾਣ ਦੀ ਜਾਂਚ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ ਹੈ</string>
@@ -112,13 +102,13 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">ਤਸਵੀਰਾਂ ਨੂੰ ਵਾਈ-ਫਾਈ ਰਾਹੀਂ ਹੀ ਅੱਪਲੋਡ ਕਰੋ</string>
   <string name="conflict_keep_both">ਦੋਵੇਂ ਰੱਖੋ</string>
   <string name="preview_image_description">ਚਿੱਤਰ ਝਲਕ</string>
   <string name="activity_chooser_send_file_title">ਭੇਜੋ</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">ਅਕਾਊਂਟ</string>
   <string name="folder_picker_choose_button_text">ਚੁਣੋ</string>
+  <string name="prefs_category_details">ਵੇਰਵ</string>
   <string name="auth_host_address">ਸਰਵਰ ਐਡਰੈਸ</string>
   <string name="share_search">ਖੋਜ</string>
 </resources>
