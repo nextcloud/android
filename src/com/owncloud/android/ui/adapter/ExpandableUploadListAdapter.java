@@ -381,6 +381,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     @Override
                     public void onClick(View v) {
                         mParentActivity.getFileOperationsHelper().removeUploadFromList(upload);
+                        refreshView();
                     }
                 });
             }
