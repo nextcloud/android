@@ -216,7 +216,9 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 break;
 
             case R.id.action_clear_all_uploads:
-                // IMPLEMENTATION PENDING
+                storageManager = new UploadsStorageManager(getContentResolver());
+                storageManager.clearAllUploads();
+                uploadListFragment.updateUploads();
                 break;
 
             default:
