@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s אפליקציית אנדרואיד</string>
+  <string name="about_android">יישום אנדרואיד %1$s</string>
   <string name="about_version">גרסה %1$s</string>
   <string name="actionbar_sync">רענון חשבון</string>
   <string name="actionbar_upload">העלאה</string>
@@ -37,11 +37,11 @@
   <string name="prefs_instant_upload_summary">העלאה מהירה של תמונות שצולמו במצלמה</string>
   <string name="prefs_instant_video_upload">העלאת סרטים מהירה</string>
   <string name="prefs_instant_video_upload_summary">העלאה מהירה של סרטים שצולמו במצלמה</string>
-  <string name="prefs_log_title">הפעלת תעוד</string>
+  <string name="prefs_log_title">מאפשר התחברות</string>
   <string name="prefs_log_summary">משמש לתיעוד בעיות</string>
-  <string name="prefs_log_title_history">היסטוריית תעוד</string>
+  <string name="prefs_log_title_history">הסטורית התחברות</string>
   <string name="prefs_log_summary_history">מראה את יומני התעוד</string>
-  <string name="prefs_log_delete_history_button">מחיקת היסטוריה</string>
+  <string name="prefs_log_delete_history_button">מחיקת הסטוריה</string>
   <string name="prefs_help">עזרה</string>
   <string name="prefs_recommend">המלצה לחבר</string>
   <string name="prefs_feedback">משוב</string>
@@ -50,7 +50,7 @@
   <string name="prefs_remember_last_upload_location_summary">לזכור מיקום שיתוף העלאה אחרון</string>
   <string name="recommend_subject">לבדיקה %1$s בטלפון החכם שלך!</string>
   <string name="recommend_text">הנך מוזמן להשתמש ב- %1$s בטלפון החכם שלך!\nניתן להוריד מכאן: %2$s</string>
-  <string name="auth_check_server">בודק שרת</string>
+  <string name="auth_check_server">בדיקת שרת</string>
   <string name="auth_host_url">כתובת שרת https://…</string>
   <string name="auth_username">שם משתמש</string>
   <string name="auth_password">ססמה</string>
@@ -61,7 +61,7 @@
   <string name="uploader_btn_new_folder_text">תיקייה חדשה</string>
   <string name="uploader_top_message">בחירת תיקיית העלאה:</string>
   <string name="uploader_wrn_no_account_title">לא נמצא חשבון</string>
-  <string name="uploader_wrn_no_account_text">אין חשבונות %1$s בהתקן שלך. נא להגדיר חשבון תחילה.</string>
+  <string name="uploader_wrn_no_account_text">לא מוגדרים חשבונות %1$s במכשיר שלך. יש להגדיר חשבות תחילה.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>
   <string name="uploader_wrn_no_account_quit_btn_text">יציאה</string>
   <string name="uploader_wrn_no_content_title">אין תוכן להעלאה</string>
@@ -71,7 +71,7 @@
   <string name="file_list_seconds_ago">שניות</string>
   <string name="file_list_empty">אין כאן שום דבר. אולי ברצונך להעלות משהו?</string>
   <string name="file_list_loading">בטעינה …</string>
-  <string name="file_list_no_app_for_file_type">לא נמצא יישום התומך בסוג קובץ זה!</string>
+  <string name="file_list_no_app_for_file_type">לא נמצא יישום עבור סוג זה!</string>
   <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
   <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
   <string name="filedetails_size">גודל:</string>
@@ -81,42 +81,42 @@
   <string name="filedetails_download">הורדה</string>
   <string name="filedetails_sync_file">סנכרון</string>
   <string name="filedetails_renamed_in_upload_msg">שם הקובץ השתנה ל־ %1$s במהלך ההעלאה</string>
-  <string name="list_layout">פריסת רשימה</string>
+  <string name="list_layout">תצורת רשימה</string>
   <string name="action_share">שיתוף</string>
   <string name="common_yes">כן</string>
   <string name="common_no">לא</string>
   <string name="common_ok">אישור</string>
-  <string name="common_cancel_sync">ביטון סנכרון</string>
+  <string name="common_cancel_sync">ביטול סנכרון</string>
   <string name="common_cancel">ביטול</string>
-  <string name="common_save_exit">לשמור ולצאת</string>
+  <string name="common_save_exit">שמירה ויציאה</string>
   <string name="common_error">שגיאה</string>
   <string name="common_loading">בטעינה …</string>
   <string name="common_error_unknown">שגיאה בלתי ידועה</string>
   <string name="about_title">על אודות</string>
   <string name="change_password">שינוי ססמה</string>
-  <string name="delete_account">מחיקת חשבון</string>
+  <string name="delete_account">הסרת חשבון</string>
   <string name="create_account">יצירת חשבון</string>
   <string name="upload_chooser_title">העלאה מהמיקום …</string>
   <string name="uploader_info_dirname">שם התיקייה</string>
   <string name="uploader_upload_in_progress_ticker">מתבצעת העלאה …</string>
   <string name="uploader_upload_in_progress_content">%1$d%% בהעלאה %2$s</string>
   <string name="uploader_upload_succeeded_ticker">ההעלאה הצליחה</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s נשלח בהצלחה</string>
+  <string name="uploader_upload_succeeded_content_single">%1$s הועלו</string>
   <string name="uploader_upload_failed_ticker">ההעלאה נכשלה</string>
   <string name="uploader_upload_failed_content_single">אין אפשרות להשלים את ההעלאה של %1$s</string>
   <string name="uploader_upload_failed_credentials_error">העלאה נכשלה, יש להתחבר מחדש</string>
   <string name="downloader_download_in_progress_ticker">בהורדה …</string>
   <string name="downloader_download_in_progress_content">%1$d%% בהורדה %2$s</string>
   <string name="downloader_download_succeeded_ticker">ההורדה הצליחה</string>
-  <string name="downloader_download_succeeded_content">%1$s התקבל בהצלחה</string>
+  <string name="downloader_download_succeeded_content">%1$s הורדו</string>
   <string name="downloader_download_failed_ticker">ההורדה נכשלה</string>
   <string name="downloader_download_failed_content">לא ניתן להשלים את ההורדה של </string>
   <string name="downloader_not_downloaded_yet">לא הורד עדיין</string>
   <string name="downloader_download_failed_credentials_error">הורדה נכשלה, יש להתחבר מחדש</string>
   <string name="common_choose_account">נא לבחור בחשבון</string>
-  <string name="sync_fail_ticker">הסנכרון נכשל</string>
+  <string name="sync_fail_ticker">סנכרון נכשל</string>
   <string name="sync_fail_ticker_unauthorized">סנכרון נכשל, יש להתחבר מחדש</string>
-  <string name="sync_fail_content">לא ניתן להשלים את הסנכרון של </string>
+  <string name="sync_fail_content">לא ניתן היה להשלים את הסנכרון של %1$s</string>
   <string name="sync_fail_content_unauthorized">סיסמא שגוייה עבור %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">נמצאו התנגשויות</string>
   <string name="sync_conflicts_in_favourites_content">לא ניתן לסנכרן %1$d קבצים שהוגדרו לסנכרון</string>
@@ -131,8 +131,8 @@
   <string name="foreign_files_fail">לא ניתן להעביר חלק מהקבצים</string>
   <string name="foreign_files_local_text">מקומי: %1$s</string>
   <string name="foreign_files_remote_text">מרוחק: %1$s</string>
-  <string name="upload_query_move_foreign_files">אין מספיק מקום להעתקת הקבצים שנבחרו אל תיקיית %1$s . האם להעביר אותם במקום?</string>
-  <string name="pass_code_enter_pass_code">יש להכניס את הקוד שלך</string>
+  <string name="upload_query_move_foreign_files">אין מספיק מקום להעתיק את הקבצים הנבחרים לתוך תיקיית %1$s. האם ברצונך להעביר אותם במקום להעתיק? </string>
+  <string name="pass_code_enter_pass_code">יש להכניס את הקוד</string>
   <string name="pass_code_configure_your_pass_code">יש להכניס את הקוד שלך</string>
   <string name="pass_code_configure_your_pass_code_explanation">בכל פעם שיישום זה נפתח יהיה צורך להכניס את הקוד</string>
   <string name="pass_code_reenter_your_pass_code">יש להכניס את הקוד שנית</string>
@@ -160,8 +160,8 @@
   <string name="media_rewind_description">לחצן החזרה אחורה</string>
   <string name="media_play_pause_description">לחצן ניגון או השהייה</string>
   <string name="media_forward_description">לחצן הרצה קדימה</string>
-  <string name="auth_getting_authorization">מקבל אישורים...</string>
-  <string name="auth_trying_to_login">מתבצע ניסיון כניסה…</string>
+  <string name="auth_getting_authorization">מקבל אימות...</string>
+  <string name="auth_trying_to_login">מנסה להתחבר...</string>
   <string name="auth_no_net_conn_title">אין חיבור לאינטרנט</string>
   <string name="auth_nossl_plain_ok_title">אין חיבור מוצפן זמין.</string>
   <string name="auth_connection_established">החיבור נוצר</string>
@@ -173,7 +173,7 @@
   <string name="auth_unknown_host_title">לא ניתן למצוא את המארח</string>
   <string name="auth_incorrect_path_title">לא נמצא מופע שרת</string>
   <string name="auth_timeout_title">לשרת לקח יותר מדי זמן להגיב</string>
-  <string name="auth_incorrect_address_title">כתובת שגויה</string>
+  <string name="auth_incorrect_address_title">פורמט כתובת שרת שגוי</string>
   <string name="auth_ssl_general_error_title">הפעלת ה־SSL נכשלה</string>
   <string name="auth_ssl_unverified_server_title">זהות ה- SSL של השרת לא ניתנת לאימות</string>
   <string name="auth_bad_oc_version_title">גרסה השרת אינה מזוהה</string>
@@ -182,16 +182,16 @@
   <string name="auth_unauthorized">שם משתמש או סימא שגויים</string>
   <string name="auth_oauth_error">אישור לא מוצלח</string>
   <string name="auth_oauth_error_access_denied">גישה נדחתה על ידי שרת האימות</string>
-  <string name="auth_wtf_reenter_URL">מצב לא צפוי; יש להכניס בבקשה שוב את כתובת השרת</string>
+  <string name="auth_wtf_reenter_URL">מצב בלתי צפוי ; יש להכניס את כתובת השרת שנית</string>
   <string name="auth_expired_oauth_token_toast">האישור שלך פג. נא לבצע אישור מחדש</string>
-  <string name="auth_expired_basic_auth_toast">נא להזין סיסמה נוכחית</string>
+  <string name="auth_expired_basic_auth_toast">יש להכניס את הסיסמא הנוכחית</string>
   <string name="auth_expired_saml_sso_token_toast">זמן ההתקשרות שלך הסתיים. יש להתחבר מחדש</string>
   <string name="auth_connecting_auth_server">מתחבר לשרת אימות...</string>
   <string name="auth_unsupported_auth_method">השרת אינו תומך בשיטת אימות זו</string>
   <string name="auth_unsupported_multiaccount">%1$s אינו תומך בריבוי חשבונות</string>
   <string name="auth_fail_get_user_name">השרת אינו מחזיר מספר משתמש נכון, יש ליצור קשר עם מנהל
 ⇥</string>
-  <string name="auth_can_not_auth_against_server">לא מצליח לאמת מול השרת</string>
+  <string name="auth_can_not_auth_against_server">לא ניתן לאמת עבור שרת זה</string>
   <string name="auth_account_does_not_exist">עדיין לא קיים חשבון במכשיר</string>
   <string name="favorite">מועדף</string>
   <string name="unfavorite">לא מועדף</string>
@@ -200,9 +200,6 @@
   <string name="confirmation_remove_alert">האם באמת להסיר %1$s?</string>
   <string name="confirmation_remove_folder_alert">האם באמת להסיר %1$s ואת כל התכולה?</string>
   <string name="confirmation_remove_local">מקומי בלבד</string>
-  <string name="confirmation_remove_folder_local">מקומי בלבד</string>
-  <string name="confirmation_remove_remote">מהשרת</string>
-  <string name="confirmation_remove_remote_and_local">חיצוני &amp; מקומי</string>
   <string name="remove_success_msg">ההסרה הצליחה</string>
   <string name="remove_fail_msg">ההסרה נכשלה</string>
   <string name="rename_dialog_title">נא להזין שם חדש</string>
@@ -254,8 +251,8 @@
   <string name="placeholder_filesize">389 ק״ב</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">העלאת תמונות דרך WiFi בלבד</string>
-  <string name="instant_video_upload_on_wifi">העלאות קבצי וידאו על בסיס WiFi בלבד</string>
+  <string name="instant_upload_on_wifi">העלאת תמונות על בסיס חיבור wifi בלבד</string>
+  <string name="instant_video_upload_on_wifi">העלאת סרטים על בסיס חיבור wifi בלבד</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">התנגשות בין קבצים</string>
   <string name="conflict_message">איזה קבצים לשמור? אם יבחרו שתי הגרסאות, הקובץ המקומי יקבל מספר שיצורף לשמו.</string>
@@ -265,7 +262,7 @@
   <string name="preview_image_description">תצוגה מקדימה לתמונה</string>
   <string name="preview_image_error_unknown_format">תמונה זו לא ניתנת לצפייה</string>
   <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>
-  <string name="prefs_instant_upload_path_title">העלאת נתיב</string>
+  <string name="prefs_instant_upload_path_title">נתיב העלאה</string>
   <string name="share_link_no_support_share_api">מצטערים, שיתוף אינו מורשה על השרת שלך. יש ליצור קשר עם
 ⇥⇥מנהל.</string>
   <string name="share_link_file_no_exist">לא ניתן לשתף. יש לבדוק אם הקובץ קיים</string>
@@ -273,7 +270,7 @@
   <string name="unshare_link_file_no_exist">לא ניתן לבטל שיתוף. יש לבדוק אם הקובץ קיים</string>
   <string name="unshare_link_file_error">שגיאה אירעה בזמן ניסיון לבטל שיתוף לקובץ זה או לתיקייה זו</string>
   <string name="update_link_file_no_exist">לא ניתן לעדכן. יש לבדוק אם הקובץ קיים</string>
-  <string name="update_link_file_error">שגיאה אירעה בזמן עדכון קישור השיתוף</string>
+  <string name="update_link_file_error">שגיאה אירעה בניסיון לעדכן את השיתוף</string>
   <string name="share_link_password_title">הכנסת סיסמא</string>
   <string name="share_link_empty_password">יש להכניס סיסמא</string>
   <string name="activity_chooser_send_file_title">שליחה</string>
@@ -290,7 +287,7 @@
   <string name="forbidden_permissions_delete">למחוק קובץ זה</string>
   <string name="share_link_forbidden_permissions">לשתף קובץ זה</string>
   <string name="unshare_link_forbidden_permissions">לבטל שיתוף לקובץ זה</string>
-  <string name="update_link_forbidden_permissions">לעדכון קישור שיתוף זה</string>
+  <string name="update_link_forbidden_permissions">לעידכון השיתוף הזה</string>
   <string name="forbidden_permissions_create">ליצור קובץ</string>
   <string name="uploader_upload_forbidden_permissions">להעלאה לתיקייה זו</string>
   <string name="downloader_download_file_not_found">הקובץ אינו זמין יותר על השרת</string>
@@ -298,8 +295,8 @@
   <string name="prefs_add_account">הוספת חשבון</string>
   <string name="auth_redirect_non_secure_connection_title">חיבור מאובטח מנותב דרך נתיב לא מאובטח</string>
   <string name="actionbar_logger">לוגים</string>
-  <string name="log_send_history_button">שליחת היסטוריה</string>
-  <string name="log_send_no_mail_app">לא נמצא יישום לשליחת לוגים. יש להתקין יישום דואר עכשיו!</string>
+  <string name="log_send_history_button">הסטורית שליחה</string>
+  <string name="log_send_no_mail_app">לא נמצא יישום לשליחת לוגים. יש להתקין יישום mail.</string>
   <string name="log_send_mail_subject">%1$s לוגים של יישום אנדרואיד</string>
   <string name="log_progress_dialog_text">טעינת מידע...</string>
   <string name="saml_authentication_required_text">נדרש אימות</string>
@@ -318,8 +315,8 @@
   <string name="copy_file_error">אירעה שגיאה בזמן ניסיון להעתיק את הקובץ או התיקייה</string>
   <string name="forbidden_permissions_copy">להעתיק את הקובץ הזה</string>
   <string name="prefs_category_instant_uploading">העלאות מיידיות</string>
-  <string name="prefs_category_security">אבטחה</string>
-  <string name="prefs_instant_video_upload_path_title">נתיב העלאת וידאו</string>
+  <string name="prefs_category_details">פרטים</string>
+  <string name="prefs_instant_video_upload_path_title">נתיב העלאת סרט</string>
   <string name="sync_folder_failed_content">לא ניתן להשלים סנכרון של %1$s תיקיות</string>
   <string name="shared_subject_header">משותף</string>
   <string name="with_you_subject_header">אתך</string>
@@ -357,6 +354,17 @@
   <string name="share_group_clarification">%1$s (קבוצה)</string>
   <string name="share_sharee_unavailable">מצטערים, גרסת השרת שלך לא מאפשרת שיתוף עם משתמשים בין לקוחות.
         \nיש ליצור קשר עם המנהל</string>
-  <string name="action_switch_grid_view">מעבר לתצוגת טבלה</string>
-  <string name="action_switch_list_view">מעבר לתצוגת רשימה</string>
+  <string name="share_privilege_can_share">ניתן לשתף</string>
+  <string name="share_privilege_can_edit">ניתן לערוך</string>
+  <string name="share_privilege_can_edit_create">יצירה</string>
+  <string name="share_privilege_can_edit_change">שינוי</string>
+  <string name="share_privilege_can_edit_delete">מחיקה</string>
+  <string name="edit_share_unshare">הפסקת שיתוף</string>
+  <string name="edit_share_done">הסתיים</string>
+  <string name="action_switch_grid_view">תצוגת טבלה</string>
+  <string name="action_switch_list_view">תצוגת רשימה</string>
+  <string name="manage_space_title">ניהול מקום</string>
+  <string name="manage_space_description">הגדרות, מסד נתונים ואישורי אימות לשרת ממידע %1$s\'s ימחקו לצמיתות. \n\nקבצים שהורדו ישארו ללא פגע .\n\nתהליך זה יכול להמשך זמן מה.</string>
+  <string name="manage_space_clear_data">ניקוי מידע</string>
+  <string name="manage_space_error">לא ניתן היה למחוק מספר קבצים.</string>
 </resources>

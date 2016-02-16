@@ -16,7 +16,6 @@
   <string name="prefs_category_general">ზოგადი</string>
   <string name="prefs_category_more">უფრო მეტი</string>
   <string name="prefs_accounts">ანგარიში</string>
-  <string name="prefs_manage_accounts">ანგარიშების მენეჯმენტი</string>
   <string name="prefs_help">დახმარება</string>
   <string name="prefs_feedback">უკუკავშირი</string>
   <string name="prefs_imprint">ბეჭედი</string>
@@ -27,7 +26,6 @@
   <string name="uploader_btn_upload_text">ატვირთვა</string>
   <string name="uploader_btn_new_folder_text">ახალი ფოლდერი</string>
   <string name="uploader_wrn_no_account_title">ანგარიში ვერ მოიძებნა</string>
-  <string name="uploader_wrn_no_account_text"> %1$s ანგარიში არ არის თქვენს მოწყობილობაში. გთხოვთ ჯერ დააყენოთ ის.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">დაყენება</string>
   <string name="uploader_wrn_no_account_quit_btn_text">გამოსვლა</string>
   <string name="uploader_wrn_no_content_title">არ არის კონტენტი ასატვირთად</string>
@@ -48,30 +46,24 @@
   <string name="common_no">არა</string>
   <string name="common_ok">დიახ</string>
   <string name="common_cancel">გაუქმება</string>
-  <string name="common_save_exit">შენახვა &amp;გამოსვლა</string>
   <string name="common_error">შეცდომა</string>
   <string name="common_error_unknown">უცნობი შეცდომა</string>
   <string name="about_title">ჩვენს შესახებ</string>
   <string name="change_password">პაროლის შეცვლა</string>
-  <string name="delete_account">ანგარიშის წაშლა</string>
   <string name="create_account">ანგარიშის შექმნა</string>
   <string name="upload_chooser_title">ატვირთე აქედან...</string>
   <string name="uploader_info_dirname">ფოლდერის სახელი</string>
   <string name="uploader_upload_in_progress_ticker">მიმდინარეობს ატვირთვა...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% მიმდინარეობს ატვირთვა %2$s</string>
   <string name="uploader_upload_succeeded_ticker">ატვირთვა განხორციელდა</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s–ი წარმატებით ატვირთულ იქნა</string>
   <string name="uploader_upload_failed_ticker">ატვირთვა ვერ განხორციელდა</string>
   <string name="uploader_upload_failed_content_single">%1$s ატვირთვა ვერ დასრულდა</string>
   <string name="downloader_download_in_progress_ticker">ჩამოტვირთვა...</string>
   <string name="downloader_download_in_progress_content">%1$d%% ჩამოტვირთვა %2$s</string>
   <string name="downloader_download_succeeded_ticker">გადმოწერა დასრულდა</string>
-  <string name="downloader_download_succeeded_content">%1$s წარმატებით ჩამოიქაჩა</string>
   <string name="downloader_download_failed_ticker">ჩამოტვირთვა ვერ განხორციელდა</string>
   <string name="downloader_download_failed_content">ჩამოტვირთვა  %1$s–ის ვერ დასრულდა</string>
   <string name="common_choose_account">აირჩიეთ ანგარიში</string>
-  <string name="sync_fail_ticker">შეცდომა სინქრონიზაციისას</string>
-  <string name="sync_fail_content"> %1$s –ის სინქრონიზაცია ვერ დასრულდა</string>
   <string name="sync_conflicts_in_favourites_ticker">კონფლიქტი წარმოიშვა</string>
   <string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync ფაილების სინქრონიზაცია არ შეიძლება</string>
   <string name="sync_fail_in_favourites_ticker">Kept-in-sync ფაილები ვერ მოხერხდა</string>
@@ -90,7 +82,6 @@
   <string name="auth_unknown_host_title">ჰოსტი ვერ მოიძებნა</string>
   <string name="auth_incorrect_path_title">სერვერის ინსტანცია ვერ მოიძებნა</string>
   <string name="auth_timeout_title">სერვერმა გვიპასუხა ძალიან გვიან</string>
-  <string name="auth_incorrect_address_title">არასწორი URL </string>
   <string name="auth_ssl_general_error_title">შეცდომა SSL ინიციალიზაციისას</string>
   <string name="auth_bad_oc_version_title">ამოუცნობი სერვერის ვერსია</string>
   <string name="auth_wrong_connection_title">კავშირის დამყარება ვერ მოხერხდა</string>
@@ -99,7 +90,6 @@
   <string name="common_rename">გადარქმევა</string>
   <string name="common_remove">წაშლა</string>
   <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>
-  <string name="confirmation_remove_folder_local">მხოლოდ ლოკალური</string>
   <string name="remove_success_msg">წაშლა შარმატებით დასრულდა</string>
   <string name="remove_fail_msg">წაშლა წარუმატებლად დამთავრდა</string>
   <string name="rename_dialog_title">შეიყვანეთ ახალი სახელი</string>
@@ -132,7 +122,6 @@
   <string name="ssl_validator_label_validity_to">ვისზე:</string>
   <string name="ssl_validator_label_signature">სიგნატურა:</string>
   <string name="ssl_validator_label_signature_algorithm">ალგორითმი:</string>
-  <string name="instant_upload_on_wifi">ატვირთეთ სურათები მხოლოდ WiFi–ით</string>
   <string name="instant_upload_path">/ეგრევე ატვირთვა</string>
   <string name="conflict_keep_both">დატოვე ორივე</string>
   <string name="activity_chooser_send_file_title">გაგზავნა</string>
@@ -140,10 +129,13 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">ანგარიში</string>
   <string name="folder_picker_choose_button_text">არჩევა</string>
-  <string name="prefs_category_security">უსაფრთხოება</string>
+  <string name="prefs_category_details">დეტალური ინფორმაცია</string>
   <string name="auth_host_address">სერვერის მისამართი</string>
   <string name="share_dialog_title">გაზიარება</string>
   <string name="share_via_link_expiration_date_label">მიუთითე ვადის გასვლის დრო</string>
   <string name="share_via_link_password_label">პაროლით დაცვა</string>
   <string name="share_search">ძებნა</string>
+  <string name="share_privilege_can_edit">შეგიძლია შეცვლა</string>
+  <string name="share_privilege_can_edit_create">შექმნა</string>
+  <string name="share_privilege_can_edit_delete">წაშლა</string>
 </resources>

@@ -43,4 +43,5 @@
   <string name="file_list__footer__files_and_folder">%1$d ֆայլ, 1 պանակ</string>
   <string name="file_list__footer__files_and_folders">%1$d ֆայլ, %2$d պանակ</string>
   <string name="share_via_link_section_title">Կիսվել հղմամբ</string>
+  <string name="share_privilege_can_edit_delete">ջնջել</string>
 </resources>

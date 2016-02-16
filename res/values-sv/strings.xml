@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Android App</string>
   <string name="about_version">version %1$s</string>
   <string name="actionbar_sync">Uppdatera konto</string>
   <string name="actionbar_upload">Ladda upp</string>
@@ -37,11 +36,8 @@
   <string name="prefs_instant_upload_summary">Direktuppladning av bilder tagna med kameran</string>
   <string name="prefs_instant_video_upload">Direktuppladning av video</string>
   <string name="prefs_instant_video_upload_summary">Direktuppladdning av video inspelade med kameran</string>
-  <string name="prefs_log_title">Aktivera loggning</string>
   <string name="prefs_log_summary">Används för att logga problem</string>
-  <string name="prefs_log_title_history">Logghistorik</string>
   <string name="prefs_log_summary_history">Visar sparade loggar</string>
-  <string name="prefs_log_delete_history_button">Radera historik</string>
   <string name="prefs_help">Hjälp</string>
   <string name="prefs_recommend">Rekommendera till en vän</string>
   <string name="prefs_feedback">Feedback</string>
@@ -50,7 +46,6 @@
   <string name="prefs_remember_last_upload_location_summary">Kom ihåg senaste uppladdningsplats vid dela</string>
   <string name="recommend_subject">Prova %1$s på din smartphone!</string>
   <string name="recommend_text">Jag skullje vilja bjuda in dig till att prova %1$s på din smartphone!\nLadda ner appen från Google Play här: %2$s</string>
-  <string name="auth_check_server">Kontrollera Server</string>
   <string name="auth_host_url">Serveradress https://...</string>
   <string name="auth_username">Användarnamn</string>
   <string name="auth_password">Lösenord</string>
@@ -61,7 +56,6 @@
   <string name="uploader_btn_new_folder_text">Ny mapp</string>
   <string name="uploader_top_message">Välj mapp för uppladdning:</string>
   <string name="uploader_wrn_no_account_title">Hittade inget konto</string>
-  <string name="uploader_wrn_no_account_text">Det finns inga konton för %1$s på denna enhet. Var god skapa ett konto först.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Skapa</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Avsluta</string>
   <string name="uploader_wrn_no_content_title">Inget att ladda upp</string>
@@ -71,7 +65,6 @@
   <string name="file_list_seconds_ago">sekunder sedan</string>
   <string name="file_list_empty">Ingenting här. Ladda upp något!</string>
   <string name="file_list_loading">Laddar...</string>
-  <string name="file_list_no_app_for_file_type">Ingen app funnen för filtypen!</string>
   <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
   <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
   <string name="filedetails_size">Storlek:</string>
@@ -81,42 +74,31 @@
   <string name="filedetails_download">Ladda ner</string>
   <string name="filedetails_sync_file">Synkronisera</string>
   <string name="filedetails_renamed_in_upload_msg">Filen bytte namn till %1$s under uppladdningen</string>
-  <string name="list_layout">Listvy</string>
   <string name="action_share">Dela</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nej</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_sync">Stoppa synkroniseringen</string>
   <string name="common_cancel">Avbryt</string>
-  <string name="common_save_exit">Spara &amp; Avsluta</string>
   <string name="common_error">Fel</string>
   <string name="common_loading">Laddar...</string>
   <string name="common_error_unknown">Okänt fel</string>
   <string name="about_title">Om</string>
   <string name="change_password">Ändra lösenord</string>
-  <string name="delete_account">Radera konto</string>
   <string name="create_account">Skapa konto</string>
   <string name="upload_chooser_title">Ladda upp från ...</string>
   <string name="uploader_info_dirname">Mappnamn</string>
   <string name="uploader_upload_in_progress_ticker">Laddar upp ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Uppladdning klar</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s laddades upp</string>
   <string name="uploader_upload_failed_ticker">Misslyckad uppladdning</string>
   <string name="uploader_upload_failed_content_single">Uppladdning av %1$s kunde inte slutföras</string>
-  <string name="uploader_upload_failed_credentials_error">Uppladdning misslyckades, måste du logga in igen</string>
   <string name="downloader_download_in_progress_ticker">Laddar ner ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Laddar ner %2$s</string>
   <string name="downloader_download_succeeded_ticker">Nedladdning klar</string>
-  <string name="downloader_download_succeeded_content">%1$s laddades ner</string>
   <string name="downloader_download_failed_ticker">Misslyckad nedladdning</string>
   <string name="downloader_download_failed_content">Nedladdning av %1$s kunde inte slutföras</string>
   <string name="downloader_not_downloaded_yet">Ännu inte nedladdade</string>
-  <string name="downloader_download_failed_credentials_error">Nerladda misslyckades, måste du logga in igen</string>
   <string name="common_choose_account">Välj konto</string>
-  <string name="sync_fail_ticker">Synkroniseringen misslyckades</string>
-  <string name="sync_fail_ticker_unauthorized">Synkroniseringen misslyckades, du måste logga in på nytt.</string>
-  <string name="sync_fail_content">Synkronisering av %1$s kunde inte slutföras</string>
   <string name="sync_fail_content_unauthorized">Felaktigt lösenord för %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
   <string name="sync_conflicts_in_favourites_content">%1$d Flaggad som Håll-filen-uppdaterad kan inte synkas</string>
@@ -131,11 +113,8 @@
   <string name="foreign_files_fail">Vissa filer kunde inte flyttas</string>
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Fjärr: %1$s</string>
-  <string name="upload_query_move_foreign_files">Det finns inte tillräckligt med ledigt utrymme för att kopiera de valda filerna till %1$s mappen. Skulle du vilja flytta dem istället?</string>
-  <string name="pass_code_enter_pass_code">Var god ange ditt lösenord</string>
   <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
   <string name="pass_code_configure_your_pass_code_explanation">Lösenordet kommer efterfrågas varje gång du startar appen</string>
-  <string name="pass_code_reenter_your_pass_code">Var god ange ditt lösenord igen</string>
   <string name="pass_code_remove_your_pass_code">Ta bort lösenordet</string>
   <string name="pass_code_mismatch">Lösenorden matchar inte</string>
   <string name="pass_code_wrong">Ogiltigt lösenord</string>
@@ -160,8 +139,6 @@
   <string name="media_rewind_description">Bakåtspolningsknapp</string>
   <string name="media_play_pause_description">Spela- / Pausknapp</string>
   <string name="media_forward_description">Snappspolningsknapp</string>
-  <string name="auth_getting_authorization">Får tillstånd...</string>
-  <string name="auth_trying_to_login">Försöker logga in...</string>
   <string name="auth_no_net_conn_title">Ingen nätverksanslutning</string>
   <string name="auth_nossl_plain_ok_title">Säker anslutning inte tillgänglig.</string>
   <string name="auth_connection_established">Anslutning etablerad</string>
@@ -173,7 +150,6 @@
   <string name="auth_unknown_host_title">Kunde inte hitta server</string>
   <string name="auth_incorrect_path_title">Ingen version av server kan hittas</string>
   <string name="auth_timeout_title">Servern svarar inte</string>
-  <string name="auth_incorrect_address_title">Felaktig URL</string>
   <string name="auth_ssl_general_error_title">Misslyckad initiering av SSL</string>
   <string name="auth_ssl_unverified_server_title">Kunde inte identifiera SSL serverns identitet</string>
   <string name="auth_bad_oc_version_title">Okänd server serverversion</string>
@@ -182,16 +158,12 @@
   <string name="auth_unauthorized">Felaktigt användarnamn eller lösenord</string>
   <string name="auth_oauth_error">Behörighet saknas</string>
   <string name="auth_oauth_error_access_denied">Nekad åtkomst av server</string>
-  <string name="auth_wtf_reenter_URL">Oväntat tillstånd; Ange serverns URL igen</string>
   <string name="auth_expired_oauth_token_toast">Din inloggning har gått ut. Var god logga in igen</string>
-  <string name="auth_expired_basic_auth_toast">Vänligen ange det aktuella lösenordet</string>
   <string name="auth_expired_saml_sso_token_toast">Din session har upphört att gälla. Vänligen anslut igen</string>
-  <string name="auth_connecting_auth_server">Ansluter till autentiseringsservern...</string>
   <string name="auth_unsupported_auth_method">Servern har inte stöd för denna autentiseringsmetod</string>
   <string name="auth_unsupported_multiaccount">%1$s har inte stöd för multipla konton</string>
   <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användare id, vänligen kontakta en administratör
 	</string>
-  <string name="auth_can_not_auth_against_server">Kan inte autentisera mot servern</string>
   <string name="auth_account_does_not_exist">Det finns inget konto på denna enhet än</string>
   <string name="favorite">Favorit</string>
   <string name="unfavorite">Avfavoritisera</string>
@@ -200,9 +172,6 @@
   <string name="confirmation_remove_alert">Vill du verkligen ta bort %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
   <string name="confirmation_remove_local">Endast lokalt</string>
-  <string name="confirmation_remove_folder_local">Endast lokalt</string>
-  <string name="confirmation_remove_remote">Från servern</string>
-  <string name="confirmation_remove_remote_and_local">Fjärr &amp; lokal</string>
   <string name="remove_success_msg">Lyckad radering</string>
   <string name="remove_fail_msg">Radering kunde inte slutföras</string>
   <string name="rename_dialog_title">Ange ett nytt namn</string>
@@ -254,8 +223,6 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Ladda upp bilder endast via WiFi</string>
-  <string name="instant_video_upload_on_wifi">Ladda upp videos endast via WIFI</string>
   <string name="instant_upload_path">/DirektUppladdning</string>
   <string name="conflict_title">Filkonflikt</string>
   <string name="conflict_message">Vilka filer vill du behålla? Om du markerar båda kommer den lokala filen få ett nummer tillagt i slutet på filnamnet.</string>
@@ -265,7 +232,6 @@
   <string name="preview_image_description">Förhandsvisa bild</string>
   <string name="preview_image_error_unknown_format">Denna bild kan inte visas</string>
   <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>
-  <string name="prefs_instant_upload_path_title">Uppladdnings-sökväg</string>
   <string name="share_link_no_support_share_api">Ledsen, delning är inte aktiverat på din server. Vänligen kontakta din
 		administratör.</string>
   <string name="share_link_file_no_exist">Lyckades ej dela. Vänligen kontrollera om filen eisterar</string>
@@ -273,7 +239,6 @@
   <string name="unshare_link_file_no_exist">Lyckades ej sluta dela. Vänligen kontrollera om filen existerar</string>
   <string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp</string>
   <string name="update_link_file_no_exist">Kunde inte uppdatera. Var god kolla om filen existerar.</string>
-  <string name="update_link_file_error">Ett fel uppstod medan den delade länken försökte uppdateras</string>
   <string name="share_link_password_title">Ange ett lösenord</string>
   <string name="share_link_empty_password">Du måste ange ett lösenord</string>
   <string name="activity_chooser_send_file_title">Skicka</string>
@@ -290,7 +255,6 @@
   <string name="forbidden_permissions_delete">att radera denna fil</string>
   <string name="share_link_forbidden_permissions">att dela denna fil</string>
   <string name="unshare_link_forbidden_permissions">att avbryta delningen utav denna fil</string>
-  <string name="update_link_forbidden_permissions">för att uppdatera denna delade länken</string>
   <string name="forbidden_permissions_create">att skapa filen</string>
   <string name="uploader_upload_forbidden_permissions">att ladda upp i den här mappen</string>
   <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>
@@ -298,10 +262,7 @@
   <string name="prefs_add_account">Lägg till konto</string>
   <string name="auth_redirect_non_secure_connection_title">Den säkra kopplingen omdirigeras via en osäker rutt.</string>
   <string name="actionbar_logger">Loggar</string>
-  <string name="log_send_history_button">Skickat historik</string>
-  <string name="log_send_no_mail_app">Ingen app för att skicka loggar hittades. Installera mail appen!</string>
   <string name="log_send_mail_subject">%1$s Android app logs</string>
-  <string name="log_progress_dialog_text">Laddar data...</string>
   <string name="saml_authentication_required_text">Autentisering krävs</string>
   <string name="saml_authentication_wrong_pass">Fel lösenord</string>
   <string name="actionbar_move">Flytta</string>
@@ -317,9 +278,7 @@
   <string name="copy_file_invalid_overwrite">Filen existerar redan i destinationsmappen</string>
   <string name="copy_file_error">Ett fel uppstod, kunde inte kopiera filen eller mappen</string>
   <string name="forbidden_permissions_copy">att kopiera denna fil</string>
-  <string name="prefs_category_instant_uploading">Direktuppladning</string>
-  <string name="prefs_category_security">Säkerhet</string>
-  <string name="prefs_instant_video_upload_path_title">Uppladdnings-sökväg för video</string>
+  <string name="prefs_category_details">Detaljer</string>
   <string name="sync_folder_failed_content">Synkronisering av %1$s mapp kunde inte slutföras</string>
   <string name="shared_subject_header">delad</string>
   <string name="with_you_subject_header">med dig</string>
@@ -340,7 +299,6 @@
   <string name="share_dialog_title">Dela</string>
   <string name="share_with_user_section_title">Dela med användare och grupper</string>
   <string name="share_no_users">Ingen data delar med användare än</string>
-  <string name="share_add_user_or_group">Lägg till Användare eller Grupp</string>
   <string name="share_via_link_section_title">Dela länk</string>
   <string name="share_via_link_expiration_date_label">Sätt utgångsdatum</string>
   <string name="share_via_link_password_label">Lösenordsskydda</string>
@@ -350,4 +308,9 @@
   <string name="search_users_and_groups_hint">Sök användare och grupper</string>
   <string name="share_group_clarification">%1$s (grupp)</string>
   <string name="share_sharee_unavailable">Tyvärr tillåter inte din serverversion delning med användare inom klienter. \nVar god kontakta din administrator.</string>
+  <string name="share_privilege_can_share">får dela</string>
+  <string name="share_privilege_can_edit">kan redigera</string>
+  <string name="share_privilege_can_edit_create">skapa</string>
+  <string name="share_privilege_can_edit_change">ändra</string>
+  <string name="share_privilege_can_edit_delete">radera</string>
 </resources>

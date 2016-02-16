@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Android-App</string>
+  <string name="about_android">%1$s Android App</string>
   <string name="about_version">Version %1$s</string>
   <string name="actionbar_sync">Konto aktualisieren</string>
   <string name="actionbar_upload">Datei hochladen</string>
@@ -39,7 +39,6 @@
   <string name="prefs_instant_video_upload_summary">Lade Videos von der Kamera sofort hoch</string>
   <string name="prefs_log_title">Protokollierung aktivieren</string>
   <string name="prefs_log_summary">Dies wird zur Protokollierung von Problemen genutzt</string>
-  <string name="prefs_log_title_history">Protokollierungsverlauf</string>
   <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokollierungen</string>
   <string name="prefs_log_delete_history_button">Verlauf löschen</string>
   <string name="prefs_help">Hilfe</string>
@@ -50,7 +49,7 @@
   <string name="prefs_remember_last_upload_location_summary">Geteilten Upload-Speicherort merken</string>
   <string name="recommend_subject">Probiere %1$s auf Deinem Smartphone!</string>
   <string name="recommend_text">Ich möchte Dich zum Benutzen von %1$s auf Deinem Smartphone einladen!\nLade es hier herunter: %2$s</string>
-  <string name="auth_check_server">Überprüfe den Server</string>
+  <string name="auth_check_server">überprüfe den Server</string>
   <string name="auth_host_url">Serveradresse https://…</string>
   <string name="auth_username">Benutzername</string>
   <string name="auth_password">Passwort</string>
@@ -61,7 +60,7 @@
   <string name="uploader_btn_new_folder_text">Neuer Ordner</string>
   <string name="uploader_top_message">Wähle Zielordner:</string>
   <string name="uploader_wrn_no_account_title">Kein Account gefunden</string>
-  <string name="uploader_wrn_no_account_text">Es sind keine %1$s-Accounts auf Deinem Gerät eingerichtet. Bitte richte zuerst ein Konto ein.</string>
+  <string name="uploader_wrn_no_account_text">Es sind keine %1$s Konten auf deinem Gerät eingerichtet. Bitte erstelle zuerst ein Konto.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Einrichten</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Beenden</string>
   <string name="uploader_wrn_no_content_title">Keine Inhalte zum Hochladen vorhanden</string>
@@ -71,7 +70,6 @@
   <string name="file_list_seconds_ago">Gerade eben</string>
   <string name="file_list_empty">Alles leer. Lade etwas hoch!</string>
   <string name="file_list_loading">Lade…</string>
-  <string name="file_list_no_app_for_file_type">Es wurden keine Apps für den Dateityp gefunden!</string>
   <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
   <string name="filedetails_select_file">Klicken Sie auf eine Datei für weitere Informationen.</string>
   <string name="filedetails_size">Größe:</string>
@@ -81,42 +79,39 @@
   <string name="filedetails_download">Herunterladen</string>
   <string name="filedetails_sync_file">Synchronisation</string>
   <string name="filedetails_renamed_in_upload_msg">Datei wurde wärend des Uploads zu %1$s umbenannt</string>
-  <string name="list_layout">Listen-Layout</string>
   <string name="action_share">Teilen</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel_sync">Synchronisation abbrechen</string>
   <string name="common_cancel">Abbrechen</string>
-  <string name="common_save_exit">Speichern &amp; schließen</string>
   <string name="common_error">Fehler</string>
   <string name="common_loading">Lade…</string>
   <string name="common_error_unknown">Unbekannter Fehler</string>
   <string name="about_title">Über</string>
   <string name="change_password">Passwort ändern</string>
-  <string name="delete_account">Account löschen</string>
   <string name="create_account">Account erstellen</string>
   <string name="upload_chooser_title">Dateien hochladen von…</string>
   <string name="uploader_info_dirname">Ordnername</string>
   <string name="uploader_upload_in_progress_ticker">Hochladen…</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Hochladen %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Hochladen erfolgreich</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s wurde(n) erfolgreich hochgeladen</string>
+  <string name="uploader_upload_succeeded_content_single">%1$s hochgeladen</string>
   <string name="uploader_upload_failed_ticker">Hochladen fehlgeschlagen</string>
   <string name="uploader_upload_failed_content_single">Hochladen von  %1$s konnte nicht abgeschlossen werden</string>
-  <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, Du musst dich nochmals anmelden</string>
+  <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, du musst dich erneut anmelden</string>
   <string name="downloader_download_in_progress_ticker">Herunterladen…</string>
   <string name="downloader_download_in_progress_content">%1$d%% Herunterladen %2$s</string>
   <string name="downloader_download_succeeded_ticker">Herunterladen erfolgreich</string>
-  <string name="downloader_download_succeeded_content">%1$s wurde erfolgreich heruntergeladen</string>
+  <string name="downloader_download_succeeded_content">%1$s heruntergeladen</string>
   <string name="downloader_download_failed_ticker">Herunterladen fehlgeschlagen</string>
   <string name="downloader_download_failed_content">Herunterladen von %1$s konnte nicht abgeschlossen werden</string>
   <string name="downloader_not_downloaded_yet">Noch nicht Heruntergeladen</string>
-  <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, Du musst dich nochmals anmelden</string>
+  <string name="downloader_download_failed_credentials_error">Herunterladen fehlegeschlagen, du musst dich erneut anmelden</string>
   <string name="common_choose_account">Account auswählen</string>
   <string name="sync_fail_ticker">Synchronisation fehlgeschlagen</string>
-  <string name="sync_fail_ticker_unauthorized">Synchronisation fehlgeschlagen, Du musst Dich neu anmelden</string>
-  <string name="sync_fail_content">Bei der Synchronisation konnte %1$s nicht übertragen werden</string>
+  <string name="sync_fail_ticker_unauthorized">Synchronisation fehlgeschlagen, du musst dich erneut anmelden</string>
+  <string name="sync_fail_content">Synchronisation von %1$s konnte nicht abgeschlossen werden</string>
   <string name="sync_fail_content_unauthorized">Falsches Passwort für %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
   <string name="sync_conflicts_in_favourites_content">%1$d synchron zu haltende Dateien konnte nicht synchronisiert werden.</string>
@@ -131,11 +126,10 @@
   <string name="foreign_files_fail">Einige Dateien konnten nicht verschoben werden</string>
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Remote: %1$s</string>
-  <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung um die ausgewählten Dateien in den %1$s Ordner zu kopieren. Möchtest du diese stattdessen verschieben?</string>
-  <string name="pass_code_enter_pass_code">Bitte PIN eingeben</string>
+  <string name="pass_code_enter_pass_code">Bitte gib deine PIN ein</string>
   <string name="pass_code_configure_your_pass_code">Bitte PIN eingeben</string>
   <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal beim Start der App abgefragt</string>
-  <string name="pass_code_reenter_your_pass_code">Bitte PIN nochmals eingeben</string>
+  <string name="pass_code_reenter_your_pass_code">Bitte den PIN nochmals eingeben</string>
   <string name="pass_code_remove_your_pass_code">PIN entfernen</string>
   <string name="pass_code_mismatch">Die PINs stimmen nicht überein</string>
   <string name="pass_code_wrong">PIN nicht korrekt</string>
@@ -160,8 +154,6 @@
   <string name="media_rewind_description">Zurückspielen Knopf</string>
   <string name="media_play_pause_description">Play-/Pause Knopf</string>
   <string name="media_forward_description">Vorspulen Knopf</string>
-  <string name="auth_getting_authorization">Autorisierung empfangen…</string>
-  <string name="auth_trying_to_login">Anmeldeversuch…</string>
   <string name="auth_no_net_conn_title">Keine Netzwerkverbindung</string>
   <string name="auth_nossl_plain_ok_title">Sichere Verbindung nicht verfügbar.</string>
   <string name="auth_connection_established">Verbindung hergestellt</string>
@@ -173,7 +165,6 @@
   <string name="auth_unknown_host_title">Konnte den Host nicht finden.</string>
   <string name="auth_incorrect_path_title">Server-Installation nicht gefunden</string>
   <string name="auth_timeout_title">Der Server braucht zu lange für eine Antwort.</string>
-  <string name="auth_incorrect_address_title">Fehlerhafte URL</string>
   <string name="auth_ssl_general_error_title">SSL-Initialisierung fehlgeschlagen.</string>
   <string name="auth_ssl_unverified_server_title">SSL-Server-Identität konnte nicht überprüft werden</string>
   <string name="auth_bad_oc_version_title">Unbekannte Server-Version</string>
@@ -182,16 +173,12 @@
   <string name="auth_unauthorized">Benutzername oder Passwort stimmen nicht!</string>
   <string name="auth_oauth_error">Autorisierung nicht erfolgreich</string>
   <string name="auth_oauth_error_access_denied">Zugriff durch den Autorisierungsserver abgelehnt</string>
-  <string name="auth_wtf_reenter_URL">Unerwarteter Zustand; bitte gib die URL des Servers nochmals ein</string>
   <string name="auth_expired_oauth_token_toast">Deine Autorisierung ist abgelaufen. Bitte Autorisierung nochmals durchführen</string>
-  <string name="auth_expired_basic_auth_toast">Bitte gib dein aktuelles Passwort ein</string>
   <string name="auth_expired_saml_sso_token_toast">Deine Sitzung ist abgelaufen. Bitte Anmeldung nochmals durchführen</string>
-  <string name="auth_connecting_auth_server">Verbinde mit dem Authentifizierung-Server…</string>
   <string name="auth_unsupported_auth_method">Der Server unterstützt diese Authentifizierung-Methode nicht</string>
   <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
   <string name="auth_fail_get_user_name">Dein Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktiere einen Administrator
 </string>
-  <string name="auth_can_not_auth_against_server">Die Authentifizierung gegenüber dem Server konnte nicht durchgeführt werden</string>
   <string name="auth_account_does_not_exist">Das Benutzerkonto ist bis jetzt noch nicht auf dem Gerät vorhanden</string>
   <string name="favorite">Favorisieren</string>
   <string name="unfavorite">Favorit entfernen</string>
@@ -200,9 +187,6 @@
   <string name="confirmation_remove_alert">Möchtest Du %1$s wirklich löschen?</string>
   <string name="confirmation_remove_folder_alert">Möchtest Du wirklich %1$s und dessen Inhalte entfernen?</string>
   <string name="confirmation_remove_local">Nur lokal</string>
-  <string name="confirmation_remove_folder_local">Nur lokal</string>
-  <string name="confirmation_remove_remote">Vom Server</string>
-  <string name="confirmation_remove_remote_and_local">Remote &amp; lokal</string>
   <string name="remove_success_msg">Erfolgreich gelöscht</string>
   <string name="remove_fail_msg">Der Löschvorgang konnte nicht beendet werden</string>
   <string name="rename_dialog_title">Gib einen neuen Namen ein</string>
@@ -254,8 +238,6 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">18.5.2012 12:23</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Fotos nur über WiFi hochladen</string>
-  <string name="instant_video_upload_on_wifi">Videos nur über WiFi hochladen</string>
   <string name="instant_upload_path">/SofortUpload</string>
   <string name="conflict_title">Dateikonfilikt</string>
   <string name="conflict_message">Welche Datei möchtest du behalten? Wenn du beide Versionen auswählst, wird der lokalen Datei eine Zahl am Ende Ihres Dateiname angehangen.</string>
@@ -265,7 +247,6 @@
   <string name="preview_image_description">Bildvorschau</string>
   <string name="preview_image_error_unknown_format">Dieses Bild kann nicht angezeigt werden</string>
   <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>
-  <string name="prefs_instant_upload_path_title">Pfad hochladen</string>
   <string name="share_link_no_support_share_api">Entschuldigung, Freigaben sind auf Deinem Server nicht aktiviert. Bitte kontaktiere Deinen
 ⇥⇥Administrator.</string>
   <string name="share_link_file_no_exist">Teilen nicht möglich. Prüfe, dass die Datei existiert</string>
@@ -273,7 +254,7 @@
   <string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Prüfe, dass die Datei existiert</string>
   <string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
   <string name="update_link_file_no_exist">Aktualisierung der Datei nicht möglich. Prüfe, dass die Datei existiert</string>
-  <string name="update_link_file_error">Es ist ein Fehler beim Aktualisieren des geteilten Links aufgetreten</string>
+  <string name="update_link_file_error">Es ist ein Fehler beim Aktualisieren der Freigabe aufgetreten</string>
   <string name="share_link_password_title">Passwort eingeben</string>
   <string name="share_link_empty_password">Du musst ein Passwort eingeben</string>
   <string name="activity_chooser_send_file_title">Senden</string>
@@ -290,7 +271,7 @@
   <string name="forbidden_permissions_delete">diese Datei zu löschen</string>
   <string name="share_link_forbidden_permissions">diese Datei zu teilen</string>
   <string name="unshare_link_forbidden_permissions">diese Datei nicht mehr zu teilen</string>
-  <string name="update_link_forbidden_permissions">Zum Aktualisieren des geteilten Links</string>
+  <string name="update_link_forbidden_permissions">zum Aktualisieren dieser Freigabe</string>
   <string name="forbidden_permissions_create">eine Datei zu erstellen</string>
   <string name="uploader_upload_forbidden_permissions">in diesem Order etwas hochzuladen</string>
   <string name="downloader_download_file_not_found">Diese Datei steht auf dem Server nicht mehr zur Verfügung</string>
@@ -298,10 +279,7 @@
   <string name="prefs_add_account">Konto hinzufügen</string>
   <string name="auth_redirect_non_secure_connection_title">Die gesicherte Verbindung wird durch eine ungesicherte Route geleitet.</string>
   <string name="actionbar_logger">Protokolle</string>
-  <string name="log_send_history_button">Verlauf senden</string>
-  <string name="log_send_no_mail_app">Keine App zum Versenden der Meldungen gefunden. Bitte installiere die Mail-App!</string>
   <string name="log_send_mail_subject">%1$s Android-App Meldungen</string>
-  <string name="log_progress_dialog_text">Lade Daten…</string>
   <string name="saml_authentication_required_text">Legitimierung benötigt</string>
   <string name="saml_authentication_wrong_pass">Falsches Passwort</string>
   <string name="actionbar_move">Verschieben</string>
@@ -317,9 +295,7 @@
   <string name="copy_file_invalid_overwrite">Die Datei existiert bereits im Zielverzeichnis</string>
   <string name="copy_file_error">Es ist ein Fehler beim Kopieren der Datei oder des Ordners aufgetreten.</string>
   <string name="forbidden_permissions_copy">diese Datei zu kopieren</string>
-  <string name="prefs_category_instant_uploading">Sofortiges Hochladen</string>
-  <string name="prefs_category_security">Sicherheit</string>
-  <string name="prefs_instant_video_upload_path_title">Verzeichnis zum Hochladen der Videos</string>
+  <string name="prefs_category_details">Details</string>
   <string name="sync_folder_failed_content">Bei der Synchronisation konnte %1$s Ordner nicht fertig gestellt werden</string>
   <string name="shared_subject_header">geteilt</string>
   <string name="with_you_subject_header">Mit Dir</string>
@@ -346,7 +322,6 @@
   <string name="share_dialog_title">Teilen</string>
   <string name="share_with_user_section_title">Mit Benutzern oder Gruppen teilen</string>
   <string name="share_no_users">Es wurden noch keine Dateien mit Benutzern geteilt</string>
-  <string name="share_add_user_or_group">Benutzer oder Gruppe hinzufügen</string>
   <string name="share_via_link_section_title">Link teilen</string>
   <string name="share_via_link_expiration_date_label">Setze ein Ablaufdatum</string>
   <string name="share_via_link_password_label">Passwortschutz</string>
@@ -357,4 +332,11 @@
   <string name="share_group_clarification">%1$s (Gruppe)</string>
   <string name="share_sharee_unavailable">Entschuldigung, Deine Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht.
 \nBitte kontaktiere Deinen Administrator</string>
+  <string name="share_privilege_can_share">kann teilen</string>
+  <string name="share_privilege_can_edit">kann bearbeiten</string>
+  <string name="share_privilege_can_edit_create">erstellen</string>
+  <string name="share_privilege_can_edit_change">Ändern</string>
+  <string name="share_privilege_can_edit_delete">löschen</string>
+  <string name="edit_share_unshare">Freigabe löschen</string>
+  <string name="edit_share_done">Erledigt</string>
 </resources>
