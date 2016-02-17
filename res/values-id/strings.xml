@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s Aplikasi Android</string>
   <string name="about_version">versi %1$s</string>
   <string name="actionbar_sync">Segarkan akun</string>
   <string name="actionbar_upload">Unggah</string>
@@ -30,6 +31,7 @@
   <string name="prefs_category_general">Umum</string>
   <string name="prefs_category_more">Lainnya</string>
   <string name="prefs_accounts">Akun</string>
+  <string name="prefs_manage_accounts">Kelola akun</string>
   <string name="prefs_passcode">Kunci kode sandi</string>
   <string name="prefs_instant_upload">Unggah gambar cepat</string>
   <string name="prefs_instant_upload_summary">Unggah gambar yang diambil kamera dengan cepat</string>
@@ -37,6 +39,7 @@
   <string name="prefs_instant_video_upload_summary">Unggah video yang direkam kamera dengan cepat</string>
   <string name="prefs_log_summary">Ini digunakan untuk mencatat masalah</string>
   <string name="prefs_log_summary_history">Ini menampilkan catatan yang disimpan</string>
+  <string name="prefs_log_delete_history_button">Hapus riwayat</string>
   <string name="prefs_help">Bantuan</string>
   <string name="prefs_recommend">Rekomendasikan ke teman</string>
   <string name="prefs_feedback">Umpan balik</string>
@@ -45,6 +48,7 @@
   <string name="prefs_remember_last_upload_location_summary">Ingat lokasi unggahan berbagi terakhir</string>
   <string name="recommend_subject">Cobalah %1$s pada ponsel cerdas Anda!</string>
   <string name="recommend_text">Saya mengajak Anda untuk menggunakan %1$s di ponsel cerdas Anda!\nUnduh gratis disini: %2$s</string>
+  <string name="auth_check_server">Periksa peladen</string>
   <string name="auth_host_url">Alamat server https://…</string>
   <string name="auth_username">Nama Pengguna</string>
   <string name="auth_password">Sandi</string>
@@ -71,17 +75,20 @@
   <string name="filedetails_created">Dibuat:</string>
   <string name="filedetails_modified">Diubah:</string>
   <string name="filedetails_download">Unduh</string>
+  <string name="filedetails_sync_file">Sinkronisasi</string>
   <string name="filedetails_renamed_in_upload_msg">Berkas diubah namanya menjadi %1$s saat pengunggahan</string>
   <string name="action_share">Bagikan</string>
   <string name="common_yes">Ya</string>
   <string name="common_no">Tidak</string>
   <string name="common_ok">Oke</string>
+  <string name="common_cancel_sync">Batalkan sinkron</string>
   <string name="common_cancel">Batal</string>
   <string name="common_error">Kesalahan</string>
   <string name="common_loading">Memuat ...</string>
   <string name="common_error_unknown">Kesalahan tidak diketahui</string>
   <string name="about_title">Tentang</string>
   <string name="change_password">Ubah sandi</string>
+  <string name="delete_account">Hapus akun</string>
   <string name="create_account">Buat akun</string>
   <string name="upload_chooser_title">Unggah dari...</string>
   <string name="uploader_info_dirname">Nama folder</string>
@@ -90,13 +97,16 @@
   <string name="uploader_upload_succeeded_ticker">Berhasil mengunggah</string>
   <string name="uploader_upload_failed_ticker">Gagal mengunggah</string>
   <string name="uploader_upload_failed_content_single">Unggah %1$s tidak selesai</string>
+  <string name="uploader_upload_failed_credentials_error">Mungunggah gagal, kamu harus masuk log lagi</string>
   <string name="downloader_download_in_progress_ticker">Mengunduh...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Mengunduh %2$s</string>
   <string name="downloader_download_succeeded_ticker">Berhasil mengunduh</string>
+  <string name="downloader_download_succeeded_content">%1$s terunduh</string>
   <string name="downloader_download_failed_ticker">Gagal Mengunduh</string>
   <string name="downloader_download_failed_content">Mengunduh %1$s tidak selesai</string>
   <string name="downloader_not_downloaded_yet">Belum diunduh</string>
   <string name="common_choose_account">Pilih akun</string>
+  <string name="sync_fail_ticker">Sinkron gagal</string>
   <string name="sync_fail_content_unauthorized">Sandi salah untuk %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflik ditemukan</string>
   <string name="sync_conflicts_in_favourites_content">%1$d berkas kept-in-sync tidak dapat disinkronkan</string>
