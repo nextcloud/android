@@ -1,3 +1,6 @@
+# 2016-02-06
+- check boxes fixed for multi select on dark images
+
 # 2016-01-20
 - update master
 - PR: 1413_share_view_enhancement
