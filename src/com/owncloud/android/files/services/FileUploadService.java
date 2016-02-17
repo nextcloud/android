@@ -455,7 +455,7 @@ public class FileUploadService extends Service implements OnDatatransferProgress
                             return Service.START_NOT_STICKY;
                         }
 
-                        mStorageManager.saveFile(files[i]);
+                        mStorageManager.saveNewFile(files[i]);
                         files[i] = mStorageManager.getFileByLocalPath(files[i].getStoragePath());
                     }
                 }
@@ -917,8 +917,8 @@ public class FileUploadService extends Service implements OnDatatransferProgress
 
                     /// perform the upload
                     if (grantResult.isSuccess()) {
-                        OCFile parent = mStorageManager.getFileByPath(remoteParentPath);
-                        mCurrentUpload.getFile().setParentId(parent.getFileId());
+                        /*OCFile parent = mStorageManager.getFileByPath(remoteParentPath);
+                        mCurrentUpload.getFile().setParentId(parent.getFileId());*/
                         uploadResult = mCurrentUpload.execute(mUploadClient);
                         if (uploadResult.isSuccess()) {
                             saveUploadedFile();
