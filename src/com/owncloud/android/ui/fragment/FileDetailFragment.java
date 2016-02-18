@@ -43,7 +43,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -547,7 +547,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
                 mContainerActivity.getFileUploaderBinder().
-                        addDatatransferProgressListener(mProgressListener, mAccount, getFile(), 0);
+                        addDatatransferProgressListener(mProgressListener, mAccount, getFile()/*, 0*/);
             }
         } else {
             Log_OC.d(TAG, "mProgressListener == null");
@@ -563,7 +563,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
                 mContainerActivity.getFileUploaderBinder().
-                        removeDatatransferProgressListener(mProgressListener, mAccount, getFile(), 0);
+                        removeDatatransferProgressListener(mProgressListener, mAccount, getFile()/*, 0*/);
             }
         }
     }

@@ -28,7 +28,9 @@ import android.net.Uri;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.db.UploadResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
@@ -572,5 +574,74 @@ public class UploadsStorageManager extends Observable {
         );
         updateUploadInternal(c, UploadStatus.UPLOAD_LATER, UploadResult.UNKNOWN);
     }
+
+
+    /**
+     * Updates the persistent upload database with upload result.
+     */
+    public void updateDatabaseUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
+        // result: success or fail notification
+        Log_OC.d(TAG, "updateDataseUploadResult uploadResult: " + uploadResult + " upload: " + upload);
+        if (uploadResult.isCancelled()) {
+            updateUploadStatus(
+                    upload.getOCUploadId(),
+                    UploadStatus.UPLOAD_CANCELLED,
+                    UploadResult.CANCELLED
+            );
+        } else {
+
+            if (uploadResult.isSuccess()) {
+                updateUploadStatus(
+                        upload.getOCUploadId(),
+                        UploadStatus.UPLOAD_SUCCEEDED,
+                        UploadResult.UPLOADED
+                );
+            } else {
+                // TODO: Disable for testing of menu actions in uploads view
+                if (shouldRetryFailedUpload(uploadResult)) {
+                    updateUploadStatus(
+                            upload.getOCUploadId(), UploadStatus.UPLOAD_FAILED_RETRY,
+                            UploadResult.fromOperationResult(uploadResult));
+                } else {
+                    updateUploadStatus(upload.getOCUploadId(),
+                            UploadsStorageManager.UploadStatus.UPLOAD_FAILED_GIVE_UP,
+                            UploadResult.fromOperationResult(uploadResult));
+                }
+            }
+        }
+    }
+
+    /**
+     * Determines whether with given uploadResult the upload should be retried later.
+     * @param uploadResult
+     * @return true if upload should be retried later, false if is should be abandoned.
+     */
+    private boolean shouldRetryFailedUpload(RemoteOperationResult uploadResult) {
+        if (uploadResult.isSuccess()) {
+            return false;
+        }
+        switch (uploadResult.getCode()) {
+            case HOST_NOT_AVAILABLE:
+            case NO_NETWORK_CONNECTION:
+            case TIMEOUT:
+            case WRONG_CONNECTION: // SocketException
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * Updates the persistent upload database that upload is in progress.
+     */
+    public void updateDatabaseUploadStart(UploadFileOperation upload) {
+        updateUploadStatus(
+                upload.getOCUploadId(),
+                UploadStatus.UPLOAD_IN_PROGRESS,
+                UploadResult.UNKNOWN
+        );
+    }
+
+
 
 }

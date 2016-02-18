@@ -74,10 +74,9 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.RadioButtonPreference;
@@ -121,7 +120,7 @@ public class Preferences extends PreferenceActivity
     private String mUploadVideoPath;
 
     protected FileDownloader.FileDownloaderBinder mDownloaderBinder = null;
-    protected FileUploadService.FileUploaderBinder mUploaderBinder = null;
+    protected FileUploader.FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
 
 
@@ -473,7 +472,7 @@ public class Preferences extends PreferenceActivity
         }
         mUploadServiceConnection = newTransferenceServiceConnection();
         if (mUploadServiceConnection != null) {
-            bindService(new Intent(this, FileUploadService.class), mUploadServiceConnection,
+            bindService(new Intent(this, FileUploader.class), mUploadServiceConnection,
                     Context.BIND_AUTO_CREATE);
         }
 
@@ -883,7 +882,7 @@ public class Preferences extends PreferenceActivity
 
 
     @Override
-    public FileUploadService.FileUploaderBinder getFileUploaderBinder() {
+    public FileUploader.FileUploaderBinder getFileUploaderBinder() {
         return mUploaderBinder;
     }
 
@@ -916,9 +915,9 @@ public class Preferences extends PreferenceActivity
                 mDownloaderBinder = (FileDownloader.FileDownloaderBinder) service;
 
             } else if (component.equals(new ComponentName(Preferences.this,
-                    FileUploadService.class))) {
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
-                mUploaderBinder = (FileUploadService.FileUploaderBinder) service;
+                mUploaderBinder = (FileUploader.FileUploaderBinder) service;
             } else {
                 return;
             }
@@ -931,7 +930,7 @@ public class Preferences extends PreferenceActivity
                 Log_OC.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(Preferences.this,
-                    FileUploadService.class))) {
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service suddenly disconnected");
                 mUploaderBinder = null;
             }

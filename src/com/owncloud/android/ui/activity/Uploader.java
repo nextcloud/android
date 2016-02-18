@@ -69,7 +69,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -567,14 +567,14 @@ public class Uploader extends FileActivity
                     throw new SecurityException();
                 }
 
-                Intent intent = new Intent(getApplicationContext(), FileUploadService.class);
-                intent.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                        FileUploadService.UPLOAD_MULTIPLE_FILES);
-                intent.putExtra(FileUploadService.KEY_LOCAL_FILE,
+                Intent intent = new Intent(getApplicationContext(), FileUploader.class);
+                intent.putExtra(FileUploader.KEY_UPLOAD_TYPE,
+                        FileUploader.UPLOAD_MULTIPLE_FILES);
+                intent.putExtra(FileUploader.KEY_LOCAL_FILE,
                         local.toArray(new String[local.size()]));
-                intent.putExtra(FileUploadService.KEY_REMOTE_FILE,
+                intent.putExtra(FileUploader.KEY_REMOTE_FILE,
                         remote.toArray(new String[remote.size()]));
-                intent.putExtra(FileUploadService.KEY_ACCOUNT, getAccount());
+                intent.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
                 startService(intent);
 
                 //Save the path to shared preferences
@@ -703,12 +703,12 @@ public class Uploader extends FileActivity
             dismissWaitingCopyDialog();
         }
         if (result != null) {
-            Intent intent = new Intent(getApplicationContext(), FileUploadService.class);
-            intent.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                    FileUploadService.UPLOAD_SINGLE_FILE);
-            intent.putExtra(FileUploadService.KEY_LOCAL_FILE, result);
-            intent.putExtra(FileUploadService.KEY_REMOTE_FILE, mRemoteCacheData.get(index));
-            intent.putExtra(FileUploadService.KEY_ACCOUNT, getAccount());
+            Intent intent = new Intent(getApplicationContext(), FileUploader.class);
+            intent.putExtra(FileUploader.KEY_UPLOAD_TYPE,
+                    FileUploader.UPLOAD_SINGLE_FILE);
+            intent.putExtra(FileUploader.KEY_LOCAL_FILE, result);
+            intent.putExtra(FileUploader.KEY_REMOTE_FILE, mRemoteCacheData.get(index));
+            intent.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
             startService(intent);
 
         } else {

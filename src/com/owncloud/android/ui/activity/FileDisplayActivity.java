@@ -63,8 +63,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploadService;
-import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -681,14 +681,14 @@ public class FileDisplayActivity extends HookActivity implements
                 remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
             }
 
-            Intent i = new Intent(this, FileUploadService.class);
-            i.putExtra(FileUploadService.KEY_ACCOUNT, getAccount());
-            i.putExtra(FileUploadService.KEY_LOCAL_FILE, filePaths);
-            i.putExtra(FileUploadService.KEY_REMOTE_FILE, remotePaths);
-            i.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                    FileUploadService.UPLOAD_MULTIPLE_FILES);
+            Intent i = new Intent(this, FileUploader.class);
+            i.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
+            i.putExtra(FileUploader.KEY_LOCAL_FILE, filePaths);
+            i.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
+            i.putExtra(FileUploader.KEY_UPLOAD_TYPE,
+                    FileUploader.UPLOAD_MULTIPLE_FILES);
             if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
-                i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LOCAL_BEHAVIOUR_MOVE);
+                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
             startService(i);
 
         } else {
@@ -734,8 +734,8 @@ public class FileDisplayActivity extends HookActivity implements
             }
         }
 
-        Intent i = new Intent(this, FileUploadService.class);
-        i.putExtra(FileUploadService.KEY_ACCOUNT,
+        Intent i = new Intent(this, FileUploader.class);
+        i.putExtra(FileUploader.KEY_ACCOUNT,
                 getAccount());
         OCFile currentDir = getCurrentDir();
         String remotePath =  (currentDir != null) ? currentDir.getRemotePath() : OCFile.ROOT_PATH;
@@ -762,17 +762,17 @@ public class FileDisplayActivity extends HookActivity implements
             remotePath += new File(filePath).getName();
         }
 
-        i.putExtra(FileUploadService.KEY_LOCAL_FILE, filePath);
-        i.putExtra(FileUploadService.KEY_REMOTE_FILE, remotePath);
-        i.putExtra(FileUploadService.KEY_MIME_TYPE, mimeType);
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                FileUploadService.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploader.KEY_LOCAL_FILE, filePath);
+        i.putExtra(FileUploader.KEY_REMOTE_FILE, remotePath);
+        i.putExtra(FileUploader.KEY_MIME_TYPE, mimeType);
+        i.putExtra(FileUploader.KEY_UPLOAD_TYPE,
+                FileUploader.UPLOAD_SINGLE_FILE);
         if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) {
-            i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR,
-                    FileUploadService.LOCAL_BEHAVIOUR_MOVE);
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR,
+                    FileUploader.LOCAL_BEHAVIOUR_MOVE);
         }
         if(startService(i) == null) {
-            Log_OC.e(TAG, "FileUploadService could not be started");
+            Log_OC.e(TAG, "FileUploader could not be started");
         }
 
     }
@@ -861,7 +861,7 @@ public class FileDisplayActivity extends HookActivity implements
         // syncIntentFilter);
 
         // Listen for upload messages
-        IntentFilter uploadIntentFilter = new IntentFilter(FileUploadService.getUploadFinishMessage());
+        IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
         mUploadFinishReceiver = new UploadFinishReceiver();
         registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
 
@@ -1038,8 +1038,8 @@ public class FileDisplayActivity extends HookActivity implements
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                String uploadedRemotePath = intent.getStringExtra(FileUploadService.EXTRA_REMOTE_PATH);
-                String accountName = intent.getStringExtra(FileUploadService.ACCOUNT_NAME);
+                String uploadedRemotePath = intent.getStringExtra(FileUploader.EXTRA_REMOTE_PATH);
+                String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
                 boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
                 OCFile currentDir = getCurrentDir();
                 boolean isDescendant = (currentDir != null) && (uploadedRemotePath != null) &&
@@ -1047,17 +1047,17 @@ public class FileDisplayActivity extends HookActivity implements
 
                 if (sameAccount && isDescendant) {
                     String linkedToRemotePath =
-                            intent.getStringExtra(FileUploadService.EXTRA_LINKED_TO_PATH);
+                            intent.getStringExtra(FileUploader.EXTRA_LINKED_TO_PATH);
                     if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
                         refreshListOfFilesFragment();
                     }
                 }
 
                 boolean uploadWasFine = intent.getBooleanExtra(
-                        FileUploadService.EXTRA_UPLOAD_RESULT,
+                        FileUploader.EXTRA_UPLOAD_RESULT,
                         false);
                 boolean renamedInUpload = getFile().getRemotePath().
-                        equals(intent.getStringExtra(FileUploadService.EXTRA_OLD_REMOTE_PATH));
+                        equals(intent.getStringExtra(FileUploader.EXTRA_OLD_REMOTE_PATH));
 
                 boolean sameFile = getFile().getRemotePath().equals(uploadedRemotePath) ||
                         renamedInUpload;
@@ -1269,7 +1269,7 @@ public class FileDisplayActivity extends HookActivity implements
                     }
 
             } else if (component.equals(new ComponentName(FileDisplayActivity.this,
-                    FileUploadService.class))) {
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
@@ -1298,7 +1298,7 @@ public class FileDisplayActivity extends HookActivity implements
                 Log_OC.d(TAG, "Download service disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(FileDisplayActivity.this,
-                    FileUploadService.class))) {
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service disconnected");
                 mUploaderBinder = null;
             }

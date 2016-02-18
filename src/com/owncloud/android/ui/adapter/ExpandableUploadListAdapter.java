@@ -44,7 +44,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.UploadResult;
-import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -241,7 +241,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     mProgressListener = new ProgressListener(progressBar);
                     if(mParentActivity.getFileUploaderBinder() != null) {
                         mParentActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener,
-                                mParentActivity.getAccount(), uploadOCFile, upload.getUploadId());
+                                mParentActivity.getAccount(), uploadOCFile /*, upload.getUploadId() */);
                     } else {
                         Log_OC.e(TAG, "UploadBinder == null. It should have been created on creating mParentActivity"
                                 + " which inherits from FileActivity. Fix that!");
@@ -306,7 +306,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     } else {
                         status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_retry);
                     }
-                    String laterReason = FileUploadService.getUploadLaterReason(mParentActivity, upload);
+                    String laterReason = upload.getUploadLaterReason(mParentActivity);
                     if(laterReason != null) {
                         //Upload failed once but is delayed now, show reason.
                         status = laterReason;
@@ -321,7 +321,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     pathTextView.setVisibility(View.GONE);
                     fileSizeTextView.setVisibility(View.GONE);
                     accountNameTextView.setVisibility(View.INVISIBLE);
-                    status = FileUploadService.getUploadLaterReason(mParentActivity, upload);
+                    status = upload.getUploadLaterReason(mParentActivity);
                     break;
                 case UPLOAD_SUCCEEDED:
                     status =  mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
@@ -347,7 +347,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         && mCurrentUpload != null) {
                     OCFile currentOcFile = mCurrentUpload.getFile();
                     mParentActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener,
-                            upload.getAccount(mParentActivity), currentOcFile, upload.getUploadId());
+                            upload.getAccount(mParentActivity), currentOcFile /*, upload.getUploadId() */);
                     mProgressListener = null;
                     mCurrentUpload = null;
                 }

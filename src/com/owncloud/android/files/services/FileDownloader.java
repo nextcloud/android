@@ -353,7 +353,7 @@ public class FileDownloader extends Service
     /**
      * Download worker. Performs the pending downloads in the order they were requested.
 
-     * Created with the Looper of a new thread, started in {@link FileUploadService#onCreate()}.
+     * Created with the Looper of a new thread, started in {@link FileUploader#onCreate()}.
      */
     private static class ServiceHandler extends Handler {
         // don't make it a final class, and don't remove the static ; lint will warn about a

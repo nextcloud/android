@@ -29,8 +29,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploadService;
-import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -55,7 +54,7 @@ public class FileMenuFilter {
      * @param targetFile        {@link OCFile} target of the action to filter in the {@link Menu}.
      * @param account           ownCloud {@link Account} holding targetFile.
      * @param cg                Accessor to app components, needed to access the
-     *                          {@link FileUploadService} and {@link FileDownloader} services
+     *                          {@link FileUploader} and {@link FileDownloader} services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
     public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg,

@@ -40,8 +40,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.FileUploadService;
-import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.fragment.UploadListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
@@ -98,8 +98,8 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         // Listen for upload messages
         mUploadMessagesReceiver = new UploadMessagesReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter();
-        uploadIntentFilter.addAction(FileUploadService.getUploadStartMessage());
-        uploadIntentFilter.addAction(FileUploadService.getUploadFinishMessage());
+        uploadIntentFilter.addAction(FileUploader.getUploadStartMessage());
+        uploadIntentFilter.addAction(FileUploader.getUploadFinishMessage());
         registerReceiver(mUploadMessagesReceiver, uploadIntentFilter);
 
         Log_OC.v(TAG, "onResume() end");
@@ -199,8 +199,8 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 }
                 break;
 //            case R.id.action_retry_uploads:
-//                Log_OC.d(TAG, "FileUploadService.retry() called by onMenuItemSelected()");
-//                FileUploadService.retry(this);
+//                Log_OC.d(TAG, "FileUploader.retry() called by onMenuItemSelected()");
+//                FileUploader.retry(this);
 //                break;
 
             case R.id.action_clear_failed_uploads:
@@ -271,7 +271,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
         @Override
         public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(UploadListActivity.this, FileUploadService.class))) {
+            if (component.equals(new ComponentName(UploadListActivity.this, FileUploader.class))) {
                 Log_OC.d(TAG, "UploadListActivity suddenly disconnected from Upload service");
                 mUploaderBinder = null;
             }

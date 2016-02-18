@@ -27,7 +27,7 @@ import android.os.Bundle;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision;
@@ -49,7 +49,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
     @Override
     public void conflictDecisionMade(Decision decision) {
-        Intent i = new Intent(getApplicationContext(), FileUploadService.class);
+        Intent i = new Intent(getApplicationContext(), FileUploader.class);
         
         switch (decision) {
             case CANCEL:
@@ -57,10 +57,10 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 return;
             case OVERWRITE:
                 // use local version -> overwrite on server
-                i.putExtra(FileUploadService.KEY_FORCE_OVERWRITE, true);
+                i.putExtra(FileUploader.KEY_FORCE_OVERWRITE, true);
                 break;
             case KEEP_BOTH:
-                i.putExtra(FileUploadService.KEY_LOCAL_BEHAVIOUR, FileUploadService.LOCAL_BEHAVIOUR_MOVE);
+                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
                 break;
             case SERVER:
                 // use server version -> delete local, request download
@@ -74,9 +74,9 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 Log_OC.wtf(TAG, "Unhandled conflict decision " + decision);
                 return;
         }
-        i.putExtra(FileUploadService.KEY_ACCOUNT, getAccount());
-        i.putExtra(FileUploadService.KEY_FILE, getFile());
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE, FileUploadService.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
+        i.putExtra(FileUploader.KEY_FILE, getFile());
+        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         
         startService(i);
         finish();

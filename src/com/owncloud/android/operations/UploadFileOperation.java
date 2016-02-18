@@ -27,7 +27,7 @@ import android.net.Uri;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.network.ProgressiveDataTransferer;
@@ -79,7 +79,7 @@ public class UploadFileOperation extends RemoteOperation {
     private boolean mChunked = false;
     private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
-    private int mLocalBehaviour = FileUploadService.LOCAL_BEHAVIOUR_COPY;
+    private int mLocalBehaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
     private boolean mWasRenamed = false;
     private String mOriginalFileName = null;
     private long mOCUploadId = -1;
@@ -245,7 +245,7 @@ public class UploadFileOperation extends RemoteOperation {
             // check location of local file; if not the expected, copy to a
             // temporal file before upload (if COPY is the expected behaviour)
             if (!mOriginalStoragePath.equals(expectedPath) &&
-                    mLocalBehaviour == FileUploadService.LOCAL_BEHAVIOUR_COPY) {
+                    mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY) {
 
 
                 if (FileStorageUtils.getUsableSpace(mAccount.name) < originalFile.length()) {
@@ -368,7 +368,7 @@ public class UploadFileOperation extends RemoteOperation {
             /// move local temporal file or original file to its corresponding
             // location in the ownCloud local folder
             if (result.isSuccess()) {
-                if (mLocalBehaviour == FileUploadService.LOCAL_BEHAVIOUR_FORGET) {
+                if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
                     mFile.setStoragePath("");
                 } else {
                     mFile.setStoragePath(expectedPath);

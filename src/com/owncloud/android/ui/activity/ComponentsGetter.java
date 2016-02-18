@@ -23,7 +23,7 @@ package com.owncloud.android.ui.activity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploadService.FileUploaderBinder;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 
 public interface ComponentsGetter {

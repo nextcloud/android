@@ -29,7 +29,7 @@ import android.os.Parcelable;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -285,16 +285,16 @@ public class SynchronizeFileOperation extends SyncOperation {
      * @param file     OCFile object representing the file to upload
      */
     private void requestForUpload(OCFile file) {
-        Intent i = new Intent(mContext, FileUploadService.class);
-        i.putExtra(FileUploadService.KEY_ACCOUNT, mAccount);
-        i.putExtra(FileUploadService.KEY_FILE, file);
+        Intent i = new Intent(mContext, FileUploader.class);
+        i.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
+        i.putExtra(FileUploader.KEY_FILE, file);
         /*i.putExtra(FileUploader.KEY_REMOTE_FILE, mRemotePath);
         // doing this we would lose the value of keepInSync in the road, and maybe it's not updated
         in the database when the FileUploader service gets it!
         i.putExtra(FileUploader.KEY_LOCAL_FILE, localFile.getStoragePath());*/
-        i.putExtra(FileUploadService.KEY_UPLOAD_TYPE,
-                FileUploadService.UPLOAD_SINGLE_FILE);
-        i.putExtra(FileUploadService.KEY_FORCE_OVERWRITE, true);
+        i.putExtra(FileUploader.KEY_UPLOAD_TYPE,
+                FileUploader.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploader.KEY_FORCE_OVERWRITE, true);
         mContext.startService(i);
         mTransferWasRequested = true;
     }

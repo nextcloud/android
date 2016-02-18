@@ -35,7 +35,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 /**
  * Receives all connectivity action from Android OS at all times and performs
  * required OC actions. For now that are: - Signal connectivity to
- * {@link FileUploadService}.
+ * {@link FileUploader}.
  * 
  * Later can be added: - Signal connectivity to download service, deletion
  * service, ... - Handle offline mode (cf.
@@ -87,8 +87,8 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
     }
 
 //    private void wifiConnected(Context context) {
-//        Log_OC.d(TAG, "FileUploadService.retry() called by onReceive()");
-//      FileUploadService.retry(context);
+//        Log_OC.d(TAG, "FileUploader.retry() called by onReceive()");
+//      FileUploader.retry(context);
 //    }
 
     private void wifiDisconnected(Context context) {

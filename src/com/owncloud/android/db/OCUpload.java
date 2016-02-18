@@ -25,14 +25,19 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
-import com.owncloud.android.files.services.FileUploadService;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.UploadUtils;
 
+import java.io.File;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -101,7 +106,7 @@ public class OCUpload implements Parcelable{
     // TODO needed???
     private void resetData(){
         mId = -1;
-        mLocalAction = FileUploadService.LOCAL_BEHAVIOUR_COPY;
+        mLocalAction = FileUploader.LOCAL_BEHAVIOUR_COPY;
         mUploadTime = new GregorianCalendar();
         mForceOverwrite = false;
         mIsCreateRemoteFolder = false;
@@ -408,4 +413,95 @@ public class OCUpload implements Parcelable{
         dest.writeString(mUploadStatus.name());
         dest.writeString(((mLastResult == null) ? "" : mLastResult.name()));
     }
+
+
+    enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR};
+
+    /**
+     * Returns true when the file may be uploaded now. This methods checks all
+     * restraints of the passed {@link OCUpload}, these include
+     * isUseWifiOnly(), check if local file exists, check if file was already
+     * uploaded...
+     *
+     * If return value is CanUploadFileNowStatus.NOW, uploadFile() may be
+     * called.
+     *
+     * @return CanUploadFileNowStatus.NOW is upload may proceed, <br>
+     *         CanUploadFileNowStatus.LATER if upload should be performed at a
+     *         later time, <br>
+     *         CanUploadFileNowStatus.ERROR if a severe error happened, calling
+     *         entity should remove upload from queue.
+     *
+     */
+    private CanUploadFileNowStatus canUploadFileNow(Context context) {
+
+        if (getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
+            Log_OC.w(TAG, "Already succeeded uploadObject was again scheduled for upload. Fix that!");
+            return CanUploadFileNowStatus.ERROR;
+        }
+
+        if (isUseWifiOnly()
+                && !UploadUtils.isConnectedViaWiFi(context)) {
+            Log_OC.d(TAG, "Do not start upload because it is wifi-only.");
+            return CanUploadFileNowStatus.LATER;
+        }
+
+        if(isWhileChargingOnly() && !UploadUtils.isCharging(context)) {
+            Log_OC.d(TAG, "Do not start upload because it is while charging only.");
+            return CanUploadFileNowStatus.LATER;
+        }
+        Date now = new Date();
+        if (now.getTime() < getUploadTimestamp()) {
+            Log_OC.d(
+                    TAG,
+                    "Do not start upload because it is schedule for "
+                            + DisplayUtils.unixTimeToHumanReadable(getUploadTimestamp()));
+            return CanUploadFileNowStatus.LATER;
+        }
+
+
+        if (!new File(getLocalPath()).exists()) {
+            Log_OC.d(TAG, "Do not start upload because local file does not exist.");
+            return CanUploadFileNowStatus.FILE_GONE;
+        }
+        return CanUploadFileNowStatus.NOW;
+    }
+
+
+    /**
+     * Returns the reason as String why state of OCUpload is LATER. If
+     * upload state != LATER return null.
+     */
+    public String getUploadLaterReason(Context context) {
+        StringBuilder reason = new StringBuilder();
+        Date now = new Date();
+        if (now.getTime() < getUploadTimestamp()) {
+            reason.append(context.getString(R.string.uploads_view_later_reason_waiting_for) +
+                    DisplayUtils.unixTimeToHumanReadable(getUploadTimestamp()));
+        }
+        if (isUseWifiOnly() && !UploadUtils.isConnectedViaWiFi(context)) {
+            if (reason.length() > 0) {
+                reason.append(context.getString(R.string.uploads_view_later_reason_add_wifi_reason));
+            } else {
+                reason.append(context.getString(R.string.uploads_view_later_reason_waiting_for_wifi));
+            }
+        }
+        if (isWhileChargingOnly() && !UploadUtils.isCharging(context)) {
+            if (reason.length() > 0) {
+                reason.append(context.getString(R.string.uploads_view_later_reason_add_charging_reason));
+            } else {
+                reason.append(context.getString(R.string.uploads_view_later_reason_waiting_for_charging));
+            }
+        }
+        reason.append(".");
+        if (reason.length() > 1) {
+            return reason.toString();
+        }
+        if (getUploadStatus() == UploadStatus.UPLOAD_LATER) {
+            return context.getString(R.string.uploads_view_later_waiting_to_upload);
+        }
+        return null;
+    }
+
+
 }
