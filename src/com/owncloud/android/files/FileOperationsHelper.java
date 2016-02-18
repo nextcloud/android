@@ -537,7 +537,7 @@ public class FileOperationsHelper {
             upload.removeAllUploadRestrictions(); //only this object, upload DB stays untouched.
             uploaderBinder.retry(account, upload);
         }  else {
-            Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + upload.getOCFile());
+            Log_OC.w(TAG, "uploaderBinder not set. Cannot retry the upload of " + upload.getOCFile());
         }
     }
     

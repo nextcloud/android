@@ -355,17 +355,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             statusTextView.setText(status);
 
             ImageButton rightButton = (ImageButton) view.findViewById(R.id.upload_right_button);
-            if (upload.userCanRetryUpload()
-                    && upload.getUploadStatus() != UploadStatus.UPLOAD_SUCCEEDED) {
-                //Refresh   - TODO test buttons in Android 4.x
-                rightButton.setImageResource(R.drawable.ic_refresh);
-                rightButton.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mParentActivity.getFileOperationsHelper().retryUpload(upload);
-                    }
-                });
-            } else if (upload.userCanCancelUpload()) {
+            if (upload.userCanCancelUpload()) {
                 //Cancel
                 rightButton.setImageResource(R.drawable.ic_cancel);
                 rightButton.setOnClickListener(new OnClickListener() {
@@ -384,6 +374,15 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         refreshView();
                     }
                 });
+            }
+
+            if (upload.userCanRetryUpload()) {
+                    view.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mParentActivity.getFileOperationsHelper().retryUpload(upload);
+                        }
+                    });
             }
 
 

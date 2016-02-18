@@ -318,7 +318,6 @@ public class OCUpload implements Parcelable{
         switch (this.getUploadStatus()) {
             case UPLOAD_IN_PROGRESS:
             case UPLOAD_LATER:
-            case UPLOAD_FAILED_RETRY:
                 return true;
             default:
                 return false;
@@ -336,8 +335,6 @@ public class OCUpload implements Parcelable{
             case UPLOAD_FAILED_GIVE_UP: //TODO this case needs to be handled as described by
                 // https://github.com/owncloud/android/issues/765#issuecomment-66490312
             case UPLOAD_LATER: //upload is already schedule but allow user to increase priority
-            case UPLOAD_SUCCEEDED: // if user wants let him to re-upload (maybe
-                // remote file was deleted...)
                 return true;
             default:
                 return false;
