@@ -39,6 +39,7 @@
   <string name="prefs_instant_video_upload_summary">Lade Videos von der Kamera sofort hoch</string>
   <string name="prefs_log_title">Protokollierung aktivieren</string>
   <string name="prefs_log_summary">Dies wird zur Protokollierung von Problemen genutzt</string>
+  <string name="prefs_log_title_history">Log Historie</string>
   <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokollierungen</string>
   <string name="prefs_log_delete_history_button">Verlauf löschen</string>
   <string name="prefs_help">Hilfe</string>
@@ -70,6 +71,7 @@
   <string name="file_list_seconds_ago">Gerade eben</string>
   <string name="file_list_empty">Alles leer. Lade etwas hoch!</string>
   <string name="file_list_loading">Lade…</string>
+  <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
   <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
   <string name="filedetails_select_file">Klicken Sie auf eine Datei für weitere Informationen.</string>
   <string name="filedetails_size">Größe:</string>
@@ -79,12 +81,14 @@
   <string name="filedetails_download">Herunterladen</string>
   <string name="filedetails_sync_file">Synchronisation</string>
   <string name="filedetails_renamed_in_upload_msg">Datei wurde wärend des Uploads zu %1$s umbenannt</string>
+  <string name="list_layout">Layout der Liste</string>
   <string name="action_share">Teilen</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel_sync">Synchronisation abbrechen</string>
   <string name="common_cancel">Abbrechen</string>
+  <string name="common_save_exit">Speichern &amp; verlassen</string>
   <string name="common_error">Fehler</string>
   <string name="common_loading">Lade…</string>
   <string name="common_error_unknown">Unbekannter Fehler</string>
@@ -127,6 +131,7 @@
   <string name="foreign_files_fail">Einige Dateien konnten nicht verschoben werden</string>
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Remote: %1$s</string>
+  <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in das Verzeichnis %1$s zu kopieren. Möchtest du sie stattdessen verschieben?</string>
   <string name="pass_code_enter_pass_code">Bitte gib deine PIN ein</string>
   <string name="pass_code_configure_your_pass_code">Bitte PIN eingeben</string>
   <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal beim Start der App abgefragt</string>
@@ -155,6 +160,8 @@
   <string name="media_rewind_description">Zurückspielen Knopf</string>
   <string name="media_play_pause_description">Play-/Pause Knopf</string>
   <string name="media_forward_description">Vorspulen Knopf</string>
+  <string name="auth_getting_authorization">Genehmigung bekommen ...</string>
+  <string name="auth_trying_to_login">Der Versuch, sich anzumelden ...</string>
   <string name="auth_no_net_conn_title">Keine Netzwerkverbindung</string>
   <string name="auth_nossl_plain_ok_title">Sichere Verbindung nicht verfügbar.</string>
   <string name="auth_connection_established">Verbindung hergestellt</string>
