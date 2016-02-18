@@ -567,15 +567,7 @@ public class Uploader extends FileActivity
                     throw new SecurityException();
                 }
 
-                Intent intent = new Intent(getApplicationContext(), FileUploader.class);
-                intent.putExtra(FileUploader.KEY_UPLOAD_TYPE,
-                        FileUploader.UPLOAD_MULTIPLE_FILES);
-                intent.putExtra(FileUploader.KEY_LOCAL_FILE,
-                        local.toArray(new String[local.size()]));
-                intent.putExtra(FileUploader.KEY_REMOTE_FILE,
-                        remote.toArray(new String[remote.size()]));
-                intent.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
-                startService(intent);
+                FileUploader.uploadNewFile(getApplicationContext(), getAccount(), local.toArray(new String[local.size()]), remote.toArray(new String[remote.size()]));
 
                 //Save the path to shared preferences
                 SharedPreferences.Editor appPrefs = PreferenceManager
@@ -703,13 +695,7 @@ public class Uploader extends FileActivity
             dismissWaitingCopyDialog();
         }
         if (result != null) {
-            Intent intent = new Intent(getApplicationContext(), FileUploader.class);
-            intent.putExtra(FileUploader.KEY_UPLOAD_TYPE,
-                    FileUploader.UPLOAD_SINGLE_FILE);
-            intent.putExtra(FileUploader.KEY_LOCAL_FILE, result);
-            intent.putExtra(FileUploader.KEY_REMOTE_FILE, mRemoteCacheData.get(index));
-            intent.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
-            startService(intent);
+            FileUploader.uploadNewFile(getApplicationContext(), getAccount(), result, mRemoteCacheData.get(index));
 
         } else {
             String message = String.format(getString(R.string.uploader_error_forbidden_content),

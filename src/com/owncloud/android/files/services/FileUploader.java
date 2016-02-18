@@ -166,8 +166,6 @@ public class FileUploader extends Service
     public static final int LOCAL_BEHAVIOUR_MOVE = 1;
     public static final int LOCAL_BEHAVIOUR_FORGET = 2;
 
-    public static final int UPLOAD_SINGLE_FILE = 0;
-    public static final int UPLOAD_MULTIPLE_FILES = 1;
 
     /**
      * Describes local behavior for upload.
@@ -255,6 +253,115 @@ public class FileUploader extends Service
 
     public static String getUploadFinishMessage() {
         return FileUploader.class.getName() + UPLOAD_FINISH_MESSAGE;
+    }
+
+    /**
+     * Call to retry upload identified by remotePath
+     */
+    private static void retry(Context context, Account account, OCUpload upload) {
+        Log_OC.d(TAG, "FileUploader.retry()");
+        Intent i = new Intent(context, FileUploader.class);
+        i.putExtra(FileUploader.KEY_RETRY, true);
+        if(upload!= null) {
+            i.putExtra(FileUploader.KEY_ACCOUNT, account);
+            i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
+        }
+        context.startService(i);
+    }
+
+    /**
+     * Call to upload a new file. Main method.
+     */
+    public static void uploadNewFile(Context context, Account account, String[] localPaths, String[] remotePaths, Integer behaviour, String mimeType, Boolean createRemoteFolder, Boolean wifiOnly) {
+        Log_OC.d(TAG, "FileUploader.uploadNewFile()");
+        Intent intent = new Intent(context, FileUploader.class);
+
+        intent.putExtra(FileUploader.KEY_ACCOUNT, account);
+        intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
+        intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
+
+        if (behaviour != null)
+            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+        if (mimeType != null)
+            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeType);
+        if (createRemoteFolder != null)
+            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
+        if (wifiOnly != null)
+            intent.putExtra(FileUploader.KEY_WIFI_ONLY, wifiOnly);
+
+        context.startService(intent);
+    }
+
+    /**
+     * Call to upload multiple new files from the FileDisplayActivity
+     */
+    public static void uploadNewFile(Context context, Account account, String[] localPaths, String[] remotePaths, int behaviour) {
+
+        uploadNewFile(context, account, localPaths, remotePaths, behaviour, null, null, null);
+    }
+
+    /**
+     * Call to upload a new single file from the FileDisplayActivity
+     */
+    public static void uploadNewFile(Context context, String localPath, String remotePath, int resultCode, String mimeType) {
+
+        uploadNewFile(context, null, new String[]{localPath}, new String[]{remotePath}, resultCode, mimeType, null, null);
+    }
+
+    /**
+     * Call to upload multiple new files from external applications
+     */
+    public static void uploadNewFile(Context context, Account account, String[] localPaths, String[] remotePaths) {
+
+        uploadNewFile(context, account, localPaths, remotePaths, null, null, null, null);
+    }
+
+    /**
+     * Call to upload a new single file from external applications
+     */
+    public static void uploadNewFile(Context context, Account account, String localPath, String remotePath) {
+
+        uploadNewFile(context, account, new String[]{localPath}, new String[]{remotePath}, null, null, null, null);
+    }
+
+    /**
+     * Call to upload a new single file from the Instant Upload Broadcast Receiver
+     */
+    public static void uploadNewFile(Context context, Account account, String localPath, String remotePath, int behaviour, String mimeType, boolean createRemoteFile, boolean wifiOnly) {
+
+        uploadNewFile(context, account, new String[]{localPath}, new String[]{remotePath}, behaviour, mimeType,
+                createRemoteFile, wifiOnly);
+    }
+
+    /**
+     * Call to update a file already uploaded from the ConflictsResolveActivity
+     */
+    public static void uploadUpdate(Context context, Account account, OCFile[] existingFiles, Integer behaviour, Boolean forceOverwrite) {
+        Log_OC.d(TAG, "FileUploader.uploadUpdate()");
+        Intent intent = new Intent(context, FileUploader.class);
+
+        intent.putExtra(FileUploader.KEY_ACCOUNT, account);
+        intent.putExtra(FileUploader.KEY_FILE, existingFiles);
+        intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+        intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, forceOverwrite);
+
+        context.startService(intent);
+    }
+
+    /**
+     * Call to update a file already uploaded from the ConflictsResolveActivity
+     */
+    public static void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour, Boolean forceOverwrite) {
+
+        uploadUpdate(context, account, new OCFile[]{existingFile}, behaviour, forceOverwrite);
+    }
+
+    /**
+     * Call to update a file already uploaded from the Synchronize File Operation
+     */
+    public static void uploadUpdate(Context context, Account account, OCFile existingFile, Boolean forceOverwrite) {
+
+        uploadUpdate(context, account, new OCFile[]{existingFile}, null, forceOverwrite);
     }
 
     /**
@@ -350,41 +457,23 @@ public class FileUploader extends Service
         boolean chunked = FileUploader.chunkedUploadIsSupported(ocv);
 
         if (!retry) {
-            if (!intent.hasExtra(KEY_UPLOAD_TYPE) || !(intent.hasExtra(KEY_LOCAL_FILE) ||
+            if ( !(intent.hasExtra(KEY_LOCAL_FILE) ||
                     intent.hasExtra(KEY_FILE))) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
-                return Service.START_NOT_STICKY;
-            }
-            int uploadType = intent.getIntExtra(KEY_UPLOAD_TYPE, -1);
-            if (uploadType == -1) {
-                Log_OC.e(TAG, "Incorrect upload type provided");
                 return Service.START_NOT_STICKY;
             }
 
             String[] localPaths = null, remotePaths = null, mimeTypes = null;
             OCFile[] files = null;
-            if (uploadType == UPLOAD_SINGLE_FILE) {
 
-                if (intent.hasExtra(KEY_FILE)) {
-                    files = new OCFile[]{intent.getParcelableExtra(KEY_FILE)};
+            if (intent.hasExtra(KEY_FILE)) {
+                files = (OCFile[]) intent.getParcelableArrayExtra(KEY_FILE);
+                // TODO : test multiple upload, working find
 
-                } else {
-                    localPaths = new String[]{intent.getStringExtra(KEY_LOCAL_FILE)};
-                    remotePaths = new String[]{intent.getStringExtra(KEY_REMOTE_FILE)};
-                    mimeTypes = new String[]{intent.getStringExtra(KEY_MIME_TYPE)};
-                }
-
-            } else { // mUploadType == UPLOAD_MULTIPLE_FILES
-
-                if (intent.hasExtra(KEY_FILE)) {
-                    files = (OCFile[]) intent.getParcelableArrayExtra(KEY_FILE);
-                    // TODO : test multiple upload, working find
-
-                } else {
-                    localPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
-                    remotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
-                    mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
-                }
+            } else {
+                localPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
+                remotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
+                mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
             }
 
             FileDataStorageManager storageManager = new FileDataStorageManager(
@@ -1318,19 +1407,7 @@ public class FileUploader extends Service
 //        retry(context, null);
 //    }
 
-    /**
-     * Call to retry upload identified by remotePath
-     */
-    private static void retry(Context context, Account account, OCUpload upload) {
-        Log_OC.d(TAG, "FileUploader.retry()");
-        Intent i = new Intent(context, FileUploader.class);
-        i.putExtra(FileUploader.KEY_RETRY, true);
-        if(upload!= null) {
-            i.putExtra(FileUploader.KEY_ACCOUNT, account);
-            i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
-        }
-        context.startService(i);
-    }
+
 
 
 }

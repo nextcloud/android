@@ -540,7 +540,7 @@ public class FileOperationsHelper {
             Log_OC.w(TAG, "uploaderBinder not set. Cannot retry the upload of " + upload.getOCFile());
         }
     }
-    
+
     /**
      * Remove upload from upload list.
      */

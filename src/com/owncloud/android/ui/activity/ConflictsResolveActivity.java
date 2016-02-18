@@ -50,17 +50,20 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     @Override
     public void conflictDecisionMade(Decision decision) {
         Intent i = new Intent(getApplicationContext(), FileUploader.class);
-        
+
+        Integer behaviour = null;
+        Boolean forceOverwrite = null;
+
         switch (decision) {
             case CANCEL:
                 finish();
                 return;
             case OVERWRITE:
                 // use local version -> overwrite on server
-                i.putExtra(FileUploader.KEY_FORCE_OVERWRITE, true);
+                forceOverwrite = true;
                 break;
             case KEEP_BOTH:
-                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                behaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
                 break;
             case SERVER:
                 // use server version -> delete local, request download
@@ -74,11 +77,8 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 Log_OC.wtf(TAG, "Unhandled conflict decision " + decision);
                 return;
         }
-        i.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
-        i.putExtra(FileUploader.KEY_FILE, getFile());
-        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-        
-        startService(i);
+
+        FileUploader.uploadUpdate(getApplicationContext(), getAccount(), getFile(), behaviour, forceOverwrite);
         finish();
     }
 

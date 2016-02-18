@@ -112,42 +112,23 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         lastUploadedPhotoPath = file_path;
         Log_OC.d(TAG, "Path: " + file_path + "");        
         
-        Intent i = new Intent(context, FileUploader.class);
-        i.putExtra(FileUploader.KEY_ACCOUNT, account);
-        i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
-        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-        i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
-        i.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, true);
-        i.putExtra(FileUploader.KEY_WIFI_ONLY, instantPictureUploadViaWiFiOnly(context));
-
-// On master
-//        Intent i = new Intent(context, FileUploader.class);
-//        i.putExtra(FileUploader.KEY_ACCOUNT, account);
-//        i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
-//        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
-//        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-//        i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
-//        i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
-
-        // instant upload behaviour
-        i = addInstantUploadBehaviour(i, context);
-
-        context.startService(i);
+        int behaviour = getUploadBehaviour(context);
+        FileUploader.uploadNewFile(context, account, file_path, FileStorageUtils.getInstantUploadFilePath(context,
+                file_name), behaviour, mime_type, true, instantPictureUploadViaWiFiOnly(context));
     }
 
-    private Intent addInstantUploadBehaviour(Intent i, Context context){
+    private Integer getUploadBehaviour(Context context){
         SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String behaviour = appPreferences.getString("prefs_instant_behaviour", "NOTHING");
 
         if (behaviour.equalsIgnoreCase("NOTHING")) {
             Log_OC.d(TAG, "upload file and do nothing");
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
+            return FileUploader.LOCAL_BEHAVIOUR_FORGET;
         } else if (behaviour.equalsIgnoreCase("MOVE")) {
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
             Log_OC.d(TAG, "upload file and move file to oc folder");
+            return FileUploader.LOCAL_BEHAVIOUR_MOVE;
         }
-        return i;
+        return null;
     }
 
     private void handleNewVideoAction(Context context, Intent intent) {
@@ -182,33 +163,8 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         c.close();
         Log_OC.d(TAG, file_path + "");
 
-        Intent i = new Intent(context, FileUploader.class);
-        i.putExtra(FileUploader.KEY_ACCOUNT, account);
-        i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
-        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-        i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
-        i.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, true);
-        i.putExtra(FileUploader.KEY_WIFI_ONLY, instantVideoUploadViaWiFiOnly(context));
-        context.startService(i);
-// On master
-//        if (!isOnline(context) || (instantVideoUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
-//            return;
-//        }
-//
-//        Intent i = new Intent(context, FileUploader.class);
-//        i.putExtra(FileUploader.KEY_ACCOUNT, account);
-//        i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
-//        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantVideoUploadFilePath(context, file_name));
-//        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-//        i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
-//        i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
-
-        // instant upload behaviour
-        i = addInstantUploadBehaviour(i, context);
-
-        context.startService(i);
-
+        int behaviour = getUploadBehaviour(context);
+        FileUploader.uploadNewFile(context, account, file_path, FileStorageUtils.getInstantUploadFilePath(context, file_name), behaviour, mime_type, true, instantPictureUploadViaWiFiOnly(context));
     }
 
     public static boolean instantPictureUploadEnabled(Context context) {

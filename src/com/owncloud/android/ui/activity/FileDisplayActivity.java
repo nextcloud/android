@@ -681,15 +681,7 @@ public class FileDisplayActivity extends HookActivity implements
                 remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
             }
 
-            Intent i = new Intent(this, FileUploader.class);
-            i.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
-            i.putExtra(FileUploader.KEY_LOCAL_FILE, filePaths);
-            i.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
-            i.putExtra(FileUploader.KEY_UPLOAD_TYPE,
-                    FileUploader.UPLOAD_MULTIPLE_FILES);
-            if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
-                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
-            startService(i);
+            FileUploader.uploadNewFile(getApplicationContext(), getAccount(), filePaths, remotePaths, resultCode);
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
@@ -762,18 +754,7 @@ public class FileDisplayActivity extends HookActivity implements
             remotePath += new File(filePath).getName();
         }
 
-        i.putExtra(FileUploader.KEY_LOCAL_FILE, filePath);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, remotePath);
-        i.putExtra(FileUploader.KEY_MIME_TYPE, mimeType);
-        i.putExtra(FileUploader.KEY_UPLOAD_TYPE,
-                FileUploader.UPLOAD_SINGLE_FILE);
-        if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) {
-            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR,
-                    FileUploader.LOCAL_BEHAVIOUR_MOVE);
-        }
-        if(startService(i) == null) {
-            Log_OC.e(TAG, "FileUploader could not be started");
-        }
+        FileUploader.uploadNewFile(getApplicationContext(), filePath, remotePath, resultCode, mimeType);
 
     }
 
