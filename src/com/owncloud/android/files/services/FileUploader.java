@@ -1,25 +1,24 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author Bartek Przybylski
- *   @authro masensio
- *   @author LukeOwnCloud
- *   @author David A. Velasco
- *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author Bartek Przybylski
+ * @authro masensio
+ * @author LukeOwnCloud
+ * @author David A. Velasco
+ * Copyright (C) 2012 Bartek Przybylski
+ * Copyright (C) 2012-2016 ownCloud Inc.
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p/>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.files.services;
@@ -262,7 +261,7 @@ public class FileUploader extends Service
         Log_OC.d(TAG, "FileUploader.retry()");
         Intent i = new Intent(context, FileUploader.class);
         i.putExtra(FileUploader.KEY_RETRY, true);
-        if(upload!= null) {
+        if (upload != null) {
             i.putExtra(FileUploader.KEY_ACCOUNT, account);
             i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
         }
@@ -272,7 +271,8 @@ public class FileUploader extends Service
     /**
      * Call to upload a new file. Main method.
      */
-    public static void uploadNewFile(Context context, Account account, String[] localPaths, String[] remotePaths, Integer behaviour, String mimeType, Boolean createRemoteFolder, Boolean wifiOnly) {
+    public static void uploadNewFile(Context context, Account account, String[] localPaths, String[] remotePaths,
+                                     Integer behaviour, String mimeType, Boolean createRemoteFolder, Boolean wifiOnly) {
         Log_OC.d(TAG, "FileUploader.uploadNewFile()");
         Intent intent = new Intent(context, FileUploader.class);
 
@@ -295,7 +295,8 @@ public class FileUploader extends Service
     /**
      * Call to upload multiple new files from the FileDisplayActivity
      */
-    public static void uploadNewFile(Context context, Account account, String[] localPaths, String[] remotePaths, int behaviour) {
+    public static void uploadNewFile(Context context, Account account, String[] localPaths, String[] remotePaths, int
+            behaviour) {
 
         uploadNewFile(context, account, localPaths, remotePaths, behaviour, null, null, null);
     }
@@ -303,9 +304,11 @@ public class FileUploader extends Service
     /**
      * Call to upload a new single file from the FileDisplayActivity
      */
-    public static void uploadNewFile(Context context, String localPath, String remotePath, int resultCode, String mimeType) {
+    public static void uploadNewFile(Context context, String localPath, String remotePath, int resultCode, String
+            mimeType) {
 
-        uploadNewFile(context, null, new String[]{localPath}, new String[]{remotePath}, resultCode, mimeType, null, null);
+        uploadNewFile(context, null, new String[]{localPath}, new String[]{remotePath}, resultCode, mimeType, null,
+                null);
     }
 
     /**
@@ -327,7 +330,8 @@ public class FileUploader extends Service
     /**
      * Call to upload a new single file from the Instant Upload Broadcast Receiver
      */
-    public static void uploadNewFile(Context context, Account account, String localPath, String remotePath, int behaviour, String mimeType, boolean createRemoteFile, boolean wifiOnly) {
+    public static void uploadNewFile(Context context, Account account, String localPath, String remotePath, int
+            behaviour, String mimeType, boolean createRemoteFile, boolean wifiOnly) {
 
         uploadNewFile(context, account, new String[]{localPath}, new String[]{remotePath}, behaviour, mimeType,
                 createRemoteFile, wifiOnly);
@@ -336,7 +340,8 @@ public class FileUploader extends Service
     /**
      * Call to update a file already uploaded from the ConflictsResolveActivity
      */
-    public static void uploadUpdate(Context context, Account account, OCFile[] existingFiles, Integer behaviour, Boolean forceOverwrite) {
+    public static void uploadUpdate(Context context, Account account, OCFile[] existingFiles, Integer behaviour,
+                                    Boolean forceOverwrite) {
         Log_OC.d(TAG, "FileUploader.uploadUpdate()");
         Intent intent = new Intent(context, FileUploader.class);
 
@@ -351,7 +356,8 @@ public class FileUploader extends Service
     /**
      * Call to update a file already uploaded from the ConflictsResolveActivity
      */
-    public static void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour, Boolean forceOverwrite) {
+    public static void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour, Boolean
+            forceOverwrite) {
 
         uploadUpdate(context, account, new OCFile[]{existingFile}, behaviour, forceOverwrite);
     }
@@ -457,7 +463,7 @@ public class FileUploader extends Service
         boolean chunked = FileUploader.chunkedUploadIsSupported(ocv);
 
         if (!retry) {
-            if ( !(intent.hasExtra(KEY_LOCAL_FILE) ||
+            if (!(intent.hasExtra(KEY_LOCAL_FILE) ||
                     intent.hasExtra(KEY_FILE))) {
                 Log_OC.e(TAG, "Not enough information provided in intent");
                 return Service.START_NOT_STICKY;
@@ -585,7 +591,8 @@ public class FileUploader extends Service
                 return START_NOT_STICKY;
 
             }
-            // *** TODO REWRITE: block inserted to request retries in a raw; too many code copied, no control exception ***/
+            // *** TODO REWRITE: block inserted to request retries in a raw; too many code copied, no control
+            // exception ***/
         } else {
             if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_RETRY_UPLOAD)) {
                 Log_OC.e(TAG, "Not enough information provided in intent: no KEY_RETRY_UPLOAD_KEY");
@@ -648,7 +655,7 @@ public class FileUploader extends Service
      */
     @Override
     public boolean onUnbind(Intent intent) {
-        ((FileUploaderBinder)mBinder).clearListeners();
+        ((FileUploaderBinder) mBinder).clearListeners();
         return false;   // not accepting rebinding (default behaviour)
     }
 
@@ -696,7 +703,7 @@ public class FileUploader extends Service
                 if (mCurrentUpload != null && mCurrentAccount != null &&
                         mCurrentUpload.isUploadInProgress() &&  // TODO added with reliale_uploads, to check
                         mCurrentUpload.getRemotePath().startsWith(file.getRemotePath()) &&
-                        account.name.equals(mCurrentAccount.name) ) {
+                        account.name.equals(mCurrentAccount.name)) {
                     Log_OC.d(TAG, "Calling cancel for " + file.getRemotePath() + " during upload operation.");
                     mCurrentUpload.cancel();
 //            } else if(mCancellationPossible.get()){
@@ -741,24 +748,25 @@ public class FileUploader extends Service
             Pair<UploadFileOperation, String> removeResult = mPendingUploads.remove(account, file.getRemotePath());
             UploadFileOperation upload = removeResult.first;
             //OCUpload upload = mPendingUploads.remove(buildRemoteName(account, file));
-            if(upload == null) {
+            if (upload == null) {
                 Log_OC.e(TAG, "Could not delete upload " + file + " from mPendingUploads.");
             }
             int d = mUploadsStorageManager.removeUpload(upload.getStoragePath());
-            if(d == 0) {
-                Log_OC.e(TAG, "Could not delete upload "+ file.getStoragePath() +" from database.");
+            if (d == 0) {
+                Log_OC.e(TAG, "Could not delete upload " + file.getStoragePath() + " from database.");
             }
         }
 
         public void remove(OCUpload upload) {
             int d = mUploadsStorageManager.removeUpload(upload.getUploadId());
-            if(d == 0) {
-                Log_OC.e(TAG, "Could not delete upload "+ upload.getRemotePath() +" from database.");
+            if (d == 0) {
+                Log_OC.e(TAG, "Could not delete upload " + upload.getRemotePath() + " from database.");
             }
         }
 
         // TODO: Review: Method from FileUploader with some changes because the merge with FileUploader
         // TODO Complete operation to retry the upload
+
         /**
          * Puts upload in upload list and tell FileUploader to upload items in list.
          */
@@ -800,13 +808,12 @@ public class FileUploader extends Service
          * @param account       ownCloud account holding the file of interest.
          * @param file          {@link OCFile} of interest for listener.
          */
-        public void addDatatransferProgressListener (OnDatatransferProgressListener listener,
-                                                     Account account, OCFile file) {
+        public void addDatatransferProgressListener(OnDatatransferProgressListener listener,
+                                                    Account account, OCFile file) {
             if (account == null || file == null || listener == null) return;
             String targetKey = buildRemoteName(account, file);
             mBoundListeners.put(targetKey, listener);
         }
-
 
 
         /**
@@ -816,8 +823,8 @@ public class FileUploader extends Service
          * @param account       ownCloud account holding the file of interest.
          * @param file          {@link OCFile} of interest for listener.
          */
-        public void removeDatatransferProgressListener (OnDatatransferProgressListener listener,
-                                                        Account account, OCFile file) {
+        public void removeDatatransferProgressListener(OnDatatransferProgressListener listener,
+                                                       Account account, OCFile file) {
             if (account == null || file == null || listener == null) return;
             String targetKey = buildRemoteName(account, file);
             if (mBoundListeners.get(targetKey) == listener) {
@@ -846,7 +853,7 @@ public class FileUploader extends Service
          *
          * @param account       ownCloud account where the file to upload belongs.
          * @param file          File to upload
-         * @return              Key
+         * @return Key
          */
         private String buildRemoteName(Account account, OCFile file) {
             return account.name + file.getRemotePath();
@@ -1001,7 +1008,7 @@ public class FileUploader extends Service
      * create it both remote and locally.
      *
      *  @param  pathToGrant     Full remote path whose existence will be granted.
-     *  @return  An {@link OCFile} instance corresponding to the folder where the file
+     *  @return An {@link OCFile} instance corresponding to the folder where the file
      *  will be uploaded.
      */
     private RemoteOperationResult grantFolderExistence(String pathToGrant) {
@@ -1009,7 +1016,7 @@ public class FileUploader extends Service
         RemoteOperationResult result = operation.execute(mUploadClient);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND &&
                 mCurrentUpload.isRemoteFolderToBeCreated()) {
-            SyncOperation syncOp = new CreateFolderOperation( pathToGrant, true);
+            SyncOperation syncOp = new CreateFolderOperation(pathToGrant, true);
             result = syncOp.execute(mUploadClient, mStorageManager);
         }
         if (result.isSuccess()) {
@@ -1122,7 +1129,7 @@ public class FileUploader extends Service
             mimeType = "application/octet-stream";
         }
 
-        if (isPdfFileFromContentProviderWithoutExtension(localPath, mimeType)){
+        if (isPdfFileFromContentProviderWithoutExtension(localPath, mimeType)) {
             remotePath += FILE_EXTENSION_PDF;
         }
 
@@ -1162,7 +1169,8 @@ public class FileUploader extends Service
                 .setContentTitle(getString(R.string.uploader_upload_in_progress_ticker))
                 .setProgress(100, 0, false)
                 .setContentText(
-                        String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName()));
+                        String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName
+                                ()));
 
         /// includes a pending intent in the notification showing the details
         Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
@@ -1239,7 +1247,7 @@ public class FileUploader extends Service
                     .setOngoing(false)
                     .setProgress(0, 0, false);
 
-            content =  ErrorMessageAdapter.getErrorCauseMessage(
+            content = ErrorMessageAdapter.getErrorCauseMessage(
                     uploadResult, upload, getResources()
             );
 
@@ -1296,7 +1304,7 @@ public class FileUploader extends Service
 //                }
             }
 
-            if(!uploadResult.isSuccess()){
+            if (!uploadResult.isSuccess()) {
                 //in case of failure, do not show details file view (because there is no file!)
                 Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
                 showUploadListIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
@@ -1395,7 +1403,7 @@ public class FileUploader extends Service
      *
      * @param account       Downloads account to remove
      */
-    private void cancelUploadsForAccount(Account account){
+    private void cancelUploadsForAccount(Account account) {
         // Cancel pending uploads
         mPendingUploads.remove(account);
     }
@@ -1406,8 +1414,6 @@ public class FileUploader extends Service
 //    public static void retry(Context context) {
 //        retry(context, null);
 //    }
-
-
 
 
 }

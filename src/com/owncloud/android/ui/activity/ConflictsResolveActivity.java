@@ -1,23 +1,22 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author Bartek Przybylski
- *   @author David A. Velasco
- *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author Bartek Przybylski
+ * @author David A. Velasco
+ * Copyright (C) 2012 Bartek Przybylski
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p/>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -41,7 +40,7 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionM
 public class ConflictsResolveActivity extends FileActivity implements OnConflictDecisionMadeListener {
 
     private String TAG = ConflictsResolveActivity.class.getSimpleName();
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +48,6 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
     @Override
     public void conflictDecisionMade(Decision decision) {
-        Intent i = new Intent(getApplicationContext(), FileUploader.class);
 
         Integer behaviour = null;
         Boolean forceOverwrite = null;
@@ -78,7 +76,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 return;
         }
 
-        FileUploader.uploadUpdate(getApplicationContext(), getAccount(), getFile(), behaviour, forceOverwrite);
+        FileUploader.uploadUpdate(this, getAccount(), getFile(), behaviour, forceOverwrite);
         finish();
     }
 
@@ -92,21 +90,22 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 finish();
             } else {
                 /// Check whether the 'main' OCFile handled by the Activity is contained in the current Account
-                file = getStorageManager().getFileByPath(file.getRemotePath());   // file = null if not in the current Account
+                file = getStorageManager().getFileByPath(file.getRemotePath());   // file = null if not in the
+                // current Account
                 if (file != null) {
                     setFile(file);
                     ConflictsResolveDialog d = ConflictsResolveDialog.newInstance(file.getRemotePath(), this);
                     d.showDialog(this);
-                    
+
                 } else {
                     // account was changed to a different one - just finish
                     finish();
                 }
             }
-            
+
         } else {
             finish();
         }
-        
+
     }
 }
