@@ -306,128 +306,40 @@ public class UploadFileOperation extends RemoteOperation {
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
         RemoteOperationResult result = null;
-        boolean localCopyPassed = false, nameCheckPassed = false;
         File temporalFile = null, originalFile = new File(mOriginalStoragePath), expectedFile = null;
         try {
-            // / rename the file to upload, if necessary
+            /// automatic rename of file to upload in case of name collision in server
+            Log_OC.d(TAG, "Checking name collision in server");
             if (!mForceOverwrite) {
                 String remotePath = getAvailableRemotePath(client, mRemotePath);
                 mWasRenamed = !remotePath.equals(mRemotePath);
                 if (mWasRenamed) {
                     createNewOCFile(remotePath);
+                    Log_OC.d(TAG, "File renamed as " + remotePath);
                 }
             }
-            nameCheckPassed = true;
 
-            String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile); // /
-                                                                                                // not
-                                                                                                // before
-                                                                                                // getAvailableRemotePath()
-                                                                                                // !!!
-            expectedFile = new File(expectedPath);
-            
             if (mCancellationRequested.get()) {
                 throw new OperationCancelledException();
             }
 
-            // check location of local file; if not the expected, copy to a
-            // temporal file before upload (if COPY is the expected behaviour)
-            if (!mOriginalStoragePath.equals(expectedPath) &&
-                    mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY) {
+            String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
+            expectedFile = new File(expectedPath);
 
+            /// copy the file locally before uploading
+            if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY &&
+                    !mOriginalStoragePath.equals(expectedPath)) {
 
-                if (FileStorageUtils.getUsableSpace(mAccount.name) < originalFile.length()) {
-                    result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_FULL);
-                    return result; // error condition when the file should be
-                                   // copied
+                String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                mFile.setStoragePath(temporalPath);
+                temporalFile = new File(temporalPath);
 
-                } else {
-
-                    String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) +
-                            mFile.getRemotePath();
-                    mFile.setStoragePath(temporalPath);
-                    temporalFile = new File(temporalPath);
-
-                    File temporalParent = temporalFile.getParentFile();
-                    temporalParent.mkdirs();
-                    if (!temporalParent.isDirectory()) {
-                        throw new IOException(
-                                "Unexpected error: parent directory could not be created");
-                    }
-                    temporalFile.createNewFile();
-                    if (!temporalFile.isFile()) {
-                        throw new IOException(
-                                "Unexpected error: target file could not be created");
-                    }
-
-                    InputStream in = null;
-                    OutputStream out = null;
-
-                    try {
-
-                        // In case document provider schema as 'content://'
-                        if (mOriginalStoragePath.startsWith(UriUtils.URI_CONTENT_SCHEME)) {
-
-                            Uri uri = Uri.parse(mOriginalStoragePath);
-
-                            in = MainApp.getAppContext().getContentResolver().openInputStream(uri);
-                            out = new FileOutputStream(temporalFile);
-
-                            int nRead;
-                            byte[] data = new byte[16384];
-
-                            while (!mCancellationRequested.get() &&
-                                    (nRead = in.read(data, 0, data.length)) != -1) {
-                                out.write(data, 0, nRead);
-                            }
-                            out.flush();
-
-                        } else {
-                            if (!mOriginalStoragePath.equals(temporalPath)) { // preventing
-                                                                          // weird
-                                                                          // but
-                                                                          // possible
-                                                                          // situation
-
-                                in = new FileInputStream(originalFile);
-                                out = new FileOutputStream(temporalFile);
-                                byte[] buf = new byte[1024];
-                                int len;
-                                while (!mCancellationRequested.get() && (len = in.read(buf)) > 0) {
-                                    out.write(buf, 0, len);
-                                }
-                            }
-                        }
-
-                        if (mCancellationRequested.get()) {
-                            result = new RemoteOperationResult(new OperationCancelledException());
-                        }
-
-
-                    } catch (Exception e) {
-                        result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_COPIED);
-                        return result;
-
-                    } finally {
-                        try {
-                            if (in != null)
-                                in.close();
-                        } catch (Exception e) {
-                            Log_OC.d(TAG, "Weird exception while closing input stream for " +
-                                    mOriginalStoragePath + " (ignoring)", e);
-                        }
-                        try {
-                            if (out != null)
-                                out.close();
-                        } catch (Exception e) {
-                            Log_OC.d(TAG, "Weird exception while closing output stream for " +
-                                    expectedPath + " (ignoring)", e);
-                        }
-                    }
+                result = copy(originalFile, temporalFile);
+                if (result != null) {
+                    return result;
                 }
             }
-            localCopyPassed = (result == null);
-            
+
             if (mCancellationRequested.get()) {
                 throw new OperationCancelledException();
             }
@@ -460,53 +372,17 @@ public class UploadFileOperation extends RemoteOperation {
                     mFile.setStoragePath("");
                 } else {
                     mFile.setStoragePath(expectedPath);
-                    File fileToMove = null;
-                    if (temporalFile != null) { // FileUploader.LOCAL_BEHAVIOUR_COPY
-                                                // ; see where temporalFile was
-                                                // set
+                    File fileToMove;
+                    if (temporalFile != null) {         // FileUploader.LOCAL_BEHAVIOUR_COPY
                         fileToMove = temporalFile;
-                    } else { // FileUploader.LOCAL_BEHAVIOUR_MOVE
+                    } else {                            // FileUploader.LOCAL_BEHAVIOUR_MOVE
                         fileToMove = originalFile;
                     }
-                    if (!expectedFile.equals(fileToMove)) {
-                        File expectedFolder = expectedFile.getParentFile();
-                        expectedFolder.mkdirs();
-
-                        if (expectedFolder.isDirectory()){
-                            if (!fileToMove.renameTo(expectedFile)){
-                                // try to copy and then delete
-                                expectedFile.createNewFile();
-                                FileChannel inChannel = new FileInputStream(fileToMove).getChannel();
-                                FileChannel outChannel = new FileOutputStream(expectedFile).getChannel();
-
-                                try {
-                                    inChannel.transferTo(0, inChannel.size(), outChannel);
-                                    fileToMove.delete();
-                                } catch (Exception e){
-                                    mFile.setStoragePath(null); // forget the local file
-                                    // by now, treat this as a success; the file was
-                                    // uploaded; the user won't like that the local file
-                                    // is not linked, but this should be a very rare
-                                    // fail;
-                                    // the best option could be show a warning message
-                                    // (but not a fail)
-                                    // result = new
-                                    // RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
-                                    // return result;
-                                }
-                                finally {
-                                    if (inChannel != null) inChannel.close();
-                                    if (outChannel != null) outChannel.close();
-                                }
-                            }
-
-                        } else {
-                            mFile.setStoragePath(null);
-                        }
-                    }
+                    move(fileToMove, expectedFile);
                 }
                 FileDataStorageManager.triggerMediaScan(originalFile.getAbsolutePath());
                 FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
+
             } else if (result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
             }
@@ -524,20 +400,12 @@ public class UploadFileOperation extends RemoteOperation {
                         result.getLogMessage());
             } else {
                 if (result.getException() != null) {
-                    String complement = "";
-                    if (!nameCheckPassed) {
-                        complement = " (while checking file existence in server)";
-                    } else if (!localCopyPassed) {
-                        complement = " (while copying local file to " +
-                                FileStorageUtils.getSavePath(mAccount.name)
-                                + ")";
-                    }
                     if(result.isCancelled()){
                         Log_OC.w(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
                                 ": " + result.getLogMessage());
                     } else {
                         Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
-                                ": " + result.getLogMessage() + complement, result.getException());
+                                ": " + result.getLogMessage(), result.getException());
                     }                    
 
                 } else {
@@ -563,7 +431,8 @@ public class UploadFileOperation extends RemoteOperation {
         newFile.setMimetype(mFile.getMimetype());
         newFile.setModificationTimestamp(mFile.getModificationTimestamp());
         newFile.setModificationTimestampAtLastSyncForData(
-                mFile.getModificationTimestampAtLastSyncForData());
+                mFile.getModificationTimestampAtLastSyncForData()
+        );
         newFile.setEtag(mFile.getEtag());
         newFile.setFavorite(mFile.isFavorite());
         newFile.setLastSyncDateForProperties(mFile.getLastSyncDateForProperties());
@@ -582,7 +451,7 @@ public class UploadFileOperation extends RemoteOperation {
      * @param remotePath
      * @return
      */
-    private String getAvailableRemotePath(OwnCloudClient wc, String remotePath) throws Exception {
+    private String getAvailableRemotePath(OwnCloudClient wc, String remotePath) {
         boolean check = existsFile(wc, remotePath);
         if (!check) {
             return remotePath;
@@ -646,5 +515,135 @@ public class UploadFileOperation extends RemoteOperation {
     public boolean isUploadInProgress() {
         return mUploadStarted.get();
 
+    }
+
+    /**
+     * TODO rewrite with homogeneous fail handling, remove dependency on {@link RemoteOperationResult},
+     * TODO     use Exceptions instead
+     *
+     * @param   sourceFile      Source file to copy.
+     * @param   targetFile      Target location to copy the file.
+     * @return  {@link RemoteOperationResult}
+     * @throws  IOException
+     */
+    private RemoteOperationResult copy(File sourceFile, File targetFile) throws IOException {
+        Log_OC.d(TAG, "Copying local file");
+
+        RemoteOperationResult result = null;
+
+        if (FileStorageUtils.getUsableSpace(mAccount.name) < sourceFile.length()) {
+            result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_FULL);
+            return result;  // error condition when the file should be copied
+
+        } else {
+            Log_OC.d(TAG, "Creating temporal folder");
+            File temporalParent = targetFile.getParentFile();
+            temporalParent.mkdirs();
+            if (!temporalParent.isDirectory()) {
+                throw new IOException(
+                        "Unexpected error: parent directory could not be created");
+            }
+            Log_OC.d(TAG, "Creating temporal file");
+            targetFile.createNewFile();
+            if (!targetFile.isFile()) {
+                throw new IOException(
+                        "Unexpected error: target file could not be created");
+            }
+
+            Log_OC.d(TAG, "Copying file contents");
+            InputStream in = null;
+            OutputStream out = null;
+
+            try {
+                if (!mOriginalStoragePath.equals(targetFile.getAbsolutePath())) {
+                    // In case document provider schema as 'content://'
+                    if (mOriginalStoragePath.startsWith(UriUtils.URI_CONTENT_SCHEME)) {
+                        Uri uri = Uri.parse(mOriginalStoragePath);
+                        in = mContext.getContentResolver().openInputStream(uri);
+                    } else {
+                        in = new FileInputStream(sourceFile);
+                    }
+                    out = new FileOutputStream(targetFile);
+                    int nRead;
+                    byte[] buf = new byte[4096];
+                    while (!mCancellationRequested.get() &&
+                            (nRead = in.read(buf)) > -1) {
+                        out.write(buf, 0, nRead);
+                    }
+                    out.flush();
+
+                } // else: weird but possible situation, nothing to copy
+
+                if (mCancellationRequested.get()) {
+                    result = new RemoteOperationResult(new OperationCancelledException());
+                    return result;
+                }
+
+            } catch (Exception e) {
+                result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_COPIED);
+                return result;
+
+            } finally {
+                try {
+                    if (in != null)
+                        in.close();
+                } catch (Exception e) {
+                    Log_OC.d(TAG, "Weird exception while closing input stream for " +
+                            mOriginalStoragePath + " (ignoring)", e);
+                }
+                try {
+                    if (out != null)
+                        out.close();
+                } catch (Exception e) {
+                    Log_OC.d(TAG, "Weird exception while closing output stream for " +
+                            targetFile.getAbsolutePath() + " (ignoring)", e);
+                }
+            }
+        }
+        return result;
+    }
+
+
+    /**
+     * TODO rewrite with homogeneous fail handling, remove dependency on {@link RemoteOperationResult},
+     * TODO     use Exceptions instead
+     *
+     * TODO refactor both this and 'copy' in a single method
+     *
+     * @param   sourceFile      Source file to move.
+     * @param   targetFile      Target location to move the file.
+     * @return  {@link RemoteOperationResult}
+     * @throws  IOException
+     */
+    private void move(File sourceFile, File targetFile) throws IOException {
+
+        if (!targetFile.equals(sourceFile)) {
+            File expectedFolder = targetFile.getParentFile();
+            expectedFolder.mkdirs();
+
+            if (expectedFolder.isDirectory()){
+                if (!sourceFile.renameTo(targetFile)){
+                    // try to copy and then delete
+                    targetFile.createNewFile();
+                    FileChannel inChannel = new FileInputStream(sourceFile).getChannel();
+                    FileChannel outChannel = new FileOutputStream(targetFile).getChannel();
+                    try {
+                        inChannel.transferTo(0, inChannel.size(), outChannel);
+                        sourceFile.delete();
+                    } catch (Exception e){
+                        mFile.setStoragePath(""); // forget the local file
+                        // by now, treat this as a success; the file was uploaded
+                        // the best option could be show a warning message
+                    }
+                    finally {
+                        if (inChannel != null) inChannel.close();
+                        if (outChannel != null) outChannel.close();
+                    }
+                }
+
+            } else {
+                mFile.setStoragePath("");
+            }
+        }
     }
 }
