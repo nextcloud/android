@@ -165,6 +165,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
      * WARNING! This opens the local copy inside owncloud directory. If file not uploaded yet,
      * there is none.
      */
+    /*
     @SuppressWarnings("unused")
     private void openPreview(OCUpload file) {
      // preview image
@@ -173,7 +174,9 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
         startActivity(showDetailsIntent);  
     }
-    
+    */
+
+    /*
     @SuppressWarnings("unused")
     private void openDetails(OCUpload file) {
         OCFile ocFile = file.getOCFile();
@@ -182,6 +185,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, file.getAccount(this));
         startActivity(showDetailsIntent);
     }
+    */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -537,7 +537,7 @@ public class FileOperationsHelper {
             upload.removeAllUploadRestrictions(); //only this object, upload DB stays untouched.
             uploaderBinder.retry(account, upload);
         }  else {
-            Log_OC.w(TAG, "uploaderBinder not set. Cannot retry the upload of " + upload.getOCFile());
+            Log_OC.w(TAG, "uploaderBinder not set. Cannot retry the upload of " + upload.getLocalPath());
         }
     }
 
@@ -549,7 +549,7 @@ public class FileOperationsHelper {
         if (uploaderBinder != null) {
             uploaderBinder.remove(upload);
         }  else {
-            Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + upload.getOCFile());            
+            Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + upload.getLocalPath());
         }
     }
 
@@ -569,31 +569,6 @@ public class FileOperationsHelper {
 
         // for both files and folders
         FileDownloaderBinder downloaderBinder = mFileActivity.getFileDownloaderBinder();
-// On reliable_uploads
-//        FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
-//        if (downloaderBinder != null) {
-//            if (downloaderBinder.isDownloading(account, file)) {
-//                // Remove etag for parent, if file is a keep_in_sync
-//                if (file.isFavorite()) {
-//                    OCFile parent = mFileActivity.getStorageManager().getFileById(file.getParentId());
-//                    parent.setEtag("");
-//                    mFileActivity.getStorageManager().saveFile(parent);
-//                }
-//
-//                downloaderBinder.cancel(account, file);
-//            } else {
-//                Log_OC.d(TAG, "Download for " + file + " not in progress. Cannot cancel " + file);
-//            }
-//        }
-//        if (uploaderBinder != null) {
-//            if (uploaderBinder.isUploading(account, file)) {
-//                uploaderBinder.cancel(account, file);
-//            } else {
-//                Log_OC.d(TAG, "Upload for " + file + " not in progress. Cannot cancel.");
-//            }
-//        }
-//        if(downloaderBinder == null && uploaderBinder == null) {
-//            Log_OC.w(TAG, "Neither downloaderBinder nor uploaderBinder set. Cannot cancel.");
         if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
             downloaderBinder.cancel(account, file);
         }

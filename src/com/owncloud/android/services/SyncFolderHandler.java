@@ -82,7 +82,7 @@ class SyncFolderHandler extends Handler {
      */
     public boolean isSynchronizing(Account account, String remotePath) {
         if (account == null || remotePath == null) return false;
-        return (mPendingOperations.contains(account, remotePath));
+        return (mPendingOperations.contains(account.name, remotePath));
     }
 
 
@@ -100,7 +100,7 @@ class SyncFolderHandler extends Handler {
      */
     private void doOperation(Account account, String remotePath) {
 
-        mCurrentSyncOperation = mPendingOperations.get(account, remotePath);
+        mCurrentSyncOperation = mPendingOperations.get(account.name, remotePath);
 
         if (mCurrentSyncOperation != null) {
             RemoteOperationResult result = null;
@@ -127,7 +127,7 @@ class SyncFolderHandler extends Handler {
             } catch (IOException e) {
                 Log_OC.e(TAG, "Error while trying to get authorization", e);
             } finally {
-                mPendingOperations.removePayload(account, remotePath);
+                mPendingOperations.removePayload(account.name, remotePath);
 
                 mService.dispatchResultToOperationListeners(mCurrentSyncOperation, result);
 
@@ -139,7 +139,7 @@ class SyncFolderHandler extends Handler {
     public void add(Account account, String remotePath,
                     SynchronizeFolderOperation syncFolderOperation){
         Pair<String, String> putResult =
-                mPendingOperations.putIfAbsent(account, remotePath, syncFolderOperation, null);
+                mPendingOperations.putIfAbsent(account.name, remotePath, syncFolderOperation, null);
         if (putResult != null) {
             sendBroadcastNewSyncFolder(account, remotePath);    // TODO upgrade!
         }
@@ -149,7 +149,7 @@ class SyncFolderHandler extends Handler {
     /**
      * Cancels a pending or current sync' operation.
      *
-     * @param account       ownCloud account where the remote file is stored.
+     * @param account       ownCloud {@link Account} where the remote file is stored.
      * @param file          A file in the queue of pending synchronizations
      */
     public void cancel(Account account, OCFile file){
@@ -158,7 +158,7 @@ class SyncFolderHandler extends Handler {
             return;
         }
         Pair<SynchronizeFolderOperation, String> removeResult =
-                mPendingOperations.remove(account, file.getRemotePath());
+                mPendingOperations.remove(account.name, file.getRemotePath());
         SynchronizeFolderOperation synchronization = removeResult.first;
         if (synchronization != null) {
             synchronization.cancel();

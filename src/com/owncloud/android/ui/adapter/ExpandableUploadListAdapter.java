@@ -47,7 +47,6 @@ import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
@@ -72,7 +71,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     private UploadsStorageManager mUploadsStorageManager;
 
     public ProgressListener mProgressListener;
-    private UploadFileOperation mCurrentUpload;
 
     interface Refresh {
         public void refresh();
@@ -90,11 +88,15 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         public Comparator<OCUpload> comparator = new Comparator<OCUpload>() {
             @Override
             public int compare(OCUpload lhs, OCUpload rhs) {
-                return compareUploadTime(lhs, rhs);
+                return compareUploadId(lhs, rhs);
             }
-            private int compareUploadTime(OCUpload lhs, OCUpload rhs) {
-                return Long.valueOf(rhs.getOCFile().getModificationTimestamp()).
-                        compareTo(lhs.getOCFile().getModificationTimestamp());
+            private int compareUploadId(OCUpload lsh, OCUpload rsh) {
+                return Long.valueOf(lsh.getUploadId()).compareTo(rsh.getUploadId());
+            }
+            private int compareUpdateTime(OCUpload lhs, OCUpload rhs) {
+                long lLastModified = new File(lhs.getLocalPath()).lastModified();
+                long rLastModified = new File(rhs.getLocalPath()).lastModified();
+                return Long.valueOf(rLastModified).compareTo(lLastModified);
             }
         };
         abstract public int getGroupIcon();
@@ -195,24 +197,32 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
         if (uploadsItems != null && uploadsItems.length > position) {
             final OCUpload upload = uploadsItems[position];
-            final OCFile uploadOCFile = upload.getOCFile();
 
+            // local file name
             TextView fileTextView = (TextView) view.findViewById(R.id.upload_name);
-            String fileName = uploadOCFile.getFileName();
+            File localFile = new File(upload.getLocalPath());
+            String fileName = localFile.getName();
+            if (fileName.length() == 0) {
+                fileName = File.separator;
+            }
             fileTextView.setText(fileName);
 
+            // remote path to parent folder
             TextView pathTextView = (TextView) view.findViewById(R.id.upload_local_path);
-            String path = uploadOCFile.getRemotePath();
-            path = (path == null || path.isEmpty()) ? "" : path.substring(0, path.length() - fileName.length() - 1);
-            pathTextView.setText(mParentActivity.getString(R.string.app_name) + path);
+            String remoteParentPath = upload.getRemotePath();
+            remoteParentPath = new File(remoteParentPath).getParent();
+            pathTextView.setText(mParentActivity.getString(R.string.app_name) + remoteParentPath);
 
+            // file size
             TextView fileSizeTextView = (TextView) view.findViewById(R.id.upload_file_size);
-            fileSizeTextView.setText(DisplayUtils.bytesToHumanReadable(uploadOCFile.getFileLength()) + ", ");
+            fileSizeTextView.setText(DisplayUtils.bytesToHumanReadable(localFile.length()) + ", ");
 
+            //* upload date
             TextView uploadDateTextView = (TextView) view.findViewById(R.id.upload_date);
+            long updateTime = (new File(upload.getLocalPath())).lastModified();
             CharSequence dateString = DisplayUtils.getRelativeDateTimeString(
                     mParentActivity,
-                    uploadOCFile.getModificationTimestamp(),
+                    updateTime,
                     DateUtils.SECOND_IN_MILLIS,
                     DateUtils.WEEK_IN_MILLIS,
                     0
@@ -240,8 +250,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     progressBar.setVisibility(View.VISIBLE);
                     mProgressListener = new ProgressListener(progressBar);
                     if(mParentActivity.getFileUploaderBinder() != null) {
-                        mParentActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener,
-                                mParentActivity.getAccount(), uploadOCFile /*, upload.getUploadId() */);
+                        mParentActivity.getFileUploaderBinder().addDatatransferProgressListener(
+                                mProgressListener,
+                                mParentActivity.getAccount(),
+                                upload
+                        );
                     } else {
                         Log_OC.e(TAG, "UploadBinder == null. It should have been created on creating mParentActivity"
                                 + " which inherits from FileActivity. Fix that!");
@@ -343,13 +356,13 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             if(upload.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
                 ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                 progressBar.setVisibility(View.GONE);
-                if (mParentActivity.getFileUploaderBinder() != null && mProgressListener != null
-                        && mCurrentUpload != null) {
-                    OCFile currentOcFile = mCurrentUpload.getFile();
-                    mParentActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener,
-                            upload.getAccount(mParentActivity), currentOcFile /*, upload.getUploadId() */);
+                if (mParentActivity.getFileUploaderBinder() != null && mProgressListener != null) {
+                    mParentActivity.getFileUploaderBinder().removeDatatransferProgressListener(
+                            mProgressListener,
+                            upload.getAccount(mParentActivity),
+                            upload
+                    );
                     mProgressListener = null;
-                    mCurrentUpload = null;
                 }
             }
             statusTextView.setText(status);
@@ -361,7 +374,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mParentActivity.getFileOperationsHelper().cancelTransference(uploadOCFile);
+                        FileUploader.FileUploaderBinder uploaderBinder = mParentActivity.getFileUploaderBinder();
+                        if (uploaderBinder != null) {
+                            uploaderBinder.cancel(upload);
+                        }
                     }
                 });
             } else {
@@ -392,16 +408,24 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
              * {@link ThumbnailsCacheManager#cancelPotentialWork} will NEVER cancel any task.
              **/
-            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialWork(uploadOCFile,
-                    fileIcon));
+            OCFile fakeFileToCheatThumbnailsCacheManagerInterface = new OCFile(upload.getRemotePath());
+            fakeFileToCheatThumbnailsCacheManagerInterface.setStoragePath(upload.getLocalPath());
+            fakeFileToCheatThumbnailsCacheManagerInterface.setMimetype(upload.getMimeType());
 
-            if ((uploadOCFile.isImage() && uploadOCFile.getRemoteId() != null &&
+            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialWork(
+                    fakeFileToCheatThumbnailsCacheManagerInterface,
+                    fileIcon)
+            );
+
+            // TODO this code is duplicated; refactor to a common place
+            if ((fakeFileToCheatThumbnailsCacheManagerInterface.isImage()
+                    && fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId() != null &&
                     upload.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED)){
                 // Thumbnail in Cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        String.valueOf(uploadOCFile.getRemoteId())
+                        String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId())
                 );
-                if (thumbnail != null && !uploadOCFile.needsUpdateThumbnail()){
+                if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.needsUpdateThumbnail()){
                     fileIcon.setImageBitmap(thumbnail);
                 } else {
                     // generate new Thumbnail
@@ -420,18 +444,18 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                         task
                                 );
                         fileIcon.setImageDrawable(asyncDrawable);
-                        task.execute(uploadOCFile);
+                        task.execute(fakeFileToCheatThumbnailsCacheManagerInterface);
                     }
                 }
 
-                if (uploadOCFile.getMimetype().equalsIgnoreCase("image/png")) {
+                if ("image/png".equals(upload.getMimeType())) {
                     fileIcon.setBackgroundColor(mParentActivity.getResources()
                             .getColor(R.color.background_color));
                 }
 
 
-            } else if (uploadOCFile.isImage() && uploadOCFile.getStoragePath() != null) {
-                File file = new File(uploadOCFile.getStoragePath());
+            } else if (fakeFileToCheatThumbnailsCacheManagerInterface.isImage()) {
+                File file = new File(upload.getLocalPath());
                 // Thumbnail in Cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                         String.valueOf(file.hashCode()));
@@ -457,13 +481,15 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     }
                 }
 
-                if (uploadOCFile.getMimetype().equalsIgnoreCase("image/png")) {
+                if ("image/png".equalsIgnoreCase(upload.getMimeType())) {
                     fileIcon.setBackgroundColor(mParentActivity.getResources()
                             .getColor(R.color.background_color));
                 }
             } else {
-                fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(upload.getMimeType(),
-                        uploadOCFile.getFileName()));
+                fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(
+                        upload.getMimeType(),
+                        fileName
+                ));
             }
 
         }

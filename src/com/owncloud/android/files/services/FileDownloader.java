@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2015 ownCloud Inc.
+ *   Copyright (C) 2012-2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -172,7 +172,7 @@ public class FileDownloader extends Service
                 newDownload.addDatatransferProgressListener(this);
                 newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
                 Pair<String, String> putResult = mPendingDownloads.putIfAbsent(
-                        account, file.getRemotePath(), newDownload, null
+                        account.name, file.getRemotePath(), newDownload, null
                 );
                 if (putResult != null) {
                     String downloadKey = putResult.first;
@@ -253,7 +253,8 @@ public class FileDownloader extends Service
          * @param file    A file in the queue of pending downloads
          */
         public void cancel(Account account, OCFile file) {
-            Pair<DownloadFileOperation, String> removeResult = mPendingDownloads.remove(account, file.getRemotePath());
+            Pair<DownloadFileOperation, String> removeResult =
+                    mPendingDownloads.remove(account.name, file.getRemotePath());
             DownloadFileOperation download = removeResult.first;
             if (download != null) {
                 download.cancel();
@@ -301,7 +302,7 @@ public class FileDownloader extends Service
          */
         public boolean isDownloading(Account account, OCFile file) {
             if (account == null || file == null) return false;
-            return (mPendingDownloads.contains(account, file.getRemotePath()));
+            return (mPendingDownloads.contains(account.name, file.getRemotePath()));
         }
 
 
@@ -431,8 +432,10 @@ public class FileDownloader extends Service
 
                 } finally {
                     Pair<DownloadFileOperation, String> removeResult =
-                            mPendingDownloads.removePayload(mCurrentAccount,
-                                    mCurrentDownload.getRemotePath());
+                            mPendingDownloads.removePayload(
+                                    mCurrentAccount.name,
+                                    mCurrentDownload.getRemotePath()
+                            );
 
                     /// notify result
                     notifyDownloadResult(mCurrentDownload, downloadResult);
@@ -652,6 +655,6 @@ public class FileDownloader extends Service
      */
     private void cancelDownloadsForAccount(Account account) {
         // Cancel pending downloads
-        mPendingDownloads.remove(account);
+        mPendingDownloads.remove(account.name);
     }
 }

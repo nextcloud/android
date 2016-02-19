@@ -19,6 +19,7 @@
  */
 package com.owncloud.android.ui.fragment;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,9 +33,12 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -164,7 +168,10 @@ public class UploadListFragment extends ExpandableListFragment {
         OCUpload uploadFile = (OCUpload) mAdapter.getChild(groupPosition, childPosition);
         switch (item.getItemId()) {
         case R.id.action_cancel_upload:
-            ((FileActivity) getActivity()).getFileOperationsHelper().cancelTransference(uploadFile.getOCFile());
+            FileUploader.FileUploaderBinder uploaderBinder = ((FileActivity) getActivity()).getFileUploaderBinder();
+            if (uploaderBinder != null) {
+                uploaderBinder.cancel(uploadFile);
+            }
             return true;
         case R.id.action_remove_upload: {
             ((FileActivity) getActivity()).getFileOperationsHelper().removeUploadFromList(uploadFile);
@@ -172,15 +179,19 @@ public class UploadListFragment extends ExpandableListFragment {
 //        }case R.id.action_retry_upload: {
 //            ((FileActivity) getActivity()).getFileOperationsHelper().retryUpload(uploadFile);
 //            return true;
-        }case R.id.action_see_details: {
+        } case R.id.action_see_details: {
+            Toast.makeText(getActivity(), "TO DO", Toast.LENGTH_SHORT).show();
+            /*
             Intent showDetailsIntent = new Intent(getActivity(), FileDisplayActivity.class);
             showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, uploadFile.getOCFile());
             showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, uploadFile.getAccount(getActivity()));
             startActivity(showDetailsIntent);
+            */
             return true;
         }
         case R.id.action_open_file_with: {
-            ((FileActivity) getActivity()).getFileOperationsHelper().openFile(uploadFile.getOCFile());
+            Toast.makeText(getActivity(), "TO DO", Toast.LENGTH_SHORT).show();
+            //((FileActivity) getActivity()).getFileOperationsHelper().openFile(uploadFile.getOCFile());
             return true;
         }
         default:

@@ -27,6 +27,7 @@ import android.net.Uri;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -40,6 +41,7 @@ import com.owncloud.android.lib.resources.files.ChunkedUploadRemoteFileOperation
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 import com.owncloud.android.utils.UriUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -62,6 +64,59 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Remote operation performing the upload of a file to an ownCloud server
  */
 public class UploadFileOperation extends RemoteOperation {
+
+
+    private static final String MIME_TYPE_PDF = "application/pdf";
+    private static final String FILE_EXTENSION_PDF = ".pdf";
+
+    /**
+     * Checks if content provider, using the content:// scheme, returns a file with mime-type
+     * 'application/pdf' but file has not extension
+     * @param localPath         Full path to a file in the local file system.
+     * @param mimeType          MIME type of the file.
+     * @return true if is needed to add the pdf file extension to the file
+     *
+     * TODO - move to OCFile or Utils class
+     */
+    private static boolean isPdfFileFromContentProviderWithoutExtension(String localPath,
+                                                                 String mimeType) {
+        return localPath.startsWith(UriUtils.URI_CONTENT_SCHEME) &&
+                mimeType.equals(MIME_TYPE_PDF) &&
+                !localPath.endsWith(FILE_EXTENSION_PDF);
+    }
+
+    public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
+
+        // MIME type
+        if (mimeType == null || mimeType.length() <= 0) {
+            mimeType = MimetypeIconUtil.getBestMimeTypeByFilename(localPath);
+        }
+
+        // TODO - this is a horrible special case that should not be handled this way
+        if (isPdfFileFromContentProviderWithoutExtension(localPath, mimeType)){
+            remotePath += FILE_EXTENSION_PDF;
+        }
+
+        OCFile newFile = new OCFile(remotePath);
+        newFile.setStoragePath(localPath);
+        newFile.setLastSyncDateForProperties(0);
+        newFile.setLastSyncDateForData(0);
+
+        // size
+        if (localPath != null && localPath.length() > 0) {
+            File localFile = new File(localPath);
+            newFile.setFileLength(localFile.length());
+            newFile.setLastSyncDateForData(localFile.lastModified());
+        } // don't worry about not assigning size, the problems with localPath
+        // are checked when the UploadFileOperation instance is created
+
+
+        newFile.setMimetype(mimeType);
+
+        return newFile;
+    }
+
+
 
     private static final String TAG = UploadFileOperation.class.getSimpleName();
 
@@ -118,6 +173,39 @@ public class UploadFileOperation extends RemoteOperation {
         mAccount = account;
         mFile = file;
         mRemotePath = file.getRemotePath();
+        mChunked = chunked;
+        mForceOverwrite = forceOverwrite;
+        mLocalBehaviour = localBehaviour;
+        mOriginalStoragePath = mFile.getStoragePath();
+        mOriginalFileName = mFile.getFileName();
+        mContext = context;
+    }
+
+    public UploadFileOperation(Account account,
+                               OCUpload upload,
+                               boolean chunked,
+                               boolean forceOverwrite,
+                               int localBehaviour,
+                               Context context
+    ) {
+        if (account == null)
+            throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " +
+                    "creation");
+        if (upload == null)
+            throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
+        if (upload.getLocalPath() == null || upload.getLocalPath().length() <= 0) {
+            throw new IllegalArgumentException(
+                    "Illegal file in UploadFileOperation; storage path invalid: "
+                            + upload.getLocalPath());
+        }
+
+        mAccount = account;
+        mFile = obtainNewOCFileToUpload(
+                upload.getRemotePath(),
+                upload.getLocalPath(),
+                getMimeType()
+        );
+        mRemotePath = upload.getRemotePath();
         mChunked = chunked;
         mForceOverwrite = forceOverwrite;
         mLocalBehaviour = localBehaviour;

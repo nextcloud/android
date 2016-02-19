@@ -134,10 +134,11 @@ public class ProviderMeta {
                 + " collate nocase asc";
 
         //Columns of Uploads table
-        public static final String UPLOADS_FILE_ID = "file_id";
-        public static final String UPLOADS_PATH = "path";
-        public static final String UPLOADS_STATUS = "status";
+        //public static final String UPLOADS_FILE_ID = "file_id";
+        public static final String UPLOADS_LOCAL_PATH = "local_path";
+        public static final String UPLOADS_REMOTE_PATH = "remote_path";
         public static final String UPLOADS_ACCOUNT_NAME = "account_name";
+        public static final String UPLOADS_STATUS = "status";
         public static final String UPLOADS_LOCAL_BEHAVIOUR = "local_behaviour";
         public static final String UPLOADS_UPLOAD_TIME = "upload_time";
         public static final String UPLOADS_FORCE_OVERWRITE = "force_overwrite";
@@ -147,6 +148,7 @@ public class ProviderMeta {
         public static final String UPLOADS_UPLOAD_TIMESTAMP = "upload_timestamp";
         public static final String UPLOADS_LAST_RESULT = "last_result";
 
-        public static final String UPLOADS_DEFAULT_SORT_ORDER = UPLOADS_FILE_ID  + " collate nocase asc";
+        //public static final String UPLOADS_DEFAULT_SORT_ORDER = UPLOADS_FILE_ID  + " collate nocase asc";
+        public static final String UPLOADS_DEFAULT_SORT_ORDER = ProviderTableMeta._ID  + " collate nocase desc";
     }
 }

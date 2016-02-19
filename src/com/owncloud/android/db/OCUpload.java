@@ -2,6 +2,8 @@
  *   ownCloud Android client application
  *
  *   @author LukeOwncloud
+ *   @author masensio
+ *   @author David A. Velasco
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -32,20 +34,18 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 import com.owncloud.android.utils.UploadUtils;
 
 import java.io.File;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Stores all information in order to start upload operations. PersistentUploadObject can
  * be stored persistently by {@link UploadsStorageManager}.
  * 
  */
-public class OCUpload implements Parcelable{
+public class OCUpload implements Parcelable {
 
     /** Generated - should be refreshed every time the class changes!! */
 //    private static final long serialVersionUID = 2647551318657321611L;
@@ -54,15 +54,27 @@ public class OCUpload implements Parcelable{
 
     private long mId;
 
-    private OCFile mFile;
+    //private OCFile mFile;
+    /**
+     * Absolute path in the local file system to the file to be uploaded
+     */
+    private String mLocalPath;
+
+    /**
+     * Absolute path in the remote account to set to the uploaded file (not for its parent folder!)
+     */
+    private String mRemotePath;
+
+    /**
+     * Name of Owncloud account to upload file to.
+     */
+    private String mAccountName;
+
     /**
      * Local action for upload. (0 - COPY, 1 - MOVE, 2 - FORGET)
      */
     private int mLocalAction;
-    /**
-     * Date and time when this upload was first requested.
-     */
-    private Calendar mUploadTime = new GregorianCalendar();  //TODO needed??
+
     /**
      * Overwrite destination file?
      */
@@ -80,14 +92,6 @@ public class OCUpload implements Parcelable{
      */
     private boolean mIsWhileChargingOnly;
     /**
-     * Earliest time when upload may be started. Negative if not set.
-     */
-    private long mUploadTimestamp;
-    /**
-     * Name of Owncloud account to upload file to.
-     */
-    private String mAccountName;
-    /**
      * Status of upload (later, in_progress, ...).
      */
     private UploadStatus mUploadStatus;
@@ -96,24 +100,55 @@ public class OCUpload implements Parcelable{
      */
     private UploadResult mLastResult;
 
-    // Constructor
-    public OCUpload(OCFile ocFile) {
-        this.mFile = ocFile;
-        resetData();     // TODO needed???
 
+    /**
+     * Main constructor
+     *
+     * @param localPath         Absolute path in the local file system to the file to be uploaded.
+     * @param remotePath        Absolute path in the remote account to set to the uploaded file.
+     * @param accountName       Name of an ownCloud account to update the file to.
+     */
+    public OCUpload(String localPath, String remotePath, String accountName) {
+        if (localPath == null || !localPath.startsWith(File.separator)) {
+            throw new IllegalArgumentException("Local path must be an absolute path in the local file system");
+        }
+        if (remotePath == null || !remotePath.startsWith(OCFile.PATH_SEPARATOR)) {
+            throw new IllegalArgumentException("Remote path must be an absolute path in the local file system");
+        }
+        if (accountName == null || accountName.length() < 1) {
+            throw new IllegalArgumentException("Invalid account name");
+        }
+        resetData();
+        mLocalPath = localPath;
+        mRemotePath = remotePath;
+        mAccountName = accountName;
     }
 
-    // TODO needed???
-    private void resetData(){
+
+    /**
+     * Convenience constructor to reupload already existing {@link OCFile}s
+     *
+     * @param  ocFile           {@link OCFile} instance to update in the remote server.
+     * @param  account          ownCloud {@link Account} where ocFile is contained.
+     */
+    public OCUpload(OCFile ocFile, Account account) {
+        this(ocFile.getStoragePath(), ocFile.getRemotePath(), account.name);
+    }
+
+
+    /**
+     * Reset all the fields to default values.
+     */
+    private void resetData() {
+        mRemotePath = "";
+        mLocalPath = "";
+        mAccountName = "";
         mId = -1;
         mLocalAction = FileUploader.LOCAL_BEHAVIOUR_COPY;
-        mUploadTime = new GregorianCalendar();
         mForceOverwrite = false;
         mIsCreateRemoteFolder = false;
         mIsUseWifiOnly = true;
         mIsWhileChargingOnly = false;
-        mUploadTimestamp = -1;
-        mAccountName = "";
         mUploadStatus = UploadStatus.UPLOAD_LATER;
         mLastResult = UploadResult.UNKNOWN;
     }
@@ -124,14 +159,6 @@ public class OCUpload implements Parcelable{
     }
     public long getUploadId() {
         return mId;
-    }
-
-    public OCFile getOCFile() {
-        return mFile;
-    }
-
-    public Calendar getUploadTime() {
-        return mUploadTime;
     }
 
     /**
@@ -169,21 +196,25 @@ public class OCUpload implements Parcelable{
      * @return the localPath
      */
     public String getLocalPath() {
-        return mFile.getStoragePath();
+        return mLocalPath;
+    }
+
+    public void setLocalPath(String localPath) {
+        mLocalPath = localPath;
     }
 
     /**
      * @return the remotePath
      */
     public String getRemotePath() {
-        return mFile.getRemotePath();
+        return mRemotePath;
     }
 
     /**
      * @return the mimeType
      */
     public String getMimeType() {
-        return mFile.getMimetype();
+        return MimetypeIconUtil.getBestMimeTypeByFilename(mLocalPath);
     }
 
     /**
@@ -250,13 +281,6 @@ public class OCUpload implements Parcelable{
     }
 
     /**
-     * @param accountName the accountName to set
-     */
-    public void setAccountName(String accountName) {
-        this.mAccountName = accountName;
-    }
-
-    /**
      * Returns owncloud account as {@link Account} object.  
      */
     public Account getAccount(Context context) {
@@ -271,22 +295,6 @@ public class OCUpload implements Parcelable{
         return mIsWhileChargingOnly;
     }
 
-    /**
-     * Earliest time when upload may be started. Negative if not set.
-     * @return the uploadTimestamp
-     */
-    public long getUploadTimestamp() {
-        return mUploadTimestamp;
-    }
-
-    /**
-     * Earliest time when upload may be started. Set to negative value for immediate upload.
-     * @param uploadTimestamp the uploadTimestamp to set
-     */
-    public void setUploadTimestamp(long uploadTimestamp) {
-        this.mUploadTimestamp = uploadTimestamp;
-    }
-    
     /**
      * For debugging purposes only.
      */
@@ -307,7 +315,7 @@ public class OCUpload implements Parcelable{
     public void removeAllUploadRestrictions() {
         setUseWifiOnly(false);
         setWhileChargingOnly(false);
-        setUploadTimestamp(0);
+        //setUploadTimestamp(0);
     }
 
     /**
@@ -369,14 +377,14 @@ public class OCUpload implements Parcelable{
 
     public void readFromParcel(Parcel source) {
         mId = source.readLong();
-        mFile = source.readParcelable(OCFile.class.getClassLoader());
-        mLocalAction = source.readInt();
-        mForceOverwrite = source.readInt() == 0;
-        mIsCreateRemoteFolder = source.readInt() == 0;
-        mIsUseWifiOnly = source.readInt() == 0;
-        mIsWhileChargingOnly = source.readInt() == 0;
-        mUploadTimestamp = source.readLong();
+        mLocalPath = source.readString();
+        mRemotePath = source.readString();
         mAccountName = source.readString();
+        mLocalAction = source.readInt();
+        mForceOverwrite = (source.readInt() == 1);
+        mIsCreateRemoteFolder = (source.readInt() == 1);
+        mIsUseWifiOnly = (source.readInt() == 1);
+        mIsWhileChargingOnly = (source.readInt() == 1);
         try {
             mUploadStatus = UploadStatus.valueOf(source.readString());
         } catch (IllegalArgumentException x) {
@@ -398,15 +406,14 @@ public class OCUpload implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(mId);
-        dest.writeParcelable(mFile, flags);
+        dest.writeString(mLocalPath);
+        dest.writeString(mRemotePath);
+        dest.writeString(mAccountName);
         dest.writeInt(mLocalAction);
-        //dest.writeLong(mUploadTime);
         dest.writeInt(mForceOverwrite ? 1 : 0);
         dest.writeInt(mIsCreateRemoteFolder ? 1 : 0);
         dest.writeInt(mIsUseWifiOnly ? 1 : 0);
         dest.writeInt(mIsWhileChargingOnly ? 1 : 0);
-        dest.writeLong(mUploadTimestamp);
-        dest.writeString(mAccountName);
         dest.writeString(mUploadStatus.name());
         dest.writeString(((mLastResult == null) ? "" : mLastResult.name()));
     }
@@ -447,15 +454,6 @@ public class OCUpload implements Parcelable{
             Log_OC.d(TAG, "Do not start upload because it is while charging only.");
             return CanUploadFileNowStatus.LATER;
         }
-        Date now = new Date();
-        if (now.getTime() < getUploadTimestamp()) {
-            Log_OC.d(
-                    TAG,
-                    "Do not start upload because it is schedule for "
-                            + DisplayUtils.unixTimeToHumanReadable(getUploadTimestamp()));
-            return CanUploadFileNowStatus.LATER;
-        }
-
 
         if (!new File(getLocalPath()).exists()) {
             Log_OC.d(TAG, "Do not start upload because local file does not exist.");
@@ -472,10 +470,6 @@ public class OCUpload implements Parcelable{
     public String getUploadLaterReason(Context context) {
         StringBuilder reason = new StringBuilder();
         Date now = new Date();
-        if (now.getTime() < getUploadTimestamp()) {
-            reason.append(context.getString(R.string.uploads_view_later_reason_waiting_for) +
-                    DisplayUtils.unixTimeToHumanReadable(getUploadTimestamp()));
-        }
         if (isUseWifiOnly() && !UploadUtils.isConnectedViaWiFi(context)) {
             if (reason.length() > 0) {
                 reason.append(context.getString(R.string.uploads_view_later_reason_add_wifi_reason));

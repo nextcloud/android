@@ -31,7 +31,6 @@ import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 import java.util.Observable;
@@ -126,12 +125,12 @@ public class UploadsStorageManager extends Observable {
         Log_OC.e(TAG, "Inserting " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
 
         ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.UPLOADS_PATH, ocUpload.getLocalPath());
-        cv.put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.getUploadStatus().value);
-        cv.put(ProviderTableMeta.UPLOADS_FILE_ID, ocUpload.getOCFile().getFileId());
+        cv.put(ProviderTableMeta.UPLOADS_LOCAL_PATH, ocUpload.getLocalPath());
+        cv.put(ProviderTableMeta.UPLOADS_REMOTE_PATH, ocUpload.getRemotePath());
         cv.put(ProviderTableMeta.UPLOADS_ACCOUNT_NAME, ocUpload.getAccountName());
+        cv.put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.getUploadStatus().value);
+        //cv.put(ProviderTableMeta.UPLOADS_FILE_ID, ocUpload.getOCFile().getFileId());
         cv.put(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR, ocUpload.getLocalAction());
-        //cv.put(ProviderTableMeta.UPLOADS_UPLOAD_TIME, ocUpload.getUploadTime());
         cv.put(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE, ocUpload.isForceOverwrite() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY, ocUpload.isWhileChargingOnly() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY, ocUpload.isUseWifiOnly() ? 1 : 0);
@@ -161,7 +160,10 @@ public class UploadsStorageManager extends Observable {
         Log_OC.e(TAG, "Updating " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
 
         ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.UPLOADS_PATH, ocUpload.getLocalPath());
+        /*  TODO - check what is really needed to update
+        cv.put(ProviderTableMeta.UPLOADS_LOCAL_PATH, ocUpload.getLocalPath());
+        cv.put(ProviderTableMeta.UPLOADS_REMOTE_PATH, ocUpload.getRemotePath());
+        cv.put(ProviderTableMeta.UPLOADS_ACCOUNT_NAME, ocUpload.getAccountName());*/
         cv.put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.getUploadStatus().value);
         cv.put(ProviderTableMeta.UPLOADS_LAST_RESULT, ocUpload.getLastResult().getValue());
 
@@ -198,7 +200,7 @@ public class UploadsStorageManager extends Observable {
             // read upload object and update
             OCUpload upload = createOCUploadFromCursor(c);
 
-            String path = c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_PATH));
+            String path = c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_LOCAL_PATH));
             Log_OC.v(
                     TAG,
                     "Updating " + path + " with status:" + status + " and result:"
@@ -245,7 +247,7 @@ public class UploadsStorageManager extends Observable {
         return updateUploadInternal(c, status, result);
     }
 
-
+    /*
     public int updateFileIdUpload(long uploadId, long fileId) {
         Log_OC.e(TAG, "Updating " + uploadId + " with fileId= " + fileId);
 
@@ -267,6 +269,7 @@ public class UploadsStorageManager extends Observable {
 
         return result;
     }
+    */
 
     /**
      * Should be called when some value of this DB was changed. All observers
@@ -288,7 +291,7 @@ public class UploadsStorageManager extends Observable {
     public int removeUpload(String localPath) {
         int result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_PATH + "=?",
+                ProviderTableMeta.UPLOADS_LOCAL_PATH + "=?",
                 new String[]{localPath}
         );
         Log_OC.d(TAG, "delete returns with: " + result + " for file: " + localPath);
@@ -323,7 +326,7 @@ public class UploadsStorageManager extends Observable {
     }
 
     public OCUpload[] getUploadByLocalPath(String localPath) {
-        return getUploads(ProviderTableMeta.UPLOADS_PATH + "=?", new String[]{localPath});
+        return getUploads(ProviderTableMeta.UPLOADS_LOCAL_PATH + "=?", new String[]{localPath});
     }
 
 
@@ -338,12 +341,10 @@ public class UploadsStorageManager extends Observable {
         OCUpload[] list = new OCUpload[c.getCount()];
         if (c.moveToFirst()) {
             do {
-                long fileUploadId = c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_FILE_ID));
-//                // getFile for this fileUploadId
-//                OCFile file = getUploadFile(fileUploadId);
+                //long fileUploadId = c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_FILE_ID));
                 OCUpload upload = createOCUploadFromCursor(c);
                 if (upload == null) {
-                    Log_OC.e(TAG, "Upload for file id = " + fileUploadId + "not found on DB");
+                    Log_OC.e(TAG, "OCUpload could not be created from cursor");
                 } else {
                     list[c.getPosition()] = upload;
                 }
@@ -355,6 +356,7 @@ public class UploadsStorageManager extends Observable {
         return list;
     }
 
+    /*
     private OCFile getUploadFile(long id) {
         OCFile file = null;
         Cursor c = getDB().query(
@@ -372,7 +374,9 @@ public class UploadsStorageManager extends Observable {
 
         return file;
     }
+    */
 
+    /*
     private OCFile createFileInstance(Cursor c) {
         OCFile file = null;
         if (c != null) {
@@ -430,19 +434,20 @@ public class UploadsStorageManager extends Observable {
         }
         return file;
     }
+    */
 
     private OCUpload createOCUploadFromCursor(Cursor c) {
         OCUpload upload = null;
         if (c != null) {
-            long fileUploadId = c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_FILE_ID));
-            //String uploadObjectString = c.getString(c.getColumnIndex("uploadObject"));
-            // getFile for this fileUploadId
-            OCFile file = getUploadFile(fileUploadId);
-            upload = new OCUpload(file);
+            String localPath = c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_LOCAL_PATH));
+            String remotePath = c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_REMOTE_PATH));
+            String accountName = c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_ACCOUNT_NAME));
+            upload = new OCUpload(localPath, remotePath, accountName);
+
             upload.setUploadId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
-            upload.setUploadStatus(UploadStatus.fromValue(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_STATUS)
-            )));
-            upload.setAccountName(c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_ACCOUNT_NAME)));
+            upload.setUploadStatus(
+                    UploadStatus.fromValue(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_STATUS)))
+            );
             upload.setLocalAction(c.getInt(c.getColumnIndex((ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR))));
             upload.setForceOverwrite(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE)) == 1);
@@ -452,7 +457,6 @@ public class UploadsStorageManager extends Observable {
                     c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY)) == 1);
             upload.setUseWifiOnly(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY)) == 1);
-            upload.setUploadTimestamp(c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_UPLOAD_TIMESTAMP)));
             upload.setLastResult(UploadResult.fromValue(
                     c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_LAST_RESULT))));
         }

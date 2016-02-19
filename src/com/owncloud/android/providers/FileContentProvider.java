@@ -846,10 +846,11 @@ public class FileContentProvider extends ContentProvider {
         // Create uploads table
         db.execSQL("CREATE TABLE " + ProviderTableMeta.UPLOADS_TABLE_NAME + "("
                 + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
-                + ProviderTableMeta.UPLOADS_FILE_ID + " INTEGER, "
-                + ProviderTableMeta.UPLOADS_PATH + " TEXT, "
-                + ProviderTableMeta.UPLOADS_STATUS + " INTEGER, "               // UploadStatus
+                //+ ProviderTableMeta.UPLOADS_FILE_ID + " INTEGER, "
+                + ProviderTableMeta.UPLOADS_LOCAL_PATH + " TEXT, "
+                + ProviderTableMeta.UPLOADS_REMOTE_PATH + " TEXT, "
                 + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " TEXT, "
+                + ProviderTableMeta.UPLOADS_STATUS + " INTEGER, "               // UploadStatus
                 + ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR + " INTEGER, "      // Upload LocalBehaviour
                 + ProviderTableMeta.UPLOADS_UPLOAD_TIME + " INTEGER, "
                 + ProviderTableMeta.UPLOADS_FORCE_OVERWRITE + " INTEGER, "  // boolean

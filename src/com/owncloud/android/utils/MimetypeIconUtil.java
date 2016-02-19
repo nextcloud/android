@@ -84,6 +84,21 @@ public class MimetypeIconUtil {
     }
 
     /**
+     * Returns a single MIME type of all the possible, by inspection of the file extension, and taking
+     * into account the MIME types known by ownCloud first.
+     *
+     * @param filename      Name of file
+     * @return              A single MIME type, "application/octet-stream" for unknown file extensions.
+     */
+    public static String getBestMimeTypeByFilename(String filename) {
+        List<String> candidates = determineMimeTypesByFilename(filename);
+        if (candidates == null || candidates.size() < 1) {
+            return "application/octet-stream";
+        }
+        return candidates.get(0);
+    }
+
+    /**
      * determines the icon based on the mime type.
      *
      * @param mimetypes the mimetypes
