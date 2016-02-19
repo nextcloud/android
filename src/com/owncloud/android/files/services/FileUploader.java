@@ -40,7 +40,6 @@ import android.os.Message;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.util.Pair;
-import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;

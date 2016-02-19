@@ -203,7 +203,7 @@ public class UploadFileOperation extends RemoteOperation {
         mFile = obtainNewOCFileToUpload(
                 upload.getRemotePath(),
                 upload.getLocalPath(),
-                getMimeType()
+                upload.getMimeType()
         );
         mRemotePath = upload.getRemotePath();
         mChunked = chunked;
