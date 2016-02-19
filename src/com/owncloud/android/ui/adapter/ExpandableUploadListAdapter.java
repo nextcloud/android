@@ -1,22 +1,21 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author LukeOwncloud
- *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author LukeOwncloud
+ * @author masensio
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p/>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.adapter;
 
@@ -75,32 +74,40 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     interface Refresh {
         public void refresh();
     }
+
     abstract class UploadGroup implements Refresh {
         OCUpload[] items;
         String name;
+
         public UploadGroup(String groupName) {
             this.name = groupName;
             items = new OCUpload[0];
         }
+
         public String getGroupName() {
             return name;
         }
+
         public Comparator<OCUpload> comparator = new Comparator<OCUpload>() {
             @Override
             public int compare(OCUpload lhs, OCUpload rhs) {
                 return compareUploadId(lhs, rhs);
             }
+
             private int compareUploadId(OCUpload lsh, OCUpload rsh) {
                 return Long.valueOf(lsh.getUploadId()).compareTo(rsh.getUploadId());
             }
+
             private int compareUpdateTime(OCUpload lhs, OCUpload rhs) {
                 long lLastModified = new File(lhs.getLocalPath()).lastModified();
                 long rLastModified = new File(rhs.getLocalPath()).lastModified();
                 return Long.valueOf(rLastModified).compareTo(lLastModified);
             }
         };
+
         abstract public int getGroupIcon();
     }
+
     private UploadGroup[] mUploadGroups = null;
     private final int MAX_NUM_UPLOADS_SHOWN = 30;
 
@@ -116,31 +123,34 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 Arrays.sort(items, comparator);
                 items = trimToMaxLength(items);
             }
+
             @Override
             public int getGroupIcon() {
                 return R.drawable.upload_in_progress;
             }
         };
-        mUploadGroups[1] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_failed_uploads)){
+        mUploadGroups[1] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_failed_uploads)) {
             @Override
             public void refresh() {
                 items = mUploadsStorageManager.getFailedUploads();
                 Arrays.sort(items, comparator);
                 items = trimToMaxLength(items);
             }
+
             @Override
             public int getGroupIcon() {
                 return R.drawable.upload_failed;
             }
 
         };
-        mUploadGroups[2] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_finished_uploads)){
+        mUploadGroups[2] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_finished_uploads)) {
             @Override
             public void refresh() {
                 items = mUploadsStorageManager.getFinishedUploads();
                 Arrays.sort(items, comparator);
                 items = trimToMaxLength(items);
             }
+
             @Override
             public int getGroupIcon() {
                 return R.drawable.upload_finished;
@@ -151,11 +161,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     }
 
 
-    private OCUpload[] trimToMaxLength(OCUpload[] items){
+    private OCUpload[] trimToMaxLength(OCUpload[] items) {
         if (items.length > 30) {
-            OCUpload[] arrayTrim= new OCUpload[30];
+            OCUpload[] arrayTrim = new OCUpload[30];
 
-            for(int i = 0; i < MAX_NUM_UPLOADS_SHOWN; i++){
+            for (int i = 0; i < MAX_NUM_UPLOADS_SHOWN; i++) {
                 arrayTrim[i] = items[i];
             }
             return arrayTrim;
@@ -249,7 +259,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     progressBar.setProgress(0);
                     progressBar.setVisibility(View.VISIBLE);
                     mProgressListener = new ProgressListener(progressBar);
-                    if(mParentActivity.getFileUploaderBinder() != null) {
+                    if (mParentActivity.getFileUploaderBinder() != null) {
                         mParentActivity.getFileUploaderBinder().addDatatransferProgressListener(
                                 mProgressListener,
                                 mParentActivity.getAccount(),
@@ -280,7 +290,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                         Intent updateAccountCredentials = new Intent(mParentActivity,
                                                 AuthenticatorActivity.class);
                                         updateAccountCredentials.putExtra(
-                                                AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount(mParentActivity));
+                                                AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount
+                                                        (mParentActivity));
                                         updateAccountCredentials.putExtra(
                                                 AuthenticatorActivity.EXTRA_ACTION,
                                                 AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
@@ -310,7 +321,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         }
                     } else {
                         status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_failed);;
+                                R.string.uploads_view_upload_status_failed);
+                        ;
                     }
                     break;
                 case UPLOAD_FAILED_RETRY:
@@ -320,7 +332,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_retry);
                     }
                     String laterReason = upload.getUploadLaterReason(mParentActivity);
-                    if(laterReason != null) {
+                    if (laterReason != null) {
                         //Upload failed once but is delayed now, show reason.
                         status = laterReason;
                     }
@@ -337,23 +349,23 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     status = upload.getUploadLaterReason(mParentActivity);
                     break;
                 case UPLOAD_SUCCEEDED:
-                    status =  mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
+                    status = mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
                     statusTextView.setVisibility(View.GONE);
                     break;
                 case UPLOAD_CANCELLED:
-                    status =  mParentActivity.getString(R.string.uploads_view_upload_status_cancelled);
+                    status = mParentActivity.getString(R.string.uploads_view_upload_status_cancelled);
                     break;
                 case UPLOAD_PAUSED:
-                    status =  mParentActivity.getString(R.string.uploads_view_upload_status_paused);
+                    status = mParentActivity.getString(R.string.uploads_view_upload_status_paused);
                     break;
                 default:
                     status = upload.getUploadStatus().toString();
-                    if(upload.getLastResult() != null){
+                    if (upload.getLastResult() != null) {
                         upload.getLastResult().toString();
                     }
                     break;
             }
-            if(upload.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
+            if (upload.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
                 ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                 progressBar.setVisibility(View.GONE);
                 if (mParentActivity.getFileUploaderBinder() != null && mProgressListener != null) {
@@ -393,12 +405,12 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             }
 
             if (upload.userCanRetryUpload()) {
-                    view.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mParentActivity.getFileOperationsHelper().retryUpload(upload);
-                        }
-                    });
+                view.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mParentActivity.getFileOperationsHelper().retryUpload(upload);
+                    }
+                });
             }
 
 
@@ -420,12 +432,12 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             // TODO this code is duplicated; refactor to a common place
             if ((fakeFileToCheatThumbnailsCacheManagerInterface.isImage()
                     && fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId() != null &&
-                    upload.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED)){
+                    upload.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED)) {
                 // Thumbnail in Cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                         String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId())
                 );
-                if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.needsUpdateThumbnail()){
+                if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.needsUpdateThumbnail()) {
                     fileIcon.setImageBitmap(thumbnail);
                 } else {
                     // generate new Thumbnail
@@ -498,7 +510,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     }
 
 
-
     @Override
     public boolean hasStableIds() {
         return false;
@@ -560,7 +571,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     public int getGroupCount() {
         int size = 0;
         for (UploadGroup uploadGroup : mUploadGroups) {
-            if(uploadGroup.items.length > 0) {
+            if (uploadGroup.items.length > 0) {
                 size++;
             }
         }
@@ -576,7 +587,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         int id = -1;
         for (int i = 0; i <= groupPosition; ) {
             id++;
-            if(mUploadGroups[id].items.length > 0){
+            if (mUploadGroups[id].items.length > 0) {
                 i++;
             }
         }
@@ -617,8 +628,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         }
 
         @Override
-        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
-            int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
+        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String
+                filename) {
+            int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
             if (percent != mLastPercent) {
                 ProgressBar pb = mProgressBar.get();
                 if (pb != null) {
@@ -629,9 +641,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             mLastPercent = percent;
         }
 
-    };
+    }
 
-    public void addBinder(){
+    ;
+
+    public void addBinder() {
         notifyDataSetChanged();
     }
 }

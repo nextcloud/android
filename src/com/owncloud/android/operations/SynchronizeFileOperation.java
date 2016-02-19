@@ -56,8 +56,8 @@ public class SynchronizeFileOperation extends SyncOperation {
     private boolean mTransferWasRequested = false;
 
     /**
-     * When 'false', uploads to the server are not done; only downloads or conflict detection.  
-     * This is a temporal field. 
+     * When 'false', uploads to the server are not done; only downloads or conflict detection.
+     * This is a temporal field.
      * TODO Remove when 'folder synchronization' replaces 'folder download'.
      */
     private boolean mAllowUploads;
@@ -65,17 +65,17 @@ public class SynchronizeFileOperation extends SyncOperation {
 
     /**
      * Constructor for "full synchronization mode".
-     *
+     * <p/>
      * Uses remotePath to retrieve all the data both in local cache and in the remote OC server
      * when the operation is executed, instead of reusing {@link OCFile} instances.
-     *
+     * <p/>
      * Useful for direct synchronization of a single file.
      *
      * @param
-     * @param account               ownCloud account holding the file.
-     * @param syncFileContents      When 'true', transference of data will be started by the 
-     *                              operation if needed and no conflict is detected.
-     * @param context               Android context; needed to start transfers.
+     * @param account          ownCloud account holding the file.
+     * @param syncFileContents When 'true', transference of data will be started by the
+     *                         operation if needed and no conflict is detected.
+     * @param context          Android context; needed to start transfers.
      */
     public SynchronizeFileOperation(
             String remotePath,
@@ -96,21 +96,21 @@ public class SynchronizeFileOperation extends SyncOperation {
     /**
      * Constructor allowing to reuse {@link OCFile} instances just queried from local cache or
      * from remote OC server.
-     *
+     * <p/>
      * Useful to include this operation as part of the synchronization of a folder
      * (or a full account), avoiding the repetition of fetch operations (both in local database
      * or remote server).
-     *
+     * <p/>
      * At least one of localFile or serverFile MUST NOT BE NULL. If you don't have none of them,
      * use the other constructor.
      *
-     * @param localFile             Data of file (just) retrieved from local cache/database.
-     * @param serverFile            Data of file (just) retrieved from a remote server. If null,
-     *                              will be retrieved from network by the operation when executed.
-     * @param account               ownCloud account holding the file.
-     * @param syncFileContents      When 'true', transference of data will be started by the 
-     *                              operation if needed and no conflict is detected.
-     * @param context               Android context; needed to start transfers.
+     * @param localFile        Data of file (just) retrieved from local cache/database.
+     * @param serverFile       Data of file (just) retrieved from a remote server. If null,
+     *                         will be retrieved from network by the operation when executed.
+     * @param account          ownCloud account holding the file.
+     * @param syncFileContents When 'true', transference of data will be started by the
+     *                         operation if needed and no conflict is detected.
+     * @param context          Android context; needed to start transfers.
      */
     public SynchronizeFileOperation(
             OCFile localFile,
@@ -141,26 +141,26 @@ public class SynchronizeFileOperation extends SyncOperation {
 
     /**
      * Temporal constructor.
-     *
+     * <p/>
      * Extends the previous one to allow constrained synchronizations where uploads are never
      * performed - only downloads or conflict detection.
-     *
+     * <p/>
      * Do not use unless you are involved in 'folder synchronization' or 'folder download' work
      * in progress.
-     *
+     * <p/>
      * TODO Remove when 'folder synchronization' replaces 'folder download'.
      *
-     * @param localFile             Data of file (just) retrieved from local cache/database.
-     *                              MUSTN't be null.
-     * @param serverFile            Data of file (just) retrieved from a remote server.
-     *                              If null, will be retrieved from network by the operation
-     *                              when executed.
-     * @param account               ownCloud account holding the file.
-     * @param syncFileContents      When 'true', transference of data will be started by the 
-     *                              operation if needed and no conflict is detected.
-     * @param allowUploads          When 'false', uploads to the server are not done;
-     *                              only downloads or conflict detection.
-     * @param context               Android context; needed to start transfers.
+     * @param localFile        Data of file (just) retrieved from local cache/database.
+     *                         MUSTN't be null.
+     * @param serverFile       Data of file (just) retrieved from a remote server.
+     *                         If null, will be retrieved from network by the operation
+     *                         when executed.
+     * @param account          ownCloud account holding the file.
+     * @param syncFileContents When 'true', transference of data will be started by the
+     *                         operation if needed and no conflict is detected.
+     * @param allowUploads     When 'false', uploads to the server are not done;
+     *                         only downloads or conflict detection.
+     * @param context          Android context; needed to start transfers.
      */
     public SynchronizeFileOperation(
             OCFile localFile,
@@ -281,11 +281,11 @@ public class SynchronizeFileOperation extends SyncOperation {
     /**
      * Requests for an upload to the FileUploader service
      *
-     * @param file     OCFile object representing the file to upload
+     * @param file OCFile object representing the file to upload
      */
     private void requestForUpload(OCFile file) {
 
-        FileUploader.uploadUpdate(mContext, mAccount, file, true);
+        FileUploader.uploadUpdate(mContext, mAccount, file, FileUploader.LOCAL_BEHAVIOUR_MOVE, true);
 
         mTransferWasRequested = true;
     }
@@ -294,7 +294,7 @@ public class SynchronizeFileOperation extends SyncOperation {
     /**
      * Requests for a download to the FileDownloader service
      *
-     * @param file     OCFile object representing the file to download
+     * @param file OCFile object representing the file to download
      */
     private void requestForDownload(OCFile file) {
         Intent i = new Intent(mContext, FileDownloader.class);

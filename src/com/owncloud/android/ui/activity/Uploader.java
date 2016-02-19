@@ -564,7 +564,7 @@ public class Uploader extends FileActivity
                 }
 
                 FileUploader.uploadNewFile(this, getAccount(), local.toArray(new String[local.size()]), remote
-                        .toArray(new String[remote.size()]));
+                        .toArray(new String[remote.size()]), FileUploader.LOCAL_BEHAVIOUR_FORGET, null, false, false);
 
                 //Save the path to shared preferences
                 SharedPreferences.Editor appPrefs = PreferenceManager
@@ -597,8 +597,8 @@ public class Uploader extends FileActivity
      * Updates the view associated to the activity after the finish of an operation
      * trying create a new folder
      *
-     * @param operation     Creation operation performed.
-     * @param result        Result of the creation.
+     * @param operation Creation operation performed.
+     * @param result    Result of the creation.
      */
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
@@ -619,9 +619,9 @@ public class Uploader extends FileActivity
 
 
     /**
-     *  Loads the target folder initialize shown to the user.
-     *
-     *  The target account has to be chosen before this method is called. 
+     * Loads the target folder initialize shown to the user.
+     * <p/>
+     * The target account has to be chosen before this method is called.
      */
     private void initTargetFolder() {
         if (getStorageManager() == null) {
@@ -683,6 +683,7 @@ public class Uploader extends FileActivity
 
     /**
      * Process the result of CopyTmpFileAsyncTask
+     *
      * @param result
      * @param index
      */
@@ -692,7 +693,8 @@ public class Uploader extends FileActivity
             dismissWaitingCopyDialog();
         }
         if (result != null) {
-            FileUploader.uploadNewFile(this, getAccount(), result, mRemoteCacheData.get(index));
+            FileUploader.uploadNewFile(this, getAccount(), result, mRemoteCacheData.get(index), FileUploader
+                    .LOCAL_BEHAVIOUR_FORGET, null, false, false);
 
         } else {
             String message = String.format(getString(R.string.uploader_error_forbidden_content),

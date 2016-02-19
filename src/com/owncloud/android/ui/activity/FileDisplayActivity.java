@@ -232,7 +232,7 @@ public class FileDisplayActivity extends HookActivity implements
     }
 
     /**
-     *  Called when the ownCloud {@link Account} associated to the Activity was just updated.
+     * Called when the ownCloud {@link Account} associated to the Activity was just updated.
      */
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
@@ -350,10 +350,10 @@ public class FileDisplayActivity extends HookActivity implements
     /**
      * Replaces the second fragment managed by the activity with the received as
      * a parameter.
-     *
+     * <p/>
      * Assumes never will be more than two fragments managed at the same time.
      *
-     * @param fragment      New second Fragment to set.
+     * @param fragment New second Fragment to set.
      */
     private void setSecondFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -611,7 +611,6 @@ public class FileDisplayActivity extends HookActivity implements
 
     /**
      * Called, when the user selected something for uploading
-     *
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -680,7 +679,9 @@ public class FileDisplayActivity extends HookActivity implements
                 remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
             }
 
-            FileUploader.uploadNewFile(this, getAccount(), filePaths, remotePaths, resultCode);
+            int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader
+                    .LOCAL_BEHAVIOUR_MOVE : FileUploader.LOCAL_BEHAVIOUR_COPY;
+            FileUploader.uploadNewFile(this, getAccount(), filePaths, remotePaths, behaviour, null, false, false);
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
@@ -753,15 +754,17 @@ public class FileDisplayActivity extends HookActivity implements
             remotePath += new File(filePath).getName();
         }
 
-        FileUploader.uploadNewFile(this, filePath, remotePath, resultCode, mimeType);
+        int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader.LOCAL_BEHAVIOUR_MOVE :
+                FileUploader.LOCAL_BEHAVIOUR_COPY;
+        FileUploader.uploadNewFile(this, getAccount(), filePath, remotePath, behaviour, mimeType, false, false);
 
     }
 
     /**
      * Request the operation for moving the file/folder from one path to another
      *
-     * @param data              Intent received
-     * @param resultCode        Result code received
+     * @param data       Intent received
+     * @param resultCode Result code received
      */
     private void requestMoveOperation(Intent data, int resultCode) {
         OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
@@ -1102,7 +1105,7 @@ public class FileDisplayActivity extends HookActivity implements
 
     /**
      * Class waiting for broadcast events from the {@link FileDownloader} service.
-     *
+     * <p/>
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * current folder.
      */
@@ -1199,7 +1202,7 @@ public class FileDisplayActivity extends HookActivity implements
      * Shows the information of the {@link OCFile} received as a
      * parameter in the second fragment.
      *
-     * @param file          {@link OCFile} whose details will be shown
+     * @param file {@link OCFile} whose details will be shown
      */
     @Override
     public void showDetails(OCFile file) {
@@ -1308,8 +1311,8 @@ public class FileDisplayActivity extends HookActivity implements
      * Updates the view associated to the activity after the finish of some operation over files
      * in the current account.
      *
-     * @param operation     Removal operation performed.
-     * @param result        Result of the removal.
+     * @param operation Removal operation performed.
+     * @param result    Result of the removal.
      */
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
@@ -1360,8 +1363,8 @@ public class FileDisplayActivity extends HookActivity implements
      * Updates the view associated to the activity after the finish of an operation trying to
      * remove a file.
      *
-     * @param operation     Removal operation performed.
-     * @param result        Result of the removal.
+     * @param operation Removal operation performed.
+     * @param result    Result of the removal.
      */
     private void onRemoveFileOperationFinish(RemoveFileOperation operation,
                                              RemoteOperationResult result) {
@@ -1397,8 +1400,8 @@ public class FileDisplayActivity extends HookActivity implements
      * Updates the view associated to the activity after the finish of an operation trying to move a
      * file.
      *
-     * @param operation     Move operation performed.
-     * @param result        Result of the move operation.
+     * @param operation Move operation performed.
+     * @param result    Result of the move operation.
      */
     private void onMoveFileOperationFinish(MoveFileOperation operation,
                                            RemoteOperationResult result) {
@@ -1444,8 +1447,8 @@ public class FileDisplayActivity extends HookActivity implements
      * Updates the view associated to the activity after the finish of an operation trying to rename
      * a file.
      *
-     * @param operation     Renaming operation performed.
-     * @param result        Result of the renaming.
+     * @param operation Renaming operation performed.
+     * @param result    Result of the renaming.
      */
     private void onRenameFileOperationFinish(RenameFileOperation operation,
                                              RemoteOperationResult result) {
@@ -1512,8 +1515,8 @@ public class FileDisplayActivity extends HookActivity implements
      * Updates the view associated to the activity after the finish of an operation trying create a
      * new folder
      *
-     * @param operation     Creation operation performed.
-     * @param result        Result of the creation.
+     * @param operation Creation operation performed.
+     * @param result    Result of the creation.
      */
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
@@ -1584,16 +1587,16 @@ public class FileDisplayActivity extends HookActivity implements
 
     /**
      * Starts an operation to refresh the requested folder.
-     *
+     * <p/>
      * The operation is run in a new background thread created on the fly.
-     *
+     * <p/>
      * The refresh updates is a "light sync": properties of regular files in folder are updated (including
      * associated shares), but not their contents. Only the contents of files marked to be kept-in-sync are
      * synchronized too.
      *
-     * @param folder        Folder to refresh.
-     * @param ignoreETag    If 'true', the data from the server will be fetched and sync'ed even if the eTag
-     *                      didn't change.
+     * @param folder     Folder to refresh.
+     * @param ignoreETag If 'true', the data from the server will be fetched and sync'ed even if the eTag
+     *                   didn't change.
      */
     public void startSyncFolderOperation(final OCFile folder, final boolean ignoreETag) {
 
@@ -1671,7 +1674,7 @@ public class FileDisplayActivity extends HookActivity implements
      * to monitor the download progress and prepares the activity to send the file
      * when the download finishes.
      *
-     * @param file          {@link OCFile} to download and preview.
+     * @param file {@link OCFile} to download and preview.
      */
     public void startDownloadForSending(OCFile file) {
         mWaitingToSend = file;
@@ -1683,7 +1686,7 @@ public class FileDisplayActivity extends HookActivity implements
     /**
      * Opens the image gallery showing the image {@link OCFile} received as parameter.
      *
-     * @param file                      Image {@link OCFile} to show.
+     * @param file Image {@link OCFile} to show.
      */
     public void startImagePreview(OCFile file) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
@@ -1696,11 +1699,11 @@ public class FileDisplayActivity extends HookActivity implements
     /**
      * Stars the preview of an already down media {@link OCFile}.
      *
-     * @param file                      Media {@link OCFile} to preview.
-     * @param startPlaybackPosition     Media position where the playback will be started,
-     *                                  in milliseconds.
-     * @param autoplay                  When 'true', the playback will start without user
-     *                                  interactions.
+     * @param file                  Media {@link OCFile} to preview.
+     * @param startPlaybackPosition Media position where the playback will be started,
+     *                              in milliseconds.
+     * @param autoplay              When 'true', the playback will start without user
+     *                              interactions.
      */
     public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay) {
         Fragment mediaFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition,
@@ -1733,7 +1736,7 @@ public class FileDisplayActivity extends HookActivity implements
      * to monitor the download progress and prepares the activity to preview
      * or open the file when the download finishes.
      *
-     * @param file          {@link OCFile} to download and preview.
+     * @param file {@link OCFile} to download and preview.
      */
     public void startDownloadForPreview(OCFile file) {
         Fragment detailFragment = FileDetailFragment.newInstance(file, getAccount());

@@ -37,6 +37,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Parcelable;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.util.Pair;
@@ -81,16 +82,15 @@ import java.util.Vector;
 
 /**
  * Service for uploading files. Invoke using context.startService(...).
- *
+ * <p/>
  * Files to be uploaded are stored persistently using {@link UploadsStorageManager}.
- *
+ * <p/>
  * On next invocation of {@link FileUploader} uploaded files which
  * previously failed will be uploaded again until either upload succeeded or a
  * fatal error occured.
- *
+ * <p/>
  * Every file passed to this service is uploaded. No filtering is performed.
  * However, Intent keys (e.g., KEY_WIFI_ONLY) are obeyed.
- *
  */
 public class FileUploader extends Service
         implements OnDatatransferProgressListener, OnAccountsUpdateListener {
@@ -264,7 +264,7 @@ public class FileUploader extends Service
     }
 
     /**
-     * Call to upload a new file. Main method.
+     * Call to upload several new files
      */
     public static void uploadNewFile(Context context, Account account, String[] localPaths, String[] remotePaths,
                                      Integer behaviour, String mimeType, Boolean createRemoteFolder, Boolean wifiOnly) {
@@ -274,56 +274,16 @@ public class FileUploader extends Service
         intent.putExtra(FileUploader.KEY_ACCOUNT, account);
         intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
         intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
-
-        if (behaviour != null)
-            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-        if (mimeType != null)
-            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeType);
-        if (createRemoteFolder != null)
-            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
-        if (wifiOnly != null)
-            intent.putExtra(FileUploader.KEY_WIFI_ONLY, wifiOnly);
+        intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+        intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeType);
+        intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
+        intent.putExtra(FileUploader.KEY_WIFI_ONLY, wifiOnly);
 
         context.startService(intent);
     }
 
     /**
-     * Call to upload multiple new files from the FileDisplayActivity
-     */
-    public static void uploadNewFile(Context context, Account account, String[] localPaths, String[] remotePaths, int
-            behaviour) {
-
-        uploadNewFile(context, account, localPaths, remotePaths, behaviour, null, null, null);
-    }
-
-    /**
-     * Call to upload a new single file from the FileDisplayActivity
-     */
-    public static void uploadNewFile(Context context, String localPath, String remotePath, int resultCode, String
-            mimeType) {
-
-        uploadNewFile(context, null, new String[]{localPath}, new String[]{remotePath}, resultCode, mimeType, null,
-                null);
-    }
-
-    /**
-     * Call to upload multiple new files from external applications
-     */
-    public static void uploadNewFile(Context context, Account account, String[] localPaths, String[] remotePaths) {
-
-        uploadNewFile(context, account, localPaths, remotePaths, null, null, null, null);
-    }
-
-    /**
-     * Call to upload a new single file from external applications
-     */
-    public static void uploadNewFile(Context context, Account account, String localPath, String remotePath) {
-
-        uploadNewFile(context, account, new String[]{localPath}, new String[]{remotePath}, null, null, null, null);
-    }
-
-    /**
-     * Call to upload a new single file from the Instant Upload Broadcast Receiver
+     * Call to upload a new single file
      */
     public static void uploadNewFile(Context context, Account account, String localPath, String remotePath, int
             behaviour, String mimeType, boolean createRemoteFile, boolean wifiOnly) {
@@ -333,7 +293,7 @@ public class FileUploader extends Service
     }
 
     /**
-     * Call to update a file already uploaded from the ConflictsResolveActivity
+     * Call to update multiple files already uploaded
      */
     public static void uploadUpdate(Context context, Account account, OCFile[] existingFiles, Integer behaviour,
                                     Boolean forceOverwrite) {
@@ -349,7 +309,7 @@ public class FileUploader extends Service
     }
 
     /**
-     * Call to update a file already uploaded from the ConflictsResolveActivity
+     * Call to update a dingle file already uploaded
      */
     public static void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour, Boolean
             forceOverwrite) {
@@ -358,21 +318,13 @@ public class FileUploader extends Service
     }
 
     /**
-     * Call to update a file already uploaded from the Synchronize File Operation
-     */
-    public static void uploadUpdate(Context context, Account account, OCFile existingFile, Boolean forceOverwrite) {
-
-        uploadUpdate(context, account, new OCFile[]{existingFile}, null, forceOverwrite);
-    }
-
-    /**
      * Checks if an ownCloud server version should support chunked uploads.
      *
      * @param version OwnCloud version instance corresponding to an ownCloud
-     *            server.
+     *                server.
      * @return 'True' if the ownCloud server with version supports chunked
-     *         uploads.
-     *
+     * uploads.
+     * <p/>
      * TODO - move to OwnCloudVersion
      */
     private static boolean chunkedUploadIsSupported(OwnCloudVersion version) {
@@ -433,7 +385,7 @@ public class FileUploader extends Service
 
     /**
      * Entry point to add one or several files to the queue of uploads.
-     *
+     * <p/>
      * New uploads are added calling to startService(), resulting in a call to
      * this method. This ensures the service will keep on working although the
      * caller activity goes away.
@@ -468,7 +420,9 @@ public class FileUploader extends Service
             OCFile[] files = null;
 
             if (intent.hasExtra(KEY_FILE)) {
-                files = (OCFile[]) intent.getParcelableArrayExtra(KEY_FILE);
+                Parcelable[] files_temp = intent.getParcelableArrayExtra(KEY_FILE);
+                files = new OCFile[files_temp.length];
+                System.arraycopy(files_temp, 0, files, 0, files_temp.length);
                 // TODO : test multiple upload, working find
 
             } else {
@@ -618,7 +572,7 @@ public class FileUploader extends Service
                     upload.getRemotePath(),
                     newUpload,
                     String.valueOf(upload.getUploadId()
-            ));
+                    ));
             if (putResult != null) {
                 String uploadKey = putResult.first;
                 requestedUploads.add(uploadKey);
@@ -642,7 +596,7 @@ public class FileUploader extends Service
     /**
      * Provides a binder object that clients can use to perform operations on
      * the queue of uploads, excepting the addition of new files.
-     *
+     * <p/>
      * Implemented to perform cancellation, pause and resume of existing
      * uploads.
      */
@@ -673,7 +627,7 @@ public class FileUploader extends Service
     /**
      * Binder to let client components to perform operations on the queue of
      * uploads.
-     *
+     * <p/>
      * It provides by itself the available operations.
      */
     public class FileUploaderBinder extends Binder implements OnDatatransferProgressListener {
@@ -689,8 +643,8 @@ public class FileUploader extends Service
         /**
          * Cancels a pending or current upload of a remote file.
          *
-         * @param account   ownCloud account where the remote file will be stored.
-         * @param file      A file in the queue of pending uploads
+         * @param account ownCloud account where the remote file will be stored.
+         * @param file    A file in the queue of pending uploads
          */
         public void cancel(Account account, OCFile file) {
             cancel(account.name, file.getRemotePath(), file.getStoragePath());
@@ -699,7 +653,7 @@ public class FileUploader extends Service
         /**
          * Cancels a pending or current upload that was persisted.
          *
-         * @param storedUpload    Upload operation persisted
+         * @param storedUpload Upload operation persisted
          */
         public void cancel(OCUpload storedUpload) {
             cancel(storedUpload.getAccountName(), storedUpload.getRemotePath(), storedUpload.getLocalPath());
@@ -708,9 +662,9 @@ public class FileUploader extends Service
         /**
          * Cancels a pending or current upload of a remote file.
          *
-         * @param accountName   Local name of an ownCloud account where the remote file will be stored.
-         * @param remotePath    Remote target of the upload
-         * @param localPath     Absolute local path to the source file
+         * @param accountName Local name of an ownCloud account where the remote file will be stored.
+         * @param remotePath  Remote target of the upload
+         * @param localPath   Absolute local path to the source file
          */
         private void cancel(String accountName, String remotePath, String localPath) {
             Pair<UploadFileOperation, String> removeResult =
@@ -719,7 +673,7 @@ public class FileUploader extends Service
             if (upload == null &&
                     mCurrentUpload != null && mCurrentAccount != null &&
                     mCurrentUpload.getRemotePath().startsWith(remotePath) &&
-                    accountName.equals(mCurrentAccount.name) ) {
+                    accountName.equals(mCurrentAccount.name)) {
 
                 upload = mCurrentUpload;
             }
@@ -731,7 +685,7 @@ public class FileUploader extends Service
                     // to be run by FileUploader#uploadFile
                     OCUpload ocUpload =
                             mUploadsStorageManager.getUploadByLocalPath(localPath)[0];
-                                // TODO bad idea, should search for account + remoteName, or uploadId
+                    // TODO bad idea, should search for account + remoteName, or uploadId
                     ocUpload.setUploadStatus(UploadStatus.UPLOAD_CANCELLED);
                     ocUpload.setLastResult(UploadResult.CANCELLED);
                     mUploadsStorageManager.updateUploadStatus(ocUpload);
@@ -742,7 +696,7 @@ public class FileUploader extends Service
         /**
          * Cancels all the uploads for an account
          *
-         * @param account   ownCloud account.
+         * @param account ownCloud account.
          */
         public void cancel(Account account) {
             Log_OC.d(TAG, "Account= " + account.name);
@@ -798,16 +752,16 @@ public class FileUploader extends Service
         /**
          * Returns True when the file described by 'file' is being uploaded to
          * the ownCloud account 'account' or waiting for it
-         *
+         * <p/>
          * If 'file' is a directory, returns 'true' if some of its descendant files
          * is uploading or waiting to upload.
-         *
+         * <p/>
          * Warning: If remote file exists and !forceOverwrite the original file
          * is being returned here. That is, it seems as if the original file is
          * being updated when actually a new file is being uploaded.
          *
          * @param account Owncloud account where the remote file will be stored.
-         * @param file A file that could be in the queue of pending uploads
+         * @param file    A file that could be in the queue of pending uploads
          */
         public boolean isUploading(Account account, OCFile file) {
             if (account == null || file == null)
@@ -819,11 +773,11 @@ public class FileUploader extends Service
         /**
          * Adds a listener interested in the progress of the upload for a concrete file.
          *
-         * @param listener      Object to notify about progress of transfer.    
-         * @param account       ownCloud account holding the file of interest.
-         * @param file          {@link OCFile} of interest for listener.
+         * @param listener Object to notify about progress of transfer.
+         * @param account  ownCloud account holding the file of interest.
+         * @param file     {@link OCFile} of interest for listener.
          */
-        public void addDatatransferProgressListener (
+        public void addDatatransferProgressListener(
                 OnDatatransferProgressListener listener,
                 Account account,
                 OCFile file
@@ -837,11 +791,11 @@ public class FileUploader extends Service
         /**
          * Adds a listener interested in the progress of the upload for a concrete file.
          *
-         * @param listener      Object to notify about progress of transfer.
-         * @param account       ownCloud account holding the file of interest.
-         * @param ocUpload      {@link OCUpload} of interest for listener.
+         * @param listener Object to notify about progress of transfer.
+         * @param account  ownCloud account holding the file of interest.
+         * @param ocUpload {@link OCUpload} of interest for listener.
          */
-        public void addDatatransferProgressListener (
+        public void addDatatransferProgressListener(
                 OnDatatransferProgressListener listener,
                 Account account,
                 OCUpload ocUpload
@@ -855,11 +809,11 @@ public class FileUploader extends Service
         /**
          * Removes a listener interested in the progress of the upload for a concrete file.
          *
-         * @param listener      Object to notify about progress of transfer.    
-         * @param account       ownCloud account holding the file of interest.
-         * @param file          {@link OCFile} of interest for listener.
+         * @param listener Object to notify about progress of transfer.
+         * @param account  ownCloud account holding the file of interest.
+         * @param file     {@link OCFile} of interest for listener.
          */
-        public void removeDatatransferProgressListener (
+        public void removeDatatransferProgressListener(
                 OnDatatransferProgressListener listener,
                 Account account,
                 OCFile file
@@ -875,11 +829,11 @@ public class FileUploader extends Service
         /**
          * Removes a listener interested in the progress of the upload for a concrete file.
          *
-         * @param listener      Object to notify about progress of transfer.
-         * @param account       ownCloud account holding the file of interest.
-         * @param ocUpload      Stored upload of interest
+         * @param listener Object to notify about progress of transfer.
+         * @param account  ownCloud account holding the file of interest.
+         * @param ocUpload Stored upload of interest
          */
-        public void removeDatatransferProgressListener (
+        public void removeDatatransferProgressListener(
                 OnDatatransferProgressListener listener,
                 Account account,
                 OCUpload ocUpload
@@ -906,13 +860,13 @@ public class FileUploader extends Service
 
         /**
          * Builds a key for the map of listeners.
-         *
+         * <p/>
          * TODO use method in IndexedForest, or refactor both to a common place
          * add to local database) to better policy (add to local database, then upload)
          *
-         * @param accountName   Local name of the ownCloud account where the file to upload belongs.
-         * @param remotePath    Remote path to upload the file to.
-         * @return              Key
+         * @param accountName Local name of the ownCloud account where the file to upload belongs.
+         * @param remotePath  Remote path to upload the file to.
+         * @return Key
          */
         private String buildRemoteName(String accountName, String remotePath) {
             return accountName + remotePath;
@@ -931,7 +885,7 @@ public class FileUploader extends Service
     /**
      * Upload worker. Performs the pending uploads in the order they were
      * requested.
-     *
+     * <p/>
      * Created with the Looper of a new thread, started in
      * {@link FileUploader#onCreate()}.
      */
@@ -1062,13 +1016,13 @@ public class FileUploader extends Service
     /**
      * Checks the existence of the folder where the current file will be uploaded both
      * in the remote server and in the local database.
-     *
+     * <p/>
      * If the upload is set to enforce the creation of the folder, the method tries to
      * create it both remote and locally.
      *
-     *  @param  pathToGrant     Full remote path whose existence will be granted.
-     *  @return An {@link OCFile} instance corresponding to the folder where the file
-     *  will be uploaded.
+     * @param pathToGrant Full remote path whose existence will be granted.
+     * @return An {@link OCFile} instance corresponding to the folder where the file
+     * will be uploaded.
      */
     private RemoteOperationResult grantFolderExistence(String pathToGrant) {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, this, false);
@@ -1114,11 +1068,11 @@ public class FileUploader extends Service
 
     /**
      * Saves a OC File after a successful upload.
-     *
+     * <p/>
      * A PROPFIND is necessary to keep the props in the local database
      * synchronized with the server, specially the modification time and Etag
      * (where available)
-     *
+     * <p/>
      * TODO move into UploadFileOperation
      */
     private void saveUploadedFile() {
@@ -1236,8 +1190,8 @@ public class FileUploader extends Service
     /**
      * Updates the status notification with the result of an upload operation.
      *
-     * @param uploadResult  Result of the upload operation.
-     * @param upload        Finished upload operation
+     * @param uploadResult Result of the upload operation.
+     * @param upload       Finished upload operation
      */
     private void notifyUploadResult(UploadFileOperation upload,
                                     RemoteOperationResult uploadResult) {
@@ -1357,7 +1311,7 @@ public class FileUploader extends Service
      * Sends a broadcast in order to the interested activities can update their
      * view
      *
-     * @param upload                    Finished upload operation
+     * @param upload Finished upload operation
      */
     private void sendBroadcastUploadStarted(
             UploadFileOperation upload) {
@@ -1374,9 +1328,9 @@ public class FileUploader extends Service
      * Sends a broadcast in order to the interested activities can update their
      * view
      *
-     * @param upload                    Finished upload operation
-     * @param uploadResult              Result of the upload operation
-     * @param unlinkedFromRemotePath    Path in the uploads tree where the upload was unlinked from
+     * @param upload                 Finished upload operation
+     * @param uploadResult           Result of the upload operation
+     * @param unlinkedFromRemotePath Path in the uploads tree where the upload was unlinked from
      */
     private void sendBroadcastUploadFinished(
             UploadFileOperation upload,
@@ -1405,7 +1359,7 @@ public class FileUploader extends Service
     /**
      * Remove uploads of an account
      *
-     * @param account       Downloads account to remove
+     * @param account Downloads account to remove
      */
     private void cancelUploadsForAccount(Account account) {
         // Cancel pending uploads
