@@ -6,6 +6,7 @@
   <string name="actionbar_open_with">Opna með</string>
   <string name="actionbar_mkdir">Ný mappa</string>
   <string name="actionbar_settings">Stillingar</string>
+  <string name="actionbar_see_details">Nánar</string>
   <string name="actionbar_send_file">Senda</string>
   <string name="actionbar_sort">Raða</string>
   <string name="actionbar_sort_title">Raða sem</string>
@@ -40,6 +41,7 @@
   <string name="common_ok">Í lagi</string>
   <string name="common_cancel">Hætta við</string>
   <string name="common_error"><strong>Villa</strong></string>
+  <string name="common_error_unknown">Óþekkt villa</string>
   <string name="about_title">Um</string>
   <string name="change_password">Breyta lykilorði</string>
   <string name="uploader_info_dirname">Nafn möppu</string>
@@ -47,6 +49,7 @@
   <string name="favorite">Uppáhalds</string>
   <string name="common_rename">Endurnefna</string>
   <string name="common_remove">Fjarlægja</string>
+  <string name="ssl_validator_btn_details_see">Nánar</string>
   <string name="ssl_validator_btn_details_hide">Fela</string>
   <string name="ssl_validator_label_C">Land:</string>
   <string name="ssl_validator_label_ST">Sýsla:</string>
@@ -60,6 +63,7 @@
   <string name="empty"></string>
   <string name="actionbar_move">Færa</string>
   <string name="folder_picker_choose_button_text">Veldu</string>
+  <string name="prefs_category_details">Nánar</string>
   <string name="with_you_subject_header">með þér</string>
   <string name="subject_user_shared_with_you">%1$s deilt \"%2$s\" með þér</string>
   <string name="auth_host_address">Host nafn netþjóns</string>

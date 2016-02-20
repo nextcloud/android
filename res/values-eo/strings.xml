@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">Android-aplikaĵo %1$s</string>
   <string name="about_version">eldono %1$s</string>
+  <string name="actionbar_sync">Freŝigi konton</string>
   <string name="actionbar_upload">Alŝuti dosieron</string>
   <string name="actionbar_upload_from_apps">Enhavo el aliaj aplikaĵoj</string>
   <string name="actionbar_upload_files">Dosieroj</string>
@@ -131,6 +133,7 @@
   <string name="auth_unauthorized">Malĝusta uzantonomo aŭ pasvorto</string>
   <string name="auth_oauth_error">Malsukcesa rajtigo</string>
   <string name="auth_unsupported_auth_method">La servilo ne kongruas kun ĉi tiu aŭtentiga metodo</string>
+  <string name="auth_unsupported_multiaccount">%1$s ne subtenas plurajn kontojn</string>
   <string name="auth_account_does_not_exist">Konto ankoraŭ ne ekzistas en la aparato</string>
   <string name="favorite">Favorato</string>
   <string name="unfavorite">Nefavoratigi</string>
