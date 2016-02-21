@@ -370,4 +370,5 @@ Neem contact op met uw beheerder</string>
   <string name="manage_space_description">Instellingen, database en server certificaten van %1$s\'s zullen permanent worden verwijderd.\n\nGedownloade bestanden zullen niet worden verwijderd.\n\nDit kan enige tijd in beslag nemen.</string>
   <string name="manage_space_clear_data">Verwijder data</string>
   <string name="manage_space_error">Sommige bestanden konden niet worden verwijderd</string>
+  <string name="permission_storage_access">Aanvullende permssies vereist voor het uploaden en downloaden van bestanden.</string>
 </resources>

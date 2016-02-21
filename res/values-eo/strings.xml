@@ -111,7 +111,7 @@
   <string name="foreign_files_success">Ĉiuj dosieroj moviĝis</string>
   <string name="foreign_files_fail">Iuj dosieroj ne povis moviĝi</string>
   <string name="foreign_files_local_text">Loka: %1$s</string>
-  <string name="foreign_files_remote_text">Malloka: %1$s</string>
+  <string name="foreign_files_remote_text">Fora: %1$s</string>
   <string name="media_state_playing">%1$s (ludanta)</string>
   <string name="media_state_loading">%1$s (ŝarganta)</string>
   <string name="media_err_not_in_owncloud">Dosiero ne estas en valida konto</string>
@@ -126,6 +126,7 @@
   <string name="auth_unknown_host_title">Ne eblis trovi gastigon</string>
   <string name="auth_incorrect_path_title">Apero de servilo ne troviĝis</string>
   <string name="auth_timeout_title">La servilo tro malfruis por respondi</string>
+  <string name="auth_incorrect_address_title">Malĝusta formo de serviladreso</string>
   <string name="auth_ssl_general_error_title">SSL-ekigo malsukcesis</string>
   <string name="auth_bad_oc_version_title">Nerekonita eldono de servilo</string>
   <string name="auth_wrong_connection_title">Ne eblis starigi konekton</string>
@@ -147,7 +148,7 @@
   <string name="rename_dialog_title">Enigu novan nomon</string>
   <string name="rename_local_fail_msg">Loka kopio ne povis alinomiĝi; provu malsaman novan nomon</string>
   <string name="rename_server_fail_msg">Alinomigo ne povis plenumiĝi</string>
-  <string name="sync_file_fail_msg">Malloka dosiero ne povis kontroliĝi</string>
+  <string name="sync_file_fail_msg">Fora dosiero ne povis kontroliĝi</string>
   <string name="sync_file_nothing_to_do_msg">Dosierenhavoj jam sinkroniĝis</string>
   <string name="create_dir_fail_msg">Dosiero ne povis kreiĝi</string>
   <string name="filename_forbidden_characters">Malpermesataj signoj: / \\ &lt; &gt; : \" | ? *</string>
@@ -205,6 +206,7 @@
   <string name="forbidden_permissions_delete">por forigi ĉi tiun dosieron</string>
   <string name="share_link_forbidden_permissions">por kunhavigi ĉi tiun dosieron</string>
   <string name="unshare_link_forbidden_permissions">por malkunhavigi ĉi tiun dosieron</string>
+  <string name="update_link_forbidden_permissions">por ĝisdatigi ĉi tiun kunhavon</string>
   <string name="forbidden_permissions_create">por krei la dosieron</string>
   <string name="uploader_upload_forbidden_permissions">por alŝuti en ĉi tiu dosierujo</string>
   <string name="downloader_download_file_not_found">La dosiero ne plu disponeblas en la servilo</string>

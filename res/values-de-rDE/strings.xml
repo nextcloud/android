@@ -79,14 +79,14 @@
   <string name="filedetails_created">Erstellt:</string>
   <string name="filedetails_modified">Geändert:</string>
   <string name="filedetails_download">Herunterladen</string>
-  <string name="filedetails_sync_file">syncronisieren</string>
+  <string name="filedetails_sync_file">Synchronisieren</string>
   <string name="filedetails_renamed_in_upload_msg">Datei wurde wärend des Uploads zu %1$s umbenannt</string>
   <string name="list_layout">Listenlayout</string>
   <string name="action_share">Share</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_sync">sychronisation abbrechen</string>
+  <string name="common_cancel_sync">Synchronisation abbrechen</string>
   <string name="common_cancel">Abbrechen</string>
   <string name="common_save_exit">Speichern &amp; Schließen</string>
   <string name="common_error">Fehler</string>
@@ -114,8 +114,8 @@
   <string name="downloader_not_downloaded_yet">Noch nicht heruntergeladen</string>
   <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, Sie müssen sich erneut anmelden.</string>
   <string name="common_choose_account">Konto auswählen</string>
-  <string name="sync_fail_ticker">Synchronisierung fehlgeschlagen</string>
-  <string name="sync_fail_ticker_unauthorized">Synchronisierung fehlgeschlagen, Sie müssen sich erneut anmelden.</string>
+  <string name="sync_fail_ticker">Synchronisation fehlgeschlagen</string>
+  <string name="sync_fail_ticker_unauthorized">Synchronisation fehlgeschlagen, Sie müssen sich erneut anmelden.</string>
   <string name="sync_fail_content">Bei der Synchronisation konnte %1$s nicht übertragen werden</string>
   <string name="sync_fail_content_unauthorized">Ungültiges Passwort für %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
@@ -367,4 +367,5 @@
   <string name="manage_space_description">Die Einstellungen, die Datenbank und Server Zertifikate von %1$s werden endgültig gelöscht. \n\n Heruntergeladene Dateien bleiben unberührt.\n\nDieser Vorgang kann eine Weile dauern.</string>
   <string name="manage_space_clear_data">Lösche Daten</string>
   <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden</string>
+  <string name="permission_storage_access">Weitere Berechtigungen erforderlich für das Hoch- und Herunterladen von Dateien</string>
 </resources>

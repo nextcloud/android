@@ -367,4 +367,5 @@
   <string name="manage_space_description">Einstellungen, Datenbank- und Serverzertifikate werden von %1$s\'s endgültig gelöscht. \n\nHeruntergeladene Dateien werden erhalten bleiben . \n\nDie Vorgang wird einige Zeit in Anspruch nehmen.</string>
   <string name="manage_space_clear_data">Daten löschen</string>
   <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden.</string>
+  <string name="permission_storage_access">Du hast nicht die erforderlichen Rechte, um Dateien hoch- und herunterzuladen.</string>
 </resources>

@@ -293,6 +293,7 @@
   <string name="share_via_link_section_title">分享链接</string>
   <string name="share_via_link_expiration_date_label">设置过期日期</string>
   <string name="share_via_link_password_label">密码保护</string>
+  <string name="share_via_link_password_title">安全</string>
   <string name="share_search">搜索</string>
   <string name="share_privilege_can_share">可共享</string>
   <string name="share_privilege_can_edit">可编辑</string>
