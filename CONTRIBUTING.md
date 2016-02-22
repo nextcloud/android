@@ -9,7 +9,7 @@ If you have questions about how to use ownCloud, please direct these to the [mai
   - [iOS client](https://github.com/owncloud/ios-issues/issues)
   - [Desktop client](https://github.com/owncloud/mirall/issues)
   - [ownCloud apps](https://github.com/owncloud/apps/issues) (e.g. Calendar, Contacts...)
-* Search the existing issues first, it's likely that your issue was already reported.
+* Search the [existing issues](https://github.com/owncloud/android/issues) first, it's likely that your issue was already reported.
 
 If your issue appears to be a bug, and hasn't been reported, open a new issue.
 
