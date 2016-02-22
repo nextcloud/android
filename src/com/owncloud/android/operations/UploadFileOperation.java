@@ -121,7 +121,7 @@ public class UploadFileOperation extends SyncOperation {
 
 
 
-    private static final String TAG = UploadUpdatedFileOperation.class.getSimpleName();
+    private static final String TAG = UploadFileOperation.class.getSimpleName();
 
     private Account mAccount;
     /**
@@ -402,6 +402,9 @@ public class UploadFileOperation extends SyncOperation {
             mUploadStarted.set(false);
             if (temporalFile != null && !originalFile.equals(temporalFile)) {
                 temporalFile.delete();
+            }
+            if (result == null){
+                result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
             if (result.isSuccess()) {
                 Log_OC.i(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " +

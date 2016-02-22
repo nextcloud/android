@@ -37,6 +37,7 @@ import android.net.wifi.WifiManager.WifiLock;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.os.PowerManager;
+import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -124,7 +125,6 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
     /** Notification to keep in the notification bar while a song is playing */
     private NotificationManager mNotificationManager;
-    private Notification mNotification = null;
 
     /** File being played */
     private OCFile mFile;
@@ -143,8 +143,9 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
     /** Control panel shown to the user to control the playback, to register through binding */
     private MediaControlView mMediaController;
-    
 
+    /** Notification builder to create notifications, new reuse way since Android 6 */
+    private NotificationCompat.Builder mNotificationBuilder;
     
     /**
      * Helper method to get an error message suitable to show to users for errors occurred in media playback,
@@ -227,6 +228,8 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
                 createWifiLock(WifiManager.WIFI_MODE_FULL, MEDIA_WIFI_LOCK_TAG);
 
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotificationBuilder = new NotificationCompat.Builder(this);
+        mNotificationBuilder.setColor(this.getResources().getColor(R.color.primary));
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         mBinder = new MediaServiceBinder(this);
     }
@@ -287,7 +290,6 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             mState = State.PLAYING;
             setUpAsForeground(String.format(getString(R.string.media_state_playing), mFile.getFileName()));
             configAndStartMediaPlayer();
-            
         }
     }
 
@@ -533,22 +535,25 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     /** 
      * Updates the status notification
      */
-    @SuppressWarnings("deprecation")
     private void updateNotification(String content) {
+        String ticker = String.format(getString(R.string.media_notif_ticker), getString(R.string.app_name));
+
         // TODO check if updating the Intent is really necessary
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)mFile);
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 
-                                                                (int)System.currentTimeMillis(), 
-                                                                showDetailsIntent, 
-                                                                PendingIntent.FLAG_UPDATE_CURRENT);
-        mNotification.when = System.currentTimeMillis();
-        //mNotification.contentView.setTextViewText(R.id.status_text, content);
-        String ticker = String.format(getString(R.string.media_notif_ticker), getString(R.string.app_name));
-        mNotification.setLatestEventInfo(getApplicationContext(), ticker, content, mNotification.contentIntent);
-        mNotificationManager.notify(R.string.media_notif_ticker, mNotification);
+
+        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(getApplicationContext(),
+                (int) System.currentTimeMillis(),
+                showDetailsIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT));
+        mNotificationBuilder.setWhen(System.currentTimeMillis());
+        mNotificationBuilder.setTicker(ticker);
+        mNotificationBuilder.setContentTitle(ticker);
+        mNotificationBuilder.setContentText(content);
+
+        mNotificationManager.notify(R.string.media_notif_ticker, mNotificationBuilder.build());
     }
 
     
@@ -559,35 +564,29 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
      * 
      * A notification must be created to keep the user aware of the existance of the service.
      */
-    @SuppressWarnings("deprecation")
     private void setUpAsForeground(String content) {
+        String ticker = String.format(getString(R.string.media_notif_ticker), getString(R.string.app_name));
+
         /// creates status notification
         // TODO put a progress bar to follow the playback progress
-        mNotification = new Notification();
-        mNotification.icon = android.R.drawable.ic_media_play;
+        mNotificationBuilder.setSmallIcon(R.drawable.ic_play_arrow);
         //mNotification.tickerText = text;
-        mNotification.when = System.currentTimeMillis();
-        mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
-        //mNotification.contentView.setTextViewText(R.id.status_text, "ownCloud Music Player");     // NULL POINTER
-        //mNotification.contentView.setTextViewText(R.id.status_text, getString(R.string.downloader_download_in_progress_content));
-
+        mNotificationBuilder.setWhen(System.currentTimeMillis());
+        mNotificationBuilder.setOngoing(true);
         
         /// includes a pending intent in the notification showing the details view of the file
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)mFile);
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 
-                                                                (int)System.currentTimeMillis(), 
-                                                                showDetailsIntent, 
-                                                                PendingIntent.FLAG_UPDATE_CURRENT);
-        
-        
-        //mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotification);
-        String ticker = String.format(getString(R.string.media_notif_ticker), getString(R.string.app_name));
-        mNotification.setLatestEventInfo(getApplicationContext(), ticker, content, mNotification.contentIntent);
-        startForeground(R.string.media_notif_ticker, mNotification);
-        
+        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(getApplicationContext(),
+                (int) System.currentTimeMillis(),
+                showDetailsIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT));
+        mNotificationBuilder.setContentTitle(ticker);
+        mNotificationBuilder.setContentText(content);
+
+        startForeground(R.string.media_notif_ticker, mNotificationBuilder.build());
     }
 
     /**
@@ -640,6 +639,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         mState = State.STOPPED;
         releaseResources(true);
         giveUpAudioFocus();
+        stopForeground(true);
         super.onDestroy();
     }
     

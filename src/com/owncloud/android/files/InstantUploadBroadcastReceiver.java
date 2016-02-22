@@ -19,6 +19,7 @@
 
 package com.owncloud.android.files;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -28,6 +29,7 @@ import android.database.Cursor;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
+import android.support.v4.content.ContextCompat;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.files.services.FileUploader;
@@ -88,12 +90,21 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
         if (account == null) {
-            Log_OC.w(TAG, "No ownCloud account found for instant upload, aborting");
+            Log_OC.w(TAG, "No account found for instant upload, aborting");
             return;
         }
 
-        String[] CONTENT_PROJECTION = {Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE,
-                Images.Media.SIZE};
+        String[] CONTENT_PROJECTION = {
+                Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE };
+
+        int permissionCheck = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (android.content.pm.PackageManager.PERMISSION_GRANTED != permissionCheck) {
+            Log_OC.w(TAG, "Read external storage permission isn't granted, aborting");
+            return;
+        }
+
         c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
         if (!c.moveToFirst()) {
             Log_OC.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
@@ -146,7 +157,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
         if (account == null) {
-            Log_OC.w(TAG, "No owncloud account found for instant upload, aborting");
+            Log_OC.w(TAG, "No account found for instant upload, aborting");
             return;
         }
 
@@ -164,8 +175,16 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         Log_OC.d(TAG, file_path + "");
 
         int behaviour = getUploadBehaviour(context);
-        FileUploader.uploadNewFile(context, account, file_path, FileStorageUtils.getInstantUploadFilePath(context,
-                file_name), behaviour, mime_type, true, instantPictureUploadViaWiFiOnly(context));
+        FileUploader.uploadNewFile(
+                context,
+                account,
+                file_path,
+                FileStorageUtils.getInstantVideoUploadFilePath(context, file_name),
+                behaviour,
+                mime_type,
+                true,
+                instantVideoUploadViaWiFiOnly(context)
+        );
     }
 
     public static boolean instantPictureUploadEnabled(Context context) {

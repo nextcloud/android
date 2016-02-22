@@ -368,4 +368,5 @@
   <string name="manage_space_description">%1$s にあるデータから、設定、データベース、サーバー証明書は完全に削除されます。\n\nダウンロードファイルは、そのまま残ります。\n\nこの操作はしばらくかかります。</string>
   <string name="manage_space_clear_data">データのクリア</string>
   <string name="manage_space_error">いくつかのファイルがクリアできませんでした。</string>
+  <string name="permission_storage_access">ファイルをダウンロード &amp; アップロードする追加の権限が必要です。</string>
 </resources>

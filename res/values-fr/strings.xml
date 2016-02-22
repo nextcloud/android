@@ -371,4 +371,5 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="manage_space_description">Les paramètres, la base de données et les certificats provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCe processus peut prendre un certain temps.</string>
   <string name="manage_space_clear_data">Effacer les données</string>
   <string name="manage_space_error">Certains fichiers n\'ont pu être supprimés.</string>
+  <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser &amp; télécharger des fichiers.</string>
 </resources>
