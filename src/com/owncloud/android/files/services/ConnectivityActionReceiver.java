@@ -31,6 +31,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -65,7 +66,7 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
 
         
         /**
-         * Just checking for State.CONNECTED will is not good enough, as it ends here multiple times.
+         * Just checking for State.CONNECTED will be not good enough, as it ends here multiple times.
          * Work around from:
          * http://stackoverflow.com/
          * questions/17287178/connectivitymanager-getactivenetworkinfo-returning-true-when-internet-is-off
@@ -75,7 +76,7 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
                 intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
             if(networkInfo.isConnected()) {
                 Log_OC.d(TAG, "Wifi is connected: " + String.valueOf(networkInfo));
-//                wifiConnected(context);
+                wifiConnected(context);
             }
         } else if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
             ConnectivityManager cm =
@@ -90,14 +91,30 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
         
     }
 
-//    private void wifiConnected(Context context) {
-//        Log_OC.d(TAG, "FileUploader.retry() called by onReceive()");
-//      FileUploader.retry(context);
-//    }
+    private void wifiConnected(Context context) {
+        //Log_OC.d(TAG, "FileUploader.retry() called by onReceive()");
+        //FileUploader.retry(context);
+        Log_OC.w(TAG, "Automatic retry of uploads on WiFi recovery is temporarily disabled due to dev in progress");
+    }
 
     private void wifiDisconnected(Context context) {
-        
+        boolean instantPictureWiFiOnly = instantPictureUploadViaWiFiOnly(context);
+        boolean instantVideoWiFiOnly = instantVideoUploadViaWiFiOnly(context);
+        if (instantPictureWiFiOnly || instantVideoWiFiOnly) {
+            Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+            if (account == null) {
+                Log_OC.w(TAG, "No account found for instant upload, aborting");
+                return;
+            }
+
+            Intent i = new Intent(context, FileUploader.class);
+            i.putExtra(FileUploader.KEY_ACCOUNT, account);
+            i.putExtra(FileUploader.KEY_CANCEL_ALL, true);
+            // TODO improve with extra options to cancel selected uploads: instant_pictures, instant_videos, ...
+            context.startService(i);
+        }
     }
+
 
     static public void enableActionReceiver(Context context) {
         PackageManager pm = context.getPackageManager();
@@ -111,6 +128,21 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
         ComponentName compName = new ComponentName(context.getApplicationContext(), ConnectivityActionReceiver.class);
         pm.setComponentEnabledSetting(compName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP);
+    }
+
+
+    private static boolean instantPictureUploadViaWiFiOnly(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                "instant_upload_on_wifi",
+                false
+        );
+    }
+
+    private static boolean instantVideoUploadViaWiFiOnly(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                "instant_video_upload_on_wifi",
+                false
+        );
     }
 
 }

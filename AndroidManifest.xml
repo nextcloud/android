@@ -194,9 +194,6 @@
 
                 <data android:mimeType="video/*" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
         </receiver>
         <receiver android:name=".files.BootupBroadcastReceiver" >
             <intent-filter>

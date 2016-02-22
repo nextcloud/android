@@ -64,7 +64,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             handleNewVideoAction(context, intent);
             Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_VIDEO");
         } else {
-            Log_OC.e(TAG, "Incorrect intent sent: " + intent.getAction());
+            Log_OC.e(TAG, "Incorrect intent received: " + intent.getAction());
         }
     }
 
