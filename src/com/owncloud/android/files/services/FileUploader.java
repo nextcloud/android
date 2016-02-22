@@ -423,7 +423,6 @@ public class FileUploader extends Service
                 Parcelable[] files_temp = intent.getParcelableArrayExtra(KEY_FILE);
                 files = new OCFile[files_temp.length];
                 System.arraycopy(files_temp, 0, files, 0, files_temp.length);
-                // TODO : test multiple upload, working find
 
             } else {
                 localPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
@@ -476,10 +475,6 @@ public class FileUploader extends Service
                                 + " and localPaths[i]:" + localPaths[i]);
                         return Service.START_NOT_STICKY;
                     }
-
-                    // don't use mStorageManager here; it's bound to an account, that varies per request
-                    storageManager.saveNewFile(files[i]);
-                    files[i] = storageManager.getFileByLocalPath(files[i].getStoragePath());
                 }
             }
             // at this point variable "OCFile[] files" is loaded correctly.
@@ -488,6 +483,7 @@ public class FileUploader extends Service
             UploadFileOperation newUpload = null;
             try {
                 for (int i = 0; i < files.length; i++) {
+
                     newUpload = new UploadFileOperation(
                             account,
                             files[i],
@@ -960,8 +956,8 @@ public class FileUploader extends Service
 
                     /// perform the upload
                     if (grantResult.isSuccess()) {
-                        /*OCFile parent = mStorageManager.getFileByPath(remoteParentPath);
-                        mCurrentUpload.getFile().setParentId(parent.getFileId());*/
+                        OCFile parent = mStorageManager.getFileByPath(remoteParentPath);
+                        mCurrentUpload.getFile().setParentId(parent.getFileId());
                         uploadResult = mCurrentUpload.execute(mUploadClient);
                         if (uploadResult.isSuccess()) {
                             saveUploadedFile();
