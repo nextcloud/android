@@ -44,6 +44,7 @@ NOTE: You must have the git installation folder in your environment variable PAT
 * Pull any changes from your remote branch 'master': ```git pull origin master```
 * Make official ownCloud repo known as upstream: ```git remote add upstream git@github.com:owncloud/android.git```
 * Make sure to get the latest changes from official android/master branch: ```git pull upstream master```
+* Make sure you read [SETUP.md](https://github.com/owncloud/android/blob/master/SETUP.md) when you start working on this project.
 
 
 ### 7. Create pull request:
