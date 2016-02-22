@@ -73,7 +73,9 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         initDrawer();
 
         // Add fragment with a transaction for setting a tag
-        createUploadListFragment();
+        if(savedInstanceState == null) {
+            createUploadListFragment();
+        }
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setHomeButtonEnabled(true);
