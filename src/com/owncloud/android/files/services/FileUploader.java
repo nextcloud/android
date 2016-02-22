@@ -515,8 +515,7 @@ public class FileUploader extends Service
                     Pair<String, String> putResult = mPendingUploads.putIfAbsent(
                             account.name,
                             files[i].getRemotePath(),
-                            newUpload,
-                            /*String.valueOf(id)*/ null
+                            newUpload
                     );
                     if (putResult != null) {
                         uploadKey = putResult.first;
@@ -566,9 +565,8 @@ public class FileUploader extends Service
             Pair<String, String> putResult = mPendingUploads.putIfAbsent(
                     account.name,
                     upload.getRemotePath(),
-                    newUpload,
-                    String.valueOf(upload.getUploadId()
-                    ));
+                    newUpload
+                    );
             if (putResult != null) {
                 String uploadKey = putResult.first;
                 requestedUploads.add(uploadKey);

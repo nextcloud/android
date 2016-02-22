@@ -172,8 +172,7 @@ public class FileDownloader extends Service
                 newDownload.addDatatransferProgressListener(this);
                 newDownload.addDatatransferProgressListener((FileDownloaderBinder) mBinder);
                 Pair<String, String> putResult = mPendingDownloads.putIfAbsent(
-                        account.name, file.getRemotePath(), newDownload, null
-                );
+                        account.name, file.getRemotePath(), newDownload);
                 if (putResult != null) {
                     String downloadKey = putResult.first;
                     requestedDownloads.add(downloadKey);
