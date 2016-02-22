@@ -24,7 +24,6 @@ import android.accounts.Account;
 import android.content.Context;
 import android.net.Uri;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
@@ -39,7 +38,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ChunkedUploadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
+import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 import com.owncloud.android.utils.UriUtils;
@@ -61,9 +63,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**
- * Remote operation performing the upload of a file to an ownCloud server
+ * Operation performing the update in the ownCloud server
+ * of a file that was modified locally.
  */
-public class UploadFileOperation extends RemoteOperation {
+public class UploadFileOperation extends SyncOperation {
 
 
     private static final String MIME_TYPE_PDF = "application/pdf";
@@ -79,7 +82,7 @@ public class UploadFileOperation extends RemoteOperation {
      * TODO - move to OCFile or Utils class
      */
     private static boolean isPdfFileFromContentProviderWithoutExtension(String localPath,
-                                                                 String mimeType) {
+                                                                        String mimeType) {
         return localPath.startsWith(UriUtils.URI_CONTENT_SCHEME) &&
                 mimeType.equals(MIME_TYPE_PDF) &&
                 !localPath.endsWith(FILE_EXTENSION_PDF);
@@ -118,7 +121,7 @@ public class UploadFileOperation extends RemoteOperation {
 
 
 
-    private static final String TAG = UploadFileOperation.class.getSimpleName();
+    private static final String TAG = UploadUpdatedFileOperation.class.getSimpleName();
 
     private Account mAccount;
     /**
@@ -148,17 +151,17 @@ public class UploadFileOperation extends RemoteOperation {
     private final AtomicBoolean mUploadStarted = new AtomicBoolean(false);
 
     private Context mContext;
-    
+
     private UploadRemoteFileOperation mUploadOperation;
 
     protected RequestEntity mEntity = null;
 
-    public UploadFileOperation( Account account,
-                                OCFile file,
-                                boolean chunked,
-                                boolean forceOverwrite,
-                                int localBehaviour,
-                                Context context) {
+    public UploadFileOperation(Account account,
+                                      OCFile file,
+                                      boolean chunked,
+                                      boolean forceOverwrite,
+                                      int localBehaviour,
+                                      Context context) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " +
                     "creation");
@@ -182,11 +185,11 @@ public class UploadFileOperation extends RemoteOperation {
     }
 
     public UploadFileOperation(Account account,
-                               OCUpload upload,
-                               boolean chunked,
-                               boolean forceOverwrite,
-                               int localBehaviour,
-                               Context context
+                                      OCUpload upload,
+                                      boolean chunked,
+                                      boolean forceOverwrite,
+                                      int localBehaviour,
+                                      Context context
     ) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " +
@@ -250,16 +253,8 @@ public class UploadFileOperation extends RemoteOperation {
         return mFile.getMimetype();
     }
 
-    public boolean isRemoteFolderToBeCreated() {
-        return mRemoteFolderToBeCreated;
-    }
-
     public void setRemoteFolderToBeCreated() {
         mRemoteFolderToBeCreated = true;
-    }
-
-    public boolean getForceOverwrite() {
-        return mForceOverwrite;
     }
 
     public boolean wasRenamed() {
@@ -276,7 +271,7 @@ public class UploadFileOperation extends RemoteOperation {
     public Set<OnDatatransferProgressListener> getDataTransferListeners() {
         return mDataTransferListeners;
     }
-    
+
     public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
         synchronized (mDataTransferListeners) {
             mDataTransferListeners.add(listener);
@@ -288,7 +283,7 @@ public class UploadFileOperation extends RemoteOperation {
             mUploadOperation.addDatatransferProgressListener(listener);
         }
     }
-    
+
     public void removeDatatransferProgressListener(OnDatatransferProgressListener listener) {
         synchronized (mDataTransferListeners) {
             mDataTransferListeners.remove(listener);
@@ -308,6 +303,19 @@ public class UploadFileOperation extends RemoteOperation {
         RemoteOperationResult result = null;
         File temporalFile = null, originalFile = new File(mOriginalStoragePath), expectedFile = null;
         try {
+            /// check the existence of the parent folder for the file to upload
+            String remoteParentPath = new File(getRemotePath()).getParent();
+            remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
+                    remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
+            RemoteOperationResult grantResult = grantFolderExistence(remoteParentPath, client);
+            if (!grantResult.isSuccess()) {
+                return result;
+            }
+
+            /// set parent local id in uploading file
+            OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
+            mFile.setParentId(parent.getFileId());
+
             /// automatic rename of file to upload in case of name collision in server
             Log_OC.d(TAG, "Checking name collision in server");
             if (!mForceOverwrite) {
@@ -406,7 +414,7 @@ public class UploadFileOperation extends RemoteOperation {
                     } else {
                         Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
                                 ": " + result.getLogMessage(), result.getException());
-                    }                    
+                    }
 
                 } else {
                     Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
@@ -415,8 +423,67 @@ public class UploadFileOperation extends RemoteOperation {
             }
         }
 
+        if (result.isSuccess()) {
+            saveUploadedFile(client);
+
+        } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+            getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
+        }
+
         return result;
     }
+
+
+    /**
+     * Checks the existence of the folder where the current file will be uploaded both
+     * in the remote server and in the local database.
+     * <p/>
+     * If the upload is set to enforce the creation of the folder, the method tries to
+     * create it both remote and locally.
+     *
+     * @param pathToGrant Full remote path whose existence will be granted.
+     * @return An {@link OCFile} instance corresponding to the folder where the file
+     * will be uploaded.
+     */
+    private RemoteOperationResult grantFolderExistence(String pathToGrant, OwnCloudClient client) {
+        RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, mContext, false);
+        RemoteOperationResult result = operation.execute(client);
+        if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {
+            SyncOperation syncOp = new CreateFolderOperation(pathToGrant, true);
+            result = syncOp.execute(client, getStorageManager());
+        }
+        if (result.isSuccess()) {
+            OCFile parentDir = getStorageManager().getFileByPath(pathToGrant);
+            if (parentDir == null) {
+                parentDir = createLocalFolder(pathToGrant);
+            }
+            if (parentDir != null) {
+                result = new RemoteOperationResult(ResultCode.OK);
+            } else {
+                result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
+            }
+        }
+        return result;
+    }
+
+    private OCFile createLocalFolder(String remotePath) {
+        String parentPath = new File(remotePath).getParent();
+        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ?
+                parentPath : parentPath + OCFile.PATH_SEPARATOR;
+        OCFile parent = getStorageManager().getFileByPath(parentPath);
+        if (parent == null) {
+            parent = createLocalFolder(parentPath);
+        }
+        if (parent != null) {
+            OCFile createdFolder = new OCFile(remotePath);
+            createdFolder.setMimetype("DIR");
+            createdFolder.setParentId(parent.getFileId());
+            getStorageManager().saveFile(createdFolder);
+            return createdFolder;
+        }
+        return null;
+    }
+
 
     /**
      * Create a new OCFile mFile with new remote path. This is required if forceOverwrite==false.
@@ -446,7 +513,7 @@ public class UploadFileOperation extends RemoteOperation {
     /**
      * Checks if remotePath does not exist in the server and returns it, or adds
      * a suffix to it in order to avoid the server file is overwritten.
-     * 
+     *
      * @param wc
      * @param remotePath
      * @return
@@ -489,7 +556,7 @@ public class UploadFileOperation extends RemoteOperation {
         RemoteOperationResult result = existsOperation.execute(client);
         return result.isSuccess();
     }
-    
+
     /**
      * Allows to cancel the actual upload operation. If actual upload operating
      * is in progress it is cancelled, if upload preparation is being performed
@@ -508,7 +575,7 @@ public class UploadFileOperation extends RemoteOperation {
             mUploadOperation.cancel();
         }
     }
-    
+
     /**
      * As soon as this method return true, upload can be cancel via cancel().
      */
@@ -646,4 +713,63 @@ public class UploadFileOperation extends RemoteOperation {
             }
         }
     }
+
+    /**
+     * Saves a OC File after a successful upload.
+     * <p/>
+     * A PROPFIND is necessary to keep the props in the local database
+     * synchronized with the server, specially the modification time and Etag
+     * (where available)
+     * <p/>
+     */
+    private void saveUploadedFile(OwnCloudClient client) {
+        OCFile file = mFile;
+        if (file.fileExists()) {
+            file = getStorageManager().getFileById(file.getFileId());
+        }
+        long syncDate = System.currentTimeMillis();
+        file.setLastSyncDateForData(syncDate);
+
+        // new PROPFIND to keep data consistent with server
+        // in theory, should return the same we already have
+        // TODO from the appropriate OC server version, get data from last PUT response headers, instead
+        // TODO     of a new PROPFIND; the latter may fail, specially for chunked uploads
+        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(getRemotePath());
+        RemoteOperationResult result = operation.execute(client);
+        if (result.isSuccess()) {
+            updateOCFile(file, (RemoteFile) result.getData().get(0));
+            file.setLastSyncDateForProperties(syncDate);
+        } else {
+            Log_OC.e(TAG, "Error reading properties of file after successful upload; this is gonna hurt...");
+        }
+
+        if (mWasRenamed) {
+            OCFile oldFile = mOldFile;
+            if (oldFile.fileExists()) {
+                oldFile.setStoragePath(null);
+                getStorageManager().saveFile(oldFile);
+                getStorageManager().saveConflict(oldFile, null);
+            }
+            // else: it was just an automatic renaming due to a name
+            // coincidence; nothing else is needed, the storagePath is right
+            // in the instance returned by mCurrentUpload.getFile()
+        }
+        file.setNeedsUpdateThumbnail(true);
+        getStorageManager().saveFile(file);
+        getStorageManager().saveConflict(file, null);
+
+        FileDataStorageManager.triggerMediaScan(file.getStoragePath());
+    }
+
+    private void updateOCFile(OCFile file, RemoteFile remoteFile) {
+        file.setCreationTimestamp(remoteFile.getCreationTimestamp());
+        file.setFileLength(remoteFile.getLength());
+        file.setMimetype(remoteFile.getMimeType());
+        file.setModificationTimestamp(remoteFile.getModifiedTimestamp());
+        file.setModificationTimestampAtLastSyncForData(remoteFile.getModifiedTimestamp());
+        file.setEtag(remoteFile.getEtag());
+        file.setRemoteId(remoteFile.getRemoteId());
+    }
+
+
 }

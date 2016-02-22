@@ -55,25 +55,18 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
-import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.notifications.NotificationBuilderWithProgressBar;
 import com.owncloud.android.notifications.NotificationDelayer;
-import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
-import java.io.File;
 import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -930,7 +923,7 @@ public class FileUploader extends Service
 
                 notifyUploadStart(mCurrentUpload);
 
-                RemoteOperationResult uploadResult = null, grantResult;
+                RemoteOperationResult uploadResult = null;
 
                 try {
                     /// prepare client object to send the request to the ownCloud server
@@ -947,28 +940,9 @@ public class FileUploader extends Service
                     mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, this);
 
-
-                    /// check the existence of the parent folder for the file to upload
-                    String remoteParentPath = new File(mCurrentUpload.getRemotePath()).getParent();
-                    remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
-                            remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
-                    grantResult = grantFolderExistence(remoteParentPath);
-
                     /// perform the upload
-                    if (grantResult.isSuccess()) {
-                        OCFile parent = mStorageManager.getFileByPath(remoteParentPath);
-                        mCurrentUpload.getFile().setParentId(parent.getFileId());
-                        uploadResult = mCurrentUpload.execute(mUploadClient);
-                        if (uploadResult.isSuccess()) {
-                            saveUploadedFile();
+                    uploadResult = mCurrentUpload.execute(mUploadClient, mStorageManager);
 
-                        } else if (uploadResult.getCode() == ResultCode.SYNC_CONFLICT) {
-                            mStorageManager.saveConflict(mCurrentUpload.getFile(),
-                                    mCurrentUpload.getFile().getEtagInConflict());
-                        }
-                    } else {
-                        uploadResult = grantResult;
-                    }
 
                 } catch (Exception e) {
                     Log_OC.e(TAG, "Error uploading", e);
@@ -1007,119 +981,6 @@ public class FileUploader extends Service
             }
         }
 
-    }
-
-    /**
-     * Checks the existence of the folder where the current file will be uploaded both
-     * in the remote server and in the local database.
-     * <p/>
-     * If the upload is set to enforce the creation of the folder, the method tries to
-     * create it both remote and locally.
-     *
-     * @param pathToGrant Full remote path whose existence will be granted.
-     * @return An {@link OCFile} instance corresponding to the folder where the file
-     * will be uploaded.
-     */
-    private RemoteOperationResult grantFolderExistence(String pathToGrant) {
-        RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, this, false);
-        RemoteOperationResult result = operation.execute(mUploadClient);
-        if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND &&
-                mCurrentUpload.isRemoteFolderToBeCreated()) {
-            SyncOperation syncOp = new CreateFolderOperation(pathToGrant, true);
-            result = syncOp.execute(mUploadClient, mStorageManager);
-        }
-        if (result.isSuccess()) {
-            OCFile parentDir = mStorageManager.getFileByPath(pathToGrant);
-            if (parentDir == null) {
-                parentDir = createLocalFolder(pathToGrant);
-            }
-            if (parentDir != null) {
-                result = new RemoteOperationResult(ResultCode.OK);
-            } else {
-                result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
-            }
-        }
-        return result;
-    }
-
-
-    private OCFile createLocalFolder(String remotePath) {
-        String parentPath = new File(remotePath).getParent();
-        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ?
-                parentPath : parentPath + OCFile.PATH_SEPARATOR;
-        OCFile parent = mStorageManager.getFileByPath(parentPath);
-        if (parent == null) {
-            parent = createLocalFolder(parentPath);
-        }
-        if (parent != null) {
-            OCFile createdFolder = new OCFile(remotePath);
-            createdFolder.setMimetype("DIR");
-            createdFolder.setParentId(parent.getFileId());
-            mStorageManager.saveFile(createdFolder);
-            return createdFolder;
-        }
-        return null;
-    }
-
-
-    /**
-     * Saves a OC File after a successful upload.
-     * <p/>
-     * A PROPFIND is necessary to keep the props in the local database
-     * synchronized with the server, specially the modification time and Etag
-     * (where available)
-     * <p/>
-     * TODO move into UploadFileOperation
-     */
-    private void saveUploadedFile() {
-        OCFile file = mCurrentUpload.getFile();
-        if (file.fileExists()) {
-            file = mStorageManager.getFileById(file.getFileId());
-        }
-        long syncDate = System.currentTimeMillis();
-        file.setLastSyncDateForData(syncDate);
-
-        // new PROPFIND to keep data consistent with server 
-        // in theory, should return the same we already have
-        ReadRemoteFileOperation operation =
-                new ReadRemoteFileOperation(mCurrentUpload.getRemotePath());
-        RemoteOperationResult result = operation.execute(mUploadClient);
-        if (result.isSuccess()) {
-            updateOCFile(file, (RemoteFile) result.getData().get(0));
-            file.setLastSyncDateForProperties(syncDate);
-        } else {
-            Log_OC.e(TAG, "Error reading properties of file after successful upload; this is gonna hurt...");
-        }
-
-        // / maybe this would be better as part of UploadFileOperation... or
-        // maybe all this method
-        if (mCurrentUpload.wasRenamed()) {
-            OCFile oldFile = mCurrentUpload.getOldFile();
-            if (oldFile.fileExists()) {
-                oldFile.setStoragePath(null);
-                mStorageManager.saveFile(oldFile);
-                mStorageManager.saveConflict(oldFile, null);
-
-            } // else: it was just an automatic renaming due to a name
-            // coincidence; nothing else is needed, the storagePath is right
-            // in the instance returned by mCurrentUpload.getFile()
-        }
-        file.setNeedsUpdateThumbnail(true);
-        mStorageManager.saveFile(file);
-        mStorageManager.saveConflict(file, null);
-
-        mStorageManager.triggerMediaScan(file.getStoragePath());
-
-    }
-
-    private void updateOCFile(OCFile file, RemoteFile remoteFile) {
-        file.setCreationTimestamp(remoteFile.getCreationTimestamp());
-        file.setFileLength(remoteFile.getLength());
-        file.setMimetype(remoteFile.getMimeType());
-        file.setModificationTimestamp(remoteFile.getModifiedTimestamp());
-        file.setModificationTimestampAtLastSyncForData(remoteFile.getModifiedTimestamp());
-        file.setEtag(remoteFile.getEtag());
-        file.setRemoteId(remoteFile.getRemoteId());
     }
 
     /**
