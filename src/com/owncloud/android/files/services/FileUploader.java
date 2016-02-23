@@ -51,7 +51,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.PreferenceReader;
-import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -66,6 +65,7 @@ import com.owncloud.android.notifications.NotificationDelayer;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
+import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import java.util.AbstractList;
@@ -260,16 +260,24 @@ public class FileUploader extends Service
     /**
      * Call to upload several new files
      */
-    public static void uploadNewFile(Context context, Account account, String[] localPaths, String[] remotePaths,
-                                     Integer behaviour, String mimeType, Boolean createRemoteFolder, int createdBy) {
+    public static void uploadNewFile(
+            Context context,
+            Account account,
+            String[] localPaths,
+            String[] remotePaths,
+            String[] mimeTypes,
+            Integer behaviour,
+            Boolean createRemoteFolder,
+            int createdBy
+    ) {
         Log_OC.d(TAG, "FileUploader.uploadNewFile()");
         Intent intent = new Intent(context, FileUploader.class);
 
         intent.putExtra(FileUploader.KEY_ACCOUNT, account);
         intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
         intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
+        intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
         intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-        intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeType);
         intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
         intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
 
@@ -282,8 +290,16 @@ public class FileUploader extends Service
     public static void uploadNewFile(Context context, Account account, String localPath, String remotePath, int
             behaviour, String mimeType, boolean createRemoteFile, int createdBy) {
 
-        uploadNewFile(context, account, new String[]{localPath}, new String[]{remotePath}, behaviour, mimeType,
-                createRemoteFile, createdBy);
+        uploadNewFile(
+                context,
+                account,
+                new String[] {localPath},
+                new String[] {remotePath},
+                new String[] {mimeType},
+                behaviour,
+                createRemoteFile,
+                createdBy
+        );
     }
 
     /**
@@ -904,19 +920,8 @@ public class FileUploader extends Service
                 return;
             }
 
-            /// Check that connectivity conditions are met
-            if (mCurrentUpload.isInstantPicture() &&
-                    PreferenceReader.instantPictureUploadViaWiFiOnly(this)) {
-
-                Log_OC.d(TAG, "Upload delayed until WiFi is available: " + mCurrentUpload.getRemotePath());
-                // TODO - update mUploadsStorageManager
-                return;
-            }
-            if (mCurrentUpload.isInstantVideo() &&
-                    PreferenceReader.instantVideoUploadViaWiFiOnly(this)) {
-
-                Log_OC.d(TAG, "Upload delayed until WiFi is available: " + mCurrentUpload.getRemotePath());
-                // TODO - update mUploadsStorageManager
+            /// Check that connectivity conditions are met and delayes the upload otherwise
+            if (delayForWifi()) {
                 return;
             }
 
@@ -978,6 +983,41 @@ public class FileUploader extends Service
         }
 
     }
+
+
+    /**
+     * Checks origin of current upload and network type to decide if should be delayed, according to
+     * current user preferences.
+     *
+     * @return      'True' if the upload was delayed until WiFi connectivity is available, 'false' otherwise.
+     */
+    private boolean delayForWifi() {
+
+        boolean delayInstantPicture = (
+                mCurrentUpload.isInstantPicture() &&
+                        PreferenceReader.instantPictureUploadViaWiFiOnly(this)
+        );
+        boolean delayInstantVideo = (mCurrentUpload.isInstantVideo() &&
+                PreferenceReader.instantVideoUploadViaWiFiOnly(this)
+        );
+        if ((delayInstantPicture || delayInstantVideo) &&
+                !ConnectivityUtils.isAppConnectedViaWiFi(this)) {
+
+            Log_OC.d(TAG, "Upload delayed until WiFi is available: " + mCurrentUpload.getRemotePath());
+            mPendingUploads.removePayload(
+                    mCurrentUpload.getAccount().name,
+                    mCurrentUpload.getRemotePath()
+            );
+            mUploadsStorageManager.updateDatabaseUploadResult(
+                    new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI),
+                    mCurrentUpload
+            );
+
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * Creates a status notification to show the upload progress

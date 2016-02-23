@@ -741,8 +741,8 @@ public class FileDisplayActivity extends HookActivity implements
                     getAccount(),
                     filePaths,
                     remotePaths,
-                    behaviour,
                     null,           // MIME type will be detected from file name
+                    behaviour,
                     false,          // do not create parent folder if not existent
                     UploadFileOperation.CREATED_BY_USER
             );

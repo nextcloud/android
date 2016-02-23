@@ -569,8 +569,8 @@ public class Uploader extends FileActivity
                         getAccount(),
                         local.toArray(new String[local.size()]),
                         remote.toArray(new String[remote.size()]),
-                        FileUploader.LOCAL_BEHAVIOUR_FORGET,
                         null,       // MIME type will be detected from file name
+                        FileUploader.LOCAL_BEHAVIOUR_FORGET,
                         false,      // do not create parent folder if not existent
                         UploadFileOperation.CREATED_BY_USER
                 );
