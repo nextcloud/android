@@ -36,7 +36,9 @@ import android.widget.Toast;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -538,6 +540,17 @@ public class FileOperationsHelper {
             uploaderBinder.retry(account, upload);
         }  else {
             Log_OC.w(TAG, "uploaderBinder not set. Cannot retry the upload of " + upload.getLocalPath());
+        }
+    }
+
+    public void retryUploadsForAccount(Account account) {
+        UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(mFileActivity.getContentResolver());
+        OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
+        for ( OCUpload upload: failedUploads){
+            if (upload.getAccountName().equals(account.name) &&
+                    upload.getLastResult() == UploadResult.CREDENTIAL_ERROR ) {
+                retryUpload(upload);
+            }
         }
     }
 

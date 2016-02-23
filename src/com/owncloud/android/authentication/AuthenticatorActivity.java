@@ -83,6 +83,7 @@ import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.CredentialsDialogFragment;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
@@ -925,6 +926,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else {
             checkBasicAuthorization();
         }
+
     }
 
 
@@ -1023,6 +1025,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         } else if (operation instanceof GetRemoteUserNameOperation) {
             onGetUserNameFinish(result);
+        }
+
+        if (result.isSuccess() && mAction == ACTION_UPDATE_EXPIRED_TOKEN) {
+            setResult(FileActivity.RESULT_OK);
         }
 
     }
@@ -1419,6 +1425,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
             if (success) {
+                if (mAction == ACTION_UPDATE_EXPIRED_TOKEN) {
+                    setResult(FileActivity.RESULT_OK);
+                }
                 finish();
             }
             

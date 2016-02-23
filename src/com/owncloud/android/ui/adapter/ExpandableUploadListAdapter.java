@@ -42,6 +42,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -296,7 +297,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                                 AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
                                         updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                                         updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                                        mParentActivity.startActivity(updateAccountCredentials);
+                                        mParentActivity.startActivityForResult(updateAccountCredentials,
+                                                FileActivity.UPDATE_CREDENTIALS_REQUEST_CODE);
                                     }
                                 });
                                 break;
@@ -407,7 +409,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 });
             }
 
-            if (upload.userCanRetryUpload()) {
+            if (upload.userCanRetryUpload() && upload.getLastResult()!= UploadResult.CREDENTIAL_ERROR) {
                 view.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {

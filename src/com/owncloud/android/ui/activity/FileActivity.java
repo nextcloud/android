@@ -35,7 +35,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -113,6 +112,8 @@ public class FileActivity extends AppCompatActivity
     private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
 
     protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
+
+    public static final int UPDATE_CREDENTIALS_REQUEST_CODE = 100;
 
 
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
@@ -833,7 +834,7 @@ public class FileActivity extends AppCompatActivity
                     AuthenticatorActivity.EXTRA_ACTION,
                     AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
             updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-            startActivity(updateAccountCredentials);
+            startActivityForResult(updateAccountCredentials, UPDATE_CREDENTIALS_REQUEST_CODE);
 
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
             Toast.makeText(context, R.string.auth_account_does_not_exist, Toast.LENGTH_SHORT).show();
@@ -1062,4 +1063,5 @@ public class FileActivity extends AppCompatActivity
             }
         }
     }
+
 }
