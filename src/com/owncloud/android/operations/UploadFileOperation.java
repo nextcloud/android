@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -72,6 +72,11 @@ public class UploadFileOperation extends SyncOperation {
     private static final String MIME_TYPE_PDF = "application/pdf";
     private static final String FILE_EXTENSION_PDF = ".pdf";
 
+    public static final int CREATED_BY_USER = 0;
+    public static final int CREATED_AS_INSTANT_PICTURE = 1;
+    public static final int CREATED_AS_INSTANT_VIDEO = 2;
+
+
     /**
      * Checks if content provider, using the content:// scheme, returns a file with mime-type
      * 'application/pdf' but file has not extension
@@ -138,6 +143,8 @@ public class UploadFileOperation extends SyncOperation {
     private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
     private int mLocalBehaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
+    private int mCreatedBy = CREATED_BY_USER;
+
     private boolean mWasRenamed = false;
     private String mOriginalFileName = null;
     private long mOCUploadId = -1;
@@ -157,11 +164,12 @@ public class UploadFileOperation extends SyncOperation {
     protected RequestEntity mEntity = null;
 
     public UploadFileOperation(Account account,
-                                      OCFile file,
-                                      boolean chunked,
-                                      boolean forceOverwrite,
-                                      int localBehaviour,
-                                      Context context) {
+                               OCFile file,
+                               boolean chunked,
+                               boolean forceOverwrite,
+                               int localBehaviour,
+                               Context context
+    ) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " +
                     "creation");
@@ -185,11 +193,11 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     public UploadFileOperation(Account account,
-                                      OCUpload upload,
-                                      boolean chunked,
-                                      boolean forceOverwrite,
-                                      int localBehaviour,
-                                      Context context
+                               OCUpload upload,
+                               boolean chunked,
+                               boolean forceOverwrite,
+                               int localBehaviour,
+                               Context context
     ) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " +
@@ -215,6 +223,9 @@ public class UploadFileOperation extends SyncOperation {
         mOriginalStoragePath = mFile.getStoragePath();
         mOriginalFileName = mFile.getFileName();
         mContext = context;
+        mOCUploadId = upload.getUploadId();
+        mCreatedBy = upload.getCreadtedBy();
+        mRemoteFolderToBeCreated = upload.isCreateRemoteFolder();
     }
 
     public Account getAccount() {
@@ -259,6 +270,25 @@ public class UploadFileOperation extends SyncOperation {
 
     public boolean wasRenamed() {
         return mWasRenamed;
+    }
+
+    public void setCreatedBy(int createdBy) {
+        mCreatedBy = createdBy;
+        if (createdBy < CREATED_BY_USER || CREATED_AS_INSTANT_VIDEO < createdBy) {
+            mCreatedBy = CREATED_BY_USER;
+        }
+    }
+
+    public int getCreatedBy () {
+        return mCreatedBy;
+    }
+
+    public boolean isInstantPicture() {
+        return mCreatedBy == CREATED_AS_INSTANT_PICTURE;
+    }
+
+    public boolean isInstantVideo() {
+        return mCreatedBy == CREATED_AS_INSTANT_VIDEO;
     }
 
     public void setOCUploadId(long id){

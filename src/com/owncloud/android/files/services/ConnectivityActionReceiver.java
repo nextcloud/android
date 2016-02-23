@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.db.PreferenceReader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -98,8 +99,8 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
     }
 
     private void wifiDisconnected(Context context) {
-        boolean instantPictureWiFiOnly = instantPictureUploadViaWiFiOnly(context);
-        boolean instantVideoWiFiOnly = instantVideoUploadViaWiFiOnly(context);
+        boolean instantPictureWiFiOnly = PreferenceReader.instantPictureUploadViaWiFiOnly(context);
+        boolean instantVideoWiFiOnly = PreferenceReader.instantVideoUploadViaWiFiOnly(context);
         if (instantPictureWiFiOnly || instantVideoWiFiOnly) {
             Account account = AccountUtils.getCurrentOwnCloudAccount(context);
             if (account == null) {
@@ -130,19 +131,5 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
                 PackageManager.DONT_KILL_APP);
     }
 
-
-    private static boolean instantPictureUploadViaWiFiOnly(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-                "instant_upload_on_wifi",
-                false
-        );
-    }
-
-    private static boolean instantVideoUploadViaWiFiOnly(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-                "instant_video_upload_on_wifi",
-                false
-        );
-    }
 
 }

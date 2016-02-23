@@ -147,8 +147,10 @@ public class ProviderMeta {
         public static final String UPLOADS_IS_WIFI_ONLY = "is_wifi_only";
         public static final String UPLOADS_UPLOAD_TIMESTAMP = "upload_timestamp";
         public static final String UPLOADS_LAST_RESULT = "last_result";
+        public static final String UPLOADS_CREATED_BY = "created_by";
 
         //public static final String UPLOADS_DEFAULT_SORT_ORDER = UPLOADS_FILE_ID  + " collate nocase asc";
         public static final String UPLOADS_DEFAULT_SORT_ORDER = ProviderTableMeta._ID  + " collate nocase desc";
+
     }
 }

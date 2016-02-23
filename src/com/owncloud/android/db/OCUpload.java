@@ -34,6 +34,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.MimetypeIconUtil;
 import com.owncloud.android.utils.UploadUtils;
 
@@ -100,6 +101,11 @@ public class OCUpload implements Parcelable {
      */
     private UploadResult mLastResult;
 
+    /**
+     * Defines the origin of the upload; see constants CREATED_ in {@link UploadFileOperation}
+     */
+    private int mCreatedBy;
+
 
     /**
      * Main constructor
@@ -151,6 +157,7 @@ public class OCUpload implements Parcelable {
         mIsWhileChargingOnly = false;
         mUploadStatus = UploadStatus.UPLOAD_LATER;
         mLastResult = UploadResult.UNKNOWN;
+        mCreatedBy = UploadFileOperation.CREATED_BY_USER;
     }
 
     // Getters & Setters
@@ -295,6 +302,16 @@ public class OCUpload implements Parcelable {
         return mIsWhileChargingOnly;
     }
 
+
+    public void setCreatedBy(int createdBy) {
+        mCreatedBy = createdBy;
+    }
+
+    public int getCreadtedBy() {
+        return mCreatedBy;
+    }
+
+
     /**
      * For debugging purposes only.
      */
@@ -395,6 +412,7 @@ public class OCUpload implements Parcelable {
         } catch (IllegalArgumentException x) {
             mLastResult = UploadResult.UNKNOWN;
         }
+        mCreatedBy = source.readInt();
     }
 
 
@@ -416,6 +434,7 @@ public class OCUpload implements Parcelable {
         dest.writeInt(mIsWhileChargingOnly ? 1 : 0);
         dest.writeString(mUploadStatus.name());
         dest.writeString(((mLastResult == null) ? "" : mLastResult.name()));
+        dest.writeInt(mCreatedBy);
     }
 
 

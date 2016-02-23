@@ -73,6 +73,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.CopyTmpFileAsyncTask;
@@ -563,8 +564,16 @@ public class Uploader extends FileActivity
                     throw new SecurityException();
                 }
 
-                FileUploader.uploadNewFile(this, getAccount(), local.toArray(new String[local.size()]), remote
-                        .toArray(new String[remote.size()]), FileUploader.LOCAL_BEHAVIOUR_FORGET, null, false, false);
+                FileUploader.uploadNewFile(
+                        this,
+                        getAccount(),
+                        local.toArray(new String[local.size()]),
+                        remote.toArray(new String[remote.size()]),
+                        FileUploader.LOCAL_BEHAVIOUR_FORGET,
+                        null,       // MIME type will be detected from file name
+                        false,      // do not create parent folder if not existent
+                        UploadFileOperation.CREATED_BY_USER
+                );
 
                 //Save the path to shared preferences
                 SharedPreferences.Editor appPrefs = PreferenceManager
@@ -693,8 +702,15 @@ public class Uploader extends FileActivity
             dismissWaitingCopyDialog();
         }
         if (result != null) {
-            FileUploader.uploadNewFile(this, getAccount(), result, mRemoteCacheData.get(index), FileUploader
-                    .LOCAL_BEHAVIOUR_FORGET, null, false, false);
+            FileUploader.uploadNewFile(
+                    this, getAccount(),
+                    result,
+                    mRemoteCacheData.get(index),
+                    FileUploader.LOCAL_BEHAVIOUR_FORGET,
+                    null,       // MIME type will be detected from file name
+                    false,      // do not create parent folder if not existent
+                    UploadFileOperation.CREATED_BY_USER
+            );
 
         } else {
             String message = String.format(getString(R.string.uploader_error_forbidden_content),

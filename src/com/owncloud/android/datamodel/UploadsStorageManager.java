@@ -33,6 +33,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 
 import java.io.File;
+import java.security.Provider;
 import java.util.Observable;
 
 /**
@@ -135,6 +136,7 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY, ocUpload.isWhileChargingOnly() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY, ocUpload.isUseWifiOnly() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_LAST_RESULT, ocUpload.getLastResult().getValue());
+        cv.put(ProviderTableMeta.UPLOADS_CREATED_BY, ocUpload.getCreadtedBy());
 
         Uri result = getDB().insert(ProviderTableMeta.CONTENT_URI_UPLOADS, cv);
 
@@ -459,6 +461,7 @@ public class UploadsStorageManager extends Observable {
                     c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY)) == 1);
             upload.setLastResult(UploadResult.fromValue(
                     c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_LAST_RESULT))));
+            upload.setCreatedBy(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_CREATED_BY)));
         }
         return upload;
     }

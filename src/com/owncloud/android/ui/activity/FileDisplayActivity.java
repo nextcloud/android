@@ -81,6 +81,7 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -735,7 +736,16 @@ public class FileDisplayActivity extends HookActivity implements
 
             int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader
                     .LOCAL_BEHAVIOUR_MOVE : FileUploader.LOCAL_BEHAVIOUR_COPY;
-            FileUploader.uploadNewFile(this, getAccount(), filePaths, remotePaths, behaviour, null, false, false);
+            FileUploader.uploadNewFile(
+                    this,
+                    getAccount(),
+                    filePaths,
+                    remotePaths,
+                    behaviour,
+                    null,           // MIME type will be detected from file name
+                    false,          // do not create parent folder if not existent
+                    UploadFileOperation.CREATED_BY_USER
+            );
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
@@ -810,7 +820,16 @@ public class FileDisplayActivity extends HookActivity implements
 
         int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader.LOCAL_BEHAVIOUR_MOVE :
                 FileUploader.LOCAL_BEHAVIOUR_COPY;
-        FileUploader.uploadNewFile(this, getAccount(), filePath, remotePath, behaviour, mimeType, false, false);
+        FileUploader.uploadNewFile(
+                this,
+                getAccount(),
+                filePath,
+                remotePath,
+                behaviour,
+                mimeType,
+                false,          // do not create parent folder if not existent
+                UploadFileOperation.CREATED_BY_USER
+        );
 
     }
 

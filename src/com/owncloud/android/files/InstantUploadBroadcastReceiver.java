@@ -1,8 +1,10 @@
 /**
  * ownCloud Android client application
  * <p/>
+ * @author Bartek Przybylski
+ * @author David A. Velasco
  * Copyright (C) 2012  Bartek Przybylski
- * Copyright (C) 2015 ownCloud Inc.
+ * Copyright (C) 2016 ownCloud Inc.
  * <p/>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -32,8 +34,10 @@ import android.provider.MediaStore.Video;
 import android.support.v4.content.ContextCompat;
 
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.db.PreferenceReader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
 
@@ -81,9 +85,9 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         String file_name = null;
         String mime_type = null;
 
-        Log_OC.w(TAG, "New photo received");
+        Log_OC.i(TAG, "New photo received");
 
-        if (!instantPictureUploadEnabled(context)) {
+        if (!PreferenceReader.instantPictureUploadEnabled(context)) {
             Log_OC.d(TAG, "Instant picture upload disabled, ignoring new picture");
             return;
         }
@@ -124,8 +128,16 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         Log_OC.d(TAG, "Path: " + file_path + "");
 
         int behaviour = getUploadBehaviour(context);
-        FileUploader.uploadNewFile(context, account, file_path, FileStorageUtils.getInstantUploadFilePath(context,
-                file_name), behaviour, mime_type, true, instantPictureUploadViaWiFiOnly(context));
+        FileUploader.uploadNewFile(
+                context,
+                account,
+                file_path,
+                FileStorageUtils.getInstantUploadFilePath(context, file_name),
+                behaviour,
+                mime_type,
+                true,           // create parent folder if not existent
+                UploadFileOperation.CREATED_AS_INSTANT_PICTURE
+        );
     }
 
     private Integer getUploadBehaviour(Context context) {
@@ -148,9 +160,9 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         String file_name = null;
         String mime_type = null;
 
-        Log_OC.w(TAG, "New video received");
+        Log_OC.i(TAG, "New video received");
 
-        if (!instantVideoUploadEnabled(context)) {
+        if (!PreferenceReader.instantVideoUploadEnabled(context)) {
             Log_OC.d(TAG, "Instant video upload disabled, ignoring new video");
             return;
         }
@@ -182,24 +194,9 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                 FileStorageUtils.getInstantVideoUploadFilePath(context, file_name),
                 behaviour,
                 mime_type,
-                true,
-                instantVideoUploadViaWiFiOnly(context)
+                true,           // create parent folder if not existent
+                UploadFileOperation.CREATED_AS_INSTANT_VIDEO
         );
     }
 
-    public static boolean instantPictureUploadEnabled(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_uploading", false);
-    }
-
-    public static boolean instantVideoUploadEnabled(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_uploading", false);
-    }
-
-    public static boolean instantPictureUploadViaWiFiOnly(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_upload_on_wifi", false);
-    }
-
-    public static boolean instantVideoUploadViaWiFiOnly(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_wifi", false);
-    }
 }

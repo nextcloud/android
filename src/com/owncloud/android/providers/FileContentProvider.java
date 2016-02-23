@@ -858,7 +858,9 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY + " INTEGER, "  // boolean
                 + ProviderTableMeta.UPLOADS_IS_WIFI_ONLY + " INTEGER, " // boolean
                 + ProviderTableMeta.UPLOADS_UPLOAD_TIMESTAMP + " INTEGER, "
-                + ProviderTableMeta.UPLOADS_LAST_RESULT + " INTEGER );" );     // Upload LastResult
+                + ProviderTableMeta.UPLOADS_LAST_RESULT + " INTEGER, "     // Upload LastResult
+                + ProviderTableMeta.UPLOADS_CREATED_BY + " INTEGER );"    // Upload createdBy
+        );
 
 
         /* before:

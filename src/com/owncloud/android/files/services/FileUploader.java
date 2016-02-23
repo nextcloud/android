@@ -2,7 +2,7 @@
  * ownCloud Android client application
  *
  * @author Bartek Przybylski
- * @authro masensio
+ * @author masensio
  * @author LukeOwnCloud
  * @author David A. Velasco
  * Copyright (C) 2012 Bartek Przybylski
@@ -50,6 +50,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.PreferenceReader;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -136,9 +137,9 @@ public class FileUploader extends Service
      */
     public static final String KEY_CREATE_REMOTE_FOLDER = "CREATE_REMOTE_FOLDER";
     /**
-     * Set to true if upload is to performed only when connected via wifi.
+     * Key to signal what is the origin of the upload request
      */
-    public static final String KEY_WIFI_ONLY = "WIFI_ONLY";
+    public static final String KEY_CREATED_BY = "CREATED_BY";
     /**
      * Set to true if upload is to performed only when phone is being charged.
      */
@@ -260,7 +261,7 @@ public class FileUploader extends Service
      * Call to upload several new files
      */
     public static void uploadNewFile(Context context, Account account, String[] localPaths, String[] remotePaths,
-                                     Integer behaviour, String mimeType, Boolean createRemoteFolder, Boolean wifiOnly) {
+                                     Integer behaviour, String mimeType, Boolean createRemoteFolder, int createdBy) {
         Log_OC.d(TAG, "FileUploader.uploadNewFile()");
         Intent intent = new Intent(context, FileUploader.class);
 
@@ -270,7 +271,7 @@ public class FileUploader extends Service
         intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
         intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeType);
         intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
-        intent.putExtra(FileUploader.KEY_WIFI_ONLY, wifiOnly);
+        intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
 
         context.startService(intent);
     }
@@ -279,10 +280,10 @@ public class FileUploader extends Service
      * Call to upload a new single file
      */
     public static void uploadNewFile(Context context, Account account, String localPath, String remotePath, int
-            behaviour, String mimeType, boolean createRemoteFile, boolean wifiOnly) {
+            behaviour, String mimeType, boolean createRemoteFile, int createdBy) {
 
         uploadNewFile(context, account, new String[]{localPath}, new String[]{remotePath}, behaviour, mimeType,
-                createRemoteFile, wifiOnly);
+                createRemoteFile, createdBy);
     }
 
     /**
@@ -440,7 +441,7 @@ public class FileUploader extends Service
             int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
 
             boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
-            boolean isUseWifiOnly = intent.getBooleanExtra(KEY_WIFI_ONLY, true);
+            int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
             boolean isWhileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
             //long uploadTimestamp = intent.getLongExtra(KEY_UPLOAD_TIMESTAMP, -1);
 
@@ -492,6 +493,7 @@ public class FileUploader extends Service
                             localAction,
                             this
                     );
+                    newUpload.setCreatedBy(createdBy);
                     if (isCreateRemoteFolder) {
                         newUpload.setRemoteFolderToBeCreated();
                     }
@@ -502,9 +504,10 @@ public class FileUploader extends Service
                     OCUpload ocUpload = new OCUpload(files[i], account);
                     ocUpload.setForceOverwrite(forceOverwrite);
                     ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
+                    ocUpload.setCreatedBy(createdBy);
                     ocUpload.setLocalAction(localAction);
-                    ocUpload.setUseWifiOnly(isUseWifiOnly);
-                    ocUpload.setWhileChargingOnly(isWhileChargingOnly);
+                    /*ocUpload.setUseWifiOnly(isUseWifiOnly);
+                    ocUpload.setWhileChargingOnly(isWhileChargingOnly);*/
                     ocUpload.setUploadStatus(UploadStatus.UPLOAD_LATER);
 
                     // storagePath inside upload is the temporary path. file
@@ -551,16 +554,13 @@ public class FileUploader extends Service
                     account,
                     upload,
                     chunked,
-                    upload.isForceOverwrite(),
-                    upload.getLocalAction(),
+                    upload.isForceOverwrite(),  // TODO should be read from DB?
+                    upload.getLocalAction(),    // TODO should be read from DB?
                     this
             );
-            if (upload.isCreateRemoteFolder()) {
-                newUpload.setRemoteFolderToBeCreated();
-            }
+
             newUpload.addDatatransferProgressListener(this);
             newUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
-            newUpload.setOCUploadId(upload.getUploadId());
 
             Pair<String, String> putResult = mPendingUploads.putIfAbsent(
                     account.name,
@@ -920,70 +920,86 @@ public class FileUploader extends Service
         mCurrentUpload = mPendingUploads.get(uploadKey);
 
         if (mCurrentUpload != null) {
-            // Detect if the account exists
-            if (AccountUtils.exists(mCurrentUpload.getAccount(), getApplicationContext())) {
-                Log_OC.d(TAG, "Account " + mCurrentUpload.getAccount().name + " exists");
 
-                mUploadsStorageManager.updateDatabaseUploadStart(mCurrentUpload);
+            /// Check account existence
+            if (!AccountUtils.exists(mCurrentUpload.getAccount(), this)) {
+                Log_OC.w(TAG, "Account " + mCurrentUpload.getAccount().name +
+                        " does not exist anymore -> cancelling all its uploads");
+                cancelUploadsForAccount(mCurrentUpload.getAccount());
+                return;
+            }
 
-                notifyUploadStart(mCurrentUpload);
+            /// Check that connectivity conditions are met
+            if (mCurrentUpload.isInstantPicture() &&
+                    PreferenceReader.instantPictureUploadViaWiFiOnly(this)) {
 
-                RemoteOperationResult uploadResult = null;
+                Log_OC.d(TAG, "Upload delayed until WiFi is available: " + mCurrentUpload.getRemotePath());
+                // TODO - update mUploadsStorageManager
+                return;
+            }
+            if (mCurrentUpload.isInstantVideo() &&
+                    PreferenceReader.instantVideoUploadViaWiFiOnly(this)) {
 
-                try {
-                    /// prepare client object to send the request to the ownCloud server
-                    if (mCurrentAccount == null || !mCurrentAccount.equals(mCurrentUpload.getAccount())) {
-                        mCurrentAccount = mCurrentUpload.getAccount();
-                        mStorageManager = new FileDataStorageManager(
-                                mCurrentAccount,
-                                getContentResolver()
-                        );
-                    }   // else, reuse storage manager from previous operation
+                Log_OC.d(TAG, "Upload delayed until WiFi is available: " + mCurrentUpload.getRemotePath());
+                // TODO - update mUploadsStorageManager
+                return;
+            }
 
-                    // always get client from client manager, to get fresh credentials in case of update
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
-                    mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                            getClientFor(ocAccount, this);
+            /// OK, let's upload
+            mUploadsStorageManager.updateDatabaseUploadStart(mCurrentUpload);
 
-                    /// perform the upload
-                    uploadResult = mCurrentUpload.execute(mUploadClient, mStorageManager);
+            notifyUploadStart(mCurrentUpload);
+
+            RemoteOperationResult uploadResult = null;
+
+            try {
+                /// prepare client object to send the request to the ownCloud server
+                if (mCurrentAccount == null || !mCurrentAccount.equals(mCurrentUpload.getAccount())) {
+                    mCurrentAccount = mCurrentUpload.getAccount();
+                    mStorageManager = new FileDataStorageManager(
+                            mCurrentAccount,
+                            getContentResolver()
+                    );
+                }   // else, reuse storage manager from previous operation
+
+                // always get client from client manager, to get fresh credentials in case of update
+                OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
+                mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                        getClientFor(ocAccount, this);
+
+                /// perform the upload
+                uploadResult = mCurrentUpload.execute(mUploadClient, mStorageManager);
 
 
-                } catch (Exception e) {
-                    Log_OC.e(TAG, "Error uploading", e);
-                    uploadResult = new RemoteOperationResult(e);
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Error uploading", e);
+                uploadResult = new RemoteOperationResult(e);
 
-                } finally {
-                    Pair<UploadFileOperation, String> removeResult;
-                    if (mCurrentUpload.wasRenamed()) {
-                        removeResult = mPendingUploads.removePayload(
-                                mCurrentAccount.name,
-                                mCurrentUpload.getOldFile().getRemotePath()
-                        );
-                        /** TODO: grant that name is also updated for mCurrentUpload.getOCUploadId */
+            } finally {
+                Pair<UploadFileOperation, String> removeResult;
+                if (mCurrentUpload.wasRenamed()) {
+                    removeResult = mPendingUploads.removePayload(
+                            mCurrentAccount.name,
+                            mCurrentUpload.getOldFile().getRemotePath()
+                    );
+                    /** TODO: grant that name is also updated for mCurrentUpload.getOCUploadId */
 
-                    } else {
-                        removeResult = mPendingUploads.removePayload(
-                                mCurrentAccount.name,
-                                mCurrentUpload.getRemotePath()
-                        );
-                    }
-
-                    mUploadsStorageManager.updateDatabaseUploadResult(uploadResult, mCurrentUpload);
-
-                    /// notify result
-                    notifyUploadResult(mCurrentUpload, uploadResult);
-
-                    sendBroadcastUploadFinished(mCurrentUpload, uploadResult, removeResult.second);
+                } else {
+                    removeResult = mPendingUploads.removePayload(
+                            mCurrentAccount.name,
+                            mCurrentUpload.getRemotePath()
+                    );
                 }
 
-            } else {
-                // Cancel the transfer
-                Log_OC.d(TAG, "Account " + mCurrentUpload.getAccount().toString() +
-                        " doesn't exist");
-                cancelUploadsForAccount(mCurrentUpload.getAccount());
+                mUploadsStorageManager.updateDatabaseUploadResult(uploadResult, mCurrentUpload);
+
+                /// notify result
+                notifyUploadResult(mCurrentUpload, uploadResult);
+
+                sendBroadcastUploadFinished(mCurrentUpload, uploadResult, removeResult.second);
 
             }
+
         }
 
     }
