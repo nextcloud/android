@@ -32,8 +32,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 
-import java.io.File;
-import java.security.Provider;
 import java.util.Observable;
 
 /**
@@ -47,34 +45,22 @@ public class UploadsStorageManager extends Observable {
     static private final String TAG = UploadsStorageManager.class.getSimpleName();
 
     public enum UploadStatus {
+
         /**
-         * Upload scheduled.
+         * Upload currently in progress or scheduled to be executed.
          */
-        UPLOAD_LATER(0),
+        UPLOAD_IN_PROGRESS(0),
+
         /**
-         * Last upload failed. Will retry.
+         * Last upload failed.
          */
-        UPLOAD_FAILED_RETRY(1),
-        /**
-         * Upload currently in progress.
-         */
-        UPLOAD_IN_PROGRESS(2),
-        /**
-         * Upload paused. Has to be manually resumed by user.
-         */
-        UPLOAD_PAUSED(3),
+        UPLOAD_FAILED(1),
+
         /**
          * Upload was successful.
          */
-        UPLOAD_SUCCEEDED(4),
-        /**
-         * Upload failed with some severe reason. Do not retry.
-         */
-        UPLOAD_FAILED_GIVE_UP(5),
-        /**
-         * User has cancelled upload. Do not retry.
-         */
-        UPLOAD_CANCELLED(6);
+        UPLOAD_SUCCEEDED(2);
+
         private final int value;
 
         UploadStatus(int value) {
@@ -88,19 +74,11 @@ public class UploadsStorageManager extends Observable {
         public static UploadStatus fromValue(int value) {
             switch (value) {
                 case 0:
-                    return UPLOAD_LATER;
-                case 1:
-                    return UPLOAD_FAILED_RETRY;
-                case 2:
                     return UPLOAD_IN_PROGRESS;
-                case 3:
-                    return UPLOAD_PAUSED;
-                case 4:
+                case 1:
+                    return UPLOAD_FAILED;
+                case 2:
                     return UPLOAD_SUCCEEDED;
-                case 5:
-                    return UPLOAD_FAILED_GIVE_UP;
-                case 6:
-                    return UPLOAD_CANCELLED;
             }
             return null;
         }
@@ -467,18 +445,6 @@ public class UploadsStorageManager extends Observable {
     }
 
     /**
-     * Get all uploads which are pending, i.e., queued for upload but not
-     * currently being uploaded
-     *
-     * @return
-     */
-    public OCUpload[] getPendingUploads() {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_LATER.value + " OR " +
-                        ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED_RETRY.value,
-                null);
-    }
-
-    /**
      * Get all uploads which are currently being uploaded. There should only be
      * one. No guarantee though.
      */
@@ -490,10 +456,7 @@ public class UploadsStorageManager extends Observable {
      * Get all current and pending uploads.
      */
     public OCUpload[] getCurrentAndPendingUploads() {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR " +
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_LATER.value + " OR " +
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED_RETRY.value + " OR " +
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_PAUSED.value, null);
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value, null);
     }
 
     /**
@@ -501,8 +464,7 @@ public class UploadsStorageManager extends Observable {
      * retried.
      */
     public OCUpload[] getFailedUploads() {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED_GIVE_UP.value + " OR " +
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_CANCELLED.value, null);
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value, null);
     }
 
     /**
@@ -517,13 +479,9 @@ public class UploadsStorageManager extends Observable {
     }
 
     public long clearFailedUploads() {
-        String[] whereArgs = new String[2];
-        whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_CANCELLED.value);
-        whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED_GIVE_UP.value);
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=?",
-                whereArgs
+                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value, null
         );
         Log_OC.d(TAG, "delete all failed uploads");
         if (result > 0) {
@@ -533,12 +491,9 @@ public class UploadsStorageManager extends Observable {
     }
 
     public long clearFinishedUploads() {
-        String[] whereArgs = new String[1];
-        whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_STATUS + "=? ",
-                whereArgs
+                ProviderTableMeta.UPLOADS_STATUS + "=="+ UploadStatus.UPLOAD_SUCCEEDED.value, null
         );
         Log_OC.d(TAG, "delete all finished uploads");
         if (result > 0) {
@@ -548,18 +503,14 @@ public class UploadsStorageManager extends Observable {
     }
 
     public long clearAllUploads() {
-        String[] whereArgs = new String[6];
+        String[] whereArgs = new String[3];
         whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
-        whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_CANCELLED.value);
-        whereArgs[2] = String.valueOf(UploadStatus.UPLOAD_FAILED_GIVE_UP.value);
-        whereArgs[3] = String.valueOf(UploadStatus.UPLOAD_FAILED_RETRY.value);
-        whereArgs[4] = String.valueOf(UploadStatus.UPLOAD_PAUSED.value);
-        whereArgs[5] = String.valueOf(UploadStatus.UPLOAD_IN_PROGRESS.value);
+        whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED.value);
+        whereArgs[2] = String.valueOf(UploadStatus.UPLOAD_IN_PROGRESS.value);
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=? OR " +
-                        ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=? OR " +
-                        ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=?",
+                        ProviderTableMeta.UPLOADS_STATUS + "=?",
                 whereArgs
         );
         Log_OC.d(TAG, "delete all uploads");
@@ -569,18 +520,18 @@ public class UploadsStorageManager extends Observable {
         return result;
     }
 
-    public void setAllCurrentToUploadLater() {
-        Cursor c = getDB().query(
-                ProviderTableMeta.CONTENT_URI_UPLOADS,
-                null,
-                ProviderTableMeta.UPLOADS_STATUS + "=? ",
-                new String[]{
-                        Integer.toString(UploadStatus.UPLOAD_IN_PROGRESS.value)
-                },
-                null
-        );
-        updateUploadInternal(c, UploadStatus.UPLOAD_LATER, UploadResult.UNKNOWN);
-    }
+//    public void setAllCurrentToUploadLater() {
+//        Cursor c = getDB().query(
+//                ProviderTableMeta.CONTENT_URI_UPLOADS,
+//                null,
+//                ProviderTableMeta.UPLOADS_STATUS + "=? ",
+//                new String[]{
+//                        Integer.toString(UploadStatus.UPLOAD_IN_PROGRESS.value)
+//                },
+//                null
+//        );
+//        updateUploadInternal(c, UploadStatus.UPLOAD_LATER, UploadResult.UNKNOWN);
+//    }
 
 
     /**
@@ -592,7 +543,7 @@ public class UploadsStorageManager extends Observable {
         if (uploadResult.isCancelled()) {
             updateUploadStatus(
                     upload.getOCUploadId(),
-                    UploadStatus.UPLOAD_CANCELLED,
+                    UploadStatus.UPLOAD_FAILED,
                     UploadResult.CANCELLED
             );
         } else {
@@ -607,11 +558,11 @@ public class UploadsStorageManager extends Observable {
                 // TODO: Disable for testing of menu actions in uploads view
                 if (shouldRetryFailedUpload(uploadResult)) {
                     updateUploadStatus(
-                            upload.getOCUploadId(), UploadStatus.UPLOAD_FAILED_RETRY,
+                            upload.getOCUploadId(), UploadStatus.UPLOAD_FAILED,
                             UploadResult.fromOperationResult(uploadResult));
                 } else {
                     updateUploadStatus(upload.getOCUploadId(),
-                            UploadsStorageManager.UploadStatus.UPLOAD_FAILED_GIVE_UP,
+                            UploadsStorageManager.UploadStatus.UPLOAD_FAILED,
                             UploadResult.fromOperationResult(uploadResult));
                 }
             }

@@ -508,7 +508,7 @@ public class FileUploader extends Service
                     ocUpload.setLocalAction(localAction);
                     /*ocUpload.setUseWifiOnly(isUseWifiOnly);
                     ocUpload.setWhileChargingOnly(isWhileChargingOnly);*/
-                    ocUpload.setUploadStatus(UploadStatus.UPLOAD_LATER);
+                    ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
 
                     // storagePath inside upload is the temporary path. file
                     // contains the correct path used as db reference.
@@ -572,7 +572,7 @@ public class FileUploader extends Service
                 requestedUploads.add(uploadKey);
 
                 // Update upload in database
-                upload.setUploadStatus(UploadStatus.UPLOAD_LATER);
+                upload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
                 mUploadsStorageManager.updateUpload(upload);
             }
         }
@@ -680,7 +680,7 @@ public class FileUploader extends Service
                     OCUpload ocUpload =
                             mUploadsStorageManager.getUploadByLocalPath(localPath)[0];
                     // TODO bad idea, should search for account + remoteName, or uploadId
-                    ocUpload.setUploadStatus(UploadStatus.UPLOAD_CANCELLED);
+                    ocUpload.setUploadStatus(UploadStatus.UPLOAD_FAILED);
                     ocUpload.setLastResult(UploadResult.CANCELLED);
                     mUploadsStorageManager.updateUploadStatus(ocUpload);
                 }

@@ -275,7 +275,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     fileSizeTextView.setVisibility(View.GONE);
                     accountNameTextView.setVisibility(View.INVISIBLE);
                     break;
-                case UPLOAD_FAILED_GIVE_UP:
+                case UPLOAD_FAILED:
                     uploadDateTextView.setVisibility(View.GONE);
                     if (upload.getLastResult() != null) {
                         switch (upload.getLastResult()) {
@@ -313,6 +313,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                 status = mParentActivity.getString(
                                         R.string.uploads_view_upload_status_failed_permission_error);
                                 break;
+                            case NETWORK_CONNECTION:
+                                status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error);
+                                break;
                             default:
                                 status = mParentActivity.getString(
                                         R.string.uploads_view_upload_status_failed) + ": "
@@ -324,39 +327,39 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                 R.string.uploads_view_upload_status_failed);
                         ;
                     }
-                    break;
-                case UPLOAD_FAILED_RETRY:
-                    if (upload.getLastResult() == UploadResult.NETWORK_CONNECTION) {
-                        status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error);
-                    } else {
-                        status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_retry);
-                    }
+
                     String laterReason = upload.getUploadLaterReason(mParentActivity);
                     if (laterReason != null) {
                         //Upload failed once but is delayed now, show reason.
                         status = laterReason;
                     }
-                    pathTextView.setVisibility(View.GONE);
-                    fileSizeTextView.setVisibility(View.GONE);
-                    accountNameTextView.setVisibility(View.INVISIBLE);
-                    uploadDateTextView.setVisibility(View.GONE);
                     break;
-                case UPLOAD_LATER:
-                    uploadDateTextView.setVisibility(View.GONE);
-                    pathTextView.setVisibility(View.GONE);
-                    fileSizeTextView.setVisibility(View.GONE);
-                    accountNameTextView.setVisibility(View.INVISIBLE);
-                    status = upload.getUploadLaterReason(mParentActivity);
-                    break;
+//                case UPLOAD_FAILED:
+//                    if (upload.getLastResult() == UploadResult.NETWORK_CONNECTION) {
+//                        status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error);
+//                    } else {
+//                        status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_retry);
+//                    }
+//                    String laterReason = upload.getUploadLaterReason(mParentActivity);
+//                    if (laterReason != null) {
+//                        //Upload failed once but is delayed now, show reason.
+//                        status = laterReason;
+//                    }
+//                    pathTextView.setVisibility(View.GONE);
+//                    fileSizeTextView.setVisibility(View.GONE);
+//                    accountNameTextView.setVisibility(View.INVISIBLE);
+//                    uploadDateTextView.setVisibility(View.GONE);
+//                    break;
+//                case UPLOAD_LATER:
+//                    uploadDateTextView.setVisibility(View.GONE);
+//                    pathTextView.setVisibility(View.GONE);
+//                    fileSizeTextView.setVisibility(View.GONE);
+//                    accountNameTextView.setVisibility(View.INVISIBLE);
+//                    status = upload.getUploadLaterReason(mParentActivity);
+//                    break;
                 case UPLOAD_SUCCEEDED:
                     status = mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
                     statusTextView.setVisibility(View.GONE);
-                    break;
-                case UPLOAD_CANCELLED:
-                    status = mParentActivity.getString(R.string.uploads_view_upload_status_cancelled);
-                    break;
-                case UPLOAD_PAUSED:
-                    status = mParentActivity.getString(R.string.uploads_view_upload_status_paused);
                     break;
                 default:
                     status = upload.getUploadStatus().toString();

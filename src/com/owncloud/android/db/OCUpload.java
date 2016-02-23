@@ -155,7 +155,7 @@ public class OCUpload implements Parcelable {
         mIsCreateRemoteFolder = false;
         mIsUseWifiOnly = true;
         mIsWhileChargingOnly = false;
-        mUploadStatus = UploadStatus.UPLOAD_LATER;
+        mUploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
         mLastResult = UploadResult.UNKNOWN;
         mCreatedBy = UploadFileOperation.CREATED_BY_USER;
     }
@@ -340,30 +340,21 @@ public class OCUpload implements Parcelable {
      * upload is currently in progress or scheduled for upload.
      */
     public  boolean userCanCancelUpload() {
-        switch (this.getUploadStatus()) {
-            case UPLOAD_IN_PROGRESS:
-            case UPLOAD_LATER:
-                return true;
-            default:
-                return false;
+        if (getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
+            return true;
         }
+        return false;
     }
 
     /**
      * Returns true when user can choose to retry this upload. That is, when
-     * user cancelled upload before or when upload has failed.
+     * upload has failed for any reason.
      */
     public boolean userCanRetryUpload() {
-        switch (this.getUploadStatus()) {
-            case UPLOAD_CANCELLED:
-            case UPLOAD_FAILED_RETRY://automatically retried. no need for user option.
-            case UPLOAD_FAILED_GIVE_UP: //TODO this case needs to be handled as described by
-                // https://github.com/owncloud/android/issues/765#issuecomment-66490312
-            case UPLOAD_LATER: //upload is already schedule but allow user to increase priority
-                return true;
-            default:
-                return false;
+        if (getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
+            return true;
         }
+        return false;
     }
 
 
@@ -405,7 +396,7 @@ public class OCUpload implements Parcelable {
         try {
             mUploadStatus = UploadStatus.valueOf(source.readString());
         } catch (IllegalArgumentException x) {
-            mUploadStatus = UploadStatus.UPLOAD_LATER;
+            mUploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
         }
         try {
             mLastResult = UploadResult.valueOf(source.readString());
@@ -507,7 +498,7 @@ public class OCUpload implements Parcelable {
         if (reason.length() > 1) {
             return reason.toString();
         }
-        if (getUploadStatus() == UploadStatus.UPLOAD_LATER) {
+        if (getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
             return context.getString(R.string.uploads_view_later_waiting_to_upload);
         }
         return null;
