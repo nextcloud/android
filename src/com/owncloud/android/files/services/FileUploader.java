@@ -524,7 +524,7 @@ public class FileUploader extends Service
                         uploadKey = putResult.first;
                         requestedUploads.add(uploadKey);
                     } else {
-                        mUploadsStorageManager.removeUpload(id);
+                        mUploadsStorageManager.removeUpload(account.name, files[i].getRemotePath());
                     }
                     // else, file already in the queue of uploads; don't repeat the request
                 }
@@ -675,14 +675,12 @@ public class FileUploader extends Service
                 boolean pending = !upload.isUploadInProgress();
                 upload.cancel();
                 if (pending) {
-                    // need to update now table in mUploadsStorageManager, since the operation will not get
-                    // to be run by FileUploader#uploadFile
-                    OCUpload ocUpload =
-                            mUploadsStorageManager.getUploadByLocalPath(localPath)[0];
-                    // TODO bad idea, should search for account + remoteName, or uploadId
-                    ocUpload.setUploadStatus(UploadStatus.UPLOAD_FAILED);
-                    ocUpload.setLastResult(UploadResult.CANCELLED);
-                    mUploadsStorageManager.updateUploadStatus(ocUpload);
+                    // need to update now table in mUploadsStorageManager,
+                    // since the operation will not get to be run by FileUploader#uploadFile
+                    mUploadsStorageManager.removeUpload(
+                            accountName,
+                            remotePath
+                    );
                 }
             }
         }
@@ -705,31 +703,8 @@ public class FileUploader extends Service
             cancelUploadsForAccount(account);
         }
 
-        // TODO: Review: Method from FileUploadService with some changes because the merge with FileUploader
-        public void remove(Account account, OCFile file) {
-            Pair<UploadFileOperation, String> removeResult =
-                    mPendingUploads.remove(account.name, file.getRemotePath());
-            UploadFileOperation upload = removeResult.first;
-            //OCUpload upload = mPendingUploads.remove(buildRemoteName(account, file));
-            if (upload == null) {
-                Log_OC.e(TAG, "Could not delete upload " + file + " from mPendingUploads.");
-            }
-            int d = mUploadsStorageManager.removeUpload(upload.getStoragePath());
-            if (d == 0) {
-                Log_OC.e(TAG, "Could not delete upload " + file.getStoragePath() + " from database.");
-            }
-        }
-
-        public void remove(OCUpload upload) {
-            int d = mUploadsStorageManager.removeUpload(upload.getUploadId());
-            if (d == 0) {
-                Log_OC.e(TAG, "Could not delete upload " + upload.getRemotePath() + " from database.");
-            }
-        }
-
         // TODO: Review: Method from FileUploader with some changes because the merge with FileUploader
         // TODO Complete operation to retry the upload
-
         /**
          * Puts upload in upload list and tell FileUploader to upload items in list.
          */

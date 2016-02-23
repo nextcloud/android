@@ -542,18 +542,6 @@ public class FileOperationsHelper {
     }
 
     /**
-     * Remove upload from upload list.
-     */
-    public void removeUploadFromList(OCUpload upload) {
-        FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
-        if (uploaderBinder != null) {
-            uploaderBinder.remove(upload);
-        }  else {
-            Log_OC.w(TAG, "uploaderBinder not set. Cannot remove " + upload.getLocalPath());
-        }
-    }
-
-    /**
      * Cancel the transference in downloads (files/folders) and file uploads
      * @param file OCFile
      */

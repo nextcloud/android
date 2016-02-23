@@ -36,12 +36,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ExpandableUploadListAdapter;
 
 /**
@@ -99,10 +97,7 @@ public class UploadListFragment extends ExpandableListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onActivityCreated() start");
         super.onActivityCreated(savedInstanceState);
-//        mAdapter = new ExpandableUploadListAdapter((FileActivity)getActivity());
-//        setListAdapter(mAdapter);
-        //mAdapter.setFileActivity(((FileActivity) getActivity()));
-        
+
         registerForContextMenu(getListView());
         getListView().setOnCreateContextMenuListener(this);
     }
@@ -159,7 +154,8 @@ public class UploadListFragment extends ExpandableListFragment {
             }
         }
     }
-    
+
+    // TODO review if this path is really needed any time
     @Override
     public boolean onContextItemSelected (MenuItem item) {
         ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) item.getMenuInfo();  
@@ -173,13 +169,14 @@ public class UploadListFragment extends ExpandableListFragment {
                 uploaderBinder.cancel(uploadFile);
             }
             return true;
-        case R.id.action_remove_upload: {
-            ((FileActivity) getActivity()).getFileOperationsHelper().removeUploadFromList(uploadFile);
-            return true;
+//        case R.id.action_remove_upload: {
+//            ((FileActivity) getActivity()).getFileOperationsHelper().removeUploadFromList(uploadFile);
+//            return true;
 //        }case R.id.action_retry_upload: {
 //            ((FileActivity) getActivity()).getFileOperationsHelper().retryUpload(uploadFile);
 //            return true;
-        } case R.id.action_see_details: {
+//        }
+        case R.id.action_see_details: {
             Toast.makeText(getActivity(), "TO DO", Toast.LENGTH_SHORT).show();
             /*
             Intent showDetailsIntent = new Intent(getActivity(), FileDisplayActivity.class);

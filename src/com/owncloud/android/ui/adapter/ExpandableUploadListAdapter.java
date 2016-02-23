@@ -42,7 +42,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -392,6 +391,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         FileUploader.FileUploaderBinder uploaderBinder = mParentActivity.getFileUploaderBinder();
                         if (uploaderBinder != null) {
                             uploaderBinder.cancel(upload);
+                            refreshView();
                         }
                     }
                 });
@@ -401,7 +401,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mParentActivity.getFileOperationsHelper().removeUploadFromList(upload);
+                        mUploadsStorageManager.removeUpload(upload);
                         refreshView();
                     }
                 });

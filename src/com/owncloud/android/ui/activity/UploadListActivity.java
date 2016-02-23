@@ -2,6 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author LukeOwncloud
+ *   @author David A. Velasco
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -44,7 +45,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.fragment.UploadListFragment;
-import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.utils.MimetypeIconUtil;
 
 import java.io.File;
 
@@ -66,7 +67,6 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.upload_list_layout);
 
         // Navigation Drawer
@@ -75,7 +75,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         // Add fragment with a transaction for setting a tag
         if(savedInstanceState == null) {
             createUploadListFragment();
-        }
+        } // else, the Fragment Manager makes the job on configuration changes
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -124,6 +124,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     // ////////////////////////////////////////
     @Override
     public boolean onUploadItemClick(OCUpload file) {
+        /// TODO is this path still active?
         File f = new File(file.getLocalPath());
         if(!f.exists()) {
             Toast.makeText(this, "Cannot open. Local file does not exist.",
@@ -135,15 +136,15 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     }
 
     /**
-     * Open file with app associates with its mimetype. If mimetype unknown, show list with all apps.  
+     * Open file with app associates with its MIME type. If MIME type unknown, show list with all apps.
      */
     private void openFileWithDefault(String localPath) {
         Intent myIntent = new Intent(android.content.Intent.ACTION_VIEW);
         File file = new File(localPath);
-        String extension = android.webkit.MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(file).toString());
-        String mimetype = android.webkit.MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-        if (mimetype == null)
+        String mimetype = MimetypeIconUtil.getBestMimeTypeByFilename(localPath);
+        if ("application/octet-stream".equals(mimetype)) {
             mimetype = "*/*";
+        }
         myIntent.setDataAndType(Uri.fromFile(file), mimetype);
         try {
             startActivity(myIntent);
@@ -158,36 +159,9 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
      * Same as openFileWithDefault() but user cannot save default app.
      * @param ocFile
      */
-    @SuppressWarnings("unused")
     private void openFileWithDefaultNoDefault(OCFile ocFile) {
         getFileOperationsHelper().openFile(ocFile);
     }
-
-    /**
-     * WARNING! This opens the local copy inside owncloud directory. If file not uploaded yet,
-     * there is none.
-     */
-    /*
-    @SuppressWarnings("unused")
-    private void openPreview(OCUpload file) {
-     // preview image
-        Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-        showDetailsIntent.putExtra(EXTRA_FILE, file.getOCFile());
-        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
-        startActivity(showDetailsIntent);  
-    }
-    */
-
-    /*
-    @SuppressWarnings("unused")
-    private void openDetails(OCUpload file) {
-        OCFile ocFile = file.getOCFile();
-        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, ocFile);
-        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, file.getAccount(this));
-        startActivity(showDetailsIntent);
-    }
-    */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

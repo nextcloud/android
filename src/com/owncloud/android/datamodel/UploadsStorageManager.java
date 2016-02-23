@@ -261,40 +261,42 @@ public class UploadsStorageManager extends Observable {
         notifyObservers();
     }
 
+
     /**
-     * Remove upload from upload list. Should be called when cleaning up upload
-     * list.
+     * Remove an upload from the uploads list, known its target account and remote path.
      *
-     * @param localPath
-     * @return true when one or more upload entries were removed
+     * @param upload            Upload instance to remove from persisted storage.
+     *
+     * @return true when the upload was stored and could be removed.
      */
-    public int removeUpload(String localPath) {
+    public int removeUpload(OCUpload upload) {
         int result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_LOCAL_PATH + "=?",
-                new String[]{localPath}
+                ProviderTableMeta._ID + "=?" ,
+                new String[]{Long.toString(upload.getUploadId())}
         );
-        Log_OC.d(TAG, "delete returns with: " + result + " for file: " + localPath);
+        Log_OC.d(TAG, "delete returns " + result + " for upload " + upload);
         if (result > 0) {
             notifyObserversNow();
         }
         return result;
     }
 
+
     /**
-     * Remove upload from upload list. Should be called when cleaning up upload
-     * list.
+     * Remove an upload from the uploads list, known its target account and remote path.
      *
-     * @param id
+     * @param accountName       Name of the OC account target of the upload to remove.
+     * @param remotePath        Absolute path in the OC account target of the upload to remove.
      * @return true when one or more upload entries were removed
      */
-    public int removeUpload(long id) {
+    public int removeUpload(String accountName, String remotePath) {
         int result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta._ID + "=?",
-                new String[]{String.valueOf(id)}
+                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=? AND " + ProviderTableMeta.UPLOADS_REMOTE_PATH + "=?" ,
+                new String[]{accountName, remotePath}
         );
-        Log_OC.d(TAG, "delete returns with: " + result + " for file: " + id);
+        Log_OC.d(TAG, "delete returns " + result + " for file " + remotePath + " in " + accountName);
         if (result > 0) {
             notifyObserversNow();
         }
@@ -541,10 +543,9 @@ public class UploadsStorageManager extends Observable {
         // result: success or fail notification
         Log_OC.d(TAG, "updateDataseUploadResult uploadResult: " + uploadResult + " upload: " + upload);
         if (uploadResult.isCancelled()) {
-            updateUploadStatus(
-                    upload.getOCUploadId(),
-                    UploadStatus.UPLOAD_FAILED,
-                    UploadResult.CANCELLED
+            removeUpload(
+                    upload.getAccount().name,
+                    upload.getRemotePath()
             );
         } else {
 
