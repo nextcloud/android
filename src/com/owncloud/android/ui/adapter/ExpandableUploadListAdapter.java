@@ -397,7 +397,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 });
             } else {
                 //Delete
-                rightButton.setImageResource(R.drawable.ic_delete);
+                rightButton.setImageResource(R.drawable.ic_action_delete);
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
