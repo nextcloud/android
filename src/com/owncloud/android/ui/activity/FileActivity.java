@@ -35,7 +35,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -113,7 +112,6 @@ public class FileActivity extends AppCompatActivity
     private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
 
     protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
-
 
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
     private Account mAccount;
@@ -1062,4 +1060,5 @@ public class FileActivity extends AppCompatActivity
             }
         }
     }
+
 }

@@ -25,6 +25,7 @@ package com.owncloud.android.authentication;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -925,6 +926,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else {
             checkBasicAuthorization();
         }
+
     }
 
 
@@ -1023,6 +1025,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         } else if (operation instanceof GetRemoteUserNameOperation) {
             onGetUserNameFinish(result);
+        }
+
+        if (result.isSuccess() && mAction == ACTION_UPDATE_EXPIRED_TOKEN) {
+            setResult(Activity.RESULT_OK);
         }
 
     }
@@ -1419,6 +1425,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
             if (success) {
+                if (mAction == ACTION_UPDATE_EXPIRED_TOKEN) {
+                    setResult(Activity.RESULT_OK);
+                }
                 finish();
             }
             

@@ -61,6 +61,8 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
     private static final String TAG_UPLOAD_LIST_FRAGMENT = "UPLOAD_LIST_FRAGMENT";
 
+    public static final int UPDATE_CREDENTIALS_REQUEST_CODE = 100;
+
     private UploadMessagesReceiver mUploadMessagesReceiver;
 
     @Override
@@ -169,7 +171,6 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         UploadsStorageManager storageManager = null;
         UploadListFragment uploadListFragment =
                 (UploadListFragment) getSupportFragmentManager().findFragmentByTag(TAG_UPLOAD_LIST_FRAGMENT);
-
         switch (item.getItemId()) {
             case android.R.id.home:
                 if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -214,7 +215,17 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         inflater.inflate(R.menu.upload_list_menu, menu);
         return true;
     }
-    
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log_OC.e(TAG, "onActivityResult " + resultCode);
+        if (requestCode == UPDATE_CREDENTIALS_REQUEST_CODE && resultCode == FileActivity.RESULT_OK) {
+            // Retry uploads of this account
+            FileUploader.retryUploadsForAccount(getAccount(), this);
+        }
+    }
+
     @Override
     protected ServiceConnection newTransferenceServiceConnection() {
         return new UploadListServiceConnection();
