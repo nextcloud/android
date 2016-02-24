@@ -33,7 +33,8 @@ public enum UploadResult {
     FILE_ERROR(5),
     PRIVILEDGES_ERROR(6),
     CANCELLED(7),
-    UNKNOWN(8);
+    FILE_NOT_FOUND(8),
+    UNKNOWN(9);
 
     private final int value;
 
@@ -63,6 +64,8 @@ public enum UploadResult {
             case 7:
                 return CANCELLED;
             case 8:
+                return FILE_NOT_FOUND;
+            case 9:
                 return UNKNOWN;
         }
         return null;
@@ -82,6 +85,8 @@ public enum UploadResult {
                 return CREDENTIAL_ERROR;
             case FILE_NOT_FOUND:
                 return FOLDER_ERROR;
+            case LOCAL_FILE_NOT_FOUND:
+                return FILE_NOT_FOUND;
             case CONFLICT:
                 return CONFLICT_ERROR;
             case LOCAL_STORAGE_NOT_COPIED:

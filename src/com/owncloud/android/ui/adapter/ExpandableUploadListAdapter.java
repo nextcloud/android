@@ -34,6 +34,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -304,6 +305,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                 status = mParentActivity.getString(
                                         R.string.uploads_view_upload_status_failed_folder_error);
                                 break;
+                            case FILE_NOT_FOUND:
+                                status = mParentActivity.getString(
+                                        R.string.uploads_view_upload_status_failed_localfile_error);
+                                break;
                             case FILE_ERROR:
                                 status = mParentActivity.getString(
                                         R.string.uploads_view_upload_status_failed_file_error);
@@ -411,7 +416,13 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 view.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mParentActivity.getFileOperationsHelper().retryUpload(upload);
+                        File file = new File(upload.getLocalPath());
+                        if (file.exists())
+                            mParentActivity.getFileOperationsHelper().retryUpload(upload);
+                        else {
+                            final String message = String.format(mParentActivity.getString(R.string.local_file_not_found_toast));
+                            Toast.makeText(mParentActivity, message, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }

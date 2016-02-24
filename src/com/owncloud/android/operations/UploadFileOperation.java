@@ -332,6 +332,13 @@ public class UploadFileOperation extends SyncOperation {
         mUploadStarted.set(true);
         RemoteOperationResult result = null;
         File temporalFile = null, originalFile = new File(mOriginalStoragePath), expectedFile = null;
+
+        // check if the file continues existing before schedule the operation
+        if (!originalFile.exists()) {
+            Log_OC.d(TAG, mOriginalStoragePath.toString() + " not exists anymore");
+            return new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+        }
+
         try {
             /// check the existence of the parent folder for the file to upload
             String remoteParentPath = new File(getRemotePath()).getParent();
