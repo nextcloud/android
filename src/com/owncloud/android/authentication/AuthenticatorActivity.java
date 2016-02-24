@@ -25,6 +25,7 @@ package com.owncloud.android.authentication;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -83,7 +84,6 @@ import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
-import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.CredentialsDialogFragment;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
@@ -1028,7 +1028,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         if (result.isSuccess() && mAction == ACTION_UPDATE_EXPIRED_TOKEN) {
-            setResult(FileActivity.RESULT_OK);
+            setResult(Activity.RESULT_OK);
         }
 
     }
@@ -1426,7 +1426,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             if (success) {
                 if (mAction == ACTION_UPDATE_EXPIRED_TOKEN) {
-                    setResult(FileActivity.RESULT_OK);
+                    setResult(Activity.RESULT_OK);
                 }
                 finish();
             }

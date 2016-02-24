@@ -543,17 +543,6 @@ public class FileOperationsHelper {
         }
     }
 
-    public void retryUploadsForAccount(Account account) {
-        UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(mFileActivity.getContentResolver());
-        OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-        for ( OCUpload upload: failedUploads){
-            if (upload.getAccountName().equals(account.name) &&
-                    upload.getLastResult() == UploadResult.CREDENTIAL_ERROR ) {
-                retryUpload(upload);
-            }
-        }
-    }
-
     /**
      * Cancel the transference in downloads (files/folders) and file uploads
      * @param file OCFile

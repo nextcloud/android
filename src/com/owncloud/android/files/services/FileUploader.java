@@ -51,6 +51,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.PreferenceReader;
+import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -255,6 +256,17 @@ public class FileUploader extends Service
             i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
         }
         context.startService(i);
+    }
+
+    public static void retryUploadsForAccount(Account account, Context context) {
+        UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver());
+        OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
+        for ( OCUpload upload: failedUploads){
+            if (upload.getAccountName().equals(account.name) &&
+                    upload.getLastResult() == UploadResult.CREDENTIAL_ERROR ) {
+                retry(context, account, upload);
+            }
+        }
     }
 
     /**

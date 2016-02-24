@@ -113,9 +113,6 @@ public class FileActivity extends AppCompatActivity
 
     protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
 
-    public static final int UPDATE_CREDENTIALS_REQUEST_CODE = 100;
-
-
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
     private Account mAccount;
 
@@ -834,7 +831,7 @@ public class FileActivity extends AppCompatActivity
                     AuthenticatorActivity.EXTRA_ACTION,
                     AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
             updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-            startActivityForResult(updateAccountCredentials, UPDATE_CREDENTIALS_REQUEST_CODE);
+            startActivity(updateAccountCredentials);
 
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
             Toast.makeText(context, R.string.auth_account_does_not_exist, Toast.LENGTH_SHORT).show();

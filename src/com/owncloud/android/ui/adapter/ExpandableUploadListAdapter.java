@@ -47,6 +47,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
@@ -298,7 +299,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                         updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                                         updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
                                         mParentActivity.startActivityForResult(updateAccountCredentials,
-                                                FileActivity.UPDATE_CREDENTIALS_REQUEST_CODE);
+                                                UploadListActivity.UPDATE_CREDENTIALS_REQUEST_CODE);
                                     }
                                 });
                                 break;

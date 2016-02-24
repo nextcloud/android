@@ -61,6 +61,8 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
     private static final String TAG_UPLOAD_LIST_FRAGMENT = "UPLOAD_LIST_FRAGMENT";
 
+    public static final int UPDATE_CREDENTIALS_REQUEST_CODE = 100;
+
     private UploadMessagesReceiver mUploadMessagesReceiver;
 
     @Override
@@ -220,7 +222,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         Log_OC.e(TAG, "onActivityResult " + resultCode);
         if (requestCode == UPDATE_CREDENTIALS_REQUEST_CODE && resultCode == FileActivity.RESULT_OK) {
             // Retry uploads of this account
-            getFileOperationsHelper().retryUploadsForAccount(getAccount());
+            FileUploader.retryUploadsForAccount(getAccount(), this);
         }
     }
 
