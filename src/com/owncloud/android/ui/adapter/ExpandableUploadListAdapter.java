@@ -93,7 +93,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         public Comparator<OCUpload> comparator = new Comparator<OCUpload>() {
             @Override
             public int compare(OCUpload lhs, OCUpload rhs) {
-                return compareUploadId(lhs, rhs);
+                if (lhs.getUploadEndTimestamp() == 0) {
+                    return compareUploadId(lhs, rhs);
+                } else {
+                    return compareUpdateTime(lhs, rhs);
+                }
             }
 
             private int compareUploadId(OCUpload lsh, OCUpload rsh) {
@@ -101,9 +105,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             }
 
             private int compareUpdateTime(OCUpload lhs, OCUpload rhs) {
-                long lLastModified = new File(lhs.getLocalPath()).lastModified();
-                long rLastModified = new File(rhs.getLocalPath()).lastModified();
-                return Long.valueOf(rLastModified).compareTo(lLastModified);
+                return Long.valueOf(rhs.getUploadEndTimestamp()).compareTo(lhs.getUploadEndTimestamp());
             }
         };
 
@@ -231,7 +233,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             //* upload date
             TextView uploadDateTextView = (TextView) view.findViewById(R.id.upload_date);
-            long updateTime = (new File(upload.getLocalPath())).lastModified();
+            long updateTime = upload.getUploadEndTimestamp();//(new File(upload.getLocalPath())).lastModified();
             CharSequence dateString = DisplayUtils.getRelativeDateTimeString(
                     mParentActivity,
                     updateTime,
