@@ -218,6 +218,13 @@ public class OCUpload implements Parcelable {
     }
 
     /**
+     * @param remotePath
+     */
+    public void setRemotePath(String remotePath) {
+        mRemotePath = remotePath;
+    }
+
+    /**
      * @return the mimeType
      */
     public String getMimeType() {
@@ -427,7 +434,6 @@ public class OCUpload implements Parcelable {
         dest.writeString(((mLastResult == null) ? "" : mLastResult.name()));
         dest.writeInt(mCreatedBy);
     }
-
 
     enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR};
 

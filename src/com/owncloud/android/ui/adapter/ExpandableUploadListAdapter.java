@@ -212,8 +212,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             // local file name
             TextView fileTextView = (TextView) view.findViewById(R.id.upload_name);
-            File localFile = new File(upload.getLocalPath());
-            String fileName = localFile.getName();
+            File remoteFile = new File(upload.getRemotePath());
+            String fileName = remoteFile.getName();
             if (fileName.length() == 0) {
                 fileName = File.separator;
             }
@@ -227,7 +227,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             // file size
             TextView fileSizeTextView = (TextView) view.findViewById(R.id.upload_file_size);
-            fileSizeTextView.setText(DisplayUtils.bytesToHumanReadable(localFile.length()) + ", ");
+            fileSizeTextView.setText(DisplayUtils.bytesToHumanReadable(remoteFile.length()) + ", ");
 
             //* upload date
             TextView uploadDateTextView = (TextView) view.findViewById(R.id.upload_date);

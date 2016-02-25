@@ -140,10 +140,9 @@ public class UploadsStorageManager extends Observable {
         Log_OC.e(TAG, "Updating " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
 
         ContentValues cv = new ContentValues();
-        /*  TODO - check what is really needed to update
         cv.put(ProviderTableMeta.UPLOADS_LOCAL_PATH, ocUpload.getLocalPath());
         cv.put(ProviderTableMeta.UPLOADS_REMOTE_PATH, ocUpload.getRemotePath());
-        cv.put(ProviderTableMeta.UPLOADS_ACCOUNT_NAME, ocUpload.getAccountName());*/
+        cv.put(ProviderTableMeta.UPLOADS_ACCOUNT_NAME, ocUpload.getAccountName());
         cv.put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.getUploadStatus().value);
         cv.put(ProviderTableMeta.UPLOADS_LAST_RESULT, ocUpload.getLastResult().getValue());
 
@@ -170,10 +169,10 @@ public class UploadsStorageManager extends Observable {
      */
     public int updateUploadStatus(OCUpload ocUpload) {
         return updateUploadStatus(ocUpload.getUploadId(), ocUpload.getUploadStatus(),
-                ocUpload.getLastResult());
+                ocUpload.getLastResult(), ocUpload.getRemotePath());
     }
 
-    private int updateUploadInternal(Cursor c, UploadStatus status, UploadResult result) {
+    private int updateUploadInternal(Cursor c, UploadStatus status, UploadResult result, String remotePath) {
 
         int r = 0;
         while (c.moveToNext()) {
@@ -189,6 +188,7 @@ public class UploadsStorageManager extends Observable {
 
             upload.setUploadStatus(status);
             upload.setLastResult(result);
+            upload.setRemotePath(remotePath);
             // store update upload object to db
             r = updateUpload(upload);
 
@@ -206,7 +206,7 @@ public class UploadsStorageManager extends Observable {
      * @param result new result of upload operation
      * @return 1 if file status was updated, else 0.
      */
-    public int updateUploadStatus(long id, UploadStatus status, UploadResult result) {
+    public int updateUploadStatus(long id, UploadStatus status, UploadResult result, String remotePath) {
         //Log_OC.e(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
 
         Cursor c = getDB().query(
@@ -224,7 +224,7 @@ public class UploadsStorageManager extends Observable {
             c.close();
             return 0;
         }
-        return updateUploadInternal(c, status, result);
+        return updateUploadInternal(c, status, result, remotePath);
     }
 
     /*
@@ -542,6 +542,7 @@ public class UploadsStorageManager extends Observable {
     public void updateDatabaseUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
         // result: success or fail notification
         Log_OC.d(TAG, "updateDataseUploadResult uploadResult: " + uploadResult + " upload: " + upload);
+
         if (uploadResult.isCancelled()) {
             removeUpload(
                     upload.getAccount().name,
@@ -553,18 +554,19 @@ public class UploadsStorageManager extends Observable {
                 updateUploadStatus(
                         upload.getOCUploadId(),
                         UploadStatus.UPLOAD_SUCCEEDED,
-                        UploadResult.UPLOADED
+                        UploadResult.UPLOADED,
+                        upload.getRemotePath()
                 );
             } else {
                 // TODO: Disable for testing of menu actions in uploads view
                 if (shouldRetryFailedUpload(uploadResult)) {
                     updateUploadStatus(
                             upload.getOCUploadId(), UploadStatus.UPLOAD_FAILED,
-                            UploadResult.fromOperationResult(uploadResult));
+                            UploadResult.fromOperationResult(uploadResult), upload.getRemotePath());
                 } else {
                     updateUploadStatus(upload.getOCUploadId(),
                             UploadsStorageManager.UploadStatus.UPLOAD_FAILED,
-                            UploadResult.fromOperationResult(uploadResult));
+                            UploadResult.fromOperationResult(uploadResult), upload.getRemotePath());
                 }
             }
         }
@@ -597,7 +599,8 @@ public class UploadsStorageManager extends Observable {
         updateUploadStatus(
                 upload.getOCUploadId(),
                 UploadStatus.UPLOAD_IN_PROGRESS,
-                UploadResult.UNKNOWN
+                UploadResult.UNKNOWN,
+                upload.getRemotePath()
         );
     }
 
