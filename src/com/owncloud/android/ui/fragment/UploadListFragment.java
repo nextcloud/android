@@ -21,15 +21,10 @@ package com.owncloud.android.ui.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ListView;
 
 import com.owncloud.android.R;
@@ -98,8 +93,6 @@ public class UploadListFragment extends ExpandableListFragment {
         Log_OC.d(TAG, "onActivityCreated() start");
         super.onActivityCreated(savedInstanceState);
 
-        registerForContextMenu(getListView());
-        getListView().setOnCreateContextMenuListener(this);
     }
 
     @Override
@@ -121,38 +114,6 @@ public class UploadListFragment extends ExpandableListFragment {
             Log_OC.w(TAG, "Null object in ListAdapter!!");
         }
         return handled;
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.upload_actions_menu, menu);
-        
-        ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) menuInfo;  
-        int childPosition = ExpandableListView.getPackedPositionChild(info.packedPosition);
-        int groupPosition = ExpandableListView.getPackedPositionGroup(info.packedPosition);
-        OCUpload uploadFile = (OCUpload) mAdapter.getChild(groupPosition, childPosition);
-        if (uploadFile.userCanCancelUpload()) {
-            MenuItem item = menu.findItem(R.id.action_remove_upload);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        } else {
-            MenuItem item = menu.findItem(R.id.action_cancel_upload);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        }
-        if (!uploadFile.userCanRetryUpload()) {
-            MenuItem item = menu.findItem(R.id.action_retry_upload);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        }
     }
 
     /**
