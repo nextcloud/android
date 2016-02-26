@@ -8,28 +8,11 @@
        style="?android:attr/listSeparatorTextViewStyle"
        android:layout_height="wrap_content"
        android:layout_gravity="center_vertical"
-       android:layout_toLeftOf="@+id/upload_group_right_button"
        android:divider="@null"
        android:dividerHeight="0dp"
        android:ellipsize="middle"
        android:showDividers="none"
        android:textColor="@color/color_accent"
 	/>
-   
-    <!-- This would be just too many buttons. 
-    <Button
-        android:id="@+id/upload_group_right_button"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_alignBottom="@+id/uploadListGroupName"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        style="?android:attr/buttonStyleSmall"
-        android:focusable="false"
-        android:focusableInTouchMode="false" 
-        android:text="CLEAR"
-        />
- 	 -->
-    
 
 </RelativeLayout>

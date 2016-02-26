@@ -4,7 +4,7 @@
  *   @author LukeOwncloud
  *   @author masensio
  *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -39,7 +39,6 @@ import com.owncloud.android.utils.MimetypeIconUtil;
 import com.owncloud.android.utils.UploadUtils;
 
 import java.io.File;
-import java.util.Date;
 
 /**
  * Stores all information in order to start upload operations. PersistentUploadObject can
@@ -48,14 +47,10 @@ import java.util.Date;
  */
 public class OCUpload implements Parcelable {
 
-    /** Generated - should be refreshed every time the class changes!! */
-//    private static final long serialVersionUID = 2647551318657321611L;
-
     private static final String TAG = OCUpload.class.getSimpleName();
 
     private long mId;
 
-    //private OCFile mFile;
     /**
      * Absolute path in the local file system to the file to be uploaded
      */

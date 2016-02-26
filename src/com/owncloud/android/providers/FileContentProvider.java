@@ -5,7 +5,7 @@
  *   @author David A. Velasco
  *   @author masensio
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -282,8 +282,6 @@ public class FileContentProvider extends ContentProvider {
                     throw new SQLException("ERROR " + uri);
 
                 }
-                // TODO??
-                // updateFilesTableAccordingToUploadInsertion(db, values);
                 return insertedUploadUri;
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
@@ -846,7 +844,6 @@ public class FileContentProvider extends ContentProvider {
         // Create uploads table
         db.execSQL("CREATE TABLE " + ProviderTableMeta.UPLOADS_TABLE_NAME + "("
                 + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
-                //+ ProviderTableMeta.UPLOADS_FILE_ID + " INTEGER, "
                 + ProviderTableMeta.UPLOADS_LOCAL_PATH + " TEXT, "
                 + ProviderTableMeta.UPLOADS_REMOTE_PATH + " TEXT, "
                 + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " TEXT, "

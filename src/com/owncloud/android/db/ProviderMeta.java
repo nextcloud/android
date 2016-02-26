@@ -2,8 +2,10 @@
  *   ownCloud Android client application
  *
  *   @author Bartek Przybylski
+ *   @author David A. Velasco
+ *   @author masensio
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -134,7 +136,6 @@ public class ProviderMeta {
                 + " collate nocase asc";
 
         //Columns of Uploads table
-        //public static final String UPLOADS_FILE_ID = "file_id";
         public static final String UPLOADS_LOCAL_PATH = "local_path";
         public static final String UPLOADS_REMOTE_PATH = "remote_path";
         public static final String UPLOADS_ACCOUNT_NAME = "account_name";
@@ -149,7 +150,6 @@ public class ProviderMeta {
         public static final String UPLOADS_LAST_RESULT = "last_result";
         public static final String UPLOADS_CREATED_BY = "created_by";
 
-        //public static final String UPLOADS_DEFAULT_SORT_ORDER = UPLOADS_FILE_ID  + " collate nocase asc";
         public static final String UPLOADS_DEFAULT_SORT_ORDER = ProviderTableMeta._ID  + " collate nocase desc";
 
     }

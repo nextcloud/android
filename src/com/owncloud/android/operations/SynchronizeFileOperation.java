@@ -1,22 +1,22 @@
 /**
- * ownCloud Android client application
+ *  ownCloud Android client application
  *
- * @author David A. Velasco
- * @author masensio
- * Copyright (C) 2012 Bartek Przybylski
- * Copyright (C) 2015 ownCloud Inc.
- * <p/>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- * <p/>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  @author David A. Velasco
+ *  @author masensio
+ *  Copyright (C) 2012 Bartek Przybylski
+ *  Copyright (C) 2015 ownCloud Inc.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2,
+ *  as published by the Free Software Foundation.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.operations;
@@ -24,7 +24,6 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -96,11 +95,11 @@ public class SynchronizeFileOperation extends SyncOperation {
     /**
      * Constructor allowing to reuse {@link OCFile} instances just queried from local cache or
      * from remote OC server.
-     * <p/>
+     *
      * Useful to include this operation as part of the synchronization of a folder
      * (or a full account), avoiding the repetition of fetch operations (both in local database
      * or remote server).
-     * <p/>
+     *
      * At least one of localFile or serverFile MUST NOT BE NULL. If you don't have none of them,
      * use the other constructor.
      *
@@ -141,13 +140,13 @@ public class SynchronizeFileOperation extends SyncOperation {
 
     /**
      * Temporal constructor.
-     * <p/>
+     *
      * Extends the previous one to allow constrained synchronizations where uploads are never
      * performed - only downloads or conflict detection.
-     * <p/>
+     *
      * Do not use unless you are involved in 'folder synchronization' or 'folder download' work
      * in progress.
-     * <p/>
+     *
      * TODO Remove when 'folder synchronization' replaces 'folder download'.
      *
      * @param localFile        Data of file (just) retrieved from local cache/database.
@@ -299,7 +298,7 @@ public class SynchronizeFileOperation extends SyncOperation {
     private void requestForDownload(OCFile file) {
         Intent i = new Intent(mContext, FileDownloader.class);
         i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-        i.putExtra(FileDownloader.EXTRA_FILE, (Parcelable) file);
+        i.putExtra(FileDownloader.EXTRA_FILE, file);
         mContext.startService(i);
         mTransferWasRequested = true;
     }

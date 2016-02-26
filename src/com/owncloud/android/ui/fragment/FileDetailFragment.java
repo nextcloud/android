@@ -4,7 +4,7 @@
  *   @author Bartek Przybylski
  *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -547,7 +547,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
                 mContainerActivity.getFileUploaderBinder().
-                        addDatatransferProgressListener(mProgressListener, mAccount, getFile()/*, 0*/);
+                        addDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
         } else {
             Log_OC.d(TAG, "mProgressListener == null");
@@ -563,7 +563,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
                 mContainerActivity.getFileUploaderBinder().
-                        removeDatatransferProgressListener(mProgressListener, mAccount, getFile()/*, 0*/);
+                        removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
         }
     }

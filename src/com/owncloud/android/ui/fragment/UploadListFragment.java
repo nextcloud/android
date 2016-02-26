@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author LukeOwncloud
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -31,11 +31,9 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ExpandableUploadListAdapter;
@@ -154,47 +152,6 @@ public class UploadListFragment extends ExpandableListFragment {
                 item.setVisible(false);
                 item.setEnabled(false);
             }
-        }
-    }
-
-    // TODO review if this path is really needed any time
-    @Override
-    public boolean onContextItemSelected (MenuItem item) {
-        ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) item.getMenuInfo();  
-        int childPosition = ExpandableListView.getPackedPositionChild(info.packedPosition);
-        int groupPosition = ExpandableListView.getPackedPositionGroup(info.packedPosition);
-        OCUpload uploadFile = (OCUpload) mAdapter.getChild(groupPosition, childPosition);
-        switch (item.getItemId()) {
-        case R.id.action_cancel_upload:
-            FileUploader.FileUploaderBinder uploaderBinder = ((FileActivity) getActivity()).getFileUploaderBinder();
-            if (uploaderBinder != null) {
-                uploaderBinder.cancel(uploadFile);
-            }
-            return true;
-//        case R.id.action_remove_upload: {
-//            ((FileActivity) getActivity()).getFileOperationsHelper().removeUploadFromList(uploadFile);
-//            return true;
-//        }case R.id.action_retry_upload: {
-//            ((FileActivity) getActivity()).getFileOperationsHelper().retryUpload(uploadFile);
-//            return true;
-//        }
-        case R.id.action_see_details: {
-            Toast.makeText(getActivity(), "TO DO", Toast.LENGTH_SHORT).show();
-            /*
-            Intent showDetailsIntent = new Intent(getActivity(), FileDisplayActivity.class);
-            showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, uploadFile.getOCFile());
-            showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, uploadFile.getAccount(getActivity()));
-            startActivity(showDetailsIntent);
-            */
-            return true;
-        }
-        case R.id.action_open_file_with: {
-            Toast.makeText(getActivity(), "TO DO", Toast.LENGTH_SHORT).show();
-            //((FileActivity) getActivity()).getFileOperationsHelper().openFile(uploadFile.getOCFile());
-            return true;
-        }
-        default:
-            return super.onContextItemSelected(item);
         }
     }
 

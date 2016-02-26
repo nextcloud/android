@@ -33,7 +33,6 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
-import android.os.Parcelable;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.util.Pair;
@@ -81,7 +80,7 @@ public class FileDownloader extends Service
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
 
-    private static final String TAG = "FileDownloader";
+    private static final String TAG = FileDownloader.class.getSimpleName();
 
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
@@ -190,7 +189,6 @@ public class FileDownloader extends Service
                 msg.obj = requestedDownloads;
                 mServiceHandler.sendMessage(msg);
             }
-            //}
         }
 
         return START_NOT_STICKY;
@@ -504,7 +502,7 @@ public class FileDownloader extends Service
         } else {
             showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         }
-        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, (Parcelable)download.getFile());
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, download.getFile());
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, download.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

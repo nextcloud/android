@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,16 +21,15 @@
 package com.owncloud.android.media;
 
 
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.media.MediaService.State;
-
 import android.accounts.Account;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Binder;
-import android.os.Parcelable;
 import android.widget.MediaController;
+
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.media.MediaService.State;
 
 
 /**
@@ -95,8 +94,7 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
     public int getCurrentPosition() {
         MediaPlayer currentPlayer = mService.getPlayer();
         if (currentPlayer != null) {
-            int pos = currentPlayer.getCurrentPosition();
-            return pos;
+            return currentPlayer.getCurrentPosition();
         } else {
             return 0;
         }
@@ -106,8 +104,7 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
     public int getDuration() {
         MediaPlayer currentPlayer = mService.getPlayer();
         if (currentPlayer != null) {
-            int dur = currentPlayer.getDuration();
-            return dur;
+            return currentPlayer.getDuration();
         } else {
             return 0;
         }
@@ -154,7 +151,7 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
         Log_OC.d(TAG, "Loading and starting through binder...");
         Intent i = new Intent(mService, MediaService.class);
         i.putExtra(MediaService.EXTRA_ACCOUNT, account);
-        i.putExtra(MediaService.EXTRA_FILE, (Parcelable)file);
+        i.putExtra(MediaService.EXTRA_FILE, file);
         i.putExtra(MediaService.EXTRA_PLAY_ON_LOAD, playImmediately);
         i.putExtra(MediaService.EXTRA_START_POSITION, position);
         i.setAction(MediaService.ACTION_PLAY_FILE);

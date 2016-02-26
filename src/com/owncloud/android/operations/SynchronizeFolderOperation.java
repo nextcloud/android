@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -30,7 +30,6 @@ import java.util.Vector;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.util.Log;
 
 
@@ -50,8 +49,6 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-
-//import android.support.v4.content.LocalBroadcastManager;
 
 
 /**
@@ -434,7 +431,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 }
                 Intent i = new Intent(mContext, FileDownloader.class);
                 i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-                i.putExtra(FileDownloader.EXTRA_FILE, (Parcelable) file);
+                i.putExtra(FileDownloader.EXTRA_FILE, file);
                 mContext.startService(i);
             }
         }
@@ -481,7 +478,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     
     /**
-<<<<<<< HEAD
      * Creates and populates a new {@link com.owncloud.android.datamodel.OCFile}
      * object with the data read from the server.
      *
@@ -494,8 +490,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
 
     /**
-=======
->>>>>>> master
      * Scans the default location for saving local copies of files searching for
      * a 'lost' file with the same full name as the {@link com.owncloud.android.datamodel.OCFile}
      * received as parameter.

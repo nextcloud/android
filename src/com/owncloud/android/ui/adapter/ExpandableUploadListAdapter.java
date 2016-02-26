@@ -1,21 +1,21 @@
 /**
- * ownCloud Android client application
+ *  ownCloud Android client application
  *
- * @author LukeOwncloud
- * @author masensio
- * Copyright (C) 2015 ownCloud Inc.
- * <p/>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- * <p/>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  @author LukeOwncloud
+ *  @author masensio
+ *  Copyright (C) 2016 ownCloud Inc.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2,
+ *  as published by the Free Software Foundation.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.adapter;
 
@@ -233,7 +233,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             //* upload date
             TextView uploadDateTextView = (TextView) view.findViewById(R.id.upload_date);
-            long updateTime = upload.getUploadEndTimestamp();//(new File(upload.getLocalPath())).lastModified();
+            long updateTime = upload.getUploadEndTimestamp();
             CharSequence dateString = DisplayUtils.getRelativeDateTimeString(
                     mParentActivity,
                     updateTime,
@@ -334,7 +334,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     } else {
                         status = mParentActivity.getString(
                                 R.string.uploads_view_upload_status_failed);
-                        ;
                     }
 
                     String laterReason = upload.getUploadLaterReason(mParentActivity);
@@ -343,29 +342,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         status = laterReason;
                     }
                     break;
-//                case UPLOAD_FAILED:
-//                    if (upload.getLastResult() == UploadResult.NETWORK_CONNECTION) {
-//                        status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error);
-//                    } else {
-//                        status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_retry);
-//                    }
-//                    String laterReason = upload.getUploadLaterReason(mParentActivity);
-//                    if (laterReason != null) {
-//                        //Upload failed once but is delayed now, show reason.
-//                        status = laterReason;
-//                    }
-//                    pathTextView.setVisibility(View.GONE);
-//                    fileSizeTextView.setVisibility(View.GONE);
-//                    accountNameTextView.setVisibility(View.INVISIBLE);
-//                    uploadDateTextView.setVisibility(View.GONE);
-//                    break;
-//                case UPLOAD_LATER:
-//                    uploadDateTextView.setVisibility(View.GONE);
-//                    pathTextView.setVisibility(View.GONE);
-//                    fileSizeTextView.setVisibility(View.GONE);
-//                    accountNameTextView.setVisibility(View.INVISIBLE);
-//                    status = upload.getUploadLaterReason(mParentActivity);
-//                    break;
                 case UPLOAD_SUCCEEDED:
                     status = mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
                     statusTextView.setVisibility(View.GONE);
@@ -628,8 +604,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         }
         TextView tv = (TextView) convertView.findViewById(R.id.uploadListGroupName);
         tv.setText(group.getGroupName());
-//        ImageView icon = (ImageView) convertView.findViewById(R.id.uploadListGroupIcon);
-//        icon.setImageResource(group.getGroupIcon());
         return convertView;
     }
 

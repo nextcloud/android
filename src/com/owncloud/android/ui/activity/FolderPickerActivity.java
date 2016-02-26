@@ -1,7 +1,7 @@
 /**
  *   ownCloud Android client application
  *
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -44,11 +43,6 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.OwnCloudCredentials;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -374,7 +368,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             Parcelable targetFile = i.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
 
             Intent data = new Intent();
-            data.putExtra(EXTRA_FOLDER, (Parcelable)getCurrentFolder());
+            data.putExtra(EXTRA_FOLDER, getCurrentFolder());
             if (targetFile != null) {
                 data.putExtra(EXTRA_FILE, targetFile);
             }

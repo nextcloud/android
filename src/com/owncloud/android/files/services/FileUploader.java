@@ -1,24 +1,25 @@
 /**
- * ownCloud Android client application
+ *  ownCloud Android client application
  *
- * @author Bartek Przybylski
- * @author masensio
- * @author LukeOwnCloud
- * @author David A. Velasco
- * Copyright (C) 2012 Bartek Przybylski
- * Copyright (C) 2012-2016 ownCloud Inc.
- * <p/>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- * <p/>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  @author Bartek Przybylski
+ *  @author masensio
+ *  @author LukeOwnCloud
+ *  @author David A. Velasco
+ *
+ *  Copyright (C) 2012 Bartek Przybylski
+ *  Copyright (C) 2012-2016 ownCloud Inc.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2,
+ *  as published by the Free Software Foundation.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.files.services;
@@ -77,13 +78,13 @@ import java.util.Vector;
 
 /**
  * Service for uploading files. Invoke using context.startService(...).
- * <p/>
+ *
  * Files to be uploaded are stored persistently using {@link UploadsStorageManager}.
- * <p/>
+ *
  * On next invocation of {@link FileUploader} uploaded files which
  * previously failed will be uploaded again until either upload succeeded or a
  * fatal error occured.
- * <p/>
+ *
  * Every file passed to this service is uploaded. No filtering is performed.
  * However, Intent keys (e.g., KEY_WIFI_ONLY) are obeyed.
  */
@@ -145,10 +146,6 @@ public class FileUploader extends Service
      * Set to true if upload is to performed only when phone is being charged.
      */
     public static final String KEY_WHILE_CHARGING_ONLY = "KEY_WHILE_CHARGING_ONLY";
-//    /**
-//     * Set to future UNIX timestamp. Upload will not be performed before this timestamp.
-//     */
-//    public static final String KEY_UPLOAD_TIMESTAMP= "KEY_UPLOAD_TIMESTAMP";
 
     public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
 
@@ -158,63 +155,6 @@ public class FileUploader extends Service
     public static final int LOCAL_BEHAVIOUR_MOVE = 1;
     public static final int LOCAL_BEHAVIOUR_FORGET = 2;
 
-
-    /**
-     * Describes local behavior for upload.
-     */
-//    public enum LocalBehaviour {
-//        /**
-//         * Creates a copy of file and stores it in tmp folder inside owncloud
-//         * folder on sd-card. After upload it is moved to local owncloud
-//         * storage. Original file stays untouched.
-//         */
-//        LOCAL_BEHAVIOUR_COPY(0),
-//        /**
-//         * Upload file from current storage. Afterwards original file is move to
-//         * local owncloud storage.
-//         */
-//        LOCAL_BEHAVIOUR_MOVE(1),
-//        /**
-//         * Just uploads file and leaves it where it is. Original file stays
-//         * untouched.
-//         */
-//        LOCAL_BEHAVIOUR_FORGET(2);
-//        private final int value;
-//
-//        LocalBehaviour(int value) {
-//            this.value = value;
-//        }
-//
-//        public int getValue() {
-//            return value;
-//        }
-//
-//        public static LocalBehaviour fromValue(int value){
-//            switch (value)
-//            {
-//                case 0:
-//                    return LOCAL_BEHAVIOUR_COPY;
-//                case 1:
-//                    return LOCAL_BEHAVIOUR_MOVE;
-//                case 2:
-//                    return LOCAL_BEHAVIOUR_FORGET;
-//            }
-//            return null;
-//        }
-//    }
-
-//    public enum UploadQuantity {
-//        UPLOAD_SINGLE_FILE(0), UPLOAD_MULTIPLE_FILES(1);
-//        private final int value;
-//
-//        UploadQuantity(int value) {
-//            this.value = value;
-//        }
-//
-//        public int getValue() {
-//            return value;
-//        }
-//    };
 
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
@@ -333,30 +273,29 @@ public class FileUploader extends Service
     /**
      * Call to update a dingle file already uploaded
      */
-    public static void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour, Boolean
-            forceOverwrite) {
+    public static void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour,
+                                    Boolean forceOverwrite) {
 
         uploadUpdate(context, account, new OCFile[]{existingFile}, behaviour, forceOverwrite);
     }
 
-    /**
-     * Checks if an ownCloud server version should support chunked uploads.
-     *
-     * @param version OwnCloud version instance corresponding to an ownCloud
-     *                server.
-     * @return 'True' if the ownCloud server with version supports chunked
-     * uploads.
-     * <p/>
-     * TODO - move to OwnCloudVersion
-     */
-    private static boolean chunkedUploadIsSupported(OwnCloudVersion version) {
-        return (version != null && version.compareTo(OwnCloudVersion.owncloud_v4_5) >= 0);
-    }
+//    /**
+//     * Checks if an ownCloud server version should support chunked uploads.
+//     *
+//     * @param version OwnCloud version instance corresponding to an ownCloud
+//     *                server.
+//     * @return 'True' if the ownCloud server with version supports chunked
+//     * uploads.
+//     * <p/>
+//     * TODO - move to OwnCloudVersion
+//     */
+//    private static boolean chunkedUploadIsSupported(OwnCloudVersion version) {
+//        return (version != null && version.compareTo(OwnCloudVersion.owncloud_v4_5) >= 0);
+//    }
 
     /**
      * Service initialization
      */
-    // TODO: Clean method: comments on extra code
     @Override
     public void onCreate() {
         super.onCreate();
@@ -369,13 +308,7 @@ public class FileUploader extends Service
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileUploaderBinder();
 
-        // From FileUploaderService
         mUploadsStorageManager = new UploadsStorageManager(getContentResolver());
-
-        //when this service starts there is no upload in progress. if db says so, app probably crashed before.
-        //mUploadsStorageManager.setAllCurrentToUploadLater();  // TODO why?
-
-        // mUploadExecutor = Executors.newFixedThreadPool(1);
 
 //      Log_OC.d(TAG, "FileUploader.retry() called by onCreate()");
 //      FileUploader.retry(getApplicationContext());
@@ -407,7 +340,7 @@ public class FileUploader extends Service
 
     /**
      * Entry point to add one or several files to the queue of uploads.
-     * <p/>
+     *
      * New uploads are added calling to startService(), resulting in a call to
      * this method. This ensures the service will keep on working although the
      * caller activity goes away.
@@ -436,7 +369,7 @@ public class FileUploader extends Service
             return Service.START_NOT_STICKY;
         }
         OwnCloudVersion ocv = AccountUtils.getServerVersion(account);
-        boolean chunked = FileUploader.chunkedUploadIsSupported(ocv);
+        boolean chunked = ocv.isChunkedUploadSupported();
 
         if (!retry) {
             if (!(intent.hasExtra(KEY_LOCAL_FILE) ||
@@ -459,20 +392,12 @@ public class FileUploader extends Service
                 mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
             }
 
-            FileDataStorageManager storageManager = new FileDataStorageManager(
-                    account,
-                    getContentResolver()
-            );
 
             boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
-            //boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false);
             int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
 
             boolean isCreateRemoteFolder = intent.getBooleanExtra(KEY_CREATE_REMOTE_FOLDER, false);
             int createdBy = intent.getIntExtra(KEY_CREATED_BY, UploadFileOperation.CREATED_BY_USER);
-            boolean isWhileChargingOnly = intent.getBooleanExtra(KEY_WHILE_CHARGING_ONLY, false);
-            //long uploadTimestamp = intent.getLongExtra(KEY_UPLOAD_TIMESTAMP, -1);
-
 
             if (intent.hasExtra(KEY_FILE) && files == null) {
                 Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
@@ -618,7 +543,7 @@ public class FileUploader extends Service
     /**
      * Provides a binder object that clients can use to perform operations on
      * the queue of uploads, excepting the addition of new files.
-     * <p/>
+     *
      * Implemented to perform cancellation, pause and resume of existing
      * uploads.
      */
@@ -731,14 +656,11 @@ public class FileUploader extends Service
             cancelUploadsForAccount(account);
         }
 
-        // TODO: Review: Method from FileUploader with some changes because the merge with FileUploader
         // TODO Complete operation to retry the upload
         /**
          * Puts upload in upload list and tell FileUploader to upload items in list.
          */
         public void retry(Account account, OCUpload upload) {
-//            String uploadKey = buildRemoteName(account, upload.getOCFile());
-//            mPendingUploads.put(uploadKey, upload);
             FileUploader.retry(getApplicationContext(), account, upload);
         }
 
@@ -749,10 +671,10 @@ public class FileUploader extends Service
         /**
          * Returns True when the file described by 'file' is being uploaded to
          * the ownCloud account 'account' or waiting for it
-         * <p/>
+         *
          * If 'file' is a directory, returns 'true' if some of its descendant files
          * is uploading or waiting to upload.
-         * <p/>
+         *
          * Warning: If remote file exists and !forceOverwrite the original file
          * is being returned here. That is, it seems as if the original file is
          * being updated when actually a new file is being uploaded.
@@ -843,7 +765,6 @@ public class FileUploader extends Service
         }
 
 
-        // TODO: Review: Method from FileUploader with some changes because the merge with FileUploader
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar,
                                        long totalToTransfer, String fileName) {
@@ -868,14 +789,6 @@ public class FileUploader extends Service
         private String buildRemoteName(String accountName, String remotePath) {
             return accountName + remotePath;
         }
-
-        /*private String buildRemoteName(Account account, OCFile file, long uploadId) {
-            String suffix = String.valueOf(uploadId);
-            if (uploadId != -1) {
-                suffix = "";
-            }
-            return account.name + file.getRemotePath() + suffix;
-        }*/
 
     }
 
@@ -1059,16 +972,6 @@ public class FileUploader extends Service
         mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
                 showUploadListIntent, 0));
 
-        // TODO: decide where do we go to navigate when the user clicks the notification
-        /// includes a pending intent in the notification showing the details view of the file
-//        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-//        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE,  (Parcelable) upload.getFile());
-//        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
-//        showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(
-//                this, (int) System.currentTimeMillis(), showDetailsIntent, 0
-//        ));
-
         mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
 
         // TODO really needed?
@@ -1155,33 +1058,6 @@ public class FileUploader extends Service
                 // grant that future retries on the same account will get the fresh credentials
             } else {
                 mNotificationBuilder.setContentText(content);
-// Changes for compilation
-//                if (upload.isInstant()) {
-//                    DbHandler db = null;
-//                    try {
-//                        db = new DbHandler(this.getBaseContext());
-//                        String message = uploadResult.getLogMessage() + " errorCode: " +
-//                                uploadResult.getCode();
-//                        Log_OC.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
-//                        if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
-//                            //message = getString(R.string.failed_upload_quota_exceeded_text);
-//                            if (db.updateFileState(
-//                                    upload.getOriginalStoragePath(),
-//                                    DbHandler.UPLOAD_STATUS_UPLOAD_FAILED,
-//                                    message) == 0) {
-//                                db.putFileForLater(
-//                                        upload.getOriginalStoragePath(),
-//                                        upload.getAccount().name,
-//                                        message
-//                                );
-//                            }
-//                        }
-//                    } finally {
-//                        if (db != null) {
-//                            db.close();
-//                        }
-//                    }
-//                }
             }
 
             if (!uploadResult.isSuccess() && !needsToUpdateCredentials ) {
@@ -1198,12 +1074,7 @@ public class FileUploader extends Service
             mNotificationManager.notify(tickerId, mNotificationBuilder.build());
 
             if (uploadResult.isSuccess()) {
-//Changes for compilation
-//                DbHandler db = new DbHandler(this.getBaseContext());
-//                db.removeIUPendingFile(mCurrentUpload.getOriginalStoragePath());
-//                db.close();
                 mPendingUploads.remove(upload.getAccount().name, upload.getFile().getRemotePath());
-                //updateDatabaseUploadResult(uploadResult, mCurrentUpload);
                 // remove success notification, with a delay of 2 seconds
                 NotificationDelayer.cancelWithDelay(
                         mNotificationManager,

@@ -3,7 +3,7 @@
  *
  *   @author David A. Velasco
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -34,7 +34,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.IBinder;
-import android.os.Parcelable;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
@@ -103,7 +102,7 @@ public class FileObserverService extends Service {
         Intent intent = new Intent(context, FileObserverService.class);
         intent.setAction(watchIt ? FileObserverService.ACTION_ADD_OBSERVED_FILE
                 : FileObserverService.ACTION_DEL_OBSERVED_FILE);
-        intent.putExtra(FileObserverService.ARG_FILE, (Parcelable)file);
+        intent.putExtra(FileObserverService.ARG_FILE, file);
         intent.putExtra(FileObserverService.ARG_ACCOUNT, account);
         return intent;
     }

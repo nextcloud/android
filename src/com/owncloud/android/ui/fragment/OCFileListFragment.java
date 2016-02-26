@@ -5,7 +5,7 @@
  *   @author masensio
  *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -27,7 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -408,7 +407,7 @@ public class OCFileListFragment extends ExtendedListFragment
                 Intent action = new Intent(getActivity(), FolderPickerActivity.class);
 
                 // Pass mTargetFile that contains info of selected file/folder
-                action.putExtra(FolderPickerActivity.EXTRA_FILE, (Parcelable)mTargetFile);
+                action.putExtra(FolderPickerActivity.EXTRA_FILE, mTargetFile);
                 getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_MOVE_FILES);
                 return true;
             }
@@ -424,7 +423,7 @@ public class OCFileListFragment extends ExtendedListFragment
                 Intent action = new Intent(getActivity(), FolderPickerActivity.class);
 
                 // Pass mTargetFile that contains info of selected file/folder
-                action.putExtra(FolderPickerActivity.EXTRA_FILE, (Parcelable) mTargetFile);
+                action.putExtra(FolderPickerActivity.EXTRA_FILE, mTargetFile);
                 getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_COPY_FILES);
                 return true;
             default:

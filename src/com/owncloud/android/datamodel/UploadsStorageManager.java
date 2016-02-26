@@ -1,22 +1,22 @@
 /**
- * ownCloud Android client application
+ *  ownCloud Android client application
  *
- * @author LukeOwncloud
- * @author David A. Velasco
- * @author masensio
- * Copyright (C) 2015 ownCloud Inc.
- * <p/>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- * <p/>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  @author LukeOwncloud
+ *  @author David A. Velasco
+ *  @author masensio
+ *  Copyright (C) 2016 ownCloud Inc.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2,
+ *  as published by the Free Software Foundation.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.datamodel;
 
@@ -109,7 +109,6 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_REMOTE_PATH, ocUpload.getRemotePath());
         cv.put(ProviderTableMeta.UPLOADS_ACCOUNT_NAME, ocUpload.getAccountName());
         cv.put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.getUploadStatus().value);
-        //cv.put(ProviderTableMeta.UPLOADS_FILE_ID, ocUpload.getOCFile().getFileId());
         cv.put(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR, ocUpload.getLocalAction());
         cv.put(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE, ocUpload.isForceOverwrite() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY, ocUpload.isWhileChargingOnly() ? 1 : 0);
@@ -329,7 +328,6 @@ public class UploadsStorageManager extends Observable {
         OCUpload[] list = new OCUpload[c.getCount()];
         if (c.moveToFirst()) {
             do {
-                //long fileUploadId = c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_FILE_ID));
                 OCUpload upload = createOCUploadFromCursor(c);
                 if (upload == null) {
                     Log_OC.e(TAG, "OCUpload could not be created from cursor");
@@ -364,65 +362,6 @@ public class UploadsStorageManager extends Observable {
     }
     */
 
-    /*
-    private OCFile createFileInstance(Cursor c) {
-        OCFile file = null;
-        if (c != null) {
-            file = new OCFile(c.getString(c
-                    .getColumnIndex(ProviderTableMeta.FILE_PATH)));
-            file.setFileId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
-            file.setParentId(c.getLong(c
-                    .getColumnIndex(ProviderTableMeta.FILE_PARENT)));
-            file.setMimetype(c.getString(c
-                    .getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
-            if (!file.isFolder()) {
-                file.setStoragePath(c.getString(c
-                        .getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
-                if (file.getStoragePath() == null) {
-                    // try to find existing file and bind it with current account;
-                    // with the current update of SynchronizeFolderOperation, this won't be
-                    // necessary anymore after a full synchronization of the account
-                    String accountName = c.getString(c
-                            .getColumnIndex(ProviderTableMeta.FILE_ACCOUNT_OWNER));
-                    File f = new File(FileStorageUtils.getDefaultSavePathFor(accountName, file));
-                    if (f.exists()) {
-                        file.setStoragePath(f.getAbsolutePath());
-                        file.setLastSyncDateForData(f.lastModified());
-                    }
-                }
-            }
-            file.setFileLength(c.getLong(c
-                    .getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH)));
-            file.setCreationTimestamp(c.getLong(c
-                    .getColumnIndex(ProviderTableMeta.FILE_CREATION)));
-            file.setModificationTimestamp(c.getLong(c
-                    .getColumnIndex(ProviderTableMeta.FILE_MODIFIED)));
-            file.setModificationTimestampAtLastSyncForData(c.getLong(c
-                    .getColumnIndex(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA)));
-            file.setLastSyncDateForProperties(c.getLong(c
-                    .getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE)));
-            file.setLastSyncDateForData(c.getLong(c.
-                    getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)));
-            file.setFavorite(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_KEEP_IN_SYNC)) == 1);
-            file.setEtag(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG)));
-            file.setShareViaLink(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_SHARED_VIA_LINK)) == 1);
-            file.setShareWithSharee(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_SHARED_WITH_SHAREE)) == 1);
-            file.setPublicLink(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PUBLIC_LINK)));
-            file.setPermissions(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PERMISSIONS)));
-            file.setRemoteId(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID)));
-            file.setNeedsUpdateThumbnail(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1);
-            file.setDownloading(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1);
-            file.setEtagInConflict(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG_IN_CONFLICT)));
-
-        }
-        return file;
-    }
-    */
 
     private OCUpload createOCUploadFromCursor(Cursor c) {
         OCUpload upload = null;
