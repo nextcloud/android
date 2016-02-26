@@ -92,18 +92,20 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
         public Comparator<OCUpload> comparator = new Comparator<OCUpload>() {
             @Override
-            public int compare(OCUpload lhs, OCUpload rhs) {
-                return compareUploadId(lhs, rhs);
+            public int compare(OCUpload upload1, OCUpload upload2) {
+                if (upload1.getUploadEndTimestamp() == 0) {
+                    return compareUploadId(upload1, upload2);
+                } else {
+                    return compareUpdateTime(upload1, upload2);
+                }
             }
 
-            private int compareUploadId(OCUpload lsh, OCUpload rsh) {
-                return Long.valueOf(lsh.getUploadId()).compareTo(rsh.getUploadId());
+            private int compareUploadId(OCUpload upload1, OCUpload upload2) {
+                return Long.valueOf(upload1.getUploadId()).compareTo(upload2.getUploadId());
             }
 
-            private int compareUpdateTime(OCUpload lhs, OCUpload rhs) {
-                long lLastModified = new File(lhs.getLocalPath()).lastModified();
-                long rLastModified = new File(rhs.getLocalPath()).lastModified();
-                return Long.valueOf(rLastModified).compareTo(lLastModified);
+            private int compareUpdateTime(OCUpload upload1, OCUpload upload2) {
+                return Long.valueOf(upload2.getUploadEndTimestamp()).compareTo(upload1.getUploadEndTimestamp());
             }
         };
 
@@ -231,7 +233,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             //* upload date
             TextView uploadDateTextView = (TextView) view.findViewById(R.id.upload_date);
-            long updateTime = (new File(upload.getLocalPath())).lastModified();
+            long updateTime = upload.getUploadEndTimestamp();//(new File(upload.getLocalPath())).lastModified();
             CharSequence dateString = DisplayUtils.getRelativeDateTimeString(
                     mParentActivity,
                     updateTime,

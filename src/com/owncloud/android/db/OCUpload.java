@@ -106,6 +106,11 @@ public class OCUpload implements Parcelable {
      */
     private int mCreatedBy;
 
+    /*
+     * When the upload ended
+     */
+    private long mUploadEndTimeStamp;
+
 
     /**
      * Main constructor
@@ -309,7 +314,6 @@ public class OCUpload implements Parcelable {
         return mIsWhileChargingOnly;
     }
 
-
     public void setCreatedBy(int createdBy) {
         mCreatedBy = createdBy;
     }
@@ -318,6 +322,13 @@ public class OCUpload implements Parcelable {
         return mCreatedBy;
     }
 
+    public void setUploadEndTimestamp(long uploadEndTimestamp) {
+        mUploadEndTimeStamp = uploadEndTimestamp;
+    }
+
+    public long getUploadEndTimestamp(){
+        return mUploadEndTimeStamp;
+    }
 
     /**
      * For debugging purposes only.
@@ -339,7 +350,7 @@ public class OCUpload implements Parcelable {
     public void removeAllUploadRestrictions() {
         setUseWifiOnly(false);
         setWhileChargingOnly(false);
-        //setUploadTimestamp(0);
+        setUploadEndTimestamp(0);
     }
 
     /**
@@ -405,6 +416,7 @@ public class OCUpload implements Parcelable {
         } catch (IllegalArgumentException x) {
             mUploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
         }
+        mUploadEndTimeStamp = source.readLong();
         try {
             mLastResult = UploadResult.valueOf(source.readString());
         } catch (IllegalArgumentException x) {
@@ -431,6 +443,7 @@ public class OCUpload implements Parcelable {
         dest.writeInt(mIsUseWifiOnly ? 1 : 0);
         dest.writeInt(mIsWhileChargingOnly ? 1 : 0);
         dest.writeString(mUploadStatus.name());
+        dest.writeLong(mUploadEndTimeStamp);
         dest.writeString(((mLastResult == null) ? "" : mLastResult.name()));
         dest.writeInt(mCreatedBy);
     }
@@ -485,7 +498,7 @@ public class OCUpload implements Parcelable {
      */
     public String getUploadLaterReason(Context context) {
         StringBuilder reason = new StringBuilder();
-        Date now = new Date();
+        //Date now = new Date();
         if (isUseWifiOnly() && !UploadUtils.isConnectedViaWiFi(context)) {
             if (reason.length() > 0) {
                 reason.append(context.getString(R.string.uploads_view_later_reason_add_wifi_reason));
