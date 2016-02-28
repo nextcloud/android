@@ -21,6 +21,7 @@
   <string name="drawer_item_all_files">Allar skrár</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Stillingar</string>
   <string name="drawer_close">Loka</string>
   <string name="drawer_open">Opna</string>
   <string name="prefs_category_more">Meira</string>
@@ -44,6 +45,7 @@
   <string name="common_error_unknown">Óþekkt villa</string>
   <string name="about_title">Um</string>
   <string name="change_password">Breyta lykilorði</string>
+  <string name="create_account">Stofna aðgang</string>
   <string name="uploader_info_dirname">Nafn möppu</string>
   <string name="foreign_files_move">Færa allt</string>
   <string name="favorite">Uppáhalds</string>
@@ -61,6 +63,8 @@
   <string name="placeholder_media_time">12:23:45</string>
   <string name="activity_chooser_send_file_title">Senda</string>
   <string name="empty"></string>
+  <string name="saml_authentication_required_text">Auðkenningar krafist</string>
+  <string name="saml_authentication_wrong_pass">Rangt lykilorð</string>
   <string name="actionbar_move">Færa</string>
   <string name="folder_picker_choose_button_text">Veldu</string>
   <string name="prefs_category_details">Nánar</string>
@@ -70,6 +74,7 @@
   <string name="username">Notendanafn</string>
   <string name="file_list__footer__folder">1 mappa</string>
   <string name="file_list__footer__file">1 skrá</string>
+  <string name="share_dialog_title">Deiling</string>
   <string name="share_via_link_section_title">Deila hlekk</string>
   <string name="share_via_link_expiration_date_label">Setja gildistíma</string>
   <string name="share_via_link_password_label">Verja með lykilorði</string>
