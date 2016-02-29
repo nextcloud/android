@@ -16,7 +16,7 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue.
 Help us to maximize the effort we can spend fixing issues and adding new features, by not reporting duplicate issues.
 
 [template]: https://raw.github.com/owncloud/android/master/issue_template.md
-[mailinglist]: https://mail.kde.org/mailman/listinfo/owncloud
+[mailinglist]: https://mailman.owncloud.org/mailman/listinfo/user
 [forum]: http://forum.owncloud.org/
 [irc]: http://webchat.freenode.net/?channels=owncloud&uio=d4
 
