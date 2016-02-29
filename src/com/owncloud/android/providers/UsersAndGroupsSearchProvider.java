@@ -72,6 +72,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     public static final String ACTION_SHARE_WITH = AUTHORITY + ".action.SHARE_WITH";
     public static final String DATA_USER = AUTHORITY + ".data.user";
     public static final String DATA_GROUP = AUTHORITY + ".data.group";
+    public static final String DATA_REMOTE = AUTHORITY + ".data.remote";
 
     private UriMatcher mUriMatcher;
 
@@ -140,31 +141,21 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                 // Get JSonObjects from response
                 names.add((JSONObject) o);
             }
-            // add a remote user suggestion if the query has the character '@'
-            if (userQuery.contains("@")) {
-                try {
-                    names.add(new JSONObject("{\"" + GetRemoteShareesOperation.NODE_VALUE + "\":{\"" +
-                            GetRemoteShareesOperation.PROPERTY_SHARE_WITH + "\":" + userQuery + "\",\"" +
-                            GetRemoteShareesOperation.PROPERTY_SHARE_TYPE + "\":6}," +
-                            "\"" + GetRemoteShareesOperation.PROPERTY_LABEL + "\":\"" + userQuery + " (remote)\"}]}"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
         } else {
             showErrorMessage(result);
         }
 
         /// convert the responses from the OC server to the expected format
+        int count = 0;
         if (names.size() > 0) {
             response = new MatrixCursor(COLUMNS);
             Iterator<JSONObject> namesIt = names.iterator();
-            int count = 0;
             JSONObject item;
             String displayName;
             Uri dataUri;
             Uri userBaseUri = new Uri.Builder().scheme("content").authority(DATA_USER).build();
             Uri groupBaseUri = new Uri.Builder().scheme("content").authority(DATA_GROUP).build();
+
             try {
                 while (namesIt.hasNext()) {
                     item = namesIt.next();
@@ -184,9 +175,21 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                             .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
                             .add(dataUri);
                 }
+
             } catch (JSONException e) {
                 Log_OC.e(TAG, "Exception while parsing data of users/groups", e);
             }
+        }
+
+        // add a remote user suggestion if the query has the character '@'
+        if (userQuery.contains("@")) {
+            if (response == null)
+                response = new MatrixCursor(COLUMNS);
+
+            Uri remoteBaseUri = new Uri.Builder().scheme("content").authority(DATA_REMOTE).build();
+            String displayName = getContext().getString(R.string.share_remote_clarification, userQuery);
+            Uri dataUri = Uri.withAppendedPath(remoteBaseUri, userQuery);
+            response.newRow().add(count++).add(displayName).add(dataUri);
         }
 
         return response;
