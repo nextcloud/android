@@ -1,4 +1,4 @@
-
+p
 These instructions will help you to set up your development environment, get the source code of the ownCloud for Android app and build it by yourself. If you want to help developing the app take a look to the [contribution guidelines][0].
 
 Sections 1) and 2) are common for any environment. The rest of the sections describe how to set up a project in different tool environments. Choose the build tool or IDE you prefer and follow the instructions in its specific section. Nowadays we recommend to use Android Studio (section 2), but the decision is up to you.
@@ -37,7 +37,6 @@ Next steps will assume you have a Github account and that you will get the code 
 * Clone your forked repository: ```git clone git@github.com:YOURGITHUBNAME/android.git```.
 * Move to the project folder with ```cd android```.
 * Checkout the remote branch 'master' in your own local branch 'master': ```git checkout master```.
-* Pull any changes from your remote branch 'master': ```git pull origin master```
 * Make official ownCloud repo known as upstream: ```git remote add upstream git@github.com:owncloud/android.git```
 * Make sure to get the latest changes from official android/master branch: ```git pull upstream master```
 
