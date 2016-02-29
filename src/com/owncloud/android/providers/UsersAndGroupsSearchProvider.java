@@ -140,6 +140,17 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                 // Get JSonObjects from response
                 names.add((JSONObject) o);
             }
+            // add a remote user suggestion if the query has the character '@'
+            if (userQuery.contains("@")) {
+                try {
+                    names.add(new JSONObject("{\"" + GetRemoteShareesOperation.NODE_VALUE + "\":{\"" +
+                            GetRemoteShareesOperation.PROPERTY_SHARE_WITH + "\":" + userQuery + "\",\"" +
+                            GetRemoteShareesOperation.PROPERTY_SHARE_TYPE + "\":6}," +
+                            "\"" + GetRemoteShareesOperation.PROPERTY_LABEL + "\":\"" + userQuery + " (remote)\"}]}"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         } else {
             showErrorMessage(result);
         }
