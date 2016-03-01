@@ -40,6 +40,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetRemoteShareesOperation;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import org.json.JSONException;
@@ -70,9 +71,14 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     public static final String AUTHORITY = UsersAndGroupsSearchProvider.class.getCanonicalName();
     public static final String ACTION_SHARE_WITH = AUTHORITY + ".action.SHARE_WITH";
-    public static final String DATA_USER = AUTHORITY + ".data.user";
-    public static final String DATA_GROUP = AUTHORITY + ".data.group";
-    public static final String DATA_REMOTE = AUTHORITY + ".data.remote";
+
+    public static final String USER = "user";
+    public static final String GROUP = "group";
+    public static final String REMOTE = "remote";
+
+    public static final String DATA_USER = AUTHORITY + ".data." + USER;
+    public static final String DATA_GROUP = AUTHORITY + ".data." + GROUP;
+    public static final String DATA_REMOTE = AUTHORITY + ".data." + REMOTE;
 
     private UriMatcher mUriMatcher;
 
