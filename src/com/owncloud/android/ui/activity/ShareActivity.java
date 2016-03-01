@@ -136,20 +136,22 @@ public class ShareActivity extends FileActivity
                 getFile(),
                 shareeName,
                 shareType,
-                getAppropiatePermissions()
+                getAppropiatePermissions(shareType.equals(ShareType.FEDERATED))
         );
     }
 
 
-    private int getAppropiatePermissions() {
+    private int getAppropiatePermissions(boolean isFederated) {
         if (getFile().isSharedWithMe()) {
             return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
 
         } else if (getFile().isFolder()) {
-            return OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
+            // check if the Share is FERERATED
+            return (isFederated) ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER : OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
 
         } else {    // isFile
-            return OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
+            // check if the Share is FERERATED
+            return (isFederated) ? OCShare.FEDERATED_PERMISSIONS_FOR_FILE : OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
         }
     }
 
