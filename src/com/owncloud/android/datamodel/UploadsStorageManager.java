@@ -86,8 +86,6 @@ public class UploadsStorageManager extends Observable {
 
     }
 
-    ;
-
     public UploadsStorageManager(ContentResolver contentResolver) {
         if (contentResolver == null) {
             throw new IllegalArgumentException("Cannot create an instance with a NULL contentResolver");
@@ -307,6 +305,27 @@ public class UploadsStorageManager extends Observable {
         }
         return result;
     }
+
+
+    /**
+     * Remove all the uploads of a given account from the uploads list.
+     *
+     * @param accountName       Name of the OC account target of the uploads to remove.
+     * @return true when one or more upload entries were removed
+     */
+    public int removeUploads(String accountName) {
+        int result = getDB().delete(
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
+                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
+                new String[]{accountName}
+        );
+        Log_OC.d(TAG, "delete returns " + result + " for uploads in " + accountName);
+        if (result > 0) {
+            notifyObserversNow();
+        }
+        return result;
+    }
+
 
     public OCUpload[] getAllStoredUploads() {
         return getUploads(null, null);

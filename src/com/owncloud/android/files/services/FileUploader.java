@@ -204,7 +204,6 @@ public class FileUploader extends Service
                 Boolean createRemoteFolder,
                 int createdBy
         ) {
-            Log_OC.d(TAG, "FileUploader.uploadNewFile()");
             Intent intent = new Intent(context, FileUploader.class);
 
             intent.putExtra(FileUploader.KEY_ACCOUNT, account);
@@ -241,7 +240,6 @@ public class FileUploader extends Service
          */
         public void uploadUpdate(Context context, Account account, OCFile[] existingFiles, Integer behaviour,
                                         Boolean forceOverwrite) {
-            Log_OC.d(TAG, "FileUploader.uploadUpdate()");
             Intent intent = new Intent(context, FileUploader.class);
 
             intent.putExtra(FileUploader.KEY_ACCOUNT, account);
@@ -276,7 +274,6 @@ public class FileUploader extends Service
          * Call to retry upload identified by remotePath
          */
         public void retry(Context context, Account account, OCUpload upload) {
-            Log_OC.d(TAG, "FileUploader.retry()");
             Intent i = new Intent(context, FileUploader.class);
             i.putExtra(FileUploader.KEY_RETRY, true);
             if (upload != null) {
@@ -583,7 +580,7 @@ public class FileUploader extends Service
          * @param file    A file in the queue of pending uploads
          */
         public void cancel(Account account, OCFile file) {
-            cancel(account.name, file.getRemotePath(), file.getStoragePath());
+            cancel(account.name, file.getRemotePath());
         }
 
         /**
@@ -592,7 +589,7 @@ public class FileUploader extends Service
          * @param storedUpload Upload operation persisted
          */
         public void cancel(OCUpload storedUpload) {
-            cancel(storedUpload.getAccountName(), storedUpload.getRemotePath(), storedUpload.getLocalPath());
+            cancel(storedUpload.getAccountName(), storedUpload.getRemotePath());
         }
 
         /**
@@ -600,9 +597,8 @@ public class FileUploader extends Service
          *
          * @param accountName Local name of an ownCloud account where the remote file will be stored.
          * @param remotePath  Remote target of the upload
-         * @param localPath   Absolute local path to the source file
          */
-        private void cancel(String accountName, String remotePath, String localPath) {
+        private void cancel(String accountName, String remotePath) {
             Pair<UploadFileOperation, String> removeResult =
                     mPendingUploads.remove(accountName, remotePath);
             UploadFileOperation upload = removeResult.first;
@@ -1115,20 +1111,13 @@ public class FileUploader extends Service
     }
 
     /**
-     * Remove uploads of an account
+     * Remove and 'forgets' pending uploads of an account.
      *
-     * @param account Downloads account to remove
+     * @param account   Account which uploads will be cancelled
      */
     private void cancelUploadsForAccount(Account account) {
-        // Cancel pending uploads
         mPendingUploads.remove(account.name);
+        mUploadsStorageManager.removeUploads(account.name);
     }
-
-    /**
-     * Call if all pending uploads are to be retried.
-     */
-//    public static void retry(Context context) {
-//        retry(context, null);
-//    }
 
 }
