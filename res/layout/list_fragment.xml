@@ -93,7 +93,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        fab:fab_addButtonColorNormal="@color/owncloud_blue_accent"
+        fab:fab_addButtonColorNormal="@color/color_accent"
         fab:fab_addButtonColorPressed="@color/owncloud_blue"
         fab:fab_addButtonPlusIconColor="@color/white"
         fab:fab_labelStyle="@style/menu_labels_style"
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             fab:fab_size="mini"
             fab:fab_icon="@drawable/ic_action_upload"
-            fab:fab_colorNormal="@color/owncloud_blue_accent"
+            fab:fab_colorNormal="@color/color_accent"
             fab:fab_colorPressed="@color/owncloud_blue"
             fab:fab_title=""/>
 
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             fab:fab_size="mini"
             fab:fab_icon="@drawable/ic_action_create_dir"
-            fab:fab_colorNormal="@color/owncloud_blue_accent"
+            fab:fab_colorNormal="@color/color_accent"
             fab:fab_colorPressed="@color/owncloud_blue"
             fab:fab_title=""/>
 
@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             fab:fab_size="mini"
             fab:fab_icon="@drawable/ic_import"
-            fab:fab_colorNormal="@color/owncloud_blue_accent"
+            fab:fab_colorNormal="@color/color_accent"
             fab:fab_colorPressed="@color/owncloud_blue"
             fab:fab_title=""/>
 
