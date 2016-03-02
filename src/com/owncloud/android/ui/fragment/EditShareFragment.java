@@ -147,10 +147,11 @@ public class EditShareFragment extends Fragment {
             setPermissionsListening(editShareView, false);
 
             int sharePermissions = mShare.getPermissions();
+            boolean isFederated = mShare.getShareType().equals(ShareType.FEDERATED);
             CompoundButton compound;
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);
-            if(mShare.getShareType().equals(ShareType.FEDERATED))
+            if(isFederated)
                 compound.setVisibility(View.INVISIBLE);
             compound.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
 
@@ -162,7 +163,7 @@ public class EditShareFragment extends Fragment {
             boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
             compound.setChecked(canEdit);
 
-            if (mFile.isFolder()) {
+            if (mFile.isFolder() && !isFederated) {
                 compound = (CompoundButton) editShareView.findViewById(R.id.canEditCreateCheckBox);
                 compound.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
                 compound.setVisibility(canEdit ? View.VISIBLE : View.GONE);

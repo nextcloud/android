@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetRemoteShareesOperation;
@@ -188,7 +189,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         }
 
         // add a remote user suggestion if the query has the character '@'
-        if (userQuery.contains("@")) {
+        FileDataStorageManager manager = new FileDataStorageManager(account, getContext().getContentResolver());
+        boolean federatedShareAllowed = manager.getCapability(account.name).getFilesSharingFederationOutgoing().isTrue();
+
+        if (userQuery.contains("@") && federatedShareAllowed) {
             if (response == null)
                 response = new MatrixCursor(COLUMNS);
 
