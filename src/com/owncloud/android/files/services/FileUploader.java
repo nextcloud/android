@@ -182,114 +182,112 @@ public class FileUploader extends Service
         return FileUploader.class.getName() + UPLOAD_FINISH_MESSAGE;
     }
 
-    /**
-     * Call to retry upload identified by remotePath
-     */
-    private static void retry(Context context, Account account, OCUpload upload) {
-        Log_OC.d(TAG, "FileUploader.retry()");
-        Intent i = new Intent(context, FileUploader.class);
-        i.putExtra(FileUploader.KEY_RETRY, true);
-        if (upload != null) {
-            i.putExtra(FileUploader.KEY_ACCOUNT, account);
-            i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
-        }
-        context.startService(i);
-    }
 
-    public static void retryUploadsForAccount(Account account, Context context) {
-        UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver());
-        OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-        for ( OCUpload upload: failedUploads){
-            if (upload.getAccountName().equals(account.name) &&
-                    upload.getLastResult() == UploadResult.CREDENTIAL_ERROR ) {
-                retry(context, account, upload);
+    /**
+     * Helper class providing methods to ease requesting commands to {@link FileUploader} .
+     *
+     * Avoids the need of checking once and again what extras are needed or optional
+     * in the {@link Intent} to pass to {@link Context#startService(Intent)}.
+     */
+    public static class UploadRequester {
+
+        /**
+         * Call to upload several new files
+         */
+        public void uploadNewFile(
+                Context context,
+                Account account,
+                String[] localPaths,
+                String[] remotePaths,
+                String[] mimeTypes,
+                Integer behaviour,
+                Boolean createRemoteFolder,
+                int createdBy
+        ) {
+            Log_OC.d(TAG, "FileUploader.uploadNewFile()");
+            Intent intent = new Intent(context, FileUploader.class);
+
+            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
+            intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
+            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
+            intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
+            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+            intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
+            intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
+
+            context.startService(intent);
+        }
+
+        /**
+         * Call to upload a new single file
+         */
+        public void uploadNewFile(Context context, Account account, String localPath, String remotePath, int
+                behaviour, String mimeType, boolean createRemoteFile, int createdBy) {
+
+            uploadNewFile(
+                    context,
+                    account,
+                    new String[]{localPath},
+                    new String[]{remotePath},
+                    new String[]{mimeType},
+                    behaviour,
+                    createRemoteFile,
+                    createdBy
+            );
+        }
+
+        /**
+         * Call to update multiple files already uploaded
+         */
+        public void uploadUpdate(Context context, Account account, OCFile[] existingFiles, Integer behaviour,
+                                        Boolean forceOverwrite) {
+            Log_OC.d(TAG, "FileUploader.uploadUpdate()");
+            Intent intent = new Intent(context, FileUploader.class);
+
+            intent.putExtra(FileUploader.KEY_ACCOUNT, account);
+            intent.putExtra(FileUploader.KEY_FILE, existingFiles);
+            intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
+            intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, forceOverwrite);
+
+            context.startService(intent);
+        }
+
+        /**
+         * Call to update a dingle file already uploaded
+         */
+        public void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour,
+                                        Boolean forceOverwrite) {
+
+            uploadUpdate(context, account, new OCFile[]{existingFile}, behaviour, forceOverwrite);
+        }
+
+        public void retryUploadsForAccount(Account account, Context context) {
+            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver());
+            OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
+            for ( OCUpload upload: failedUploads){
+                if (upload.getAccountName().equals(account.name) &&
+                        upload.getLastResult() == UploadResult.CREDENTIAL_ERROR ) {
+                    retry(context, account, upload);
+                }
             }
         }
+
+        /**
+         * Call to retry upload identified by remotePath
+         */
+        public void retry(Context context, Account account, OCUpload upload) {
+            Log_OC.d(TAG, "FileUploader.retry()");
+            Intent i = new Intent(context, FileUploader.class);
+            i.putExtra(FileUploader.KEY_RETRY, true);
+            if (upload != null) {
+                i.putExtra(FileUploader.KEY_ACCOUNT, account);
+                i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
+            }
+            context.startService(i);
+        }
+
     }
 
-    /**
-     * Call to upload several new files
-     */
-    public static void uploadNewFile(
-            Context context,
-            Account account,
-            String[] localPaths,
-            String[] remotePaths,
-            String[] mimeTypes,
-            Integer behaviour,
-            Boolean createRemoteFolder,
-            int createdBy
-    ) {
-        Log_OC.d(TAG, "FileUploader.uploadNewFile()");
-        Intent intent = new Intent(context, FileUploader.class);
-
-        intent.putExtra(FileUploader.KEY_ACCOUNT, account);
-        intent.putExtra(FileUploader.KEY_LOCAL_FILE, localPaths);
-        intent.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
-        intent.putExtra(FileUploader.KEY_MIME_TYPE, mimeTypes);
-        intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-        intent.putExtra(FileUploader.KEY_CREATE_REMOTE_FOLDER, createRemoteFolder);
-        intent.putExtra(FileUploader.KEY_CREATED_BY, createdBy);
-
-        context.startService(intent);
-    }
-
-    /**
-     * Call to upload a new single file
-     */
-    public static void uploadNewFile(Context context, Account account, String localPath, String remotePath, int
-            behaviour, String mimeType, boolean createRemoteFile, int createdBy) {
-
-        uploadNewFile(
-                context,
-                account,
-                new String[] {localPath},
-                new String[] {remotePath},
-                new String[] {mimeType},
-                behaviour,
-                createRemoteFile,
-                createdBy
-        );
-    }
-
-    /**
-     * Call to update multiple files already uploaded
-     */
-    public static void uploadUpdate(Context context, Account account, OCFile[] existingFiles, Integer behaviour,
-                                    Boolean forceOverwrite) {
-        Log_OC.d(TAG, "FileUploader.uploadUpdate()");
-        Intent intent = new Intent(context, FileUploader.class);
-
-        intent.putExtra(FileUploader.KEY_ACCOUNT, account);
-        intent.putExtra(FileUploader.KEY_FILE, existingFiles);
-        intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, behaviour);
-        intent.putExtra(FileUploader.KEY_FORCE_OVERWRITE, forceOverwrite);
-
-        context.startService(intent);
-    }
-
-    /**
-     * Call to update a dingle file already uploaded
-     */
-    public static void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour,
-                                    Boolean forceOverwrite) {
-
-        uploadUpdate(context, account, new OCFile[]{existingFile}, behaviour, forceOverwrite);
-    }
-
-//    /**
-//     * Checks if an ownCloud server version should support chunked uploads.
-//     *
-//     * @param version OwnCloud version instance corresponding to an ownCloud
-//     *                server.
-//     * @return 'True' if the ownCloud server with version supports chunked
-//     * uploads.
-//     * <p/>
-//     * TODO - move to OwnCloudVersion
-//     */
-//    private static boolean chunkedUploadIsSupported(OwnCloudVersion version) {
-//        return (version != null && version.compareTo(OwnCloudVersion.owncloud_v4_5) >= 0);
-//    }
 
     /**
      * Service initialization
@@ -645,14 +643,6 @@ public class FileUploader extends Service
             }
             // Cancel pending uploads
             cancelUploadsForAccount(account);
-        }
-
-        // TODO Complete operation to retry the upload
-        /**
-         * Puts upload in upload list and tell FileUploader to upload items in list.
-         */
-        public void retry(Account account, OCUpload upload) {
-            FileUploader.retry(getApplicationContext(), account, upload);
         }
 
         public void clearListeners() {

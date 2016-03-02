@@ -734,7 +734,8 @@ public class FileDisplayActivity extends HookActivity implements
 
             int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader
                     .LOCAL_BEHAVIOUR_MOVE : FileUploader.LOCAL_BEHAVIOUR_COPY;
-            FileUploader.uploadNewFile(
+            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+            requester.uploadNewFile(
                     this,
                     getAccount(),
                     filePaths,
@@ -818,7 +819,8 @@ public class FileDisplayActivity extends HookActivity implements
 
         int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader.LOCAL_BEHAVIOUR_MOVE :
                 FileUploader.LOCAL_BEHAVIOUR_COPY;
-        FileUploader.uploadNewFile(
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.uploadNewFile(
                 this,
                 getAccount(),
                 filePath,

@@ -127,8 +127,11 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         lastUploadedPhotoPath = file_path;
         Log_OC.d(TAG, "Path: " + file_path + "");
 
+        new FileUploader.UploadRequester();
+
         int behaviour = getUploadBehaviour(context);
-        FileUploader.uploadNewFile(
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.uploadNewFile(
                 context,
                 account,
                 file_path,
@@ -187,7 +190,8 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         Log_OC.d(TAG, file_path + "");
 
         int behaviour = getUploadBehaviour(context);
-        FileUploader.uploadNewFile(
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.uploadNewFile(
                 context,
                 account,
                 file_path,

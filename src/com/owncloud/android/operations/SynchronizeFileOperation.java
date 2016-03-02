@@ -283,8 +283,8 @@ public class SynchronizeFileOperation extends SyncOperation {
      * @param file OCFile object representing the file to upload
      */
     private void requestForUpload(OCFile file) {
-
-        FileUploader.uploadUpdate(mContext, mAccount, file, FileUploader.LOCAL_BEHAVIOUR_MOVE, true);
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.uploadUpdate(mContext, mAccount, file, FileUploader.LOCAL_BEHAVIOUR_MOVE, true);
 
         mTransferWasRequested = true;
     }

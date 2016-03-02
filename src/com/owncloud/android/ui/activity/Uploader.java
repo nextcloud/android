@@ -561,7 +561,8 @@ public class Uploader extends FileActivity
                     throw new SecurityException();
                 }
 
-                FileUploader.uploadNewFile(
+                FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+                requester.uploadNewFile(
                         this,
                         getAccount(),
                         local.toArray(new String[local.size()]),
@@ -699,7 +700,8 @@ public class Uploader extends FileActivity
             dismissWaitingCopyDialog();
         }
         if (result != null) {
-            FileUploader.uploadNewFile(
+            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+            requester.uploadNewFile(
                     this, getAccount(),
                     result,
                     mRemoteCacheData.get(index),

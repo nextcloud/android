@@ -76,7 +76,8 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 return;
         }
 
-        FileUploader.uploadUpdate(this, getAccount(), getFile(), behaviour, forceOverwrite);
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.uploadUpdate(this, getAccount(), getFile(), behaviour, forceOverwrite);
         finish();
     }
 

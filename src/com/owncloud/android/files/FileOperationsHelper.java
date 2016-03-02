@@ -38,6 +38,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -531,13 +532,8 @@ public class FileOperationsHelper {
      */
     public void retryUpload(OCUpload upload) {
         Account account = mFileActivity.getAccount();
-        FileUploaderBinder uploaderBinder = mFileActivity.getFileUploaderBinder();
-        if (uploaderBinder != null) {
-            upload.removeAllUploadRestrictions(); //only this object, upload DB stays untouched.
-            uploaderBinder.retry(account, upload);
-        }  else {
-            Log_OC.w(TAG, "uploaderBinder not set. Cannot retry the upload of " + upload.getLocalPath());
-        }
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.retry(mFileActivity, account, upload);
     }
 
     /**
