@@ -20,7 +20,6 @@
 
 package com.owncloud.android.files.services;
 
-import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -31,8 +30,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.db.PreferenceReader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
@@ -96,6 +93,15 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
     }
 
     private void wifiDisconnected(Context context) {
+        // This is not needed anymore after refactoring FileUploader service;
+        //  - if any upload is in progress, it will be interrupted due to the lack of connectivity while
+        //      the device reconnects through
+        //  - if other instant uploads are queued and the current settings requires 'Wifi only', FileUploader
+        //      will not execute them, since this is now checked when the upload is starting, not when it's
+        //      requested, see FileUploader#uploadFile(...)
+        //
+        // Leaving commented for a (short) while
+        /*
         boolean instantPictureWiFiOnly = PreferenceReader.instantPictureUploadViaWiFiOnly(context);
         boolean instantVideoWiFiOnly = PreferenceReader.instantVideoUploadViaWiFiOnly(context);
         if (instantPictureWiFiOnly || instantVideoWiFiOnly) {
@@ -111,6 +117,7 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
             // TODO improve with extra options to cancel selected uploads: instant_pictures, instant_videos, ...
             context.startService(i);
         }
+        */
     }
 
 

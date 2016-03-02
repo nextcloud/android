@@ -149,8 +149,6 @@ public class FileUploader extends Service
 
     public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
 
-    public static final String KEY_CANCEL_ALL = "CANCEL_ALL";
-
     public static final int LOCAL_BEHAVIOUR_COPY = 0;
     public static final int LOCAL_BEHAVIOUR_MOVE = 1;
     public static final int LOCAL_BEHAVIOUR_FORGET = 2;
@@ -348,13 +346,6 @@ public class FileUploader extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
-
-        if (intent.hasExtra(KEY_CANCEL_ALL) && intent.hasExtra(KEY_ACCOUNT)){
-            Account account = intent.getParcelableExtra(KEY_ACCOUNT);
-            FileUploaderBinder fub = (FileUploaderBinder) mBinder;
-            fub.cancel(account);
-            return Service.START_NOT_STICKY;
-        }
 
         boolean retry = intent.getBooleanExtra(KEY_RETRY, false);
         AbstractList<String> requestedUploads = new Vector<String>();
