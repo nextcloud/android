@@ -39,12 +39,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -63,7 +61,6 @@ import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.FileActionsDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.ui.dialog.UploadSourceDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -139,31 +136,6 @@ public class OCFileListFragment extends ExtendedListFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
-
-        // Setup FAB listeners
-        getFabUpload().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((FileDisplayActivity)getActivity()).uploadLocalFilesSelected();
-                getFabMain().collapse();
-            }
-        });
-
-        getFabMkdir().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((FileDisplayActivity) getActivity()).createFolder();
-                getFabMain().collapse();
-            }
-        });
-
-        getFabUploadFromApp().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((FileDisplayActivity) getActivity()).uploadFromOtherAppsSelected();
-                getFabMain().collapse();
-            }
-        });
 
         Log_OC.i(TAG, "onCreateView() end");
         return v;
@@ -361,9 +333,12 @@ public class OCFileListFragment extends ExtendedListFragment
         getFabUpload().setTitle(null);
         getFabMkdir().setTitle(null);
         getFabUploadFromApp().setTitle(null);
-        ((TextView) getFabUpload().getTag(com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
-        ((TextView) getFabMkdir().getTag(com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
-        ((TextView) getFabUploadFromApp().getTag(com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
+        ((TextView) getFabUpload().getTag(
+                com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
+        ((TextView) getFabMkdir().getTag(
+                com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
+        ((TextView) getFabUploadFromApp().getTag(
+                com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
     }
 
     private void registerLongClickListener() {

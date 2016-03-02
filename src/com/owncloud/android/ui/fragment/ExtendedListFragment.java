@@ -22,7 +22,6 @@ package com.owncloud.android.ui.fragment;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,7 +36,6 @@ import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -46,7 +44,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
-import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
@@ -70,10 +67,10 @@ public class ExtendedListFragment extends Fragment
     private SwipeRefreshLayout mRefreshEmptyLayout;
     private TextView mEmptyListMessage;
 
-    private FloatingActionsMenu fabMain;
-    private FloatingActionButton fabUpload;
-    private FloatingActionButton fabMkdir;
-    private FloatingActionButton fabUploadFromApp;
+    private FloatingActionsMenu mFabMain;
+    private FloatingActionButton mFabUpload;
+    private FloatingActionButton mFabMkdir;
+    private FloatingActionButton mFabUploadFromApp;
     
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
@@ -107,19 +104,19 @@ public class ExtendedListFragment extends Fragment
     }
 
     public FloatingActionButton getFabUpload() {
-        return fabUpload;
+        return mFabUpload;
     }
 
     public FloatingActionButton getFabUploadFromApp() {
-        return fabUploadFromApp;
+        return mFabUploadFromApp;
     }
 
     public FloatingActionButton getFabMkdir() {
-        return fabMkdir;
+        return mFabMkdir;
     }
 
     public FloatingActionsMenu getFabMain() {
-        return fabMain;
+        return mFabMain;
     }
 
     public void switchToGridView() {
@@ -203,10 +200,10 @@ public class ExtendedListFragment extends Fragment
 
         mCurrentListView = mListView;   // list as default
 
-        fabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
-        fabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
-        fabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
-        fabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
+        mFabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
+        mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
+        mFabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
+        mFabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
 
         return v;
     }
@@ -367,9 +364,9 @@ public class ExtendedListFragment extends Fragment
      */
     public void setFabEnabled(boolean enabled) {
         if(enabled) {
-            fabMain.setVisibility(View.VISIBLE);
+            mFabMain.setVisibility(View.VISIBLE);
         } else {
-            fabMain.setVisibility(View.GONE);
+            mFabMain.setVisibility(View.GONE);
         }
     }
 
