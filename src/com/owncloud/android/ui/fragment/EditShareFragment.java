@@ -38,6 +38,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
 
 public class EditShareFragment extends Fragment {
@@ -131,7 +132,6 @@ public class EditShareFragment extends Fragment {
 
         // Setup layout
         refreshUiFromState(view);
-        setPermissionsListening(view, true);
 
         return view;
     }
@@ -150,6 +150,8 @@ public class EditShareFragment extends Fragment {
             CompoundButton compound;
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);
+            if(mShare.getShareType().equals(ShareType.FEDERATED))
+                compound.setVisibility(View.INVISIBLE);
             compound.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canEditSwitch);
