@@ -85,7 +85,7 @@ public class ProviderMeta {
         public static final String OCSHARES_FILE_SOURCE = "file_source";
         public static final String OCSHARES_ITEM_SOURCE = "item_source";
         public static final String OCSHARES_SHARE_TYPE = "share_type";
-        public static final String OCSHARES_SHARE_WITH = "share_with";
+        public static final String OCSHARES_SHARE_WITH = "shate_with";
         public static final String OCSHARES_PATH = "path";
         public static final String OCSHARES_PERMISSIONS = "permissions";
         public static final String OCSHARES_SHARED_DATE = "shared_date";

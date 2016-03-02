@@ -1525,6 +1525,7 @@ public class FileDataStorageManager {
                     getContentResolver().applyBatch(MainApp.getAuthority(), operations);
 
                 } else {
+
                     getContentProviderClient().applyBatch(operations);
                 }
 
