@@ -259,28 +259,40 @@ public class FileUploader extends Service
             uploadUpdate(context, account, new OCFile[]{existingFile}, behaviour, forceOverwrite);
         }
 
-        public void retryUploadsForAccount(Account account, Context context) {
-            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver());
-            OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-            for ( OCUpload upload: failedUploads){
-                if (upload.getAccountName().equals(account.name) &&
-                        upload.getLastResult() == UploadResult.CREDENTIAL_ERROR ) {
-                    retry(context, account, upload);
-                }
-            }
-        }
 
         /**
          * Call to retry upload identified by remotePath
          */
         public void retry(Context context, Account account, OCUpload upload) {
-            Intent i = new Intent(context, FileUploader.class);
-            i.putExtra(FileUploader.KEY_RETRY, true);
             if (upload != null) {
+                Intent i = new Intent(context, FileUploader.class);
+                i.putExtra(FileUploader.KEY_RETRY, true);
                 i.putExtra(FileUploader.KEY_ACCOUNT, account);
                 i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
+                context.startService(i);
             }
-            context.startService(i);
+        }
+
+        /**
+         * TODO - improve interface, but now just recovering basic auto-retry of instant uploads on Wifi connection
+         *
+         * @param context
+         * @param account           Null to retry uploads in current account
+         * @param uploadResult
+         */
+        public void retryUploads(Context context, Account account, UploadResult uploadResult) {
+            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver());
+            OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
+            if (account == null) {
+                account = AccountUtils.getCurrentOwnCloudAccount(context);
+            }
+            for ( OCUpload upload: failedUploads){
+                if (upload.getAccountName().equals(account.name) &&
+                        upload.getLastResult() == uploadResult ) {
+
+                    retry(context, account, upload);
+                }
+            }
         }
 
     }

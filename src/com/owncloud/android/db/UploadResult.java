@@ -77,6 +77,7 @@ public enum UploadResult {
             case HOST_NOT_AVAILABLE:
             case TIMEOUT:
             case WRONG_CONNECTION:
+            case DELAYED_FOR_WIFI:
                 return NETWORK_CONNECTION;
             case ACCOUNT_EXCEPTION:
             case UNAUTHORIZED:

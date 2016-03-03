@@ -25,11 +25,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
+import com.owncloud.android.db.PreferenceReader;
+import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
@@ -40,10 +42,19 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  * Later can be added: - Signal connectivity to download service, deletion
  * service, ... - Handle offline mode (cf.
  * https://github.com/owncloud/android/issues/162)
- * 
+ *
+ * Have fun with the comments :S
  */
 public class ConnectivityActionReceiver extends BroadcastReceiver {
     private static final String TAG = ConnectivityActionReceiver.class.getSimpleName();
+
+    /**
+     * Magic keyword, by Google.
+     *
+     * {@See http://developer.android.com/intl/es/reference/android/net/wifi/WifiInfo.html#getSSID()}
+     */
+    private static final String UNKNOWN_SSID = "<unknown ssid>";
+
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -59,65 +70,116 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
             Log_OC.v(TAG, "no extras");
         }
 
-        
         /**
-         * Just checking for State.CONNECTED will be not good enough, as it ends here multiple times.
-         * Work around from:
-         * http://stackoverflow.com/
-         * questions/17287178/connectivitymanager-getactivenetworkinfo-returning-true-when-internet-is-off
-         */            
+         * There is an interesting mess to process WifiManager.NETWORK_STATE_CHANGED_ACTION and
+         * ConnectivityManager.CONNECTIVITY_ACTION in a simple and reliable way.
+         *
+         * The former triggers much more events than what we really need to know about Wifi connection.
+         *
+         * But there are annoying uncertainties about ConnectivityManager.CONNECTIVITY_ACTION due
+         * to the deprecation of ConnectivityManager.EXTRA_NETWORK_INFO in API level 14, and the absence
+         * of ConnectivityManager.EXTRA_NETWORK_TYPE until API level 17. Dear Google, how should we
+         * handle API levels 14 to 16?
+         *
+         * In the end maybe we need to keep in memory the current knowledge about connectivity
+         * and update it taking into account several Intents received in a row
+         *
+         * But first let's try something "simple" to keep a basic retry of instant uploads in
+         * version 1.9.2, similar to the existent until 1.9.1. To be improved.
+         */
         if(intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
             NetworkInfo networkInfo =
                 intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
-            if(networkInfo.isConnected()) {
-                Log_OC.d(TAG, "Wifi is connected: " + String.valueOf(networkInfo));
+            WifiInfo wifiInfo =
+                intent.getParcelableExtra(WifiManager.EXTRA_WIFI_INFO);
+            String bssid =
+                intent.getStringExtra(WifiManager.EXTRA_BSSID);
+            if(networkInfo.isConnected()   &&      // not enough; see (*) right below
+                wifiInfo != null    &&
+                !UNKNOWN_SSID.equals(wifiInfo.getSSID().toLowerCase()) &&
+                bssid != null
+                    ) {
+                Log_OC.d(TAG, "WiFi connected");
+
                 wifiConnected(context);
+            } else {
+                // TODO tons of things to check to conclude disconnection;
+                // TODO maybe alternative commented below, based on CONNECTIVITY_ACTION is better
+                Log_OC.d(TAG, "WiFi disconnected ... but don't know if right now");
             }
-        } else if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-            ConnectivityManager cm =
-                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-            if(networkInfo == null || networkInfo.getType() == ConnectivityManager.TYPE_WIFI &&
-                ! networkInfo.isConnected()) {
-                Log_OC.d(TAG, "Wifi is disconnected: " + String.valueOf(networkInfo));
-                wifiDisconnected(context);
-            }
+         }
+        // (*) When WiFi is lost, an Intent with network state CONNECTED and SSID "<unknown ssid>" is
+        //      received right before another Intent with network state DISCONNECTED; needs to
+        //      be differentiated of a new Wifi connection.
+        //
+        //  Besides, with a new connection two Intents are received, having only the second the extra
+        //  WifiManager.EXTRA_BSSID, with the BSSID of the access point accessed.
+        //
+        //  Not sure if this protocol is exact, since it's not documented. Only found mild references in
+        //   - http://developer.android.com/intl/es/reference/android/net/wifi/WifiInfo.html#getSSID()
+        //   - http://developer.android.com/intl/es/reference/android/net/wifi/WifiManager.html#EXTRA_BSSID
+        //  and reproduced in Nexus 5 with Android 6.
+
+
+        /**
+         * Possible alternative attending ConnectivityManager.CONNECTIVITY_ACTION.
+         *
+         * Let's see what QA has to say
+         *
+        if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+            NetworkInfo networkInfo = intent.getParcelableExtra(
+                    ConnectivityManager.EXTRA_NETWORK_INFO      // deprecated in API 14
+            );
+            int networkType = intent.getIntExtra(
+                    ConnectivityManager.EXTRA_NETWORK_TYPE,     // only from API level 17
+                    -1
+            );
+            boolean couldBeWifiAction =
+                    (networkInfo == null && networkType < 0)    ||      // cases of lack of info
+                    networkInfo.getType() == ConnectivityManager.TYPE_WIFI  ||
+                    networkType == ConnectivityManager.TYPE_WIFI;
+
+            if (couldBeWifiAction) {
+                if (ConnectivityUtils.isAppConnectedViaWiFi(context)) {
+                    Log_OC.d(TAG, "WiFi connected");
+                    wifiConnected(context);
+                } else {
+                    Log_OC.d(TAG, "WiFi disconnected");
+                    wifiDisconnected(context);
+                }
+            } /* else, CONNECTIVIY_ACTION is (probably) about other network interface (mobile, bluetooth, ...)
         }
-        
+        */
     }
 
     private void wifiConnected(Context context) {
-        //Log_OC.d(TAG, "FileUploader.retry() called by onReceive()");
-        //FileUploader.retry(context);
-        Log_OC.w(TAG, "Automatic retry of uploads on WiFi recovery is temporarily disabled due to dev in progress");
+        // for the moment, only recovery of instant uploads, similar to behaviour in release 1.9.1
+        // (with some side effects that improve it a bit, but needs to be better)
+        if (
+                (PreferenceReader.instantPictureUploadEnabled(context) &&
+                        PreferenceReader.instantPictureUploadViaWiFiOnly(context)) ||
+                (PreferenceReader.instantVideoUploadEnabled(context) &&
+                        PreferenceReader.instantPictureUploadViaWiFiOnly(context))
+                ) {
+            Log_OC.d(TAG, "Requesting retry of instant uploads (& friends)");
+            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+            requester.retryUploads(
+                    context,
+                    null,
+                    UploadResult.NETWORK_CONNECTION
+            );
+        }
     }
 
     private void wifiDisconnected(Context context) {
-        // This is not needed anymore after refactoring FileUploader service;
-        //  - if any upload is in progress, it will be interrupted due to the lack of connectivity while
-        //      the device reconnects through
-        //  - if other instant uploads are queued and the current settings requires 'Wifi only', FileUploader
-        //      will not execute them, since this is now checked when the upload is starting, not when it's
-        //      requested, see FileUploader#uploadFile(...)
-        //
-        // Leaving commented for a (short) while
-        /*
-        boolean instantPictureWiFiOnly = PreferenceReader.instantPictureUploadViaWiFiOnly(context);
-        boolean instantVideoWiFiOnly = PreferenceReader.instantVideoUploadViaWiFiOnly(context);
-        if (instantPictureWiFiOnly || instantVideoWiFiOnly) {
-            Account account = AccountUtils.getCurrentOwnCloudAccount(context);
-            if (account == null) {
-                Log_OC.w(TAG, "No account found for instant upload, aborting");
-                return;
-            }
+        // TODO something smart
 
-            Intent i = new Intent(context, FileUploader.class);
-            i.putExtra(FileUploader.KEY_ACCOUNT, account);
-            i.putExtra(FileUploader.KEY_CANCEL_ALL, true);
-            // TODO improve with extra options to cancel selected uploads: instant_pictures, instant_videos, ...
-            context.startService(i);
-        }
-        */
+        // NOTE: explicit cancellation of only-wifi instant uploads is not needed anymore, since currently:
+        //  - any upload in progress will be interrupted due to the lack of connectivity while the device
+        //      reconnects through other network interface;
+        //  - FileUploader checks instant upload settings and connection state before executing each
+        //    upload operation, so other pending instant uploads after the current one will not be run
+        //    (currently are silently moved to FAILED state)
     }
 
 

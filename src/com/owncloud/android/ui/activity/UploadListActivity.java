@@ -42,6 +42,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -224,7 +225,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         if (requestCode == UPDATE_CREDENTIALS_REQUEST_CODE && resultCode == FileActivity.RESULT_OK) {
             // Retry uploads of this account
             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-            requester.retryUploadsForAccount(getAccount(), this);
+            requester.retryUploads(this, getAccount(), UploadResult.CREDENTIAL_ERROR);
         }
     }
 
