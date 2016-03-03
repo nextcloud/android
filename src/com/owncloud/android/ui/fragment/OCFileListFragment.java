@@ -226,17 +226,8 @@ public class OCFileListFragment extends ExtendedListFragment
         getFabUpload().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent action = new Intent(getActivity(), UploadFilesActivity.class);
-                action.putExtra(
-                        UploadFilesActivity.EXTRA_ACCOUNT,
-                        ((FileActivity)getActivity()).getAccount()
-                );
-                //startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
-                // this flow seems broken;
-                getActivity().startActivityForResult(
-                        action,
-                        FileDisplayActivity.ACTION_SELECT_MULTIPLE_FILES
-                );
+                UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity)getActivity())
+                        .getAccount(), FileDisplayActivity.ACTION_SELECT_MULTIPLE_FILES);
                 getFabMain().collapse();
                 recordMiniFabClick();
             }
