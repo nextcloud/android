@@ -354,8 +354,6 @@ public class ExtendedListFragment extends Fragment
     }
 
     /**
-     * Disables FAB.
-     *
      * Sets the 'visibility' state of the FAB contained in the fragment.
      *
      * When 'false' is set, FAB visibility is set to View.GONE programatically,
