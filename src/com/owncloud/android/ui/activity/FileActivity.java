@@ -399,13 +399,13 @@ public class FileActivity extends AppCompatActivity
         //mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2],
         //        mDrawerContentDescriptions[2]));
 
-        // Settings
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1],
-                R.drawable.ic_settings));
-
         // Uploads
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2], mDrawerContentDescriptions[2],
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[2],
                 R.drawable.ic_uploads));
+
+        // Settings
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2], mDrawerContentDescriptions[1],
+                R.drawable.ic_settings));
 
         // Logs
         if (BuildConfig.DEBUG) {
@@ -1036,18 +1036,18 @@ public class FileActivity extends AppCompatActivity
 //                    mDrawerLayout.closeDrawers();
 //                    break;
 
-                case 1: // Settings
-                    Intent settingsIntent = new Intent(getApplicationContext(),
-                            Preferences.class);
-                    startActivity(settingsIntent);
-                    mDrawerLayout.closeDrawers();
-                    break;
-
-                case 2: // Uploads
+                case 1: // Uploads
                     Intent uploadListIntent = new Intent(getApplicationContext(),
                             UploadListActivity.class);
                     uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(uploadListIntent);
+                    mDrawerLayout.closeDrawers();
+                    break;
+
+                case 2: // Settings
+                    Intent settingsIntent = new Intent(getApplicationContext(),
+                            Preferences.class);
+                    startActivity(settingsIntent);
                     mDrawerLayout.closeDrawers();
                     break;
 
