@@ -141,7 +141,6 @@ public class FileDisplayActivity extends HookActivity
     private boolean mSyncInProgress = false;
 
     private static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
-    public static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
     private static String DIALOG_UPLOAD_SOURCE = "DIALOG_UPLOAD_SOURCE";
     private static String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
 

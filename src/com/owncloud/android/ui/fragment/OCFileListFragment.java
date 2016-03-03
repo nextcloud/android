@@ -90,6 +90,8 @@ public class OCFileListFragment extends ExtendedListFragment
 
     private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
 
+    private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
+
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile = null;
@@ -252,7 +254,7 @@ public class OCFileListFragment extends ExtendedListFragment
             public void onClick(View v) {
                 CreateFolderDialogFragment dialog =
                         CreateFolderDialogFragment.newInstance(mFile);
-                dialog.show(getActivity().getSupportFragmentManager(), FileDisplayActivity.DIALOG_CREATE_FOLDER);
+                dialog.show(getActivity().getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
                 getFabMain().collapse();
                 recordMiniFabClick();
             }
