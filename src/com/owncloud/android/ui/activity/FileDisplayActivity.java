@@ -613,12 +613,6 @@ public class FileDisplayActivity extends HookActivity
         return retval;
     }
 
-    public void createFolder() {
-        CreateFolderDialogFragment dialog =
-                CreateFolderDialogFragment.newInstance(getCurrentDir());
-        dialog.show(getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
-    }
-
     private void startSynchronization() {
         Log_OC.d(TAG, "Got to start sync");
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
