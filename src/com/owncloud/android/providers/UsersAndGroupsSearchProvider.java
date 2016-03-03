@@ -153,30 +153,42 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         }
 
         /// convert the responses from the OC server to the expected format
-        int count = 0;
         if (names.size() > 0) {
             response = new MatrixCursor(COLUMNS);
             Iterator<JSONObject> namesIt = names.iterator();
             JSONObject item;
             String displayName;
+            int count = 0;
             Uri dataUri;
             Uri userBaseUri = new Uri.Builder().scheme("content").authority(DATA_USER).build();
             Uri groupBaseUri = new Uri.Builder().scheme("content").authority(DATA_GROUP).build();
+            Uri remoteBaseUri = new Uri.Builder().scheme("content").authority(DATA_REMOTE).build();
 
             try {
                 while (namesIt.hasNext()) {
                     item = namesIt.next();
                     String userName = item.getString(GetRemoteShareesOperation.PROPERTY_LABEL);
                     JSONObject value = item.getJSONObject(GetRemoteShareesOperation.NODE_VALUE);
-                    byte type = (byte) value.getInt(GetRemoteShareesOperation.PROPERTY_SHARE_TYPE);
+                    int type = value.getInt(GetRemoteShareesOperation.PROPERTY_SHARE_TYPE);
                     String shareWith = value.getString(GetRemoteShareesOperation.PROPERTY_SHARE_WITH);
-                    if (GetRemoteShareesOperation.GROUP_TYPE.equals(type)) {
+
+                    if (ShareType.GROUP.getValue() == type) {
                         displayName = getContext().getString(R.string.share_group_clarification, userName);
                         dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
+                    } else if (ShareType.FEDERATED.getValue() == type) {
+                        // check if the federated sharing is allowed
+                        FileDataStorageManager manager = new FileDataStorageManager(account, getContext().getContentResolver());
+                        boolean federatedShareAllowed = manager.getCapability(account.name).getFilesSharingFederationOutgoing().isTrue();
+                        if(!federatedShareAllowed)
+                            continue;
+
+                        displayName = getContext().getString(R.string.share_remote_clarification, shareWith);
+                        dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
                     } else {
                         displayName = userName;
                         dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
                     }
+
                     response.newRow()
                             .add(count++)             // BaseColumns._ID
                             .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
@@ -186,20 +198,6 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             } catch (JSONException e) {
                 Log_OC.e(TAG, "Exception while parsing data of users/groups", e);
             }
-        }
-
-        // add a remote user suggestion if the query has the character '@'
-        FileDataStorageManager manager = new FileDataStorageManager(account, getContext().getContentResolver());
-        boolean federatedShareAllowed = manager.getCapability(account.name).getFilesSharingFederationOutgoing().isTrue();
-
-        if (userQuery.contains("@") && federatedShareAllowed) {
-            if (response == null)
-                response = new MatrixCursor(COLUMNS);
-
-            Uri remoteBaseUri = new Uri.Builder().scheme("content").authority(DATA_REMOTE).build();
-            String displayName = getContext().getString(R.string.share_remote_clarification, userQuery);
-            Uri dataUri = Uri.withAppendedPath(remoteBaseUri, userQuery);
-            response.newRow().add(count++).add(displayName).add(dataUri);
         }
 
         return response;
