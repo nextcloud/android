@@ -179,6 +179,13 @@ public class Uploader extends FileActivity
         if (mAccountSelected) {
             setAccount((Account) savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT));
         }
+
+        // Listen for sync messages
+        IntentFilter syncIntentFilter = new IntentFilter(RefreshFolderOperation.
+                EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+        syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+        mSyncBroadcastReceiver = new SyncBroadcastReceiver();
+        registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
     }
 
     @Override
@@ -202,13 +209,6 @@ public class Uploader extends FileActivity
         } else {
             showDialog(DIALOG_NO_STREAM);
         }
-
-        // Listen for sync messages
-        IntentFilter syncIntentFilter = new IntentFilter(RefreshFolderOperation.
-                                                         EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
-        syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
-        mSyncBroadcastReceiver = new SyncBroadcastReceiver();
-        registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
 
         super.setAccount(account, savedAccount);
     }
@@ -234,6 +234,14 @@ public class Uploader extends FileActivity
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, getAccount());
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
+    }
+
+    @Override
+    protected void onDestroy(){
+        if (mSyncBroadcastReceiver != null) {
+            unregisterReceiver(mSyncBroadcastReceiver);
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -357,7 +365,6 @@ public class Uploader extends FileActivity
     @Override
     public void onBackPressed() {
         if (mParents.size() <= 1) {
-            unregisterReceiver(mSyncBroadcastReceiver);
             super.onBackPressed();
             return;
         } else {
