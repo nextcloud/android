@@ -41,16 +41,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ImageSimpleAdapter extends SimpleAdapter {
+public class UploaderAdapter extends SimpleAdapter {
     
     private Context mContext;
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
     private LayoutInflater inflater;
 
-    public ImageSimpleAdapter(Context context,
-            List<? extends Map<String, ?>> data, int resource, String[] from,
-            int[] to, FileDataStorageManager storageManager, Account account) {
+    public UploaderAdapter(Context context,
+                           List<? extends Map<String, ?>> data, int resource, String[] from,
+                           int[] to, FileDataStorageManager storageManager, Account account) {
         super(context, data, resource, from, to);
         mAccount = account;
         mStorageManager = storageManager;
