@@ -62,8 +62,8 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:background="@color/background_color"
-            android:divider="@color/list_divider_background"
-            android:dividerHeight="1dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"
             android:paddingTop="100dp" />
 
         <LinearLayout

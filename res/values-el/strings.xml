@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">Εφαρμογή %1$s Android</string>
   <string name="about_version">έκδοση %1$s</string>
   <string name="actionbar_sync">Ανανέωση λογαριασμού</string>
   <string name="actionbar_upload">Μεταφόρτωση</string>
@@ -38,6 +39,7 @@
   <string name="prefs_instant_video_upload_summary">Άμεση μεταφόρτωση των βίντεο από την φωτογραφική μηχανή</string>
   <string name="prefs_log_summary">Χρησιμοποιείται για την καταγραφή προβλημάτων</string>
   <string name="prefs_log_summary_history">Εδώ μπορείτε να δείτε το καταγεγραμμένο ιστορικό</string>
+  <string name="prefs_log_delete_history_button">Διαγραφή ιστορικού</string>
   <string name="prefs_help">Βοήθεια</string>
   <string name="prefs_recommend">Προτείνετε σε φίλο</string>
   <string name="prefs_feedback">Σχόλια </string>
@@ -46,6 +48,7 @@
   <string name="prefs_remember_last_upload_location_summary">Αποθήκευση τελευταίου σημείου διαμοιρασμού μεταφόρτωσης</string>
   <string name="recommend_subject">Δοκιμάστε %1$s στο κινητό σας!</string>
   <string name="recommend_text">Θα ήθελα να σε προσκαλέσω να χρησιμοποιήσεις το %1$s στο κινητό σου!\nΛήψη εδώ: %2$s</string>
+  <string name="auth_check_server">Έλεγχος διακομιστή</string>
   <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
   <string name="auth_username">Όνομα χρήστη</string>
   <string name="auth_password">Συνθηματικό</string>
@@ -78,12 +81,15 @@
   <string name="common_yes">Ναι</string>
   <string name="common_no">Όχι</string>
   <string name="common_ok">ΟΚ</string>
+  <string name="common_cancel_sync">Ακύρωση συγχρονισμού</string>
   <string name="common_cancel">Άκυρο</string>
+  <string name="common_save_exit">Αποθήκευση &amp; έξοδος</string>
   <string name="common_error">Σφάλμα</string>
   <string name="common_loading">Φόρτωση ...</string>
   <string name="common_error_unknown">Άγνωστο σφάλμα</string>
   <string name="about_title">Σχετικά</string>
   <string name="change_password">Αλλαγή κωδικού πρόσβασης</string>
+  <string name="delete_account">Αφαίρεση λογαριασμού</string>
   <string name="create_account">Δημιουργία λογαριασμού</string>
   <string name="upload_chooser_title">Μεταφόρτωση από ...</string>
   <string name="uploader_info_dirname">Όνομα φακέλου</string>
@@ -95,10 +101,13 @@
   <string name="downloader_download_in_progress_ticker">Λήψη ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Λαμβάνονται %2$s</string>
   <string name="downloader_download_succeeded_ticker">Η λήψη ολοκληρώθηκε επιτυχώς</string>
+  <string name="downloader_download_succeeded_content">%1$s ελήφθησαν</string>
   <string name="downloader_download_failed_ticker">Η λήψη απέτυχε</string>
   <string name="downloader_download_failed_content">Η λήψη του %1$s δεν μπόρεσε να ολοκληρωθεί</string>
   <string name="downloader_not_downloaded_yet">Δεν έχει ληφθεί ακόμα</string>
+  <string name="downloader_download_failed_credentials_error">Αποτυχία λήψης, πρέπει να εισέλθετε ξανά</string>
   <string name="common_choose_account">Επιλογή λογαριασμού</string>
+  <string name="sync_fail_ticker">Αποτυχία συγχρονισμού</string>
   <string name="sync_fail_content_unauthorized">Λάθος κωδικός για %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Βρέθηκαν συγκρούσεις</string>
   <string name="sync_conflicts_in_favourites_content">%1$d αρχεία σε αναμονή συγχρονισμού δεν μπόρεσαν να συγχρονιστούν</string>
@@ -150,6 +159,7 @@
   <string name="auth_unknown_host_title">Δεν βρέθηκε κόμβος</string>
   <string name="auth_incorrect_path_title">Δεν βρέθηκε εγκατεστημένος διακομιστής</string>
   <string name="auth_timeout_title">Ο διακομιστής αργεί πολύ να απαντήσει</string>
+  <string name="auth_incorrect_address_title">Εσφαλμένη μορφή διεύθυνσης διακομιστή</string>
   <string name="auth_ssl_general_error_title">Η αρχικοποίηση του SLL απέτυχε</string>
   <string name="auth_ssl_unverified_server_title">Αδυναμία επιβεβαίωσης της ταυτότητας του διακομιστή SSL </string>
   <string name="auth_bad_oc_version_title">Μη-αναγνωρίσιμη έκδοση διακομιστή</string>
@@ -226,6 +236,8 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
+  <string name="instant_upload_on_wifi">Μεταφόρτωση φωτογραφιών μόνο μέσω wifi</string>
+  <string name="instant_video_upload_on_wifi">Μεταφόρτωση βίντεο μόνο μέσω wifi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Διένεξη αρχείων</string>
   <string name="conflict_message">Ποια αρχεία θέλετε να κρατήσετε; Αν επιλέξετε και τις δύο εκδοχές, στο τοπικό αρχείο θα προστεθεί ένας αριθμός στο όνομά του.</string>
@@ -264,6 +276,7 @@
   <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
   <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται μέσω μιας μη ασφαλούς διαδρομής.</string>
   <string name="actionbar_logger">Αρχεία καταγραφών</string>
+  <string name="log_send_history_button">Αποστολή ιστορικού</string>
   <string name="log_send_mail_subject">%1$s αναφορές της εφαρμογής Android</string>
   <string name="saml_authentication_required_text">Απαιτείται πιστοποίηση</string>
   <string name="saml_authentication_wrong_pass">Εσφαλμένος κωδικός πρόσβασης</string>
@@ -299,8 +312,11 @@
   <string name="file_list__footer__files_and_folder">%1$d αρχεία, 1 φάκελος</string>
   <string name="file_list__footer__files_and_folders">%1$d αρχεία, %2$d φάκελοι</string>
   <string name="upload_copy_files">Αντιγραφή αρχείου</string>
+  <string name="upload_move_files">Μετακίνηση αρχείου</string>
   <string name="share_dialog_title">Διαμοιρασμός</string>
+  <string name="share_with_user_section_title">Διαμοιρασμός με χρήστες και ομάδες</string>
   <string name="share_no_users">Δεν έχουν διαμοιραστεί ακόμα δεδομένα με τους χρήστες</string>
+  <string name="share_add_user_or_group">Προσθήκη χρήστη ή ομάδας</string>
   <string name="share_via_link_section_title">Διαμοιρασμός συνδέσμου</string>
   <string name="share_via_link_expiration_date_label">Ορισμός ημ. λήξης</string>
   <string name="share_via_link_password_label">Προστασία συνθηματικού</string>
@@ -315,4 +331,7 @@
   <string name="share_privilege_can_edit_create">δημιουργία</string>
   <string name="share_privilege_can_edit_change">αλλαγή</string>
   <string name="share_privilege_can_edit_delete">διαγραφή</string>
+  <string name="edit_share_unshare">Διακοπή διαμοιρασμού</string>
+  <string name="manage_space_clear_data">Εκκαθάριση δεδομένων</string>
+  <string name="manage_space_error">Μερικά αρχεία δεν μπορούν να διαγραφούν.</string>
 </resources>

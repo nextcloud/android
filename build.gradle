@@ -74,9 +74,6 @@ android {
         abortOnError false
     }
 
-    productFlavors {
-    }
-
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
     }

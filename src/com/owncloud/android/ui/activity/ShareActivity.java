@@ -48,8 +48,6 @@ import com.owncloud.android.ui.fragment.ShareFileFragment;
 import com.owncloud.android.ui.fragment.ShareFragmentListener;
 import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
 
-import org.apache.http.protocol.HTTP;
-
 
 /**
  * Activity for sharing files
@@ -207,7 +205,7 @@ public class ShareActivity extends FileActivity
 
             Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
             intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
-            intentToShareLink.setType(HTTP.PLAIN_TEXT_TYPE);
+            intentToShareLink.setType("text/plain");
             String[] packagesToExclude = new String[]{getPackageName()};
             DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
             chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);

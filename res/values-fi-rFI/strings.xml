@@ -344,4 +344,5 @@
   <string name="manage_space_title">Hallitse tilaa</string>
   <string name="manage_space_clear_data">Tyhjennä tiedot</string>
   <string name="manage_space_error">Joitain tiedostoja ei voitu poistaa.</string>
+  <string name="permission_storage_access">Tiedostojen lataaminen ja lähetys vaatii lisäoikeuksia.</string>
 </resources>

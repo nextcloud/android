@@ -370,4 +370,5 @@
   <string name="manage_space_description">Definições, banco de dados e certificados de servidor de %1$s será excluído permanentemente. Arquivos baixados serão mantidos inalterados. \n\nEste processo pode demorar algum tempo.</string>
   <string name="manage_space_clear_data">Limpar dados</string>
   <string name="manage_space_error">Alguns arquivos não puderam ser excluído.</string>
+  <string name="permission_storage_access">Permissões adicionais são necessárias para se enviar e baixar arquivos &amp; .</string>
 </resources>

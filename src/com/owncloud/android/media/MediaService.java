@@ -41,6 +41,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.NotificationCompat;
+import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -150,7 +151,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
     /** Notification builder to create notifications, new reuse way since Android 6 */
     private NotificationCompat.Builder mNotificationBuilder;
-    
+
     /**
      * Helper method to get an error message suitable to show to users for errors occurred in media playback,
      * 

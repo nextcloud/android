@@ -21,6 +21,17 @@
 package com.owncloud.android.files;
 
 import android.Manifest;
+import java.io.File;
+
+import com.owncloud.android.MainApp;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.FileStorageUtils;
+
+
+import android.Manifest;
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -94,7 +105,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
         if (account == null) {
-            Log_OC.w(TAG, "No ownCloud account found for instant upload, aborting");
+            Log_OC.w(TAG, "No account found for instant upload, aborting");
             return;
         }
 
@@ -179,7 +190,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
         if (account == null) {
-            Log_OC.w(TAG, "No owncloud account found for instant upload, aborting");
+            Log_OC.w(TAG, "No account found for instant upload, aborting");
             return;
         }
 
@@ -231,7 +242,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         if (instantPictureUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context)){
             Account account = AccountUtils.getCurrentOwnCloudAccount(context);
             if (account == null) {
-                Log_OC.w(TAG, "No owncloud account found for instant upload, aborting");
+                Log_OC.w(TAG, "No account found for instant upload, aborting");
                 return;
             }
 

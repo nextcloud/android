@@ -62,7 +62,7 @@ To set up the project in Android Studio follow the next steps:
 
 ### 3. Working in a terminal with Gradle:
 
-[Gradle][7] is the build system used by Android Studio to manage the building operations on Android apps. You do not need to install Gradle in your system, and Google recommends not to do it, but instead trusting on the Graddle wrapper included in the project [8].
+[Gradle][7] is the build system used by Android Studio to manage the building operations on Android apps. You do not need to install Gradle in your system, and Google recommends not to do it, but instead trusting on the [Graddle wrapper][8] included in the project.
 
 * Open a terminal and go to the 'android' directory that contains the repository.
 * Complete the setup of project properties running:
@@ -92,8 +92,7 @@ The generated APK file is saved in android/build/outputs/apk as android-debug.ap
   - owncloud-android 
   - android-support-appcompat-v7-exploded-aar
   - android-support-design-exploded-aar
-  - com-getbase-floatingactionbutton-1-10-0-exploded-aar
-  - owncloud-android-workaround-accounts	(optional)
+  - owncloud-android-workaround-accounts (optional)
   - ownCloud Android Library
   - ownCloud Sample Client (optional)
   - ownCloud Android library test project (optional)
@@ -106,16 +105,14 @@ The generated APK file is saved in android/build/outputs/apk as android-debug.ap
   - ownCloud Android Library
   - android-support-appcompat-v7-exploded-aar
   - android-support-design-exploded-aar
-  - com-getbase-floatingactionbutton-1-10-0-exploded-aar
   - owncloud-android
 * If any error on those projects persists, check the project properties. In the 'Android' section, API Level should be
-  * ownCloud Android Library	-> API level 19
-  * android-support-appcompat-v7-exploded-aa -> API level 23
-  * android-support-design-exploded-aa -> API level 23
-  * owncloud-android	-> API level 23 ; in this project, three library projects should appear referred in the bottom of the dialog: 
+  - ownCloud Android Library	-> API level 19
+  - android-support-appcompat-v7-exploded-aa -> API level 23
+  - android-support-design-exploded-aa -> API level 23
+  - owncloud-android	-> API level 23 ; in this project, three library projects should appear referred in the bottom of the dialog: 
     - libs\android-support-appcompat-v7-exploded-aar, 
     - libs\android-support-design-exploded-aar, 
-    - libs\com-getbase-floatingactionbutton-1-10-0-exploded-aar and 
     - owncloud-android-library. 
     - Add them if needed.
 * After those actions you should be good to go. HAVE FUN!
@@ -144,9 +141,8 @@ NOTE: You must have mvn (version >= 3.1.1) in your environment path. Current And
 Download/install Android plugin for Maven, then build ownCloud with mvn:
 
 * Resolve necessary dependencies running:
-    - Windows: "setup_env.bat maven"
-    - Mac OS/Linux: "./setup_env.sh maven"
-	
+  - Windows: "setup_env.bat maven"
+  - Mac OS/Linux: "./setup_env.sh maven"
 * cd ..
 * git clone https://github.com/mosabua/maven-android-sdk-deployer.git
 * cd maven-android-sdk-deployer

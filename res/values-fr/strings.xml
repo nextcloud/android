@@ -31,7 +31,7 @@
   <string name="prefs_category_general">Général</string>
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_accounts">Comptes</string>
-  <string name="prefs_manage_accounts">Gestion des comptes</string>
+  <string name="prefs_manage_accounts">Gestion des comptes utilisateur</string>
   <string name="prefs_passcode">Code de sécurité</string>
   <string name="prefs_instant_upload">Téléversement immédiat des photos</string>
   <string name="prefs_instant_upload_summary">Téléverser immédiatement les photos prises par la caméra</string>
@@ -374,4 +374,5 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="manage_space_description">Les paramètres, la base de données et les certificats provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCe processus peut prendre un certain temps.</string>
   <string name="manage_space_clear_data">Effacer les données</string>
   <string name="manage_space_error">Certains fichiers n\'ont pu être supprimés.</string>
+  <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser &amp; télécharger des fichiers.</string>
 </resources>

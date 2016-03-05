@@ -368,4 +368,5 @@
   <string name="manage_space_description">Definições, base de dados e certificados de servidor dos dados de %1$s serão apagados permanentemente. \n\nFicheiros descarregados permanecerão intocados.\n\nEste processo pode demorar algum tempo.</string>
   <string name="manage_space_clear_data">Limpar dados</string>
   <string name="manage_space_error">Alguns ficheiros não podem ser apagados.</string>
+  <string name="permission_storage_access">São necessárias permissões adicionais para carregar &amp; descarregar ficheiros.</string>
 </resources>

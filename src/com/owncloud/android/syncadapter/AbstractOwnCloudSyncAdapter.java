@@ -24,11 +24,6 @@ package com.owncloud.android.syncadapter;
 
 import java.io.IOException;
 
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
@@ -115,12 +110,4 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         return mClient;
     }
     
-    
-    /* method called by ContactSyncAdapter, that is never used */
-    protected HttpResponse fireRawRequest(HttpRequest query)
-            throws ClientProtocolException, OperationCanceledException,
-            AuthenticatorException, IOException {
-        return null;
-    }
-
 }

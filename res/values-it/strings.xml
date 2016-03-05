@@ -370,4 +370,5 @@
   <string name="manage_space_description">Impostazioni, database e certificati server dai dati di %1$s saranno eliminati definitivamente.\n\n\I file scaricati non saranno interessati.\n\nQuesto processo può richiedere del tempo.</string>
   <string name="manage_space_clear_data">Cancella i dati</string>
   <string name="manage_space_error">Alcuni file non possono essere eliminati.</string>
+  <string name="permission_storage_access">Permessi aggiuntivi sono richiesti per caricare e scaricare i file.</string>
 </resources>
