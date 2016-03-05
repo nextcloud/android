@@ -28,6 +28,7 @@
 
     <dimen name="file_icon_size">32dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
+    <dimen name="file_avatar_size">128dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="standard_half_padding">8dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
