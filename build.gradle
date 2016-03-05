@@ -37,8 +37,8 @@ android {
 
     defaultConfig {
         applicationId "com.owncloud.android.beta"
-        versionCode 20160206
-        versionName "20160206"
+        versionCode 20160305
+        versionName "20160305"
     }
 
     sourceSets {
