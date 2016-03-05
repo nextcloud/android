@@ -95,7 +95,7 @@
   <string name="common_error_unknown">Неизвестная ошибка</string>
   <string name="about_title">О программе</string>
   <string name="change_password">Сменить пароль</string>
-  <string name="delete_account">Удалить учётную запись</string>
+  <string name="delete_account">Удалить аккаунт</string>
   <string name="create_account">Создать учётную запись</string>
   <string name="upload_chooser_title">Загрузить из ...</string>
   <string name="uploader_info_dirname">Имя каталога</string>
@@ -201,9 +201,6 @@
   <string name="confirmation_remove_file_alert">Вы действительно хотите удалить %1$s?</string>
   <string name="confirmation_remove_folder_alert">Вы действительно хотите удалить %1$s и его содержимое?</string>
   <string name="confirmation_remove_local">Только локально</string>
-  <string name="confirmation_remove_folder_local">Только локально</string>
-  <string name="confirmation_remove_remote">От сервера</string>
-  <string name="confirmation_remove_remote_and_local">Удаленно и локально</string>
   <string name="remove_success_msg">Удаление завершено</string>
   <string name="remove_fail_msg">Ошибка удаления</string>
   <string name="rename_dialog_title">Введите новое имя</string>
@@ -366,4 +363,8 @@
   <string name="edit_share_done">завершено</string>
   <string name="action_switch_grid_view">Сетка</string>
   <string name="action_switch_list_view">Список</string>
+  <string name="manage_space_title">Управление свободным местом</string>
+  <string name="manage_space_description">Настройки, база данных и сертификат сервера от %1$s будут удалены навсегда.\n\nСкачанные файлы не будут изменены.\n\nЭто действие может занять некоторое время.</string>
+  <string name="manage_space_clear_data">Очистить данные</string>
+  <string name="manage_space_error">Некоторые файлы не могут быть удалены.</string>
 </resources>

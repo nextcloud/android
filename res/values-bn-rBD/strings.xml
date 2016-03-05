@@ -67,7 +67,6 @@
   <string name="common_error_unknown">অজানা জটিলতা</string>
   <string name="about_title">সমপরকে</string>
   <string name="change_password">কূটশব্দ পরিবর্তন করুন</string>
-  <string name="delete_account">একাউন্ট মূছুন</string>
   <string name="create_account">একাউন্ট তেরী কর</string>
   <string name="upload_chooser_title">ফরম আপলোড কর</string>
   <string name="uploader_info_dirname">ফোলডারের নাম</string>
@@ -145,7 +144,6 @@
   <string name="confirmation_remove_file_alert">আপনি কি সত্যিই %1$s অপসারণ করতে চান?</string>
   <string name="confirmation_remove_folder_alert">আপনি কি সত্যিই %1$s এবং এর কনটেন্ট অপসারণ করতে চান?</string>
   <string name="confirmation_remove_local">শুধুমাত্র লোকাল</string>
-  <string name="confirmation_remove_folder_local">শুধুমাত্র লোকাল</string>
   <string name="remove_success_msg">অপসারণ সফল</string>
   <string name="remove_fail_msg">অপসারণ ব্যার্থ</string>
   <string name="rename_dialog_title">একটি নতুন নাম লিখুন</string>

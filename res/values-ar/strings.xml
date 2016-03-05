@@ -81,7 +81,6 @@
   <string name="common_error_unknown">خطأ غير معروف. </string>
   <string name="about_title">حول</string>
   <string name="change_password">عدل كلمة السر</string>
-  <string name="delete_account">حذف الحساب</string>
   <string name="create_account">حساب جديد</string>
   <string name="upload_chooser_title">الرفع من ...</string>
   <string name="uploader_info_dirname">اسم المجلد</string>
@@ -159,7 +158,6 @@
   <string name="confirmation_remove_file_alert">هل تريد حقاً حذف %1$s ؟</string>
   <string name="confirmation_remove_folder_alert">هل ترغب في حذف %1$s و جهات الإتصال التابعة له؟ </string>
   <string name="confirmation_remove_local">محليا فقط</string>
-  <string name="confirmation_remove_folder_local">محليا فقط</string>
   <string name="remove_success_msg">تم الحذف بنجاح</string>
   <string name="remove_fail_msg">فشل الحذف</string>
   <string name="rename_dialog_title">أدخل اسما جديدا</string>

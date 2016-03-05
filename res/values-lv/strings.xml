@@ -73,7 +73,6 @@
   <string name="common_error_unknown">Nezināma kļūda</string>
   <string name="about_title">Par</string>
   <string name="change_password">Mainīt paroli</string>
-  <string name="delete_account">Dzēst kontu</string>
   <string name="create_account">Izveidot kontu</string>
   <string name="upload_chooser_title">Augšupielādēt no...</string>
   <string name="uploader_info_dirname">Mapes nosaukums</string>
@@ -108,8 +107,6 @@
   <string name="common_rename">Pārsaukt</string>
   <string name="common_remove">Izņemt</string>
   <string name="confirmation_remove_local">Tikai lokālos</string>
-  <string name="confirmation_remove_folder_local">Tikai lokālos</string>
-  <string name="confirmation_remove_remote">No servera</string>
   <string name="remove_success_msg">Veiksmīgi izņemts</string>
   <string name="remove_fail_msg">Neizdevās izņemt</string>
   <string name="rename_dialog_title">Ievadīt jaunu nosaukumu</string>

@@ -37,7 +37,6 @@
   <string name="common_error_unknown">Error Incognite</string>
   <string name="about_title">A proposito</string>
   <string name="change_password">Cambiar contrasigno</string>
-  <string name="delete_account">Deler conto</string>
   <string name="uploader_info_dirname">Nomine de dossier</string>
   <string name="activity_chooser_send_file_title">Invia</string>
   <string name="empty"></string>

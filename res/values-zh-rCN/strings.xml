@@ -83,7 +83,6 @@
   <string name="common_error_unknown">未知错误</string>
   <string name="about_title">关于</string>
   <string name="change_password">修改密码</string>
-  <string name="delete_account">删除账号</string>
   <string name="create_account">创建账号</string>
   <string name="upload_chooser_title">上传自...</string>
   <string name="uploader_info_dirname">文件夹名称</string>

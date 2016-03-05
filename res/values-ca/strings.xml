@@ -77,7 +77,6 @@
   <string name="common_error_unknown">Error desconegut</string>
   <string name="about_title">Quant a</string>
   <string name="change_password">Canvia la contrasenya</string>
-  <string name="delete_account">Elimina compte</string>
   <string name="create_account">Crea un compte</string>
   <string name="upload_chooser_title">Puja fitxer des de ...</string>
   <string name="uploader_info_dirname">Nom de la carpeta</string>
@@ -154,7 +153,6 @@
   <string name="confirmation_remove_file_alert">Esteu segur que voleu eliminar %1$s?</string>
   <string name="confirmation_remove_folder_alert">Estàs segur que vols esborrar %1$s i els seus continguts?</string>
   <string name="confirmation_remove_local">Només local</string>
-  <string name="confirmation_remove_folder_local">Només local</string>
   <string name="remove_success_msg">L\'eliminació ha tingut èxit</string>
   <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
   <string name="rename_dialog_title">Introdueix un nom nou</string>

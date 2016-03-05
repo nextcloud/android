@@ -83,7 +83,6 @@
   <string name="common_error_unknown">Tundmatu viga</string>
   <string name="about_title">Info</string>
   <string name="change_password">Muuda parooli</string>
-  <string name="delete_account">Kustuta konto</string>
   <string name="create_account">Loo konto</string>
   <string name="upload_chooser_title">Lae fail üles kohast ...</string>
   <string name="uploader_info_dirname">Kausta nimi</string>

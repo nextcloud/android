@@ -81,7 +81,6 @@
   <string name="common_error_unknown">Ismeretlen hiba</string>
   <string name="about_title">Rólunk</string>
   <string name="change_password">A jelszó megváltoztatása</string>
-  <string name="delete_account">Fiók törlése</string>
   <string name="create_account">Fiók létrehozása</string>
   <string name="upload_chooser_title">Feltöltés innen ...</string>
   <string name="uploader_info_dirname">Mappanév</string>
@@ -165,7 +164,6 @@
   <string name="confirmation_remove_file_alert">Tényleg el akarod távolítani %1$s?</string>
   <string name="confirmation_remove_folder_alert">Tényleg el akarod távolítani a %1$s és tartalmát?</string>
   <string name="confirmation_remove_local">Csak a helyi példány</string>
-  <string name="confirmation_remove_folder_local">Csak a helyi példány</string>
   <string name="remove_success_msg">Az eltávolítás sikerült</string>
   <string name="remove_fail_msg">Az eltávolítás nem sikerült</string>
   <string name="rename_dialog_title">Adj meg egy új nevet</string>

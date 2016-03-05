@@ -680,14 +680,19 @@ public class FileDisplayActivity extends HookActivity
 
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK ||
                 resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+
             //getClipData is only supported on api level 16+, Jelly Bean
-            if (data.getData() == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN &&
+                    data.getClipData() != null &&
+                    data.getClipData().getItemCount() > 0) {
+
                 for( int i = 0; i < data.getClipData().getItemCount(); i++){
                     Intent intent = new Intent();
                     intent.setData(data.getClipData().getItemAt(i).getUri());
                     requestSimpleUpload(intent, resultCode);
                 }
-            }else {
+
+            } else {
                 requestSimpleUpload(data, resultCode);
             }
         } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK ||

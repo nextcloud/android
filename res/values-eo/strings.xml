@@ -55,7 +55,6 @@
   <string name="common_error_unknown">Nekonata eraro</string>
   <string name="about_title">Pri</string>
   <string name="change_password">Ŝanĝi la pasvorton</string>
-  <string name="delete_account">Forigi konton</string>
   <string name="create_account">Krei konton</string>
   <string name="upload_chooser_title">Alŝuti dosieron el...</string>
   <string name="uploader_info_dirname">Dosierujnomo</string>
@@ -107,7 +106,6 @@
   <string name="confirmation_remove_file_alert">Ĉu vi vere volas forigi %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ĉu vi vere volas forigi %1$s kaj ĝia enhavo?</string>
   <string name="confirmation_remove_local">Nur loka</string>
-  <string name="confirmation_remove_folder_local">Nur loka</string>
   <string name="remove_success_msg">Forigo sukcesis</string>
   <string name="remove_fail_msg">Forigo ne eblis plenumiĝi</string>
   <string name="rename_dialog_title">Enigu novan nomon</string>

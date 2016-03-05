@@ -83,7 +83,6 @@
   <string name="common_error_unknown">Ukendt fejl</string>
   <string name="about_title">Om</string>
   <string name="change_password">Skift kodeord</string>
-  <string name="delete_account">Slet konto</string>
   <string name="create_account">Opret konto</string>
   <string name="upload_chooser_title">Upload fra ...</string>
   <string name="uploader_info_dirname">Mappenavn</string>

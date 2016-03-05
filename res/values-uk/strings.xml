@@ -83,7 +83,6 @@
   <string name="common_error_unknown">Невідома помилка</string>
   <string name="about_title">Про</string>
   <string name="change_password">Змінити пароль</string>
-  <string name="delete_account">Видалити запис</string>
   <string name="create_account">Створити запис</string>
   <string name="upload_chooser_title">Завантажити з …</string>
   <string name="uploader_info_dirname">Ім\'я теки</string>
@@ -172,9 +171,6 @@
   <string name="confirmation_remove_file_alert">Ви дійсно бажаєте видалити %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ви дійсно бажаєте видалити %1$s та весь вміст?</string>
   <string name="confirmation_remove_local">Лише локально</string>
-  <string name="confirmation_remove_folder_local">Лише локально</string>
-  <string name="confirmation_remove_remote">З серверу</string>
-  <string name="confirmation_remove_remote_and_local">Видалити &amp; локальний</string>
   <string name="remove_success_msg">Успішно видалено</string>
   <string name="remove_fail_msg">Видалення не вдалось</string>
   <string name="rename_dialog_title">Введіть нове ім\'я</string>

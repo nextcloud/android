@@ -84,7 +84,6 @@
   <string name="common_error_unknown">Neznáma chyba</string>
   <string name="about_title">O</string>
   <string name="change_password">Zmeniť heslo</string>
-  <string name="delete_account">Zmazať účet</string>
   <string name="create_account">Vytvoriť účet</string>
   <string name="upload_chooser_title">Odoslať z ...</string>
   <string name="uploader_info_dirname">Názov priečinka</string>

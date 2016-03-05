@@ -59,7 +59,6 @@
   <string name="common_error_unknown">មិន​ស្គាល់​កំហុស</string>
   <string name="about_title">អំពី</string>
   <string name="change_password">ប្តូរ​ពាក្យសម្ងាត់</string>
-  <string name="delete_account">លប់គណនី</string>
   <string name="create_account">បង្កើតគណនី</string>
   <string name="upload_chooser_title">ផ្ទុកឡើងពី...</string>
   <string name="uploader_info_dirname">ឈ្មោះ​ថត</string>
@@ -76,7 +75,6 @@
   <string name="common_rename">ប្ដូរ​ឈ្មោះ</string>
   <string name="common_remove">ដកចេញ</string>
   <string name="confirmation_remove_local">ទីកន្លែងតែមួយ</string>
-  <string name="confirmation_remove_folder_local">ទីកន្លែងតែមួយ</string>
   <string name="remove_success_msg">ការដកយកចេញបានជោគជ័យ</string>
   <string name="remove_fail_msg">ការដកយកចេញបានបរាជ័យ</string>
   <string name="rename_dialog_title">បញ្ចូលឈ្មោះថ្មី</string>

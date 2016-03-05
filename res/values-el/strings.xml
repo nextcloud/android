@@ -84,7 +84,6 @@
   <string name="common_error_unknown">Άγνωστο σφάλμα</string>
   <string name="about_title">Σχετικά</string>
   <string name="change_password">Αλλαγή κωδικού πρόσβασης</string>
-  <string name="delete_account">Διαγραφή λογαριασμού</string>
   <string name="create_account">Δημιουργία λογαριασμού</string>
   <string name="upload_chooser_title">Μεταφόρτωση από ...</string>
   <string name="uploader_info_dirname">Όνομα φακέλου</string>

@@ -79,7 +79,6 @@
   <string name="common_error_unknown">Непозната грешка</string>
   <string name="about_title">За</string>
   <string name="change_password">Смени лозинка</string>
-  <string name="delete_account">Избриши ја сметката</string>
   <string name="create_account">Креирај сметка</string>
   <string name="upload_chooser_title">подигни од ...</string>
   <string name="uploader_info_dirname">Име на папка</string>
@@ -167,7 +166,6 @@
   <string name="confirmation_remove_file_alert">Дали навистина сакаш да ја отстраниш %1$s?</string>
   <string name="confirmation_remove_folder_alert">Дали навистина сакаш да го отстранам %1$s и неговата содржина?</string>
   <string name="confirmation_remove_local">Само локално</string>
-  <string name="confirmation_remove_folder_local">Само локално</string>
   <string name="remove_success_msg">Одстранувањето е успешно</string>
   <string name="remove_fail_msg">Одстранувањето е неуспешно</string>
   <string name="rename_dialog_title">Внеси ново име</string>

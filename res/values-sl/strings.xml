@@ -84,7 +84,6 @@
   <string name="common_error_unknown">Neznana napaka</string>
   <string name="about_title">O oblaku %1$s</string>
   <string name="change_password">Spremeni geslo</string>
-  <string name="delete_account">Izbriši račun</string>
   <string name="create_account">Ustvari račun</string>
   <string name="upload_chooser_title">Pošlji datoteko iz …</string>
   <string name="uploader_info_dirname">Ime mape</string>
