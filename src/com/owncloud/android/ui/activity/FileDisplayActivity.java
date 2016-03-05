@@ -1068,9 +1068,6 @@ public class FileDisplayActivity extends HookActivity implements
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
                     mProgressBar.setIndeterminate(mSyncInProgress);
-                    //mProgressBar.setVisibility((mSyncInProgress) ? View.VISIBLE : View.INVISIBLE);
-                    //setSupportProgressBarIndeterminateVisibility(mSyncInProgress
-                    /*|| mRefreshSharesInProgress*/ //);
 
                     setBackgroundText();
 

@@ -50,8 +50,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
-import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -67,38 +65,23 @@ import android.widget.Toast;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.OwnCloudCredentials;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.ImageSimpleAdapter;
-import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.CopyTmpFileAsyncTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
-import java.util.Vector;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -175,6 +158,13 @@ public class Uploader extends FileActivity
         if (mAccountSelected) {
             setAccount((Account) savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT));
         }
+
+        // Listen for sync messages
+        IntentFilter syncIntentFilter = new IntentFilter(RefreshFolderOperation.
+                EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+        syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+        mSyncBroadcastReceiver = new SyncBroadcastReceiver();
+        registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
     }
 
     @Override
@@ -198,13 +188,6 @@ public class Uploader extends FileActivity
         } else {
             showDialog(DIALOG_NO_STREAM);
         }
-
-        // Listen for sync messages
-        IntentFilter syncIntentFilter = new IntentFilter(RefreshFolderOperation.
-                                                         EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
-        syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
-        mSyncBroadcastReceiver = new SyncBroadcastReceiver();
-        registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
 
         super.setAccount(account, savedAccount);
     }
@@ -230,6 +213,14 @@ public class Uploader extends FileActivity
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, getAccount());
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
+    }
+
+    @Override
+    protected void onDestroy(){
+        if (mSyncBroadcastReceiver != null) {
+            unregisterReceiver(mSyncBroadcastReceiver);
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -354,7 +345,6 @@ public class Uploader extends FileActivity
     @Override
     public void onBackPressed() {
         if (mParents.size() <= 1) {
-            unregisterReceiver(mSyncBroadcastReceiver);
             super.onBackPressed();
             return;
         } else {
@@ -786,15 +776,6 @@ public class Uploader extends FileActivity
         startSyncFolderOperation(root);
     }
 
-    protected void requestCredentialsUpdate() {
-        Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount())
-        .putExtra(AuthenticatorActivity.EXTRA_ACTION,
-                  AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN)
-        .addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        startActivity(updateAccountCredentials);
-    }
-
     private class SyncBroadcastReceiver extends BroadcastReceiver {
 
         /**
@@ -806,15 +787,19 @@ public class Uploader extends FileActivity
                 String event = intent.getAction();
                 Log_OC.d(TAG, "Received broadcast " + event);
                 String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
-                String synchFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
-                RemoteOperationResult synchResult = (RemoteOperationResult) intent.getSerializableExtra(
-                        FileSyncAdapter.EXTRA_RESULT);
-                boolean sameAccount = (getAccount() != null && accountName.equals(getAccount().name)
-                        && getStorageManager() != null);
+                String synchFolderRemotePath =
+                        intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
+                RemoteOperationResult synchResult =
+                        (RemoteOperationResult) intent.getSerializableExtra(
+                                FileSyncAdapter.EXTRA_RESULT);
+                boolean sameAccount = (getAccount() != null &&
+                        accountName.equals(getAccount().name) && getStorageManager() != null);
 
                 if (sameAccount) {
+
                     if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
                         mSyncInProgress = true;
+
                     } else {
                         OCFile currentFile = (mFile == null) ? null :
                                 getStorageManager().getFileByPath(mFile.getRemotePath());
@@ -856,36 +841,12 @@ public class Uploader extends FileActivity
                                         (synchResult.isException() && synchResult.getException()
                                                 instanceof AuthenticatorException))) {
 
-                            OwnCloudClient client = null;
-                            try {
-                                OwnCloudAccount ocAccount =
-                                        new OwnCloudAccount(getAccount(), context);
-                                client = (OwnCloudClientManagerFactory.getDefaultSingleton().
-                                        removeClientFor(ocAccount));
-                                // TODO get rid of these exceptions
-                            } catch (AccountNotFoundException e) {
-                                e.printStackTrace();
-                            }
-
-                            if (client != null) {
-                                OwnCloudCredentials cred = client.getCredentials();
-                                if (cred != null) {
-                                    AccountManager am = AccountManager.get(context);
-                                    if (cred.authTokenExpires()) {
-                                        am.invalidateAuthToken(
-                                                getAccount().type,
-                                                cred.getAuthToken()
-                                        );
-                                    } else {
-                                        am.clearPassword(getAccount());
-                                    }
-                                }
-                            }
-                            requestCredentialsUpdate();
+                            requestCredentialsUpdate(context);
                         }
                     }
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
+
                 }
             } catch (RuntimeException e) {
                 // avoid app crashes after changing the serial id of RemoteOperationResult
