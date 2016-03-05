@@ -5,11 +5,11 @@ If you have questions about how to use ownCloud, please direct these to the [mai
 ### Guidelines
 * [Report the issue](https://github.com/owncloud/android/issues/new) using our [template][template], it includes all the informations we need to track down the issue.
 * This repository is *only* for issues within the ownCloud Android app code. Issues in other compontents should be reported in their own repositores: 
-  - [ownCloud code](https://github.com/owncloud/core/issues)
+  - [ownCloud core](https://github.com/owncloud/core/issues)
   - [iOS client](https://github.com/owncloud/ios-issues/issues)
   - [Desktop client](https://github.com/owncloud/mirall/issues)
   - [ownCloud apps](https://github.com/owncloud/apps/issues) (e.g. Calendar, Contacts...)
-* Search the existing issues first, it's likely that your issue was already reported.
+* Search the [existing issues](https://github.com/owncloud/android/issues) first, it's likely that your issue was already reported.
 
 If your issue appears to be a bug, and hasn't been reported, open a new issue.
 
@@ -44,14 +44,15 @@ NOTE: You must have the git installation folder in your environment variable PAT
 * Pull any changes from your remote branch 'master': ```git pull origin master```
 * Make official ownCloud repo known as upstream: ```git remote add upstream git@github.com:owncloud/android.git```
 * Make sure to get the latest changes from official android/master branch: ```git pull upstream master```
+* Make sure you read [SETUP.md](https://github.com/owncloud/android/blob/master/SETUP.md) when you start working on this project.
 
 
 ### 7. Create pull request:
 
-NOTE: You must sign the [Contributor Agreement][1] before your changes can be accepted!
+NOTE: You must sign the [Contributor Agreement][agreement] before your changes can be accepted!
 
-* Commit your changes locally: "git commit -a"
-* Push your changes to your GitHub repo: "git push"
+* Commit your changes locally: ```git commit -a```
+* Push your changes to your GitHub repo: ```git push```
 * Browse to https://github.com/YOURGITHUBNAME/android/pulls and issue pull request
 * Enter description and send pull request.
 
@@ -59,10 +60,10 @@ NOTE: You must sign the [Contributor Agreement][1] before your changes can be ac
 
 To make sure your new pull request does not contain commits which are already contained in previous PRs, create a new branch which is a clone of upstream/master.
 
-* git fetch upstream
-* git checkout -b my_new_master_branch upstream/master
-* If you want to rename that branch later: "git checkout -b my_new_master_branch_with_new_name"
-* Push branch to server: "git push -u origin name_of_local_master_branch"
+* ```git fetch upstream```
+* ```git checkout -b my_new_master_branch upstream/master```
+* If you want to rename that branch later: ```git checkout -b my_new_master_branch_with_new_name```
+* Push branch to server: ```git push -u origin name_of_local_master_branch```
 * Use GitHub to issue PR
 
 

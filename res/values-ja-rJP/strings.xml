@@ -95,6 +95,7 @@
   <string name="common_error_unknown">不明なエラー</string>
   <string name="about_title">について</string>
   <string name="change_password">パスワードを変更</string>
+  <string name="delete_account">アカウント削除</string>
   <string name="create_account">アカウントを作成</string>
   <string name="upload_chooser_title">アップロード …</string>
   <string name="uploader_info_dirname">フォルダー名</string>
@@ -367,4 +368,5 @@
   <string name="manage_space_description">%1$s にあるデータから、設定、データベース、サーバー証明書は完全に削除されます。\n\nダウンロードファイルは、そのまま残ります。\n\nこの操作はしばらくかかります。</string>
   <string name="manage_space_clear_data">データのクリア</string>
   <string name="manage_space_error">いくつかのファイルがクリアできませんでした。</string>
+  <string name="permission_storage_access">ファイルをダウンロード &amp; アップロードする追加の権限が必要です。</string>
 </resources>
