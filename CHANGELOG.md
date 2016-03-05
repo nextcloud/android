@@ -1,5 +1,4 @@
 # 2016-03-05
-
 - PR [#1493] (https://github.com/owncloud/android/pull/1493) "Reliable uploads - UPLOADS VIEW" merged
 - update all other PR
 
