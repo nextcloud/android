@@ -33,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -153,6 +154,13 @@ public class UploadFilesActivity extends FileActivity implements
         Log_OC.d(TAG, "onCreate() end");
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.upload_files, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -162,6 +170,12 @@ public class UploadFilesActivity extends FileActivity implements
                 if(mCurrentDir != null && mCurrentDir.getParentFile() != null){
                     onBackPressed(); 
                 }
+                break;
+            }
+            case R.id.action_upload_select_all:
+            {
+                item.setChecked(!item.isChecked());
+                mFileListFragment.selectAllFiles(item.isChecked());
                 break;
             }
             default:

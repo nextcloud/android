@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	  xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_upload_select_all"
+        android:checkable="true"
+        app:showAsAction="always"
+        android:icon="@drawable/select_all"
+        android:title="@string/file_list_select_all"
+        android:contentDescription="@string/file_list_select_all"/>
+</menu>
