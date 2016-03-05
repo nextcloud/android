@@ -1,3 +1,8 @@
+# 2016-03-05
+
+- PR [#1493] (https://github.com/owncloud/android/pull/1493) "Reliable uploads - UPLOADS VIEW" merged
+- update all other PR
+
 ## 1.9.1 (February 2016)
 - Set and edit permissions on internal shared data
 - Instant uploads: avoid file duplications, set policy in app settings
