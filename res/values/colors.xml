@@ -41,7 +41,7 @@
     <color name="login_text_hint_color">#757575</color>
     <color name="transparent">#00000000</color>
     <color name="secondaryTextColor">#a0a0a0</color>
-    <color name="listItemHighlighted">#ECECEC</color>
+    <color name="listItemHighlighted">#f8f8f8</color>
     <color name="highlightTextColor">#55739a</color>
 
     <!-- Colors -->

@@ -55,7 +55,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatDialog;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -539,6 +538,7 @@ public class FileDisplayActivity extends HookActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        menu.findItem(R.id.action_create_dir).setVisible(false);
         return true;
     }
     
@@ -980,7 +980,9 @@ public class FileDisplayActivity extends HookActivity
     }
 
     public boolean isFabOpen() {
-        if(getListOfFilesFragment() != null && getListOfFilesFragment().getFabMain() != null && getListOfFilesFragment().getFabMain().isExpanded()) {
+        if(getListOfFilesFragment() != null
+                && getListOfFilesFragment().getFabMain() != null
+                && getListOfFilesFragment().getFabMain().isExpanded()) {
             return true;
         } else {
             return false;

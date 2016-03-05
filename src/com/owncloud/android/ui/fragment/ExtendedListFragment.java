@@ -68,10 +68,10 @@ public class ExtendedListFragment extends Fragment
     private SwipeRefreshLayout mRefreshEmptyLayout;
     private TextView mEmptyListMessage;
 
-    private FloatingActionsMenu fabMain;
-    private FloatingActionButton fabUpload;
-    private FloatingActionButton fabMkdir;
-    private FloatingActionButton fabUploadFromApp;
+    private FloatingActionsMenu mFabMain;
+    private FloatingActionButton mFabUpload;
+    private FloatingActionButton mFabMkdir;
+    private FloatingActionButton mFabUploadFromApp;
 
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
@@ -105,19 +105,19 @@ public class ExtendedListFragment extends Fragment
     }
 
     public FloatingActionButton getFabUpload() {
-        return fabUpload;
+        return mFabUpload;
     }
 
     public FloatingActionButton getFabUploadFromApp() {
-        return fabUploadFromApp;
+        return mFabUploadFromApp;
     }
 
     public FloatingActionButton getFabMkdir() {
-        return fabMkdir;
+        return mFabMkdir;
     }
 
     public FloatingActionsMenu getFabMain() {
-        return fabMain;
+        return mFabMain;
     }
 
     public void switchToGridView() {
@@ -247,10 +247,10 @@ public class ExtendedListFragment extends Fragment
 
         mCurrentListView = mListView;   // list as default
 
-        fabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
-        fabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
-        fabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
-        fabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
+        mFabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
+        mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
+        mFabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
+        mFabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
 
         return v;
     }
@@ -401,8 +401,6 @@ public class ExtendedListFragment extends Fragment
     }
 
     /**
-     * Disables FAB.
-     *
      * Sets the 'visibility' state of the FAB contained in the fragment.
      *
      * When 'false' is set, FAB visibility is set to View.GONE programatically,
@@ -411,9 +409,9 @@ public class ExtendedListFragment extends Fragment
      */
     public void setFabEnabled(boolean enabled) {
         if(enabled) {
-            fabMain.setVisibility(View.VISIBLE);
+            mFabMain.setVisibility(View.VISIBLE);
         } else {
-            fabMain.setVisibility(View.GONE);
+            mFabMain.setVisibility(View.GONE);
         }
     }
 
