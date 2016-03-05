@@ -241,6 +241,6 @@
   <string name="share_privilege_can_share">pot compartir</string>
   <string name="share_privilege_can_edit">pot editar</string>
   <string name="share_privilege_can_edit_create">crea</string>
-  <string name="share_privilege_can_edit_change">cambi</string>
+  <string name="share_privilege_can_edit_change">canvi</string>
   <string name="share_privilege_can_edit_delete">elimina</string>
 </resources>
