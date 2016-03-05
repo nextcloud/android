@@ -311,7 +311,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
                         // generate new Thumbnail
-                        if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
+                        if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                             fileIcon, mStorageManager, mAccount
@@ -319,8 +319,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
-                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                                    new ThumbnailsCacheManager.AsyncDrawable(
+                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(
                                     mContext.getResources(), 
                                     thumbnail, 
                                     task
