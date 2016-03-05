@@ -4,7 +4,7 @@
  *   @author Bartek Przybylski
  *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -77,7 +77,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
-import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
@@ -109,6 +108,7 @@ public class Preferences extends PreferenceActivity
 
     private static final String TAG = "OwnCloudPreferences";
 
+
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
     private static final int ACTION_SELECT_UPLOAD_VIDEO_PATH = 2;
     private static final int ACTION_REQUEST_PASSCODE = 5;
@@ -116,7 +116,6 @@ public class Preferences extends PreferenceActivity
     private static final int ACTION_SELECT_STORAGE_PATH = 3;
     private static final int ACTION_PERFORM_MIGRATION = 4;
 
-    private DbHandler mDbHandler;
     private CheckBoxPreference pCode;
     private Preference pAboutApp;
     private AppCompatDelegate mDelegate;
@@ -155,7 +154,6 @@ public class Preferences extends PreferenceActivity
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
-        mDbHandler = new DbHandler(getBaseContext());
         addPreferencesFromResource(R.xml.preferences);
 
         ActionBar actionBar = getSupportActionBar();
@@ -349,8 +347,9 @@ public class Preferences extends PreferenceActivity
                                 getCurrentOwnCloudAccount(Preferences.this);
                         String username = currentAccount.name.substring(0,
                                 currentAccount.name.lastIndexOf('@'));
-
-                        String recommendSubject = String.format(getString(R.string.recommend_subject),
+                        
+                        String recommendSubject =
+                                String.format(getString(R.string.recommend_subject),
                                 appName);
                         String recommendText = String.format(getString(R.string.recommend_text),
                                 appName, downloadUrl);
@@ -833,8 +832,6 @@ public class Preferences extends PreferenceActivity
 
     @Override
     protected void onDestroy() {
-        mDbHandler.close();
-
         if (mDownloadServiceConnection != null) {
             unbindService(mDownloadServiceConnection);
             mDownloadServiceConnection = null;
@@ -1092,7 +1089,9 @@ public class Preferences extends PreferenceActivity
 
             if (component.equals(new ComponentName(Preferences.this, FileDownloader.class))) {
                 mDownloaderBinder = (FileDownloader.FileDownloaderBinder) service;
-            } else if (component.equals(new ComponentName(Preferences.this, FileUploader.class))) {
+
+            } else if (component.equals(new ComponentName(Preferences.this,
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploader.FileUploaderBinder) service;
             }
@@ -1103,7 +1102,8 @@ public class Preferences extends PreferenceActivity
             if (component.equals(new ComponentName(Preferences.this, FileDownloader.class))) {
                 Log_OC.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
-            } else if (component.equals(new ComponentName(Preferences.this, FileUploader.class))) {
+            } else if (component.equals(new ComponentName(Preferences.this,
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service suddenly disconnected");
                 mUploaderBinder = null;
             }

@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
@@ -35,7 +36,9 @@ import android.widget.Toast;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -59,7 +62,7 @@ import java.util.List;
  */
 public class FileOperationsHelper {
 
-    private static final String TAG = FileOperationsHelper.class.getName();
+    private static final String TAG = FileOperationsHelper.class.getSimpleName();
 
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
 
@@ -92,9 +95,8 @@ public class FileOperationsHelper {
                 );
                 if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
                     intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
-                    intentForGuessedMimeType.
-                            setDataAndType(Uri.parse("file://"+ encodedStoragePath),
-                                    guessedMimeType);
+                    intentForGuessedMimeType.setDataAndType(Uri.parse("file://" +
+                            encodedStoragePath), guessedMimeType);
                     intentForGuessedMimeType.setFlags(
                             Intent.FLAG_GRANT_READ_URI_PERMISSION |
                                     Intent.FLAG_GRANT_WRITE_URI_PERMISSION
@@ -324,7 +326,7 @@ public class FileOperationsHelper {
      */
     public void showShareFile(OCFile file){
         Intent intent = new Intent(mFileActivity, ShareActivity.class);
-        intent.putExtra(mFileActivity.EXTRA_FILE, file);
+        intent.putExtra(mFileActivity.EXTRA_FILE, (Parcelable) file);
         intent.putExtra(mFileActivity.EXTRA_ACCOUNT, mFileActivity.getAccount());
         mFileActivity.startActivity(intent);
 
@@ -591,6 +593,15 @@ public class FileOperationsHelper {
         
         mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
                 getString(R.string.wait_a_moment));
+    }
+
+    /**
+     * Retry uploading a failed or cancelled upload with force.
+     */
+    public void retryUpload(OCUpload upload) {
+        Account account = mFileActivity.getAccount();
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.retry(mFileActivity, account, upload);
     }
 
     /**

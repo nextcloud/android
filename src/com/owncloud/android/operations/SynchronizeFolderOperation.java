@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -47,8 +47,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-//import android.support.v4.content.LocalBroadcastManager;
 
 
 /**
@@ -475,6 +473,18 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
     
+    /**
+     * Creates and populates a new {@link com.owncloud.android.datamodel.OCFile}
+     * object with the data read from the server.
+     *
+     * @param remote    remote file read from the server (remote file or folder).
+     * @return          New OCFile instance representing the remote resource described by we.
+     */
+    private OCFile fillOCFile(RemoteFile remote) {
+        return FileStorageUtils.fillOCFile(remote);
+    }
+
+
     /**
      * Scans the default location for saving local copies of files searching for
      * a 'lost' file with the same full name as the {@link com.owncloud.android.datamodel.OCFile}

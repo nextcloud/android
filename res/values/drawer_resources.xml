@@ -24,6 +24,7 @@
         <!--<item>@string/prefs_accounts</item>-->
         <item>@string/drawer_item_all_files</item>
         <item>@string/drawer_item_on_device</item>
+        <item>@string/drawer_item_uploads_list</item>
         <item>@string/actionbar_settings</item>
         <item>@string/actionbar_logger</item>
     </string-array>
@@ -34,6 +35,7 @@
         <!--<item>@string/drawer_item_accounts</item>-->
         <item>@string/drawer_item_all_files</item>
         <item>@string/drawer_item_on_device</item>
+        <item>@string/drawer_item_uploads_list</item>
         <item>@string/drawer_item_settings</item>
         <item>@string/drawer_item_logs</item>
     </string-array>

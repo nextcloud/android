@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2015 ownCloud Inc.
+ *   Copyright (C) 2012-2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -47,31 +47,29 @@ import java.util.ArrayList;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
-
-/**
- * TODO extending SherlockListFragment instead of SherlockFragment
- */
 public class ExtendedListFragment extends Fragment
         implements OnItemClickListener, OnEnforceableRefreshListener {
 
-    private static final String TAG = ExtendedListFragment.class.getSimpleName();
+    protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
-    private static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION";
+    protected static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION";
+
     private static final String KEY_INDEXES = "INDEXES";
     private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
     private static final String KEY_TOPS = "TOPS";
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
 
-    private SwipeRefreshLayout mRefreshListLayout;
+    protected SwipeRefreshLayout mRefreshListLayout;
     private SwipeRefreshLayout mRefreshGridLayout;
-    private SwipeRefreshLayout mRefreshEmptyLayout;
-    private TextView mEmptyListMessage;
 
     private FloatingActionsMenu mFabMain;
     private FloatingActionButton mFabUpload;
     private FloatingActionButton mFabMkdir;
     private FloatingActionButton mFabUploadFromApp;
+
+    protected SwipeRefreshLayout mRefreshEmptyLayout;
+    protected TextView mEmptyListMessage;
 
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
@@ -433,7 +431,7 @@ public class ExtendedListFragment extends Fragment
         return (mEmptyListMessage != null) ? mEmptyListMessage.getText().toString() : "";
     }
 
-    private void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
+    protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
         // Colors in animations
         refreshLayout.setColorSchemeResources(R.color.color_accent, R.color.primary,
                 R.color.primary_dark);

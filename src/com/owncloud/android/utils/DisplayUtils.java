@@ -195,7 +195,7 @@ public class DisplayUtils {
     }
 
     @SuppressWarnings("deprecation")
-    private static CharSequence getRelativeDateTimeString (
+    public static CharSequence getRelativeDateTimeString (
             Context c, long time, long minResolution, long transitionResolution, int flags
             ){
         

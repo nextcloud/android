@@ -3,7 +3,7 @@
  *
  *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -50,6 +50,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -111,7 +112,6 @@ public class FileActivity extends AppCompatActivity
     private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
 
     protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
-
 
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
     private Account mAccount;
@@ -398,12 +398,19 @@ public class FileActivity extends AppCompatActivity
         mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1],
                 R.drawable.ic_action_download_grey));
 
-        // Settings
+        // Uploads
         mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2], mDrawerContentDescriptions[2],
-                R.drawable.ic_action_settings));
-        // Logs
+                R.drawable.ic_uploads));
+
+        // Settings
         mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[3], mDrawerContentDescriptions[3],
+                R.drawable.ic_action_settings));
+
+        // Logs
+        if (BuildConfig.DEBUG) {
+            mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[4], mDrawerContentDescriptions[4],
                 R.drawable.ic_log));
+        }
 
         // setting the nav drawer list adapter
         mNavigationDrawerAdapter = new NavigationDrawerListAdapter(getApplicationContext(), this,
@@ -1044,14 +1051,22 @@ public class FileActivity extends AppCompatActivity
                     mDrawerLayout.closeDrawers();
                     break;
 
-                case 2: // Settings
+                case 2: // Uploads
+                    Intent uploadListIntent = new Intent(getApplicationContext(),
+                            UploadListActivity.class);
+                    uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(uploadListIntent);
+                    mDrawerLayout.closeDrawers();
+                    break;
+
+                case 3: // Settings
                     Intent settingsIntent = new Intent(getApplicationContext(),
                             Preferences.class);
                     startActivity(settingsIntent);
                     mDrawerLayout.closeDrawers();
                     break;
 
-                case 3: // Logs
+                case 4: // Logs
                     Intent loggerIntent = new Intent(getApplicationContext(),
                             LogHistoryActivity.class);
                     startActivity(loggerIntent);
@@ -1060,4 +1075,5 @@ public class FileActivity extends AppCompatActivity
             }
         }
     }
+
 }

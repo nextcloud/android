@@ -194,7 +194,17 @@
         <activity android:name=".ui.activity.LogHistoryActivity"/>
         <activity android:name=".ui.activity.ErrorReportActivity"/>
 
-        <receiver android:name=".files.InstantUploadBroadcastReceiver">
+        <activity android:name=".ui.errorhandling.ErrorShowActivity" />
+        <activity android:name=".ui.activity.UploadListActivity" />
+
+        <receiver android:name=".files.services.ConnectivityActionReceiver"
+		    android:enabled="true" android:label="ConnectivityActionReceiver">
+		    <intent-filter>
+		        <!--action android:name="android.net.conn.CONNECTIVITY_CHANGE"/-->
+		        <action android:name="android.net.wifi.STATE_CHANGE"/>
+		    </intent-filter>
+		</receiver>
+		<receiver android:name=".files.InstantUploadBroadcastReceiver">
             <intent-filter>
 
                 <!-- unofficially supported by many Android phones but not by HTC devices: -->
@@ -208,9 +218,6 @@
                 <action android:name="android.hardware.action.NEW_VIDEO" />
 
                 <data android:mimeType="video/*" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
             <intent-filter>
 				<action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>

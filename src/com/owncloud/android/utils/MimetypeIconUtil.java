@@ -1,3 +1,22 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   Copyright (C) 2016 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.utils;
 
 import android.webkit.MimeTypeMap;
@@ -81,6 +100,21 @@ public class MimetypeIconUtil {
         }
 
         return R.drawable.ic_menu_archive;
+    }
+
+    /**
+     * Returns a single MIME type of all the possible, by inspection of the file extension, and taking
+     * into account the MIME types known by ownCloud first.
+     *
+     * @param filename      Name of file
+     * @return              A single MIME type, "application/octet-stream" for unknown file extensions.
+     */
+    public static String getBestMimeTypeByFilename(String filename) {
+        List<String> candidates = determineMimeTypesByFilename(filename);
+        if (candidates == null || candidates.size() < 1) {
+            return "application/octet-stream";
+        }
+        return candidates.get(0);
     }
 
     /**

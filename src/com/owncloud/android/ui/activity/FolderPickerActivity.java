@@ -1,7 +1,7 @@
 /**
  *   ownCloud Android client application
  *
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -377,6 +377,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 data.putParcelableArrayListExtra(EXTRA_FILES, targetFiles);
             }
             setResult(RESULT_OK, data);
+
             finish();
         }
     }
