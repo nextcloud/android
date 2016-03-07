@@ -197,7 +197,12 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         displayName = getContext().getString(R.string.share_group_clarification, userName);
                         dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
                     } else if (ShareType.FEDERATED.getValue() == type && federatedShareAllowed) {
-                        displayName = getContext().getString(R.string.share_remote_clarification, shareWith);
+                        if (userName.equals(shareWith)) {
+                            displayName = getContext().getString(R.string.share_remote_clarification, userName);
+                        } else {
+                            displayName = getContext().getString(R.string.share_known_remote_clarification, userName,
+                                    shareWith.split("@")[1]);
+                        }
                         dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
                     } else if (ShareType.USER.getValue() == type) {
                         displayName = userName;
