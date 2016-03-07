@@ -106,6 +106,7 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_LOCAL_PATH, ocUpload.getLocalPath());
         cv.put(ProviderTableMeta.UPLOADS_REMOTE_PATH, ocUpload.getRemotePath());
         cv.put(ProviderTableMeta.UPLOADS_ACCOUNT_NAME, ocUpload.getAccountName());
+        cv.put(ProviderTableMeta.UPLOADS_FILE_SIZE, ocUpload.getFileSize());
         cv.put(ProviderTableMeta.UPLOADS_STATUS, ocUpload.getUploadStatus().value);
         cv.put(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR, ocUpload.getLocalAction());
         cv.put(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE, ocUpload.isForceOverwrite() ? 1 : 0);
@@ -391,6 +392,7 @@ public class UploadsStorageManager extends Observable {
             String accountName = c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_ACCOUNT_NAME));
             upload = new OCUpload(localPath, remotePath, accountName);
 
+            upload.setFileSize(c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_FILE_SIZE)));
             upload.setUploadId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
             upload.setUploadStatus(
                     UploadStatus.fromValue(c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_STATUS)))

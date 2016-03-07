@@ -453,6 +453,7 @@ public class FileUploader extends Service
 
                     // Save upload in database
                     OCUpload ocUpload = new OCUpload(files[i], account);
+                    ocUpload.setFileSize(files[i].getFileLength());
                     ocUpload.setForceOverwrite(forceOverwrite);
                     ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
                     ocUpload.setCreatedBy(createdBy);

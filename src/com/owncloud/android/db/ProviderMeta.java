@@ -139,6 +139,7 @@ public class ProviderMeta {
         public static final String UPLOADS_LOCAL_PATH = "local_path";
         public static final String UPLOADS_REMOTE_PATH = "remote_path";
         public static final String UPLOADS_ACCOUNT_NAME = "account_name";
+        public static final String UPLOADS_FILE_SIZE = "file_size";
         public static final String UPLOADS_STATUS = "status";
         public static final String UPLOADS_LOCAL_BEHAVIOUR = "local_behaviour";
         public static final String UPLOADS_UPLOAD_TIME = "upload_time";
