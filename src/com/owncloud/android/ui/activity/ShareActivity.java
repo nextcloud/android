@@ -3,6 +3,7 @@
  *
  * @author masensio
  * @author David A. Velasco
+ * @author Juan Carlos González Cabrero
  * Copyright (C) 2015 ownCloud Inc.
  * <p/>
  * This program is free software: you can redistribute it and/or modify
@@ -118,39 +119,29 @@ public class ShareActivity extends FileActivity
 
     private void doShareWith(String shareeName, String dataAuthority) {
 
-        int lastPointIndex = dataAuthority.lastIndexOf(".");
-        String type = dataAuthority.substring(lastPointIndex + 1);
-        ShareType shareType = null;
-        switch (type) {
-            case UsersAndGroupsSearchProvider.USER:
-                shareType = ShareType.USER;
-                break;
-            case UsersAndGroupsSearchProvider.GROUP:
-                shareType = ShareType.GROUP;
-                break;
-            case UsersAndGroupsSearchProvider.REMOTE:
-                shareType = ShareType.FEDERATED;
-                break;
-        }
+        ShareType shareType = UsersAndGroupsSearchProvider.getShareType(dataAuthority);
+
         getFileOperationsHelper().shareFileWithSharee(
                 getFile(),
                 shareeName,
                 shareType,
-                getAppropiatePermissions(shareType.equals(ShareType.FEDERATED))
+                getAppropiatePermissions(shareType)
         );
     }
 
 
-    private int getAppropiatePermissions(boolean isFederated) {
+    private int getAppropiatePermissions(ShareType shareType) {
+
+        // check if the Share is FERERATED
+        boolean isFederated = shareType.equals(ShareType.FEDERATED);
+
         if (getFile().isSharedWithMe()) {
             return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
 
         } else if (getFile().isFolder()) {
-            // check if the Share is FERERATED
             return (isFederated) ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER : OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
 
         } else {    // isFile
-            // check if the Share is FERERATED
             return (isFederated) ? OCShare.FEDERATED_PERMISSIONS_FOR_FILE : OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
         }
     }

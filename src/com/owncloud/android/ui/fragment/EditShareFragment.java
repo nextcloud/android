@@ -151,8 +151,9 @@ public class EditShareFragment extends Fragment {
             CompoundButton compound;
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);
-            if(isFederated)
+            if(isFederated) {
                 compound.setVisibility(View.INVISIBLE);
+            }
             compound.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canEditSwitch);
