@@ -104,6 +104,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         // Listen for upload messages
         mUploadMessagesReceiver = new UploadMessagesReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter();
+        uploadIntentFilter.addAction(FileUploader.getUploadsAddedMessage());
         uploadIntentFilter.addAction(FileUploader.getUploadStartMessage());
         uploadIntentFilter.addAction(FileUploader.getUploadFinishMessage());
         registerReceiver(mUploadMessagesReceiver, uploadIntentFilter);
