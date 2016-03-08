@@ -147,7 +147,7 @@ public class EditShareFragment extends Fragment {
             setPermissionsListening(editShareView, false);
 
             int sharePermissions = mShare.getPermissions();
-            boolean isFederated = mShare.getShareType().equals(ShareType.FEDERATED);
+            boolean isFederated = ShareType.FEDERATED.equals(mShare.getShareType());
             CompoundButton compound;
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);

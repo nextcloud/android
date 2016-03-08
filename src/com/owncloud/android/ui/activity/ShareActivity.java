@@ -133,7 +133,7 @@ public class ShareActivity extends FileActivity
     private int getAppropiatePermissions(ShareType shareType) {
 
         // check if the Share is FERERATED
-        boolean isFederated = shareType.equals(ShareType.FEDERATED);
+        boolean isFederated = ShareType.FEDERATED.equals(shareType);
 
         if (getFile().isSharedWithMe()) {
             return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
