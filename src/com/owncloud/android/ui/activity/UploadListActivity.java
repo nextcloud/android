@@ -85,6 +85,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         getSupportActionBar().setHomeButtonEnabled(true);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.uploads_view_title);
 
     }
 

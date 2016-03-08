@@ -3,7 +3,10 @@
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
     android:orientation="horizontal"
-    android:layout_height="72dp">
+    android:layout_height="72dp"
+    android:paddingTop="@dimen/standard_half_padding"
+    android:paddingBottom="@dimen/standard_half_padding"
+    >
 
     <FrameLayout
         android:layout_width="72dp"
