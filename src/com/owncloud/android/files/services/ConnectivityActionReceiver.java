@@ -163,7 +163,7 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
                 ) {
             Log_OC.d(TAG, "Requesting retry of instant uploads (& friends)");
             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-            requester.retryUploads(
+            requester.retryFailedUploads(
                     context,
                     null,
                     UploadResult.NETWORK_CONNECTION

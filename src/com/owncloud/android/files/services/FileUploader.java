@@ -275,23 +275,28 @@ public class FileUploader extends Service
         }
 
         /**
-         * TODO - improve interface, but now just recovering basic auto-retry of instant uploads on Wifi connection
+         * Retry a subset of all the stored failed uploads.
          *
-         * @param context
-         * @param account           Null to retry uploads in current account
-         * @param uploadResult
+         * @param context           Caller {@link Context}
+         * @param account           If not null, only failed uploads to this OC account will be retried; otherwise,
+         *                          uploads of all accounts will be retried.
+         * @param uploadResult      If not null, only failed uploads with the result specified will be retried;
+         *                          otherwise, failed uploads due to any result will be retried.
          */
-        public void retryUploads(Context context, Account account, UploadResult uploadResult) {
+        public void retryFailedUploads(Context context, Account account, UploadResult uploadResult) {
             UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver());
             OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-            if (account == null) {
-                account = AccountUtils.getCurrentOwnCloudAccount(context);
-            }
-            for ( OCUpload upload: failedUploads){
-                if (upload.getAccountName().equals(account.name) &&
-                        upload.getLastResult() == uploadResult ) {
-
-                    retry(context, account, upload);
+            Account currentAccount = null;
+            boolean resultMatch, accountMatch;
+            for ( OCUpload failedUpload: failedUploads) {
+                accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
+                resultMatch = (uploadResult == null || uploadResult.equals(failedUpload.getLastResult()));
+                if (accountMatch && resultMatch) {
+                    if (currentAccount == null ||
+                            !currentAccount.name.equals(failedUpload.getAccountName())) {
+                        currentAccount = failedUpload.getAccount(context);
+                    }
+                    retry(context, currentAccount, failedUpload);
                 }
             }
         }

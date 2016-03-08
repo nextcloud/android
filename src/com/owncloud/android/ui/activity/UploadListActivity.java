@@ -183,10 +183,10 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                     mDrawerLayout.openDrawer(GravityCompat.START);
                 }
                 break;
-//            case R.id.action_retry_uploads:
-//                Log_OC.d(TAG, "FileUploader.retry() called by onMenuItemSelected()");
-//                FileUploader.retry(this);
-//                break;
+            case R.id.action_retry_uploads:
+                FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+                requester.retryFailedUploads(this, null, null);
+                break;
 
             case R.id.action_clear_failed_uploads:
                 storageManager = new UploadsStorageManager(getContentResolver());
@@ -227,7 +227,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         if (requestCode == UPDATE_CREDENTIALS_REQUEST_CODE && resultCode == FileActivity.RESULT_OK) {
             // Retry uploads of this account
             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-            requester.retryUploads(this, getAccount(), UploadResult.CREDENTIAL_ERROR);
+            requester.retryFailedUploads(this, getAccount(), UploadResult.CREDENTIAL_ERROR);
         }
     }
 
