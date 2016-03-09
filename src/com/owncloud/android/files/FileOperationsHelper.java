@@ -528,15 +528,6 @@ public class FileOperationsHelper {
     }
 
     /**
-     * Retry uploading a failed or cancelled upload with force.
-     */
-    public void retryUpload(OCUpload upload) {
-        Account account = mFileActivity.getAccount();
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.retry(mFileActivity, account, upload);
-    }
-
-    /**
      * Cancel the transference in downloads (files/folders) and file uploads
      * @param file OCFile
      */

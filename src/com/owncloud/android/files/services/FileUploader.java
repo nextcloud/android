@@ -225,14 +225,14 @@ public class FileUploader extends Service
                 behaviour, String mimeType, boolean createRemoteFile, int createdBy) {
 
             uploadNewFile(
-                    context,
-                    account,
-                    new String[]{localPath},
-                    new String[]{remotePath},
-                    new String[]{mimeType},
-                    behaviour,
-                    createRemoteFile,
-                    createdBy
+                context,
+                account,
+                new String[]{localPath},
+                new String[]{remotePath},
+                new String[]{mimeType},
+                behaviour,
+                createRemoteFile,
+                createdBy
             );
         }
 
@@ -264,15 +264,19 @@ public class FileUploader extends Service
         /**
          * Call to retry upload identified by remotePath
          */
-        public void retry(Context context, Account account, OCUpload upload) {
-            if (upload != null) {
-                Intent i = new Intent(context, FileUploader.class);
-                i.putExtra(FileUploader.KEY_RETRY, true);
-                i.putExtra(FileUploader.KEY_ACCOUNT, account);
-                i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
-                context.startService(i);
+        public void retry (Context context, OCUpload upload) {
+            if (upload != null && context != null) {
+                Account account = AccountUtils.getOwnCloudAccountByName(
+                    context,
+                    upload.getAccountName()
+                );
+                retry(context, account, upload);
+
+            } else {
+                throw new IllegalArgumentException("Null parameter!");
             }
         }
+
 
         /**
          * Retry a subset of all the stored failed uploads.
@@ -298,6 +302,23 @@ public class FileUploader extends Service
                     }
                     retry(context, currentAccount, failedUpload);
                 }
+            }
+        }
+
+        /**
+         * Private implementation of retry.
+         *
+         * @param context
+         * @param account
+         * @param upload
+         */
+        private void retry(Context context, Account account, OCUpload upload) {
+            if (upload != null) {
+                Intent i = new Intent(context, FileUploader.class);
+                i.putExtra(FileUploader.KEY_RETRY, true);
+                i.putExtra(FileUploader.KEY_ACCOUNT, account);
+                i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
+                context.startService(i);
             }
         }
 

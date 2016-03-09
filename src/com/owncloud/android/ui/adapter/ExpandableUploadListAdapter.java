@@ -398,9 +398,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     @Override
                     public void onClick(View v) {
                         File file = new File(upload.getLocalPath());
-                        if (file.exists())
-                            mParentActivity.getFileOperationsHelper().retryUpload(upload);
-                        else {
+                        if (file.exists()) {
+                            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+                            requester.retry(mParentActivity, upload);
+                            refreshView();
+                        } else {
                             final String message = String.format(mParentActivity.getString(R.string.local_file_not_found_toast));
                             Toast.makeText(mParentActivity, message, Toast.LENGTH_SHORT).show();
                         }
