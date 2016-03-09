@@ -249,12 +249,15 @@ public class EditShareFragment extends Fragment {
                 case R.id.canEditSwitch:
                     Log_OC.v(TAG, "canEditCheckBox toggled to " + isChecked);
                     /// sync subordinate CheckBoxes
+                    boolean isFederated = ShareType.FEDERATED.equals(mShare.getShareType());
                     if (mFile.isFolder()) {
                         if (isChecked) {
                             for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
                                 //noinspection ConstantConditions, prevented in the method beginning
                                 subordinate = (CompoundButton) getView().findViewById(sSubordinateCheckBoxIds[i]);
-                                subordinate.setVisibility(View.VISIBLE);
+                                if (!isFederated) {
+                                    subordinate.setVisibility(View.VISIBLE);
+                                }
                                 if (!subordinate.isChecked() &&
                                         !mFile.isSharedWithMe()) {          // see (1)
                                     toggleDisablingListener(subordinate);
