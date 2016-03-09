@@ -321,13 +321,27 @@ public class FileUploader extends Service
 
         mUploadsStorageManager = new UploadsStorageManager(getContentResolver());
 
-//      Log_OC.d(TAG, "FileUploader.retry() called by onCreate()");
-//      FileUploader.retry(getApplicationContext());
+        int failedCounter = mUploadsStorageManager.failInProgressUploads(
+            UploadResult.UNKNOWN    // Add UploadResult.KILLED?
+        );
+        if (failedCounter > 0) {
+            resurrection();
+        }
 
         // add AccountsUpdatedListener
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addOnAccountsUpdatedListener(this, null, false);
     }
+
+
+    /**
+     * Service clean-up when restarted after being killed
+     */
+    private void resurrection() {
+        // remove stucked notification
+        mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
+    }
+
 
     /**
      * Service clean up

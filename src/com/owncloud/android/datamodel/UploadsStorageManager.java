@@ -137,7 +137,7 @@ public class UploadsStorageManager extends Observable {
      * @return num of updated uploads.
      */
     public int updateUpload(OCUpload ocUpload) {
-        Log_OC.e(TAG, "Updating " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
+        Log_OC.v(TAG, "Updating " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
 
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.UPLOADS_LOCAL_PATH, ocUpload.getLocalPath());
@@ -212,7 +212,7 @@ public class UploadsStorageManager extends Observable {
      * @return 1 if file status was updated, else 0.
      */
     public int updateUploadStatus(long id, UploadStatus status, UploadResult result, String remotePath) {
-        //Log_OC.e(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
+        //Log_OC.v(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
 
         Cursor c = getDB().query(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
@@ -234,7 +234,7 @@ public class UploadsStorageManager extends Observable {
 
     /*
     public int updateFileIdUpload(long uploadId, long fileId) {
-        Log_OC.e(TAG, "Updating " + uploadId + " with fileId= " + fileId);
+        Log_OC.v(TAG, "Updating " + uploadId + " with fileId= " + fileId);
 
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.UPLOADS_FILE_ID, fileId);
@@ -572,6 +572,41 @@ public class UploadsStorageManager extends Observable {
         );
     }
 
+
+    /**
+     * Changes the status of any in progress upload from UploadStatus.UPLOAD_IN_PROGRESS
+     * to UploadStatus.UPLOAD_FAILED
+     *
+     *
+     *
+     * @return      Number of uploads which status was changed.
+     */
+    public int failInProgressUploads(UploadResult fail) {
+        Log_OC.v(TAG, "Updating state of any killed upload");
+
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.UPLOADS_STATUS, UploadStatus.UPLOAD_FAILED.getValue());
+        cv.put(
+            ProviderTableMeta.UPLOADS_LAST_RESULT,
+            fail != null ? fail.getValue() : UploadResult.UNKNOWN.getValue()
+        );
+        cv.put(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP, Calendar.getInstance().getTimeInMillis());
+
+        int result = getDB().update(
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            cv,
+            ProviderTableMeta.UPLOADS_STATUS + "=?",
+            new String[]{String.valueOf(UploadStatus.UPLOAD_IN_PROGRESS.getValue())}
+        );
+
+        if (result == 0) {
+            Log_OC.v(TAG, "No upload was killed");
+        } else {
+            Log_OC.w(TAG, Integer.toString(result) + " uploads where abruptly interrupted");
+            notifyObserversNow();
+        }
+        return result;
+    }
 
 
 }
