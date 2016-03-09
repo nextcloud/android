@@ -967,7 +967,7 @@ public class FileDisplayActivity extends HookActivity
                 String synchFolderRemotePath =
                         intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
                 RemoteOperationResult synchResult =
-                        (RemoteOperationResult)intent.getSerializableExtra(
+                        (RemoteOperationResult) intent.getSerializableExtra(
                                 FileSyncAdapter.EXTRA_RESULT);
                 boolean sameAccount = (getAccount() != null &&
                         accountName.equals(getAccount().name) && getStorageManager() != null);
@@ -1037,9 +1037,6 @@ public class FileDisplayActivity extends HookActivity
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
                     mProgressBar.setIndeterminate(mSyncInProgress);
-                    //mProgressBar.setVisibility((mSyncInProgress) ? View.VISIBLE : View.INVISIBLE);
-                    //setSupportProgressBarIndeterminateVisibility(mSyncInProgress
-                    /*|| mRefreshSharesInProgress*/ //);
 
                     setBackgroundText();
 

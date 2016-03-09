@@ -30,15 +30,28 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.RefreshFolderOperation;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AlertDialog.Builder;
+import android.accounts.AuthenticatorException;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.IntentFilter;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -49,7 +62,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
@@ -67,18 +79,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.CopyTmpFileAsyncTask;
@@ -101,6 +106,9 @@ public class Uploader extends FileActivity
     private boolean mCreateDir;
     private String mUploadPath;
     private OCFile mFile;
+
+    private SyncBroadcastReceiver mSyncBroadcastReceiver;
+    private boolean mSyncInProgress = false;
     private boolean mAccountSelected;
     private boolean mAccountSelectionShowing;
 
@@ -149,6 +157,13 @@ public class Uploader extends FileActivity
         if (mAccountSelected) {
             setAccount((Account) savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT));
         }
+
+        // Listen for sync messages
+        IntentFilter syncIntentFilter = new IntentFilter(RefreshFolderOperation.
+                EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+        syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
+        mSyncBroadcastReceiver = new SyncBroadcastReceiver();
+        registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
     }
 
     @Override
@@ -200,6 +215,14 @@ public class Uploader extends FileActivity
     }
 
     @Override
+    protected void onDestroy(){
+        if (mSyncBroadcastReceiver != null) {
+            unregisterReceiver(mSyncBroadcastReceiver);
+        }
+        super.onDestroy();
+    }
+
+    @Override
     protected Dialog onCreateDialog(final int id) {
         final AlertDialog.Builder builder = new Builder(this);
         switch (id) {
@@ -230,8 +253,8 @@ public class Uploader extends FileActivity
                     if (android.os.Build.VERSION.SDK_INT >
                             android.os.Build.VERSION_CODES.ECLAIR_MR1) {
                         // using string value since in API7 this
-                        // constatn is not defined
-                        // in API7 < this constatant is defined in
+                        // constant is not defined
+                        // in API7 < this constant is defined in
                         // Settings.ADD_ACCOUNT_SETTINGS
                         // and Settings.EXTRA_AUTHORITIES
                         Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
@@ -319,12 +342,13 @@ public class Uploader extends FileActivity
 
     @Override
     public void onBackPressed() {
-
         if (mParents.size() <= 1) {
             super.onBackPressed();
             return;
         } else {
             mParents.pop();
+            String full_path = generatePath(mParents);
+            startSyncFolderOperation(getStorageManager().getFileByPath(full_path));
             populateDirectoryList();
         }
     }
@@ -339,13 +363,16 @@ public class Uploader extends FileActivity
         // filter on dirtype
         Vector<OCFile> files = new Vector<OCFile>();
         for (OCFile f : tmpfiles)
-            if (f.isFolder())
                 files.add(f);
         if (files.size() < position) {
             throw new IndexOutOfBoundsException("Incorrect item selected");
         }
-        mParents.push(files.get(position).getFileName());
-        populateDirectoryList();
+        if (files.get(position).isFolder()){
+            OCFile folderToEnter = files.get(position);
+            startSyncFolderOperation(folderToEnter);
+            mParents.push(folderToEnter.getFileName());
+            populateDirectoryList();
+        }
     }
 
     @Override
@@ -420,19 +447,19 @@ public class Uploader extends FileActivity
         if (mFile != null) {
             // TODO Enable when "On Device" is recovered ?
             Vector<OCFile> files = getStorageManager().getFolderContent(mFile/*, false*/);
-            List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
+            List<HashMap<String, OCFile>> data = new LinkedList<HashMap<String,OCFile>>();
             for (OCFile f : files) {
-                HashMap<String, Object> h = new HashMap<String, Object>();
-                if (f.isFolder()) {
-                    h.put("dirname", f.getFileName());
+                HashMap<String, OCFile> h = new HashMap<String, OCFile>();
+                    h.put("dirname", f);
                     data.add(h);
-                }
             }
-            SimpleAdapter sa = new SimpleAdapter(this,
+            
+            UploaderAdapter sa = new UploaderAdapter(this,
                                                 data,
                                                 R.layout.uploader_list_item_layout,
                                                 new String[] {"dirname"},
-                                                new int[] {R.id.filename});
+                                                new int[] {R.id.filename},
+                                                getStorageManager(), getAccount());
             
             mListView.setAdapter(sa);
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
@@ -444,6 +471,25 @@ public class Uploader extends FileActivity
             mListView.setOnItemClickListener(this);
         }
     }
+    
+    private void startSyncFolderOperation(OCFile folder) {
+        long currentSyncTime = System.currentTimeMillis(); 
+        
+        mSyncInProgress = true;
+        
+        // perform folder synchronization
+        RemoteOperation synchFolderOp = new RefreshFolderOperation( folder,
+                                                                        currentSyncTime, 
+                                                                        false,
+                                                                        false,
+                                                                        false,
+                                                                        getStorageManager(),
+                                                                        getAccount(),
+                                                                        getApplicationContext()
+                                                                      );
+        synchFolderOp.execute(getAccount(), this, null, null);
+    }
+
 
     private String generatePath(Stack<String> dirs) {
         String full_path = "";
@@ -482,55 +528,54 @@ public class Uploader extends FileActivity
 
                 if (uri != null) {
                     if (uri.getScheme().equals("content")) {
-                        String mimeType = getContentResolver().getType(uri);
+                       String mimeType = getContentResolver().getType(uri);
 
-                        if (mimeType.contains("image")) {
-                            String[] CONTENT_PROJECTION = { Images.Media.DATA,
-                                    Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE,
-                                    Images.Media.SIZE };
-                            Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null,
-                                    null, null);
-                            c.moveToFirst();
-                            int index = c.getColumnIndex(Images.Media.DATA);
-                            data = c.getString(index);
-                            filePath = mUploadPath +
-                                    c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME));
+                       if (mimeType.contains("image")) {
+                           String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME,
+                                                           Images.Media.MIME_TYPE, Images.Media.SIZE};
+                           Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null, null, null);
+                           c.moveToFirst();
+                           int index = c.getColumnIndex(Images.Media.DATA);
+                           data = c.getString(index);
+                           local.add(data);
+                           remote.add(mUploadPath + c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME)));
 
-                        } else if (mimeType.contains("video")) {
-                            String[] CONTENT_PROJECTION = { Video.Media.DATA,
-                                   Video.Media.DISPLAY_NAME, Video.Media.MIME_TYPE,
-                                   Video.Media.SIZE, Video.Media.DATE_MODIFIED };
-                            Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null,
-                                   null, null);
-                            c.moveToFirst();
-                            int index = c.getColumnIndex(Video.Media.DATA);
-                            data = c.getString(index);
-                            filePath = mUploadPath +
-                                   c.getString(c.getColumnIndex(Video.Media.DISPLAY_NAME));
-                          
-                        } else if (mimeType.contains("audio")) {
-                            String[] CONTENT_PROJECTION = { Audio.Media.DATA,
-                                   Audio.Media.DISPLAY_NAME, Audio.Media.MIME_TYPE,
-                                   Audio.Media.SIZE };
-                            Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null,
-                                   null, null);
-                            c.moveToFirst();
-                            int index = c.getColumnIndex(Audio.Media.DATA);
-                            data = c.getString(index);
-                            filePath = mUploadPath +
-                                   c.getString(c.getColumnIndex(Audio.Media.DISPLAY_NAME));
+                       }
+                       else if (mimeType.contains("video")) {
+                           String[] CONTENT_PROJECTION = { Video.Media.DATA, Video.Media.DISPLAY_NAME,
+                                                           Video.Media.MIME_TYPE, Video.Media.SIZE,
+                                                           Video.Media.DATE_MODIFIED };
+                           Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null, null, null);
+                           c.moveToFirst();
+                           int index = c.getColumnIndex(Video.Media.DATA);
+                           data = c.getString(index);
+                           local.add(data);
+                           remote.add(mUploadPath + c.getString(c.getColumnIndex(Video.Media.DISPLAY_NAME)));
 
-                        } else  {
-                            Cursor cursor = getContentResolver().query(uri,
-                                   new String[]{MediaStore.MediaColumns.DISPLAY_NAME},
-                                   null, null, null);
-                            cursor.moveToFirst();
-                            int nameIndex = cursor.getColumnIndex(cursor.getColumnNames()[0]);
-                            if (nameIndex >= 0) {
-                               filePath = mUploadPath + cursor.getString(nameIndex);
-                            }
-                        }
+                       }
+                       else if (mimeType.contains("audio")) {
+                           String[] CONTENT_PROJECTION = { Audio.Media.DATA, Audio.Media.DISPLAY_NAME,
+                                                           Audio.Media.MIME_TYPE, Audio.Media.SIZE };
+                           Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null, null, null);
+                           c.moveToFirst();
+                           int index = c.getColumnIndex(Audio.Media.DATA);
+                           data = c.getString(index);
+                           local.add(data);
+                           remote.add(mUploadPath + c.getString(c.getColumnIndex(Audio.Media.DISPLAY_NAME)));
 
+                       }
+                       else {
+                           filePath = Uri.decode(uri.toString()).replace(uri.getScheme() + "://", "");
+                           // cut everything whats before mnt. It occured to me that sometimes apps send
+                           // their name into the URI
+                           if (filePath.contains("mnt")) {
+                              String splitedFilePath[] = filePath.split("/mnt");
+                              filePath = splitedFilePath[1];
+                           }
+                           final File file = new File(filePath);
+                           local.add(file.getAbsolutePath());
+                           remote.add(mUploadPath + file.getName());
+                       }
                     } else if (uri.getScheme().equals("file")) {
                         filePath = Uri.decode(uri.toString()).replace(uri.getScheme() +
                                 "://", "");
@@ -548,14 +593,11 @@ public class Uploader extends FileActivity
                     if (data == null) {
                         mRemoteCacheData.add(filePath);
                         CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
-                        Object[] params = { uri, filePath, mRemoteCacheData.size()-1,
+                        Object[] params = {uri, filePath, mRemoteCacheData.size() - 1,
                                 getAccount().name, getContentResolver()};
                         mNumCacheFile++;
                         showWaitingCopyDialog();
                         copyTask.execute(params);
-                    } else {
-                        remote.add(filePath);
-                        local.add(data);
                     }
                 }
                 else {
@@ -682,8 +724,104 @@ public class Uploader extends FileActivity
         }
         return retval;
     }
+    
+    private OCFile getCurrentFolder(){
+        OCFile file = mFile;
+        if (file != null) {
+            if (file.isFolder()) {
+                return file;
+            } else if (getStorageManager() != null) {
+                return getStorageManager().getFileByPath(file.getParentRemotePath());
+            }
+        }
+        return null;
+    }
+    
+    private void browseToRoot() {
+        OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
+        mFile = root;
+        startSyncFolderOperation(root);
+    }
+    
+    private class SyncBroadcastReceiver extends BroadcastReceiver {
 
+        /**
+         * {@link BroadcastReceiver} to enable syncing feedback in UI
+         */
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                String event = intent.getAction();
+                Log_OC.d(TAG, "Received broadcast " + event);
+                String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
+                String synchFolderRemotePath =
+                        intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
+                RemoteOperationResult synchResult =
+                        (RemoteOperationResult) intent.getSerializableExtra(
+                                FileSyncAdapter.EXTRA_RESULT);
+                boolean sameAccount = (getAccount() != null &&
+                        accountName.equals(getAccount().name) && getStorageManager() != null);
 
+                if (sameAccount) {
+
+                    if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
+                        mSyncInProgress = true;
+
+                    } else {
+                        OCFile currentFile = (mFile == null) ? null :
+                                getStorageManager().getFileByPath(mFile.getRemotePath());
+                        OCFile currentDir = (getCurrentFolder() == null) ? null :
+                                getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
+
+                        if (currentDir == null) {
+                            // current folder was removed from the server 
+                            Toast.makeText(context,
+                                    String.format(
+                                            getString(R.string.sync_current_folder_was_removed),
+                                            getCurrentFolder().getFileName()),
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                            browseToRoot();
+
+                        } else {
+                            if (currentFile == null && !mFile.isFolder()) {
+                                // currently selected file was removed in the server, and now we know it
+                                currentFile = currentDir;
+                            }
+
+                            if (synchFolderRemotePath != null &&
+                                    currentDir.getRemotePath().equals(synchFolderRemotePath)) {
+                                populateDirectoryList();
+                            }
+                            mFile = currentFile;
+                        }
+
+                        mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
+                                !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
+
+                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
+                                equals(event) &&
+                                /// TODO refactor and make common
+                                synchResult != null && !synchResult.isSuccess() &&
+                                (synchResult.getCode() == ResultCode.UNAUTHORIZED ||
+                                        synchResult.isIdPRedirection() ||
+                                        (synchResult.isException() && synchResult.getException()
+                                                instanceof AuthenticatorException))) {
+
+                            requestCredentialsUpdate(context);
+                        }
+                    }
+                    removeStickyBroadcast(intent);
+                    Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
+
+                }
+            } catch (RuntimeException e) {
+                // avoid app crashes after changing the serial id of RemoteOperationResult 
+                // in owncloud library with broadcast notifications pending to process
+                removeStickyBroadcast(intent);
+            }
+        }
+    }
     /**
      * Process the result of CopyTmpFileAsyncTask
      * @param result
@@ -708,9 +846,9 @@ public class Uploader extends FileActivity
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             Log_OC.d(TAG, message);
         }
-
     }
-/**
+
+    /**
      * Show waiting for copy dialog
      */
     public void showWaitingCopyDialog() {
