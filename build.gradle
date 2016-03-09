@@ -25,6 +25,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.getbase:floatingactionbutton:1.10.1'
 }
 
 android {
