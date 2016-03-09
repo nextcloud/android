@@ -116,8 +116,9 @@
     <string name="uploader_upload_failed_ticker">Upload failed</string>
     <string name="uploader_upload_failed_content_single">Upload of %1$s could not be completed</string>
     <string name="uploader_upload_failed_credentials_error">Upload failed, you need to log in again</string>
+    <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Current</string>
-    <string name="uploads_view_group_failed_uploads">Failed Uploads</string>
+    <string name="uploads_view_group_failed_uploads">Failed</string>
     <string name="uploads_view_group_finished_uploads">Uploaded</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
     <string name="uploads_view_upload_status_cancelled">Cancelled</string>
@@ -478,7 +479,7 @@
     <string name="storage_description_sd_no">SD card %1$d</string>
     <string name="storage_description_unknown">Unknown</string>
 
-    <string name="action_retry_uploads">Retry current uploads</string>
+    <string name="action_retry_uploads">Retry failed uploads</string>
     <string name="action_clear_failed_uploads">Clear failed uploads</string>
     <string name="action_clear_finished_uploads">Clear finished uploads</string>
     <string name="action_clear_all_uploads">Clear all uploads</string>

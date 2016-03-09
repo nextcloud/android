@@ -67,6 +67,11 @@ public class OCUpload implements Parcelable {
     private String mAccountName;
 
     /**
+     * File size
+     */
+    private long mFileSize;
+
+    /**
      * Local action for upload. (0 - COPY, 1 - MOVE, 2 - FORGET)
      */
     private int mLocalAction;
@@ -149,6 +154,7 @@ public class OCUpload implements Parcelable {
         mRemotePath = "";
         mLocalPath = "";
         mAccountName = "";
+        mFileSize = -1;
         mId = -1;
         mLocalAction = FileUploader.LOCAL_BEHAVIOUR_COPY;
         mForceOverwrite = false;
@@ -223,6 +229,19 @@ public class OCUpload implements Parcelable {
     public void setRemotePath(String remotePath) {
         mRemotePath = remotePath;
     }
+
+
+    /**
+     * @return  File size
+     */
+    public long getFileSize() {
+        return mFileSize;
+    }
+
+    public void setFileSize(long fileSize) {
+        mFileSize = fileSize;
+    }
+
 
     /**
      * @return the mimeType

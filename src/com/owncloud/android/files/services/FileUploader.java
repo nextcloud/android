@@ -100,6 +100,7 @@ public class FileUploader extends Service
 
     private static final String TAG = FileUploader.class.getSimpleName();
 
+    private static final String UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED";
     private static final String UPLOAD_START_MESSAGE = "UPLOAD_START";
     private static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
     public static final String EXTRA_UPLOAD_RESULT = "RESULT";
@@ -133,10 +134,6 @@ public class FileUploader extends Service
      */
     public static final String KEY_ACCOUNT = "ACCOUNT";
 
-    /**
-     * Set whether single file or multiple files are to be uploaded. SINGLE_FILES = 0, MULTIPLE_FILEs = 1.
-     */
-    public static final String KEY_UPLOAD_TYPE = "UPLOAD_TYPE";
     /**
      * Set to true if remote file is to be overwritten. Default action is to upload with different name.
      */
@@ -180,6 +177,10 @@ public class FileUploader extends Service
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
+
+    public static String getUploadsAddedMessage() {
+        return FileUploader.class.getName() + UPLOADS_ADDED_MESSAGE;
+    }
 
     public static String getUploadStartMessage() {
         return FileUploader.class.getName() + UPLOAD_START_MESSAGE;
@@ -231,14 +232,14 @@ public class FileUploader extends Service
                 behaviour, String mimeType, boolean createRemoteFile, int createdBy) {
 
             uploadNewFile(
-                    context,
-                    account,
-                    new String[]{localPath},
-                    new String[]{remotePath},
-                    new String[]{mimeType},
-                    behaviour,
-                    createRemoteFile,
-                    createdBy
+                context,
+                account,
+                new String[]{localPath},
+                new String[]{remotePath},
+                new String[]{mimeType},
+                behaviour,
+                createRemoteFile,
+                createdBy
             );
         }
 
@@ -270,35 +271,61 @@ public class FileUploader extends Service
         /**
          * Call to retry upload identified by remotePath
          */
-        public void retry(Context context, Account account, OCUpload upload) {
+        public void retry (Context context, OCUpload upload) {
+            if (upload != null && context != null) {
+                Account account = AccountUtils.getOwnCloudAccountByName(
+                    context,
+                    upload.getAccountName()
+                );
+                retry(context, account, upload);
+
+            } else {
+                throw new IllegalArgumentException("Null parameter!");
+            }
+        }
+
+
+        /**
+         * Retry a subset of all the stored failed uploads.
+         *
+         * @param context           Caller {@link Context}
+         * @param account           If not null, only failed uploads to this OC account will be retried; otherwise,
+         *                          uploads of all accounts will be retried.
+         * @param uploadResult      If not null, only failed uploads with the result specified will be retried;
+         *                          otherwise, failed uploads due to any result will be retried.
+         */
+        public void retryFailedUploads(Context context, Account account, UploadResult uploadResult) {
+            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver());
+            OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
+            Account currentAccount = null;
+            boolean resultMatch, accountMatch;
+            for ( OCUpload failedUpload: failedUploads) {
+                accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
+                resultMatch = (uploadResult == null || uploadResult.equals(failedUpload.getLastResult()));
+                if (accountMatch && resultMatch) {
+                    if (currentAccount == null ||
+                            !currentAccount.name.equals(failedUpload.getAccountName())) {
+                        currentAccount = failedUpload.getAccount(context);
+                    }
+                    retry(context, currentAccount, failedUpload);
+                }
+            }
+        }
+
+        /**
+         * Private implementation of retry.
+         *
+         * @param context
+         * @param account
+         * @param upload
+         */
+        private void retry(Context context, Account account, OCUpload upload) {
             if (upload != null) {
                 Intent i = new Intent(context, FileUploader.class);
                 i.putExtra(FileUploader.KEY_RETRY, true);
                 i.putExtra(FileUploader.KEY_ACCOUNT, account);
                 i.putExtra(FileUploader.KEY_RETRY_UPLOAD, upload);
                 context.startService(i);
-            }
-        }
-
-        /**
-         * TODO - improve interface, but now just recovering basic auto-retry of instant uploads on Wifi connection
-         *
-         * @param context
-         * @param account           Null to retry uploads in current account
-         * @param uploadResult
-         */
-        public void retryUploads(Context context, Account account, UploadResult uploadResult) {
-            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver());
-            OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-            if (account == null) {
-                account = AccountUtils.getCurrentOwnCloudAccount(context);
-            }
-            for ( OCUpload upload: failedUploads){
-                if (upload.getAccountName().equals(account.name) &&
-                        upload.getLastResult() == uploadResult ) {
-
-                    retry(context, account, upload);
-                }
             }
         }
 
@@ -322,13 +349,27 @@ public class FileUploader extends Service
 
         mUploadsStorageManager = new UploadsStorageManager(getContentResolver());
 
-//      Log_OC.d(TAG, "FileUploader.retry() called by onCreate()");
-//      FileUploader.retry(getApplicationContext());
+        int failedCounter = mUploadsStorageManager.failInProgressUploads(
+            UploadResult.UNKNOWN    // Add UploadResult.KILLED?
+        );
+        if (failedCounter > 0) {
+            resurrection();
+        }
 
         // add AccountsUpdatedListener
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addOnAccountsUpdatedListener(this, null, false);
     }
+
+
+    /**
+     * Service clean-up when restarted after being killed
+     */
+    private void resurrection() {
+        // remove stucked notification
+        mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
+    }
+
 
     /**
      * Service clean up
@@ -460,6 +501,7 @@ public class FileUploader extends Service
 
                     // Save upload in database
                     OCUpload ocUpload = new OCUpload(files[i], account);
+                    ocUpload.setFileSize(files[i].getFileLength());
                     ocUpload.setForceOverwrite(forceOverwrite);
                     ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
                     ocUpload.setCreatedBy(createdBy);
@@ -541,6 +583,7 @@ public class FileUploader extends Service
             msg.arg1 = startId;
             msg.obj = requestedUploads;
             mServiceHandler.sendMessage(msg);
+            sendBroadcastUploadsAdded();
         }
         return Service.START_NOT_STICKY;
     }
@@ -851,6 +894,8 @@ public class FileUploader extends Service
 
             notifyUploadStart(mCurrentUpload);
 
+            sendBroadcastUploadStarted(mCurrentUpload);
+
             RemoteOperationResult uploadResult = null;
 
             try {
@@ -970,8 +1015,6 @@ public class FileUploader extends Service
 
         mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
 
-        // TODO really needed?
-        sendBroadcastUploadStarted(mCurrentUpload);
     }
 
     /**
@@ -1080,9 +1123,25 @@ public class FileUploader extends Service
         }
     }
 
+
     /**
      * Sends a broadcast in order to the interested activities can update their
      * view
+     *
+     * TODO - no more broadcasts, replace with a callback to subscribed listeners
+     */
+    private void sendBroadcastUploadsAdded() {
+        Intent start = new Intent(getUploadsAddedMessage());
+        // nothing else needed right now
+        sendStickyBroadcast(start);
+    }
+
+
+    /**
+     * Sends a broadcast in order to the interested activities can update their
+     * view
+     *
+     * TODO - no more broadcasts, replace with a callback to subscribed listeners
      *
      * @param upload Finished upload operation
      */
@@ -1100,6 +1159,8 @@ public class FileUploader extends Service
     /**
      * Sends a broadcast in order to the interested activities can update their
      * view
+     *
+     * TODO - no more broadcasts, replace with a callback to subscribed listeners
      *
      * @param upload                 Finished upload operation
      * @param uploadResult           Result of the upload operation

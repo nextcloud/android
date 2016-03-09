@@ -847,6 +847,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.UPLOADS_LOCAL_PATH + " TEXT, "
                 + ProviderTableMeta.UPLOADS_REMOTE_PATH + " TEXT, "
                 + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " TEXT, "
+                + ProviderTableMeta.UPLOADS_FILE_SIZE + " LONG, "
                 + ProviderTableMeta.UPLOADS_STATUS + " INTEGER, "               // UploadStatus
                 + ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR + " INTEGER, "      // Upload LocalBehaviour
                 + ProviderTableMeta.UPLOADS_UPLOAD_TIME + " INTEGER, "
