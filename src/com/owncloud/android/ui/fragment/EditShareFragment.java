@@ -263,10 +263,6 @@ public class EditShareFragment extends Fragment {
                                     toggleDisablingListener(subordinate);
                                 }
                             }
-                            if (!mFile.isSharedWithMe()) {
-                                updatePermissionsToShare(); // see (1)
-                            }
-
                         } else {
                             for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
                                 //noinspection ConstantConditions, prevented in the method beginning
@@ -276,11 +272,13 @@ public class EditShareFragment extends Fragment {
                                     toggleDisablingListener(subordinate);
                                 }
                             }
-                            updatePermissionsToShare(); // see (1)
                         }
-                    } else {
+                    }
+
+                    if(!(mFile.isFolder() && isChecked && mFile.isSharedWithMe())) {    // see (1)
                         updatePermissionsToShare();
                     }
+
                     // updatePermissionsToShare()   // see (1)
                     // (1) These modifications result in an exceptional UI behaviour for the case
                     // where the switch 'can edit' is enabled for a *reshared folder*; if the same
