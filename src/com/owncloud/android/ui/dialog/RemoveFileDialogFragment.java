@@ -53,8 +53,7 @@ implements ConfirmationDialogFragmentListener {
         Bundle args = new Bundle();
         
         int messageStringId = R.string.confirmation_remove_file_alert;
-        
-        int posBtn = R.string.confirmation_remove_file_remote;
+
         int negBtn = -1;
         if (file.isFolder()) {
             messageStringId = R.string.confirmation_remove_folder_alert;

@@ -47,6 +47,8 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.PopupMenu;
+import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -110,10 +112,12 @@ public class OCFileListFragment extends ExtendedListFragment {
     private FileListListAdapter mAdapter;
     private boolean mJustFolders;
 
-    private boolean miniFabClicked = false;
-
     private int mStatusBarColorActionMode;
     private int mStatusBarColor;
+
+    private OCFile mTargetFile;
+
+    private boolean miniFabClicked = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

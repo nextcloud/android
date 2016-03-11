@@ -25,6 +25,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -49,7 +50,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -69,7 +69,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
@@ -481,7 +480,7 @@ public class Uploader extends FileActivity
         }
     }
 
-    public void startSyncFolderOperation(OCFile folder) {
+    private void startSyncFolderOperation(OCFile folder) {
         long currentSyncTime = System.currentTimeMillis();
 
         mSyncInProgress = true;
@@ -836,7 +835,7 @@ public class Uploader extends FileActivity
                                 equals(event) &&
                                 /// TODO refactor and make common
                                 synchResult != null && !synchResult.isSuccess() &&
-                                (synchResult.getCode() == ResultCode.UNAUTHORIZED ||
+                                (synchResult.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
                                         synchResult.isIdPRedirection() ||
                                         (synchResult.isException() && synchResult.getException()
                                                 instanceof AuthenticatorException))) {
