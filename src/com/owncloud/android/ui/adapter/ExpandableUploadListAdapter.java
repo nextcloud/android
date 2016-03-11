@@ -467,7 +467,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 File file = new File(upload.getLocalPath());
                 // Thumbnail in Cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        String.valueOf(file.hashCode()));
+                        "t" + String.valueOf(file.hashCode()));
                 if (thumbnail != null) {
                     fileIcon.setImageBitmap(thumbnail);
                 } else {
