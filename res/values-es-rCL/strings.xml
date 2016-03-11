@@ -51,7 +51,6 @@
   <string name="common_loading">Cargando ...</string>
   <string name="common_error_unknown">Error desconocido</string>
   <string name="about_title">Acerca de</string>
-  <string name="delete_account">Eliminar cuenta</string>
   <string name="create_account">Crear cuenta</string>
   <string name="upload_chooser_title">Subir desde...</string>
   <string name="uploader_info_dirname">Nombre del directorio</string>
@@ -105,7 +104,6 @@
   <string name="confirmation_remove_file_alert">¿Realmente desea eliminar %1$s?</string>
   <string name="confirmation_remove_folder_alert">¿Realmente desea eliminar el archivo %1$s y su contenido?</string>
   <string name="confirmation_remove_local">Solo local</string>
-  <string name="confirmation_remove_folder_local">Solo local</string>
   <string name="remove_success_msg">Removido correctamente</string>
   <string name="remove_fail_msg">Fallo al remover</string>
   <string name="rename_dialog_title">ingresar un nuevo nombre</string>

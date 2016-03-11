@@ -94,7 +94,7 @@
   <string name="common_error_unknown">Gabim i panjohur</string>
   <string name="about_title">Rreth</string>
   <string name="change_password">Ndryshoni fjalëkalimin</string>
-  <string name="delete_account">Fshini llogarinë</string>
+  <string name="delete_account">Hiqe llogarinë</string>
   <string name="create_account">Krijoni llogari</string>
   <string name="upload_chooser_title">Ngarkojeni prej …</string>
   <string name="uploader_info_dirname">Emër dosjeje</string>
@@ -198,9 +198,6 @@
   <string name="confirmation_remove_alert">Doni vërtet të hiqet %1$s?</string>
   <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe lënda e tij?</string>
   <string name="confirmation_remove_local">Vetëm vendorja</string>
-  <string name="confirmation_remove_folder_local">Vetëm vendorja</string>
-  <string name="confirmation_remove_remote">Nga shërbyesi</string>
-  <string name="confirmation_remove_remote_and_local">E largëta &amp; dhe vendorja</string>
   <string name="remove_success_msg">Heqja doli me sukses</string>
   <string name="remove_fail_msg">Heqja dështoi</string>
   <string name="rename_dialog_title">Jepni një emër të ri</string>
@@ -363,4 +360,9 @@
   <string name="edit_share_done">u bë</string>
   <string name="action_switch_grid_view">Pamje galeri</string>
   <string name="action_switch_list_view">Pamje listë</string>
+  <string name="manage_space_title">Administroni hapësirë</string>
+  <string name="manage_space_description">Të dhënat e rregullimeve, bazës së të dhënave dhe dëshmive nga %1$s do të fshihen përgjithmonë. \n\nKartelat e shkarkuara do të ruhen të paprekura.\n\nKy proces mund të zgjasë ca.</string>
+  <string name="manage_space_clear_data">Pastroji të dhënat</string>
+  <string name="manage_space_error">Ca kartela s’u fshinë dot.</string>
+  <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni kartela lypsen leje shtesë.</string>
 </resources>

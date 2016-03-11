@@ -83,7 +83,6 @@
   <string name="common_error_unknown">Ukendt fejl</string>
   <string name="about_title">Om</string>
   <string name="change_password">Skift kodeord</string>
-  <string name="delete_account">Slet konto</string>
   <string name="create_account">Opret konto</string>
   <string name="upload_chooser_title">Upload fra ...</string>
   <string name="uploader_info_dirname">Mappenavn</string>
@@ -297,6 +296,7 @@
   <string name="share_via_link_section_title">Del link</string>
   <string name="share_via_link_expiration_date_label">Vælg udløbsdato</string>
   <string name="share_via_link_password_label">Beskyt med adgangskode</string>
+  <string name="share_via_link_password_title">Sikret</string>
   <string name="share_search">Søg</string>
   <string name="share_privilege_can_share">kan dele</string>
   <string name="share_privilege_can_edit">kan redigere</string>

@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s Androidi rakendus</string>
   <string name="about_version">versioon %1$s</string>
   <string name="actionbar_sync">Värskenda kontot</string>
   <string name="actionbar_upload">Lae fail üles</string>
@@ -36,8 +37,11 @@
   <string name="prefs_instant_upload_summary">Laadi koheselt üles kaameraga tehtud pildid</string>
   <string name="prefs_instant_video_upload">Videote kohene üleslaadimine</string>
   <string name="prefs_instant_video_upload_summary">Laadi koheselt üles kaameraga tehtud videod</string>
+  <string name="prefs_log_title">Luba logimine</string>
   <string name="prefs_log_summary">Kasutatakse probleemide logimiseks</string>
+  <string name="prefs_log_title_history">Logimise ajalugu</string>
   <string name="prefs_log_summary_history">See näitab salvestatud logisid</string>
+  <string name="prefs_log_delete_history_button">Kustuta ajalugu</string>
   <string name="prefs_help">Abiinfo</string>
   <string name="prefs_recommend">Soovita sõbrale</string>
   <string name="prefs_feedback">Tagasiside</string>
@@ -46,6 +50,7 @@
   <string name="prefs_remember_last_upload_location_summary">Jäta meelde viimase jagamise üleslaadimise asukoht</string>
   <string name="recommend_subject">Proovi oma nutitelefonil rakendust %1$s!</string>
   <string name="recommend_text">Kutsun sind kasutama oma nutitelefonis rakendust %1$s!\nLaadi see alla siit: %2$s</string>
+  <string name="auth_check_server">Kontrolli serverit</string>
   <string name="auth_host_url">Serveri aadress https://...</string>
   <string name="auth_username">Kasutajanimi</string>
   <string name="auth_password">Parool</string>
@@ -72,18 +77,21 @@
   <string name="filedetails_created">Loodud:</string>
   <string name="filedetails_modified">Muudetud:</string>
   <string name="filedetails_download">Lae alla</string>
+  <string name="filedetails_sync_file">Sünrooni</string>
   <string name="filedetails_renamed_in_upload_msg">Fail nimetati üleslaadimise käigus ümber %1$ </string>
+  <string name="list_layout">Nimekiri</string>
   <string name="action_share">Jaga</string>
   <string name="common_yes">Jah</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Loobu</string>
+  <string name="common_save_exit">Salvesta &amp; välju</string>
   <string name="common_error">Viga</string>
   <string name="common_loading">Laadimine ...</string>
   <string name="common_error_unknown">Tundmatu viga</string>
   <string name="about_title">Info</string>
   <string name="change_password">Muuda parooli</string>
-  <string name="delete_account">Kustuta konto</string>
+  <string name="delete_account">Eemalda konto</string>
   <string name="create_account">Loo konto</string>
   <string name="upload_chooser_title">Lae fail üles kohast ...</string>
   <string name="uploader_info_dirname">Kausta nimi</string>
@@ -117,6 +125,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="foreign_files_fail">Mõningaid faile ei saa ümber tõsta</string>
   <string name="foreign_files_local_text">Kohalik: %1$s</string>
   <string name="foreign_files_remote_text">Serveris: %1$s</string>
+  <string name="pass_code_enter_pass_code">Palun sisesta oma parool</string>
   <string name="pass_code_configure_your_pass_code">Sisesta oma parool</string>
   <string name="pass_code_configure_your_pass_code_explanation">Parooli küsitakse iga kord, kui sa selle rakenduse käivitad</string>
   <string name="pass_code_remove_your_pass_code">Eemalda oma parool</string>
@@ -267,7 +276,9 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="prefs_add_account">Lisa konto</string>
   <string name="auth_redirect_non_secure_connection_title">Turvalist ühendust suunatakse läbi turvamata ühenduse.</string>
   <string name="actionbar_logger">Logid</string>
+  <string name="log_send_history_button">Saada ajalugu</string>
   <string name="log_send_mail_subject">%1$s Androidi rakenduse logid</string>
+  <string name="log_progress_dialog_text">Andmete laadimine ...</string>
   <string name="saml_authentication_required_text">Autentimine on vajalik</string>
   <string name="saml_authentication_wrong_pass">Vale parool</string>
   <string name="actionbar_move">Tõsta ümber</string>
@@ -283,6 +294,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="copy_file_invalid_overwrite">See fail on juba sihtkaustas olemas</string>
   <string name="copy_file_error">Selle faili või kausta kopeerimisel tekkis tõrge</string>
   <string name="forbidden_permissions_copy">et kopeerida seda faili</string>
+  <string name="prefs_category_instant_uploading">Kohesed üleslaadimised</string>
   <string name="prefs_category_details">Üksikasjad</string>
   <string name="shared_subject_header">jagatud</string>
   <string name="with_you_subject_header">sinuga</string>
@@ -322,4 +334,10 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="share_privilege_can_edit_create">loo</string>
   <string name="share_privilege_can_edit_change">muuda</string>
   <string name="share_privilege_can_edit_delete">kustuta</string>
+  <string name="edit_share_unshare">Lõpeta jagamine</string>
+  <string name="edit_share_done">valmis</string>
+  <string name="action_switch_grid_view">Võrgustikuvaade</string>
+  <string name="action_switch_list_view">kirjavaade</string>
+  <string name="manage_space_title">Ruumi haldamine</string>
+  <string name="manage_space_clear_data">Tühjenda andmed</string>
 </resources>

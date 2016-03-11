@@ -84,7 +84,6 @@
   <string name="common_error_unknown">未知的錯誤</string>
   <string name="about_title">關於</string>
   <string name="change_password">變更密碼</string>
-  <string name="delete_account">刪除帳號</string>
   <string name="create_account">建立帳號</string>
   <string name="upload_chooser_title">更新自 ...</string>
   <string name="uploader_info_dirname">資料夾名稱</string>

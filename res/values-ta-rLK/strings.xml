@@ -46,7 +46,6 @@
   <string name="common_error">வழு</string>
   <string name="about_title">பற்றி</string>
   <string name="change_password">கடவுச்சொல்லை மாற்றுக</string>
-  <string name="delete_account">கணக்கை நீக்குக</string>
   <string name="create_account">கணக்கை உருவாக்குக</string>
   <string name="upload_chooser_title">பதிவேற்றல் படிவம்</string>
   <string name="uploader_info_dirname">கோப்புறை பெயர்</string>
@@ -79,7 +78,6 @@
   <string name="common_rename">பெயர்மாற்றம்</string>
   <string name="common_remove">அகற்றுக</string>
   <string name="confirmation_remove_local">உள்ளூர் மட்டும்</string>
-  <string name="confirmation_remove_folder_local">உள்ளூர் மட்டும்</string>
   <string name="remove_success_msg">வெற்றிகரமாக அகற்றப்பட்டது</string>
   <string name="remove_fail_msg">நீக்கலை நிறைவு செய்ய முடியவில்லை</string>
   <string name="rename_dialog_title">புதிய பெயரொன்றை நுழைக்க</string>

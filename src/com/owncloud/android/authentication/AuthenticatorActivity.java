@@ -809,7 +809,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             uri = stripIndexPhpOrAppsFiles(uri, mHostUrlInput);
 
             // Handle internationalized domain names
-            uri = DisplayUtils.convertIdn(uri, true);
+            try {
+                uri = DisplayUtils.convertIdn(uri, true);
+            } catch (IllegalArgumentException ex) {
+                // Let Owncloud library check the error of the malformed URI
+            }
 
             mServerStatusText = R.string.auth_testing_connection;
             mServerStatusIcon = R.drawable.progress_small;

@@ -61,7 +61,6 @@
   <string name="common_error_unknown">Ukjend feil</string>
   <string name="about_title">Om</string>
   <string name="change_password">Endra passord</string>
-  <string name="delete_account">Slett konto</string>
   <string name="create_account">Opprett konto</string>
   <string name="upload_chooser_title">Last opp frå …</string>
   <string name="uploader_info_dirname">Mappenamn</string>
@@ -91,7 +90,6 @@
   <string name="common_rename">Endra namn</string>
   <string name="common_remove">Fjern</string>
   <string name="confirmation_remove_local">Berre lokalt</string>
-  <string name="confirmation_remove_folder_local">Berre lokalt</string>
   <string name="remove_success_msg">Fjerning vellukka</string>
   <string name="remove_fail_msg">Fjerning mislukka</string>
   <string name="rename_server_fail_msg">Klarte ikkje å fullføra omdøyping</string>

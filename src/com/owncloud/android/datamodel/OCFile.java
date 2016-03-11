@@ -435,6 +435,14 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
+     * get remote path of parent file
+     * @return remote path
+     */
+    public String getParentRemotePath() {
+        return new File(getRemotePath()).getParent();
+    }
+
+    /**
      * Check, if this file needs updating
      *
      * @return

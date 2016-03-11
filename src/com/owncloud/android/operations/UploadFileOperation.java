@@ -393,6 +393,9 @@ public class UploadFileOperation extends RemoteOperation {
             if (temporalFile != null && !originalFile.equals(temporalFile)) {
                 temporalFile.delete();
             }
+            if (result == null){
+                result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
+            }
             if (result.isSuccess()) {
                 Log_OC.i(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " +
                         result.getLogMessage());

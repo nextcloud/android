@@ -35,6 +35,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
@@ -64,6 +66,11 @@ public class ExtendedListFragment extends Fragment
     private SwipeRefreshLayout mRefreshGridLayout;
     private SwipeRefreshLayout mRefreshEmptyLayout;
     private TextView mEmptyListMessage;
+
+    private FloatingActionsMenu mFabMain;
+    private FloatingActionButton mFabUpload;
+    private FloatingActionButton mFabMkdir;
+    private FloatingActionButton mFabUploadFromApp;
     
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
@@ -96,6 +103,21 @@ public class ExtendedListFragment extends Fragment
         return mCurrentListView;
     }
 
+    public FloatingActionButton getFabUpload() {
+        return mFabUpload;
+    }
+
+    public FloatingActionButton getFabUploadFromApp() {
+        return mFabUploadFromApp;
+    }
+
+    public FloatingActionButton getFabMkdir() {
+        return mFabMkdir;
+    }
+
+    public FloatingActionsMenu getFabMain() {
+        return mFabMain;
+    }
 
     public void switchToGridView() {
         if ((mCurrentListView == mListView)) {
@@ -223,6 +245,11 @@ public class ExtendedListFragment extends Fragment
         mGridView.setEmptyView(mRefreshEmptyLayout);
 
         mCurrentListView = mListView;   // list as default
+
+        mFabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
+        mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
+        mFabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
+        mFabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
 
         return v;
     }
@@ -370,6 +397,21 @@ public class ExtendedListFragment extends Fragment
         mRefreshListLayout.setEnabled(enabled);
         mRefreshGridLayout.setEnabled(enabled);
         mRefreshEmptyLayout.setEnabled(enabled);
+    }
+
+    /**
+     * Sets the 'visibility' state of the FAB contained in the fragment.
+     *
+     * When 'false' is set, FAB visibility is set to View.GONE programatically,
+     *
+     * @param   enabled     Desired visibility for the FAB.
+     */
+    public void setFabEnabled(boolean enabled) {
+        if(enabled) {
+            mFabMain.setVisibility(View.VISIBLE);
+        } else {
+            mFabMain.setVisibility(View.GONE);
+        }
     }
 
     /**

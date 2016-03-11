@@ -14,6 +14,7 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Tất cả tệp tin</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_open">Mở</string>
@@ -62,7 +63,6 @@
   <string name="common_error_unknown">Lỗi chưa biết</string>
   <string name="about_title">Giới thiệu</string>
   <string name="change_password">Đổi mật khẩu</string>
-  <string name="delete_account">Xóa tài khoản</string>
   <string name="create_account">Tạo tài khoản</string>
   <string name="upload_chooser_title">Tải lên từ ...</string>
   <string name="uploader_info_dirname">Tên thư mục</string>
@@ -135,7 +135,6 @@
   <string name="common_rename">Sửa tên</string>
   <string name="common_remove">Xóa</string>
   <string name="confirmation_remove_local">Chỉ cục bộ</string>
-  <string name="confirmation_remove_folder_local">Chỉ cục bộ</string>
   <string name="remove_success_msg">Xóa thành công</string>
   <string name="remove_fail_msg">Xóa không thành công</string>
   <string name="rename_dialog_title">Nhập tên mới</string>

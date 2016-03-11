@@ -83,7 +83,6 @@
   <string name="common_error_unknown">Eroare necunoscută</string>
   <string name="about_title">Despre</string>
   <string name="change_password">Schimbă parola</string>
-  <string name="delete_account">Șterge cont</string>
   <string name="create_account">Crează cont</string>
   <string name="upload_chooser_title">Încarcă din...</string>
   <string name="uploader_info_dirname">Nume director</string>
