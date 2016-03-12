@@ -115,6 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:theme="@style/Button.Primary"
             android:text="@string/share_add_user_or_group"
             android:contentDescription="shareAddUserButton"/>
 
@@ -233,6 +234,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:theme="@style/Button.Primary"
             android:text="@string/share_get_public_link_button"
             android:contentDescription="shareGetLinkButton"/>
 

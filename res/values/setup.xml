@@ -30,10 +30,15 @@
     <!-- Colors -->
     <color name="login_background_color">#FFFFFF</color>
     <color name="login_logo_background_color">#FFFFFF</color>
-    <color name="background_color">#F7F7F7</color>
+    <color name="background_color">#FFFFFF</color>
     <color name="actionbar_start_color">#1D2D44</color>
     <color name="actionbar_end_color">#1D2D44</color>
-    
+    <color name="primary_button_background_color">@color/owncloud_blue_accent</color>
+    <color name="primary_button_text_color">@color/white</color>
+    <color name="secondary_button_background_color">#D6D7D7</color>
+    <color name="secondary_button_text_color">@color/black</color>
+    <color name="drawer_header_color">@color/owncloud_blue_accent</color>
+
     <!-- Button -->
     <color name="button_text_color">#000000</color>
     

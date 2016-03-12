@@ -30,4 +30,7 @@
   <string name="share_via_link_expiration_date_label">تاریخ معیاد سیٹ کریں</string>
   <string name="share_via_link_password_label">محفوظ پاسورڈ</string>
   <string name="share_search">تلاش</string>
+  <string name="share_privilege_can_edit">تبدیل کر سکے ھیں</string>
+  <string name="share_privilege_can_edit_create">نیا بنائیں</string>
+  <string name="share_privilege_can_edit_delete">ختم کریں</string>
 </resources>

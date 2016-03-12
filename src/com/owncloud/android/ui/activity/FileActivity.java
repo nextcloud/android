@@ -62,6 +62,10 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -74,6 +78,7 @@ import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
+import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
@@ -104,7 +109,6 @@ public class FileActivity extends AppCompatActivity
 
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String DIALOG_SHARE_PASSWORD = "DIALOG_SHARE_PASSWORD";
-    private static final String KEY_TRY_SHARE_AGAIN = "TRY_SHARE_AGAIN";
     private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
 
     protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
@@ -371,12 +375,7 @@ public class FileActivity extends AppCompatActivity
 //        }
 
         // Display username in drawer
-        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-        if (account != null) {
-            TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
-            int lastAtPos = account.name.lastIndexOf("@");
-            username.setText(account.name.substring(0, lastAtPos));
-        }
+        setUsernameInDrawer(navigationDrawerLayout, AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()));
 
         // load slide menu items
         mDrawerTitles = getResources().getStringArray(R.array.drawer_items);
@@ -440,6 +439,21 @@ public class FileActivity extends AppCompatActivity
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(false);
+    }
+
+    /**
+     * sets the given account name in the drawer in case the drawer is available. The account name
+     * is shortened beginning from the @-sign in the username.
+     *
+     * @param navigationDrawerLayout the drawer layout to be used
+     * @param account                the account to be set in the drawer
+     */
+    protected void setUsernameInDrawer(RelativeLayout navigationDrawerLayout, Account account) {
+        if (navigationDrawerLayout != null && account != null) {
+            TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
+            int lastAtPos = account.name.lastIndexOf("@");
+            username.setText(account.name.substring(0, lastAtPos));
+        }
     }
 
     /**
@@ -729,7 +743,7 @@ public class FileActivity extends AppCompatActivity
                 (result.isException() && result.getException() instanceof AuthenticatorException)
                 )) {
 
-            requestCredentialsUpdate();
+            requestCredentialsUpdate(this);
 
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
                 dismissLoadingDialog();
@@ -743,7 +757,8 @@ public class FileActivity extends AppCompatActivity
                 operation instanceof CreateShareWithShareeOperation ||
                 operation instanceof UnshareOperation ||
                 operation instanceof SynchronizeFolderOperation ||
-                operation instanceof UpdateShareViaLinkOperation
+                operation instanceof UpdateShareViaLinkOperation ||
+                operation instanceof UpdateSharePermissionsOperation
                 ) {
             if (result.isSuccess()) {
                 updateFileFromDB();
@@ -774,14 +789,50 @@ public class FileActivity extends AppCompatActivity
         }
     }
 
-    protected void requestCredentialsUpdate() {
-        Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
-        updateAccountCredentials.putExtra(
-                AuthenticatorActivity.EXTRA_ACTION,
-                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
-        updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-        startActivity(updateAccountCredentials);
+    /**
+     * Invalidates the credentials stored for the current OC account and requests new credentials to the user,
+     * navigating to {@link AuthenticatorActivity}
+     *
+     * @param context   Android Context needed to access the {@link AccountManager}. Received as a parameter
+     *                  to make the method accessible to {@link android.content.BroadcastReceiver}s.
+     */
+    protected void requestCredentialsUpdate(Context context) {
+
+        try {
+            /// step 1 - invalidate credentials of current account
+            OwnCloudClient client;
+            OwnCloudAccount ocAccount =
+                    new OwnCloudAccount(getAccount(), context);
+            client = (OwnCloudClientManagerFactory.getDefaultSingleton().
+                    removeClientFor(ocAccount));
+            if (client != null) {
+                OwnCloudCredentials cred = client.getCredentials();
+                if (cred != null) {
+                    AccountManager am = AccountManager.get(context);
+                    if (cred.authTokenExpires()) {
+                        am.invalidateAuthToken(
+                                getAccount().type,
+                                cred.getAuthToken()
+                        );
+                    } else {
+                        am.clearPassword(getAccount());
+                    }
+                }
+            }
+
+            /// step 2 - request credentials to user
+            Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+            updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
+            updateAccountCredentials.putExtra(
+                    AuthenticatorActivity.EXTRA_ACTION,
+                    AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
+            updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            startActivity(updateAccountCredentials);
+
+        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+            Toast.makeText(context, R.string.auth_account_does_not_exist, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
@@ -858,6 +909,8 @@ public class FileActivity extends AppCompatActivity
      * Show loading dialog
      */
     public void showLoadingDialog(String message) {
+        // grant that only one waiting dialog is shown
+        dismissLoadingDialog();
         // Construct dialog
         LoadingDialog loading = new LoadingDialog(message);
         FragmentManager fm = getSupportFragmentManager();

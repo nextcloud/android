@@ -39,7 +39,7 @@
 		<ListView android:id="@android:id/list"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			android:divider="@drawable/uploader_list_separator"
+			android:divider="@color/list_divider_background"
 			android:dividerHeight="1dip">
 		</ListView>
 
@@ -53,6 +53,7 @@
 	    android:orientation="horizontal" >
 
 		<android.support.v7.widget.AppCompatButton
+			android:theme="@style/Button"
 		    android:id="@+id/uploader_cancel"
 			style="@style/ownCloud.Button"
 		    android:layout_width="fill_parent"
@@ -63,7 +64,7 @@
 
 		<android.support.v7.widget.AppCompatButton
 		    android:id="@+id/uploader_choose_folder"
-			style="@style/ownCloud.Button"
+			android:theme="@style/Button.Primary"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_gravity="bottom"

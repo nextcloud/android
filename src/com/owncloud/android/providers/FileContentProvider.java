@@ -280,7 +280,10 @@ public class FileContentProvider extends ContentProvider {
         int newShareType = newShare.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE);
         if (newShareType == ShareType.PUBLIC_LINK.getValue()) {
             fileValues.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, 1);
-        } else if (newShareType == ShareType.USER.getValue() || newShareType == ShareType.GROUP.getValue()) {
+        } else if (
+                newShareType == ShareType.USER.getValue() ||
+                newShareType == ShareType.GROUP.getValue() ||
+                newShareType == ShareType.FEDERATED.getValue() ) {
             fileValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, 1);
         }
 

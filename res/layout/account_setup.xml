@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
+            android:theme="@style/Button"
             android:text="@string/auth_check_server"
             android:visibility="gone"
             android:contentDescription="@string/auth_check_server"/>
@@ -97,7 +98,6 @@
 			    android:padding="0dp"
 			    android:scaleType="fitCenter"
 			    android:src="@drawable/ic_action_refresh_grey"
-            	android:onClick="onRefreshClick"
 				android:visibility="gone"
 				android:background="@android:color/transparent"
                 android:contentDescription="@string/auth_refresh_button"

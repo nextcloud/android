@@ -32,4 +32,4 @@
       android:paddingTop="@dimen/abc_dialog_list_padding_vertical_material"
       android:paddingBottom="@dimen/abc_dialog_list_padding_vertical_material"
       android:clipToPadding="false"
-      style="@style/Widget.AppCompat.ListView" />
+      style="@style/Widget.AppCompat.ListView" /><!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v7/appcompat/res/layout/abc_select_dialog_material.xml -->

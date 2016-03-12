@@ -38,7 +38,6 @@
   <string name="common_no">ياق</string>
   <string name="common_ok">جەزملە</string>
   <string name="common_cancel">ۋاز كەچ</string>
-  <string name="common_save_exit">ساقلاپ چېكىن</string>
   <string name="common_error">خاتالىق</string>
   <string name="common_error_unknown">يوچۇن خاتالىق</string>
   <string name="change_password">ئىم ئۆزگەرت</string>
@@ -50,8 +49,8 @@
   <string name="activity_chooser_send_file_title">يوللا</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">ھېساباتلار</string>
-  <string name="prefs_category_security">بىخەتەرلىك</string>
   <string name="auth_host_address">مۇلازىمېتىر ئادرىسى</string>
   <string name="share_dialog_title">ھەمبەھىر</string>
   <string name="share_search">ئىزدە</string>
+  <string name="share_privilege_can_edit_delete">ئۆچۈر</string>
 </resources>
