@@ -22,7 +22,7 @@
     <item
         android:id="@+id/action_share_file"
         android:title="@string/action_share"
-        android:icon="@android:drawable/ic_menu_share"
+        android:icon="@drawable/ic_share"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_open_file_with"
