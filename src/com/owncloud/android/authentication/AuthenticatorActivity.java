@@ -1245,7 +1245,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         case UNHANDLED_HTTP_CODE:
         case UNKNOWN_ERROR:
-            setStatusUrl();
+            mServerStatusText = R.string.auth_unknown_error_title;
             break;
         case OK_REDIRECT_TO_NON_SECURE_CONNECTION:
             mServerStatusIcon = R.drawable.ic_lock_open;
@@ -1332,7 +1332,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         case UNHANDLED_HTTP_CODE:
         case UNKNOWN_ERROR:
-            setStatusUrl();
+            mAuthStatusText = R.string.auth_unknown_error_title;
             break;
         default:
             mAuthStatusText = 0;
@@ -1616,18 +1616,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mServerStatusView.setVisibility(View.INVISIBLE);
 
         } else {
-            setStatusUrl();
+            if (mServerStatusText == R.string.auth_unknown_error_title){
+                String text = getString(R.string.auth_unknown_error_title,
+                        mHostUrlInput.getText().toString().trim() + "/status.php");
+                mServerStatusView.setText(Html.fromHtml(text));
+                Linkify.addLinks(mServerStatusView, Linkify.WEB_URLS);
+            } else {
+                mServerStatusView.setText(mServerStatusText);
+            }
             mServerStatusView.setCompoundDrawablesWithIntrinsicBounds(mServerStatusIcon, 0, 0, 0);
             mServerStatusView.setVisibility(View.VISIBLE);
         }
 
-    }
-
-    private void setStatusUrl(){
-        String text = getString(R.string.auth_unknown_error_title,
-                                mHostUrlInput.getText().toString().trim() + "/status.php");
-        mServerStatusView.setText(Html.fromHtml(text));
-        Linkify.addLinks(mServerStatusView, Linkify.WEB_URLS);
     }
 
     /**
