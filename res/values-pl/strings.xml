@@ -161,7 +161,7 @@
   <string name="media_play_pause_description">Przycisk odtwarzania / pauzowania</string>
   <string name="media_forward_description">Przycisk przewijania do przodu</string>
   <string name="auth_getting_authorization">Autoryzowanie...</string>
-  <string name="auth_trying_to_login">Logowanie...</string>
+  <string name="auth_trying_to_login">Próba logowania</string>
   <string name="auth_no_net_conn_title">Brak połączenia sieciowego</string>
   <string name="auth_nossl_plain_ok_title">Nie można nawiązać bezpiecznego połączenia.</string>
   <string name="auth_connection_established">Połączenie nawiązane</string>
@@ -346,7 +346,7 @@
   <string name="share_add_user_or_group">Dodaj użytkownika lub grupę</string>
   <string name="share_via_link_section_title">Udostępnij link</string>
   <string name="share_via_link_expiration_date_label">Ustaw datę wygaśnięcia</string>
-  <string name="share_via_link_password_label">Zabezpiecz hasłem</string>
+  <string name="share_via_link_password_label">Zabezpieczone hasłem</string>
   <string name="share_via_link_password_title">Zabezpieczone</string>
   <string name="share_get_public_link_button">Pobierz link</string>
   <string name="share_search">Wyszukaj</string>
@@ -358,7 +358,7 @@
   <string name="share_privilege_can_edit">może edytować</string>
   <string name="share_privilege_can_edit_create">utwórz</string>
   <string name="share_privilege_can_edit_change">zmiany</string>
-  <string name="share_privilege_can_edit_delete">skasuj</string>
+  <string name="share_privilege_can_edit_delete">usuń</string>
   <string name="edit_share_unshare">Cofnij udostępnianie</string>
   <string name="edit_share_done">zakończono</string>
   <string name="action_switch_grid_view">Widok siatki</string>
