@@ -66,8 +66,8 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
     private static final String GRID_COLUMNS = "gridColumns";
-    private ScaleGestureDetector SGD = null;
 
+    private ScaleGestureDetector mScaleGestureDetector = null;
     private SwipeRefreshLayout mRefreshListLayout;
     private SwipeRefreshLayout mRefreshGridLayout;
     private SwipeRefreshLayout mRefreshEmptyLayout;
@@ -89,7 +89,7 @@ public class ExtendedListFragment extends Fragment
 
     private ListAdapter mAdapter;
 
-    private float scale = -1f;
+    private float mScale = -1f;
 
     protected void setListAdapter(ListAdapter listAdapter) {
         mAdapter = listAdapter;
@@ -162,18 +162,13 @@ public class ExtendedListFragment extends Fragment
         mGridView.setOnItemClickListener(this);
         mGridFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
-        SGD = new ScaleGestureDetector(MainApp.getAppContext(),new ScaleListener());
+        mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(),new ScaleListener());
 //        gestureDetector = new GestureDetector(MainApp.getAppContext(), new SingleTapConfirm());
 
         mGridView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-//                if (SGD.onTouchEvent(motionEvent)) {
-//                    return false;
-//                }
-//                return false;
-
-                SGD.onTouchEvent(motionEvent);
+                mScaleGestureDetector.onTouchEvent(motionEvent);
                 return false;
             }
         });
@@ -217,13 +212,13 @@ public class ExtendedListFragment extends Fragment
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            if (scale == -1f){
+            if (mScale == -1f) {
                 mGridView.setNumColumns(GridView.AUTO_FIT);
-                scale = mGridView.getNumColumns();
+                mScale = mGridView.getNumColumns();
             }
-            scale *= 1-(detector.getScaleFactor()- 1);
-            scale = Math.max(2.0f, Math.min(scale, 10.0f));
-            Integer scaleInt = Math.round(scale);
+            mScale *= 1.f - (detector.getScaleFactor() - 1.f);
+            mScale = Math.max(2.0f, Math.min(mScale, 10.0f));
+            Integer scaleInt = Math.round(mScale);
             mGridView.setNumColumns(scaleInt);
             mGridView.invalidateViews();
 
@@ -254,7 +249,7 @@ public class ExtendedListFragment extends Fragment
 
         SharedPreferences appPreferences = PreferenceManager
                 .getDefaultSharedPreferences(MainApp.getAppContext());
-        scale = appPreferences.getFloat(GRID_COLUMNS, -1.0f);
+        mScale = appPreferences.getFloat(GRID_COLUMNS, -1.0f);
     }    
     
     
@@ -269,11 +264,9 @@ public class ExtendedListFragment extends Fragment
         savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
 
-        SharedPreferences appPreferences = PreferenceManager
-                .getDefaultSharedPreferences(MainApp.getAppContext());
-        SharedPreferences.Editor editor = appPreferences.edit();
-        editor.putFloat(GRID_COLUMNS, scale);
-        editor.apply();
+        SharedPreferences.Editor editor = PreferenceManager
+                .getDefaultSharedPreferences(MainApp.getAppContext()).edit();
+        editor.putFloat(GRID_COLUMNS, mScale).apply();
     }
 
     /**
