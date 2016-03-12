@@ -36,11 +36,15 @@
   <string name="saml_authentication_required_text">Potrebna autentifikacija</string>
   <string name="saml_authentication_wrong_pass">Pogrešna lozinka</string>
   <string name="folder_picker_choose_button_text">Izaberite</string>
-  <string name="prefs_category_security">Sigurnost</string>
   <string name="auth_host_address">Adresa servera</string>
   <string name="share_dialog_title">Dijeljenje</string>
   <string name="share_via_link_section_title">Podijelite vezu</string>
   <string name="share_via_link_expiration_date_label">Postavite datum isteka</string>
   <string name="share_via_link_password_label">Zaštitita lozinkom</string>
   <string name="share_search">Potraži</string>
+  <string name="share_privilege_can_share">mogu dijeliti</string>
+  <string name="share_privilege_can_edit">mogu mijenjati</string>
+  <string name="share_privilege_can_edit_create">kreiraj</string>
+  <string name="share_privilege_can_edit_change">izmjeni</string>
+  <string name="share_privilege_can_edit_delete">izbriši</string>
 </resources>

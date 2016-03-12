@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Android App</string>
+  <string name="about_android">%1$s Android-App</string>
   <string name="about_version">Version %1$s</string>
   <string name="actionbar_sync">Konto aktualisieren</string>
   <string name="actionbar_upload">Datei hochladen</string>
@@ -79,14 +79,14 @@
   <string name="filedetails_created">Erstellt:</string>
   <string name="filedetails_modified">Geändert:</string>
   <string name="filedetails_download">Herunterladen</string>
-  <string name="filedetails_sync_file">syncronisieren</string>
+  <string name="filedetails_sync_file">Synchronisieren</string>
   <string name="filedetails_renamed_in_upload_msg">Datei wurde wärend des Uploads zu %1$s umbenannt</string>
-  <string name="list_layout">Listen-Layout</string>
+  <string name="list_layout">Listenlayout</string>
   <string name="action_share">Share</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="common_ok">OK</string>
-  <string name="common_cancel_sync">Synchronisation beenden</string>
+  <string name="common_cancel_sync">Synchronisation abbrechen</string>
   <string name="common_cancel">Abbrechen</string>
   <string name="common_save_exit">Speichern &amp; Schließen</string>
   <string name="common_error">Fehler</string>
@@ -94,17 +94,17 @@
   <string name="common_error_unknown">Unbekannter Fehler</string>
   <string name="about_title">Über</string>
   <string name="change_password">Passwort ändern</string>
-  <string name="delete_account">Account löschen</string>
+  <string name="delete_account">Benutzerkonto löschen</string>
   <string name="create_account">Account erstellen</string>
   <string name="upload_chooser_title">Dateien hochladen von...</string>
   <string name="uploader_info_dirname">Ordnername</string>
   <string name="uploader_upload_in_progress_ticker">Hochladen...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Hochladen %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Hochladen erfolgreich</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s wurde(n) erfolgreich hochgeladen</string>
+  <string name="uploader_upload_succeeded_content_single">%1$s wurde/n erfolgreich hochgeladen</string>
   <string name="uploader_upload_failed_ticker">Hochladen fehlgeschlagen</string>
   <string name="uploader_upload_failed_content_single">Hochladen von  %1$s konnte nicht abgeschlossen werden</string>
-  <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, Sie müssen sich neu anmelden</string>
+  <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, Sie müssen sich erneut anmelden.</string>
   <string name="downloader_download_in_progress_ticker">Herunterladen...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Herunterladen %2$s</string>
   <string name="downloader_download_succeeded_ticker">Herunterladen erfolgreich</string>
@@ -112,10 +112,10 @@
   <string name="downloader_download_failed_ticker">Herunterladen fehlgeschlagen</string>
   <string name="downloader_download_failed_content">Herunterladen von %1$s konnte nicht abgeschlossen werden</string>
   <string name="downloader_not_downloaded_yet">Noch nicht heruntergeladen</string>
-  <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, Sie müssen sich neu anmelden</string>
+  <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, Sie müssen sich erneut anmelden.</string>
   <string name="common_choose_account">Konto auswählen</string>
   <string name="sync_fail_ticker">Synchronisation fehlgeschlagen</string>
-  <string name="sync_fail_ticker_unauthorized">Synchronisation fehlgeschlagen, Sie müssen sich neu anmelden</string>
+  <string name="sync_fail_ticker_unauthorized">Synchronisation fehlgeschlagen, Sie müssen sich erneut anmelden.</string>
   <string name="sync_fail_content">Bei der Synchronisation konnte %1$s nicht übertragen werden</string>
   <string name="sync_fail_content_unauthorized">Ungültiges Passwort für %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
@@ -160,8 +160,8 @@
   <string name="media_rewind_description">Zurückspulen Button</string>
   <string name="media_play_pause_description">Abspielen oder Pausieren Button</string>
   <string name="media_forward_description">Vorspulen Button</string>
-  <string name="auth_getting_authorization">Legitimierung empfangen …</string>
-  <string name="auth_trying_to_login">Anmeldeversuch …</string>
+  <string name="auth_getting_authorization">Autorisierung empfangen...</string>
+  <string name="auth_trying_to_login">Anmeldeversuch...</string>
   <string name="auth_no_net_conn_title">Keine Netzwerkverbindung</string>
   <string name="auth_nossl_plain_ok_title">Sichere Verbindung nicht verfügbar.</string>
   <string name="auth_connection_established">Verbindung hergestellt</string>
@@ -173,7 +173,7 @@
   <string name="auth_unknown_host_title">Konnte den Host nicht finden.</string>
   <string name="auth_incorrect_path_title">Server-Installation nicht gefunden</string>
   <string name="auth_timeout_title">Der Server braucht zu lange für eine Antwort.</string>
-  <string name="auth_incorrect_address_title">Fehlerhafte URL</string>
+  <string name="auth_incorrect_address_title">Fehlerhaftes Format Ihrer Serveradresse</string>
   <string name="auth_ssl_general_error_title">SSL-Initialisierung fehlgeschlagen.</string>
   <string name="auth_ssl_unverified_server_title">SSL-Server-Identität konnte nicht überprüft werden</string>
   <string name="auth_bad_oc_version_title">Unbekannte Server-Version</string>
@@ -186,12 +186,12 @@
   <string name="auth_expired_oauth_token_toast">Ihre Legitimierung ist abgelaufen. Bitte Legitimierung nochmals durchführen</string>
   <string name="auth_expired_basic_auth_toast">Bitte geben Sie Ihr aktuelles Passwort ein</string>
   <string name="auth_expired_saml_sso_token_toast">Ihre Sitzung ist abgelaufen. Bitte Anmeldung nochmals durchführen</string>
-  <string name="auth_connecting_auth_server">Zum Legitimierungsserver verbinden…</string>
+  <string name="auth_connecting_auth_server">Verbinde mit dem Authentifizierung-Server…</string>
   <string name="auth_unsupported_auth_method">Der Server unterstützt diese Legitimierungsmethode nicht</string>
   <string name="auth_unsupported_multiaccount">%1$s unterstützt mehrere Benutzerkonten nicht</string>
   <string name="auth_fail_get_user_name">Ihr Server gibt keine richtige Benutzerkennung zurück, bitte kontaktieren Sie einen Administrator
 ⇥</string>
-  <string name="auth_can_not_auth_against_server">Die Legitimierung gegenüber dem Server konnte nicht durchgeführt werden</string>
+  <string name="auth_can_not_auth_against_server">Die Authentifizierung gegenüber dem Server konnte nicht durchgeführt werden</string>
   <string name="auth_account_does_not_exist">Das Benutzerkonto ist bis jetzt noch nicht auf dem Gerät vorhanden</string>
   <string name="favorite">Favorit</string>
   <string name="unfavorite">Nicht mehr favorisieren</string>
@@ -200,9 +200,6 @@
   <string name="confirmation_remove_alert">Möchten Sie %1$s wirklich löschen?</string>
   <string name="confirmation_remove_folder_alert">Möchten Sie wirklich %1$s und dessen Inhalte entfernen?</string>
   <string name="confirmation_remove_local">Nur lokal</string>
-  <string name="confirmation_remove_folder_local">Nur lokal</string>
-  <string name="confirmation_remove_remote">Vom Server</string>
-  <string name="confirmation_remove_remote_and_local">Remote &amp; lokal</string>
   <string name="remove_success_msg">Erfolgreich gelöscht</string>
   <string name="remove_fail_msg">Der Löschvorgang konnte nicht beendet werden</string>
   <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>
@@ -273,7 +270,7 @@
   <string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Prüfen Sie, ob die Datei existiert</string>
   <string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
   <string name="update_link_file_no_exist">Update nicht möglich. Bitte überprüfen Sie, ob die Datei existiert</string>
-  <string name="update_link_file_error">Es ist ein Fehler beim Aktualisieren des geteilten Links aufgetreten</string>
+  <string name="update_link_file_error">Es ist ein Fehler beim Aktualisieren der Freigabe aufgetreten</string>
   <string name="share_link_password_title">Passwort eingeben</string>
   <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
   <string name="activity_chooser_send_file_title">Senden</string>
@@ -290,7 +287,7 @@
   <string name="forbidden_permissions_delete">diese Datei zu löschen</string>
   <string name="share_link_forbidden_permissions">diese Datei zu teilen</string>
   <string name="unshare_link_forbidden_permissions">diese Datei nicht mehr zu teilen</string>
-  <string name="update_link_forbidden_permissions">Zum Aktualisieren des geteilten Links</string>
+  <string name="update_link_forbidden_permissions">zum Aktualisieren dieser Freigabe</string>
   <string name="forbidden_permissions_create">eine Datei zu erstellen</string>
   <string name="uploader_upload_forbidden_permissions">in diesem Order etwas hochzuladen</string>
   <string name="downloader_download_file_not_found">Diese Datei steht auf dem Server nicht mehr zur Verfügung</string>
@@ -318,8 +315,8 @@
   <string name="copy_file_error">Es ist ein Fehler beim Kopieren dieser Datei oder dieses Ordners aufgetreten</string>
   <string name="forbidden_permissions_copy">um diese Datei zu kopieren</string>
   <string name="prefs_category_instant_uploading">Sofortiges Hochladen</string>
-  <string name="prefs_category_security">Sicherheit</string>
-  <string name="prefs_instant_video_upload_path_title">Verzeichnis zum Hochladen der Videos</string>
+  <string name="prefs_category_details">Details</string>
+  <string name="prefs_instant_video_upload_path_title">Pfad zum Hochladen von Videos</string>
   <string name="sync_folder_failed_content">Bei der Synchronisation konnte %1$s Ordner nicht fertig gestellt werden</string>
   <string name="shared_subject_header">geteilt</string>
   <string name="with_you_subject_header">Mit Ihnen</string>
@@ -357,4 +354,18 @@
   <string name="share_group_clarification">%1$s (group)</string>
   <string name="share_sharee_unavailable">Entschuldigung, Ihre Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht.
 \nBitte kontaktieren Sie Ihren Administrator</string>
+  <string name="share_privilege_can_share">kann teilen</string>
+  <string name="share_privilege_can_edit">kann bearbeiten</string>
+  <string name="share_privilege_can_edit_create">erstellen</string>
+  <string name="share_privilege_can_edit_change">Ändern</string>
+  <string name="share_privilege_can_edit_delete">löschen</string>
+  <string name="edit_share_unshare">Freigabe löschen</string>
+  <string name="edit_share_done">Erledigt</string>
+  <string name="action_switch_grid_view">Zur Rasteransicht wechseln</string>
+  <string name="action_switch_list_view">Zur Listenansicht wechseln</string>
+  <string name="manage_space_title">Speicher verwalten</string>
+  <string name="manage_space_description">Die Einstellungen, die Datenbank und Server Zertifikate von %1$s werden endgültig gelöscht. \n\n Heruntergeladene Dateien bleiben unberührt.\n\nDieser Vorgang kann eine Weile dauern.</string>
+  <string name="manage_space_clear_data">Lösche Daten</string>
+  <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden</string>
+  <string name="permission_storage_access">Weitere Berechtigungen erforderlich für das Hoch- und Herunterladen von Dateien</string>
 </resources>

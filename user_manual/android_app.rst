@@ -15,6 +15,31 @@ some advantages over the Web interface:
 * Easily add files from your device to ownCloud
 * Two-factor authentication
 
+New In Version 1.9.1
+--------------------
+
+This release contains a number of improvements, including:
+
+* Set and edit permissions on internal shared data.
+* Instant uploads: avoid file duplications, set policy in app settings.
+* Control duplication of files uploaded via **Upload** button.
+* Select view mode: either list or grid per folder.
+* More buttons and checkboxes for faster operations.
+* Fixed battery drain in automatic synchronization.
+* Security fixes related to passcode.
+* Wording fixes.
+
+Upgrading
+---------
+
+When you download your ownCloud Android App from the Google Play store, it will 
+be upgraded just like any other Play Store app, according to your settings on 
+your Android device. It will either upgrade automatically, or give you a 
+notification than an upgrade is available.
+
+If you are using an ownCloud Android app from a custom repository, e.g. your 
+employer, then you will upgrade according their policies.
+
 Getting the ownCloud Android App
 --------------------------------
 
@@ -32,6 +57,9 @@ You will also find these links on your Personal page in the ownCloud Web interfa
 
 Find source code and more information from the `ownCloud download page 
 <http://owncloud.org/install/#mobile>`_.
+
+Users of customized ownCloud Android apps, for example from their employer, 
+should follow their employer's instructions.
 
 Connecting to Your ownCloud Server
 ----------------------------------
@@ -71,7 +99,8 @@ shortcut to your files, and contains the Settings button.
    :alt: Top-left menu.
 
 Click the overflow button at the top right (that's the one with three vertical 
-dots) to open a user menu. ``Refresh account`` syncs your files, and ``Sort`` 
+dots) to open a user menu. **Grid view** toggles between grid and list 
+view. **Refresh account** syncs with the server, and **Sort** 
 gives you the option to sort your files by date, or alphabetically.
 
 .. figure:: images/android-6.png
@@ -142,3 +171,22 @@ Pictures/Video via WiFi Only, to conserve your mobile data usage.
 
 The bottom section of the Settings screen has links to Help, Recommend to a 
 friend, Feedback, and the version number.
+
+Removing/Logging Out
+--------------------
+
+On your Settings page, a long press on an account name opens a dialog to 
+**Change password** or **Remove account**. **Change password** is, of course, 
+changing your password.
+
+**Remove account** logs you out of the server, removes your account settings, 
+and removes your files from your Android device. It does not change anything on 
+the server. There is no logout function that simply logs out of your account 
+and leaves all your files on your Android device. If you want extra security, 
+you can set a login PIN on your Android device, and also on your ownCloud 
+account. If you are using a shared Android device, other users can access your 
+files in the file manager if you are sharing a single user account, so you 
+could set up multiple user accounts to protect your files.
+
+.. figure:: images/android-13.png
+   :alt: Change password or remove account dialog.

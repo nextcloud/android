@@ -20,10 +20,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <PreferenceCategory android:title="@string/prefs_category_accounts" android:key="accounts_category">
     </PreferenceCategory>
-    
-	<PreferenceCategory android:title="@string/prefs_category_security">
-	    <android.preference.CheckBoxPreference android:title="@string/prefs_passcode" android:key="set_pincode" />
-	</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefs_category_instant_uploading" android:key="instant_uploading_category">
 		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:key="instant_uploading"
@@ -61,6 +57,10 @@
 	                        android:summary="@string/prefs_log_summary_history"/ -->
                         
     </PreferenceCategory>
+
+	<PreferenceCategory android:title="@string/prefs_category_details">
+		<android.preference.CheckBoxPreference android:title="@string/prefs_passcode" android:key="set_pincode" />
+	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">
     <Preference android:title="@string/prefs_help" android:key="help" />

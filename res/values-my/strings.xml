@@ -20,4 +20,7 @@
   <string name="empty"></string>
   <string name="folder_picker_choose_button_text">ရွေးချယ်</string>
   <string name="share_via_link_expiration_date_label">သက်တမ်းကုန်ဆုံးမည့်ရက်သတ်မှတ်မည်</string>
+  <string name="share_privilege_can_edit">ပြင်ဆင်နိုင်</string>
+  <string name="share_privilege_can_edit_create">ဖန်တီးမည်</string>
+  <string name="share_privilege_can_edit_delete">ဖျက်မည်</string>
 </resources>

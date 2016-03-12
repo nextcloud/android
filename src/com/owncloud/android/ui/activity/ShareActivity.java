@@ -33,6 +33,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
+import com.owncloud.android.operations.UnshareOperation;
+import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -41,11 +43,11 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
+import com.owncloud.android.ui.fragment.EditShareFragment;
 import com.owncloud.android.ui.fragment.SearchShareesFragment;
 import com.owncloud.android.ui.fragment.ShareFileFragment;
+import com.owncloud.android.ui.fragment.ShareFragmentListener;
 import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
-
-import org.apache.http.protocol.HTTP;
 
 
 /**
@@ -53,13 +55,13 @@ import org.apache.http.protocol.HTTP;
  */
 
 public class ShareActivity extends FileActivity
-        implements ShareFileFragment.OnShareFragmentInteractionListener,
-        SearchShareesFragment.OnSearchFragmentInteractionListener {
+        implements ShareFragmentListener {
 
     private static final String TAG = ShareActivity.class.getSimpleName();
 
     private static final String TAG_SHARE_FRAGMENT = "SHARE_FRAGMENT";
     private static final String TAG_SEARCH_FRAGMENT = "SEARCH_USER_AND_GROUPS_FRAGMENT";
+    private static final String TAG_EDIT_SHARE_FRAGMENT = "EDIT_SHARE_FRAGMENT";
 
     /** Tag for dialog */
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
@@ -118,9 +120,24 @@ public class ShareActivity extends FileActivity
         getFileOperationsHelper().shareFileWithSharee(
                 getFile(),
                 shareeName,
-                (isGroup ? ShareType.GROUP : ShareType.USER)
+                (isGroup ? ShareType.GROUP : ShareType.USER),
+                getAppropiatePermissions()
         );
     }
+
+
+    private int getAppropiatePermissions() {
+        if (getFile().isSharedWithMe()) {
+            return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
+
+        } else if (getFile().isFolder()) {
+            return OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
+
+        } else {    // isFile
+            return OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
+        }
+    }
+
 
     @Override
     public void showSearchUsersAndGroups() {
@@ -129,6 +146,16 @@ public class ShareActivity extends FileActivity
         Fragment searchFragment = SearchShareesFragment.newInstance(getFile(), getAccount());
         ft.replace(R.id.share_fragment_container, searchFragment, TAG_SEARCH_FRAGMENT);
         ft.addToBackStack(null);    // BACK button will recover the ShareFragment
+        ft.commit();
+    }
+
+    @Override
+    public void showEditShare(OCShare share) {
+        // replace current fragment with EditShareFragment on demand
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment editShareFragment = EditShareFragment.newInstance(share, getFile(), getAccount());
+        ft.replace(R.id.share_fragment_container, editShareFragment, TAG_EDIT_SHARE_FRAGMENT);
+        ft.addToBackStack(null);    // BACK button will recover the previous fragment
         ft.commit();
     }
 
@@ -179,10 +206,19 @@ public class ShareActivity extends FileActivity
 
             Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
             intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
-            intentToShareLink.setType(HTTP.PLAIN_TEXT_TYPE);
+            intentToShareLink.setType("text/plain");
             String[] packagesToExclude = new String[]{getPackageName()};
             DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
             chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+        }
+
+        if (operation instanceof UnshareOperation && result.isSuccess() && getEditShareFragment() != null) {
+            getSupportFragmentManager().popBackStack();
+        }
+
+        if (operation instanceof UpdateSharePermissionsOperation
+                && getEditShareFragment() != null && getEditShareFragment().isAdded()) {
+            getEditShareFragment().onUpdateSharePermissionsFinished(result);
         }
 
     }
@@ -206,6 +242,13 @@ public class ShareActivity extends FileActivity
                 searchShareesFragment.isAdded()) {  // only if added to the view hierarchy!!
             searchShareesFragment.refreshUsersOrGroupsListFromDB();
         }
+
+        EditShareFragment editShareFragment = getEditShareFragment();
+        if (editShareFragment != null &&
+                editShareFragment.isAdded())    {
+            editShareFragment.refreshUiFromDB();
+        }
+
     }
 
     /**
@@ -224,6 +267,15 @@ public class ShareActivity extends FileActivity
      */
     private SearchShareesFragment getSearchFragment() {
         return (SearchShareesFragment) getSupportFragmentManager().findFragmentByTag(TAG_SEARCH_FRAGMENT);
+    }
+
+    /**
+     * Shortcut to get access to the {@link EditShareFragment} instance, if any
+     *
+     * @return  A {@link EditShareFragment} instance, or null
+     */
+    private EditShareFragment getEditShareFragment() {
+        return (EditShareFragment) getSupportFragmentManager().findFragmentByTag(TAG_EDIT_SHARE_FRAGMENT);
     }
 
 }

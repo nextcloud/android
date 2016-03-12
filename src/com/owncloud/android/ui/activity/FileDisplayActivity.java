@@ -22,8 +22,8 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.Manifest;
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
@@ -36,6 +36,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SyncRequest;
+import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -44,6 +45,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -56,7 +58,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -67,11 +68,6 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.OwnCloudCredentials;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -90,7 +86,6 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
-import com.owncloud.android.ui.dialog.UploadSourceDialogFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -102,6 +97,7 @@ import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
 
 import java.io.File;
@@ -145,7 +141,6 @@ public class FileDisplayActivity extends HookActivity
     private boolean mSyncInProgress = false;
 
     private static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
-    private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
     private static String DIALOG_UPLOAD_SOURCE = "DIALOG_UPLOAD_SOURCE";
     private static String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
 
@@ -194,9 +189,6 @@ public class FileDisplayActivity extends HookActivity
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
-        if (savedInstanceState == null) {
-            createMinFragments();
-        }
 
         // Action bar setup
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS,
@@ -207,12 +199,63 @@ public class FileDisplayActivity extends HookActivity
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        Log_OC.v(TAG, "onCreate() end");
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        if (PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            // Check if we should show an explanation
+            if (PermissionUtil.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // Show explanation to the user and then request permission
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.ListLayout), R.string.permission_storage_access,
+                        Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.common_ok, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                PermissionUtil.requestWriteExternalStoreagePermission(FileDisplayActivity.this);
+                            }
+                        });
+
+                DisplayUtils.colorSnackbar(this, snackbar);
+
+                snackbar.show();
+            } else {
+                // No explanation needed, request the permission.
+                PermissionUtil.requestWriteExternalStoreagePermission(this);
+            }
+        }
+
+        if (savedInstanceState == null) {
+            createMinFragments();
+        }
+
         mProgressBar.setIndeterminate(mSyncInProgress);
-        // always AFTER setContentView(...) ; to work around bug in its implementation
+        // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
 
         setBackgroundText();
+    }
 
-        Log_OC.v(TAG, "onCreate() end");
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PermissionUtil.PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted
+                    startSynchronization();
+                    // toggle on is save since this is the only scenario this code gets accessed
+                } else {
+                    // permission denied --> do nothing
+                }
+                return;
+            }
+        }
     }
 
     @Override
@@ -483,8 +526,6 @@ public class FileDisplayActivity extends HookActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(GravityCompat.START);
-        menu.findItem(R.id.action_upload).setVisible(!drawerOpen);
-        menu.findItem(R.id.action_create_dir).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
         menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
@@ -496,6 +537,7 @@ public class FileDisplayActivity extends HookActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        menu.findItem(R.id.action_create_dir).setVisible(false);
         return true;
     }
     
@@ -504,21 +546,8 @@ public class FileDisplayActivity extends HookActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
-            case R.id.action_create_dir: {
-                CreateFolderDialogFragment dialog =
-                        CreateFolderDialogFragment.newInstance(getCurrentDir());
-                dialog.show(getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
-                break;
-            }
-
             case R.id.action_sync_account: {
                 startSynchronization();
-                break;
-            }
-            case R.id.action_upload: {
-                UploadSourceDialogFragment dialog =
-                        UploadSourceDialogFragment.newInstance(getAccount());
-                dialog.show(getSupportFragmentManager(), DIALOG_UPLOAD_SOURCE);
                 break;
             }
             case android.R.id.home: {
@@ -625,14 +654,19 @@ public class FileDisplayActivity extends HookActivity
 
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK ||
                 resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+
             //getClipData is only supported on api level 16+, Jelly Bean
-            if (data.getData() == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN &&
+                    data.getClipData() != null &&
+                    data.getClipData().getItemCount() > 0) {
+
                 for( int i = 0; i < data.getClipData().getItemCount(); i++){
                     Intent intent = new Intent();
                     intent.setData(data.getClipData().getItemAt(i).getUri());
                     requestSimpleUpload(intent, resultCode);
                 }
-            }else {
+
+            } else {
                 requestSimpleUpload(data, resultCode);
             }
         } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK ||
@@ -795,7 +829,26 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     public void onBackPressed() {
-        if (!isDrawerOpen()){
+        boolean isFabOpen = isFabOpen();
+        boolean isDrawerOpen = isDrawerOpen();
+
+        /*
+         * BackPressed priority/hierarchy:
+         *    1. close drawer if opened
+         *    2. close FAB if open (only if drawer isn't open)
+         *    3. navigate up (only if drawer and FAB aren't open)
+         */
+        if(isDrawerOpen && isFabOpen) {
+            // close drawer first
+            super.onBackPressed();
+        } else if(isDrawerOpen && !isFabOpen) {
+            // close drawer
+            super.onBackPressed();
+        } else if (!isDrawerOpen && isFabOpen) {
+            // close fab
+            getListOfFilesFragment().getFabMain().collapse();
+        } else {
+            // all closed
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (mDualPane || getSecondFragment() == null) {
                 OCFile currentDir = getCurrentDir();
@@ -811,8 +864,6 @@ public class FileDisplayActivity extends HookActivity
                 setFile(listOfFiles.getCurrentFile());
             }
             cleanSecondFragment();
-        } else {
-            super.onBackPressed();
         }
     }
 
@@ -891,6 +942,16 @@ public class FileDisplayActivity extends HookActivity
         Log_OC.v(TAG, "onPause() end");
     }
 
+    public boolean isFabOpen() {
+        if(getListOfFilesFragment() != null
+                && getListOfFilesFragment().getFabMain() != null
+                && getListOfFilesFragment().getFabMain().isExpanded()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     private class SyncBroadcastReceiver extends BroadcastReceiver {
 
@@ -906,7 +967,7 @@ public class FileDisplayActivity extends HookActivity
                 String synchFolderRemotePath =
                         intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
                 RemoteOperationResult synchResult =
-                        (RemoteOperationResult)intent.getSerializableExtra(
+                        (RemoteOperationResult) intent.getSerializableExtra(
                                 FileSyncAdapter.EXTRA_RESULT);
                 boolean sameAccount = (getAccount() != null &&
                         accountName.equals(getAccount().name) && getStorageManager() != null);
@@ -968,32 +1029,7 @@ public class FileDisplayActivity extends HookActivity
                                         (synchResult.isException() && synchResult.getException()
                                                 instanceof AuthenticatorException))) {
 
-
-                            try {
-                                OwnCloudClient client;
-                                OwnCloudAccount ocAccount =
-                                        new OwnCloudAccount(getAccount(), context);
-                                client = (OwnCloudClientManagerFactory.getDefaultSingleton().
-                                        removeClientFor(ocAccount));
-                                if (client != null) {
-                                    OwnCloudCredentials cred = client.getCredentials();
-                                    if (cred != null) {
-                                        AccountManager am = AccountManager.get(context);
-                                        if (cred.authTokenExpires()) {
-                                            am.invalidateAuthToken(
-                                                    getAccount().type,
-                                                    cred.getAuthToken()
-                                            );
-                                        } else {
-                                            am.clearPassword(getAccount());
-                                        }
-                                    }
-                                }
-                                requestCredentialsUpdate();
-
-                            } catch (AccountNotFoundException e) {
-                                Log_OC.e(TAG, "Account " + getAccount() + " was removed!", e);
-                            }
+                            requestCredentialsUpdate(context);
 
                         }
 
@@ -1001,9 +1037,6 @@ public class FileDisplayActivity extends HookActivity
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
                     mProgressBar.setIndeterminate(mSyncInProgress);
-                    //mProgressBar.setVisibility((mSyncInProgress) ? View.VISIBLE : View.INVISIBLE);
-                    //setSupportProgressBarIndeterminateVisibility(mSyncInProgress
-                    /*|| mRefreshSharesInProgress*/ //);
 
                     setBackgroundText();
 

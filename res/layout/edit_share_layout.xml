@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  @author David A. Velasco
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.owncloud.android.ui.fragment.EditShareFragment"
+            android:id="@+id/shareScroll">
+
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/two_line_primary_text_size"
+            android:text="@string/share_privilege_can_edit"
+            android:id="@+id/canEditSwitch"
+            android:layout_gravity="start"
+            android:padding="@dimen/standard_half_padding"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:background="@color/actionbar_start_color"
+            android:textColor="@color/white"
+            />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/canEditCreateCheckBox"
+            android:text="@string/share_privilege_can_edit_create"
+            android:visibility="gone"
+            />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/canEditChangeCheckBox"
+            android:text="@string/share_privilege_can_edit_change"
+            android:visibility="gone"
+            />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/canEditDeleteCheckBox"
+            android:text="@string/share_privilege_can_edit_delete"
+            android:visibility="gone"
+            />
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/two_line_primary_text_size"
+            android:text="@string/share_privilege_can_share"
+            android:id="@+id/canShareSwitch"
+            android:layout_gravity="start"
+            android:padding="@dimen/standard_half_padding"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:background="@color/actionbar_start_color"
+            android:textColor="@color/white"
+            />
+
+    </LinearLayout>
+
+</ScrollView>

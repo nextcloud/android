@@ -17,7 +17,7 @@
 */
 -->
 <view xmlns:android="http://schemas.android.com/apk/res/android"
-    class="android.support.v7.internal.widget.ActivityChooserView$InnerLayout"
+    class="android.support.v7.widget.ActivityChooserView$InnerLayout"
     android:id="@+id/activity_chooser_view_content"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
@@ -69,3 +69,4 @@
     </FrameLayout>
 
 </view>
+<!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v7/appcompat/res/layout/abc_activity_chooser_view.xml -->
