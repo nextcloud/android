@@ -365,6 +365,6 @@
     <string name="file_list__footer__files_and_folder">%1$d files, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d files, %2$d folders</string>
     <string name="action_stream_file">Stream file with external player</string>
-    <string name="stream_expose_password">Do you want to stream this file with an external app?\n\nCAUTION: This may expose your password!</string>
+    <string name="stream_expose_password">Do you want to stream this file with an external app?\n\nCAUTION: This may expose your password locally on the display!</string>
 
 </resources>
