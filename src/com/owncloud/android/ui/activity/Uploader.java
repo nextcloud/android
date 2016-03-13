@@ -25,7 +25,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -50,6 +49,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -224,7 +225,7 @@ public class Uploader extends FileActivity
 
     @Override
     protected Dialog onCreateDialog(final int id) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new Builder(this);
         switch (id) {
             case DIALOG_WAITING:
                 final ProgressDialog pDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
@@ -384,7 +385,7 @@ public class Uploader extends FileActivity
         switch (v.getId()) {
             case R.id.uploader_choose_folder:
                 mUploadPath = "";   // first element in mParents is root dir, represented by "";
-                // init mUploadPath with "/" results in a "//" prefix
+                                    // init mUploadPath with "/" results in a "//" prefix
                 for (String p : mParents)
                     mUploadPath += p + OCFile.PATH_SEPARATOR;
                 Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
@@ -433,9 +434,9 @@ public class Uploader extends FileActivity
 
         String current_dir = mParents.peek();
         if (current_dir.equals("")) {
-            getSupportActionBar().setTitle(getString(R.string.default_display_name_for_root_folder));
+            actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
         } else {
-            getSupportActionBar().setTitle(current_dir);
+            actionBar.setTitle(current_dir);
         }
         boolean notRoot = (mParents.size() > 1);
 
@@ -454,29 +455,27 @@ public class Uploader extends FileActivity
 
             List<HashMap<String, Object>> data = new LinkedList<HashMap<String, Object>>();
             for (OCFile f : files) {
-                if (f.isFolder()) {
-                    HashMap<String, Object> h = new HashMap<String, Object>();
-                    h.put("dirname", f);
-                    h.put("last_mod", DisplayUtils.getRelativeTimestamp(this, f));
-                    data.add(h);
-                }
-
-                ImageSimpleAdapter sa = new ImageSimpleAdapter(this,
-                        data,
-                        R.layout.uploader_list_item_layout,
-                        new String[]{"dirname", "last_mod"},
-                        new int[]{R.id.filename, R.id.last_mod},
-                        getStorageManager(), getAccount());
-
-                mListView.setAdapter(sa);
-                Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
-                btnChooseFolder.setOnClickListener(this);
-
-                Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
-                btnNewFolder.setOnClickListener(this);
-
-                mListView.setOnItemClickListener(this);
+                HashMap<String, Object> h = new HashMap<String, Object>();
+                h.put("dirname", f);
+                h.put("last_mod", DisplayUtils.getRelativeTimestamp(this, f));
+                data.add(h);
             }
+
+            ImageSimpleAdapter sa = new ImageSimpleAdapter(this,
+                    data,
+                    R.layout.uploader_list_item_layout,
+                    new String[]{"dirname", "last_mod"},
+                    new int[]{R.id.filename, R.id.last_mod},
+                    getStorageManager(), getAccount());
+
+            mListView.setAdapter(sa);
+            Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
+            btnChooseFolder.setOnClickListener(this);
+
+            Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
+            btnNewFolder.setOnClickListener(this);
+
+            mListView.setOnItemClickListener(this);
         }
     }
 
@@ -548,7 +547,7 @@ public class Uploader extends FileActivity
 
                 if (uri != null) {
                     if (uri.getScheme().equals("content")) {
-                       String mimeType = getContentResolver().getType(uri);
+                        String mimeType = getContentResolver().getType(uri);
 
                         if (mimeType.contains("image")) {
                             String[] CONTENT_PROJECTION = {Images.Media.DATA,
@@ -618,13 +617,11 @@ public class Uploader extends FileActivity
                         mNumCacheFile++;
                         showWaitingCopyDialog();
                         copyTask.execute(params);
+                    } else {
+                        remote.add(filePath);
+                        local.add(data);
                     }
-//                    } else {
-//                        remote.add(filePath);
-//                        local.add(data);
-//                    }
-                }
-                else {
+                } else {
                     throw new SecurityException();
                 }
 
@@ -677,11 +674,11 @@ public class Uploader extends FileActivity
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
         if (result.isSuccess()) {
-            dismissLoadingDialog();
-            String remotePath = operation.getRemotePath().substring(0, operation.getRemotePath().length() -1);
-            String newFolder = remotePath.substring(remotePath.lastIndexOf("/") + 1);
-            mParents.push(newFolder);
-            populateDirectoryList();
+            // dismissLoadingDialog();
+            // String remotePath = operation.getRemotePath().substring(0, operation.getRemotePath().length() -1);
+            // String newFolder = remotePath.substring(remotePath.lastIndexOf("/") + 1);
+            // mParents.push(newFolder);
+            // populateDirectoryList();
         } else {
             try {
                 Toast msg = Toast.makeText(this,
@@ -730,6 +727,7 @@ public class Uploader extends FileActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        // menu.findItem(R.id.action_upload).setVisible(false);
         menu.findItem(R.id.action_sort).setVisible(false);
         menu.findItem(R.id.action_sync_account).setVisible(false);
         return true;
