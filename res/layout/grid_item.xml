@@ -69,10 +69,9 @@
             android:id="@+id/custom_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|bottom"
+            android:layout_gravity="center_vertical|top"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:gravity=""
             android:src="@android:drawable/checkbox_off_background"
             android:elevation="30dp" />
 
