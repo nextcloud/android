@@ -101,10 +101,11 @@ public class OCFileListFragment extends ExtendedListFragment {
     private boolean mJustFolders;
 
 
-    private boolean miniFabClicked = false;
     private int mStatusBarColorActionMode;
     private int mStatusBarColor;
 
+    private boolean hideFab = true;
+    private boolean miniFabClicked = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -186,7 +187,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
         registerLongClickListener();
 
-        boolean hideFab = (args != null) && args.getBoolean(ARG_HIDE_FAB, false);
+        hideFab = (args != null) && args.getBoolean(ARG_HIDE_FAB, false);
         if (hideFab) {
             setFabEnabled(false);
         } else {
@@ -234,7 +235,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         getFabUpload().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity)getActivity())
+                UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity) getActivity())
                         .getAccount(), FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM);
                 getFabMain().collapse();
                 recordMiniFabClick();
@@ -377,6 +378,9 @@ public class OCFileListFragment extends ExtendedListFragment {
                     getActivity().getWindow().setStatusBarColor(mStatusBarColorActionMode);
                 }
 
+                // hide FAB in multi selection mode
+                setFabEnabled(false);
+
                 return true;
             }
 
@@ -397,6 +401,11 @@ public class OCFileListFragment extends ExtendedListFragment {
                 // reset to primary dark color
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     getActivity().getWindow().setStatusBarColor(mStatusBarColor);
+                }
+
+                // show FAB on multi selection mode exit
+                if(!hideFab) {
+                    setFabEnabled(true);
                 }
             }
         });
