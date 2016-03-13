@@ -439,7 +439,7 @@
     <string name="error_log_send">Send Log</string>
     <string name="error_log_title">Error Log</string>
     <string name="action_stream_file">Stream file with external player</string>
-    <string name="stream_expose_password">Do you want to stream this file with an external app?\n\nCAUTION: This may expose your password!</string>
+    <string name="stream_expose_password">Do you want to stream this file with an external app?\n\nCAUTION: This may expose your password locally on the display!</string>
     <string name="set_picture_as">Set picture as</string>
     <string name="set_as">Set As</string>
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
