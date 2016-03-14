@@ -252,7 +252,7 @@ public class ShareFileFragment extends Fragment
      */
     private void initShareViaLinkListener(View shareView) {
         mOnShareViaLinkSwitchCheckedChangeListener = new OnShareViaLinkListener();
-        Switch shareViaLinkSwitch = getShareViaLinkSwitch();
+        Switch shareViaLinkSwitch = (Switch) shareView.findViewById(R.id.shareViaLinkSectionSwitch);
         shareViaLinkSwitch.setOnCheckedChangeListener(mOnShareViaLinkSwitchCheckedChangeListener);
     }
 
@@ -314,13 +314,13 @@ public class ShareFileFragment extends Fragment
     private void initExpirationListener(View shareView) {
         mOnExpirationDateInteractionListener = new OnExpirationDateInteractionListener();
 
-        getExpirationDateSwitch().
+        ((Switch) shareView.findViewById(R.id.shareViaLinkExpirationSwitch)).
                 setOnCheckedChangeListener(mOnExpirationDateInteractionListener);
 
         shareView.findViewById(R.id.shareViaLinkExpirationLabel).
                 setOnClickListener(mOnExpirationDateInteractionListener);
 
-        getExpirationDateValue().
+        shareView.findViewById(R.id.shareViaLinkExpirationValue).
                 setOnClickListener(mOnExpirationDateInteractionListener);
     }
 
@@ -398,13 +398,13 @@ public class ShareFileFragment extends Fragment
     private void initPasswordListener(View shareView) {
         mOnPasswordInteractionListener = new OnPasswordInteractionListener();
 
-        getPasswordSwitch().
+        ((Switch) shareView.findViewById(R.id.shareViaLinkPasswordSwitch)).
                 setOnCheckedChangeListener(mOnPasswordInteractionListener);
 
         shareView.findViewById(R.id.shareViaLinkPasswordLabel).
                 setOnClickListener(mOnPasswordInteractionListener);
 
-        getPasswordValue().
+        shareView.findViewById(R.id.shareViaLinkPasswordValue).
                 setOnClickListener(mOnPasswordInteractionListener);
     }
 
@@ -466,7 +466,7 @@ public class ShareFileFragment extends Fragment
     private void initEditPermissionListener(View shareView) {
         mOnEditPermissionInteractionListener = new OnEditPermissionInteractionListener();
 
-        getEditPermissionSwitch().
+        ((Switch) shareView.findViewById(R.id.shareViaLinkEditPermissionSwitch)).
                 setOnCheckedChangeListener(mOnEditPermissionInteractionListener);
 
     }
@@ -742,7 +742,7 @@ public class ShareFileFragment extends Fragment
 
             /// update state of the edit permission switch
             Switch editPermissionSwitch = getEditPermissionSwitch();
-            if (getEditPermissionSection().getVisibility() == View.VISIBLE) {
+            if(getEditPermissionSection().getVisibility() == View.VISIBLE) {
                 // set null listener before setChecked() to prevent infinite loop of calls
                 editPermissionSwitch.setOnCheckedChangeListener(null);
                 if (mPublicShare.getPermissions() > OCShare.READ_PERMISSION_FLAG) {
