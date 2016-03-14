@@ -1028,8 +1028,7 @@ public class FileDisplayActivity extends HookActivity implements
                                 equals(event) &&/// TODO refactor and make common
 
                                 synchResult != null && !synchResult.isSuccess() &&
-                                (synchResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                        synchResult.isIdPRedirection() ||
+                                (ResultCode.UNAUTHORIZED.equals(synchResult.getCode()) ||
                                         (synchResult.isException() && synchResult.getException()
                                                 instanceof AuthenticatorException))) {
 

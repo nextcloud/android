@@ -743,7 +743,6 @@ public class FileActivity extends AppCompatActivity
 
         if (!result.isSuccess() && (
                 result.getCode() == ResultCode.UNAUTHORIZED ||
-                result.isIdPRedirection() ||
                 (result.isException() && result.getException() instanceof AuthenticatorException)
                 )) {
 

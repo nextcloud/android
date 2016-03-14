@@ -481,9 +481,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                     equals(event) &&
                                 /// TODO refactor and make common
                                 synchResult != null && !synchResult.isSuccess() &&  
-                                (synchResult.getCode() == ResultCode.UNAUTHORIZED   || 
-                                    synchResult.isIdPRedirection()                  ||
-                                    (synchResult.isException() && synchResult.getException() 
+                                (ResultCode.UNAUTHORIZED.equals(synchResult.getCode()) ||
+                                    (synchResult.isException() && synchResult.getException()
                                             instanceof AuthenticatorException))) {
 
                             requestCredentialsUpdate(context);
