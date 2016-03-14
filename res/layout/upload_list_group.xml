@@ -13,6 +13,7 @@
        android:ellipsize="middle"
        android:showDividers="none"
        android:textColor="@color/color_accent"
+       android:paddingLeft="16dp"
 	/>
 
 </RelativeLayout>

@@ -9,7 +9,7 @@
     >
 
     <FrameLayout
-        android:layout_width="72dp"
+        android:layout_width="60dp"
         android:layout_height="match_parent"
         android:focusable="false"
         android:focusableInTouchMode="false">
