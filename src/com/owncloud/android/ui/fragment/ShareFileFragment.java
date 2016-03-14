@@ -118,6 +118,11 @@ public class ShareFileFragment extends Fragment
      */
     private OnExpirationDateInteractionListener mOnExpirationDateInteractionListener = null;
 
+    /**
+     * Listener for user actions to set or unset edit permission on public link
+     */
+    private OnEditPermissionInteractionListener mOnEditPermissionInteractionListener = null;
+
 
     /**
      * Public factory method to create new ShareFileFragment instances.
@@ -432,6 +437,39 @@ public class ShareFileFragment extends Fragment
         }
     }
 
+    /**
+     * Listener for user actions that start any update on the edit permissions for the public link.
+     */
+    private class OnEditPermissionInteractionListener
+            implements CompoundButton.OnCheckedChangeListener {
+
+        /**
+         * Called by R.id.shareViaLinkEditPermissionSwitch to set or clear the edit permission.
+         *
+         * @param switchView    {@link Switch} toggled by the user, R.id.shareViaLinkEditPermissionSwitch
+         * @param isChecked     New switch state.
+         */
+        @Override
+        public void onCheckedChanged(CompoundButton switchView, boolean isChecked) {
+            if (!isResumed()) {
+                // very important, setCheched(...) is called automatically during
+                // Fragment recreation on device rotations
+                return;
+            }
+            if (isChecked) {
+                // Pending to implement
+            } else {
+                // Pending to implement
+            }
+
+            // undo the toggle to grant the view will be correct if the dialog is cancelled
+            switchView.setOnCheckedChangeListener(null);
+            switchView.toggle();
+            switchView.setOnCheckedChangeListener(mOnEditPermissionInteractionListener);
+        }
+
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -597,6 +635,9 @@ public class ShareFileFragment extends Fragment
             }
             getExpirationDateSection().setVisibility(View.VISIBLE);
             getPasswordSection().setVisibility(View.VISIBLE);
+            if(mFile.isFolder()) {
+                getEditPermissionSection().setVisibility(View.VISIBLE);
+            }
             // GetLink button
             AppCompatButton getLinkButton = getGetLinkButton();
             getLinkButton.setVisibility(View.VISIBLE);
@@ -655,6 +696,23 @@ public class ShareFileFragment extends Fragment
                     mOnPasswordInteractionListener
             );
 
+            /// update state of the edit permission switch
+            Switch editPermissionSwitch = getEditPermissionSwitch();
+            // set null listener before setChecked() to prevent infinite loop of calls
+            editPermissionSwitch.setOnCheckedChangeListener(null);
+            if (mPublicShare.getPermissions() > OCShare.READ_PERMISSION_FLAG) {
+                if (!editPermissionSwitch.isChecked()) {
+                    editPermissionSwitch.toggle();
+                }
+            } else {
+                if (editPermissionSwitch.isChecked()) {
+                    editPermissionSwitch.toggle();
+                }
+            }
+            // recover listener
+            editPermissionSwitch.setOnCheckedChangeListener(
+                    mOnEditPermissionInteractionListener
+            );
 
         } else {
             /// no public share -> collapse section
@@ -668,6 +726,7 @@ public class ShareFileFragment extends Fragment
             }
             getExpirationDateSection().setVisibility(View.GONE);
             getPasswordSection().setVisibility(View.GONE);
+            getEditPermissionSection().setVisibility(View.GONE);
             getGetLinkButton().setVisibility(View.GONE);
         }
     }
@@ -703,6 +762,14 @@ public class ShareFileFragment extends Fragment
         return (TextView) getView().findViewById(R.id.shareViaLinkPasswordValue);
     }
 
+    private View getEditPermissionSection() {
+        return getView().findViewById(R.id.shareViaLinkEditPermissionSection);
+    }
+
+    private Switch getEditPermissionSwitch() {
+        return (Switch) getView().findViewById(R.id.shareViaLinkEditPermissionSwitch);
+    }
+
     private AppCompatButton getGetLinkButton() {
         return (AppCompatButton) getView().findViewById(R.id.shareViaLinkGetLinkButton);
     }
@@ -714,6 +781,7 @@ public class ShareFileFragment extends Fragment
         getShareViaLinkSwitch().setVisibility(View.GONE);
         getExpirationDateSection().setVisibility(View.GONE);
         getPasswordSection().setVisibility(View.GONE);
+        getEditPermissionSection().setVisibility(View.GONE);
         getGetLinkButton().setVisibility(View.GONE);
     }
 
