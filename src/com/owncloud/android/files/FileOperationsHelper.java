@@ -3,6 +3,7 @@
  *
  *   @author masensio
  *   @author David A. Velasco
+ *   @author Juan Carlos González Cabrero
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -405,6 +406,25 @@ public class FileOperationsHelper {
         updateShareIntent.putExtra(
                 OperationsService.EXTRA_SHARE_PERMISSIONS,
                 permissions
+        );
+        queueShareIntent(updateShareIntent);
+    }
+
+    /**
+     * Updates a public share on a file to set its edit permissions.
+     * Starts a request to do it in {@link OperationsService}
+     *
+     * @param file                     File which public share will be constrained with an expiration date.
+     * @param uploadPermission          New state of the permissions of edit a folder shared via link.
+     */
+    public void setUploadPermissionsToShare(OCFile file, boolean uploadPermission) {
+        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        updateShareIntent.putExtra(
+                OperationsService.EXTRA_SHARE_PUBLIC_UPLOAD,
+                uploadPermission
         );
         queueShareIntent(updateShareIntent);
     }
