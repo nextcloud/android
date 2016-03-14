@@ -29,6 +29,7 @@
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
+		<item name="android:windowBackground">@color/white</item>
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
@@ -40,6 +41,7 @@
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
+		<item name="android:windowBackground">@color/white</item>
     </style>
 
 	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar">
