@@ -25,7 +25,6 @@ package com.owncloud.android.authentication;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -66,6 +65,8 @@ import android.widget.Toast;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
@@ -1027,10 +1028,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             onGetUserNameFinish(result);
         }
 
-        if (result.isSuccess() && mAction == ACTION_UPDATE_EXPIRED_TOKEN) {
-            setResult(Activity.RESULT_OK);
-        }
-
     }
 
     private void onGetUserNameFinish(RemoteOperationResult result) {
@@ -1425,9 +1422,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
             if (success) {
-                if (mAction == ACTION_UPDATE_EXPIRED_TOKEN) {
-                    setResult(Activity.RESULT_OK);
-                }
                 finish();
             }
             
@@ -1474,6 +1468,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * the new credentials when needed.
      */
     private void updateAccountAuthentication() throws AccountNotFoundException {
+
+
         
         Bundle response = new Bundle();
         response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
@@ -1498,6 +1494,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             response.putString(AccountManager.KEY_AUTHTOKEN, mPasswordInput.getText().toString());
             mAccountMgr.setPassword(mAccount, mPasswordInput.getText().toString());
         }
+
+        // remove managed clients for this account to enforce creation with fresh credentials
+        OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, this);
+        OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount);
+
         setAccountAuthenticatorResult(response);
 
     }

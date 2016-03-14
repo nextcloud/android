@@ -1083,8 +1083,6 @@ public class FileUploader extends Service
                         PendingIntent.FLAG_ONE_SHOT
                 ));
 
-                mUploadClient = null;
-                // grant that future retries on the same account will get the fresh credentials
             } else {
                 mNotificationBuilder.setContentText(content);
             }
