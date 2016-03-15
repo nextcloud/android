@@ -53,7 +53,9 @@
 		<item name="android:textColorPrimary">@color/primary</item>
 	</style>
 
-	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog" />
+	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog">
+		<item name="colorAccent">@color/color_accent</item>
+	</style>
 
 	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
 		<item name="colorAccent">@color/color_accent</item>
@@ -107,6 +109,7 @@
 
 	<style name="Theme.ownCloud.Fullscreen" parent="style/Theme.AppCompat">
         <item name="android:windowFullscreen">true</item>
+		<item name="colorAccent">@color/color_accent</item>
     </style>
 	
 	
@@ -127,6 +130,11 @@
 		<item name="colorAccent">@color/owncloud_blue_accent</item>
 		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
 		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
+	</style>
+
+	<style name="menu_labels_style">
+		<item name="android:background">@drawable/fab_label_background</item>
+		<item name="android:textColor">@color/fab_white</item>
 	</style>
 
 	<!-- Button Bar hack due to Lollipop bug:

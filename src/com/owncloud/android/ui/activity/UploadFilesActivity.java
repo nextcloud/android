@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -153,6 +154,19 @@ public class UploadFilesActivity extends FileActivity implements
         Log_OC.d(TAG, "onCreate() end");
     }
 
+    /**
+     * Helper to launch the UploadFilesActivity for which you would like a result when it finished.
+     * Your onActivityResult() method will be called with the given requestCode.
+     *
+     * @param activity    the activity which should call the upload activity for a result
+     * @param account     the account for which the upload activity is called
+     * @param requestCode If >= 0, this code will be returned in onActivityResult()
+     */
+    public static void startUploadActivityForResult(Activity activity, Account account, int requestCode) {
+        Intent action = new Intent(activity, UploadFilesActivity.class);
+        action.putExtra(EXTRA_ACCOUNT, (account));
+        activity.startActivityForResult(action, requestCode);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

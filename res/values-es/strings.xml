@@ -94,6 +94,7 @@
   <string name="common_error_unknown">Error desconocido</string>
   <string name="about_title">Acerca de</string>
   <string name="change_password">Cambiar contraseña</string>
+  <string name="delete_account">Eliminar cuenta</string>
   <string name="create_account">Crear cuenta</string>
   <string name="upload_chooser_title">Subir desde...</string>
   <string name="uploader_info_dirname">Nombre de la carpeta</string>
@@ -365,4 +366,5 @@
   <string name="manage_space_description">Los ajustes, bases de datos y certificados del servidor %1$s incluidos sus datos serán borrados permanentemente. \n\nLos archivos descargados permanecerán sin tocarse.\n\nEste proceso puede tomar algún tiempo.</string>
   <string name="manage_space_clear_data">Limpiar datos</string>
   <string name="manage_space_error">No se han podido eliminar algunos archivos</string>
+  <string name="permission_storage_access">Se requieren permisos adicionales para subir &amp; y descargar archivos.</string>
 </resources>

@@ -91,6 +91,7 @@ The generated APK file is saved in android/build/outputs/apk as android-debug.ap
   - owncloud-android 
   - android-support-appcompat-v7-exploded-aar
   - android-support-design-exploded-aar
+  - com-getbase-floatingactionbutton-1-10-0-exploded-aar
   - owncloud-android-workaround-accounts (optional)
   - ownCloud Android Library
   - ownCloud Sample Client (optional)
@@ -104,6 +105,7 @@ The generated APK file is saved in android/build/outputs/apk as android-debug.ap
   - ownCloud Android Library
   - android-support-appcompat-v7-exploded-aar
   - android-support-design-exploded-aar
+  - com-getbase-floatingactionbutton-1-10-0-exploded-aar
   - owncloud-android
 * If any error on those projects persists, check the project properties. In the 'Android' section, API Level should be
   - ownCloud Android Library	-> API level 19
