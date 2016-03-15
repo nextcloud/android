@@ -91,8 +91,19 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         }
 
         public Comparator<OCUpload> comparator = new Comparator<OCUpload>() {
+
             @Override
             public int compare(OCUpload upload1, OCUpload upload2) {
+                if (upload1.getUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
+                    FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
+                    if (binder != null) {
+                        if (binder.isUploadingNow(upload1)) {
+                            return -1;
+                        } else if (binder.isUploadingNow(upload2)) {
+                            return -1;
+                        }
+                    }
+                }
                 if (upload1.getUploadEndTimestamp() == 0) {
                     return compareUploadId(upload1, upload2);
                 } else {
@@ -262,17 +273,34 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                     progressBar.setProgress(0);
                     progressBar.setVisibility(View.VISIBLE);
-                    mProgressListener = new ProgressListener(progressBar);
-                    if (mParentActivity.getFileUploaderBinder() != null) {
-                        mParentActivity.getFileUploaderBinder().addDatatransferProgressListener(
+
+                    FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
+                    if (binder != null) {
+                        if (binder.isUploadingNow(upload)) {
+                            /// really uploading, bind the progress bar to listen for progess updates
+                            mProgressListener = new ProgressListener(upload, progressBar);
+                            binder.addDatatransferProgressListener(
                                 mProgressListener,
-                                mParentActivity.getAccount(),
                                 upload
-                        );
+                            );
+
+                        } else {
+                            /// not really uploading; stop listening progress if view is reused!
+                            if (convertView != null &&
+                                    mProgressListener != null &&
+                                    mProgressListener.isWrapping(progressBar))  {
+                                binder.removeDatatransferProgressListener(
+                                    mProgressListener,
+                                    mProgressListener.getUpload()   // the one that was added
+                                );
+                                mProgressListener = null;
+                            }
+                        }
                     } else {
-                        Log_OC.e(TAG, "UploadBinder == null. It should have been created on creating mParentActivity"
-                                + " which inherits from FileActivity. Fix that!");
-                        Log_OC.e(TAG, "PENDING BINDING for upload = " + upload.getLocalPath());
+                        Log_OC.w(
+                            TAG,
+                            "FileUploaderBinder not ready yet for upload " + upload.getRemotePath()
+                        );
                     }
                     uploadDateTextView.setVisibility(View.GONE);
                     pathTextView.setVisibility(View.GONE);
@@ -356,14 +384,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             if (upload.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
                 ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                 progressBar.setVisibility(View.GONE);
-                if (mParentActivity.getFileUploaderBinder() != null && mProgressListener != null) {
-                    mParentActivity.getFileUploaderBinder().removeDatatransferProgressListener(
-                            mProgressListener,
-                            upload.getAccount(mParentActivity),
-                            upload
-                    );
-                    mProgressListener = null;
-                }
             }
             statusTextView.setText(status);
 
@@ -616,9 +636,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
     public class ProgressListener implements OnDatatransferProgressListener {
         int mLastPercent = 0;
+        OCUpload mUpload = null;
         WeakReference<ProgressBar> mProgressBar = null;
 
-        ProgressListener(ProgressBar progressBar) {
+        public ProgressListener(OCUpload upload, ProgressBar progressBar) {
+            mUpload = upload;
             mProgressBar = new WeakReference<ProgressBar>(progressBar);
         }
 
@@ -634,6 +656,18 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 }
             }
             mLastPercent = percent;
+        }
+
+        public boolean isWrapping(ProgressBar progressBar) {
+            ProgressBar wrappedProgressBar = mProgressBar.get();
+            return (
+                wrappedProgressBar != null &&
+                wrappedProgressBar == progressBar   // on purpose; don't replace with equals
+            );
+        }
+
+        public OCUpload getUpload() {
+            return mUpload;
         }
 
     }
