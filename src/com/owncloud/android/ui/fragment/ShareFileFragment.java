@@ -677,7 +677,7 @@ public class ShareFileFragment extends Fragment
             }
             getExpirationDateSection().setVisibility(View.VISIBLE);
             getPasswordSection().setVisibility(View.VISIBLE);
-            if (mFile.isFolder() && mCapabilities.getFilesSharingPublicUpload().isTrue()) {
+            if (mFile.isFolder() && !mCapabilities.getFilesSharingPublicUpload().isFalse()) {
                 getEditPermissionSection().setVisibility(View.VISIBLE);
             } else {
                 getEditPermissionSection().setVisibility(View.GONE);
