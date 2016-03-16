@@ -1500,6 +1500,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount);
 
         setAccountAuthenticatorResult(response);
+        setResult(RESULT_OK);
 
     }
 

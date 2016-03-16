@@ -224,7 +224,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log_OC.e(TAG, "onActivityResult " + resultCode);
-        if (requestCode == UPDATE_CREDENTIALS_REQUEST_CODE && resultCode == FileActivity.RESULT_OK) {
+        if (requestCode == UPDATE_CREDENTIALS_REQUEST_CODE && resultCode == RESULT_OK) {
             // Retry uploads of this account
             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
             requester.retryFailedUploads(this, getAccount(), UploadResult.CREDENTIAL_ERROR);
