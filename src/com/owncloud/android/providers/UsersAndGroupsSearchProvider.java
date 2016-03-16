@@ -93,10 +93,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     public static ShareType getShareType(String authority) {
 
-        if (sShareTypes.containsKey(authority)) {
-            return sShareTypes.get(authority);
-        }
-        return null;
+        return sShareTypes.get(authority);
     }
 
     @Nullable
@@ -200,8 +197,9 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         if (userName.equals(shareWith)) {
                             displayName = getContext().getString(R.string.share_remote_clarification, userName);
                         } else {
+                            String[] uriSplitted = shareWith.split("@");
                             displayName = getContext().getString(R.string.share_known_remote_clarification, userName,
-                                    shareWith.split("@")[1]);
+                                uriSplitted[uriSplitted.length - 1]);
                         }
                         dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
                     } else if (ShareType.USER.getValue() == type) {
@@ -209,11 +207,12 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
                     }
 
-                    if (displayName != null && dataUri != null)
+                    if (displayName != null && dataUri != null) {
                         response.newRow()
-                                .add(count++)             // BaseColumns._ID
-                                .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
-                                .add(dataUri);
+                            .add(count++)             // BaseColumns._ID
+                            .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
+                            .add(dataUri);
+                    }
                 }
 
             } catch (JSONException e) {

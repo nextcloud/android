@@ -78,7 +78,8 @@ public class UnshareOperation extends SyncOperation {
                 if (ShareType.PUBLIC_LINK.equals(mShareType)) {
                     file.setShareViaLink(false);
                     file.setPublicLink("");
-                } else if (ShareType.USER.equals(mShareType) || ShareType.GROUP.equals(mShareType) || ShareType.FEDERATED.equals(mShareType)){
+                } else if (ShareType.USER.equals(mShareType) || ShareType.GROUP.equals(mShareType)
+                    || ShareType.FEDERATED.equals(mShareType)){
                     // Check if it is the last share
                     ArrayList <OCShare> sharesWith = getStorageManager().
                             getSharesWithForAFile(mRemotePath,
