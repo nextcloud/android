@@ -501,7 +501,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             case UPLOAD_IN_PROGRESS:
                 status = mParentActivity.getString(R.string.uploads_view_later_waiting_to_upload);
                 FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
-                if (binder != null) {
+                if (binder != null && binder.isUploadingNow(upload)) {
                     /// really uploading, bind the progress bar to listen for progress updates
                     status = mParentActivity.getString(R.string.uploader_upload_in_progress_ticker);
                 }
