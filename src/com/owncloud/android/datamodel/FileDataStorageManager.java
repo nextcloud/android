@@ -1525,6 +1525,7 @@ public class FileDataStorageManager {
                     getContentResolver().applyBatch(MainApp.getAuthority(), operations);
 
                 } else {
+
                     getContentProviderClient().applyBatch(operations);
                 }
 
@@ -1625,10 +1626,12 @@ public class FileDataStorageManager {
         String where = ProviderTableMeta.OCSHARES_PATH + "=?" + " AND "
                 + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?"+ "AND"
                 + " (" + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
-                + ProviderTableMeta.OCSHARES_SHARE_TYPE +  "=? ) ";
+                + ProviderTableMeta.OCSHARES_SHARE_TYPE +  "=? OR "
+                + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? ) ";
         String [] whereArgs = new String[]{ filePath, accountName ,
                 Integer.toString(ShareType.USER.getValue()),
-                Integer.toString(ShareType.GROUP.getValue()) };
+                Integer.toString(ShareType.GROUP.getValue()),
+                Integer.toString(ShareType.FEDERATED.getValue())};
 
         Cursor c = null;
         if (getContentResolver() != null) {
