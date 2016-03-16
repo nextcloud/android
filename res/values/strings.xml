@@ -130,12 +130,9 @@
     <string name="uploads_view_upload_status_failed_file_error">File error</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Local file not found</string>
     <string name="uploads_view_upload_status_failed_permission_error">Permission error</string>
-    <string name="uploads_view_upload_status_failed">Upload failed</string>
-    <string name="uploads_view_later_reason_waiting_for">Waiting for </string>
-    <string name="uploads_view_later_reason_add_wifi_reason"> and wifi connectivity</string>
-    <string name="uploads_view_later_reason_waiting_for_wifi">Waiting for wifi connectivity</string>
-    <string name="uploads_view_later_reason_add_charging_reason"> and charging</string>
-    <string name="uploads_view_later_reason_waiting_for_charging">Waiting for charging</string>
+    <string name="uploads_view_upload_status_conflict">Conflict</string>
+    <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for wifi connectivity</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="downloader_download_in_progress_ticker">Downloading &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>

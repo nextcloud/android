@@ -27,7 +27,6 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -36,7 +35,6 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.MimetypeIconUtil;
-import com.owncloud.android.utils.UploadUtils;
 
 import java.io.File;
 
@@ -84,14 +82,6 @@ public class OCUpload implements Parcelable {
      * Create destination folder?
      */
     private boolean mIsCreateRemoteFolder;
-    /**
-     * Upload only via wifi?
-     */
-    private boolean mIsUseWifiOnly;
-    /**
-     * Upload only if phone being charged?
-     */
-    private boolean mIsWhileChargingOnly;
     /**
      * Status of upload (later, in_progress, ...).
      */
@@ -159,8 +149,6 @@ public class OCUpload implements Parcelable {
         mLocalAction = FileUploader.LOCAL_BEHAVIOUR_COPY;
         mForceOverwrite = false;
         mIsCreateRemoteFolder = false;
-        mIsUseWifiOnly = true;
-        mIsWhileChargingOnly = false;
         mUploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
         mLastResult = UploadResult.UNKNOWN;
         mCreatedBy = UploadFileOperation.CREATED_BY_USER;
@@ -201,7 +189,7 @@ public class OCUpload implements Parcelable {
      * @param lastResult the lastResult to set
      */
     public void setLastResult(UploadResult lastResult) {
-        this.mLastResult = lastResult;
+        this.mLastResult = ((lastResult != null) ? lastResult : UploadResult.UNKNOWN);
     }
 
 
@@ -293,20 +281,6 @@ public class OCUpload implements Parcelable {
     }
 
     /**
-     * @return the isUseWifiOnly
-     */
-    public boolean isUseWifiOnly() {
-        return mIsUseWifiOnly;
-    }
-
-    /**
-     * @param isUseWifiOnly the isUseWifiOnly to set
-     */
-    public void setUseWifiOnly(boolean isUseWifiOnly) {
-        this.mIsUseWifiOnly = isUseWifiOnly;
-    }
-
-    /**
      * @return the accountName
      */
     public String getAccountName() {
@@ -318,14 +292,6 @@ public class OCUpload implements Parcelable {
      */
     public Account getAccount(Context context) {
         return AccountUtils.getOwnCloudAccountByName(context, getAccountName());
-    }
-
-    public void setWhileChargingOnly(boolean isWhileChargingOnly) {
-        this.mIsWhileChargingOnly = isWhileChargingOnly;
-    }
-    
-    public boolean isWhileChargingOnly() {
-        return mIsWhileChargingOnly;
     }
 
     public void setCreatedBy(int createdBy) {
@@ -356,15 +322,6 @@ public class OCUpload implements Parcelable {
             Log_OC.d(TAG, "Exception " + e.toString() );
             return (e.toString());
         }
-    }
-
-    /**
-     * Removes all uploads restrictions. After calling this function upload is performed immediately if requested.
-     */
-    public void removeAllUploadRestrictions() {
-        setUseWifiOnly(false);
-        setWhileChargingOnly(false);
-        setUploadEndTimestamp(0);
     }
 
     /**
@@ -423,8 +380,6 @@ public class OCUpload implements Parcelable {
         mLocalAction = source.readInt();
         mForceOverwrite = (source.readInt() == 1);
         mIsCreateRemoteFolder = (source.readInt() == 1);
-        mIsUseWifiOnly = (source.readInt() == 1);
-        mIsWhileChargingOnly = (source.readInt() == 1);
         try {
             mUploadStatus = UploadStatus.valueOf(source.readString());
         } catch (IllegalArgumentException x) {
@@ -454,8 +409,6 @@ public class OCUpload implements Parcelable {
         dest.writeInt(mLocalAction);
         dest.writeInt(mForceOverwrite ? 1 : 0);
         dest.writeInt(mIsCreateRemoteFolder ? 1 : 0);
-        dest.writeInt(mIsUseWifiOnly ? 1 : 0);
-        dest.writeInt(mIsWhileChargingOnly ? 1 : 0);
         dest.writeString(mUploadStatus.name());
         dest.writeLong(mUploadEndTimeStamp);
         dest.writeString(((mLastResult == null) ? "" : mLastResult.name()));
@@ -487,55 +440,11 @@ public class OCUpload implements Parcelable {
             return CanUploadFileNowStatus.ERROR;
         }
 
-        if (isUseWifiOnly()
-                && !UploadUtils.isConnectedViaWiFi(context)) {
-            Log_OC.d(TAG, "Do not start upload because it is wifi-only.");
-            return CanUploadFileNowStatus.LATER;
-        }
-
-        if(isWhileChargingOnly() && !UploadUtils.isCharging(context)) {
-            Log_OC.d(TAG, "Do not start upload because it is while charging only.");
-            return CanUploadFileNowStatus.LATER;
-        }
-
         if (!new File(getLocalPath()).exists()) {
             Log_OC.d(TAG, "Do not start upload because local file does not exist.");
             return CanUploadFileNowStatus.FILE_GONE;
         }
         return CanUploadFileNowStatus.NOW;
     }
-
-
-    /**
-     * Returns the reason as String why state of OCUpload is LATER. If
-     * upload state != LATER return null.
-     */
-    public String getUploadLaterReason(Context context) {
-        StringBuilder reason = new StringBuilder();
-        //Date now = new Date();
-        if (isUseWifiOnly() && !UploadUtils.isConnectedViaWiFi(context)) {
-            if (reason.length() > 0) {
-                reason.append(context.getString(R.string.uploads_view_later_reason_add_wifi_reason));
-            } else {
-                reason.append(context.getString(R.string.uploads_view_later_reason_waiting_for_wifi));
-            }
-        }
-        if (isWhileChargingOnly() && !UploadUtils.isCharging(context)) {
-            if (reason.length() > 0) {
-                reason.append(context.getString(R.string.uploads_view_later_reason_add_charging_reason));
-            } else {
-                reason.append(context.getString(R.string.uploads_view_later_reason_waiting_for_charging));
-            }
-        }
-        reason.append(".");
-        if (reason.length() > 1) {
-            return reason.toString();
-        }
-        if (getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
-            return context.getString(R.string.uploads_view_later_waiting_to_upload);
-        }
-        return null;
-    }
-
 
 }
