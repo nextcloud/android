@@ -379,6 +379,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         }
                     });
                 }
+            } else {
+                view.setOnClickListener(null);
             }
 
             /// Set icon or thumbnail
