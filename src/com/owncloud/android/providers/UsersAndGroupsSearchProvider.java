@@ -1,21 +1,21 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * @author Juan Carlos González Cabrero
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p/>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 
@@ -37,15 +37,18 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetRemoteShareesOperation;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -71,10 +74,28 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     public static final String AUTHORITY = "org.owncloud.beta.android.providers.UsersAndGroupsSearchProvider";
     public static final String ACTION_SHARE_WITH = AUTHORITY + ".action.SHARE_WITH";
+
+    public static final String CONTENT = "content";
+
     public static final String DATA_USER = AUTHORITY + ".data.user";
     public static final String DATA_GROUP = AUTHORITY + ".data.group";
+    public static final String DATA_REMOTE = AUTHORITY + ".data.remote";
 
     private UriMatcher mUriMatcher;
+
+    private static HashMap<String, ShareType> sShareTypes;
+
+    static {
+        sShareTypes = new HashMap<>();
+        sShareTypes.put(DATA_USER, ShareType.USER);
+        sShareTypes.put(DATA_GROUP, ShareType.GROUP);
+        sShareTypes.put(DATA_REMOTE, ShareType.FEDERATED);
+    }
+
+    public static ShareType getShareType(String authority) {
+
+        return sShareTypes.get(authority);
+    }
 
     @Nullable
     @Override
@@ -92,7 +113,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     /**
      * TODO description
-     *
+     * <p/>
      * Reference: http://developer.android.com/guide/topics/search/adding-custom-suggestions.html#CustomContentProvider
      *
      * @param uri           Content {@link Uri}, formattted as
@@ -102,7 +123,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
      * @param selection     Expected to be NULL.
      * @param selectionArgs Expected to be NULL.
      * @param sortOrder     Expected to be NULL.
-     * @return              Cursor with users and groups in the ownCloud server that match 'userQuery'.
+     * @return Cursor with users and groups in the ownCloud server that match 'userQuery'.
      */
     @Nullable
     @Override
@@ -149,35 +170,57 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         if (names.size() > 0) {
             response = new MatrixCursor(COLUMNS);
             Iterator<JSONObject> namesIt = names.iterator();
-            int count = 0;
             JSONObject item;
-            String displayName;
-            int icon;
-            Uri dataUri;
-            Uri userBaseUri = new Uri.Builder().scheme("content").authority(DATA_USER).build();
-            Uri groupBaseUri = new Uri.Builder().scheme("content").authority(DATA_GROUP).build();
+            String displayName = null;
+            Uri dataUri = null;
+            int count = 0;
+            int icon = 0;
+
+            Uri userBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_USER).build();
+            Uri groupBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_GROUP).build();
+            Uri remoteBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_REMOTE).build();
+
+            FileDataStorageManager manager = new FileDataStorageManager(account, getContext().getContentResolver());
+            boolean federatedShareAllowed = manager.getCapability(account.name).getFilesSharingFederationOutgoing()
+                    .isTrue();
+
             try {
                 while (namesIt.hasNext()) {
                     item = namesIt.next();
                     String userName = item.getString(GetRemoteShareesOperation.PROPERTY_LABEL);
                     JSONObject value = item.getJSONObject(GetRemoteShareesOperation.NODE_VALUE);
-                    byte type = (byte) value.getInt(GetRemoteShareesOperation.PROPERTY_SHARE_TYPE);
+                    int type = value.getInt(GetRemoteShareesOperation.PROPERTY_SHARE_TYPE);
                     String shareWith = value.getString(GetRemoteShareesOperation.PROPERTY_SHARE_WITH);
-                    if (GetRemoteShareesOperation.GROUP_TYPE.equals(type)) {
+
+                    if (ShareType.GROUP.getValue() == type) {
                         displayName = getContext().getString(R.string.share_group_clarification, userName);
                         icon = R.drawable.ic_group;
                         dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
-                    } else {
+                    } else if (ShareType.FEDERATED.getValue() == type && federatedShareAllowed) {
+                        icon = R.drawable.ic_user;
+                        if (userName.equals(shareWith)) {
+                            displayName = getContext().getString(R.string.share_remote_clarification, userName);
+                        } else {
+                            String[] uriSplitted = shareWith.split("@");
+                            displayName = getContext().getString(R.string.share_known_remote_clarification, userName,
+                                uriSplitted[uriSplitted.length - 1]);
+                        }
+                        dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
+                    } else if (ShareType.USER.getValue() == type) {
                         displayName = userName;
                         icon = R.drawable.ic_user;
                         dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
                     }
-                    response.newRow()
+
+                    if (displayName != null && dataUri != null) {
+                        response.newRow()
                             .add(count++)             // BaseColumns._ID
                             .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
                             .add(icon)                // SearchManager.SUGGEST_COLUMN_ICON_1
                             .add(dataUri);
+                    }
                 }
+
             } catch (JSONException e) {
                 Log_OC.e(TAG, "Exception while parsing data of users/groups", e);
             }
@@ -208,7 +251,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     /**
      * Show error message
      *
-     * @param result    Result with the failure information.
+     * @param result Result with the failure information.
      */
     public void showErrorMessage(final RemoteOperationResult result) {
         Handler handler = new Handler(Looper.getMainLooper());

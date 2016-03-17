@@ -39,6 +39,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
 
 public class EditShareFragment extends Fragment {
@@ -135,7 +136,6 @@ public class EditShareFragment extends Fragment {
 
         // Setup layout
         refreshUiFromState(view);
-        setPermissionsListening(view, true);
 
         return view;
     }
@@ -151,9 +151,13 @@ public class EditShareFragment extends Fragment {
             setPermissionsListening(editShareView, false);
 
             int sharePermissions = mShare.getPermissions();
+            boolean isFederated = ShareType.FEDERATED.equals(mShare.getShareType());
             CompoundButton compound;
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);
+            if(isFederated) {
+                compound.setVisibility(View.INVISIBLE);
+            }
             compound.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canEditSwitch);
@@ -164,7 +168,7 @@ public class EditShareFragment extends Fragment {
             boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
             compound.setChecked(canEdit);
 
-            if (mFile.isFolder()) {
+            if (mFile.isFolder() && !isFederated) {
                 compound = (CompoundButton) editShareView.findViewById(R.id.canEditCreateCheckBox);
                 compound.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
                 compound.setVisibility(canEdit ? View.VISIBLE : View.GONE);
@@ -249,21 +253,20 @@ public class EditShareFragment extends Fragment {
                 case R.id.canEditSwitch:
                     Log_OC.v(TAG, "canEditCheckBox toggled to " + isChecked);
                     /// sync subordinate CheckBoxes
+                    boolean isFederated = ShareType.FEDERATED.equals(mShare.getShareType());
                     if (mFile.isFolder()) {
                         if (isChecked) {
                             for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
                                 //noinspection ConstantConditions, prevented in the method beginning
                                 subordinate = (CompoundButton) getView().findViewById(sSubordinateCheckBoxIds[i]);
-                                subordinate.setVisibility(View.VISIBLE);
+                                if (!isFederated) {
+                                    subordinate.setVisibility(View.VISIBLE);
+                                }
                                 if (!subordinate.isChecked() &&
                                         !mFile.isSharedWithMe()) {          // see (1)
                                     toggleDisablingListener(subordinate);
                                 }
                             }
-                            if (!mFile.isSharedWithMe()) {
-                                updatePermissionsToShare(); // see (1)
-                            }
-
                         } else {
                             for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
                                 //noinspection ConstantConditions, prevented in the method beginning
@@ -273,11 +276,13 @@ public class EditShareFragment extends Fragment {
                                     toggleDisablingListener(subordinate);
                                 }
                             }
-                            updatePermissionsToShare(); // see (1)
                         }
-                    } else {
+                    }
+
+                    if(!(mFile.isFolder() && isChecked && mFile.isSharedWithMe())) {    // see (1)
                         updatePermissionsToShare();
                     }
+
                     // updatePermissionsToShare()   // see (1)
                     // (1) These modifications result in an exceptional UI behaviour for the case
                     // where the switch 'can edit' is enabled for a *reshared folder*; if the same
