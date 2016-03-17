@@ -523,12 +523,16 @@ public class UploadsStorageManager extends Observable {
                 // TODO: Disable for testing of menu actions in uploads view
                 if (shouldRetryFailedUpload(uploadResult)) {
                     updateUploadStatus(
-                            upload.getOCUploadId(), UploadStatus.UPLOAD_FAILED,
-                            UploadResult.fromOperationResult(uploadResult), upload.getRemotePath());
+                        upload.getOCUploadId(),
+                        UploadStatus.UPLOAD_FAILED,
+                        UploadResult.fromOperationResult(uploadResult),
+                        upload.getRemotePath());
                 } else {
-                    updateUploadStatus(upload.getOCUploadId(),
-                            UploadsStorageManager.UploadStatus.UPLOAD_FAILED,
-                            UploadResult.fromOperationResult(uploadResult), upload.getRemotePath());
+                    updateUploadStatus(
+                        upload.getOCUploadId(),
+                        UploadStatus.UPLOAD_FAILED,
+                        UploadResult.fromOperationResult(uploadResult),
+                        upload.getRemotePath());
                 }
             }
         }

@@ -81,6 +81,9 @@ public enum UploadResult {
             case HOST_NOT_AVAILABLE:
             case TIMEOUT:
             case WRONG_CONNECTION:
+            case INCORRECT_ADDRESS:
+            case SSL_ERROR:
+            case SSL_RECOVERABLE_PEER_UNVERIFIED:
                 return NETWORK_CONNECTION;
             case ACCOUNT_EXCEPTION:
             case UNAUTHORIZED:
@@ -100,11 +103,13 @@ public enum UploadResult {
             case DELAYED_FOR_WIFI:
                 return DELAYED_FOR_WIFI;
             case UNKNOWN_ERROR:
-                if (result.getException() instanceof java.io.FileNotFoundException)
+                if (result.getException() instanceof java.io.FileNotFoundException) {
                     return FILE_ERROR;
+                }
                 return UNKNOWN;
             default:
                 return UNKNOWN;
         }
+
     }
 }
