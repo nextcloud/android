@@ -300,9 +300,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             
         } else if (result.getCode() != ResultCode.FILE_NOT_FOUND) {
             // in failures, the statistics for the global result are updated
-            if (    result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
-                    result.isIdPRedirection()
-                ) {
+            if (RemoteOperationResult.ResultCode.UNAUTHORIZED.equals(result.getCode())) {
                 mSyncResult.stats.numAuthExceptions++;
                 
             } else if (result.getException() instanceof DavException) {
@@ -395,10 +393,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private void notifyFailedSynchronization() {
         NotificationCompat.Builder notificationBuilder = createNotificationBuilder();
         boolean needsToUpdateCredentials = (
-                mLastFailedResult != null && (  
-                        mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
-                        mLastFailedResult.isIdPRedirection()
-                )
+                mLastFailedResult != null &&
+                ResultCode.UNAUTHORIZED.equals(mLastFailedResult.getCode())
         );
         if (needsToUpdateCredentials) {
             // let the user update credentials with one click

@@ -96,11 +96,11 @@ public class UploadsStorageManager extends Observable {
     /**
      * Stores an upload object in DB.
      *
-     * @param ocUpload
+     * @param ocUpload      Upload object to store
      * @return upload id, -1 if the insert process fails.
      */
     public long storeUpload(OCUpload ocUpload) {
-        Log_OC.e(TAG, "Inserting " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
+        Log_OC.v(TAG, "Inserting " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
 
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.UPLOADS_LOCAL_PATH, ocUpload.getLocalPath());
@@ -111,8 +111,6 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR, ocUpload.getLocalAction());
         cv.put(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE, ocUpload.isForceOverwrite() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER, ocUpload.isCreateRemoteFolder() ? 1 : 0);
-        cv.put(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY, ocUpload.isWhileChargingOnly() ? 1 : 0);
-        cv.put(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY, ocUpload.isUseWifiOnly() ? 1 : 0);
         cv.put(ProviderTableMeta.UPLOADS_LAST_RESULT, ocUpload.getLastResult().getValue());
         cv.put(ProviderTableMeta.UPLOADS_CREATED_BY, ocUpload.getCreadtedBy());
 
@@ -133,7 +131,7 @@ public class UploadsStorageManager extends Observable {
     /**
      * Update an upload object in DB.
      *
-     * @param ocUpload
+     * @param ocUpload      Upload object with state to update
      * @return num of updated uploads.
      */
     public int updateUpload(OCUpload ocUpload) {
@@ -402,10 +400,6 @@ public class UploadsStorageManager extends Observable {
                     c.getColumnIndex(ProviderTableMeta.UPLOADS_FORCE_OVERWRITE)) == 1);
             upload.setCreateRemoteFolder(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER)) == 1);
-            upload.setWhileChargingOnly(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY)) == 1);
-            upload.setUseWifiOnly(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.UPLOADS_IS_WIFI_ONLY)) == 1);
             upload.setUploadEndTimestamp(c.getLong(c.getColumnIndex(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP)));
             upload.setLastResult(UploadResult.fromValue(
                     c.getInt(c.getColumnIndex(ProviderTableMeta.UPLOADS_LAST_RESULT))));
@@ -529,12 +523,16 @@ public class UploadsStorageManager extends Observable {
                 // TODO: Disable for testing of menu actions in uploads view
                 if (shouldRetryFailedUpload(uploadResult)) {
                     updateUploadStatus(
-                            upload.getOCUploadId(), UploadStatus.UPLOAD_FAILED,
-                            UploadResult.fromOperationResult(uploadResult), upload.getRemotePath());
+                        upload.getOCUploadId(),
+                        UploadStatus.UPLOAD_FAILED,
+                        UploadResult.fromOperationResult(uploadResult),
+                        upload.getRemotePath());
                 } else {
-                    updateUploadStatus(upload.getOCUploadId(),
-                            UploadsStorageManager.UploadStatus.UPLOAD_FAILED,
-                            UploadResult.fromOperationResult(uploadResult), upload.getRemotePath());
+                    updateUploadStatus(
+                        upload.getOCUploadId(),
+                        UploadStatus.UPLOAD_FAILED,
+                        UploadResult.fromOperationResult(uploadResult),
+                        upload.getRemotePath());
                 }
             }
         }

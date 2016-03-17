@@ -37,7 +37,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -48,7 +47,6 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
@@ -91,8 +89,19 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         }
 
         public Comparator<OCUpload> comparator = new Comparator<OCUpload>() {
+
             @Override
             public int compare(OCUpload upload1, OCUpload upload2) {
+                if (upload1.getUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
+                    FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
+                    if (binder != null) {
+                        if (binder.isUploadingNow(upload1)) {
+                            return -1;
+                        } else if (binder.isUploadingNow(upload2)) {
+                            return -1;
+                        }
+                    }
+                }
                 if (upload1.getUploadEndTimestamp() == 0) {
                     return compareUploadId(upload1, upload2);
                 } else {
@@ -247,126 +256,70 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             accountNameTextView.setText(upload.getAccountName());
 
             TextView statusTextView = (TextView) view.findViewById(R.id.upload_status);
-            String status;
 
-            // Reset fields visibility
+            /// Reset fields visibility
             uploadDateTextView.setVisibility(View.VISIBLE);
             pathTextView.setVisibility(View.VISIBLE);
             fileSizeTextView.setVisibility(View.VISIBLE);
             accountNameTextView.setVisibility(View.VISIBLE);
             statusTextView.setVisibility(View.VISIBLE);
 
+            /// Update information depending of upload details
+            String status = getStatusText(upload);
             switch (upload.getUploadStatus()) {
                 case UPLOAD_IN_PROGRESS:
-                    status = mParentActivity.getString(R.string.uploader_upload_in_progress_ticker);
                     ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                     progressBar.setProgress(0);
                     progressBar.setVisibility(View.VISIBLE);
-                    mProgressListener = new ProgressListener(progressBar);
-                    if (mParentActivity.getFileUploaderBinder() != null) {
-                        mParentActivity.getFileUploaderBinder().addDatatransferProgressListener(
+
+                    FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
+                    if (binder != null) {
+                        if (binder.isUploadingNow(upload)) {
+                            /// really uploading, bind the progress bar to listen for progress updates
+                            mProgressListener = new ProgressListener(upload, progressBar);
+                            binder.addDatatransferProgressListener(
                                 mProgressListener,
-                                mParentActivity.getAccount(),
                                 upload
-                        );
+                            );
+
+                        } else {
+                            /// not really uploading; stop listening progress if view is reused!
+                            if (convertView != null &&
+                                    mProgressListener != null &&
+                                    mProgressListener.isWrapping(progressBar))  {
+                                binder.removeDatatransferProgressListener(
+                                    mProgressListener,
+                                    mProgressListener.getUpload()   // the one that was added
+                                );
+                                mProgressListener = null;
+                            }
+                        }
                     } else {
-                        Log_OC.e(TAG, "UploadBinder == null. It should have been created on creating mParentActivity"
-                                + " which inherits from FileActivity. Fix that!");
-                        Log_OC.e(TAG, "PENDING BINDING for upload = " + upload.getLocalPath());
+                        Log_OC.w(
+                            TAG,
+                            "FileUploaderBinder not ready yet for upload " + upload.getRemotePath()
+                        );
                     }
                     uploadDateTextView.setVisibility(View.GONE);
                     pathTextView.setVisibility(View.GONE);
                     fileSizeTextView.setVisibility(View.GONE);
-                    accountNameTextView.setVisibility(View.INVISIBLE);
                     break;
+
                 case UPLOAD_FAILED:
                     uploadDateTextView.setVisibility(View.GONE);
-                    if (upload.getLastResult() != null) {
-                        switch (upload.getLastResult()) {
-                            case CREDENTIAL_ERROR:
-                                status = mParentActivity.getString(
-                                        R.string.uploads_view_upload_status_failed_credentials_error);
-
-                                view.setOnClickListener(new OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        // let the user update credentials with one click
-                                        Intent updateAccountCredentials = new Intent(mParentActivity,
-                                                AuthenticatorActivity.class);
-                                        updateAccountCredentials.putExtra(
-                                                AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount
-                                                        (mParentActivity));
-                                        updateAccountCredentials.putExtra(
-                                                AuthenticatorActivity.EXTRA_ACTION,
-                                                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
-                                        updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                                        updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                                        mParentActivity.startActivityForResult(updateAccountCredentials,
-                                                UploadListActivity.UPDATE_CREDENTIALS_REQUEST_CODE);
-                                    }
-                                });
-                                break;
-                            case FOLDER_ERROR:
-                                status = mParentActivity.getString(
-                                        R.string.uploads_view_upload_status_failed_folder_error);
-                                break;
-                            case FILE_NOT_FOUND:
-                                status = mParentActivity.getString(
-                                        R.string.uploads_view_upload_status_failed_localfile_error);
-                                break;
-                            case FILE_ERROR:
-                                status = mParentActivity.getString(
-                                        R.string.uploads_view_upload_status_failed_file_error);
-                                break;
-                            case PRIVILEDGES_ERROR:
-                                status = mParentActivity.getString(
-                                        R.string.uploads_view_upload_status_failed_permission_error);
-                                break;
-                            case NETWORK_CONNECTION:
-                                status = mParentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error);
-                                break;
-                            default:
-                                status = mParentActivity.getString(
-                                        R.string.uploads_view_upload_status_failed) + ": "
-                                        + upload.getLastResult().toString();
-                                break;
-                        }
-                    } else {
-                        status = mParentActivity.getString(
-                                R.string.uploads_view_upload_status_failed);
-                    }
-
-                    String laterReason = upload.getUploadLaterReason(mParentActivity);
-                    if (laterReason != null) {
-                        //Upload failed once but is delayed now, show reason.
-                        status = laterReason;
-                    }
                     break;
+
                 case UPLOAD_SUCCEEDED:
-                    status = mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
                     statusTextView.setVisibility(View.GONE);
-                    break;
-                default:
-                    status = upload.getUploadStatus().toString();
-                    if (upload.getLastResult() != null) {
-                        upload.getLastResult().toString();
-                    }
                     break;
             }
             if (upload.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
                 ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                 progressBar.setVisibility(View.GONE);
-                if (mParentActivity.getFileUploaderBinder() != null && mProgressListener != null) {
-                    mParentActivity.getFileUploaderBinder().removeDatatransferProgressListener(
-                            mProgressListener,
-                            upload.getAccount(mParentActivity),
-                            upload
-                    );
-                    mProgressListener = null;
-                }
             }
             statusTextView.setText(status);
 
+            /// bind listeners to perform actions
             ImageButton rightButton = (ImageButton) view.findViewById(R.id.upload_right_button);
             if (upload.userCanCancelUpload()) {
                 //Cancel
@@ -393,24 +346,41 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 });
             }
 
-            if (upload.userCanRetryUpload() && upload.getLastResult()!= UploadResult.CREDENTIAL_ERROR) {
-                view.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            if (upload.userCanRetryUpload()) {
+                if (UploadResult.CREDENTIAL_ERROR.equals(upload.getLastResult())) {
+                    view.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mParentActivity.getFileOperationsHelper().checkCurrentCredentials(
+                                upload.getAccount(mParentActivity)
+                            );
+                        }
+                    });
+
+                } else {
+                    // not a credentials error
+                    view.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
                         File file = new File(upload.getLocalPath());
                         if (file.exists()) {
                             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
                             requester.retry(mParentActivity, upload);
                             refreshView();
                         } else {
-                            final String message = String.format(mParentActivity.getString(R.string.local_file_not_found_toast));
+                            final String message = String.format(
+                                mParentActivity.getString(R.string.local_file_not_found_toast)
+                            );
                             Toast.makeText(mParentActivity, message, Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
+                        }
+                    });
+                }
+            } else {
+                view.setOnClickListener(null);
             }
 
-
+            /// Set icon or thumbnail
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
             fileIcon.setImageResource(R.drawable.file);
 
@@ -504,6 +474,99 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         }
 
         return view;
+    }
+
+    /**
+     * Gets the status text to show to the user according to the status and last result of the
+     * the given upload.
+     *
+     * @param upload        Upload to describe.
+     * @return              Text describing the status of the given upload.
+     */
+    private String getStatusText(OCUpload upload) {
+        String status;
+        switch (upload.getUploadStatus()) {
+
+            case UPLOAD_IN_PROGRESS:
+                status = mParentActivity.getString(R.string.uploads_view_later_waiting_to_upload);
+                FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
+                if (binder != null && binder.isUploadingNow(upload)) {
+                    /// really uploading, bind the progress bar to listen for progress updates
+                    status = mParentActivity.getString(R.string.uploader_upload_in_progress_ticker);
+                }
+                break;
+
+            case UPLOAD_SUCCEEDED:
+                status = mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
+                break;
+
+            case UPLOAD_FAILED:
+                switch (upload.getLastResult()) {
+                    case CREDENTIAL_ERROR:
+                        status = mParentActivity.getString(
+                            R.string.uploads_view_upload_status_failed_credentials_error
+                        );
+                        break;
+                    case FOLDER_ERROR:
+                        status = mParentActivity.getString(
+                            R.string.uploads_view_upload_status_failed_folder_error
+                        );
+                        break;
+                    case FILE_NOT_FOUND:
+                        status = mParentActivity.getString(
+                            R.string.uploads_view_upload_status_failed_localfile_error
+                        );
+                        break;
+                    case FILE_ERROR:
+                        status = mParentActivity.getString(
+                            R.string.uploads_view_upload_status_failed_file_error
+                        );
+                        break;
+                    case PRIVILEDGES_ERROR:
+                        status = mParentActivity.getString(
+                            R.string.uploads_view_upload_status_failed_permission_error
+                        );
+                        break;
+                    case NETWORK_CONNECTION:
+                        status = mParentActivity.getString(
+                            R.string.uploads_view_upload_status_failed_connection_error
+                        );
+                        break;
+                    case DELAYED_FOR_WIFI:
+                        status = mParentActivity.getString(
+                            R.string.uploads_view_upload_status_waiting_for_wifi
+                        );
+                        break;
+                    case CONFLICT_ERROR:
+                        status = mParentActivity.getString(
+                            R.string.uploads_view_upload_status_conflict
+                        );
+                        break;
+                    case UNKNOWN:
+                        status = mParentActivity.getString(
+                            R.string.uploads_view_upload_status_unknown_fail
+                        );
+                        break;
+                    case CANCELLED:
+                        // should not get here ; cancelled uploads should be wiped out
+                        status = mParentActivity.getString(
+                            R.string.uploads_view_upload_status_cancelled
+                        );
+                        break;
+                    case UPLOADED:
+                        // should not get here ; status should be UPLOAD_SUCCESS
+                        status =  mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
+                        break;
+                    default:
+                        status = "Naughty devs added a new fail result but no description for the user";
+                        break;
+                }
+                break;
+
+            default:
+                status = "Uncontrolled status: " + upload.getUploadStatus().toString();
+        }
+        return status;
     }
 
 
@@ -616,9 +679,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
     public class ProgressListener implements OnDatatransferProgressListener {
         int mLastPercent = 0;
+        OCUpload mUpload = null;
         WeakReference<ProgressBar> mProgressBar = null;
 
-        ProgressListener(ProgressBar progressBar) {
+        public ProgressListener(OCUpload upload, ProgressBar progressBar) {
+            mUpload = upload;
             mProgressBar = new WeakReference<ProgressBar>(progressBar);
         }
 
@@ -636,9 +701,19 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             mLastPercent = percent;
         }
 
-    }
+        public boolean isWrapping(ProgressBar progressBar) {
+            ProgressBar wrappedProgressBar = mProgressBar.get();
+            return (
+                wrappedProgressBar != null &&
+                wrappedProgressBar == progressBar   // on purpose; don't replace with equals
+            );
+        }
 
-    ;
+        public OCUpload getUpload() {
+            return mUpload;
+        }
+
+    }
 
     public void addBinder() {
         notifyDataSetChanged();

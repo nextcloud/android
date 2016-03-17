@@ -273,8 +273,8 @@ public class OCFileListFragment extends ExtendedListFragment {
         getFabUpload().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity) getActivity())
-                        .getAccount(), FileDisplayActivity.ACTION_SELECT_MULTIPLE_FILES);
+                UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity)getActivity())
+                        .getAccount(), FileDisplayActivity.REQUEST_CODE__SELECT_MULTIPLE_FILES);
                 getFabMain().collapse();
                 recordMiniFabClick();
             }
@@ -330,7 +330,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                 }
                 getActivity().startActivityForResult(
                         Intent.createChooser(action, getString(R.string.upload_chooser_title)),
-                        FileDisplayActivity.ACTION_SELECT_CONTENT_FROM_APPS
+                        FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS
                 );
                 getFabMain().collapse();
                 recordMiniFabClick();
@@ -646,7 +646,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                     ArrayList files = new ArrayList();
                     files.add(mTargetFile);
                     action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, files);
-                    getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_MOVE_FILES);
+                    getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_FILES);
                     return true;
                 }
                 case R.id.action_favorite_file: {
@@ -662,7 +662,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                     ArrayList files = new ArrayList();
                     files.add(mTargetFile);
                     action.putExtra(FolderPickerActivity.EXTRA_FILES, files);
-                    getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_COPY_FILES);
+                    getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__COPY_FILES);
                     return true;
                 default:
                     return false;
@@ -684,7 +684,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                 case R.id.action_move: {
                     Intent action = new Intent(getActivity(), FolderPickerActivity.class);
                     action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, mTargetFiles);
-                    getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_MOVE_FILES);
+                    getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_FILES);
                     return true;
                 }
                 case R.id.action_favorite_file: {
@@ -698,7 +698,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                 case R.id.action_copy:
                     Intent action = new Intent(getActivity(), FolderPickerActivity.class);
                     action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, mTargetFiles);
-                    getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_COPY_FILES);
+                    getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__COPY_FILES);
                     return true;
                 default:
                     return false;

@@ -145,8 +145,6 @@ public class ProviderMeta {
         public static final String UPLOADS_UPLOAD_TIME = "upload_time";
         public static final String UPLOADS_FORCE_OVERWRITE = "force_overwrite";
         public static final String UPLOADS_IS_CREATE_REMOTE_FOLDER = "is_create_remote_folder";
-        public static final String UPLOADS_IS_WHILE_CHARGING_ONLY = "is_while_charging_only";
-        public static final String UPLOADS_IS_WIFI_ONLY = "is_wifi_only";
         public static final String UPLOADS_UPLOAD_END_TIMESTAMP = "upload_end_timestamp";
         public static final String UPLOADS_LAST_RESULT = "last_result";
         public static final String UPLOADS_CREATED_BY = "created_by";

@@ -853,8 +853,6 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.UPLOADS_UPLOAD_TIME + " INTEGER, "
                 + ProviderTableMeta.UPLOADS_FORCE_OVERWRITE + " INTEGER, "  // boolean
                 + ProviderTableMeta.UPLOADS_IS_CREATE_REMOTE_FOLDER + " INTEGER, "  // boolean
-                + ProviderTableMeta.UPLOADS_IS_WHILE_CHARGING_ONLY + " INTEGER, "  // boolean
-                + ProviderTableMeta.UPLOADS_IS_WIFI_ONLY + " INTEGER, " // boolean
                 + ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP + " INTEGER, "
                 + ProviderTableMeta.UPLOADS_LAST_RESULT + " INTEGER, "     // Upload LastResult
                 + ProviderTableMeta.UPLOADS_CREATED_BY + " INTEGER );"    // Upload createdBy

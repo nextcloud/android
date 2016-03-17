@@ -239,7 +239,7 @@ public class FileOperationsHelper {
         if (file != null) {
             // TODO check capability?
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                    getString(R.string.wait_a_moment));
+                getString(R.string.wait_a_moment));
 
             Intent service = new Intent(mFileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_CREATE_SHARE_WITH_SHAREE);
@@ -346,8 +346,8 @@ public class FileOperationsHelper {
         SharePasswordDialogFragment dialog =
                 SharePasswordDialogFragment.newInstance(file, createShare);
         dialog.show(
-                mFileActivity.getSupportFragmentManager(),
-                SharePasswordDialogFragment.PASSWORD_FRAGMENT
+            mFileActivity.getSupportFragmentManager(),
+            SharePasswordDialogFragment.PASSWORD_FRAGMENT
         );
     }
 
@@ -519,8 +519,8 @@ public class FileOperationsHelper {
             intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(intent);
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                    getString(R.string.wait_a_moment));
-
+                getString(R.string.wait_a_moment));
+            
         } else {
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
@@ -681,4 +681,19 @@ public class FileOperationsHelper {
         return false;
     }
 
+    /**
+     * Starts a check of the currenlty stored credentials for the given account.
+     *
+     * @param account       OC account which credentials will be checked.
+     */
+    public void checkCurrentCredentials(Account account) {
+        Intent service = new Intent(mFileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_CHECK_CURRENT_CREDENTIALS);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, account);
+        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        mFileActivity.showLoadingDialog(
+            mFileActivity.getApplicationContext().getString(R.string.wait_checking_credentials)
+        );
+    }
 }

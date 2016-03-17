@@ -728,6 +728,17 @@ public class FileUploader extends Service
         }
 
 
+        public boolean isUploadingNow(OCUpload upload) {
+            return (
+                upload != null  &&
+                mCurrentAccount != null &&
+                mCurrentUpload != null &&
+                upload.getAccountName().equals(mCurrentAccount.name) &&
+                upload.getRemotePath().equals(mCurrentUpload.getRemotePath())
+            );
+        }
+
+
         /**
          * Adds a listener interested in the progress of the upload for a concrete file.
          *
@@ -750,16 +761,14 @@ public class FileUploader extends Service
          * Adds a listener interested in the progress of the upload for a concrete file.
          *
          * @param listener Object to notify about progress of transfer.
-         * @param account  ownCloud account holding the file of interest.
          * @param ocUpload {@link OCUpload} of interest for listener.
          */
         public void addDatatransferProgressListener(
                 OnDatatransferProgressListener listener,
-                Account account,
                 OCUpload ocUpload
         ) {
-            if (account == null || ocUpload == null || listener == null) return;
-            String targetKey = buildRemoteName(account.name, ocUpload.getRemotePath());
+            if (ocUpload == null || listener == null) return;
+            String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
             mBoundListeners.put(targetKey, listener);
         }
 
@@ -788,16 +797,14 @@ public class FileUploader extends Service
          * Removes a listener interested in the progress of the upload for a concrete file.
          *
          * @param listener Object to notify about progress of transfer.
-         * @param account  ownCloud account holding the file of interest.
          * @param ocUpload Stored upload of interest
          */
         public void removeDatatransferProgressListener(
                 OnDatatransferProgressListener listener,
-                Account account,
                 OCUpload ocUpload
         ) {
-            if (account == null || ocUpload == null || listener == null) return;
-            String targetKey = buildRemoteName(account.name, ocUpload.getRemotePath());
+            if (ocUpload == null || listener == null) return;
+            String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
             if (mBoundListeners.get(targetKey) == listener) {
                 mBoundListeners.remove(targetKey);
             }
@@ -1054,10 +1061,7 @@ public class FileUploader extends Service
             String content;
 
             // check credentials error
-            boolean needsToUpdateCredentials = (
-                    uploadResult.getCode() == ResultCode.UNAUTHORIZED ||
-                            uploadResult.isIdPRedirection()
-            );
+            boolean needsToUpdateCredentials = (ResultCode.UNAUTHORIZED.equals(uploadResult.getCode()));
             tickerId = (needsToUpdateCredentials) ?
                     R.string.uploader_upload_failed_credentials_error : tickerId;
 
@@ -1093,8 +1097,6 @@ public class FileUploader extends Service
                         PendingIntent.FLAG_ONE_SHOT
                 ));
 
-                mUploadClient = null;
-                // grant that future retries on the same account will get the fresh credentials
             } else {
                 mNotificationBuilder.setContentText(content);
             }

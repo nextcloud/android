@@ -545,10 +545,7 @@ public class FileDownloader extends Service
             int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker :
                     R.string.downloader_download_failed_ticker;
 
-            boolean needsToUpdateCredentials = (
-                    downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
-                            downloadResult.isIdPRedirection()
-            );
+            boolean needsToUpdateCredentials = (ResultCode.UNAUTHORIZED.equals(downloadResult.getCode()));
             tickerId = (needsToUpdateCredentials) ?
                     R.string.downloader_download_failed_credentials_error : tickerId;
 

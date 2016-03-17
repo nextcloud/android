@@ -70,14 +70,13 @@ public class ExtendedListFragment extends Fragment
     private ScaleGestureDetector mScaleGestureDetector = null;
     protected SwipeRefreshLayout mRefreshListLayout;
     private SwipeRefreshLayout mRefreshGridLayout;
+    protected SwipeRefreshLayout mRefreshEmptyLayout;
+    protected TextView mEmptyListMessage;
 
     private FloatingActionsMenu mFabMain;
     private FloatingActionButton mFabUpload;
     private FloatingActionButton mFabMkdir;
     private FloatingActionButton mFabUploadFromApp;
-
-    protected SwipeRefreshLayout mRefreshEmptyLayout;
-    protected TextView mEmptyListMessage;
 
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;

@@ -9,7 +9,7 @@
     >
 
     <FrameLayout
-        android:layout_width="72dp"
+        android:layout_width="60dp"
         android:layout_height="match_parent"
         android:focusable="false"
         android:focusableInTouchMode="false">
@@ -40,7 +40,7 @@
             android:singleLine="true"
             android:textColor="@color/textColor"
             android:text="@string/placeholder_filename"
-            android:textSize="16dip" />
+            android:textSize="16sp" />
 
 
         <LinearLayout
@@ -55,7 +55,7 @@
                 android:ellipsize="middle"
                 android:singleLine="true"
                 android:text="@string/placeholder_filesize"
-                android:textSize="12dip"/>
+                android:textSize="12sp"/>
             <TextView
                 android:id="@+id/upload_date"
                 android:layout_width="wrap_content"
@@ -64,14 +64,14 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
                 android:text="@string/placeholder_timestamp"
-                android:textSize="12dip"/>
+                android:textSize="12sp"/>
             <TextView
                 android:id="@+id/upload_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:text="@string/uploads_view_upload_status_succeeded"
-                android:textSize="12dip"/>
+                android:textSize="12sp"/>
 
         </LinearLayout>
 

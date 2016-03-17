@@ -23,6 +23,7 @@ package com.owncloud.android.db;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 
 public enum UploadResult {
+    UNKNOWN(-1),
     UPLOADED(0),
     NETWORK_CONNECTION(1),
     CREDENTIAL_ERROR(2),
@@ -32,7 +33,7 @@ public enum UploadResult {
     PRIVILEDGES_ERROR(6),
     CANCELLED(7),
     FILE_NOT_FOUND(8),
-    UNKNOWN(9);
+    DELAYED_FOR_WIFI(9);
 
     private final int value;
 
@@ -45,6 +46,8 @@ public enum UploadResult {
     }
     public static UploadResult fromValue(int value) {
         switch (value) {
+            case -1:
+                return UNKNOWN;
             case 0:
                 return UPLOADED;
             case 1:
@@ -64,12 +67,13 @@ public enum UploadResult {
             case 8:
                 return FILE_NOT_FOUND;
             case 9:
-                return UNKNOWN;
+                return DELAYED_FOR_WIFI;
         }
         return null;
     }
 
     public static UploadResult fromOperationResult(RemoteOperationResult result){
+        // messy :(
         switch (result.getCode()){
             case OK:
                 return UPLOADED;
@@ -77,7 +81,9 @@ public enum UploadResult {
             case HOST_NOT_AVAILABLE:
             case TIMEOUT:
             case WRONG_CONNECTION:
-            case DELAYED_FOR_WIFI:
+            case INCORRECT_ADDRESS:
+            case SSL_ERROR:
+            case SSL_RECOVERABLE_PEER_UNVERIFIED:
                 return NETWORK_CONNECTION;
             case ACCOUNT_EXCEPTION:
             case UNAUTHORIZED:
@@ -94,12 +100,16 @@ public enum UploadResult {
                 return PRIVILEDGES_ERROR;
             case CANCELLED:
                 return CANCELLED;
+            case DELAYED_FOR_WIFI:
+                return DELAYED_FOR_WIFI;
             case UNKNOWN_ERROR:
-                if (result.getException() instanceof java.io.FileNotFoundException)
+                if (result.getException() instanceof java.io.FileNotFoundException) {
                     return FILE_ERROR;
+                }
                 return UNKNOWN;
             default:
                 return UNKNOWN;
         }
+
     }
 }

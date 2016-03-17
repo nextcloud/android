@@ -70,12 +70,14 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.ImageSimpleAdapter;
+import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.CopyTmpFileAsyncTask;
@@ -121,7 +123,7 @@ public class Uploader extends FileActivity
     private final static int DIALOG_NO_STREAM = 2;
     private final static int DIALOG_MULTIPLE_ACCOUNT = 3;
 
-    private final static int REQUEST_CODE_SETUP_ACCOUNT = 0;
+    private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
     private final static String KEY_PARENTS = "PARENTS";
     private final static String KEY_FILE = "FILE";
@@ -227,101 +229,101 @@ public class Uploader extends FileActivity
     protected Dialog onCreateDialog(final int id) {
         final AlertDialog.Builder builder = new Builder(this);
         switch (id) {
-            case DIALOG_WAITING:
-                final ProgressDialog pDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
-                pDialog.setIndeterminate(false);
-                pDialog.setCancelable(false);
-                pDialog.setMessage(getResources().getString(R.string.uploader_info_uploading));
-                pDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        ProgressBar v = (ProgressBar) pDialog.findViewById(android.R.id.progress);
-                        v.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.color_accent),
-                                android.graphics.PorterDuff.Mode.MULTIPLY);
+        case DIALOG_WAITING:
+            final ProgressDialog pDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.setMessage(getResources().getString(R.string.uploader_info_uploading));
+            pDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    ProgressBar v = (ProgressBar) pDialog.findViewById(android.R.id.progress);
+                    v.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.color_accent),
+                            android.graphics.PorterDuff.Mode.MULTIPLY);
 
-                    }
-                });
-                return pDialog;
-            case DIALOG_NO_ACCOUNT:
-                builder.setIcon(android.R.drawable.ic_dialog_alert);
-                builder.setTitle(R.string.uploader_wrn_no_account_title);
-                builder.setMessage(String.format(
-                        getString(R.string.uploader_wrn_no_account_text),
-                        getString(R.string.app_name)));
-                builder.setCancelable(false);
-                builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (android.os.Build.VERSION.SDK_INT >
-                                android.os.Build.VERSION_CODES.ECLAIR_MR1) {
-                            // using string value since in API7 this
-                            // constatn is not defined
-                            // in API7 < this constatant is defined in
-                            // Settings.ADD_ACCOUNT_SETTINGS
-                            // and Settings.EXTRA_AUTHORITIES
-                            Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-                            intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
-                            startActivityForResult(intent, REQUEST_CODE_SETUP_ACCOUNT);
-                        } else {
-                            // since in API7 there is no direct call for
-                            // account setup, so we need to
-                            // show our own AccountSetupAcricity, get
-                            // desired results and setup
-                            // everything for ourself
-                            Intent intent = new Intent(getBaseContext(), AccountAuthenticator.class);
-                            startActivityForResult(intent, REQUEST_CODE_SETUP_ACCOUNT);
-                        }
-                    }
-                });
-                builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                return builder.create();
-            case DIALOG_MULTIPLE_ACCOUNT:
-                CharSequence ac[] = new CharSequence[
-                        mAccountManager.getAccountsByType(MainApp.getAccountType()).length];
-                for (int i = 0; i < ac.length; ++i) {
-                    ac[i] = DisplayUtils.convertIdn(
-                            mAccountManager.getAccountsByType(MainApp.getAccountType())[i].name, false);
                 }
-                builder.setTitle(R.string.common_choose_account);
-                builder.setItems(ac, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        setAccount(mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
-                        onAccountSet(mAccountWasRestored);
-                        dialog.dismiss();
-                        mAccountSelected = true;
-                        mAccountSelectionShowing = false;
+            });
+            return pDialog;
+        case DIALOG_NO_ACCOUNT:
+            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setTitle(R.string.uploader_wrn_no_account_title);
+            builder.setMessage(String.format(
+                    getString(R.string.uploader_wrn_no_account_text),
+                    getString(R.string.app_name)));
+            builder.setCancelable(false);
+            builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (android.os.Build.VERSION.SDK_INT >
+                            android.os.Build.VERSION_CODES.ECLAIR_MR1) {
+                        // using string value since in API7 this
+                        // constatn is not defined
+                        // in API7 < this constatant is defined in
+                        // Settings.ADD_ACCOUNT_SETTINGS
+                        // and Settings.EXTRA_AUTHORITIES
+                        Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
+                        intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
+                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
+                    } else {
+                        // since in API7 there is no direct call for
+                        // account setup, so we need to
+                        // show our own AccountSetupAcricity, get
+                        // desired results and setup
+                        // everything for ourself
+                        Intent intent = new Intent(getBaseContext(), AccountAuthenticator.class);
+                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
                     }
-                });
-                builder.setCancelable(true);
-                builder.setOnCancelListener(new OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        mAccountSelectionShowing = false;
-                        dialog.cancel();
-                        finish();
-                    }
-                });
-                return builder.create();
-            case DIALOG_NO_STREAM:
-                builder.setIcon(android.R.drawable.ic_dialog_alert);
-                builder.setTitle(R.string.uploader_wrn_no_content_title);
-                builder.setMessage(R.string.uploader_wrn_no_content_text);
-                builder.setCancelable(false);
-                builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                return builder.create();
-            default:
-                throw new IllegalArgumentException("Unknown dialog id: " + id);
+                }
+            });
+            builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            return builder.create();
+        case DIALOG_MULTIPLE_ACCOUNT:
+            CharSequence ac[] = new CharSequence[
+                    mAccountManager.getAccountsByType(MainApp.getAccountType()).length];
+            for (int i = 0; i < ac.length; ++i) {
+                ac[i] = DisplayUtils.convertIdn(
+                        mAccountManager.getAccountsByType(MainApp.getAccountType())[i].name, false);
+            }
+            builder.setTitle(R.string.common_choose_account);
+            builder.setItems(ac, new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    setAccount(mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
+                    onAccountSet(mAccountWasRestored);
+                    dialog.dismiss();
+                    mAccountSelected = true;
+                    mAccountSelectionShowing = false;
+                }
+            });
+            builder.setCancelable(true);
+            builder.setOnCancelListener(new OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    mAccountSelectionShowing = false;
+                    dialog.cancel();
+                    finish();
+                }
+            });
+            return builder.create();
+        case DIALOG_NO_STREAM:
+            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setTitle(R.string.uploader_wrn_no_content_title);
+            builder.setMessage(R.string.uploader_wrn_no_content_text);
+            builder.setCancelable(false);
+            builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            return builder.create();
+        default:
+            throw new IllegalArgumentException("Unknown dialog id: " + id);
         }
     }
 
@@ -408,7 +410,7 @@ public class Uploader extends FileActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log_OC.i(TAG, "result received. req: " + requestCode + " res: " + resultCode);
-        if (requestCode == REQUEST_CODE_SETUP_ACCOUNT) {
+        if (requestCode == REQUEST_CODE__SETUP_ACCOUNT) {
             dismissDialog(DIALOG_NO_ACCOUNT);
             if (resultCode == RESULT_CANCELED) {
                 finish();
@@ -533,12 +535,7 @@ public class Uploader extends FileActivity
     @SuppressLint("NewApi")
     public void uploadFiles() {
         try {
-
-            // ArrayList for files with path in external storage
-            ArrayList<String> local = new ArrayList<String>();
-            ArrayList<String> remote = new ArrayList<String>();
-
-            // this checks the mimeType 
+            // this checks the mimeType
             for (Parcelable mStream : mStreamsToUpload) {
 
                 Uri uri = (Uri) mStream;
@@ -617,25 +614,10 @@ public class Uploader extends FileActivity
                         mNumCacheFile++;
                         showWaitingCopyDialog();
                         copyTask.execute(params);
-                    } else {
-                        remote.add(filePath);
-                        local.add(data);
                     }
                 } else {
                     throw new SecurityException();
                 }
-
-                FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                requester.uploadNewFile(
-                        this,
-                        getAccount(),
-                        local.toArray(new String[local.size()]),
-                        remote.toArray(new String[remote.size()]),
-                        null,       // MIME type will be detected from file name
-                        FileUploader.LOCAL_BEHAVIOUR_FORGET,
-                        false,      // do not create parent folder if not existent
-                        UploadFileOperation.CREATED_BY_USER
-                );
 
                 //Save the path to shared preferences
                 SharedPreferences.Editor appPrefs = PreferenceManager
