@@ -303,7 +303,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     uploadDateTextView.setVisibility(View.GONE);
                     pathTextView.setVisibility(View.GONE);
                     fileSizeTextView.setVisibility(View.GONE);
-                    accountNameTextView.setVisibility(View.INVISIBLE);
                     break;
 
                 case UPLOAD_FAILED:
