@@ -290,4 +290,9 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
         }
     }
+
+    @Override
+    protected String getDefaultTitle() {
+        return getString(R.string.uploads_view_title);
+    }
 }

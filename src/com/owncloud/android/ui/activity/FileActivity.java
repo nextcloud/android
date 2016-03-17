@@ -277,7 +277,6 @@ public class FileActivity extends AppCompatActivity
         super.onPause();
     }
 
-
     @Override
     protected void onDestroy() {
         if (mOperationsServiceConnection != null) {
@@ -421,6 +420,7 @@ public class FileActivity extends AppCompatActivity
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.drawer_open,R.string.drawer_close) {
 
+
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -466,7 +466,7 @@ public class FileActivity extends AppCompatActivity
      * Assumes that navigation drawer is NOT visible.
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        String title = getString(R.string.default_display_name_for_root_folder);    // default
+        String title = getDefaultTitle();    // default
         boolean inRoot;
 
         /// choose the appropiate title
@@ -499,6 +499,9 @@ public class FileActivity extends AppCompatActivity
 
     }
 
+    protected String getDefaultTitle() {
+        return getString(R.string.default_display_name_for_root_folder);
+    }
 
     /**
      *  Sets and validates the ownCloud {@link Account} associated to the Activity.
@@ -1000,11 +1003,6 @@ public class FileActivity extends AppCompatActivity
         startActivity(i);
     }
 
-//    TODO re-enable when "Accounts" is available in Navigation Drawer
-//    public void closeDrawer() {
-//        mDrawerLayout.closeDrawers();
-//    }
-
     public void allFilesOption(){
         restart();
     }
@@ -1026,13 +1024,11 @@ public class FileActivity extends AppCompatActivity
 
                 case 0: // All Files
                     allFilesOption();
-                    mDrawerLayout.closeDrawers();
                     break;
 
                 // TODO Enable when "On Device" is recovered ?
 //                case 2:
 //                    MainApp.showOnlyFilesOnDevice(true);
-//                    mDrawerLayout.closeDrawers();
 //                    break;
 
                 case 1: // Uploads
@@ -1040,23 +1036,21 @@ public class FileActivity extends AppCompatActivity
                             UploadListActivity.class);
                     uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(uploadListIntent);
-                    mDrawerLayout.closeDrawers();
                     break;
 
                 case 2: // Settings
                     Intent settingsIntent = new Intent(getApplicationContext(),
                             Preferences.class);
                     startActivity(settingsIntent);
-                    mDrawerLayout.closeDrawers();
                     break;
 
                 case 3: // Logs
                     Intent loggerIntent = new Intent(getApplicationContext(),
                             LogHistoryActivity.class);
                     startActivity(loggerIntent);
-                    mDrawerLayout.closeDrawers();
                     break;
             }
+            mDrawerLayout.closeDrawers();
         }
     }
 
