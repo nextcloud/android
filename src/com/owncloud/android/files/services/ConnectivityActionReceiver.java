@@ -154,19 +154,24 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
 
     private void wifiConnected(Context context) {
         // for the moment, only recovery of instant uploads, similar to behaviour in release 1.9.1
-        // (with some side effects that improve it a bit, but needs to be better)
         if (
                 (PreferenceReader.instantPictureUploadEnabled(context) &&
                         PreferenceReader.instantPictureUploadViaWiFiOnly(context)) ||
                 (PreferenceReader.instantVideoUploadEnabled(context) &&
-                        PreferenceReader.instantPictureUploadViaWiFiOnly(context))
+                        PreferenceReader.instantVideoUploadViaWiFiOnly(context))
                 ) {
             Log_OC.d(TAG, "Requesting retry of instant uploads (& friends)");
             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
             requester.retryFailedUploads(
-                    context,
-                    null,
-                    UploadResult.NETWORK_CONNECTION
+                context,
+                null,
+                UploadResult.NETWORK_CONNECTION     // for the interrupted when Wifi fell, if any
+                // (side effect: any upload failed due to network error will be retried too, instant or not)
+            );
+            requester.retryFailedUploads(
+                context,
+                null,
+                UploadResult.DELAYED_FOR_WIFI       // for the rest of enqueued when Wifi fell
             );
         }
     }
