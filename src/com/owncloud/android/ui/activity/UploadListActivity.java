@@ -21,6 +21,8 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -39,13 +41,17 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.fragment.UploadListFragment;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
@@ -62,8 +68,6 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     private static final String TAG = UploadListActivity.class.getSimpleName();
 
     private static final String TAG_UPLOAD_LIST_FRAGMENT = "UPLOAD_LIST_FRAGMENT";
-
-    public static final int UPDATE_CREDENTIALS_REQUEST_CODE = 100;
 
     private UploadMessagesReceiver mUploadMessagesReceiver;
 
@@ -223,13 +227,47 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log_OC.e(TAG, "onActivityResult " + resultCode);
-        if (requestCode == UPDATE_CREDENTIALS_REQUEST_CODE && resultCode == RESULT_OK) {
-            // Retry uploads of this account
+        if (requestCode == FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS && resultCode == RESULT_OK) {
+            // Retry uploads of the updated account
+            Account account = AccountUtils.getOwnCloudAccountByName(
+                this,
+                data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
+            );
             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-            requester.retryFailedUploads(this, getAccount(), UploadResult.CREDENTIAL_ERROR);
+            requester.retryFailedUploads(
+                this,
+                account,
+                UploadResult.CREDENTIAL_ERROR
+            );
         }
     }
+
+    /**
+     *
+     * @param operation     Operation performed.
+     * @param result        Result of the removal.
+     */
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        if (operation instanceof CheckCurrentCredentialsOperation) {
+            // Do not call super in this case; more refactoring needed around onRemoteOeprationFinish :'(
+            getFileOperationsHelper().setOpIdWaitingFor(Long.MAX_VALUE);
+            dismissLoadingDialog();
+            Account account = (Account) result.getData().get(0);
+            if (!result.isSuccess()) {
+                requestCredentialsUpdate(this, account);
+
+            } else {
+                // already updated -> just retry!
+                FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+                requester.retryFailedUploads(this, account, UploadResult.CREDENTIAL_ERROR);
+            }
+
+        } else {
+            super.onRemoteOperationFinish(operation, result);
+        }
+    }
+
 
     @Override
     protected ServiceConnection newTransferenceServiceConnection() {

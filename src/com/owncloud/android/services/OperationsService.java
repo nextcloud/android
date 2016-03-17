@@ -52,6 +52,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
+import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
@@ -113,6 +114,7 @@ public class OperationsService extends Service {
     public static final String ACTION_SYNC_FOLDER = "SYNC_FOLDER";
     public static final String ACTION_MOVE_FILE = "MOVE_FILE";
     public static final String ACTION_COPY_FILE = "COPY_FILE";
+    public static final String ACTION_CHECK_CURRENT_CREDENTIALS = "CHECK_CURRENT_CREDENTIALS";
 
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() +
             ".OPERATION_ADDED";
@@ -689,6 +691,10 @@ public class OperationsService extends Service {
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
                     operation = new CopyFileOperation(remotePath, newParentPath, account);
+
+                } else if (action.equals(ACTION_CHECK_CURRENT_CREDENTIALS)) {
+                    // Check validity of currently stored credentials for a given account
+                    operation = new CheckCurrentCredentialsOperation(account);
                 }
             }
                 

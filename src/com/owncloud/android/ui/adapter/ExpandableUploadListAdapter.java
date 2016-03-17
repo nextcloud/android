@@ -354,19 +354,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     view.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // let the user update credentials with one click
-                            Intent updateAccountCredentials = new Intent(mParentActivity,
-                                AuthenticatorActivity.class);
-                            updateAccountCredentials.putExtra(
-                                AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount
-                                    (mParentActivity));
-                            updateAccountCredentials.putExtra(
-                                AuthenticatorActivity.EXTRA_ACTION,
-                                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
-                            updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                            updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                            mParentActivity.startActivityForResult(updateAccountCredentials,
-                                UploadListActivity.UPDATE_CREDENTIALS_REQUEST_CODE);
+                            mParentActivity.getFileOperationsHelper().checkCurrentCredentials(
+                                upload.getAccount(mParentActivity)
+                            );
                         }
                     });
 

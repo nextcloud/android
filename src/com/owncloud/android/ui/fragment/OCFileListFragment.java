@@ -229,7 +229,7 @@ public class OCFileListFragment extends ExtendedListFragment
             @Override
             public void onClick(View v) {
                 UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity)getActivity())
-                        .getAccount(), FileDisplayActivity.ACTION_SELECT_MULTIPLE_FILES);
+                        .getAccount(), FileDisplayActivity.REQUEST_CODE__SELECT_MULTIPLE_FILES);
                 getFabMain().collapse();
                 recordMiniFabClick();
             }
@@ -285,7 +285,7 @@ public class OCFileListFragment extends ExtendedListFragment
                 }
                 getActivity().startActivityForResult(
                         Intent.createChooser(action, getString(R.string.upload_chooser_title)),
-                        FileDisplayActivity.ACTION_SELECT_CONTENT_FROM_APPS
+                        FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS
                 );
                 getFabMain().collapse();
                 recordMiniFabClick();
@@ -586,7 +586,7 @@ public class OCFileListFragment extends ExtendedListFragment
 
                 // Pass mTargetFile that contains info of selected file/folder
                 action.putExtra(FolderPickerActivity.EXTRA_FILE, mTargetFile);
-                getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_MOVE_FILES);
+                getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_FILES);
                 return true;
             }
             case R.id.action_favorite_file: {
@@ -602,7 +602,7 @@ public class OCFileListFragment extends ExtendedListFragment
 
                 // Pass mTargetFile that contains info of selected file/folder
                 action.putExtra(FolderPickerActivity.EXTRA_FILE, mTargetFile);
-                getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_COPY_FILES);
+                getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__COPY_FILES);
                 return true;
             default:
                 return false;

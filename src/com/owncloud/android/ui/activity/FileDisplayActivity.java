@@ -83,7 +83,6 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
@@ -124,15 +123,12 @@ public class FileDisplayActivity extends HookActivity implements
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
 
-    public static final int DIALOG_SHORT_WAIT = 0;
-    private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 1;
-
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
-    public static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
-    public static final int ACTION_SELECT_MULTIPLE_FILES = 2;
-    public static final int ACTION_MOVE_FILES = 3;
-    public static final int ACTION_COPY_FILES = 4;
+    public static final int REQUEST_CODE__SELECT_CONTENT_FROM_APPS = REQUEST_CODE__LAST_SHARED + 1;
+    public static final int REQUEST_CODE__SELECT_MULTIPLE_FILES = REQUEST_CODE__LAST_SHARED + 2;
+    public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
+    public static final int REQUEST_CODE__COPY_FILES = REQUEST_CODE__LAST_SHARED + 4;
 
     private static final String TAG = FileDisplayActivity.class.getSimpleName();
 
@@ -653,7 +649,7 @@ public class FileDisplayActivity extends HookActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK ||
+        if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK ||
                 resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
 
             //getClipData is only supported on api level 16+, Jelly Bean
@@ -670,11 +666,11 @@ public class FileDisplayActivity extends HookActivity implements
             } else {
                 requestSimpleUpload(data, resultCode);
             }
-        } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK ||
+        } else if (requestCode == REQUEST_CODE__SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK ||
                 resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestMultipleUpload(data, resultCode);
 
-        } else if (requestCode == ACTION_MOVE_FILES && resultCode == RESULT_OK) {
+        } else if (requestCode == REQUEST_CODE__MOVE_FILES && resultCode == RESULT_OK) {
             final Intent fData = data;
             final int fResultCode = resultCode;
             getHandler().postDelayed(
@@ -687,7 +683,7 @@ public class FileDisplayActivity extends HookActivity implements
                     DELAY_TO_REQUEST_OPERATIONS_LATER
             );
 
-        } else if (requestCode == ACTION_COPY_FILES && resultCode == RESULT_OK) {
+        } else if (requestCode == REQUEST_CODE__COPY_FILES && resultCode == RESULT_OK) {
 
             final Intent fData = data;
             final int fResultCode = resultCode;

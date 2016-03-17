@@ -557,7 +557,7 @@ public class PreviewMediaFragment extends FileFragment implements
         i.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, mVideoPreview.isPlaying());
         mVideoPreview.pause();
         i.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, mVideoPreview.getCurrentPosition());
-        startActivityForResult(i, 0);
+        startActivityForResult(i, FileActivity.REQUEST_CODE__LAST_SHARED + 1);
     }
 
     @Override

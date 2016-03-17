@@ -245,6 +245,7 @@
     <string name="filename_forbidden_charaters_from_server">File name contains at least one invalid character</string>
     <string name="filename_empty">File name cannot be empty</string>
     <string name="wait_a_moment">Wait a moment</string>
+    <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please select the file from a different app"</string>
     <string name="filedisplay_no_file_selected">No file was selected</string>
     <string name="activity_chooser_title">Send link to &#8230;</string>

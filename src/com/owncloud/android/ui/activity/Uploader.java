@@ -121,7 +121,7 @@ public class Uploader extends FileActivity
     private final static int DIALOG_NO_STREAM = 2;
     private final static int DIALOG_MULTIPLE_ACCOUNT = 3;
 
-    private final static int REQUEST_CODE_SETUP_ACCOUNT = 0;
+    private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
     private final static String KEY_PARENTS = "PARENTS";
     private final static String KEY_FILE = "FILE";
@@ -261,7 +261,7 @@ public class Uploader extends FileActivity
                         // and Settings.EXTRA_AUTHORITIES
                         Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
                         intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
-                        startActivityForResult(intent, REQUEST_CODE_SETUP_ACCOUNT);
+                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
                     } else {
                         // since in API7 there is no direct call for
                         // account setup, so we need to
@@ -269,7 +269,7 @@ public class Uploader extends FileActivity
                         // desired results and setup
                         // everything for ourself
                         Intent intent = new Intent(getBaseContext(), AccountAuthenticator.class);
-                        startActivityForResult(intent, REQUEST_CODE_SETUP_ACCOUNT);
+                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
                     }
                 }
             });
@@ -406,7 +406,7 @@ public class Uploader extends FileActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log_OC.i(TAG, "result received. req: " + requestCode + " res: " + resultCode);
-        if (requestCode == REQUEST_CODE_SETUP_ACCOUNT) {
+        if (requestCode == REQUEST_CODE__SETUP_ACCOUNT) {
             dismissDialog(DIALOG_NO_ACCOUNT);
             if (resultCode == RESULT_CANCELED) {
                 finish();
