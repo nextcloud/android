@@ -15,7 +15,6 @@
   <string name="drawer_open">Otvori</string>
   <string name="prefs_category_general">Opšte</string>
   <string name="prefs_accounts">Nalozi</string>
-  <string name="prefs_manage_accounts">Upravljaj nalozima</string>
   <string name="prefs_help">Pomoć</string>
   <string name="prefs_imprint">Žig</string>
   <string name="auth_username">Korisničko ime</string>
@@ -30,7 +29,7 @@
   <string name="filedetails_size">Veličina:</string>
   <string name="filedetails_type">Tip:</string>
   <string name="filedetails_download">Preuzmi</string>
-  <string name="action_share_file">Podeli prečicu</string>
+  <string name="action_share">Deljenje</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Ok</string>
@@ -39,7 +38,6 @@
   <string name="common_error_unknown">Nepoznata greška</string>
   <string name="about_title">O programu</string>
   <string name="change_password">Izmeni lozinku</string>
-  <string name="delete_account">Ukloni nalog</string>
   <string name="create_account">Novi nalog</string>
   <string name="uploader_info_dirname">Ime fascikle</string>
   <string name="uploader_upload_in_progress_ticker">Otpremanje...</string>
@@ -72,5 +70,14 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">Nalozi</string>
   <string name="folder_picker_choose_button_text">Izaberi</string>
+  <string name="prefs_category_details">Detaljnije</string>
+  <string name="share_via_link_section_title">Veza deljenja</string>
+  <string name="share_via_link_expiration_date_label">Datum isteka</string>
+  <string name="share_via_link_password_label">Zaštita lozinkom</string>
   <string name="share_search">Traži</string>
+  <string name="share_privilege_can_share">može da deli</string>
+  <string name="share_privilege_can_edit">može da menja</string>
+  <string name="share_privilege_can_edit_create">napravi</string>
+  <string name="share_privilege_can_edit_change">izmeni</string>
+  <string name="share_privilege_can_edit_delete">brisanje</string>
 </resources>

@@ -217,6 +217,26 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             item.setVisible(false);
             item.setEnabled(false);
         }
+
+        Boolean dualPane = getResources().getBoolean(R.bool.large_land_layout);
+
+        item = menu.findItem(R.id.action_switch_view);
+        if (item != null && !dualPane){
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+        item = menu.findItem(R.id.action_sync_account);
+        if (item != null && !dualPane) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+        item = menu.findItem(R.id.action_sort);
+        if (item != null && !dualPane) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
     }
 
 
@@ -227,18 +247,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
-                return true;
-            }
-            case R.id.action_share_with_users: {
                 mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
                 return true;
             }
-            case R.id.action_unshare_file: {
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
-                return true;
-            }
-
             case R.id.action_open_file_with: {
                 mContainerActivity.getFileOperationsHelper().openFile(getFile());
                 return true;

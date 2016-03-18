@@ -84,7 +84,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private SharedPreferences mAppPreferences;
 
     private HashMap<Integer, Boolean> mSelection = new HashMap<Integer, Boolean>();
-    
+
     public FileListListAdapter(
             boolean justFolders, 
             Context context,
@@ -199,6 +199,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             switch (viewType){
                 case LIST_ITEM:
                     TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
+                    TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
                     TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
 
 
@@ -207,28 +208,30 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
 
 
+                    fileSizeSeparatorV.setVisibility(View.VISIBLE);
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
                     if (!file.isFolder()) {
-//                        AbsListView parentList = (AbsListView)parent;
-//                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//                            if (parentList.getChoiceMode() == AbsListView.CHOICE_MODE_NONE) {
-//                                checkBoxV.setVisibility(View.GONE);
-//                            } else {
-//                                if (parentList.isItemChecked(position)) {
-//                                    checkBoxV.setImageResource(
-//                                            android.R.drawable.checkbox_on_background);
-//                                } else {
-//                                    checkBoxV.setImageResource(
-//                                            android.R.drawable.checkbox_off_background);
-//                                }
-//                                checkBoxV.setVisibility(View.VISIBLE);
-//                            }
-//                        }
+                        AbsListView parentList = (AbsListView)parent;
+                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                            if (parentList.getChoiceMode() == AbsListView.CHOICE_MODE_NONE) {
+                                checkBoxV.setVisibility(View.GONE);
+                            } else {
+                                if (parentList.isItemChecked(position)) {
+                                    checkBoxV.setImageResource(
+                                            R.drawable.ic_checkbox_marked);
+                                } else {
+                                    checkBoxV.setImageResource(
+                                            R.drawable.ic_checkbox_blank_outline);
+                                }
+                                checkBoxV.setVisibility(View.VISIBLE);
+                            }
+                        }
 
                     } else { //Folder
-                        fileSizeV.setVisibility(View.INVISIBLE);
+                        fileSizeSeparatorV.setVisibility(View.GONE);
+                        fileSizeV.setVisibility(View.GONE);
                     }
 
                 case GRID_ITEM:
@@ -326,7 +329,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
             }
-            
+
             // For all Views
             
             // this if-else is needed even though favorite icon is visible by default
@@ -484,6 +487,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     public void setGridMode(boolean gridMode) {
         mGridMode = gridMode;
+    }
+
+    public boolean isGridMode() {
+        return mGridMode;
     }
 
     public void setNewSelection(int position, boolean checked) {

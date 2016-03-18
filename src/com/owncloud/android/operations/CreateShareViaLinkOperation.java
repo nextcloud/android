@@ -30,7 +30,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -43,8 +42,6 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 
 public class CreateShareViaLinkOperation extends SyncOperation {
-
-    protected FileDataStorageManager mStorageManager;
 
     private String mPath;
     private String mPassword;
@@ -76,10 +73,21 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         // Check if the share link already exists
         RemoteOperation operation = new GetRemoteSharesForFileOperation(mPath, false, false);
         RemoteOperationResult result = operation.execute(client);
-        // TODO - fix this check; if the user already shared the file with users or group, a share via link will not be created
 
-        if (!result.isSuccess() || result.getData().size() <= 0) {
-            operation = new CreateRemoteShareOperation(
+        // Create public link if doesn't exist yet
+        boolean publicShareExists = false;
+        if (result.isSuccess()) {
+            OCShare share = null;
+            for (int i=0 ; i<result.getData().size(); i++) {
+                share = (OCShare) result.getData().get(i);
+                if (ShareType.PUBLIC_LINK.equals(share.getShareType())) {
+                    publicShareExists = true;
+                    break;
+                }
+            }
+        }
+        if (!publicShareExists) {
+            CreateRemoteShareOperation createOp = new CreateRemoteShareOperation(
                     mPath,
                     ShareType.PUBLIC_LINK,
                     "",
@@ -87,7 +95,8 @@ public class CreateShareViaLinkOperation extends SyncOperation {
                     mPassword,
                     OCShare.DEFAULT_PERMISSION
             );
-            result = operation.execute(client);
+            createOp.setGetShareDetails(true);
+            result = createOp.execute(client);
         }
         
         if (result.isSuccess()) {
@@ -148,10 +157,12 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         // Update OCFile with data from share: ShareByLink  and publicLink
         OCFile file = getStorageManager().getFileByPath(mPath);
         if (file!=null) {
-            mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
             file.setPublicLink(share.getShareLink());
             file.setShareViaLink(true);
             getStorageManager().saveFile(file);
+            if (mSendIntent != null) {
+                mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
+            }
         }
     }
 

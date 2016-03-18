@@ -64,6 +64,8 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
+import com.owncloud.android.operations.UpdateSharePermissionsOperation;
+import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
 import java.io.IOException;
@@ -88,15 +90,19 @@ public class OperationsService extends Service {
     public static final String EXTRA_RESULT = "RESULT";
     public static final String EXTRA_NEW_PARENT_PATH = "NEW_PARENT_PATH";
     public static final String EXTRA_FILE = "FILE";
-    public static final String EXTRA_PASSWORD_SHARE = "PASSWORD_SHARE";
+    public static final String EXTRA_SHARE_PASSWORD = "SHARE_PASSWORD";
     public static final String EXTRA_SHARE_TYPE = "SHARE_TYPE";
     public static final String EXTRA_SHARE_WITH = "SHARE_WITH";
+    public static final String EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS = "SHARE_EXPIRATION_YEAR";
+    public static final String EXTRA_SHARE_PERMISSIONS = "SHARE_PERMISSIONS";
+    public static final String EXTRA_SHARE_ID = "SHARE_ID";
 
     public static final String EXTRA_COOKIE = "COOKIE";
 
     public static final String ACTION_CREATE_SHARE_VIA_LINK = "CREATE_SHARE_VIA_LINK";
     public static final String ACTION_CREATE_SHARE_WITH_SHAREE = "CREATE_SHARE_WITH_SHAREE";
     public static final String ACTION_UNSHARE = "UNSHARE";
+    public static final String ACTION_UPDATE_SHARE = "UPDATE_SHARE";
     public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
     public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
     public static final String ACTION_GET_USER_NAME = "GET_USER_NAME";
@@ -553,7 +559,7 @@ public class OperationsService extends Service {
                 String action = operationIntent.getAction();
                 if (action.equals(ACTION_CREATE_SHARE_VIA_LINK)) {  // Create public share via link
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                    String password = operationIntent.getStringExtra(EXTRA_PASSWORD_SHARE);
+                    String password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
                     Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
                     if (remotePath.length() > 0) {
                         operation = new CreateShareViaLinkOperation(
@@ -563,17 +569,43 @@ public class OperationsService extends Service {
                         );
                     }
 
-                } else if (action.equals(ACTION_CREATE_SHARE_WITH_SHAREE)) {  // Create private share with user or group
-                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        String shareeName = operationIntent.getStringExtra(EXTRA_SHARE_WITH);
-                        ShareType shareType = (ShareType) operationIntent.getSerializableExtra(EXTRA_SHARE_TYPE);
-                        if (remotePath.length() > 0) {
-                            operation = new CreateShareWithShareeOperation(
-                                    remotePath,
-                                    shareeName,
-                                    shareType
-                            );
-                        }
+                } else if (ACTION_UPDATE_SHARE.equals(action)) {
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    long shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
+                    if (remotePath != null && remotePath.length() > 0) {
+                        operation = new UpdateShareViaLinkOperation(remotePath);
+
+                        String password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
+                        ((UpdateShareViaLinkOperation)operation).setPassword(password);
+
+                        long expirationDate = operationIntent.getLongExtra(
+                                EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS,
+                                0
+                        );
+                        ((UpdateShareViaLinkOperation)operation).setExpirationDate(
+                                expirationDate
+                        );
+
+                    } else if (shareId > 0) {
+                        operation = new UpdateSharePermissionsOperation(shareId);
+                        int permissions = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, 1);
+                        ((UpdateSharePermissionsOperation)operation).setPermissions(permissions);
+                    }
+
+                } else if (action.equals(ACTION_CREATE_SHARE_WITH_SHAREE)) {
+                    // Create private share with user or group
+                    String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                    String shareeName = operationIntent.getStringExtra(EXTRA_SHARE_WITH);
+                    ShareType shareType = (ShareType) operationIntent.getSerializableExtra(EXTRA_SHARE_TYPE);
+                    int permissions = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, -1);
+                    if (remotePath.length() > 0) {
+                        operation = new CreateShareWithShareeOperation(
+                                remotePath,
+                                shareeName,
+                                shareType,
+                                permissions
+                        );
+                    }
 
                 } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);

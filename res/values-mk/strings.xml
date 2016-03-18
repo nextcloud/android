@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Андроид апликација</string>
+  <string name="about_android">%1$s Андроид апп</string>
   <string name="about_version">верзија %1$s</string>
   <string name="actionbar_sync">Освежи сметка</string>
   <string name="actionbar_upload">Подигни</string>
@@ -21,23 +21,21 @@
     	<item>Biggest - Smallest</item>-->
   <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
   <!--<string name="drawer_item_accounts">Accounts</string>-->
+  <string name="drawer_item_all_files">Сите датотеки</string>
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Подесувања</string>
   <string name="drawer_open">Отвори</string>
   <string name="prefs_category_general">Општо</string>
   <string name="prefs_category_more">Повеќе</string>
   <string name="prefs_accounts">Сметки</string>
-  <string name="prefs_manage_accounts">Управување со сметки</string>
   <string name="prefs_passcode">Заклучено со код</string>
   <string name="prefs_instant_upload">Инстантно префрлање на слики</string>
   <string name="prefs_instant_upload_summary">Инстантно префрли слики направени со камера</string>
   <string name="prefs_instant_video_upload">Инстантно префрлање на видеа</string>
   <string name="prefs_instant_video_upload_summary">Инстантно префрла видеа снимени со камерата</string>
-  <string name="prefs_log_title">Овозможи логирање</string>
   <string name="prefs_log_summary">Ова е користено за логирање на проблеми</string>
-  <string name="prefs_log_title_history">Историја на логирање</string>
   <string name="prefs_log_summary_history">Ова ги прикажува снимените логови</string>
-  <string name="prefs_log_delete_history_button">Избриши историја</string>
   <string name="prefs_help">Помош</string>
   <string name="prefs_recommend">Препорачај на пријател</string>
   <string name="prefs_feedback">Повратен одговор</string>
@@ -46,7 +44,6 @@
   <string name="prefs_remember_last_upload_location_summary">Запомни ја последната локација на споделување на префрлање</string>
   <string name="recommend_subject">Пробајте %1$s на вашиот паметен телефон!</string>
   <string name="recommend_text">Сакам да ве поканам да го користите %1$s на вашиот телефон.\nСимнете го овде: %2$s</string>
-  <string name="auth_check_server">Проверка на серверот</string>
   <string name="auth_host_url">Адреса на серверот https://…</string>
   <string name="auth_username">Корисничко име</string>
   <string name="auth_password">Лозинка</string>
@@ -57,7 +54,6 @@
   <string name="uploader_btn_new_folder_text">Нова папка</string>
   <string name="uploader_top_message">Избери папка за префрлање:</string>
   <string name="uploader_wrn_no_account_title">Не е пронајдена сметка</string>
-  <string name="uploader_wrn_no_account_text">Не постојат %1$s сметки на овој уред. Ве молам подесете прво сметка.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Нагодување</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Прекини</string>
   <string name="uploader_wrn_no_content_title">Нема содржина за префрлање</string>
@@ -74,41 +70,31 @@
   <string name="filedetails_modified">Изменето:</string>
   <string name="filedetails_download">Преземање</string>
   <string name="filedetails_renamed_in_upload_msg">Датотеката беше преименувана во %1$s за време на префрлањето</string>
-  <string name="action_share_file">Сподели ја врската</string>
-  <string name="action_unshare_file">Тргнете го споделувањето на врската</string>
+  <string name="action_share">Сподели</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">Во ред</string>
   <string name="common_cancel">Откажи</string>
-  <string name="common_save_exit">Сними &amp; Излез</string>
   <string name="common_error">Грешка</string>
   <string name="common_loading">Вчитувам ...</string>
   <string name="common_error_unknown">Непозната грешка</string>
   <string name="about_title">За</string>
   <string name="change_password">Смени лозинка</string>
-  <string name="delete_account">Избриши ја сметката</string>
   <string name="create_account">Креирај сметка</string>
   <string name="upload_chooser_title">подигни од ...</string>
   <string name="uploader_info_dirname">Име на папка</string>
   <string name="uploader_upload_in_progress_ticker">Подигнувам...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Прикачување %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Прикачувањето беше успешно</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s беше успешно прикачено</string>
   <string name="uploader_upload_failed_ticker">Прикачувањето не успеа</string>
   <string name="uploader_upload_failed_content_single">Прикачувањето на %1$s не може да се заврши</string>
-  <string name="uploader_upload_failed_credentials_error">Прикачувањето не успеа, морате повторно да се најавите</string>
   <string name="downloader_download_in_progress_ticker">Преземање...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Превземање %2$s</string>
   <string name="downloader_download_succeeded_ticker">Преземањето е успешно</string>
-  <string name="downloader_download_succeeded_content">%1$s беше успешно превземен</string>
   <string name="downloader_download_failed_ticker">Преземањето не беше успешно</string>
   <string name="downloader_download_failed_content">Превземањето на %1$s не можеше да се заврши</string>
   <string name="downloader_not_downloaded_yet">Сеуште не е превземено</string>
-  <string name="downloader_download_failed_credentials_error">Превземањето не успеа, морате повторно да се најавите</string>
   <string name="common_choose_account">Одбери сметка</string>
-  <string name="sync_fail_ticker">Синхронизацијата беше неуспешна</string>
-  <string name="sync_fail_ticker_unauthorized">Синхронизацијата не успеа, морате повторно да се најавите</string>
-  <string name="sync_fail_content">Синхронизацијата на %1$s не може да се заврши</string>
   <string name="sync_fail_content_unauthorized">Не е точна лозинката за %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Пронајден е конфликт</string>
   <string name="sync_conflicts_in_favourites_content">%1$d држи-ги-синхрознизирани датотеките не можеа да се синхронизираат</string>
@@ -123,11 +109,8 @@
   <string name="foreign_files_fail">Некои датотеки не можат да се преместат</string>
   <string name="foreign_files_local_text">Локално: %1$s</string>
   <string name="foreign_files_remote_text">Одалечено: %1$s</string>
-  <string name="upload_query_move_foreign_files">Нема доволно место за да се копират избраните датотеки во папката %1$s. Сакате ли да ги преместите наместо тоа?</string>
-  <string name="pass_code_enter_pass_code">Ве молам, внесете го вашиот код</string>
   <string name="pass_code_configure_your_pass_code">Венсете го вашиот код</string>
   <string name="pass_code_configure_your_pass_code_explanation">Кодот ќе биде баран секогаш кога ќе биде покрената апликацијата</string>
-  <string name="pass_code_reenter_your_pass_code">Ве молам, повторно внесете го вашиот код</string>
   <string name="pass_code_remove_your_pass_code">Избришете го вашиот код</string>
   <string name="pass_code_mismatch">Кодовите не се исти</string>
   <string name="pass_code_wrong">Неточен код</string>
@@ -152,8 +135,6 @@
   <string name="media_rewind_description">Копче за премотување</string>
   <string name="media_play_pause_description">Копче за пуштање или пауза</string>
   <string name="media_forward_description">Копче за брзо премотување</string>
-  <string name="auth_getting_authorization">Добивање на авторизација...</string>
-  <string name="auth_trying_to_login">Пробувам се да се најавам...</string>
   <string name="auth_no_net_conn_title">Нема мрежна конекција</string>
   <string name="auth_nossl_plain_ok_title">Нема безбедна конекција.</string>
   <string name="auth_connection_established">Конекцијата е воспоставена</string>
@@ -165,7 +146,6 @@
   <string name="auth_unknown_host_title">Не можев да го најдам хостот</string>
   <string name="auth_incorrect_path_title">Серверската инстанца не е пронајдена</string>
   <string name="auth_timeout_title">На серверот му треба премногу време за да одговори</string>
-  <string name="auth_incorrect_address_title">Расипано URL</string>
   <string name="auth_ssl_general_error_title">Неуспешна SSL иницијализација</string>
   <string name="auth_ssl_unverified_server_title">Не можев да го проверам SSL серверскиот идентитет</string>
   <string name="auth_bad_oc_version_title">Верзијата на серверот не е препознаена</string>
@@ -174,23 +154,19 @@
   <string name="auth_unauthorized">Погрешно корисничко име или лозинка</string>
   <string name="auth_oauth_error">Неуспешна авторизација</string>
   <string name="auth_oauth_error_access_denied">Одбиен пристап од авторизацискиот сервер</string>
-  <string name="auth_wtf_reenter_URL">Неочекувана сосотојба; ве молам, внесете го URL на серверот уште еднаш</string>
   <string name="auth_expired_oauth_token_toast">Вашата авторизација истече. Ве молам, авторизирајте се повторно</string>
-  <string name="auth_expired_basic_auth_toast">Внесете ја вашата тековна лозинка:</string>
   <string name="auth_expired_saml_sso_token_toast">Вашата сесија истече. Ве молам поврзете се повторно</string>
-  <string name="auth_connecting_auth_server">Се поврзувам со серверот за авторизација</string>
   <string name="auth_unsupported_auth_method">Серверот не го подржува овој метод на авторизација</string>
   <string name="auth_unsupported_multiaccount">%1$s не подржува повеќе сметки</string>
   <string name="auth_fail_get_user_name">Вашиот сервер не праќа точен кориснички id, ве молам контактирајте го администраторот
  </string>
-  <string name="auth_can_not_auth_against_server">Не можам да се авторизирам на овој сервер </string>
   <string name="auth_account_does_not_exist">Сметката сеуште не постои на овој уред</string>
+  <string name="favorite">Омилен</string>
   <string name="common_rename">Преименувај</string>
   <string name="common_remove">Отстрани</string>
   <string name="confirmation_remove_file_alert">Дали навистина сакаш да ја отстраниш %1$s?</string>
   <string name="confirmation_remove_folder_alert">Дали навистина сакаш да го отстранам %1$s и неговата содржина?</string>
   <string name="confirmation_remove_local">Само локално</string>
-  <string name="confirmation_remove_folder_local">Само локално</string>
   <string name="remove_success_msg">Одстранувањето е успешно</string>
   <string name="remove_fail_msg">Одстранувањето е неуспешно</string>
   <string name="rename_dialog_title">Внеси ново име</string>
@@ -238,14 +214,11 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Прикачувај слики само преку WiFi</string>
-  <string name="instant_video_upload_on_wifi">Прикачувај видеа само преку WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_keep_both">Задржи ги и двете</string>
   <string name="preview_image_description">Преглед на сликата</string>
   <string name="preview_image_error_unknown_format">Сликата не може да се прикаже</string>
   <string name="error__upload__local_file_not_copied">%1$s не може да се копира во локалната папка %2$s</string>
-  <string name="prefs_instant_upload_path_title">Патека за прикачување</string>
   <string name="share_link_no_support_share_api">Жалиме, споделувањето не е овозможено на вашиот сервер. Ве молам контактирајте го вашиот
   администратор.</string>
   <string name="share_link_file_no_exist">Не можам да споделам. Ве молам проверете дали постои датотеката</string>
@@ -274,10 +247,7 @@
   <string name="prefs_category_accounts">Сметки</string>
   <string name="prefs_add_account">Додади сметка</string>
   <string name="actionbar_logger">Логови</string>
-  <string name="log_send_history_button">Прати историја</string>
-  <string name="log_send_no_mail_app">Нема апликација за праќање на логови. Инсталирајте апликација за пошта!</string>
   <string name="log_send_mail_subject">%1$s Апликација на Андроид за логови</string>
-  <string name="log_progress_dialog_text">Вчитувам на податоци...</string>
   <string name="saml_authentication_required_text">Потребна е автентификација</string>
   <string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
   <string name="actionbar_move">Премести</string>
@@ -289,9 +259,18 @@
   <string name="move_file_error">Се случи грешка кога пробував да ја преместам оваа датотека или папка</string>
   <string name="forbidden_permissions_move">да ја преместам оваа датотека</string>
   <string name="copy_file_invalid_overwrite">Датотеката веќе постои во целната папка</string>
-  <string name="prefs_category_instant_uploading">Инстант прикачувања</string>
-  <string name="prefs_category_security">Безбедност</string>
-  <string name="prefs_instant_video_upload_path_title">Прикачи патека на видео</string>
+  <string name="prefs_category_details">Детали:</string>
+  <string name="subject_user_shared_with_you">%1$s сподели \"%2$s\" со тебе</string>
   <string name="auth_refresh_button">Освежи ја конекцијата</string>
   <string name="auth_host_address">Адреса на сервер</string>
+  <string name="share_dialog_title">Споделување</string>
+  <string name="share_via_link_section_title">Сподели ја врската</string>
+  <string name="share_via_link_expiration_date_label">Постави рок на траење</string>
+  <string name="share_via_link_password_label">Заштити со лозинка</string>
+  <string name="share_search">Барај</string>
+  <string name="share_privilege_can_share">може да споделува</string>
+  <string name="share_privilege_can_edit">може да се измени</string>
+  <string name="share_privilege_can_edit_create">креирај</string>
+  <string name="share_privilege_can_edit_change">промени</string>
+  <string name="share_privilege_can_edit_delete">избриши</string>
 </resources>

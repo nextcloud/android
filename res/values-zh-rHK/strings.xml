@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s Android App</string>
   <string name="about_version">版本 %1$s</string>
   <string name="actionbar_upload">上戴</string>
   <string name="actionbar_upload_files">文件</string>
@@ -17,7 +16,6 @@
   <string name="prefs_category_general">一般</string>
   <string name="prefs_category_more">更多</string>
   <string name="prefs_accounts">帳號</string>
-  <string name="prefs_log_delete_history_button">刪除記錄</string>
   <string name="prefs_help">幫助</string>
   <string name="prefs_recommend">推薦給朋友</string>
   <string name="prefs_feedback">反饋</string>
@@ -38,19 +36,16 @@
   <string name="filedetails_created">建立時間：</string>
   <string name="filedetails_modified">修改時間：</string>
   <string name="filedetails_download">下載</string>
-  <string name="action_share_file">分享連結</string>
-  <string name="action_unshare_file">取消分享連結</string>
+  <string name="action_share">分享</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">確定</string>
   <string name="common_cancel">取消</string>
-  <string name="common_save_exit">儲存並離開</string>
   <string name="common_error">錯誤</string>
   <string name="common_loading">戴入中 …</string>
   <string name="common_error_unknown">不明錯誤</string>
   <string name="about_title">關於</string>
   <string name="change_password">更改密碼</string>
-  <string name="delete_account">刪除帳號</string>
   <string name="create_account">建立帳號</string>
   <string name="upload_chooser_title">上戴由 …</string>
   <string name="uploader_info_dirname">資料夾名稱</string>
@@ -75,6 +70,12 @@
   <string name="empty"></string>
   <string name="prefs_category_accounts">帳號</string>
   <string name="saml_authentication_wrong_pass">密碼錯誤</string>
-  <string name="prefs_category_security">安全</string>
   <string name="auth_host_address">伺服器地址</string>
+  <string name="share_dialog_title">分享</string>
+  <string name="share_via_link_section_title">分享連結</string>
+  <string name="share_via_link_expiration_date_label">設定分享期限</string>
+  <string name="share_via_link_password_label">密碼保護</string>
+  <string name="share_search">尋找</string>
+  <string name="share_privilege_can_edit_create">新增</string>
+  <string name="share_privilege_can_edit_delete">刪除</string>
 </resources>

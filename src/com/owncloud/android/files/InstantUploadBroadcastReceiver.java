@@ -30,16 +30,19 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
 
 
+import android.Manifest;
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
+import android.support.v4.content.ContextCompat;
 import android.webkit.MimeTypeMap;
 
 
@@ -89,11 +92,20 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
         if (account == null) {
-            Log_OC.w(TAG, "No ownCloud account found for instant upload, aborting");
+            Log_OC.w(TAG, "No account found for instant upload, aborting");
             return;
         }
 
         String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE };
+
+        int permissionCheck = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (android.content.pm.PackageManager.PERMISSION_GRANTED != permissionCheck) {
+            Log_OC.w(TAG, "Read external storage permission isn't granted, aborting");
+            return;
+        }
+
         c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
         if (!c.moveToFirst()) {
             Log_OC.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
@@ -122,7 +134,25 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+
+        // instant upload behaviour
+        i = addInstantUploadBehaviour(i, context);
+
         context.startService(i);
+    }
+
+    private Intent addInstantUploadBehaviour(Intent i, Context context){
+        SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String behaviour = appPreferences.getString("prefs_instant_behaviour", "NOTHING");
+
+        if (behaviour.equalsIgnoreCase("NOTHING")) {
+            Log_OC.d(TAG, "upload file and do nothing");
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
+        } else if (behaviour.equalsIgnoreCase("MOVE")) {
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+            Log_OC.d(TAG, "upload file and move file to oc folder");
+        }
+        return i;
     }
 
     private void handleNewVideoAction(Context context, Intent intent) {
@@ -140,7 +170,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
         if (account == null) {
-            Log_OC.w(TAG, "No owncloud account found for instant upload, aborting");
+            Log_OC.w(TAG, "No account found for instant upload, aborting");
             return;
         }
 
@@ -167,6 +197,10 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+
+        // instant upload behaviour
+        i = addInstantUploadBehaviour(i, context);
+
         context.startService(i);
 
     }
@@ -177,6 +211,19 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
+        if (instantPictureUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context)){
+            Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+            if (account == null) {
+                Log_OC.w(TAG, "No account found for instant upload, aborting");
+                return;
+            }
+
+            Intent i = new Intent(context, FileUploader.class);
+            i.putExtra(FileUploader.KEY_ACCOUNT, account);
+            i.putExtra(FileUploader.KEY_CANCEL_ALL, true);
+            context.startService(i);
+        }
+
         if (!intent.hasExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY)
                 && isOnline(context)
                 && (!instantPictureUploadViaWiFiOnly(context) || (instantPictureUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))) {
@@ -184,6 +231,11 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             Cursor c = db.getAwaitingFiles();
             if (c.moveToFirst()) {
                 do {
+                    if (instantPictureUploadViaWiFiOnly(context) &&
+                            !isConnectedViaWiFi(context)){
+                        break;
+                    }
+
                     String account_name = c.getString(c.getColumnIndex("account"));
                     String file_path = c.getString(c.getColumnIndex("path"));
                     File f = new File(file_path);
@@ -207,6 +259,10 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                         i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, f.getName()));
                         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
                         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+
+                        // instant upload behaviour
+                        i = addInstantUploadBehaviour(i, context);
+
                         context.startService(i);
 
                     } else {

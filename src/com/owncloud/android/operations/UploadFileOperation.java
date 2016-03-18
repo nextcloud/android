@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.channels.FileChannel;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -39,6 +40,7 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -330,8 +332,7 @@ public class UploadFileOperation extends RemoteOperation {
             // location in the ownCloud local folder
             if (result.isSuccess()) {
                 if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
-                    mFile.setStoragePath(null);
-
+                    mFile.setStoragePath("");
                 } else {
                     mFile.setStoragePath(expectedPath);
                     File fileToMove = null;
@@ -345,21 +346,42 @@ public class UploadFileOperation extends RemoteOperation {
                     if (!expectedFile.equals(fileToMove)) {
                         File expectedFolder = expectedFile.getParentFile();
                         expectedFolder.mkdirs();
-                        if (!expectedFolder.isDirectory() || !fileToMove.renameTo(expectedFile)) {
-                            mFile.setStoragePath(null); // forget the local file
-                            // by now, treat this as a success; the file was
-                            // uploaded; the user won't like that the local file
-                            // is not linked, but this should be a very rare
-                            // fail;
-                            // the best option could be show a warning message
-                            // (but not a fail)
-                            // result = new
-                            // RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
-                            // return result;
+
+                        if (expectedFolder.isDirectory()){
+                            if (!fileToMove.renameTo(expectedFile)){
+                                // try to copy and then delete
+                                expectedFile.createNewFile();
+                                FileChannel inChannel = new FileInputStream(fileToMove).getChannel();
+                                FileChannel outChannel = new FileOutputStream(expectedFile).getChannel();
+
+                                try {
+                                    inChannel.transferTo(0, inChannel.size(), outChannel);
+                                    fileToMove.delete();
+                                } catch (Exception e){
+                                    mFile.setStoragePath(null); // forget the local file
+                                    // by now, treat this as a success; the file was
+                                    // uploaded; the user won't like that the local file
+                                    // is not linked, but this should be a very rare
+                                    // fail;
+                                    // the best option could be show a warning message
+                                    // (but not a fail)
+                                    // result = new
+                                    // RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                                    // return result;
+                                }
+                                finally {
+                                    if (inChannel != null) inChannel.close();
+                                    if (outChannel != null) outChannel.close();
+                                }
+                            }
+
+                        } else {
+                            mFile.setStoragePath(null);
                         }
                     }
                 }
-
+                FileDataStorageManager.triggerMediaScan(originalFile.getAbsolutePath());
+                FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
             } else if (result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
             }
@@ -370,6 +392,9 @@ public class UploadFileOperation extends RemoteOperation {
         } finally {
             if (temporalFile != null && !originalFile.equals(temporalFile)) {
                 temporalFile.delete();
+            }
+            if (result == null){
+                result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
             if (result.isSuccess()) {
                 Log_OC.i(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " +

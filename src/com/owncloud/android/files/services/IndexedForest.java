@@ -101,38 +101,45 @@ public class IndexedForest<V> {
     public /* synchronized */ Pair<String, String> putIfAbsent(Account account, String remotePath, V value) {
         String targetKey = buildKey(account, remotePath);
         Node<V> valuedNode = new Node(targetKey, value);
-        mMap.putIfAbsent(
-                targetKey,
-                valuedNode
+        Node<V> previousValue = mMap.putIfAbsent(
+            targetKey,
+            valuedNode
         );
+        if (previousValue != null) {
+            // remotePath already known; not replaced
+            return null;
 
-        String currentPath = remotePath, parentPath = null, parentKey = null;
-        Node<V> currentNode = valuedNode, parentNode = null;
-        boolean linked = false;
-        while (!OCFile.ROOT_PATH.equals(currentPath) && !linked) {
-            parentPath = new File(currentPath).getParent();
-            if (!parentPath.endsWith(OCFile.PATH_SEPARATOR)) {
-                parentPath += OCFile.PATH_SEPARATOR;
+        } else {
+            // value really added
+            String currentPath = remotePath, parentPath = null, parentKey = null;
+            Node<V> currentNode = valuedNode, parentNode = null;
+            boolean linked = false;
+            while (!OCFile.ROOT_PATH.equals(currentPath) && !linked) {
+                parentPath = new File(currentPath).getParent();
+                if (!parentPath.endsWith(OCFile.PATH_SEPARATOR)) {
+                    parentPath += OCFile.PATH_SEPARATOR;
+                }
+                parentKey = buildKey(account, parentPath);
+                parentNode = mMap.get(parentKey);
+                if (parentNode == null) {
+                    parentNode = new Node(parentKey, null);
+                    parentNode.addChild(currentNode);
+                    mMap.put(parentKey, parentNode);
+                } else {
+                    parentNode.addChild(currentNode);
+                    linked = true;
+                }
+                currentPath = parentPath;
+                currentNode = parentNode;
             }
-            parentKey = buildKey(account, parentPath);
-            parentNode = mMap.get(parentKey);
-            if (parentNode == null) {
-                parentNode = new Node(parentKey, null);
-                parentNode.addChild(currentNode);
-                mMap.put(parentKey, parentNode);
-            } else {
-                parentNode.addChild(currentNode);
-                linked = true;
-            }
-            currentPath = parentPath;
-            currentNode = parentNode;
-        }
 
-        String linkedTo = OCFile.ROOT_PATH;
-        if (linked) {
-            linkedTo = parentNode.getKey().substring(account.name.length());
+            String linkedTo = OCFile.ROOT_PATH;
+            if (linked) {
+                linkedTo = parentNode.getKey().substring(account.name.length());
+            }
+
+            return new Pair<String, String>(targetKey, linkedTo);
         }
-        return new Pair<String, String>(targetKey, linkedTo);
     };
 
 

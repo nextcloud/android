@@ -23,4 +23,4 @@
         <corners android:radius="2dp" />
         <solid android:color="@color/background_floating_material_dark" />
     </shape>
-</inset>
+</inset><!-- From: file:/usr/local/google/buildbot/src/googleplex-android/mnc-supportlib-release/frameworks/support/v7/appcompat/res/drawable/abc_dialog_material_background_dark.xml -->

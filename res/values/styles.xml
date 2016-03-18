@@ -24,20 +24,15 @@
 	<style name="Theme.ownCloud" parent="Theme.AppCompat.Light.DarkActionBar">
     	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
     	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
-    	<item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorPrimaryDark">@color/primary_dark</item>
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
-		<item name="colorButtonNormal">@color/background_color</item>
-		<item name="colorControlActivated">@color/primary_dark</item>
-		<item name="colorControlHighlight">@color/color_accent</item>
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
 	<style name="Theme.ownCloud.noActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-		<item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
 		<item name="colorPrimary">@color/primary</item>
@@ -45,9 +40,6 @@
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
-		<item name="colorButtonNormal">@color/background_color</item>
-		<item name="colorControlActivated">@color/primary_dark</item>
-		<item name="colorControlHighlight">@color/color_accent</item>
     </style>
 
 	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar">
@@ -59,7 +51,9 @@
 		<item name="android:textColorPrimary">@color/primary</item>
 	</style>
 
-	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog" />
+	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog">
+		<item name="colorAccent">@color/color_accent</item>
+	</style>
 
 	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
 		<item name="colorAccent">@color/color_accent</item>
@@ -74,13 +68,13 @@
 	</style>
 
 	<style name="Button" parent="Base.Widget.AppCompat.Button">
-		<item name="colorButtonNormal">@color/secondary_button_color</item>
-		<item name="android:textColor">@color/color_accent</item>
+		<item name="colorButtonNormal">@color/secondary_button_background_color</item>
+		<item name="android:textColor">@color/secondary_button_text_color</item>
 	</style>
 
 	<style name="Button.Primary" parent="Button">
-		<item name="colorButtonNormal">@color/primary_button_color</item>
-		<item name="android:textColor">@color/white</item>
+		<item name="colorButtonNormal">@color/primary_button_background_color</item>
+		<item name="android:textColor">@color/primary_button_text_color</item>
 	</style>
 
 	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
@@ -113,6 +107,7 @@
 
 	<style name="Theme.ownCloud.Fullscreen" parent="style/Theme.AppCompat">
         <item name="android:windowFullscreen">true</item>
+		<item name="colorAccent">@color/color_accent</item>
     </style>
 	
 	
@@ -133,6 +128,11 @@
 		<item name="colorAccent">@color/owncloud_blue_accent</item>
 		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
 		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
+	</style>
+
+	<style name="menu_labels_style">
+		<item name="android:background">@drawable/fab_label_background</item>
+		<item name="android:textColor">@color/fab_white</item>
 	</style>
 
 	<!-- Button Bar hack due to Lollipop bug:

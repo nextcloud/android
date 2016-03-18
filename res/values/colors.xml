@@ -23,19 +23,25 @@
     <color name="owncloud_blue_accent">#35537A</color>
     <color name="owncloud_blue_bright">#00ddff</color>
 
-    <color name="list_item_lastmod_and_filesize_text">#989898</color>
+    <color name="list_item_lastmod_and_filesize_text">@color/secondaryTextColor</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="textColor">#303030</color>
+    <color name="fab_white">#fafafa</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="half_black">#808080</color>
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="textColor">@color/black</color>
     <color name="drawerMenuTextColor">#000000</color>
-    <color name="list_divider_background">#fff0f0f0</color>
+    <color name="list_divider_background">#eee</color>
     <color name="filelist_icon_backgorund">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
     <color name="login_text_color">#757575</color>
     <color name="login_text_hint_color">#757575</color>
-    <color name="primary_button_color">@color/owncloud_blue_accent</color>
     <color name="secondary_button_color">#D6D7D7</color>
     <color name="transparent">#00000000</color>
+    <color name="secondaryTextColor">#a0a0a0</color>
+    <color name="listItemHighlighted">#f8f8f8</color>
+    <color name="highlightTextColor">#55739a</color>
 
     <!-- Colors -->
     <color name="color_accent">@color/owncloud_blue_accent</color>

@@ -9,9 +9,36 @@ some advantages over the Web interface:
 
 * A simplified interface that fits nicely on a tablet or smartphone
 * Automatic synchronization of your files
+* Share files with other ownCloud users and groups, and create public share 
+  links
 * Instant uploads of photos or videos recorded on your Android device
 * Easily add files from your device to ownCloud
 * Two-factor authentication
+
+New In Version 1.9.1
+--------------------
+
+This release contains a number of improvements, including:
+
+* Set and edit permissions on internal shared data.
+* Instant uploads: avoid file duplications, set policy in app settings.
+* Control duplication of files uploaded via **Upload** button.
+* Select view mode: either list or grid per folder.
+* More buttons and checkboxes for faster operations.
+* Fixed battery drain in automatic synchronization.
+* Security fixes related to passcode.
+* Wording fixes.
+
+Upgrading
+---------
+
+When you download your ownCloud Android App from the Google Play store, it will 
+be upgraded just like any other Play Store app, according to your settings on 
+your Android device. It will either upgrade automatically, or give you a 
+notification than an upgrade is available.
+
+If you are using an ownCloud Android app from a custom repository, e.g. your 
+employer, then you will upgrade according their policies.
 
 Getting the ownCloud Android App
 --------------------------------
@@ -22,14 +49,17 @@ Dolphin. The first time you log in to a new ownCloud account you'll see a screen
 with a download link to the ownCloud app in the `Google Play store
 <https://play.google.com/store/apps/details?id=com.owncloud.android>`_.
 
-.. figure:: images/android-first-screen.jpg
+.. figure:: images/android-1.png
+   :scale: 75% 
+   :alt: Android app new account welcome screen.
 
-You will also find these links on your Personal page in the Web interface,
+You will also find these links on your Personal page in the ownCloud Web interface.
 
-You can also get it from the `Amazon App store 
-<http://www.amazon.com/ownCloud-Inc/dp/B00944PQMK/>`_, and get source code and 
-more information from the `ownCloud download page 
+Find source code and more information from the `ownCloud download page 
 <http://owncloud.org/install/#mobile>`_.
+
+Users of customized ownCloud Android apps, for example from their employer, 
+should follow their employer's instructions.
 
 Connecting to Your ownCloud Server
 ----------------------------------
@@ -39,77 +69,124 @@ screen. Enter your server URL, login name, password, and click the Connect
 button. (Click the eyeball to the right of your password to expose your 
 password.)
 
-.. figure:: images/android-new-account.png
+.. figure:: images/android-2.png
+   :scale: 75% 
+   :alt: New account creation screen.
 
 For best security your ownCloud server should be SSL-enabled, so that you can 
 connect via ``https``. The ownCloud app will test your connection as soon as 
 you enter it and tell you if you entered it correctly. If your server has a 
-self-signed SSL certificate you'll get a scary warning how it is not to be 
+self-signed SSL certificate you'll get a warning that it is not to be 
 trusted. Click the OK button to accept the certificate and complete your account 
 setup.
 
-.. figure:: images/android-ssl-cert.png
+.. figure:: images/android-3.png 
+   :alt: SSL certificate warning.
 
 Managing Files
 --------------
 
-Now you should see the Files page of your ownCloud account. Click the overflow 
-button at the top right (that's the one with three vertical dots, and that is 
-really what it is called) to open a user menu. ``Refresh account`` refreshes the 
-page view. ``Settings`` take you to your settings menu. ``Sort`` gives you the 
-option to sort your files by date, or alphabetically.
+Now you should see the Files page of your ownCloud account. 
 
-.. figure:: images/android-files-page.png
+.. figure:: images/android-4.png
+   :scale: 75% 
+   :alt: Your ownCloud Files page.
+
+The ownCloud menu at the top left shows the name of the logged-in user, has a 
+shortcut to your files, and contains the Settings button.
+
+.. figure:: images/android-5.png
+   :alt: Top-left menu.
+
+Click the overflow button at the top right (that's the one with three vertical 
+dots) to open a user menu. **Grid view** toggles between grid and list 
+view. **Refresh account** syncs with the server, and **Sort** 
+gives you the option to sort your files by date, or alphabetically.
+
+.. figure:: images/android-6.png
+   :alt: Top-right menu.
 
 The little file folder icon to the left of the overflow button opens a dialog to 
 create a new folder. The arrow button opens a file upload dialog, and you can 
 either upload content from other Android apps such as Google Drive, the Gallery, 
-your music player, or from your Android filesystem. When you add a new file 
-you will see a confirmation on the top left when it has uploaded successfully, 
-and it is immediately synchronized with the server.
+your music player, or from your Android filesystem.
 
-.. figure:: images/android-upload.png
+.. figure:: images/android-7.png
+   :scale: 75%
+   :alt: File upload dialogue.
 
 All files (that you have permission to access) on your ownCloud server are 
-displayed in your Android app, but are not downloaded until you download them. 
+displayed in your Android app, but are not downloaded until you click on them. 
 Downloaded files are marked with a green arrow.
 
-.. figure:: images/android-file-list.png
+.. figure:: images/android-8.png
+   :scale: 75%
+   :alt: Downloaded files are marked with green arrows.
 
-Download and preview a file with a short press on the filename.  When the file 
-is in preview mode, a short press on the overflow button opens a menu with 
-options for sharing, opening with an app, removing, sending, and displaying file 
-details. 
+Download and view a file with a short press on the filename.  Then a short 
+press on the overflow button opens a menu with options for managing your file.
 
-.. figure:: images/android-file.png
+.. figure:: images/android-9.png
+   :scale: 75%
+   :alt: File management options. Betsy Ross says "Don't believe everything you 
+    read on the Internet."
+   
+When you are on your main Files page, a long press on any file or folder 
+displays a list of options: Share, Open With, Synchronize, Rename, Move, Copy, 
+Remove, Send, Favorite, and Details.
 
+.. figure:: images/android-11.png
+   :scale: 75%
+   :alt: Folder and file management options.
+   
+Click Share to share files. You can share with other ownCloud users, and create 
+public share links. If your ownCloud server administrator has enabled username 
+auto-completion, when you start typing user or group names they will 
+auto-complete. After you have shared files, click the Share button to see who 
+you have shared with, and to remove shares.
 
-A long press on the filename does not download it, but opens a dialog with 
-options for sharing, downloading, renaming, moving, removing, sending, and 
-viewing file details. 
-
-
-.. figure:: images/android-file-options.png
-
-
+.. figure:: images/android-12.png
+   :scale: 75%
+   :alt: Sharing files.
+   
 Settings
 --------
 
-The Settings screen offers a number of useful options. In the Accounts 
-section you can configure multiple ownCloud accounts.
+Use the Settings screen to control your ownCloud app functions.
+
+.. figure:: images/android-10.png
+   :scale: 75%
+   :alt: Setting screen.
+
+In the Accounts section you can set up and manage multiple accounts.
 
 The Security section sets up strong two-factor authentication by allowing you 
 to add a PIN (personal identification number) to access your account.  
 
-The Instant Uploads section creates a directory, :file:`/InstantUpload`, and 
-any photos or videos created with your Android device's camera are instantly 
+The Instant Uploads section creates a directory, :file:`/InstantUpload`, and any 
+photos or videos created with your Android device's camera are instantly 
 uploaded to this directory. You also have the option to choose any other 
-existing directory. Another nice option is Upload Pictures/Video via WiFi Only, 
-to conserve your Internet data usage.
+existing directory, or to create a new one. Another nice option is Upload 
+Pictures/Video via WiFi Only, to conserve your mobile data usage.
 
-.. figure:: images/android-settings.png
+The bottom section of the Settings screen has links to Help, Recommend to a 
+friend, Feedback, and the version number.
 
-The bottom section of the Settings screen has links to help and the 
-app's version number.
+Removing/Logging Out
+--------------------
 
-.. figure:: images/android-help.png
+On your Settings page, a long press on an account name opens a dialog to 
+**Change password** or **Remove account**. **Change password** is, of course, 
+changing your password.
+
+**Remove account** logs you out of the server, removes your account settings, 
+and removes your files from your Android device. It does not change anything on 
+the server. There is no logout function that simply logs out of your account 
+and leaves all your files on your Android device. If you want extra security, 
+you can set a login PIN on your Android device, and also on your ownCloud 
+account. If you are using a shared Android device, other users can access your 
+files in the file manager if you are sharing a single user account, so you 
+could set up multiple user accounts to protect your files.
+
+.. figure:: images/android-13.png
+   :alt: Change password or remove account dialog.

@@ -154,7 +154,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         mForgottenLocalFiles = new HashMap<String, String>();
         mSyncResult = syncResult;
         mSyncResult.fullSyncRequested = false;
-        mSyncResult.delayUntil = 60*60*24; // avoid too many automatic synchronizations
+        mSyncResult.delayUntil = (System.currentTimeMillis()/1000) + 3*60*60; // avoid too many automatic synchronizations
 
         this.setAccount(account);
         this.setContentProviderClient(providerClient);
@@ -298,7 +298,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 syncChildren(children);
             }
             
-        } else {
+        } else if (result.getCode() != ResultCode.FILE_NOT_FOUND) {
             // in failures, the statistics for the global result are updated
             if (    result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
                     result.isIdPRedirection()
@@ -313,7 +313,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             }
             mFailedResultsCounter++;
             mLastFailedResult = result;
-        }
+
+        } // else, ResultCode.FILE_NOT_FOUND is ignored, remote folder was
+          // removed from other thread or other client during the synchronization,
+          // before this thread fetched its contents
             
     }
 

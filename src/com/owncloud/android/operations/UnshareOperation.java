@@ -69,16 +69,17 @@ public class UnshareOperation extends SyncOperation {
         if (share != null) {
             OCFile file = getStorageManager().getFileByPath(mRemotePath);
             RemoveRemoteShareOperation operation =
-                    new RemoveRemoteShareOperation((int) share.getIdRemoteShared());
+                    new RemoveRemoteShareOperation((int) share.getRemoteId());
             result = operation.execute(client);
 
             if (result.isSuccess()) {
-                Log_OC.d(TAG, "Share id = " + share.getIdRemoteShared() + " deleted");
+                Log_OC.d(TAG, "Share id = " + share.getRemoteId() + " deleted");
 
-                if (mShareType == ShareType.PUBLIC_LINK) {
+                if (ShareType.PUBLIC_LINK.equals(mShareType)) {
                     file.setShareViaLink(false);
                     file.setPublicLink("");
-                } else if (mShareType == ShareType.USER || mShareType == ShareType.GROUP){
+                } else if (ShareType.USER.equals(mShareType) || ShareType.GROUP.equals(mShareType)
+                    || ShareType.FEDERATED.equals(mShareType)){
                     // Check if it is the last share
                     ArrayList <OCShare> sharesWith = getStorageManager().
                             getSharesWithForAFile(mRemotePath,

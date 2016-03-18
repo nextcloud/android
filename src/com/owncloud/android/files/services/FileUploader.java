@@ -98,6 +98,8 @@ public class FileUploader extends Service
     public static final String KEY_INSTANT_UPLOAD = "INSTANT_UPLOAD";
     public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
 
+    public static final String KEY_CANCEL_ALL = "CANCEL_ALL";
+
     public static final int LOCAL_BEHAVIOUR_COPY = 0;
     public static final int LOCAL_BEHAVIOUR_MOVE = 1;
     public static final int LOCAL_BEHAVIOUR_FORGET = 2;
@@ -194,6 +196,16 @@ public class FileUploader extends Service
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
 
+        if (intent.hasExtra(KEY_CANCEL_ALL) && intent.hasExtra(KEY_ACCOUNT)){
+            Account account = intent.getParcelableExtra(KEY_ACCOUNT);
+
+            if (mCurrentUpload != null) {
+                FileUploaderBinder fub = (FileUploaderBinder) mBinder;
+                fub.cancel(account);
+                return Service.START_NOT_STICKY;
+            }
+        }
+
         if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_UPLOAD_TYPE)
                 || !(intent.hasExtra(KEY_LOCAL_FILE) || intent.hasExtra(KEY_FILE))) {
             Log_OC.e(TAG, "Not enough information provided in intent");
@@ -244,7 +256,7 @@ public class FileUploader extends Service
 
         boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
         boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false);
-        int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_COPY);
+        int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_FORGET);
 
         if (intent.hasExtra(KEY_FILE) && files == null) {
             Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
@@ -299,8 +311,10 @@ public class FileUploader extends Service
                 Pair<String, String> putResult = mPendingUploads.putIfAbsent(
                         account, files[i].getRemotePath(), newUpload
                 );
-                uploadKey = putResult.first;
-                requestedUploads.add(uploadKey);
+                if (putResult != null) {
+                    uploadKey = putResult.first;
+                    requestedUploads.add(uploadKey);
+                }   // else, file already in the queue of uploads; don't repeat the request
             }
 
         } catch (IllegalArgumentException e) {
