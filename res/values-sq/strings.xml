@@ -349,6 +349,8 @@
   <string name="share_search">Kërko</string>
   <string name="search_users_and_groups_hint">Kërkoni për grupe dhe përdorues</string>
   <string name="share_group_clarification">%1$s (grup)</string>
+  <string name="share_remote_clarification">%1$s (i largët)</string>
+  <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
   <string name="share_sharee_unavailable">Na ndjeni, versioni juaj i shërbyesit nuk lejon ndarje me përdorues brenda klientësh.
         \nJu lutemi, lidhuni me përgjegjësin tuaj</string>
   <string name="share_privilege_can_share">mund të ndajë</string>
