@@ -146,9 +146,9 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP, ocUpload.getUploadEndTimestamp());
 
         int result = getDB().update(ProviderTableMeta.CONTENT_URI_UPLOADS,
-                cv,
-                ProviderTableMeta._ID + "=?",
-                new String[]{String.valueOf(ocUpload.getUploadId())}
+            cv,
+            ProviderTableMeta._ID + "=?",
+            new String[]{String.valueOf(ocUpload.getUploadId())}
         );
 
         Log_OC.d(TAG, "updateUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
@@ -197,7 +197,6 @@ public class UploadsStorageManager extends Observable {
 
         }
 
-        c.close();
         return r;
     }
 
@@ -212,6 +211,7 @@ public class UploadsStorageManager extends Observable {
     public int updateUploadStatus(long id, UploadStatus status, UploadResult result, String remotePath) {
         //Log_OC.v(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
 
+        int returnValue = 0;
         Cursor c = getDB().query(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 null,
@@ -222,12 +222,12 @@ public class UploadsStorageManager extends Observable {
 
         if (c.getCount() != 1) {
             Log_OC.e(TAG, c.getCount() + " items for id=" + id
-                    + " available in UploadDb. Expected 1. Failed to update upload db.");
-
-            c.close();
-            return 0;
+                + " available in UploadDb. Expected 1. Failed to update upload db.");
+        } else {
+            returnValue = updateUploadInternal(c, status, result, remotePath);
         }
-        return updateUploadInternal(c, status, result, remotePath);
+        c.close();
+        return returnValue;
     }
 
     /*
@@ -355,8 +355,8 @@ public class UploadsStorageManager extends Observable {
                 }
             } while (c.moveToNext());
 
-            c.close();
         }
+        c.close();
 
         return list;
     }
@@ -374,8 +374,8 @@ public class UploadsStorageManager extends Observable {
 
         if (c.moveToFirst()) {
             file = createFileInstance(c);
-            c.close();
         }
+        c.close();
 
         return file;
     }
@@ -493,6 +493,7 @@ public class UploadsStorageManager extends Observable {
 //                null
 //        );
 //        updateUploadInternal(c, UploadStatus.UPLOAD_LATER, UploadResult.UNKNOWN);
+//        c.close();
 //    }
 
 
