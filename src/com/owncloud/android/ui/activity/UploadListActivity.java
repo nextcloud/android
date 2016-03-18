@@ -326,10 +326,16 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
          */
         @Override
         public void onReceive(Context context, Intent intent) {
-            UploadListFragment uploadListFragment =
+            try {
+                UploadListFragment uploadListFragment =
                     (UploadListFragment) getSupportFragmentManager().findFragmentByTag(TAG_UPLOAD_LIST_FRAGMENT);
 
-            uploadListFragment.updateUploads();
+                uploadListFragment.updateUploads();
+            } finally {
+                if (intent != null) {
+                    removeStickyBroadcast(intent);
+                }
+            }
 
         }
     }
