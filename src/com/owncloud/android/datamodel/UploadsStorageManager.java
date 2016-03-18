@@ -454,30 +454,28 @@ public class UploadsStorageManager extends Observable {
         return result;
     }
 
-    public long clearFinishedUploads() {
+    public long clearSuccessfulUploads() {
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 ProviderTableMeta.UPLOADS_STATUS + "=="+ UploadStatus.UPLOAD_SUCCEEDED.value, null
         );
-        Log_OC.d(TAG, "delete all finished uploads");
+        Log_OC.d(TAG, "delete all successful uploads");
         if (result > 0) {
             notifyObserversNow();
         }
         return result;
     }
 
-    public long clearAllUploads() {
-        String[] whereArgs = new String[3];
+    public long clearAllFinishedUploads() {
+        String[] whereArgs = new String[2];
         whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
         whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED.value);
-        whereArgs[2] = String.valueOf(UploadStatus.UPLOAD_IN_PROGRESS.value);
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=? OR " +
-                        ProviderTableMeta.UPLOADS_STATUS + "=?",
+                ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=?",
                 whereArgs
         );
-        Log_OC.d(TAG, "delete all uploads");
+        Log_OC.d(TAG, "delete all finished uploads");
         if (result > 0) {
             notifyObserversNow();
         }

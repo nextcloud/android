@@ -426,10 +426,10 @@
     <string name="edit_share_unshare">Stop sharing</string>
     <string name="edit_share_done">done</string>
 
-    <string name="action_retry_uploads">Retry failed uploads</string>
-    <string name="action_clear_failed_uploads">Clear failed uploads</string>
-    <string name="action_clear_finished_uploads">Clear finished uploads</string>
-    <string name="action_clear_all_uploads">Clear all uploads</string>
+    <string name="action_retry_uploads">Retry failed</string>
+    <string name="action_clear_failed_uploads">Clear failed</string>
+    <string name="action_clear_successful_uploads">Clear successful</string>
+    <string name="action_clear_finished_uploads">Clear all finished</string>
 
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
