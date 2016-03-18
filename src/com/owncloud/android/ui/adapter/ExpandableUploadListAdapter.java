@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.text.format.DateUtils;
@@ -98,7 +97,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         if (binder.isUploadingNow(upload1)) {
                             return -1;
                         } else if (binder.isUploadingNow(upload2)) {
-                            return -1;
+                            return 1;
                         }
                     }
                 }
@@ -175,8 +174,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
 
     private OCUpload[] trimToMaxLength(OCUpload[] items) {
-        if (items.length > 30) {
-            OCUpload[] arrayTrim = new OCUpload[30];
+        if (items.length > MAX_NUM_UPLOADS_SHOWN) {
+            OCUpload[] arrayTrim = new OCUpload[MAX_NUM_UPLOADS_SHOWN];
 
             for (int i = 0; i < MAX_NUM_UPLOADS_SHOWN; i++) {
                 arrayTrim[i] = items[i];
@@ -540,6 +539,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     case CONFLICT_ERROR:
                         status = mParentActivity.getString(
                             R.string.uploads_view_upload_status_conflict
+                        );
+                        break;
+                    case SERVICE_INTERRUPTED:
+                        status =  mParentActivity.getString(
+                            R.string.uploads_view_upload_status_service_interrupted
                         );
                         break;
                     case UNKNOWN:

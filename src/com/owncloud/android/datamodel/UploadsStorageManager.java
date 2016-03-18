@@ -146,9 +146,9 @@ public class UploadsStorageManager extends Observable {
         cv.put(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP, ocUpload.getUploadEndTimestamp());
 
         int result = getDB().update(ProviderTableMeta.CONTENT_URI_UPLOADS,
-                cv,
-                ProviderTableMeta._ID + "=?",
-                new String[]{String.valueOf(ocUpload.getUploadId())}
+            cv,
+            ProviderTableMeta._ID + "=?",
+            new String[]{String.valueOf(ocUpload.getUploadId())}
         );
 
         Log_OC.d(TAG, "updateUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
@@ -197,7 +197,6 @@ public class UploadsStorageManager extends Observable {
 
         }
 
-        c.close();
         return r;
     }
 
@@ -212,6 +211,7 @@ public class UploadsStorageManager extends Observable {
     public int updateUploadStatus(long id, UploadStatus status, UploadResult result, String remotePath) {
         //Log_OC.v(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
 
+        int returnValue = 0;
         Cursor c = getDB().query(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 null,
@@ -222,12 +222,12 @@ public class UploadsStorageManager extends Observable {
 
         if (c.getCount() != 1) {
             Log_OC.e(TAG, c.getCount() + " items for id=" + id
-                    + " available in UploadDb. Expected 1. Failed to update upload db.");
-
-            c.close();
-            return 0;
+                + " available in UploadDb. Expected 1. Failed to update upload db.");
+        } else {
+            returnValue = updateUploadInternal(c, status, result, remotePath);
         }
-        return updateUploadInternal(c, status, result, remotePath);
+        c.close();
+        return returnValue;
     }
 
     /*
@@ -355,8 +355,8 @@ public class UploadsStorageManager extends Observable {
                 }
             } while (c.moveToNext());
 
-            c.close();
         }
+        c.close();
 
         return list;
     }
@@ -374,8 +374,8 @@ public class UploadsStorageManager extends Observable {
 
         if (c.moveToFirst()) {
             file = createFileInstance(c);
-            c.close();
         }
+        c.close();
 
         return file;
     }
@@ -454,30 +454,28 @@ public class UploadsStorageManager extends Observable {
         return result;
     }
 
-    public long clearFinishedUploads() {
+    public long clearSuccessfulUploads() {
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 ProviderTableMeta.UPLOADS_STATUS + "=="+ UploadStatus.UPLOAD_SUCCEEDED.value, null
         );
-        Log_OC.d(TAG, "delete all finished uploads");
+        Log_OC.d(TAG, "delete all successful uploads");
         if (result > 0) {
             notifyObserversNow();
         }
         return result;
     }
 
-    public long clearAllUploads() {
-        String[] whereArgs = new String[3];
+    public long clearAllFinishedUploads() {
+        String[] whereArgs = new String[2];
         whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
         whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED.value);
-        whereArgs[2] = String.valueOf(UploadStatus.UPLOAD_IN_PROGRESS.value);
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=? OR " +
-                        ProviderTableMeta.UPLOADS_STATUS + "=?",
+                ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=?",
                 whereArgs
         );
-        Log_OC.d(TAG, "delete all uploads");
+        Log_OC.d(TAG, "delete all finished uploads");
         if (result > 0) {
             notifyObserversNow();
         }
@@ -495,6 +493,7 @@ public class UploadsStorageManager extends Observable {
 //                null
 //        );
 //        updateUploadInternal(c, UploadStatus.UPLOAD_LATER, UploadResult.UNKNOWN);
+//        c.close();
 //    }
 
 

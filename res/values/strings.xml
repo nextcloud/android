@@ -118,7 +118,7 @@
     <string name="uploader_upload_failed_credentials_error">Upload failed, you need to log in again</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Current</string>
-    <string name="uploads_view_group_failed_uploads">Failed</string>
+    <string name="uploads_view_group_failed_uploads">Failed (tap to retry)</string>
     <string name="uploads_view_group_finished_uploads">Uploaded</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
     <string name="uploads_view_upload_status_cancelled">Cancelled</string>
@@ -131,6 +131,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Local file not found</string>
     <string name="uploads_view_upload_status_failed_permission_error">Permission error</string>
     <string name="uploads_view_upload_status_conflict">Conflict</string>
+    <string name="uploads_view_upload_status_service_interrupted">App was terminated</string>
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for wifi connectivity</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
@@ -479,10 +480,10 @@
     <string name="storage_description_sd_no">SD card %1$d</string>
     <string name="storage_description_unknown">Unknown</string>
 
-    <string name="action_retry_uploads">Retry failed uploads</string>
-    <string name="action_clear_failed_uploads">Clear failed uploads</string>
-    <string name="action_clear_finished_uploads">Clear finished uploads</string>
-    <string name="action_clear_all_uploads">Clear all uploads</string>
+    <string name="action_retry_uploads">Retry failed</string>
+    <string name="action_clear_failed_uploads">Clear failed</string>
+    <string name="action_clear_successful_uploads">Clear successful</string>
+    <string name="action_clear_finished_uploads">Clear all finished</string>
 
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
