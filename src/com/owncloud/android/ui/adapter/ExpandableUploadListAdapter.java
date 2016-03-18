@@ -541,6 +541,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                             R.string.uploads_view_upload_status_conflict
                         );
                         break;
+                    case SERVICE_INTERRUPTED:
+                        status =  mParentActivity.getString(
+                            R.string.uploads_view_upload_status_service_interrupted
+                        );
+                        break;
                     case UNKNOWN:
                         status = mParentActivity.getString(
                             R.string.uploads_view_upload_status_unknown_fail

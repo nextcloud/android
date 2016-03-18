@@ -33,7 +33,8 @@ public enum UploadResult {
     PRIVILEDGES_ERROR(6),
     CANCELLED(7),
     FILE_NOT_FOUND(8),
-    DELAYED_FOR_WIFI(9);
+    DELAYED_FOR_WIFI(9),
+    SERVICE_INTERRUPTED(10);
 
     private final int value;
 
@@ -68,6 +69,8 @@ public enum UploadResult {
                 return FILE_NOT_FOUND;
             case 9:
                 return DELAYED_FOR_WIFI;
+            case 10:
+                return SERVICE_INTERRUPTED;
         }
         return null;
     }

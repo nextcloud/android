@@ -343,7 +343,7 @@ public class FileUploader extends Service
         mUploadsStorageManager = new UploadsStorageManager(getContentResolver());
 
         int failedCounter = mUploadsStorageManager.failInProgressUploads(
-            UploadResult.UNKNOWN    // Add UploadResult.KILLED?
+            UploadResult.SERVICE_INTERRUPTED    // Add UploadResult.KILLED?
         );
         if (failedCounter > 0) {
             resurrection();
