@@ -77,8 +77,7 @@ import java.util.ArrayList;
  *
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
-public class OCFileListFragment extends ExtendedListFragment
-        implements FileActionsDialogFragment.FileActionsDialogFragmentListener {
+public class OCFileListFragment extends ExtendedListFragment {
 
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 

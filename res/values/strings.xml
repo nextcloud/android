@@ -204,9 +204,14 @@
     <string name="unfavorite">Unfavorite</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
-    <string name="confirmation_remove_alert">"Do you really want to remove %1$s?"</string>
+    <string name="confirmation_remove_file_alert">"Do you really want to remove %1$s?"</string>
+    <string name="confirmation_remove_files_alert">"Do you really want to remove %1$s?"</string>
     <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and its contents?"</string>
+    <string name="confirmation_remove_folders_alert">"Do you really want to remove %1$s and all their content?"</string>
     <string name="confirmation_remove_local">Local only</string>
+    <string name="confirmation_remove_folder_local">Local only</string>
+    <string name="confirmation_remove_file_remote">From server</string>
+    <string name="confirmation_remove_remote_and_local">Remote &amp; local</string>
     <string name="remove_success_msg">"Removal succeeded"</string>
     <string name="remove_fail_msg">"Removal failed"</string>
     <string name="rename_dialog_title">Enter a new name</string>

@@ -53,13 +53,6 @@ import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import org.apache.http.protocol.HTTP;
 
 import java.util.List;
 
@@ -463,7 +456,7 @@ public class FileOperationsHelper {
         String[] packagesToExclude = new String[]{mFileActivity.getPackageName()};
         // TODO TOBI Wofür ist das?
         DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent,
-                packagesToExclude, files.get(0));
+                packagesToExclude);
         chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
     }
 
@@ -510,7 +503,7 @@ public class FileOperationsHelper {
             String[] packagesToExclude = new String[]{mFileActivity.getPackageName()};
             // TODO TOBI Wofür ist das?
             DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent,
-                    packagesToExclude, files.get(0));
+                    packagesToExclude);
             chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
     }
 
