@@ -20,9 +20,6 @@
  */
 package com.owncloud.android.ui.fragment;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
@@ -37,6 +34,9 @@ import android.widget.ListView;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+
+import java.io.File;
+import java.util.ArrayList;
 
 
 /**

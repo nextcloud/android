@@ -22,10 +22,7 @@
  */
 package com.owncloud.android.ui.activity;
 
-import java.util.Arrays;
-
 import android.content.Intent;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -42,6 +39,8 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+
+import java.util.Arrays;
 
 public class PassCodeActivity extends AppCompatActivity {
 

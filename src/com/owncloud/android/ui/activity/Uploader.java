@@ -22,25 +22,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
-import java.util.Vector;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.RefreshFolderOperation;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -81,7 +62,16 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
@@ -89,6 +79,14 @@ import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.CopyTmpFileAsyncTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
+import java.util.Vector;
 
 
 /**
@@ -453,7 +451,7 @@ public class Uploader extends FileActivity
                     h.put("dirname", f);
                     data.add(h);
             }
-            
+
             UploaderAdapter sa = new UploaderAdapter(this,
                                                 data,
                                                 R.layout.uploader_list_item_layout,
@@ -471,15 +469,15 @@ public class Uploader extends FileActivity
             mListView.setOnItemClickListener(this);
         }
     }
-    
+
     private void startSyncFolderOperation(OCFile folder) {
-        long currentSyncTime = System.currentTimeMillis(); 
-        
+        long currentSyncTime = System.currentTimeMillis();
+
         mSyncInProgress = true;
-        
+
         // perform folder synchronization
         RemoteOperation synchFolderOp = new RefreshFolderOperation( folder,
-                                                                        currentSyncTime, 
+                                                                        currentSyncTime,
                                                                         false,
                                                                         false,
                                                                         false,
@@ -724,7 +722,7 @@ public class Uploader extends FileActivity
         }
         return retval;
     }
-    
+
     private OCFile getCurrentFolder(){
         OCFile file = mFile;
         if (file != null) {
@@ -736,13 +734,13 @@ public class Uploader extends FileActivity
         }
         return null;
     }
-    
+
     private void browseToRoot() {
         OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         mFile = root;
         startSyncFolderOperation(root);
     }
-    
+
     private class SyncBroadcastReceiver extends BroadcastReceiver {
 
         /**
@@ -774,7 +772,7 @@ public class Uploader extends FileActivity
                                 getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
 
                         if (currentDir == null) {
-                            // current folder was removed from the server 
+                            // current folder was removed from the server
                             Toast.makeText(context,
                                     String.format(
                                             getString(R.string.sync_current_folder_was_removed),
@@ -803,7 +801,7 @@ public class Uploader extends FileActivity
                                 equals(event) &&
                                 /// TODO refactor and make common
                                 synchResult != null && !synchResult.isSuccess() &&
-                                (synchResult.getCode() == ResultCode.UNAUTHORIZED ||
+                                (synchResult.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
                                         synchResult.isIdPRedirection() ||
                                         (synchResult.isException() && synchResult.getException()
                                                 instanceof AuthenticatorException))) {
@@ -816,7 +814,7 @@ public class Uploader extends FileActivity
 
                 }
             } catch (RuntimeException e) {
-                // avoid app crashes after changing the serial id of RemoteOperationResult 
+                // avoid app crashes after changing the serial id of RemoteOperationResult
                 // in owncloud library with broadcast notifications pending to process
                 removeStickyBroadcast(intent);
             }

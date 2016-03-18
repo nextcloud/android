@@ -27,7 +27,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Pair;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;

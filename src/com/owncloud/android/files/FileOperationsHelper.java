@@ -53,10 +53,9 @@ import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 
-
-import java.util.List;
-
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -523,7 +522,6 @@ public class FileOperationsHelper {
         }
     }
 
-
     /**
      * Request the synchronization of a file or folder with the OC server, including its contents.
      *
@@ -539,7 +537,7 @@ public class FileOperationsHelper {
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(intent);
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
                     getString(R.string.wait_a_moment));
-            
+
         } else {
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
@@ -550,7 +548,7 @@ public class FileOperationsHelper {
         }
     }
 
-    public void toggleFavorites(ArrayList<OCFile> files, boolean isFavorite){
+    public void toggleFavorites(Collection<OCFile> files, boolean isFavorite){
         for (OCFile file: files) {
             toggleFavorite(file, isFavorite);
         }

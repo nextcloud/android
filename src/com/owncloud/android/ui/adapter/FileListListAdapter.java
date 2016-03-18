@@ -24,12 +24,6 @@
 package com.owncloud.android.ui.adapter;
 
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -60,6 +54,11 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
 
 /**
@@ -201,12 +200,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
                     TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
                     TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
-
+                    ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
 
                     lastModV.setVisibility(View.VISIBLE);
                     lastModV.setText(showRelativeTimestamp(file));
 
-
+                    checkBoxV.setVisibility(View.GONE);
 
                     fileSizeSeparatorV.setVisibility(View.VISIBLE);
                     fileSizeV.setVisibility(View.VISIBLE);
@@ -321,10 +320,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 } else if (parentList.getCheckedItemCount() > 0){
                     if (parentList.isItemChecked(position)) {
                         checkBoxV.setImageResource(
-                                android.R.drawable.checkbox_on_background);
+                                R.drawable.ic_checkbox_marked);
                     } else {
                         checkBoxV.setImageResource(
-                                android.R.drawable.checkbox_off_background);
+                                R.drawable.ic_checkbox_blank_outline);
                     }
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
@@ -392,7 +391,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
 
         if (mSelection.get(position) != null) {
-            view.setBackgroundColor(Color.rgb(248, 248, 248));
+            view.setBackgroundColor(mContext.getResources().getColor(R.color.selected_item_background));
         } else {
             view.setBackgroundColor(Color.WHITE);
         }
@@ -464,7 +463,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return ret;
     }
     
-    
+
     public void setSortOrder(Integer order, boolean ascending) {
         SharedPreferences.Editor editor = mAppPreferences.edit();
         editor.putInt("sortOrder", order);
@@ -493,6 +492,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return mGridMode;
     }
 
+    // TODO Tobi: all methods needed?
     public void setNewSelection(int position, boolean checked) {
         mSelection.put(position, checked);
         notifyDataSetChanged();

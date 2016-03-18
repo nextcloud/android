@@ -20,14 +20,14 @@
 
 package com.owncloud.android.notifications;
 
-import com.owncloud.android.R;
-
 import android.app.Notification;
 import android.content.Context;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.RemoteViews;
+
+import com.owncloud.android.R;
 
 /**
  * Extends the support class {@link NotificationCompat.Builder} to grant that

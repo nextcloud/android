@@ -30,6 +30,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.PopupMenu;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.ActionMode;
@@ -41,7 +42,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,7 +60,6 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.dialog.FileActionsDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
@@ -101,14 +100,19 @@ public class OCFileListFragment extends ExtendedListFragment {
     private FileListListAdapter mAdapter;
     private boolean mJustFolders;
 
+    private int mStatusBarColorActionMode;
+    private int mStatusBarColor;
+
     private OCFile mTargetFile;
 
+    private boolean hideFab = true;
     private boolean miniFabClicked = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        mStatusBarColorActionMode = getResources().getColor(R.color.action_mode_status_bar_background);
+        mStatusBarColor = getResources().getColor(R.color.primary_dark);
     }
 
     /**
@@ -183,7 +187,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
         registerLongClickListener();
 
-        boolean hideFab = (args != null) && args.getBoolean(ARG_HIDE_FAB, false);
+        hideFab = (args != null) && args.getBoolean(ARG_HIDE_FAB, false);
         if (hideFab) {
             setFabEnabled(false);
         } else {
@@ -231,7 +235,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         getFabUpload().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity)getActivity())
+                UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity) getActivity())
                         .getAccount(), FileDisplayActivity.ACTION_SELECT_MULTIPLE_FILES);
                 getFabMain().collapse();
                 recordMiniFabClick();
@@ -354,22 +358,33 @@ public class OCFileListFragment extends ExtendedListFragment {
                 }
 
                 // TODO maybe change: only recreate menu if count changes
-                menu.clear();
-                if (checkedCount == 1) {
-                    createContextMenu(menu);
-                } else {
-                    // download, move, copy, delete
-                    getActivity().getMenuInflater().inflate(R.menu.multiple_file_actions_menu, menu);
+                if (menu != null) {
+                    menu.clear();
 
-                    MenuItem item = menu.findItem(R.id.action_send_file);
-                    item.setVisible(checkSendable());
+                    if (checkedCount == 1) {
+                        createContextMenu(menu);
+                    } else {
+                        // download, move, copy, delete
+                        getActivity().getMenuInflater().inflate(R.menu.multiple_file_actions_menu, menu);
+
+                        MenuItem item = menu.findItem(R.id.action_send_file);
+                        item.setVisible(checkSendable());
+                    }
                 }
-
             }
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 this.menu = menu;
+
+                //set gray color
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getActivity().getWindow().setStatusBarColor(mStatusBarColorActionMode);
+                }
+
+                // hide FAB in multi selection mode
+                setFabEnabled(false);
+
                 return true;
             }
 
@@ -386,6 +401,16 @@ public class OCFileListFragment extends ExtendedListFragment {
             @Override
             public void onDestroyActionMode(ActionMode mode) {
                 mAdapter.removeSelection();
+
+                // reset to primary dark color
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getActivity().getWindow().setStatusBarColor(mStatusBarColor);
+                }
+
+                // show FAB on multi selection mode exit
+                if(!hideFab) {
+                    setFabEnabled(true);
+                }
             }
         });
     }
@@ -412,7 +437,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     // TODO Tobi needed?
     private void showFileAction(int fileIndex) {
         Bundle args = getArguments();
-        PopupMenu pm = new PopupMenu(getActivity(),null);
+        PopupMenu pm = new PopupMenu(getActivity(), null);
         Menu menu = pm.getMenu();
 
         boolean allowContextualActions =
@@ -433,27 +458,10 @@ public class OCFileListFragment extends ExtendedListFragment {
                 );
                 mf.filter(menu);
             }
-
-            /// TODO break this direct dependency on FileDisplayActivity... if possible
-            MenuItem item = menu.findItem(R.id.action_open_file_with);
-            FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
-            if (frag != null && frag instanceof FileDetailFragment &&
-                    frag.getFile().getFileId() == targetFile.getFileId()) {
-                item = menu.findItem(R.id.action_see_details);
-                if (item != null) {
-                    item.setVisible(false);
-                    item.setEnabled(false);
-                }
-            }
-
-            FileActionsDialogFragment dialog = FileActionsDialogFragment.newInstance(menu,
-                    fileIndex, targetFile.getFileName());
-            dialog.setTargetFragment(this, 0);
-            dialog.show(getFragmentManager(), FileActionsDialogFragment.FTAG_FILE_ACTIONS);
         }
     }
 
-    /**
+     /**
      * Saves the current listed folder.
      */
     @Override
@@ -557,7 +565,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     /**
      * {@inheritDoc}
      */
-    // TODO Tobi needed?
     public void createContextMenu(Menu menu) {
         Bundle args = getArguments();
         boolean allowContextualActions =
@@ -598,21 +605,20 @@ public class OCFileListFragment extends ExtendedListFragment {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean onFileActionChosen(int menuId) {
         if (mAdapter.getCheckedItems().size() == 1){
             OCFile mTargetFile = mAdapter.getCheckedItems().get(0);
 
             switch (menuId) {
                 case R.id.action_share_file: {
-                    mContainerActivity.getFileOperationsHelper().shareFileWithLink(mTargetFile);
+                    mContainerActivity.getFileOperationsHelper().showShareFile(mTargetFile);
                     return true;
                 }
                 case R.id.action_open_file_with: {
                     mContainerActivity.getFileOperationsHelper().openFile(mTargetFile);
-                    return true;
-                }
-                case R.id.action_unshare_file: {
-                    mContainerActivity.getFileOperationsHelper().unshareFileWithLink(mTargetFile);
                     return true;
                 }
                 case R.id.action_rename_file: {
@@ -643,7 +649,6 @@ public class OCFileListFragment extends ExtendedListFragment {
                     if (!mTargetFile.isDown()) {  // Download the file
                         Log_OC.d(TAG, mTargetFile.getRemotePath() + " : File must be downloaded");
                         ((FileDisplayActivity) mContainerActivity).startDownloadForSending(mTargetFile);
-
                     } else {
                         mContainerActivity.getFileOperationsHelper().sendDownloadedFile(mTargetFile);
                     }
@@ -667,9 +672,9 @@ public class OCFileListFragment extends ExtendedListFragment {
                 }
                 case R.id.action_copy:
                     Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-
-                    // Pass mTargetFile that contains info of selected file/folder
-                    action.putExtra(FolderPickerActivity.EXTRA_FILE, mTargetFile);
+                    ArrayList files = new ArrayList();
+                    files.add(mTargetFile);
+                    action.putExtra(FolderPickerActivity.EXTRA_FILES, files);
                     getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_COPY_FILES);
                     return true;
                 default:
