@@ -197,11 +197,9 @@
   <string name="unfavorite">Usuń z ulubionych</string>
   <string name="common_rename">Zmień nazwę</string>
   <string name="common_remove">Usuń</string>
-  <string name="confirmation_remove_file_alert">Czy naprawdę chcesz usunąć %1$s?</string>
+  <string name="confirmation_remove_alert">Czy naprawdę chcesz usunąć %1$s?</string>
   <string name="confirmation_remove_folder_alert">Czy naprawdę chcesz usunąć %1$s i jego zawartość?</string>
   <string name="confirmation_remove_local">Tylko lokalnie</string>
-  <string name="confirmation_remove_folder_local">Tylko lokalnie</string>
-  <string name="confirmation_remove_file_remote">Z serwera</string>
   <string name="remove_success_msg">Usunięto</string>
   <string name="remove_fail_msg">Nie można usunąć</string>
   <string name="rename_dialog_title">Wprowadź nową nazwę</string>

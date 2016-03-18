@@ -177,12 +177,9 @@
   <string name="unfavorite">Hapus favorit</string>
   <string name="common_rename">Ubah nama</string>
   <string name="common_remove">Hapus</string>
-  <string name="confirmation_remove_file_alert">Apakah Anda yakin ingin menghapus %1$s?</string>
+  <string name="confirmation_remove_alert">Apakah Anda yakin ingin menghapus %1$s?</string>
   <string name="confirmation_remove_folder_alert">Apakah Anda yakin ingin menghapus %1$s dan isinya?</string>
   <string name="confirmation_remove_local">Lokal saja</string>
-  <string name="confirmation_remove_folder_local">Lokal saja</string>
-  <string name="confirmation_remove_file_remote">Dari server</string>
-  <string name="confirmation_remove_remote_and_local">Remot &amp; lokal</string>
   <string name="remove_success_msg">Penghapusan berhasil</string>
   <string name="remove_fail_msg">Penghapusan gagal</string>
   <string name="rename_dialog_title">Masukkan nama baru</string>

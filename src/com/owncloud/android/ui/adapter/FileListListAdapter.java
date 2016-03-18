@@ -201,33 +201,33 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
                     TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
                     TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
-
+                    ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
 
                     lastModV.setVisibility(View.VISIBLE);
                     lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file));
 
+                    checkBoxV.setVisibility(View.GONE);
 
                     fileSizeSeparatorV.setVisibility(View.VISIBLE);
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
                     if (!file.isFolder()) {
-                        // TODO Tobi: why did i commented this?
-//                        AbsListView parentList = (AbsListView)parent;
-//                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//                            if (parentList.getChoiceMode() == AbsListView.CHOICE_MODE_NONE) {
-//                                checkBoxV.setVisibility(View.GONE);
-//                            } else {
-//                                if (parentList.isItemChecked(position)) {
-//                                    checkBoxV.setImageResource(
-//                                            R.drawable.ic_checkbox_marked);
-//                                } else {
-//                                    checkBoxV.setImageResource(
-//                                            R.drawable.ic_checkbox_blank_outline);
-//                                }
-//                                checkBoxV.setVisibility(View.VISIBLE);
-//                            }
-//                        }
+                        AbsListView parentList = (AbsListView)parent;
+                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                            if (parentList.getChoiceMode() == AbsListView.CHOICE_MODE_NONE) {
+                                checkBoxV.setVisibility(View.GONE);
+                            } else {
+                                if (parentList.isItemChecked(position)) {
+                                    checkBoxV.setImageResource(
+                                            R.drawable.ic_checkbox_marked);
+                                } else {
+                                    checkBoxV.setImageResource(
+                                            R.drawable.ic_checkbox_blank_outline);
+                                }
+                                checkBoxV.setVisibility(View.VISIBLE);
+                            }
+                        }
 
                     } else { //Folder
                         fileSizeSeparatorV.setVisibility(View.GONE);
@@ -490,6 +490,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mGridMode = gridMode;
     }
 
+    public boolean isGridMode() {
+        return mGridMode;
+    }
+
     // TODO Tobi: all methods needed?
     public void setNewSelection(int position, boolean checked) {
         mSelection.put(position, checked);
@@ -526,9 +530,5 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             }
         }
         return files;
-    }
-
-    public boolean isGridMode() {
-        return mGridMode;
     }
 }

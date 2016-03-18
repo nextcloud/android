@@ -197,12 +197,9 @@
   <string name="unfavorite">Odstrani priljubljeno</string>
   <string name="common_rename">Preimenuj</string>
   <string name="common_remove">Odstrani</string>
-  <string name="confirmation_remove_file_alert">Ali res želite odstraniti %1$s?</string>
+  <string name="confirmation_remove_alert">Ali res želite odstraniti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ali res želite odstraniti %1$s skupaj s celotno vsebino?</string>
   <string name="confirmation_remove_local">Le krajevno</string>
-  <string name="confirmation_remove_folder_local">Le krajevno</string>
-  <string name="confirmation_remove_file_remote">S strežnika</string>
-  <string name="confirmation_remove_remote_and_local">Oddaljeno &amp; krajevno</string>
   <string name="remove_success_msg">Odstranitev je uspešno končana</string>
   <string name="remove_fail_msg">Odstranjevanje je spodletelo</string>
   <string name="rename_dialog_title">Vnesite novo ime</string>

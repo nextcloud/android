@@ -37,6 +37,11 @@
         android:icon="@drawable/ic_delete"
         android:orderInCategory="1" />
     <item
+        android:id="@+id/action_send_file"
+        android:title="@string/actionbar_send_file"
+        android:icon="@android:drawable/ic_menu_set_as"
+        android:orderInCategory="1" />
+    <item
         android:id="@+id/action_favorite_file"
         android:title="@string/favorite"
         android:icon="@android:drawable/ic_menu_set_as"

@@ -188,12 +188,9 @@
   <string name="unfavorite">Poista suosikeista</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
-  <string name="confirmation_remove_file_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
+  <string name="confirmation_remove_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
   <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
   <string name="confirmation_remove_local">Vain paikallinen</string>
-  <string name="confirmation_remove_folder_local">Vain paikallinen</string>
-  <string name="confirmation_remove_file_remote">Palvelimelta</string>
-  <string name="confirmation_remove_remote_and_local">Etä ja paikallinen</string>
   <string name="remove_success_msg">Poistettu onnistuneesti</string>
   <string name="remove_fail_msg">Poistamista ei voitu suorittaa loppuun asti</string>
   <string name="rename_dialog_title">Anna uusi nimi</string>

@@ -31,9 +31,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.PopupMenu;
 import android.view.ActionMode;
-import android.view.LayoutInflater;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,12 +40,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.PopupMenu;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView;
@@ -69,12 +62,9 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.dialog.FileActionsDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.ui.dialog.UploadSourceDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -127,6 +117,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         mStatusBarColorActionMode = getResources().getColor(R.color.actionModeStatusBarBackground);
         mStatusBarColor = getResources().getColor(R.color.primary_dark);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -398,11 +389,15 @@ public class OCFileListFragment extends ExtendedListFragment {
                 // TODO maybe change: only recreate menu if count changes
                 if (menu != null) {
                     menu.clear();
+
                     if (checkedCount == 1) {
                         createContextMenu(menu);
                     } else {
                         // download, move, copy, delete
                         getActivity().getMenuInflater().inflate(R.menu.multiple_file_actions_menu, menu);
+
+                        MenuItem item = menu.findItem(R.id.action_send_file);
+                        item.setVisible(checkSendable());
                     }
                 }
             }
@@ -447,6 +442,52 @@ public class OCFileListFragment extends ExtendedListFragment {
                 }
             }
         });
+    }
+
+    private boolean checkSendable(){
+        ArrayList<OCFile> list = mAdapter.getCheckedItems();
+        String mimtype = list.get(0).getMimetype();
+        Boolean sameMimetype = true;
+        Boolean allDown = true;
+        Boolean isImage = list.get(0).isImage();
+
+        for (OCFile file : list) {
+            if (!file.getMimetype().equalsIgnoreCase(mimtype)) {
+                sameMimetype = false;
+            }
+            if (!file.isDown()){
+                allDown = false;
+            }
+        }
+
+        return sameMimetype && (allDown || isImage);
+    }
+
+    // TODO Tobi needed?
+    private void showFileAction(int fileIndex) {
+        Bundle args = getArguments();
+        PopupMenu pm = new PopupMenu(getActivity(), null);
+        Menu menu = pm.getMenu();
+
+        boolean allowContextualActions =
+                (args == null) ? true : args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+
+        if (allowContextualActions) {
+            MenuInflater inflater = getActivity().getMenuInflater();
+
+            inflater.inflate(R.menu.file_actions_menu, menu);
+            OCFile targetFile = (OCFile) mAdapter.getItem(fileIndex);
+
+            if (mContainerActivity.getStorageManager() != null) {
+                FileMenuFilter mf = new FileMenuFilter(
+                        targetFile,
+                        mContainerActivity.getStorageManager().getAccount(),
+                        mContainerActivity,
+                        getActivity()
+                );
+                mf.filter(menu);
+            }
+        }
     }
 
      /**
@@ -685,6 +726,16 @@ public class OCFileListFragment extends ExtendedListFragment {
                     Intent action = new Intent(getActivity(), FolderPickerActivity.class);
                     action.putParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES, mTargetFiles);
                     getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_FILES);
+                    return true;
+                }
+                case R.id.action_send_file: {
+                    // all files have same mimetype
+                    if (mTargetFiles.get(0).getMimetype().startsWith("image")){
+                        // images can be sent independent of download state
+                        mContainerActivity.getFileOperationsHelper().sendImages(mTargetFiles);
+                    } else {
+                        mContainerActivity.getFileOperationsHelper().sendDownloadedFiles(mTargetFiles);
+                    }
                     return true;
                 }
                 case R.id.action_favorite_file: {

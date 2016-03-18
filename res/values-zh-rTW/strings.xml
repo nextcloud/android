@@ -169,12 +169,9 @@
   <string name="unfavorite">不喜愛的</string>
   <string name="common_rename">重新命名</string>
   <string name="common_remove">移除</string>
-  <string name="confirmation_remove_file_alert">您真的要移除 %1$s ?</string>
+  <string name="confirmation_remove_alert">您真的要移除 %1$s ?</string>
   <string name="confirmation_remove_folder_alert">您真的要移除 %1$s 與裡頭的檔案?</string>
   <string name="confirmation_remove_local">只有本地</string>
-  <string name="confirmation_remove_folder_local">只有本地</string>
-  <string name="confirmation_remove_file_remote">來自伺服器</string>
-  <string name="confirmation_remove_remote_and_local">遠端 &amp; 本地</string>
   <string name="remove_success_msg">成功地移除</string>
   <string name="remove_fail_msg">刪除失敗</string>
   <string name="rename_dialog_title">輸入新名稱</string>

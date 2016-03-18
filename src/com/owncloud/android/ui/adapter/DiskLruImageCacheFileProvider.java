@@ -45,6 +45,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class DiskLruImageCacheFileProvider extends ContentProvider {
     private static String TAG = FileDataStorageManager.class.getSimpleName();
@@ -70,31 +73,46 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
     public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
         OCFile ocFile = getFile(uri);
 
-        Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                String.valueOf("r" + ocFile.getRemoteId()));
-
-        // create a file to write bitmap data
         File f = new File(MainApp.getAppContext().getCacheDir(), ocFile.getFileName());
+
         try {
-            f.createNewFile();
+            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                    String.valueOf("r" + ocFile.getRemoteId()));
+
+            // TODO download resized Image
+            if (thumbnail == null) {
+                ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                        new ThumbnailsCacheManager.ThumbnailGenerationTask();
+                task.execute(ocFile, false);
+                thumbnail = task.get(5l, TimeUnit.SECONDS);
+            }
 
             //Convert bitmap to byte array
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bos);
-            byte[] bitmapdata = bos.toByteArray();
+            if (thumbnail != null) {
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bos);
+                byte[] bitmapdata = bos.toByteArray();
 
-            //write the bytes in file
-            FileOutputStream fos = null;
-            try {
+                // create a file to write bitmap data
+                f.createNewFile();
+
+                //write the bytes in file
+                FileOutputStream fos = null;
                 fos = new FileOutputStream(f);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+            } else {
+                throw new FileNotFoundException();
             }
-            fos.write(bitmapdata);
-            fos.flush();
-            fos.close();
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
             e.printStackTrace();
         }
 

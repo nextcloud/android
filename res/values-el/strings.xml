@@ -179,12 +179,9 @@
   <string name="unfavorite">Κατάργηση από τα αγαπημένα</string>
   <string name="common_rename">Μετονομασία</string>
   <string name="common_remove">Αφαίρεση</string>
-  <string name="confirmation_remove_file_alert">Θέλετε στ\' αλήθεια να αφαιρέσετε το  %1$s;</string>
+  <string name="confirmation_remove_alert">Θέλετε στ\' αλήθεια να αφαιρέσετε το  %1$s;</string>
   <string name="confirmation_remove_folder_alert">Θέλετε στ\' αλήθεια να διαγράψετε το %1$s και τα περιεχόμενά του;</string>
   <string name="confirmation_remove_local">Μόνο τοπικά</string>
-  <string name="confirmation_remove_folder_local">Μόνο τοπικά</string>
-  <string name="confirmation_remove_file_remote">Από το διακομιστή</string>
-  <string name="confirmation_remove_remote_and_local">Απομακρυσμένα &amp; τοπικά</string>
   <string name="remove_success_msg">Αφαίρεση επιτυχής</string>
   <string name="remove_fail_msg">Η αφαίρεση απέτυχε</string>
   <string name="rename_dialog_title">Εισάγετε νέο όνομα</string>

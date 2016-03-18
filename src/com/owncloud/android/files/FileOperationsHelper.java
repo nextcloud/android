@@ -426,6 +426,39 @@ public class FileOperationsHelper {
         return false;
     }
 
+    public void sendImages(ArrayList<OCFile> files){
+        ArrayList<Uri> uriList = new ArrayList<Uri>();
+
+        for (OCFile file: files){
+            if (file != null){
+                if (file.isDown()) {
+                    String storagePath = file.getStoragePath();
+                    String encodedStoragePath = WebdavUtils.encodePath(storagePath);
+                    uriList.add(Uri.parse("file://" + encodedStoragePath));
+                } else {
+                    uriList.add(Uri.parse("content://" +
+                            DiskLruImageCacheFileProvider.AUTHORITY +
+                            file.getRemotePath()));
+                }
+            } else {
+                Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+            }
+        }
+
+        Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+        // set MimeType
+        sendIntent.setType(files.get(0).getMimetype());
+        sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriList);
+        sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+
+        // Show dialog, without the own app
+        String[] packagesToExclude = new String[]{mFileActivity.getPackageName()};
+        // TODO TOBI Wofür ist das?
+        DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent,
+                packagesToExclude);
+        chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+    }
+
     public void sendDownloadedFile(OCFile file) {
         if (file != null) {
             String storagePath = file.getStoragePath();
@@ -455,7 +488,7 @@ public class FileOperationsHelper {
                 intent.setDataAndType(sendUri, file.getMimetype());
                 intent.putExtra("mimeType", file.getMimetype());
                 mFileActivity.startActivityForResult(Intent.createChooser(intent,
-                                                    mFileActivity.getString(R.string.set_as)), 200);
+                        mFileActivity.getString(R.string.set_as)), 200);
             } else {
                 // TODO re-enable after resized images is available
                 Uri sendUri = Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + file.getRemotePath());
@@ -481,6 +514,18 @@ public class FileOperationsHelper {
         }
     }
 
+//    public void sendCachedImage(OCFile file) {
+//        if (file != null) {
+//            Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
+//            // set MimeType
+//            sendIntent.setType(file.getMimetype());
+////            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + "/#" + file.getRemoteId() + "#" + file.getFileName()));
+//            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + file.getRemotePath()));
+//            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+//        }
+//    }
+
+
     public void sendCachedImage(OCFile file) {
         if (file != null) {
             Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -499,6 +544,30 @@ public class FileOperationsHelper {
         }
     }
 
+    public void sendDownloadedFiles(ArrayList<OCFile> files) {
+            ArrayList<Uri> uriList = new ArrayList<Uri>();
+
+            for (OCFile file: files){
+                if (file != null){
+                    String storagePath = file.getStoragePath();
+                    String encodedStoragePath = WebdavUtils.encodePath(storagePath);
+                    uriList.add(Uri.parse("file://" + encodedStoragePath));
+                } else {
+                    Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+                }
+            }
+
+            Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+            // set MimeType
+            sendIntent.setType(files.get(0).getMimetype());
+            sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriList);
+            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+
+            // Show dialog, without the own app
+            String[] packagesToExclude = new String[] { mFileActivity.getPackageName() };
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude);
+            chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+    }
     public void syncFiles(Collection<OCFile> files) {
         for (OCFile file: files) {
             syncFile(file);
@@ -519,8 +588,8 @@ public class FileOperationsHelper {
             intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(intent);
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                getString(R.string.wait_a_moment));
-            
+                    getString(R.string.wait_a_moment));
+
         } else {
             Intent intent = new Intent(mFileActivity, OperationsService.class);
             intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
@@ -636,9 +705,8 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
-        // TODO Tobi loading dialog?
-//        mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-//                getString(R.string.wait_a_moment));
+        mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
+                getString(R.string.wait_a_moment));
     }
 
     /**

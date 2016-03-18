@@ -169,12 +169,9 @@
   <string name="unfavorite">Odobrať z obľúbených</string>
   <string name="common_rename">Premenuj</string>
   <string name="common_remove">Odober</string>
-  <string name="confirmation_remove_file_alert">Naozaj chcete odstrániť %1$s?</string>
+  <string name="confirmation_remove_alert">Naozaj chcete odstrániť %1$s?</string>
   <string name="confirmation_remove_folder_alert">Naozaj chcete odstrániť %1$s a jeho obsah?</string>
   <string name="confirmation_remove_local">Iba lokálne</string>
-  <string name="confirmation_remove_folder_local">Iba lokálne</string>
-  <string name="confirmation_remove_file_remote">Zo servera</string>
-  <string name="confirmation_remove_remote_and_local">Vzdialene aj lokálne</string>
   <string name="remove_success_msg">Úspešne odstránené</string>
   <string name="remove_fail_msg">Odstránenie zlyhalo</string>
   <string name="rename_dialog_title">Zadajte nové meno</string>

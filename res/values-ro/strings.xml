@@ -167,12 +167,9 @@
   <string name="unfavorite">Defavoritați</string>
   <string name="common_rename">Redenumește</string>
   <string name="common_remove">Elimină</string>
-  <string name="confirmation_remove_file_alert">Doriti sigur sa stergeti %1$s?</string>
+  <string name="confirmation_remove_alert">Doriti sigur sa stergeti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Sigur vrei să elimini %1$s și conținutul său?</string>
   <string name="confirmation_remove_local">Doar local</string>
-  <string name="confirmation_remove_folder_local">Doar local</string>
-  <string name="confirmation_remove_file_remote">De pe server</string>
-  <string name="confirmation_remove_remote_and_local">Ambele</string>
   <string name="remove_success_msg">Eliminat cu succes</string>
   <string name="remove_fail_msg">Eliminarea nu a reușit</string>
   <string name="rename_dialog_title">Introduceţi un nou nume</string>
