@@ -81,10 +81,14 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
 
             // TODO download resized Image
             if (thumbnail == null) {
-                ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                        new ThumbnailsCacheManager.ThumbnailGenerationTask();
-                task.execute(ocFile, false);
-                thumbnail = task.get(5l, TimeUnit.SECONDS);
+//                ThumbnailsCacheManager.ThumbnailGenerationTask task =
+//                        new ThumbnailsCacheManager.ThumbnailGenerationTask();
+//                task.execute(ocFile, false);
+//                thumbnail = task.get(5l, TimeUnit.SECONDS);
+
+                // send thumbnail if resized image is not available
+                thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        String.valueOf("t" + ocFile.getRemoteId()));
             }
 
             //Convert bitmap to byte array
@@ -108,13 +112,14 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
 
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
-            e.printStackTrace();
         }
+//        catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (TimeoutException e) {
+//            e.printStackTrace();
+//        }
 
         return ParcelFileDescriptor.open(f, ParcelFileDescriptor.MODE_READ_ONLY);
     }
