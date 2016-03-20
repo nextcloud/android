@@ -79,6 +79,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.owncloud.android.operations.CreateFolderOperation;
@@ -130,6 +131,9 @@ public class Uploader extends FileActivity
     private final static String KEY_REMOTE_CACHE_DATA = "REMOTE_CACHE_DATA";
 
     private static final String DIALOG_WAIT_COPY_FILE = "DIALOG_WAIT_COPY_FILE";
+
+    private RadioButton mRadioBtnCopyFiles;
+    private RadioButton mRadioBtnMoveFiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -424,6 +428,10 @@ public class Uploader extends FileActivity
 
     private void populateDirectoryList() {
         setContentView(R.layout.uploader_layout);
+
+        mRadioBtnMoveFiles = (RadioButton) findViewById(R.id.uploader_radio_move);
+        mRadioBtnCopyFiles = (RadioButton) findViewById(R.id.uploader_radio_copy);
+        mRadioBtnCopyFiles.setChecked(true);
         
         ListView mListView = (ListView) findViewById(android.R.id.list);
 
@@ -610,8 +618,13 @@ public class Uploader extends FileActivity
                 intent.putExtra(FileUploader.KEY_REMOTE_FILE,
                         remote.toArray(new String[remote.size()]));
                 intent.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
-                // TODO TOBI: make chooseable in UI and test what happens if "move" is selected with a file that cannot be moved
-                intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+
+                if (mRadioBtnCopyFiles.isChecked()) {
+                    intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_COPY);
+                } else if (mRadioBtnMoveFiles.isChecked()) {
+                    intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                }
+
                 startService(intent);
 
                 //Save the path to shared preferences

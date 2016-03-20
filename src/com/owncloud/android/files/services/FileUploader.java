@@ -616,6 +616,9 @@ public class FileUploader extends Service
                     /// notify result
                     notifyUploadResult(mCurrentUpload, uploadResult);
 
+                    mStorageManager.triggerMediaScan(new File(mCurrentUpload.getOriginalStoragePath()).getParent());
+                    mStorageManager.triggerMediaScan(new File(mCurrentUpload.getStoragePath()).getParent());
+
                     sendBroadcastUploadFinished(mCurrentUpload, uploadResult, removeResult.second);
                 }
 

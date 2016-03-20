@@ -17,24 +17,17 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="wrap_content" android:orientation="vertical"
-	android:layout_width="wrap_content" android:background="#fefefe"
-	android:gravity="center">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/upload_files_layout"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@color/background_color"
+	android:orientation="vertical" >
 
-	<TextView android:layout_width="fill_parent"
-		android:text="@string/uploader_top_message"
-		android:layout_height="wrap_content"
-		android:id="@+id/drawer_username"
-		android:textColor="@android:color/black"
-		android:gravity="center_horizontal">
-	</TextView>
-
-	<FrameLayout android:layout_height="fill_parent"
-		android:layout_width="fill_parent"
-		android:id="@+id/frameLayout1"
-		android:layout_below="@+id/drawer_username"
-		android:layout_above="@+id/linearLayout1">
+	<FrameLayout
+		android:layout_height="388dp"
+		android:layout_width="match_parent"
+		android:id="@+id/frameLayout1">
 
 		<ListView android:id="@android:id/list"
 			android:layout_width="fill_parent"
@@ -43,33 +36,75 @@
 			android:dividerHeight="1dip">
 		</ListView>
 
+		<TextView android:layout_width="fill_parent"
+            android:text="@string/uploader_top_message"
+            android:layout_height="wrap_content"
+            android:id="@+id/drawer_username"
+            android:textColor="@android:color/black"
+            android:gravity="center_horizontal">
+        </TextView>
+
 	</FrameLayout>
 
 	<LinearLayout
-	    android:id="@+id/linearLayout1"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:orientation="horizontal" >
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingTop="8dp"
+		android:paddingLeft="16dp"
+		android:paddingRight="16dp">
+
+		<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+			android:id="@+id/drawer_radio_group"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:orientation="horizontal">
+
+			<RadioButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/upload_copy_files"
+				android:id="@+id/uploader_radio_copy"
+				android:paddingRight="8dp"
+				android:checked="true" />
+
+			<RadioButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/upload_move_files"
+				android:id="@+id/uploader_radio_move"
+				android:paddingRight="8dp"
+				android:checked="false" />
+		</RadioGroup>
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:orientation="horizontal"
+		android:paddingLeft="16dp"
+		android:paddingRight="16dp"
+		android:paddingBottom="16dp">
 
 		<android.support.v7.widget.AppCompatButton
 			android:theme="@style/Button"
 		    android:id="@+id/uploader_cancel"
 			style="@style/ownCloud.Button"
-		    android:layout_width="fill_parent"
+		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_gravity="bottom"
 		    android:layout_weight="1"
 		    android:text="@string/common_cancel" />
 
 		<android.support.v7.widget.AppCompatButton
 		    android:id="@+id/uploader_choose_folder"
 			android:theme="@style/Button.Primary"
-		    android:layout_width="fill_parent"
+		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_gravity="bottom"
 		    android:layout_weight="1"
 		    android:text="@string/uploader_btn_upload_text" />
 
 	</LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>
