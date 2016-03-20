@@ -610,6 +610,8 @@ public class Uploader extends FileActivity
                 intent.putExtra(FileUploader.KEY_REMOTE_FILE,
                         remote.toArray(new String[remote.size()]));
                 intent.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
+                // TODO TOBI: make chooseable in UI and test what happens if "move" is selected with a file that cannot be moved
+                intent.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
                 startService(intent);
 
                 //Save the path to shared preferences
