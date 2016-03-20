@@ -338,6 +338,8 @@
   <string name="prefs_instant_behaviour_title">Originalfilen kommer att...</string>
   <string name="upload_copy_files">Kopiera fil</string>
   <string name="upload_move_files">Flytta fil</string>
+  <string name="pref_behaviour_entries_keep_file">behållen i orginalmapp</string>
+  <string name="pref_behaviour_entries_move">flyttad till app-mapp</string>
   <string name="share_dialog_title">Dela</string>
   <string name="share_with_user_section_title">Dela med användare och grupper</string>
   <string name="share_no_users">Ingen data delar med användare än</string>
@@ -350,6 +352,8 @@
   <string name="share_search">Sök</string>
   <string name="search_users_and_groups_hint">Sök användare och grupper</string>
   <string name="share_group_clarification">%1$s (grupp)</string>
+  <string name="share_remote_clarification">%1$s (fjärr)</string>
+  <string name="share_known_remote_clarification">%1$s ( på %2$s )</string>
   <string name="share_sharee_unavailable">Tyvärr tillåter inte din serverversion delning med användare inom klienter. \nVar god kontakta din administrator.</string>
   <string name="share_privilege_can_share">får dela</string>
   <string name="share_privilege_can_edit">kan redigera</string>
@@ -364,4 +368,5 @@
   <string name="manage_space_description">Inställningar, databas och servercertifikat från %1$s data kommer att raderas permanent. \n\nNedladdade förblir orörda.\n\nProcessen kommer ta tid.</string>
   <string name="manage_space_clear_data">Rensa data</string>
   <string name="manage_space_error">Vissa filer kunde inte raderas.</string>
+  <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp &amp; ner filer.</string>
 </resources>
