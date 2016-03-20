@@ -85,7 +85,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         final FileCursor result = new FileCursor(projection);
 
         final OCFile browsedDir = mCurrentStorageManager.getFileById(folderId);
-        for (OCFile file : mCurrentStorageManager.getFolderContent(browsedDir, true))
+        for (OCFile file : mCurrentStorageManager.getFolderContent(browsedDir, false))
             result.addFile(file);
 
         return result;
