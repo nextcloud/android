@@ -25,6 +25,14 @@
     android:layout_marginRight="@dimen/standard_margin"
     android:layout_marginBottom="20dp">
 
+    <TextView
+        android:id="@+id/searchUserGroupsTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/share_with_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:padding="@dimen/standard_padding"/>
+
     <android.support.v7.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
