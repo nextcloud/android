@@ -201,8 +201,8 @@ public class ShareFileFragment extends Fragment
             }
         }
         // Name
-        TextView filename = (TextView) view.findViewById(R.id.shareFileName);
-        filename.setText(mFile.getFileName());
+        TextView fileNameHeader = (TextView) view.findViewById(R.id.shareFileName);
+        fileNameHeader.setText(getResources().getString(R.string.share_file, mFile.getFileName()));
         // Size
         TextView size = (TextView) view.findViewById(R.id.shareFileSize);
         if (mFile.isFolder()) {
@@ -511,8 +511,6 @@ public class ShareFileFragment extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log_OC.d(TAG, "onActivityCreated");
-
-        getActivity().setTitle(R.string.share_dialog_title);
 
         // Load known capabilities of the server from DB
         refreshCapabilitiesFromDB();
