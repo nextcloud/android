@@ -506,8 +506,8 @@ public class UploadsStorageManager extends Observable {
 
         if (uploadResult.isCancelled()) {
             removeUpload(
-                    upload.getAccount().name,
-                    upload.getRemotePath()
+                upload.getAccount().name,
+                upload.getRemotePath()
             );
         } else {
 
@@ -519,20 +519,11 @@ public class UploadsStorageManager extends Observable {
                         upload.getRemotePath()
                 );
             } else {
-                // TODO: Disable for testing of menu actions in uploads view
-                if (shouldRetryFailedUpload(uploadResult)) {
-                    updateUploadStatus(
-                        upload.getOCUploadId(),
-                        UploadStatus.UPLOAD_FAILED,
-                        UploadResult.fromOperationResult(uploadResult),
-                        upload.getRemotePath());
-                } else {
-                    updateUploadStatus(
-                        upload.getOCUploadId(),
-                        UploadStatus.UPLOAD_FAILED,
-                        UploadResult.fromOperationResult(uploadResult),
-                        upload.getRemotePath());
-                }
+                updateUploadStatus(
+                    upload.getOCUploadId(),
+                    UploadStatus.UPLOAD_FAILED,
+                    UploadResult.fromOperationResult(uploadResult),
+                    upload.getRemotePath());
             }
         }
     }

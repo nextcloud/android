@@ -645,6 +645,7 @@ public class FileUploader extends Service
          */
         public void cancel(OCUpload storedUpload) {
             cancel(storedUpload.getAccountName(), storedUpload.getRemotePath());
+
         }
 
         /**
@@ -659,7 +660,7 @@ public class FileUploader extends Service
             UploadFileOperation upload = removeResult.first;
             if (upload == null &&
                     mCurrentUpload != null && mCurrentAccount != null &&
-                    mCurrentUpload.getRemotePath().startsWith(remotePath) &&
+                    remotePath.contains(mCurrentUpload.getFileName()) &&
                     accountName.equals(mCurrentAccount.name)) {
 
                 upload = mCurrentUpload;
@@ -667,14 +668,12 @@ public class FileUploader extends Service
             if (upload != null) {
                 boolean pending = !upload.isUploadInProgress();
                 upload.cancel();
-                if (pending) {
-                    // need to update now table in mUploadsStorageManager,
-                    // since the operation will not get to be run by FileUploader#uploadFile
-                    mUploadsStorageManager.removeUpload(
-                            accountName,
-                            remotePath
-                    );
-                }
+                // need to update now table in mUploadsStorageManager,
+                // since the operation will not get to be run by FileUploader#uploadFile
+                mUploadsStorageManager.removeUpload(
+                        accountName,
+                        remotePath
+                );
             }
         }
 
