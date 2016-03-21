@@ -382,7 +382,7 @@
     <string name="share_via_link_expiration_date_label">Set expiration date</string>
     <string name="share_via_link_password_label">Password protect</string>
     <string name="share_via_link_password_title">Secured</string>
-    <string name="share_via_link_edit_permission_label">Allow edit</string>
+    <string name="share_via_link_edit_permission_label">Allow editing</string>
     <string name="share_get_public_link_button">Get link</string>
 
     <string name="share_search">Search</string>

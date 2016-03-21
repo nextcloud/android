@@ -411,17 +411,17 @@ public class FileOperationsHelper {
     }
 
     /**
-     * Updates a public share on a file to set its edit permissions.
+     * Updates a public share on a folder to set its editing permission.
      * Starts a request to do it in {@link OperationsService}
      *
-     * @param file                     File which public share will be constrained with an expiration date.
-     * @param uploadPermission          New state of the permissions of edit a folder shared via link.
+     * @param folder                     Folder which editing permission of his public share will be modified.
+     * @param uploadPermission          New state of the permission for editing the folder shared via link.
      */
-    public void setUploadPermissionsToShare(OCFile file, boolean uploadPermission) {
+    public void setUploadPermissionsToShare(OCFile folder, boolean uploadPermission) {
         Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
         updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-        updateShareIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        updateShareIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, folder.getRemotePath());
         updateShareIntent.putExtra(
                 OperationsService.EXTRA_SHARE_PUBLIC_UPLOAD,
                 uploadPermission

@@ -490,17 +490,11 @@ public class ShareFileFragment extends Fragment
                 // Fragment recreation on device rotations
                 return;
             }
-            boolean permission;
-            if (isChecked) {
-                permission = true;
-            } else {
-                permission = false;
-            }
 
             ((FileActivity) getActivity()).getFileOperationsHelper().
                     setUploadPermissionsToShare(
                             mFile,
-                            permission
+                            isChecked
                     );
             ;
 
@@ -742,23 +736,22 @@ public class ShareFileFragment extends Fragment
 
             /// update state of the edit permission switch
             Switch editPermissionSwitch = getEditPermissionSwitch();
-            if(getEditPermissionSection().getVisibility() == View.VISIBLE) {
-                // set null listener before setChecked() to prevent infinite loop of calls
-                editPermissionSwitch.setOnCheckedChangeListener(null);
-                if (mPublicShare.getPermissions() > OCShare.READ_PERMISSION_FLAG) {
-                    if (!editPermissionSwitch.isChecked()) {
-                        editPermissionSwitch.toggle();
-                    }
-                } else {
-                    if (editPermissionSwitch.isChecked()) {
-                        editPermissionSwitch.toggle();
-                    }
+
+            // set null listener before setChecked() to prevent infinite loop of calls
+            editPermissionSwitch.setOnCheckedChangeListener(null);
+            if (mPublicShare.getPermissions() > OCShare.READ_PERMISSION_FLAG) {
+                if (!editPermissionSwitch.isChecked()) {
+                    editPermissionSwitch.toggle();
                 }
-                // recover listener
-                editPermissionSwitch.setOnCheckedChangeListener(
-                        mOnEditPermissionInteractionListener
-                );
+            } else {
+                if (editPermissionSwitch.isChecked()) {
+                    editPermissionSwitch.toggle();
+                }
             }
+            // recover listener
+            editPermissionSwitch.setOnCheckedChangeListener(
+                    mOnEditPermissionInteractionListener
+            );
 
         } else {
             /// no public share -> collapse section
