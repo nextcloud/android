@@ -352,6 +352,8 @@
   <string name="share_search">Perquisar</string>
   <string name="search_users_and_groups_hint">Pesquisar usuários e grupos</string>
   <string name="share_group_clarification">%1$s (grupo)</string>
+  <string name="share_remote_clarification">%1$s (remoto)</string>
+  <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
   <string name="share_sharee_unavailable">Desculpe, sua versão do servidor não permite compartilhamento com usuários que também são clientes.
         \nEntre em contato com o administrador</string>
   <string name="share_privilege_can_share">pode compartilhar</string>
