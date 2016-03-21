@@ -293,7 +293,7 @@ public class ExtendedListFragment extends Fragment
         }
 
         SharedPreferences appPreferences = PreferenceManager
-                .getDefaultSharedPreferences(MainApp.getAppContext());
+                .getDefaultSharedPreferences(getContext());
         mScale = appPreferences.getFloat(GRID_COLUMNS, -1.0f);
     }    
     
