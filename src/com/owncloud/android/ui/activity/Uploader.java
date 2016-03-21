@@ -158,6 +158,12 @@ public class Uploader extends FileActivity
 
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.uploader_layout);
+
+        mRadioBtnMoveFiles = (RadioButton) findViewById(R.id.uploader_radio_move);
+        mRadioBtnCopyFiles = (RadioButton) findViewById(R.id.uploader_radio_copy);
+        mRadioBtnCopyFiles.setChecked(true);
+
         if (mAccountSelected) {
             setAccount((Account) savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT));
         }
@@ -427,12 +433,6 @@ public class Uploader extends FileActivity
     }
 
     private void populateDirectoryList() {
-        setContentView(R.layout.uploader_layout);
-
-        mRadioBtnMoveFiles = (RadioButton) findViewById(R.id.uploader_radio_move);
-        mRadioBtnCopyFiles = (RadioButton) findViewById(R.id.uploader_radio_copy);
-        mRadioBtnCopyFiles.setChecked(true);
-        
         ListView mListView = (ListView) findViewById(android.R.id.list);
 
         String current_dir = mParents.peek();

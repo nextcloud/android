@@ -27,7 +27,7 @@
 	<FrameLayout
 		android:layout_height="388dp"
 		android:layout_width="match_parent"
-		android:id="@+id/frameLayout1">
+		android:layout_weight="1">
 
 		<ListView android:id="@android:id/list"
 			android:layout_width="fill_parent"
@@ -40,7 +40,7 @@
             android:text="@string/uploader_top_message"
             android:layout_height="wrap_content"
             android:id="@+id/drawer_username"
-            android:textColor="@android:color/black"
+            android:textColor="@color/textColor"
             android:gravity="center_horizontal">
         </TextView>
 
@@ -54,7 +54,7 @@
 		android:paddingLeft="16dp"
 		android:paddingRight="16dp">
 
-		<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+		<RadioGroup
 			android:id="@+id/drawer_radio_group"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
