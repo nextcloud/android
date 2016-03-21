@@ -366,6 +366,7 @@
     <string name="file_migration_override_data_folder">Override</string>
     <string name="file_migration_use_data_folder">Use existing</string>
 
+    <string name="prefs_category_security">Security</string>
     <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Add account</string>
     <string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through an unsecured route.</string>
