@@ -1062,9 +1062,10 @@ public class FileActivity extends AppCompatActivity
 //                    break;
 
                 case 0: // All Files
-                    MainApp.showOnlyFilesOnDevice(false);
-                    refreshDirectory();
-                    mDrawerLayout.closeDrawers();
+                    restart();
+//                    MainApp.showOnlyFilesOnDevice(false);
+//                    refreshDirectory();
+//                    mDrawerLayout.closeDrawers();
                     break;
 
                 case 1: // On Device
