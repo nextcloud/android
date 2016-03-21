@@ -355,6 +355,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="share_search">Zoeken</string>
   <string name="search_users_and_groups_hint">Zoeken naar gebruikers en groepen</string>
   <string name="share_group_clarification">%1$s (groep)</string>
+  <string name="share_remote_clarification">%1$s (extern)</string>
+  <string name="share_known_remote_clarification">%1$s ( om %2$s )</string>
   <string name="share_sharee_unavailable">Sorry, uw serverversie staat niet toe om binnen de clients te delen met gebruikers.
 Neem contact op met uw beheerder</string>
   <string name="share_privilege_can_share">kan delen</string>

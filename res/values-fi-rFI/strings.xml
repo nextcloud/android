@@ -329,6 +329,7 @@
   <string name="share_search">Etsi</string>
   <string name="search_users_and_groups_hint">Etsi käyttäjiä ja ryhmiä</string>
   <string name="share_group_clarification">%1$s (ryhmä)</string>
+  <string name="share_remote_clarification">%1$s (etä)</string>
   <string name="share_privilege_can_share">jaa</string>
   <string name="share_privilege_can_edit">voi muokata</string>
   <string name="share_privilege_can_edit_create">luo</string>

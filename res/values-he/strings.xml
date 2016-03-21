@@ -352,6 +352,8 @@
   <string name="share_search">חיפוש</string>
   <string name="search_users_and_groups_hint">חיפוש משתמשים וקבוצות</string>
   <string name="share_group_clarification">%1$s (קבוצה)</string>
+  <string name="share_remote_clarification">%1$s (נשלט מרחוק)</string>
+  <string name="share_known_remote_clarification">%1$s ( ב- %2$s )</string>
   <string name="share_sharee_unavailable">מצטערים, גרסת השרת שלך לא מאפשרת שיתוף עם משתמשים בין לקוחות.
         \nיש ליצור קשר עם המנהל</string>
   <string name="share_privilege_can_share">ניתן לשתף</string>

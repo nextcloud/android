@@ -352,6 +352,8 @@
   <string name="share_search">Poišči</string>
   <string name="search_users_and_groups_hint">Iskanje uporabnikov in skupin</string>
   <string name="share_group_clarification">%1$s (skupina)</string>
+  <string name="share_remote_clarification">%1$s (oddaljeno)</string>
+  <string name="share_known_remote_clarification">%1$s ( pri %2$s )</string>
   <string name="share_sharee_unavailable">Različica strežnika ne omogoča souporabe predmetov z uporabniki med strankami.
 \nStopite v stik s skrbnikom sistema.</string>
   <string name="share_privilege_can_share">lahko omogoči souporabo</string>

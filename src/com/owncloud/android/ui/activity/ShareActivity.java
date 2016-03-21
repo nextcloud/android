@@ -1,22 +1,22 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author masensio
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author masensio
+ * @author David A. Velasco
+ * @author Juan Carlos González Cabrero
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p/>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -30,18 +30,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
-
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.fragment.EditShareFragment;
 import com.owncloud.android.ui.fragment.SearchShareesFragment;
@@ -63,7 +62,9 @@ public class ShareActivity extends FileActivity
     private static final String TAG_SEARCH_FRAGMENT = "SEARCH_USER_AND_GROUPS_FRAGMENT";
     private static final String TAG_EDIT_SHARE_FRAGMENT = "EDIT_SHARE_FRAGMENT";
 
-    /** Tag for dialog */
+    /**
+     * Tag for dialog
+     */
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
 
     @Override
@@ -108,7 +109,7 @@ public class ShareActivity extends FileActivity
             String shareWith = dataString.substring(dataString.lastIndexOf('/') + 1);
             doShareWith(
                     shareWith,
-                    UsersAndGroupsSearchProvider.DATA_GROUP.equals(data.getAuthority())
+                    data.getAuthority()
             );
 
         } else {
@@ -116,25 +117,32 @@ public class ShareActivity extends FileActivity
         }
     }
 
-    private void doShareWith(String shareeName, boolean isGroup) {
+    private void doShareWith(String shareeName, String dataAuthority) {
+
+        ShareType shareType = UsersAndGroupsSearchProvider.getShareType(dataAuthority);
+
         getFileOperationsHelper().shareFileWithSharee(
                 getFile(),
                 shareeName,
-                (isGroup ? ShareType.GROUP : ShareType.USER),
-                getAppropiatePermissions()
+                shareType,
+                getAppropiatePermissions(shareType)
         );
     }
 
 
-    private int getAppropiatePermissions() {
+    private int getAppropiatePermissions(ShareType shareType) {
+
+        // check if the Share is FERERATED
+        boolean isFederated = ShareType.FEDERATED.equals(shareType);
+
         if (getFile().isSharedWithMe()) {
             return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
 
         } else if (getFile().isFolder()) {
-            return OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
+            return (isFederated) ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER : OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
 
         } else {    // isFile
-            return OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
+            return (isFederated) ? OCShare.FEDERATED_PERMISSIONS_FOR_FILE : OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
         }
     }
 
@@ -191,10 +199,10 @@ public class ShareActivity extends FileActivity
         super.onRemoteOperationFinish(operation, result);
 
         if (result.isSuccess() ||
-            (operation instanceof GetSharesForFileOperation &&
-                result.getCode() == RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
-            )
-        ) {
+                (operation instanceof GetSharesForFileOperation &&
+                        result.getCode() == RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
+                )
+                ) {
             Log_OC.d(TAG, "Refreshing view on successful operation or finished refresh");
             refreshSharesFromStorageManager();
         }
@@ -245,7 +253,7 @@ public class ShareActivity extends FileActivity
 
         EditShareFragment editShareFragment = getEditShareFragment();
         if (editShareFragment != null &&
-                editShareFragment.isAdded())    {
+                editShareFragment.isAdded()) {
             editShareFragment.refreshUiFromDB();
         }
 
@@ -254,7 +262,7 @@ public class ShareActivity extends FileActivity
     /**
      * Shortcut to get access to the {@link ShareFileFragment} instance, if any
      *
-     * @return  A {@link ShareFileFragment} instance, or null
+     * @return A {@link ShareFileFragment} instance, or null
      */
     private ShareFileFragment getShareFileFragment() {
         return (ShareFileFragment) getSupportFragmentManager().findFragmentByTag(TAG_SHARE_FRAGMENT);
@@ -263,7 +271,7 @@ public class ShareActivity extends FileActivity
     /**
      * Shortcut to get access to the {@link SearchShareesFragment} instance, if any
      *
-     * @return  A {@link SearchShareesFragment} instance, or null
+     * @return A {@link SearchShareesFragment} instance, or null
      */
     private SearchShareesFragment getSearchFragment() {
         return (SearchShareesFragment) getSupportFragmentManager().findFragmentByTag(TAG_SEARCH_FRAGMENT);
@@ -272,7 +280,7 @@ public class ShareActivity extends FileActivity
     /**
      * Shortcut to get access to the {@link EditShareFragment} instance, if any
      *
-     * @return  A {@link EditShareFragment} instance, or null
+     * @return A {@link EditShareFragment} instance, or null
      */
     private EditShareFragment getEditShareFragment() {
         return (EditShareFragment) getSupportFragmentManager().findFragmentByTag(TAG_EDIT_SHARE_FRAGMENT);
