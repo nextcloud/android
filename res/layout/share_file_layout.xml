@@ -228,6 +228,40 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/shareViaLinkEditPermissionSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            >
+
+            <Switch
+                android:id="@+id/shareViaLinkEditPermissionSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:padding="8dp"
+                />
+
+            <TextView
+                android:id="@+id/shareViaLinkEditPermissionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@id/shareViaLinkEditPermissionSwitch"
+                android:layout_toStartOf="@id/shareViaLinkEditPermissionSwitch"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/share_via_link_edit_permission_label"
+                android:textSize="16sp"
+                />
+
+        </RelativeLayout>
+
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/shareViaLinkGetLinkButton"
             style="@style/ownCloud.Button"
