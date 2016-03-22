@@ -26,7 +26,6 @@ import android.net.Uri;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -154,6 +153,7 @@ public class UploadFileOperation extends SyncOperation {
      */
     private String mOriginalStoragePath = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
+    private OnRenameListener mRenameUploadListener;
 
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     private final AtomicBoolean mUploadStarted = new AtomicBoolean(false);
@@ -327,6 +327,10 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
+    public void addRenameUploadListener (OnRenameListener listener) {
+        mRenameUploadListener = listener;
+    }
+
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         mCancellationRequested.set(false);
@@ -365,8 +369,7 @@ public class UploadFileOperation extends SyncOperation {
                     Log_OC.d(TAG, "File renamed as " + remotePath);
                 }
                 mRemotePath = remotePath;
-                UploadsStorageManager usm = new UploadsStorageManager(mContext.getContentResolver());
-                usm.updateDatabaseUploadStart(this);
+                mRenameUploadListener.onRenameUpload();
             }
 
             if (mCancellationRequested.get()) {
@@ -816,5 +819,9 @@ public class UploadFileOperation extends SyncOperation {
         file.setRemoteId(remoteFile.getRemoteId());
     }
 
+    public interface OnRenameListener {
+
+        void onRenameUpload();
+    }
 
 }

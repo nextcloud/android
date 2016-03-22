@@ -89,7 +89,7 @@ import java.util.Vector;
  * However, Intent keys (e.g., KEY_WIFI_ONLY) are obeyed.
  */
 public class FileUploader extends Service
-        implements OnDatatransferProgressListener, OnAccountsUpdateListener {
+        implements OnDatatransferProgressListener, OnAccountsUpdateListener, UploadFileOperation.OnRenameListener {
 
     private static final String TAG = FileUploader.class.getSimpleName();
 
@@ -181,6 +181,12 @@ public class FileUploader extends Service
 
     public static String getUploadFinishMessage() {
         return FileUploader.class.getName() + UPLOAD_FINISH_MESSAGE;
+    }
+
+    @Override
+    public void onRenameUpload() {
+        mUploadsStorageManager.updateDatabaseUploadStart(mCurrentUpload);
+        sendBroadcastUploadStarted(mCurrentUpload);
     }
 
 
@@ -492,6 +498,8 @@ public class FileUploader extends Service
                     newUpload.addDatatransferProgressListener(this);
                     newUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
 
+                    newUpload.addRenameUploadListener(this);
+
                     // Save upload in database
                     OCUpload ocUpload = new OCUpload(files[i], account);
                     ocUpload.setFileSize(files[i].getFileLength());
@@ -554,6 +562,8 @@ public class FileUploader extends Service
 
             newUpload.addDatatransferProgressListener(this);
             newUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
+
+            newUpload.addRenameUploadListener(this);
 
             Pair<String, String> putResult = mPendingUploads.putIfAbsent(
                     account.name,
