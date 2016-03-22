@@ -242,7 +242,7 @@ public class Uploader extends FileActivity
             });
             return pDialog;
         case DIALOG_NO_ACCOUNT:
-            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
             builder.setMessage(String.format(
                     getString(R.string.uploader_wrn_no_account_text), getString(R.string.app_name)));
@@ -307,7 +307,7 @@ public class Uploader extends FileActivity
             });
             return builder.create();
         case DIALOG_NO_STREAM:
-            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_content_title);
             builder.setMessage(R.string.uploader_wrn_no_content_text);
             builder.setCancelable(false);

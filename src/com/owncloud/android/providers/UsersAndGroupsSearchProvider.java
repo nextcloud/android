@@ -63,6 +63,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final String[] COLUMNS = {
             BaseColumns._ID,
             SearchManager.SUGGEST_COLUMN_TEXT_1,
+            SearchManager.SUGGEST_COLUMN_ICON_1,
             SearchManager.SUGGEST_COLUMN_INTENT_DATA
     };
 
@@ -122,7 +123,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
      * @param selection     Expected to be NULL.
      * @param selectionArgs Expected to be NULL.
      * @param sortOrder     Expected to be NULL.
-     * @return Cursor with users and groups in the ownCloud server that match 'userQuery'.
+     * @return              Cursor with users and groups in the ownCloud server that match 'userQuery'.
      */
     @Nullable
     @Override
@@ -171,6 +172,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             Iterator<JSONObject> namesIt = names.iterator();
             JSONObject item;
             String displayName = null;
+            int icon = 0;
             Uri dataUri = null;
             int count = 0;
 
@@ -192,8 +194,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
                     if (ShareType.GROUP.getValue() == type) {
                         displayName = getContext().getString(R.string.share_group_clarification, userName);
+                        icon = R.drawable.ic_group;
                         dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
                     } else if (ShareType.FEDERATED.getValue() == type && federatedShareAllowed) {
+                        icon = R.drawable.ic_user;
                         if (userName.equals(shareWith)) {
                             displayName = getContext().getString(R.string.share_remote_clarification, userName);
                         } else {
@@ -204,6 +208,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
                     } else if (ShareType.USER.getValue() == type) {
                         displayName = userName;
+                        icon = R.drawable.ic_user;
                         dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
                     }
 
@@ -211,6 +216,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         response.newRow()
                             .add(count++)             // BaseColumns._ID
                             .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
+                            .add(icon)                // SearchManager.SUGGEST_COLUMN_ICON_1
                             .add(dataUri);
                     }
                 }

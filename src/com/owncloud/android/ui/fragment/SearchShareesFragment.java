@@ -27,13 +27,13 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -147,7 +147,7 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        getActivity().setTitle(R.string.share_dialog_title);
+        getActivity().setTitle(R.string.share_with_title);
 
         // Load data into the list
         refreshUsersOrGroupsListFromDB();

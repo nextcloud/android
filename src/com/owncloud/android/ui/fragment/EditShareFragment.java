@@ -24,12 +24,13 @@ package com.owncloud.android.ui.fragment;
 import android.accounts.Account;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -130,6 +131,9 @@ public class EditShareFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.edit_share_layout, container, false);
 
+        ((TextView)view.findViewById(R.id.editShareTitle)).setText(
+                getResources().getString(R.string.share_with_edit_title, mShare.getSharedWithDisplayName()));
+
         // Setup layout
         refreshUiFromState(view);
 
@@ -224,7 +228,7 @@ public class EditShareFragment extends Fragment {
             implements CompoundButton.OnCheckedChangeListener {
 
         /**
-         * Called by every {@link Switch} and {@link CheckBox} in the fragment to update
+         * Called by every {@link SwitchCompat} and {@link CheckBox} in the fragment to update
          * the state of its associated permission.
          *
          * @param compound  {@link CompoundButton} toggled by the user
@@ -309,7 +313,7 @@ public class EditShareFragment extends Fragment {
         }
 
         /**
-         * Sync value of "can edit" {@link Switch} according to a change in one of its subordinate checkboxes.
+         * Sync value of "can edit" {@link SwitchCompat} according to a change in one of its subordinate checkboxes.
          *
          * If all the subordinates are disabled, "can edit" has to be disabled.
          *
@@ -427,23 +431,23 @@ public class EditShareFragment extends Fragment {
     }
 
     /**
-     * Shortcut to access {@link Switch} R.id.canShareSwitch
+     * Shortcut to access {@link SwitchCompat} R.id.canShareSwitch
      *
-     * @return  {@link Switch} R.id.canShareCheckBox or null if called before
+     * @return  {@link SwitchCompat} R.id.canShareCheckBox or null if called before
      *          {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} finished.
      */
-    private Switch getCanShareSwitch() {
-        return (Switch) getView().findViewById(R.id.canShareSwitch);
+    private SwitchCompat getCanShareSwitch() {
+        return (SwitchCompat) getView().findViewById(R.id.canShareSwitch);
     }
 
     /**
-     * Shortcut to access {@link Switch} R.id.canEditSwitch
+     * Shortcut to access {@link SwitchCompat} R.id.canEditSwitch
      *
-     * @return  {@link Switch} R.id.canEditSwitch or null if called before
+     * @return  {@link SwitchCompat} R.id.canEditSwitch or null if called before
      *          {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} finished.
      */
-    private Switch getCanEditSwitch() {
-        return (Switch) getView().findViewById(R.id.canEditSwitch);
+    private SwitchCompat getCanEditSwitch() {
+        return (SwitchCompat) getView().findViewById(R.id.canEditSwitch);
     }
 
     /**
