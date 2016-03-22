@@ -325,6 +325,7 @@
   <string name="share_via_link_expiration_date_label">Aseta päättymispäivä</string>
   <string name="share_via_link_password_label">Suojaa salasanalla</string>
   <string name="share_via_link_password_title">Turvattu</string>
+  <string name="share_via_link_edit_permission_label">Salli muokkaus</string>
   <string name="share_get_public_link_button">Hanki linkki</string>
   <string name="share_search">Etsi</string>
   <string name="search_users_and_groups_hint">Etsi käyttäjiä ja ryhmiä</string>

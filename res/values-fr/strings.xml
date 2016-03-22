@@ -352,6 +352,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="share_via_link_expiration_date_label">Spécifier une date d\'expiration</string>
   <string name="share_via_link_password_label">Protéger par un mot de passe</string>
   <string name="share_via_link_password_title">Sécurisé</string>
+  <string name="share_via_link_edit_permission_label">Permettre la modification</string>
   <string name="share_get_public_link_button">Obtenir le lien</string>
   <string name="share_search">Rechercher</string>
   <string name="search_users_and_groups_hint">Chercher parmi les utilisateurs et groupes</string>

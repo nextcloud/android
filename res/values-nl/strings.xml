@@ -351,6 +351,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="share_via_link_expiration_date_label">Stel vervaldatum in</string>
   <string name="share_via_link_password_label">Wachtwoord beveiligd</string>
   <string name="share_via_link_password_title">Beveiligd</string>
+  <string name="share_via_link_edit_permission_label">Toestaan bewerken</string>
   <string name="share_get_public_link_button">Ophalen link</string>
   <string name="share_search">Zoeken</string>
   <string name="search_users_and_groups_hint">Zoeken naar gebruikers en groepen</string>

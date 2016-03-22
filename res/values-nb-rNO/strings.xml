@@ -348,6 +348,7 @@
   <string name="share_via_link_expiration_date_label">Sett utløpsdato</string>
   <string name="share_via_link_password_label">Passordbeskyttet</string>
   <string name="share_via_link_password_title">Sikret</string>
+  <string name="share_via_link_edit_permission_label">Tillat redigering</string>
   <string name="share_get_public_link_button">Hent lenke</string>
   <string name="share_search">Søk</string>
   <string name="search_users_and_groups_hint">Søk etter brukere og grupper</string>

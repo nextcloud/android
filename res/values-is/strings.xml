@@ -105,6 +105,7 @@
   <string name="share_via_link_section_title">Deila hlekk</string>
   <string name="share_via_link_expiration_date_label">Setja gildistíma</string>
   <string name="share_via_link_password_label">Verja með lykilorði</string>
+  <string name="share_via_link_edit_permission_label">Leyfa breytingar</string>
   <string name="share_search">Leita</string>
   <string name="search_users_and_groups_hint">Leita að notendum eða hópum</string>
   <string name="share_group_clarification">%1$s (hópur)</string>

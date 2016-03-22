@@ -345,6 +345,7 @@
   <string name="share_via_link_expiration_date_label">Caktoni datë skadimi</string>
   <string name="share_via_link_password_label">Mbroje me fjalëkalim</string>
   <string name="share_via_link_password_title">E siguruar</string>
+  <string name="share_via_link_edit_permission_label">Lejo përpunim</string>
   <string name="share_get_public_link_button">Merreni lidhjen</string>
   <string name="share_search">Kërko</string>
   <string name="search_users_and_groups_hint">Kërkoni për grupe dhe përdorues</string>

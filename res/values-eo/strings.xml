@@ -266,6 +266,7 @@
   <string name="share_via_link_expiration_date_label">Agordi limdaton</string>
   <string name="share_via_link_password_label">Protekti per pasvorto</string>
   <string name="share_via_link_password_title">Sekurigita</string>
+  <string name="share_via_link_edit_permission_label">Permesi redakton</string>
   <string name="share_get_public_link_button">Ekhavi ligilon</string>
   <string name="share_search">Serĉi</string>
   <string name="search_users_and_groups_hint">Serĉi uzantojn kaj grupojn</string>

@@ -348,6 +348,7 @@
   <string name="share_via_link_expiration_date_label">Establecer fecha de caducidad</string>
   <string name="share_via_link_password_label">Protección con contraseña</string>
   <string name="share_via_link_password_title">Asegurado</string>
+  <string name="share_via_link_edit_permission_label">Permitir edición</string>
   <string name="share_get_public_link_button">Obtener enlace</string>
   <string name="share_search">Buscar</string>
   <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>

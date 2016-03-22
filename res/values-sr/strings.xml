@@ -345,6 +345,7 @@
   <string name="share_via_link_expiration_date_label">Постави датум истека</string>
   <string name="share_via_link_password_label">Заштићено лозинком</string>
   <string name="share_via_link_password_title">Обезбеђен</string>
+  <string name="share_via_link_edit_permission_label">уређивање</string>
   <string name="share_get_public_link_button">Добави везу</string>
   <string name="share_search">Тражи</string>
   <string name="search_users_and_groups_hint">Претражи кориснике и групе</string>

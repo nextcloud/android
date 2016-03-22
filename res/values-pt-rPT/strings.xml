@@ -346,6 +346,7 @@
   <string name="share_via_link_expiration_date_label">Definir a data de expiração</string>
   <string name="share_via_link_password_label">Proteger com Palavra-passe</string>
   <string name="share_via_link_password_title">Protegido</string>
+  <string name="share_via_link_edit_permission_label">Permitir edição</string>
   <string name="share_get_public_link_button">Obter ligação</string>
   <string name="share_search">Procurar</string>
   <string name="search_users_and_groups_hint">Pesquisar utilizadores e grupos</string>

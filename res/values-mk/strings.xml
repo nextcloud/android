@@ -267,6 +267,7 @@
   <string name="share_via_link_section_title">Сподели ја врската</string>
   <string name="share_via_link_expiration_date_label">Постави рок на траење</string>
   <string name="share_via_link_password_label">Заштити со лозинка</string>
+  <string name="share_via_link_edit_permission_label">Овозможи уредување</string>
   <string name="share_search">Барај</string>
   <string name="share_privilege_can_share">може да споделува</string>
   <string name="share_privilege_can_edit">може да се измени</string>

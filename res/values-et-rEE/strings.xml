@@ -322,6 +322,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="share_via_link_expiration_date_label">Määra aegumise kuupäev</string>
   <string name="share_via_link_password_label">Parooliga kaitstud</string>
   <string name="share_via_link_password_title">Turvatud</string>
+  <string name="share_via_link_edit_permission_label">Luba muutmine</string>
   <string name="share_get_public_link_button">Hangi link</string>
   <string name="share_search">Otsi</string>
   <string name="search_users_and_groups_hint">Otsi kasutajaid ja gruppe</string>

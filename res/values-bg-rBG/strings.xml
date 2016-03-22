@@ -283,6 +283,7 @@
   <string name="share_via_link_section_title">Връзка за споделяне</string>
   <string name="share_via_link_expiration_date_label">Задаване на дата на изтичане</string>
   <string name="share_via_link_password_label">Защитено с парола</string>
+  <string name="share_via_link_edit_permission_label">Позволяване на редактиране</string>
   <string name="share_search">Търсене</string>
   <string name="share_privilege_can_share">може да споделя</string>
   <string name="share_privilege_can_edit">може да променя</string>

@@ -347,6 +347,7 @@
   <string name="share_via_link_expiration_date_label">设置过期日期</string>
   <string name="share_via_link_password_label">密码保护</string>
   <string name="share_via_link_password_title">安全</string>
+  <string name="share_via_link_edit_permission_label">允许编辑</string>
   <string name="share_get_public_link_button">获取链接</string>
   <string name="share_search">搜索</string>
   <string name="search_users_and_groups_hint">搜索用户和组</string>

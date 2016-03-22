@@ -348,6 +348,7 @@
   <string name="share_via_link_expiration_date_label">Imposta data di scadenza</string>
   <string name="share_via_link_password_label">Proteggi con password</string>
   <string name="share_via_link_password_title">Protetto</string>
+  <string name="share_via_link_edit_permission_label">Consenti la modifica</string>
   <string name="share_get_public_link_button">Ottieni collegamento</string>
   <string name="share_search">Cerca</string>
   <string name="search_users_and_groups_hint">Cerca utenti e gruppi</string>

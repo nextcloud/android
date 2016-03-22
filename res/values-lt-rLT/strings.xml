@@ -307,6 +307,7 @@
   <string name="share_via_link_expiration_date_label">Nustatykite galiojimo laiką</string>
   <string name="share_via_link_password_label">Apsaugotas slaptažodžiu</string>
   <string name="share_via_link_password_title">Apsaugota</string>
+  <string name="share_via_link_edit_permission_label">Leisti redaguoti</string>
   <string name="share_get_public_link_button">Gauti nuorodą</string>
   <string name="share_search">Ieškoti</string>
   <string name="search_users_and_groups_hint">Surasti vartotoją ar grupę</string>

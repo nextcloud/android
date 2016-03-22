@@ -74,6 +74,7 @@
   <string name="share_via_link_section_title">Veza deljenja</string>
   <string name="share_via_link_expiration_date_label">Datum isteka</string>
   <string name="share_via_link_password_label">Zaštita lozinkom</string>
+  <string name="share_via_link_edit_permission_label">Dozvoli uređivanje</string>
   <string name="share_search">Traži</string>
   <string name="share_privilege_can_share">može da deli</string>
   <string name="share_privilege_can_edit">može da menja</string>

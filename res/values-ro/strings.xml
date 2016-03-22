@@ -287,6 +287,7 @@
   <string name="share_via_link_section_title">Partajază legătură</string>
   <string name="share_via_link_expiration_date_label">Specifică data expirării</string>
   <string name="share_via_link_password_label">Protejare cu parolă</string>
+  <string name="share_via_link_edit_permission_label">Permite editarea</string>
   <string name="share_search">Căutare</string>
   <string name="share_privilege_can_share">se poate partaja</string>
   <string name="share_privilege_can_edit">se poate edita</string>

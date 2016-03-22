@@ -345,6 +345,7 @@
   <string name="share_via_link_expiration_date_label">กำหนดวันที่หมดอายุ</string>
   <string name="share_via_link_password_label">รหัสผ่านป้องกัน</string>
   <string name="share_via_link_password_title">ความปลอดภัย</string>
+  <string name="share_via_link_edit_permission_label">อนุญาตให้แก้ไข</string>
   <string name="share_get_public_link_button">รับลิงค์</string>
   <string name="share_search">ค้นหา</string>
   <string name="search_users_and_groups_hint">ค้นหาผู้ใช้และกลุ่ม</string>

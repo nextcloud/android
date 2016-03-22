@@ -349,6 +349,7 @@
   <string name="share_via_link_expiration_date_label">Установить срок действия</string>
   <string name="share_via_link_password_label">Защитить паролем</string>
   <string name="share_via_link_password_title">Безопасный</string>
+  <string name="share_via_link_edit_permission_label">Разрешить редактирование</string>
   <string name="share_get_public_link_button">Получить ссылку</string>
   <string name="share_search">Найти</string>
   <string name="search_users_and_groups_hint">Поиск пользователей и групп</string>

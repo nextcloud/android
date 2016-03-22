@@ -294,6 +294,7 @@
   <string name="share_via_link_expiration_date_label">Vælg udløbsdato</string>
   <string name="share_via_link_password_label">Beskyt med adgangskode</string>
   <string name="share_via_link_password_title">Sikret</string>
+  <string name="share_via_link_edit_permission_label">Tillad redigering</string>
   <string name="share_search">Søg</string>
   <string name="share_privilege_can_share">kan dele</string>
   <string name="share_privilege_can_edit">kan redigere</string>
