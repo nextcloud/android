@@ -11,7 +11,7 @@ Tell us what happens instead
 
 
 Can this problem be reproduced with the official owncloud server?
-(url: https://demo.owncloud.org, user: test, password: test-
+(url: https://demo.owncloud.org, user: test, password: test)
 
 
 ### Environment data
