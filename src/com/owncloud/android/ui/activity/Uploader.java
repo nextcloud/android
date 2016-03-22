@@ -587,7 +587,7 @@ public class Uploader extends FileActivity
                     } else {
                         throw new SecurityException();
                     }
-                    if (data == null) {
+                    //if (data == null) {
                         mRemoteCacheData.add(filePath);
                         CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
                         Object[] params = {uri, filePath, mRemoteCacheData.size() - 1,
@@ -595,7 +595,10 @@ public class Uploader extends FileActivity
                         mNumCacheFile++;
                         showWaitingCopyDialog();
                         copyTask.execute(params);
-                    }
+
+                    //} else {
+                    // TODO request to FileUploader with data as source file, resulting in lazy temporary copy
+                    //}
                 } else {
                     throw new SecurityException();
                 }
