@@ -29,7 +29,7 @@
                   android:layout_height="wrap_content">
         <TextView
             android:id="@+id/editShareTitle"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/share_with_edit_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -60,6 +60,7 @@
             android:layout_gravity="start"
             android:layout_marginTop="@dimen/standard_half_margin"
             android:textColor="@color/color_accent"
+            android:paddingLeft="0dp"
             style="?android:attr/listSeparatorTextViewStyle"
             />
 
@@ -95,6 +96,7 @@
             android:layout_gravity="start"
             android:layout_marginTop="@dimen/standard_half_margin"
             android:textColor="@color/color_accent"
+            android:paddingLeft="0dp"
             style="?android:attr/listSeparatorTextViewStyle"
             />
     </LinearLayout>
