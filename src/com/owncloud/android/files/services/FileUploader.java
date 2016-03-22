@@ -660,7 +660,7 @@ public class FileUploader extends Service
             UploadFileOperation upload = removeResult.first;
             if (upload == null &&
                     mCurrentUpload != null && mCurrentAccount != null &&
-                    remotePath.contains(mCurrentUpload.getFileName()) &&
+                    mCurrentUpload.getRemotePath().startsWith(remotePath) &&
                     accountName.equals(mCurrentAccount.name)) {
 
                 upload = mCurrentUpload;

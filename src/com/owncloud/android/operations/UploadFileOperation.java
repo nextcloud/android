@@ -26,6 +26,7 @@ import android.net.Uri;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -363,6 +364,9 @@ public class UploadFileOperation extends SyncOperation {
                     createNewOCFile(remotePath);
                     Log_OC.d(TAG, "File renamed as " + remotePath);
                 }
+                mRemotePath = remotePath;
+                UploadsStorageManager usm = new UploadsStorageManager(mContext.getContentResolver());
+                usm.updateDatabaseUploadStart(this);
             }
 
             if (mCancellationRequested.get()) {
