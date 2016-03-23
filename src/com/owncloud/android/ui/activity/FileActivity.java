@@ -838,6 +838,7 @@ public class FileActivity extends DrawerActivity
 
                 case 0: // All Files
                     allFilesOption();
+                    //mDrawerLayout.closeDrawers();
                     break;
 
                 // TODO Enable when "On Device" is recovered ?
@@ -856,6 +857,7 @@ public class FileActivity extends DrawerActivity
                     Intent settingsIntent = new Intent(getApplicationContext(),
                             Preferences.class);
                     startActivity(settingsIntent);
+                    //mDrawerLayout.closeDrawers();
                     break;
             }
             mDrawerLayout.closeDrawers();
