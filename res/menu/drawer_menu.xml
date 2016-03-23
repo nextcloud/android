@@ -17,20 +17,47 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <!--
+      standard menu
+      all items in this group MUST have orderInCategory="0" set
+    -->
+    <group android:id="@+id/drawer_menu_standard" android:checkableBehavior="single">
         <item
+            android:orderInCategory="0"
             android:id="@+id/nav_all_files"
             android:icon="@drawable/ic_folder_open"
             android:title="@string/drawer_item_all_files"/>
         <item
+            android:orderInCategory="0"
             android:id="@+id/nav_uploads"
             android:icon="@drawable/ic_uploads"
             android:title="Uploads"/>
     </group>
 
-    <!-- add an id to the group to get a separator line -->
+    <!--
+      account list placeholder
+      all items in this group MUST have orderInCategory="2" set
+      all accounts are dynamically added with orderInCategory="1" set
+    -->
+    <group android:id="@+id/drawer_menu_accounts">
+        <item
+            android:orderInCategory="2"
+            android:id="@+id/drawer_menu_account_add"
+            android:icon="@drawable/ic_account_plus"
+            android:title="@string/prefs_add_account"/>
+        <item
+            android:orderInCategory="2"
+            android:id="@+id/drawer_menu_account_manage"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/drawer_manage_accounts"/>
+    </group>
+
+    <!--
+      all items in this group MUST have orderInCategory="3" set
+    -->
     <group>
         <item
+            android:orderInCategory="3"
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/actionbar_settings"/>
