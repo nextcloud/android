@@ -2,7 +2,7 @@
 <!--
   ownCloud Android client application
 
-  Copyright (C) 2014 ownCloud Inc.
+  Copyright (C) 2016 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -18,18 +18,5 @@
 -->
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">@dimen/standard_padding</dimen>
-    <dimen name="activity_vertical_margin">@dimen/standard_padding</dimen>
-    <dimen name="nav_drawer_width">260dp</dimen>
-    <dimen name="nav_drawer_header_height">140dp</dimen>
-
-    <dimen name="file_icon_size">32dp</dimen>
-    <dimen name="file_icon_size_grid">128dp</dimen>
-    <dimen name="standard_padding">16dp</dimen>
-    <dimen name="standard_half_padding">8dp</dimen>
-    <dimen name="standard_margin">16dp</dimen>
-    <dimen name="standard_half_margin">8dp</dimen>
-
-    <dimen name="two_line_primary_text_size">16sp</dimen>
-    <dimen name="two_line_secondary_text_size">14sp</dimen>
+    <dimen name="nav_drawer_header_height">164dp</dimen>
 </resources>
