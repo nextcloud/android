@@ -17,11 +17,14 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/upload_files_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/background_color"
     android:orientation="vertical" >
+
+    <include
+        layout="@layout/toolbar_standard" />
 
     <fragment
         android:id="@+id/local_files_list"

@@ -35,6 +35,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -43,6 +44,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -96,7 +98,7 @@ import java.util.ArrayList;
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud
  * {@link Account}s .
  */
-public class FileActivity extends AppCompatActivity
+public class FileActivity extends DrawerActivity
         implements OnRemoteOperationListener, ComponentsGetter, SslUntrustedCertDialog.OnSslUntrustedCertListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
@@ -160,21 +162,6 @@ public class FileActivity extends AppCompatActivity
     protected FileDownloaderBinder mDownloaderBinder = null;
     protected FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
-
-    // Navigation Drawer
-    protected DrawerLayout mDrawerLayout;
-    protected ActionBarDrawerToggle mDrawerToggle;
-    protected ListView mDrawerList;
-
-    // Slide menu items
-    protected String[] mDrawerTitles;
-    protected String[] mDrawerContentDescriptions;
-
-    protected ArrayList<NavigationDrawerItem> mDrawerItems;
-
-    protected NavigationDrawerListAdapter mNavigationDrawerAdapter = null;
-
-
 
     // TODO re-enable when "Accounts" is available in Navigation Drawer
 //    protected boolean mShowAccounts = false;
@@ -300,208 +287,6 @@ public class FileActivity extends AppCompatActivity
         }
 
         super.onDestroy();
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        if (mDrawerToggle != null) {
-            mDrawerToggle.syncState();
-            if (isDrawerOpen()) {
-                getSupportActionBar().setTitle(R.string.app_name);
-                mDrawerToggle.setDrawerIndicatorEnabled(true);
-            }
-        }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if (mDrawerToggle != null) {
-            mDrawerToggle.onConfigurationChanged(newConfig);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (isDrawerOpen()) {
-            closeNavDrawer();
-            return;
-        }
-        super.onBackPressed();
-    }
-
-    /**
-     * checks if the drawer exists and is opened.
-     *
-     * @return <code>true</code> if the drawer is open, else <code>false</code>
-     */
-    public boolean isDrawerOpen() {
-        if(mDrawerLayout != null) {
-            return mDrawerLayout.isDrawerOpen(GravityCompat.START);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * closes the navigation drawer.
-     */
-    public void closeNavDrawer() {
-        if(mDrawerLayout != null) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        }
-    }
-
-    protected void initDrawer(){
-        // constant settings for action bar when navigation drawer is inited
-        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        // Notification Drawer
-        RelativeLayout navigationDrawerLayout = (RelativeLayout) findViewById(R.id.left_drawer);
-        mDrawerList = (ListView) navigationDrawerLayout.findViewById(R.id.drawer_list);
-
-        // TODO re-enable when "Accounts" is available in Navigation Drawer
-//        // load Account in the Drawer Title
-//        // User-Icon
-//        ImageView userIcon = (ImageView) navigationDrawerLayout.findViewById(R.id.drawer_userIcon);
-//        userIcon.setImageResource(DisplayUtils.getSeasonalIconId());
-//
-//        // Username
-//        TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
-//        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-//
-//        if (account != null) {
-//            int lastAtPos = account.name.lastIndexOf("@");
-//            username.setText(account.name.substring(0, lastAtPos));
-//        }
-
-        // Display username in drawer
-        setUsernameInDrawer(navigationDrawerLayout, AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()));
-
-        // load slide menu items
-        mDrawerTitles = getResources().getStringArray(R.array.drawer_items);
-
-        // nav drawer content description from resources
-        mDrawerContentDescriptions = getResources().
-                getStringArray(R.array.drawer_content_descriptions);
-
-        // nav drawer items
-        mDrawerItems = new ArrayList<NavigationDrawerItem>();
-        // adding nav drawer items to array
-        // TODO re-enable when "Accounts" is available in Navigation Drawer
-        // Accounts
-        // mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0],
-        // mDrawerContentDescriptions[0]));
-        // All Files
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0],
-                R.drawable.ic_folder_open));
-
-        // TODO Enable when "On Device" is recovered
-        // On Device
-        //mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2],
-        //        mDrawerContentDescriptions[2]));
-
-        // Uploads
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[2],
-                R.drawable.ic_uploads));
-
-        // Settings
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2], mDrawerContentDescriptions[1],
-                R.drawable.ic_settings));
-
-        // setting the nav drawer list adapter
-        mNavigationDrawerAdapter = new NavigationDrawerListAdapter(getApplicationContext(), this,
-                mDrawerItems);
-        mDrawerList.setAdapter(mNavigationDrawerAdapter);
-
-
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.drawer_open,R.string.drawer_close) {
-
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                updateActionBarTitleAndHomeButton(null);
-                invalidateOptionsMenu();
-            }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(R.string.app_name);
-                mDrawerToggle.setDrawerIndicatorEnabled(true);
-                invalidateOptionsMenu();
-            }
-        };
-        
-        // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-        // Set the drawer toggle as the DrawerListener
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerToggle.setDrawerIndicatorEnabled(false);
-    }
-
-    /**
-     * sets the given account name in the drawer in case the drawer is available. The account name
-     * is shortened beginning from the @-sign in the username.
-     *
-     * @param navigationDrawerLayout the drawer layout to be used
-     * @param account                the account to be set in the drawer
-     */
-    protected void setUsernameInDrawer(View navigationDrawerLayout, Account account) {
-        if (navigationDrawerLayout != null && account != null) {
-            TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
-            int lastAtPos = account.name.lastIndexOf("@");
-            username.setText(account.name.substring(0, lastAtPos));
-        }
-    }
-
-    /**
-     * Updates title bar and home buttons (state and icon).
-     *
-     * Assumes that navigation drawer is NOT visible.
-     */
-    protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        String title = getDefaultTitle();    // default
-        boolean inRoot;
-
-        /// choose the appropiate title
-        if (chosenFile == null) {
-            chosenFile = mFile;     // if no file is passed, current file decides
-        }
-        inRoot = (
-                chosenFile == null ||
-                (chosenFile.isFolder() && chosenFile.getParentId() == FileDataStorageManager.ROOT_PARENT_ID)
-        );
-        if (!inRoot) {
-            title = chosenFile.getFileName();
-        }
-
-        /// set the chosen title
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(title);
-        /// also as content description
-        View actionBarTitleView = getWindow().getDecorView().findViewById(
-                getResources().getIdentifier("action_bar_title", "id", "android")
-        );
-        if (actionBarTitleView != null) {    // it's null in Android 2.x
-            actionBarTitleView.setContentDescription(title);
-        }
-
-        /// set home button properties
-        mDrawerToggle.setDrawerIndicatorEnabled(inRoot);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
-
-    }
-
-    protected String getDefaultTitle() {
-        return getString(R.string.default_display_name_for_root_folder);
     }
 
     /**
@@ -998,6 +783,7 @@ public class FileActivity extends AppCompatActivity
         startActivity(i);
     }
 
+    @Override
     public void allFilesOption(){
         restart();
     }
