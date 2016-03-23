@@ -44,6 +44,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -51,6 +52,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -116,7 +118,6 @@ public class FileDisplayActivity extends HookActivity implements
     private boolean mDualPane;
     private View mLeftFragmentContainer;
     private View mRightFragmentContainer;
-    private ProgressBar mProgressBar;
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
@@ -176,13 +177,11 @@ public class FileDisplayActivity extends HookActivity implements
         // Inflate and set the layout view
         setContentView(R.layout.files);
 
-        // Navigation Drawer
-        initDrawer();
+        // setup toolbar
+        setupToolbar();
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mProgressBar.setIndeterminateDrawable(
-                ContextCompat.getDrawable(this,
-                        R.drawable.actionbar_progress_indeterminate_horizontal));
+        // setup drawer
+        setupDrawer();
 
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
@@ -231,7 +230,7 @@ public class FileDisplayActivity extends HookActivity implements
             createMinFragments();
         }
 
-        mProgressBar.setIndeterminate(mSyncInProgress);
+        setIndeterminate(mSyncInProgress);
         // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
 
         setBackgroundText();
@@ -309,7 +308,7 @@ public class FileDisplayActivity extends HookActivity implements
             setFile(file);
 
             if (mAccountWasSet) {
-                setUsernameInDrawer(findViewById(R.id.left_drawer), getAccount());
+                setUsernameInDrawer(getAccount().name);
             }
 
             if (!stateWasRecovered) {
@@ -895,8 +894,9 @@ public class FileDisplayActivity extends HookActivity implements
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
+        //TODO re-enable account list
         // refresh Navigation Drawer account list
-        mNavigationDrawerAdapter.updateAccountList();
+        //mNavigationDrawerAdapter.updateAccountList();
 
         // refresh list of files
         refreshListOfFilesFragment();
@@ -1045,10 +1045,9 @@ public class FileDisplayActivity extends HookActivity implements
                     }
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                    mProgressBar.setIndeterminate(mSyncInProgress);
+                    setIndeterminate(mSyncInProgress);
 
                     setBackgroundText();
-
                 }
 
                 if (synchResult != null) {
@@ -1156,7 +1155,7 @@ public class FileDisplayActivity extends HookActivity implements
                     }
                 }
 
-                mProgressBar.setIndeterminate(false);
+                setIndeterminate(false);
 
             } finally {
                 if (intent != null) {
@@ -1290,6 +1289,9 @@ public class FileDisplayActivity extends HookActivity implements
 
     @Override
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
+        if (chosenFile == null) {
+            chosenFile = getFile();     // if no file is passed, current file decides
+        }
         if (mDualPane) {
             // in dual pane mode, keep the focus of title an action bar in the current folder
             super.updateActionBarTitleAndHomeButton(getCurrentDir());
@@ -1703,7 +1705,7 @@ public class FileDisplayActivity extends HookActivity implements
                                     null
                             );
 
-                            mProgressBar.setIndeterminate(true);
+                            setIndeterminate(true);
 
                             setBackgroundText();
 
