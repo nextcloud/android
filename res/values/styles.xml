@@ -34,7 +34,7 @@
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
-	<style name="Theme.ownCloud.noActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+	<style name="Theme.ownCloud.Toolbar" parent="Theme.AppCompat.NoActionBar">
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
 		<item name="colorPrimary">@color/primary</item>
@@ -46,7 +46,7 @@
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
     </style>
 
-	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar">
+	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.Toolbar">
 		<item name="colorAccent">@color/white</item>
 	</style>
 

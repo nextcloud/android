@@ -96,7 +96,7 @@ public class PreviewImageActivity extends FileActivity implements
         setContentView(R.layout.preview_image_activity);
 
         // Navigation Drawer
-        initDrawer();
+        setupDrawer();
 
         // ActionBar
         ActionBar actionBar = getSupportActionBar();
