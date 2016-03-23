@@ -188,12 +188,6 @@ public class FileDisplayActivity extends HookActivity implements
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
 
         // Action bar setup
-        getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS,
-        // according to the official
-        // documentation
-
-        // enable ActionBar app icon to behave as action to toggle nav drawer
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         Log_OC.v(TAG, "onCreate() end");
@@ -1804,7 +1798,7 @@ public class FileDisplayActivity extends HookActivity implements
                 PreviewTextFragment.class.getName(), args);
         setSecondFragment(textPreviewFragment);
         updateFragmentsVisibility(true);
-        //updateNavigationElementsInActionBar(file);
+        updateActionBarTitleAndHomeButton(file);
         setFile(file);
     }
 
