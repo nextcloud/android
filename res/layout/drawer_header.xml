@@ -24,6 +24,7 @@
               android:background="@color/drawer_header_color">
 
     <LinearLayout
+        android:id="@+id/drawer_active_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -79,7 +80,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/drawer_manage_accounts"
+            android:id="@+id/drawer_account_chooser_toogle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/drawer_manage_accounts"
