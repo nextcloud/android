@@ -16,17 +16,17 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        android:id="@+id/left_drawer"
-        android:layout_width="240dp"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:gravity="center"
-        android:orientation="vertical"
         android:fitsSystemWindows="true"
-        android:background="@color/background_color"
-        >
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer_menu"/>
 
         <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
         <!--<LinearLayout-->
@@ -55,49 +55,4 @@
             <!--android:layout_width="fill_parent"-->
             <!--android:layout_height="2dip"-->
             <!--android:background="@color/list_item_lastmod_and_filesize_text" />-->
-
-        <ListView
-            android:id="@+id/drawer_list"
-            android:choiceMode="singleChoice"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background_color"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:paddingTop="100dp" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:paddingTop="@dimen/standard_padding"
-            android:paddingBottom="@dimen/standard_padding"
-            android:background="@color/drawer_header_color">
-
-            <ImageView
-                android:id="@+id/itemIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginLeft="@dimen/standard_padding"
-                android:layout_marginBottom="3dp"
-                android:layout_gravity="bottom"
-                android:src="@drawable/ic_account_circle"
-                />
-
-            <TextView
-                android:id="@+id/drawer_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="bottom"
-                android:orientation="vertical"
-                android:text="@string/app_name"
-                android:textColor="#FFF"
-                android:paddingLeft="22dp"
-                android:paddingRight="@dimen/standard_padding"
-                android:textSize="24sp"
-                android:ellipsize="end"
-                android:singleLine="true"
-                />
-        </LinearLayout>
-    </RelativeLayout>
 </merge>
