@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
-import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 
 /**
@@ -35,7 +35,9 @@ public class TextDrawable extends Drawable {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawRect(0,-20,20,40,bg);
+        RectF rf = new RectF(0,24,24,0);
+        canvas.drawRoundRect(rf,24,24,bg);
+        //canvas.drawRect(0,-20,20,40,bg);
         canvas.drawText(text, 4, 6, paint);
     }
 

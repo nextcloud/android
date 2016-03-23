@@ -1,5 +1,6 @@
 package com.owncloud.android.ui.activity;
 
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -7,13 +8,17 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.TextDrawable;
 
 /**
  * Base class to handle setup of the drawer implementation.
@@ -22,6 +27,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
     // Navigation Drawer
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+    private NavigationView mNavigationView;
     private ImageView mAccountChooserToggle;
 
     private boolean mIsAccountChooserActive;
@@ -32,9 +38,9 @@ public abstract class DrawerActivity extends ToolbarActivity {
     protected void setupDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            setupDrawerContent(navigationView);
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (mNavigationView != null) {
+            setupDrawerContent(mNavigationView);
             mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
             mIsAccountChooserActive = false;
@@ -137,11 +143,20 @@ public abstract class DrawerActivity extends ToolbarActivity {
                                         Preferences.class);
                                 startActivity(settingsIntent);
                                 break;
+                            case R.id.drawer_menu_account_add:
+                                AccountManager am = AccountManager.get(getApplicationContext());
+                                am.addAccount(MainApp.getAccountType(), null, null, null, DrawerActivity.this,
+                                        null, null);
+                            case R.id.drawer_menu_account_manage:
+                                Toast.makeText(getApplicationContext(),"Not implemented yet",Toast.LENGTH_SHORT);
                         }
 
                         return true;
                     }
                 });
+
+        // hide accounts
+        mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
     }
 
     /**
@@ -236,9 +251,14 @@ public abstract class DrawerActivity extends ToolbarActivity {
         if (mIsAccountChooserActive) {
             // TODO close accounts list and display drawer menu again
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
+            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
+            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, true);
+
         } else {
             // TODO show accounts list
             mAccountChooserToggle.setImageResource(R.drawable.ic_up);
+            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
+            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, false);
         }
 
         mIsAccountChooserActive = !mIsAccountChooserActive;

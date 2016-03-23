@@ -44,7 +44,12 @@
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
 		<item name="android:windowBackground">@color/background_color</item>
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
+		<item name="android:listDivider">@color/transparent</item>
     </style>
+
+	<!-- separate style for Drawer activities needed for v21+ theming -->
+	<style name="Theme.ownCloud.Toolbar.Drawer">
+	</style>
 
 	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.Toolbar">
 		<item name="colorAccent">@color/white</item>
