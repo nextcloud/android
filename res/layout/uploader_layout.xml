@@ -17,10 +17,15 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="wrap_content" android:orientation="vertical"
-	android:layout_width="wrap_content" android:background="#fefefe"
-	android:gravity="center">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/upload_files_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include
+        layout="@layout/toolbar_standard" />
 
 	<TextView android:layout_width="fill_parent"
 		android:text="@string/uploader_top_message"
@@ -33,8 +38,7 @@
 	<FrameLayout android:layout_height="fill_parent"
 		android:layout_width="fill_parent"
 		android:id="@+id/frameLayout1"
-		android:layout_below="@+id/drawer_username"
-		android:layout_above="@+id/linearLayout1">
+		android:layout_weight="1">
 
 		<ListView android:id="@android:id/list"
 			android:layout_width="fill_parent"
@@ -46,11 +50,23 @@
 	</FrameLayout>
 
 	<LinearLayout
-	    android:id="@+id/linearLayout1"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:orientation="horizontal" >
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<ImageView
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:src="@drawable/uploader_list_separator"/>
+
+	</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/standard_padding">
 
 		<android.support.v7.widget.AppCompatButton
 			android:theme="@style/Button"
@@ -72,4 +88,4 @@
 		    android:text="@string/uploader_btn_upload_text" />
 
 	</LinearLayout>
-</RelativeLayout>
+</LinearLayout>

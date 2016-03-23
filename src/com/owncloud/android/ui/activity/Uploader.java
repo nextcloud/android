@@ -426,17 +426,19 @@ public class Uploader extends FileActivity
 
     private void populateDirectoryList() {
         setContentView(R.layout.uploader_layout);
+        setupToolbar();
+        ActionBar actionBar = getSupportActionBar();
 
         ListView mListView = (ListView) findViewById(android.R.id.list);
 
         String current_dir = mParents.peek();
         if (current_dir.equals("")) {
-            getSupportActionBar().setTitle(getString(R.string.default_display_name_for_root_folder));
+            actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
         } else {
-            getSupportActionBar().setTitle(current_dir);
+            actionBar.setTitle(current_dir);
         }
         boolean notRoot = (mParents.size() > 1);
-        ActionBar actionBar = getSupportActionBar();
+
         actionBar.setDisplayHomeAsUpEnabled(notRoot);
         actionBar.setHomeButtonEnabled(notRoot);
 
