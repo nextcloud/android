@@ -21,6 +21,7 @@
     <dimen name="activity_horizontal_margin">@dimen/standard_padding</dimen>
     <dimen name="activity_vertical_margin">@dimen/standard_padding</dimen>
     <dimen name="nav_drawer_width">260dp</dimen>
+    <dimen name="nav_drawer_header_height">140dp</dimen>
 
     <dimen name="file_icon_size">32dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>

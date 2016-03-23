@@ -181,6 +181,9 @@ public abstract class DrawerActivity extends ToolbarActivity {
         if (mDrawerLayout != null && accountName != null) {
             TextView username = (TextView) ((NavigationView) findViewById(R.id.nav_view))
                     .getHeaderView(0).findViewById(R.id.drawer_username);
+            TextView usernameFull = (TextView) ((NavigationView) findViewById(R.id.nav_view))
+                    .getHeaderView(0).findViewById(R.id.drawer_username_full);
+            usernameFull.setText(accountName);
             int lastAtPos = accountName.lastIndexOf("@");
             username.setText(accountName.substring(0, lastAtPos));
         }

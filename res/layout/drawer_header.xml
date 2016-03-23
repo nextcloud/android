@@ -16,35 +16,76 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="100dp"
-    android:paddingTop="@dimen/standard_padding"
-    android:paddingBottom="@dimen/standard_padding"
-    android:background="@color/drawer_header_color">
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/nav_drawer_header_height"
+              android:paddingBottom="@dimen/standard_padding"
+              android:paddingRight="@dimen/standard_padding"
+              android:paddingLeft="@dimen/standard_padding"
+              android:background="@color/drawer_header_color">
 
-    <ImageView
-        android:id="@+id/itemIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="@dimen/standard_padding"
-        android:layout_marginBottom="3dp"
-        android:layout_gravity="bottom"
-        android:src="@drawable/ic_account_circle"
-        />
-
-    <TextView
-        android:id="@+id/drawer_username"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:text="@string/app_name"
-        android:textColor="#FFF"
-        android:paddingLeft="22dp"
-        android:paddingRight="@dimen/standard_padding"
-        android:textSize="24sp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        />
+        >
+
+        <ImageView
+            android:id="@+id/drawer_usericon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_account_circle"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/standard_half_padding"
+            android:paddingRight="@dimen/standard_half_padding"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/drawer_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:shadowColor="@color/black"
+                android:shadowDx="0.5"
+                android:shadowDy="0"
+                android:shadowRadius="2"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:text="@string/app_name"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/drawer_username_full"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxLines="1"
+                android:shadowColor="@color/black"
+                android:shadowDx="0.5"
+                android:shadowDy="0"
+                android:shadowRadius="2"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:text="@string/app_name"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/drawer_manage_accounts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/drawer_manage_accounts"
+            android:src="@drawable/ic_down"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
 </LinearLayout>
