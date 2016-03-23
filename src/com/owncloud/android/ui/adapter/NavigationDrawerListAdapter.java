@@ -40,6 +40,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 
 import java.util.ArrayList;
 
+// TODO remove complete class as soon as account switcher v2 is implemented, keep it until then for inspiration
 public class NavigationDrawerListAdapter extends BaseAdapter {
 
     private final static String TAG  = NavigationDrawerListAdapter.class.getSimpleName();

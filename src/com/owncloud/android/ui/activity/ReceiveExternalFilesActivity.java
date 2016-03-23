@@ -380,13 +380,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private void populateDirectoryList() {
         setContentView(R.layout.uploader_layout);
+        setupToolbar();
+        ActionBar actionBar = getSupportActionBar();
 
         ListView mListView = (ListView) findViewById(android.R.id.list);
         ActionBar actionBar = getSupportActionBar();
 
         String current_dir = mParents.peek();
         if (current_dir.equals("")) {
-            actionBar.setTitle(getString(R.string.uploader_top_message));
+            actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
         } else {
             actionBar.setTitle(current_dir);
         }
