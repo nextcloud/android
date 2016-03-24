@@ -341,6 +341,7 @@
   <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
   <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
   <string name="share_dialog_title">Teilen</string>
+  <string name="share_file">Teile %1$s</string>
   <string name="share_with_user_section_title">Mit Benutzern oder Gruppen teilen</string>
   <string name="share_no_users">Es wurden noch keine Dateien mit Benutzern geteilt</string>
   <string name="share_add_user_or_group">Füge Benutzer oder Gruppe hinzu</string>
@@ -350,6 +351,8 @@
   <string name="share_via_link_password_title">Gesichert</string>
   <string name="share_via_link_edit_permission_label">Bearbeitung erlauben</string>
   <string name="share_get_public_link_button">Link erhalten</string>
+  <string name="share_with_title">Teile mit ...</string>
+  <string name="share_with_edit_title">Teile mit %1$s</string>
   <string name="share_search">Suche</string>
   <string name="search_users_and_groups_hint">Nutzer und Gruppen suchen</string>
   <string name="share_group_clarification">%1$s (Gruppe)</string>

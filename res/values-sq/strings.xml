@@ -338,6 +338,7 @@
   <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>
   <string name="pref_behaviour_entries_move">u kalua te dosja e aplikacionit</string>
   <string name="share_dialog_title">Ndarje me të tjerët</string>
+  <string name="share_file">Ndajeni %1$s</string>
   <string name="share_with_user_section_title">Ndajeni me përdorues dhe grupe</string>
   <string name="share_no_users">Ende pa të dhëna të ndara me përdorues</string>
   <string name="share_add_user_or_group">Shtoni përdorues ose grup</string>
@@ -347,6 +348,8 @@
   <string name="share_via_link_password_title">E siguruar</string>
   <string name="share_via_link_edit_permission_label">Lejo përpunim</string>
   <string name="share_get_public_link_button">Merreni lidhjen</string>
+  <string name="share_with_title">Ndajeni me …</string>
+  <string name="share_with_edit_title">Ndajeni me %1$s</string>
   <string name="share_search">Kërko</string>
   <string name="search_users_and_groups_hint">Kërkoni për grupe dhe përdorues</string>
   <string name="share_group_clarification">%1$s (grup)</string>
