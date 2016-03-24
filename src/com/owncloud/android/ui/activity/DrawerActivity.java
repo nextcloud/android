@@ -7,7 +7,6 @@ import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,49 +29,71 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.utils.BitmapUtils;
 
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 /**
  * Base class to handle setup of the drawer implementation.
  */
 public abstract class DrawerActivity extends ToolbarActivity {
     private static final String TAG = DrawerActivity.class.getSimpleName();
+    private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";
 
-    // Navigation Drawer
+    /**
+     * Reference to the drawer layout.
+     */
     private DrawerLayout mDrawerLayout;
+
+    /**
+     * Reference to the drawer toggle.
+     */
     private ActionBarDrawerToggle mDrawerToggle;
+
+    /**
+     * Reference to the navigation view.
+     */
     private NavigationView mNavigationView;
+
+    /**
+     * Reference to the account chooser toogle.
+     */
     private ImageView mAccountChooserToggle;
 
-    /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
+    /**
+     * ownCloud {@link Account} where the main {@link OCFile} handled by the activity is located.
+     */
     private Account mCurrentAccount;
 
+    /**
+     * Flag to signal if the account chooser is active.
+     */
     private boolean mIsAccountChooserActive;
 
-    /** Flag to signal that the activity will is finishing to enforce the creation of an ownCloud
-     * {@link Account} */
+    /**
+     * Flag to signal that the activity will is finishing to enforce the creation of an ownCloud {@link Account}.
+     */
     private boolean mRedirectingToSetupAccount = false;
 
-    /** Flag to signal when the value of mAccount was set */
+    /**
+     * Flag to signal when the value of mAccount was set.
+     */
     protected boolean mAccountWasSet;
 
-    /** Flag to signal when the value of mAccount was restored from a saved state */
+    /**
+     * Flag to signal when the value of mAccount was restored from a saved state.
+     */
     protected boolean mAccountWasRestored;
 
-    /** Capabilites of the server where {@link #mCurrentAccount} lives */
+    /**
+     * Capabilites of the server where {@link #mCurrentAccount} lives.
+     */
     private OCCapability mCapabilities;
 
-    /** Access point to the cached database for the current ownCloud {@link Account} */
+    /**
+     * Access point to the cached database for the current ownCloud {@link Account}.
+     */
     private FileDataStorageManager mStorageManager = null;
 
     /**
-     * Initializes the drawer and its content. This method needs to be called after the content view has been set.
+     * Initializes the drawer and its content.
+     * This method needs to be called after the content view has been set.
      */
     protected void setupDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -93,52 +114,15 @@ public abstract class DrawerActivity extends ToolbarActivity {
                     });
         }
 
-        // TODO re-enable when "Accounts" is available in Navigation Drawer
-//        // load Account in the Drawer Title
-//        // User-Icon
-//        ImageView userIcon = (ImageView) navigationDrawerLayout.findViewById(R.id.drawer_userIcon);
-//        userIcon.setImageResource(DisplayUtils.getSeasonalIconId());
-//
-//        // Username
-//        TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
-//        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-//
-//        if (account != null) {
-//            int lastAtPos = account.name.lastIndexOf("@");
-//            username.setText(account.name.substring(0, lastAtPos));
-//        }
-/*
-        // Display username in drawer
-        setUsernameInDrawer(navigationDrawerLayout, AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()));
-
-        // load slide menu items
-        mDrawerTitles = getResources().getStringArray(R.array.drawer_items);
-
-        // nav drawer content description from resources
-        mDrawerContentDescriptions = getResources().
-                getStringArray(R.array.drawer_content_descriptions);
-
-        // nav drawer items
-        mDrawerItems = new ArrayList<NavigationDrawerItem>();
-        // adding nav drawer items to array
-        // TODO re-enable when "Accounts" is available in Navigation Drawer
-        // Accounts
-        // mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0],
-        // mDrawerContentDescriptions[0]));
-        // All Files
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0],
-                R.drawable.ic_folder_open));
-
-        // TODO Enable when "On Device" is recovered
-        // On Device
-        //mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2],
-        //        mDrawerContentDescriptions[2]));
-*/
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
+                // standard behavior of drawer is to switch to the standard menu on closing
+                if (mIsAccountChooserActive) {
+                    toggleAccountList();
+                }
                 updateActionBarTitleAndHomeButton(null);
                 invalidateOptionsMenu();
             }
@@ -151,10 +135,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
                 invalidateOptionsMenu();
             }
         };
-        /*
-        // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-*/
+
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(false);
@@ -193,18 +174,22 @@ public abstract class DrawerActivity extends ToolbarActivity {
                             case Menu.NONE:
                                 // account clicked
                                 AccountUtils.setCurrentOwnCloudAccount(
-                                        getApplicationContext(),menuItem.getTitle().toString());
+                                        getApplicationContext(), menuItem.getTitle().toString());
                                 restart();
                             default:
-                                Log_OC.i(TAG,"Unknown drawer menu item clicked: " + menuItem.getTitle());
+                                Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
                         }
 
                         return true;
                     }
                 });
 
-        // hide accounts
-        mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
+        // handle correct state
+        if (mIsAccountChooserActive) {
+            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
+        } else {
+            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
+        }
     }
 
     /**
@@ -281,7 +266,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
         // add all accounts to list
         for (int i = 0; i < accounts.length; i++) {
             try {
-                int[] rgb = calculateRGB(accounts[i].name);
+                int[] rgb = BitmapUtils.calculateRGB(accounts[i].name);
                 TextDrawable icon = new TextDrawable(accounts[i].name.substring(0, 1).toUpperCase()
                         , rgb[0], rgb[1], rgb[2]);
                 mNavigationView.getMenu().add(R.id.drawer_menu_accounts, Menu.NONE, 0, accounts[i].name).setIcon(icon);
@@ -293,26 +278,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
         }
 
         // adding sets menu group back to visible, so safety check and setting invisible
-        if (!mIsAccountChooserActive) {
-            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
-        }
-    }
-
-    private int[] calculateRGB(String accountName) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        // using adapted algorithm from /core/js/placeholder.js:50
-        int lastAtPos = accountName.lastIndexOf("@");
-        String username = accountName.substring(0, lastAtPos);
-        byte[] seed = username.getBytes("UTF-8");
-        MessageDigest md = MessageDigest.getInstance("MD5");
-//                        Integer seedMd5Int = Math.abs(new String(Hex.encodeHex(seedMd5))
-//                      .hashCode());
-        Integer seedMd5Int = String.format(Locale.ROOT, "%032x",
-                new BigInteger(1, md.digest(seed))).hashCode();
-
-        double maxRange = Integer.MAX_VALUE;
-        float hue = (float) (seedMd5Int / maxRange * 360);
-
-        return BitmapUtils.HSLtoRGB(hue, 90.0f, 65.0f, 1.0f);
+        showMenu();
     }
 
     /**
@@ -348,38 +314,67 @@ public abstract class DrawerActivity extends ToolbarActivity {
             int lastAtPos = accountName.lastIndexOf("@");
             username.setText(accountName.substring(0, lastAtPos));
 
-            ImageView usericon = (ImageView) ((NavigationView) findViewById(R.id.nav_view))
+            ImageView userIcon = (ImageView) ((NavigationView) findViewById(R.id.nav_view))
                     .getHeaderView(0).findViewById(R.id.drawer_usericon);
             try {
-                int[] rgb = calculateRGB(accountName);
+                int[] rgb = BitmapUtils.calculateRGB(accountName);
                 TextDrawable icon = new TextDrawable(
                         accountName.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2]);
-                usericon.setImageDrawable(icon);
+                userIcon.setImageDrawable(icon);
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                usericon.setImageResource(R.drawable.ic_account_circle);
+                userIcon.setImageResource(R.drawable.ic_account_circle);
             }
         }
     }
 
     /**
-     * Toggle between drawer menu and account list.
+     * Toggle between standard menu and account list including saving the state.
      */
     private void toggleAccountList() {
-        if (mIsAccountChooserActive) {
-            // TODO close accounts list and display drawer menu again
-            mAccountChooserToggle.setImageResource(R.drawable.ic_down);
-            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
-            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, true);
+        mIsAccountChooserActive = !mIsAccountChooserActive;
+        showMenu();
+    }
 
-        } else {
-            // TODO show accounts list
+    /**
+     * depending on the #mIsAccountChooserActive flag shows the account chooser or the standard menu.
+     */
+    private void showMenu() {
+        if (mIsAccountChooserActive) {
             mAccountChooserToggle.setImageResource(R.drawable.ic_up);
             mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
             mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, false);
+        } else {
+            mAccountChooserToggle.setImageResource(R.drawable.ic_down);
+            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
+            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, true);
         }
+    }
 
-        mIsAccountChooserActive = !mIsAccountChooserActive;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, mIsAccountChooserActive);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
+
+        // (re-)setup drawer state
+        showMenu();
     }
 
     @Override
@@ -423,21 +418,21 @@ public abstract class DrawerActivity extends ToolbarActivity {
         return ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(id);
     }
 
-    public void restart(){
+    public void restart() {
         Intent i = new Intent(this, FileDisplayActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
     }
 
     /**
-     *  Sets and validates the ownCloud {@link Account} associated to the Activity.
+     * Sets and validates the ownCloud {@link Account} associated to the Activity.
+     * <p/>
+     * If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
+     * <p/>
+     * POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
      *
-     *  If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
-     *
-     *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
-     *
-     *  @param account          New {@link Account} to set.
-     *  @param savedAccount     When 'true', account was retrieved from a saved instance state.
+     * @param account      New {@link Account} to set.
+     * @param savedAccount When 'true', account was retrieved from a saved instance state.
      */
     protected void setAccount(Account account, boolean savedAccount) {
         Account oldAccount = mCurrentAccount;
@@ -454,14 +449,13 @@ public abstract class DrawerActivity extends ToolbarActivity {
         }
     }
 
-
     /**
-     *  Tries to swap the current ownCloud {@link Account} for other valid and existing.
-     *
-     *  If no valid ownCloud {@link Account} exists, the the user is requested
-     *  to create a new ownCloud {@link Account}.
-     *
-     *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
+     * Tries to swap the current ownCloud {@link Account} for other valid and existing.
+     * <p/>
+     * If no valid ownCloud {@link Account} exists, the the user is requested
+     * to create a new ownCloud {@link Account}.
+     * <p/>
+     * POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
      */
     protected void swapToDefaultAccount() {
         // default to the most recently used account
@@ -480,9 +474,8 @@ public abstract class DrawerActivity extends ToolbarActivity {
         }
     }
 
-
     /**
-     * Launches the account creation activity. To use when no ownCloud account is available
+     * Launches the account creation activity. To use when no ownCloud account is available.
      */
     private void createFirstAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
@@ -498,7 +491,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
      * a new ownCloud {@link Account} finished, successfully or not.
-     *
+     * <p/>
      * At this moment, only called after the creation of the first account.
      */
     public class AccountCreationCallback implements AccountManagerCallback<Bundle> {
@@ -534,15 +527,14 @@ public abstract class DrawerActivity extends ToolbarActivity {
     }
 
     /**
-     *  Called when the ownCloud {@link Account} associated to the Activity was just updated.
-     *
-     *  Child classes must grant that state depending on the {@link Account} is updated.
+     * Called when the ownCloud {@link Account} associated to the Activity was just updated.
+     * <p/>
+     * Child classes must grant that state depending on the {@link Account} is updated.
      */
     protected void onAccountSet(boolean stateWasRecovered) {
         if (getAccount() != null) {
             mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
             mCapabilities = mStorageManager.getCapability(mCurrentAccount.name);
-
         } else {
             Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
         }
@@ -552,24 +544,22 @@ public abstract class DrawerActivity extends ToolbarActivity {
         mCurrentAccount = account;
     }
 
-
     /**
      * Getter for the capabilities of the server where the current OC account lives.
      *
-     * @return  Capabilities of the server where the current OC account lives. Null if the account is not
-     *          set yet.
+     * @return Capabilities of the server where the current OC account lives. Null if the account is not
+     * set yet.
      */
     public OCCapability getCapabilities() {
         return mCapabilities;
     }
 
-
     /**
      * Getter for the ownCloud {@link Account} where the main {@link OCFile} handled by the activity
      * is located.
      *
-     * @return  OwnCloud {@link Account} where the main {@link OCFile} handled by the activity
-     *          is located.
+     * @return OwnCloud {@link Account} where the main {@link OCFile} handled by the activity
+     * is located.
      */
     public Account getAccount() {
         return mCurrentAccount;
