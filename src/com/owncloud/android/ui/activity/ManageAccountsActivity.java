@@ -23,6 +23,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
+import android.accounts.OperationCanceledException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -154,9 +155,37 @@ public class ManageAccountsActivity extends ToolbarActivity
 
     @Override
     public void createAccount() {
-        // TODO Show create account screen if there isn't any account, probably via the drawer implementation
         AccountManager am = AccountManager.get(getApplicationContext());
-        am.addAccount(MainApp.getAccountType(), null, null, null, ManageAccountsActivity.this, null, null);
+        am.addAccount(MainApp.getAccountType(),
+                null,
+                null,
+                null,
+                ManageAccountsActivity.this,
+                new AccountCreationCallback() {
+                    @Override
+                    public void run(AccountManagerFuture<Bundle> future) {
+                        if (future != null) {
+                            try {
+                                Bundle result = future.getResult();
+                                String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
+                                AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name);
+                                ArrayList<AccountListItem> accounts = getAccountListItems();
+                                mAccountListAdapter.clear();
+                                mAccountListAdapter.addAll(accounts);
+                                mAccountListAdapter.notifyDataSetChanged();
+                                mListView.invalidate();
+                            } catch (OperationCanceledException e) {
+                                Log_OC.d(TAG, "Account creation canceled");
+                            } catch (Exception e) {
+                                Log_OC.e(TAG, "Account creation finished in exception: ", e);
+                            }
+
+                        } else {
+                            Log_OC.e(TAG, "Account creation callback with null bundle");
+                        }
+                    }
+                },
+                mHandler);
     }
 
     @Override
@@ -186,6 +215,36 @@ public class ManageAccountsActivity extends ToolbarActivity
 
             mAccountListAdapter = new AccountListAdapter(this, getAccountListItems());
             mAccountListAdapter.notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * Helper class handling a callback from the {@link AccountManager} after the creation of
+     * a new ownCloud {@link Account} finished, successfully or not.
+     * <p/>
+     * At this moment, only called after the creation of the first account.
+     */
+    public class AccountCreationCallback implements AccountManagerCallback<Bundle> {
+        @Override
+        public void run(AccountManagerFuture<Bundle> future) {
+            if (future != null) {
+                try {
+                    Bundle result = future.getResult();
+                    String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
+                    AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name);
+                    ArrayList<AccountListItem> accounts = getAccountListItems();
+                    ManageAccountsActivity.this.mAccountListAdapter = new AccountListAdapter(ManageAccountsActivity
+                            .this, accounts);
+                    ManageAccountsActivity.this.mAccountListAdapter.notifyDataSetChanged();
+                } catch (OperationCanceledException e) {
+                    Log_OC.d(TAG, "Account creation canceled");
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Account creation finished in exception: ", e);
+                }
+
+            } else {
+                Log_OC.e(TAG, "Account creation callback with null bundle");
+            }
         }
     }
 
