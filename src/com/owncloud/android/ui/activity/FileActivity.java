@@ -74,8 +74,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 
 
 /**
- * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud
- * {@link Account}s .
+ * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud {@link Account}s .
  */
 public class FileActivity extends DrawerActivity
         implements OnRemoteOperationListener, ComponentsGetter, SslUntrustedCertDialog.OnSslUntrustedCertListener {
@@ -121,9 +120,6 @@ public class FileActivity extends DrawerActivity
     protected FileDownloaderBinder mDownloaderBinder = null;
     protected FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
-
-    // TODO re-enable when "Accounts" is available in Navigation Drawer
-//    protected boolean mShowAccounts = false;
 
     /**
      * Loads the ownCloud {@link Account} and main {@link OCFile} to be handled by the instance of
@@ -529,7 +525,6 @@ public class FileActivity extends DrawerActivity
             }
         }
 
-
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(FileActivity.this, OperationsService.class))) {
@@ -540,22 +535,15 @@ public class FileActivity extends DrawerActivity
         }
     }
 
-
     @Override
     public FileDownloaderBinder getFileDownloaderBinder() {
         return mDownloaderBinder;
     }
 
-
     @Override
     public FileUploaderBinder getFileUploaderBinder() {
         return mUploaderBinder;
     }
-
-//    TODO re-enable when "Accounts" is available in Navigation Drawer
-//    public void closeDrawer() {
-//        mDrawerLayout.closeDrawers();
-//    }
 
     @Override
     public void allFilesOption(){
@@ -595,39 +583,5 @@ public class FileActivity extends DrawerActivity
         // nothing to do
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            // TODO re-enable when "Accounts" is available in Navigation Drawer
-//            if (mShowAccounts && position > 0){
-//                position = position - 1;
-//            }
-            switch (position){
-                // TODO re-enable when "Accounts" is available in Navigation Drawer
-//                case 0: // Accounts
-//                    mShowAccounts = !mShowAccounts;
-//                    mNavigationDrawerAdapter.setShowAccounts(mShowAccounts);
-//                    mNavigationDrawerAdapter.notifyDataSetChanged();
-//                    break;
-
-                case 0: // All Files
-                    allFilesOption();
-                    //mDrawerLayout.closeDrawers();
-                    break;
-
-                // TODO Enable when "On Device" is recovered ?
-//                case 2:
-//                    MainApp.showOnlyFilesOnDevice(true);
-//                    mDrawerLayout.closeDrawers();
-//                    break;
-
-                case 1: // Settings
-                    Intent settingsIntent = new Intent(getApplicationContext(),
-                            Preferences.class);
-                    startActivity(settingsIntent);
-                    //mDrawerLayout.closeDrawers();
-                    break;
-            }
-        }
-    }
+}
 }
