@@ -184,9 +184,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
                                 startActivity(settingsIntent);
                                 break;
                             case R.id.drawer_menu_account_add:
-                                AccountManager am = AccountManager.get(getApplicationContext());
-                                am.addAccount(MainApp.getAccountType(), null, null, null, DrawerActivity.this,
-                                        null, null);
+                                createAccount();
                                 break;
                             case R.id.drawer_menu_account_manage:
                                 Intent manageAccountsIntent = new Intent(getApplicationContext(),
@@ -487,7 +485,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
         Account newAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
         if (newAccount == null) {
             /// no account available: force account creation
-            createFirstAccount();
+            createAccount();
             mRedirectingToSetupAccount = true;
             mAccountWasSet = false;
             mAccountWasRestored = false;
@@ -502,7 +500,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
     /**
      * Launches the account creation activity. To use when no ownCloud account is available.
      */
-    private void createFirstAccount() {
+    private void createAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addAccount(MainApp.getAccountType(),
                 null,
@@ -535,6 +533,8 @@ public abstract class DrawerActivity extends ToolbarActivity {
                         setAccount(new Account(name, type), false);
                         accountWasSet = true;
                     }
+
+                    DrawerActivity.this.updateAccountList();
                 } catch (OperationCanceledException e) {
                     Log_OC.d(TAG, "Account creation canceled");
 
