@@ -46,7 +46,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> {
     private static final String TAG = AccountListAdapter.class.getSimpleName();
 
     private final Context mContext;
-    private final List<AccountListItem> mValues;
+    private List<AccountListItem> mValues;
     private AccountListAdapterListener mListener;
 
     public AccountListAdapter(Context context, List<AccountListItem> values) {
@@ -54,6 +54,10 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> {
         this.mContext = context;
         this.mValues = values;
         this.mListener = (AccountListAdapterListener) context;
+    }
+
+    public void setAccountList(List<AccountListItem> values) {
+        this.mValues = values;
     }
 
     @Override
