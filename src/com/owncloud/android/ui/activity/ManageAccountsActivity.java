@@ -172,7 +172,12 @@ public class ManageAccountsActivity extends ToolbarActivity
                                 ArrayList<AccountListItem> accounts = getAccountListItems();
                                 mAccountListAdapter.clear();
                                 mAccountListAdapter.addAll(accounts);
-                                mAccountListAdapter.notifyDataSetChanged();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mAccountListAdapter.notifyDataSetChanged();
+                                    }
+                                });
                             } catch (OperationCanceledException e) {
                                 Log_OC.d(TAG, "Account creation canceled");
                             } catch (Exception e) {
