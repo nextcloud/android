@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
-import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 
 /**
@@ -24,21 +23,23 @@ public class TextDrawable extends Drawable {
 
         bg = new Paint();
         bg.setStyle(Paint.Style.FILL);
+        bg.setAntiAlias(true);
         bg.setColor(color);
 
         paint = new Paint();
         paint.setColor(Color.WHITE);
-        paint.setTextSize(20);
+        paint.setTextSize(60);
         paint.setAntiAlias(true);
         paint.setFakeBoldText(true);
     }
 
     @Override
     public void draw(Canvas canvas) {
-        //RectF rf = new RectF(0,24,24,0);
-        //canvas.drawRoundRect(rf,24,24,bg);
-        canvas.drawRect(0,-20,20,40,bg);
-        canvas.drawText(text, 4, 6, paint);
+        //float[] radii = {radius, radius, radius, radius, radius, radius, radius, radius};
+        //new RoundRectShape(radii, null, null);
+        canvas.drawCircle(40, 40, 40, bg);
+        //canvas.drawRect(0, -20, 20, 40, bg);
+        canvas.drawText(text, 20, 60, paint);
     }
 
     @Override
