@@ -188,7 +188,9 @@ public abstract class DrawerActivity extends ToolbarActivity {
                                         null, null);
                                 break;
                             case R.id.drawer_menu_account_manage:
-                                Toast.makeText(getApplicationContext(), "Not implemented yet", Toast.LENGTH_SHORT);
+                                Intent manageAccountsIntent = new Intent(getApplicationContext(),
+                                        ManageAccountsActivity.class);
+                                startActivity(manageAccountsIntent);
                                 break;
                             case Menu.NONE:
                                 // account clicked
@@ -269,8 +271,11 @@ public abstract class DrawerActivity extends ToolbarActivity {
         AccountManager am = (AccountManager) this.getSystemService(this.ACCOUNT_SERVICE);
 
         // populate UI
-        repopulateAccountList(am.getAccountsByType(MainApp.getAccountType()));
-        setUsernameInDrawer(AccountUtils.getCurrentOwnCloudAccount(this).name);
+        Account[] accounts = am.getAccountsByType(MainApp.getAccountType());
+        if(accounts.length > 0) {
+            repopulateAccountList(accounts);
+            setUsernameInDrawer(AccountUtils.getCurrentOwnCloudAccount(this).name);
+        }
     }
 
     /**
