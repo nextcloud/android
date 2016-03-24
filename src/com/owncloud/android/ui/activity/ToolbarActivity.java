@@ -71,9 +71,22 @@ public class ToolbarActivity extends AppCompatActivity {
             title = chosenFile.getFileName();
         }
 
+        updateActionBarTitleAndHomeButtonByString(title);
+    }
+
+    /**
+     * Updates title bar and home buttons (state and icon).
+     */
+    protected void updateActionBarTitleAndHomeButtonByString(String title) {
+        String titleToSet = getString(R.string.app_name);    // default
+
+        if (title != null) {
+            titleToSet = title;
+        }
+
         // set the chosen title
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(title);
+        actionBar.setTitle(titleToSet);
 
         // also as content description
         View actionBarTitleView = getWindow().getDecorView().findViewById(
@@ -81,7 +94,7 @@ public class ToolbarActivity extends AppCompatActivity {
         );
         // TODO remove legacy code
         if (actionBarTitleView != null) {    // it's null in Android 2.x
-            actionBarTitleView.setContentDescription(title);
+            actionBarTitleView.setContentDescription(titleToSet);
         }
 
         // set home button properties
