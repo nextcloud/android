@@ -1,3 +1,22 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   @author Andy Scherzinger
+ *   Copyright (C) 2016 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.owncloud.android.ui.activity;
 
 import android.os.Bundle;
@@ -43,7 +62,7 @@ public class ToolbarActivity extends AppCompatActivity {
         String title = getString(R.string.default_display_name_for_root_folder);    // default
         boolean inRoot;
 
-        // choose the appropiate title
+        // choose the appropriate title
         inRoot = (
                 chosenFile == null ||
                         (chosenFile.isFolder() && chosenFile.getParentId() == FileDataStorageManager.ROOT_PARENT_ID)
@@ -52,11 +71,11 @@ public class ToolbarActivity extends AppCompatActivity {
             title = chosenFile.getFileName();
         }
 
-        /// set the chosen title
+        // set the chosen title
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(title);
 
-        /// also as content description
+        // also as content description
         View actionBarTitleView = getWindow().getDecorView().findViewById(
                 getResources().getIdentifier("action_bar_title", "id", "android")
         );
@@ -65,7 +84,7 @@ public class ToolbarActivity extends AppCompatActivity {
             actionBarTitleView.setContentDescription(title);
         }
 
-        /// set home button properties
+        // set home button properties
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
     }
