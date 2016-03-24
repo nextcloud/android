@@ -3,7 +3,7 @@
  *
  *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -23,41 +23,25 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AccountManagerCallback;
-import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.owncloud.android.BuildConfig;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
@@ -73,7 +57,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
@@ -84,13 +67,9 @@ import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
-import com.owncloud.android.ui.NavigationDrawerItem;
-import com.owncloud.android.ui.adapter.NavigationDrawerListAdapter;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-
-import java.util.ArrayList;
 
 
 /**
@@ -113,39 +92,20 @@ public class FileActivity extends DrawerActivity
     private static final String DIALOG_SHARE_PASSWORD = "DIALOG_SHARE_PASSWORD";
     private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
 
-    public static final int REQUEST_CODE__UPDATE_CREDENTIALS = 0;
-    public static final int REQUEST_CODE__LAST_SHARED = REQUEST_CODE__UPDATE_CREDENTIALS;
-
     protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
+
 
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
     private Account mAccount;
 
-    /** Capabilites of the server where {@link #mAccount} lives */
-     private OCCapability mCapabilities;
-
      /** Main {@link OCFile} handled by the activity.*/
     private OCFile mFile;
-
-
-    /** Flag to signal that the activity will is finishing to enforce the creation of an ownCloud
-     * {@link Account} */
-    private boolean mRedirectingToSetupAccount = false;
-
-    /** Flag to signal when the value of mAccount was set */
-    protected boolean mAccountWasSet;
-
-    /** Flag to signal when the value of mAccount was restored from a saved state */
-    protected boolean mAccountWasRestored;
 
     /** Flag to signal if the activity is launched by a notification */
     private boolean mFromNotification;
 
     /** Messages handler associated to the main thread and the life cycle of the activity */
     private Handler mHandler;
-
-    /** Access point to the cached database for the current ownCloud {@link Account} */
-    private FileDataStorageManager mStorageManager = null;
 
     private FileOperationsHelper mFileOperationsHelper;
 
@@ -243,10 +203,6 @@ public class FileActivity extends DrawerActivity
     @Override
     protected void onStart() {
         super.onStart();
-
-        if (mAccountWasSet) {
-            onAccountSet(mAccountWasRestored);
-        }
     }
 
     @Override
@@ -267,6 +223,7 @@ public class FileActivity extends DrawerActivity
         super.onPause();
     }
 
+
     @Override
     protected void onDestroy() {
         if (mOperationsServiceConnection != null) {
@@ -284,73 +241,6 @@ public class FileActivity extends DrawerActivity
 
         super.onDestroy();
     }
-
-    /**
-     *  Sets and validates the ownCloud {@link Account} associated to the Activity.
-     *
-     *  If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
-     *
-     *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
-     *
-     *  @param account          New {@link Account} to set.
-     *  @param savedAccount     When 'true', account was retrieved from a saved instance state.
-     */
-    protected void setAccount(Account account, boolean savedAccount) {
-        Account oldAccount = mAccount;
-        boolean validAccount =
-                (account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(),
-                        account.name));
-        if (validAccount) {
-            mAccount = account;
-            mAccountWasSet = true;
-            mAccountWasRestored = (savedAccount || mAccount.equals(oldAccount));
-
-        } else {
-            swapToDefaultAccount();
-        }
-    }
-
-
-    /**
-     *  Tries to swap the current ownCloud {@link Account} for other valid and existing.
-     *
-     *  If no valid ownCloud {@link Account} exists, the the user is requested
-     *  to create a new ownCloud {@link Account}.
-     *
-     *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
-     */
-    private void swapToDefaultAccount() {
-        // default to the most recently used account
-        Account newAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-        if (newAccount == null) {
-            /// no account available: force account creation
-            createFirstAccount();
-            mRedirectingToSetupAccount = true;
-            mAccountWasSet = false;
-            mAccountWasRestored = false;
-
-        } else {
-            mAccountWasSet = true;
-            mAccountWasRestored = (newAccount.equals(mAccount));
-            mAccount = newAccount;
-        }
-    }
-
-
-    /**
-     * Launches the account creation activity. To use when no ownCloud account is available
-     */
-    private void createFirstAccount() {
-        AccountManager am = AccountManager.get(getApplicationContext());
-        am.addAccount(MainApp.getAccountType(),
-                null,
-                null,
-                null,
-                this,
-                new AccountCreationCallback(),
-                null);
-    }
-
 
     /**
      * {@inheritDoc}
@@ -388,46 +278,11 @@ public class FileActivity extends DrawerActivity
         mFile = file;
     }
 
-
-    /**
-     * Getter for the ownCloud {@link Account} where the main {@link OCFile} handled by the activity
-     * is located.
-     *
-     * @return  OwnCloud {@link Account} where the main {@link OCFile} handled by the activity
-     *          is located.
-     */
-    public Account getAccount() {
-        return mAccount;
-    }
-
-    protected void setAccount(Account account) {
-        mAccount = account;
-    }
-
-
-    /**
-     * Getter for the capabilities of the server where the current OC account lives.
-     *
-     * @return  Capabilities of the server where the current OC account lives. Null if the account is not
-     *          set yet.
-     */
-    public OCCapability getCapabilities() {
-        return mCapabilities;
-    }
-
-
     /**
      * @return Value of mFromNotification: True if the Activity is launched by a notification
      */
     public boolean fromNotification() {
         return mFromNotification;
-    }
-
-    /**
-     * @return 'True' when the Activity is finishing to enforce the setup of a new account.
-     */
-    protected boolean isRedirectingToSetupAccount() {
-        return mRedirectingToSetupAccount;
     }
 
     public OperationsServiceBinder getOperationsServiceBinder() {
@@ -437,67 +292,6 @@ public class FileActivity extends DrawerActivity
     protected ServiceConnection newTransferenceServiceConnection() {
         return null;
     }
-
-    /**
-     * Helper class handling a callback from the {@link AccountManager} after the creation of
-     * a new ownCloud {@link Account} finished, successfully or not.
-     *
-     * At this moment, only called after the creation of the first account.
-     */
-    public class AccountCreationCallback implements AccountManagerCallback<Bundle> {
-
-        @Override
-        public void run(AccountManagerFuture<Bundle> future) {
-            FileActivity.this.mRedirectingToSetupAccount = false;
-            boolean accountWasSet = false;
-            if (future != null) {
-                try {
-                    Bundle result;
-                    result = future.getResult();
-                    String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
-                    String type = result.getString(AccountManager.KEY_ACCOUNT_TYPE);
-                    if (AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name)) {
-                        setAccount(new Account(name, type), false);
-                        accountWasSet = true;
-                    }
-                } catch (OperationCanceledException e) {
-                    Log_OC.d(TAG, "Account creation canceled");
-
-                } catch (Exception e) {
-                    Log_OC.e(TAG, "Account creation finished in exception: ", e);
-                }
-
-            } else {
-                Log_OC.e(TAG, "Account creation callback with null bundle");
-            }
-            if (!accountWasSet) {
-                moveTaskToBack(true);
-            }
-        }
-
-    }
-
-
-    /**
-     *  Called when the ownCloud {@link Account} associated to the Activity was just updated.
-     *
-     *  Child classes must grant that state depending on the {@link Account} is updated.
-     */
-    protected void onAccountSet(boolean stateWasRecovered) {
-        if (getAccount() != null) {
-            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-            mCapabilities = mStorageManager.getCapability(mAccount.name);
-
-        } else {
-            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
-        }
-    }
-
-
-    public FileDataStorageManager getStorageManager() {
-        return mStorageManager;
-    }
-
 
     public OnRemoteOperationListener getRemoteOperationListener() {
         return this;
@@ -514,7 +308,7 @@ public class FileActivity extends DrawerActivity
 
     /**
      *
-     * @param operation     Operation performed.
+     * @param operation     Removal operation performed.
      * @param result        Result of the removal.
      */
     @Override
@@ -528,12 +322,14 @@ public class FileActivity extends DrawerActivity
 
         if (!result.isSuccess() && (
                 result.getCode() == ResultCode.UNAUTHORIZED ||
+                result.isIdPRedirection() ||
                 (result.isException() && result.getException() instanceof AuthenticatorException)
                 )) {
 
             requestCredentialsUpdate(this);
 
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
+                dismissLoadingDialog();
                 Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
                                 operation, getResources()),
                         Toast.LENGTH_LONG);
@@ -580,34 +376,16 @@ public class FileActivity extends DrawerActivity
      * Invalidates the credentials stored for the current OC account and requests new credentials to the user,
      * navigating to {@link AuthenticatorActivity}
      *
-     * Equivalent to call requestCredentialsUpdate(context, null);
-     *
      * @param context   Android Context needed to access the {@link AccountManager}. Received as a parameter
      *                  to make the method accessible to {@link android.content.BroadcastReceiver}s.
      */
     protected void requestCredentialsUpdate(Context context) {
-        requestCredentialsUpdate(context, null);
-    }
-
-    /**
-     * Invalidates the credentials stored for the given OC account and requests new credentials to the user,
-     * navigating to {@link AuthenticatorActivity}
-     *
-     * @param context   Android Context needed to access the {@link AccountManager}. Received as a parameter
-     *                  to make the method accessible to {@link android.content.BroadcastReceiver}s.
-     * @param account   Stored OC account to request credentials update for. If null, current account will
-     *                  be used.
-     */
-    protected void requestCredentialsUpdate(Context context, Account account) {
 
         try {
             /// step 1 - invalidate credentials of current account
-            if (account == null) {
-                account = getAccount();
-            }
             OwnCloudClient client;
             OwnCloudAccount ocAccount =
-                    new OwnCloudAccount(account, context);
+                    new OwnCloudAccount(getAccount(), context);
             client = (OwnCloudClientManagerFactory.getDefaultSingleton().
                     removeClientFor(ocAccount));
             if (client != null) {
@@ -616,23 +394,23 @@ public class FileActivity extends DrawerActivity
                     AccountManager am = AccountManager.get(context);
                     if (cred.authTokenExpires()) {
                         am.invalidateAuthToken(
-                                account.type,
+                                getAccount().type,
                                 cred.getAuthToken()
                         );
                     } else {
-                        am.clearPassword(account);
+                        am.clearPassword(getAccount());
                     }
                 }
             }
 
             /// step 2 - request credentials to user
             Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-            updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
+            updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
             updateAccountCredentials.putExtra(
                     AuthenticatorActivity.EXTRA_ACTION,
                     AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
             updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-            startActivityForResult(updateAccountCredentials, REQUEST_CODE__UPDATE_CREDENTIALS);
+            startActivity(updateAccountCredentials);
 
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
             Toast.makeText(context, R.string.auth_account_does_not_exist, Toast.LENGTH_SHORT).show();
@@ -795,12 +573,10 @@ public class FileActivity extends DrawerActivity
         return mUploaderBinder;
     }
 
-
-    public void restart(){
-        Intent i = new Intent(this, FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-    }
+//    TODO re-enable when "Accounts" is available in Navigation Drawer
+//    public void closeDrawer() {
+//        mDrawerLayout.closeDrawers();
+//    }
 
     @Override
     public void allFilesOption(){
@@ -831,31 +607,23 @@ public class FileActivity extends DrawerActivity
                 // TODO Enable when "On Device" is recovered ?
 //                case 2:
 //                    MainApp.showOnlyFilesOnDevice(true);
+//                    mDrawerLayout.closeDrawers();
 //                    break;
 
-                case 1: // Uploads
-                    Intent uploadListIntent = new Intent(getApplicationContext(),
-                            UploadListActivity.class);
-                    uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(uploadListIntent);
-                    break;
-
-                case 2: // Settings
+                case 1: // Settings
                     Intent settingsIntent = new Intent(getApplicationContext(),
                             Preferences.class);
                     startActivity(settingsIntent);
                     //mDrawerLayout.closeDrawers();
                     break;
 
-                case 3: // Logs
+                case 2: // Logs
                     Intent loggerIntent = new Intent(getApplicationContext(),
                             LogHistoryActivity.class);
                     startActivity(loggerIntent);
                     //mDrawerLayout.closeDrawers();
                     break;
             }
-            mDrawerLayout.closeDrawers();
         }
     }
-
 }
