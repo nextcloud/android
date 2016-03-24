@@ -30,6 +30,11 @@ import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 /**
  * Utility class with methods for decoding Bitmaps.
@@ -266,5 +271,28 @@ public class BitmapUtils {
 
         return (mimeType != null && mimeType.startsWith("image/"));
     }
-    
+
+    /**
+     * calculates the RGB value based on a given account name.
+     *
+     * @param accountName The account name
+     * @return corresponding RGB color
+     * @throws UnsupportedEncodingException if the charset is not supported
+     * @throws NoSuchAlgorithmException if the specified algorithm is not available
+     */
+    public static int[] calculateRGB(String accountName) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        // using adapted algorithm from /core/js/placeholder.js:50
+        int lastAtPos = accountName.lastIndexOf("@");
+        String username = accountName.substring(0, lastAtPos);
+        byte[] seed = username.getBytes("UTF-8");
+        MessageDigest md = MessageDigest.getInstance("MD5");
+//      Integer seedMd5Int = Math.abs(new String(Hex.encodeHex(seedMd5)).hashCode());
+        Integer seedMd5Int = String.format(Locale.ROOT, "%032x",
+                new BigInteger(1, md.digest(seed))).hashCode();
+
+        double maxRange = Integer.MAX_VALUE;
+        float hue = (float) (seedMd5Int / maxRange * 360);
+
+        return BitmapUtils.HSLtoRGB(hue, 90.0f, 65.0f, 1.0f);
+    }
 }
