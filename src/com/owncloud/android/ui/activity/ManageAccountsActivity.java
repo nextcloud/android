@@ -156,7 +156,7 @@ public class ManageAccountsActivity extends ToolbarActivity
     @Override
     public void createAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
-        final AccountManagerFuture<Bundle> future = am.addAccount(MainApp.getAccountType(),
+        am.addAccount(MainApp.getAccountType(),
                 null,
                 null,
                 null,
@@ -169,9 +169,9 @@ public class ManageAccountsActivity extends ToolbarActivity
                                 Bundle result = future.getResult();
                                 String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
                                 AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name);
-                                ArrayList<AccountListItem> accounts = getAccountListItems();
-                                mAccountListAdapter.clear();
-                                mAccountListAdapter.addAll(accounts);
+                                mAccountListAdapter = new AccountListAdapter(ManageAccountsActivity
+                                        .this, getAccountListItems());
+                                mListView.setAdapter(mAccountListAdapter);
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -215,36 +215,6 @@ public class ManageAccountsActivity extends ToolbarActivity
 
             mAccountListAdapter = new AccountListAdapter(this, getAccountListItems());
             mAccountListAdapter.notifyDataSetChanged();
-        }
-    }
-
-    /**
-     * Helper class handling a callback from the {@link AccountManager} after the creation of
-     * a new ownCloud {@link Account} finished, successfully or not.
-     * <p/>
-     * At this moment, only called after the creation of the first account.
-     */
-    public class AccountCreationCallback implements AccountManagerCallback<Bundle> {
-        @Override
-        public void run(AccountManagerFuture<Bundle> future) {
-            if (future != null) {
-                try {
-                    Bundle result = future.getResult();
-                    String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
-                    AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name);
-                    ArrayList<AccountListItem> accounts = getAccountListItems();
-                    ManageAccountsActivity.this.mAccountListAdapter = new AccountListAdapter(ManageAccountsActivity
-                            .this, accounts);
-                    ManageAccountsActivity.this.mAccountListAdapter.notifyDataSetChanged();
-                } catch (OperationCanceledException e) {
-                    Log_OC.d(TAG, "Account creation canceled");
-                } catch (Exception e) {
-                    Log_OC.e(TAG, "Account creation finished in exception: ", e);
-                }
-
-            } else {
-                Log_OC.e(TAG, "Account creation callback with null bundle");
-            }
         }
     }
 
