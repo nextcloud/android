@@ -156,12 +156,12 @@ public class ManageAccountsActivity extends ToolbarActivity
     @Override
     public void createAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
-        am.addAccount(MainApp.getAccountType(),
+        final AccountManagerFuture<Bundle> future = am.addAccount(MainApp.getAccountType(),
                 null,
                 null,
                 null,
-                ManageAccountsActivity.this,
-                new AccountCreationCallback() {
+                this,
+                new AccountManagerCallback<Bundle>() {
                     @Override
                     public void run(AccountManagerFuture<Bundle> future) {
                         if (future != null) {
@@ -173,19 +173,14 @@ public class ManageAccountsActivity extends ToolbarActivity
                                 mAccountListAdapter.clear();
                                 mAccountListAdapter.addAll(accounts);
                                 mAccountListAdapter.notifyDataSetChanged();
-                                mListView.invalidate();
                             } catch (OperationCanceledException e) {
                                 Log_OC.d(TAG, "Account creation canceled");
                             } catch (Exception e) {
                                 Log_OC.e(TAG, "Account creation finished in exception: ", e);
                             }
-
-                        } else {
-                            Log_OC.e(TAG, "Account creation callback with null bundle");
                         }
                     }
-                },
-                mHandler);
+                }, mHandler);
     }
 
     @Override
