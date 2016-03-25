@@ -55,6 +55,7 @@ import com.owncloud.android.utils.BitmapUtils;
 public abstract class DrawerActivity extends ToolbarActivity {
     private static final String TAG = DrawerActivity.class.getSimpleName();
     private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";
+    private static final int ACTION_MANAGE_ACCOUNTS = 101;
 
     /**
      * Reference to the drawer layout.
@@ -189,7 +190,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
                             case R.id.drawer_menu_account_manage:
                                 Intent manageAccountsIntent = new Intent(getApplicationContext(),
                                         ManageAccountsActivity.class);
-                                startActivity(manageAccountsIntent);
+                                startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
                                 break;
                             case Menu.NONE:
                                 // account clicked
@@ -265,12 +266,8 @@ public abstract class DrawerActivity extends ToolbarActivity {
     /**
      * updates the account list in the drawer.
      */
-    // TODO call updateAccountList() after n.o. accounts changed
     public void updateAccountList() {
-        AccountManager am = (AccountManager) this.getSystemService(this.ACCOUNT_SERVICE);
-
-        // populate UI
-        Account[] accounts = am.getAccountsByType(MainApp.getAccountType());
+        Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
         if(accounts.length > 0) {
             repopulateAccountList(accounts);
             setUsernameInDrawer(AccountUtils.getCurrentOwnCloudAccount(this).name);
@@ -284,7 +281,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
      */
     private void repopulateAccountList(Account[] accounts) {
         // remove all accounts from list
-        mNavigationView.getMenu().removeItem(Menu.NONE);
+        mNavigationView.getMenu().removeGroup(R.id.drawer_menu_accounts);
 
         // add all accounts to list
         for (int i = 0; i < accounts.length; i++) {
@@ -292,13 +289,19 @@ public abstract class DrawerActivity extends ToolbarActivity {
                 int[] rgb = BitmapUtils.calculateRGB(accounts[i].name);
                 TextDrawable icon = new TextDrawable(accounts[i].name.substring(0, 1).toUpperCase()
                         , rgb[0], rgb[1], rgb[2]);
-                mNavigationView.getMenu().add(R.id.drawer_menu_accounts, Menu.NONE, 0, accounts[i].name).setIcon(icon);
+                mNavigationView.getMenu().add(R.id.drawer_menu_accounts, Menu.NONE, 1, accounts[i].name).setIcon(icon);
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account menu item.", e);
-                mNavigationView.getMenu().add(R.id.drawer_menu_accounts, Menu.NONE, 0, accounts[i].name).setIcon(R
+                mNavigationView.getMenu().add(R.id.drawer_menu_accounts, Menu.NONE, 1, accounts[i].name).setIcon(R
                         .drawable.ic_account_circle);
             }
         }
+
+        // re-add add-account and manage-accounts
+        mNavigationView.getMenu().add(R.id.drawer_menu_accounts, R.id.drawer_menu_account_add, 2,
+                getResources().getString(R.string.prefs_add_account)).setIcon(R.drawable.ic_account_plus);
+        mNavigationView.getMenu().add(R.id.drawer_menu_accounts, R.id.drawer_menu_account_manage, 2,
+                getResources().getString(R.string.drawer_manage_accounts)).setIcon(R.drawable.ic_settings);
 
         // adding sets menu group back to visible, so safety check and setting invisible
         showMenu();
@@ -431,6 +434,27 @@ public abstract class DrawerActivity extends ToolbarActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // update Account list and active account if Manage Account activity replies with
+        // - ACCOUNT_LIST_CHANGED = true
+        // - RESULT_OK
+        if (requestCode == ACTION_MANAGE_ACCOUNTS
+                && resultCode == RESULT_OK
+                && data.getBooleanExtra(ManageAccountsActivity.KEY_ACCOUNT_LIST_CHANGED, false)) {
+
+            // current account has changed
+            if(data.getBooleanExtra(ManageAccountsActivity.KEY_CURRENT_ACCOUNT_CHANGED, false)) {
+                mCurrentAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+                restart();
+            } else {
+                updateAccountList();
+            }
+        }
+    }
+
     /**
      * Finds a view that was identified by the id attribute from the drawer header.
      *
@@ -441,6 +465,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
         return ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(id);
     }
 
+    // TODO call on current account changed
     public void restart() {
         Intent i = new Intent(this, FileDisplayActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -535,6 +560,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
                     }
 
                     DrawerActivity.this.updateAccountList();
+                    DrawerActivity.this.restart();
                 } catch (OperationCanceledException e) {
                     Log_OC.d(TAG, "Account creation canceled");
 
