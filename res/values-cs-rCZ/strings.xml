@@ -340,6 +340,7 @@ správce systému.</string>
   <string name="pref_behaviour_entries_keep_file">ponechán ve výchozím adresáři</string>
   <string name="pref_behaviour_entries_move">přesunut do adresáře aplikace</string>
   <string name="share_dialog_title">Sdílení</string>
+  <string name="share_file">Sdílet %1$s</string>
   <string name="share_with_user_section_title">Sdílet s uživateli a skupinami</string>
   <string name="share_no_users">Zatím nebyla s uživateli sdílena žádná data</string>
   <string name="share_add_user_or_group">Přidat uživatele nebo skupinu</string>
@@ -349,9 +350,13 @@ správce systému.</string>
   <string name="share_via_link_password_title">Zabezpečeno</string>
   <string name="share_via_link_edit_permission_label">Povolit úpravy</string>
   <string name="share_get_public_link_button">Vytvořit odkaz</string>
+  <string name="share_with_title">Sdílet s ...</string>
+  <string name="share_with_edit_title">Sdílet s %1$s</string>
   <string name="share_search">Hledat</string>
   <string name="search_users_and_groups_hint">Prohledat uživatele a skupiny</string>
   <string name="share_group_clarification">%1$s (skupina)</string>
+  <string name="share_remote_clarification">%1$s (vzdálený)</string>
+  <string name="share_known_remote_clarification">%1$s ( v %2$s )</string>
   <string name="share_sharee_unavailable">Omlouváme se, verze vašeho serveru neumožňuje v klientské aplikaci sdílení dat mezi uživateli.
 \nKontaktujte prosím svého administrátora</string>
   <string name="share_privilege_can_share">může sdílet</string>

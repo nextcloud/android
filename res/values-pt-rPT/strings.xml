@@ -124,7 +124,7 @@
   <string name="sync_fail_in_favourites_content">Não foi possível sincronizar  o conteúdo de %1$d ficheiros  (%2$d conflitos)</string>
   <string name="sync_foreign_files_forgotten_ticker">Alguns ficheiros locais ficaram esquecidos</string>
   <string name="sync_foreign_files_forgotten_content">Nao foi possivel copiar os ficheiros %1$d da pasta %2$s para</string>
-  <string name="sync_foreign_files_forgotten_explanation">Tal como na versão 1.3.16, os ficheiros que foram enviados deste dispositivo são copiados para a pasta local %1$s para prevenir perda de dados quando um ficheiro é partilhado com várias contas.\n\nDevido a esta alteração, todos os ficheiros das versões anteriores foram copiados para a pasta %2$s. No entanto, um erro impediu a conclusão deste processo durante a sincronização da conta. Pode deixar o ficheiro(s) como estão e remover o link para %3$s, ou mover o(s) ficheiro(s) para a pasta %1$s e guardar o link para %4$s. \n\nEm baixo estão listados ficheiro(s) locais e remotos em %5$s que foram ligados.</string>
+  <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os ficheiros que forem enviados deste dispositivo são copiados para a pasta local %1$s para prevenir perda de dados quando um ficheiro é sincronizado com várias contas.\n\nDevido a esta alteração, todos os ficheiros subidos em as versões anteriores desta app foram copiados para a pasta %2$s. No entanto, um erro impediu a conclusão deste processo durante a sincronização da conta. Pode deixar o ficheiro(s) como estão e remover o link para %3$s, ou mover o(s) ficheiro(s) para a pasta %1$s e guardar o link para %4$s.\n\nEm baixo estão listados os ficheiro(s) locais e remotos em %5$s que foram ligados.</string>
   <string name="sync_current_folder_was_removed">A pasta %1$s já não existe</string>
   <string name="foreign_files_move">Mover Todos</string>
   <string name="foreign_files_success">Foram movidos todos os ficheiros</string>
@@ -339,6 +339,7 @@
   <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
   <string name="pref_behaviour_entries_move">movido para pasta da aplicação</string>
   <string name="share_dialog_title">Partilha</string>
+  <string name="share_file">Partilhar %1$s</string>
   <string name="share_with_user_section_title">Partilhar com utilizadores e grupos</string>
   <string name="share_no_users">Ainda não foram partilhados os dados com os utilizadores</string>
   <string name="share_add_user_or_group">Adicionar utilizador ou grupo</string>
@@ -348,6 +349,8 @@
   <string name="share_via_link_password_title">Protegido</string>
   <string name="share_via_link_edit_permission_label">Permitir edição</string>
   <string name="share_get_public_link_button">Obter ligação</string>
+  <string name="share_with_title">Partilhar com ...</string>
+  <string name="share_with_edit_title">Partilhar com %1$s</string>
   <string name="share_search">Procurar</string>
   <string name="search_users_and_groups_hint">Pesquisar utilizadores e grupos</string>
   <string name="share_group_clarification">%1$s (grupo)</string>
