@@ -18,9 +18,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="@dimen/nav_drawer_header_height"
-              android:paddingBottom="@dimen/standard_padding"
-              android:paddingRight="@dimen/standard_padding"
-              android:paddingLeft="@dimen/standard_padding"
               android:background="@color/drawer_header_color">
 
     <LinearLayout
@@ -28,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:padding="@dimen/standard_padding"
         >
 
         <ImageView
