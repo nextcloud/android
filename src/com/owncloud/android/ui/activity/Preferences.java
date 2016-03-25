@@ -22,21 +22,13 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.accounts.AccountManagerCallback;
-import android.accounts.AccountManagerFuture;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -47,37 +39,21 @@ import android.preference.PreferenceManager;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.owncloud.android.BuildConfig;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.files.FileOperationsHelper;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.services.OperationsService;
-import com.owncloud.android.ui.RadioButtonPreference;
 import com.owncloud.android.utils.DisplayUtils;
 
 
@@ -87,9 +63,7 @@ import com.owncloud.android.utils.DisplayUtils;
  * It proxies the necessary calls via {@link android.support.v7.app.AppCompatDelegate} to be used
  * with AppCompat.
  */
-// TODO possible remove AccountManagerCallback and ComponentsGetter
 public class Preferences extends PreferenceActivity {
-        //implements AccountManagerCallback<Boolean>, ComponentsGetter {
     
     private static final String TAG = Preferences.class.getSimpleName();
 
@@ -104,9 +78,6 @@ public class Preferences extends PreferenceActivity {
     private AppCompatDelegate mDelegate;
 
     private PreferenceCategory mAccountsPrefCategory = null;
-    //private final Handler mHandler = new Handler();
-    //private String mAccountName;
-    private boolean mShowContextMenu = false;
     private String mUploadPath;
     private PreferenceCategory mPrefInstantUploadCategory;
     private Preference mPrefInstantUpload;
@@ -117,11 +88,6 @@ public class Preferences extends PreferenceActivity {
     private Preference mPrefInstantVideoUploadPath;
     private Preference mPrefInstantVideoUploadPathWiFi;
     private String mUploadVideoPath;
-
-    //protected FileDownloader.FileDownloaderBinder mDownloaderBinder = null;
-    //protected FileUploader.FileUploaderBinder mUploaderBinder = null;
-    //private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
-
 
     @SuppressWarnings("deprecation")
     @Override
@@ -143,75 +109,6 @@ public class Preferences extends PreferenceActivity {
             getWindow().getDecorView().findViewById(actionBarTitleId).
                     setContentDescription(getString(R.string.actionbar_settings));
         }
-
-        // TODO remove accounts code - DONE
-        // Load the accounts category for adding the list of accounts
-        mAccountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
-
-        ListView listView = getListView();
-        listView.setOnItemLongClickListener(new OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                ListView listView = (ListView) parent;
-                ListAdapter listAdapter = listView.getAdapter();
-                Object obj = listAdapter.getItem(position);
-
-                if (obj != null && obj instanceof RadioButtonPreference) {
-                    mShowContextMenu = true;
-                    //mAccountName = ((RadioButtonPreference) obj).getKey();
-
-                    String[] items = {
-                            getResources().getString(R.string.change_password),
-                            getResources().getString(R.string.delete_account)
-                    };
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Preferences.this);
-                    View convertView = getLayoutInflater().inflate(R.layout.alert_dialog_list_view, null);
-                    alertDialogBuilder.setView(convertView);
-                    ListView lv = (ListView) convertView.findViewById(R.id.list);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                            Preferences.this,R.layout.simple_dialog_list_item,items);
-                    lv.setAdapter(adapter);
-
-                    //Setup proper inline listener
-                    final AlertDialog alertDialog = alertDialogBuilder.create();
-                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-                            Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
-                            for (Account a : accounts) {
-                                //if (a.name.equals(mAccountName)) {
-                                if (a.name.equals("")) {
-                                    if (position==0) {
-
-                                        // Change account password
-                                        Intent updateAccountCredentials = new Intent(Preferences.this, AuthenticatorActivity.class);
-                                        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, a);
-                                        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
-                                                AuthenticatorActivity.ACTION_UPDATE_TOKEN);
-                                        startActivity(updateAccountCredentials);
-                                        alertDialog.cancel();
-                                        
-                                    } else if (position==1) {
-
-                                        // Remove account
-                                        //am.removeAccount(a, Preferences.this, mHandler);
-                                        am.removeAccount(a, null, new Handler());
-                                        Log_OC.d(TAG, "Remove an account " + a.name);
-                                        alertDialog.cancel();
-                                    }
-                                }
-                            }
-                        }
-                    });
-                    alertDialog.show();
-
-                    View.OnLongClickListener longListener = (View.OnLongClickListener) obj;
-                    return longListener.onLongClick(view);
-                }
-                return false;
-            }
-        });
         
         // Load package info
         String temp;
@@ -236,21 +133,18 @@ public class Preferences extends PreferenceActivity {
                     Boolean incoming = (Boolean) newValue;
 
                     i.setAction(
-                            incoming.booleanValue() ? PassCodeActivity.ACTION_REQUEST_WITH_RESULT :
+                            incoming ? PassCodeActivity.ACTION_REQUEST_WITH_RESULT :
                                     PassCodeActivity.ACTION_CHECK_WITH_RESULT
                     );
 
-                    startActivityForResult(i, incoming.booleanValue() ? ACTION_REQUEST_PASSCODE :
+                    startActivityForResult(i, incoming ? ACTION_REQUEST_PASSCODE :
                             ACTION_CONFIRM_PASSCODE);
 
                     // Don't update just yet, we will decide on it in onActivityResult
                     return false;
                 }
             });
-            
         }
-
-
 
         PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("more");
         
@@ -273,7 +167,6 @@ public class Preferences extends PreferenceActivity {
             } else {
                 preferenceCategory.removePreference(pHelp);
             }
-            
         }
         
        boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
@@ -308,7 +201,6 @@ public class Preferences extends PreferenceActivity {
             } else {
                 preferenceCategory.removePreference(pRecommend);
             }
-            
         }
         
         boolean feedbackEnabled = getResources().getBoolean(R.bool.feedback_enabled);
@@ -461,20 +353,6 @@ public class Preferences extends PreferenceActivity {
 
        loadInstantUploadPath();
        loadInstantUploadVideoPath();
-
-        // TODO remove after test - DONE
-        /* ComponentsGetter
-        mDownloadServiceConnection = newTransferenceServiceConnection();
-        if (mDownloadServiceConnection != null) {
-            bindService(new Intent(this, FileDownloader.class), mDownloadServiceConnection,
-                    Context.BIND_AUTO_CREATE);
-        }
-        mUploadServiceConnection = newTransferenceServiceConnection();
-        if (mUploadServiceConnection != null) {
-            bindService(new Intent(this, FileUploader.class), mUploadServiceConnection,
-                    Context.BIND_AUTO_CREATE);
-        }
-*/
     }
     
     private void toggleInstantPictureOptions(Boolean value){
@@ -506,58 +384,12 @@ public class Preferences extends PreferenceActivity {
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-
-        // Filter for only showing contextual menu when long press on the
-        // accounts
-        if (mShowContextMenu) {
-            getMenuInflater().inflate(R.menu.account_picker_long_click, menu);
-            mShowContextMenu = false;
-        }
-        super.onCreateContextMenu(menu, v, menuInfo);
-    }
-
-    // TODO remove, moved to account manager - DONE
-    /*
-    @Override
-    public void run(AccountManagerFuture<Boolean> future) {
-        if (future.isDone()) {
-            // after remove account
-            Account account = new Account(mAccountName, MainApp.getAccountType());
-            if (!AccountUtils.exists(account, MainApp.getAppContext())) {
-                // Cancel tranfers
-                if (mUploaderBinder != null) {
-                    mUploaderBinder.cancel(account);
-                }
-                if (mDownloaderBinder != null) {
-                    mDownloaderBinder.cancel(account);
-                }
-            }
-
-            Account a = AccountUtils.getCurrentOwnCloudAccount(this);
-            String accountName = "";
-            if (a == null) {
-                Account[] accounts = AccountManager.get(this)
-                        .getAccountsByType(MainApp.getAccountType());
-                if (accounts.length != 0)
-                    accountName = accounts[0].name;
-                AccountUtils.setCurrentOwnCloudAccount(this, accountName);
-            }
-            addAccountsCheckboxPreferences();
-        }
-    }
-    */
-
-    @Override
     protected void onResume() {
         super.onResume();
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean state = appPrefs.getBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false);
         pCode.setChecked(state);
-
-        // Populate the accounts category with the list of accounts
-        addAccountsCheckboxPreferences();
     }
 
     @Override
@@ -700,18 +532,6 @@ public class Preferences extends PreferenceActivity {
     protected void onDestroy() {
         mDbHandler.close();
 
-        // TODO remove after test - DONE
-        /*
-        if (mDownloadServiceConnection != null) {
-            unbindService(mDownloadServiceConnection);
-            mDownloadServiceConnection = null;
-        }
-        if (mUploadServiceConnection != null) {
-            unbindService(mUploadServiceConnection);
-            mUploadServiceConnection = null;
-        }
-        */
-
         super.onDestroy();
         getDelegate().onDestroy();
     }
@@ -731,114 +551,6 @@ public class Preferences extends PreferenceActivity {
             mDelegate = AppCompatDelegate.create(this, null);
         }
         return mDelegate;
-    }
-
-    // TODO remove/move after test
-    /**
-     * Create the list of accounts that has been added into the app
-     */
-    @SuppressWarnings("deprecation")
-    private void addAccountsCheckboxPreferences() {
-
-        // Remove accounts in case list is refreshing for avoiding to have
-        // duplicate items
-        if (mAccountsPrefCategory.getPreferenceCount() > 0) {
-            mAccountsPrefCategory.removeAll();
-        }
-
-        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-
-        if (am.getAccountsByType(MainApp.getAccountType()).length == 0) {
-            // Show create account screen if there isn't any account
-            am.addAccount(MainApp.getAccountType(), null, null, null, this,
-                    null,
-                    null);
-        }
-        else {
-
-            for (Account a : accounts) {
-                RadioButtonPreference accountPreference = new RadioButtonPreference(this);
-                accountPreference.setKey(a.name);
-                // Handle internationalized domain names
-                accountPreference.setTitle(DisplayUtils.convertIdn(a.name, false));
-                mAccountsPrefCategory.addPreference(accountPreference);
-
-                // Check the current account that is being used
-                if (a.name.equals(currentAccount.name)) {
-                    accountPreference.setChecked(true);
-                } else {
-                    accountPreference.setChecked(false);
-                }
-
-                accountPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        String key = preference.getKey();
-                        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-                        Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
-                        for (Account a : accounts) {
-                            RadioButtonPreference p =
-                                    (RadioButtonPreference) findPreference(a.name);
-                            if (key.equals(a.name)) {
-                                boolean accountChanged = !p.isChecked(); 
-                                p.setChecked(true);
-                                AccountUtils.setCurrentOwnCloudAccount(
-                                        getApplicationContext(),
-                                        a.name
-                                );
-                                if (accountChanged) {
-                                    // restart the main activity
-                                    Intent i = new Intent(
-                                            Preferences.this, 
-                                            FileDisplayActivity.class
-                                    );
-                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                    startActivity(i);
-                                } else {
-                                    finish();
-                                }
-                            } else {
-                                p.setChecked(false);
-                            }
-                        }
-                        return (Boolean) newValue;
-                    }
-                });
-
-            }
-
-            // Add Create Account preference at the end of account list if
-            // Multiaccount is enabled
-            if (getResources().getBoolean(R.bool.multiaccount_support)) {
-                createAddAccountPreference();
-            }
-
-        }
-    }
-
-    // TODO remove after finished -DONE
-    /**
-     * Create the preference for allow adding new accounts
-     */
-    private void createAddAccountPreference() {
-        Preference addAccountPref = new Preference(this);
-        addAccountPref.setKey("add_account");
-        addAccountPref.setTitle(getString(R.string.prefs_add_account));
-        mAccountsPrefCategory.addPreference(addAccountPref);
-
-        addAccountPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                AccountManager am = AccountManager.get(getApplicationContext());
-                am.addAccount(MainApp.getAccountType(), null, null, null, Preferences.this,
-                        null, null);
-                return true;
-            }
-        });
-
     }
 
     /**
@@ -882,71 +594,4 @@ public class Preferences extends PreferenceActivity {
         editor.putString("instant_video_upload_path", mUploadVideoPath);
         editor.commit();
     }
-
-    //TODO remove this implementation
-    // Methods for ComponetsGetter
-    /*
-    @Override
-    public FileDownloader.FileDownloaderBinder getFileDownloaderBinder() {
-        return mDownloaderBinder;
-    }
-
-
-    @Override
-    public FileUploader.FileUploaderBinder getFileUploaderBinder() {
-        return mUploaderBinder;
-    }
-
-    @Override
-    public OperationsService.OperationsServiceBinder getOperationsServiceBinder() {
-        return null;
-    }
-
-    @Override
-    public FileDataStorageManager getStorageManager() {
-        return null;
-    }
-
-    @Override
-    public FileOperationsHelper getFileOperationsHelper() {
-        return null;
-    }
-
-
-    protected ServiceConnection newTransferenceServiceConnection() {
-        return new PreferencesServiceConnection();
-    }
-    */
-
-    /** Defines callbacks for service binding, passed to bindService() */
-    /*
-    private class PreferencesServiceConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-
-            if (component.equals(new ComponentName(Preferences.this, FileDownloader.class))) {
-                mDownloaderBinder = (FileDownloader.FileDownloaderBinder) service;
-
-            } else if (component.equals(new ComponentName(Preferences.this, FileUploader.class))) {
-                Log_OC.d(TAG, "Upload service connected");
-                mUploaderBinder = (FileUploader.FileUploaderBinder) service;
-            } else {
-                return;
-            }
-
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(Preferences.this, FileDownloader.class))) {
-                Log_OC.d(TAG, "Download service suddenly disconnected");
-                mDownloaderBinder = null;
-            } else if (component.equals(new ComponentName(Preferences.this, FileUploader.class))) {
-                Log_OC.d(TAG, "Upload service suddenly disconnected");
-                mUploaderBinder = null;
-            }
-        }
-    };
-    */
 }
