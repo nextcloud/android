@@ -31,10 +31,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.owncloud.android.MainApp;
@@ -51,13 +48,17 @@ import com.owncloud.android.ui.adapter.AccountListAdapter;
 import com.owncloud.android.ui.adapter.AccountListItem;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * Managing the accounts.
+ * An Activity that allows the user to manage accounts.
  */
 public class ManageAccountsActivity extends ToolbarActivity
         implements AccountListAdapter.AccountListAdapterListener, AccountManagerCallback<Boolean>, ComponentsGetter {
     private static final String TAG = ManageAccountsActivity.class.getSimpleName();
+    public static final String KEY_ACCOUNT_LIST_CHANGED = "ACCOUNT_LIST_CHANGED";
+    public static final String KEY_CURRENT_ACCOUNT_CHANGED = "CURRENT_ACCOUNT_CHANGED";
 
     private ListView mListView;
     private final Handler mHandler = new Handler();
@@ -66,6 +67,8 @@ public class ManageAccountsActivity extends ToolbarActivity
     protected FileUploader.FileUploaderBinder mUploaderBinder = null;
     protected FileDownloader.FileDownloaderBinder mDownloaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
+    Set<String> mOriginalAccounts;
+    String mOriginalCurrentAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +81,61 @@ public class ManageAccountsActivity extends ToolbarActivity
         setupToolbar();
         updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
 
+        Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
+        mOriginalAccounts = toAccountNameSet(accountList);
+        mOriginalCurrentAccount = AccountUtils.getCurrentOwnCloudAccount(this).name;
+
         mAccountListAdapter = new AccountListAdapter(this, getAccountListItems());
 
         mListView.setAdapter(mAccountListAdapter);
 
         initializeComponentGetters();
+    }
+
+    /**
+     * converts an array of accounts into a set of account names.
+     *
+     * @param accountList the account array
+     * @return set of account names
+     */
+    private Set<String> toAccountNameSet(Account[] accountList) {
+        Set<String> actualAccounts = new HashSet<String>(accountList.length);
+        for (Account account : accountList) {
+            actualAccounts.add(account.name);
+        }
+        return actualAccounts;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged());
+        resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged());
+        setResult(RESULT_OK, resultIntent);
+
+        finish();
+        super.onBackPressed();
+    }
+
+    /**
+     * checks the set of actual accounts against the set of original accounts when the activity has been started.
+     *
+     * @return <code>true</code> if aacount list has changed, <code>false</code> if not
+     */
+    private boolean hasAccountListChanged() {
+        Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
+        Set<String> actualAccounts = toAccountNameSet(accountList);
+        return !mOriginalAccounts.equals(actualAccounts);
+    }
+
+    /**
+     * checks actual current account against current accounts when the activity has been started.
+     *
+     * @return <code>true</code> if aacount list has changed, <code>false</code> if not
+     */
+    private boolean hasCurrentAccountChanged() {
+        String currentAccount = AccountUtils.getCurrentOwnCloudAccount(this).name;
+        return !mOriginalCurrentAccount.equals(currentAccount);
     }
 
     /**
@@ -106,10 +159,8 @@ public class ManageAccountsActivity extends ToolbarActivity
      *
      * @return list of account list items
      */
-    @NonNull
     private ArrayList<AccountListItem> getAccountListItems() {
-        AccountManager am = (AccountManager) this.getSystemService(this.ACCOUNT_SERVICE);
-        Account[] accountList = am.getAccountsByType(MainApp.getAccountType());
+        Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
         ArrayList<AccountListItem> adapterAccountList = new ArrayList<AccountListItem>(accountList.length);
         for (Account account : accountList) {
             adapterAccountList.add(new AccountListItem(account));
@@ -206,8 +257,7 @@ public class ManageAccountsActivity extends ToolbarActivity
             Account a = AccountUtils.getCurrentOwnCloudAccount(this);
             String accountName = "";
             if (a == null) {
-                Account[] accounts = AccountManager.get(this)
-                        .getAccountsByType(MainApp.getAccountType());
+                Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
                 if (accounts.length != 0)
                     accountName = accounts[0].name;
                 AccountUtils.setCurrentOwnCloudAccount(this, accountName);
@@ -276,10 +326,7 @@ public class ManageAccountsActivity extends ToolbarActivity
             } else if (component.equals(new ComponentName(ManageAccountsActivity.this, FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploader.FileUploaderBinder) service;
-            } else {
-                return;
             }
-
         }
 
         @Override
@@ -293,6 +340,4 @@ public class ManageAccountsActivity extends ToolbarActivity
             }
         }
     }
-
-    ;
 }
