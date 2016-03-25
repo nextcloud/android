@@ -465,10 +465,10 @@ public abstract class DrawerActivity extends ToolbarActivity {
         return ((NavigationView) findViewById(R.id.nav_view)).getHeaderView(0).findViewById(id);
     }
 
-    // TODO call on current account changed
     public void restart() {
         Intent i = new Intent(this, FileDisplayActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(i);
     }
 
