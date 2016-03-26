@@ -342,6 +342,7 @@
   <string name="pref_behaviour_entries_keep_file">остался в исходной папке</string>
   <string name="pref_behaviour_entries_move">перемещен в папку приложения</string>
   <string name="share_dialog_title">Общий доступ</string>
+  <string name="share_file">Поделиться %1$s</string>
   <string name="share_with_user_section_title">Поделиться с пользователями и группами</string>
   <string name="share_no_users">Нет данных используемых совместно с другими пользователями</string>
   <string name="share_add_user_or_group">Добавить пользователя или группу</string>
@@ -351,9 +352,13 @@
   <string name="share_via_link_password_title">Безопасный</string>
   <string name="share_via_link_edit_permission_label">Разрешить редактирование</string>
   <string name="share_get_public_link_button">Получить ссылку</string>
+  <string name="share_with_title">Поделиться с …</string>
+  <string name="share_with_edit_title">Поделиться с %1$s</string>
   <string name="share_search">Найти</string>
   <string name="search_users_and_groups_hint">Поиск пользователей и групп</string>
   <string name="share_group_clarification">%1$s (группа)</string>
+  <string name="share_remote_clarification">%1$s (в общем доступе)</string>
+  <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
   <string name="share_sharee_unavailable">Извините, версия вашего сервера не позволяет поделиться с пользователями через клиент. \nПожалуйста обратитесь к администратору</string>
   <string name="share_privilege_can_share">можно поделиться</string>
   <string name="share_privilege_can_edit">можно редактировать</string>

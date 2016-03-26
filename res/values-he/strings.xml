@@ -341,6 +341,7 @@
   <string name="pref_behaviour_entries_keep_file">נשמר בתיקייה מקורית</string>
   <string name="pref_behaviour_entries_move">הועבר לתיקיית ישומים</string>
   <string name="share_dialog_title">שיתוף</string>
+  <string name="share_file">שיתוף %1$s</string>
   <string name="share_with_user_section_title">שיתוף עם משתמשים וקבוצות</string>
   <string name="share_no_users">עדיין לא שותף מידע עם משתמשים</string>
   <string name="share_add_user_or_group">הוספת משתמש או קבוצה</string>
@@ -350,6 +351,8 @@
   <string name="share_via_link_password_title">מאובטח</string>
   <string name="share_via_link_edit_permission_label">אישור עריכה</string>
   <string name="share_get_public_link_button">קבלת קישור</string>
+  <string name="share_with_title">שיתף עם...</string>
+  <string name="share_with_edit_title">שיתף עם %1$s</string>
   <string name="share_search">חיפוש</string>
   <string name="search_users_and_groups_hint">חיפוש משתמשים וקבוצות</string>
   <string name="share_group_clarification">%1$s (קבוצה)</string>
