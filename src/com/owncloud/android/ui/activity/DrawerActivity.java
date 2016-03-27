@@ -268,7 +268,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
      */
     public void updateAccountList() {
         Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
-        if(accounts.length > 0) {
+        if(accounts.length > 0 && mNavigationView != null) {
             repopulateAccountList(accounts);
             setUsernameInDrawer(AccountUtils.getCurrentOwnCloudAccount(this).name);
         }
