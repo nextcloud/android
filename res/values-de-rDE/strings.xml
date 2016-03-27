@@ -341,6 +341,7 @@
   <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
   <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
   <string name="share_dialog_title">Teilen</string>
+  <string name="share_file">%1$s teilen</string>
   <string name="share_with_user_section_title">Mit Benutzern und Gruppen teilen</string>
   <string name="share_no_users">Bis jetzt hast du noch keine Dateien mit anderen geteilt</string>
   <string name="share_add_user_or_group">Benutzer oder Gruppe hinzufügen</string>
@@ -350,9 +351,13 @@
   <string name="share_via_link_password_title">Gesichert</string>
   <string name="share_via_link_edit_permission_label">Bearbeitung erlauben</string>
   <string name="share_get_public_link_button">Link erstellen</string>
+  <string name="share_with_title">Teilen mit ...</string>
+  <string name="share_with_edit_title">Teilen mit %1$s</string>
   <string name="share_search">Suche</string>
   <string name="search_users_and_groups_hint">Nach Benutzern und Gruppen suchen</string>
   <string name="share_group_clarification">%1$s (group)</string>
+  <string name="share_remote_clarification">%1$s (entfernte Freigabe)</string>
+  <string name="share_known_remote_clarification">%1$s ( auf %2$s )</string>
   <string name="share_sharee_unavailable">Entschuldigung, Ihre Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht.
 \nBitte kontaktieren Sie Ihren Administrator</string>
   <string name="share_privilege_can_share">kann teilen</string>
