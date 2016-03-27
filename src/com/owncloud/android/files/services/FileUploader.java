@@ -50,6 +50,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -731,6 +732,10 @@ public class FileUploader extends Service
         
         mStorageManager.triggerMediaScan(file.getStoragePath());
 
+        // generate new Thumbnail
+        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, mCurrentAccount);
+        task.execute(file);
     }
 
     private void updateOCFile(OCFile file, RemoteFile remoteFile) {
