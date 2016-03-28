@@ -326,6 +326,25 @@ public class UploadsStorageManager extends Observable {
         return result;
     }
 
+    /**
+     * Remove a specific upload given his unique ID.
+     *
+     * @param uploadId       unique ID of the upload.
+     * @return true when the upload entry was removed
+     */
+    public int removeUpload(long uploadId) {
+        int result = getDB().delete(
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            ProviderTableMeta._ID + "=?",
+            new String[]{String.valueOf(uploadId)}
+        );
+        Log_OC.d(TAG, "delete returns " + result + " for upload with ID " + uploadId);
+        if (result > 0) {
+            notifyObserversNow();
+        }
+        return result;
+    }
+
 
     public OCUpload[] getAllStoredUploads() {
         return getUploads(null, null);

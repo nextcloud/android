@@ -525,7 +525,7 @@ public class FileUploader extends Service
                         uploadKey = putResult.first;
                         requestedUploads.add(uploadKey);
                     } else {
-                        mUploadsStorageManager.removeUpload(account.name, files[i].getRemotePath());
+                        mUploadsStorageManager.removeUpload(newUpload.getOCUploadId());
                     }
                     // else, file already in the queue of uploads; don't repeat the request
                 }
