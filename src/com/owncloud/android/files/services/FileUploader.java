@@ -511,11 +511,6 @@ public class FileUploader extends Service
                     ocUpload.setWhileChargingOnly(isWhileChargingOnly);*/
                     ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
 
-                    // storagePath inside upload is the temporary path. file
-                    // contains the correct path used as db reference.
-                    long id = mUploadsStorageManager.storeUpload(ocUpload);
-                    newUpload.setOCUploadId(id);
-
                     Pair<String, String> putResult = mPendingUploads.putIfAbsent(
                             account.name,
                             files[i].getRemotePath(),
@@ -524,10 +519,10 @@ public class FileUploader extends Service
                     if (putResult != null) {
                         uploadKey = putResult.first;
                         requestedUploads.add(uploadKey);
-                    } else {
-                        mUploadsStorageManager.removeUpload(newUpload.getOCUploadId());
+
+                        long id = mUploadsStorageManager.storeUpload(ocUpload);
+                        newUpload.setOCUploadId(id);
                     }
-                    // else, file already in the queue of uploads; don't repeat the request
                 }
 
             } catch (IllegalArgumentException e) {
@@ -1020,7 +1015,7 @@ public class FileUploader extends Service
         showUploadListIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
         showUploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
-                showUploadListIntent, 0));
+            showUploadListIntent, 0));
 
         mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
 
