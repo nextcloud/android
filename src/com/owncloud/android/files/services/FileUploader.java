@@ -51,7 +51,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.PreferenceReader;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -67,7 +66,6 @@ import com.owncloud.android.notifications.NotificationDelayer;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
-import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import java.util.AbstractList;
@@ -888,11 +886,6 @@ public class FileUploader extends Service
                 return;
             }
 
-            /// Check that connectivity conditions are met and delayes the upload otherwise
-            if (delayForWifi()) {
-                return;
-            }
-
             /// OK, let's upload
             mUploadsStorageManager.updateDatabaseUploadStart(mCurrentUpload);
 
@@ -956,40 +949,6 @@ public class FileUploader extends Service
 
 
     /**
-     * Checks origin of current upload and network type to decide if should be delayed, according to
-     * current user preferences.
-     *
-     * @return      'True' if the upload was delayed until WiFi connectivity is available, 'false' otherwise.
-     */
-    private boolean delayForWifi() {
-
-        boolean delayInstantPicture = (
-                mCurrentUpload.isInstantPicture() &&
-                        PreferenceReader.instantPictureUploadViaWiFiOnly(this)
-        );
-        boolean delayInstantVideo = (mCurrentUpload.isInstantVideo() &&
-                PreferenceReader.instantVideoUploadViaWiFiOnly(this)
-        );
-        if ((delayInstantPicture || delayInstantVideo) &&
-                !ConnectivityUtils.isAppConnectedViaWiFi(this)) {
-
-            Log_OC.d(TAG, "Upload delayed until WiFi is available: " + mCurrentUpload.getRemotePath());
-            mPendingUploads.removePayload(
-                    mCurrentUpload.getAccount().name,
-                    mCurrentUpload.getRemotePath()
-            );
-            mUploadsStorageManager.updateDatabaseUploadResult(
-                    new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI),
-                    mCurrentUpload
-            );
-
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
      * Creates a status notification to show the upload progress
      *
      * @param upload Upload operation starting.
@@ -1006,8 +965,8 @@ public class FileUploader extends Service
                 .setContentTitle(getString(R.string.uploader_upload_in_progress_ticker))
                 .setProgress(100, 0, false)
                 .setContentText(
-                        String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName
-                                ()));
+                        String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName())
+                );
 
         /// includes a pending intent in the notification showing the details
         Intent showUploadListIntent = new Intent(this, UploadListActivity.class);

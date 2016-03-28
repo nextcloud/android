@@ -27,6 +27,7 @@ import android.net.Uri;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.PreferenceReader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -42,6 +43,7 @@ import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 import com.owncloud.android.utils.UriUtils;
@@ -338,13 +340,20 @@ public class UploadFileOperation extends SyncOperation {
         RemoteOperationResult result = null;
         File temporalFile = null, originalFile = new File(mOriginalStoragePath), expectedFile = null;
 
-        // check if the file continues existing before schedule the operation
-        if (!originalFile.exists()) {
-            Log_OC.d(TAG, mOriginalStoragePath.toString() + " not exists anymore");
-            return new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
-        }
-
         try {
+
+            /// Check that connectivity conditions are met and delays the upload otherwise
+            if (delayForWifi()) {
+                Log_OC.d(TAG, "Upload delayed until WiFi is available: " + getRemotePath());
+                return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
+            }
+
+            /// check if the file continues existing before schedule the operation
+            if (!originalFile.exists()) {
+                Log_OC.d(TAG, mOriginalStoragePath.toString() + " not exists anymore");
+                return new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+            }
+
             /// check the existence of the parent folder for the file to upload
             String remoteParentPath = new File(getRemotePath()).getParent();
             remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
@@ -479,6 +488,26 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return result;
+    }
+
+
+    /**
+     * Checks origin of current upload and network type to decide if should be delayed, according to
+     * current user preferences.
+     *
+     * @return      'True' if the upload was delayed until WiFi connectivity is available, 'false' otherwise.
+     */
+    private boolean delayForWifi() {
+        boolean delayInstantPicture = (
+            isInstantPicture() &&  PreferenceReader.instantPictureUploadViaWiFiOnly(mContext)
+        );
+        boolean delayInstantVideo = (
+            isInstantVideo() && PreferenceReader.instantVideoUploadViaWiFiOnly(mContext)
+        );
+        return (
+            (delayInstantPicture || delayInstantVideo) &&
+            !ConnectivityUtils.isAppConnectedViaWiFi(mContext)
+        );
     }
 
 
