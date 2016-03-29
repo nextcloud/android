@@ -46,6 +46,7 @@ public class UploadsStorageManager extends Observable {
 
     static private final String TAG = UploadsStorageManager.class.getSimpleName();
 
+
     public enum UploadStatus {
 
         /**
@@ -162,18 +163,6 @@ public class UploadsStorageManager extends Observable {
         return result;
     }
 
-    /**
-     * Update upload status of file in DB.
-     *
-     * @return 1 if file status was updated, else 0.
-     */
-    public int updateUploadStatus(OCUpload ocUpload) {
-        String localPath = (FileUploader.LOCAL_BEHAVIOUR_MOVE == ocUpload.getLocalAction())
-            ? ocUpload.getLocalPath() : null;
-        return updateUploadStatus(ocUpload.getUploadId(), ocUpload.getUploadStatus(),
-                ocUpload.getLastResult(), ocUpload.getRemotePath(), localPath);
-    }
-
     private int updateUploadInternal(Cursor c, UploadStatus status, UploadResult result, String remotePath,
                                      String localPath) {
 
@@ -240,29 +229,6 @@ public class UploadsStorageManager extends Observable {
         return returnValue;
     }
 
-    /*
-    public int updateFileIdUpload(long uploadId, long fileId) {
-        Log_OC.v(TAG, "Updating " + uploadId + " with fileId= " + fileId);
-
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.UPLOADS_FILE_ID, fileId);
-
-        int result = getDB().update(ProviderTableMeta.CONTENT_URI_UPLOADS,
-                cv,
-                ProviderTableMeta._ID + "=?",
-                new String[]{String.valueOf(uploadId)}
-        );
-
-        Log_OC.d(TAG, "updateUpload returns with: " + result + " for fileId: " + fileId);
-        if (result != 1) {
-            Log_OC.e(TAG, "Failed to update item " + uploadId + " into upload db.");
-        } else {
-            notifyObserversNow();
-        }
-
-        return result;
-    }
-    */
 
     /**
      * Should be called when some value of this DB was changed. All observers
@@ -340,10 +306,6 @@ public class UploadsStorageManager extends Observable {
         return getUploads(null, null);
     }
 
-    public OCUpload[] getUploadByLocalPath(String localPath) {
-        return getUploads(ProviderTableMeta.UPLOADS_LOCAL_PATH + "=?", new String[]{localPath});
-    }
-
 
     private OCUpload[] getUploads(String selection, String[] selectionArgs) {
         Cursor c = getDB().query(
@@ -369,26 +331,6 @@ public class UploadsStorageManager extends Observable {
 
         return list;
     }
-
-    /*
-    private OCFile getUploadFile(long id) {
-        OCFile file = null;
-        Cursor c = getDB().query(
-                ProviderTableMeta.CONTENT_URI_FILE,
-                null,
-                ProviderTableMeta._ID + "=?",
-                new String[]{String.valueOf(id)},
-                null
-        );
-
-        if (c.moveToFirst()) {
-            file = createFileInstance(c);
-        }
-        c.close();
-
-        return file;
-    }
-    */
 
 
     private OCUpload createOCUploadFromCursor(Cursor c) {
@@ -418,15 +360,7 @@ public class UploadsStorageManager extends Observable {
     }
 
     /**
-     * Get all uploads which are currently being uploaded. There should only be
-     * one. No guarantee though.
-     */
-    public OCUpload[] getCurrentUpload() {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value, null);
-    }
-
-    /**
-     * Get all current and pending uploads.
+     * Get all uploads which are currently being uploaded or waiting in the queue to be uploaded.
      */
     public OCUpload[] getCurrentAndPendingUploads() {
         return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value, null);
@@ -491,21 +425,6 @@ public class UploadsStorageManager extends Observable {
         return result;
     }
 
-//    public void setAllCurrentToUploadLater() {
-//        Cursor c = getDB().query(
-//                ProviderTableMeta.CONTENT_URI_UPLOADS,
-//                null,
-//                ProviderTableMeta.UPLOADS_STATUS + "=? ",
-//                new String[]{
-//                        Integer.toString(UploadStatus.UPLOAD_IN_PROGRESS.value)
-//                },
-//                null
-//        );
-//        updateUploadInternal(c, UploadStatus.UPLOAD_LATER, UploadResult.UNKNOWN);
-//        c.close();
-//    }
-
-
     /**
      * Updates the persistent upload database with upload result.
      */
@@ -543,27 +462,7 @@ public class UploadsStorageManager extends Observable {
     }
 
     /**
-     * Determines whether with given uploadResult the upload should be retried later.
-     * @param uploadResult
-     * @return true if upload should be retried later, false if is should be abandoned.
-     */
-    private boolean shouldRetryFailedUpload(RemoteOperationResult uploadResult) {
-        if (uploadResult.isSuccess()) {
-            return false;
-        }
-        switch (uploadResult.getCode()) {
-            case HOST_NOT_AVAILABLE:
-            case NO_NETWORK_CONNECTION:
-            case TIMEOUT:
-            case WRONG_CONNECTION: // SocketException
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    /**
-     * Updates the persistent upload database that upload is in progress.
+     * Updates the persistent upload database with an upload now in progress.
      */
     public void updateDatabaseUploadStart(UploadFileOperation upload) {
         String localPath = (FileUploader.LOCAL_BEHAVIOUR_MOVE == upload.getLocalBehaviour())
@@ -582,8 +481,6 @@ public class UploadsStorageManager extends Observable {
     /**
      * Changes the status of any in progress upload from UploadStatus.UPLOAD_IN_PROGRESS
      * to UploadStatus.UPLOAD_FAILED
-     *
-     *
      *
      * @return      Number of uploads which status was changed.
      */
@@ -613,6 +510,5 @@ public class UploadsStorageManager extends Observable {
         }
         return result;
     }
-
 
 }

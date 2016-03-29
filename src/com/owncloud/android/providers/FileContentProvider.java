@@ -44,6 +44,7 @@ import android.text.TextUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -69,6 +70,8 @@ public class FileContentProvider extends ContentProvider {
     private static final int UPLOADS = 6;
 
     private static final String TAG = FileContentProvider.class.getSimpleName();
+
+    private final String MAX_SUCCESSFUL_UPLOADS = "30";
 
     private UriMatcher mUriMatcher;
 
@@ -278,6 +281,7 @@ public class FileContentProvider extends ContentProvider {
                 if (uploadId >0) {
                     insertedUploadUri =
                             ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_UPLOADS, uploadId);
+                    trimSuccessfulUploads(db);
                 } else {
                     throw new SQLException("ERROR " + uri);
 
@@ -472,9 +476,11 @@ public class FileContentProvider extends ContentProvider {
                         ProviderTableMeta.CAPABILITIES_TABLE_NAME, values, selection, selectionArgs
                 );
             case UPLOADS:
-                return db.update(
+                int ret = db.update(
                         ProviderTableMeta.UPLOADS_TABLE_NAME, values, selection, selectionArgs
                 );
+                trimSuccessfulUploads(db);
+                return ret;
             default:
                 return db.update(
                         ProviderTableMeta.FILE_TABLE_NAME, values, selection, selectionArgs
@@ -879,7 +885,7 @@ public class FileContentProvider extends ContentProvider {
      * @param db        Database where table of files is included.
      */
     private void updateAccountName(SQLiteDatabase db){
-        Log_OC.d("SQL", "THREAD:  "+ Thread.currentThread().getName());
+        Log_OC.d("SQL", "THREAD:  " + Thread.currentThread().getName());
         AccountManager ama = AccountManager.get(getContext());
         try {
             // get accounts from AccountManager ;  we can't be sure if accounts in it are updated or not although
@@ -940,10 +946,10 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL";
 
         Cursor c = db.query(ProviderTableMeta.FILE_TABLE_NAME,
-                null,
-                whereClause,
-                new String[] { newAccountName },
-                null, null, null);
+            null,
+            whereClause,
+            new String[]{newAccountName},
+            null, null, null);
 
         try {
             if (c.moveToFirst()) {
@@ -982,5 +988,44 @@ public class FileContentProvider extends ContentProvider {
         }
 
     }
+
+    /**
+     * Grants that total count of successful uploads stored is not greater than MAX_SUCCESSFUL_UPLOADS.
+     *
+     * Removes older uploads if needed.
+     */
+    private void trimSuccessfulUploads(SQLiteDatabase db) {
+        Cursor c = null;
+        try {
+            c = db.rawQuery(
+                "delete from " + ProviderTableMeta.UPLOADS_TABLE_NAME +
+                    " where " + ProviderTableMeta.UPLOADS_STATUS + " == "
+                    + UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED.getValue() +
+                    " and " + ProviderTableMeta._ID +
+                    " not in (select " + ProviderTableMeta._ID +
+                    " from " + ProviderTableMeta.UPLOADS_TABLE_NAME +
+                    " where " + ProviderTableMeta.UPLOADS_STATUS + " == "
+                    + UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED.getValue() +
+                    " order by " + ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP +
+                    " desc limit " + MAX_SUCCESSFUL_UPLOADS +
+                    ")",
+                null
+            );
+            c.moveToFirst(); // do something with the cursor, or deletion doesn't happen; true story
+
+        } catch (Exception e) {
+            Log_OC.e(
+                TAG,
+                "Something wrong trimming successful uploads, database could grow more than expected",
+                e
+            );
+
+        } finally {
+            if (c!= null) {
+                c.close();
+            }
+        }
+    }
+
 
 }

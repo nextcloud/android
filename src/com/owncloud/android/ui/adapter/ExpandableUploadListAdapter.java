@@ -121,7 +121,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     }
 
     private UploadGroup[] mUploadGroups = null;
-    private final int MAX_NUM_UPLOADS_SHOWN = 30;
 
     public ExpandableUploadListAdapter(FileActivity parentActivity) {
         Log_OC.d(TAG, "ExpandableUploadListAdapter");
@@ -133,7 +132,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             public void refresh() {
                 items = mUploadsStorageManager.getCurrentAndPendingUploads();
                 Arrays.sort(items, comparator);
-                items = trimToMaxLength(items);
             }
 
             @Override
@@ -146,7 +144,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             public void refresh() {
                 items = mUploadsStorageManager.getFailedUploads();
                 Arrays.sort(items, comparator);
-                items = trimToMaxLength(items);
             }
 
             @Override
@@ -160,7 +157,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             public void refresh() {
                 items = mUploadsStorageManager.getFinishedUploads();
                 Arrays.sort(items, comparator);
-                items = trimToMaxLength(items);
             }
 
             @Override
@@ -172,20 +168,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         loadUploadItemsFromDb();
     }
 
-
-    private OCUpload[] trimToMaxLength(OCUpload[] items) {
-        if (items.length > MAX_NUM_UPLOADS_SHOWN) {
-            OCUpload[] arrayTrim = new OCUpload[MAX_NUM_UPLOADS_SHOWN];
-
-            for (int i = 0; i < MAX_NUM_UPLOADS_SHOWN; i++) {
-                arrayTrim[i] = items[i];
-            }
-            return arrayTrim;
-
-        } else {
-            return items;
-        }
-    }
 
     @Override
     public void registerDataSetObserver(DataSetObserver observer) {
