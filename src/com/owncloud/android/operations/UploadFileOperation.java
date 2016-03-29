@@ -267,6 +267,10 @@ public class UploadFileOperation extends SyncOperation {
         return mFile.getMimetype();
     }
 
+    public int getLocalBehaviour() {
+        return mLocalBehaviour;
+    }
+
     public void setRemoteFolderToBeCreated() {
         mRemoteFolderToBeCreated = true;
     }

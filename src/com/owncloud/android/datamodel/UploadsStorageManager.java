@@ -28,6 +28,7 @@ import android.net.Uri;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.db.UploadResult;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -167,11 +168,14 @@ public class UploadsStorageManager extends Observable {
      * @return 1 if file status was updated, else 0.
      */
     public int updateUploadStatus(OCUpload ocUpload) {
+        String localPath = (FileUploader.LOCAL_BEHAVIOUR_MOVE == ocUpload.getLocalAction())
+            ? ocUpload.getLocalPath() : null;
         return updateUploadStatus(ocUpload.getUploadId(), ocUpload.getUploadStatus(),
-                ocUpload.getLastResult(), ocUpload.getRemotePath());
+                ocUpload.getLastResult(), ocUpload.getRemotePath(), localPath);
     }
 
-    private int updateUploadInternal(Cursor c, UploadStatus status, UploadResult result, String remotePath) {
+    private int updateUploadInternal(Cursor c, UploadStatus status, UploadResult result, String remotePath,
+                                     String localPath) {
 
         int r = 0;
         while (c.moveToNext()) {
@@ -180,14 +184,17 @@ public class UploadsStorageManager extends Observable {
 
             String path = c.getString(c.getColumnIndex(ProviderTableMeta.UPLOADS_LOCAL_PATH));
             Log_OC.v(
-                    TAG,
-                    "Updating " + path + " with status:" + status + " and result:"
-                            + (result == null ? "null" : result.toString()) + " (old:"
-                            + upload.toFormattedString() + ")");
+                TAG,
+                "Updating " + path + " with status:" + status + " and result:"
+                    + (result == null ? "null" : result.toString()) + " (old:"
+                    + upload.toFormattedString() + ")");
 
             upload.setUploadStatus(status);
             upload.setLastResult(result);
             upload.setRemotePath(remotePath);
+            if(localPath != null) {
+                upload.setLocalPath(localPath);
+            }
             if (status == UploadStatus.UPLOAD_SUCCEEDED) {
                 upload.setUploadEndTimestamp(Calendar.getInstance().getTimeInMillis());
             }
@@ -206,9 +213,12 @@ public class UploadsStorageManager extends Observable {
      * @param id     upload id.
      * @param status new status.
      * @param result new result of upload operation
+     * @param remotePath path of the file to upload in the ownCloud storage
+     * @param localPath path of the file to upload in the device storage
      * @return 1 if file status was updated, else 0.
      */
-    public int updateUploadStatus(long id, UploadStatus status, UploadResult result, String remotePath) {
+    public int updateUploadStatus(long id, UploadStatus status, UploadResult result, String remotePath,
+                                  String localPath) {
         //Log_OC.v(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
 
         int returnValue = 0;
@@ -224,7 +234,7 @@ public class UploadsStorageManager extends Observable {
             Log_OC.e(TAG, c.getCount() + " items for id=" + id
                 + " available in UploadDb. Expected 1. Failed to update upload db.");
         } else {
-            returnValue = updateUploadInternal(c, status, result, remotePath);
+            returnValue = updateUploadInternal(c, status, result, remotePath, localPath);
         }
         c.close();
         return returnValue;
@@ -509,20 +519,25 @@ public class UploadsStorageManager extends Observable {
                 upload.getRemotePath()
             );
         } else {
+            String localPath = (FileUploader.LOCAL_BEHAVIOUR_MOVE == upload.getLocalBehaviour())
+                ? upload.getStoragePath() : null;
 
             if (uploadResult.isSuccess()) {
                 updateUploadStatus(
-                        upload.getOCUploadId(),
-                        UploadStatus.UPLOAD_SUCCEEDED,
-                        UploadResult.UPLOADED,
-                        upload.getRemotePath()
+                    upload.getOCUploadId(),
+                    UploadStatus.UPLOAD_SUCCEEDED,
+                    UploadResult.UPLOADED,
+                    upload.getRemotePath(),
+                    localPath
                 );
             } else {
                 updateUploadStatus(
                     upload.getOCUploadId(),
                     UploadStatus.UPLOAD_FAILED,
                     UploadResult.fromOperationResult(uploadResult),
-                    upload.getRemotePath());
+                    upload.getRemotePath(),
+                    localPath
+                );
             }
         }
     }
@@ -551,11 +566,15 @@ public class UploadsStorageManager extends Observable {
      * Updates the persistent upload database that upload is in progress.
      */
     public void updateDatabaseUploadStart(UploadFileOperation upload) {
+        String localPath = (FileUploader.LOCAL_BEHAVIOUR_MOVE == upload.getLocalBehaviour())
+            ? upload.getStoragePath() : null;
+
         updateUploadStatus(
-                upload.getOCUploadId(),
-                UploadStatus.UPLOAD_IN_PROGRESS,
-                UploadResult.UNKNOWN,
-                upload.getRemotePath()
+            upload.getOCUploadId(),
+            UploadStatus.UPLOAD_IN_PROGRESS,
+            UploadResult.UNKNOWN,
+            upload.getRemotePath(),
+            localPath
         );
     }
 
