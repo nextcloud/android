@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +52,31 @@ public abstract class BaseActivity extends AppCompatActivity {
      * Access point to the cached database for the current ownCloud {@link Account}.
      */
     private FileDataStorageManager mStorageManager = null;
+
+    @Override
+    protected void onNewIntent (Intent intent) {
+        Log_OC.v(TAG, "onNewIntent() start");
+        Account current = AccountUtils.getCurrentOwnCloudAccount(this);
+        if (current != null && mCurrentAccount != null && !mCurrentAccount.name.equals(current.name)) {
+            mCurrentAccount = current;
+        }
+        Log_OC.v(TAG, "onNewIntent() stop");
+    }
+
+    /**
+     *  Since ownCloud {@link Account}s can be managed from the system setting menu, the existence of the {@link
+     *  Account} associated to the instance must be checked every time it is restarted.
+     */
+    @Override
+    protected void onRestart() {
+        Log_OC.v(TAG, "onRestart() start");
+        super.onRestart();
+        boolean validAccount = (mCurrentAccount != null && AccountUtils.exists(mCurrentAccount, this));
+        if (!validAccount) {
+            swapToDefaultAccount();
+        }
+        Log_OC.v(TAG, "onRestart() end");
+    }
 
     /**
      * Sets and validates the ownCloud {@link Account} associated to the Activity.
